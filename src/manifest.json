@@ -87,6 +87,10 @@
       "pages/ui/acts/settings/appinfo": {
         "launchMode": "singleTask",
         "component": "index"
+      },
+      "pages/ui/acts/systool/displaytest": {
+        "launchMode": "singleTask",
+        "component": "index"
       }
     }
   },

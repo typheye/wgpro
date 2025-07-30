@@ -1,4 +1,3 @@
-<!--Application Template-->
 <template>
 	<div class="page">
 		<div class="tab" onclick="toBack()">
@@ -175,7 +174,7 @@
 		</scroll>
 	</div>
 </template>
-<!--Application Style-->
+
 <script>
 export default {
 	data: {
@@ -264,7 +263,7 @@ export default {
 	},
 };
 </script>
-<!--Application Style-->
+
 <style>
 @import "../../../../../res/style/index.css";
 @import "../../../../../res/style/wgpro.css";

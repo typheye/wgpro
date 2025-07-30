@@ -11,6 +11,12 @@
 	margin-bottom: 20px;
 }
 
+.wgpro-gap-bottom2 {
+	width: 0;
+	height: 0;
+	margin-bottom: 120px;
+}
+
 .wgpro-items-group {
 	width: 80%;
 	height: auto;
@@ -110,5 +116,97 @@
 	color: white;
 	text-align: center;
 	font-size: 35px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.wgpro-icodiv-back2-back {
+	width: 200px;
+	height: 200px;
+	background-color: rgba(255, 255, 255, 0.5);
+	margin-top: 100px;
+	margin-bottom: 10px;
+	border-radius: 100px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.wgpro-icodiv-back2 {
+	width: 170px;
+	height: 170px;
+	background-color: #32618D;
+	border-radius: 85px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.wgpro-icodiv-back2-logo {
+	width: 60px;
+	height: 60px;
+}
+
+.wgpro-icodiv-text2 {
+	width: 100%;
+	height: auto;
+	color: white;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 10px;
+}
+
+.wgpro-item2 {
+	width: 80%;
+	height: auto;
+	padding: 10px;
+	margin-top: 10px;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 30px;
+}
+
+.wgpro-item2-left {
+	width: 20%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.wgpro-item2-left-icon {
+	width: 50px;
+	height: 50px;
+}
+
+.wgpro-item2-texts {
+	width: 80%;
+	height: auto;
+	flex-direction: column;
+}
+
+.wgpro-item2-texts-hr {
+	width: 100%;
+	height: 2px;
+	margin-top: 3px;
+	margin-bottom: 3px;
+	background-color: #32618D;
+}
+
+.wgpro-item2-texts-text {
+	width: 100%;
+	height: auto;
+	color: white;
+	text-align: left;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.wgpro-item2-texts-subtext {
+	width: 100%;
+	height: auto;
+	color: white;
+	text-align: left;
+	font-size: 25px;
 	font-weight: bold;
 }

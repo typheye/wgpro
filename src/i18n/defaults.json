@@ -4,7 +4,7 @@
         "tips": "提示"
     },
     "tips": {
-        "toNull": "敬请期待！",
+        "toNull": "敬请期待",
         "backLaunch" : "请按表冠键手动返回桌面"
     },
     "acts": {
@@ -88,16 +88,58 @@
             "tabtext": "腕管Pro"
         },
         "systool": {
-            "tabtext": "系统工具"
+            "tabtext": "系统工具",
+            "p1":{
+                "item1":{
+                    "text": "系统信息",
+                    "subtext": "设备操作系统的相关信息"
+                },
+                "item2":{
+                    "text": "存储空间",
+                    "subtext": "查看当前设备的存储空间"
+                },
+                "item3":{
+                    "text": "显示测试",
+                    "subtext": "测试屏幕的显示状态"
+                }
+            }
         },
         "filemanger": {
-            "tabtext": "文件管理"
+            "tabtext": "文件管理",
+            "p1":{
+                "item1":{
+                    "text": "用户文档",
+                    "subtext": "/storage/Documents/"
+                },
+                "item2":{
+                    "text": "用户下载",
+                    "subtext": "/storage/Download/"
+                },
+                "item3":{
+                    "text": "用户音乐",
+                    "subtext": "/storage/Music/"
+                },
+                "item4":{
+                    "text": "用户图片",
+                    "subtext": "/storage/Pictures/"
+                }
+            },
+            "p2":{
+                "item1":{
+                    "text": "云端存储",
+                    "subtext": "0MB / 10MB"
+                },
+                "item2":{
+                    "text": "公共空间",
+                    "subtext": "Typheye Drive"
+                }
+            }
         },
         "wgchat": {
             "tabtext": "腕上微聊"
         },
         "browser": {
-            "tabtext": "浏览器"
+            "tabtext": "X5浏览器"
         },
         "plugin": {
             "tabtext": "扩展插件"
@@ -109,7 +151,7 @@
             "tabtext": "应用设置",
             "p1":{
                 "item1":{
-                    "text":"Typheye",
+                    "text":"Typheye账户",
                     "subtext":"管理我的Typheye账户"
                 },
                 "item2":{
@@ -127,8 +169,8 @@
                     "subtext":"有关文件管理的一些设置"
                 },
                 "item3":{
-                    "text":"浏览器",
-                    "subtext":"有关浏览器的一些设置"
+                    "text":"X5浏览器",
+                    "subtext":"有关X5浏览器的一些设置"
                 }
             },
             "p3":{
@@ -143,7 +185,7 @@
             },
             "run":{
                 "taccount":{
-                    "title": "Typheye",
+                    "title": "Typheye账户",
                     "text": "有关您的Typheye账户信息\n请扫描下方二维码查看",
                     "uri": "https://wgpro.typheye.com"
                 },
@@ -160,7 +202,7 @@
                     "text": "敬请期待"
                 },
                 "browser":{
-                    "title": "浏览器",
+                    "title": "X5浏览器",
                     "text": "敬请期待"
                 },
                 "polinfo":{

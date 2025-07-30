@@ -1,53 +1,31 @@
-<!--Application Template-->
 <template>
-    <div class="page">
-        <div class="tab" onclick="toBack()">
-            <text class="tab-back">‹</text>
-            <marquee class="tab-text">
-                {{ $t("display.plugin.tabtext") }}
-            </marquee>
-            <text class="tab-more"></text>
-        </div>
-        <scroll class="scroll-root" scroll-y="true">
-            <div class="list-page">
-                <div class="testtext">
-                    <text class="testtext-tip-text">{{ $t("tips.toNull") }}</text>
-                </div>
-            </div>
-        </scroll>
-    </div>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("display.plugin.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout"></div>
+		</scroll>
+	</div>
 </template>
-<!--Application Style-->
+
 <script>
-import router from "@system.router";
 export default {
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
 	toBack() {
-		router.back();
+		this.$app.$def.goBack();
 	},
 };
 </script>
-<!--Application Style-->
+
 <style>
 @import "../../../../res/style/index.css";
-
-.list-page {
-    width: 100%;
-    height: 200%;
-    padding: 5px;
-    flex-direction: column;
-}
-
-.testtext {
-    width: 100%;
-    height: 85%;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.testtext-tip-text {
-    height: 60%;
-    color: #7b7b7b;
-    text-align: center;
-    font-size: 25px;
-}
+@import "../../../../res/style/wgpro.css";
 </style>

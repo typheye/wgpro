@@ -1,10 +1,9 @@
-<!--Application Template-->
 <template>
 	<div class="page" @swipe="right">
 		<image class="splash-logo" src="/res/mipmap/ic_splash.png" />
 	</div>
 </template>
-<!--Application Style-->
+
 <script>
 export default {
 	onBackPress() {
@@ -19,7 +18,7 @@ export default {
 	},
 };
 </script>
-<!--Application Style-->
+
 <style>
 @import "../../res/style/index.css";
 </style>

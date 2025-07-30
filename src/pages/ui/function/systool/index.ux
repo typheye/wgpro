@@ -1,53 +1,133 @@
-<!--Application Template-->
 <template>
-    <div class="page">
-        <div class="tab" onclick="toBack()">
-            <text class="tab-back">‹</text>
-            <marquee class="tab-text">
-                {{ $t("display.systool.tabtext") }}
-            </marquee>
-            <text class="tab-more"></text>
-        </div>
-        <scroll class="scroll-root" scroll-y="true">
-            <div class="list-page">
-                <div class="testtext">
-                    <text class="testtext-tip-text">{{ $t("tips.toNull") }}</text>
-                </div>
-            </div>
-        </scroll>
-    </div>
+	<div class="page2">
+		<scroll class="scroll-root2" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-icodiv">
+					<div class="wgpro-icodiv-back2-back">
+						<div
+							class="wgpro-icodiv-back2"
+							style="background-color: {{ itc_p0v1 }}"
+							ontouchstart="ht(1, 'p0v1')"
+							ontouchend="ht(-1, 'p0v1')"
+						>
+							<image
+								class="wgpro-icodiv-back2-logo"
+								src="/res/mipmap/a39.png"
+							/>
+							<text class="wgpro-icodiv-text2">
+								{{ $t("display.systool.tabtext") }}
+							</text>
+						</div>
+					</div>
+				</div>
+				<div
+					class="wgpro-item2"
+					style="margin-top:20px;background-color: {{ itc_p1v1 }}"
+					ontouchstart="ht(1, 'p1v1')"
+					ontouchend="ht(0, 'p1v1')"
+					onclick="toRun('')"
+				>
+					<div class="wgpro-item2-left">
+						<img class="wgpro-item-left-icon" src="/res/mipmap/a10.png" />
+					</div>
+					<div class="wgpro-item2-texts">
+						<marquee class="wgpro-item2-texts-text">
+							{{ $t("display.systool.p1.item1.text") }}
+						</marquee>
+						<text class="wgpro-item2-texts-hr" />
+						<marquee class="wgpro-item2-texts-subtext">
+							{{ $t("display.systool.p1.item1.subtext") }}
+						</marquee>
+					</div>
+				</div>
+				<div
+					class="wgpro-item2"
+					style="background-color: {{ itc_p1v2 }}"
+					ontouchstart="ht(1, 'p1v2')"
+					ontouchend="ht(0, 'p1v2')"
+					onclick="toRun('')"
+				>
+					<div class="wgpro-item2-left">
+						<img class="wgpro-item-left-icon" src="/res/mipmap/a18.png" />
+					</div>
+					<div class="wgpro-item2-texts">
+						<marquee class="wgpro-item2-texts-text">
+							{{ $t("display.systool.p1.item2.text") }}
+						</marquee>
+						<text class="wgpro-item2-texts-hr" />
+						<marquee class="wgpro-item2-texts-subtext">
+							{{ $t("display.systool.p1.item2.subtext") }}
+						</marquee>
+					</div>
+				</div>
+				<div
+					class="wgpro-item2"
+					style="background-color: {{ itc_p1v3 }}"
+					ontouchstart="ht(1, 'p1v3')"
+					ontouchend="ht(0, 'p1v3')"
+					onclick="toRun('displaytest')"
+				>
+					<div class="wgpro-item2-left">
+						<img class="wgpro-item-left-icon" src="/res/mipmap/a46.png" />
+					</div>
+					<div class="wgpro-item2-texts">
+						<marquee class="wgpro-item2-texts-text">
+							{{ $t("display.systool.p1.item3.text") }}
+						</marquee>
+						<text class="wgpro-item2-texts-hr" />
+						<marquee class="wgpro-item2-texts-subtext">
+							{{ $t("display.systool.p1.item3.subtext") }}
+						</marquee>
+					</div>
+				</div>
+				<div
+					class="exit-choose2-value"
+					style="margin-top: 20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(0, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose2-img" src="/res/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
 </template>
-<!--Application Style-->
+
 <script>
-import router from "@system.router";
 export default {
+	data: {
+		itc_p0v1: "#32618D",
+		itc_p0v0: "rgba(255,255,255,0.5)",
+		itc_p1v1: "rgba(255,255,255,0.5)",
+		itc_p1v2: "rgba(255,255,255,0.5)",
+		itc_p1v3: "rgba(255,255,255,0.5)",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else if (t == -1) eval("this.itc_" + i + " = '#32618D'");
+		else eval("this.itc_" + i + " = 'rgba(255,255,255,0.5)'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
 	toBack() {
-		router.back();
+		this.$app.$def.goBack();
+	},
+	toRun(id) {
+		if (id == "") this.$app.$def.toTips("", this.$t("tips.toNull"));
+		else {
+			var v_uri = "";
+			if (id == "displaytest") v_uri = "/pages/ui/acts/systool/displaytest";
+			this.$app.$def.goPage(v_uri);
+		}
 	},
 };
 </script>
-<!--Application Style-->
+
 <style>
 @import "../../../../res/style/index.css";
-
-.list-page {
-    width: 100%;
-    height: 200%;
-    padding: 5px;
-    flex-direction: column;
-}
-
-.testtext {
-    width: 100%;
-    height: 85%;
-    flex-direction: column;
-    justify-content: flex-start;
-}
-
-.testtext-tip-text {
-    height: 60%;
-    color: #7b7b7b;
-    text-align: center;
-    font-size: 25px;
-}
+@import "../../../../res/style/wgpro.css";
 </style>

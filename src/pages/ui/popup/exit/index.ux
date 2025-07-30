@@ -1,4 +1,3 @@
-<!--Application Template-->
 <template>
 	<div class="page" @swipe="right">
 		<div class="tab">
@@ -31,7 +30,7 @@
 		</div>
 	</div>
 </template>
-<!--Application Style-->
+
 <script>
 import router from "@system.router";
 import vibrator from "@system.vibrator";
@@ -56,7 +55,7 @@ export default {
 	},
 };
 </script>
-<!--Application Style-->
+
 <style>
 @import "../../../../res/style/index.css";
 </style>
