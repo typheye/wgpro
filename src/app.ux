@@ -55,11 +55,17 @@ export default {
 		return template.replace(/\${(\w+)}/g, (_, key) => data[key] || "");
 	},
 	shortVib(can) {
-		var mmode = "long"
+		var mmode = "long";
 		if (can) mmode = "short";
 		vibrator.vibrate({
 			mode: mmode,
 		});
+	},
+	formatDecimal(num, decimalPlaces = 1) {
+		if (typeof num !== "number" || isNaN(num)) return 123;
+		const n = Math.max(0, Math.floor(decimalPlaces));
+		if (n === 0) return Math.round(num).toString();
+		return num.toFixed(n);
 	},
 };
 </script>

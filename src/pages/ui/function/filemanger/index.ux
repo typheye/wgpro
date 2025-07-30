@@ -3,133 +3,39 @@
 		<div class="tab" onclick="toBack">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
-				{{ $t("display.filemanger.tabtext") }}
+				{{ $t("display.more.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="list-page">
-				<div class="wgpro-deflayout">
-					<div class="wgpro-items-group">
-						<div
-							class="wgpro-item"
-							style="background-color: {{ itc_p1v1 }}"
-							ontouchstart="ht(1, 'p1v1')"
-							ontouchend="ht(0, 'p1v1')"
-							onclick="toRun('')"
-						>
-							<div class="wgpro-item-left">
-								<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-							</div>
-							<div class="wgpro-item-texts-none">
-								<marquee class="wgpro-item-texts-text">
-									{{ $t("display.filemanger.p1.item1.text") }}
-								</marquee>
-								<marquee class="wgpro-item-texts-subtext">
-									{{ $t("display.filemanger.p1.item1.subtext") }}
-								</marquee>
-							</div>
+			<div class="wgpro-deflayout">
+				<list
+					class="wgpro-listlayout"
+					bounces="true"
+					onscroll="onScroll"
+					onscrolltop="onScrollTop"
+					onscrollbottom="onScrollBottom"
+					onscrolltouchup="onScrollTouchup"
+				>
+					<list-item
+						for="{{ chatroomList }}"
+						class="wgpro-item3"
+						style="height: 100px"
+						type="item1"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
 						</div>
-						<div
-							class="wgpro-item"
-							style="background-color: {{ itc_p1v2 }}"
-							ontouchstart="ht(1, 'p1v2')"
-							ontouchend="ht(0, 'p1v2')"
-							onclick="toRun('')"
-						>
-							<div class="wgpro-item-left">
-								<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-							</div>
-							<div class="wgpro-item-texts-none">
-								<marquee class="wgpro-item-texts-text">
-									{{ $t("display.filemanger.p1.item2.text") }}
-								</marquee>
-								<marquee class="wgpro-item-texts-subtext">
-									{{ $t("display.filemanger.p1.item2.subtext") }}
-								</marquee>
-							</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $item.name }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $item.price }}
+							</marquee>
 						</div>
-						<div
-							class="wgpro-item"
-							style="background-color: {{ itc_p1v3 }}"
-							ontouchstart="ht(1, 'p1v3')"
-							ontouchend="ht(0, 'p1v3')"
-							onclick="toRun('')"
-						>
-							<div class="wgpro-item-left">
-								<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-							</div>
-							<div class="wgpro-item-texts-none">
-								<marquee class="wgpro-item-texts-text">
-									{{ $t("display.filemanger.p1.item3.text") }}
-								</marquee>
-								<marquee class="wgpro-item-texts-subtext">
-									{{ $t("display.filemanger.p1.item3.subtext") }}
-								</marquee>
-							</div>
-						</div>
-						<div
-							class="wgpro-item"
-							style="background-color: {{ itc_p1v4 }}"
-							ontouchstart="ht(1, 'p1v4')"
-							ontouchend="ht(0, 'p1v4')"
-							onclick="toRun('')"
-						>
-							<div class="wgpro-item-left">
-								<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-							</div>
-							<div class="wgpro-item-texts-none">
-								<marquee class="wgpro-item-texts-text">
-									{{ $t("display.filemanger.p1.item4.text") }}
-								</marquee>
-								<marquee class="wgpro-item-texts-subtext">
-									{{ $t("display.filemanger.p1.item4.subtext") }}
-								</marquee>
-							</div>
-						</div>
-					</div>
-					<div class="wgpro-items-group">
-						<div
-							class="wgpro-item"
-							style="background-color: {{ itc_p2v1 }}"
-							ontouchstart="ht(1, 'p2v1')"
-							ontouchend="ht(0, 'p2v1')"
-							onclick="toRun('')"
-						>
-							<div class="wgpro-item-left">
-								<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-							</div>
-							<div class="wgpro-item-texts-none">
-								<marquee class="wgpro-item-texts-text">
-									{{ $t("display.filemanger.p2.item1.text") }}
-								</marquee>
-								<marquee class="wgpro-item-texts-subtext">
-									{{ $t("display.filemanger.p2.item1.subtext") }}
-								</marquee>
-							</div>
-						</div>
-						<div
-							class="wgpro-item"
-							style="background-color: {{ itc_p2v2 }}"
-							ontouchstart="ht(1, 'p2v2')"
-							ontouchend="ht(0, 'p2v2')"
-							onclick="toRun('')"
-						>
-							<div class="wgpro-item-left">
-								<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-							</div>
-							<div class="wgpro-item-texts-none">
-								<marquee class="wgpro-item-texts-text">
-									{{ $t("display.filemanger.p2.item2.text") }}
-								</marquee>
-								<marquee class="wgpro-item-texts-subtext">
-									{{ $t("display.filemanger.p2.item2.subtext") }}
-								</marquee>
-							</div>
-						</div>
-					</div>
-					<div class="wgpro-gap-bottom2" />
-				</div>
+					</list-item>
+				</list>
 			</div>
 		</scroll>
 	</div>
@@ -138,6 +44,15 @@
 <script>
 export default {
 	data: {
+		chatroomList: [
+			{ name: "文件夹1", price: "/path/to/1/" },
+			{ name: "文件夹2", price: "/path/to/2/" },
+			{ name: "文件夹3", price: "/path/to/3/" },
+			{ name: "文件夹4", price: "/path/to/4/" },
+			{ name: "文件夹5", price: "/path/to/5/" },
+			{ name: "文件夹6", price: "/path/to/6/" },
+			{ name: "文件夹7", price: "/path/to/7/" },
+		],
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
 		itc_p1v3: "rgba(0,0,0,0)",

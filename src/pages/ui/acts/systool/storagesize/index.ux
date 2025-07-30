@@ -1,0 +1,139 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("display.systool.run.storagesize.title") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-icodiv">
+					<stack class="stack">
+						<progress class="p2" percent="{{ usesize }}" type="arc"></progress>
+						<div class="b1">
+							<text class="t1">{{ usesize }}%</text>
+						</div>
+						<div class="b2">
+							<marquee class="t2">
+								{{ avatext }}
+							</marquee>
+						</div>
+					</stack>
+				</div>
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import device from "@system.device";
+export default {
+	data: {
+		usesize: 0,
+		avatext: "",
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onInit() {
+		var back_data_avasize;
+		var back_data_tolsize;
+		var back_status = true;
+		device.getTotalStorage({
+			success: (data) => {
+				back_data_tolsize = data;
+			},
+			fail: () => {
+				back_status = false;
+			},
+		});
+		device.getAvailableStorage({
+			success: (data) => {
+				back_data_avasize = data;
+			},
+			fail: () => {
+				back_status = false;
+			},
+		});
+		var demo = this.$t("display.systool.run.storagesize.availabletext");
+		if (back_status) {
+			var v_avasize = back_data_avasize.availableStorage;
+			var v_tolsize = back_data_tolsize.totalStorage;
+			var v_usesize = this.$app.$def.formatDecimal(
+				((v_tolsize - v_avasize) / v_tolsize) * 100,
+				0
+			);
+			v_avasize = this.$app.$def.formatDecimal(v_avasize / 1024 / 1024, 1);
+			demo = this.$app.$def.textFormat(demo, {
+				avasize: v_avasize,
+			});
+			this.usesize = v_usesize;
+			this.avatext = demo;
+		} else {
+			this.toBack();
+			demo = this.$t("tips.fail");
+			this.$app.$def.toTips(
+				this.$t("display.systool.run.storagesize.title"),
+				demo
+			);
+		}
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+};
+</script>
+
+<style>
+@import "../../../../../res/style/index.css";
+@import "../../../../../res/style/wgpro.css";
+.stack {
+	width: 100%;
+	height: auto;
+	margin-top: 20px;
+	justify-content: center;
+}
+.b1 {
+	width: 100%;
+	height: auto;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+.b2 {
+	width: 100%;
+	height: auto;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	padding-bottom: 30px;
+}
+.t1 {
+	width: auto;
+	height: auto;
+	color: white;
+	text-align: center;
+	font-size: 50px;
+	font-weight: bold;
+}
+.t2 {
+	width: 100%;
+	height: auto;
+	color: white;
+	text-align: center;
+	font-size: 30px;
+	font-weight: bold;
+}
+.p2 {
+	width: 300px;
+	height: 300px;
+	color: #32618d;
+	layer-color: #3c3c3c;
+	stroke-width: 50px;
+	start-angle: 270;
+	total-angle: 180deg;
+}
+</style>

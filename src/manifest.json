@@ -9,6 +9,9 @@
   "deviceTypeList": [
     "watch"
   ],
+  "permissions": [
+    { "name": "hapjs.permission.DEVICE_INFO" }
+  ],
   "features": [
     {
       "name": "system.router"
@@ -89,6 +92,10 @@
         "component": "index"
       },
       "pages/ui/acts/systool/displaytest": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/systool/storagesize": {
         "launchMode": "singleTask",
         "component": "index"
       }

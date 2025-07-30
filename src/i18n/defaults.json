@@ -1,11 +1,13 @@
 {
     "app": {
         "name": "腕管Pro",
-        "tips": "提示"
+        "tips": "提示",
+        "menu": "打开菜单"
     },
     "tips": {
         "toNull": "敬请期待",
-        "backLaunch" : "请按表冠键手动返回桌面"
+        "backLaunch" : "请按表冠键手动返回桌面",
+        "fail": "异常"
     },
     "acts": {
         "settings": {
@@ -102,6 +104,16 @@
                     "text": "显示测试",
                     "subtext": "测试屏幕的显示状态"
                 }
+            },
+            "run":{
+                "sysinfo": {
+                    "title": "系统信息",
+                    "text": "[设备品牌]\n${brand}\n\n[设备生产商]\n${manufacturer}\n\n[设备型号]\n${model}\n\n[设备代号]\n${product}\n\n[操作系统名称]\n${osType}\n\n[操作系统版本名称]\n${osVersionName}\n\n[操作系统版本号]\n${osVersionCode}\n\n[运行平台版本名称]\n${platformVersionName}\n\n[运行平台版本号]\n${platformVersionCode}\n\n[系统语言]\n${language}\n\n[系统地区]\n${region}\n\n[框架API版本]\n${APILevel}\n\n[屏幕宽]\n${screenWidth}\n\n[屏幕高]\n${screenHeight}\n\n[屏幕密度]\n${screenDensity}\n\n[屏幕形状]\n${screenShape}\n\n[设备类型]\n${deviceType}\n\n[唯一标识]\n${deviceId}\n\n[设备序列号]\n${serial}"
+                },
+                "storagesize": {
+                    "title": "存储空间",
+                    "availabletext":"可用 | ${avasize} MB"
+                }
             }
         },
         "filemanger": {
@@ -139,13 +151,14 @@
             "tabtext": "腕上微聊"
         },
         "browser": {
-            "tabtext": "X5浏览器"
+            "tabtext": "浏览器"
         },
         "plugin": {
             "tabtext": "扩展插件"
         },
         "more": {
-            "tabtext": "更多功能"
+            "tabtext": "更多功能",
+            "none": "暂无更多功能可使用"
         },
         "settings": {
             "tabtext": "应用设置",
@@ -169,8 +182,8 @@
                     "subtext":"有关文件管理的一些设置"
                 },
                 "item3":{
-                    "text":"X5浏览器",
-                    "subtext":"有关X5浏览器的一些设置"
+                    "text":"浏览器",
+                    "subtext":"有关浏览器的一些设置"
                 }
             },
             "p3":{
@@ -202,7 +215,7 @@
                     "text": "敬请期待"
                 },
                 "browser":{
-                    "title": "X5浏览器",
+                    "title": "浏览器",
                     "text": "敬请期待"
                 },
                 "polinfo":{

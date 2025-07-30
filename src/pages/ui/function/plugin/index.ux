@@ -8,13 +8,62 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout"></div>
+			<div class="wgpro-deflayout">
+				<text class="wgpro-menu-text">• {{ $t("app.menu") }} •</text>
+				<list
+					class="wgpro-listlayout2"
+					bounces="false"
+					onscroll="onScroll"
+					onscrolltop="onScrollTop"
+					onscrollbottom="onScrollBottom"
+					onscrolltouchup="onScrollTouchup"
+				>
+					<list-item
+						for="{{ chatroomList }}"
+						class="wgpro-item3"
+						style="height: 100px"
+						type="item1"
+					>
+						<div class="wgpro-item-left">
+							<div class="wgpro-item-left-ico-back">
+								<img class="wgpro-item-left-ico" src="/res/mipmap/a48.png" />
+							</div>
+						</div>
+						<div class="wgpro-item-texts-none2">
+							<marquee class="wgpro-item-texts-text">
+								{{ $item.name }}
+							</marquee>
+						</div>
+					</list-item>
+				</list>
+			</div>
 		</scroll>
 	</div>
 </template>
 
 <script>
 export default {
+	data: {
+		chatroomList: [
+			{ name: "扩展插件1" },
+			{ name: "扩展插件2" },
+			{ name: "扩展插件3" },
+			{ name: "扩展插件4" },
+			{ name: "扩展插件5" },
+			{ name: "扩展插件6" },
+			{ name: "扩展插件7" },
+		],
+		itc_p1v1: "rgba(0,0,0,0)",
+		itc_p1v2: "rgba(0,0,0,0)",
+		itc_p1v3: "rgba(0,0,0,0)",
+		itc_p1v4: "rgba(0,0,0,0)",
+		itc_p2v1: "rgba(0,0,0,0)",
+		itc_p2v2: "rgba(0,0,0,0)",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+	},
 	onBackPress() {
 		this.$app.$def.toCancel(true);
 		return true;

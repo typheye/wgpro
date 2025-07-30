@@ -5,6 +5,33 @@
 	align-items: center;
 }
 
+.wgpro-listlayout {
+	width: 80%;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding-top: 10px;
+	padding-bottom: 120px;
+}
+
+.wgpro-listlayout2 {
+	width: 80%;
+	height: 100%;
+	flex-direction: column;
+	align-items: center;
+	padding-bottom: 120px;
+}
+
+.wgpro-menu-text {
+	width: 100%;
+	height: auto;
+	color: #12a600;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	padding: 10px;
+}
+
 .wgpro-gap-bottom {
 	width: 0;
 	height: 0;
@@ -47,16 +74,41 @@
 	height: 50px;
 }
 
+.wgpro-item-left-ico-back {
+	width: 60px;
+	height: 60px;
+	background-color: #32618D;
+	border-radius: 35px;
+	justify-content: center;
+	align-items: center;
+	flex-direction: column;
+}
+
+.wgpro-item-left-ico {
+	width: 30px;
+	height: 30px;
+}
+
 .wgpro-item-texts {
 	width: 55%;
 	height: auto;
 	flex-direction: column;
+	padding-left: 5px;
 }
 
 .wgpro-item-texts-none {
 	width: 80%;
 	height: auto;
 	flex-direction: column;
+	padding-left: 5px;
+}
+
+.wgpro-item-texts-none2 {
+	width: 80%;
+	height: auto;
+	flex-direction: column;
+	justify-content: center;
+	padding-left: 5px;
 }
 
 .wgpro-item-texts-text {
@@ -209,4 +261,13 @@
 	text-align: left;
 	font-size: 25px;
 	font-weight: bold;
+}
+
+.wgpro-item3 {
+	width: 100%;
+	height: auto;
+	padding: 10px;
+	margin-top: 10px;
+	background-color: #3c3c3c;
+	border-radius: 30px;
 }
