@@ -1,0 +1,110 @@
+{
+    "app": {
+        "name": "腕管Pro",
+        "tips": "提示"
+    },
+    "tips": {
+        "toNull": "敬请期待！",
+        "backLaunch" : "请按表冠键手动返回桌面"
+    },
+    "acts": {
+        "settings": {
+            "appinfo": {
+                "tabtext": "关于应用"
+            }
+        }
+    },
+    "display": {
+        "home": {
+            "tabtext": "腕管Pro"
+        },
+        "systool": {
+            "tabtext": "系统工具"
+        },
+        "filemanger": {
+            "tabtext": "文件管理"
+        },
+        "wgchat": {
+            "tabtext": "腕上微聊"
+        },
+        "browser": {
+            "tabtext": "浏览器"
+        },
+        "plugin": {
+            "tabtext": "扩展插件"
+        },
+        "more": {
+            "tabtext": "更多功能"
+        },
+        "settings": {
+            "tabtext": "应用设置",
+            "p1":{
+                "item1":{
+                    "text":"Typheye账户",
+                    "subtext":"管理我的Typheye账户"
+                },
+                "item2":{
+                    "text":"云端服务",
+                    "subtext":"配置腕管Pro的云端服务"
+                }
+            },
+            "p2":{
+                "item1":{
+                    "text":"文本浏览",
+                    "subtext":"有关文本浏览的一些设置"
+                },
+                "item2":{
+                    "text":"文件管理",
+                    "subtext":"有关文件管理的一些设置"
+                },
+                "item3":{
+                    "text":"浏览器",
+                    "subtext":"有关浏览器的一些设置"
+                }
+            },
+            "p3":{
+                "item1":{
+                    "text":"关于应用",
+                    "subtext":"有关应用的一些信息"
+                },
+                "item2":{
+                    "text":"法律信息",
+                    "subtext":"有关应用的一些法律信息"
+                }
+            }
+        },
+        "about": {
+            "tabtext": "应用信息",
+            "p1": {
+                "item1": {
+                    "text": "应用版本",
+                    "subtext": "2.0.0"
+                },
+                "item2": {
+                    "text": "开发成员",
+                    "subtext": "台风眼Typheye"
+                },
+                "item3": {
+                    "text": "发布时间",
+                    "subtext": "2025年7月30日"
+                }
+            },
+            "p2": {
+                "item1": {
+                    "text": "官方网站",
+                    "subtext": "wgpro.typheye.com"
+                },
+                "item2": {
+                    "text": "发布渠道",
+                    "subtext": "www.bandbbs.cn"
+                }
+            }
+        }
+    },
+    "public": {
+        "tip": "提示",
+        "comfirm": "确定",
+        "cancel": "取消",
+        "appexit": "您确定要退出软件吗?"
+    }
+}

@@ -1,0 +1,66 @@
+<!--Application Template-->
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">{{ $t("app.name") }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit">
+			<text class="exit-tip-text">{{ $t("public.appexit") }}</text>
+			<div class="exit-choose">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					@touchstart="ht(1, 'v1')"
+					@touchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/res/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					@touchstart="ht(1, 'v2')"
+					@touchend="ht(0, 'v2')"
+					onclick="toExit()"
+				>
+					<img class="exit-choose-img" src="/res/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+<!--Application Style-->
+<script>
+import router from "@system.router";
+import app from "@system.app";
+export default {
+	data: {
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+	},
+	onBackPress() {
+		vibrator.vibrate({
+			mode: "short",
+		});
+		return true;
+	},
+	toExit() {
+		app.terminate();
+	},
+	toBack() {
+		router.replace({
+			uri: "/pages/ui/home",
+		});
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+};
+</script>
+<!--Application Style-->
+<style>
+@import "../../../../res/style/index.css";
+</style>

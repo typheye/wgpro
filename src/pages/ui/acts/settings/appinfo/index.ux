@@ -1,0 +1,257 @@
+<!--Application Template-->
+<template>
+	<div class="page">
+		<div class="tab" onclick="tabBack()">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("acts.settings.appinfo.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-icodiv">
+					<div
+						class="wgpro-icodiv-back"
+						onclick="clilogo"
+						onlongpress="lonlogo"
+					>
+						<image class="wgpro-icodiv-back-logo" src="/res/mipmap/ic_v.png" />
+					</div>
+					<text class="wgpro-icodiv-text">
+						{{ $t("app.name") }}
+					</text>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v1 }}"
+						ontouchstart="ht(1, 'p1v1')"
+						ontouchend="ht(0, 'p1v1')"
+						onclick="toRun('appabout')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a21.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p1.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p1.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v2 }}"
+						ontouchstart="ht(1, 'p1v2')"
+						ontouchend="ht(0, 'p1v2')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a71.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p1.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p1.item2.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v3 }}"
+						ontouchstart="ht(1, 'p1v3')"
+						ontouchend="ht(0, 'p1v3')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a36.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p1.item3.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p1.item3.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v4 }}"
+						ontouchstart="ht(1, 'p1v4')"
+						ontouchend="ht(0, 'p1v4')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a74.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p1.item4.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p1.item4.subtext") }}
+							</marquee>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v1 }}"
+						ontouchstart="ht(1, 'p2v1')"
+						ontouchend="ht(0, 'p2v1')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a46.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p2.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p2.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v2 }}"
+						ontouchstart="ht(1, 'p2v2')"
+						ontouchend="ht(0, 'p2v2')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a75.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p2.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p2.item2.subtext") }}
+							</marquee>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p3v1 }}"
+						ontouchstart="ht(1, 'p3v1')"
+						ontouchend="ht(0, 'p3v1')"
+						onclick="toRun('joinqqun')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/res/mipmap/a76.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appinfo.p3.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appinfo.p3.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+				</div>
+				<div
+					class="exit-choose-value"
+					style="margin-top:20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(-1, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/res/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+<!--Application Style-->
+<script>
+import router from "@system.router";
+export default {
+	data: {
+		itc_p0v0: "#3c3c3c",
+		itc_p1v1: "rgba(0,0,0,0)",
+		itc_p1v2: "rgba(0,0,0,0)",
+		itc_p1v3: "rgba(0,0,0,0)",
+		itc_p1v4: "rgba(0,0,0,0)",
+		itc_p2v1: "rgba(0,0,0,0)",
+		itc_p2v2: "rgba(0,0,0,0)",
+		itc_p3v1: "rgba(0,0,0,0)",
+		eggsdj: 0,
+	},
+	onBackPress() {
+		vibrator.vibrate({
+			mode: "short",
+		});
+		this.toBack();
+		return true;
+	},
+	toBack() {
+		router.back();
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
+		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+	},
+	clilogo() {
+		this.eggsdj += 1;
+		if (this.eggsdj == 2) {
+			this.eggsdj = 0;
+			fun.toTips("test", "hello");
+		}
+		return true;
+	},
+	lonlogo() {
+		this.eggsdj = 0;
+		vibrator.vibrate({
+			mode: "short",
+		});
+		return true;
+	},
+	toRun(id) {
+		if (id == "appabout")
+			fun.toTips(
+				this.$t("acts.settings.appinfo.run.appabout.title"),
+				this.$t("acts.settings.appinfo.run.appabout.text")
+			);
+		else if (id == "joinqqun")
+			fun.toTipsWithQR(
+				this.$t("acts.settings.appinfo.run.joinqqun.title"),
+				this.$t("acts.settings.appinfo.run.joinqqun.text"),
+				this.$t("acts.settings.appinfo.run.joinqqun.uri")
+			);
+	},
+};
+</script>
+<!--Application Style-->
+<style>
+@import "../../../../../res/style/index.css";
+
+.list-page {
+	width: 100%;
+	height: 200%;
+	padding: 5px;
+	flex-direction: column;
+}
+
+.testtext {
+	width: 100%;
+	height: 85%;
+	flex-direction: column;
+	justify-content: flex-start;
+}
+
+.testtext-tip-text {
+	height: 60%;
+	color: #7b7b7b;
+	text-align: center;
+	font-size: 25px;
+}
+</style>

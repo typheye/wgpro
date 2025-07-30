@@ -1,0 +1,63 @@
+<!--Application Template-->
+<template>
+	<div class="page" onswipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">{{ title }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ text }}</text>
+				<qrcode class="exit-QR" value="{{ uriQR }}"></qrcode>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/res/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+<!--Application Style-->
+<script>
+import { title } from "@system.audio";
+import router from "@system.router";
+import vibrator from "@system.vibrator";
+export default {
+	data: {
+		fc_v1: "#3c3c3c",
+		title: "",
+		text: "",
+		uriQR: "",
+	},
+	onBackPress() {
+		vibrator.vibrate({
+			mode: "short",
+		});
+		return true;
+	},
+	onInit() {
+		if (!this.title) this.title = this.$t("app.tips");
+	},
+	toBack() {
+		router.back();
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+};
+</script>
+<!--Application Style-->
+<style>
+@import "../../../../res/style/index.css";
+@import "../../../../res/style/wgpro.css";
+</style>

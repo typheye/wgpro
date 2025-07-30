@@ -1,0 +1,30 @@
+<!--Application Template-->
+<template>
+	<div class="page" @swipe="right">
+		<image class="splash-logo" src="/res/mipmap/ic_splash.png" />
+	</div>
+</template>
+<!--Application Style-->
+<script>
+import router from "@system.router";
+import vibrator from "@system.vibrator";
+export default {
+	onInit() {
+		setTimeout(function () {
+			router.replace({
+				uri: "/pages/ui/home",
+			});
+		}, 1000);
+	},
+	onBackPress() {
+		vibrator.vibrate({
+			mode: "short",
+		});
+		return true;
+	},
+};
+</script>
+<!--Application Style-->
+<style>
+@import "../../res/style/index.css";
+</style>

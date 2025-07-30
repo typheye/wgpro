@@ -1,0 +1,90 @@
+{
+  "package": "com.typheye.wgpro",
+  "name": "腕管Pro",
+  "versionName": "2.0.0",
+  "versionCode": 2507190,
+  "minPlatformVersion": 1200,
+  "icon": "/res/mipmap/logo.png",
+  "simulationVersion": "default",
+  "deviceTypeList": [
+    "watch"
+  ],
+  "features": [
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.interconnect"
+    },
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.device"
+    },
+    {
+      "name": "system.brightness"
+    },
+    {
+      "name": "system.vibrator"
+    }
+  ],
+  "config": {
+    "logLevel": "log",
+    "designWidth": 466
+  },
+  "router": {
+    "entry": "pages/index",
+    "pages": {
+      "pages/index": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/home": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/exit": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/tips": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/systool": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/filemanger": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/wgchat": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/browser": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/plugin": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/more": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/settings": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/appinfo": {
+        "launchMode": "singleTask",
+        "component": "index"
+      }
+    }
+  },
+  "minAPILevel": 1
+}
