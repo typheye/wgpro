@@ -10,7 +10,41 @@
     "acts": {
         "settings": {
             "appinfo": {
-                "tabtext": "关于应用"
+                "tabtext": "关于应用",
+                "p1": {
+                    "item1": {
+                        "text": "应用信息",
+                        "subtext": "查看应用开发相关信息"
+                    },
+                    "item2": {
+                        "text": "应用激活",
+                        "subtext": "激活应用以使用全部功能"
+                    },
+                    "item3": {
+                        "text": "应用更新",
+                        "subtext": "更新应用和升级补丁"
+                    },
+                    "item4": {
+                        "text": "应用备份",
+                        "subtext": "快捷备份/恢复应用设置"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "适配终端",
+                        "subtext": "选择适合您终端的适配方式"
+                    },
+                    "item2": {
+                        "text": "重置应用",
+                        "subtext": "将清除所有配置信息"
+                    }
+                },
+                "p3": {
+                    "item1": {
+                        "text": "加入Q群",
+                        "subtext": "加入腕管Pro官方QQ群"
+                    }
+                }
             }
         }
     },

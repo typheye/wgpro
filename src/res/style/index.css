@@ -83,7 +83,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #3c3c3c;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .fun-item-th {
@@ -94,7 +94,7 @@
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .exit {
@@ -105,15 +105,17 @@
 }
 
 .exit-tip-text {
-	height: 60%;
+	height: auto;
 	color: #7b7b7b;
 	text-align: center;
+	margin-top: 20px;
 	font-size: 30px;
 }
 
 .exit-choose {
 	width: 100%;
-	height: 25%;
+	height: auto;
+	margin-top: 20px;
 	justify-content: center;
 	flex-direction: row;
 	align-items: center;
@@ -128,7 +130,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #3c3c3c;
-	border-radius: 10px;
+	border-radius: 15px;
 }
 
 .exit-choose-img {

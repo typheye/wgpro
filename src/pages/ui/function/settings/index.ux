@@ -9,13 +9,13 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout" style="height:220%;">
+			<div class="wgpro-deflayout" style="height: 220%">
 				<div class="wgpro-items-group">
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p1v1 }}"
-						@touchstart="ht(1, 'p1v1')"
-						@touchend="ht(0, 'p1v1')"
+						ontouchstart="ht(1, 'p1v1')"
+						ontouchend="ht(0, 'p1v1')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a70.png" />
@@ -32,8 +32,8 @@
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p1v2 }}"
-						@touchstart="ht(1, 'p1v2')"
-						@touchend="ht(0, 'p1v2')"
+						ontouchstart="ht(1, 'p1v2')"
+						ontouchend="ht(0, 'p1v2')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a32.png" />
@@ -52,8 +52,8 @@
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p2v1 }}"
-						@touchstart="ht(1, 'p2v1')"
-						@touchend="ht(0, 'p2v1')"
+						ontouchstart="ht(1, 'p2v1')"
+						ontouchend="ht(0, 'p2v1')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a69.png" />
@@ -70,8 +70,8 @@
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p2v2 }}"
-						@touchstart="ht(1, 'p2v2')"
-						@touchend="ht(0, 'p2v2')"
+						ontouchstart="ht(1, 'p2v2')"
+						ontouchend="ht(0, 'p2v2')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a66.png" />
@@ -88,8 +88,8 @@
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p2v3 }}"
-						@touchstart="ht(1, 'p2v3')"
-						@touchend="ht(0, 'p2v3')"
+						ontouchstart="ht(1, 'p2v3')"
+						ontouchend="ht(0, 'p2v3')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a40.png" />
@@ -108,8 +108,9 @@
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p3v1 }}"
-						@touchstart="ht(1, 'p3v1')"
-						@touchend="ht(0, 'p3v1')"
+						ontouchstart="ht(1, 'p3v1')"
+						ontouchend="ht(0, 'p3v1')"
+						onclick="toRun('appinfo')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a65.png" />
@@ -126,8 +127,8 @@
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p3v2 }}"
-						@touchstart="ht(1, 'p3v2')"
-						@touchend="ht(0, 'p3v2')"
+						ontouchstart="ht(1, 'p3v2')"
+						ontouchend="ht(0, 'p3v2')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a45.png" />
@@ -142,6 +143,16 @@
 						</div>
 					</div>
 				</div>
+				<div
+					class="exit-choose-value"
+					style="margin-top:20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(-1, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/res/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
 			</div>
 		</scroll>
 	</div>
@@ -149,8 +160,10 @@
 <!--Application Style-->
 <script>
 import router from "@system.router";
+import vibrator from "@system.vibrator";
 export default {
 	data: {
+		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
 		itc_p2v1: "rgba(0,0,0,0)",
@@ -167,18 +180,18 @@ export default {
 		this.toBack();
 		return true;
 	},
-	tabBack() {
-		vibrator.vibrate({
-			mode: "short",
+	toRun(id) {
+		var v_uri = "";
+		if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
+		router.push({
+			uri: v_uri,
 		});
+	},
+	tabBack() {
 		this.toBack();
 	},
 	ht(t, i) {
-		if (t == 1)
-			eval("this.itc_" + i + " = 'black'"),
-				vibrator.vibrate({
-					mode: "short",
-				});
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
 		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
 		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
 	},
@@ -191,18 +204,4 @@ export default {
 <style>
 @import "../../../../res/style/index.css";
 @import "../../../../res/style/wgpro.css";
-
-.testtext {
-	width: 100%;
-	height: 85%;
-	flex-direction: column;
-	justify-content: flex-start;
-}
-
-.testtext-tip-text {
-	height: 60%;
-	color: #7b7b7b;
-	text-align: center;
-	font-size: 25px;
-}
 </style>

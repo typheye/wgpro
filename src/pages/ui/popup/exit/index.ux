@@ -12,8 +12,8 @@
 				<div
 					class="exit-choose-value"
 					style="background-color: {{ fc_v1 }}"
-					@touchstart="ht(1, 'v1')"
-					@touchend="ht(0, 'v1')"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
 					onclick="toBack()"
 				>
 					<img class="exit-choose-img" src="/res/mipmap/a29.png" />
@@ -21,8 +21,8 @@
 				<div
 					class="exit-choose-value"
 					style="background-color: {{ fc_v2 }}"
-					@touchstart="ht(1, 'v2')"
-					@touchend="ht(0, 'v2')"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
 					onclick="toExit()"
 				>
 					<img class="exit-choose-img" src="/res/mipmap/a28.png" />
@@ -35,6 +35,7 @@
 <script>
 import router from "@system.router";
 import app from "@system.app";
+import vibrator from "@system.vibrator";
 export default {
 	data: {
 		fc_v1: "#3c3c3c",

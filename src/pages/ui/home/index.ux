@@ -6,14 +6,14 @@
 			<marquee class="tab-text">{{ $t("app.name") }}</marquee>
 			<text class="tab-more"></text>
 		</div>
-		<scroll class="scroll-root" scroll-y="true" onscrolltop="handleScrollTop">
-			<div class="list">
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
 				<div class="fun-list3">
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v1 }}"
-						@touchstart="ht(1, 'v1')"
-						@touchend="ht(0, 'v1')"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
 						onclick="toRun('systool')"
 					>
 						<image class="fun-img" src="/res/mipmap/a39.png" />
@@ -21,8 +21,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v2 }}"
-						@touchstart="ht(1, 'v2')"
-						@touchend="ht(0, 'v2')"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
 						onclick="toRun('filemanger')"
 					>
 						<image class="fun-img" src="/res/mipmap/a20.png" />
@@ -30,8 +30,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v3 }}"
-						@touchstart="ht(1, 'v3')"
-						@touchend="ht(0, 'v3')"
+						ontouchstart="ht(1, 'v3')"
+						ontouchend="ht(0, 'v3')"
 						onclick="toRun('wgchat')"
 					>
 						<image class="fun-img" src="/res/mipmap/a37.png" />
@@ -41,8 +41,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v4 }}"
-						@touchstart="ht(1, 'v4')"
-						@touchend="ht(0, 'v4')"
+						ontouchstart="ht(1, 'v4')"
+						ontouchend="ht(0, 'v4')"
 						onclick="toRun('browser')"
 					>
 						<image class="fun-img" src="/res/mipmap/a40.png" />
@@ -50,8 +50,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v5 }}"
-						@touchstart="ht(1, 'v5')"
-						@touchend="ht(0, 'v5')"
+						ontouchstart="ht(1, 'v5')"
+						ontouchend="ht(0, 'v5')"
 						onclick="toRun('plugin')"
 					>
 						<image class="fun-img" src="/res/mipmap/a48.png" />
@@ -59,8 +59,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v6 }}"
-						@touchstart="ht(1, 'v6')"
-						@touchend="ht(0, 'v6')"
+						ontouchstart="ht(1, 'v6')"
+						ontouchend="ht(0, 'v6')"
 						onclick="toRun('more')"
 					>
 						<image class="fun-img" src="/res/mipmap/a43.png" />
@@ -70,8 +70,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v7 }}"
-						@touchstart="ht(1, 'v7')"
-						@touchend="ht(0, 'v7')"
+						ontouchstart="ht(1, 'v7')"
+						ontouchend="ht(0, 'v7')"
 						onclick="toRun('settings')"
 					>
 						<image class="fun-img" src="/res/mipmap/a10.png" />
@@ -79,8 +79,8 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v8 }}"
-						@touchstart="ht(1, 'v8')"
-						@touchend="ht(0, 'v8')"
+						ontouchstart="ht(1, 'v8')"
+						ontouchend="ht(0, 'v8')"
 						onclick="toTips(str1)"
 					>
 						<image class="fun-img" src="/res/mipmap/a46.png" />
@@ -88,13 +88,14 @@
 					<div
 						class="fun-item"
 						style="background-color: {{ fc_v9 }}"
-						@touchstart="ht(1, 'v9')"
-						@touchend="ht(0, 'v9')"
+						ontouchstart="ht(1, 'v9')"
+						ontouchend="ht(0, 'v9')"
 						onclick="exitApp()"
 					>
 						<image class="fun-img" src="/res/mipmap/a23.png" />
 					</div>
 				</div>
+				<div class="wgpro-gap-bottom" />
 			</div>
 		</scroll>
 	</div>
@@ -103,6 +104,7 @@
 <script>
 import router from "@system.router";
 import prompt from "@system.prompt";
+import vibrator from "@system.vibrator";
 export default {
 	data: {
 		str1: "",
@@ -120,6 +122,9 @@ export default {
 		this.str1 = this.$t("tips.backLaunch");
 	},
 	onBackPress() {
+		vibrator.vibrate({
+			mode: "short",
+		});
 		this.exitApp();
 		return true;
 	},
@@ -159,14 +164,15 @@ export default {
 			},
 		});
 	},
-	right(evt) {
+	/*right(evt) {
 		if (evt.direction === "right") {
 			this.exitApp();
 		}
-	},
+	},*/
 };
 </script>
 <!--Application Style-->
 <style>
 @import "../../../res/style/index.css";
+@import "../../../res/style/wgpro.css";
 </style>

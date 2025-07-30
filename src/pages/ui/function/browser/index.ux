@@ -8,7 +8,7 @@
             </marquee>
             <text class="tab-more"></text>
         </div>
-        <scroll class="scroll-root" scroll-y="true" onscrolltop="handleScrollTop">
+        <scroll class="scroll-root" scroll-y="true">
             <div class="list-page">
                 <div class="testtext">
                     <text class="testtext-tip-text">{{ $t("tips.toNull") }}</text>
