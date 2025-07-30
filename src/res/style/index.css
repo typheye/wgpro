@@ -104,6 +104,12 @@
 	justify-content: flex-start;
 }
 
+.exit-QR {
+	width: 60%;
+	height: auto;
+	margin-top: 20px;
+}
+
 .exit-tip-text {
 	height: auto;
 	color: #7b7b7b;
@@ -130,7 +136,7 @@
 	justify-content: center;
 	align-items: center;
 	background-color: #3c3c3c;
-	border-radius: 15px;
+	border-radius: 30px;
 }
 
 .exit-choose-img {

@@ -6,21 +6,16 @@
 </template>
 <!--Application Style-->
 <script>
-import router from "@system.router";
-import vibrator from "@system.vibrator";
 export default {
-	onInit() {
-		setTimeout(function () {
-			router.replace({
-				uri: "/pages/ui/home",
-			});
-		}, 1000);
-	},
 	onBackPress() {
-		vibrator.vibrate({
-			mode: "short",
-		});
+		this.$app.$def.toCancel(false);
 		return true;
+	},
+	onReady() {
+		setTimeout(this.launch(), 1000);
+	},
+	launch() {
+		this.$app.$def.goReplacePage("/pages/ui/home");
 	},
 };
 </script>

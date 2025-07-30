@@ -3,7 +3,7 @@
 	<div class="page" @swipe="right">
 		<div class="tab">
 			<text class="tab-back"></text>
-			<marquee class="tab-text">{{ $t("app.tips") }}</marquee>
+			<marquee class="tab-text">{{ title }}</marquee>
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
@@ -20,34 +20,32 @@
 						<img class="exit-choose-img" src="/res/mipmap/a28.png" />
 					</div>
 				</div>
+				<div class="wgpro-gap-bottom" />
 			</div>
 		</scroll>
 	</div>
 </template>
 <!--Application Style-->
 <script>
-import router from "@system.router";
-import vibrator from "@system.vibrator";
 export default {
 	data: {
 		fc_v1: "#3c3c3c",
+		title: "",
 		text: "",
-	},
-	onBackPress() {
-		vibrator.vibrate({
-			mode: "short",
-		});
-		return true;
-	},
-	onInit() {
-		if (!this.title) this.title = this.$t("app.tips");
-	},
-	toBack() {
-		router.back();
 	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	onInit() {
+		if (!this.title) this.title = this.$t("app.tips");
 	},
 };
 </script>

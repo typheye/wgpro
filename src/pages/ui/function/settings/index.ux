@@ -1,7 +1,7 @@
 <!--Application Template-->
 <template>
 	<div class="page">
-		<div class="tab" onclick="toBack()">
+		<div class="tab" onclick="toBack">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
 				{{ $t("display.settings.tabtext") }}
@@ -159,8 +159,6 @@
 </template>
 <!--Application Style-->
 <script>
-import router from "@system.router";
-import vibrator from "@system.vibrator";
 export default {
 	data: {
 		itc_p0v0: "#3c3c3c",
@@ -173,30 +171,22 @@ export default {
 		itc_p3v2: "rgba(0,0,0,0)",
 		itc_p3v3: "rgba(0,0,0,0)",
 	},
-	onBackPress() {
-		vibrator.vibrate({
-			mode: "short",
-		});
-		this.toBack();
-		return true;
-	},
-	toRun(id) {
-		var v_uri = "";
-		if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
-		router.push({
-			uri: v_uri,
-		});
-	},
-	tabBack() {
-		this.toBack();
-	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
 		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
 		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
 	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
 	toBack() {
-		router.back();
+		this.$app.$def.goBack();
+	},
+	toRun(id) {
+		var v_uri = "";
+		if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
+		this.$app.$def.goPage(v_uri);
 	},
 };
 </script>

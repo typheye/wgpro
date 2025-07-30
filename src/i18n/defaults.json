@@ -44,6 +44,21 @@
                         "text": "加入Q群",
                         "subtext": "加入腕管Pro官方QQ群"
                     }
+                },
+                "run": {
+                    "clilogo": {
+                        "title": "应用程序",
+                        "text": "[应用名称]\n${name}\n\n[编译版本]\n${versionName}\n\n[版本号码]\n${versionCode}"
+                    },
+                    "appabout": {
+                        "title": "应用信息",
+                        "text": "[应用开发]\n\n台风眼Typheye\n\n[联系方式]\n\nQQ：498978473\n邮箱：typheye@typheye.com"
+                    },
+                    "joinqqun": {
+                        "title": "加入Q群",
+                        "text": "加入腕管Pro官方QQ群",
+                        "uri": "https://qm.qq.com/q/l9bdfqRmRW"
+                    }
                 }
             }
         }

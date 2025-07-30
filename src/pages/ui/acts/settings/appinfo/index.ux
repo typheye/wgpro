@@ -1,7 +1,7 @@
 <!--Application Template-->
 <template>
 	<div class="page">
-		<div class="tab" onclick="tabBack()">
+		<div class="tab" onclick="toBack()">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
 				{{ $t("acts.settings.appinfo.tabtext") }}
@@ -172,8 +172,6 @@
 </template>
 <!--Application Style-->
 <script>
-import router from "@system.router";
-import vibrator from "@system.vibrator";
 export default {
 	data: {
 		itc_p0v0: "#3c3c3c",
@@ -186,48 +184,53 @@ export default {
 		itc_p3v1: "rgba(0,0,0,0)",
 		eggsdj: 0,
 	},
-	onBackPress() {
-		vibrator.vibrate({
-			mode: "short",
-		});
-		this.toBack();
-		return true;
-	},
-	toBack() {
-		router.back();
-	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
 		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
 		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
 	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRun(id) {
+		if (id == "appabout")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.appabout.title"),
+				this.$t("acts.settings.appinfo.run.appabout.text")
+			);
+		else if (id == "joinqqun")
+			this.$app.$def.toTipsWithQR(
+				this.$t("acts.settings.appinfo.run.joinqqun.title"),
+				this.$t("acts.settings.appinfo.run.joinqqun.text"),
+				this.$t("acts.settings.appinfo.run.joinqqun.uri")
+			);
+	},
 	clilogo() {
 		this.eggsdj += 1;
 		if (this.eggsdj == 2) {
 			this.eggsdj = 0;
-			fun.toTips("test", "hello");
+			var appinfos = this.$app.$def.getAppinfo();
+			var demo = this.$t("acts.settings.appinfo.run.clilogo.text");
+			demo = this.$app.$def.textFormat(demo, {
+				name: appinfos.name,
+				versionName: appinfos.versionName,
+				versionCode: appinfos.versionCode,
+			});
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.clilogo.title"),
+				demo
+			);
 		}
 		return true;
 	},
 	lonlogo() {
 		this.eggsdj = 0;
-		vibrator.vibrate({
-			mode: "short",
-		});
+		this.$app.$def.shortVib(true);
 		return true;
-	},
-	toRun(id) {
-		if (id == "appabout")
-			fun.toTips(
-				this.$t("acts.settings.appinfo.run.appabout.title"),
-				this.$t("acts.settings.appinfo.run.appabout.text")
-			);
-		else if (id == "joinqqun")
-			fun.toTipsWithQR(
-				this.$t("acts.settings.appinfo.run.joinqqun.title"),
-				this.$t("acts.settings.appinfo.run.joinqqun.text"),
-				this.$t("acts.settings.appinfo.run.joinqqun.uri")
-			);
 	},
 };
 </script>

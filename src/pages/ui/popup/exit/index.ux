@@ -34,30 +34,25 @@
 <!--Application Style-->
 <script>
 import router from "@system.router";
-import app from "@system.app";
 import vibrator from "@system.vibrator";
 export default {
 	data: {
 		fc_v1: "#3c3c3c",
 		fc_v2: "#3c3c3c",
 	},
-	onBackPress() {
-		vibrator.vibrate({
-			mode: "short",
-		});
-		return true;
-	},
-	toExit() {
-		app.terminate();
-	},
-	toBack() {
-		router.replace({
-			uri: "/pages/ui/home",
-		});
-	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goReplacePage("/pages/ui/home");
+	},
+	toExit() {
+		this.$app.$def.toExit();
 	},
 };
 </script>

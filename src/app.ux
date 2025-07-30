@@ -1,10 +1,65 @@
 <script>
+import router from "@system.router";
+import vibrator from "@system.vibrator";
+import app from "@system.app";
 export default {
-  onCreate() {
-    console.log('app created')
-  },
-  onDestroy() {
-    console.log('app destroyed')
-  }
-}
+	onCreate() {
+		console.log("app created");
+	},
+	onDestroy() {
+		console.log("app destroyed");
+	},
+	goBack() {
+		router.back();
+	},
+	goPage(muri) {
+		router.push({
+			uri: muri,
+		});
+	},
+	goReplacePage(muri) {
+		router.replace({
+			uri: muri,
+		});
+	},
+	toTips(mtitle, mtext) {
+		router.push({
+			uri: "/pages/ui/popup/tips",
+			params: {
+				title: mtitle,
+				text: mtext,
+			},
+		});
+	},
+	toTipsWithQR(mtitle, mtext, muri) {
+		router.push({
+			uri: "/pages/ui/popup/showqr",
+			params: {
+				title: mtitle,
+				text: mtext,
+				uri: muri,
+			},
+		});
+	},
+	toCancel(can) {
+		this.shortVib(true);
+		if (can) router.back();
+	},
+	toExit() {
+		app.terminate();
+	},
+	getAppinfo() {
+		return app.getInfo();
+	},
+	textFormat(template, data) {
+		return template.replace(/\${(\w+)}/g, (_, key) => data[key] || "");
+	},
+	shortVib(can) {
+		var mmode = "long"
+		if (can) mmode = "short";
+		vibrator.vibrate({
+			mode: mmode,
+		});
+	},
+};
 </script>

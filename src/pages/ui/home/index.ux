@@ -81,7 +81,7 @@
 						style="background-color: {{ fc_v8 }}"
 						ontouchstart="ht(1, 'v8')"
 						ontouchend="ht(0, 'v8')"
-						onclick="toTips(str1)"
+						onclick="toRun('backlaunch')"
 					>
 						<image class="fun-img" src="/res/mipmap/a46.png" />
 					</div>
@@ -102,9 +102,6 @@
 </template>
 <!--Application Script-->
 <script>
-import router from "@system.router";
-import prompt from "@system.prompt";
-import vibrator from "@system.vibrator";
 export default {
 	data: {
 		str1: "",
@@ -118,57 +115,36 @@ export default {
 		fc_v8: "#3c3c3c",
 		fc_v9: "#3c3c3c",
 	},
-	onInit() {
-		this.str1 = this.$t("tips.backLaunch");
-	},
-	onBackPress() {
-		vibrator.vibrate({
-			mode: "short",
-		});
-		this.exitApp();
-		return true;
-	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
 	},
-	toNull() {
-		prompt.showToast({
-			message: this.$t("tips.toNull"),
-			duration: 2000,
-		});
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		this.exitApp();
+		return true;
+	},
+	onInit() {
+		this.str1 = this.$t("tips.backLaunch");
 	},
 	toRun(id) {
-		var v_uri = "";
-		if (id == "systool") v_uri = "/pages/ui/function/systool";
-		else if (id == "filemanger") v_uri = "/pages/ui/function/filemanger";
-		else if (id == "wgchat") v_uri = "/pages/ui/function/wgchat";
-		else if (id == "browser") v_uri = "/pages/ui/function/browser";
-		else if (id == "plugin") v_uri = "/pages/ui/function/plugin";
-		else if (id == "more") v_uri = "/pages/ui/function/more";
-		else if (id == "settings") v_uri = "/pages/ui/function/settings";
-		router.push({
-			uri: v_uri,
-		});
+		if (id == "backlaunch") {
+			this.$app.$def.toTips("", this.$t("tips.backLaunch"));
+		} else {
+			var v_uri = "";
+			if (id == "systool") v_uri = "/pages/ui/function/systool";
+			else if (id == "filemanger") v_uri = "/pages/ui/function/filemanger";
+			else if (id == "wgchat") v_uri = "/pages/ui/function/wgchat";
+			else if (id == "browser") v_uri = "/pages/ui/function/browser";
+			else if (id == "plugin") v_uri = "/pages/ui/function/plugin";
+			else if (id == "more") v_uri = "/pages/ui/function/more";
+			else if (id == "settings") v_uri = "/pages/ui/function/settings";
+			this.$app.$def.goPage(v_uri);
+		}
 	},
 	exitApp() {
-		router.replace({
-			uri: "/pages/ui/popup/exit",
-		});
+		this.$app.$def.goReplacePage("/pages/ui/popup/exit");
 	},
-	toTips(t) {
-		router.push({
-			uri: "/pages/ui/popup/tips",
-			params: {
-				text: t,
-			},
-		});
-	},
-	/*right(evt) {
-		if (evt.direction === "right") {
-			this.exitApp();
-		}
-	},*/
 };
 </script>
 <!--Application Style-->

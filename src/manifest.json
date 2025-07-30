@@ -52,6 +52,10 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/popup/showqr": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/function/systool": {
         "launchMode": "singleTask",
         "component": "index"
