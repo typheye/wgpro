@@ -102,6 +102,7 @@
 	height: 85%;
 	flex-direction: column;
 	justify-content: flex-start;
+	align-items: center;
 }
 
 .exit-QR {
@@ -111,6 +112,7 @@
 }
 
 .exit-tip-text {
+	width: 80%;
 	height: auto;
 	color: #7b7b7b;
 	text-align: center;

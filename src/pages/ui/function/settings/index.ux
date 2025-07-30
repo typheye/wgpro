@@ -16,6 +16,7 @@
 						style="background-color: {{ itc_p1v1 }}"
 						ontouchstart="ht(1, 'p1v1')"
 						ontouchend="ht(0, 'p1v1')"
+						onclick="toRun('taccount')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a70.png" />
@@ -34,6 +35,7 @@
 						style="background-color: {{ itc_p1v2 }}"
 						ontouchstart="ht(1, 'p1v2')"
 						ontouchend="ht(0, 'p1v2')"
+						onclick="toRun('tserver')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a32.png" />
@@ -54,6 +56,7 @@
 						style="background-color: {{ itc_p2v1 }}"
 						ontouchstart="ht(1, 'p2v1')"
 						ontouchend="ht(0, 'p2v1')"
+						onclick="toRun('textdisplay')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a69.png" />
@@ -72,6 +75,7 @@
 						style="background-color: {{ itc_p2v2 }}"
 						ontouchstart="ht(1, 'p2v2')"
 						ontouchend="ht(0, 'p2v2')"
+						onclick="toRun('filemanger')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a66.png" />
@@ -90,6 +94,7 @@
 						style="background-color: {{ itc_p2v3 }}"
 						ontouchstart="ht(1, 'p2v3')"
 						ontouchend="ht(0, 'p2v3')"
+						onclick="toRun('browser')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a40.png" />
@@ -129,6 +134,7 @@
 						style="background-color: {{ itc_p3v2 }}"
 						ontouchstart="ht(1, 'p3v2')"
 						ontouchend="ht(0, 'p3v2')"
+						onclick="toRun('polinfo')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a45.png" />
@@ -184,9 +190,43 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		var v_uri = "";
-		if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
-		this.$app.$def.goPage(v_uri);
+		if (id == "taccount")
+			this.$app.$def.toTipsWithQR(
+				this.$t("display.settings.run.taccount.title"),
+				this.$t("display.settings.run.taccount.text"),
+				this.$t("display.settings.run.taccount.uri")
+			);
+		else if (id == "tserver")
+			this.$app.$def.toTips(
+				this.$t("display.settings.run.tserver.title"),
+				this.$t("display.settings.run.tserver.text")
+			);
+		else if (id == "textdisplay")
+			this.$app.$def.toTips(
+				this.$t("display.settings.run.textdisplay.title"),
+				this.$t("display.settings.run.textdisplay.text")
+			);
+		else if (id == "filemanger")
+			this.$app.$def.toTips(
+				this.$t("display.settings.run.filemanger.title"),
+				this.$t("display.settings.run.filemanger.text")
+			);
+		else if (id == "browser")
+			this.$app.$def.toTips(
+				this.$t("display.settings.run.browser.title"),
+				this.$t("display.settings.run.browser.text")
+			);
+		else if (id == "polinfo")
+			this.$app.$def.toTipsWithQR(
+				this.$t("display.settings.run.polinfo.title"),
+				this.$t("display.settings.run.polinfo.text"),
+				this.$t("display.settings.run.polinfo.uri")
+			);
+		else {
+			var v_uri = "";
+			if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
+			this.$app.$def.goPage(v_uri);
+		}
 	},
 };
 </script>

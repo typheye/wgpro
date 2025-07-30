@@ -32,7 +32,7 @@
                 "p2": {
                     "item1": {
                         "text": "适配终端",
-                        "subtext": "选择适合您终端的适配方式"
+                        "subtext": "选择适合终端的适配方式"
                     },
                     "item2": {
                         "text": "重置应用",
@@ -53,6 +53,26 @@
                     "appabout": {
                         "title": "应用信息",
                         "text": "[应用开发]\n\n台风眼Typheye\n\n[联系方式]\n\nQQ：498978473\n邮箱：typheye@typheye.com"
+                    },
+                    "appactive":{
+                        "title": "应用激活",
+                        "text": "已激活"
+                    },
+                    "appupdate":{
+                        "title": "应用更新",
+                        "text": "已经是最新版本"
+                    },
+                    "appbackup":{
+                        "title": "应用备份",
+                        "text": "敬请期待"
+                    },
+                    "appedit":{
+                        "title": "适配终端",
+                        "text": "敬请期待"
+                    },
+                    "appreset":{
+                        "title": "重置应用",
+                        "text": "敬请期待"
                     },
                     "joinqqun": {
                         "title": "加入Q群",
@@ -89,7 +109,7 @@
             "tabtext": "应用设置",
             "p1":{
                 "item1":{
-                    "text":"Typheye账户",
+                    "text":"Typheye",
                     "subtext":"管理我的Typheye账户"
                 },
                 "item2":{
@@ -120,32 +140,33 @@
                     "text":"法律信息",
                     "subtext":"有关应用的一些法律信息"
                 }
-            }
-        },
-        "about": {
-            "tabtext": "应用信息",
-            "p1": {
-                "item1": {
-                    "text": "应用版本",
-                    "subtext": "2.0.0"
-                },
-                "item2": {
-                    "text": "开发成员",
-                    "subtext": "台风眼Typheye"
-                },
-                "item3": {
-                    "text": "发布时间",
-                    "subtext": "2025年7月30日"
-                }
             },
-            "p2": {
-                "item1": {
-                    "text": "官方网站",
-                    "subtext": "wgpro.typheye.com"
+            "run":{
+                "taccount":{
+                    "title": "Typheye",
+                    "text": "有关您的Typheye账户信息\n请扫描下方二维码查看",
+                    "uri": "https://wgpro.typheye.com"
                 },
-                "item2": {
-                    "text": "发布渠道",
-                    "subtext": "www.bandbbs.cn"
+                "tserver":{
+                    "title": "云端服务",
+                    "text": "敬请期待"
+                },
+                "textdisplay":{
+                    "title": "文本浏览",
+                    "text": "敬请期待"
+                },
+                "filemanger":{
+                    "title": "文件管理",
+                    "text": "敬请期待"
+                },
+                "browser":{
+                    "title": "浏览器",
+                    "text": "敬请期待"
+                },
+                "polinfo":{
+                    "title": "法律信息",
+                    "text": "有关腕管Pro的法律信息\n请扫描下方二维码查看",
+                    "uri": "https://wgpro.typheye.com"
                 }
             }
         }

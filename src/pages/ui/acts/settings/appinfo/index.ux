@@ -47,6 +47,7 @@
 						style="background-color: {{ itc_p1v2 }}"
 						ontouchstart="ht(1, 'p1v2')"
 						ontouchend="ht(0, 'p1v2')"
+						onclick="toRun('appactive')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a71.png" />
@@ -65,6 +66,7 @@
 						style="background-color: {{ itc_p1v3 }}"
 						ontouchstart="ht(1, 'p1v3')"
 						ontouchend="ht(0, 'p1v3')"
+						onclick="toRun('appupdate')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a36.png" />
@@ -83,6 +85,7 @@
 						style="background-color: {{ itc_p1v4 }}"
 						ontouchstart="ht(1, 'p1v4')"
 						ontouchend="ht(0, 'p1v4')"
+						onclick="toRun('appbackup')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a74.png" />
@@ -103,6 +106,7 @@
 						style="background-color: {{ itc_p2v1 }}"
 						ontouchstart="ht(1, 'p2v1')"
 						ontouchend="ht(0, 'p2v1')"
+						onclick="toRun('appedit')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a46.png" />
@@ -121,6 +125,7 @@
 						style="background-color: {{ itc_p2v2 }}"
 						ontouchstart="ht(1, 'p2v2')"
 						ontouchend="ht(0, 'p2v2')"
+						onclick="toRun('appreset')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/res/mipmap/a75.png" />
@@ -201,6 +206,31 @@ export default {
 			this.$app.$def.toTips(
 				this.$t("acts.settings.appinfo.run.appabout.title"),
 				this.$t("acts.settings.appinfo.run.appabout.text")
+			);
+		else if (id == "appactive")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.appactive.title"),
+				this.$t("acts.settings.appinfo.run.appactive.text")
+			);
+		else if (id == "appupdate")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.appupdate.title"),
+				this.$t("acts.settings.appinfo.run.appupdate.text")
+			);
+		else if (id == "appbackup")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.appbackup.title"),
+				this.$t("acts.settings.appinfo.run.appbackup.text")
+			);
+		else if (id == "appedit")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.appedit.title"),
+				this.$t("acts.settings.appinfo.run.appedit.text")
+			);
+		else if (id == "appreset")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appinfo.run.appreset.title"),
+				this.$t("acts.settings.appinfo.run.appreset.text")
 			);
 		else if (id == "joinqqun")
 			this.$app.$def.toTipsWithQR(
