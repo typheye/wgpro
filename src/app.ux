@@ -68,6 +68,18 @@ export default {
 		if (n === 0) return Math.round(num).toString();
 		return num.toFixed(n);
 	},
+	wgchatInit() {
+		const arr = [
+			{ id: "10000", name: "官方聊天室1" },
+			{ id: "10000", name: "官方聊天室2" },
+			{ id: "10000", name: "官方聊天室3" },
+			{ id: "10000", name: "官方聊天室4" },
+			{ id: "10000", name: "官方聊天室5" },
+		];
+		const roomlist = JSON.stringify(arr, null);
+		//wgsettings_wgchat_roomlist 腕上微聊聊天室列表
+		this.settingsChange("wgsettings_wgchat_roomlist", roomlist);
+	},
 	settingsInit() {
 		//wgsettings_init 初始化
 		this.settingsChange("wgsettings_init", "true");
@@ -75,6 +87,8 @@ export default {
 		this.settingsChange("wgsettings_autoCheckUpdate", "true");
 		//wgsettings_autoCheckUpdateIsShow 自动检测更新是否已经显示
 		this.settingsChange("wgsettings_autoCheckUpdateIsShow", "false");
+		//其他初始化
+		this.wgchatInit();
 	},
 	settingsReset() {
 		storage.clear({

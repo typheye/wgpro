@@ -12,29 +12,46 @@
     },
     "menu": {
         "chatroomlist": {
-            "item1": {
-                "name": "刷新",
-                "id": "update"
-            },
-            "item2": {
-                "name": "添加房间",
-                "id": "addroom"
-            },
-            "item3": {
-                "name": "新建房间",
-                "id": "createroom"
-            },
-            "item4": {
-                "name": "设置",
-                "id": "gosettings"
-            },
-            "item5": {
-                "name": "退出",
-                "id": "exit"
-            },
-            "item6": {
-                "name": "返回",
-                "id": "back"
+            "def": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "添加房间",
+                    "id": "addroom"
+                },
+                "item3": {
+                    "name": "新建房间",
+                    "id": "createroom"
+                },
+                "item4": {
+                    "name": "设置",
+                    "id": "gosettings"
+                },
+                "item5": {
+                    "name": "退出",
+                    "id": "exit"
+                },
+                "item6": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }, 
+            "item": {
+                "item1": {
+                    "name": "房间信息",
+                    "id": "roominfo",
+                    "demo":"[房间名称]\n${roomname}\n\n[房间标识]\n${roomid}"
+                },
+                "item2": {
+                    "name": "删除房间",
+                    "id": "delroom"
+                },
+                "item3": {
+                    "name": "返回",
+                    "id": "back"
+                }
             }
         },
         "pluginlist": {
@@ -234,21 +251,7 @@
             }
         },
         "wgchat": {
-            "tabtext": "腕上微聊",
-            "p1":{
-                "item1":{
-                    "text": "官方聊天室1",
-                    "id": "10000"
-                },
-                "item2":{
-                    "text": "官方聊天室2",
-                    "id": "10000"
-                },
-                "item3":{
-                    "text": "官方聊天室3",
-                    "id": "10000"
-                }
-            }
+            "tabtext": "腕上微聊"
         },
         "browser": {
             "tabtext": "浏览器"
