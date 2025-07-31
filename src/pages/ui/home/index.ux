@@ -6,7 +6,7 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout">
+			<div class="wgpro-deflayout" style="margin-top:10px;">
 				<div class="fun-list3">
 					<div
 						class="fun-item"
@@ -15,7 +15,7 @@
 						ontouchend="ht(0, 'v1')"
 						onclick="toRun('systool')"
 					>
-						<image class="fun-img" src="/res/mipmap/a39.png" />
+						<image class="fun-img" src="/common/mipmap/a39.png" />
 					</div>
 					<div
 						class="fun-item"
@@ -24,7 +24,7 @@
 						ontouchend="ht(0, 'v2')"
 						onclick="toRun('filemanger')"
 					>
-						<image class="fun-img" src="/res/mipmap/a20.png" />
+						<image class="fun-img" src="/common/mipmap/a20.png" />
 					</div>
 					<div
 						class="fun-item"
@@ -33,7 +33,7 @@
 						ontouchend="ht(0, 'v3')"
 						onclick="toRun('wgchat')"
 					>
-						<image class="fun-img" src="/res/mipmap/a37.png" />
+						<image class="fun-img" src="/common/mipmap/a37.png" />
 					</div>
 				</div>
 				<div class="fun-list3">
@@ -44,7 +44,7 @@
 						ontouchend="ht(0, 'v4')"
 						onclick="toRun('browser')"
 					>
-						<image class="fun-img" src="/res/mipmap/a40.png" />
+						<image class="fun-img" src="/common/mipmap/a40.png" />
 					</div>
 					<div
 						class="fun-item"
@@ -53,7 +53,7 @@
 						ontouchend="ht(0, 'v5')"
 						onclick="toRun('plugin')"
 					>
-						<image class="fun-img" src="/res/mipmap/a48.png" />
+						<image class="fun-img" src="/common/mipmap/a48.png" />
 					</div>
 					<div
 						class="fun-item"
@@ -62,7 +62,7 @@
 						ontouchend="ht(0, 'v6')"
 						onclick="toRun('more')"
 					>
-						<image class="fun-img" src="/res/mipmap/a43.png" />
+						<image class="fun-img" src="/common/mipmap/a43.png" />
 					</div>
 				</div>
 				<div class="fun-list3">
@@ -73,7 +73,7 @@
 						ontouchend="ht(0, 'v7')"
 						onclick="toRun('settings')"
 					>
-						<image class="fun-img" src="/res/mipmap/a10.png" />
+						<image class="fun-img" src="/common/mipmap/a10.png" />
 					</div>
 					<div
 						class="fun-item"
@@ -82,7 +82,7 @@
 						ontouchend="ht(0, 'v8')"
 						onclick="toRun('backlaunch')"
 					>
-						<image class="fun-img" src="/res/mipmap/a46.png" />
+						<image class="fun-img" src="/common/mipmap/a46.png" />
 					</div>
 					<div
 						class="fun-item"
@@ -91,7 +91,7 @@
 						ontouchend="ht(0, 'v9')"
 						onclick="exitApp()"
 					>
-						<image class="fun-img" src="/res/mipmap/a23.png" />
+						<image class="fun-img" src="/common/mipmap/a23.png" />
 					</div>
 				</div>
 				<div class="wgpro-gap-bottom" />
@@ -102,7 +102,7 @@
 
 <script>
 export default {
-	data: {
+	private: {
 		str1: "",
 		fc_v1: "#3c3c3c",
 		fc_v2: "#3c3c3c",
@@ -148,6 +148,6 @@ export default {
 </script>
 
 <style>
-@import "../../../res/style/index.css";
-@import "../../../res/style/wgpro.css";
+@import "../../../common/style/index.css";
+@import "../../../common/style/wgpro.css";
 </style>

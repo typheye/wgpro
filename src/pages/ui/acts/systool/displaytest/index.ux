@@ -12,7 +12,7 @@
 <script>
 import brightness from "@system.brightness";
 export default {
-	data: {
+	private: {
 		brightnessValue: 20,
 	},
 	onBackPress() {

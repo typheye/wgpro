@@ -18,7 +18,7 @@
 						onclick="toRun('taccount')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a70.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a70.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -37,7 +37,7 @@
 						onclick="toRun('tserver')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a32.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a32.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -58,7 +58,7 @@
 						onclick="toRun('textdisplay')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a69.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a69.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -77,7 +77,7 @@
 						onclick="toRun('filemanger')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a66.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a66.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -96,7 +96,7 @@
 						onclick="toRun('browser')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a40.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a40.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -117,7 +117,7 @@
 						onclick="toRun('appinfo')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a65.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a65.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -136,7 +136,7 @@
 						onclick="toRun('polinfo')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a45.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a45.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -155,7 +155,7 @@
 					ontouchend="ht(-1, 'p0v0')"
 					onclick="toBack()"
 				>
-					<img class="exit-choose-img" src="/res/mipmap/a23.png" />
+					<img class="exit-choose-img" src="/common/mipmap/a23.png" />
 				</div>
 				<div class="wgpro-gap-bottom" />
 			</div>
@@ -165,7 +165,7 @@
 
 <script>
 export default {
-	data: {
+	private: {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
@@ -231,6 +231,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

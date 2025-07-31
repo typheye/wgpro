@@ -14,12 +14,16 @@
   },
   "devDependencies": {
     "@aiot-toolkit/velasim": "^0.1.23",
-    "aiot-toolkit": "^2.0.3",
+    "aiot-toolkit": "^2.0.5",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-plugin-ux": "^0.0.4"
   },
   "browserslist": [
     "chrome 65"
-  ]
+  ],
+  "dependencies": {
+    "less": "^4.4.0",
+    "less-loader": "^12.3.0"
+  }
 }

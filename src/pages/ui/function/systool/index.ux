@@ -12,7 +12,7 @@
 						>
 							<image
 								class="wgpro-icodiv-back2-logo"
-								src="/res/mipmap/a39.png"
+								src="/common/mipmap/a39.png"
 							/>
 							<text class="wgpro-icodiv-text2">
 								{{ $t("display.systool.tabtext") }}
@@ -28,7 +28,7 @@
 					onclick="toRun('sysinfo')"
 				>
 					<div class="wgpro-item2-left">
-						<img class="wgpro-item-left-icon" src="/res/mipmap/a10.png" />
+						<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 					</div>
 					<div class="wgpro-item2-texts">
 						<marquee class="wgpro-item2-texts-text">
@@ -48,7 +48,7 @@
 					onclick="toRun('storagesize')"
 				>
 					<div class="wgpro-item2-left">
-						<img class="wgpro-item-left-icon" src="/res/mipmap/a18.png" />
+						<img class="wgpro-item-left-icon" src="/common/mipmap/a18.png" />
 					</div>
 					<div class="wgpro-item2-texts">
 						<marquee class="wgpro-item2-texts-text">
@@ -68,7 +68,7 @@
 					onclick="toRun('displaytest')"
 				>
 					<div class="wgpro-item2-left">
-						<img class="wgpro-item-left-icon" src="/res/mipmap/a46.png" />
+						<img class="wgpro-item-left-icon" src="/common/mipmap/a46.png" />
 					</div>
 					<div class="wgpro-item2-texts">
 						<marquee class="wgpro-item2-texts-text">
@@ -87,7 +87,7 @@
 					ontouchend="ht(0, 'p0v0')"
 					onclick="toBack()"
 				>
-					<img class="exit-choose2-img" src="/res/mipmap/a23.png" />
+					<img class="exit-choose2-img" src="/common/mipmap/a23.png" />
 				</div>
 				<div class="wgpro-gap-bottom" />
 			</div>
@@ -98,7 +98,7 @@
 <script>
 import device from "@system.device";
 export default {
-	data: {
+	private: {
 		itc_p0v1: "#32618D",
 		itc_p0v0: "rgba(255,255,255,0.5)",
 		itc_p1v1: "rgba(255,255,255,0.5)",
@@ -185,6 +185,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

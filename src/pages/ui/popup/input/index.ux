@@ -1,0 +1,136 @@
+<import
+	name="input-method"
+	src="../../../../common/components/InputMethod/InputMethod.ux"
+></import>
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab" onclick="toBackInput">
+			<text class="tab-back">{{ exitext }}</text>
+			<marquee class="tab-text"></marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="text-div" style="border: 4px solid {{ fc_v0 }}">
+			<marquee class="text" @click="changeState">{{ textValue }}_</marquee>
+		</div>
+		<div class="stack-div">
+			<div class="exit-choose">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
+					onclick="toBack"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+		<input-method
+			hide="{{ hide }}"
+			keyboardtype="{{ keyboardtype }}"
+			maxlength="5"
+			vibratemode="{{ vibratemode }}"
+			screentype="{{ screentype }}"
+			@visibility-change="onVisibilityChange"
+			@key-down="onKeyDown"
+			@delete="onDelete"
+			@complete="onComplete"
+		></input-method>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		exitext: "‹",
+		fc_v0: "#32618D",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		textValue: "",
+		hide: false,
+		keyboardtype: "QWERTY", //QWERTY, T9
+		vibratemode: "short",
+		screentype: "circle", //pill-shaped, rect, circle
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		if (!this.hide) {
+			this.$app.$def.shortVib(true);
+			this.hide = !this.hide;
+		} else this.$app.$def.toCancel(false);
+		return true;
+	},
+	onVisibilityChange(evt) {
+		//console.log("显示状态变更:" + JSON.stringify(evt));
+		if (!this.hide) {
+			this.fc_v0 = "#32618D";
+			this.exitext = "‹";
+		} else {
+			this.fc_v0 = "#3c3c3c";
+			this.exitext = "";
+		}
+	},
+	onKeyDown(evt) {
+		// this.textValue += evt.detail.content;
+		//console.log("按下按键:" + JSON.stringify(evt));
+	},
+	onDelete() {
+		this.textValue = this.textValue.slice(0, -1);
+		//console.log("删除字符");
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toBackInput() {
+		if (!this.hide) {
+			this.hide = !this.hide;
+		}
+	},
+	changeState() {
+		this.hide = !this.hide;
+	},
+	onComplete(evt) {
+		this.textValue += evt.detail.content;
+		//console.log("返回字符:" + JSON.stringify(evt));
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+.stack-div {
+	width: 100%;
+	height: 70%;
+	display: flex;
+	align-items: flex-start;
+}
+.text {
+	width: 90%;
+	height: 80%;
+	text-align: left;
+	color: white;
+}
+.text-div {
+	width: 65%;
+	height: 15%;
+	color: white;
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 15px;
+	border: 4px solid #3c3c3c;
+}
+</style>

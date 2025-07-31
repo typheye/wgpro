@@ -8,7 +8,14 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout"></div>
+			<div class="wgpro-deflayout">
+				<input
+					class="button"
+					type="button"
+					value="Input"
+					@click="onButtonClick"
+				/>
+			</div>
 		</scroll>
 	</div>
 </template>
@@ -19,6 +26,9 @@ export default {
 		this.$app.$def.toCancel(true);
 		return true;
 	},
+	onButtonClick() {
+		this.$app.$def.goPage("/pages/ui/popup/input");
+	},
 	toBack() {
 		this.$app.$def.goBack();
 	},
@@ -26,6 +36,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

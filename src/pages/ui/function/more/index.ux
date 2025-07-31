@@ -28,6 +28,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

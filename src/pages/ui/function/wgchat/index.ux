@@ -1,80 +1,212 @@
 <template>
 	<div class="page">
 		<div class="tab" onclick="toBack">
-			<text class="tab-back">‹</text>
+			<text class="tab-back">{{ tabtextleft }}</text>
 			<marquee class="tab-text">
-				{{ $t("display.wgchat.tabtext") }}
+				{{ tabtext }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
-		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout">
-				<text class="wgpro-menu-text">• {{ $t("app.menu") }} •</text>
-				<list
-					class="wgpro-listlayout2"
-					bounces="false"
-					onscroll="onScroll"
-					onscrolltop="onScrollTop"
-					onscrollbottom="onScrollBottom"
-					onscrolltouchup="onScrollTouchup"
+		<div class="wgpro-frglayout" if="{{ isMenu }}">
+			<list
+				class="wgpro-listlayout3"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ chatroommenuList }}"
+					class="wgpro-item4"
+					type="item1"
+					style="height: 60px;background-color: {{ $item.color }};"
+					ontouchstart="htm(1, $item.num)"
+					ontouchend="htm(0, $item.num)"
+					onclick="toRunMenu($item.id)"
 				>
-					<list-item
-						for="{{ chatroomList }}"
-						class="wgpro-item3"
-						style="height: 100px"
-						type="item1"
+					<marquee
+						class="wgpro-item-texts-text2"
+						style="color: {{ $item.textcolor }};"
 					>
-						<div class="wgpro-item-left">
-							<div class="wgpro-item-left-ico-back">
-								<img class="wgpro-item-left-ico" src="/res/mipmap/a37.png" />
-							</div>
+						{{ $item.name }}
+					</marquee>
+				</list-item>
+			</list>
+		</div>
+		<div class="wgpro-frglayout" else>
+			<text class="wgpro-menu-text" onclick="opmenu(true)">
+				• {{ $t("app.menubtn") }} •
+			</text>
+			<list
+				class="wgpro-listlayout2"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ chatroomList }}"
+					class="wgpro-item3"
+					type="item1"
+					style="margin-top:{{ $item.h1 }};height: {{ $item.h0 }}px;background-color: {{ $item.color }};"
+					ontouchstart="ht(1, $item.num)"
+					ontouchend="ht(0, $item.num)"
+					onclick="toRun($item.id)"
+				>
+					<div class="wgpro-item-left" show="{{ $item.show }}">
+						<div class="wgpro-item-left-ico-back">
+							<img class="wgpro-item-left-ico" src="/common/mipmap/a37.png" />
 						</div>
-						<div class="wgpro-item-texts-none2">
-							<marquee class="wgpro-item-texts-text">
-								{{ $item.name }}
-							</marquee>
-						</div>
-					</list-item>
-				</list>
-			</div>
-		</scroll>
+					</div>
+					<div class="wgpro-item-texts-none2">
+						<marquee class="wgpro-item-texts-text">
+							{{ $item.name }}
+						</marquee>
+					</div>
+				</list-item>
+			</list>
+		</div>
 	</div>
 </template>
 
 <script>
 export default {
-	data: {
+	private: {
 		chatroomList: [
-			{ name: "聊天室1" },
-			{ name: "聊天室2" },
-			{ name: "聊天室3" },
-			{ name: "聊天室4" },
-			{ name: "聊天室5" },
-			{ name: "聊天室6" },
-			{ name: "聊天室7" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
 		],
-		itc_p1v1: "rgba(0,0,0,0)",
-		itc_p1v2: "rgba(0,0,0,0)",
-		itc_p1v3: "rgba(0,0,0,0)",
-		itc_p1v4: "rgba(0,0,0,0)",
-		itc_p2v1: "rgba(0,0,0,0)",
-		itc_p2v2: "rgba(0,0,0,0)",
+		chatroommenuList: [
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", textcolor: "", id: "", name: "" },
+		],
+		isMenu: false,
+		tabtext: "",
+		tabtextleft: "‹",
 	},
 	ht(t, i) {
-		if (t == 1) eval("this.itc_" + i + " = 'black'");
-		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+		if (t) eval("this.chatroomList[" + i + "]['color'] = 'black'");
+		else eval("this.chatroomList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	htm(t, i) {
+		if (t) eval("this.chatroommenuList[" + i + "]['color'] = 'black'");
+		else eval("this.chatroommenuList[" + i + "]['color'] = '#3c3c3c'");
 	},
 	onBackPress() {
-		this.$app.$def.toCancel(true);
+		if (!this.isMenu) this.$app.$def.toCancel(true);
+		else {
+			this.$app.$def.shortVib(true);
+			this.opmenu(false);
+		}
 		return true;
 	},
+	onInit() {
+		this.opmenu(false);
+	},
+	onReady() {
+		this.chatroomListReady();
+		this.chatroommenuListReady();
+	},
 	toBack() {
-		this.$app.$def.goBack();
+		if (!this.isMenu) this.$app.$def.goBack();
+	},
+	toRun(id) {
+		let needoffmenu = true;
+		if (id == "") needoffmenu = false;
+		else {
+			var v_uri = "";
+			if (id == "") v_uri = "/pages/ui/";
+			this.$app.$def.goPage(v_uri);
+		}
+	},
+	toRunMenu(id) {
+		let needoffmenu = true;
+		if (id == "") needoffmenu = false;
+		else if (id == "exit") {
+			needoffmenu = false;
+			this.$app.$def.goBack();
+		} else if (id == "back");
+		else if (id == "update");
+		else {
+			var v_uri = "";
+			if (id == "addroom") v_uri = "/pages/ui/";
+			if (id == "createroom") v_uri = "/pages/ui/";
+			if (id == "gosettings") v_uri = "/pages/ui/";
+			this.$app.$def.goPage(v_uri);
+		}
+		if (needoffmenu) this.opmenu(false);
+	},
+	opmenu(can) {
+		if (can) {
+			this.tabtext = this.$t("app.menu");
+			this.tabtextleft = "";
+			this.isMenu = true;
+		} else {
+			this.tabtext = this.$t("display.wgchat.tabtext");
+			this.tabtextleft = "‹";
+			this.isMenu = false;
+		}
+	},
+	chatroomListReady() {
+		let i = 0;
+		let tol = 10;
+		for (i; i < tol; i++) {
+			let inx = i + 1;
+			let name = "";
+			let id = "";
+			eval("name = this.$t('display.wgchat.p1.item" + inx + ".text')");
+			eval("id = this.$t('display.wgchat.p1.item" + inx + ".id')");
+			this.chatroomList[i]["num"] = i;
+			this.chatroomList[i]["color"] = "#3c3c3c";
+			this.chatroomList[i]["show"] = true;
+			if (name == "display.wgchat.p1.item" + inx + ".text") {
+				this.chatroomList[i]["h0"] = 0;
+				this.chatroomList[i]["h1"] = 0;
+			} else {
+				this.chatroomList[i]["h0"] = 100;
+				this.chatroomList[i]["h1"] = 10;
+				this.chatroomList[i]["id"] = id;
+				this.chatroomList[i]["name"] = name;
+			}
+		}
+	},
+	chatroommenuListReady() {
+		let i = 0;
+		let tol = 6;
+		for (i; i < tol; i++) {
+			let inx = i + 1;
+			let name = "";
+			let id = "";
+			eval("name = this.$t('menu.chatroomlist.item" + inx + ".name')");
+			eval("id = this.$t('menu.chatroomlist.item" + inx + ".id')");
+			this.chatroommenuList[i]["num"] = i;
+			this.chatroommenuList[i]["color"] = "#3c3c3c";
+			if (inx == tol) this.chatroommenuList[i]["textcolor"] = "red";
+			else this.chatroommenuList[i]["textcolor"] = "white";
+			this.chatroommenuList[i]["id"] = id;
+			this.chatroommenuList[i]["name"] = name;
+		}
 	},
 };
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

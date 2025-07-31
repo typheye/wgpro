@@ -2,12 +2,63 @@
     "app": {
         "name": "腕管Pro",
         "tips": "提示",
-        "menu": "打开菜单"
+        "menu": "菜单",
+        "menubtn": "打开菜单"
     },
     "tips": {
         "toNull": "敬请期待",
         "backLaunch" : "请按表冠键手动返回桌面",
         "fail": "异常"
+    },
+    "menu": {
+        "chatroomlist": {
+            "item1": {
+                "name": "刷新",
+                "id": "update"
+            },
+            "item2": {
+                "name": "添加房间",
+                "id": "addroom"
+            },
+            "item3": {
+                "name": "新建房间",
+                "id": "createroom"
+            },
+            "item4": {
+                "name": "设置",
+                "id": "gosettings"
+            },
+            "item5": {
+                "name": "退出",
+                "id": "exit"
+            },
+            "item6": {
+                "name": "返回",
+                "id": "back"
+            }
+        },
+        "pluginlist": {
+            "item1": {
+                "name": "刷新",
+                "id": "update"
+            },
+            "item2": {
+                "name": "添加扩展",
+                "id": "addplugin"
+            },
+            "item3": {
+                "name": "设置",
+                "id": "gosettings"
+            },
+            "item4": {
+                "name": "退出",
+                "id": "exit"
+            },
+            "item5": {
+                "name": "返回",
+                "id": "back"
+            }
+        }
     },
     "acts": {
         "settings": {
@@ -135,26 +186,44 @@
                     "text": "用户图片",
                     "subtext": "/storage/Pictures/"
                 }
-            },
-            "p2":{
-                "item1":{
-                    "text": "云端存储",
-                    "subtext": "0MB / 10MB"
-                },
-                "item2":{
-                    "text": "公共空间",
-                    "subtext": "Typheye Drive"
-                }
             }
         },
         "wgchat": {
-            "tabtext": "腕上微聊"
+            "tabtext": "腕上微聊",
+            "p1":{
+                "item1":{
+                    "text": "官方聊天室1",
+                    "id": "10000"
+                },
+                "item2":{
+                    "text": "官方聊天室2",
+                    "id": "10000"
+                },
+                "item3":{
+                    "text": "官方聊天室3",
+                    "id": "10000"
+                }
+            }
         },
         "browser": {
             "tabtext": "浏览器"
         },
         "plugin": {
-            "tabtext": "扩展插件"
+            "tabtext": "扩展插件",
+            "p1":{
+                "item1":{
+                    "text": "文本翻译",
+                    "id": "10000"
+                },
+                "item2":{
+                    "text": "扩展2",
+                    "id": "10000"
+                },
+                "item3":{
+                    "text": "扩展3",
+                    "id": "10000"
+                }
+            }
         },
         "more": {
             "tabtext": "更多功能",

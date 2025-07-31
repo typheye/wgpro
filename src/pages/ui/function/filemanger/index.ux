@@ -3,55 +3,53 @@
 		<div class="tab" onclick="toBack">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
-				{{ $t("display.more.tabtext") }}
+				{{ $t("display.filemanger.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
-		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout">
-				<list
-					class="wgpro-listlayout"
-					bounces="true"
-					onscroll="onScroll"
-					onscrolltop="onScrollTop"
-					onscrollbottom="onScrollBottom"
-					onscrolltouchup="onScrollTouchup"
-				>
-					<list-item
-						for="{{ chatroomList }}"
-						class="wgpro-item3"
-						style="height: 100px"
-						type="item1"
-					>
-						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/b5.png" />
-						</div>
-						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">
-								{{ $item.name }}
-							</marquee>
-							<marquee class="wgpro-item-texts-subtext">
-								{{ $item.price }}
-							</marquee>
-						</div>
-					</list-item>
-				</list>
-			</div>
-		</scroll>
+		<div class="wgpro-listlayout-gap"></div>
+		<list
+			class="wgpro-listlayout"
+			bounces="true"
+			onscroll="onScroll"
+			onscrolltop="onScrollTop"
+			onscrollbottom="onScrollBottom"
+			onscrolltouchup="onScrollTouchup"
+		>
+			<list-item
+				for="{{ pathmainList }}"
+				class="wgpro-item3"
+				type="item1"
+				style="height: 100px;background-color: {{ $item.color }};"
+				ontouchstart="ht(1, $item.num)"
+				ontouchend="ht(0, $item.num)"
+				onclick="toRun($item.id)"
+			>
+				<div class="wgpro-item-left" show="{{ $item.show }}">
+					<img class="wgpro-item-left-icon" src="/common/mipmap/b5.png" />
+				</div>
+				<div class="wgpro-item-texts-none">
+					<marquee class="wgpro-item-texts-text">
+						{{ $item.name }}
+					</marquee>
+					<marquee class="wgpro-item-texts-subtext">
+						{{ $item.path }}
+					</marquee>
+				</div>
+			</list-item>
+		</list>
 	</div>
 </template>
 
 <script>
 export default {
-	data: {
-		chatroomList: [
-			{ name: "文件夹1", price: "/path/to/1/" },
-			{ name: "文件夹2", price: "/path/to/2/" },
-			{ name: "文件夹3", price: "/path/to/3/" },
-			{ name: "文件夹4", price: "/path/to/4/" },
-			{ name: "文件夹5", price: "/path/to/5/" },
-			{ name: "文件夹6", price: "/path/to/6/" },
-			{ name: "文件夹7", price: "/path/to/7/" },
+	private: {
+		pathmainList: [
+			{ num: -1, color: "", show: false, id: "", name: "", path: "" },
+			{ num: -1, color: "", show: false, id: "", name: "", path: "" },
+			{ num: -1, color: "", show: false, id: "", name: "", path: "" },
+			{ num: -1, color: "", show: false, id: "", name: "", path: "" },
+			{ num: -1, color: "", show: false, id: "", name: "", path: "" },
 		],
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
@@ -61,12 +59,29 @@ export default {
 		itc_p2v2: "rgba(0,0,0,0)",
 	},
 	ht(t, i) {
-		if (t == 1) eval("this.itc_" + i + " = 'black'");
-		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+		if (t) eval("this.pathmainList[" + i + "]['color'] = 'black'");
+		else eval("this.pathmainList[" + i + "]['color'] = '#3c3c3c'");
 	},
 	onBackPress() {
 		this.$app.$def.toCancel(true);
 		return true;
+	},
+	onReady() {
+		let i = 0;
+		let tol = 4;
+		for (i; i < tol; i++) {
+			let inx = i + 1;
+			let name = "";
+			let path = "";
+			eval("name = this.$t('display.filemanger.p1.item" + inx + ".text')");
+			eval("path = this.$t('display.filemanger.p1.item" + inx + ".subtext')");
+			this.pathmainList[i]["num"] = i;
+			this.pathmainList[i]["color"] = "#3c3c3c";
+			this.pathmainList[i]["show"] = true;
+			this.pathmainList[i]["id"] = path;
+			this.pathmainList[i]["name"] = name;
+			this.pathmainList[i]["path"] = path;
+		}
 	},
 	toBack() {
 		this.$app.$def.goBack();
@@ -75,6 +90,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

@@ -17,7 +17,7 @@
 						ontouchend="ht(0, 'v1')"
 						onclick="toBack()"
 					>
-						<img class="exit-choose-img" src="/res/mipmap/a28.png" />
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
 					</div>
 				</div>
 				<div class="wgpro-gap-bottom" />
@@ -28,7 +28,7 @@
 
 <script>
 export default {
-	data: {
+	private: {
 		fc_v1: "#3c3c3c",
 		title: "",
 		text: "",
@@ -52,6 +52,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../res/style/index.css";
-@import "../../../../res/style/wgpro.css";
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
 </style>

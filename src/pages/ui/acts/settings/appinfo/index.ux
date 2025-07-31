@@ -15,7 +15,7 @@
 						onclick="clilogo"
 						onlongpress="lonlogo"
 					>
-						<image class="wgpro-icodiv-back-logo" src="/res/mipmap/ic_v.png" />
+						<image class="wgpro-icodiv-back-logo" src="/common/mipmap/ic_v.png" />
 					</div>
 					<text class="wgpro-icodiv-text">
 						{{ $t("app.name") }}
@@ -30,7 +30,7 @@
 						onclick="toRun('appabout')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a21.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a21.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -49,7 +49,7 @@
 						onclick="toRun('appactive')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a71.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a71.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -68,7 +68,7 @@
 						onclick="toRun('appupdate')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a36.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a36.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -87,7 +87,7 @@
 						onclick="toRun('appbackup')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a74.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a74.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -108,7 +108,7 @@
 						onclick="toRun('appedit')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a46.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a46.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -127,7 +127,7 @@
 						onclick="toRun('appreset')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a75.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a75.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -148,7 +148,7 @@
 						onclick="toRun('joinqqun')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/res/mipmap/a76.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a76.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -167,7 +167,7 @@
 					ontouchend="ht(-1, 'p0v0')"
 					onclick="toBack()"
 				>
-					<img class="exit-choose-img" src="/res/mipmap/a23.png" />
+					<img class="exit-choose-img" src="/common/mipmap/a23.png" />
 				</div>
 				<div class="wgpro-gap-bottom" />
 			</div>
@@ -177,7 +177,7 @@
 
 <script>
 export default {
-	data: {
+	private: {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
@@ -265,6 +265,6 @@ export default {
 </script>
 
 <style>
-@import "../../../../../res/style/index.css";
-@import "../../../../../res/style/wgpro.css";
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
 </style>

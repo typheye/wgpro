@@ -4,7 +4,7 @@
   "versionName": "2.0.0",
   "versionCode": 2507190,
   "minPlatformVersion": 1200,
-  "icon": "/res/mipmap/logo.png",
+  "icon": "/common/mipmap/logo.png",
   "simulationVersion": "default",
   "deviceTypeList": [
     "watch"
@@ -13,6 +13,9 @@
     { "name": "hapjs.permission.DEVICE_INFO" }
   ],
   "features": [
+    {
+      "name": "system.app"
+    },
     {
       "name": "system.router"
     },
@@ -34,7 +37,7 @@
   ],
   "config": {
     "logLevel": "log",
-    "designWidth": 466
+    "designWidth": 480
   },
   "router": {
     "entry": "pages/index",
@@ -56,6 +59,10 @@
         "component": "index"
       },
       "pages/ui/popup/showqr": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/input": {
         "launchMode": "singleTask",
         "component": "index"
       },
