@@ -6,14 +6,17 @@
 			<text class="tab-more"></text>
 		</div>
 		<div class="exit">
-			<text class="exit-tip-text">{{ $t("public.appexit") }}</text>
+			<text class="exit-tip-text">{{ $t("public.inittip") }}</text>
+			<a class="exit-tip-text-a" onclick="toPoli()">
+				{{ $t("public.initpoli") }}
+			</a>
 			<div class="exit-choose">
 				<div
 					class="exit-choose-value"
 					style="background-color: {{ fc_v1 }}"
 					ontouchstart="ht(1, 'v1')"
 					ontouchend="ht(0, 'v1')"
-					onclick="toBack()"
+					onclick="toExit()"
 				>
 					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
 				</div>
@@ -22,7 +25,7 @@
 					style="background-color: {{ fc_v2 }}"
 					ontouchstart="ht(1, 'v2')"
 					ontouchend="ht(0, 'v2')"
-					onclick="toExit()"
+					onclick="toLaunch()"
 				>
 					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
 				</div>
@@ -45,11 +48,19 @@ export default {
 		this.$app.$def.toCancel(false);
 		return true;
 	},
-	toBack() {
-		this.$app.$def.goBack();
+	toLaunch() {
+		this.$app.$def.settingsInit();
+		this.$app.$def.goReplacePage("/pages/ui/home");
 	},
 	toExit() {
 		this.$app.$def.toExit();
+	},
+	toPoli() {
+		this.$app.$def.toTipsWithQR(
+			this.$t("display.settings.run.polinfo.title"),
+			this.$t("display.settings.run.polinfo.text"),
+			this.$t("display.settings.run.polinfo.uri")
+		);
 	},
 };
 </script>

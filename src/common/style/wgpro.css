@@ -161,7 +161,10 @@
 }
 
 .wgpro-item-right-switch {
-	width: 100px;
+	width: 70px;
+	height: 40px;
+	thumb-color: white;
+	track-color: #32618D;
 }
 
 .wgpro-icodiv {

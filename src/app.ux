@@ -2,6 +2,7 @@
 import router from "@system.router";
 import vibrator from "@system.vibrator";
 import app from "@system.app";
+import storage from "@system.storage";
 export default {
 	onCreate() {
 		console.log("app created");
@@ -12,32 +13,32 @@ export default {
 	goBack() {
 		router.back();
 	},
-	goPage(muri) {
+	goPage(_uri) {
 		router.push({
-			uri: muri,
+			uri: _uri,
 		});
 	},
-	goReplacePage(muri) {
+	goReplacePage(_uri) {
 		router.replace({
-			uri: muri,
+			uri: _uri,
 		});
 	},
-	toTips(mtitle, mtext) {
+	toTips(_title, _text) {
 		router.push({
 			uri: "/pages/ui/popup/tips",
 			params: {
-				title: mtitle,
-				text: mtext,
+				title: _title,
+				text: _text,
 			},
 		});
 	},
-	toTipsWithQR(mtitle, mtext, muri) {
+	toTipsWithQR(_title, _text, _uri) {
 		router.push({
 			uri: "/pages/ui/popup/showqr",
 			params: {
-				title: mtitle,
-				text: mtext,
-				uri: muri,
+				title: _title,
+				text: _text,
+				uri: _uri,
 			},
 		});
 	},
@@ -55,10 +56,10 @@ export default {
 		return template.replace(/\${(\w+)}/g, (_, key) => data[key] || "");
 	},
 	shortVib(can) {
-		var mmode = "long";
-		if (can) mmode = "short";
+		var _mode = "long";
+		if (can) _mode = "short";
 		vibrator.vibrate({
-			mode: mmode,
+			mode: _mode,
 		});
 	},
 	formatDecimal(num, decimalPlaces = 1) {
@@ -66,6 +67,36 @@ export default {
 		const n = Math.max(0, Math.floor(decimalPlaces));
 		if (n === 0) return Math.round(num).toString();
 		return num.toFixed(n);
+	},
+	settingsInit() {
+		//wgsettings_init 初始化
+		this.settingsChange("wgsettings_init", "true");
+		//wgsettings_autoCheckUpdate 自动检测更新
+		this.settingsChange("wgsettings_autoCheckUpdate", "true");
+		//wgsettings_autoCheckUpdateIsShow 自动检测更新是否已经显示
+		this.settingsChange("wgsettings_autoCheckUpdateIsShow", "false");
+	},
+	settingsReset() {
+		storage.clear({
+			success: (data) => {
+				console.log("handling success");
+			},
+			fail: (data, code) => {
+				console.log(`handling fail, code = ${code}`);
+			},
+		});
+	},
+	settingsChange(_key, _data) {
+		storage.set({
+			key: _key,
+			value: _data + "",
+			success: (data) => {
+				console.log("handling success");
+			},
+			fail: (data, code) => {
+				console.log(`handling fail, code = ${code}`);
+			},
+		});
 	},
 };
 </script>

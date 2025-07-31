@@ -6,7 +6,7 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout" style="margin-top:10px;">
+			<div class="wgpro-deflayout" style="margin-top: 10px">
 				<div class="fun-list3">
 					<div
 						class="fun-item"
@@ -101,6 +101,8 @@
 </template>
 
 <script>
+import storage from "@system.storage";
+import fetch from "@system.fetch";
 export default {
 	private: {
 		str1: "",
@@ -113,6 +115,7 @@ export default {
 		fc_v7: "#3c3c3c",
 		fc_v8: "#3c3c3c",
 		fc_v9: "#3c3c3c",
+		isPopUpdate: false,
 	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
@@ -125,6 +128,7 @@ export default {
 	},
 	onInit() {
 		this.str1 = this.$t("tips.backLaunch");
+		this.updateCheck();
 	},
 	toRun(id) {
 		if (id == "backlaunch") {
@@ -142,7 +146,43 @@ export default {
 		}
 	},
 	exitApp() {
-		this.$app.$def.goReplacePage("/pages/ui/popup/exit");
+		this.$app.$def.goPage("/pages/ui/popup/exit");
+	},
+	updateCheck() {
+		//update check
+		storage.get({
+			key: "wgsettings_autoCheckUpdate",
+			success: (data) => {
+				if (data == "true") {
+					var appinfos = this.$app.$def.getAppinfo();
+					const myvercode = appinfos.versionCode;
+					fetch.fetch({
+						url: this.$t("public.serverURL") + "config.json",
+						responseType: "text",
+						success: (response) => {
+							//response.code, response.data, response.headers
+							const reqback = JSON.parse(response.data);
+							if (reqback["UpdateVersion"] > myvercode) {
+								storage.get({
+									key: "wgsettings_autoCheckUpdateIsShow",
+									success: (data) => {
+										if (data == "false") {
+											this.$app.$def.settingsChange(
+												"wgsettings_autoCheckUpdateIsShow",
+												"true"
+											);
+											this.$app.$def.goPage(
+												"/pages/ui/acts/settings/appupdate"
+											);
+										}
+									},
+								});
+							}
+						},
+					});
+				}
+			},
+		});
 	},
 };
 </script>

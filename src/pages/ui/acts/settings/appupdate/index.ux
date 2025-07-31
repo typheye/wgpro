@@ -1,0 +1,322 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack()">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("acts.settings.appupdate.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v1 }}"
+						ontouchstart="ht(1, 'p1v1')"
+						ontouchend="ht(0, 'p1v1')"
+						onclick="toRun('requpdateinfo')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a31.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appupdate.p1.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appupdate.p1.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v2 }}"
+						ontouchstart="ht(1, 'p1v2')"
+						ontouchend="ht(0, 'p1v2')"
+						onclick="toRun('')"
+					>
+						<div class="wgpro-item-left"></div>
+						<div class="wgpro-item-texts">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appupdate.p1.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.appupdate.p1.item2.subtext") }}
+							</marquee>
+						</div>
+						<div class="wgpro-item-right">
+							<switch
+								checked="{{ swit_it1_state }}"
+								onchange="switchange('wgsettings_autoCheckUpdate','swit_it1_state')"
+								class="wgpro-item-right-switch"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v1 }}"
+						ontouchstart="ht(1, 'p2v1')"
+						ontouchend="ht(0, 'p2v1')"
+						onclick="toRun('maginfo')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a53.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.appupdate.p2.item1.text") }}
+							</marquee>
+							<marquee
+								class="wgpro-item-texts-subtext"
+								style="color:{{ p2i1subtext_color }}"
+							>
+								{{ p2i1subtext }}
+							</marquee>
+						</div>
+					</div>
+					<div if="{{ hideInfo }}"></div>
+					<div style="flex-direction: column" else>
+						<div
+							class="wgpro-item"
+							style="background-color: {{ itc_p2v1s1 }}"
+							ontouchstart="ht(1, 'p2v1s1')"
+							ontouchend="ht(0, 'p2v1s1')"
+							onclick="toRun('')"
+						>
+							<div class="wgpro-item-left"></div>
+							<div class="wgpro-item-texts-none">
+								<marquee class="wgpro-item-texts-text">
+									{{ $t("acts.settings.appupdate.p2.item1.sub.item1.text") }}
+								</marquee>
+								<marquee class="wgpro-item-texts-subtext">
+									{{ p2i1si1subtext }}
+								</marquee>
+							</div>
+						</div>
+						<div
+							class="wgpro-item"
+							style="background-color: {{ itc_p2v1s2 }}"
+							ontouchstart="ht(1, 'p2v1s2')"
+							ontouchend="ht(0, 'p2v1s2')"
+							onclick="toRun('')"
+						>
+							<div class="wgpro-item-left"></div>
+							<div class="wgpro-item-texts-none">
+								<marquee class="wgpro-item-texts-text">
+									{{ $t("acts.settings.appupdate.p2.item1.sub.item2.text") }}
+								</marquee>
+								<marquee class="wgpro-item-texts-subtext">
+									{{ p2i1si2subtext }}
+								</marquee>
+							</div>
+						</div>
+						<div
+							class="wgpro-item"
+							style="background-color: {{ itc_p2v1s3 }}"
+							ontouchstart="ht(1, 'p2v1s3')"
+							ontouchend="ht(0, 'p2v1s3')"
+							onclick="toRun('')"
+						>
+							<div class="wgpro-item-left"></div>
+							<div class="wgpro-item-texts-none">
+								<marquee class="wgpro-item-texts-text">
+									{{ $t("acts.settings.appupdate.p2.item1.sub.item3.text") }}
+								</marquee>
+								<marquee class="wgpro-item-texts-subtext">
+									{{ p2i1si3subtext }}
+								</marquee>
+							</div>
+						</div>
+						<div
+							class="wgpro-item"
+							style="background-color: {{ itc_p2v1s4 }}"
+							ontouchstart="ht(1, 'p2v1s4')"
+							ontouchend="ht(0, 'p2v1s4')"
+							onclick="toRun('catupdateinfo')"
+						>
+							<div class="wgpro-item-left"></div>
+							<div class="wgpro-item-texts-none">
+								<marquee class="wgpro-item-texts-text">
+									{{ $t("acts.settings.appupdate.p2.item1.sub.item4.text") }}
+								</marquee>
+								<marquee class="wgpro-item-texts-subtext">
+									{{ p2i1si4subtext }}
+								</marquee>
+							</div>
+						</div>
+						<div if="{{ hideUpgrade }}"></div>
+						<div style="flex-direction: column" else>
+							<div
+								class="wgpro-item"
+								style="background-color: {{ itc_p2v1s5 }}"
+								ontouchstart="ht(1, 'p2v1s5')"
+								ontouchend="ht(0, 'p2v1s5')"
+								onclick="toRun('showupdateurl')"
+							>
+								<div class="wgpro-item-left">
+									<img
+										class="wgpro-item-left-icon"
+										src="/common/mipmap/a62.png"
+									/>
+								</div>
+								<div class="wgpro-item-texts-none">
+									<marquee class="wgpro-item-texts-text">
+										{{ $t("acts.settings.appupdate.p2.item1.sub.item5.text") }}
+									</marquee>
+									<marquee class="wgpro-item-texts-subtext">
+										{{
+											$t("acts.settings.appupdate.p2.item1.sub.item5.subtext")
+										}}
+									</marquee>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div
+					class="exit-choose-value"
+					style="margin-top:20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(-1, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import storage from "@system.storage";
+import fetch from "@system.fetch";
+export default {
+	private: {
+		itc_p0v0: "#3c3c3c",
+		itc_p1v1: "rgba(0,0,0,0)",
+		itc_p1v2: "rgba(0,0,0,0)",
+		itc_p2v1: "rgba(0,0,0,0)",
+		itc_p2v1s1: "rgba(0,0,0,0)",
+		itc_p2v1s2: "rgba(0,0,0,0)",
+		itc_p2v1s3: "rgba(0,0,0,0)",
+		itc_p2v1s4: "rgba(0,0,0,0)",
+		itc_p2v1s5: "rgba(0,0,0,0)",
+		p2i1subtext: "Loading...",
+		p2i1subtext_color: "#7b7b7b",
+		p2i1si1subtext: "Loading...",
+		p2i1si2subtext: "Loading...",
+		p2i1si3subtext: "Loading...",
+		p2i1si4subtext: "Loading...",
+		p2i1si4subtextinfo: "",
+		updateurl: "",
+		hideInfo: true,
+		hideUpgrade: true,
+		swit_it1_state: false,
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
+		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onReady() {
+		this.reqUpdateInfo();
+	},
+	onShow() {
+		this.switload();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRun(id) {
+		if (id == "requpdateinfo") this.reqUpdateInfo();
+		else if (id == "maginfo") this.hideInfo = !this.hideInfo;
+		else if (id == "catupdateinfo")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.appupdate.p2.item1.sub.item4.text"),
+				this.p2i1si4subtextinfo
+			);
+		else if (id == "showupdateurl")
+			this.$app.$def.toTipsWithQR(
+				this.$t("acts.settings.appupdate.p2.item1.sub.item5.text"),
+				this.$t("acts.settings.appupdate.p2.item1.sub.item5.subtext"),
+				this.updateurl
+			);
+	},
+	switload() {
+		storage.get({
+			key: "wgsettings_autoCheckUpdate",
+			success: (data) => {
+				if (data == "true") this.swit_it1_state = true;
+			},
+		});
+	},
+	switchange(key, id, e) {
+		const state = e["checked"];
+		eval("this." + id + " = " + state);
+		this.$app.$def.settingsChange(key, state);
+	},
+	reqUpdateInfo() {
+		this.hideUpgrade = true;
+		this.p2i1subtext = "loading...";
+		this.p2i1subtext_color = "#7b7b7b";
+		this.p2i1si1subtext = "loading...";
+		this.p2i1si2subtext = "loading...";
+		this.p2i1si3subtext = "loading...";
+		this.p2i1si4subtext = "loading...";
+		this.p2i1si4subtextinfo = "";
+		this.updateurl = "";
+		var appinfos = this.$app.$def.getAppinfo();
+		const myvercode = appinfos.versionCode;
+		fetch.fetch({
+			url: this.$t("public.serverURL") + "config.json",
+			responseType: "text",
+			success: (response) => {
+				//response.code, response.data, response.headers
+				const reqback = JSON.parse(response.data);
+				this.p2i1si1subtext = myvercode;
+				this.p2i1si2subtext = reqback["UpdateVersion"];
+				this.p2i1si3subtext = reqback["UpdateTime"];
+				this.p2i1si4subtext = this.$t("acts.settings.appupdate.toinfo");
+				this.p2i1si4subtextinfo = reqback["UpdateText"];
+				if (this.p2i1si2subtext > this.p2i1si1subtext) {
+					this.updateurl = reqback["UpdateUrl"];
+					this.hideUpgrade = false;
+					this.p2i1subtext_color = "#12a600";
+					this.p2i1subtext = this.$t("acts.settings.appupdate.haveupdate");
+				} else {
+					this.updateurl = "";
+					this.hideUpgrade = true;
+					this.p2i1subtext_color = "#7b7b7b";
+					this.p2i1subtext = this.$t("acts.settings.appupdate.noupdate");
+				}
+			},
+			fail: (data, code) => {
+				//data, code
+				const failtext = this.$t("acts.settings.appupdate.fail");
+				this.updateurl = "";
+				this.p2i1subtext = failtext;
+				this.p2i1subtext_color = "#3c3c3c";
+				this.p2i1si1subtext = failtext;
+				this.p2i1si2subtext = failtext;
+				this.p2i1si3subtext = failtext;
+				this.p2i1si4subtext = failtext;
+				this.p2i1si4subtextinfo = "";
+				this.hideUpgrade = true;
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

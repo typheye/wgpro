@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import storage from "@system.storage";
 export default {
 	onBackPress() {
 		this.$app.$def.toCancel(false);
@@ -14,7 +15,20 @@ export default {
 		setTimeout(this.launch(), 1000);
 	},
 	launch() {
-		this.$app.$def.goReplacePage("/pages/ui/home");
+		storage.get({
+			key: "wgsettings_init",
+			success: (data) => {
+				if (data == "true") {
+					this.$app.$def.settingsChange("wgsettings_autoCheckUpdateIsShow", "false");
+					this.$app.$def.goReplacePage("/pages/ui/home");
+				} else {
+					this.$app.$def.goReplacePage("/pages/ui/popup/init");
+				}
+			},
+			fail: (data) => {
+				this.$app.$def.goReplacePage("/pages/ui/popup/init");
+			},
+		});
 	},
 };
 </script>

@@ -33,6 +33,12 @@
     },
     {
       "name": "system.vibrator"
+    },
+    { 
+      "name": "system.fetch"
+    },
+    {
+      "name": "system.storage"
     }
   ],
   "config": {
@@ -47,6 +53,14 @@
         "component": "index"
       },
       "pages/ui/home": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/init": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/reset": {
         "launchMode": "singleTask",
         "component": "index"
       },
@@ -95,6 +109,10 @@
         "component": "index"
       },
       "pages/ui/acts/settings/appinfo": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/appupdate": {
         "launchMode": "singleTask",
         "component": "index"
       },

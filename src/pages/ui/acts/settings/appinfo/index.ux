@@ -15,7 +15,10 @@
 						onclick="clilogo"
 						onlongpress="lonlogo"
 					>
-						<image class="wgpro-icodiv-back-logo" src="/common/mipmap/ic_v.png" />
+						<image
+							class="wgpro-icodiv-back-logo"
+							src="/common/mipmap/ic_v.png"
+						/>
 					</div>
 					<text class="wgpro-icodiv-text">
 						{{ $t("app.name") }}
@@ -211,11 +214,6 @@ export default {
 				this.$t("acts.settings.appinfo.run.appactive.title"),
 				this.$t("acts.settings.appinfo.run.appactive.text")
 			);
-		else if (id == "appupdate")
-			this.$app.$def.toTips(
-				this.$t("acts.settings.appinfo.run.appupdate.title"),
-				this.$t("acts.settings.appinfo.run.appupdate.text")
-			);
 		else if (id == "appbackup")
 			this.$app.$def.toTips(
 				this.$t("acts.settings.appinfo.run.appbackup.title"),
@@ -226,17 +224,18 @@ export default {
 				this.$t("acts.settings.appinfo.run.appedit.title"),
 				this.$t("acts.settings.appinfo.run.appedit.text")
 			);
-		else if (id == "appreset")
-			this.$app.$def.toTips(
-				this.$t("acts.settings.appinfo.run.appreset.title"),
-				this.$t("acts.settings.appinfo.run.appreset.text")
-			);
 		else if (id == "joinqqun")
 			this.$app.$def.toTipsWithQR(
 				this.$t("acts.settings.appinfo.run.joinqqun.title"),
 				this.$t("acts.settings.appinfo.run.joinqqun.text"),
 				this.$t("acts.settings.appinfo.run.joinqqun.uri")
 			);
+		else {
+			var v_uri = "";
+			if (id == "appupdate") v_uri = "/pages/ui/acts/settings/appupdate";
+			if (id == "appreset") v_uri = "/pages/ui/popup/reset";
+			this.$app.$def.goPage(v_uri);
+		}
 	},
 	clilogo() {
 		this.eggsdj += 1;

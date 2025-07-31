@@ -133,6 +133,51 @@
                         "uri": "https://qm.qq.com/q/l9bdfqRmRW"
                     }
                 }
+            },
+            "appupdate": {
+                "tabtext": "应用更新",
+                "toinfo": "点击查看详情",
+                "fail": "加载异常...",
+                "haveupdate":"有新版本发布",
+                "noupdate":"已是最新版本",
+                "p1": {
+                    "item1": {
+                        "text": "检查更新",
+                        "subtext": "查看应用开发相关信息"
+                    },
+                    "item2": {
+                        "text": "自动检查",
+                        "subtext": "启动时检查更新"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "更新应用",
+                        "subtext": "Loading...",
+                        "sub":{
+                            "item1": {
+                                "text": "我的版本",
+                                "subtext": "Loading..."
+                            },
+                            "item2": {
+                                "text": "最新版本",
+                                "subtext": "Loading..."
+                            },
+                            "item3": {
+                                "text": "发布时间",
+                                "subtext": "Loading..."
+                            },
+                            "item4": {
+                                "text": "更新说明",
+                                "subtext": "Loading..."
+                            },
+                            "item5": {
+                                "text": "立即更新",
+                                "subtext": "点击扫描二维码更新"
+                            }
+                        }
+                    }
+                }
             }
         }
     },
@@ -296,7 +341,11 @@
         }
     },
     "public": {
+        "serverURL": "http://vela-service.typheye.com/app/com.typheye.wgpro/",
         "tip": "提示",
+        "inittip": "您是否已阅读并同意",
+        "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",
+        "initpoli": "《腕管Pro用户协议》",
         "comfirm": "确定",
         "cancel": "取消",
         "appexit": "您确定要退出软件吗?"
