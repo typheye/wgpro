@@ -274,7 +274,7 @@ export default {
 		this.p2i1si4subtextinfo = "";
 		this.updateurl = "";
 		var appinfos = this.$app.$def.getAppinfo();
-		const myvercode = appinfos.versionCode;
+		const myvercode = appinfos.versionCode.toString();
 		fetch.fetch({
 			url: this.$t("public.serverURL") + "config.json",
 			responseType: "text",
