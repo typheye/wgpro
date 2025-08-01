@@ -20,7 +20,7 @@
 					for="{{ chatroommenuList }}"
 					class="wgpro-item4"
 					type="item1"
-					style="background-color: {{ $item.color }};"
+					style="margin-top:{{ $item.h1 }};height: {{ $item.h0 }}px;background-color: {{ $item.color }};"
 					ontouchstart="htm(1, $item.num)"
 					ontouchend="htm(0, $item.num)"
 					onclick="toRunMenu($item.id)"
@@ -50,7 +50,7 @@
 					for="{{ chatroomList }}"
 					class="wgpro-item3"
 					type="item1"
-					style="background-color: {{ $item.color }};"
+					style="margin-top:{{ $item.h1 }};height: {{ $item.h0 }}px;background-color: {{ $item.color }};"
 					ontouchstart="ht(1, $item.num)"
 					ontouchend="ht(0, $item.num)"
 					onclick="toRun($item.id, $item.num)"
@@ -76,8 +76,28 @@
 import storage from "@system.storage";
 export default {
 	private: {
-		chatroomList: [],
-		chatroommenuList: [],
+		chatroomList: [
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+		],
+		chatroommenuList: [
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+		],
 		isMenu: false,
 		selectItemNum: -1,
 		menuflag: "def",
@@ -104,7 +124,7 @@ export default {
 	onInit() {
 		this.opmenu(false);
 	},
-	onReady() {
+	onShow() {
 		this.chatroomListReady();
 		this.chatroommenuListReady();
 	},
@@ -151,8 +171,12 @@ export default {
 					}
 				)
 			);
-		else if (id == "addroom"){
-			this.$app.$def.goReplacePage("/pages/ui/acts/wgchat/addroom");
+		else {
+			var v_uri = "";
+			if (id == "addroom") v_uri = "/pages/ui/acts/wgchat/addroom";
+			else if (id == "createroom") v_uri = "/pages/ui/";
+			else if (id == "gosettings") v_uri = "/pages/ui/";
+			this.$app.$def.goPage(v_uri);
 		}
 		this.menuflag = "def";
 		if (needoffmenu) this.opmenu(false);
@@ -170,56 +194,70 @@ export default {
 		}
 	},
 	chatroomListReady() {
-		this.chatroomList = [];
+		this.chatroomList = [
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
+		];
 		storage.get({
 			key: "wgsettings_wgchat_roomlist",
 			success: (data) => {
 				this.roomlistJSON = data;
 				const roomlist = JSON.parse(data);
-				console.log("sbsbsb roomlist.length = ", roomlist.length);
 				if (roomlist.length > 0) {
-					let tol = roomlist.length + 1; //1 个缓冲垫底
-					for (let i = 0; i < tol; i++) {
+					let i = 0;
+					let tol = 10;
+					for (i; i < tol; i++) {
 						let inx = i + 1;
-						let list_num = -1;
-						let list_color = "";
-						let list_show = false;
-						let list_id = "";
-						let list_name = "";
-						if (inx <= roomlist.length) {
+						if (inx > roomlist.length) {
+							this.chatroomList[i]["h0"] = 0;
+							this.chatroomList[i]["h1"] = 0;
+						} else {
 							let name = roomlist[i]["name"];
 							let id = roomlist[i]["id"];
-							list_num = i;
-							list_color = "#3c3c3c";
-							list_show = true;
-							list_id = id;
-							list_name = name;
+							this.chatroomList[i]["num"] = i;
+							this.chatroomList[i]["color"] = "#3c3c3c";
+							this.chatroomList[i]["show"] = true;
+							this.chatroomList[i]["h0"] = 100;
+							this.chatroomList[i]["h1"] = 10;
+							this.chatroomList[i]["id"] = id;
+							this.chatroomList[i]["name"] = name;
 						}
-						this.chatroomList.push({
-							num: list_num,
-							color: list_color,
-							show: list_show,
-							id: list_id,
-							name: list_name,
-						});
 					}
 				}
 			},
 		});
 	},
 	chatroommenuListReady() {
-		this.chatroommenuList = []; //清空
-		let menulistlen = 6; //默认菜单个数
-		if (this.menuflag == "item") menulistlen = 3; //房间菜单个数
-		let tol = menulistlen + 1; //1 个缓冲垫底
-		for (let i = 0; i < tol; i++) {
+		this.chatroommenuList = [
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+			{ num: -1, color: "", h0: 60, h1: 10, textcolor: "", id: "", name: "" },
+		];
+		let i = 0;
+		let tol = 6;
+		let menulistlen = tol;
+		if (this.menuflag == "item") menulistlen = 3;
+		for (i; i < tol; i++) {
 			let inx = i + 1;
-			let list_num = -1;
-			let list_color = "";
-			let list_textcolor = "";
-			let list_id = "";
-			let list_name = "";
-			if (inx <= menulistlen) {
+			if (inx > menulistlen) {
+				this.chatroommenuList[i]["h0"] = 0;
+				this.chatroommenuList[i]["h1"] = 0;
+			} else {
+				this.chatroommenuList[i]["h0"] = 60;
+				this.chatroommenuList[i]["h1"] = 10;
 				let name = "";
 				let id = "";
 				eval(
@@ -236,20 +274,13 @@ export default {
 						inx +
 						".id')"
 				);
-				list_num = i;
-				list_color = "#3c3c3c";
-				if (inx == menulistlen) list_textcolor = "red";
-				else list_textcolor = "white";
-				list_id = id;
-				list_name = name;
+				this.chatroommenuList[i]["num"] = i;
+				this.chatroommenuList[i]["color"] = "#3c3c3c";
+				if (inx == menulistlen) this.chatroommenuList[i]["textcolor"] = "red";
+				else this.chatroommenuList[i]["textcolor"] = "white";
+				this.chatroommenuList[i]["id"] = id;
+				this.chatroommenuList[i]["name"] = name;
 			}
-			this.chatroommenuList.push({
-				num: list_num,
-				color: list_color,
-				textcolor: list_textcolor,
-				id: list_id,
-				name: list_name,
-			});
 		}
 	},
 };

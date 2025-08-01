@@ -13,6 +13,12 @@ export default {
 	goBack() {
 		router.back();
 	},
+	goPageWithParams(_uri, _params) {
+		router.push({
+			uri: _uri,
+			params: _params,
+		});
+	},
 	goPage(_uri) {
 		router.push({
 			uri: _uri,
@@ -21,6 +27,12 @@ export default {
 	goReplacePage(_uri) {
 		router.replace({
 			uri: _uri,
+		});
+	},
+	goReplacePageWithParams(_uri, _params) {
+		router.replace({
+			uri: _uri,
+			params: _params,
 		});
 	},
 	toTips(_title, _text) {
@@ -68,13 +80,25 @@ export default {
 		if (n === 0) return Math.round(num).toString();
 		return num.toFixed(n);
 	},
+	taccountInit() {
+		//wgsettings_taccount_username Typheye账户Username
+		this.settingsChange("wgsettings_taccount_username", "");
+		//wgsettings_taccount_password Typheye账户Password
+		this.settingsChange("wgsettings_taccount_password", "");
+		//wgsettings_taccount_cookie Typheye账户Cookie
+		this.settingsChange("wgsettings_taccount_cookie", "");
+		//wgsettings_taccount_nick Typheye账户Nick
+		this.settingsChange("wgsettings_taccount_nick", "");
+		//wgsettings_taccount_nick Typheye账户Userinfo
+		this.settingsChange("wgsettings_taccount_userinfo", "");
+
+		//wgsettings_taccount_allowShare Typheye账户允许授权
+		this.settingsChange("wgsettings_taccount_allowShare", "false");
+	},
 	wgchatInit() {
 		const arr = [
-			{ id: "10000", name: "官方聊天室1" },
-			{ id: "10000", name: "官方聊天室2" },
-			{ id: "10000", name: "官方聊天室3" },
-			{ id: "10000", name: "官方聊天室4" },
-			{ id: "10000", name: "官方聊天室5" },
+			{ id: "10001", name: "官方聊天室" },
+			{ id: "10002", name: "用户反馈" },
 		];
 		const roomlist = JSON.stringify(arr, null);
 		//wgsettings_wgchat_roomlist 腕上微聊聊天室列表
@@ -89,13 +113,14 @@ export default {
 		this.settingsChange("wgsettings_autoCheckUpdateIsShow", "false");
 		//其他初始化
 		this.wgchatInit();
+		this.taccountInit();
 	},
 	settingsReset() {
 		storage.clear({
-			success: (data) => {
+			success: () => {
 				console.log("handling success");
 			},
-			fail: (data, code) => {
+			fail: (code) => {
 				console.log(`handling fail, code = ${code}`);
 			},
 		});
@@ -104,13 +129,21 @@ export default {
 		storage.set({
 			key: _key,
 			value: _data + "",
-			success: (data) => {
+			success: () => {
 				console.log("handling success");
 			},
-			fail: (data, code) => {
+			fail: (code) => {
 				console.log(`handling fail, code = ${code}`);
 			},
 		});
+	},
+	isNumeric(str) {
+		for (let i = 0; i < str.length; i++) {
+			if (str[i] < "0" || str[i] > "9") {
+				return false;
+			}
+		}
+		return str.length > 0; // 空字符串返回false
 	},
 };
 </script>

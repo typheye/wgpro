@@ -227,10 +227,8 @@ export default {
 		return true;
 	},
 	onReady() {
-		this.reqUpdateInfo();
-	},
-	onShow() {
 		this.switload();
+		this.reqUpdateInfo();
 	},
 	toBack() {
 		this.$app.$def.goBack();
@@ -298,7 +296,7 @@ export default {
 					this.p2i1subtext = this.$t("acts.settings.appupdate.noupdate");
 				}
 			},
-			fail: (data, code) => {
+			fail: () => {
 				//data, code
 				const failtext = this.$t("acts.settings.appupdate.fail");
 				this.updateurl = "";

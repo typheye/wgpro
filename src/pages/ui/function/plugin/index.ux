@@ -126,8 +126,7 @@ export default {
 		if (!this.isMenu) this.$app.$def.goBack();
 	},
 	toRun(id) {
-		let needoffmenu = true;
-		if (id == "") needoffmenu = false;
+		if (id == "");
 		else {
 			var v_uri = "";
 			if (id == "") v_uri = "/pages/ui/";

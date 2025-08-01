@@ -19,7 +19,10 @@
                 },
                 "item2": {
                     "name": "添加房间",
-                    "id": "addroom"
+                    "id": "addroom",
+                    "err1": "数据不能为空，且不能为非数字",
+                    "err2": "当前房间数量已达到最大限制，无法继续添加",
+                    "err3": "添加失败\n未连接网络或房间不存在"
                 },
                 "item3": {
                     "name": "新建房间",
@@ -195,6 +198,60 @@
                         }
                     }
                 }
+            },
+            "taccount": {
+                "tabtext": "Typheye账户",
+                "defname": "未登录",
+                "errname": "加载异常",
+                "uidtext": "账户UID",
+                "usernametext": "账户昵称",
+                "userinfotext": "账户简介",
+                "p1": {
+                    "item1": {
+                        "text": "账户简介",
+                        "subtext": "请先登录您的账户再操作"
+                    },
+                    "item2": {
+                        "text": "允许授权",
+                        "subtext": "允许将此账户授权至其他应用"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "更改昵称",
+                        "subtext": "点击更改账户昵称"
+                    },
+                    "item2": {
+                        "text": "更改简介",
+                        "subtext": "点击更改账户简介"
+                    }
+                },
+                "p3": {
+                    "item1": {
+                        "text": "退出登录",
+                        "subtext": "退出您的Typheye账户"
+                    },
+                    "item2": {
+                        "text": "账户注销",
+                        "subtext": "注销您的Typheye账户"
+                    }
+                }
+            },
+            "tacclogin": {
+                "tabtext": "账户登录",
+                "err1": "账户或密码不能为空",
+                "err2": "登录失败\n未连接到服务器",
+                "err3": "登录失败\n"
+            }
+        },
+        "wgchat": {
+            "room": {
+                "typeshow": {
+                    "photo": "[附件]图片",
+                    "audio": "[附件]音频",
+                    "video": "[附件]视频",
+                    "other": "[附件]文件"
+                }
             }
         }
     },
@@ -345,12 +402,14 @@
     },
     "public": {
         "serverURL": "http://vela-service.typheye.com/app/com.typheye.wgpro/",
+        "taccServerURL": "http://vela-service.typheye.com/",
         "tip": "提示",
         "inittip": "您是否已阅读并同意",
         "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",
         "initpoli": "《腕管Pro用户协议》",
         "comfirm": "确定",
         "cancel": "取消",
-        "appexit": "您确定要退出软件吗?"
+        "appexit": "您确定要退出软件吗?",
+        "tacclogout": "您确定要退出登录吗?"
     }
 }

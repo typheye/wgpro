@@ -189,13 +189,7 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		if (id == "taccount")
-			this.$app.$def.toTipsWithQR(
-				this.$t("display.settings.run.taccount.title"),
-				this.$t("display.settings.run.taccount.text"),
-				this.$t("display.settings.run.taccount.uri")
-			);
-		else if (id == "tserver")
+		if (id == "tserver")
 			this.$app.$def.toTips(
 				this.$t("display.settings.run.tserver.title"),
 				this.$t("display.settings.run.tserver.text")
@@ -223,7 +217,8 @@ export default {
 			);
 		else {
 			var v_uri = "";
-			if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
+			if (id == "taccount") v_uri = "/pages/ui/acts/settings/taccount";
+			else if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
 			this.$app.$def.goPage(v_uri);
 		}
 	},

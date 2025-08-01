@@ -80,6 +80,10 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/popup/tacclogout": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/function/systool": {
         "launchMode": "singleTask",
         "component": "index"
@@ -116,11 +120,27 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/settings/taccount": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tacclogin": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/systool/displaytest": {
         "launchMode": "singleTask",
         "component": "index"
       },
       "pages/ui/acts/systool/storagesize": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/addroom": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/room": {
         "launchMode": "singleTask",
         "component": "index"
       }

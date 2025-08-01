@@ -8,47 +8,16 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout">
-				<input
-					class="button"
-					type="button"
-					value="Input"
-					@click="onButtonClick"
-				/>
-				<input
-					class="button"
-					type="button"
-					value="Input"
-					@click="onButtonClick2"
-				/>
-			</div>
+			<div class="wgpro-deflayout"></div>
 		</scroll>
 	</div>
 </template>
 
 <script>
-import fetch from "@system.fetch";
 export default {
 	onBackPress() {
 		this.$app.$def.toCancel(true);
 		return true;
-	},
-	onButtonClick() {
-		this.$app.$def.goPage("/pages/ui/popup/input");
-	},
-	onButtonClick2() {
-		fetch.fetch({
-			url: this.$t("public.serverURL") + "config.json",
-			responseType: "text",
-			success: (response) => {
-				//response.code, response.data, response.headers
-				const info = JSON.parse(response.data);
-				this.$app.$def.toTips("back", info["UpdateVersion"]);
-			},
-			fail: (data, code) => {
-				//data, code
-			},
-		});
 	},
 	toBack() {
 		this.$app.$def.goBack();

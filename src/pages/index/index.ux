@@ -25,7 +25,7 @@ export default {
 					this.$app.$def.goReplacePage("/pages/ui/popup/init");
 				}
 			},
-			fail: (data) => {
+			fail: () => {
 				this.$app.$def.goReplacePage("/pages/ui/popup/init");
 			},
 		});

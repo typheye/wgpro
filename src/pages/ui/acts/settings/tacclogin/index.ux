@@ -1,0 +1,149 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ $t("acts.settings.tacclogin.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit">
+			<div
+				class="edittext2-div"
+				style="border: 4px solid {{ fc_v0 }}"
+				ontouchstart="ht(-1, 'v0')"
+				ontouchend="ht(0, 'v0')"
+				onclick="toEditText('username')"
+			>
+				<marquee class="edittext2" @click="changeState">
+					{{ inputValues.username }}
+				</marquee>
+			</div>
+			<div
+				class="edittext2-div"
+				style="border: 4px solid {{ fc_v0 }}"
+				ontouchstart="ht(-1, 'v0')"
+				ontouchend="ht(0, 'v0')"
+				onclick="toEditText('password')"
+			>
+				<marquee class="edittext2" @click="changeState">
+					{{ inputValues.password }}
+				</marquee>
+			</div>
+			<div class="exit-choose">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
+					onclick="toLaunch()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import fetch from "@system.fetch";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		textValues: "",
+		inputValues: { username: "", pasword: "" },
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onReady() {
+		this.inputReady();
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["username"] = TVs["username"];
+			this.inputValues["password"] = TVs["password"];
+		}
+	},
+	toLaunch() {
+		const usr = this.inputValues["username"];
+		const pwd = this.inputValues["password"];
+		if (!usr || !pwd)
+			this.$app.$def.toTips("", this.$t("acts.settings.tacclogin.err1"));
+		else {
+			fetch.fetch({
+				url: this.$t("public.taccServerURL") + "api.php?type=login",
+				data: { username: usr, password: pwd },
+				method: "POST",
+				responseType: "text",
+				success: (response) => {
+					if (response.code == 200) {
+						const reqback = JSON.parse(response.data);
+						if (reqback["code"] == 200) {
+							this.$app.$def.settingsChange(
+								"wgsettings_taccount_username",
+								reqback["data"]["uid"]
+							);
+							this.$app.$def.settingsChange(
+								"wgsettings_taccount_password",
+								pwd
+							);
+							this.$app.$def.settingsChange(
+								"wgsettings_taccount_cookie",
+								reqback["data"]["cookie"]
+							);
+							this.$app.$def.settingsChange(
+								"wgsettings_taccount_nick",
+								reqback["data"]["nick"]
+							);
+							this.$app.$def.settingsChange(
+								"wgsettings_taccount_userinfo",
+								reqback["data"]["shuo"]
+							);
+							this.toBack();
+						} else this.$app.$def.toTips("", reqback["data"]);
+					} else
+						this.$app.$def.toTips(
+							"",
+							this.$t("acts.settings.tacclogin.err3") + response.data
+						);
+				},
+				fail: () => {
+					this.$app.$def.toTips("", this.$t("acts.settings.tacclogin.err2"));
+				},
+			});
+		}
+	},
+	toBack() {
+		this.$app.$def.goReplacePage("/pages/ui/acts/settings/taccount");
+	},
+	toEditText(ti) {
+		this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
+			reqPage: "/pages/ui/acts/settings/tacclogin",
+			textValues: JSON.stringify(this.inputValues),
+			textIndex: ti,
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+</style>

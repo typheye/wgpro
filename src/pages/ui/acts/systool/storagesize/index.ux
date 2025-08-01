@@ -133,7 +133,7 @@ export default {
 	color: #32618d;
 	layer-color: #3c3c3c;
 	stroke-width: 50px;
-	start-angle: 270;
+	start-angle: 270deg;
 	total-angle: 180deg;
 }
 </style>

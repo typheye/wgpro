@@ -9,31 +9,10 @@
 			<marquee class="tab-text"></marquee>
 			<text class="tab-more"></text>
 		</div>
-		<div class="text-div" style="border: 4px solid {{ fc_v0 }}">
-			<marquee class="text" @click="changeState">{{ textValue }}_</marquee>
+		<div class="edittext-div" style="border: 4px solid {{ fc_v0 }}">
+			<marquee class="edittext" @click="changeState">{{ textValue }}_</marquee>
 		</div>
-		<div class="stack-div">
-			<div class="exit-choose">
-				<div
-					class="exit-choose-value"
-					style="background-color: {{ fc_v1 }}"
-					ontouchstart="ht(1, 'v1')"
-					ontouchend="ht(0, 'v1')"
-					onclick="toBack()"
-				>
-					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
-				</div>
-				<div
-					class="exit-choose-value"
-					style="background-color: {{ fc_v2 }}"
-					ontouchstart="ht(1, 'v2')"
-					ontouchend="ht(0, 'v2')"
-					onclick="toBack"
-				>
-					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
-				</div>
-			</div>
-		</div>
+		<div class="edittext-stack-div"></div>
 		<input-method
 			hide="{{ hide }}"
 			keyboardtype="{{ keyboardtype }}"
@@ -51,12 +30,15 @@
 <script>
 export default {
 	private: {
-		exitext: "‹",
+		exitext: "",
 		fc_v0: "#32618D",
 		fc_v1: "#3c3c3c",
 		fc_v2: "#3c3c3c",
 		textValue: "",
+		textValues: "",
+		textIndex: "",
 		hide: false,
+		reqPage: "",
 		keyboardtype: "QWERTY", //QWERTY, T9
 		vibratemode: "short",
 		screentype: "circle", //pill-shaped, rect, circle
@@ -69,20 +51,27 @@ export default {
 		if (!this.hide) {
 			this.$app.$def.shortVib(true);
 			this.hide = !this.hide;
-		} else this.$app.$def.toCancel(false);
+		} else {
+			this.$app.$def.shortVib(true);
+			this.toBack();
+		}
 		return true;
 	},
-	onVisibilityChange(evt) {
+	onReady() {
+		const TVs = JSON.parse(this.textValues);
+		if (TVs[this.textIndex]) this.textValue = TVs[this.textIndex];
+	},
+	onVisibilityChange() {
 		//console.log("显示状态变更:" + JSON.stringify(evt));
 		if (!this.hide) {
 			this.fc_v0 = "#32618D";
-			this.exitext = "‹";
+			this.exitext = "";
 		} else {
 			this.fc_v0 = "#3c3c3c";
-			this.exitext = "";
+			this.exitext = "‹";
 		}
 	},
-	onKeyDown(evt) {
+	onKeyDown() {
 		// this.textValue += evt.detail.content;
 		//console.log("按下按键:" + JSON.stringify(evt));
 	},
@@ -91,12 +80,16 @@ export default {
 		//console.log("删除字符");
 	},
 	toBack() {
-		this.$app.$def.goBack();
+		const TVs = JSON.parse(this.textValues);
+		TVs[this.textIndex] = this.textValue;
+		this.textValues = JSON.stringify(TVs);
+		this.$app.$def.goReplacePageWithParams(this.reqPage, {
+			textValues: this.textValues,
+		});
 	},
 	toBackInput() {
-		if (!this.hide) {
-			this.hide = !this.hide;
-		}
+		if (!this.hide) this.hide = !this.hide;
+		else this.toBack();
 	},
 	changeState() {
 		this.hide = !this.hide;
@@ -110,27 +103,4 @@ export default {
 
 <style>
 @import "../../../../common/style/index.css";
-.stack-div {
-	width: 100%;
-	height: 70%;
-	display: flex;
-	align-items: flex-start;
-}
-.text {
-	width: 90%;
-	height: 80%;
-	text-align: left;
-	color: white;
-}
-.text-div {
-	width: 65%;
-	height: 15%;
-	color: white;
-	border-radius: 30px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	border-radius: 15px;
-	border: 4px solid #3c3c3c;
-}
 </style>

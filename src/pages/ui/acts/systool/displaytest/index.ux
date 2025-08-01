@@ -33,7 +33,9 @@ export default {
 	},
 	onReady() {
 		brightness.getValue({
-			success: this.savebv(data),
+			success: (data) => {
+				this.brightnessValue = data.value;
+			},
 		});
 		brightness.setMode({
 			mode: 0,
@@ -44,9 +46,6 @@ export default {
 		brightness.setKeepScreenOn({
 			keepScreenOn: true,
 		});
-	},
-	savebv(data) {
-		this.brightnessValue = data.value;
 	},
 };
 </script>
@@ -77,8 +76,8 @@ export default {
 .swiper {
 	width: 100%;
 	height: 100%;
-	indicator-color: rgba(0,0,0,0);
-	indicator-selected-color: rgba(0,0,0,0);
+	indicator-color: rgba(0, 0, 0, 0);
+	indicator-selected-color: rgba(0, 0, 0, 0);
 	flex-direction: column;
 }
 </style>
