@@ -8,8 +8,8 @@
 
 		<!-- 状态显示 -->
 		<div class="status-bar">
-			<text>存储状态: {{ storageStatus }}</text>
-			<text>文件路径: internal://files/storage.bin</text>
+			<text class="status-bar-text">存储状态: {{ storageStatus }}</text>
+			<text class="status-bar-text">文件路径: internal://files/storage.bin</text>
 		</div>
 
 		<!-- 操作按钮区域 -->
@@ -61,16 +61,14 @@
 		<!-- 存储内容显示区域 -->
 		<div class="storage-container">
 			<text class="storage-title">当前存储内容:</text>
-			<scroll class="log-content" scroll-y="true">
 				<text class="storage-content">{{ storageContent }}</text>
-			</scroll>
 		</div>
 
 		<!-- 日志区域 -->
 		<div class="log-container">
 			<text class="log-title">操作日志:</text>
 			<scroll class="log-content" scroll-y="true">
-				<text for="{{ logs }}">{{ $item }}</text>
+				<text class="log-content-text" for="{{ logs }}">{{ $item }}</text>
 			</scroll>
 		</div>
 	</div>
@@ -109,7 +107,7 @@
 	margin-bottom: 20px;
 }
 
-.status-bar text {
+.status-bar-text {
 	font-size: 24px;
 	color: #444;
 	margin: 5px 0;
@@ -186,7 +184,7 @@
 	flex-direction: column;
 }
 
-.log-content text {
+.log-content-text {
 	font-size: 22px;
 	color: #666;
 	line-height: 36px;

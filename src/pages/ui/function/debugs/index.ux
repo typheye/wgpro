@@ -19,8 +19,8 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug1-1</marquee>
-							<marquee class="wgpro-item-texts-subtext">storage test</marquee>
+							<marquee class="wgpro-item-texts-text">Debug</marquee>
+							<marquee class="wgpro-item-texts-subtext">Debug 1-1</marquee>
 						</div>
 					</div>
 					<div
@@ -34,8 +34,8 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug1-2</marquee>
-							<marquee class="wgpro-item-texts-subtext">text</marquee>
+							<marquee class="wgpro-item-texts-text">Debug</marquee>
+							<marquee class="wgpro-item-texts-subtext">Debug 1-2</marquee>
 						</div>
 					</div>
 				</div>
@@ -51,8 +51,8 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug2-1</marquee>
-							<marquee class="wgpro-item-texts-subtext">text</marquee>
+							<marquee class="wgpro-item-texts-text">Debug</marquee>
+							<marquee class="wgpro-item-texts-subtext">Debug 2-1</marquee>
 						</div>
 					</div>
 				</div>
