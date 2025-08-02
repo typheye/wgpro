@@ -2,7 +2,7 @@
 import router from "@system.router";
 import vibrator from "@system.vibrator";
 import app from "@system.app";
-import storage from "@system.storage";
+import storage from "./common/scripts/storage.js";
 export default {
 	onCreate() {
 		console.log("app created");
@@ -80,40 +80,8 @@ export default {
 		if (n === 0) return Math.round(num).toString();
 		return num.toFixed(n);
 	},
-	taccountInit() {
-		//wgsettings_taccount_username Typheye账户Username
-		this.settingsChange("wgsettings_taccount_username", "");
-		//wgsettings_taccount_password Typheye账户Password
-		this.settingsChange("wgsettings_taccount_password", "");
-		//wgsettings_taccount_cookie Typheye账户Cookie
-		this.settingsChange("wgsettings_taccount_cookie", "");
-		//wgsettings_taccount_nick Typheye账户Nick
-		this.settingsChange("wgsettings_taccount_nick", "");
-		//wgsettings_taccount_nick Typheye账户Userinfo
-		this.settingsChange("wgsettings_taccount_userinfo", "");
-
-		//wgsettings_taccount_allowShare Typheye账户允许授权
-		this.settingsChange("wgsettings_taccount_allowShare", "false");
-	},
-	wgchatInit() {
-		const arr = [
-			{ id: "10001", name: "官方聊天室" },
-			{ id: "10002", name: "用户反馈" },
-		];
-		const roomlist = JSON.stringify(arr, null);
-		//wgsettings_wgchat_roomlist 腕上微聊聊天室列表
-		this.settingsChange("wgsettings_wgchat_roomlist", roomlist);
-	},
 	settingsInit() {
-		//wgsettings_init 初始化
 		this.settingsChange("wgsettings_init", "true");
-		//wgsettings_autoCheckUpdate 自动检测更新
-		this.settingsChange("wgsettings_autoCheckUpdate", "true");
-		//wgsettings_autoCheckUpdateIsShow 自动检测更新是否已经显示
-		this.settingsChange("wgsettings_autoCheckUpdateIsShow", "false");
-		//其他初始化
-		this.wgchatInit();
-		this.taccountInit();
 	},
 	settingsReset() {
 		storage.clear({
@@ -130,7 +98,7 @@ export default {
 			key: _key,
 			value: _data + "",
 			success: () => {
-				console.log("handling success");
+				console.log(`设置成功: ${this.key} = ${this.value}`);
 			},
 			fail: (code) => {
 				console.log(`handling fail, code = ${code}`);

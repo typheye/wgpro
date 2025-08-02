@@ -101,7 +101,7 @@
 </template>
 
 <script>
-import storage from "@system.storage";
+import storage from "../../../common/scripts/storage.js";
 import fetch from "@system.fetch";
 export default {
 	private: {

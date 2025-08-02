@@ -45,7 +45,7 @@
 
 <script>
 import fetch from "@system.fetch";
-import storage from "@system.storage";
+import storage from "../../../../../common/scripts/storage.js";
 export default {
 	private: {
 		fc_v0: "#3c3c3c",

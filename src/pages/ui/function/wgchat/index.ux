@@ -74,7 +74,7 @@
 
 <script>
 import file from "@system.file";
-import storage from "@system.storage";
+import storage from "../../../../common/scripts/storage.js";
 export default {
 	private: {
 		chatroomList: [],
@@ -107,8 +107,8 @@ export default {
 		this.opmenu(false);
 	},
 	onReady() {
-		this.chatroomListReady();
 		this.chatroommenuListReady();
+		this.chatroomListReady();
 	},
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();
@@ -135,13 +135,14 @@ export default {
 			needoffmenu = false;
 			this.$app.$def.goBack();
 		} else if (id == "back");
-		else if (id == "update") this.chatroomListReady();
+		else if (id == "update")
+			this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
 		else if (id == "delroom") {
 			var roomlist = JSON.parse(this.roomlistJSON);
 			roomlist.splice(this.selectItemNum, 1);
 			roomlist = JSON.stringify(roomlist, null);
 			this.$app.$def.settingsChange("wgsettings_wgchat_roomlist", roomlist);
-			this.chatroomListReady();
+			this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
 		} else if (id == "clearchatdb") {
 			file.delete({
 				uri: this.roomDB + this.chatroomList[this.selectItemNum]["id"],
@@ -179,13 +180,12 @@ export default {
 		}
 	},
 	chatroomListReady() {
-		this.chatroomList = [];
 		storage.get({
 			key: "wgsettings_wgchat_roomlist",
 			success: (data) => {
+				var chatroomListNew = [];
 				this.roomlistJSON = data;
 				const roomlist = JSON.parse(data);
-				console.log("sbsbsb roomlist.length = ", roomlist.length);
 				if (roomlist.length > 0) {
 					let tol = roomlist.length + 1; //1 个缓冲垫底
 					for (let i = 0; i < tol; i++) {
@@ -204,7 +204,7 @@ export default {
 							list_id = id;
 							list_name = name;
 						}
-						this.chatroomList.push({
+						chatroomListNew.push({
 							num: list_num,
 							color: list_color,
 							show: list_show,
@@ -213,6 +213,7 @@ export default {
 						});
 					}
 				}
+				this.chatroomList = chatroomListNew;
 			},
 		});
 	},

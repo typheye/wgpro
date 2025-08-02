@@ -23,7 +23,7 @@
 				style="height: 100px;background-color: {{ $item.color }};"
 				ontouchstart="ht(1, $item.num)"
 				ontouchend="ht(0, $item.num)"
-				onclick="toRun($item.id)"
+				onclick="toRun($item.name, $item.path)"
 			>
 				<div class="wgpro-item-left" show="{{ $item.show }}">
 					<img class="wgpro-item-left-icon" src="/common/mipmap/b5.png" />
@@ -59,6 +59,12 @@ export default {
 	},
 	toBack() {
 		this.$app.$def.goBack();
+	},
+	toRun(name, path) {
+		this.$app.$def.goPageWithParams("pages/ui/acts/filemanger/pathshow", {
+			pathName: name,
+			pathUri: path,
+		});
 	},
 	pathmainlistReady() {
 		this.pathmainList = [];

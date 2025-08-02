@@ -39,9 +39,6 @@
     },
     {
       "name": "system.file"
-    },
-    {
-      "name": "system.storage"
     }
   ],
   "config": {
@@ -115,6 +112,10 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/function/debugs": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/settings/appinfo": {
         "launchMode": "singleTask",
         "component": "index"
@@ -148,6 +149,14 @@
         "component": "index"
       },
       "pages/ui/acts/wgchat/pushmsg": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/pathshow": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/debugs/debug1": {
         "launchMode": "singleTask",
         "component": "index"
       }

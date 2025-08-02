@@ -65,7 +65,7 @@
 
 <script>
 import fetch from "@system.fetch";
-import storage from "@system.storage";
+import storage from "../../../../../common/scripts/storage.js";
 import file from "@system.file";
 export default {
 	private: {
