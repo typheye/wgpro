@@ -1,205 +1,28 @@
 <template>
 	<div class="page">
 		<div class="tab" onclick="toBack">
-			<text class="tab-back">{{ tabtextleft }}</text>
+			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
-				{{ tabtext }}
+				{{ $t("display.plugin.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
-		<div class="wgpro-frglayout" if="{{ isMenu }}">
-			<list
-				class="wgpro-listlayout3"
-				bounces="true"
-				onscroll="onScroll"
-				onscrolltop="onScrollTop"
-				onscrollbottom="onScrollBottom"
-				onscrolltouchup="onScrollTouchup"
-			>
-				<list-item
-					for="{{ pluginmenuList }}"
-					class="wgpro-item4"
-					type="item1"
-					style="height: 60px;background-color: {{ $item.color }};"
-					ontouchstart="htm(1, $item.num)"
-					ontouchend="htm(0, $item.num)"
-					onclick="toRunMenu($item.id)"
-				>
-					<marquee
-						class="wgpro-item-texts-text2"
-						style="color: {{ $item.textcolor }};"
-					>
-						{{ $item.name }}
-					</marquee>
-				</list-item>
-			</list>
-		</div>
-		<div class="wgpro-frglayout" else>
-			<text class="wgpro-menu-text" onclick="opmenu(true)">
-				• {{ $t("app.menubtn") }} •
-			</text>
-			<list
-				class="wgpro-listlayout2"
-				bounces="true"
-				onscroll="onScroll"
-				onscrolltop="onScrollTop"
-				onscrollbottom="onScrollBottom"
-				onscrolltouchup="onScrollTouchup"
-			>
-				<list-item
-					for="{{ pluginList }}"
-					class="wgpro-item3"
-					type="item1"
-					style="margin-top:{{ $item.h1 }};height: {{ $item.h0 }}px;background-color: {{ $item.color }};"
-					ontouchstart="ht(1, $item.num)"
-					ontouchend="ht(0, $item.num)"
-					onclick="toRun($item.id)"
-				>
-					<div class="wgpro-item-left" show="{{ $item.show }}">
-						<div class="wgpro-item-left-ico-back">
-							<img class="wgpro-item-left-ico" src="/common/mipmap/a37.png" />
-						</div>
-					</div>
-					<div class="wgpro-item-texts-none2">
-						<marquee class="wgpro-item-texts-text">
-							{{ $item.name }}
-						</marquee>
-					</div>
-				</list-item>
-			</list>
-		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ $t("tips.toNull") }}</text>
+			</div>
+		</scroll>
 	</div>
 </template>
 
 <script>
 export default {
-	private: {
-		pluginList: [
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-			{ num: -1, color: "", h0: 100, h1: 10, show: false, id: "", name: "" },
-		],
-		pluginmenuList: [
-			{ num: -1, color: "", textcolor: "", id: "", name: "" },
-			{ num: -1, color: "", textcolor: "", id: "", name: "" },
-			{ num: -1, color: "", textcolor: "", id: "", name: "" },
-			{ num: -1, color: "", textcolor: "", id: "", name: "" },
-			{ num: -1, color: "", textcolor: "", id: "", name: "" },
-			{ num: -1, color: "", textcolor: "", id: "", name: "" },
-		],
-		isMenu: false,
-		tabtext: "",
-		tabtextleft: "‹",
-	},
-	ht(t, i) {
-		if (t) eval("this.pluginList[" + i + "]['color'] = 'black'");
-		else eval("this.pluginList[" + i + "]['color'] = '#3c3c3c'");
-	},
-	htm(t, i) {
-		if (t) eval("this.pluginmenuList[" + i + "]['color'] = 'black'");
-		else eval("this.pluginmenuList[" + i + "]['color'] = '#3c3c3c'");
-	},
 	onBackPress() {
-		if (!this.isMenu) this.$app.$def.toCancel(true);
-		else {
-			this.$app.$def.shortVib(true);
-			this.opmenu(false);
-		}
+		this.$app.$def.toCancel(true);
 		return true;
 	},
-	onInit() {
-		this.opmenu(false);
-	},
-	onReady() {
-		this.pluginListReady();
-		this.pluginmenuListReady();
-	},
 	toBack() {
-		if (!this.isMenu) this.$app.$def.goBack();
-	},
-	toRun(id) {
-		if (id == "");
-		else {
-			var v_uri = "";
-			if (id == "") v_uri = "/pages/ui/";
-			this.$app.$def.goPage(v_uri);
-		}
-	},
-	toRunMenu(id) {
-		let needoffmenu = true;
-		if (id == "") needoffmenu = false;
-		else if (id == "exit") {
-			needoffmenu = false;
-			this.$app.$def.goBack();
-		} else if (id == "back");
-		else if (id == "update");
-		else {
-			var v_uri = "";
-			if (id == "addroom") v_uri = "/pages/ui/";
-			if (id == "createroom") v_uri = "/pages/ui/";
-			if (id == "gosettings") v_uri = "/pages/ui/";
-			this.$app.$def.goPage(v_uri);
-		}
-		if (needoffmenu) this.opmenu(false);
-	},
-	opmenu(can) {
-		if (can) {
-			this.tabtext = this.$t("app.menu");
-			this.tabtextleft = "";
-			this.isMenu = true;
-		} else {
-			this.tabtext = this.$t("display.plugin.tabtext");
-			this.tabtextleft = "‹";
-			this.isMenu = false;
-		}
-	},
-	pluginListReady() {
-		let i = 0;
-		let tol = 10;
-		for (i; i < tol; i++) {
-			let inx = i + 1;
-			let name = "";
-			let id = "";
-			eval("name = this.$t('display.plugin.p1.item" + inx + ".text')");
-			eval("id = this.$t('display.plugin.p1.item" + inx + ".id')");
-			this.pluginList[i]["num"] = i;
-			this.pluginList[i]["color"] = "#3c3c3c";
-			this.pluginList[i]["show"] = true;
-			if (name == "display.plugin.p1.item" + inx + ".text") {
-				this.pluginList[i]["h0"] = 0;
-				this.pluginList[i]["h1"] = 0;
-			} else {
-				this.pluginList[i]["h0"] = 100;
-				this.pluginList[i]["h1"] = 10;
-				this.pluginList[i]["id"] = id;
-				this.pluginList[i]["name"] = name;
-			}
-		}
-	},
-	pluginmenuListReady() {
-		let i = 0;
-		let tol = 5;
-		for (i; i < tol; i++) {
-			let inx = i + 1;
-			let name = "";
-			let id = "";
-			eval("name = this.$t('menu.pluginlist.item" + inx + ".name')");
-			eval("id = this.$t('menu.pluginlist.item" + inx + ".id')");
-			this.pluginmenuList[i]["num"] = i;
-			this.pluginmenuList[i]["color"] = "#3c3c3c";
-			if (inx == tol) this.pluginmenuList[i]["textcolor"] = "red";
-			else this.pluginmenuList[i]["textcolor"] = "white";
-			this.pluginmenuList[i]["id"] = id;
-			this.pluginmenuList[i]["name"] = name;
-		}
+		this.$app.$def.goBack();
 	},
 };
 </script>

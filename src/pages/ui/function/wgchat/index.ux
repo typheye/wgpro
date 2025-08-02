@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import file from "@system.file";
 import storage from "@system.storage";
 export default {
 	private: {
@@ -84,6 +85,7 @@ export default {
 		roomlistJSON: "",
 		tabtext: "",
 		tabtextleft: "‹",
+		roomDB: "internal://files/wgpro/chat/",
 	},
 	ht(t, i) {
 		if (t) eval("this.chatroomList[" + i + "]['color'] = 'black'");
@@ -140,6 +142,13 @@ export default {
 			roomlist = JSON.stringify(roomlist, null);
 			this.$app.$def.settingsChange("wgsettings_wgchat_roomlist", roomlist);
 			this.chatroomListReady();
+		} else if (id == "clearchatdb") {
+			file.delete({
+				uri: this.roomDB + this.chatroomList[this.selectItemNum]["id"],
+				success: () => this.$app.$def.toTips("", `true`),
+				fail: (code) =>
+					this.$app.$def.toTips("", `handling fail, code = ${code}`),
+			});
 		} else if (id == "roominfo")
 			this.$app.$def.toTips(
 				this.$t("menu.chatroomlist.item.item1.name"),
@@ -151,7 +160,7 @@ export default {
 					}
 				)
 			);
-		else if (id == "addroom"){
+		else if (id == "addroom") {
 			this.$app.$def.goReplacePage("/pages/ui/acts/wgchat/addroom");
 		}
 		this.menuflag = "def";
@@ -210,7 +219,7 @@ export default {
 	chatroommenuListReady() {
 		this.chatroommenuList = []; //清空
 		let menulistlen = 6; //默认菜单个数
-		if (this.menuflag == "item") menulistlen = 3; //房间菜单个数
+		if (this.menuflag == "item") menulistlen = 4; //房间菜单个数
 		let tol = menulistlen + 1; //1 个缓冲垫底
 		for (let i = 0; i < tol; i++) {
 			let inx = i + 1;

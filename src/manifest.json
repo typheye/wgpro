@@ -38,6 +38,9 @@
       "name": "system.fetch"
     },
     {
+      "name": "system.file"
+    },
+    {
       "name": "system.storage"
     }
   ],
@@ -141,6 +144,10 @@
         "component": "index"
       },
       "pages/ui/acts/wgchat/room": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/pushmsg": {
         "launchMode": "singleTask",
         "component": "index"
       }

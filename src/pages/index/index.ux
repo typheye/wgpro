@@ -19,7 +19,10 @@ export default {
 			key: "wgsettings_init",
 			success: (data) => {
 				if (data == "true") {
-					this.$app.$def.settingsChange("wgsettings_autoCheckUpdateIsShow", "false");
+					this.$app.$def.settingsChange(
+						"wgsettings_autoCheckUpdateIsShow",
+						"false"
+					);
 					this.$app.$def.goReplacePage("/pages/ui/home");
 				} else {
 					this.$app.$def.goReplacePage("/pages/ui/popup/init");

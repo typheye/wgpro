@@ -301,7 +301,7 @@ export default {
 				const failtext = this.$t("acts.settings.appupdate.fail");
 				this.updateurl = "";
 				this.p2i1subtext = failtext;
-				this.p2i1subtext_color = "#3c3c3c";
+				this.p2i1subtext_color = "#7b7b7b";
 				this.p2i1si1subtext = failtext;
 				this.p2i1si2subtext = failtext;
 				this.p2i1si3subtext = failtext;

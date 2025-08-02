@@ -8,7 +8,9 @@
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
-			<div class="wgpro-deflayout"></div>
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ $t("tips.toNull") }}</text>
+			</div>
 		</scroll>
 	</div>
 </template>

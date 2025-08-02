@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import device from "@system.device";
 export default {
 	private: {
 		exitext: "",
@@ -41,7 +42,7 @@ export default {
 		reqPage: "",
 		keyboardtype: "QWERTY", //QWERTY, T9
 		vibratemode: "short",
-		screentype: "circle", //pill-shaped, rect, circle
+		screentype: "rect", //pill-shaped, rect, circle
 	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
@@ -56,6 +57,11 @@ export default {
 			this.toBack();
 		}
 		return true;
+	},
+	onInit() {
+		device.getInfo({
+			success: (ret) => (this.screentype = ret.screenShape),
+		});
 	},
 	onReady() {
 		const TVs = JSON.parse(this.textValues);

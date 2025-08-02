@@ -118,7 +118,7 @@ export default {
 								reqback["data"]["shuo"]
 							);
 							this.toBack();
-						} else this.$app.$def.toTips("", reqback["data"]);
+						} else this.$app.$def.toTips("", reqback["msg"]);
 					} else
 						this.$app.$def.toTips(
 							"",
