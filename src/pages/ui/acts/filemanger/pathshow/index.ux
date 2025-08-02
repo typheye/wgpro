@@ -32,31 +32,17 @@ export default {
 		this.test();
 	},
 	test() {
-		storage.get({
-			key: "wgsettings_wgchat_roomlist",
-			success: (value) => {
-				this.logText = `wgsettings_wgchat_roomlist: ${value}`;
-			},
-			fail: () => {
-				this.logText = "获取存储内容失败";
-			},
-		});
-		/*file.list({
-			uri: this.pathUri + "wgpro/chat/",
+		file.list({
+			uri: this.pathUri,
 			success: (data) => {
-				console.log(
-					`handling suc, uri=${this.pathUri + "wgpro/chat/"} data.fileList = `
-				);
 				this.logText =
-					`handling suc, uri=${this.pathUri + "wgpro/chat/"} data.fileList = ` +
+					`handling success, uri=${this.pathUri}, data.fileList = \n` +
 					JSON.stringify(data.fileList);
 			},
 			fail: (data, code) => {
-				console.log(`handling fail, code = ${code}`);
-				this.logText = `handling fail, code = ${code}`;
+				this.logText = `handling fail, uri=${this.pathUri}, code = ${data}, code = ${code}`;
 			},
 		});
-		*/
 	},
 	toBack() {
 		this.$app.$def.goBack();
