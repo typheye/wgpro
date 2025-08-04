@@ -81,7 +81,7 @@ export default {
 		return num.toFixed(n);
 	},
 	settingsInit() {
-		this.settingsChange("wgsettings_init", "true");
+		this.settingsChange("wgsettings_init", true);
 	},
 	settingsReset() {
 		storage.clear({

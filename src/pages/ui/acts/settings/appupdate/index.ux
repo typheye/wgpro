@@ -252,7 +252,7 @@ export default {
 		storage.get({
 			key: "wgsettings_autoCheckUpdate",
 			success: (data) => {
-				if (data == "true") this.swit_it1_state = true;
+				if (data) this.swit_it1_state = true;
 			},
 		});
 	},

@@ -5,17 +5,17 @@ const FILE_PATH = "internal://files/storage.bin";
 class Storage {
   constructor() {
     this.defSettings = {
-      wgsettings_init: "false",
-      wgsettings_autoCheckUpdate: "true",
-      wgsettings_autoCheckUpdateIsShow: "false",
-      wgsettings_keyboardUseT9: "false",
-      wgsettings_keyboardUseLongVibrate: "false",
+      wgsettings_init: false,
+      wgsettings_autoCheckUpdate: true,
+      wgsettings_autoCheckUpdateIsShow: false,
+      wgsettings_keyboardUseT9: false,
+      wgsettings_keyboardUseLongVibrate: false,
       wgsettings_taccount_username: "",
       wgsettings_taccount_password: "",
       wgsettings_taccount_cookie: "",
       wgsettings_taccount_nick: "",
       wgsettings_taccount_userinfo: "",
-      wgsettings_taccount_allowShare: "false",
+      wgsettings_taccount_allowShare: false,
       wgsettings_wgchat_roomlist: JSON.stringify([
         { id: "10001", name: "官方聊天室" },
         { id: "10002", name: "用户反馈" },

@@ -168,7 +168,7 @@ export default {
 		storage.get({
 			key: "wgsettings_autoCheckUpdate",
 			success: (data) => {
-				if (data == "true") {
+				if (data) {
 					var appinfos = this.$app.$def.getAppinfo();
 					const myvercode = appinfos.versionCode;
 					fetch.fetch({

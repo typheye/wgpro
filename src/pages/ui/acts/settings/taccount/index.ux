@@ -230,8 +230,7 @@ export default {
 		storage.gets({
 			keys: ["wgsettings_taccount_cookie", "wgsettings_taccount_allowShare"],
 			success: (datas) => {
-				if (datas.wgsettings_taccount_allowShare == "true")
-					this.swit_it1_state = true;
+				if (datas.wgsettings_taccount_allowShare) this.swit_it1_state = true;
 				if (!datas.wgsettings_taccount_cookie) this.loginReady(false);
 				else this.loginReady(true);
 			},

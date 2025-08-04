@@ -100,9 +100,8 @@ export default {
 				success: (datas) => {
 					let _keyboardtype = "QWERTY";
 					let _vibratemode = "short";
-					if (datas.wgsettings_keyboardUseT9 == "true") _keyboardtype = "T9";
-					if (datas.wgsettings_keyboardUseLongVibrate == "true")
-						_vibratemode = "long";
+					if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
+					if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
 					this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
 						reqPage: "/pages/ui/function/debugs",
 						textValues: JSON.stringify({ test: "" }),

@@ -114,7 +114,7 @@ export default {
 				responseType: "text",
 				success: (response) => {
 					if (response.code == 200) {
-						if (response.data == "true") this.toBack();
+						if (response.data) this.toBack();
 						else
 							this.$app.$def.toTips(
 								"",

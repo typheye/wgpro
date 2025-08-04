@@ -108,10 +108,8 @@ export default {
 		storage.gets({
 			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
 			success: (datas) => {
-				if (datas.wgsettings_keyboardUseT9 == "true")
-					this.swit_it1_state = true;
-				if (datas.wgsettings_keyboardUseLongVibrate == "true")
-					this.swit_it2_state = true;
+				if (datas.wgsettings_keyboardUseT9) this.swit_it1_state = true;
+				if (datas.wgsettings_keyboardUseLongVibrate) this.swit_it2_state = true;
 			},
 		});
 	},
