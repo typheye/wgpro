@@ -9,10 +9,34 @@
 			<marquee class="tab-text"></marquee>
 			<text class="tab-more"></text>
 		</div>
-		<div class="edittext-div" style="border: 4px solid {{ fc_v0 }}">
-			<marquee class="edittext" @click="changeState">{{ textValue }}_</marquee>
+		<div
+			class="edittext-div"
+			style="border: 4px solid {{ fc_v0 }};"
+			@click="changeState"
+		>
+			<scroll id="text_scroll" scroll-x="true" class="edittext_scroll">
+				<text
+					id="textwidth"
+					style="width: {{ scroll_textwidth }}; height: 100%"
+					class="edittext"
+				>
+					{{ textValue }}_
+				</text>
+			</scroll>
 		</div>
-		<div class="edittext-stack-div"></div>
+		<div class="edittext-stack-div">
+			<div class="exit-choose2">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
 		<input-method
 			hide="{{ hide }}"
 			keyboardtype="{{ keyboardtype }}"
@@ -31,7 +55,7 @@
 import device from "@system.device";
 export default {
 	private: {
-		exitext: "",
+		exitext: "‹",
 		fc_v0: "#32618D",
 		fc_v1: "#3c3c3c",
 		fc_v2: "#3c3c3c",
@@ -43,19 +67,14 @@ export default {
 		keyboardtype: "QWERTY", //QWERTY, T9
 		vibratemode: "short",
 		screentype: "rect", //pill-shaped, rect, circle
+		scroll_textwidth: 50,
 	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
 	},
 	onBackPress() {
-		if (!this.hide) {
-			this.$app.$def.shortVib(true);
-			this.hide = !this.hide;
-		} else {
-			this.$app.$def.shortVib(true);
-			this.toBack();
-		}
+		this.$app.$def.toCancel(false);
 		return true;
 	},
 	onInit() {
@@ -66,15 +85,16 @@ export default {
 	onReady() {
 		const TVs = JSON.parse(this.textValues);
 		if (TVs[this.textIndex]) this.textValue = TVs[this.textIndex];
+		this.setTextWidth(true);
 	},
 	onVisibilityChange() {
 		//console.log("显示状态变更:" + JSON.stringify(evt));
 		if (!this.hide) {
 			this.fc_v0 = "#32618D";
-			this.exitext = "";
+			this.exitext = "‹";
 		} else {
 			this.fc_v0 = "#3c3c3c";
-			this.exitext = "‹";
+			this.exitext = "";
 		}
 	},
 	onKeyDown() {
@@ -84,6 +104,36 @@ export default {
 	onDelete() {
 		this.textValue = this.textValue.slice(0, -1);
 		//console.log("删除字符");
+		this.setTextWidth(false);
+	},
+	onComplete(evt) {
+		this.textValue += evt.detail.content;
+		this.setTextWidth(true);
+		//console.log("返回字符:" + JSON.stringify(evt));
+	},
+	setTextWidth(can) {
+		const calculateTextWidth = (str) => {
+			let totalWidth = 0;
+			for (let i = 0; i < str.length; i++) {
+				const charCode = str.charCodeAt(i);
+				if (charCode < 128) {
+					// ASCII字符，使用平均宽度18px
+					totalWidth += 18;
+				} else {
+					// 非ASCII字符（如中文），使用30px
+					totalWidth += 30;
+				}
+			}
+			return totalWidth;
+		};
+		let px = 50;
+		this.scroll_textwidth = calculateTextWidth(this.textValue + "_") + px;
+		let xy = this.scroll_textwidth;
+		if (!can) xy = 100000;
+		this.$element("text_scroll").scrollTo({
+			left: xy,
+			behavior: "instant",
+		});
 	},
 	toBack() {
 		const TVs = JSON.parse(this.textValues);
@@ -95,14 +145,9 @@ export default {
 	},
 	toBackInput() {
 		if (!this.hide) this.hide = !this.hide;
-		else this.toBack();
 	},
 	changeState() {
 		this.hide = !this.hide;
-	},
-	onComplete(evt) {
-		this.textValue += evt.detail.content;
-		//console.log("返回字符:" + JSON.stringify(evt));
 	},
 };
 </script>

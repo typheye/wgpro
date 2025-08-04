@@ -96,7 +96,7 @@ export default {
 	settingsChange(_key, _data) {
 		storage.set({
 			key: _key,
-			value: _data + "",
+			value: _data,
 			success: () => {
 				console.log(`设置成功: ${this.key} = ${this.value}`);
 			},
@@ -104,6 +104,30 @@ export default {
 				console.log(`handling fail, code = ${code}`);
 			},
 		});
+	},
+	settingsChangeMore(_key, _data) {
+		storage.sets({
+			keys: _key,
+			values: _data,
+			success: () => {
+				console.log(`设置成功:`);
+			},
+			fail: (code) => {
+				console.log(`handling fail, code = ${code}`);
+			},
+		});
+	},
+	taccountInit() {
+		this.settingsChangeMore(
+			[
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_password",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_nick",
+				"wgsettings_taccount_userinfo",
+			],
+			["", "", "", "", ""]
+		);
 	},
 	isNumeric(str) {
 		for (let i = 0; i < str.length; i++) {

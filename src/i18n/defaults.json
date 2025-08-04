@@ -82,6 +82,192 @@
                 "name": "返回",
                 "id": "back"
             }
+        },
+        "pathshowlist": {
+            "backpath": "返回上层目录",
+            "fileinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[大小]${size}\n\n[修改]\n${ltime}",
+            "def": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "新建目录",
+                    "id": "addpath"
+                },
+                "item3": {
+                    "name": "新建文件",
+                    "id": "addfile"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }, 
+            "itempath": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "新建目录",
+                    "id": "addpath"
+                },
+                "item3": {
+                    "name": "新建文件",
+                    "id": "addfile"
+                },
+                "item4": {
+                    "name": "复制",
+                    "id": "copy"
+                },
+                "item5": {
+                    "name": "剪切",
+                    "id": "copydel"
+                },
+                "item6": {
+                    "name": "剪切",
+                    "id": "delete"
+                },
+                "item7": {
+                    "name": "重命名",
+                    "id": "rename"
+                },
+                "item8": {
+                    "name": "属性",
+                    "id": "fileinfo"
+                },
+                "item9": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            },
+            "itemfile": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "新建目录",
+                    "id": "addpath"
+                },
+                "item3": {
+                    "name": "新建文件",
+                    "id": "addfile"
+                },
+                "item4": {
+                    "name": "打开方式",
+                    "id": "openway"
+                },
+                "item5": {
+                    "name": "复制",
+                    "id": "copy"
+                },
+                "item6": {
+                    "name": "剪切",
+                    "id": "copydel"
+                },
+                "item7": {
+                    "name": "剪切",
+                    "id": "delete"
+                },
+                "item8": {
+                    "name": "重命名",
+                    "id": "rename"
+                },
+                "item9": {
+                    "name": "属性",
+                    "id": "fileinfo"
+                },
+                "item10": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            },
+            "fileopenway": {
+                "item1": {
+                    "name": "文本",
+                    "id": "fow_text"
+                },
+                "item2": {
+                    "name": "图片",
+                    "id": "fow_photo"
+                },
+                "item3": {
+                    "name": "音频",
+                    "id": "fow_music"
+                },
+                "item4": {
+                    "name": "视频",
+                    "id": "fow_video"
+                },
+                "item5": {
+                    "name": "压缩",
+                    "id": "fow_zip"
+                },
+                "item6": {
+                    "name": "其他",
+                    "id": "fow_other"
+                },
+                "item7": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            },
+            "fileopen": {
+                "fow_text": {
+                    "item1": {
+                        "name": "腕管Pro：文本浏览",
+                        "id": "fo_text_wgdisplay"
+                    },
+                    "item2": {
+                        "name": "腕管Pro：文本编辑",
+                        "id": "fo_text_wgedit"
+                    },
+                    "item3": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_photo": {
+                    "item1": {
+                        "name": "腕管Pro：图片浏览",
+                        "id": "fo_photo_wgdisplay"
+                    },
+                    "item2": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_music": {
+                    "item1": {
+                        "name": "腕管Pro：媒体浏览",
+                        "id": "fo_music_wgplayer"
+                    },
+                    "item2": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_video": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_zip": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_other": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                }
+            }
         }
     },
     "acts": {
@@ -246,6 +432,19 @@
                 "err1": "账户或密码不能为空",
                 "err2": "登录失败\n未连接到服务器",
                 "err3": "登录失败\n"
+            },
+            "textdisplay": {
+                "tabtext": "文本浏览",
+                "p1": {
+                    "item1": {
+                        "text": "启用九键",
+                        "subtext": "启用输入法九键"
+                    },
+                    "item2": {
+                        "text": "启用长震",
+                        "subtext": "点击键盘长震"
+                    }
+                }
             }
         },
         "wgchat": {
@@ -302,19 +501,23 @@
             "p1":{
                 "item1":{
                     "text": "Cache",
-                    "subtext": "internal://cache/"
+                    "subtext": "internal://cache"
                 },
                 "item2":{
                     "text": "Files",
-                    "subtext": "internal://files/"
+                    "subtext": "internal://files"
                 },
                 "item3":{
                     "text": "Mass",
-                    "subtext": "internal://mass/"
+                    "subtext": "internal://mass"
                 },
                 "item4":{
                     "text": "Temp",
-                    "subtext": "internal://tmp/"
+                    "subtext": "internal://tmp"
+                },
+                "item5":{
+                    "text": "chat",
+                    "subtext": "internal://files/wgchat"
                 }
             }
         },

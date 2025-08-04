@@ -132,6 +132,10 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/settings/textdisplay": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/systool/displaytest": {
         "launchMode": "singleTask",
         "component": "index"
@@ -157,6 +161,10 @@
         "component": "index"
       },
       "pages/ui/acts/debugs/debug1": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/debugs/debug2": {
         "launchMode": "singleTask",
         "component": "index"
       }

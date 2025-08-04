@@ -101,8 +101,8 @@
 }
 
 .fun-item-th {
-	width: 80px;
-	height: 80px;
+	width: 100px;
+	height: 100px;
 	padding: 10px;
 	margin: 5px;
 	flex-direction: column;
@@ -151,6 +151,16 @@
 	justify-content: center;
 	flex-direction: row;
 	align-items: center;
+}
+
+
+.exit-choose2 {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	padding-bottom: 20px;
 }
 
 .exit-choose-value {
@@ -203,11 +213,15 @@
 	width: 90%;
 	height: 80%;
 	text-align: left;
+	font-size: 30px;
 	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: clip;
 }
 
 .edittext-div {
-	width: 65%;
+	width: 70%;
 	height: 15%;
 	color: white;
 	border-radius: 30px;
@@ -244,4 +258,11 @@
 	height: 70%;
 	display: flex;
 	align-items: flex-start;
+}
+
+.edittext_scroll {
+	width: 90%;
+	height: 80%;
+	display: flex;
+	align-items: center
 }

@@ -227,21 +227,16 @@ export default {
 		}
 	},
 	switload() {
-		//login state
-		storage.get({
-			key: "wgsettings_taccount_cookie",
-			success: (data) => {
-				if (!data) this.loginReady(false);
+		storage.gets({
+			keys: ["wgsettings_taccount_cookie", "wgsettings_taccount_allowShare"],
+			success: (datas) => {
+				if (datas.wgsettings_taccount_allowShare == "true")
+					this.swit_it1_state = true;
+				if (!datas.wgsettings_taccount_cookie) this.loginReady(false);
 				else this.loginReady(true);
 			},
 			fail: () => {
 				this.loginReady(false);
-			},
-		});
-		storage.get({
-			key: "wgsettings_taccount_allowShare",
-			success: (data) => {
-				if (data == "true") this.swit_it1_state = true;
 			},
 		});
 	},
@@ -252,33 +247,26 @@ export default {
 	},
 	loginReady(can) {
 		if (can) {
-			storage.get({
-				key: "wgsettings_taccount_nick",
-				success: (data) => {
-					if (data) this.taccUsername = data;
+			storage.gets({
+				keys: [
+					"wgsettings_taccount_nick",
+					"wgsettings_taccount_username",
+					"wgsettings_taccount_userinfo",
+				],
+				success: (datas) => {
+					if (datas.wgsettings_taccount_nick)
+						this.taccUsername = datas.wgsettings_taccount_nick;
 					else this.taccUsername = this.$t("acts.settings.taccount.errname");
-				},
-				fail: () => {
-					this.taccUsername = this.$t("acts.settings.taccount.errname");
-				},
-			});
-			storage.get({
-				key: "wgsettings_taccount_username",
-				success: (data) => {
-					if (data) this.taccUid = data;
+					if (datas.wgsettings_taccount_username)
+						this.taccUid = datas.wgsettings_taccount_username;
 					else this.taccUid = this.$t("acts.settings.taccount.errname");
-				},
-				fail: () => {
-					this.taccUid = this.$t("acts.settings.taccount.errname");
-				},
-			});
-			storage.get({
-				key: "wgsettings_taccount_userinfo",
-				success: (data) => {
-					if (data) this.taccUserinfo = data;
+					if (datas.wgsettings_taccount_userinfo)
+						this.taccUserinfo = datas.wgsettings_taccount_userinfo;
 					else this.taccUserinfo = this.$t("acts.settings.taccount.errname");
 				},
 				fail: () => {
+					this.taccUsername = this.$t("acts.settings.taccount.errname");
+					this.taccUid = this.$t("acts.settings.taccount.errname");
 					this.taccUserinfo = this.$t("acts.settings.taccount.errname");
 				},
 			});

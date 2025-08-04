@@ -85,7 +85,7 @@ export default {
 		roomlistJSON: "",
 		tabtext: "",
 		tabtextleft: "‹",
-		roomDB: "internal://files/wgpro/chat/",
+		roomDB: "internal://files/wgchat/",
 	},
 	ht(t, i) {
 		if (t) eval("this.chatroomList[" + i + "]['color'] = 'black'");
@@ -145,7 +145,8 @@ export default {
 			this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
 		} else if (id == "clearchatdb") {
 			file.delete({
-				uri: this.roomDB + this.chatroomList[this.selectItemNum]["id"],
+				uri:
+					this.roomDB + this.chatroomList[this.selectItemNum]["id"] + ".json",
 				success: () => this.$app.$def.toTips("", `true`),
 				fail: (code) =>
 					this.$app.$def.toTips("", `handling fail, code = ${code}`),

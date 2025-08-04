@@ -56,6 +56,7 @@
 
 <script>
 import fetch from "@system.fetch";
+import storage from "../../../../../common/scripts/storage.js";
 export default {
 	private: {
 		fc_v0: "#3c3c3c",
@@ -97,6 +98,7 @@ export default {
 					if (response.code == 200) {
 						const reqback = JSON.parse(response.data);
 						if (reqback["code"] == 200) {
+							/*
 							this.$app.$def.settingsChange(
 								"wgsettings_taccount_username",
 								reqback["data"]["uid"]
@@ -117,6 +119,23 @@ export default {
 								"wgsettings_taccount_userinfo",
 								reqback["data"]["shuo"]
 							);
+							*/
+							this.$app.$def.settingsChangeMore(
+								[
+									"wgsettings_taccount_username",
+									"wgsettings_taccount_password",
+									"wgsettings_taccount_cookie",
+									"wgsettings_taccount_nick",
+									"wgsettings_taccount_userinfo",
+								],
+								[
+									reqback["data"]["uid"],
+									pwd,
+									reqback["data"]["cookie"],
+									reqback["data"]["nick"],
+									reqback["data"]["shuo"],
+								]
+							);
 							this.toBack();
 						} else this.$app.$def.toTips("", reqback["msg"]);
 					} else
@@ -135,10 +154,22 @@ export default {
 		this.$app.$def.goReplacePage("/pages/ui/acts/settings/taccount");
 	},
 	toEditText(ti) {
-		this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-			reqPage: "/pages/ui/acts/settings/tacclogin",
-			textValues: JSON.stringify(this.inputValues),
-			textIndex: ti,
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == "true") _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == "true")
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
+					reqPage: "/pages/ui/acts/settings/tacclogin",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: ti,
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
 		});
 	},
 };

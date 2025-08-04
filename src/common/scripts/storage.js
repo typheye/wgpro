@@ -8,12 +8,14 @@ class Storage {
       wgsettings_init: "false",
       wgsettings_autoCheckUpdate: "true",
       wgsettings_autoCheckUpdateIsShow: "false",
+      wgsettings_keyboardUseT9: "false",
+      wgsettings_keyboardUseLongVibrate: "false",
       wgsettings_taccount_username: "",
       wgsettings_taccount_password: "",
       wgsettings_taccount_cookie: "",
       wgsettings_taccount_nick: "",
       wgsettings_taccount_userinfo: "",
-      wgsettings_taccount_allowShare: "",
+      wgsettings_taccount_allowShare: "false",
       wgsettings_wgchat_roomlist: JSON.stringify([
         { id: "10001", name: "官方聊天室" },
         { id: "10002", name: "用户反馈" },
@@ -84,6 +86,34 @@ class Storage {
     success && success(this.data[key]);
   }
 
+  gets(options = {}) {
+    const { keys, success, fail } = options;
+    
+    // 参数校验：确保 keys 是数组
+    if (!Array.isArray(keys)) {
+      const errorMsg = "参数错误: keys 必须是数组";
+      console.error(errorMsg);
+      fail && fail(errorMsg);
+      return;
+    }
+    
+    if (!this.ready) {
+      this.init({
+        success: () => this.gets(options),
+        fail
+      });
+      return;
+    }
+    
+    const result = {};
+    for (const key of keys) {
+      // 安全访问，防止未定义键
+      result[key] = this.data.hasOwnProperty(key) ? this.data[key] : undefined;
+    }
+    
+    success && success(result);
+  }
+  
   set(options = {}) {
     const { key, value, success, fail } = options;
     
@@ -105,6 +135,45 @@ class Storage {
       fail: (err, code) => {
         fail && fail(`保存失败: ${code} - ${err}`);
       }
+    });
+  }
+
+  sets(options = {}) {
+    const { keys, values, success, fail } = options;
+    // 参数校验：确保keys和values都是数组，且长度相同
+    if (!Array.isArray(keys) || !Array.isArray(values)) {
+        const errorMsg = "参数错误: keys和values都必须是数组";
+        console.error(errorMsg);
+        fail && fail(errorMsg);
+        return;
+    }
+    if (keys.length !== values.length) {
+        const errorMsg = `参数错误: keys和values长度不一致 (keys:${keys.length}, values:${values.length})`;
+        console.error(errorMsg);
+        fail && fail(errorMsg);
+        return;
+    }
+    if (!this.ready) {
+        this.init({
+            success: () => this.sets(options),
+            fail
+        });
+        return;
+    }
+    // 更新数据
+    for (let i = 0; i < keys.length; i++) {
+        this.data[keys[i]] = values[i];
+    }
+    // 写入文件
+    file.writeText({
+        uri: FILE_PATH,
+        text: JSON.stringify(this.data),
+        success: () => {
+            success && success("批量保存成功");
+        },
+        fail: (err, code) => {
+            fail && fail(`批量保存失败: ${code} - ${err}`);
+        }
     });
   }
 

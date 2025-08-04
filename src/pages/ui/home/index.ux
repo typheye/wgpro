@@ -94,6 +94,19 @@
 						<image class="fun-img" src="/common/mipmap/a23.png" />
 					</div>
 				</div>
+				<div class="fun-list3" if="false">
+					<div class="fun-item-th"></div>
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v10 }}"
+						ontouchstart="ht(1, 'v10')"
+						ontouchend="ht(0, 'v10')"
+						onclick="toRun('debugs')"
+					>
+						<image class="fun-img" src="/common/mipmap/a78.png" />
+					</div>
+					<div class="fun-item-th"></div>
+				</div>
 				<div class="wgpro-gap-bottom" />
 			</div>
 		</scroll>
@@ -115,6 +128,7 @@ export default {
 		fc_v7: "#3c3c3c",
 		fc_v8: "#3c3c3c",
 		fc_v9: "#3c3c3c",
+		fc_v10: "#3c3c3c",
 		isPopUpdate: false,
 	},
 	ht(t, i) {
@@ -142,6 +156,7 @@ export default {
 			else if (id == "plugin") v_uri = "/pages/ui/function/plugin";
 			else if (id == "more") v_uri = "/pages/ui/function/more";
 			else if (id == "settings") v_uri = "/pages/ui/function/settings";
+			else if (id == "debugs") v_uri = "/pages/ui/function/debugs";
 			this.$app.$def.goPage(v_uri);
 		}
 	},

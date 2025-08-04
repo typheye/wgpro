@@ -1,0 +1,55 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ pathName }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ logText }}</text>
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import file from "@system.file";
+export default {
+	private: {
+		pathName: "",
+		pathUri: "",
+		logText: "",
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onReady() {
+		this.test();
+	},
+	test() {
+		file.list({
+			uri: "internal://files/",
+			success: (data) => {
+				this.logText =
+					`handling success, uri=${this.pathUri}, data.fileList = \n` +
+					JSON.stringify(data.fileList);
+			},
+			fail: (data, code) => {
+				this.logText = `handling fail, uri=${this.pathUri}, code = ${data}, code = ${code}`;
+			},
+		});
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

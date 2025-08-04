@@ -131,10 +131,22 @@ export default {
 		this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
 	},
 	toEditText() {
-		this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-			reqPage: "/pages/ui/acts/wgchat/addroom",
-			textValues: JSON.stringify(this.inputValues),
-			textIndex: "id",
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == "true") _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == "true")
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
+					reqPage: "/pages/ui/acts/wgchat/addroom",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: "id",
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
 		});
 	},
 };
