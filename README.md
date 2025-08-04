@@ -1,9 +1,3 @@
-# wgpro-velawatch
-
-适用于搭载Vela系统的小米智能手表的腕管Pro
-
----
-
 ## 🚀 项目介绍  
 **wgpro-velawatch** 是一款针对小米智能手表优化的应用，适配基于Vela系统的设备，提供流畅的用户体验和丰富的功能支持。
 
@@ -58,7 +52,7 @@ npm run watch
 本项目采用 **GNU General Public License v3.0** 许可证
 
 ```text
-版权所有 (C) 2023 wgpro-velawatch 开发团队
+版权所有 (C) 2025 wgpro-velawatch 开发团队
 
 本程序是自由软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证第3版或
 （根据您的选择）任何更高版本重新分发和/或修改它。
