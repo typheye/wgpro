@@ -222,7 +222,7 @@ export default {
 			success: (data) => {
 				this.pathLoad(data.fileList);
 			},
-			fail: (data, code) => {
+			fail: () => {
 				this.$app.$def.toTips("", this.$t("tips.fail"));
 			},
 		});
