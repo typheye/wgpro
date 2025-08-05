@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import storage from "../../../../common/scripts/storage.js";
 export default {
 	private: {
 		itc_p0v0: "#3c3c3c",
@@ -94,8 +93,16 @@ export default {
 	},
 	toRun(id) {
 		if (id == "");
-		else if (id == "debug2-1")
-			storage.gets({
+		else {
+			var v_uri = "";
+			if (id == "debug1-1") v_uri = "/pages/ui/acts/debugs/debug1";
+			else if (id == "debug1-2") v_uri = "/pages/ui/acts/debugs/debug2";
+			else if (id == "debug2-1") v_uri = "/pages/ui/acts/debugs/debug3";
+			this.$app.$def.goPage(v_uri);
+		}
+	},
+
+	/*storage.gets({
 				keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
 				success: (datas) => {
 					let _keyboardtype = "QWERTY";
@@ -110,14 +117,7 @@ export default {
 						vibratemode: _vibratemode,
 					});
 				},
-			});
-		else {
-			var v_uri = "";
-			if (id == "debug1-1") v_uri = "/pages/ui/acts/debugs/debug1";
-			else if (id == "debug1-2") v_uri = "/pages/ui/acts/debugs/debug2";
-			this.$app.$def.goPage(v_uri);
-		}
-	},
+			});*/
 };
 </script>
 

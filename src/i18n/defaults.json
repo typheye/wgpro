@@ -615,8 +615,8 @@
         }
     },
     "public": {
-        "serverURL": "http://vela-service.typheye.com/app/com.typheye.wgpro/",
-        "taccServerURL": "http://vela-service.typheye.com/",
+        "serverURL": "https://vela-service.typheye.com/app/com.typheye.wgpro/",
+        "taccServerURL": "https://vela-service.typheye.com/",
         "tip": "提示",
         "inittip": "您是否已阅读并同意",
         "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",

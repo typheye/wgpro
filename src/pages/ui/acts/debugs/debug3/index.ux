@@ -1,0 +1,69 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">{{ title }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ text }}</text>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import fetch from "../../../../../utils/fetch.js";
+export default {
+	private: {
+		fc_v1: "#3c3c3c",
+		title: "fetch test",
+		text: "",
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	onReady() {
+		this.test();
+	},
+	test() {
+		fetch.fetch({
+			url: "https://service.typheye.com/app/open.cn.awg.pro/config.json",
+			responseType: "text",
+			success: (response) => {
+				const { code, data } = response;
+				this.text = `请求成功\n状态码: ${code}\n响应数据: ${data}`;
+			},
+			fail: (data, code) => {
+				this.text = `请求失败\n错误码: ${code}\n错误信息: ${data}`;
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

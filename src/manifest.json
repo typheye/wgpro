@@ -167,6 +167,10 @@
       "pages/ui/acts/debugs/debug2": {
         "launchMode": "singleTask",
         "component": "index"
+      },
+      "pages/ui/acts/debugs/debug3": {
+        "launchMode": "singleTask",
+        "component": "index"
       }
     }
   },

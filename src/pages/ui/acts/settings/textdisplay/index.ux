@@ -77,7 +77,7 @@
 </template>
 
 <script>
-import storage from "../../../../../common/scripts/storage.js";
+import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
 		itc_p0v0: "#3c3c3c",

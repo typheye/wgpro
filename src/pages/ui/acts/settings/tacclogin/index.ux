@@ -55,8 +55,8 @@
 </template>
 
 <script>
-import fetch from "@system.fetch";
-import storage from "../../../../../common/scripts/storage.js";
+import fetch from "../../../../../utils/fetch.js";
+import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
 		fc_v0: "#3c3c3c",
@@ -92,6 +92,7 @@ export default {
 			fetch.fetch({
 				url: this.$t("public.taccServerURL") + "api.php?type=login",
 				data: { username: usr, password: pwd },
+				data_text: `username=${usr}&password=${pwd}`,
 				method: "POST",
 				responseType: "text",
 				success: (response) => {

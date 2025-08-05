@@ -2,7 +2,7 @@
 import router from "@system.router";
 import vibrator from "@system.vibrator";
 import app from "@system.app";
-import storage from "./common/scripts/storage.js";
+import storage from "./utils/storage.js";
 export default {
 	onCreate() {
 		console.log("app created");

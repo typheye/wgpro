@@ -64,8 +64,8 @@
 </template>
 
 <script>
-import fetch from "@system.fetch";
-import storage from "../../../../../common/scripts/storage.js";
+import fetch from "../../../../../utils/fetch.js";
+import storage from "../../../../../utils/storage.js";
 import file from "@system.file";
 export default {
 	private: {
