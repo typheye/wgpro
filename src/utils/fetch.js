@@ -1,7 +1,7 @@
 import deffetch from "@system.fetch";
 import interconnect from "@system.interconnect";
 
-const enableFetch = true; // 启用系统fetch，否则使用astrobox代理
+const enableFetch = true; // 启用系统fetch，否则使用代理
 
 class fetch {
   constructor() {
@@ -66,8 +66,7 @@ class fetch {
   fetch(options = {}) {
     const {
       url,
-      data,
-      data_text = "",
+      data = {},
       header,
       method = "GET",
       responseType = "text",
@@ -106,13 +105,44 @@ class fetch {
           this.pendingRequests.delete(requestId);
         }
       }, 30000); // 30秒超时
+      const toQueryString = (obj) => {
+        try {
+          // 类型检查
+          if (!obj || typeof obj !== "object") {
+            console.warn("Invalid data for query string:", obj);
+            return "";
+          }
+
+          return Object.entries(obj)
+            .filter(([_, value]) => value !== null && value !== undefined)
+            .flatMap(([key, value]) => {
+              // 处理嵌套对象
+              if (value && typeof value === "object") {
+                return Object.entries(value).map(
+                  ([subKey, subValue]) =>
+                    `${encodeURIComponent(key)}[${encodeURIComponent(
+                      subKey
+                    )}]=${encodeURIComponent(subValue)}`
+                );
+              }
+              return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+            })
+            .join("&");
+        } catch (e) {
+          console.error("Query string generation error:", e);
+          return "";
+        }
+      };
       // 发送请求
       // 添加默认Content-Type
-      if (method == "POST")
+      let data_text = "";
+      if (method == "POST") {
         headers = {
           ...headers,
           "Content-Type": "application/x-www-form-urlencoded",
         };
+        if (data) data_text = toQueryString(data);
+      }
       var id = requestId;
       const message = JSON.stringify({
         msgtype: "FETCH",
@@ -125,7 +155,7 @@ class fetch {
         }),
       });
 
-      setTimeout(
+      setTimeout(() => {
         this.conn.send({
           data: {
             id,
@@ -138,9 +168,8 @@ class fetch {
             fail(`Send failed: ${err.data}`, err.code || -1);
             this.pendingRequests.delete(requestId);
           },
-        }),
-        500
-      );
+        });
+      }, 300);
     }
   }
 }
