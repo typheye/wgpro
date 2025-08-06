@@ -19,8 +19,8 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug</marquee>
-							<marquee class="wgpro-item-texts-subtext">Debug 1-1</marquee>
+							<marquee class="wgpro-item-texts-text">Debug 1-1</marquee>
+							<marquee class="wgpro-item-texts-subtext">API: Storage Test</marquee>
 						</div>
 					</div>
 					<div
@@ -34,8 +34,8 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug</marquee>
-							<marquee class="wgpro-item-texts-subtext">Debug 1-2</marquee>
+							<marquee class="wgpro-item-texts-text">Debug 1-2</marquee>
+							<marquee class="wgpro-item-texts-subtext">API: File Test</marquee>
 						</div>
 					</div>
 				</div>
@@ -51,8 +51,8 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug</marquee>
-							<marquee class="wgpro-item-texts-subtext">Debug 2-1</marquee>
+							<marquee class="wgpro-item-texts-text">Debug 2-1</marquee>
+							<marquee class="wgpro-item-texts-subtext">API: Fetch Test</marquee>
 						</div>
 					</div>
 				</div>

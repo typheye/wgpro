@@ -180,7 +180,7 @@
         "component": "index"
       },
       "pages/ui/acts/filemanger/pathshow": {
-        "launchMode": "singleTask",
+        "launchMode": "standard",
         "component": "index"
       },
       "pages/ui/acts/debugs/debug1": {

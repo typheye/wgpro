@@ -2,9 +2,7 @@
 	<div class="page">
 		<div class="tab" onclick="toBack">
 			<text class="tab-back">‹</text>
-			<marquee class="tab-text">
-				{{ pathName }}
-			</marquee>
+			<marquee class="tab-text">File Test</marquee>
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
@@ -19,8 +17,7 @@
 import file from "@system.file";
 export default {
 	private: {
-		pathName: "",
-		pathUri: "",
+		pathUri: "internal://files/",
 		logText: "",
 	},
 	onBackPress() {
@@ -32,14 +29,14 @@ export default {
 	},
 	test() {
 		file.list({
-			uri: "internal://files/",
+			uri: this.pathUri,
 			success: (data) => {
 				this.logText =
-					`handling success, uri=${this.pathUri}, data.fileList = \n` +
+					`执行成功\n\nuri = ${this.pathUri}\n\ndata.fileList = ` +
 					JSON.stringify(data.fileList);
 			},
 			fail: (data, code) => {
-				this.logText = `handling fail, uri=${this.pathUri}, code = ${data}, code = ${code}`;
+				this.logText = `执行失败\n\nuri = ${this.pathUri}\n\ndata = ${data}\n\ncode = ${code}`;
 			},
 		});
 	},

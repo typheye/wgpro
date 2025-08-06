@@ -2,13 +2,13 @@
 	<div class="page" @swipe="right">
 		<div class="tab">
 			<text class="tab-back"></text>
-			<marquee class="tab-text">{{ title }}</marquee>
+			<marquee class="tab-text">Fetch Test</marquee>
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
 			<div class="wgpro-deflayout">
 				<text class="exit-tip-text">{{ text }}</text>
-				<div class="exit-choose">
+				<div class="exit-choose" show="{{ isShow }}">
 					<div
 						class="exit-choose-value"
 						style="background-color: {{ fc_v1 }}"
@@ -16,7 +16,7 @@
 						ontouchend="ht(0, 'v1')"
 						onclick="toBack()"
 					>
-						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+						<img class="exit-choose-img" src="/common/mipmap/a23.png" />
 					</div>
 				</div>
 				<div class="wgpro-gap-bottom" />
@@ -30,8 +30,8 @@ import fetch from "../../../../../utils/fetch.js";
 export default {
 	private: {
 		fc_v1: "#3c3c3c",
-		title: "fetch test",
 		text: "",
+		isShow: false,
 	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
@@ -48,15 +48,20 @@ export default {
 		this.test();
 	},
 	test() {
+		const timestamp0 = Date.now();
 		fetch.fetch({
-			url: "https://service.typheye.com/app/open.cn.awg.pro/config.json",
+			url: "https://vela-service.typheye.com/test",
 			responseType: "text",
 			success: (response) => {
 				const { code, data } = response;
-				this.text = `请求成功\n状态码: ${code}\n响应数据: ${data}`;
+				const time = Date.now() - timestamp0;
+				this.text = `请求成功\n\n状态码: ${code}\n\n耗时: ${time}ms\n\n响应数据\n----------\n${data}`;
+				this.isShow = true;
 			},
 			fail: (data, code) => {
-				this.text = `请求失败\n错误码: ${code}\n错误信息: ${data}`;
+				const time = Date.now() - timestamp0;
+				this.text = `请求失败\n\n错误码: ${code}\n\n耗时: ${time}ms\n\n错误信息\n----------\n${data}`;
+				this.isShow = true;
 			},
 		});
 	},

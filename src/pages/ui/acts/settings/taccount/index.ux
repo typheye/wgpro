@@ -195,8 +195,8 @@ export default {
 		return true;
 	},
 	onReady() {
-		this.$app.$def.taccLoginCheck();
 		this.switload();
+		this.$app.$def.taccLoginCheck();
 	},
 	toBack() {
 		this.$app.$def.goBack();

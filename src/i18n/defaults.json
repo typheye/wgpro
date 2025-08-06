@@ -88,7 +88,7 @@
         },
         "pathshowlist": {
             "backpath": "返回上层目录",
-            "fileinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[大小]${size}\n\n[修改]\n${ltime}",
+            "fileinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[大小]\n${size}\n\n[修改]\n${ltime}",
             "def": {
                 "item1": {
                     "name": "刷新",
@@ -171,7 +171,7 @@
                     "id": "copydel"
                 },
                 "item7": {
-                    "name": "剪切",
+                    "name": "删除",
                     "id": "delete"
                 },
                 "item8": {
@@ -550,14 +550,6 @@
                 "item3":{
                     "text": "Mass",
                     "subtext": "internal://mass"
-                },
-                "item4":{
-                    "text": "Temp",
-                    "subtext": "internal://tmp"
-                },
-                "item5":{
-                    "text": "chat",
-                    "subtext": "internal://files/wgchat"
                 }
             }
         },

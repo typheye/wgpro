@@ -61,12 +61,12 @@
 						/>
 					</div>
 					<div class="wgpro-item-texts-none">
-						<marquee class="wgpro-item-texts-text">
+						<text class="wgpro-item-texts-text">
 							{{ $item.name }}
-						</marquee>
-						<marquee class="wgpro-item-texts-subtext">
+						</text>
+						<text class="wgpro-item-texts-subtext">
 							{{ $item.info }}
-						</marquee>
+						</text>
 					</div>
 				</list-item>
 			</list>
@@ -86,6 +86,7 @@ export default {
 		tabtext: "",
 		tabtextleft: "‹",
 		isMenu: false,
+		selectItemNum: 0,
 	},
 	ht(t, i) {
 		if (t) eval("this.pathshowList[" + i + "]['color'] = 'black'");
@@ -118,20 +119,7 @@ export default {
 		else if (id == "../") this.toBack();
 		else {
 			if (isfile) {
-				const getSubstringAfter = (originalStr, targetStr) => {
-					// 从后向前查找目标字符串
-					const index = originalStr.lastIndexOf(targetStr);
-
-					// 未找到时返回空字符串
-					if (index === -1) return "";
-
-					// 计算目标字符串之后的起始位置
-					const startPosition = index + targetStr.length;
-
-					// 从计算位置截取到末尾
-					return originalStr.slice(startPosition);
-				};
-				let type = getSubstringAfter(name, ".");
+				let type = this.getSubstringAfter(name, ".");
 				let tabtext = "menu.pathshowlist.itemfile.item4.name";
 				if (type == "json") {
 					this.menuflag = "fileopen.fow_text";
@@ -163,7 +151,26 @@ export default {
 	toRunMenu(id) {
 		let needoffmenu = true;
 		if (id == "") needoffmenu = false;
-		else if (id == "update")
+		else if (id == "fileinfo") {
+			this.$app.$def.toTips(
+				this.$t("menu.pathshowlist.itemfile.item9.name"),
+				this.$app.$def.textFormat(
+					this.$t("menu.pathshowlist.fileinfodemotext"),
+					{
+						name: this.pathshowList[this.selectItemNum]["name"],
+						path: this.pathshowList[this.selectItemNum]["id"],
+						size:
+							this.$app.$def.formatDecimal(
+								this.pathshowList[this.selectItemNum]["info_length"] / 1024,
+								2
+							) + "K",
+						ltime: this.formatTime(
+							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
+						),
+					}
+				)
+			);
+		} else if (id == "update")
 			this.$app.$def.goReplacePageWithParams(
 				"pages/ui/acts/filemanger/pathshow",
 				{
@@ -195,11 +202,14 @@ export default {
 			this.opmenu(true, this.$t(tabtext));
 		} else if (id.startsWith("fo_")) {
 			//打开文件
+			this.$app.$def.toTips("", this.$t("tips.toNull"));
 		} else if (id == "back");
 		else if (id == "back_fileopen") {
 			needoffmenu = false;
 			this.menuflag = "fileopenway";
 			this.opmenu(true, this.$t("menu.pathshowlist.itemfile.item4.name"));
+		} else {
+			this.$app.$def.toTips("", this.$t("tips.toNull"));
 		}
 		this.menuflag = "def";
 		if (needoffmenu) this.opmenu(false);
@@ -300,6 +310,8 @@ export default {
 			let list_info = "";
 			let list_ico = "";
 			let list_isfile = false;
+			let list_info_length = 0;
+			let list_info_lastModifiedTime = 0;
 			console.log(`fuck xiaomi index=${inx} listlen=${listlen}`);
 			if (i == 0) {
 				list_num = inx;
@@ -311,55 +323,18 @@ export default {
 				list_info = this.$t("menu.pathshowlist.backpath");
 				list_ico = "b5";
 			} else {
-				const getSubstringAfter = (originalStr, targetStr) => {
-					// 从后向前查找目标字符串
-					const index = originalStr.lastIndexOf(targetStr);
-
-					// 未找到时返回空字符串
-					if (index === -1) return "";
-
-					// 计算目标字符串之后的起始位置
-					const startPosition = index + targetStr.length;
-
-					// 从计算位置截取到末尾
-					return originalStr.slice(startPosition);
-				};
-				const formatTime = (ts) => {
-					// 处理无效时间戳
-					if (isNaN(ts)) return "Invalid Timestamp";
-
-					// 转换秒级时间戳为毫秒
-					const milliseconds = ts < 10000000000 ? ts * 1000 : ts;
-
-					const date = new Date(milliseconds);
-
-					// 检查日期是否有效
-					if (isNaN(date.getTime())) return "Invalid Date";
-
-					// 格式化为 yy-mm-dd HH:mm
-					const yy = date.getFullYear().toString().slice(-2).padStart(2, "0");
-					const mm = (date.getMonth() + 1).toString().padStart(2, "0");
-					const dd = date.getDate().toString().padStart(2, "0");
-					const HH = date.getHours().toString().padStart(2, "0");
-					const min = date.getMinutes().toString().padStart(2, "0");
-
-					return `${yy}-${mm}-${dd} ${HH}:${min}`;
-				};
 				if (inx - 1 <= listlen) {
 					//length 文件大小
 					//lastModifiedTime 上次修改时间
 					let uri = data[i - 1]["uri"];
-					let length = data[i - 1]["length"];
+					list_info_length = data[i - 1]["length"];
 					console.log(`fuck xiaomi data i-1=${i - 1} uri=${uri}`);
-					let lastModifiendTime = data[i - 1]["lastModifiedTime"];
+					list_info_lastModifiedTime = data[i - 1]["lastModifiedTime"];
 					let info =
-						formatTime(lastModifiendTime) +
-						" " +
-						this.$app.$def.formatDecimal(length / 1024, 1) +
-						"K";
-					let name = getSubstringAfter(uri, this.pathUri + "/");
+						this.$app.$def.formatDecimal(list_info_length / 1024, 1) + "K";
+					let name = this.getSubstringAfter(uri, this.pathUri + "/");
 					if (name) {
-						let type = getSubstringAfter(name, ".");
+						let type = this.getSubstringAfter(name, ".");
 						if (type == "json") list_ico = "b13";
 						else list_ico = "b14";
 					}
@@ -384,8 +359,44 @@ export default {
 				ico: list_ico,
 				uri: list_uri,
 				isfile: list_isfile,
+				info_length: list_info_length,
+				info_lastModifiedTime: list_info_lastModifiedTime,
 			});
 		}
+	},
+	getSubstringAfter(originalStr, targetStr) {
+		// 从后向前查找目标字符串
+		const index = originalStr.lastIndexOf(targetStr);
+
+		// 未找到时返回空字符串
+		if (index === -1) return "";
+
+		// 计算目标字符串之后的起始位置
+		const startPosition = index + targetStr.length;
+
+		// 从计算位置截取到末尾
+		return originalStr.slice(startPosition);
+	},
+	formatTime(ts) {
+		// 处理无效时间戳
+		if (isNaN(ts)) return "Invalid Timestamp";
+
+		// 转换秒级时间戳为毫秒
+		const milliseconds = ts < 10000000000 ? ts * 1000 : ts;
+
+		const date = new Date(milliseconds);
+
+		// 检查日期是否有效
+		if (isNaN(date.getTime())) return "Invalid Date";
+
+		// 格式化为 yy-mm-dd HH:mm
+		const yy = date.getFullYear().toString().padStart(4, "0");
+		const mm = (date.getMonth() + 1).toString().padStart(2, "0");
+		const dd = date.getDate().toString().padStart(2, "0");
+		const HH = date.getHours().toString().padStart(2, "0");
+		const min = date.getMinutes().toString().padStart(2, "0");
+
+		return `${yy}-${mm}-${dd} ${HH}:${min}`;
 	},
 };
 </script>

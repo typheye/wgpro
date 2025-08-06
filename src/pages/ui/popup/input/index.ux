@@ -79,7 +79,12 @@ export default {
 	},
 	onInit() {
 		device.getInfo({
-			success: (ret) => (this.screentype = ret.screenShape),
+			success: (ret) => {
+				this.screentype = ret.screenShape;
+				if (ret.screenWidth == "432" && ret.screenHeight == "514") {
+					if (this.keyboardtype == "T9") this.screentype = "circle"; //REDMI Watch 5系列强开九键
+				}
+			},
 		});
 	},
 	onReady() {

@@ -68,7 +68,7 @@ export default {
 	},
 	pathmainlistReady() {
 		this.pathmainList = [];
-		let listlen = 5;
+		let listlen = 3;
 		let tol = listlen + 1; //1垫底缓冲
 		for (let i = 0; i < tol; i++) {
 			let inx = i + 1;

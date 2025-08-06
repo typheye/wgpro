@@ -107,9 +107,9 @@ export default {
 		this.opmenu(false);
 	},
 	onReady() {
-		this.$app.$def.taccLoginCheck();
 		this.chatroommenuListReady();
 		this.chatroomListReady();
+		this.$app.$def.taccLoginCheck();
 	},
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();

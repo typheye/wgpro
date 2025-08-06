@@ -75,6 +75,7 @@ export default {
 		roomDB: "internal://files/wgchat/",
 		taccUid: "",
 		isToBottom: false,
+		isLoading: false,
 	},
 	onBackPress() {
 		this.$app.$def.toCancel(true);
@@ -84,14 +85,14 @@ export default {
 		this.userReady();
 	},
 	onReady() {
-		this.$app.$def.taccLoginCheck();
 		this.msgListReady();
+		this.$app.$def.taccLoginCheck();
 	},
 	toBack() {
 		this.$app.$def.goBack();
 	},
 	onScrollBottom() {
-		this.msgListUpdate(false);
+		if (!this.isLoading) this.msgListUpdate(false);
 	},
 	left(evt) {
 		this.$app.$def.settingsChange("wgsettings_wgchat_nowRoomID", this.roomId);
@@ -135,6 +136,7 @@ export default {
 		});
 	},
 	msgListUpdate(can) {
+		this.isLoading = true;
 		fetch.fetch({
 			url:
 				this.$t("public.serverURL") + "talking/chat/" + this.roomId + ".json",
@@ -146,12 +148,14 @@ export default {
 						text: response.data,
 						success: () => this.msgLoad(response.data),
 						fail: (code) => {
+							this.isLoading = false;
 							if (can)
 								this.toBack(),
 									this.$app.$def.toTips("", `handling fail, code = ${code}`);
 						},
 					});
 				} else {
+					this.isLoading = false;
 					if (can)
 						this.toBack(),
 							this.$app.$def.toTips(
@@ -161,6 +165,7 @@ export default {
 				}
 			},
 			fail: (code) => {
+				this.isLoading = false;
 				if (can)
 					this.toBack(),
 						this.$app.$def.toTips("", `handling fail, code = ${code}`);
@@ -307,6 +312,7 @@ export default {
 		setTimeout(() => {
 			if (!this.isToBottom) (this.isToBottom = true), this.toListBottom(true);
 		}, delaytamp);
+		this.isLoading = false;
 	},
 	toListBottom(can) {
 		let _behavior = "instant";

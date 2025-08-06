@@ -85,7 +85,7 @@ export default {
 	},
 	toRun(id) {
 		if (id == "apptrice")
-			this.$app.$def.toTips(this.$t("acts.settings.tserver.p1.item1.text"), "");
+			this.$app.$def.toTips(this.$t("acts.settings.tserver.p1.item1.text"), this.$t("tips.toNull"));
 		else if (id == "wgchat")
 			this.$app.$def.goPage("/pages/ui/acts/wgchat/settings");
 	},
