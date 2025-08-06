@@ -3,6 +3,8 @@ import router from "@system.router";
 import vibrator from "@system.vibrator";
 import app from "@system.app";
 import storage from "./utils/storage.js";
+import fetch from "./utils/fetch.js";
+import crypto from "@system.crypto";
 export default {
 	onCreate() {
 		console.log("app created");
@@ -129,6 +131,52 @@ export default {
 			["", "", "", "", ""]
 		);
 	},
+	taccLoginCheck() {
+		storage.get({
+			key: "wgsettings_taccount_cookie",
+			success: (cookie) => {
+				if (cookie) {
+					const timestamp0 = Date.now();
+					var send0 =
+						"type=get_data_update&cookie=" + cookie + "&time=" + timestamp0;
+					fetch.fetch({
+						url: "https://vela-service.typheye.com/api.php",
+						data_GET: {
+							type: "get_data_update",
+							cookie: cookie,
+							time: timestamp0,
+							token: this.getHash(send0, "MD5"),
+						},
+						method: "GET",
+						responseType: "text",
+						success: (response) => {
+							if (response.code == 200) {
+								if (response.data) {
+									const reqback = JSON.parse(response.data);
+									if (reqback["code"] == "200") {
+										if (reqback["info"]["v0"] == 1) {
+											this.settingsChangeMore(
+												[
+													"wgsettings_taccount_cookie",
+													"wgsettings_taccount_nick",
+													"wgsettings_taccount_userinfo",
+												],
+												["", "", ""]
+											);
+											this.toTips(
+												"",
+												"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
+											);
+										}
+									}
+								}
+							}
+						},
+					});
+				}
+			},
+		});
+	},
 	isNumeric(str) {
 		for (let i = 0; i < str.length; i++) {
 			if (str[i] < "0" || str[i] > "9") {
@@ -136,6 +184,12 @@ export default {
 			}
 		}
 		return str.length > 0; // 空字符串返回false
+	},
+	getHash(_data, _algo) {
+		return crypto.hashDigest({
+			data: _data,
+			algo: _algo,
+		});
 	},
 };
 </script>

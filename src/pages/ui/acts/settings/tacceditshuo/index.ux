@@ -3,7 +3,7 @@
 		<div class="tab">
 			<text class="tab-back"></text>
 			<marquee class="tab-text">
-				{{ $t("menu.chatroomlist.def.item2.name") }}
+				{{ $t("acts.settings.tacceditshuo.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -19,7 +19,7 @@
 				onclick="toEditText"
 			>
 				<marquee class="edittext2" @click="changeState">
-					{{ inputValues.id }}
+					{{ inputValues.msg }}
 				</marquee>
 			</div>
 			<div class="exit-choose">
@@ -56,7 +56,9 @@ export default {
 		fc_v2: "#3c3c3c",
 		isLoading: false,
 		textValues: "",
-		inputValues: { id: "" },
+		inputValues: { msg: "" },
+		usrNick: "",
+		usrCookie: "",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
@@ -64,11 +66,20 @@ export default {
 	},
 	onReady() {
 		this.inputReady();
+		this.usrLoad();
+	},
+	usrLoad() {
+		storage.get({
+			key: "wgsettings_taccount_cookie",
+			success: (data) => {
+				if (data) this.usrCookie = data;
+			},
+		});
 	},
 	inputReady() {
 		if (this.textValues) {
 			const TVs = JSON.parse(this.textValues);
-			this.inputValues["id"] = TVs["id"];
+			this.inputValues["msg"] = TVs["msg"];
 		}
 	},
 	onBackPress() {
@@ -77,68 +88,67 @@ export default {
 	},
 	toLaunch() {
 		this.isLoading = true;
-		if (!this.$app.$def.isNumeric(this.inputValues["id"]))
-			this.$app.$def.toTips("", this.$t("menu.chatroomlist.def.item2.err1")),
+		if (!this.inputValues["msg"])
+			this.$app.$def.toTips("", this.$t("acts.settings.tacceditshuo.err1")),
 				(this.isLoading = false);
 		else {
-			var roomnumlimit = 3;
-			storage.get({
-				key: "wgsettings_wgchat_roomlist",
-				success: (data) => {
-					var roomlist = JSON.parse(data);
-					if (roomlist.length >= roomnumlimit)
-						this.$app.$def.toTips(
-							"",
-							this.$t("menu.chatroomlist.def.item2.err2")
-						),
-							(this.isLoading = false);
-					else {
-						fetch.fetch({
-							url:
-								this.$t("public.serverURL") +
-								"talking/chat/" +
-								this.inputValues["id"] +
-								".json",
-							responseType: "text",
-							success: (response) => {
-								if (response.code == 200) {
-									const roomInfo = JSON.parse(response.data);
-									roomlist.push({
-										id: this.inputValues["id"],
-										name: roomInfo.room,
-									});
-									roomlist = JSON.stringify(roomlist, null);
-									this.$app.$def.settingsChange(
-										"wgsettings_wgchat_roomlist",
-										roomlist
-									);
-									this.toBack();
-								} else
-									this.$app.$def.toTips(
-										"",
-										this.$t("menu.chatroomlist.def.item2.err3")
-									),
-										(this.isLoading = false);
-							},
-							fail: () => {
+			const timestamp0 = Date.now();
+			var send0 =
+				"type=set_shuo&cookie=" +
+				this.usrCookie +
+				"&value=" +
+				this.inputValues["msg"] +
+				"&time=" +
+				timestamp0;
+			fetch.fetch({
+				url: this.$t("public.taccServerURL") + "/api.php",
+				data_GET: {
+					type: "set_shuo",
+					cookie: this.usrCookie,
+					value: this.inputValues["msg"],
+					time: timestamp0,
+					token: this.$app.$def.getHash(send0, "MD5"),
+				},
+				method: "GET",
+				responseType: "text",
+				success: (response) => {
+					if (response.code == 200) {
+						if (response.data) {
+							const reqback = JSON.parse(response.data);
+							if (reqback["code"] == "200") {
+								this.$app.$def.settingsChange(
+									"wgsettings_taccount_userinfo",
+									this.inputValues["msg"]
+								);
+								this.toBack();
+							} else
 								this.$app.$def.toTips(
 									"",
-									this.$t("menu.chatroomlist.def.item2.err3")
-								);
-								this.isLoading = false;
-							},
-						});
-					}
+									this.$t("acts.settings.tacceditshuo.err3") + reqback["msg"]
+								),
+									(this.isLoading = false);
+						} else
+							this.$app.$def.toTips(
+								"",
+								this.$t("acts.settings.tacceditshuo.err3") + response.data
+							),
+								(this.isLoading = false);
+					} else
+						this.$app.$def.toTips(
+							"",
+							this.$t("acts.settings.tacceditshuo.err2")
+						),
+							(this.isLoading = false);
 				},
 				fail: () => {
-					this.$app.$def.toTips("", this.$t("tips.fail"));
+					this.$app.$def.toTips("", this.$t("acts.settings.tacceditshuo.err2"));
 					this.isLoading = false;
 				},
 			});
 		}
 	},
 	toBack() {
-		this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
+		this.$app.$def.goReplacePage("/pages/ui/acts/settings/taccount");
 	},
 	toEditText() {
 		storage.gets({
@@ -149,9 +159,9 @@ export default {
 				if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
 				if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-					reqPage: "/pages/ui/acts/wgchat/addroom",
+					reqPage: "/pages/ui/acts/settings/tacceditshuo",
 					textValues: JSON.stringify(this.inputValues),
-					textIndex: "id",
+					textIndex: "msg",
 					keyboardtype: _keyboardtype,
 					vibratemode: _vibratemode,
 				});

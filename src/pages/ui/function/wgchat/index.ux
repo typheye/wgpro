@@ -107,6 +107,7 @@ export default {
 		this.opmenu(false);
 	},
 	onReady() {
+		this.$app.$def.taccLoginCheck();
 		this.chatroommenuListReady();
 		this.chatroomListReady();
 	},
@@ -135,6 +136,8 @@ export default {
 			needoffmenu = false;
 			this.$app.$def.goBack();
 		} else if (id == "back");
+		else if (id == "gosettings")
+			this.$app.$def.goPage("/pages/ui/acts/wgchat/settings");
 		else if (id == "update")
 			this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
 		else if (id == "delroom") {
@@ -164,6 +167,13 @@ export default {
 			);
 		else if (id == "addroom") {
 			this.$app.$def.goReplacePage("/pages/ui/acts/wgchat/addroom");
+		} else if (id == "createroom") {
+			this.$app.$def.goPageWithParams("/pages/ui/acts/wgchat/createroom", {
+				textValues: JSON.stringify({
+					name: "新房间",
+					id: "20001",
+				}),
+			});
 		}
 		this.menuflag = "def";
 		if (needoffmenu) this.opmenu(false);

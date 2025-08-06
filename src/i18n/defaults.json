@@ -26,7 +26,10 @@
                 },
                 "item3": {
                     "name": "新建房间",
-                    "id": "createroom"
+                    "id": "createroom",
+                    "err1": "房间名称不能为空，房间id不能为空，且房间id不能为非数字",
+                    "err2": "添加失败\n",
+                    "err3": "添加失败\n"
                 },
                 "item4": {
                     "name": "设置",
@@ -396,6 +399,8 @@
                 "uidtext": "账户UID",
                 "usernametext": "账户昵称",
                 "userinfotext": "账户简介",
+                "loginerror":"登录状态已失效，请前往设置重新登录",
+                "delusertext": "如果您需要注销Typheye账户,请扫描下方二维码后在手机上操作",
                 "p1": {
                     "item1": {
                         "text": "账户简介",
@@ -423,7 +428,21 @@
                     },
                     "item2": {
                         "text": "账户注销",
-                        "subtext": "注销您的Typheye账户"
+                        "subtext": "注销您的Typheye账户",
+                        "uri": "https://service.typheye.com/site/user/center/delete/"
+                    }
+                }
+            },
+            "tserver": {
+                "tabtext": "云端服务",
+                "p1": {
+                    "item1": {
+                        "text": "应用公告",
+                        "subtext": "查看发布的应用公告"
+                    },
+                    "item2": {
+                        "text": "腕上微聊",
+                        "subtext": "简易匿名网络聊天室"
                     }
                 }
             },
@@ -432,6 +451,18 @@
                 "err1": "账户或密码不能为空",
                 "err2": "登录失败\n未连接到服务器",
                 "err3": "登录失败\n"
+            },
+            "tacceditnick": {
+                "tabtext": "更改昵称",
+                "err1": "昵称不能为空",
+                "err2": "修改失败\n未连接到服务器",
+                "err3": "修改失败\n"
+            },
+            "tacceditshuo": {
+                "tabtext": "更改简介",
+                "err1": "简介不能为空",
+                "err2": "修改失败\n未连接到服务器",
+                "err3": "修改失败\n"
             },
             "textdisplay": {
                 "tabtext": "文本浏览",
@@ -462,6 +493,15 @@
                 "err1": "消息不能为空",
                 "err2": "发送失败\n未连接到服务器",
                 "err3": "发送失败\n"
+            },
+            "settings": {
+                "tabtext": "腕上微聊",
+                "p1": {
+                    "item1": {
+                        "text": "更改昵称",
+                        "subtext": "前往Typheye账户继续更改"
+                    }
+                }
             }
         }
     },

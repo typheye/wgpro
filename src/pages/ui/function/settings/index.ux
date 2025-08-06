@@ -189,12 +189,7 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		if (id == "tserver")
-			this.$app.$def.toTips(
-				this.$t("display.settings.run.tserver.title"),
-				this.$t("display.settings.run.tserver.text")
-			);
-		else if (id == "filemanger")
+		if (id == "filemanger")
 			this.$app.$def.toTips(
 				this.$t("display.settings.run.filemanger.title"),
 				this.$t("display.settings.run.filemanger.text")
@@ -213,8 +208,10 @@ export default {
 		else {
 			var v_uri = "";
 			if (id == "taccount") v_uri = "/pages/ui/acts/settings/taccount";
+			else if (id == "tserver") v_uri = "/pages/ui/acts/settings/tserver";
 			else if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
-			else if (id == "textdisplay") v_uri = "pages/ui/acts/settings/textdisplay";
+			else if (id == "textdisplay")
+				v_uri = "pages/ui/acts/settings/textdisplay";
 			this.$app.$def.goPage(v_uri);
 		}
 	},

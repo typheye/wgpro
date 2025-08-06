@@ -66,6 +66,7 @@ class fetch {
   fetch(options = {}) {
     const {
       url,
+      data_GET = {},
       data = {},
       header,
       method = "GET",
@@ -73,6 +74,34 @@ class fetch {
       success,
       fail,
     } = options;
+    const toQueryString = (obj) => {
+      try {
+        // 类型检查
+        if (!obj || typeof obj !== "object") {
+          console.warn("Invalid data for query string:", obj);
+          return "";
+        }
+
+        return Object.entries(obj)
+          .filter(([_, value]) => value !== null && value !== undefined)
+          .flatMap(([key, value]) => {
+            // 处理嵌套对象
+            if (value && typeof value === "object") {
+              return Object.entries(value).map(
+                ([subKey, subValue]) =>
+                  `${encodeURIComponent(key)}[${encodeURIComponent(
+                    subKey
+                  )}]=${encodeURIComponent(subValue)}`
+              );
+            }
+            return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+          })
+          .join("&");
+      } catch (e) {
+        console.error("Query string generation error:", e);
+        return "";
+      }
+    };
     var headers = {
       Accept:
         "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/jxl,image/webp,image/png,image/svg+xml,*/*;q=0.8",
@@ -82,14 +111,16 @@ class fetch {
         "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0",
     };
     if (header) headers = header;
+    var url0 = url;
+    if (data_GET) url0 += "?" + toQueryString(data_GET);
     if (enableFetch) {
       // 使用系统fetch（保持不变）
       deffetch.fetch({
-        url,
-        data,
+        url: url0,
+        data: data,
         headers: headers,
-        method,
-        responseType,
+        method: method,
+        responseType: responseType,
         success: (response) => success(response),
         fail: (data, code) => fail(data, code),
       });
@@ -105,38 +136,10 @@ class fetch {
           this.pendingRequests.delete(requestId);
         }
       }, 30000); // 30秒超时
-      const toQueryString = (obj) => {
-        try {
-          // 类型检查
-          if (!obj || typeof obj !== "object") {
-            console.warn("Invalid data for query string:", obj);
-            return "";
-          }
-
-          return Object.entries(obj)
-            .filter(([_, value]) => value !== null && value !== undefined)
-            .flatMap(([key, value]) => {
-              // 处理嵌套对象
-              if (value && typeof value === "object") {
-                return Object.entries(value).map(
-                  ([subKey, subValue]) =>
-                    `${encodeURIComponent(key)}[${encodeURIComponent(
-                      subKey
-                    )}]=${encodeURIComponent(subValue)}`
-                );
-              }
-              return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
-            })
-            .join("&");
-        } catch (e) {
-          console.error("Query string generation error:", e);
-          return "";
-        }
-      };
       // 发送请求
       // 添加默认Content-Type
       let data_text = "";
-      if (method == "POST") {
+      if (method == "POST" && (!headers || !headers["Content-Type"])) {
         headers = {
           ...headers,
           "Content-Type": "application/x-www-form-urlencoded",
@@ -147,7 +150,7 @@ class fetch {
       const message = JSON.stringify({
         msgtype: "FETCH",
         message: JSON.stringify({
-          url: url,
+          url: url0,
           responseType: responseType,
           method: method,
           data: data_text,

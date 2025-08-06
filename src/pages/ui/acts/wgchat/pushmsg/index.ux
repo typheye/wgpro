@@ -7,7 +7,10 @@
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
-		<div class="exit">
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<div class="exit" else>
 			<div
 				class="edittext2-div"
 				style="border: 4px solid {{ fc_v0 }}"
@@ -51,6 +54,7 @@ export default {
 		fc_v0: "#3c3c3c",
 		fc_v1: "#3c3c3c",
 		fc_v2: "#3c3c3c",
+		isLoading: false,
 		textValues: "",
 		inputValues: { msg: "" },
 		roomId: "",
@@ -66,22 +70,19 @@ export default {
 		this.usrLoad();
 	},
 	usrLoad() {
-		storage.get({
-			key: "wgsettings_wgchat_nowRoomID",
-			success: (data) => {
-				if (data) this.roomId = data;
-			},
-		});
-		storage.get({
-			key: "wgsettings_taccount_nick",
-			success: (data) => {
-				if (data) this.usrNick = data;
-			},
-		});
-		storage.get({
-			key: "wgsettings_taccount_username",
-			success: (data) => {
-				if (data) this.usrUid = data;
+		storage.gets({
+			keys: [
+				"wgsettings_wgchat_nowRoomID",
+				"wgsettings_taccount_nick",
+				"wgsettings_taccount_username",
+			],
+			success: (datas) => {
+				if (datas.wgsettings_wgchat_nowRoomID)
+					this.roomId = datas.wgsettings_wgchat_nowRoomID;
+				if (datas.wgsettings_taccount_nick)
+					this.usrNick = datas.wgsettings_taccount_nick;
+				if (datas.wgsettings_taccount_username)
+					this.usrUid = datas.wgsettings_taccount_username;
 			},
 		});
 	},
@@ -96,14 +97,17 @@ export default {
 		return true;
 	},
 	toLaunch() {
+		this.isLoading = true;
 		if (!this.inputValues["msg"])
-			this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err1"));
+			this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err1")),
+				(this.isLoading = false);
 		else {
 			fetch.fetch({
-				url:
-					this.$t("public.serverURL") +
-					"talking/class/api.php?type=release&id=" +
-					this.roomId,
+				url: this.$t("public.serverURL") + "talking/class/api.php",
+				data_GET: {
+					type: "release",
+					id: this.roomId,
+				},
 				data: {
 					name: this.usrNick,
 					value: this.inputValues["msg"],
@@ -114,16 +118,21 @@ export default {
 				responseType: "text",
 				success: (response) => {
 					if (response.code == 200) {
-						if (response.data) this.toBack();
-						else
+						if (response.data == "true") {
+							this.toBack();
+						} else
 							this.$app.$def.toTips(
 								"",
 								this.$t("acts.wgchat.pushmsg.err3") + response.data
-							);
-					} else this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err2"));
+							),
+								(this.isLoading = false);
+					} else
+						this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err2")),
+							(this.isLoading = false);
 				},
 				fail: () => {
 					this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err2"));
+					this.isLoading = false;
 				},
 			});
 		}

@@ -1,7 +1,7 @@
 <template>
-	<div class="page" onswipe="right">
-		<div class="tab">
-			<text class="tab-back"></text>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
 			<marquee class="tab-text">{{ title }}</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -39,7 +39,7 @@ export default {
 		else eval("this.fc_" + i + " = '#3c3c3c'");
 	},
 	onBackPress() {
-		this.$app.$def.toCancel(false);
+		this.$app.$def.toCancel(true);
 		return true;
 	},
 	toBack() {

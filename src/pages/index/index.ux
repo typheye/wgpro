@@ -23,6 +23,7 @@ export default {
 						"wgsettings_autoCheckUpdateIsShow",
 						"false"
 					);
+					this.$app.$def.taccLoginCheck();
 					this.$app.$def.goReplacePage("/pages/ui/home");
 				} else {
 					this.$app.$def.goReplacePage("/pages/ui/popup/init");

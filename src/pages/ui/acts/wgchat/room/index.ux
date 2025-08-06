@@ -84,6 +84,7 @@ export default {
 		this.userReady();
 	},
 	onReady() {
+		this.$app.$def.taccLoginCheck();
 		this.msgListReady();
 	},
 	toBack() {
@@ -301,10 +302,10 @@ export default {
 			}
 		}
 		const timestamp1 = Date.now();
-		const delaytamp = timestamp1 - timestamp0 + 300;
+		const delaytamp = 3 * (timestamp1 - timestamp0);
 		this.roommsgList = roommsgListUpdate;
 		setTimeout(() => {
-			if (!this.isToBottom) this.toListBottom(true);
+			if (!this.isToBottom) (this.isToBottom = true), this.toListBottom(true);
 		}, delaytamp);
 	},
 	toListBottom(can) {

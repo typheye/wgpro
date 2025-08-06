@@ -39,6 +39,9 @@
     },
     {
       "name": "system.file"
+    },
+    {
+      "name": "system.crypto" 
     }
   ],
   "config": {
@@ -128,7 +131,19 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/settings/tserver": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/settings/tacclogin": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tacceditnick": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tacceditshuo": {
         "launchMode": "singleTask",
         "component": "index"
       },
@@ -148,11 +163,19 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/wgchat/createroom": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/wgchat/room": {
         "launchMode": "singleTask",
         "component": "index"
       },
       "pages/ui/acts/wgchat/pushmsg": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/settings": {
         "launchMode": "singleTask",
         "component": "index"
       },

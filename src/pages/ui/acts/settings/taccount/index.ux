@@ -79,7 +79,7 @@
 						style="background-color: {{ itc_p2v1 }}"
 						ontouchstart="ht(1, 'p2v1')"
 						ontouchend="ht(0, 'p2v1')"
-						onclick="toRun('')"
+						onclick="toRun('toeditnick')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a44.png" />
@@ -98,7 +98,7 @@
 						style="background-color: {{ itc_p2v2 }}"
 						ontouchstart="ht(1, 'p2v2')"
 						ontouchend="ht(0, 'p2v2')"
-						onclick="toRun('')"
+						onclick="toRun('toeditshuo')"
 					>
 						<div class="wgpro-item-left"></div>
 						<div class="wgpro-item-texts-none">
@@ -136,7 +136,7 @@
 						style="background-color: {{ itc_p3v2 }}"
 						ontouchstart="ht(1, 'p3v2')"
 						ontouchend="ht(0, 'p3v2')"
-						onclick="toRun('')"
+						onclick="toRun('todeluser')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a85.png" />
@@ -180,6 +180,8 @@ export default {
 		swit_it1_state: false,
 		isLogin: true,
 		taccUsername: "Loading...",
+		taccusr: "",
+		taccpwd: "",
 		taccUid: "Loading...",
 		taccUserinfo: "Loading...",
 	},
@@ -193,6 +195,7 @@ export default {
 		return true;
 	},
 	onReady() {
+		this.$app.$def.taccLoginCheck();
 		this.switload();
 	},
 	toBack() {
@@ -218,18 +221,59 @@ export default {
 					this.taccUserinfo
 				);
 			else this.$app.$def.toTips("", this.taccUserinfo);
+		} else if (id == "todeluser") {
+			if (this.isLogin)
+				this.$app.$def.toTipsWithQR(
+					this.$t("acts.settings.taccount.p3.item2.text"),
+					this.$t("acts.settings.taccount.delusertext"),
+					this.$t("acts.settings.taccount.p3.item2.uri")
+				);
+			else this.$app.$def.toTips("", this.taccUserinfo);
 		} else if (id == "tologin") {
 			if (!this.isLogin)
-				this.$app.$def.goReplacePage("/pages/ui/acts/settings/tacclogin");
+				this.$app.$def.goReplacePageWithParams(
+					"/pages/ui/acts/settings/tacclogin",
+					{
+						textValues: JSON.stringify({
+							username: this.taccusr,
+							password: this.taccpwd,
+						}),
+					}
+				);
 		} else if (id == "tologout") {
 			if (this.isLogin)
-				this.$app.$def.goReplacePage("pages/ui/popup/tacclogout");
+				this.$app.$def.goReplacePage("/pages/ui/popup/tacclogout");
+		} else if (id == "toeditnick") {
+			if (this.isLogin)
+				this.$app.$def.goReplacePageWithParams(
+					"/pages/ui/acts/settings/tacceditnick",
+					{
+						textValues: JSON.stringify({ msg: this.taccUsername }),
+					}
+				);
+		} else if (id == "toeditshuo") {
+			if (this.isLogin)
+				this.$app.$def.goReplacePageWithParams(
+					"/pages/ui/acts/settings/tacceditshuo",
+					{
+						textValues: JSON.stringify({ msg: this.taccUserinfo }),
+					}
+				);
 		}
 	},
 	switload() {
 		storage.gets({
-			keys: ["wgsettings_taccount_cookie", "wgsettings_taccount_allowShare"],
+			keys: [
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_allowShare",
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_password",
+			],
 			success: (datas) => {
+				if (datas.wgsettings_taccount_username)
+					this.taccusr = datas.wgsettings_taccount_username;
+				if (datas.wgsettings_taccount_password)
+					this.taccpwd = datas.wgsettings_taccount_password;
 				if (datas.wgsettings_taccount_allowShare) this.swit_it1_state = true;
 				if (!datas.wgsettings_taccount_cookie) this.loginReady(false);
 				else this.loginReady(true);

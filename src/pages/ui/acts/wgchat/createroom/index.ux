@@ -3,7 +3,7 @@
 		<div class="tab">
 			<text class="tab-back"></text>
 			<marquee class="tab-text">
-				{{ $t("menu.chatroomlist.def.item2.name") }}
+				{{ $t("menu.chatroomlist.def.item3.name") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -16,9 +16,20 @@
 				style="border: 4px solid {{ fc_v0 }}"
 				ontouchstart="ht(-1, 'v0')"
 				ontouchend="ht(0, 'v0')"
-				onclick="toEditText"
+				onclick="toEditText('name')"
 			>
 				<marquee class="edittext2" @click="changeState">
+					{{ inputValues.name }}
+				</marquee>
+			</div>
+			<div
+				class="edittext2-div"
+				style="border: 4px solid {{ fc_v0 }}"
+				ontouchstart="ht(-1, 'v0')"
+				ontouchend="ht(0, 'v0')"
+				onclick="toEditText('id')"
+			>
+				<marquee class="edittext2" @click="changeState()">
 					{{ inputValues.id }}
 				</marquee>
 			</div>
@@ -56,7 +67,7 @@ export default {
 		fc_v2: "#3c3c3c",
 		isLoading: false,
 		textValues: "",
-		inputValues: { id: "" },
+		inputValues: { name: "", id: "" },
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
@@ -68,6 +79,7 @@ export default {
 	inputReady() {
 		if (this.textValues) {
 			const TVs = JSON.parse(this.textValues);
+			this.inputValues["name"] = TVs["name"];
 			this.inputValues["id"] = TVs["id"];
 		}
 	},
@@ -77,70 +89,57 @@ export default {
 	},
 	toLaunch() {
 		this.isLoading = true;
-		if (!this.$app.$def.isNumeric(this.inputValues["id"]))
-			this.$app.$def.toTips("", this.$t("menu.chatroomlist.def.item2.err1")),
+		if (
+			!this.$app.$def.isNumeric(this.inputValues["id"]) ||
+			!this.inputValues["name"]
+		)
+			this.$app.$def.toTips("", this.$t("menu.chatroomlist.def.item3.err1")),
 				(this.isLoading = false);
 		else {
-			var roomnumlimit = 3;
-			storage.get({
-				key: "wgsettings_wgchat_roomlist",
-				success: (data) => {
-					var roomlist = JSON.parse(data);
-					if (roomlist.length >= roomnumlimit)
+			fetch.fetch({
+				url: this.$t("public.serverURL") + "talking/class/api.php",
+				data_GET: {
+					type: "make",
+				},
+				data: {
+					title: this.inputValues["name"],
+					id: this.inputValues["id"],
+					pass: "123456",
+				},
+				method: "POST",
+				responseType: "text",
+				success: (response) => {
+					if (response.code == 200) {
+						if (response.data.startsWith("房间创建成功")) {
+							this.toBack();
+							this.$app.$def.toTips("", response.data);
+						} else
+							this.$app.$def.toTips(
+								"",
+								this.$t("menu.chatroomlist.def.item3.err3") + response.data
+							),
+								(this.isLoading = false);
+					} else
 						this.$app.$def.toTips(
 							"",
-							this.$t("menu.chatroomlist.def.item2.err2")
+							this.$t("menu.chatroomlist.def.item3.err2")
 						),
 							(this.isLoading = false);
-					else {
-						fetch.fetch({
-							url:
-								this.$t("public.serverURL") +
-								"talking/chat/" +
-								this.inputValues["id"] +
-								".json",
-							responseType: "text",
-							success: (response) => {
-								if (response.code == 200) {
-									const roomInfo = JSON.parse(response.data);
-									roomlist.push({
-										id: this.inputValues["id"],
-										name: roomInfo.room,
-									});
-									roomlist = JSON.stringify(roomlist, null);
-									this.$app.$def.settingsChange(
-										"wgsettings_wgchat_roomlist",
-										roomlist
-									);
-									this.toBack();
-								} else
-									this.$app.$def.toTips(
-										"",
-										this.$t("menu.chatroomlist.def.item2.err3")
-									),
-										(this.isLoading = false);
-							},
-							fail: () => {
-								this.$app.$def.toTips(
-									"",
-									this.$t("menu.chatroomlist.def.item2.err3")
-								);
-								this.isLoading = false;
-							},
-						});
-					}
 				},
 				fail: () => {
-					this.$app.$def.toTips("", this.$t("tips.fail"));
+					this.$app.$def.toTips(
+						"",
+						this.$t("menu.chatroomlist.def.item3.err2")
+					);
 					this.isLoading = false;
 				},
 			});
 		}
 	},
 	toBack() {
-		this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
+		this.$app.$def.goBack();
 	},
-	toEditText() {
+	toEditText(ti) {
 		storage.gets({
 			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
 			success: (datas) => {
@@ -149,9 +148,9 @@ export default {
 				if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
 				if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-					reqPage: "/pages/ui/acts/wgchat/addroom",
+					reqPage: "/pages/ui/acts/wgchat/createroom",
 					textValues: JSON.stringify(this.inputValues),
-					textIndex: "id",
+					textIndex: ti,
 					keyboardtype: _keyboardtype,
 					vibratemode: _vibratemode,
 				});
