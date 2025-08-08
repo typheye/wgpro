@@ -42,6 +42,9 @@
     },
     {
       "name": "system.crypto" 
+    },
+    {
+      "name": "system.request"
     }
   ],
   "config": {
@@ -151,6 +154,14 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/settings/filemanger": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/browser": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/systool/displaytest": {
         "launchMode": "singleTask",
         "component": "index"
@@ -180,7 +191,15 @@
         "component": "index"
       },
       "pages/ui/acts/filemanger/pathshow": {
-        "launchMode": "standard",
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/setinfo": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/fpdel": {
+        "launchMode": "singleTask",
         "component": "index"
       },
       "pages/ui/acts/debugs/debug1": {
@@ -192,6 +211,14 @@
         "component": "index"
       },
       "pages/ui/acts/debugs/debug3": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/browser/x1web": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/browser/setdefuri": {
         "launchMode": "singleTask",
         "component": "index"
       }

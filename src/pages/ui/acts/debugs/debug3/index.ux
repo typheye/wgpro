@@ -2,7 +2,7 @@
 	<div class="page" @swipe="right">
 		<div class="tab">
 			<text class="tab-back"></text>
-			<marquee class="tab-text">Fetch Test</marquee>
+			<marquee class="tab-text">FETCH</marquee>
 			<text class="tab-more"></text>
 		</div>
 		<scroll class="scroll-root" scroll-y="true">
@@ -50,7 +50,7 @@ export default {
 	test() {
 		const timestamp0 = Date.now();
 		fetch.fetch({
-			url: "https://vela-service.typheye.com/test",
+			url: this.$t("public.taccServerURL") + "test",
 			responseType: "text",
 			success: (response) => {
 				const { code, data } = response;

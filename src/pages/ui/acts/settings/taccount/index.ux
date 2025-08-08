@@ -274,7 +274,7 @@ export default {
 					this.taccusr = datas.wgsettings_taccount_username;
 				if (datas.wgsettings_taccount_password)
 					this.taccpwd = datas.wgsettings_taccount_password;
-				if (datas.wgsettings_taccount_allowShare) this.swit_it1_state = true;
+				if (datas.wgsettings_taccount_allowShare == true) this.swit_it1_state = true;
 				if (!datas.wgsettings_taccount_cookie) this.loginReady(false);
 				else this.loginReady(true);
 			},

@@ -66,7 +66,7 @@
 <script>
 import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
-import file from "@system.file";
+import file from "../../../../../utils/file.js";
 export default {
 	private: {
 		roommsgList: [],

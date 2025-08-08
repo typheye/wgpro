@@ -1,0 +1,100 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">{{ $t("app.tips") }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit">
+			<text class="exit-tip-text">{{ show }}</text>
+			<div class="exit-choose">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value-red"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(-1, 'v2')"
+					onclick="toLaunch()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import file from "../../../../../utils/file.js";
+export default {
+	private: {
+		fc_v1: "#3c3c3c",
+		fc_v2: "#740000",
+		uri: "",
+		ruri: "",
+		name: "",
+		pname: "",
+		type: "",
+		show: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#740000'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onReady() {
+		let ttt = "menu.pathshowlist.itemfile.item7.show";
+		if (this.type == "deletepath")
+			ttt = "menu.pathshowlist.itempath.item6.show";
+		this.show = this.$app.$def.textFormat(this.$t(ttt), {
+			name: this.name,
+		});
+	},
+	toLaunch() {
+		this.isLoading = true;
+		setTimeout(() => {
+			if (this.type == "deletepath") this.fun_delpath();
+			else if (this.type == "deletefile") this.fun_delfile();
+			else this.toBack();
+		}, 500);
+	},
+	toBack() {
+		this.$app.$def.goReplacePageWithParams(
+			"pages/ui/acts/filemanger/pathshow",
+			{
+				pathName: this.pname,
+				pathUri: this.uri,
+				pathRootUri: this.ruri,
+			}
+		);
+	},
+	fun_delfile() {
+		file.delete({
+			uri: this.uri + "/" + this.name,
+			complete: () => this.toBack(),
+		});
+	},
+	fun_delpath() {
+		file.rmdir({
+			uri: this.uri + "/" + this.name + "/",
+			recursive: true,
+			complete: () => this.toBack(),
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+</style>

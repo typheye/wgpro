@@ -438,3 +438,17 @@
 	margin-top: 20px;
 	font-size: 25px;
 }
+
+
+/* 2025.08.08 ADD */
+.wgpro-listlayout-gap2 {
+	width: 100%;
+	height: 7%;
+}
+
+.wgpro-listlayout4 {
+	width: 80%;
+	height: 93%;
+	flex-direction: column;
+	align-items: center;
+}

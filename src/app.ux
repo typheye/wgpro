@@ -4,14 +4,9 @@ import vibrator from "@system.vibrator";
 import app from "@system.app";
 import storage from "./utils/storage.js";
 import fetch from "./utils/fetch.js";
+import file from "./utils/file.js";
 import crypto from "@system.crypto";
 export default {
-	onCreate() {
-		console.log("app created");
-	},
-	onDestroy() {
-		console.log("app destroyed");
-	},
 	goBack() {
 		router.back();
 	},
@@ -84,39 +79,27 @@ export default {
 	},
 	settingsInit() {
 		this.settingsChange("wgsettings_init", true);
+		file.writeText({
+			uri: "internal://files/mnt/Documents/README",
+			text: "Hello World",
+		});
+		file.delete({
+			uri: "internal://files/mnt/Documents/README",
+		});
 	},
 	settingsReset() {
-		storage.clear({
-			success: () => {
-				console.log("handling success");
-			},
-			fail: (code) => {
-				console.log(`handling fail, code = ${code}`);
-			},
-		});
+		storage.clear();
 	},
 	settingsChange(_key, _data) {
 		storage.set({
 			key: _key,
 			value: _data,
-			success: () => {
-				console.log(`设置成功: ${this.key} = ${this.value}`);
-			},
-			fail: (code) => {
-				console.log(`handling fail, code = ${code}`);
-			},
 		});
 	},
 	settingsChangeMore(_key, _data) {
 		storage.sets({
 			keys: _key,
 			values: _data,
-			success: () => {
-				console.log(`设置成功:`);
-			},
-			fail: (code) => {
-				console.log(`handling fail, code = ${code}`);
-			},
 		});
 	},
 	taccountInit() {

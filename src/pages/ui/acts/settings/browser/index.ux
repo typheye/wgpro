@@ -3,7 +3,7 @@
 		<div class="tab" onclick="toBack()">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
-				{{ $t("acts.settings.textdisplay.tabtext") }}
+				{{ $t("acts.settings.browser.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -18,20 +18,20 @@
 						onclick="toRun('')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a86.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a78.png" />
 						</div>
 						<div class="wgpro-item-texts">
 							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.textdisplay.p1.item1.text") }}
+								{{ $t("acts.settings.browser.p1.item1.text") }}
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.textdisplay.p1.item1.subtext") }}
+								{{ $t("acts.settings.browser.p1.item1.subtext") }}
 							</marquee>
 						</div>
 						<div class="wgpro-item-right">
 							<switch
 								checked="{{ swit_it1_state }}"
-								onchange="switchange('wgsettings_keyboardUseT9','swit_it1_state')"
+								onchange="switchange('wgsettings_browser_hideDebug','swit_it1_state')"
 								class="wgpro-item-right-switch"
 							/>
 						</div>
@@ -43,21 +43,16 @@
 						ontouchend="ht(0, 'p1v2')"
 						onclick="toRun('')"
 					>
-						<div class="wgpro-item-left"></div>
-						<div class="wgpro-item-texts">
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a91.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.textdisplay.p1.item2.text") }}
+								{{ $t("acts.settings.browser.p1.item2.text") }}
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.textdisplay.p1.item2.subtext") }}
+								{{ def_url }}
 							</marquee>
-						</div>
-						<div class="wgpro-item-right">
-							<switch
-								checked="{{ swit_it2_state }}"
-								onchange="switchange('wgsettings_keyboardUseLongVibrate','swit_it2_state')"
-								class="wgpro-item-right-switch"
-							/>
 						</div>
 					</div>
 				</div>
@@ -84,7 +79,7 @@ export default {
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
 		swit_it1_state: false,
-		swit_it2_state: false,
+		def_url: "Loading...",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -106,10 +101,15 @@ export default {
 	},
 	switload() {
 		storage.gets({
-			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			keys: ["wgsettings_browser_hideDebug", "wgsettings_browser_defUri"],
 			success: (datas) => {
-				if (datas.wgsettings_keyboardUseT9 == true) this.swit_it1_state = true;
-				if (datas.wgsettings_keyboardUseLongVibrate == true) this.swit_it2_state = true;
+				if (datas.wgsettings_browser_hideDebug == true)
+					this.swit_it1_state = true;
+				if (!datas.wgsettings_browser_defUri) this.def_url = "";
+				else this.def_url = datas.wgsettings_browser_defUri;
+			},
+			fail: () => {
+				this.def_url = "";
 			},
 		});
 	},
@@ -117,6 +117,13 @@ export default {
 		const state = e["checked"];
 		eval("this." + id + " = " + state);
 		this.$app.$def.settingsChange(key, state);
+	},
+	toRun() {
+		this.$app.$def.goReplacePageWithParams("/pages/ui/acts/browser/setdefuri", {
+			textValues: JSON.stringify({
+				msg: this.def_url,
+			}),
+		});
 	},
 };
 </script>

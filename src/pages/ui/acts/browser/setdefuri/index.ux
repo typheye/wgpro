@@ -1,9 +1,9 @@
 <template>
-	<div class="page">
-		<div class="tab" onclick="toBack">
-			<text class="tab-back">‹</text>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
 			<marquee class="tab-text">
-				{{ $t("display.browser.tabtext") }}
+				{{ $t("acts.browser.setdefuri.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -19,7 +19,7 @@
 				onclick="toEditText"
 			>
 				<marquee class="edittext2" @click="changeState">
-					{{ inputValues.uri }}
+					{{ inputValues.msg }}
 				</marquee>
 			</div>
 			<div class="exit-choose">
@@ -28,9 +28,18 @@
 					style="background-color: {{ fc_v1 }}"
 					ontouchstart="ht(1, 'v1')"
 					ontouchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
 					onclick="toLaunch()"
 				>
-					<img class="exit-choose-img" src="/common/mipmap/a55.png" />
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
 				</div>
 			</div>
 		</div>
@@ -38,14 +47,15 @@
 </template>
 
 <script>
-import storage from "../../../../utils/storage.js";
+import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
 		fc_v0: "#3c3c3c",
 		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
 		isLoading: false,
 		textValues: "",
-		inputValues: { uri: "" },
+		inputValues: { msg: "" },
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
@@ -54,27 +64,30 @@ export default {
 	},
 	onReady() {
 		this.inputReady();
+		this.usrLoad();
 	},
 	inputReady() {
 		if (this.textValues) {
 			const TVs = JSON.parse(this.textValues);
-			this.inputValues["uri"] = TVs["uri"];
+			this.inputValues["msg"] = TVs["msg"];
 		}
 	},
 	onBackPress() {
-		this.$app.$def.toCancel(true);
+		this.$app.$def.toCancel(false);
 		return true;
 	},
 	toLaunch() {
 		this.isLoading = true;
 		setTimeout(() => {
-			this.$app.$def.goReplacePageWithParams("/pages/ui/acts/browser/x1web", {
-				uri: this.inputValues["uri"],
-			});
-		}, 1500);
+			this.$app.$def.settingsChange(
+				"wgsettings_browser_defUri",
+				this.inputValues["msg"]
+			);
+			this.toBack();
+		}, 500);
 	},
 	toBack() {
-		this.$app.$def.goBack();
+		this.$app.$def.goReplacePage("/pages/ui/acts/settings/browser");
 	},
 	toEditText() {
 		storage.gets({
@@ -86,9 +99,9 @@ export default {
 				if (datas.wgsettings_keyboardUseLongVibrate == true)
 					_vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-					reqPage: "/pages/ui/function/browser",
+					reqPage: "/pages/ui/acts/browser/setdefuri",
 					textValues: JSON.stringify(this.inputValues),
-					textIndex: "uri",
+					textIndex: "msg",
 					keyboardtype: _keyboardtype,
 					vibratemode: _vibratemode,
 				});
@@ -99,6 +112,5 @@ export default {
 </script>
 
 <style>
-@import "../../../../common/style/index.css";
-@import "../../../../common/style/wgpro.css";
+@import "../../../../../common/style/index.css";
 </style>

@@ -25,12 +25,12 @@
 					ontouchend="htm(0, $item.num)"
 					onclick="toRunMenu($item.id)"
 				>
-					<text
+					<marquee
 						class="wgpro-item-texts-text2"
 						style="color: {{ $item.textcolor }};"
 					>
 						{{ $item.name }}
-					</text>
+					</marquee>
 				</list-item>
 			</list>
 		</div>
@@ -62,9 +62,9 @@
 						</div>
 					</div>
 					<div class="wgpro-item-texts-none2">
-						<text class="wgpro-item-texts-text">
+						<marquee class="wgpro-item-texts-text">
 							{{ $item.name }}
-						</text>
+						</marquee>
 					</div>
 				</list-item>
 			</list>

@@ -2,8 +2,8 @@
 	<div class="container">
 		<!-- 标题区域 -->
 		<div class="header">
-			<text class="title">Storage Test</text>
-			<text class="subtitle">基于system.file实现</text>
+			<text class="subtitle"></text>
+			<text class="title">STORAGE</text>
 		</div>
 
 		<!-- 状态显示 -->
@@ -12,6 +12,22 @@
 			<text class="status-bar-text">
 				文件路径: internal://files/storage.bin
 			</text>
+		</div>
+
+		<!-- 操作按钮区域 -->
+		<div class="button-group">
+			<input
+				class="btn2"
+				type="button"
+				value="初始化存储"
+				onclick="initStorage"
+			/>
+			<input
+				class="btn2"
+				type="button"
+				value="清除存储"
+				onclick="clearStorage"
+			/>
 		</div>
 
 		<!-- 键值操作区域 -->
@@ -32,43 +48,27 @@
 
 		<!-- 结果显示区域 -->
 		<div class="result-container">
-			<text class="result-title">操作结果:</text>
+			<text class="result-title">操作结果</text>
 			<text class="result-text">{{ result }}</text>
 		</div>
 
 		<!-- 存储内容显示区域 -->
 		<div class="storage-container">
-			<text class="storage-title">当前存储内容:</text>
+			<text class="storage-title">当前存储内容</text>
 			<text class="storage-content">{{ storageContent }}</text>
 		</div>
 
 		<!-- 日志区域 -->
 		<div class="log-container">
-			<text class="log-title">操作日志:</text>
+			<text class="log-title">操作日志</text>
 			<scroll class="log-content" scroll-y="true">
 				<text class="log-content-text" for="{{ logs }}">{{ $item }}</text>
 			</scroll>
 		</div>
 
-		<!-- 操作按钮区域 -->
-		<div class="button-group">
-			<input
-				class="btn2"
-				type="button"
-				value="初始化存储"
-				onclick="initStorage"
-			/>
-			<input
-				class="btn2"
-				type="button"
-				value="清除存储"
-				onclick="clearStorage"
-			/>
-		</div>
-
 		<!-- 尾部区域 -->
 		<div class="header">
-			<text class="subtitle">调试工具 谨慎使用</text>
+			<text class="subtitle"></text>
 			<text class="title2" onclick="toBack">退出</text>
 		</div>
 	</div>
@@ -83,7 +83,8 @@ export default {
 		result: "",
 		storageStatus: "未初始化",
 		storageContent: "",
-		inputValues: { key: "", value: "", logs: [] },
+		logs: [],
+		inputValues: { key: "", value: "" },
 	},
 	onInit() {
 		this.addLog("页面初始化完成");
@@ -97,7 +98,6 @@ export default {
 			const TVs = JSON.parse(this.textValues);
 			this.inputValues["key"] = TVs["key"];
 			this.inputValues["value"] = TVs["value"];
-			this.inputValues["logs"] = TVs["logs"];
 		}
 	},
 	onBackPress() {
@@ -109,10 +109,10 @@ export default {
 	},
 	addLog(message) {
 		const timestamp = new Date().toLocaleTimeString();
-		this.inputValues["logs"].unshift(`[${timestamp}] ${message}`);
+		this.logs.unshift(`[${timestamp}] ${message}`);
 		// 限制日志数量
-		if (this.inputValues["logs"].length > 20) {
-			this.inputValues["logs"].pop();
+		if (this.logs.length > 20) {
+			this.logs.pop();
 		}
 	},
 	updateKey(e) {
@@ -247,8 +247,8 @@ export default {
 			success: (datas) => {
 				let _keyboardtype = "QWERTY";
 				let _vibratemode = "short";
-				if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
-				if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
 					reqPage: "/pages/ui/acts/debugs/debug1",
 					textValues: JSON.stringify(this.inputValues),
@@ -265,8 +265,9 @@ export default {
 <style>
 .container {
 	flex-direction: column;
+	align-items: center;
 	padding: 20px;
-	background-color: #f5f5f5;
+	background-color: black;
 }
 
 .header {
@@ -277,7 +278,7 @@ export default {
 
 .title {
 	font-size: 32px;
-	color: #333;
+	color: white;
 	font-weight: bold;
 }
 
@@ -296,11 +297,13 @@ export default {
 }
 
 .status-bar {
+	width: 80%;
 	flex-direction: column;
-	background-color: #e0e0e0;
+	background-color: black;
 	padding: 15px;
 	border-radius: 8px;
 	margin-bottom: 20px;
+	border: 2px solid #4a90e2;
 }
 
 .status-bar-text {
@@ -310,6 +313,7 @@ export default {
 }
 
 .button-group {
+	width: 80%;
 	flex-direction: column;
 	justify-content: space-around;
 	align-items: center;
@@ -317,17 +321,17 @@ export default {
 }
 
 .btn {
-	width: 70%;
+	width: 100%;
 	height: 80px;
 	background-color: #4a90e2;
 	color: white;
 	font-size: 24px;
 	border-radius: 8px;
-	margin-top: 10px;
+	margin-bottom: 10px;
 }
 
 .btn2 {
-	width: 70%;
+	width: 100%;
 	height: 80px;
 	background-color: red;
 	color: white;
@@ -337,30 +341,32 @@ export default {
 }
 
 .form-group {
+	width: 80%;
 	height: 200px;
 	flex-direction: column;
 	align-items: center;
 }
 
 .input {
-	width: 70%;
+	width: 100%;
 	height: 80px;
-	border: 4px solid blue;
+	border: 4px solid #4a90e2;
 	border-radius: 8px;
 	padding: 0 15px;
 	margin-bottom: 15px;
 	font-size: 24px;
-	color: black;
+	color: white;
 }
 
 .result-container,
 .storage-container,
 .log-container {
-	background-color: white;
+	width: 80%;
+	background-color: black;
 	border-radius: 8px;
 	padding: 15px;
 	margin-bottom: 20px;
-	border: 1px solid #ddd;
+	border: 2px solid #4a90e2;
 	flex-direction: column;
 	align-items: center;
 }
@@ -380,7 +386,7 @@ export default {
 }
 
 .storage-content {
-	height: 300px;
+	height: 100px;
 	font-size: 22px;
 	color: #444;
 	font-family: monospace;

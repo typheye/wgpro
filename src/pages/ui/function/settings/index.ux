@@ -189,17 +189,7 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		if (id == "filemanger")
-			this.$app.$def.toTips(
-				this.$t("display.settings.run.filemanger.title"),
-				this.$t("display.settings.run.filemanger.text")
-			);
-		else if (id == "browser")
-			this.$app.$def.toTips(
-				this.$t("display.settings.run.browser.title"),
-				this.$t("display.settings.run.browser.text")
-			);
-		else if (id == "polinfo")
+		if (id == "polinfo")
 			this.$app.$def.toTipsWithQR(
 				this.$t("display.settings.run.polinfo.title"),
 				this.$t("display.settings.run.polinfo.text"),
@@ -212,6 +202,8 @@ export default {
 			else if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
 			else if (id == "textdisplay")
 				v_uri = "pages/ui/acts/settings/textdisplay";
+			else if (id == "filemanger") v_uri = "pages/ui/acts/settings/filemanger";
+			else if (id == "browser") v_uri = "pages/ui/acts/settings/browser";
 			this.$app.$def.goPage(v_uri);
 		}
 	},

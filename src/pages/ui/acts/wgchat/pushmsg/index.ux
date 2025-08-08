@@ -63,6 +63,7 @@ export default {
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
 	},
 	onReady() {
@@ -146,8 +147,8 @@ export default {
 			success: (datas) => {
 				let _keyboardtype = "QWERTY";
 				let _vibratemode = "short";
-				if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
-				if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
 					reqPage: "/pages/ui/acts/wgchat/pushmsg",
 					textValues: JSON.stringify(this.inputValues),

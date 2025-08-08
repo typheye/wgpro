@@ -25,19 +25,19 @@
 					ontouchend="htm(0, $item.num)"
 					onclick="toRunMenu($item.id)"
 				>
-					<text
+					<marquee
 						class="wgpro-item-texts-text2"
 						style="color: {{ $item.textcolor }};"
 					>
 						{{ $item.name }}
-					</text>
+					</marquee>
 				</list-item>
 			</list>
 		</div>
 		<div class="wgpro-frglayout" else>
-			<div class="wgpro-listlayout-gap"></div>
+			<div class="wgpro-listlayout-gap2"></div>
 			<list
-				class="wgpro-listlayout"
+				class="wgpro-listlayout4"
 				bounces="true"
 				onscroll="onScroll"
 				onscrolltop="onScrollTop"
@@ -61,12 +61,12 @@
 						/>
 					</div>
 					<div class="wgpro-item-texts-none">
-						<text class="wgpro-item-texts-text">
+						<marquee class="wgpro-item-texts-text">
 							{{ $item.name }}
-						</text>
-						<text class="wgpro-item-texts-subtext">
+						</marquee>
+						<marquee class="wgpro-item-texts-subtext">
 							{{ $item.info }}
-						</text>
+						</marquee>
 					</div>
 				</list-item>
 			</list>
@@ -75,11 +75,12 @@
 </template>
 
 <script>
-import file from "@system.file";
+import file from "../../../../../utils/file.js";
 export default {
 	private: {
 		pathName: "",
 		pathUri: "",
+		pathRootUri: "",
 		pathshowList: [],
 		pathshowmenuList: [],
 		menuflag: "def",
@@ -116,8 +117,18 @@ export default {
 	},
 	toRun(id, uri, isfile, name) {
 		if (id == "");
-		else if (id == "../") this.toBack();
-		else {
+		else if (id == "../") {
+			if (!uri) this.toBack();
+			else
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: uri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+		} else {
 			if (isfile) {
 				let type = this.getSubstringAfter(name, ".");
 				let tabtext = "menu.pathshowlist.itemfile.item4.name";
@@ -132,6 +143,7 @@ export default {
 					{
 						pathName: this.pathName,
 						pathUri: uri,
+						pathRootUri: this.pathRootUri,
 					}
 				);
 			}
@@ -151,19 +163,105 @@ export default {
 	toRunMenu(id) {
 		let needoffmenu = true;
 		if (id == "") needoffmenu = false;
-		else if (id == "fileinfo") {
+		else if (id == "addpath") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itempath.item2.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "addpath",
+					}),
+				}
+			);
+		} else if (id == "addfile") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itemfile.item3.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "addfile",
+					}),
+				}
+			);
+		} else if (id == "renamefile") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itemfile.item8.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "renamefile",
+						name: this.pathshowList[this.selectItemNum]["name"],
+						msg: this.pathshowList[this.selectItemNum]["name"],
+					}),
+				}
+			);
+		} else if (id == "renamepath") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itempath.item7.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "renamepath",
+						name: this.pathshowList[this.selectItemNum]["name"],
+						msg: this.pathshowList[this.selectItemNum]["name"],
+					}),
+				}
+			);
+		} else if (id == "deletepath") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/filemanger/fpdel", {
+				pname: this.pathName,
+				uri: this.pathUri,
+				ruri: this.pathRootUri,
+				type: "deletepath",
+				name: this.pathshowList[this.selectItemNum]["name"],
+			});
+		} else if (id == "deletefile") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/filemanger/fpdel", {
+				pname: this.pathName,
+				uri: this.pathUri,
+				ruri: this.pathRootUri,
+				type: "deletefile",
+				name: this.pathshowList[this.selectItemNum]["name"],
+			});
+		} else if (id == "fileinfo") {
 			this.$app.$def.toTips(
 				this.$t("menu.pathshowlist.itemfile.item9.name"),
 				this.$app.$def.textFormat(
 					this.$t("menu.pathshowlist.fileinfodemotext"),
 					{
 						name: this.pathshowList[this.selectItemNum]["name"],
-						path: this.pathshowList[this.selectItemNum]["id"],
+						path: this.pathshowList[this.selectItemNum]["uri"],
 						size:
 							this.$app.$def.formatDecimal(
 								this.pathshowList[this.selectItemNum]["info_length"] / 1024,
 								2
 							) + "K",
+						ltime: this.formatTime(
+							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
+						),
+					}
+				)
+			);
+		} else if (id == "pathinfo") {
+			this.$app.$def.toTips(
+				this.$t("menu.pathshowlist.itempath.item8.name"),
+				this.$app.$def.textFormat(
+					this.$t("menu.pathshowlist.pathinfodemotext"),
+					{
+						name: this.pathshowList[this.selectItemNum]["name"],
+						path: this.pathshowList[this.selectItemNum]["uri"],
 						ltime: this.formatTime(
 							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
 						),
@@ -176,6 +274,7 @@ export default {
 				{
 					pathName: this.pathName,
 					pathUri: this.pathUri,
+					pathRootUri: this.pathRootUri,
 				}
 			);
 		else if (id == "openway") {
@@ -230,10 +329,16 @@ export default {
 		file.list({
 			uri: this.pathUri,
 			success: (data) => {
-				this.pathLoad(data.fileList);
+				var filelst = data.fileList;
+				file.listdir({
+					uri: this.pathUri,
+					success: (data) => {
+						this.pathLoad(data.dirList.concat(filelst));
+					},
+				});
 			},
 			fail: () => {
-				this.$app.$def.toTips("", this.$t("tips.fail"));
+				this.pathLoad([{}]);
 			},
 		});
 	},
@@ -298,7 +403,7 @@ export default {
 	pathLoad(data) {
 		this.pathshowList = [];
 		let listlen = data.length;
-		let tol = listlen + 1; //1垫底缓冲
+		let tol = listlen + 1 + 1; //1垫底缓冲
 		for (let i = 0; i < tol; i++) {
 			let inx = i;
 			let list_num = -1;
@@ -312,41 +417,48 @@ export default {
 			let list_isfile = false;
 			let list_info_length = 0;
 			let list_info_lastModifiedTime = 0;
-			console.log(`fuck xiaomi index=${inx} listlen=${listlen}`);
 			if (i == 0) {
 				list_num = inx;
 				list_color = "#3c3c3c";
 				list_show = true;
 				list_id = "../";
-				list_uri = this.pathUri;
+				if (this.pathUri != this.pathRootUri)
+					list_uri = this.getParentFolder(this.pathUri);
+				else list_uri = "";
 				list_name = "...";
 				list_info = this.$t("menu.pathshowlist.backpath");
 				list_ico = "b5";
 			} else {
-				if (inx - 1 <= listlen) {
-					//length 文件大小
-					//lastModifiedTime 上次修改时间
+				if (inx <= listlen) {
+					try {
+						if (data[i - 1]["isDir"] == true) list_isfile = false;
+						else list_isfile = true;
+					} catch {
+						list_isfile = true;
+					}
 					let uri = data[i - 1]["uri"];
-					list_info_length = data[i - 1]["length"];
-					console.log(`fuck xiaomi data i-1=${i - 1} uri=${uri}`);
-					list_info_lastModifiedTime = data[i - 1]["lastModifiedTime"];
-					let info =
-						this.$app.$def.formatDecimal(list_info_length / 1024, 1) + "K";
 					let name = this.getSubstringAfter(uri, this.pathUri + "/");
-					if (name) {
-						let type = this.getSubstringAfter(name, ".");
-						if (type == "json") list_ico = "b13";
-						else list_ico = "b14";
+					if (list_isfile) {
+						list_info_length = data[i - 1]["length"];
+						list_info_lastModifiedTime = data[i - 1]["lastModifiedTime"];
+						let info =
+							this.$app.$def.formatDecimal(list_info_length / 1024, 1) + "K";
+						if (name) {
+							let type = this.getSubstringAfter(name, ".");
+							if (type == "json") list_ico = "b13";
+							else list_ico = "b14";
+						}
+						list_info = info;
+					} else {
+						list_ico = "b5";
+						list_info = this.$t("menu.pathshowlist.pathtext");
 					}
 					list_num = inx;
-					console.log(`fuck xiaomi data inx=${list_num}`);
 					list_color = "#3c3c3c";
 					list_show = true;
+					list_uri = uri;
 					list_id = uri;
 					list_name = name;
-					list_info = info;
-					list_uri = uri;
-					list_isfile = true;
 				}
 			}
 			this.pathshowList.push({
@@ -397,6 +509,19 @@ export default {
 		const min = date.getMinutes().toString().padStart(2, "0");
 
 		return `${yy}-${mm}-${dd} ${HH}:${min}`;
+	},
+	getParentFolder(path) {
+		// 根目录直接返回自身
+		if (path === "internal://") return path;
+
+		// 移除末尾斜杠并查找最后一级目录的分隔符
+		const cleanPath = path.replace(/\/+$/, "");
+		const lastSlash = cleanPath.lastIndexOf("/");
+
+		// 处理不同情况
+		return lastSlash <= 10 // "internal://" 长度是11，索引10是冒号后的第一个斜杠
+			? "internal://" // 只有一级目录时返回根目录
+			: cleanPath.substring(0, lastSlash); // 返回父路径
 	},
 };
 </script>

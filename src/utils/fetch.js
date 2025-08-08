@@ -26,11 +26,6 @@ class fetch {
         id,
         message,
       },
-      success: () => console.log("Message sent successfully"),
-      fail: (data) =>
-        console.log(
-          `handling fail, errMsg = ${data.data}, errCode = ${data.code}`
-        ),
     });
   }
 
@@ -53,7 +48,7 @@ class fetch {
           this.pendingRequests.delete(id);
         }
       } catch (e) {
-        console.error("Failed to parse message:", e);
+        //console.error("Failed to parse message:", e);
         //fail(JSON.stringify(e), -1);
       }
     };
@@ -78,7 +73,7 @@ class fetch {
       try {
         // 类型检查
         if (!obj || typeof obj !== "object") {
-          console.warn("Invalid data for query string:", obj);
+          //console.warn("Invalid data for query string:", obj);
           return "";
         }
 
@@ -98,7 +93,7 @@ class fetch {
           })
           .join("&");
       } catch (e) {
-        console.error("Query string generation error:", e);
+        //console.error("Query string generation error:", e);
         return "";
       }
     };
@@ -164,10 +159,8 @@ class fetch {
             id,
             message,
           },
-          success: () => console.log(`Request ${requestId} sent`),
           fail: (err) => {
             clearTimeout(timeoutId);
-            console.error(`Send failed: ${err.data}, code: ${err.code}`);
             fail(`Send failed: ${err.data}`, err.code || -1);
             this.pendingRequests.delete(requestId);
           },

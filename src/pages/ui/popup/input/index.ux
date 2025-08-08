@@ -1,6 +1,6 @@
 <import
 	name="input-method"
-	src="../../../../common/components/InputMethod/InputMethod.ux"
+	src="../../../../components/InputMethod/InputMethod.ux"
 ></import>
 <template>
 	<div class="page" @swipe="right">
@@ -93,7 +93,6 @@ export default {
 		this.setTextWidth(true);
 	},
 	onVisibilityChange() {
-		//console.log("显示状态变更:" + JSON.stringify(evt));
 		if (!this.hide) {
 			this.fc_v0 = "#32618D";
 			this.exitext = "‹";
@@ -102,19 +101,13 @@ export default {
 			this.exitext = "";
 		}
 	},
-	onKeyDown() {
-		// this.textValue += evt.detail.content;
-		//console.log("按下按键:" + JSON.stringify(evt));
-	},
 	onDelete() {
 		this.textValue = this.textValue.slice(0, -1);
-		//console.log("删除字符");
 		this.setTextWidth(false);
 	},
 	onComplete(evt) {
 		this.textValue += evt.detail.content;
 		this.setTextWidth(true);
-		//console.log("返回字符:" + JSON.stringify(evt));
 	},
 	setTextWidth(can) {
 		const calculateTextWidth = (str) => {

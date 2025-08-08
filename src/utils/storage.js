@@ -1,6 +1,6 @@
-import file from '@system.file';
+import file from "@system.file";
 
-const FILE_PATH = "internal://files/storage.bin";
+const FILE_PATH = "internal://files/storage.dat";
 
 class Storage {
   constructor() {
@@ -10,6 +10,10 @@ class Storage {
       wgsettings_autoCheckUpdateIsShow: false,
       wgsettings_keyboardUseT9: false,
       wgsettings_keyboardUseLongVibrate: false,
+      wgsettings_enableX1WebView: false,
+      wgsettings_fm_saveCopyCache: false,
+      wgsettings_browser_hideDebug: false,
+      wgsettings_browser_defUri: "https://www.bilibili.com",
       wgsettings_taccount_username: "",
       wgsettings_taccount_password: "",
       wgsettings_taccount_cookie: "",
@@ -27,7 +31,7 @@ class Storage {
 
   init(options = {}) {
     const { success, fail } = options;
-    
+
     file.access({
       uri: FILE_PATH,
       success: () => {
@@ -35,7 +39,7 @@ class Storage {
       },
       fail: () => {
         this._resetStorage(success, fail);
-      }
+      },
     });
   }
 
@@ -53,7 +57,7 @@ class Storage {
       },
       fail: (err, code) => {
         fail && fail(`读取失败: ${code} - ${err}`);
-      }
+      },
     });
   }
 
@@ -68,63 +72,63 @@ class Storage {
       },
       fail: (err, code) => {
         fail && fail(`保存失败: ${code} - ${err}`);
-      }
+      },
     });
   }
 
   get(options = {}) {
     const { key, success, fail } = options;
-    
+
     if (!this.ready) {
       this.init({
         success: () => this.get(options),
-        fail
+        fail,
       });
       return;
     }
-    
+
     success && success(this.data[key]);
   }
 
   gets(options = {}) {
     const { keys, success, fail } = options;
-    
+
     // 参数校验：确保 keys 是数组
     if (!Array.isArray(keys)) {
       const errorMsg = "参数错误: keys 必须是数组";
-      console.error(errorMsg);
+      //console.error(errorMsg);
       fail && fail(errorMsg);
       return;
     }
-    
+
     if (!this.ready) {
       this.init({
         success: () => this.gets(options),
-        fail
+        fail,
       });
       return;
     }
-    
+
     const result = {};
     for (const key of keys) {
       // 安全访问，防止未定义键
       result[key] = this.data.hasOwnProperty(key) ? this.data[key] : undefined;
     }
-    
+
     success && success(result);
   }
-  
+
   set(options = {}) {
     const { key, value, success, fail } = options;
-    
+
     if (!this.ready) {
       this.init({
         success: () => this.set(options),
-        fail
+        fail,
       });
       return;
     }
-    
+
     this.data[key] = value;
     file.writeText({
       uri: FILE_PATH,
@@ -134,7 +138,7 @@ class Storage {
       },
       fail: (err, code) => {
         fail && fail(`保存失败: ${code} - ${err}`);
-      }
+      },
     });
   }
 
@@ -142,52 +146,52 @@ class Storage {
     const { keys, values, success, fail } = options;
     // 参数校验：确保keys和values都是数组，且长度相同
     if (!Array.isArray(keys) || !Array.isArray(values)) {
-        const errorMsg = "参数错误: keys和values都必须是数组";
-        console.error(errorMsg);
-        fail && fail(errorMsg);
-        return;
+      const errorMsg = "参数错误: keys和values都必须是数组";
+      //console.error(errorMsg);
+      fail && fail(errorMsg);
+      return;
     }
     if (keys.length !== values.length) {
-        const errorMsg = `参数错误: keys和values长度不一致 (keys:${keys.length}, values:${values.length})`;
-        console.error(errorMsg);
-        fail && fail(errorMsg);
-        return;
+      const errorMsg = `参数错误: keys和values长度不一致 (keys:${keys.length}, values:${values.length})`;
+      //console.error(errorMsg);
+      fail && fail(errorMsg);
+      return;
     }
     if (!this.ready) {
-        this.init({
-            success: () => this.sets(options),
-            fail
-        });
-        return;
+      this.init({
+        success: () => this.sets(options),
+        fail,
+      });
+      return;
     }
     // 更新数据
     for (let i = 0; i < keys.length; i++) {
-        this.data[keys[i]] = values[i];
+      this.data[keys[i]] = values[i];
     }
     // 写入文件
     file.writeText({
-        uri: FILE_PATH,
-        text: JSON.stringify(this.data),
-        success: () => {
-            success && success("批量保存成功");
-        },
-        fail: (err, code) => {
-            fail && fail(`批量保存失败: ${code} - ${err}`);
-        }
+      uri: FILE_PATH,
+      text: JSON.stringify(this.data),
+      success: () => {
+        success && success("批量保存成功");
+      },
+      fail: (err, code) => {
+        fail && fail(`批量保存失败: ${code} - ${err}`);
+      },
     });
   }
 
   delete(options = {}) {
     const { key, success, fail } = options;
-    
+
     if (!this.ready) {
       this.init({
         success: () => this.delete(options),
-        fail
+        fail,
       });
       return;
     }
-    
+
     delete this.data[key];
     file.writeText({
       uri: FILE_PATH,
@@ -197,7 +201,7 @@ class Storage {
       },
       fail: (err, code) => {
         fail && fail(`保存失败: ${code} - ${err}`);
-      }
+      },
     });
   }
 

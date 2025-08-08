@@ -24,9 +24,9 @@
 			</div>
 			<div
 				class="edittext2-div"
-				style="border: 4px solid {{ fc_v0 }}"
-				ontouchstart="ht(-1, 'v0')"
-				ontouchend="ht(0, 'v0')"
+				style="border: 4px solid {{ fc_v1 }}"
+				ontouchstart="ht(-1, 'v1')"
+				ontouchend="ht(0, 'v1')"
 				onclick="toEditText('id')"
 			>
 				<marquee class="edittext2" @click="changeState()">
@@ -36,18 +36,18 @@
 			<div class="exit-choose">
 				<div
 					class="exit-choose-value"
-					style="background-color: {{ fc_v1 }}"
-					ontouchstart="ht(1, 'v1')"
-					ontouchend="ht(0, 'v1')"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
 					onclick="toBack()"
 				>
 					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
 				</div>
 				<div
 					class="exit-choose-value"
-					style="background-color: {{ fc_v2 }}"
-					ontouchstart="ht(1, 'v2')"
-					ontouchend="ht(0, 'v2')"
+					style="background-color: {{ fc_v3 }}"
+					ontouchstart="ht(1, 'v3')"
+					ontouchend="ht(0, 'v3')"
 					onclick="toLaunch()"
 				>
 					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
@@ -65,12 +65,14 @@ export default {
 		fc_v0: "#3c3c3c",
 		fc_v1: "#3c3c3c",
 		fc_v2: "#3c3c3c",
+		fc_v3: "#3c3c3c",
 		isLoading: false,
 		textValues: "",
 		inputValues: { name: "", id: "" },
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
 	},
 	onReady() {
@@ -145,8 +147,8 @@ export default {
 			success: (datas) => {
 				let _keyboardtype = "QWERTY";
 				let _vibratemode = "short";
-				if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
-				if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
 					reqPage: "/pages/ui/acts/wgchat/createroom",
 					textValues: JSON.stringify(this.inputValues),

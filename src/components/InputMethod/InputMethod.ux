@@ -74,7 +74,7 @@
 					/>
 					<!-- 带变量的相对路径在 aiot-tookit 2.0.4 中修复 -->
 					<img
-						src="/common/components/InputMethod/assets/full/{{ lang }}.png"
+						src="/components/InputMethod/assets/full/{{ lang }}.png"
 						style="
 							position: absolute;
 							top: 38px;
@@ -420,7 +420,7 @@
 					/>
 					<!-- 带变量的相对路径在 aiot-tookit 2.0.4 中修复 -->
 					<img
-						src="/common/components/InputMethod/assets/t9/{{ lang }}.png"
+						src="/components/InputMethod/assets/t9/{{ lang }}.png"
 						style="
 							position: absolute;
 							top: 35px;
@@ -1089,7 +1089,7 @@
 					/>
 					<!-- 带变量的相对路径在 aiot-tookit 2.0.4 中修复 -->
 					<img
-						src="/common/components/InputMethod/assets/arc/{{ lang }}.png"
+						src="/components/InputMethod/assets/arc/{{ lang }}.png"
 						style="
 							position: absolute;
 							top: 0px;

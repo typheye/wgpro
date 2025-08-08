@@ -19,8 +19,10 @@
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug 1-1</marquee>
-							<marquee class="wgpro-item-texts-subtext">API: Storage Test</marquee>
+							<marquee class="wgpro-item-texts-text">STORAGE</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								API: Storage Test
+							</marquee>
 						</div>
 					</div>
 					<div
@@ -31,11 +33,28 @@
 						onclick="toRun('debug1-2')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a66.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug 1-2</marquee>
+							<marquee class="wgpro-item-texts-text">FILE</marquee>
 							<marquee class="wgpro-item-texts-subtext">API: File Test</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v3 }}"
+						ontouchstart="ht(1, 'p1v3')"
+						ontouchend="ht(0, 'p1v3')"
+						onclick="toRun('debug1-3')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a32.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">FETCH</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								API: Fetch Test
+							</marquee>
 						</div>
 					</div>
 				</div>
@@ -45,14 +64,16 @@
 						style="background-color: {{ itc_p2v1 }}"
 						ontouchstart="ht(1, 'p2v1')"
 						ontouchend="ht(0, 'p2v1')"
-						onclick="toRun('debug2-1')"
+						onclick="switchange('wgsettings_enableX1WebView','status_X1Web')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a10.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a40.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Debug 2-1</marquee>
-							<marquee class="wgpro-item-texts-subtext">API: Fetch Test</marquee>
+							<marquee class="wgpro-item-texts-text">X1 WEB</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								STA: {{ status_X1Web }}
+							</marquee>
 						</div>
 					</div>
 				</div>
@@ -72,12 +93,15 @@
 </template>
 
 <script>
+import storage from "../../../../utils/storage.js";
 export default {
 	private: {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
+		itc_p1v3: "rgba(0,0,0,0)",
 		itc_p2v1: "rgba(0,0,0,0)",
+		status_X1Web: "DISABLE",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -88,6 +112,9 @@ export default {
 		this.$app.$def.toCancel(true);
 		return true;
 	},
+	onReady() {
+		this.switload();
+	},
 	toBack() {
 		this.$app.$def.goBack();
 	},
@@ -97,27 +124,27 @@ export default {
 			var v_uri = "";
 			if (id == "debug1-1") v_uri = "/pages/ui/acts/debugs/debug1";
 			else if (id == "debug1-2") v_uri = "/pages/ui/acts/debugs/debug2";
-			else if (id == "debug2-1") v_uri = "/pages/ui/acts/debugs/debug3";
+			else if (id == "debug1-3") v_uri = "/pages/ui/acts/debugs/debug3";
 			this.$app.$def.goPage(v_uri);
 		}
 	},
-
-	/*storage.gets({
-				keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
-				success: (datas) => {
-					let _keyboardtype = "QWERTY";
-					let _vibratemode = "short";
-					if (datas.wgsettings_keyboardUseT9) _keyboardtype = "T9";
-					if (datas.wgsettings_keyboardUseLongVibrate) _vibratemode = "long";
-					this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-						reqPage: "/pages/ui/function/debugs",
-						textValues: JSON.stringify({ test: "" }),
-						textIndex: "test",
-						keyboardtype: _keyboardtype,
-						vibratemode: _vibratemode,
-					});
-				},
-			});*/
+	switload() {
+		storage.get({
+			key: "wgsettings_enableX1WebView",
+			success: (data) => {
+				if (data == true) this.status_X1Web = "ENABLE";
+			},
+		});
+	},
+	switchange(key, id) {
+		let sh = "DISABLE";
+		let show = eval("this." + id);
+		let state = false;
+		if (show == "DISABLE") state = true;
+		this.$app.$def.settingsChange(key, state);
+		if (state) sh = "ENABLE";
+		eval("this." + id + " = '" + sh + "'");
+	},
 };
 </script>
 

@@ -88,7 +88,9 @@
         },
         "pathshowlist": {
             "backpath": "返回上层目录",
+            "pathtext": "目录",
             "fileinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[大小]\n${size}\n\n[修改]\n${ltime}",
+            "pathinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[修改]\n${ltime}",
             "def": {
                 "item1": {
                     "name": "刷新",
@@ -129,16 +131,17 @@
                     "id": "copydel"
                 },
                 "item6": {
-                    "name": "剪切",
-                    "id": "delete"
+                    "name": "删除",
+                    "id": "deletepath",
+                    "show": "您确定要删除\"${name}\"目录及其子目录和文件吗？"
                 },
                 "item7": {
                     "name": "重命名",
-                    "id": "rename"
+                    "id": "renamepath"
                 },
                 "item8": {
                     "name": "属性",
-                    "id": "fileinfo"
+                    "id": "pathinfo"
                 },
                 "item9": {
                     "name": "返回",
@@ -172,11 +175,12 @@
                 },
                 "item7": {
                     "name": "删除",
-                    "id": "delete"
+                    "id": "deletefile",
+                    "show": "您确定要删除\"${name}\"文件吗？"
                 },
                 "item8": {
                     "name": "重命名",
-                    "id": "rename"
+                    "id": "renamefile"
                 },
                 "item9": {
                     "name": "属性",
@@ -476,6 +480,27 @@
                         "subtext": "点击键盘长震"
                     }
                 }
+            },
+            "filemanger": {
+                "tabtext": "文件管理",
+                "p1": {
+                    "item1": {
+                        "text": "保留缓存",
+                        "subtext": "保留复制剪切的缓存"
+                    }
+                }
+            },
+            "browser": {
+                "tabtext": "X1浏览器",
+                "p1": {
+                    "item1": {
+                        "text": "隐藏调试",
+                        "subtext": "不显示调试信息"
+                    },
+                    "item2": {
+                        "text": "浏览器主页"
+                    }
+                }
             }
         },
         "wgchat": {
@@ -502,6 +527,11 @@
                         "subtext": "前往Typheye账户继续更改"
                     }
                 }
+            }
+        },
+        "browser": {
+            "setdefuri": {
+                "tabtext": "浏览器主页"
             }
         }
     },
@@ -538,18 +568,38 @@
         },
         "filemanger": {
             "tabtext": "文件管理",
+            "infotips": "详细信息",
+            "demoinfo": "[标题]\n${name}\n\n[路径]\n${uri}",
             "p1":{
                 "item1":{
-                    "text": "Cache",
-                    "subtext": "internal://cache"
+                    "text": "内部存储",
+                    "subtext": "/",
+                    "uri": "internal://files/mnt"
                 },
                 "item2":{
-                    "text": "Files",
-                    "subtext": "internal://files"
+                    "text": "用户文档",
+                    "subtext": "/Documents",
+                    "uri": "internal://files/mnt/Documents"
                 },
                 "item3":{
-                    "text": "Mass",
-                    "subtext": "internal://mass"
+                    "text": "用户下载",
+                    "subtext": "/Download",
+                    "uri": "internal://files/mnt/Download"
+                },
+                "item4":{
+                    "text": "用户视频",
+                    "subtext": "/Movies",
+                    "uri": "internal://files/mnt/Movies"
+                },
+                "item5":{
+                    "text": "用户音乐",
+                    "subtext": "/Music",
+                    "uri": "internal://files/mnt/Music"
+                },
+                "item6":{
+                    "text": "用户图片",
+                    "subtext": "/Pictures",
+                    "uri": "internal://files/mnt/Pictures"
                 }
             }
         },
@@ -557,7 +607,7 @@
             "tabtext": "腕上微聊"
         },
         "browser": {
-            "tabtext": "浏览器"
+            "tabtext": "X1浏览器"
         },
         "plugin": {
             "tabtext": "扩展插件",
@@ -602,7 +652,7 @@
                     "subtext":"有关文件管理的一些设置"
                 },
                 "item3":{
-                    "text":"浏览器",
+                    "text":"X1浏览器",
                     "subtext":"有关浏览器的一些设置"
                 }
             },
@@ -635,7 +685,7 @@
                     "text": "敬请期待"
                 },
                 "browser":{
-                    "title": "浏览器",
+                    "title": "X1浏览器",
                     "text": "敬请期待"
                 },
                 "polinfo":{
@@ -647,8 +697,8 @@
         }
     },
     "public": {
-        "serverURL": "https://vela-service.typheye.com/app/com.typheye.wgpro/",
-        "taccServerURL": "https://vela-service.typheye.com/",
+        "serverURL": "https://service.typheye.com/app/com.typheye.wgpro/",
+        "taccServerURL": "https://service.typheye.com/",
         "tip": "提示",
         "inittip": "您是否已阅读并同意",
         "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",

@@ -3,7 +3,7 @@
 		<div class="tab" onclick="toBack()">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
-				{{ $t("acts.settings.textdisplay.tabtext") }}
+				{{ $t("acts.settings.filemanger.tabtext") }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -18,44 +18,20 @@
 						onclick="toRun('')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a86.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a64.png" />
 						</div>
 						<div class="wgpro-item-texts">
 							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.textdisplay.p1.item1.text") }}
+								{{ $t("acts.settings.filemanger.p1.item1.text") }}
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.textdisplay.p1.item1.subtext") }}
+								{{ $t("acts.settings.filemanger.p1.item1.subtext") }}
 							</marquee>
 						</div>
 						<div class="wgpro-item-right">
 							<switch
 								checked="{{ swit_it1_state }}"
-								onchange="switchange('wgsettings_keyboardUseT9','swit_it1_state')"
-								class="wgpro-item-right-switch"
-							/>
-						</div>
-					</div>
-					<div
-						class="wgpro-item"
-						style="background-color: {{ itc_p1v2 }}"
-						ontouchstart="ht(1, 'p1v2')"
-						ontouchend="ht(0, 'p1v2')"
-						onclick="toRun('')"
-					>
-						<div class="wgpro-item-left"></div>
-						<div class="wgpro-item-texts">
-							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.textdisplay.p1.item2.text") }}
-							</marquee>
-							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.textdisplay.p1.item2.subtext") }}
-							</marquee>
-						</div>
-						<div class="wgpro-item-right">
-							<switch
-								checked="{{ swit_it2_state }}"
-								onchange="switchange('wgsettings_keyboardUseLongVibrate','swit_it2_state')"
+								onchange="switchange('wgsettings_fm_saveCopyCache','swit_it1_state')"
 								class="wgpro-item-right-switch"
 							/>
 						</div>
@@ -82,9 +58,7 @@ export default {
 	private: {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
-		itc_p1v2: "rgba(0,0,0,0)",
 		swit_it1_state: false,
-		swit_it2_state: false,
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -106,10 +80,10 @@ export default {
 	},
 	switload() {
 		storage.gets({
-			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			keys: ["wgsettings_fm_saveCopyCache"],
 			success: (datas) => {
-				if (datas.wgsettings_keyboardUseT9 == true) this.swit_it1_state = true;
-				if (datas.wgsettings_keyboardUseLongVibrate == true) this.swit_it2_state = true;
+				if (datas.wgsettings_fm_saveCopyCache == true)
+					this.swit_it1_state = true;
 			},
 		});
 	},
