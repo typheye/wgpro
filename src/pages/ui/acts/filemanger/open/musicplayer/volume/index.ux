@@ -28,6 +28,7 @@
 </template>
 
 <script>
+import audio from "@system.audio";
 export default {
 	private: {
 		volume: 0,
