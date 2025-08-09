@@ -117,7 +117,7 @@ export default {
 	toRun(id, num) {
 		if (id == "");
 		else
-			this.$app.$def.goPageWithParams("/pages/ui/acts/wgchat/room", {
+			this.$app.$def.goPageWithParams("pages/ui/acts/wgchat/room", {
 				roomName: this.chatroomList[num]["name"],
 				roomId: id,
 			});
@@ -137,22 +137,25 @@ export default {
 			this.$app.$def.goBack();
 		} else if (id == "back");
 		else if (id == "gosettings")
-			this.$app.$def.goPage("/pages/ui/acts/wgchat/settings");
+			this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
 		else if (id == "update")
-			this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
+			this.$app.$def.goReplacePage("pages/ui/function/wgchat");
 		else if (id == "delroom") {
 			var roomlist = JSON.parse(this.roomlistJSON);
 			roomlist.splice(this.selectItemNum, 1);
 			roomlist = JSON.stringify(roomlist, null);
 			this.$app.$def.settingsChange("wgsettings_wgchat_roomlist", roomlist);
-			this.$app.$def.goReplacePage("/pages/ui/function/wgchat");
+			this.$app.$def.goReplacePage("pages/ui/function/wgchat");
 		} else if (id == "clearchatdb") {
 			file.delete({
 				uri:
 					this.roomDB + this.chatroomList[this.selectItemNum]["id"] + ".json",
-				success: () => this.$app.$def.toTips("", `true`),
+				success: () => this.$app.$def.toTips("", this.$t("tips.run_success")),
 				fail: (code) =>
-					this.$app.$def.toTips("", `handling fail, code = ${code}`),
+					this.$app.$def.toTips(
+						"",
+						this.$t("tips.run_fail_witherror") + `handling fail, code = ${code}`
+					),
 			});
 		} else if (id == "roominfo")
 			this.$app.$def.toTips(
@@ -166,9 +169,9 @@ export default {
 				)
 			);
 		else if (id == "addroom") {
-			this.$app.$def.goReplacePage("/pages/ui/acts/wgchat/addroom");
+			this.$app.$def.goReplacePage("pages/ui/acts/wgchat/addroom");
 		} else if (id == "createroom") {
-			this.$app.$def.goPageWithParams("/pages/ui/acts/wgchat/createroom", {
+			this.$app.$def.goPageWithParams("pages/ui/acts/wgchat/createroom", {
 				textValues: JSON.stringify({
 					name: "新房间",
 					id: "20001",

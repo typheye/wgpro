@@ -15,22 +15,27 @@ export default {
 		setTimeout(this.launch(), 1000);
 	},
 	launch() {
-		storage.get({
-			key: "wgsettings_init",
-			success: (data) => {
-				if (data == true) {
+		storage.gets({
+			keys: ["wgsettings_fm_saveCopyCache", "wgsettings_init"],
+			success: (datas) => {
+				if (datas.wgsettings_init == true) {
 					this.$app.$def.settingsChange(
 						"wgsettings_autoCheckUpdateIsShow",
 						"false"
 					);
+					if (!datas.wgsettings_fm_saveCopyCache == true)
+						this.$app.$def.settingsChangeMore(
+							["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+							["", ""]
+						);
 					this.$app.$def.taccLoginCheck();
-					this.$app.$def.goReplacePage("/pages/ui/home");
+					this.$app.$def.goReplacePage("pages/ui/home");
 				} else {
-					this.$app.$def.goReplacePage("/pages/ui/popup/init");
+					this.$app.$def.goReplacePage("pages/ui/popup/init");
 				}
 			},
 			fail: () => {
-				this.$app.$def.goReplacePage("/pages/ui/popup/init");
+				this.$app.$def.goReplacePage("pages/ui/popup/init");
 			},
 		});
 	},

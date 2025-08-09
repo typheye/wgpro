@@ -1,4 +1,3 @@
-// file.js
 import file from "@system.file";
 
 const INDEX_FILE = "internal://files/file.dat";
@@ -116,10 +115,13 @@ class FileManager {
     });
   }
 
-  // 检查路径是否受保护
+  // 检查路径是否受保护（精确匹配）
   isProtectedPath(uri) {
+    // 标准化输入路径
     const normalizedUri = uri.endsWith("/") ? uri : uri + "/";
-    return PROTECTED_PATHS.some(path => normalizedUri.startsWith(path));
+
+    // 直接检查路径是否在受保护列表中（精确匹配）
+    return PROTECTED_PATHS.includes(normalizedUri);
   }
 
   // 添加文件夹路径到索引
@@ -273,7 +275,7 @@ class FileManager {
   // 删除文件夹（增强版）- 增加保护路径检查
   rmdir(options) {
     const { uri, recursive = true, success, fail } = options;
-    
+
     // 检查是否是受保护路径
     if (this.isProtectedPath(uri)) {
       fail && fail(`不能删除受保护路径: ${uri}`);
@@ -299,7 +301,7 @@ class FileManager {
   // 移动文件/文件夹（增强版）- 增加保护路径检查
   move(options) {
     const { srcUri, dstUri, success, fail } = options;
-    
+
     // 如果是目录，检查源路径是否受保护
     if (srcUri.endsWith("/") && this.isProtectedPath(srcUri)) {
       fail && fail(`不能移动受保护路径: ${srcUri}`);

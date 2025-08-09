@@ -118,7 +118,7 @@ export default {
 				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
 				if (datas.wgsettings_keyboardUseLongVibrate == true)
 					_vibratemode = "long";
-				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
 					reqPage: "pages/ui/acts/filemanger/setinfo",
 					textValues: JSON.stringify(this.inputValues),
 					textIndex: "msg",
@@ -131,14 +131,38 @@ export default {
 	fun_mkdir() {
 		file.mkdir({
 			uri: this.inputValues["uri"] + "/" + this.inputValues["msg"],
-			complete: () => this.toBack(),
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
 		});
 	},
 	fun_mkfile() {
 		file.writeText({
 			uri: this.inputValues["uri"] + "/" + this.inputValues["msg"],
 			text: "Hello World",
-			complete: () => this.toBack(),
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
 		});
 	},
 	fun_renamefile() {
@@ -146,15 +170,38 @@ export default {
 			srcUri: this.inputValues["uri"] + "/" + this.inputValues["name"],
 			dstUri: this.inputValues["uri"] + "/" + this.inputValues["msg"],
 			text: "",
-			complete: () => this.toBack(),
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
 		});
 	},
 	fun_renamepath() {
 		file.move({
 			srcUri: this.inputValues["uri"] + "/" + this.inputValues["name"] + "/",
 			dstUri: this.inputValues["uri"] + "/" + this.inputValues["msg"] + "/",
-			text: "",
-			complete: () => this.toBack(),
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
 		});
 	},
 };

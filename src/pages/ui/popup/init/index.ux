@@ -50,7 +50,7 @@ export default {
 	},
 	toLaunch() {
 		this.$app.$def.settingsInit();
-		this.$app.$def.goReplacePage("/pages/ui/home");
+		this.$app.$def.goReplacePage("pages/ui/home");
 	},
 	toExit() {
 		this.$app.$def.toExit();

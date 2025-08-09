@@ -149,8 +149,8 @@ export default {
 				let _vibratemode = "short";
 				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
 				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
-				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-					reqPage: "/pages/ui/acts/wgchat/pushmsg",
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/wgchat/pushmsg",
 					textValues: JSON.stringify(this.inputValues),
 					textIndex: "msg",
 					keyboardtype: _keyboardtype,

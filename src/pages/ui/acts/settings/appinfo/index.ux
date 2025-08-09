@@ -82,25 +82,6 @@
 							</marquee>
 						</div>
 					</div>
-					<div
-						class="wgpro-item"
-						style="background-color: {{ itc_p1v4 }}"
-						ontouchstart="ht(1, 'p1v4')"
-						ontouchend="ht(0, 'p1v4')"
-						onclick="toRun('appbackup')"
-					>
-						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a74.png" />
-						</div>
-						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.appinfo.p1.item4.text") }}
-							</marquee>
-							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.appinfo.p1.item4.subtext") }}
-							</marquee>
-						</div>
-					</div>
 				</div>
 				<div class="wgpro-items-group">
 					<div
@@ -108,10 +89,10 @@
 						style="background-color: {{ itc_p2v1 }}"
 						ontouchstart="ht(1, 'p2v1')"
 						ontouchend="ht(0, 'p2v1')"
-						onclick="toRun('appedit')"
+						onclick="toRun('appbackup')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a46.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a74.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -185,7 +166,6 @@ export default {
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
 		itc_p1v3: "rgba(0,0,0,0)",
-		itc_p1v4: "rgba(0,0,0,0)",
 		itc_p2v1: "rgba(0,0,0,0)",
 		itc_p2v2: "rgba(0,0,0,0)",
 		itc_p3v1: "rgba(0,0,0,0)",
@@ -219,11 +199,6 @@ export default {
 				this.$t("acts.settings.appinfo.run.appbackup.title"),
 				this.$t("acts.settings.appinfo.run.appbackup.text")
 			);
-		else if (id == "appedit")
-			this.$app.$def.toTips(
-				this.$t("acts.settings.appinfo.run.appedit.title"),
-				this.$t("acts.settings.appinfo.run.appedit.text")
-			);
 		else if (id == "joinqqun")
 			this.$app.$def.toTipsWithQR(
 				this.$t("acts.settings.appinfo.run.joinqqun.title"),
@@ -232,8 +207,8 @@ export default {
 			);
 		else {
 			var v_uri = "";
-			if (id == "appupdate") v_uri = "/pages/ui/acts/settings/appupdate";
-			if (id == "appreset") v_uri = "/pages/ui/popup/reset";
+			if (id == "appupdate") v_uri = "pages/ui/acts/settings/appupdate";
+			if (id == "appreset") v_uri = "pages/ui/popup/reset";
 			this.$app.$def.goPage(v_uri);
 		}
 	},
@@ -258,7 +233,7 @@ export default {
 	lonlogo() {
 		this.eggsdj = 0;
 		this.$app.$def.shortVib(true);
-		this.$app.$def.goPage("/pages/ui/function/debugs");
+		this.$app.$def.goPage("pages/ui/function/debugs");
 		return true;
 	},
 };

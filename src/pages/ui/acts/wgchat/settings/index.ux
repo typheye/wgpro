@@ -65,7 +65,7 @@ export default {
 	},
 	toRun(id) {
 		if (id == "editnick")
-			this.$app.$def.goPage("/pages/ui/acts/settings/taccount");
+			this.$app.$def.goPage("pages/ui/acts/settings/taccount");
 	},
 };
 </script>

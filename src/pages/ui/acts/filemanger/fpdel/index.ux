@@ -82,14 +82,38 @@ export default {
 	fun_delfile() {
 		file.delete({
 			uri: this.uri + "/" + this.name,
-			complete: () => this.toBack(),
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
 		});
 	},
 	fun_delpath() {
 		file.rmdir({
 			uri: this.uri + "/" + this.name + "/",
 			recursive: true,
-			complete: () => this.toBack(),
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
 		});
 	},
 };

@@ -119,7 +119,7 @@ export default {
 		this.$app.$def.settingsChange(key, state);
 	},
 	toRun() {
-		this.$app.$def.goReplacePageWithParams("/pages/ui/acts/browser/setdefuri", {
+		this.$app.$def.goReplacePageWithParams("pages/ui/acts/browser/setdefuri", {
 			textValues: JSON.stringify({
 				msg: this.def_url,
 			}),

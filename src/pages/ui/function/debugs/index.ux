@@ -122,9 +122,9 @@ export default {
 		if (id == "");
 		else {
 			var v_uri = "";
-			if (id == "debug1-1") v_uri = "/pages/ui/acts/debugs/debug1";
-			else if (id == "debug1-2") v_uri = "/pages/ui/acts/debugs/debug2";
-			else if (id == "debug1-3") v_uri = "/pages/ui/acts/debugs/debug3";
+			if (id == "debug1-1") v_uri = "pages/ui/acts/debugs/debug1";
+			else if (id == "debug1-2") v_uri = "pages/ui/acts/debugs/debug2";
+			else if (id == "debug1-3") v_uri = "pages/ui/acts/debugs/debug3";
 			this.$app.$def.goPage(v_uri);
 		}
 	},

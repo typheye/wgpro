@@ -11,6 +11,7 @@
 			<text class="exit-tip-text">Loading...</text>
 		</div>
 		<div class="exit" else>
+			<text class="exit-tip-text">{{ $t("edittip.createroom.text1") }}</text>
 			<div
 				class="edittext2-div"
 				style="border: 4px solid {{ fc_v0 }}"
@@ -149,8 +150,8 @@ export default {
 				let _vibratemode = "short";
 				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
 				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
-				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-					reqPage: "/pages/ui/acts/wgchat/createroom",
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/wgchat/createroom",
 					textValues: JSON.stringify(this.inputValues),
 					textIndex: ti,
 					keyboardtype: _keyboardtype,

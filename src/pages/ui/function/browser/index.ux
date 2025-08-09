@@ -11,6 +11,7 @@
 			<text class="exit-tip-text">Loading...</text>
 		</div>
 		<div class="exit" else>
+			<text class="exit-tip-text">{{ $t("edittip.browser.text1") }}</text>
 			<div
 				class="edittext2-div"
 				style="border: 4px solid {{ fc_v0 }}"
@@ -68,7 +69,7 @@ export default {
 	toLaunch() {
 		this.isLoading = true;
 		setTimeout(() => {
-			this.$app.$def.goReplacePageWithParams("/pages/ui/acts/browser/x1web", {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/browser/x1web", {
 				uri: this.inputValues["uri"],
 			});
 		}, 1500);
@@ -85,8 +86,8 @@ export default {
 				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
 				if (datas.wgsettings_keyboardUseLongVibrate == true)
 					_vibratemode = "long";
-				this.$app.$def.goReplacePageWithParams("/pages/ui/popup/input", {
-					reqPage: "/pages/ui/function/browser",
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/function/browser",
 					textValues: JSON.stringify(this.inputValues),
 					textIndex: "uri",
 					keyboardtype: _keyboardtype,

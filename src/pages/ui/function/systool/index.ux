@@ -175,9 +175,9 @@ export default {
 		} else if (id == "") this.$app.$def.toTips("", this.$t("tips.toNull"));
 		else {
 			var v_uri = "";
-			if (id == "displaytest") v_uri = "/pages/ui/acts/systool/displaytest";
+			if (id == "displaytest") v_uri = "pages/ui/acts/systool/displaytest";
 			else if (id == "storagesize")
-				v_uri = "/pages/ui/acts/systool/storagesize";
+				v_uri = "pages/ui/acts/systool/storagesize";
 			this.$app.$def.goPage(v_uri);
 		}
 	},

@@ -2,7 +2,7 @@
   "package": "com.typheye.wgpro",
   "name": "腕管Pro",
   "versionName": "2.0.0",
-  "versionCode": 2507190,
+  "versionCode": 2508100,
   "minPlatformVersion": 1200,
   "icon": "/common/mipmap/logo.png",
   "simulationVersion": "default",
@@ -45,11 +45,20 @@
     },
     {
       "name": "system.request"
+    },
+    {
+      "name": "system.audio"
     }
   ],
   "config": {
     "logLevel": "log",
-    "designWidth": 480
+    "designWidth": 480,
+    "background": {
+      "features":[
+        "system.audio",
+        "system.request"
+      ]
+    }
   },
   "router": {
     "entry": "pages/index",
@@ -190,6 +199,14 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/plugin/addplug": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/plugin/project/p10001": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/filemanger/pathshow": {
         "launchMode": "singleTask",
         "component": "index"
@@ -199,6 +216,22 @@
         "component": "index"
       },
       "pages/ui/acts/filemanger/fpdel": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/imageshow": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/musicplayer/player": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/musicplayer/volume": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/musicplayer/list": {
         "launchMode": "singleTask",
         "component": "index"
       },

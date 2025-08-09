@@ -197,9 +197,9 @@ export default {
 			);
 		else {
 			var v_uri = "";
-			if (id == "taccount") v_uri = "/pages/ui/acts/settings/taccount";
-			else if (id == "tserver") v_uri = "/pages/ui/acts/settings/tserver";
-			else if (id == "appinfo") v_uri = "/pages/ui/acts/settings/appinfo";
+			if (id == "taccount") v_uri = "pages/ui/acts/settings/taccount";
+			else if (id == "tserver") v_uri = "pages/ui/acts/settings/tserver";
+			else if (id == "appinfo") v_uri = "pages/ui/acts/settings/appinfo";
 			else if (id == "textdisplay")
 				v_uri = "pages/ui/acts/settings/textdisplay";
 			else if (id == "filemanger") v_uri = "pages/ui/acts/settings/filemanger";

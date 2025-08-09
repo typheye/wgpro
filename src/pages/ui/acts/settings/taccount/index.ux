@@ -232,7 +232,7 @@ export default {
 		} else if (id == "tologin") {
 			if (!this.isLogin)
 				this.$app.$def.goReplacePageWithParams(
-					"/pages/ui/acts/settings/tacclogin",
+					"pages/ui/acts/settings/tacclogin",
 					{
 						textValues: JSON.stringify({
 							username: this.taccusr,
@@ -242,11 +242,11 @@ export default {
 				);
 		} else if (id == "tologout") {
 			if (this.isLogin)
-				this.$app.$def.goReplacePage("/pages/ui/popup/tacclogout");
+				this.$app.$def.goReplacePage("pages/ui/popup/tacclogout");
 		} else if (id == "toeditnick") {
 			if (this.isLogin)
 				this.$app.$def.goReplacePageWithParams(
-					"/pages/ui/acts/settings/tacceditnick",
+					"pages/ui/acts/settings/tacceditnick",
 					{
 						textValues: JSON.stringify({ msg: this.taccUsername }),
 					}
@@ -254,7 +254,7 @@ export default {
 		} else if (id == "toeditshuo") {
 			if (this.isLogin)
 				this.$app.$def.goReplacePageWithParams(
-					"/pages/ui/acts/settings/tacceditshuo",
+					"pages/ui/acts/settings/tacceditshuo",
 					{
 						textValues: JSON.stringify({ msg: this.taccUserinfo }),
 					}

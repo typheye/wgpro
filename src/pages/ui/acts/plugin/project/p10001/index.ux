@@ -1,0 +1,220 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ $t("acts.plugin.project.p10001.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<div class="exit" else>
+			<a class="exit-tip-text-a" onclick="toPoli()">
+				{{ $t("acts.plugin.project.p10001.uploadtiptabtext") }}
+			</a>
+			<text class="exit-tip-text">{{ $t("edittip.p10001.text1") }}</text>
+			<div
+				class="edittext2-div"
+				style="border: 4px solid {{ fc_v0 }}"
+				ontouchstart="ht(-1, 'v0')"
+				ontouchend="ht(0, 'v0')"
+				onclick="toEditText"
+			>
+				<marquee class="edittext2" @click="changeState">
+					{{ inputValues.id }}
+				</marquee>
+			</div>
+			<div class="exit-choose">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
+					onclick="toLaunch()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+import fetch from "../../../../../../utils/fetch.js";
+import storage from "../../../../../../utils/storage.js";
+import file from "../../../../../../utils/file.js";
+import request from "@system.request";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		isLoading: false,
+		textValues: "",
+		inputValues: { id: "" },
+		filetoken: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onReady() {
+		this.inputReady();
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["id"] = TVs["id"];
+		}
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toLaunch() {
+		this.isLoading = true;
+		if (!this.$app.$def.isNumeric(this.inputValues["id"]))
+			this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err1")),
+				(this.isLoading = false);
+		else {
+			fetch.fetch({
+				url: this.$t("public.airfilesServerURL"),
+				data_GET: {
+					action: "getfile",
+					code: this.inputValues["id"],
+				},
+				responseType: "text",
+				success: (response) => {
+					if (response.code == 200) {
+						const reqInfo = JSON.parse(response.data);
+						if (reqInfo["code"] == 200) {
+							this.downloadfile(reqInfo);
+						} else
+							this.$app.$def.toTips(
+								"",
+								this.$t("acts.plugin.project.p10001.err2") + reqInfo["msg"]
+							),
+								(this.isLoading = false);
+					} else
+						this.$app.$def.toTips(
+							"",
+							this.$t("acts.plugin.project.p10001.err3")
+						),
+							(this.isLoading = false);
+				},
+				fail: () => {
+					this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err3"));
+					this.isLoading = false;
+				},
+			});
+		}
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toEditText() {
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/plugin/project/p10001",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: "id",
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
+		});
+	},
+	toPoli() {
+		this.$app.$def.toTipsWithQR(
+			this.$t("acts.plugin.project.p10001.uploadtiptabtext"),
+			this.$t("acts.plugin.project.p10001.uploadtiptext"),
+			this.$t("acts.plugin.project.p10001.uploadtipuri")
+		);
+	},
+	downloadfile(reqback) {
+		const filepath =
+			"internal://files/mnt/" +
+			reqback["file_type"] +
+			"/" +
+			reqback["file_name"];
+		request.download({
+			url: reqback["url"],
+			success: (data) => {
+				//console.log(`handling success in download ${data.token}`);
+				this.filetoken = data.token;
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, code = ${code}`);
+				this.$app.$def.toTips(
+					"",
+					this.$t("acts.plugin.project.p10001.err2") +
+						`handling fail in download , data = ${data}, code = ${code}`
+				);
+				this.isLoading = false;
+			},
+		});
+		request.onDownloadComplete({
+			token: this.filetoken,
+			success: (data) => {
+				//console.log(`handling success${data.uri}`);
+				this.fun_mvfile(data.uri, filepath);
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail in onDownloadComplete , code = ${code}`);
+				this.$app.$def.toTips(
+					"",
+					this.$t("acts.plugin.project.p10001.err2") +
+						`handling fail, data = ${data}, code = ${code}`
+				);
+				this.isLoading = false;
+			},
+		});
+	},
+	fun_mvfile(_srcUri, _dstUri) {
+		file.move({
+			srcUri: _srcUri,
+			dstUri: _dstUri,
+			success: () => {
+				//console.log("handling success");
+				this.toBack();
+				this.$app.$def.toTips(
+					"",
+					this.$t("acts.plugin.project.p10001.success") + _dstUri
+				);
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toTips(
+					"",
+					this.$t("acts.plugin.project.p10001.err2") +
+						`handling fail, data = ${data}, code = ${code}`
+				);
+				this.isLoading = false;
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../../common/style/index.css";
+</style>

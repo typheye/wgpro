@@ -8,10 +8,15 @@
     "tips": {
         "toNull": "敬请期待",
         "backLaunch" : "请按表冠键手动返回桌面",
-        "fail": "异常"
+        "fail": "异常",
+        "run_success": "操作成功",
+        "run_fail": "操作异常",
+        "run_fail_witherror": "操作异常\n"
     },
     "menu": {
         "chatroomlist": {
+            "msginfotext":"消息详情",
+            "msginfodemo":"[用户昵称]\n${usrname}\n\n[用户UID]\n${usruid}\n\n[IP属地]\n${usrip}\n\n[发布时间]\n${date}\n\n[消息内容]\n${data}",
             "def": {
                 "item1": {
                     "name": "刷新",
@@ -65,30 +70,44 @@
             }
         },
         "pluginlist": {
-            "item1": {
-                "name": "刷新",
-                "id": "update"
-            },
-            "item2": {
-                "name": "添加扩展",
-                "id": "addplugin"
-            },
-            "item3": {
-                "name": "设置",
-                "id": "gosettings"
-            },
-            "item4": {
-                "name": "退出",
-                "id": "exit"
-            },
-            "item5": {
-                "name": "返回",
-                "id": "back"
+            "def": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "添加扩展",
+                    "id": "addplug",
+                    "err1": "数据不能为空，且不能为非数字",
+                    "err2": "当前扩展数量已达到最大限制，无法继续添加",
+                    "err3": "添加失败\n未连接网络或扩展不存在"
+                },
+                "item3": {
+                    "name": "退出",
+                    "id": "exit"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }, 
+            "item": {
+                "item1": {
+                    "name": "删除扩展",
+                    "id": "delplug"
+                },
+                "item2": {
+                    "name": "返回",
+                    "id": "back"
+                }
             }
         },
         "pathshowlist": {
             "backpath": "返回上层目录",
             "pathtext": "目录",
+            "copytext": "已复制，长按粘贴",
+            "copydeltext": "已剪切，长按粘贴",
+            "cpdcanceltext": "已取消",
             "fileinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[大小]\n${size}\n\n[修改]\n${ltime}",
             "pathinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[修改]\n${ltime}",
             "def": {
@@ -249,7 +268,7 @@
                 "fow_music": {
                     "item1": {
                         "name": "腕管Pro：媒体浏览",
-                        "id": "fo_music_wgplayer"
+                        "id": "fo_music_wgmusicplayer"
                     },
                     "item2": {
                         "name": "返回",
@@ -274,6 +293,24 @@
                         "id": "back_fileopen"
                     }
                 }
+            },
+            "itemcpd": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "粘贴到当前目录",
+                    "id": "paste"
+                },
+                "item3": {
+                    "name": "取消粘贴",
+                    "id": "pastecancel"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
             }
         }
     },
@@ -293,16 +330,12 @@
                     "item3": {
                         "text": "应用更新",
                         "subtext": "更新应用和升级补丁"
-                    },
-                    "item4": {
-                        "text": "应用备份",
-                        "subtext": "快捷备份/恢复应用设置"
                     }
                 },
                 "p2": {
                     "item1": {
-                        "text": "适配终端",
-                        "subtext": "选择适合终端的适配方式"
+                        "text": "备份应用",
+                        "subtext": "快捷备份/恢复应用设置"
                     },
                     "item2": {
                         "text": "重置应用",
@@ -441,10 +474,6 @@
                 "tabtext": "云端服务",
                 "p1": {
                     "item1": {
-                        "text": "应用公告",
-                        "subtext": "查看发布的应用公告"
-                    },
-                    "item2": {
                         "text": "腕上微聊",
                         "subtext": "简易匿名网络聊天室"
                     }
@@ -532,6 +561,32 @@
         "browser": {
             "setdefuri": {
                 "tabtext": "浏览器主页"
+            }
+        },
+        "plugin":{
+            "project": {
+                "p10001": {
+                    "tabtext": "文件传输助手",
+                    "uploadtiptabtext": "上传文件",
+                    "uploadtiptext": "扫描下方二维码继续",
+                    "uploadtipuri": "https://wgpro.typheye.com/push/",
+                    "success": "下载成功\n\n[文件路径]\n",
+                    "err1": "取件码不能为空，且不能为非数字",
+                    "err2": "下载失败\n",
+                    "err3": "下载失败\n未连接网络或取件码不存在"
+                }
+            }
+        },
+        "filemanger":{
+            "open": {
+                "imageshow": {
+                    "tabtext": "图片浏览"
+                },
+                "textshow": {
+                    "tabtext": "文本浏览",
+                    "err1": "打开失败\n",
+                    "err2": "文件大小超过5KB暂不支持预览，请留意更新"
+                }
             }
         }
     },
@@ -667,23 +722,6 @@
                 }
             },
             "run":{
-                "taccount":{
-                    "title": "Typheye账户",
-                    "text": "有关您的Typheye账户信息\n请扫描下方二维码查看",
-                    "uri": "https://wgpro.typheye.com"
-                },
-                "tserver":{
-                    "title": "云端服务",
-                    "text": "敬请期待"
-                },
-                "textdisplay":{
-                    "title": "文本浏览",
-                    "text": "敬请期待"
-                },
-                "filemanger":{
-                    "title": "文件管理",
-                    "text": "敬请期待"
-                },
                 "browser":{
                     "title": "X1浏览器",
                     "text": "敬请期待"
@@ -691,7 +729,7 @@
                 "polinfo":{
                     "title": "法律信息",
                     "text": "有关腕管Pro的法律信息\n请扫描下方二维码查看",
-                    "uri": "https://wgpro.typheye.com"
+                    "uri": "https://wgpro.typheye.com/policies/"
                 }
             }
         }
@@ -700,13 +738,43 @@
         "serverURL": "https://service.typheye.com/app/com.typheye.wgpro/",
         "taccServerURL": "https://service.typheye.com/",
         "velaServerURL": "https://vela.typheye.com/",
+        "airfilesServerURL": "https://wgpro.typheye.com/push/",
         "tip": "提示",
         "inittip": "您是否已阅读并同意",
         "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",
-        "initpoli": "《腕管Pro用户协议》",
+        "initpoli": "《服务条款与隐私协议》",
         "comfirm": "确定",
         "cancel": "取消",
         "appexit": "您确定要退出软件吗?",
         "tacclogout": "您确定要退出登录吗?"
+    },
+    "edittip": {
+        "p10001": {
+            "text1": "输入6位取件码"
+        },
+        "setdefuri": {
+            "text1": "输入主页网址"
+        },
+        "browser": {
+            "text1": "输入访问网址"
+        },
+        "addplug": {
+            "text1": "输入插件ID"
+        },
+        "addroom": {
+            "text1": "输入房间ID"
+        },
+        "createroom": {
+            "text1": "输入房间名称和ID"
+        },
+        "tacceditnick": {
+            "text1": "输入您的昵称"
+        },
+        "tacceditshuo": {
+            "text1": "输入您的简介"
+        },
+        "tacclogin": {
+            "text1": "输入您的账户和密码"
+        }
     }
 }

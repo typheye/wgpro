@@ -12,6 +12,8 @@ class Storage {
       wgsettings_keyboardUseLongVibrate: false,
       wgsettings_enableX1WebView: false,
       wgsettings_fm_saveCopyCache: false,
+      wgsettings_fm_cachePath: "",
+      wgsettings_fm_cacheCtrl: "",
       wgsettings_browser_hideDebug: false,
       wgsettings_browser_defUri: "https://www.bilibili.com",
       wgsettings_taccount_username: "",
@@ -22,7 +24,9 @@ class Storage {
       wgsettings_taccount_allowShare: false,
       wgsettings_wgchat_roomlist: JSON.stringify([
         { id: "10001", name: "官方聊天室" },
-        { id: "10002", name: "用户反馈" },
+      ]),
+      wgsettings_plugin_pluglist: JSON.stringify([
+        { id: "10000", name: "扩展推荐" },
       ]),
     };
     this.data = {};

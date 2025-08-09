@@ -327,7 +327,7 @@
 							width: 120px;
 							height: 48px;
 						"
-						@click="onSelect('。')"
+						@click="onSelect('.')"
 						show="{{ numFlag }}"
 					/>
 					<img
@@ -607,7 +607,7 @@
 					>
 						<text class="calbtnt9" @click="onSelect('，')">，</text>
 						<text class="calbtnt9" @click="onSelect('0')">0</text>
-						<text class="calbtnt9" @click="onSelect('。')">。</text>
+						<text class="calbtnt9" @click="onSelect('.')">。</text>
 					</div>
 					<img
 						src="./assets/t9/del.png"

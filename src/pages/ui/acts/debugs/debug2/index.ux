@@ -62,23 +62,6 @@
 							</marquee>
 						</div>
 					</div>
-					<div
-						class="wgpro-item"
-						style="background-color: {{ itc_p2v3 }}"
-						ontouchstart="ht(1, 'p2v3')"
-						ontouchend="ht(0, 'p2v3')"
-						onclick="toRun('Temp', 'internal://temp')"
-					>
-						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a66.png" />
-						</div>
-						<div class="wgpro-item-texts-none">
-							<marquee class="wgpro-item-texts-text">Temp</marquee>
-							<marquee class="wgpro-item-texts-subtext">
-								internal://temp
-							</marquee>
-						</div>
-					</div>
 				</div>
 				<div
 					class="exit-choose-value"
@@ -102,7 +85,6 @@ export default {
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p2v1: "rgba(0,0,0,0)",
 		itc_p2v2: "rgba(0,0,0,0)",
-		itc_p2v3: "rgba(0,0,0,0)",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");

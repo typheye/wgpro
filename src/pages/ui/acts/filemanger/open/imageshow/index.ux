@@ -1,0 +1,96 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab" onclick="toBack()">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("acts.filemanger.open.imageshow.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit">
+			<scroll id="ys" class="outer" scroll-y="true" bounces="true">
+				<div class="inner-container">
+					<scroll id="xs" class="inner" scroll-x="true" bounces="true">
+						<!-- 添加宽度800px的容器包裹图片 -->
+						<div class="image-container">
+							<image
+								class="image"
+								src="{{ imguri }}"
+								alt="/common/mipmap/b11.png"
+							/>
+						</div>
+					</scroll>
+				</div>
+			</scroll>
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		uri: "",
+		imguri: "",
+		isScrollCenter: false,
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onShow() {
+		if (!this.isScrollCenter) {
+			this.isScrollCenter = true;
+			this.toCenterView();
+		}
+		this.toRefresh();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRefresh() {
+		this.imguri = this.uri;
+	},
+	toCenterView() {
+		this.$element("ys").scrollTo({
+			top: 230,
+			behavior: "instant",
+		});
+		this.$element("xs").scrollTo({
+			left: 260,
+			behavior: "instant",
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../../common/style/index.css";
+
+.outer {
+	width: 100%;
+	height: 100%;
+	background-color: grey;
+}
+
+.inner-container {
+	height: 800px; /* 触发垂直滚动 */
+}
+
+.inner {
+	width: 100%;
+	height: 100%;
+	flex-direction: row; /* 关键：启用横向布局 */
+}
+
+.image-container {
+	width: 1000px; /* 触发水平滚动 */
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.image {
+	width: auto;
+	height: auto;
+}
+</style>

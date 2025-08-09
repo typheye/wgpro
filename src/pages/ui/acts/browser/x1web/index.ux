@@ -68,7 +68,9 @@ export default {
 				this.toBack();
 				this.$app.$def.toTips(
 					"",
-					`the oninit handling fail, errMsg = ${data}, errCode = ${code}`
+					this.$t(
+						"tips.run_success"
+					)`handling fail, errMsg = ${data}, errCode = ${code}`
 				);
 			},
 		});

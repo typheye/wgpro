@@ -139,7 +139,7 @@ export default {
 				keys: ["wgsettings_browser_defUri", "wgsettings_enableX1WebView"],
 				success: (datas) => {
 					if (datas.wgsettings_enableX1WebView == true)
-						this.$app.$def.goPageWithParams("/pages/ui/function/browser", {
+						this.$app.$def.goPageWithParams("pages/ui/function/browser", {
 							enableWeb: true,
 							textValues: JSON.stringify({
 								uri: datas.wgsettings_browser_defUri,
@@ -160,17 +160,17 @@ export default {
 			});
 		else {
 			var v_uri = "";
-			if (id == "systool") v_uri = "/pages/ui/function/systool";
-			else if (id == "filemanger") v_uri = "/pages/ui/function/filemanger";
-			else if (id == "wgchat") v_uri = "/pages/ui/function/wgchat";
-			else if (id == "plugin") v_uri = "/pages/ui/function/plugin";
-			else if (id == "more") v_uri = "/pages/ui/function/more";
-			else if (id == "settings") v_uri = "/pages/ui/function/settings";
+			if (id == "systool") v_uri = "pages/ui/function/systool";
+			else if (id == "filemanger") v_uri = "pages/ui/function/filemanger";
+			else if (id == "wgchat") v_uri = "pages/ui/function/wgchat";
+			else if (id == "plugin") v_uri = "pages/ui/function/plugin";
+			else if (id == "more") v_uri = "pages/ui/function/more";
+			else if (id == "settings") v_uri = "pages/ui/function/settings";
 			this.$app.$def.goPage(v_uri);
 		}
 	},
 	exitApp() {
-		this.$app.$def.goPage("/pages/ui/popup/exit");
+		this.$app.$def.goPage("pages/ui/popup/exit");
 	},
 	updateCheck() {
 		//update check
@@ -196,7 +196,7 @@ export default {
 												"true"
 											);
 											this.$app.$def.goPage(
-												"/pages/ui/acts/settings/appupdate"
+												"pages/ui/acts/settings/appupdate"
 											);
 										}
 									},

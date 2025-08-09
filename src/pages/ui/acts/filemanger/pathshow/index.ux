@@ -51,7 +51,7 @@
 					style="height: 100px;background-color: {{ $item.color }};"
 					ontouchstart="ht(1, $item.num)"
 					ontouchend="ht(0, $item.num)"
-					onclick="toRun($item.id, $item.uri, $item.isfile, $item.name)"
+					onclick="toRun($item.id, $item.uri, $item.isfile, $item.name, $item.num)"
 					onlongpress="toRunLong($item.id, $item.num, $item.isfile)"
 				>
 					<div class="wgpro-item-left" show="{{ $item.show }}">
@@ -76,6 +76,7 @@
 
 <script>
 import file from "../../../../../utils/file.js";
+import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
 		pathName: "",
@@ -115,7 +116,7 @@ export default {
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();
 	},
-	toRun(id, uri, isfile, name) {
+	toRun(id, uri, isfile, name, num) {
 		if (id == "");
 		else if (id == "../") {
 			if (!uri) this.toBack();
@@ -130,11 +131,24 @@ export default {
 				);
 		} else {
 			if (isfile) {
-				let type = this.getSubstringAfter(name, ".");
-				let tabtext = "menu.pathshowlist.itemfile.item4.name";
-				if (type == "json") {
+				this.selectItemNum = num;
+				let type = this.getSubstringAfter(name, ".").toLowerCase();
+				let tabtext = "menu.pathshowlist.itemfile.item6.name";
+				if (type == "txt") {
 					this.menuflag = "fileopen.fow_text";
 					tabtext = "menu.pathshowlist.fileopenway.item1.name";
+				} else if (type == "jpg" || type == "png") {
+					this.menuflag = "fileopen.fow_photo";
+					tabtext = "menu.pathshowlist.fileopenway.item2.name";
+				} else if (type == "mp3") {
+					this.menuflag = "fileopen.fow_music";
+					tabtext = "menu.pathshowlist.fileopenway.item3.name";
+				} else if (type == "mp4") {
+					this.menuflag = "fileopen.fow_video";
+					tabtext = "menu.pathshowlist.fileopenway.item4.name";
+				} else if (type == "zip") {
+					this.menuflag = "fileopen.fow_zip";
+					tabtext = "menu.pathshowlist.fileopenway.item4.name";
 				} else this.menuflag = "fileopenway";
 				this.opmenu(true, this.$t(tabtext));
 			} else {
@@ -150,20 +164,100 @@ export default {
 		}
 	},
 	toRunLong(id, num, isfile) {
-		this.menuflag = "def";
-		this.selectItemNum = num;
-		this.ht(0, num); //fix item color
-		if (id == "../") this.opmenu(true);
-		else {
-			if (isfile) this.menuflag = "itemfile";
-			else this.menuflag = "itempath";
-			this.opmenu(true);
-		}
+		storage.gets({
+			keys: ["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+			success: (datas) => {
+				if (datas.wgsettings_fm_cachePath && datas.wgsettings_fm_cacheCtrl)
+					this.opmenu_cpd(num);
+				else this.opmenu_def(id, num, isfile);
+			},
+			fail: () => {
+				this.opmenu_def(id, num, isfile);
+			},
+		});
 	},
 	toRunMenu(id) {
 		let needoffmenu = true;
 		if (id == "") needoffmenu = false;
-		else if (id == "addpath") {
+		else if (id == "copy") {
+			var type = "file";
+			try {
+				if (this.pathshowList[this.selectItemNum]["isfile"] == false)
+					type = "path";
+			} catch (error) {}
+			if (type == "file") {
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					[this.pathshowList[this.selectItemNum]["uri"], "copy_" + type]
+				);
+				this.$app.$def.toTips("", this.$t("menu.pathshowlist.copytext"));
+			} else this.$app.$def.toTips("", this.$t("tips.run_fail"));
+		} else if (id == "copydel") {
+			var type = "file";
+			try {
+				if (this.pathshowList[this.selectItemNum]["isfile"] == false)
+					type = "path";
+			} catch (error) {}
+			if (type == "file") {
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					[this.pathshowList[this.selectItemNum]["uri"], "copydel_" + type]
+				);
+				this.$app.$def.toTips("", this.$t("menu.pathshowlist.copydeltext"));
+			} else this.$app.$def.toTips("", this.$t("tips.run_fail"));
+		} else if (id == "pastecancel") {
+			this.$app.$def.settingsChangeMore(
+				["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+				["", ""]
+			);
+			this.$app.$def.toTips("", this.$t("menu.pathshowlist.cpdcanceltext"));
+		} else if (id == "paste") {
+			//剪切，粘贴相关逻辑
+			storage.gets({
+				keys: ["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+				success: (datas) => {
+					if (datas.wgsettings_fm_cachePath && datas.wgsettings_fm_cacheCtrl) {
+						if (datas.wgsettings_fm_cacheCtrl == "copy_file")
+							this.fun_copy(
+								datas.wgsettings_fm_cachePath,
+								this.pathUri +
+									"/" +
+									this.getFileName(datas.wgsettings_fm_cachePath)
+							);
+						else if (datas.wgsettings_fm_cacheCtrl == "copy_path") {
+							this.$app.$def.settingsChangeMore(
+								["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+								["", ""]
+							);
+							this.$app.$def.toToast(this.$t("tips.run_fail"));
+						} else if (datas.wgsettings_fm_cacheCtrl == "copydel_file")
+							this.fun_copydel(
+								datas.wgsettings_fm_cachePath,
+								this.pathUri +
+									"/" +
+									this.getFileName(datas.wgsettings_fm_cachePath)
+							);
+						else if (datas.wgsettings_fm_cacheCtrl == "copydel_path") {
+							this.$app.$def.settingsChangeMore(
+								["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+								["", ""]
+							);
+							this.$app.$def.toToast(this.$t("tips.run_fail"));
+						}
+					} else
+						this.$app.$def.settingsChangeMore(
+							["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+							["", ""]
+						);
+				},
+				fail: () => {
+					this.$app.$def.settingsChangeMore(
+						["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+						["", ""]
+					);
+				},
+			});
+		} else if (id == "addpath") {
 			this.$app.$def.goReplacePageWithParams(
 				"pages/ui/acts/filemanger/setinfo",
 				{
@@ -244,10 +338,13 @@ export default {
 						name: this.pathshowList[this.selectItemNum]["name"],
 						path: this.pathshowList[this.selectItemNum]["uri"],
 						size:
-							this.$app.$def.formatDecimal(
-								this.pathshowList[this.selectItemNum]["info_length"] / 1024,
+							this.formatFileSize(
+								this.pathshowList[this.selectItemNum]["info_length"],
 								2
-							) + "K",
+							) +
+							"\n(" +
+							this.pathshowList[this.selectItemNum]["info_length"] +
+							"Bytes)",
 						ltime: this.formatTime(
 							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
 						),
@@ -301,7 +398,54 @@ export default {
 			this.opmenu(true, this.$t(tabtext));
 		} else if (id.startsWith("fo_")) {
 			//打开文件
-			this.$app.$def.toTips("", this.$t("tips.toNull"));
+			if (id == "fo_text_wgdisplay") {
+				const filesize = this.pathshowList[this.selectItemNum]["info_length"];
+				if (filesize <= 5120) {
+					file.readText({
+						uri: this.pathshowList[this.selectItemNum]["uri"],
+						success: (data) => {
+							//console.log("text: " + data.text);
+							this.$app.$def.toTips(
+								this.$t("acts.filemanger.open.textshow.tabtext"),
+								data.text
+							);
+						},
+						fail: (data, code) => {
+							//console.log(`handling fail, data = ${data}, code = ${code}`);
+							this.$app.$def.toTips(
+								this.$t("acts.filemanger.open.textshow.tabtext"),
+								this.$t("acts.filemanger.open.textshow.err1") +
+									`handling fail, data = ${data}, code = ${code}`
+							);
+						},
+					});
+				} else
+					this.$app.$def.toTips(
+						this.$t("acts.filemanger.open.textshow.tabtext"),
+						this.$t("acts.filemanger.open.textshow.err2")
+					);
+			} else if (id == "fo_photo_wgdisplay") {
+				this.$app.$def.goPageWithParams(
+					"pages/ui/acts/filemanger/open/imageshow",
+					{
+						uri: this.pathshowList[this.selectItemNum]["uri"],
+					}
+				);
+			} else if (id == "fo_music_wgmusicplayer") {
+				this.$app.$def.goPageWithParams(
+					"pages/ui/acts/filemanger/open/musicplayer/player",
+					{
+						musicinfo: JSON.stringify([
+							{
+								id: 1,
+								name: this.pathshowList[this.selectItemNum]["name"],
+								artists: "None",
+								playUrl: this.pathshowList[this.selectItemNum]["uri"],
+							},
+						]),
+					}
+				);
+			} else this.$app.$def.toTips("", this.$t("tips.toNull"));
 		} else if (id == "back");
 		else if (id == "back_fileopen") {
 			needoffmenu = false;
@@ -347,6 +491,7 @@ export default {
 		let menulistlen = 4; //默认菜单个数
 		if (this.menuflag == "itempath") menulistlen = 9; //文件夹菜单个数
 		else if (this.menuflag == "itemfile") menulistlen = 10; //文件菜单个数
+		else if (this.menuflag == "itemcpd") menulistlen = 4; //复制&剪切菜单个数
 		else if (this.menuflag == "fileopenway") menulistlen = 7; //文件打开方式个数
 		else if (this.menuflag == "fileopen.fow_text")
 			menulistlen = 3; //文件打开方式-文本个数
@@ -441,11 +586,15 @@ export default {
 					if (list_isfile) {
 						list_info_length = data[i - 1]["length"];
 						list_info_lastModifiedTime = data[i - 1]["lastModifiedTime"];
-						let info =
-							this.$app.$def.formatDecimal(list_info_length / 1024, 1) + "K";
+						//let info = this.$app.$def.formatDecimal(list_info_length / 1024, 1) + "K";
+						let info = this.formatFileSize(list_info_length);
 						if (name) {
-							let type = this.getSubstringAfter(name, ".");
-							if (type == "json") list_ico = "b13";
+							let type = this.getSubstringAfter(name, ".").toLowerCase();
+							if (type == "txt") list_ico = "b13";
+							else if (type == "jpg" || type == "png") list_ico = "b11";
+							else if (type == "mp3") list_ico = "b9";
+							else if (type == "mp4") list_ico = "b8";
+							else if (type == "zip") list_ico = "b16";
 							else list_ico = "b14";
 						}
 						list_info = info;
@@ -510,6 +659,23 @@ export default {
 
 		return `${yy}-${mm}-${dd} ${HH}:${min}`;
 	},
+	formatFileSize(bytes) {
+		if (bytes === 0) return "0B";
+
+		const units = ["B", "K", "M", "G", "T", "P"];
+		let index = 0;
+		let size = bytes;
+
+		// 循环除以1024直到找到合适的单位
+		while (size >= 1024 && index < units.length - 1) {
+			size /= 1024;
+			index++;
+		}
+
+		// 处理小数部分
+		const formattedSize = size.toFixed(2).replace(/\.?0+$/, "");
+		return formattedSize + units[index];
+	},
 	getParentFolder(path) {
 		// 根目录直接返回自身
 		if (path === "internal://") return path;
@@ -522,6 +688,107 @@ export default {
 		return lastSlash <= 10 // "internal://" 长度是11，索引10是冒号后的第一个斜杠
 			? "internal://" // 只有一级目录时返回根目录
 			: cleanPath.substring(0, lastSlash); // 返回父路径
+	},
+	getFileName(filePath) {
+		// 处理空路径
+		if (!filePath) return "";
+
+		// 替换 Windows 路径分隔符为 Unix 风格（统一处理）
+		const normalizedPath = filePath.replace(/\\/g, "/");
+
+		// 移除末尾的路径分隔符（如果有）
+		const cleanPath = normalizedPath.replace(/\/+$/, "");
+
+		// 查找最后一个路径分隔符后的内容
+		const lastIndex = cleanPath.lastIndexOf("/");
+
+		// 返回最后一部分（如果找不到分隔符则返回整个字符串）
+		return lastIndex === -1 ? cleanPath : cleanPath.substring(lastIndex + 1);
+	},
+	opmenu_def(id, num, isfile) {
+		this.menuflag = "def";
+		this.selectItemNum = num;
+		this.ht(0, num); //fix item color
+		if (id == "../") this.opmenu(true);
+		else {
+			if (isfile) this.menuflag = "itemfile";
+			else this.menuflag = "itempath";
+			this.opmenu(true);
+		}
+	},
+	opmenu_cpd(num) {
+		this.menuflag = "itemcpd";
+		this.selectItemNum = num;
+		this.ht(0, num); //fix item color
+		this.opmenu(true);
+	},
+	fun_copydel(_srcUri, _dstUri) {
+		file.move({
+			srcUri: _srcUri,
+			dstUri: _dstUri,
+			text: "",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: this.pathUri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+			},
+		});
+	},
+	fun_copy(_srcUri, _dstUri) {
+		file.copy({
+			srcUri: _srcUri,
+			dstUri: _dstUri,
+			text: "",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: this.pathUri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+			},
+		});
 	},
 };
 </script>

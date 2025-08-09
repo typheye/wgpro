@@ -20,7 +20,11 @@
 					type="item1"
 					style="margin-top:{{ $item.h1 }}px;height: {{ $item.h0 }}px;"
 				>
-					<div class="wgpro-msg-layout" if="{{ $item.isMsg }}">
+					<div
+						class="wgpro-msg-layout"
+						if="{{ $item.isMsg }}"
+						onlongpress="showmsginfo($item.num)"
+					>
 						<div class="wgpro-msg-head" style="height:{{ $item.h2 }};">
 							<marquee class="wgpro-msg-head-text-role" if="{{ $item.h3 }}">
 								{{ $item.role }}
@@ -105,7 +109,7 @@ export default {
 				key: "wgsettings_taccount_cookie",
 				success: (data) => {
 					if (!data) totips();
-					else this.$app.$def.goPage("/pages/ui/acts/wgchat/pushmsg");
+					else this.$app.$def.goPage("pages/ui/acts/wgchat/pushmsg");
 				},
 				fail: () => {
 					totips();
@@ -214,7 +218,7 @@ export default {
 					const calculateTextHeight = (
 						minHeight,
 						text,
-						charsPerLine = "20",
+						charsPerLine = "15",
 						lineHeight = "40",
 						lineSpacing = "5"
 					) => {
@@ -260,8 +264,9 @@ export default {
 						list_name = msgLists[i]["name"];
 						list_time = msgLists[i]["date"];
 						list_uid = msgLists[i]["uid"];
+						if (!list_uid) list_uid = "未知"; //没有uid
 						if (list_name != "系统消息") list_h3 = false; //没有role
-						if (!list_ip) list_h4 = false; //没有ip
+						if (!list_ip) (list_h4 = false), (list_ip = "未知"); //没有ip
 						if (list_h3) list_role = "管理员"; //role如果有
 						if (list_uid == this.taccUid) {
 							//自己发的消息
@@ -321,6 +326,18 @@ export default {
 			index: this.roommsgList.length - 1,
 			behavior: _behavior,
 		});
+	},
+	showmsginfo(num) {
+		this.$app.$def.toTips(
+			this.$t("menu.chatroomlist.msginfotext"),
+			this.$app.$def.textFormat(this.$t("menu.chatroomlist.msginfodemo"), {
+				usrname: this.roommsgList[num]["name"],
+				usruid: this.roommsgList[num]["uid"],
+				usrip: this.roommsgList[num]["ip"],
+				date: this.roommsgList[num]["time"],
+				data: this.roommsgList[num]["data"],
+			})
+		);
 	},
 };
 </script>
