@@ -181,7 +181,7 @@ export default {
 					var appinfos = this.$app.$def.getAppinfo();
 					const myvercode = appinfos.versionCode;
 					fetch.fetch({
-						url: this.$t("public.serverURL") + "config.json",
+						url: this.$app.$def.getTS("serverURL") + "config.json",
 						responseType: "text",
 						success: (response) => {
 							//response.code, response.data, response.headers

@@ -10,39 +10,42 @@
 		<div class="exit" if="{{ isLoading }}">
 			<text class="exit-tip-text">Loading...</text>
 		</div>
-		<div class="exit" else>
-			<div
-				class="edittext2-div"
-				style="border: 4px solid {{ fc_v0 }}"
-				ontouchstart="ht(-1, 'v0')"
-				ontouchend="ht(0, 'v0')"
-				onclick="toEditText"
-			>
-				<marquee class="edittext2" @click="changeState">
-					{{ inputValues.msg }}
-				</marquee>
-			</div>
-			<div class="exit-choose">
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
 				<div
-					class="exit-choose-value"
-					style="background-color: {{ fc_v1 }}"
-					ontouchstart="ht(1, 'v1')"
-					ontouchend="ht(0, 'v1')"
-					onclick="toBack()"
+					class="edittext2-div"
+					style="border: 4px solid {{ fc_v0 }}"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+					onclick="toEditText"
 				>
-					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					<marquee class="edittext2" @click="changeState">
+						{{ inputValues.msg }}
+					</marquee>
 				</div>
-				<div
-					class="exit-choose-value"
-					style="background-color: {{ fc_v2 }}"
-					ontouchstart="ht(1, 'v2')"
-					ontouchend="ht(0, 'v2')"
-					onclick="toLaunch()"
-				>
-					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
 				</div>
+				<div class="wgpro-gap-bottom" />
 			</div>
-		</div>
+		</scroll>
 	</div>
 </template>
 
@@ -104,7 +107,7 @@ export default {
 				(this.isLoading = false);
 		else {
 			fetch.fetch({
-				url: this.$t("public.serverURL") + "talking/class/api.php",
+				url: this.$app.$def.getTS("serverURL") + "talking/class/api.php",
 				data_GET: {
 					type: "release",
 					id: this.roomId,
@@ -148,7 +151,8 @@ export default {
 				let _keyboardtype = "QWERTY";
 				let _vibratemode = "short";
 				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
-				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					_vibratemode = "long";
 				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
 					reqPage: "pages/ui/acts/wgchat/pushmsg",
 					textValues: JSON.stringify(this.inputValues),
@@ -164,4 +168,5 @@ export default {
 
 <style>
 @import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
 </style>

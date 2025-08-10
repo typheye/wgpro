@@ -51,7 +51,7 @@ export default {
 	toRefresh() {
 		const timestamp0 = Date.now();
 		fetch.fetch({
-			url: this.$t("public.velaServerURL") + "wvReq",
+			url: this.$app.$def.getTS("velaServerURL") + "wvReq",
 			data_GET: {
 				url: this.uri,
 			},

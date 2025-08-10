@@ -10,31 +10,34 @@
 		<div class="exit" if="{{ isLoading }}">
 			<text class="exit-tip-text">Loading...</text>
 		</div>
-		<div class="exit" else>
-			<text class="exit-tip-text">{{ $t("edittip.browser.text1") }}</text>
-			<div
-				class="edittext2-div"
-				style="border: 4px solid {{ fc_v0 }}"
-				ontouchstart="ht(-1, 'v0')"
-				ontouchend="ht(0, 'v0')"
-				onclick="toEditText"
-			>
-				<marquee class="edittext2" @click="changeState">
-					{{ inputValues.uri }}
-				</marquee>
-			</div>
-			<div class="exit-choose">
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ $t("edittip.browser.text1") }}</text>
 				<div
-					class="exit-choose-value"
-					style="background-color: {{ fc_v1 }}"
-					ontouchstart="ht(1, 'v1')"
-					ontouchend="ht(0, 'v1')"
-					onclick="toLaunch()"
+					class="edittext2-div"
+					style="border: 4px solid {{ fc_v0 }}"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+					onclick="toEditText"
 				>
-					<img class="exit-choose-img" src="/common/mipmap/a55.png" />
+					<marquee class="edittext2" @click="changeState">
+						{{ inputValues.uri }}
+					</marquee>
 				</div>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a55.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
 			</div>
-		</div>
+		</scroll>
 	</div>
 </template>
 

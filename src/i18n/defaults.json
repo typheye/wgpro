@@ -735,10 +735,6 @@
         }
     },
     "public": {
-        "serverURL": "https://service.typheye.com/app/com.typheye.wgpro/",
-        "taccServerURL": "https://service.typheye.com/",
-        "velaServerURL": "https://vela.typheye.com/",
-        "airfilesServerURL": "https://wgpro.typheye.com/push/",
         "tip": "提示",
         "inittip": "您是否已阅读并同意",
         "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",

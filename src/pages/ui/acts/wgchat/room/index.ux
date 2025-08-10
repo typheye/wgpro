@@ -143,7 +143,10 @@ export default {
 		this.isLoading = true;
 		fetch.fetch({
 			url:
-				this.$t("public.serverURL") + "talking/chat/" + this.roomId + ".json",
+				this.$app.$def.getTS("serverURL") +
+				"talking/chat/" +
+				this.roomId +
+				".json",
 			responseType: "text",
 			success: (response) => {
 				if (response.code == 200) {
@@ -185,7 +188,7 @@ export default {
 			let tol = msgLists.length + 2; //2个缓冲
 			for (let i = 0; i < tol; i++) {
 				let inx = i + 1;
-				let list_num = 0;
+				let list_num = -1;
 				let list_h0 = 80;
 				let list_h1 = 0;
 				let list_h2 = 0;
@@ -206,6 +209,7 @@ export default {
 				let list_showFile = "";
 				let list_fileUri = "";
 				if (inx <= msgLists.length) {
+					list_num = i;
 					list_data = msgLists[i]["data"];
 					const hasMarkers = (str) =>
 						str.startsWith("[INFOS]") && str.endsWith("[I:END]");
@@ -328,16 +332,17 @@ export default {
 		});
 	},
 	showmsginfo(num) {
-		this.$app.$def.toTips(
-			this.$t("menu.chatroomlist.msginfotext"),
-			this.$app.$def.textFormat(this.$t("menu.chatroomlist.msginfodemo"), {
-				usrname: this.roommsgList[num]["name"],
-				usruid: this.roommsgList[num]["uid"],
-				usrip: this.roommsgList[num]["ip"],
-				date: this.roommsgList[num]["time"],
-				data: this.roommsgList[num]["data"],
-			})
-		);
+		if (num != -1)
+			this.$app.$def.toTips(
+				this.$t("menu.chatroomlist.msginfotext"),
+				this.$app.$def.textFormat(this.$t("menu.chatroomlist.msginfodemo"), {
+					usrname: this.roommsgList[num]["name"],
+					usruid: this.roommsgList[num]["uid"],
+					usrip: this.roommsgList[num]["ip"],
+					date: this.roommsgList[num]["time"],
+					data: this.roommsgList[num]["data"],
+				})
+			);
 	},
 };
 </script>

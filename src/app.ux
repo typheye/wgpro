@@ -7,7 +7,18 @@ import fetch from "./utils/fetch.js";
 import file from "./utils/file.js";
 import crypto from "@system.crypto";
 import prompt from "@system.prompt";
+import device from "@system.device";
 export default {
+	private: {
+		product: "",
+	},
+	onCreate() {
+		device.getInfo({
+			success: (ret) => {
+				this.product = ret.product;
+			},
+		});
+	},
 	goBack() {
 		router.back();
 	},
@@ -127,7 +138,7 @@ export default {
 					var send0 =
 						"type=get_data_update&cookie=" + cookie + "&time=" + timestamp0;
 					fetch.fetch({
-						url: "https://vela-service.typheye.com/api.php",
+						url: this.getTS("taccServerURL") + "api.php",
 						data_GET: {
 							type: "get_data_update",
 							cookie: cookie,
@@ -183,6 +194,30 @@ export default {
 	},
 	getPlugNumLimit() {
 		return 5;
+	},
+	getTS(str) {
+		const URIs = {
+			serverURL: {
+				def: "https://service.typheye.com/app/com.typheye.wgpro/",
+				proxy: "http://proxy-service.typheye.com/app/com.typheye.wgpro/",
+			},
+			taccServerURL: {
+				def: "https://service.typheye.com/",
+				proxy: "http://proxy-service.typheye.com/",
+			},
+			velaServerURL: {
+				def: "https://vela.typheye.com/",
+				proxy: "http://proxy-vela.typheye.com/",
+			},
+			airfilesServerURL: {
+				def: "https://wgpro.typheye.com/push/",
+				proxy: "http://proxy-wgpro.typheye.com/push/",
+			},
+		};
+		let flag = "def";
+		if (this.product == "Xiaomi Smart Band 9 Pro") flag = "proxy";
+		//else if (this.product == "Emulator-Vela") flag = "proxy";
+		return URIs[str][flag];
 	},
 };
 </script>

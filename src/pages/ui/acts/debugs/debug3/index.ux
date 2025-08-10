@@ -50,7 +50,7 @@ export default {
 	test() {
 		const timestamp0 = Date.now();
 		fetch.fetch({
-			url: this.$t("public.taccServerURL") + "test",
+			url: this.$app.$def.getTS("taccServerURL") + "test",
 			responseType: "text",
 			success: (response) => {
 				const { code, data } = response;
