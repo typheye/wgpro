@@ -75,12 +75,13 @@ export default {
 			this.$app.$def.goReplacePageWithParams("pages/ui/acts/browser/x1web", {
 				uri: this.inputValues["uri"],
 			});
-		}, 1500);
+		}, 500);
 	},
 	toBack() {
 		this.$app.$def.goBack();
 	},
 	toEditText() {
+		this.$app.$def.shortVib(true);
 		storage.gets({
 			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
 			success: (datas) => {

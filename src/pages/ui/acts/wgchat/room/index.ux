@@ -103,7 +103,8 @@ export default {
 		const totips = () => {
 			this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.tip1"));
 		};
-		if (evt.direction === "left")
+		if (evt.direction === "left") {
+			this.$app.$def.shortVib(true);
 			//login state
 			storage.get({
 				key: "wgsettings_taccount_cookie",
@@ -115,6 +116,7 @@ export default {
 					totips();
 				},
 			});
+		}
 	},
 	userReady() {
 		storage.get({
@@ -332,7 +334,8 @@ export default {
 		});
 	},
 	showmsginfo(num) {
-		if (num != -1)
+		if (num != -1) {
+			this.$app.$def.shortVib(true);
 			this.$app.$def.toTips(
 				this.$t("menu.chatroomlist.msginfotext"),
 				this.$app.$def.textFormat(this.$t("menu.chatroomlist.msginfodemo"), {
@@ -343,6 +346,7 @@ export default {
 					data: this.roommsgList[num]["data"],
 				})
 			);
+		}
 	},
 };
 </script>

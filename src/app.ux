@@ -95,11 +95,12 @@ export default {
 	settingsInit() {
 		this.settingsChange("wgsettings_init", true);
 		file.writeText({
-			uri: "internal://files/mnt/Documents/README",
-			text: "Hello World",
+			uri: "internal://files/mnt/Documents/README.txt",
+			text: "Welcome to use wgpro!",
 		});
-		file.delete({
-			uri: "internal://files/mnt/Documents/README",
+		file.writeText({
+			uri: "internal://files/INIT",
+			text: "TRUE",
 		});
 	},
 	settingsReset() {

@@ -164,6 +164,7 @@ export default {
 		}
 	},
 	toRunLong(id, num, isfile) {
+		this.$app.$def.shortVib(true);
 		storage.gets({
 			keys: ["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
 			success: (datas) => {

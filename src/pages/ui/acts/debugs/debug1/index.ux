@@ -242,6 +242,7 @@ export default {
 		});
 	},
 	toEditText(ti) {
+		this.$app.$def.shortVib(true);
 		storage.gets({
 			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
 			success: (datas) => {

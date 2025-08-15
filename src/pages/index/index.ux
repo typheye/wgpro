@@ -5,7 +5,6 @@
 </template>
 
 <script>
-import file from "../../utils/file.js";
 import storage from "../../utils/storage.js";
 export default {
 	onBackPress() {
@@ -20,10 +19,6 @@ export default {
 			keys: ["wgsettings_fm_saveCopyCache", "wgsettings_init"],
 			success: (datas) => {
 				if (datas.wgsettings_init == true) {
-					//神秘bug
-					file.delete({
-						uri: "internal://files/index.php",
-					});
 					this.$app.$def.settingsChange(
 						"wgsettings_autoCheckUpdateIsShow",
 						"false"

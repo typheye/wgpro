@@ -123,6 +123,7 @@ export default {
 			});
 	},
 	toRunLong(id, num) {
+		this.$app.$def.shortVib(true);
 		this.menuflag = "item";
 		this.selectItemNum = num;
 		this.ht(0, num); //fix item color

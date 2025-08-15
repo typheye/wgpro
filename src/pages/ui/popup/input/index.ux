@@ -145,6 +145,7 @@ export default {
 		if (!this.hide) this.hide = !this.hide;
 	},
 	changeState() {
+		this.$app.$def.shortVib(true);
 		this.hide = !this.hide;
 	},
 };
