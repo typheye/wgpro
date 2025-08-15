@@ -27,6 +27,7 @@ class Storage {
       ]),
       wgsettings_plugin_pluglist: JSON.stringify([
         { id: "10000", name: "扩展推荐" },
+        { id: "10001", name: "文件传输助手" },
       ]),
     };
     this.data = {};

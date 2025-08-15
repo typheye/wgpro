@@ -8,7 +8,18 @@
 			<text class="tab-more"></text>
 		</div>
 		<div class="exit" if="{{ isLoading }}">
-			<text class="exit-tip-text">Loading...</text>
+			<text class="exit-tip-text">{{ tiptext }}</text>
+			<div class="exit-choose" show="{{ canDownstop }}">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
+					onclick="downstop()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+			</div>
 		</div>
 		<scroll class="scroll-root" scroll-y="true" else>
 			<div class="wgpro-deflayout">
@@ -54,10 +65,11 @@
 </template>
 
 <script>
+import request from "@system.request";
+import brightness from "@system.brightness";
 import fetch from "../../../../../../utils/fetch.js";
 import storage from "../../../../../../utils/storage.js";
 import file from "../../../../../../utils/file.js";
-import request from "@system.request";
 export default {
 	private: {
 		fc_v0: "#3c3c3c",
@@ -67,14 +79,36 @@ export default {
 		textValues: "",
 		inputValues: { id: "" },
 		filetoken: "",
+		tiptext: "Loading...",
+		file_size: 0,
+		file_pageSize: 0,
+		file_pageCount: 0,
+		file_pageNow: 0,
+		isDownstop: false,
+		canDownstop: false,
+		isUseDownBin: false,
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
 		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
 		else eval("this.fc_" + i + " = '#3c3c3c'");
 	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
 	onReady() {
 		this.inputReady();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
 	},
 	inputReady() {
 		if (this.textValues) {
@@ -82,11 +116,8 @@ export default {
 			this.inputValues["id"] = TVs["id"];
 		}
 	},
-	onBackPress() {
-		this.$app.$def.toCancel(false);
-		return true;
-	},
 	toLaunch() {
+		this.tiptext = "Loading...";
 		this.isLoading = true;
 		if (!this.$app.$def.isNumeric(this.inputValues["id"]))
 			this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err1")),
@@ -103,7 +134,8 @@ export default {
 					if (response.code == 200) {
 						const reqInfo = JSON.parse(response.data);
 						if (reqInfo["code"] == 200) {
-							this.downloadfile(reqInfo);
+							if (this.isUseDownBin) this.downloadfile2(reqInfo);
+							else this.downloadfile(reqInfo);
 						} else
 							this.$app.$def.toTips(
 								"",
@@ -154,51 +186,227 @@ export default {
 			this.$t("acts.plugin.project.p10001.uploadtipuri")
 		);
 	},
-	downloadfile(reqback) {
+	downstop() {
+		this.isDownstop = true;
+		this.canDownstop = false;
+	},
+	async downloadfile(reqback) {
 		const filepath =
 			"internal://files/mnt/" +
 			reqback["file_type"] +
 			"/" +
 			reqback["file_name"];
-		request.download({
-			url: reqback["url"],
-			success: (data) => {
-				//console.log(`handling success in download ${data.token}`);
-				this.filetoken = data.token;
+		let status_downfile = await this.downloadfile_downfile(reqback["url"]);
+		if (status_downfile)
+			request.onDownloadComplete({
+				token: this.filetoken,
+				success: (data) => {
+					//console.log(`handling success${data.uri}`);
+					setTimeout(() => {
+						this.fun_mvfile(data.uri, filepath);
+					}, 300);
+				},
+				fail: (data, code) => {
+					//console.log(`handling fail in onDownloadComplete , code = ${code}`);
+					this.$app.$def.toTips(
+						"",
+						this.$t("acts.plugin.project.p10001.err2") +
+							`handling fail, data = ${data}, code = ${code}`
+					);
+					this.isLoading = false;
+				},
+			});
+	},
+	downloadfile2(reqback) {
+		fetch.fetch({
+			url:
+				this.$app.$def.getTS("airfilesServerURL") +
+				"airfiles/bin/" +
+				reqback["md5"] +
+				"/file.json",
+			responseType: "text",
+			success: (response) => {
+				if (response.code == 200) {
+					const reqInfo = JSON.parse(response.data);
+					this.file_size = reqInfo["size"];
+					this.file_pageSize = reqInfo["pageSize"];
+					this.file_pageCount = reqInfo["pageCount"];
+					this.file_pageNow = 1;
+					//this.tiptext = JSON.stringify(reqInfo);
+					this.downloadfile2_while(reqback);
+				} else
+					this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err3")),
+						(this.isLoading = false);
 			},
-			fail: (data, code) => {
-				//console.log(`handling fail, code = ${code}`);
-				this.$app.$def.toTips(
-					"",
-					this.$t("acts.plugin.project.p10001.err2") +
-						`handling fail in download , data = ${data}, code = ${code}`
-				);
+			fail: () => {
+				this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err3"));
 				this.isLoading = false;
 			},
 		});
-		request.onDownloadComplete({
-			token: this.filetoken,
-			success: (data) => {
-				//console.log(`handling success${data.uri}`);
-				this.fun_mvfile(data.uri, filepath);
-			},
-			fail: (data, code) => {
-				//console.log(`handling fail in onDownloadComplete , code = ${code}`);
+	},
+	async downloadfile2_while(reqback) {
+		const filepath =
+			"internal://files/mnt/" +
+			reqback["file_type"] +
+			"/" +
+			reqback["file_name"];
+		//const filetmpdir = "internal://cache/down/" + reqback["md5"] + "/";
+		this.isDownstop = false;
+		this.canDownstop = true;
+		for (
+			this.file_pageNow;
+			this.file_pageNow < this.file_pageCount + 1;
+			this.file_pageNow++
+		) {
+			try {
+				if (this.isDownstop) break;
+				this.tiptext = `Downloading...\n(${this.file_pageNow}/${this.file_pageCount})`;
+				let data = await this.downloadfile2_while_page(reqback["md5"]);
+				if (!data || data.length === 0) break; // 中断循环
+				data = this.stringToUint8Array(data);
+				let isW = await this.writeArrayBuffer(filepath, data, true);
+				/*let isW = await this.writeArrayBuffer(
+					filetmpdir + `tmp/${this.file_pageNow}.bin`,
+					data
+				);*/
+				if (!isW) break;
+			} catch (error) {
+				this.tiptext = "fail";
+				break;
+			}
+		}
+		if (this.isDownstop) {
+			file.delete({
+				uri: filepath,
+			});
+			this.$app.$def.toTips(
+				"",
+				this.$t("acts.plugin.project.p10001.err2") + "user stop!"
+			);
+			this.isLoading = false;
+		} else {
+			if (this.file_pageNow >= this.file_pageCount) {
+				/*this.file_pageNow = 1;
+			for (
+				this.file_pageNow;
+				this.file_pageNow < this.file_pageCount + 1;
+				this.file_pageNow++
+			) {
+				try {
+					this.tiptext = `Fixing...\n(${this.file_pageNow} / ${this.file_pageCount})`;
+					let data = await this.readArrayBuffer(
+						filetmpdir + `tmp/${this.file_pageNow}.bin`
+					);
+					if (!data || data.length === 0) break; // 中断循环
+					let isW = await this.writeArrayBuffer(filepath, data, true);
+					if (!isW) break;
+				} catch (error) {
+					this.tiptext = "fail";
+					break;
+				}
+			}
+			if (this.file_pageNow == this.file_pageCount) {
+				file.rmdir({ uri: filetmpdir });
+				*/
+				this.toBack();
 				this.$app.$def.toTips(
 					"",
-					this.$t("acts.plugin.project.p10001.err2") +
-						`handling fail, data = ${data}, code = ${code}`
+					this.$t("acts.plugin.project.p10001.success") + filepath
 				);
+				/*
+			} else {
+				this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err3"));
 				this.isLoading = false;
-			},
+			}*/
+			} else {
+				this.$app.$def.toTips("", this.$t("acts.plugin.project.p10001.err3"));
+				this.isLoading = false;
+			}
+		}
+	},
+	downloadfile2_while_page(md5) {
+		return new Promise((resolve, reject) => {
+			fetch.fetch({
+				url:
+					this.$app.$def.getTS("airfilesServerURL") +
+					"airfiles/bin/" +
+					md5 +
+					"/" +
+					this.file_pageNow +
+					".bin",
+				responseType: "text",
+				success: (response) => {
+					if (response.code == 200) resolve(response.data);
+					else resolve("");
+				},
+				fail: (code) => {
+					reject(code);
+				},
+			});
 		});
+	},
+	downloadfile_downfile(uri) {
+		return new Promise((resolve, reject) => {
+			request.download({
+				url: uri,
+				success: (data) => {
+					//console.log(`handling success in download ${data.token}`);
+					this.filetoken = data.token;
+					resolve(true);
+				},
+				fail: () => {
+					//console.log(`handling fail, code = ${code}`);
+					reject("");
+				},
+			});
+		});
+	},
+	writeArrayBuffer(path, data, isappend = false) {
+		return new Promise((resolve, reject) => {
+			file.writeArrayBuffer({
+				uri: path,
+				buffer: data,
+				append: isappend,
+				success: () => {
+					resolve(true);
+				},
+				fail: (code) => {
+					reject(code);
+				},
+			});
+		});
+	},
+	readArrayBuffer(path) {
+		return new Promise((resolve, reject) => {
+			file.readArrayBuffer({
+				uri: path,
+				success: () => {
+					resolve(true);
+				},
+				fail: (code) => {
+					reject(code);
+				},
+			});
+		});
+	},
+	stringToUint8Array(str) {
+		const numStrArray = str.split(" ");
+		const numbers = numStrArray
+			.map(Number) // 转换为数字（无法转换的会变成NaN）
+			.filter(
+				(num) =>
+					!isNaN(num) && // 确保是有效数字
+					num >= 0 && // 大于等于0
+					num <= 255 && // 小于等于255
+					num % 1 === 0 // 确保是整数
+			);
+		return new Uint8Array(numbers);
 	},
 	fun_mvfile(_srcUri, _dstUri) {
 		file.move({
 			srcUri: _srcUri,
 			dstUri: _dstUri,
 			success: () => {
-				//console.log("handling success");
 				this.toBack();
 				this.$app.$def.toTips(
 					"",
@@ -206,7 +414,6 @@ export default {
 				);
 			},
 			fail: (data, code) => {
-				//console.log(`handling fail, data= ${data}, code = ${code}`);
 				this.$app.$def.toTips(
 					"",
 					this.$t("acts.plugin.project.p10001.err2") +

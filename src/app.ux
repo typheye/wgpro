@@ -94,13 +94,8 @@ export default {
 	},
 	settingsInit() {
 		this.settingsChange("wgsettings_init", true);
-		file.writeText({
-			uri: "internal://files/mnt/Documents/README.txt",
-			text: "Welcome to use wgpro!",
-		});
-		file.writeText({
-			uri: "internal://files/INIT",
-			text: "TRUE",
+		file.listdir({
+			uri: "internal://files",
 		});
 	},
 	settingsReset() {
