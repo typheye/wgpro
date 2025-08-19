@@ -18,7 +18,7 @@
 						onclick="toRun('')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a86.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a93.png" />
 						</div>
 						<div class="wgpro-item-texts">
 							<marquee class="wgpro-item-texts-text">
@@ -26,6 +26,145 @@
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
 								{{ $t("acts.settings.textdisplay.p1.item1.subtext") }}
+							</marquee>
+						</div>
+						<div class="wgpro-item-right">
+							<switch
+								checked="{{ swit_it3_state }}"
+								onchange="switchange('wgsettings_td_saveProcess','swit_it3_state')"
+								class="wgpro-item-right-switch"
+							/>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v2 }}"
+						ontouchstart="ht(1, 'p1v2')"
+						ontouchend="ht(0, 'p1v2')"
+						onclick="toRun('')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a92.png" />
+						</div>
+						<div class="wgpro-item-texts">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.textdisplay.p1.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.textdisplay.p1.item2.subtext") }}
+							</marquee>
+						</div>
+						<div class="wgpro-item-right">
+							<switch
+								checked="{{ swit_it4_state }}"
+								onchange="switchange('wgsettings_td_disableTouch','swit_it4_state')"
+								class="wgpro-item-right-switch"
+							/>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v3 }}"
+						ontouchstart="ht(1, 'p1v3')"
+						ontouchend="ht(0, 'p1v3')"
+						onclick="toRun('')"
+						if="{{ !swit_it4_state }}"
+					>
+						<div class="wgpro-item-left"></div>
+						<div class="wgpro-item-texts">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.textdisplay.p1.item3.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.textdisplay.p1.item3.subtext") }}
+							</marquee>
+						</div>
+						<div class="wgpro-item-right">
+							<switch
+								checked="{{ swit_it5_state }}"
+								onchange="switchange('wgsettings_td_useTouchUD','swit_it5_state')"
+								class="wgpro-item-right-switch"
+							/>
+						</div>
+					</div>
+					<div else></div>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v1 }}"
+						ontouchstart="ht(1, 'p2v1')"
+						ontouchend="ht(0, 'p2v1')"
+						onclick="toRun('setfontsize')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a89.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.textdisplay.p2.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ value_fontSize }}px
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v2 }}"
+						ontouchstart="ht(1, 'p2v2')"
+						ontouchend="ht(0, 'p2v2')"
+						onclick="toRun('setfontcolor')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a88.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.textdisplay.p2.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ value_fontColor }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v3 }}"
+						ontouchstart="ht(1, 'p2v3')"
+						ontouchend="ht(0, 'p2v3')"
+						onclick="toRun('setbackgroundcolor')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a87.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.textdisplay.p2.item3.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ value_backgroundColor }}
+							</marquee>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p3v1 }}"
+						ontouchstart="ht(1, 'p3v1')"
+						ontouchend="ht(0, 'p3v1')"
+						onclick="toRun('')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a86.png" />
+						</div>
+						<div class="wgpro-item-texts">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.textdisplay.p3.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.textdisplay.p3.item1.subtext") }}
 							</marquee>
 						</div>
 						<div class="wgpro-item-right">
@@ -38,18 +177,18 @@
 					</div>
 					<div
 						class="wgpro-item"
-						style="background-color: {{ itc_p1v2 }}"
-						ontouchstart="ht(1, 'p1v2')"
-						ontouchend="ht(0, 'p1v2')"
+						style="background-color: {{ itc_p3v2 }}"
+						ontouchstart="ht(1, 'p3v2')"
+						ontouchend="ht(0, 'p3v2')"
 						onclick="toRun('')"
 					>
 						<div class="wgpro-item-left"></div>
 						<div class="wgpro-item-texts">
 							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.textdisplay.p1.item2.text") }}
+								{{ $t("acts.settings.textdisplay.p3.item2.text") }}
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.textdisplay.p1.item2.subtext") }}
+								{{ $t("acts.settings.textdisplay.p3.item2.subtext") }}
 							</marquee>
 						</div>
 						<div class="wgpro-item-right">
@@ -83,8 +222,20 @@ export default {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
+		itc_p1v3: "rgba(0,0,0,0)",
+		itc_p2v1: "rgba(0,0,0,0)",
+		itc_p2v2: "rgba(0,0,0,0)",
+		itc_p2v3: "rgba(0,0,0,0)",
+		itc_p3v1: "rgba(0,0,0,0)",
+		itc_p3v2: "rgba(0,0,0,0)",
 		swit_it1_state: false,
 		swit_it2_state: false,
+		swit_it3_state: false,
+		swit_it4_state: false,
+		swit_it5_state: false,
+		value_fontSize: "25",
+		value_fontColor: "#FFFFFF",
+		value_backgroundColor: "#000000",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -102,14 +253,56 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		if (id == "");
+		if (id == "setfontsize") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/settings/tdsize", {
+				value_fontSize: this.value_fontSize,
+				value_fontColor: this.value_fontColor,
+				value_backgroundColor: this.value_backgroundColor,
+			});
+		} else if (id == "setfontcolor") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/settings/tdcolor", {
+				value_fontSize: this.value_fontSize,
+				value_fontColor: this.value_fontColor,
+				value_backgroundColor: this.value_backgroundColor,
+				tabxt: this.$t("acts.settings.textdisplay.p2.item2.text"),
+				type: "font",
+			});
+		} else if (id == "setbackgroundcolor") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/settings/tdcolor", {
+				value_fontSize: this.value_fontSize,
+				value_fontColor: this.value_fontColor,
+				value_backgroundColor: this.value_backgroundColor,
+				tabxt: this.$t("acts.settings.textdisplay.p2.item3.text"),
+				type: "background",
+			});
+		}
 	},
 	switload() {
 		storage.gets({
-			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			keys: [
+				"wgsettings_td_saveProcess",
+				"wgsettings_td_disableTouch",
+				"wgsettings_td_useTouchUD",
+				"wgsettings_td_fontSize",
+				"wgsettings_td_fontColor",
+				"wgsettings_td_backgroundColor",
+				"wgsettings_keyboardUseT9",
+				"wgsettings_keyboardUseLongVibrate",
+			],
 			success: (datas) => {
 				if (datas.wgsettings_keyboardUseT9 == true) this.swit_it1_state = true;
-				if (datas.wgsettings_keyboardUseLongVibrate == true) this.swit_it2_state = true;
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					this.swit_it2_state = true;
+				if (datas.wgsettings_td_saveProcess == true) this.swit_it3_state = true;
+				if (datas.wgsettings_td_disableTouch == true)
+					this.swit_it4_state = true;
+				if (datas.wgsettings_td_useTouchUD == true) this.swit_it5_state = true;
+				if (datas.wgsettings_td_fontSize)
+					this.value_fontSize = datas.wgsettings_td_fontSize;
+				if (datas.wgsettings_td_fontColor)
+					this.value_fontColor = datas.wgsettings_td_fontColor;
+				if (datas.wgsettings_td_backgroundColor)
+					this.value_backgroundColor = datas.wgsettings_td_backgroundColor;
 			},
 		});
 	},

@@ -1,0 +1,187 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ tabxt }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<div
+					class="edittext4-div"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+				>
+					<marquee
+						class="edittext4"
+						style="text-align: center;height: auto;font-size:{{ value_fontSize }}px;background-color: {{ value_backgroundColor }};color: {{ value_fontColor }}"
+						@click="changeState"
+					>
+						{{ $t("acts.settings.tdcolor.demo") }}
+					</marquee>
+				</div>
+				<text class="exit-tip-text">
+					{{ $t("acts.settings.tdcolor.settips") + value_color }}
+				</text>
+				<slider
+					class="slider"
+					min="0"
+					max="255"
+					step="1"
+					value="{{ value_init_r }}"
+					onchange="onSliderChangeR"
+				></slider>
+				<slider
+					class="slider"
+					min="0"
+					max="255"
+					step="1"
+					value="{{ value_init_g }}"
+					onchange="onSliderChangeG"
+				></slider>
+				<slider
+					class="slider"
+					min="0"
+					max="255"
+					step="1"
+					value="{{ value_init_b }}"
+					onchange="onSliderChangeB"
+				></slider>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		isLoading: false,
+		value_init_r: 0,
+		value_init_g: 0,
+		value_init_b: 0,
+		value_r: 0,
+		value_g: 0,
+		value_b: 0,
+		value_fontSize: 0,
+		value_fontColor: "",
+		value_backgroundColor: "",
+		value_color: "",
+		type: "",
+		tabxt: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onShow() {
+		let color = "";
+		if (this.type == "font") color = this.value_fontColor;
+		else if (this.type == "background") color = this.value_backgroundColor;
+		let hex = color.replace(/^#/, "").toUpperCase();
+		this.value_color = color;
+		this.value_init_r = parseInt(hex.substring(0, 2), 16);
+		this.value_init_g = parseInt(hex.substring(2, 4), 16);
+		this.value_init_b = parseInt(hex.substring(4, 6), 16);
+		this.value_r = this.value_init_r;
+		this.value_g = this.value_init_g;
+		this.value_b = this.value_init_b;
+	},
+	onSliderChangeR(e) {
+		this.value_r = e.progress;
+		this.setColor();
+		this.$app.$def.shortVib(true);
+	},
+	onSliderChangeG(e) {
+		this.value_g = e.progress;
+		this.setColor();
+		this.$app.$def.shortVib(true);
+	},
+	onSliderChangeB(e) {
+		this.value_b = e.progress;
+		this.setColor();
+		this.$app.$def.shortVib(true);
+	},
+	toLaunch() {
+		this.isLoading = true;
+		setTimeout(() => {
+			let settings = "";
+			if (this.type == "font") settings = "wgsettings_td_fontColor";
+			else if (this.type == "background")
+				settings = "wgsettings_td_backgroundColor";
+			this.$app.$def.settingsChange(settings, this.value_color);
+			this.toBack();
+		}, 500);
+	},
+	toBack() {
+		this.$app.$def.goReplacePage("pages/ui/acts/settings/textdisplay");
+	},
+	setColor() {
+		this.value_color = this.rgbToHex(this.value_r, this.value_g, this.value_b);
+		if (this.type == "font") this.value_fontColor = this.value_color;
+		else if (this.type == "background")
+			this.value_backgroundColor = this.value_color;
+	},
+	rgbToHex(r, g, b) {
+		// 确保输入值在 0~255 范围内（可选的安全检查）
+		r = Math.max(0, Math.min(255, r));
+		g = Math.max(0, Math.min(255, g));
+		b = Math.max(0, Math.min(255, b));
+
+		// 转换为十六进制并确保双位格式（不足两位补0），最后转大写
+		return (
+			"#" +
+			r.toString(16).padStart(2, "0").toUpperCase() +
+			g.toString(16).padStart(2, "0").toUpperCase() +
+			b.toString(16).padStart(2, "0").toUpperCase()
+		);
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+.slider {
+	width: 100%;
+	height: 30px;
+	padding-left: 80px;
+	padding-right: 80px;
+	selected-color: #32618d;
+	block-color: white;
+	margin-top: 20px;
+}
+</style>

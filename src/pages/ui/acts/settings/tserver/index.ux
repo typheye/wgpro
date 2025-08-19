@@ -15,10 +15,10 @@
 						style="background-color: {{ itc_p1v1 }}"
 						ontouchstart="ht(1, 'p1v1')"
 						ontouchend="ht(0, 'p1v1')"
-						onclick="toRun('wgchat')"
+						onclick="toRun('wgnotice')"
 					>
 						<div class="wgpro-item-left">
-							<img class="wgpro-item-left-icon" src="/common/mipmap/a37.png" />
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a82.png" />
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
@@ -26,6 +26,25 @@
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
 								{{ $t("acts.settings.tserver.p1.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v2 }}"
+						ontouchstart="ht(1, 'p1v2')"
+						ontouchend="ht(0, 'p1v2')"
+						onclick="toRun('wgchat')"
+					>
+						<div class="wgpro-item-left">
+							<img class="wgpro-item-left-icon" src="/common/mipmap/a37.png" />
+						</div>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.tserver.p1.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.tserver.p1.item2.subtext") }}
 							</marquee>
 						</div>
 					</div>
@@ -50,6 +69,7 @@ export default {
 	private: {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
+		itc_p1v2: "rgba(0,0,0,0)",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -65,6 +85,11 @@ export default {
 	},
 	toRun(id) {
 		if (id == "wgchat") this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
+		else if (id == "wgnotice")
+			this.$app.$def.toTips(
+				this.$t("acts.settings.tserver.p1.item1.text"),
+				this.$t("tips.toNull")
+			);
 	},
 };
 </script>

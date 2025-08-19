@@ -1,0 +1,117 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ $t("acts.settings.tdsize.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<div
+					class="edittext4-div"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+				>
+					<marquee
+						class="edittext4"
+						style="text-align: center;height: auto;font-size:{{ value_fontSize }}px;background-color: {{ value_backgroundColor }};color: {{ value_fontColor }}"
+						@click="changeState"
+					>
+						{{ $t("acts.settings.tdsize.demo") }}
+					</marquee>
+				</div>
+				<text class="exit-tip-text">
+					{{ $t("acts.settings.tdsize.settips") + value_fontSize }}px
+				</text>
+				<slider
+					class="slider"
+					min="15"
+					max="50"
+					step="1"
+					value="{{ value_fontSize }}"
+					onchange="onSliderChange"
+				></slider>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		isLoading: false,
+		value_fontSize: 0,
+		value_fontColor: "",
+		value_backgroundColor: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onSliderChange(e) {
+		this.value_fontSize = e.progress;
+		this.$app.$def.shortVib(true);
+	},
+	toLaunch() {
+		this.isLoading = true;
+		setTimeout(() => {
+			this.$app.$def.settingsChange(
+				"wgsettings_td_fontSize",
+				this.value_fontSize
+			);
+			this.toBack();
+		}, 500);
+	},
+	toBack() {
+		this.$app.$def.goReplacePage("pages/ui/acts/settings/textdisplay");
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+.slider {
+	width: 100%;
+	height: 30px;
+	padding-left: 80px;
+	padding-right: 80px;
+	selected-color: #32618d;
+	block-color: white;
+	margin-top: 20px;
+}
+</style>

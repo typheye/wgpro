@@ -311,7 +311,8 @@ export default {
 				this.toBack();
 				this.$app.$def.toTips(
 					"",
-					this.$t("acts.plugin.project.p10001.success") + filepath
+					this.$t("acts.plugin.project.p10001.success") +
+						this.$app.$def.formatPath(filepath)
 				);
 				/*
 			} else {
@@ -410,7 +411,8 @@ export default {
 				this.toBack();
 				this.$app.$def.toTips(
 					"",
-					this.$t("acts.plugin.project.p10001.success") + _dstUri
+					this.$t("acts.plugin.project.p10001.success") +
+						this.$app.$def.formatPath(_dstUri)
 				);
 			},
 			fail: (data, code) => {

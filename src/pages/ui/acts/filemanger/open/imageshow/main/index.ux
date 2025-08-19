@@ -1,9 +1,9 @@
 <template>
-	<div class="page" @swipe="right">
+	<div class="page">
 		<div class="tab" onclick="toBack()">
 			<text class="tab-back">‹</text>
 			<marquee class="tab-text">
-				{{ $t("acts.filemanger.open.imageshow.tabtext") }}
+				{{ name }}
 			</marquee>
 			<text class="tab-more"></text>
 		</div>
@@ -16,7 +16,7 @@
 				value="100"
 				onchange="onSliderChange"
 			></slider>
-			<scroll id="ys" class="outer" scroll-y="true" bounces="true">
+			<scroll id="ys" class="outer" scroll-y="true" bounces="true" onlongpress="scrLong">
 				<div class="inner-container">
 					<scroll id="xs" class="inner" scroll-x="true" bounces="true">
 						<!-- 添加宽度800px的容器包裹图片 -->
@@ -25,7 +25,7 @@
 								class="image"
 								style="width:{{ sliderValue }}px"
 								src="{{ imguri }}"
-								alt="/common/mipmap/b11.png"
+								alt="/common/mipmap/a.png"
 							/>
 						</div>
 					</scroll>
@@ -36,27 +36,49 @@
 </template>
 
 <script>
+import brightness from "@system.brightness";
 export default {
 	private: {
+		name: "",
 		uri: "",
 		imguri: "",
 		isScrollCenter: false,
 		sliderValue: 100,
+		sliderInitValue: 100,
 	},
 	onBackPress() {
 		this.$app.$def.toCancel(true);
 		return true;
 	},
 	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
 		if (!this.isScrollCenter) {
 			this.isScrollCenter = true;
 			this.toCenterView();
 		}
 		this.toRefresh();
 	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+	},
 	onSliderChange(e) {
 		this.sliderValue = e.progress;
 		this.$app.$def.shortVib(true);
+	},
+	scrLong() {
+		this.$app.$def.goPageWithParams(
+			"pages/ui/acts/filemanger/open/imageshow/full",
+			{
+				name: this.name,
+				uri: this.uri,
+				sliderValue: this.sliderValue,
+				sliderInitValue: this.sliderInitValue,
+			}
+		);
 	},
 	toBack() {
 		this.$app.$def.goBack();
@@ -66,7 +88,7 @@ export default {
 	},
 	toCenterView() {
 		this.$element("ys").scrollTo({
-			top: 300,
+			top: 315,
 			behavior: "instant",
 		});
 		this.$element("xs").scrollTo({
@@ -78,12 +100,12 @@ export default {
 </script>
 
 <style>
-@import "../../../../../../common/style/index.css";
+@import "../../../../../../../common/style/index.css";
 
 .outer {
 	width: 100%;
 	height: 80%;
-	background-color: #333;
+	background-color: #222;
 }
 
 .inner-container {

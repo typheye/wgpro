@@ -215,5 +215,10 @@ export default {
 		//else if (this.product == "Emulator-Vela") flag = "proxy";
 		return URIs[str][flag];
 	},
+	formatPath(uri) {
+		if (uri == "internal://files/mnt") uri = "/";
+		else uri = uri.replace("internal://files/mnt/", "/");
+		return uri;
+	},
 };
 </script>

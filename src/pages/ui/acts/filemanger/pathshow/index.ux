@@ -137,7 +137,7 @@ export default {
 				if (type == "txt") {
 					this.menuflag = "fileopen.fow_text";
 					tabtext = "menu.pathshowlist.fileopenway.item1.name";
-				} else if (type == "jpg" || type == "png") {
+				} else if (type == "jpg" || type == "jpeg" || type == "png") {
 					this.menuflag = "fileopen.fow_photo";
 					tabtext = "menu.pathshowlist.fileopenway.item2.name";
 				} else if (type == "mp3") {
@@ -337,7 +337,9 @@ export default {
 					this.$t("menu.pathshowlist.fileinfodemotext"),
 					{
 						name: this.pathshowList[this.selectItemNum]["name"],
-						path: this.pathshowList[this.selectItemNum]["uri"],
+						path: this.$app.$def.formatPath(
+							this.pathshowList[this.selectItemNum]["uri"]
+						),
 						size:
 							this.formatFileSize(
 								this.pathshowList[this.selectItemNum]["info_length"],
@@ -359,7 +361,9 @@ export default {
 					this.$t("menu.pathshowlist.pathinfodemotext"),
 					{
 						name: this.pathshowList[this.selectItemNum]["name"],
-						path: this.pathshowList[this.selectItemNum]["uri"],
+						path: this.$app.$def.formatPath(
+							this.pathshowList[this.selectItemNum]["uri"]
+						),
 						ltime: this.formatTime(
 							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
 						),
@@ -401,25 +405,17 @@ export default {
 			//打开文件
 			if (id == "fo_text_wgdisplay") {
 				const filesize = this.pathshowList[this.selectItemNum]["info_length"];
-				if (filesize <= 5120) {
-					file.readText({
-						uri: this.pathshowList[this.selectItemNum]["uri"],
-						success: (data) => {
-							//console.log("text: " + data.text);
-							this.$app.$def.toTips(
-								this.$t("acts.filemanger.open.textshow.tabtext"),
-								data.text
-							);
-						},
-						fail: (data, code) => {
-							//console.log(`handling fail, data = ${data}, code = ${code}`);
-							this.$app.$def.toTips(
-								this.$t("acts.filemanger.open.textshow.tabtext"),
-								this.$t("acts.filemanger.open.textshow.err1") +
-									`handling fail, data = ${data}, code = ${code}`
-							);
-						},
-					});
+				if (filesize <= 5242880) {
+					this.$app.$def.goPageWithParams(
+						"pages/ui/acts/filemanger/open/textshow",
+						{
+							name: this.getFileNameWithoutExtension(
+								this.pathshowList[this.selectItemNum]["uri"]
+							),
+							size: filesize,
+							uri: this.pathshowList[this.selectItemNum]["uri"],
+						}
+					);
 				} else
 					this.$app.$def.toTips(
 						this.$t("acts.filemanger.open.textshow.tabtext"),
@@ -427,8 +423,11 @@ export default {
 					);
 			} else if (id == "fo_photo_wgdisplay") {
 				this.$app.$def.goPageWithParams(
-					"pages/ui/acts/filemanger/open/imageshow",
+					"pages/ui/acts/filemanger/open/imageshow/main",
 					{
+						name: this.getFileNameWithoutExtension(
+							this.pathshowList[this.selectItemNum]["uri"]
+						),
 						uri: this.pathshowList[this.selectItemNum]["uri"],
 					}
 				);
@@ -439,7 +438,9 @@ export default {
 						musicinfo: JSON.stringify([
 							{
 								id: 1,
-								name: this.pathshowList[this.selectItemNum]["name"],
+								name: this.getFileNameWithoutExtension(
+									this.pathshowList[this.selectItemNum]["uri"]
+								),
 								artists: "None",
 								playUrl: this.pathshowList[this.selectItemNum]["uri"],
 							},
@@ -592,7 +593,8 @@ export default {
 						if (name) {
 							let type = this.getSubstringAfter(name, ".").toLowerCase();
 							if (type == "txt") list_ico = "b13";
-							else if (type == "jpg" || type == "png") list_ico = "b11";
+							else if (type == "jpg" || type == "jpeg" || type == "png")
+								list_ico = "b11";
 							else if (type == "mp3") list_ico = "b9";
 							else if (type == "mp4") list_ico = "b8";
 							else if (type == "zip") list_ico = "b16";
@@ -705,6 +707,28 @@ export default {
 
 		// 返回最后一部分（如果找不到分隔符则返回整个字符串）
 		return lastIndex === -1 ? cleanPath : cleanPath.substring(lastIndex + 1);
+	},
+	getFileNameWithoutExtension(filePath) {
+		// 处理空路径
+		if (!filePath) return "";
+		// 提取文件名部分（包含后缀）
+		const fileNameWithExt = filePath.split(/[\\/]/).pop();
+		// 特殊处理 '.' 和 '..'
+		if (fileNameWithExt === "." || fileNameWithExt === "..") {
+			return fileNameWithExt;
+		}
+		// 查找最后一个点的位置
+		const lastDotIndex = fileNameWithExt.lastIndexOf(".");
+		// 没有点 / 点在开头 / 点在结尾 → 返回完整文件名
+		if (
+			lastDotIndex === -1 ||
+			lastDotIndex === 0 ||
+			lastDotIndex === fileNameWithExt.length - 1
+		) {
+			return fileNameWithExt;
+		}
+		// 截取点之前的部分（不包含后缀）
+		return fileNameWithExt.substring(0, lastDotIndex);
 	},
 	opmenu_def(id, num, isfile) {
 		this.menuflag = "def";

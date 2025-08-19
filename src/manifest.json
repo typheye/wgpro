@@ -171,6 +171,14 @@
         "launchMode": "singleTask",
         "component": "index"
       },
+      "pages/ui/acts/settings/tdcolor": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tdsize": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
       "pages/ui/acts/systool/displaytest": {
         "launchMode": "singleTask",
         "component": "index"
@@ -219,7 +227,11 @@
         "launchMode": "singleTask",
         "component": "index"
       },
-      "pages/ui/acts/filemanger/open/imageshow": {
+      "pages/ui/acts/filemanger/open/imageshow/main": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/imageshow/full": {
         "launchMode": "singleTask",
         "component": "index"
       },
@@ -232,6 +244,10 @@
         "component": "index"
       },
       "pages/ui/acts/filemanger/open/musicplayer/list": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/textshow": {
         "launchMode": "singleTask",
         "component": "index"
       },
