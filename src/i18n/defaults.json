@@ -247,10 +247,6 @@
                         "id": "fo_text_wgdisplay"
                     },
                     "item2": {
-                        "name": "腕管Pro：文本编辑",
-                        "id": "fo_text_wgedit"
-                    },
-                    "item3": {
                         "name": "返回",
                         "id": "back_fileopen"
                     }

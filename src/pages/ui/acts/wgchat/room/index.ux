@@ -116,7 +116,7 @@ export default {
 					totips();
 				},
 			});
-		}
+		} else if (evt.direction === "right") this.toBack();
 	},
 	userReady() {
 		storage.get({

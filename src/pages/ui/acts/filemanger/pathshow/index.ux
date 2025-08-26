@@ -496,7 +496,7 @@ export default {
 		else if (this.menuflag == "itemcpd") menulistlen = 4; //复制&剪切菜单个数
 		else if (this.menuflag == "fileopenway") menulistlen = 7; //文件打开方式个数
 		else if (this.menuflag == "fileopen.fow_text")
-			menulistlen = 3; //文件打开方式-文本个数
+			menulistlen = 2; //文件打开方式-文本个数
 		else if (this.menuflag == "fileopen.fow_photo")
 			menulistlen = 2; //文件打开方式-图片个数
 		else if (this.menuflag == "fileopen.fow_music")
