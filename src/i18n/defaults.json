@@ -462,7 +462,7 @@
                     "item2": {
                         "text": "账户注销",
                         "subtext": "注销您的Typheye账户",
-                        "uri": "https://service.typheye.com/site/user/center/delete/"
+                        "uri": "https://service.typheye.cn/site/user/center/delete/"
                     }
                 }
             },
@@ -603,7 +603,7 @@
                     "tabtext": "文件传输助手",
                     "uploadtiptabtext": "上传文件",
                     "uploadtiptext": "扫描下方二维码继续",
-                    "uploadtipuri": "https://wgpro.typheye.com/push/",
+                    "uploadtipuri": "https://wgpro.typheye.cn/push/",
                     "success": "下载成功\n\n[文件路径]\n",
                     "err1": "取件码不能为空，且不能为非数字",
                     "err2": "下载失败\n",
@@ -763,7 +763,7 @@
                 "polinfo":{
                     "title": "法律信息",
                     "text": "有关腕管Pro的法律信息\n请扫描下方二维码查看",
-                    "uri": "https://wgpro.typheye.com/policies/"
+                    "uri": "https://wgpro.typheye.cn/policies/"
                 }
             }
         }

@@ -194,20 +194,20 @@ export default {
 	getTS(str) {
 		const URIs = {
 			serverURL: {
-				def: "https://service.typheye.com/app/com.typheye.wgpro/",
-				proxy: "http://proxy-service.typheye.com/app/com.typheye.wgpro/",
+				def: "https://service.typheye.cn/app/com.typheye.wgpro/",
+				proxy: "http://proxy-service.typheye.cn/app/com.typheye.wgpro/",
 			},
 			taccServerURL: {
-				def: "https://service.typheye.com/",
-				proxy: "http://proxy-service.typheye.com/",
+				def: "https://service.typheye.cn/",
+				proxy: "http://proxy-service.typheye.cn/",
 			},
 			velaServerURL: {
-				def: "https://vela.typheye.com/",
-				proxy: "http://proxy-vela.typheye.com/",
+				def: "https://vela.typheye.cn/",
+				proxy: "http://proxy-vela.typheye.cn/",
 			},
 			airfilesServerURL: {
-				def: "https://wgpro.typheye.com/push/",
-				proxy: "http://proxy-wgpro.typheye.com/push/",
+				def: "https://wgpro.typheye.cn/push/",
+				proxy: "http://proxy-wgpro.typheye.cn/push/",
 			},
 		};
 		let flag = "def";
