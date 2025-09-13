@@ -38,10 +38,12 @@ export default {
 		isAllowRefresh: false,
 		webinfo: "- ms",
 		fpsinfo: "- fps",
-		xyinfo: "LOAD",
+		xyinfo: "LOADING",
 		showdebug: true,
 		touchX: 0,
 		touchY: 0,
+		usrid: "",
+		usrcookie: "",
 	},
 	onBackPress() {
 		this.$app.$def.toCancel(true);
@@ -84,6 +86,8 @@ export default {
 					url: this.uri,
 					touchX: this.touchX,
 					touchY: this.touchY,
+					uid: this.usrid,
+					cookie: this.usrcookie,
 				},
 				responseType: "text",
 				success: (response) => {
@@ -100,11 +104,11 @@ export default {
 				fail: (data, code) => {
 					this.isFetchFinish = true;
 					this.toBack();
-					this.$app.$def.toTips(
-						"",
-						this.$t("tips.run_fail_witherror") +
-							`handling fail, errMsg = ${data}, errCode = ${code}`
-					);
+					let tips = `handling fail, errMsg = ${data}, errCode = ${code}`;
+					try {
+						tips = `${JSON.parse(data)["error"]}(${code})`;
+					} catch (error) {}
+					this.$app.$def.toTips("", this.$t("tips.run_fail_witherror") + tips);
 				},
 			});
 		}

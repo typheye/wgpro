@@ -136,19 +136,28 @@ export default {
 			this.$app.$def.toTips("", this.$t("tips.backLaunch"));
 		else if (id == "browser")
 			storage.gets({
-				keys: ["wgsettings_browser_defUri", "wgsettings_enableX1WebView"],
+				keys: [
+					"wgsettings_browser_defUri",
+					"wgsettings_taccount_cookie",
+					"wgsettings_taccount_username",
+				],
 				success: (datas) => {
-					if (datas.wgsettings_enableX1WebView == true)
+					if (
+						datas.wgsettings_taccount_username &&
+						datas.wgsettings_taccount_cookie
+					)
 						this.$app.$def.goPageWithParams("pages/ui/function/browser", {
 							enableWeb: true,
 							textValues: JSON.stringify({
 								uri: datas.wgsettings_browser_defUri,
 							}),
+							usrid: datas.wgsettings_taccount_username,
+							usrcookie: datas.wgsettings_taccount_cookie,
 						});
 					else
 						this.$app.$def.toTips(
 							this.$t("display.browser.tabtext"),
-							this.$t("tips.toNull")
+							this.$t("display.settings.run.browser.needlogin")
 						);
 				},
 				fail: () => {
@@ -195,9 +204,7 @@ export default {
 												"wgsettings_autoCheckUpdateIsShow",
 												"true"
 											);
-											this.$app.$def.goPage(
-												"pages/ui/acts/settings/appupdate"
-											);
+											this.$app.$def.goPage("pages/ui/acts/settings/appupdate");
 										}
 									},
 								});

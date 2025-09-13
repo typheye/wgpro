@@ -58,7 +58,7 @@
 						</div>
 					</div>
 				</div>
-				<div class="wgpro-items-group">
+				<div class="wgpro-items-group" if="false">
 					<div
 						class="wgpro-item"
 						style="background-color: {{ itc_p2v1 }}"

@@ -50,6 +50,8 @@ export default {
 		isLoading: false,
 		textValues: "",
 		inputValues: { uri: "" },
+		usrid: "",
+		usrcookie: "",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
@@ -74,6 +76,8 @@ export default {
 		setTimeout(() => {
 			this.$app.$def.goReplacePageWithParams("pages/ui/acts/browser/x1web", {
 				uri: this.inputValues["uri"],
+				usrid: this.usrid,
+				usrcookie: this.usrcookie,
 			});
 		}, 500);
 	},

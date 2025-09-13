@@ -1,6 +1,6 @@
 {
   "name": "wgpro",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "",
   "engines": {
     "node": ">=8.10"
@@ -14,7 +14,7 @@
   },
   "devDependencies": {
     "@aiot-toolkit/velasim": "^0.1.23",
-    "aiot-toolkit": "^2.0.5",
+    "aiot-toolkit": "^1.1.4",
     "babel-eslint": "^10.0.1",
     "eslint": "^6.8.0",
     "eslint-plugin-ux": "^0.0.4"
@@ -23,6 +23,7 @@
     "chrome 65"
   ],
   "dependencies": {
+    "@aiot-toolkit/jsc": "^1.0.8",
     "less": "^4.4.0",
     "less-loader": "^12.3.0"
   }

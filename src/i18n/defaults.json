@@ -758,7 +758,8 @@
             "run":{
                 "browser":{
                     "title": "X1浏览器",
-                    "text": "敬请期待"
+                    "text": "敬请期待",
+                    "needlogin": "该功能需要登录Typheye账户"
                 },
                 "polinfo":{
                     "title": "法律信息",
