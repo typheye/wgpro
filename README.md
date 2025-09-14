@@ -23,7 +23,7 @@ npm run build
 npm run release
 
 # 生成发布包(高性能)
-npm run release --enable-jsc --enable-protobuf --enable-custom-component
+npm run release --enable-jsc --enable-protobuf
 ```
 
 ### 🐞 调试模式  
