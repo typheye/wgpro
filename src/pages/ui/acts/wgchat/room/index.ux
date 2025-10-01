@@ -91,6 +91,7 @@ export default {
 	onReady() {
 		this.msgListReady();
 		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
 	},
 	toBack() {
 		this.$app.$def.goBack();

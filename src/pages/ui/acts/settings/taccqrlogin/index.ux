@@ -1,0 +1,252 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ $t("acts.settings.taccqrlogin.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ msg }}</text>
+				<qrcode
+					class="exit-QR"
+					value="{{ qr_code_url }}"
+					if="{{ isShowQR }}"
+				></qrcode>
+				<div else></div>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import brightness from "@system.brightness";
+import fetch from "../../../../../utils/fetch.js";
+import storage from "../../../../../utils/storage.js";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		fc_v3: "#3c3c3c",
+		isLoading: true,
+		isShowQR: false,
+		textValues: "",
+		inputValues: { username: "", pasword: "" },
+		qr_code_url: "",
+		request_id: "",
+		msg: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onReady() {
+		this.inputReady();
+		this.loadLoginQR();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["username"] = TVs["username"];
+			this.inputValues["password"] = TVs["password"];
+		}
+	},
+	loadLoginQR() {
+		this.isLoading = true;
+		fetch.fetch({
+			url: this.$app.$def.getTS("taccServerURL") + "api.php",
+			data_GET: { type: "generate_login_request" },
+			method: "GET",
+			responseType: "text",
+			success: (response) => {
+				if (response.code == 200) {
+					const reqback = JSON.parse(response.data);
+					if (reqback["code"] == 200) {
+						this.request_id = reqback["request_id"];
+						this.qr_code_url = reqback["qr_code_url"];
+						// 修复1: 通过 this 调用回调方法
+						this.loadLoginQR_callback();
+					} else this.$app.$def.toTips("", reqback["msg"]), this.toBack();
+				} else
+					this.$app.$def.toTips(
+						"",
+						this.$t("acts.settings.taccqrlogin.err3") + response.data
+					),
+						this.toBackPage();
+			},
+			fail: () => {
+				this.$app.$def.toTips("", this.$t("acts.settings.taccqrlogin.err2"));
+				this.toBackPage();
+			},
+		});
+	},
+	async loadLoginQR_callback() {
+		// 修复2: 删除错误的 isLoading 重置
+		this.msg = ""; // 初始化消息
+		const MAX_DURATION = 300000; // 5分钟超时（毫秒）
+		const CHECK_INTERVAL = 3000; // 每3秒检查一次
+		const startTime = Date.now();
+
+		// 辅助函数：延时执行（非阻塞）
+		const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+		while (true) {
+			const elapsed = Date.now() - startTime;
+
+			// 超时判断
+			if (elapsed >= MAX_DURATION) {
+				this.$app.$def.toTips("", this.$t("acts.settings.taccqrlogin.err5"));
+				this.toBackPage();
+				return;
+			}
+
+			try {
+				await fetch.fetch({
+					url: this.$app.$def.getTS("taccServerURL") + "api.php",
+					data_GET: {
+						type: "check_login_request_status",
+						request_id: this.request_id,
+					},
+					method: "GET",
+					responseType: "text",
+					success: (response) => {
+						const reqback = JSON.parse(response.data);
+						// 处理响应
+						if (reqback["code"] === 200) {
+							const status = reqback["status"];
+
+							if (status == "approved") {
+								this.$app.$def.settingsChangeMore(
+									[
+										"wgsettings_taccount_username",
+										"wgsettings_taccount_password",
+										"wgsettings_taccount_cookie",
+										"wgsettings_taccount_nick",
+										"wgsettings_taccount_userinfo",
+									],
+									[
+										reqback.info.uid,
+										"none",
+										reqback.info.cookie,
+										reqback.info.nick,
+										reqback.info.shuo,
+									]
+								);
+								this.toBack();
+								return;
+							} else if (status == "rejected") {
+								this.toBackPage();
+								this.$app.$def.toTips(
+									"",
+									this.$t("acts.settings.taccqrlogin.err4")
+								);
+								return;
+							} else if (status == "waiting") {
+								// 保持 loading 状态
+								this.isLoading = true;
+							} else if (status == "pending") {
+								// 退出 loading 状态
+								this.isShowQR = true;
+								this.isLoading = false;
+								this.msg = this.$t("edittip.taccqrlogin.text1");
+							}
+						} else {
+							this.toBackPage();
+							this.$app.$def.toTips(
+								"",
+								this.$t("acts.settings.taccqrlogin.err3") + reqback["msg"]
+							);
+							return;
+						}
+					},
+					fail: () => {
+						this.toBackPage();
+						this.$app.$def.toTips(
+							"",
+							this.$t("acts.settings.taccqrlogin.err2")
+						);
+						return;
+					},
+				});
+			} catch (e) {
+				this.toBackPage();
+				this.$app.$def.toTips(
+					"",
+					this.$t("acts.settings.taccqrlogin.err3") + e
+				);
+				return;
+			}
+
+			// 等待下一次轮询
+			await delay(CHECK_INTERVAL);
+		}
+	},
+	toBack() {
+		this.$app.$def.goReplacePage("pages/ui/acts/settings/taccount");
+	},
+	toBackPage() {
+		this.isShowQR = false;
+		this.isLoading = false;
+		this.qr_code_url = "";
+		this.msg = this.$t("acts.settings.taccqrlogin.err3");
+	},
+	toEditText(ti) {
+		this.$app.$def.shortVib(true);
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/settings/tacclogin",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: ti,
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

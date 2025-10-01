@@ -29,6 +29,7 @@ export default {
 							["", ""]
 						);
 					this.$app.$def.taccLoginCheck();
+					this.$app.$def.taccGetUserData();
 					this.$app.$def.goReplacePage("pages/ui/home");
 				} else {
 					this.$app.$def.goReplacePage("pages/ui/popup/init");

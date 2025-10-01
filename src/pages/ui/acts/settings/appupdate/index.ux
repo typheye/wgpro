@@ -237,16 +237,17 @@ export default {
 		if (id == "requpdateinfo") this.reqUpdateInfo();
 		else if (id == "maginfo") this.hideInfo = !this.hideInfo;
 		else if (id == "catupdateinfo")
-			this.$app.$def.toTips(
-				this.$t("acts.settings.appupdate.p2.item1.sub.item4.text"),
-				this.p2i1si4subtextinfo
-			);
-		else if (id == "showupdateurl")
-			this.$app.$def.toTipsWithQR(
-				this.$t("acts.settings.appupdate.p2.item1.sub.item5.text"),
-				this.$t("acts.settings.appupdate.p2.item1.sub.item5.subtext"),
-				this.updateurl
-			);
+			if (this.p2i1si4subtextinfo)
+				this.$app.$def.toTips(
+					this.$t("acts.settings.appupdate.p2.item1.sub.item4.text"),
+					this.p2i1si4subtextinfo
+				);
+			else if (id == "showupdateurl")
+				this.$app.$def.toTipsWithQR(
+					this.$t("acts.settings.appupdate.p2.item1.sub.item5.text"),
+					this.$t("acts.settings.appupdate.p2.item1.sub.item5.subtext"),
+					this.updateurl
+				);
 	},
 	switload() {
 		storage.get({

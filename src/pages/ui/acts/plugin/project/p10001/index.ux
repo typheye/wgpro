@@ -86,7 +86,6 @@ export default {
 		file_pageNow: 0,
 		isDownstop: false,
 		canDownstop: false,
-		isUseDownBin: false,
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.fc_" + i + " = 'black'");
@@ -134,7 +133,7 @@ export default {
 					if (response.code == 200) {
 						const reqInfo = JSON.parse(response.data);
 						if (reqInfo["code"] == 200) {
-							if (this.isUseDownBin) this.downloadfile2(reqInfo);
+							if (!fetch.isEnableFetch()) this.downloadfile2(reqInfo);
 							else this.downloadfile(reqInfo);
 						} else
 							this.$app.$def.toTips(

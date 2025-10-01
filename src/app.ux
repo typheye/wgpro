@@ -125,38 +125,69 @@ export default {
 			["", "", "", "", ""]
 		);
 	},
-	taccLoginCheck() {
-		storage.get({
-			key: "wgsettings_taccount_cookie",
-			success: (cookie) => {
-				if (cookie) {
-					const timestamp0 = Date.now();
-					var send0 =
-						"type=get_data_update&cookie=" + cookie + "&time=" + timestamp0;
-					fetch.fetch({
-						url: this.getTS("taccServerURL") + "api.php",
-						data_GET: {
-							type: "get_data_update",
-							cookie: cookie,
-							time: timestamp0,
-							token: this.getHash(send0, "MD5"),
-						},
-						method: "GET",
-						responseType: "text",
-						success: (response) => {
-							if (response.code == 200) {
-								if (response.data) {
+	taccGetUserData() {
+		if (fetch.isEnableFetch())
+			storage.gets({
+				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
+				success: (datas) => {
+					if (
+						datas.wgsettings_taccount_cookie &&
+						datas.wgsettings_taccount_username
+					) {
+						fetch.fetch({
+							url: this.$app.$def.getTS("taccServerURL") + "api.php",
+							data_GET: {
+								type: "get_user_data",
+								uid: datas.wgsettings_taccount_username,
+								cookie: datas.wgsettings_taccount_cookie,
+							},
+							method: "GET",
+							responseType: "text",
+							success: (response) => {
+								if (response.code == 200) {
 									const reqback = JSON.parse(response.data);
-									if (reqback["code"] == "200") {
-										if (reqback["info"]["v0"] == 1) {
-											this.settingsChangeMore(
-												[
-													"wgsettings_taccount_cookie",
-													"wgsettings_taccount_nick",
-													"wgsettings_taccount_userinfo",
-												],
-												["", "", ""]
-											);
+									if (reqback["code"] == 200) {
+										this.settingsChangeMore(
+											[
+												"wgsettings_taccount_nick",
+												"wgsettings_taccount_userinfo",
+											],
+											[reqback["info"]["nick"], reqback["info"]["shuo"]]
+										);
+									}
+								}
+							},
+						});
+					}
+				},
+			});
+	},
+	taccLoginCheck() {
+		if (fetch.isEnableFetch())
+			storage.gets({
+				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
+				success: (datas) => {
+					if (
+						datas.wgsettings_taccount_cookie &&
+						datas.wgsettings_taccount_username
+					) {
+						const timestamp0 = Date.now();
+						fetch.fetch({
+							url: this.getTS("taccServerURL") + "api.php",
+							data_GET: {
+								type: "get_data_update_easy",
+								uid: datas.wgsettings_taccount_username,
+								cookie: datas.wgsettings_taccount_cookie,
+								time: timestamp0,
+							},
+							method: "GET",
+							responseType: "text",
+							success: (response) => {
+								if (response.code == 200) {
+									const reqback = JSON.parse(response.data);
+									if (reqback["code"] == 200) {
+										if (reqback["info_v0"] == 1) {
+											this.taccountInit();
 											this.toTips(
 												"",
 												"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
@@ -164,12 +195,14 @@ export default {
 										}
 									}
 								}
-							}
-						},
-					});
-				}
-			},
-		});
+							},
+							fail: (data, code) => {
+								this.toTips("", `错误\ncode=${code}\ndata=\n${data}`);
+							},
+						});
+					}
+				},
+			});
 	},
 	isNumeric(str) {
 		for (let i = 0; i < str.length; i++) {
@@ -192,7 +225,7 @@ export default {
 		return 5;
 	},
 	getTS(str) {
-		const URIs = {
+		/*const URIs = {
 			serverURL: {
 				def: "https://service.typheye.cn/app/com.typheye.wgpro/",
 				proxy: "http://proxy-service.typheye.cn/app/com.typheye.wgpro/",
@@ -208,6 +241,24 @@ export default {
 			airfilesServerURL: {
 				def: "https://wgpro.typheye.cn/push/",
 				proxy: "http://proxy-wgpro.typheye.cn/push/",
+			},
+		};*/
+		const URIs = {
+			serverURL: {
+				def: "https://service.typheye.com/app/com.typheye.wgpro/",
+				proxy: "http://proxy-service.typheye.com/app/com.typheye.wgpro/",
+			},
+			taccServerURL: {
+				def: "https://service.typheye.com/",
+				proxy: "http://proxy-service.typheye.com/",
+			},
+			velaServerURL: {
+				def: "https://vela.typheye.com/",
+				proxy: "http://proxy-vela.typheye.com/",
+			},
+			airfilesServerURL: {
+				def: "https://wgpro.typheye.com/push/",
+				proxy: "http://proxy-wgpro.typheye.com/push/",
 			},
 		};
 		let flag = "def";

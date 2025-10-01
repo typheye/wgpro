@@ -109,6 +109,7 @@ export default {
 		this.plugmenuListReady();
 		this.plugListReady();
 		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
 	},
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();

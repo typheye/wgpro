@@ -14,6 +14,11 @@ class fetch {
     }
   }
 
+  // 安全返回 enableFetch 状态
+  isEnableFetch() {
+    return enableFetch;
+  }
+
   _sayHello() {
     const id = this._generateUniqueId();
     this.msgid_HELLO = id;

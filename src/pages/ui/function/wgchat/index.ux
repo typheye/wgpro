@@ -110,6 +110,7 @@ export default {
 		this.chatroommenuListReady();
 		this.chatroomListReady();
 		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
 	},
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();

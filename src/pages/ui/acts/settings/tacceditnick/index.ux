@@ -64,6 +64,7 @@ export default {
 		textValues: "",
 		inputValues: { msg: "" },
 		usrNick: "",
+		usrUid: "",
 		usrCookie: "",
 	},
 	ht(t, i) {
@@ -76,10 +77,11 @@ export default {
 		this.usrLoad();
 	},
 	usrLoad() {
-		storage.get({
-			key: "wgsettings_taccount_cookie",
-			success: (data) => {
-				if (data) this.usrCookie = data;
+		storage.gets({
+			keys: ["wgsettings_taccount_username","wgsettings_taccount_cookie"],
+			success: (datas) => {
+				if (datas.wgsettings_taccount_username) this.usrUid = datas.wgsettings_taccount_username;
+				if (datas.wgsettings_taccount_cookie) this.usrCookie = datas.wgsettings_taccount_cookie;
 			},
 		});
 	},
@@ -100,21 +102,14 @@ export default {
 				(this.isLoading = false);
 		else {
 			const timestamp0 = Date.now();
-			var send0 =
-				"type=set_nick&cookie=" +
-				this.usrCookie +
-				"&value=" +
-				this.inputValues["msg"] +
-				"&time=" +
-				timestamp0;
 			fetch.fetch({
 				url: this.$app.$def.getTS("taccServerURL") + "api.php",
 				data_GET: {
-					type: "set_nick",
+					type: "set_nick_easy",
+					uid: this.usrUid,
 					cookie: this.usrCookie,
 					value: this.inputValues["msg"],
 					time: timestamp0,
-					token: this.$app.$def.getHash(send0, "MD5"),
 				},
 				method: "GET",
 				responseType: "text",

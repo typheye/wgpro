@@ -197,6 +197,7 @@ export default {
 	onReady() {
 		this.switload();
 		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
 	},
 	toBack() {
 		this.$app.$def.goBack();
@@ -232,7 +233,8 @@ export default {
 		} else if (id == "tologin") {
 			if (!this.isLogin)
 				this.$app.$def.goReplacePageWithParams(
-					"pages/ui/acts/settings/tacclogin",
+					//"pages/ui/acts/settings/tacclogin",
+					"pages/ui/acts/settings/taccqrlogin",
 					{
 						textValues: JSON.stringify({
 							username: this.taccusr,
