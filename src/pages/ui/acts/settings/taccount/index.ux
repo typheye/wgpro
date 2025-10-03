@@ -184,6 +184,7 @@ export default {
 		taccpwd: "",
 		taccUid: "Loading...",
 		taccUserinfo: "Loading...",
+		taccUserinfoO: "",
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -258,7 +259,7 @@ export default {
 				this.$app.$def.goReplacePageWithParams(
 					"pages/ui/acts/settings/tacceditshuo",
 					{
-						textValues: JSON.stringify({ msg: this.taccUserinfo }),
+						textValues: JSON.stringify({ msg: this.taccUserinfoO.trim() == "" ? "" : this.taccUserinfo }),
 					}
 				);
 		}
@@ -305,9 +306,10 @@ export default {
 					if (datas.wgsettings_taccount_username)
 						this.taccUid = datas.wgsettings_taccount_username;
 					else this.taccUid = this.$t("acts.settings.taccount.errname");
+					this.taccUserinfoO = datas.wgsettings_taccount_userinfo;
 					if (datas.wgsettings_taccount_userinfo)
 						this.taccUserinfo = datas.wgsettings_taccount_userinfo;
-					else this.taccUserinfo = this.$t("acts.settings.taccount.errname");
+					else this.taccUserinfo = this.$t("acts.settings.taccount.nonename");
 				},
 				fail: () => {
 					this.taccUsername = this.$t("acts.settings.taccount.errname");

@@ -117,6 +117,7 @@ export default {
 		fc_v9: "#3c3c3c",
 		fc_v10: "#3c3c3c",
 		isPopUpdate: false,
+		isPopErrLogin: false,
 	},
 	ht(t, i) {
 		if (t) eval("this.fc_" + i + " = 'black'");
@@ -130,6 +131,9 @@ export default {
 	onInit() {
 		this.str1 = this.$t("tips.backLaunch");
 		this.updateCheck();
+	},
+	onShow() {
+		this.$app.$def.taccGetUserData();
 	},
 	toRun(id) {
 		if (id == "backlaunch")

@@ -429,6 +429,7 @@
                 "tabtext": "Typheye账户",
                 "defname": "未登录",
                 "errname": "加载异常",
+                "nonename": "暂未设置",
                 "uidtext": "账户UID",
                 "usernametext": "账户昵称",
                 "userinfotext": "账户简介",
@@ -487,11 +488,13 @@
             },
             "taccqrlogin": {
                 "tabtext": "账户登录",
+                "info1": "等待用户操作",
                 "err1": "账户或密码不能为空",
                 "err2": "登录失败\n未连接到服务器",
                 "err3": "登录失败\n",
                 "err4": "用户拒绝登录",
-                "err5": "登录超时"
+                "err5": "登录超时",
+                "err6": "用户取消登录"
             },
             "tacceditnick": {
                 "tabtext": "更改昵称",

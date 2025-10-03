@@ -234,7 +234,7 @@ export default {
 		this.eggsdj = 0;
 		this.$app.$def.shortVib(true);
 		//Debug Page
-		this.$app.$def.goPage("pages/ui/function/debugs");
+		//this.$app.$def.goPage("pages/ui/function/debugs");
 		return true;
 	},
 };

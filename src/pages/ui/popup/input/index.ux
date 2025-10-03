@@ -143,10 +143,12 @@ export default {
 	},
 	toBackInput() {
 		if (!this.hide) this.hide = !this.hide;
+		this.onVisibilityChange();
 	},
 	changeState() {
 		this.$app.$def.shortVib(true);
 		this.hide = !this.hide;
+		this.onVisibilityChange();
 	},
 };
 </script>

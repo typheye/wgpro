@@ -97,7 +97,8 @@ export default {
 	},
 	toLaunch() {
 		this.isLoading = true;
-		if (!this.inputValues["msg"])
+		if (false)
+		//if (!this.inputValues["msg"])
 			this.$app.$def.toTips("", this.$t("acts.settings.tacceditshuo.err1")),
 				(this.isLoading = false);
 		else {

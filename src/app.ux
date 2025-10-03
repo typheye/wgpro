@@ -135,7 +135,7 @@ export default {
 						datas.wgsettings_taccount_username
 					) {
 						fetch.fetch({
-							url: this.$app.$def.getTS("taccServerURL") + "api.php",
+							url: this.getTS("taccServerURL") + "api.php",
 							data_GET: {
 								type: "get_user_data",
 								uid: datas.wgsettings_taccount_username,
@@ -196,9 +196,6 @@ export default {
 									}
 								}
 							},
-							fail: (data, code) => {
-								this.toTips("", `错误\ncode=${code}\ndata=\n${data}`);
-							},
 						});
 					}
 				},
@@ -225,7 +222,7 @@ export default {
 		return 5;
 	},
 	getTS(str) {
-		/*const URIs = {
+		const URIs = {
 			serverURL: {
 				def: "https://service.typheye.cn/app/com.typheye.wgpro/",
 				proxy: "http://proxy-service.typheye.cn/app/com.typheye.wgpro/",
@@ -241,24 +238,6 @@ export default {
 			airfilesServerURL: {
 				def: "https://wgpro.typheye.cn/push/",
 				proxy: "http://proxy-wgpro.typheye.cn/push/",
-			},
-		};*/
-		const URIs = {
-			serverURL: {
-				def: "https://service.typheye.com/app/com.typheye.wgpro/",
-				proxy: "http://proxy-service.typheye.com/app/com.typheye.wgpro/",
-			},
-			taccServerURL: {
-				def: "https://service.typheye.com/",
-				proxy: "http://proxy-service.typheye.com/",
-			},
-			velaServerURL: {
-				def: "https://vela.typheye.com/",
-				proxy: "http://proxy-vela.typheye.com/",
-			},
-			airfilesServerURL: {
-				def: "https://wgpro.typheye.com/push/",
-				proxy: "http://proxy-wgpro.typheye.com/push/",
 			},
 		};
 		let flag = "def";

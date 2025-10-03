@@ -26,15 +26,15 @@
 						onlongpress="showmsginfo($item.num)"
 					>
 						<div class="wgpro-msg-head" style="height:{{ $item.h2 }};">
-							<marquee class="wgpro-msg-head-text-role" if="{{ $item.h3 }}">
+							<text class="wgpro-msg-head-text-role" if="{{ $item.h3 }}">
 								{{ $item.role }}
-							</marquee>
-							<marquee class="wgpro-msg-head-text-ip" if="{{ $item.h4 }}">
+							</text>
+							<text class="wgpro-msg-head-text-ip" if="{{ $item.h4 }}">
 								{{ $item.ip }}
-							</marquee>
-							<marquee class="wgpro-msg-head-text">
+							</text>
+							<text class="wgpro-msg-head-text">
 								{{ $item.name }}
-							</marquee>
+							</text>
 						</div>
 						<div class="wgpro-msg-box" style="align-items:{{ $item.align }};">
 							<text

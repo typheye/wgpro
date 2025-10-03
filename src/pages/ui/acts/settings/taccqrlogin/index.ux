@@ -48,6 +48,8 @@ export default {
 		fc_v3: "#3c3c3c",
 		isLoading: true,
 		isShowQR: false,
+		isXH: false,
+		isXHExit: false,
 		textValues: "",
 		inputValues: { username: "", pasword: "" },
 		qr_code_url: "",
@@ -123,8 +125,17 @@ export default {
 		// 辅助函数：延时执行（非阻塞）
 		const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-		while (true) {
+		this.isXH = true;
+
+		while (this.isXH) {
 			const elapsed = Date.now() - startTime;
+
+			// 用户取消
+			if (this.isXHExit) {
+				this.$app.$def.toTips("", this.$t("acts.settings.taccqrlogin.err6"));
+				this.toBackPage();
+				return;
+			}
 
 			// 超时判断
 			if (elapsed >= MAX_DURATION) {
@@ -165,6 +176,7 @@ export default {
 										reqback.info.shuo,
 									]
 								);
+								this.isXH = false;
 								this.toBack();
 								return;
 							} else if (status == "rejected") {
@@ -175,10 +187,9 @@ export default {
 								);
 								return;
 							} else if (status == "waiting") {
-								// 保持 loading 状态
-								this.isLoading = true;
+								this.msg = this.$t("acts.settings.taccqrlogin.info1");
+								this.isShowQR = false;
 							} else if (status == "pending") {
-								// 退出 loading 状态
 								this.isShowQR = true;
 								this.isLoading = false;
 								this.msg = this.$t("edittip.taccqrlogin.text1");
@@ -215,9 +226,15 @@ export default {
 		}
 	},
 	toBack() {
-		this.$app.$def.goReplacePage("pages/ui/acts/settings/taccount");
+		if (this.isXH) {
+			this.isLoading = true;
+			this.isXHExit = true;
+		} else {
+			this.$app.$def.goReplacePage("pages/ui/acts/settings/taccount");
+		}
 	},
 	toBackPage() {
+		this.isXH = false;
 		this.isShowQR = false;
 		this.isLoading = false;
 		this.qr_code_url = "";
