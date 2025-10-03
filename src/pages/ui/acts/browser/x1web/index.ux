@@ -12,12 +12,13 @@
 							ontouchstart="getXY"
 							ontouchmove="getXYStop"
 						/>
+						<text class="exit-text" onclick="toBack">退出</text>
 					</div>
 				</scroll>
 			</div>
 		</scroll>
 		<marquee class="xyinfo" show="{{ showdebug }}">{{ xyinfo }}</marquee>
-		<div class="infos">
+		<div class="infos" show="{{ showdebug }}">
 			<marquee class="webinfo" show="{{ showdebug }}">{{ webinfo }}</marquee>
 			<marquee class="fpsinfo" show="{{ showdebug }}">{{ fpsinfo }}</marquee>
 		</div>
@@ -46,7 +47,7 @@ export default {
 		usrcookie: "",
 	},
 	onBackPress() {
-		this.$app.$def.toCancel(true);
+		this.$app.$def.toCancel(false);
 		return true;
 	},
 	onDestroy() {
@@ -154,6 +155,19 @@ export default {
 	height: 100%;
 }
 
+.exit-text {
+	width: 120px;
+	height: 60px;
+	color: white;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 60px;
+	margin-bottom: 30px;
+	background-color: #3c3c3c;
+	border-radius: 30px;
+}
+
 .xyinfo {
 	width: 100%;
 	height: 35px;
@@ -198,7 +212,7 @@ export default {
 }
 
 .inner-container {
-	height: 800px; /* 触发垂直滚动 */
+	height: 950px; /* 触发垂直滚动 */
 }
 
 .inner {
@@ -210,6 +224,7 @@ export default {
 .image-container {
 	width: 1000px; /* 触发水平滚动 */
 	height: 100%;
+	flex-direction: column;
 	justify-content: center;
 	align-items: center;
 }
