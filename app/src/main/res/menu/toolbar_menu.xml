@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 扫描二维码 -->
+    <item
+        android:id="@+id/action_scanqr"
+        android:title="扫描二维码"
+        android:icon="@drawable/ic_scanqr"
+        app:showAsAction="ifRoom" />
+
+    <!-- 设置（靠最右） -->
+    <item
+        android:id="@+id/action_settings"
+        android:title="设置"
+        android:icon="@drawable/ic_settings"
+        app:showAsAction="ifRoom" />
+
+</menu>

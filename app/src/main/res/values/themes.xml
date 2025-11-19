@@ -1,0 +1,39 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.WGProAndroid" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/tab_accent</item>
+        <item name="colorPrimaryVariant">@color/tab_accent</item>
+        <item name="colorOnPrimary">@color/tab</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/tab_se</item>
+        <item name="colorSecondaryVariant">@color/tab_se</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:navigationBarColor">@color/tab</item>
+        <!-- Customize your theme here. -->
+        <item name="android:colorControlHighlight">@color/tab_accent</item>
+        <item name="android:windowAnimationStyle">@style/ActivityAnimation</item>
+    </style>
+
+    <style name="Theme.WGProAndroid" parent="Base.Theme.WGProAndroid"/>
+
+    <style name="Theme.Splash" parent="Theme.WGProAndroid">
+        <!-- Customize your theme here. -->
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="ToolbarTitleAppearance" parent="TextAppearance.Material3.TitleLarge">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+        <!-- 或使用自定义字体 -->
+    </style>
+
+    <style name="ActivityAnimation" parent="android:Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
+    </style>
+</resources>

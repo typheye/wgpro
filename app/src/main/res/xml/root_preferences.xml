@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory
+        android:title="更新"/>
+
+    <!-- 关键修改：使用 android:trackTint 和 android:thumbTint -->
+    <SwitchPreferenceCompat
+        android:key="appUpdate_autoCheck"
+        android:title="自动检查更新"
+        android:enabled="false"
+        app:defaultValue="true"/>
+
+    <SwitchPreferenceCompat
+        android:dependency="appUpdate_autoCheck"
+        android:key="appUpdate_autoOpenDownPage"
+        android:summaryOff="已禁用"
+        android:summaryOn="已启用"
+        android:title="有更新时自动打开下载页"
+        app:defaultValue="false"/>
+
+</PreferenceScreen>

@@ -1,0 +1,43 @@
+<!-- res/layout/activity_scanqr.xml -->
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?android:attr/colorBackground"
+    tools:context=".ui.function.ScanQRActivity">
+
+    <!-- 扫码预览视图 -->
+    <com.journeyapps.barcodescanner.DecoratedBarcodeView
+        android:id="@+id/barcode_scanner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <!-- 返回按钮 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_back"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|start"
+        android:layout_marginTop="56dp"
+        android:layout_marginStart="16dp"
+        android:contentDescription="返回"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/tab_accent"
+        app:rippleColor="?attr/colorOnSecondaryContainer"
+        app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
+
+    <!-- 手电筒按钮 -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab_flashlight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="16dp"
+        android:contentDescription="手电筒"
+        app:tint="@android:color/white"
+        app:backgroundTint="@color/tab_accent"
+        app:rippleColor="?attr/colorOnSecondaryContainer"
+        app:srcCompat="@drawable/ic_flash_off_white_24dp" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

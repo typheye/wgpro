@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="tab_accent">#FF32618D</color>
+    <color name="tab_accent_th">#DBE3ED</color>
+    <color name="tab_accent_th2">#DBE3ED</color>
+    <color name="tab_background_th">#E6ECED</color>
+    <color name="tab_background">#FFF6F7F9</color>
+    <color name="tab">@color/white</color>
+    <color name="tab_bw">@color/black</color>
+    <color name="tab_se">#FFEF8724</color>
+    <color name="tab_pink">#D15888</color>
+    <color name="tab_pink_th">#FFE4EE</color>
+    <color name="tab_red">#F44336</color>
+    <color name="grey600">#FF757575</color>
+    <color name="text_u1">@color/black</color>
+    <color name="text_u2">#FF7B7B7B</color>
+    <color name="text_true">#FF12A600</color>
+    <color name="text_false">#FFFF0100</color>
+
+</resources>
