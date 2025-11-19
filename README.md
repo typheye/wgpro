@@ -39,7 +39,7 @@ npm run watch
 本项目采用 **GNU General Public License v3.0** 许可证
 
 ```text
-版权所有 (C) 2025 wgpro-velawatch 开发团队
+版权所有 (C) 2025 wgpro 开发团队
 
 本程序是自由软件：您可以根据自由软件基金会发布的 GNU 通用公共许可证第3版或
 （根据您的选择）任何更高版本重新分发和/或修改它。
