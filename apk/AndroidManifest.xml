@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" package="open.cn.awg.pro" android:versionCode="2510030" android:versionName="5.0.0">
+    <uses-sdk android:minSdkVersion="22" android:targetSdkVersion="28"/>
+    <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.FLASHLIGHT"/>
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSERS"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/><!--service前台服务-->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CAMERA"/>
+    <application android:name="open.cn.awg.pro.e6" android:usesCleartextTraffic="true" android:windowSoftInputMode="stateHidden|adjustResize" android:persistent="true" android:hardwareAccelerated="true" android:icon="@mipmap/icon" android:label="@string/app_name" android:largeHeap="true" android:resizeableActivity="false" android:supportsRtl="true" android:theme="@style/AppBaseTheme" android:requestLegacyExternalStorage="true" android:networkSecurityConfig="@xml/network_config">
+        <activity android:name=".main" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop" android:theme="@style/AppBaseTheme.Launcher">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity>
+        <activity-alias android:name=".main2" android:icon="@mipmap/i2" android:enabled="false" android:label="@string/app_name" android:targetActivity=".main">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
+            </intent-filter>
+        </activity-alias>
+        <activity android:name=".a0" android:theme="@style/AppBaseTheme.ErrorActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".b0" android:theme="@style/AppBaseTheme.ErrorActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".b1" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".a2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".a4" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".a5" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".b5" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".c1" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".i4" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d3" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d4" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d5" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d8" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f1" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f5" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f17" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f22" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".g2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".g3" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".g4" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".g5" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".i2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j6" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j7" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".k1" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".k2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".k3" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".k4" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".m2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".n2" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".n3" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".o1" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".p1" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a5_chatg_d0312_y2023" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a8_deeps_d0207_y2025" android:theme="@style/AppBaseTheme.SwipeToDismiss" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".e9" android:theme="@android:style/Theme.DeviceDefault.Light.Dialog.NoActionBar" android:configChanges="screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".a3" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".d7" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f2" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".n1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f4" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f6" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f7" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f9" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f10" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f11" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f12" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f13" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f15" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f16" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".f21" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".i1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".i3" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j2" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j3" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j4" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j5" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j8" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".j9" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l2" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l3" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l4" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l6" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".m1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".p2" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".p3" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <!--
+        <activity android:name=".c2"/>
+        <activity android:name=".c3"/>
+        <activity android:name=".c4"/>
+        <activity android:name=".c5"/>
+        <activity android:name=".c6"/>
+        <activity android:name=".c7"/>
+        <activity android:name=".c9"/>
+        <activity android:name=".c10"/>
+        <activity android:name=".c11"/>
+        <activity android:name=".c13"/>
+        <activity android:name=".c14"/>
+        <activity android:name=".c15"/>
+        <activity android:name=".c16"/>
+        <activity android:name=".c17"/>
+        <activity android:name=".c18"/>
+        <activity android:name=".c19"/>
+        <activity android:name=".c20"/>
+        <activity android:name=".c21"/>
+        <activity android:name=".c22"/>
+        <activity android:name=".c23"/>
+        <activity android:name=".c24"/>
+        <activity android:name=".c25"/>
+        <activity android:name=".c26"/>
+        -->
+        <activity android:name=".l5_a1_fuwuq_d0313_y2022" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a2_nimin_d0415_y2022" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a2_nimin_d0415_y2022_a1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a3_zhibo_d0420_y2022" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a3_zhibo_d0420_y2022_a1" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a4_debug_d0527_y2022" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a6_wearo_d0314_y2023" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <activity android:name=".l5_a7_yuanc_d0625_y2024" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
+        <receiver android:name="open.cn.awg.pro.DeviceReceiver" android:permission="android.permission.BIND_DEVICE_ADMIN" android:exported="true">
+            <meta-data android:name="android.app.device_admin" android:resource="@xml/device_admin"/>
+            <intent-filter android:priority="1000">
+                <action android:name="android.app.action.DEVICE_ADMIN_ENABLED"/>
+                <action android:name="android.app.action.DEVICE_ADMIN_DISABLE_REQUESTED"/>
+                <action android:name="android.app.action.DEVICE_ADMIN_DISABLED"/>
+                <category android:name="android.intent.category.HOME"/>
+            </intent-filter>
+        </receiver>
+        <!-- 注册广播 -->
+        <receiver android:name="gl.DownLoadBroadcastReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="open.cn.awg.pro.StartReceiver" android:enabled="true" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.WALLPAPER_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <service android:name="open.cn.awg.pro.SystemAccessibilityService" android:enabled="true" android:exported="true" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter android:priority="1000">
+                <action android:name="android.accessibilityservice.AccessibilityService"/>
+            </intent-filter>
+            <meta-data android:name="android.accessibilityservice" android:resource="@xml/accessibility_service_config"/>
+        </service>
+        <service android:name="open.cn.awg.pro.AwgCoreService" android:enabled="true" android:exported="true" android:process=":CoreService">
+            <intent-filter android:priority="1000">
+                <action android:name="open.cn.awg.pro.AwgCoreService"/>
+            </intent-filter>
+        </service>
+        <service android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService" android:label="dexopt" android:process=":dexopt" android:exported="true">
+        </service>
+        <service android:name="com.demo.e7"/>
+        <service android:name="open.cn.awg.pro.BootJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true">
+            <intent-filter>
+                <action android:name="open.cn.awg.pro.BOOT_JOB"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </service>
+        <provider android:name="i.app.FileProvider" android:exported="false" android:authorities="open.cn.awg.pro.myFileProvider" android:grantUriPermissions="true">
+            <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_provider"/>
+        </provider>
+        <!--
+        <meta-data android:name="i_app_multiDex" android:value="shi" />
+        <meta-data android:name="i_app_autoPermission" android:value="fou" />
+        <meta-data android:name="i_app_logOutput" android:value="shi" />
+        <meta-data android:name="i_app_errLogOutput" android:value="shi" />
+        -->
+</application>
+</manifest>

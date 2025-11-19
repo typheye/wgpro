@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c5_v" android:layout_width="match_parent" android:layout_height="wrap_content"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="match_parent" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:gravity="center" android:paddingLeft="5dp" android:paddingRight="5dp" android:singleLine="true"/><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="match_parent" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:gravity="center_vertical" android:singleLine="true" android:paddingRight="5dp"/><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+yc{
+  s lb=sj.lb(vw)
+  s a=lb.lbcfsj(zy.i.wb1)
+  s b=lb.lbcfsj(zy.i.wb2)
+  rg a=="返回"{
+    e1.cdx(0,null,null,null)
+  },{
+    e1.tsk(a,b)
+  }
+  
+},(e){
+  e1.upload_error(e,"c5.*")
+}</onClick></setOnClickListener></Yu5Src></LinearLayout></RelativeLayout>
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="20dp" android:text="" android:visibility="gone"/></RelativeLayout>

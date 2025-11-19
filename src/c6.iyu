@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c6_v" android:layout_width="match_parent" android:layout_height="wrap_content"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:background="?android:attr/selectableItemBackground" android:gravity="center" android:padding="5dp"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><Yu5Src><setOnClickListener><onClick>/*
+@2021 c6.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+gd s e1=cj.e1()
+yc{
+  gd s lb=sj.lb(vw)
+  gd s a=lb.lbcfsj(zy.i.wb1)
+  gd s n=lb.lbcfsj(zy.i.wb2)
+  gd s es=st.wb(zy.i.zywblj).zf()
+  gd string c=lb.lbcfsj(zy.i.wb3)
+  gj.xc(){
+    String d1_rootpaths
+    java d1_rootpaths=open.cn.awg.pro.abc.d1_rootpath
+    rg n=="-1"{
+      e1.cdx(0,null,null,null)
+    },n=="0"{
+      e1.cdx(6,null,c,null)
+    },n=="a"||n=="b"||n=="c"||n=="d"||n=="e"||n=="f"||n=="g"{
+      e1.dkfs(n,c,0)
+    },{
+      rg n=="a1"{
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(d2.iyu, name, value)
+        }
+      },n=="a2"{
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          s name = { "url" }
+          s value = { c }
+          gj.tz(d5.iyu, name, value)
+        }
+      },n=="b1"{
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(d3.iyu, name, value)
+        }
+      },n=="c1"{
+        //WearMusic
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(g3.iyu, name, value)
+        }
+      },n=="c2"{
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(g2.iyu, name, value)
+        }
+      },n=="c3"{
+        s pa1="/HankMi/cache/music/keydata.hmd"
+        pa1=wj.hqml("%")+pa1
+        s nr="hmmedia="+c
+        wj.xrwb(pa1,nr)
+        gj.jmxc(){
+          yc{
+            xt.dkyy("com.hankmi.wearmusic")
+          },(e){
+            e1.tsk("提示","打开异常\n"+e)
+          }
+        }
+      },n=="d2"{
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(g2.iyu, name, value)
+        }
+      },n=="d3"{
+        gd string url=c
+        s fhValue=e1.fileinfo(d1_rootpaths,c)
+        s bts=fhValue[3]
+        gd string title=bts
+        yc{
+          gj.jmxc(){
+            boolean fhs=true
+            java{
+              android.content.Context context=open.cn.awg.pro.e6.getContext();
+              fhs=com.demo.e4.wearvideo(context,url,title);
+            }
+            rg fhs==false{
+              e1.tsk("提示","打开异常")
+            }
+          }
+        },(e){
+          e1.tsk("提示","打开异常\n"+e)
+        }
+      },n=="d4"{
+        s pa1="/HankMi/cache/media/keydata.hmd"
+        pa1=wj.hqml("%")+pa1
+        s nr="hmmedia="+c
+        wj.xrwb(pa1,nr)
+        gj.jmxc(){
+          yc{
+            xt.dkyy("com.hankmi.media")
+          },(e){
+            e1.tsk("提示","打开异常\n"+e)
+          }
+        }
+      },n=="e1"{
+        s fhValue=e1.fileinfo(d1_rootpaths,c)
+        gd s lj=fhValue[2]
+        gd s c1=c
+        //处理点击事件
+        gj.jmxc(){
+          st.wb(zy.i.Tab).zf("提示")
+          st.xxbj(zy.i.xxbj9).kjd(0)
+        }
+        rg wj.jy(c1,lj,true)&gt;0{
+          //解压
+          e1.tsk("提示","解压成功")
+        },{
+          e1.tsk("提示","解压失败")
+        }
+        e1.sx(c,es)
+      },n=="f1"{
+        //e1.tsk("提示","该功能已废弃")
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(d4.iyu, name, value)
+        }
+      },n=="f2"{
+        s b=wj.hqml("%")
+        s kl=zf.th(c,b,"%")
+        gd s name = { "url","mode" }
+        gd s value = { c,"0" }
+        gj.jmxc(){
+          gj.tz(g5.iyu, name, value)
+        }
+      },n=="f3"{
+        s b=wj.hqml("%")
+        s kl=zf.th(c,b,"%")
+        gd s name = { "url","mode" }
+        gd s value = { c,"1" }
+        gj.jmxc(){
+          gj.tz(g5.iyu, name, value)
+        }
+      },n=="g1"{
+        s b=wj.hqml("%")
+        s kl=zf.th(c,b,"%")
+        gd s name = { "url" }
+        gd s value = { c }
+        gj.jmxc(){
+          gj.tz(g4.iyu, name, value)
+        }
+      },n=="g2"{
+        /*gd s c1=c
+        //处理点击事件
+        gj.jmxc(){
+        st.wb(zy.i.Tab).zf("提示")
+        st.xxbj(zy.i.xxbj9).kjd(0)
+        }
+        e1.loadTheme(c1)*/
+        e1.tsk("提示","腕管Pro已不再支持应用主题文件")
+      },n=="g3"{
+        rg wj.dx(c)&gt;102400{
+          e1.tsk("提示","文件过大,无法打开")
+        },{
+          s nrs=wj.dqwb(c)
+          gd s name = { "cmd" }
+          gd s value = { nrs }
+          gj.jmxc(){
+            gj.tz(j3.iyu, name, value)
+          }
+        }
+      },n=="g4"{
+        rg wj.dx(c)&gt;102400{
+          e1.tsk("提示","文件过大,无法打开")
+        },{
+          s nrs=wj.dqwb(c)
+          gd s name = { "sh" }
+          gd s value = { nrs }
+          gj.jmxc(){
+            gj.tz(j4.iyu, name, value)
+          }
+        }
+      },n=="g5"{
+        e1.tsk("提示","请前往 应用设置&gt;关于应用&gt;应用备份 页面恢复应用备份")
+      },n=="h1"||n=="h2"||n=="h3"||n=="h4"{
+        s choose="/data/user/0/open.cn.awg.pro/cache/file/choose"
+        wj.sc(choose)
+        wj.xrwb("/data/user/0/open.cn.awg.pro/cache/chat/upload/path",c)
+        gj.gb()
+      },n=="i1"{
+        s choose2="/data/user/0/open.cn.awg.pro/cache/file/choose2"
+        wj.sc(choose2)
+        wj.xrwb("/data/user/0/open.cn.awg.pro/cache/user/upload/path",c)
+        gj.gb()
+      },{
+        e1.tsk("提示","未找到该打开方式")
+      }
+      e1.cdx(0,null,null,null)
+    }
+  }
+},(e){
+  e1.upload_error(e,"c6.*")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>/*
+@2021 c6.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//提示菜单项
+s lb=sj.lb(vw)
+s a=lb.lbcfsj(zy.i.wb1)
+s e1=cj.e1()
+e1.tsk("详细信息",a)
+fh shi</onLongClick></setOnLongClickListener><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnKeyListener><onKey>
+</onKey></setOnKeyListener></Yu5Src></LinearLayout></RelativeLayout>
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy><iClass><iClass/></iClass></_Yu5Src><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="match_parent" android:text="text" android:textColor="@color/colorTextU1" android:textSize="13sp" android:gravity="center" android:singleLine="true" android:paddingRight="5dp" android:visibility="gone"/><TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="20dp" android:text="" android:visibility="gone"/></RelativeLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c14_v" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp">
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout></RelativeLayout><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+String l=lb.lbcfsj(-1)
+//e1.tsk("附加功能",l)
+rg l=="l5_a1_fuwuq_d0313_y2022"{
+  gj.tz(l5_a1_fuwuq_d0313_y2022.iyu)
+},l=="j2"{
+  gj.tz(j2.iyu)
+},l=="l6"{
+  gj.tz(l6.iyu)
+},l=="j4"{
+  s a = { "szk" }
+  s b = { "true" }
+  gj.tz(j4.iyu, a, b)
+},{
+  e1.tsk("提示","该功能不存在")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+s l1=lb.lbcfsj(zy.i.wb1)
+s l2=lb.lbcfsj(zy.i.wb2)
+s l=lb.lbcfsj(-1)
+e1.tsk_QR("详细信息","[功能名称]\n"+l1+"\n\n[功能简介]\n"+l2+"\n\n[功能标识]",l)
+
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout>

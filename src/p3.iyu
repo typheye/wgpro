@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/p3_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+type=sj.hqtz("type")
+search=sj.hqtz("search")
+csh()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.p3_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.p3_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+    int uih=pm.ztl/2+9
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,uih+"dp",0,"9dp")
+    wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s um=""
+File f
+s ll=""
+s type=""
+s search=""
+s e1=cj.e1()
+i.runlibrary.app.v.v7lb$UserAdapter spq=null
+s src_url=""
+s v_totalPages = 0
+s v_nowPages =0
+Drawable dbe
+boolean state_fun_app = false
+boolean state_fun_video = false
+boolean state_fun_music = false
+
+ff show(int i){
+  gd s tab=st.wb(zy.i.Tab)
+  gd s x2=st.xxbj(zy.i.xxbj6)
+  gd s x3=st.xxbj(zy.i.xxbj4)
+  rg i==1{
+    gj.jmxc(){
+      x2.kjd(0)
+      x3.kjd(8)
+    }
+  },i==2{
+    gj.jmxc(){
+      x2.kjd(8)
+      x3.kjd(0)
+    }
+  }
+  gj.jmxc(){
+    rg type=="app" {
+      tab.zf("&lt; 应用列表")
+    }, type=="video" {
+      tab.zf("&lt; 视频列表")
+    }, type=="music"{
+      tab.zf("&lt; 歌曲列表")
+    }
+  }
+}
+
+ff csh(){
+  s set67 = "/data/user/0/open.cn.awg.pro/settings/set7.inf"
+  src_url=wj.dqwb(set67)
+  show(1)
+  rg type=="app" {
+    fun_app(0)
+  }, type=="video" {
+    fun_video(0)
+  }, type=="music"{
+    fun_music(0)
+  }
+}
+
+ff but_back(){
+  rg v_nowPages&gt;1 {
+    rg type=="app" {
+      fun_app(-1)
+    }, type=="video" {
+      fun_video(-1)
+    }, type=="music"{
+      fun_music(-1)
+    }
+  },{
+    e1.tsk("提示","已经在第一页了噢")
+  }
+}
+
+ff but_next(){
+  rg v_nowPages&lt;v_totalPages {
+    rg type=="app" {
+      fun_app(1)
+    }, type=="video" {
+      fun_video(1)
+    }, type=="music"{
+      fun_music(1)
+    }
+  },{
+    e1.tsk("提示","已经在最后一页了噢")
+  }
+}
+
+ff fun_music(int y_){
+  rg state_fun_music==false {
+    state_fun_music=true
+    gd int y=y_
+    s lb=st.v7lb(zy.i.v7lb1)
+    spq=lb.v7lbspq(c25.lei,zy.b.c25)
+    gd s kj={zy.i.wb1,zy.i.wb3,-1}
+    gd s wb2=st.wb(zy.i.wb2)
+    gj.xc(){
+      show(1)
+      gj.zt(500)
+      boolean canshow=false
+      s url=src_url+"/api.php"
+      s post={"type=music","code="+search,"page=1"}
+      rg y!=0{
+        rg y==1{
+          int yy=v_nowPages+1
+          post[2]="page="+sj.zh().zstring(yy)
+        },{
+          int yy=v_nowPages-1
+          post[2]="page="+sj.zh().zstring(yy)
+        }
+      }
+      rg e1.yz() {
+        s v = wl.hq(url,post,"utf-8",null,true,null,20000,20000,null)
+        rg v!=null{
+          yc {
+            s jo = zf.json(v)
+            s json = jo.json
+            s v_msg = jo.hq(json, "msg")
+            s v_code = jo.hq(json, "code")
+            rg v_code==200{
+              s v_totalItems = jo.hq(json, "totalItems")
+              v_totalPages = jo.hq(json, "totalPages")
+              s v_nowItems = jo.hq(json, "nowItems")
+              v_nowPages = jo.hq(json, "nowPages")
+              rg v_totalItems == 0{
+              },{
+                s list = jo.dxlb(json, "info")
+                s size = jo.cd(list)
+                xh size &gt; 0{
+                  size--
+                  s dx = jo.dx(list, size)
+                  s v_l_title = jo.hq(dx, "title")
+                  s v_l_text = jo.hq(dx, "text")
+                  s v_l_aurl = jo.hq(dx, "aurl")
+                  s v_l_id = jo.hq(dx, "id")
+                  s jk={v_l_title,v_l_text,v_l_id}
+                  spq.j(kj,jk)
+                }
+                gd s wb2_zf="第"+sj.zh().zstring(v_nowPages)+"/"+sj.zh().zstring(v_totalPages)+"页"
+                gj.jmxc(){
+                  wb2.zf(wb2_zf)
+                  spq.sx()
+                }
+                canshow=true
+              }
+            }
+          },(e){
+            e1.upload_error(e,"p3.fun_music(int)")
+          }
+        }
+      }
+      rg canshow {
+        show(2)
+      },{
+        gj.jmxc() {
+          st.wb(zy.i.wb1).zf("加载失败")
+        }
+      }
+      state_fun_music=false
+    }
+  },{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  }
+}
+
+ff fun_video(int y_){
+  rg state_fun_video==false {
+    state_fun_video=true
+    gd int y=y_
+    s lb=st.v7lb(zy.i.v7lb1)
+    spq=lb.v7lbspq(c24.lei,zy.b.c24)
+    gd s kj={zy.i.wb1,zy.i.wb3,-1}
+    gd s wb2=st.wb(zy.i.wb2)
+    gj.xc(){
+      show(1)
+      gj.zt(500)
+      boolean canshow=false
+      s url=src_url+"/api.php"
+      s post={"type=video","code="+search,"page=1"}
+      rg y!=0{
+        rg y==1{
+          int yy=v_nowPages+1
+          post[2]="page="+sj.zh().zstring(yy)
+        },{
+          int yy=v_nowPages-1
+          post[2]="page="+sj.zh().zstring(yy)
+        }
+      }
+      rg e1.yz() {
+        s v = wl.hq(url,post,"utf-8",null,true,null,20000,20000,null)
+        rg v!=null{
+          yc {
+            s jo = zf.json(v)
+            s json = jo.json
+            s v_msg = jo.hq(json, "msg")
+            s v_code = jo.hq(json, "code")
+            rg v_code==200{
+              s v_totalItems = jo.hq(json, "totalItems")
+              v_totalPages = jo.hq(json, "totalPages")
+              s v_nowItems = jo.hq(json, "nowItems")
+              v_nowPages = jo.hq(json, "nowPages")
+              rg v_totalItems == 0{
+              },{
+                s list = jo.dxlb(json, "info")
+                s size = jo.cd(list)
+                xh size &gt; 0{
+                  size--
+                  s dx = jo.dx(list, size)
+                  s v_l_title = jo.hq(dx, "title")
+                  s v_l_text = jo.hq(dx, "text")
+                  v_l_text=zf.th(v_l_text,"&lt;br&gt;"," ")
+                  s v_l_aurl = jo.hq(dx, "aurl")
+                  s v_l_id = jo.hq(dx, "id")
+                  s jk={v_l_title,v_l_text,v_l_id}
+                  spq.j(kj,jk)
+                }
+                gd s wb2_zf="第"+sj.zh().zstring(v_nowPages)+"/"+sj.zh().zstring(v_totalPages)+"页"
+                gj.jmxc(){
+                  wb2.zf(wb2_zf)
+                  spq.sx()
+                }
+                canshow=true
+              }
+            }
+          },(e){
+            e1.upload_error(e,"p3.fun_video(int)")
+          }
+        }
+      }
+      rg canshow {
+        show(2)
+      },{
+        gj.jmxc() {
+          st.wb(zy.i.wb1).zf("加载失败")
+        }
+      }
+      state_fun_video=false
+    }
+  },{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  }
+}
+
+ff fun_app(int y_){
+  rg state_fun_app==false {
+    state_fun_app=true
+    gd int y=y_
+    s lb=st.v7lb(zy.i.v7lb1)
+    spq=lb.v7lbspq(c23.lei,zy.b.c23)
+    gd s kj={zy.i.tx1,zy.i.wb1,zy.i.wb3,-1}
+    gd s wb2=st.wb(zy.i.wb2)
+    gj.xc(){
+      show(1)
+      gj.zt(500)
+      boolean canshow=false
+      s url=src_url+"/api.php"
+      s post={"type=app","code="+search,"page=1"}
+      rg y!=0{
+        rg y==1{
+          int yy=v_nowPages+1
+          post[2]="page="+sj.zh().zstring(yy)
+        },{
+          int yy=v_nowPages-1
+          post[2]="page="+sj.zh().zstring(yy)
+        }
+      }
+      rg e1.yz() {
+        s v = wl.hq(url,post,"utf-8",null,true,null,20000,20000,null)
+        rg v!=null{
+          yc {
+            s jo = zf.json(v)
+            s json = jo.json
+            s v_msg = jo.hq(json, "msg")
+            s v_code = jo.hq(json, "code")
+            rg v_code==200{
+              s v_totalItems = jo.hq(json, "totalItems")
+              v_totalPages = jo.hq(json, "totalPages")
+              s v_nowItems = jo.hq(json, "nowItems")
+              v_nowPages = jo.hq(json, "nowPages")
+              rg v_totalItems == 0{
+              },{
+                s list = jo.dxlb(json, "info")
+                s size = jo.cd(list)
+                xh size &gt; 0{
+                  size--
+                  s dx = jo.dx(list, size)
+                  s v_l_appname = jo.hq(dx, "appname")
+                  s v_l_appsize = jo.hq(dx, "appsize")
+                  s v_l_apptext = jo.hq(dx, "apptext")
+                  s v_l_appdown = jo.hq(dx, "appdown")
+                  s v_l_appid = jo.hq(dx, "appid")
+                  s jian=v_l_appsize+" | "+v_l_apptext
+                  s img_url=src_url+"/app/"+v_l_appid+"/app-image/icon.png"
+                  java dbe =new BitmapDrawable(lei.getResources(),com.demo.e4.getURLimage(img_url));
+                  s jk={dbe ,v_l_appname,jian,v_l_appid}
+                  spq.j(kj,jk)
+                }
+                gd s wb2_zf="第"+sj.zh().zstring(v_nowPages)+"/"+sj.zh().zstring(v_totalPages)+"页"
+                gj.jmxc(){
+                  wb2.zf(wb2_zf)
+                  spq.sx()
+                }
+                canshow=true
+              }
+            }
+          },(e){
+            e1.upload_error(e,"p3.fun_app(int)")
+          }
+        }
+      }
+      rg canshow {
+        show(2)
+      },{
+        gj.jmxc() {
+          st.wb(zy.i.wb1).zf("加载失败")
+        }
+      }
+      state_fun_app=false
+    }
+  },{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  }
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onKeyDown><onKeyDown/></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; Loading..." android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><android.support.v7.widget.RecyclerView android:id="@+id/v7lb1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="共搜索到0首歌曲" android:textColor="@color/colorTextTrue" android:textSize="9sp" android:gravity="center" android:visibility="gone" android:layout_marginTop="5dp"/><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center" android:padding="3dp"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="30dp" android:layout_height="30dp" app:cardCornerRadius="5dp" app:cardBackgroundColor="@color/colorTabAccent" android:layout_marginRight="3dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="5dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>but_back()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="30dp" android:text="第1/1页" android:background="@drawable/anybj" android:textColor="@color/colorTextU1" android:padding="3dp" android:textSize="11sp" android:gravity="center" android:singleLine="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="30dp" android:layout_height="30dp" app:cardCornerRadius="5dp" app:cardBackgroundColor="@color/colorTabAccent" android:layout_marginLeft="3dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a27" android:layout_margin="0dp" android:padding="5dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>but_next()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

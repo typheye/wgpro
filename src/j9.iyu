@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/j9_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+csh()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.j9_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.j9_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+  int uih=pm.ztl/2+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s e1=cj.e1()
+s e13=cj.e13()
+s debug=cj.debug()
+qj double latitude
+qj double longitude
+qj double altitude
+qj double speed
+qj string loca
+qj LocationManager locationManager
+qj LocationListener locationListener
+qj s v1=""
+qj s v2=""
+qj s v3=""
+qj s v4=""
+
+ff upload(){
+  java{
+    String log=
+    "awgwl_state:"+e1.awgwl_state()+"\n"+
+    "awgwl_uid:"+e1.awgwl_getuid()+"\n"+
+    "latitude:"+latitude+"\n"+
+    "longitude:"+longitude+"\n"+
+    "altitude:"+altitude+"\n"+
+    "speed:"+speed+"\n"+
+    "loca:"+loca;
+    e13.upload_log("j9",log);
+  }
+}
+
+ff load(){
+  yc{
+    java{
+      android.location.LocationManager locationManager = (android.location.LocationManager) getSystemService(android.content.Context.LOCATION_SERVICE);
+      java.util.List&lt;String&gt; providerList = locationManager.getProviders(true);
+      if (providerList.contains(android.location.LocationManager.GPS_PROVIDER)) {
+      } else {
+        e1.tsk("提示","获取定位信息失败,请开启GPS后重试");
+        gj.gb();
+        android.content.Intent intent = new android.content.Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivityForResult(intent,0); //此为设置完成后返回到获取界面
+      }
+    }
+  },(e){
+    e1.upload_error(e,"j9.load()")
+  }
+}
+
+ff getZb(){
+  load()
+  yc{
+    /*java{
+    android.location.LocationManager alm = (android.location.LocationManager) this.getSystemService(android.content.Context.LOCATION_SERVICE);
+    if (alm.isProviderEnabled(android.location.LocationManager.GPS_PROVIDER)){
+    android.location.LocationManager locationManager;
+    String serviceName = android.content.Context.LOCATION_SERVICE;
+    locationManager = (android.location.LocationManager) this.getSystemService(serviceName);
+    // 查找到服务信息
+    android.location.Criteria criteria = new android.location.Criteria();
+    criteria.setAccuracy(android.location.Criteria.ACCURACY_FINE); // 高精度
+    criteria.setAltitudeRequired(false);
+    criteria.setBearingRequired(false);
+    criteria.setCostAllowed(true);
+    criteria.setPowerRequirement(android.location.Criteria.POWER_LOW); // 低功耗
+    String provider = locationManager.getBestProvider(criteria, true); // 获取GPS信息
+    android.location.Location location = locationManager.getLastKnownLocation(provider); // 通过GPS获取位置
+    if(location!=null){
+    latitude = location.getLatitude();
+    longitude= location.getLongitude();
+    altitude = location.getAltitude();
+    speed = location.getSpeed();
+    
+    //e1.tsk("提示","经度: "+latitude+"°\n纬度: "+longitude+"°\n海拔: "+altitude+"m\n速度: "+speed+"m/s");
+    }else{
+    latitude = 0;
+    longitude= 0;
+    e1.tsk("提示","获取定位信息失败,请多试几次");
+    isxh = false;
+    gj.gb();
+    }
+    return;
+    }
+    }*/
+    java{
+      locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+      locationListener = new LocationListener() {
+        
+        public void onLocationChanged(Location location) {
+          Geocoder geocoder = new Geocoder(lei, Locale.getDefault());
+          
+          latitude = location.getLatitude(); // 获取纬度
+          longitude = location.getLongitude(); // 获取经度
+          altitude = location.getAltitude();
+          speed = location.getSpeed();
+          try {
+            List&lt;Address&gt; addresses = geocoder.getFromLocation(latitude, longitude, 1);
+            if (addresses.size() &gt; 0) {
+              Address address = addresses.get(0);
+              loca = address.getCountryName() + address.getAdminArea() + address.getLocality(); // 获取位置名称
+            } else {
+              loca = "未知";
+            }
+          } catch (IOException e) {
+            loca = "未知";
+            e.printStackTrace();
+          }
+          show();
+          
+        }
+        public void onStatusChanged(String provider, int status, Bundle extras) {}
+        public void onProviderEnabled(String provider) {}
+        public void onProviderDisabled(String provider) {}
+      };
+      locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
+      
+    }
+  },(e){
+    e1.upload_error(e,"j9.getZb()")
+    gj.gb()
+  }
+}
+
+ff csh(){
+  getZb()
+}
+
+ff show(){
+  java v1=sj.zh().zstring((latitude))
+  java v2=sj.zh().zstring((longitude))
+  java v3=com.demo.e4.doubleToString(altitude)
+  java v4=com.demo.e4.doubleToString(speed*3.6)
+  v1=v1+"°"
+  v2=v2+"°"
+  v3=v3+"m"
+  v4=v4+"km/h"
+  gj.jmxc(){
+    st.wb(zy.i.wb_v1).zf(v1)
+    st.wb(zy.i.wb_v2).zf(v2)
+    st.wb(zy.i.wb_v3).zf(v3)
+    st.wb(zy.i.wb_v4).zf(v4)
+    st.wb(zy.i.wb_v5).zf(loca)
+  }
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+rg debug.getDebugState("2"){
+  upload()
+}
+java locationManager.removeUpdates(locationListener)</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 定位信息" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="经度" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb_v1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("经度",st.wb(zy.i.wb_v1).zf())</onClick></setOnClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="纬度" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb_v2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("纬度",st.wb(zy.i.wb_v2).zf())</onClick></setOnClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="海拔" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb_v3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("海拔",st.wb(zy.i.wb_v3).zf())</onClick></setOnClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="速度" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb_v4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("速度",st.wb(zy.i.wb_v4).zf())</onClick></setOnClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="位置" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb_v5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("位置",st.wb(zy.i.wb_v5).zf())</onClick></setOnClickListener></Yu5Src></RelativeLayout><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/g5_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+
+c=sj.hqtz("url")
+mode=sj.hqtz("mode")
+//s fhValue=e1.fileinfo("%",c)
+//gj.gb()
+rg mode=="0"{
+  install()
+},mode=="1"{
+  install2()
+}</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.g5_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.g5_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+  int uih=pm.ztl/2+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  }*/
+  s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>s e1=cj.e1()
+s c=""
+s mode=""
+ff install(){
+  yc{
+    java{
+      boolean haveInstallPermission;
+      if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {
+        haveInstallPermission = lei.getPackageManager().canRequestPackageInstalls();
+        gj.sc(lei.getPackageName());
+        if(!haveInstallPermission){
+          //e1.tsk("提示","您未授予本应用安装外部应用权限\n请您授权本应用此权限后重试");
+          //没有权限让调到设置页面进行开启权限；
+          Uri packageURI = Uri.parse("package:" + lei.getPackageName());
+          Intent intent = new Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES, packageURI);
+          startActivityForResult(intent, 10086);
+        }else{
+          File file = new File(c);
+          Intent intent = new Intent(Intent.ACTION_VIEW);
+          intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+          Uri uri;
+          String type = "application/vnd.android.package-archive";
+          if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N){
+            String authority = "open.cn.awg.pro.myFileProvider";
+            uri = FileProvider.getUriForFile(lei,authority,file);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+          }else{
+            uri = Uri.fromFile(file);
+          }
+          intent.setDataAndType(uri,type);
+          startActivity(intent);
+          //wj.dk(c);
+          gj.gb();
+        }
+      }else{
+        File file = new File(c);
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setDataAndType(Uri.fromFile(file), "application/vnd.android.package-archive");
+        startActivity(intent);
+        //wj.dk(c);
+        gj.gb();
+      }
+    }
+  },(e){
+    e1.upload_error(e,"g5.install()")
+    gj.gb()
+  }
+}
+
+ff install2(){
+  yc{
+    java{
+      File file = new File(c);
+      Intent intent = new Intent(Intent.ACTION_VIEW);
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      Uri uri;
+      String type = "application/vnd.android.package-archive";
+      if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N){
+        String authority = "open.cn.awg.pro.myFileProvider";
+        uri = FileProvider.getUriForFile(lei,authority,file);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+      }else{
+        uri = Uri.fromFile(file);
+      }
+      intent.setDataAndType(uri,type);
+      startActivity(intent);
+      //wj.dk(c);
+      gj.gb();
+    }
+  },(e){
+    e1.upload_error(e,"g5.install2()")
+    gj.gb()
+  }
+}</iClass></iClass><onActivityResult><onActivityResult>rg mode=="0"{
+  rg rc == lei.RESULT_OK &amp;&amp; re == 10086{
+    //返回权限后，执行自己的逻辑；
+    install()
+  },{
+    gj.gb()
+  }
+}</onActivityResult></onActivityResult><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy><onKeyDown><onKeyDown>
+
+fh shi</onKeyDown></onKeyDown></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="打包安装程序" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"/><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

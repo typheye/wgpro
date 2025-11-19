@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><resources>
+
+    <style name="AppBaseTheme" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorPrimary">@color/colorAccent</item>
+        <item name="colorControlHighlight">@color/colorTabBackground</item>
+        <item name="colorControlNormal">#ffffff</item>
+        <item name="android:navigationBarColor">@color/colorTab</item>
+        <item name="android:windowAnimationStyle">@style/Animation</item>
+    </style>
+
+    <style name="AppCompat" parent="@style/AppBaseTheme">
+    </style>
+    
+    <style name="Animation">
+        <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
+        <item name="android:taskOpenEnterAnimation">@anim/fade_in</item>
+        <item name="android:taskOpenExitAnimation">@anim/fade_out</item>
+        <item name="android:taskCloseEnterAnimation">@anim/fade_in</item>
+        <item name="android:taskCloseExitAnimation">@anim/fade_out</item>
+        <item name="android:taskToFrontEnterAnimation">@anim/fade_in</item>
+        <item name="android:taskToFrontExitAnimation">@anim/fade_out</item>
+        <item name="android:taskToBackEnterAnimation">@anim/fade_in</item>
+        <item name="android:taskToBackExitAnimation">@anim/fade_out</item>
+    </style>
+
+    <style name="AppBaseTheme.Launcher" parent="@style/AppBaseTheme">
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowDisablePreview">true</item>
+        <item name="android:windowSwipeToDismiss">false</item>
+    </style>
+    
+    <style name="AppBaseTheme.SwipeToDismiss" parent="@style/AppBaseTheme">
+        <item name="android:windowSwipeToDismiss">false</item>
+    </style>
+    
+    <style name="AppBaseTheme.ErrorActivity" parent="@style/AppBaseTheme">
+        <item name="android:fontFamily">@font/Regular</item>
+        <item name="android:windowSwipeToDismiss">false</item>
+    </style>
+    
+</resources>

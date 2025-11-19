@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c2_v" android:layout_width="match_parent" android:layout_height="wrap_content"><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b14" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx1" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>/*
+@2021 c2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+s e1=cj.e1()
+s lb=sj.lb(vw)
+s lj=lb.lbcfsj(zy.i.wb2)
+s text=lb.lbcfsj(zy.i.wb3)
+e1.fileTouch(text,lj)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>/*
+@2021 c2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+s e1=cj.e1()
+yc{
+  s lb=sj.lb(vw)
+  s bts=lb.lbcfsj(zy.i.wb1)
+  s lj=lb.lbcfsj(zy.i.wb2)
+  s fhValue=e1.fileinfo("%",lj)
+  s ljs=fhValue[2]
+  s text=lb.lbcfsj(zy.i.wb3)
+  rg text=="返回上层目录"{
+    e1.cdx(3,bts,lj,ljs)
+  },{
+    int ifs=wj.lx(lj)
+    rg ifs==1{
+      e1.cdx(2,bts,lj,ljs)
+    },ifs==2{
+      e1.cdx(1,bts,lj,ljs)
+    }
+  }
+},(e){
+  e1.upload_error(e,"c2.*")
+}
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></RelativeLayout>
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src><TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="30dp" android:text="" android:visibility="gone"/></RelativeLayout>

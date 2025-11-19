@@ -1,0 +1,237 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/l3_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.l3_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.l3_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+    int uih=pm.ztl/2+9
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,uih+"dp",0,"9dp")
+    wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}
+
+
+s xlcd1=st.xlcd(zy.i.xlcd1)
+s sz = { "自动检测","中文翻译英语","中文翻译日语","中文翻译韩语","中文翻译法语","中文翻译俄语","中文翻译西班牙语","英语翻译中文","日语翻译中文","韩语翻译中文","法语翻译中文","俄语翻译中文","西班牙语翻译中文" }
+xlcd1.csh(sz)</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s e1=cj.e1()</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 文本翻译" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="false" android:hint="请输入需要翻译的文本" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><Spinner android:id="@+id/xlcd1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="0dp" android:background="@drawable/xlcdbj"/><Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:text="翻译" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>s xlcd1=st.xlcd(zy.i.xlcd1)
+s bjk1=st.bjk(zy.i.bjk1).zf()
+bjk1=zf.qctwkg(bjk1)
+rg bjk1==""{
+  e1.tsk("提示","翻译内容不能为空")
+},{
+  s xl=xlcd1.dqxzxm()
+  s yy=""
+  rg xl=="自动检测"{
+    yy="AUTO"
+  },xl=="中文翻译英语"{
+    yy="ZH_CN2EN"
+  },xl=="中文翻译日语"{
+    yy="ZH_CN2JA"
+  },xl=="中文翻译韩语"{
+    yy="ZH_CN2KR"
+  },xl=="中文翻译法语"{
+    yy="ZH_CNFR"
+  },xl=="中文翻译俄语"{
+    yy="ZH_CN2RU"
+  },xl=="中文翻译西班牙语"{
+    yy="ZH_CN2SP"
+  },xl=="英语翻译中文"{
+    yy="EN2ZH_CN"
+  },xl=="日语翻译中文"{
+    yy="JA2ZH_CN"
+  },xl=="韩语翻译中文"{
+    yy="KR2ZH_CN"
+  },xl=="法语翻译中文"{
+    yy="FR2ZH_CN"
+  },xl=="俄语翻译中文"{
+    yy="RU2ZH_CN"
+  },xl=="西班牙语翻译中文"{
+    yy="SP2ZH_CN"
+  }
+  gd s post={"inputtext="+bjk1,"type="+yy}
+  gj.xc(){
+    s url="http://m.youdao.com/translate"
+    s ok = wl.hq(url,post,"utf-8",null,true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+    rg ok==null{
+      //翻译失败，请检查网络
+      e1.tsk("提示","翻译失败,请检查网络")
+    },{
+      s o=zf.qc(ok,"译文","&lt;/ul&gt;")
+      gd s oo=zf.qc(o,"&lt;li&gt;","&lt;/li&gt;")
+      gj.jmxc(){
+        st.wb(zy.i.wb1).zf("翻译结果:\n"+oo)
+      }
+    }
+  }
+}</onClick></setOnClickListener></Yu5Src></Button><TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="翻译结果:\n" android:padding="8dp" android:clickable="true" android:textColor="@color/colorTextU2" android:textSize="13sp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anybj"><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick>s wb=st.wb(zy.i.wb1)
+s wb1=wb.zf()
+wb1=zf.qc(wb1,"翻译结果:\n",null)
+e1.tsk("详细信息",wb1)
+
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></TextView><Button android:id="@+id/an2" android:layout_width="match_parent" android:layout_height="35dp" android:text="重置" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>st.wb(zy.i.wb1).zf("翻译结果:\n")
+st.bjk(zy.i.bjk1).zf("")</onClick></setOnClickListener></Yu5Src></Button><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

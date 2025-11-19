@@ -1,0 +1,47 @@
+s de="/data/user/0/open.cn.awg.pro/data/debug/state/"
+s dd="/data/user/0/open.cn.awg.pro/data/debug/showed.inf"
+
+ff boolean getDebugState(s i){
+  s ph=de+i
+  rg wj.cz(ph){
+    rg wj.dqwb(ph)=="1"{
+      fh true
+    }
+  }
+  fh false
+}
+
+ff boolean setDebugState(s i,boolean i2){
+  s ph=de+i
+  rg i2{
+    rg wj.xrwb(ph,"1"){
+      fh true
+    }
+  },{
+    rg wj.xrwb(ph,"0"){
+      fh true
+    }
+  }
+  fh false
+}
+
+ff boolean isShowed(){
+  rg wj.cz(dd) {
+    rg wj.dqwb(dd)=="1" {
+      fh true
+    }
+  }
+  fh false
+}
+
+ff boolean showed(){
+  rg wj.xrwb(dd,"1"){
+    fh true
+  }
+  fh false
+}
+
+ff boolean delShowed(){
+  wj.sc(dd)
+  fh true
+}

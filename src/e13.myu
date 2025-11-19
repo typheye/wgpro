@@ -1,0 +1,383 @@
+qj s set17 = "/data/user/0/open.cn.awg.pro/settings/db/talking.db"
+qj i.runlibrary.app.sj$sjk sjk
+qj s set2 = "/data/user/0/open.cn.awg.pro/settings/f18/set2.inf"
+s e1=cj.e1()
+s e11=cj.e11()
+s easy=cj.easy()
+s carton=cj.carton()
+qj android.content.Context context
+qj NotificationManager notificationManager
+qj String channelId = "chat"
+qj int msgids = 1
+qj i.runlibrary.app.st$xfc xfc=null
+boolean state_remotelock = false
+boolean state_ltstz = false
+ff upload_log(s type_,s log_){
+	gd s type=type_
+	gd s log=log_
+	gj.xc(){
+		s urls=""
+		gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf"
+		urls=e1.urlUnlockString(wj.dqwb(set2))
+		rg urls*?"/"{
+		},{
+			urls=urls+"/"
+		}
+		s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+		s idget=urls+"class/api.php?type=release"+ljf+"id=405"
+		rg log==""{
+			//e1.tsk("提示","异常日志不能为空")
+		},{
+			s namex0="日志上报"
+			gd s namex=namex0
+			//gd s namex=RC4Utils.encryptToBase64(namex0.getBytes(),com.kingqi.zwcj.应用工具.获取应用签名(lei,"open.cn.awg.pro"))
+			s xxk="[日志类型]\n"+type+"\n[日志信息]\n"+log
+			//xxk=RC4Utils.encryptToBase64(xxk.getBytes(),sj.md5(namex0))
+			gd s xx=xxk
+			gd s url=idget
+			s setback=""
+			s wlhq1={"name="+namex,"value="+xx,"code=baseTextUpload"}
+			//s back = wl.hq(url,wlhq1,"utf-8",null,true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+			s back = wl.hq(url,wlhq1,"utf-8",null,true,null,20000,20000,null)
+			rg back==""||back==null{
+				setback="0"
+			},{
+				rg setback=="0"{
+					setback="0"
+				},{
+					setback=back
+				}
+			}
+			rg setback=="0"{
+				//e1.tsk("提示","反馈失败")
+			},{
+				rg setback=="true"{
+					//e1.tsk("提示","反馈成功")
+				},{
+					//e1.tsk("提示","反馈失败\n"+setback)
+				}
+			}
+		}
+	}
+}
+
+ff bhxfc(){
+	gd s set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable"
+	rg wj.dqwb(set1)=="true" && e1.islogin(){
+		gj.jmxc(){
+			// 动态创建一个线性布局
+			s xxbj = st.xxbj()
+			// 宽最大 高自适应
+			xxbj.kg(-2, -2)
+			// 方向为 垂直或竖向
+			xxbj.fx(1)
+			// 线性布局里新增一个文本控件
+			s wb = st.wb()
+			wb.kg(1, 1)
+			wb.zf("")
+			xxbj.j(wb)
+			// 创建并显示悬浮窗
+			rg xfc == null {
+				xfc = st.xfc(xxbj, 1, 1, 0, 0)
+			}
+		}
+	}
+}
+
+ff remotelock(){
+	gd s set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable"
+	gd s user = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	gd s urls = "https://service.typheye.cn/app/com.typheye.awg.remote/command/"
+	rg state_remotelock==false{
+		state_remotelock=true
+		gj.xc(){
+			bhxfc()
+			s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+			s url=urls+wj.dqwb(user)+"/running.dat"
+			s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+			rg back=="cmdv1:lock"{
+				carton.lockNow(context)
+			}
+			state_remotelock=false
+		}
+	}
+}
+
+ff downAssets(){
+	//https://hitfy.cn/app/open.cn.awg.pro/download/assets
+	s urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	urls=wj.dqwb(urls)
+	urls=e1.urlUnlockString(urls)
+	rg urls*?"/"{
+	},{
+		urls=urls+"/"
+	}
+	gd s url=urls+"download/assets"
+	gd s filename = "/data/user/0/open.cn.awg.pro/data/down/assets"
+	gd s filename2 = "@resource/a9d2b8288117333d815efe8e2feb5862"
+	gd s assetspath="/data/user/0/open.cn.awg.pro/data/assets/"
+	gj.xc(){
+		int st5 = wl.xz(url, filename, true, null, "utf-8", "", true, "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN")
+		rg st5==0||st5==1{
+			rg wj.jy(filename,assetspath,true)>0{
+				//成功
+			},{
+				//失败
+			}
+		},{
+			wj.fz(filename2,filename,true)
+			rg wj.jy(filename,assetspath,true)>0{
+				//成功
+			},{
+				//失败
+			}
+			rg wj.cz(filename)==false{
+				e1.tsk("提示","应用资源下载失败，可能导致应用部分内容显示异常！\n请在联网后，重启腕管Pro，我们将重新为您下载应用资源。")
+			},{
+				//已下载
+			}
+		}
+	}
+}
+
+ff run(){
+	rg e1.getNowUserId()==0{
+		gd s set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable"
+		gd s user = "/data/user/0/open.cn.awg.pro/settings/account/user"
+		gd s urls = "https://service.typheye.cn/app/com.typheye.awg.remote/command/"
+		java context=open.cn.awg.pro.e6.getContext();
+		wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/ftz")
+		s sjl=sj.zh(wj.dqwb(set2))
+		gd long tim=sjl.zlong(3000)
+		N_csh()
+		gd s e1=cj.e1()
+		gj.xc(){
+			//e1.online()
+			e11.setup_talklist()
+			sjk=sj.sjk(set17)
+			rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/a3.inf")!="0"&&wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f11/set1.inf")=="true"{
+				ltstz()
+			}
+			wj.xrwb("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r","0")
+			xh wj.cz("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r"){
+				//gj.sc("AwgCoreService Running...")
+				gj.zt(tim)
+				rg e1.awgwl_state()==true&&wj.dqwb("/data/user/0/open.cn.awg.pro/settings/a3.inf")!="0"&&wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f11/set1.inf")=="true"&&wj.cz("/data/user/0/open.cn.awg.pro/data/ltlb/ftz")==false{
+					ltstz()
+					//gj.sc("ChatPush Running...")
+				}
+				boolean aa
+				yc{
+					java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(context,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+				},(e){
+					aa=false
+				}
+				rg e1.islogin() && wj.dqwb(set1)=="true" && carton.state(context) && aa{
+					remotelock()
+				},{
+					wj.xrwb(set1,"false")
+				}
+				rg e1.islogin()==true{
+					easy.getDataUpdate()
+					easy.updateUserData()
+				}
+				e1.online()
+			}
+		}
+	}
+}
+
+ff N_cancel(){
+	yc{
+		java notificationManager.cancel(1);
+	},{
+	}
+}
+ff N_csh(){
+	java{
+		notificationManager = (NotificationManager) context.getSystemService(context.NOTIFICATION_SERVICE);
+		String channelName = "腕上微聊";
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+			int importance = NotificationManager.IMPORTANCE_HIGH;
+			NotificationChannel channel = new NotificationChannel(channelId, channelName, importance);
+			//channel有很多set方法
+			//为NotificationManager设置通知渠道
+			//channel.setLockScreenVisibility(true);
+			channel.setImportance(NotificationManager.IMPORTANCE_MAX);
+			notificationManager.createNotificationChannel(channel);
+		}
+	}
+}
+ff N_wl(string a,string b,string c){
+	gd s cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id"
+	wj.xrwb(cachehd,c)
+	gd s cachehd2 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title"
+	wj.xrwb(cachehd2,a)
+	java{
+		//创建Notification，传入Context和channelId
+		Intent intent = new Intent(context, open.cn.awg.pro.i2.class);
+		Bundle bundle=new Bundle();
+		bundle.putString("uid",c.toString());
+		intent.putExtras(bundle);
+		Notification notification = new NotificationCompat.Builder(context, channelId)
+		.setAutoCancel(true)
+		.setContentTitle(a)
+		.setContentText(b)
+		.setPriority(Notification.PRIORITY_MAX)
+		.setWhen(System.currentTimeMillis())
+		.setSmallIcon(R.mipmap.a37)
+		.setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.c1))
+		.setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
+		//在build()方法之前还可以添加其他方法
+		.build();
+		notificationManager.notify(msgids, notification);
+		msgids++;
+	}
+}
+
+
+ff ltstz(){
+	gd s his="/data/user/0/open.cn.awg.pro/data/ltlb/history"
+	rg wj.cz("/data/user/0/open.cn.awg.pro/data/ltlb/showing")==false{
+		rg state_ltstz==false{
+			state_ltstz=true
+			gj.xc(){
+				wj.xrwb("/data/user/0/open.cn.awg.pro/data/ltlb/ftz","0")
+				gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf"
+				s urls=e1.urlUnlockString(wj.dqwb(set2))
+				s table = "_id,uid,name,utext"
+				s sqlx = null
+				s sjk15 = sjk.cxsj("talklist", table, sqlx)
+				xh sjk15.xyh()
+				{
+					gd s rooms=sjk15.sj(2)
+					gd s uids=sjk15.sj(1)
+					s sjhc="/data/user/0/open.cn.awg.pro/data/ltlb/chat/"+uids
+					rg urls*?"/"{
+					},{
+						urls=urls+"/"
+					}
+					string db=""
+					rg wj.cz(sjhc)==true{
+						db=wj.dx(sjhc)
+						s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+						s url=urls+"re.php?uid="+uids+ljf+"token="+db
+						s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+						rg back==""||back==null{
+						},{
+							s be=wj.dqwb(his)
+							s pp="["+uids+"]:"
+							s pp1="["+uids+"]"
+							rg back=="true"{
+								s pp2=pp+db+pp1
+								rg be?pp{
+									s db2=zf.qc(wj.dqwb(his),pp,pp1)
+									rg db2!=db&&update(uids)==true{
+										N_wl(rooms,getdata(uids),uids)
+										s pp3=pp+db2+pp1
+										be=zf.th(be,pp3,pp2)
+										wj.xrwb(his,be)
+									},{
+									}
+								},{
+									rg update(uids)==true{
+										N_wl(rooms,getdata(uids),uids)
+										pp2="\n"+pp2
+										wj.xrwb(his,pp2)
+									},{
+									}
+								}
+							},back=="error"{
+								s pp2=pp+"error"+pp1
+								rg be?pp{
+									s db2=zf.qc(wj.dqwb(his),pp,pp1)
+									rg db2!="error"{
+										N_wl(rooms,"该房间不存在或已被删除",uids)
+										s pp3=pp+db2+pp1
+										be=zf.th(be,pp3,pp2)
+										wj.xrwb(his,be)
+									},{
+									}
+								},{
+									N_wl(rooms,"该房间不存在或已被删除",uids)
+									pp2="\n"+pp2
+									wj.xrwb(his,pp2)
+								}
+							}
+						}
+					}
+				}
+				wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/ftz")
+				state_ltstz=false
+			}
+		}
+	}
+}
+
+ff boolean update(s uid){
+	boolean isF=false
+	yc{
+		rg wj.cz("/data/user/0/open.cn.awg.pro/data/ltlb/showing")==false{
+			gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf"
+			s urls=e1.urlUnlockString(wj.dqwb(set2))
+			s sjhc="/data/user/0/open.cn.awg.pro/data/ltlb/chat/"+uid
+			rg urls*?"/"{
+			},{
+				urls=urls+"/"
+			}
+			s url=urls+"chat/"+uid+".json"
+			s back0 = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+			rg back0!=""||back0!=null{
+				wj.xrwb(sjhc,back0)
+				isF=true
+			}
+		}
+	},{
+	}
+	fh isF
+}
+
+ff string getdata(s uid){
+	string back=""
+	s sjhc="/data/user/0/open.cn.awg.pro/data/ltlb/chat/"+uid
+	back=wj.dqwb(sjhc)
+	yc{
+		s jo = zf.json(back)
+		s json = jo.json
+		s list = jo.dxlb(json, "data")
+		s size = jo.cd(list)
+		size=size-1
+		s dx = jo.dx(list, size)
+		s data = jo.hq(dx, "data")
+		s name = jo.hq(dx, "name")
+		string jname=""
+		string jdata=""
+		/*yc{
+		jname=cj.String(RC4Utils.decryptFromBase64(name.toString(),应用工具.获取应用签名(context,"open.cn.awg.pro")))
+		jdata=cj.String(RC4Utils.decryptFromBase64(data.toString(),sj.md5(jname)))
+		},(e){*/
+		jname=name.toString()
+		jdata=data.toString()
+		//}
+		rg jdata?"[PHOTO]"&&jdata?"[P:END]"{
+			s tx=zf.qc(jdata,null,"[PHOTO]")
+			jdata=tx+"[附件]图片"
+		},jdata?"[AUDIO]"&&jdata?"[A:END]"{
+			s tx=zf.qc(jdata,null,"[AUDIO]")
+			jdata=tx+"[附件]音频"
+		},jdata?"[VIDEO]"&&jdata?"[V:END]"{
+			s tx=zf.qc(jdata,null,"[VIDEO]")
+			jdata=tx+"[附件]视频"
+		},jdata?"[OTHER]"&&jdata?"[O:END]"{
+			s tx=zf.qc(jdata,null,"[OTHER]")
+			jdata=tx+"[附件]文件"
+		},jdata?"[INFOS]"&&jdata?"[I:END]"{
+			s tx=zf.qc(jdata,"[INFOS]","[I:END]")
+			jdata=tx
+		}
+		back=jname+":"+jdata
+	},(e){
+		back="您有新的消息"
+	}
+	fh back
+}

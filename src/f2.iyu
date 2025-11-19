@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/f2_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+/*
+@2021 f2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//设置显示版本
+int b
+java b=com.demo.e4.getVersionCode(lei)
+s c=b
+st.wb(zy.i.wb3).zf(c)
+yz()
+//判断版本
+/*boolean bb1=wj.cz("/data/user/0/open.cn.awg.pro/data/assets/a0")
+rg bb1==true{
+s bbs=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a0")
+rg bbs=="0"{
+s color=zf.zf(zy.color.colorTextTrue)
+st.wb(zy.i.wb5).zf("官方版本")
+st.wb(zy.i.wb5).bj(color)
+},bbs=="1"{
+s color=zf.zf(zy.color.colorTextTrue)
+st.wb(zy.i.wb5).zf("内测版本")
+st.wb(zy.i.wb5).bj(color)
+},bbs=="2"{
+s color=zf.zf(zy.color.colorTextTrue)
+st.wb(zy.i.wb5).zf("开源版本")
+st.wb(zy.i.wb5).bj(color)
+},{
+s color=zf.zf(zy.color.colorTextFalse)
+st.wb(zy.i.wb5).zf("未知版本")
+st.wb(zy.i.wb5).bj(color)
+}
+},{
+s color=zf.zf(zy.color.colorTextFalse)
+st.wb(zy.i.wb5).zf("未知版本")
+st.wb(zy.i.wb5).bj(color)
+}*/</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.f2_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.f2_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+  int uih=pm.ztl/2+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+  pm.xnaj(false)
+  }*/
+  //st.xdbj(zy.i.xdbj3).kjd(8)
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+/*
+@2021 f2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//获取版本
+int versionCode
+String versionName
+//类
+s xhsl = 0
+int eggsdj=0
+s e1=cj.e1()
+ff eggs(){
+  eggsdj=0
+  s ab="/data/user/0/open.cn.awg.pro/settings/candebug"
+  wj.xrwb(ab,"true")
+  s a1=com.kingqi.zwcj.控制台.当前活动
+  s a2=com.kingqi.zwcj.应用工具.获取应用签名(lei,"open.cn.awg.pro")
+  s a3=com.kingqi.zwcj.日期工具.格式化日期时间(com.kingqi.zwcj.应用工具.获取应用第一次安装日期(lei,"open.cn.awg.pro"))
+  s a4=com.kingqi.zwcj.日期工具.格式化日期时间(com.kingqi.zwcj.应用工具.获取应用更新日期(lei,"open.cn.awg.pro"))
+  s a5=com.kingqi.zwcj.应用工具.获取应用的安装市场(lei,"open.cn.awg.pro")
+  s a6=com.kingqi.zwcj.应用工具.获取应用版本名称(lei,"open.cn.awg.pro")
+  s a7=com.kingqi.zwcj.应用工具.获取应用版本号(lei,"open.cn.awg.pro")
+  s a8=com.kingqi.zwcj.应用工具.获取应用名称(lei,"open.cn.awg.pro")
+  s sho="[应用名称]\n"+a8+"\n\n[编译版本]\n"+a6+"\n\n[版本号码]\n"+a7+"\n\n[安装日期]\n"+a3+"\n\n[更新日期]\n"+a4
+  e1.tsk("应用程序",sho)
+}
+
+ff yz(){
+  /*gj.xc(){
+  gj.jmxc(){
+  st.wb(zy.i.wb5).kjd(8)
+  }
+  s urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+  urls=wj.dqwb(urls)
+  urls=e1.urlUnlockString(urls)
+  rg urls*?"/"{
+  },{
+  urls=urls+"/"
+  }
+  s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+  s a2=com.kingqi.zwcj.应用工具.获取应用签名(lei,"open.cn.awg.pro")
+  s path=com.kingqi.zwcj.应用工具.获取应用apk文件(lei,"open.cn.awg.pro")
+  java.io.File mfile
+  java mfile=new java.io.File(path);
+  string aa=sj.md5(mfile)
+  int a11
+  java a11=com.demo.e4.getVersionCode(lei)
+  string bb=a11
+  s url=urls+"x.php?token="+a2+ljf+"id="+aa+ljf+"ver="+bb
+  s st5 = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+  rg st5==null{
+  gj.jmxc(){
+  st.wb(zy.i.wb5).kjd(8)
+  }
+  },{
+  rg st5=="true"{
+  bshow(true)
+  },{
+  bshow(false)
+  }
+  }
+  }*/
+  //bshow(true)
+}
+
+ff bshow(boolean a){
+  gd s i=a
+  gj.jmxc(){
+    st.wb(zy.i.wb5).kjd(0)
+    rg i==true{
+      s color=zf.zf(zy.color.colorTextTrue)
+      st.wb(zy.i.wb5).zf("官方应用")
+      st.wb(zy.i.wb5).bj(color)
+    },{
+      s color=zf.zf(zy.color.colorTextFalse)
+      st.wb(zy.i.wb5).zf("未知版本")
+      st.wb(zy.i.wb5).bj(color)
+    }
+  }
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 关于应用" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginTop="15dp" android:layout_marginBottom="3dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" app:cardBackgroundColor="@color/colorWBK" app:cardCornerRadius="10dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/ic_v"><Yu5Src><setOnClickListener><onClick>eggsdj=eggsdj+1
+rg eggsdj==2{
+  eggs()
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>//e1.goplu("20000","TEST",false)
+
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" android:textColor="@color/colorTextU1" android:textSize="15sp" android:gravity="center" android:textStyle="bold"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="13sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:visibility="gone"/><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorWhite" android:textSize="9sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:visibility="gone" android:paddingLeft="8dp" android:paddingRight="8dp" android:paddingTop="3dp" android:paddingBottom="3dp"/><LinearLayout android:id="@+id/xxbj7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx3" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a73" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj13" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx3"><TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="应用信息" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看应用开发相关信息" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>s t1=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a2")
+e1.tsk("应用信息",t1)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb16).zf()
+s lj=st.wb(zy.i.wb17).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx4" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a71" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx4"><TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="应用激活" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="激活应用以使用全部功能" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.tz(f7.iyu)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb12).zf()
+s lj=st.wb(zy.i.wb15).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx5" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a36" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx5"><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="应用更新" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新应用和升级补丁" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.tz(f9.iyu)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb4).zf()
+s lj=st.wb(zy.i.wb11).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx6" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a74" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx6"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="应用备份" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="快捷备份/恢复应用配置" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.goplu("20006","应用备份",false)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb1).zf()
+s lj=st.wb(zy.i.wb6).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx8" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a75" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx8"><TextView android:id="@+id/wb21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="重置应用" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="将清除所有配置信息" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.tz(c1.iyu)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb21).zf()
+s lj=st.wb(zy.i.wb22).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx7" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a46" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx7"><TextView android:id="@+id/wb19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="适配终端" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="选择适合您终端的适配方式" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.tz(j7.iyu)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb19).zf()
+s lj=st.wb(zy.i.wb20).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx10" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a76" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx10"><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加入Q群" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加入腕管Pro官方QQ群" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk_QR("加入Q群","群号：372091854\n\n扫描二维码 快一步入群","https://qm.qq.com/cgi-bin/qm/qr?k=bU0uOl8kFexph1zLQQOJ74lAEM5C6xfU&amp;authKey=FRi9nwu30PuztHBbVmQ7vbmiia5nd43C0yE2fvAKrP9GLEtltWfxeDMN01mO9RXl&amp;noverify=0&amp;personal_qrcode_source=0")</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb9).zf()
+s lj=st.wb(zy.i.wb10).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="10dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>/*
+@2021 f2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//退出
+gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

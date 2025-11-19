@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/k1_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabAccent">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+</onCreate></onCreate><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s e1=cj.e1()</iClass></iClass><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+},a=="2"{
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+},a=="4"{
+  int uih=sj.zh().pxzdp(pm.ztl)
+  uih=uih+40
+  s kp1=st.kp(zy.i.kp1)
+  kp1.wbj(0,uih+"dp",0,"5dp")
+}
+
+//e1.tsk("提示","本功能还在不断建设中...\n仅有界面,并无实际作用")</__layoutIsLoaded></__layoutIsLoaded><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+fh fou</onKeyDown></onKeyDown></_Yu5Src><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="100dp" android:layout_height="100dp" app:cardBackgroundColor="#64ffffff" app:cardCornerRadius="50dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginTop="40dp" android:layout_marginBottom="5dp"><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent"><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="80dp" android:layout_height="80dp" app:cardCornerRadius="40dp" app:cardBackgroundColor="@color/colorAccent" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_centerInParent="true"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="?android:attr/selectableItemBackgroundBorderless"><ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/a39"/><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="系统工具" android:textColor="@color/colorWhite" android:textSize="11sp" android:textStyle="bold" android:singleLine="true"/><Yu5Src><setOnClickListener><onClick>int i</onClick></setOnClickListener></Yu5Src></LinearLayout></android.support.v7.widget.CardView></RelativeLayout></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="10dp" app:cardBackgroundColor="#64ffffff" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:layout_marginTop="5dp"><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground"><ImageView android:id="@+id/tx3" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/a19" android:layout_centerVertical="true" android:layout_marginLeft="5dp" android:padding="3dp"/><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="5dp" android:layout_marginLeft="35dp"><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="垃圾清理" android:textColor="@color/colorWhite" android:textStyle="bold" android:textSize="11sp" android:singleLine="true"/><TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabAccent"/><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="清理系统和应用的缓存" android:textColor="@color/colorWhite" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.tz(k2.iyu)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb5).zf()
+s lj=st.wb(zy.i.wb7).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="10dp" app:cardBackgroundColor="#64ffffff" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:visibility="visible" android:layout_marginTop="5dp"><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground"><ImageView android:id="@+id/tx2" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/a10" android:layout_centerVertical="true" android:layout_marginLeft="5dp" android:padding="3dp"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="5dp" android:layout_marginLeft="35dp"><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="系统设置" android:textColor="@color/colorWhite" android:textStyle="bold" android:textSize="11sp" android:singleLine="true"/><TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabAccent"/><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="打开系统设置/原生设置" android:textColor="@color/colorWhite" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>yc{
+  yc{
+    gj.jmxc(){
+      xt.dkyy("com.android.settings","com.android.settings.Settings")
+    }
+  },(e2){
+    yc{
+      gj.jmxc(){
+        xt.dkyy("com.google.android.apps.wearable.settings","com.google.android.clockwork.settings.MainSettingsActivity")
+      }
+    },(e3){
+      gj.jmxc(){
+        xt.dkyy("com.google.android.apps.wearable.settings")
+      }
+    }
+  }
+},(e){
+  e1.tsk("提示","没有可执行该操作的应用")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb2).zf()
+s lj=st.wb(zy.i.wb4).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></android.support.v7.widget.CardView><LinearLayout android:id="@+id/xxbj6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" app:cardBackgroundColor="#64ffffff" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

@@ -1,0 +1,840 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/j6_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="false">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+s ul=sj.hqtz("url")
+ul=zf.qctwkg(ul)
+rg ul!=null&amp;&amp;ul!=""{
+  Url=ul
+},{
+  java {
+    android.content.Intent intent = getIntent();
+    String action = intent.getAction();
+    if (intent.ACTION_VIEW.equals(action)) {
+      android.net.Uri uri = intent.getData();
+      hqdz = uri.getScheme() + "://" + uri.getHost();
+      if (uri.getPort() != -1) hqdz = hqdz + ":" + uri.getPort();
+      if (uri.getPath() != null) hqdz = hqdz + uri.getPath();
+      if (uri.getQuery() != null) hqdz = hqdz + "?" + uri.getQuery();
+    }
+  }
+  rg hqdz!=null&amp;&amp;hqdz!=""{
+    Url=hqdz
+  }
+}
+
+rg wj.cz("/data/user/0/open.cn.awg.pro/app_tbs/core_share/tbs.conf")==true||wj.cz("/data/user/0/open.cn.awg.pro/app_tbs_64/core_share/tbs.conf")==true{
+  yc{
+    csh()
+  },(e){
+    e1.tsk("提示","出现异常\n"+e)
+  }
+},{
+  gj.tz(l4.iyu)
+  e1.tsk("提示","未找到腾讯X5内核,无法启动X5浏览器\n将为您跳转到内核安装\nPS:轻触顶部标题栏关闭提示")
+  gj.gb()
+}</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+restart()
+rg a=="1"{
+  st.xxbj(zy.i.xxbj9).nbj(u,0,u,50)
+  st.xdbj(zy.i.xdbj3).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xxbj(zy.i.xxbj9).nbj(0,0,0,0)
+  st.xdbj(zy.i.xdbj3).nbj(0,0,0,0)
+},a=="3"{
+  st.xxbj(zy.i.xxbj9).nbj(u,0,u,50)
+  st.xdbj(zy.i.xdbj3).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  int uih=sj.zh().pxzdp(pm.ztl)
+  uih=uih+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  st.xxbj(zy.i.xxbj9).nbj(0,0,0,0)
+  st.xdbj(zy.i.xdbj3).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s e1=cj.e1()
+String hqdz
+String Url
+boolean isTip=false
+
+android.net.Uri cameraUri
+PermissionRequest request2 = null
+int REQUEST_CAMERA = 1
+int REQUEST_CHOOSE = 2
+
+com.tencent.smtt.sdk.ValueCallback&lt;android.net.Uri&gt; uploadFile
+com.tencent.smtt.sdk.ValueCallback&lt;android.net.Uri[]&gt; uploadFiles
+ff llqhdyc(){
+  gj.jmxc()
+  {
+    st.xdbj(zy.i.llqHdRoot).kjd(8)
+    st.xxbj(zy.i.llqAuSfrz).kjd(8)
+    st.xxbj(zy.i.llqJsAlert).kjd(8)
+    st.xxbj(zy.i.llqJsConfirm).kjd(8)
+    st.xxbj(zy.i.llqJsPrompt).kjd(8)
+    st.xxbj(zy.i.llqQqDkyy).kjd(8)
+  }
+}
+
+ff csh(){
+  gd s set1 = "/data/user/0/open.cn.awg.pro/settings/f13/set1.inf"
+  gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f13/set2.inf"
+  gd s set3 = "/data/user/0/open.cn.awg.pro/settings/f13/set3.inf"
+  rg wj.dqwb(set1)=="true"{
+    int pk
+    java pk=open.cn.awg.pro.e6.x5(lei)
+    rg pk!=1{
+      e1.tsk("提示","X5浏览器内核不完整!\n请等待内核下载完成后,再次打开X5浏览器\nPS:轻触顶部标题栏关闭提示")
+      gj.gb()
+    }
+  }
+  rg Url==null||Url==""||Url=="null"{
+    Url=wj.dqwb(set2)
+    Url=e1.urlUnlockString(Url)
+  }
+  gd s xxbj = st.xxbj(zy.i.llq_v)
+  gd s bt=st.wb(zy.i.Tab)
+  gd s bjk1=st.bjk(zy.i.bjk1)
+  gd s xxbj8=st.xxbj(zy.i.xxbj8)
+  gd s xxbj4=st.xxbj(zy.i.xxbj4)
+  gd s kp3=st.kp(zy.i.kp3)
+  gd s jdt1=st.jdt(zy.i.jdt1)
+  gd s qtgd1=st.qtgd(zy.i.qtgd1)
+  gd s qtgd2=st.qtgd(zy.i.qtgd2)
+  gd s isShowTab = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf"
+  java{
+    lei.getWindow().setFormat(PixelFormat.TRANSLUCENT);
+    Button an1=(Button) findViewById(R.id.an1);
+    Button an2=(Button) findViewById(R.id.an2);
+    Button an4=(Button) findViewById(R.id.an4);
+    Button an3=(Button) findViewById(R.id.an3);
+    ImageView tx5=(ImageView)findViewById(R.id.tx5);
+    ImageView tx6=(ImageView)findViewById(R.id.tx6);
+    ImageView tx3=(ImageView)findViewById(R.id.tx3);
+    ImageView tx4=(ImageView)findViewById(R.id.tx4);
+    ImageView tx7=(ImageView)findViewById(R.id.tx7);
+    TextView wb1=(TextView)findViewById(R.id.wb1);
+    final RelativeLayout llqHdRoot=(RelativeLayout)findViewById(R.id.llqHdRoot);
+    final LinearLayout llqJsAlert=(LinearLayout)findViewById(R.id.llqJsAlert);
+    final TextView llqJsAlertTs=(TextView)findViewById(R.id.llqJsAlertTs);
+    final ImageView llqJsAlertTrue=(ImageView)findViewById(R.id.llqJsAlertTrue);
+    final LinearLayout llqJsConfirm=(LinearLayout)findViewById(R.id.llqJsConfirm);
+    final TextView llqJsConfirmTs=(TextView)findViewById(R.id.llqJsConfirmTs);
+    final ImageView llqJsConfirmTrue=(ImageView)findViewById(R.id.llqJsConfirmTrue);
+    final ImageView llqJsConfirmFalse=(ImageView)findViewById(R.id.llqJsConfirmFalse);
+    final LinearLayout llqJsPrompt=(LinearLayout)findViewById(R.id.llqJsPrompt);
+    final TextView llqJsPromptTs=(TextView)findViewById(R.id.llqJsPromptTs);
+    final EditText llqJsPromptBjk=(EditText)findViewById(R.id.llqJsPromptBjk);
+    final ImageView llqJsPromptTrue=(ImageView)findViewById(R.id.llqJsPromptTrue);
+    final ImageView llqJsPromptFalse=(ImageView)findViewById(R.id.llqJsPromptFalse);
+    final LinearLayout llqAuSfrz=(LinearLayout)findViewById(R.id.llqAuSfrz);
+    final TextView llqAuSfrzTs=(TextView)findViewById(R.id.llqAuSfrzTs);
+    final EditText llqAuSfrzUsername=(EditText)findViewById(R.id.llqAuSfrzUsername);
+    final EditText llqAuSfrzPassword=(EditText)findViewById(R.id.llqAuSfrzPassword);
+    final ImageView llqAuSfrzTrue=(ImageView)findViewById(R.id.llqAuSfrzTrue);
+    final ImageView llqAuSfrzFalse=(ImageView)findViewById(R.id.llqAuSfrzFalse);
+    final LinearLayout llqQqDkyy=(LinearLayout)findViewById(R.id.llqQqDkyy);
+    final TextView llqQqDkyyTs=(TextView)findViewById(R.id.llqQqDkyyTs);
+    final ImageView llqQqDkyyTrue=(ImageView)findViewById(R.id.llqQqDkyyTrue);
+    final ImageView llqQqDkyyFalse=(ImageView)findViewById(R.id.llqQqDkyyFalse);
+    final i.app.x5 x5llq=i.app.x5.x5(lei);
+    xxbj.j(x5llq.llq(-1, -1, Url));
+    x5llq.st.setFocusable(true);
+    x5llq.st.setFocusableInTouchMode(true);
+    x5llq.st.requestFocus();
+    x5llq.st.setOnLongClickListener(new View.OnLongClickListener(){
+      @Override
+      public boolean onLongClick(View v) {
+        com.tencent.smtt.sdk.WebView.HitTestResult htr = x5llq.st.getHitTestResult();
+        int type = htr.getType();
+        final int IMAGE_TYPE = com.tencent.smtt.sdk.WebView.HitTestResult.IMAGE_TYPE;
+        final int SRC_IMAGE_ANCHOR_TYPE = com.tencent.smtt.sdk.WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE;
+        if (type == IMAGE_TYPE || type == SRC_IMAGE_ANCHOR_TYPE) {
+          String imageUrl = htr.getExtra();
+          Intent intent = new Intent(lei, open.cn.awg.pro.l2.class);
+          Bundle bundle=new Bundle();
+          bundle.putString("url",imageUrl);
+          intent.putExtras(bundle);
+          startActivity(intent);
+        }
+        return true;
+      }
+    });
+    x5llq.st.setWebChromeClient(new com.tencent.smtt.sdk.WebChromeClient(){
+      
+      private View myVideoView = null;
+      private com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback callback = null;
+      
+      public void onShowCustomView(View view, com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback customViewCallback) {
+        ViewGroup viewGroup = (ViewGroup) x5llq.st.getParent();
+        viewGroup.removeView(x5llq.st);
+        viewGroup.addView(view);
+        myVideoView = view;
+        callback = customViewCallback;
+      }
+      
+      public void onHideCustomView() {
+        if (callback != null) {
+          callback.onCustomViewHidden();
+          callback = null;
+        }
+        if (myVideoView != null) {
+          ViewGroup viewGroup = (ViewGroup) myVideoView.getParent();
+          viewGroup.removeView(myVideoView);
+          viewGroup.addView(x5llq.st);
+        }
+      }
+      
+      public void onExceededDatabaseQuota(String url, String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater)
+      {
+        quotaUpdater.updateQuota(estimatedSize * 2);
+      }
+      
+      //扩充缓存的容量
+      public void onReachedMaxAppCacheSize(long spaceNeeded, long totalUsedQuota, WebStorage.QuotaUpdater quotaUpdater)
+      {
+        quotaUpdater.updateQuota(spaceNeeded * 2);
+      }
+      
+      // For Android  &gt;= 5.0
+      public boolean onShowFileChooser(com.tencent.smtt.sdk.WebView webView,
+      com.tencent.smtt.sdk.ValueCallback&lt;android.net.Uri[]&gt; filePathCallback,
+      com.tencent.smtt.sdk.WebChromeClient.FileChooserParams fileChooserParams) {
+        //Log.i("test", "openFileChooser 4:" + filePathCallback.toString());
+        uploadFiles = filePathCallback;
+        android.content.Intent i = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
+        i.addCategory(android.content.Intent.CATEGORY_OPENABLE);
+        i.setType("*/*");
+        startActivityForResult(android.content.Intent.createChooser(i, "test"), 0);
+        return true;
+      }
+      
+      public void onProgressChanged(com.tencent.smtt.sdk.WebView vw, int np){
+        if(np&lt;99){
+          jdt1.kjd(0);
+          jdt1.jdz(np);
+        }else{
+          jdt1.jdz(100);
+          jdt1.kjd(8);
+        }
+        String btss=x5llq.bt();
+        String wzss=x5llq.wz();
+        if(isTip==false){
+          if(btss==null||btss==""||btss=="null"){
+            //bt.zf(wzss);
+            //bt.zf("&lt; X5浏览器");
+          }else{
+            //bt.zf(btss);
+            //bt.zf("&lt; X5浏览器");
+          }
+        }
+      }
+      
+      @Override
+      public boolean onJsAlert(WebView view, String url2, String message, final JsResult result) {
+        //csh$onJsAlert(url2, message, result);
+        llqHdRoot.setVisibility(llqHdRoot.VISIBLE);
+        llqJsAlert.setVisibility(llqJsAlert.VISIBLE);
+        llqJsAlertTs.setText(message);
+        llqJsAlertTrue.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            result.confirm();
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqJsAlert.setVisibility(llqJsAlert.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        qtgd2.v.requestFocus();
+        return true;
+      }
+      @Override
+      public boolean onJsConfirm(WebView view, String url2, String message, final JsResult result) {
+        //csh$onJsConfirm(url2, message, result);
+        llqHdRoot.setVisibility(llqHdRoot.VISIBLE);
+        llqJsConfirm.setVisibility(llqJsConfirm.VISIBLE);
+        llqJsConfirmTs.setText(message);
+        llqJsConfirmTrue.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            result.confirm();
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqJsConfirm.setVisibility(llqJsConfirm.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        llqJsConfirmFalse.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            result.cancel();
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqJsConfirm.setVisibility(llqJsConfirm.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        qtgd2.v.requestFocus();
+        return true;
+      }
+      @Override
+      public boolean onJsPrompt(WebView view, String url2, String message, String defaultValue, final JsPromptResult result) {
+        //csh$onJsPrompt(url2, message, result);
+        llqHdRoot.setVisibility(llqHdRoot.VISIBLE);
+        llqJsPrompt.setVisibility(llqJsPrompt.VISIBLE);
+        llqJsPromptTs.setText(message);
+        llqJsPromptBjk.setText(defaultValue);
+        llqJsPromptTrue.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            result.confirm(llqJsPromptBjk.getText().toString());
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqJsConfirm.setVisibility(llqJsPrompt.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        llqJsPromptFalse.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            result.cancel();
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqJsConfirm.setVisibility(llqJsPrompt.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        qtgd2.v.requestFocus();
+        return true;
+      }
+      @Override
+      public void onPermissionRequest(final PermissionRequest request) {
+        if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+          //csh$onPermissionRequest(request);
+          //request.grant(request.getResources());
+        }
+      }
+      
+    });
+    
+    x5llq.st.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient(){
+      public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
+        // 限制只处理 http https rtsp ftp
+        String urlX = url.toLowerCase();
+        if(urlX.startsWith("http:") || urlX.startsWith("https:") || urlX.startsWith("rtsp:") || urlX.startsWith("ftp:")){
+          view.loadUrl(url);
+        } else {
+          final String url2=url;
+          llqHdRoot.setVisibility(llqHdRoot.VISIBLE);
+          llqQqDkyy.setVisibility(llqQqDkyy.VISIBLE);
+          //llqQqDkyyTs.setText("");
+          llqQqDkyyTrue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              try {
+                android.content.Intent intent=new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url2));
+                intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK|android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                startActivity(intent);
+              }catch (Exception e){
+                //e1.tsk("提示","没有安装该软件");
+              }
+              llqHdRoot.setVisibility(llqHdRoot.GONE);
+              llqQqDkyy.setVisibility(llqQqDkyy.GONE);
+              x5llq.st.requestFocus();
+            }
+          });
+          llqQqDkyyFalse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+              llqHdRoot.setVisibility(llqHdRoot.GONE);
+              llqQqDkyy.setVisibility(llqQqDkyy.GONE);
+              x5llq.st.requestFocus();
+            }
+          });
+          qtgd2.v.requestFocus();
+        }
+        return true;
+      }
+      public void onReceivedSslError(com.tencent.smtt.sdk.WebView view, SslErrorHandler handler, SslError error) {
+        //解决部分 https 无法访问
+        handler.proceed();// 接受所有网站的证书
+      }
+      public void onPageStarted(com.tencent.smtt.sdk.WebView view, String url, Bitmap favicon) {
+        super.onPageStarted(view, url, favicon);
+      }
+      public void onPageFinished(com.tencent.smtt.sdk.WebView view, String url) {
+        super.onPageFinished(view, url);
+      }
+      @Override
+      public void onReceivedHttpAuthRequest(WebView view,final HttpAuthHandler handler, String host, String realm) {
+        //csh$onReceivedHttpAuthRequest(handler);
+        llqHdRoot.setVisibility(llqHdRoot.VISIBLE);
+        llqAuSfrz.setVisibility(llqAuSfrz.VISIBLE);
+        llqAuSfrzUsername.setText("");
+        llqAuSfrzPassword.setText("");
+        llqAuSfrzTrue.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            handler.proceed(llqAuSfrzUsername.getText().toString(), llqAuSfrzPassword.getText().toString());
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqAuSfrz.setVisibility(llqAuSfrz.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        llqAuSfrzFalse.setOnClickListener(new View.OnClickListener() {
+          @Override
+          public void onClick(View v) {
+            handler.cancel();
+            llqHdRoot.setVisibility(llqHdRoot.GONE);
+            llqAuSfrz.setVisibility(llqAuSfrz.GONE);
+            x5llq.st.requestFocus();
+          }
+        });
+        qtgd2.v.requestFocus();
+      }
+    });
+    
+    //访问
+    an1.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        String bj=bjk1.zf();
+        bj=zf.qctwkg(bj);
+        if(bj==""){
+          e1.tsk("提示","编辑框不能为空");
+        }else{
+          llqhdyc();
+          x5llq.zrwz(bj);
+          kp3.kjd(0);
+          xxbj8.kjd(8);
+          restart();
+          String btss=x5llq.bt();
+          String wzss=x5llq.wz();
+          isTip=false;
+          if(btss==null||btss==""||btss=="null"){
+            //bt.zf(wzss);
+            //bt.zf("&lt; X5浏览器");
+          }else{
+            //bt.zf(btss);
+            //bt.zf("&lt; X5浏览器");
+          }
+          bt.zf("&lt; X5浏览器");
+        }
+      }
+    });
+    //http://debugx5.qq.com
+    //调试
+    an2.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        llqhdyc();
+        x5llq.zrwz("http://debugx5.qq.com");
+        kp3.kjd(0);
+        xxbj8.kjd(8);
+        restart();
+        String btss=x5llq.bt();
+        String wzss=x5llq.wz();
+        isTip=false;
+        if(btss==null||btss==""||btss=="null"){
+          //bt.zf(wzss);
+          //bt.zf("&lt; X5浏览器");
+        }else{
+          //bt.zf(btss);
+          //bt.zf("&lt; X5浏览器");
+        }
+        bt.zf("&lt; X5浏览器");
+      }
+    });
+    //设置
+    an4.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        gj.tz(open.cn.awg.pro.f13.class);
+        kp3.kjd(0);
+        xxbj8.kjd(8);
+        restart();
+        String btss=x5llq.bt();
+        String wzss=x5llq.wz();
+        isTip=false;
+        if(btss==null||btss==""||btss=="null"){
+          //bt.zf(wzss);
+          //bt.zf("&lt; X5浏览器");
+        }else{
+          //bt.zf(btss);
+          //bt.zf("&lt; X5浏览器");
+        }
+        bt.zf("&lt; X5浏览器");
+      }
+    });
+    //退出
+    an3.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        llqhdyc();
+        x5llq.zrwz("about:blank");
+        gj.gb();
+      }
+    });
+    //后退
+    tx5.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(xxbj4.kjd()==0){
+          xxbj4.kjd(8);
+          kp3.kjd(0);
+          restart();
+        }else{
+          xxbj4.kjd(0);
+          kp3.kjd(8);
+        }
+        boolean pds=x5llq.kht();
+        isTip=false;
+        if(pds==true){
+          llqhdyc();
+          x5llq.kzqjht(-1);
+        }else{
+          e1.tsk("提示","没有可后退的网页");
+        }
+        bt.zf("&lt; X5浏览器");
+        x5llq.st.requestFocus();
+      }
+    });
+    //前进
+    tx6.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(xxbj4.kjd()==0){
+          xxbj4.kjd(8);
+          kp3.kjd(0);
+          restart();
+        }else{
+          xxbj4.kjd(0);
+          kp3.kjd(8);
+        }
+        boolean pds=x5llq.kqj();
+        isTip=false;
+        if (pds==true){
+          llqhdyc();
+          x5llq.kzqjht(1);
+        }else{
+          e1.tsk("提示","没有可前进的网页");
+        }
+        bt.zf("&lt; X5浏览器");
+        x5llq.st.requestFocus();
+      }
+    });
+    //刷新
+    tx3.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        if(xxbj4.kjd()==0){
+          xxbj4.kjd(8);
+          kp3.kjd(0);
+          restart();
+        }else{
+          xxbj4.kjd(0);
+          kp3.kjd(8);
+        }
+        isTip=false;
+        String url=x5llq.wz();
+        llqhdyc();
+        x5llq.zrwz(url);
+        bt.zf("&lt; X5浏览器");
+        x5llq.st.requestFocus();
+      }
+    });
+    //设置
+    tx4.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        xxbj4.kjd(8);
+        kp3.kjd(8);
+        xxbj8.kjd(0);
+        bt.zf("更多");
+        isTip=true;
+        bjk1.zf(x5llq.wz());
+        qtgd1.v.requestFocus();
+      }
+    });
+    //关闭
+    tx7.setOnClickListener(new View.OnClickListener() {
+      @Override
+      public void onClick(View v) {
+        kp3.kjd(0);
+        xxbj8.kjd(8);
+        restart();
+        String btss=x5llq.bt();
+        String wzss=x5llq.wz();
+        isTip=false;
+        if(btss==null||btss==""||btss=="null"){
+          //bt.zf(wzss);
+          //bt.zf("&lt; X5浏览器");
+        }else{
+          //bt.zf(btss);
+          //bt.zf("&lt; X5浏览器");
+        }
+        bt.zf("&lt; X5浏览器");
+        x5llq.st.requestFocus();
+      }
+    });
+    //wb1长按
+    wb1.setOnLongClickListener(new View.OnLongClickListener() {
+      @Override
+      public boolean onLongClick(View v) {
+        if(llqHdRoot.getVisibility()==llqHdRoot.VISIBLE){
+          e1.tsk("提示","请先完成当前操作");
+        } else {
+          showtab();
+          xxbj4.kjd(8);
+          kp3.kjd(8);
+          xxbj8.kjd(0);
+          bt.zf("更多");
+          isTip=true;
+          bjk1.zf(x5llq.wz());
+          qtgd1.v.requestFocus();
+        }
+        return true;
+      }
+    });
+  }
+  
+}
+
+ff restart(){
+  gd s xxbj8=st.xxbj(zy.i.xxbj8)
+  gd s xxbj4=st.xxbj(zy.i.xxbj4)
+  s set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf"
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a=wj.dqwb(a2)
+  rg a=="4"{
+    rg wj.dqwb(set)=="true"&amp;&amp;xxbj4.kjd()==8&amp;&amp;xxbj8.kjd()==8{
+      st.wb(zy.i.Tab).kjd(8)
+      /*java {
+      //全屏
+      Window window = lei.getWindow();
+      BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+      BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+      }*/
+    },{
+      st.wb(zy.i.Tab).kjd(0)
+      /*java{
+      //透明状态栏
+      Window window = lei.getWindow();
+      BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+      BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+      }*/
+    }
+  },{
+    rg wj.dqwb(set)=="true"&amp;&amp;xxbj4.kjd()==8&amp;&amp;xxbj8.kjd()==8{
+      st.wb(zy.i.Tab).kjd(8)
+    },{
+      st.wb(zy.i.Tab).kjd(0)
+    }
+    /*java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }*/
+  }
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+
+ff showtab(){
+  s set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf"
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a=wj.dqwb(a2)
+  rg a=="4"{
+    st.wb(zy.i.Tab).kjd(0)
+    /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+    }*/
+  },{
+    st.wb(zy.i.Tab).kjd(0)
+    /*java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }*/
+  }
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</iClass></iClass><onKeyDown><onKeyDown>s set4 = "/data/user/0/open.cn.awg.pro/settings/f13/set5.inf"
+rg wj.dqwb(set4)=="false"{
+  rg kc==4{
+    gj.gb()
+  }
+},{
+  rg kc==4{
+    //不响应
+  }
+}
+
+fh fou</onKeyDown></onKeyDown><onActivityResult><onActivityResult>java {
+  if (rc == RESULT_OK) {
+    switch (re) {
+      case 0:
+      if (uploadFile != null) {
+        android.net.Uri result = it == null || rc != RESULT_OK ? null
+        : it.getData();
+        uploadFile.onReceiveValue(result);
+        uploadFile = null;
+      }
+      if (uploadFiles != null) {
+        android.net.Uri result = it == null || rc != RESULT_OK ? null
+        : it.getData();
+        uploadFiles.onReceiveValue(new android.net.Uri[]{result});
+        uploadFiles = null;
+      }
+      break;
+      default:
+      break;
+    }
+  } else if (rc == RESULT_CANCELED) {
+    if (uploadFile != null) {
+      uploadFile.onReceiveValue(null);
+      uploadFile = null;
+    }
+    if (uploadFiles != null) {
+      uploadFiles.onReceiveValue(null);
+      uploadFiles = null;
+    }
+  }
+}</onActivityResult></onActivityResult><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+s xxbj=st.xxbj(zy.i.llq_v)
+xxbj.scqb()</onDestroy></onDestroy><onRestart><onRestart>restart()</onRestart></onRestart><onStart><onStart>restart()
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+s qtgd2=st.qtgd(zy.i.qtgd2)
+java {
+  qtgd2.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}</onStart></onStart><onResume><onResume>restart()</onResume></onResume><onWindowFocusChanged><onWindowFocusChanged>restart()</onWindowFocusChanged></onWindowFocusChanged></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; X5浏览器" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnLongClickListener><onLongClick/></setOnLongClickListener><setOnClickListener><onClick>rg st.wb(zy.i.Tab).zf()=="&lt; X5浏览器" {
+  gj.gb()
+}</onClick></setOnClickListener></Yu5Src></TextView><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"><LinearLayout android:id="@+id/llq_v" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"/></LinearLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent"><ProgressBar android:id="@+id/jdt1" android:layout_width="100dp" android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:max="100" android:progress="0" android:visibility="gone" android:layout_below="@id/Tab" android:background="@drawable/jdtbj" android:layout_margin="3dp" android:paddingLeft="5dp" android:paddingRight="5dp" android:elevation="6dp" android:layout_centerInParent="true"/></RelativeLayout><RelativeLayout android:id="@+id/llqHdRoot" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="@color/colorTabBackground"><androidx.core.widget.NestedScrollView android:id="@+id/qtgd2" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:focusedByDefault="false" android:focusable="true" android:focusableInTouchMode="true"><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/llqAuSfrz" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="HttpAuth认证" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp"/><TextView android:id="@+id/llqAuSfrzTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="网页要求进行身份认证" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><EditText android:id="@+id/llqAuSfrzUsername" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入USERNAME" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd2=st.qtgd(zy.i.qtgd2)
+    qtgd2.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><EditText android:id="@+id/llqAuSfrzPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入PASSWORD" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp" android:password="true"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd2=st.qtgd(zy.i.qtgd2)
+    qtgd2.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqAuSfrzFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqAuSfrzTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp11" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx11" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/llqJsPrompt" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="JS Prompt" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp"/><TextView android:id="@+id/llqJsPromptTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="提示内容" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><EditText android:id="@+id/llqJsPromptBjk" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd2=st.qtgd(zy.i.qtgd2)
+    qtgd2.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><LinearLayout android:id="@+id/xxbj11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp9" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqJsPromptFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp10" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqJsPromptTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp12" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx12" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/llqJsConfirm" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb4" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="JS Confirm" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp"/><TextView android:id="@+id/llqJsConfirmTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="提示内容" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><LinearLayout android:id="@+id/xxbj10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp13" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqJsConfirmFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp14" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqJsConfirmTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp15" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx15" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/llqJsAlert" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb5" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="JS Alert" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp"/><TextView android:id="@+id/llqJsAlertTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="提示内容" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><LinearLayout android:id="@+id/xxbj12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp16" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqJsAlertTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp18" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx18" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/llqQqDkyy" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="互动申请" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp"/><TextView android:id="@+id/llqQqDkyyTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="该网页请求打开外部应用" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><LinearLayout android:id="@+id/xxbj13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp17" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqQqDkyyFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp19" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/llqQqDkyyTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp20" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx20" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></RelativeLayout></androidx.core.widget.NestedScrollView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></RelativeLayout><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="50dp" android:layout_height="50dp" app:cardCornerRadius="25dp" app:cardBackgroundColor="@color/colorTabTh" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginBottom="-25dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a43" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground" android:visibility="gone"><Yu5Src><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></ImageView><TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="25dp" android:text="+" android:textColor="@color/colorWhite" android:textSize="18sp" android:gravity="center" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>rg st.xxbj(zy.i.xxbj4).kjd()==0{
+  gj.jmxc(){
+    st.xxbj(zy.i.xxbj4).kjd(8)
+    st.kp(zy.i.kp3).kjd(0)
+  }
+  s set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf"
+  restart()
+},{
+  rg st.xdbj(zy.i.llqHdRoot).kjd()==0{
+    e1.tsk("提示","请先完成当前操作")
+  },{
+    showtab()
+    gj.jmxc(){
+      st.wb(zy.i.Tab).zf("菜单")
+      st.xxbj(zy.i.xxbj4).kjd(0)
+      st.kp(zy.i.kp3).kjd(8)
+    }
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></TextView></android.support.v7.widget.CardView><LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:visibility="gone" android:background="@color/colorTabBackground"><Yu5Src><setOnClickListener><onClick>int i</onClick></setOnClickListener></Yu5Src><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:focusedByDefault="false" android:focusable="true" android:focusableInTouchMode="true"><LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal"><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入网址" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:text="访问" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an2" android:layout_width="match_parent" android:layout_height="35dp" android:text="调试" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an4" android:layout_width="match_parent" android:layout_height="35dp" android:text="设置" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an3" android:layout_width="match_parent" android:layout_height="35dp" android:text="退出" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></Button><LinearLayout android:id="@+id/xxbj7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp8" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx7" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></android.support.v4.widget.NestedScrollView></LinearLayout><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="@color/colorThough" android:visibility="gone"><LinearLayout android:id="@+id/xxbj6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp7" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx6" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a27" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a31" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx4" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a43" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><Yu5Src><setOnClickListener><onClick>//设置长按显示菜单
+rg st.xxbj(zy.i.xxbj4).kjd()==0{
+  st.wb(zy.i.Tab).zf("&lt; X5浏览器")
+  st.xxbj(zy.i.xxbj4).kjd(8)
+  st.kp(zy.i.kp3).kjd(0)
+  s set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf"
+  restart()
+},{
+  showtab()
+  st.xxbj(zy.i.xxbj4).kjd(0)
+  st.kp(zy.i.kp3).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></LinearLayout></RelativeLayout></RelativeLayout>

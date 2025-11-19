@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/l5_a7_yuanc_d0625_y2024_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+csh()
+show(0)</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.l5_a7_yuanc_d0625_y2024_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.l5_a7_yuanc_d0625_y2024_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+  int uih=pm.ztl/2+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+  pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s um=""
+File f
+s e1=cj.e1()
+s e12=cj.e12()
+s carton=cj.carton()
+
+java{
+  public void simpleSetting(Context context) {
+    Intent intent = new Intent();
+    try{
+      intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+      // 将用户引导到系统设置页面
+      if (Build.VERSION.SDK_INT &gt;= 9) {
+        intent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        intent.setData(Uri.fromParts("package", context.getPackageName(), null));
+      } else if (Build.VERSION.SDK_INT &lt;= 8) {
+        intent.setAction(Intent.ACTION_VIEW);
+        intent.setClassName("com.android.settings", "com.android.settings.InstalledAppDetails");
+        intent.putExtra("com.android.settings.ApplicationPkgName", context.getPackageName());
+      }
+      context.startActivity(intent);
+    } catch (Exception e) {//抛出异常就直接打开设置页面
+      intent = new Intent(Settings.ACTION_SETTINGS);
+      context.startActivity(intent);
+    }
+  }
+}
+
+ff show(int i){
+  gd s tab=st.wb(zy.i.Tab)
+  gd s x1=st.xxbj(zy.i.xxbj1)
+  gd s x2=st.xxbj(zy.i.xxbj6)
+  gd s x3=st.xxbj(zy.i.xxbj2)
+  rg i==0{
+    gj.jmxc(){
+      tab.zf("&lt; 腕管远控")
+      x1.kjd(8)
+      x2.kjd(8)
+      x3.kjd(0)
+    }
+  },i==1{
+    gj.jmxc(){
+      tab.zf("&lt; 扩展权限")
+      x1.kjd(0)
+      x2.kjd(8)
+      x3.kjd(8)
+    }
+  },i==2{
+    gj.jmxc(){
+      tab.zf("&lt; 腕管远控")
+      x1.kjd(8)
+      x2.kjd(0)
+      x3.kjd(8)
+    }
+  }
+}
+
+ff csh(){
+  s set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable"
+  s user = "/data/user/0/open.cn.awg.pro/settings/account/user"
+  s kg1=st.kg(zy.i.kg1)
+  s wb4=st.wb(zy.i.wb4)
+  s wb9=st.wb(zy.i.wb9)
+  rg e1.islogin(){
+    wb9.zf(wj.dqwb(user))
+  },{
+    wb9.zf("未登录Typheye账户")
+  }
+  rg wj.dqwb(set1)=="true"&amp;&amp;e1.islogin(){
+    kg1.xzzt(true)
+  }
+  boolean aa
+  yc{
+    java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(lei,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+  },(e){
+    aa=false
+  }
+  rg carton.state(lei)&amp;&amp;aa{
+    wb4.zf("已授权必要权限")
+  },{
+    wb4.zf("存在权限未授权")
+    kg1.xzzt(false)
+  }
+}
+
+ff jzpd(){
+  show(1)
+  s wb11=st.wb(zy.i.wb11)
+  rg carton.state(lei){
+    wb11.zf("此权限已授权")
+  },{
+    wb11.zf("此权限未授权")
+  }
+  boolean aa
+  yc{
+    java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(lei,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+  },(e){
+    aa=false
+  }
+  s wb21=st.wb(zy.i.wb21)
+  rg aa{
+    wb21.zf("此权限已授权")
+  },{
+    wb21.zf("此权限未授权")
+  }
+  /*
+  boolean aa
+  yc{
+  java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(lei,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+  },(e){
+  aa=false
+  }
+  rg aa==false{
+  e1.tsk("提示","未授权应用无障碍权限\n请授权后重新运行本脚本")
+  yc{
+  java {
+  Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+  lei.startActivity(intent);
+  }
+  },(e){
+  gj.gb()
+  e1.upload_error(e,"j3.run()")
+  }
+  },{
+  }
+  */
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg st.wb(zy.i.Tab).zf()=="&lt; 远程锁屏"{
+  csh()
+},st.wb(zy.i.Tab).zf()=="&lt; 扩展权限"{
+  jzpd()
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onKeyDown><onKeyDown>rg kc==4{
+  rg st.wb(zy.i.Tab).zf()=="&lt; 腕管远控"{
+    gj.gb()
+  },st.wb(zy.i.Tab).zf()=="&lt; 扩展权限"{
+    show(0)
+    csh()
+  }
+}
+
+fh fou</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 腕管远控" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>rg st.wb(zy.i.Tab).zf()=="&lt; 腕管远控"{
+  gj.gb()
+},st.wb(zy.i.Tab).zf()=="&lt; 扩展权限"{
+  show(0)
+  csh()
+}</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_marginLeft="5dp" android:layout_marginTop="5dp" android:layout_marginRight="55dp" android:layout_marginBottom="5dp"><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扩展状态" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扩展此时的运行状态" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>s kg=st.kg(zy.i.kg1)
+rg kg.xzzt()==false{
+  kg.xzzt(true)
+},{
+  kg.xzzt(false)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb2).zf()
+s lj=st.wb(zy.i.wb7).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src><androidx.appcompat.widget.SwitchCompat android:id="@+id/kg1" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true"><Yu5Src><setOnCheckedChangeListener><onCheckedChanged>s set = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable"
+rg ic==true{
+  rg e1.islogin(){
+    boolean aa
+    yc{
+      java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(lei,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+    },(e){
+      aa=false
+    }
+    rg carton.state(lei)&amp;&amp;aa{
+      wj.xrwb(set,"true")
+    },{
+      e1.tsk("提示","存在必要权限未授权")
+      s kg1=st.kg(zy.i.kg1)
+      kg1.xzzt(false)
+    }
+  },{
+    wj.xrwb(set,"false")
+    gj.jmxc(){
+      s kg=st.kg(zy.i.kg1)
+      kg.xzzt(false)
+      gj.tz(n1.iyu)
+      e1.tsk("提示","该操作需要登录Typheye账户")
+    }
+  }
+},{
+  wj.xrwb(set,"false")
+}</onCheckedChanged></setOnCheckedChangeListener><setOnClickListener><onClick/></setOnClickListener></Yu5Src></androidx.appcompat.widget.SwitchCompat></RelativeLayout><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扩展身份" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("扩展身份",st.wb(zy.i.wb9).zf())</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb8).zf()
+s lj=st.wb(zy.i.wb9).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扩展权限" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>jzpd()</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb3).zf()
+s lj=st.wb(zy.i.wb4).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="获取帮助" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看此服务的帮助" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk("功能帮助","此服务由官方提供")</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb5).zf()
+s lj=st.wb(zy.i.wb6).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="必要权限" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true"/><RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="设备管理员" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>carton.gets(lei)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb10).zf()
+s lj=st.wb(zy.i.wb11).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="无障碍服务" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>boolean aa
+yc{
+  java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(lei,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+},(e){
+  aa=false
+}
+rg aa==false{
+  yc{
+    java {
+      Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+      lei.startActivity(intent);
+    }
+  },(e){
+    gj.gb()
+    e1.upload_error(e,"j3.run()")
+  }
+},{
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb20).zf()
+s lj=st.wb(zy.i.wb21).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="手动授权" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true"/><RelativeLayout android:id="@+id/xdbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="自启动" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="允许腕管Pro开机自启动" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>java simpleSetting(lei);</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb16).zf()
+s lj=st.wb(zy.i.wb17).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="显示悬浮窗" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="允许腕管Pro显示悬浮窗" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>java simpleSetting(lei);</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb12).zf()
+s lj=st.wb(zy.i.wb13).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb18" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="后台弹出界面" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="允许腕管Pro后台弹出界面" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>java simpleSetting(lei);</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb18).zf()
+s lj=st.wb(zy.i.wb19).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>show(0)</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

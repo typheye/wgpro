@@ -1,0 +1,68 @@
+AWG Pro User Agreement
+
+The user agreement for this software (hereinafter referred to as the "Agreement") is signed by you and the developer "Typheye" (hereinafter referred to as "me").
+
+Please read this Agreement carefully before using the "AWG Pro" software (hereinafter referred to as the "Licensed Software"). The exclusion clause needs to be read carefully. If you agree to be bound by the terms and conditions of this Agreement, you may download, install and use the Licensed Software.
+
+If this Agreement or its supplements are modified, please read and accept the amended Agreement carefully before continuing to use the Licensed Software.
+
+1. Definitions
+  Licensed software: refers to the application software developed by the person, downloaded by you from the Internet, and installed and used in the computer terminal or mobile terminal of the corresponding system.
+
+2. Scope of authorization
+  1. Due to the limitations of the software adaptation platform and terminal, this software can only run on mobile phones and watches running Android and HarmonyOS, and running in any incorrect system version or kernel will not guarantee normal operation or internal functions.
+  2. You should understand that the Licensed Software may only be used for non-commercial purposes, and you may not install, use, or run the Licensed Software for commercial purposes.
+  3. I will change, upgrade, modify or transfer the licensed software and its related functions from time to time, and develop new functions or other services in the licensed software system. If there is no independent agreement for the above-mentioned new functions and software services, you can still obtain the authorization of the corresponding functions or services, and this Agreement may apply.
+
+3. Specifications for use
+  You should regulate the use of the Licensed Software, and it is against the Usage Specifications in the following ways:
+    1) Engaging in acts that violate laws, regulations, and policies, undermine public order and good customs, or harm the public interest.
+    2) Using the licensed software to publish, transmit, disseminate, or store content that infringes on the intellectual property rights, trade secret rights, and other legal rights of others, or engaging in illegal and criminal activities such as fraud and misappropriation of other people's accounts and funds.
+    3) Adding, deleting, or changing the functions or operating effects of the licensed software by modifying or forging the instructions, data, and data packages in the operation of the licensed software, and/or disseminating or operating the software with the above purposes to the public through the information network.
+    4) Use the Licensed Software in any illegal way, for any illegal purpose, or in any way inconsistent with this Agreement.
+
+4. Third-Party Software or Services
+  1. The Licensed Software may use or include software or services provided by third parties (hereinafter referred to as "Services"), which are set up for your convenience and are legally authorized by such third parties.
+  2. Since the third party is the provider of its software or services, when you use such services, you should separately enter into a service agreement with the third party, pay the corresponding fees and bear the possible risks. You understand that I do not have the right to grant you any rights to use such services in this Agreement, nor do I have the right to provide any form of warranty with respect to such services. I am unable to provide customer support for these services, and if you need support, you can contact the third party directly. Any dispute arising from your use of such services may be resolved directly through negotiation with the third party.
+  3. You understand that the Licensed Software only uses or includes such services at present, and I cannot guarantee that the Licensed Software will use or include such services in perpetuity, nor can I guarantee that I will not use or include the same or different types of software or services of such third parties or other third-party software or services in the future.
+  4. The Software does not directly transfer your information to third parties. However, please understand that the third party may need to obtain your information in order to better provide you with services, and you agree that if you use such services when using the licensed software, you will authorize the third party to obtain the information provided or generated when you register or use such services. If you do not want third parties to have access to your information, you can stop using these services.
+
+5. Privacy Policy and Data
+  In order to provide a high-quality user experience, some functions in the Software may need to obtain some data from personal devices (including but not limited to device name, system version, list of installed software, file information and data, etc.), and such data may be cached in memory or local storage media for the operation of some functions. The data obtained by this software is only for local use, and there is no interception, uploading, or collection of any data from the user and the user's personal device.
+
+6. No Warranties and Limitation of Liability
+  1. Except as expressly provided by laws and regulations, I will do my best to ensure that the licensed software and the technology and information involved in it are safe, effective, accurate and reliable, but subject to the prior art, you understand that I cannot guarantee this.
+  2. You understand that I cannot be held liable for your direct or indirect losses caused by force majeure and third party reasons.
+  3. You shall be solely responsible for any personal injury or incidental or indirect damages, including but not limited to loss of profits, loss of data, damages for business interruption or other business damages or losses, arising out of or in connection with any of the following circumstances:
+    1) use or failure to use the Licensed Software;
+    2) unauthorized use of the licensed software or alteration of your data by a third party;
+    3) Expenses and losses arising from the use of the licensed software;
+    4) your misunderstanding of the Licensed Software;
+    5) Other losses related to the licensed software that are not attributable to the person in question.
+  4. When you and other users using the licensed software through the licensed software, the party at fault shall bear all the responsibilities for any psychological and physical harm and economic losses that may be caused or may result from you being misled or deceived by you.
+
+7. Announcement of third-party SDKs
+  1. Umeng Statistical Analysis SDK
+    Purpose of use: to conduct statistics and analysis of APP operation
+    Operator: Umeng Tongxin (Beijing) Technology Co., Ltd
+    Type of personal information collected: device information (IMEI/MAC/Android ID/IDFA/OAID/OpenUDID/GUID/SIM card, IMSI/ICCID), location information, network information
+    Link to Privacy Policy: https://www.umeng.com/page/policy
+  2. Umeng push SDK
+    Purpose of use: APP message push
+    Operator: Umeng Tongxin (Beijing) Technology Co., Ltd
+    Type of personal information collected: device information (IMEI/MAC/Android ID/IDFA/OAID/OpenUDID/GUID/SIM card, IMSI/ICCID), location information, network information
+    Link to Privacy Policy: https://www.umeng.com/page/policy
+  3. Umeng Monitoring SDK
+    Purpose of use: U-APM, an application performance monitoring platform, is used to uniquely identify devices in order to provide device application performance monitoring services; Provide anti-cheat services by collecting location information, eliminate cheating devices, and troubleshoot the cause of application performance crashes
+    Operator: Umeng Tongxin (Beijing) Technology Co., Ltd
+    Type of personal information collected: Device information (IMEI/MAC/Android ID/OAID/IDFA/OpenUDID/GUID/SIM card, IMSI/ICCID/geolocation, etc.)
+    Link to Privacy Policy: https://www.umeng.com/page/policy
+  4. Umeng Share SDK
+    Purpose: Support users to share APP content on mainstream applications
+    Operator: Umeng Tongxin (Beijing) Technology Co., Ltd
+    Type of personal information collected: device information (IMEI/MAC/Android ID/IDFA/OAID/OpenUDID/GUID/SIM card, IMSI/ICCID), location information, network information
+    Link to Privacy Policy: https://www.umeng.com/page/policy
+
+VIII. About the Agreement
+  1. This Agreement is updated by Internet channels.
+  2. Agreement last updated: 29.09.2024

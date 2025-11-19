@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<title>腕管Pro</title>
+<icon>icon.png</icon>
+<packageName>open.cn.awg.pro</packageName>
+<versionName>5.0.0</versionName>
+<versionint>2510030</versionint>
+<sdk>22</sdk>
+<yuv>5</yuv>
+<remark>腕上管家升级版</remark>
+<Permissions>android.permission.READ_PHONE_STATE
+android.permission.INTERNET
+android.permission.WRITE_EXTERNAL_STORAGE
+android.permission.REQUEST_INSTALL_PACKAGES</Permissions>
+<createTime>2021-07-24 19:32:06</createTime>
+<upTime>2021-07-24 19:32:06</upTime><zdiAppDir>已开启</zdiAppDir><iConfusionRule>0</iConfusionRule>

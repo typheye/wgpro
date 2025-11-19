@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c11_v" android:layout_width="match_parent" android:layout_height="wrap_content">
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><RelativeLayout android:id="@+id/xdbjbkj" android:layout_width="wrap_content" android:layout_height="wrap_content" android:visibility="gone"><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="34dp" android:layout_height="34dp" app:cardCornerRadius="5dp" app:cardBackgroundColor="@color/colorAccent" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="2.5dp"><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent"><LinearLayout android:id="@+id/xxbj_4" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center"><TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorWhite" android:textSize="15sp" android:textStyle="bold"/></LinearLayout><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="#00000000" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnLongClickListener><onLongClick>s e10=cj.e10()
+s lb=sj.lb(vw)
+s b=lb.lbcfsj(zy.i.wb2)
+e10.ltspostat(b)
+st.kp(zy.i.kp7).kjd(8)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></ImageView></RelativeLayout></android.support.v7.widget.CardView></RelativeLayout><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:paddingLeft="0dp" android:paddingRight="0dp" android:layout_marginTop="3dp" android:layout_marginBottom="3dp" android:gravity="left" android:layout_marginLeft="5dp" android:layout_marginRight="5dp"><LinearLayout android:id="@+id/xxbj24" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:visibility="gone"><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="发布时间:" android:textColor="@color/colorTextU2" android:textSize="9sp" android:textStyle="bold" android:visibility="visible" android:layout_marginRight="2dp"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0000-00-00 00:00:00" android:textColor="@color/colorWhite" android:textSize="9sp" android:singleLine="true" android:gravity="center" android:layout_marginRight="1dp" android:visibility="visible"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src><LinearLayout android:id="@+id/xxbj4k" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical"><LinearLayout android:id="@+id/xxbjhide4k" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone"><TextView android:id="@+id/wb22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="风险" android:textColor="@color/colorBlack" android:textSize="9sp" android:textStyle="bold" android:visibility="visible" android:layout_marginRight="2dp" android:background="@drawable/text3bj" android:paddingLeft="3dp" android:paddingRight="3dp" android:singleLine="true"/></LinearLayout><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="管理员" android:textColor="@color/colorBlack" android:textSize="9sp" android:textStyle="bold" android:visibility="visible" android:layout_marginRight="2dp" android:background="@drawable/text2bj" android:paddingLeft="3dp" android:paddingRight="3dp" android:singleLine="true"/><TextView android:id="@+id/wb21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="未知" android:textColor="@color/colorBlack" android:textSize="9sp" android:textStyle="bold" android:visibility="visible" android:layout_marginRight="2dp" android:background="@drawable/text1bj" android:paddingLeft="3dp" android:paddingRight="3dp" android:singleLine="true" android:ellipsize="end" android:maxLength="2"/><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="用户名" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:singleLine="true" android:layout_marginRight="0dp"><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnTouchListener><onTouch/></setOnTouchListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></TextView><Yu5Src><setOnLongClickListener><onLongClick>s e10=cj.e10()
+s lb=sj.lb(vw)
+s b=lb.lbcfsj(zy.i.wb2)
+e10.ltspostat(b)
+st.kp(zy.i.kp7).kjd(8)
+fh shi</onLongClick></setOnLongClickListener><setOnClickListener><onClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+s a=lb.lbcfsj(zy.i.wb2)
+s b=lb.lbcfsj(-3)
+s c=lb.lbcfsj(-2)
+b=zf.qctwkg(b)
+rg b=="w0"||b==""||b=="0"||b==null||b=="null"{
+  b="未注册用户"
+}
+c=zf.qctwkg(c)
+rg c=="未知"||c=="0"||c==""||c=="null"||c==null{
+  c="未知IP属地"
+}
+e1.tsk("详细信息","[用户昵称]\n"+a+"\n\n[用户UID]\n"+b+"\n\n[IP属地]\n"+c)</onClick></setOnClickListener></Yu5Src><TextView android:id="@+id/wb11" android:layout_width="15dp" android:layout_height="wrap_content" android:text="" android:visibility="visible"/></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="wrap_content" android:layout_height="wrap_content" app:cardCornerRadius="3dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" app:cardBackgroundColor="@color/colorWB" android:layout_marginTop="3dp"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:padding="8dp"><LinearLayout android:id="@+id/xxbj2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical"><LinearLayout android:id="@+id/xxbjat" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone"><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TA@我" android:textColor="@color/colorTextTrue" android:textSize="9sp" android:textStyle="bold" android:singleLine="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="用户消息" android:textColor="@color/colorTextU1" android:textSize="13sp"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><LinearLayout android:id="@+id/xxbjfj" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="5dp" android:background="@drawable/msgfbj" android:layout_marginTop="3dp" android:visibility="gone"><ImageView android:id="@+id/tx2" android:layout_width="20dp" android:layout_height="20dp" android:src="@null"/><TextView android:id="@+id/wb8" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="[附件]" android:textColor="@color/colorTextU1" android:textSize="11sp" android:layout_marginLeft="3dp" android:singleLine="true"/><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+s a=st.wb(vw,zy.i.wb8).zf()
+s b=st.wb(vw,zy.i.wb9).zf()
+rg a=="[附件]图片"{
+  rg b==""{
+    e1.tsk("提示","链接指向错误")
+  },{
+    rg b!=""{
+      string c1=b
+      yc{
+        s cc=zf.fg(b,"/")
+        string c2=cc[cc.length-1].toString()
+        rg c1!=""&amp;&amp;c2!=""{
+          gd s name = { "url","md5" }
+          gd s value = { c1,c2 }
+          gj.jmxc(){
+            gj.tz(d3.iyu, name, value)
+          }
+        },{
+          e1.tsk("提示","链接指向错误")
+        }
+      },(e){
+        e1.upload_error(e,"c11.*")
+      }
+    },{
+      e1.tsk("提示","链接指向错误")
+    }
+  }
+},a=="[附件]音频"||a=="[附件]视频"{
+  rg b==""{
+    e1.tsk("提示","链接指向错误")
+  },{
+    rg b!=""{
+      string c1=b
+      yc{
+        s cc=zf.fg(b,"/")
+        string c2=cc[cc.length-1].toString()
+        rg c1!=""&amp;&amp;c2!=""{
+          s name = { "url" }
+          s value = { c1 }
+          gj.tz(g2.iyu, name, value)
+        },{
+          e1.tsk("提示","链接指向错误")
+        }
+      },(e){
+        e1.upload_error(e,"c11.*")
+      }
+    },{
+      e1.tsk("提示","链接指向错误")
+    }
+  }
+},a=="[附件]文件"{
+  rg b==""{
+    e1.tsk("提示","链接指向错误")
+  },{
+    rg b!=""{
+      string c1=b
+      yc{
+        s cc=zf.fg(b,"/")
+        string c2=cc[cc.length-1].toString()
+        rg c1!=""&amp;&amp;c2!=""{
+          gd s name = { "url"}
+          gd s value = { c1 }
+          gj.jmxc(){
+            gj.tz(l2.iyu, name, value)
+          }
+        },{
+          e1.tsk("提示","链接指向错误")
+        }
+      },(e){
+        e1.upload_error(e,"c11.*")
+      }
+    },{
+      e1.tsk("提示","链接指向错误")
+    }
+  }
+},{
+  e1.tsk("提示","未知类型附件")
+}</onClick></setOnClickListener></Yu5Src><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/></LinearLayout></LinearLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+s a=lb.lbcfsj(zy.i.wb1)
+s b=lb.lbcfsj(zy.i.wb2)
+s c=lb.lbcfsj(zy.i.wb3)
+s d=lb.lbcfsj(-2)
+s e=lb.lbcfsj(-3)
+//e1.tsk("详细信息","[昵称]\n"+b+"\n\n[发布时间]\n"+c+"\n\n[消息]\n"+a)
+s name = { "name", "time", "data","address","luid" }
+s value = { b, c, a, d, e }
+gj.tz(i3.iyu, name, value)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></android.support.v7.widget.CardView></LinearLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src><TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:gravity="center" android:textSize="11sp" android:textColor="@color/colorTextU2" android:padding="3dp" android:visibility="gone" android:layout_marginTop="3dp" android:layout_marginBottom="3dp" android:singleLine="true" android:layout_centerHorizontal="true"><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+s a=st.wb(vw,zy.i.wb10).zf()
+e1.tsk("消息详情",a)</onClick></setOnClickListener></Yu5Src></TextView><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="40dp" android:orientation="vertical" android:visibility="gone"/></RelativeLayout>

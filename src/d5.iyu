@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/d5_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+/*
+@2021 d2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+//com.shixin.Edito
+//载入文本
+s e1=cj.e1()
+yc{
+  url=sj.hqtz("url")
+  String d1_rootpaths
+  java d1_rootpaths=open.cn.awg.pro.abc.d1_rootpath
+  s fhValue=e1.fileinfo(d1_rootpaths,url)
+  s bts=""
+  rg fhValue[3]==""{
+    bts="文本编辑器"
+  },{
+    bts=fhValue[3]
+  }
+  //st.wb(zy.i.Tab).zf(bts)
+  rg wj.cz(url)==true{
+    rg wj.dx(url)&gt;102400{
+      e1.tsk("提示","文本长度过大,无法进行编辑")
+      gj.gb()
+    },{
+      s t=wj.dqwb(url)
+      s text=st.bjk(zy.i.bjk1)
+      text.szzt("@resource/a7e484743f6796f092cd859819cb5fc8")
+      text.zf(t)
+    }
+  },{
+    e1.tsk("提示","文件不存在")
+    gj.gb()
+  }
+},(e){
+  e1.upload_error(e,"d5.*")
+  gj.gb()
+}</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.d5_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.d5_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+  st.xxbj(zy.i.xxbj2).nbj(u,0,u,50)
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xxbj(zy.i.xxbj2).nbj(0,0,0,0)
+},a=="3"{
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+  st.xxbj(zy.i.xxbj2).nbj(u,0,u,50)
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+    int uih=pm.ztl/2+9
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,uih+"dp",0,"9dp")
+    wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xxbj(zy.i.xxbj2).nbj(0,0,0,0)
+}
+
+//个性化设置
+s set2 = "/data/user/0/open.cn.awg.pro/settings/d2/set2.inf"
+int iss=wj.dqwb(set2)
+s text=st.bjk(zy.i.bjk1)
+//text.ztdx(iss)
+s set3 = "/data/user/0/open.cn.awg.pro/settings/d2/set3.inf"
+s set4 = "/data/user/0/open.cn.awg.pro/settings/d2/set4.inf"
+gd s color1=wj.dqwb(set3)
+gd s color2=wj.dqwb(set4)
+//text.zfys(color1)
+//st.xdbj(zy.i.d5_v).bj(color2)
+
+//弹出教程
+s set = "/data/user/0/open.cn.awg.pro/settings/set3.inf"
+rg wj.dqwb(set)=="true"{
+  s te=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a15")
+  s name = { "title" , "text" }
+  s value = { "新手教程" , te }
+  gj.tz(a3.iyu, name, value)
+}</__layoutIsLoaded></__layoutIsLoaded><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><iClass><iClass>s e1=cj.e1()
+s url=""</iClass></iClass><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+
+fh fou</onKeyDown></onKeyDown></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 文本编辑" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnLongClickListener><onLongClick/></setOnLongClickListener><setOnClickListener><onClick>/*s te=st.wb(zy.i.Tab).zf()
+s name = { "title" , "text" }
+s value = { "详细信息" , te }
+gj.tz(a3.iyu, name, value)*/
+gj.gb()</onClick></setOnClickListener><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></TextView><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/Tab"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center"><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none" android:layout_weight="1" android:background="@color/colorTabBackground" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:background="#00000000" android:padding="8dp" android:textColorHint="@color/colorTextU2"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText></android.support.v4.widget.NestedScrollView><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a51" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>s te=st.bjk(zy.i.bjk1).zf()
+rg wj.xrwb(url,te)==true{
+  e1.tsk("提示","保存成功")
+},{
+  e1.tsk("提示","保存失败")
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></RelativeLayout></RelativeLayout>

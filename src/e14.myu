@@ -1,0 +1,518 @@
+//-----Top-----
+//配置全局变量
+qj i.runlibrary.app.v.v7lb$UserAdapter cjlbcdspq
+qj i.runlibrary.app.v.v7lb cjlbcdlb
+qj i.runlibrary.app.v.v7lb$UserAdapter spq2
+qj i.runlibrary.app.v.v7lb lb2
+qj android.content.Context context
+qj LinearLayoutManager mLayoutManager
+qj s set47 = "/data/user/0/open.cn.awg.pro/settings/db/plugin.db"
+qj i.runlibrary.app.sj$sjk sjk
+qj int bjkmode=0
+s e1=cj.e1()
+s e11=cj.e11()
+//-----End-----
+
+//-----Top-----
+
+ff boolean part_buildNewPlu(s name,s id,s pass){
+	gj.zt(500)
+	gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f19/set2.inf"
+	name=zf.qctwkg(name)
+	id=zf.qctwkg(id)
+	rg name==""||id==""||pass=="" {
+		e1.tsk("提示","提交失败：请填写完整")
+	},{
+		yc{
+			s url=e1.urlUnlockString(wj.dqwb(set2))
+			rg url*?"/"{
+			},{
+				url=url+"/"
+			}
+			s idget=url+"class/api.php?type=make"
+			s pt={"title="+name,"id="+id,"pass="+pass}
+			//s st5 = wl.hq(idget, null, "utf-8", null, true, "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN", 20000, 20000, null)
+			s st5 = wl.hq(idget,pt,"utf-8",null,true,null,20000,20000,null)
+			rg st5=="null"||st5==""||st5==null{
+				e1.tsk("提示","提交失败：连接服务器异常")
+			},{
+				st5=zf.qctwkg(st5)
+				st5=zf.th(st5,"<br>","  ")
+				e1.tsk("提示",st5)
+			}
+		},{
+			e1.tsk("提示","提交失败：出现异常")
+		}
+	}
+	fh true
+}
+
+//初始化:csh()
+ff csh(){
+	e11.setup_pluginlist()
+	sjk=sj.sjk(set47)
+	cjlbcdlb=st.v7lb(zy.i.cjlbv7lb2)
+	cjlbcdspq=cjlbcdlb.v7lbspq(c18.lei,zy.b.c18)(ua, pn, vw){
+		s lbsj = sj.lb(vw)
+		gd s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+		rg f == 1{
+			s color=zf.zf(zy.color.colorTextFalse)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			
+			st.wb(vw, zy.i.dp20).kjd(8)
+		},f==-1{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(8)
+			st.xxbj(vw, zy.i.xxbj1).xydj(false)
+			st.xxbj(vw, zy.i.xxbj1).xyca(false)
+			st.wb(vw, zy.i.dp20).kjd(0)
+		},{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		}
+	}
+	lb2=st.v7lb(zy.i.cjlbv7lb1)
+	spq2=lb2.v7lbspq(c19.lei,zy.b.c19)(ua, pn, vw){
+	}
+}
+
+
+ff cjlbview(int a){
+	gd int i=a
+	gd s root=st.xxbj(zy.i.xxbj1)
+	gd s load=st.xxbj(zy.i.xxbj3)
+	gd s cd=st.xxbj(zy.i.xxbj2)
+	gd s add=st.xxbj(zy.i.xxbj4)
+	gd s qtgd1=st.qtgd(zy.i.qtgd1)
+	gj.jmxc(){
+		rg i==0{
+			root.kjd(0)
+			load.kjd(8)
+			cd.kjd(8)
+			add.kjd(8)
+		},i==1{
+			root.kjd(8)
+			load.kjd(0)
+			cd.kjd(8)
+			add.kjd(8)
+		},i==2{
+			root.kjd(8)
+			load.kjd(8)
+			cd.kjd(0)
+			add.kjd(8)
+		},i==3{
+			root.kjd(8)
+			load.kjd(8)
+			cd.kjd(8)
+			add.kjd(0)
+		}
+		qtgd1.v.requestFocus()
+	}
+}
+
+ff cjlbcd(int i){
+	rg i==0{
+		gj.jmxc(){
+			st.wb(zy.i.Tab).zf("< 扩展插件")
+			cjlbview(0)
+		}
+	},i==4{
+		gj.jmxc(){
+			st.wb(zy.i.Tab).zf("添加扩展")
+			st.bjk(zy.i.bjk1).zf("")
+			cjlbview(3)
+			bjkmode=1
+		}
+	},i==5{
+		s cachehd1 = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_title"
+		gd s bz=wj.dqwb(cachehd1)
+		gj.jmxc(){
+			st.wb(zy.i.Tab).zf("扩展备注")
+			st.bjk(zy.i.bjk1).zf(bz)
+			cjlbview(3)
+			bjkmode=2
+		}
+	},{
+		cjlbview(2)
+		cjlbcdspq.sc()
+		s kj={zy.i.wb1,zy.i.wb2,zy.i.wb3,zy.i.wb4,zy.i.wb5,-1}
+		s jk={"","","","","",0}
+		rg i==1{
+			jk={"刷新","","","","",0}
+			cjlbcdspq.j(kj,jk)
+			jk={"添加扩展","","","","",0}
+			cjlbcdspq.j(kj,jk)
+			jk={"新建扩展","","","","",0}
+			cjlbcdspq.j(kj,jk)
+			jk={"退出","","","","",0}
+			cjlbcdspq.j(kj,jk)
+		},i==2{
+			jk={"备注扩展","","","","",0}
+			cjlbcdspq.j(kj,jk)
+			jk={"移除扩展","","","","",0}
+			cjlbcdspq.j(kj,jk)
+			jk={"清除扩展缓存","","","","",0}
+			//cjlbcdspq.j(kj,jk)
+		}
+		jk={"返回","back","","","",1}
+		cjlbcdspq.j(kj,jk)
+		s spxx="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+		jk={"","","","","",-1}
+		cjlbcdspq.j(kj,jk)
+		s axc=wj.dqwb(spxx)
+		rg axc=="1"||axc=="3"{
+			jk={"","","","","",-1}
+			cjlbcdspq.j(kj,jk)
+			jk={"","","","","",-1}
+			cjlbcdspq.j(kj,jk)
+		}
+		gj.jmxc(){
+			cjlbcdspq.sx()
+			st.v7lb(zy.i.cjlbv7lb2).xzwz("top")
+			st.wb(zy.i.Tab).zf("菜单")
+		}
+	}
+}
+
+ff dj_cjlbcd(s a,s b,s c,s d){
+	rg a=="返回"{
+		cjlbcd(0)
+	},a=="备注扩展"{
+		s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+		s id=wj.dqwb(cachehd)
+		st.bjk(zy.i.bjk1).zf("")
+		st.bjk(zy.i.bjk1).tszf("请输入扩展备注")
+		st.bjk(zy.i.bjk1).wblx("text")
+		cjlbcd(5)
+	},a=="刷新"{
+		cjlbcd(0)
+		cjlbsx()
+	},a=="添加扩展"{
+		st.bjk(zy.i.bjk1).zf("")
+		st.bjk(zy.i.bjk1).tszf("请输入扩展ID")
+		st.bjk(zy.i.bjk1).wblx("number")
+		cjlbcd(4)
+	},a=="新建扩展"{
+		/*s set2 = "/data/user/0/open.cn.awg.pro/settings/f19/set2.inf"
+		s url=e1.urlUnlockString(wj.dqwb(set2))
+		gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+		s a8=wj.dqwb(a2)
+		rg a8=="4"{
+		rg e1.isInstallX5()==true{
+		gd s name = { "url" }
+		gd s value = { url }
+		gj.tz(j6.iyu, name, value)
+		},{
+		wl.fw(url)
+		}
+		},{
+		rg e1.isInstallX5()==true{
+		gd s name = { "url" }
+		gd s value = { url }
+		gj.tz(j6.iyu, name, value)
+		},{
+		e1.tsk_QR("新建","如果您需要新建扩展,请扫描下方二维码后在手机上操作.",url)
+		}
+		}*/
+		e1.goplu("20003","新建扩展",false)
+		cjlbcd(0)
+	},a=="移除扩展"{
+		cjlbcd(0)
+		s nr=""
+		s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+		s id=wj.dqwb(cachehd)
+		s sjhc="/data/user/0/open.cn.awg.pro/data/cjlb/chat/"+id
+		int u=e11.findid_pluginlist(id)
+		string uss=u
+		boolean b1=e11.delete_pluginlist(uss)
+		wj.sc(sjhc)
+		rg b1==true{
+			nr="移除成功"
+		},{
+			nr="移除失败"
+		}
+		cjlbcd(0)
+		cjlbsx()
+		e1.tsk("提示",nr)
+	},a=="清除扩展缓存"{
+		cjlbcd(0)
+		s nr=""
+		s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+		s id=wj.dqwb(cachehd)
+		s sjhc="/data/user/0/open.cn.awg.pro/data/cjlb/chat/"+id
+		boolean b1=wj.sc(sjhc)
+		rg b1==true{
+			nr="清除成功"
+		},{
+			nr="清除失败"
+		}
+		e1.tsk("提示",nr)
+		cjlbcd(0)
+	},a=="退出"{
+		cjlbcd(0)
+		gj.gb()
+	},{
+	}
+}
+
+ff cjlbsx(){
+	gd s set1 = "/data/user/0/open.cn.awg.pro/settings/f11/set1.inf"
+	gj.xc(){
+		gj.jmxc(){
+			st.wb(zy.i.Tab).zf("< 扩展插件")
+			cjlbview(1)
+		}
+		gd s kj={zy.i.wb1,zy.i.wb2,zy.i.wb3}
+		s jk={"","",""}
+		spq2.sc()
+		/*jk={"官方聊天室","10001","10001-官方聊天室"}
+		rg wj.dqwb(set1)=="true"{
+		spq2.j(kj,jk)
+		}*/
+		s ab="/data/user/0/open.cn.awg.pro/settings/candebug"
+		rg wj.cz(ab)==true&&wj.dqwb(ab)=="true"
+		{
+		},{
+			yc{
+				e11.delete_pluginlist(e11.findid_pluginlist("404"))
+			},{
+			}
+		}
+		
+		s table = "_id,uid,name,utext"
+		s sqlx = null
+		s sjk15 = sjk.cxsj("pluginlist", table, sqlx)
+		xh sjk15.xyh()
+		{
+			jk={sjk15.sj(2),sjk15.sj(1),sjk15.sj(3)}
+			spq2.j(kj,jk)
+			// 输出
+			//gj.sc(sjk15.sj(0)+ ", " + sjk15.sj(1)+ ", " + sjk15.sj(2)+ ", " + sjk15.sj(3));
+		}
+		gj.jmxc(){
+			spq2.sx()
+			cjlbview(0)
+		}
+	}
+}
+
+ff bjsj(){
+	gd s kzsjhc="/data/user/0/open.cn.awg.pro/data/cjlb/chat/"
+	gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f19/set2.inf"
+	s bjknr=st.bjk(zy.i.bjk1).zf()
+	bjknr=zf.qctwkg(bjknr)
+	gd s bjknrs=bjknr
+	rg bjknrs==""{
+		rg bjkmode==2{
+			e1.tsk("提示","扩展备注不能为空")
+		},bjkmode==1{
+			e1.tsk("提示","扩展ID不能为空")
+		}
+	},{
+		rg bjkmode==2{
+			s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+			gd s id=wj.dqwb(cachehd)
+			gj.xc(){
+				s nr=""
+				cjlbview(1)
+				int u=e11.findid_pluginlist(id)
+				string uss=u
+				gj.sc(u)
+				boolean b1=e11.update_pluginlist(uss,"name",bjknrs)
+				gj.sc(b1)
+				rg b1==true{
+					nr="扩展备注修改成功"
+				},{
+					nr="扩展备注修改失败"
+				}
+				cjlbsx()
+				e1.tsk("提示",nr)
+			}
+		},bjkmode==1{
+			//boolean b1=add_pluginlist("11121","测试","11121-测试")
+			gj.xc(){
+				cjlbview(1)
+				gj.zt(500)
+				s nr=""
+				s zz = zf.zzbds(bjknrs, "[0-9]*$", 0)
+				boolean b2=zz.sfppcg()
+				rg b2==true{
+					s b4=""
+					boolean can=true
+					rg bjknrs=="404"{
+						s ab="/data/user/0/open.cn.awg.pro/settings/candebug"
+						rg wj.cz(ab)==true&&wj.dqwb(ab)=="true"
+						{
+							b4="App Debug"
+						},{
+							can=false
+						}
+					},bjknrs=="10000"{
+						b4="扩展推荐"
+					},bjknrs=="10001"{
+						b4="文件下载"
+					},bjknrs=="10002"{
+						b4="文本翻译"
+					},bjknrs=="10004"{
+						b4="网络直播"
+					},bjknrs=="10005"{
+						b4="位置信息"
+					},bjknrs=="10007"{
+						b4="应用列表"
+					},bjknrs=="10010"{
+						b4="WearOS工具箱"
+					},bjknrs=="10011"{
+						b4="TuneFree"
+					},bjknrs=="10015"{
+						b4="腕管远控"
+					},{
+						/*
+						,bjknrs=="10009"{
+						b4="ChatGPT"
+						},bjknrs=="10012"{
+						b4="DeepSeek"
+						}
+						*/
+						yc{
+							s url=e1.urlUnlockString(wj.dqwb(set2))
+							rg url*?"/"{
+							},{
+								url=url+"/"
+							}
+							s idget=url+"project/"+bjknrs+".json"
+							s st5 = wl.hq(idget,null,"utf-8",null,true,null,20000,20000,null)
+							rg st5==null{
+								can=false
+							},{
+								s _b4=e1.readJson(st5,"room")
+								_b4=_b4.toString()
+								b4=_b4
+								wj.xrwb(kzsjhc+bjknrs,st5)
+							}
+						},(e){
+							can=false
+						}
+					}
+					rg can==true{
+						boolean b3=e11.add_pluginlist(bjknrs,b4,bjknrs+"-"+b4)
+						rg b3==true{
+							nr="添加成功"
+						},{
+							nr="添加失败"
+						}
+					},{
+						nr="添加失败"
+					}
+					cjlbview(0)
+					cjlbsx()
+					e1.tsk("提示",nr)
+				},{
+					cjlbview(3)
+					e1.tsk("提示","扩展ID仅为纯数字")
+				}
+			}
+		},{
+			cjlbcd(0)
+		}
+	}
+}
+ff boolean newG(int ii){
+	boolean isR=false
+	gd int i=ii
+	isR=false
+	rg i==10000{
+		s a="400"
+		s b="扩展推荐"
+		rg e11.findid_talklist(a)==0{
+			e11.setup_talklist()
+			e11.add_talklist(a,b,a+"-"+b)
+		}
+		s cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id"
+		wj.xrwb(cachehd,a)
+		s cachehd2 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title"
+		wj.xrwb(cachehd2,b)
+		gd s name = { "uid" }
+		gd s value = { a }
+		gj.jmxc(){
+			gj.tz(i2.iyu, name, value)
+		}
+	},i==10001{
+		gj.jmxc(){
+			gj.tz(l2.iyu)
+		}
+	},i==10002{
+		gj.jmxc(){
+			gj.tz(l3.iyu)
+		}
+	},i==10003{
+		e11.delete_pluginlist(e11.findid_pluginlist("10003"))
+		e1.tsk("提示","此扩展已废弃,已自动为您移除,请留意扩展推荐")
+	},i==10004{
+		gj.jmxc(){
+			gj.tz(l5_a3_zhibo_d0420_y2022.iyu)
+		}
+	},i==10005{
+		gj.jmxc(){
+			gj.tz(j8.iyu)
+		}
+	},i==10006{
+		e11.delete_pluginlist(e11.findid_pluginlist("10006"))
+		e1.tsk("提示","此扩展已废弃,已自动为您移除,请留意扩展推荐")
+		/*gj.jmxc(){
+		gj.tz(f3.iyu)
+		}*/
+	},i==10007{
+		gj.jmxc(){
+			gj.tz(l6.iyu)
+		}
+	},i==10008{
+		e11.delete_pluginlist(e11.findid_pluginlist("10008"))
+		e1.tsk("提示","此扩展已废弃,已自动为您移除,请留意扩展推荐")
+		/*gj.jmxc(){
+		gj.tz(l5_a2_nimin_d0415_y2022.iyu)
+		}*/
+	},i==10009{
+		e11.delete_pluginlist(e11.findid_pluginlist("10009"))
+		e1.tsk("提示","此扩展已废弃,已自动为您移除,请留意扩展推荐")
+		/*gj.jmxc(){
+		gj.tz(l5_a5_chatg_d0312_y2023.iyu)
+		}*/
+	},i==10010{
+		gj.jmxc(){
+			gj.tz(l5_a6_wearo_d0314_y2023.iyu)
+		}
+	},i==10011{
+		gj.jmxc(){
+			gj.tz(l5_a2_nimin_d0415_y2022.iyu)
+		}
+		/*e11.delete_pluginlist(e11.findid_pluginlist("10011"))
+		e1.tsk("Tunefree","因Tunefree原因，腕管Pro将暂停支持此扩展，已自动为您移除，感谢您对Tunefree的支持")*/
+	},i==10012{
+		e11.delete_pluginlist(e11.findid_pluginlist("10012"))
+		e1.tsk("提示","此扩展已废弃,已自动为您移除,请留意扩展推荐")
+		/*gj.jmxc(){
+		gj.tz(l5_a8_deeps_d0207_y2025.iyu)
+		}*/
+	},i==10015{
+		gj.jmxc(){
+			gj.tz(l5_a7_yuanc_d0625_y2024.iyu)
+		}
+		/*e11.delete_pluginlist(e11.findid_pluginlist("10020"))
+		e1.tsk("提示","此扩展已废弃,已自动为您移除,请留意扩展推荐")*/
+	},i==404{
+		gj.jmxc(){
+			gj.tz(l5_a4_debug_d0527_y2022.iyu)
+		}
+	},{
+		isR=true
+	}
+	fh isR
+}

@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/l2_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+s shs=sj.hqtz("url")
+shs=zf.qctwkg(shs)
+ty=sj.hqtz("type")
+appid=sj.hqtz("appid")
+rg shs!=null&amp;&amp;shs!=""{
+  st.bjk(zy.i.bjk1).zf(shs)
+  st.bjk(zy.i.bjk1).kjd(8)
+},{
+  st.bjk(zy.i.bjk1).kjd(0)
+}
+rg ty=="app"{
+  st.wb(zy.i.Tab).zf("&lt; 应用下载")
+  st.an(zy.i.an2).kjd(8)
+  st.an(zy.i.an3).kjd(8)
+  s path="/storage/emulated/0/Android/data/open.cn.awg.pro/files/app/download/"+appid+"/base.apk"
+  rg wj.cz(path) {
+    st.an(zy.i.an4).kjd(0)
+  }
+}
+s xlcd1=st.xlcd(zy.i.xlcd1)
+rg ty=="app"{
+  s sz = { "使用系统下载器", "使用软件下载器" }
+  xlcd1.csh(sz)
+},{
+  s sz = { "使用系统下载器", "使用系统下载器[自定义]","使用软件下载器" }
+  xlcd1.csh(sz)
+}</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.l2_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.l2_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+    int uih=pm.ztl/2+9
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,uih+"dp",0,"9dp")
+    wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}
+</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s e1=cj.e1()
+File f
+s ty=""
+s appid=""</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 文件下载" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><Button android:id="@+id/an2" android:layout_width="match_parent" android:layout_height="35dp" android:text="打开应用内部下载目录" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:layout_marginBottom="3dp" android:layout_marginTop="3dp"><Yu5Src><setOnClickListener><onClick>s ftitle="/data/user/0/open.cn.awg.pro/cache/file/title"
+wj.xrwb(ftitle,"&lt; 下载目录")
+s path="/storage/emulated/0/Android/data/open.cn.awg.pro/files/Download/"
+gd s name = { "url","root" }
+gd s value = { path,path }
+gj.jmxc(){
+  gj.tz(d1.iyu, name, value)
+}</onClick></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an3" android:layout_width="match_parent" android:layout_height="35dp" android:text="打开设备存储下载目录" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:layout_marginBottom="3dp"><Yu5Src><setOnClickListener><onClick>s ftitle="/data/user/0/open.cn.awg.pro/cache/file/title"
+wj.xrwb(ftitle,"&lt; 下载目录")
+s path="/storage/emulated/0/Download/"
+gd s name = { "url","root" }
+gd s value = { path,path }
+gj.jmxc(){
+  gj.tz(d1.iyu, name, value)
+}</onClick></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an4" android:layout_width="match_parent" android:layout_height="35dp" android:text="打开应用下载目录" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:visibility="gone" android:layout_marginBottom="3dp" android:layout_marginTop="3dp"><Yu5Src><setOnClickListener><onClick>s ftitle="/data/user/0/open.cn.awg.pro/cache/file/title"
+wj.xrwb(ftitle,"&lt; 下载目录")
+s path="/storage/emulated/0/Android/data/open.cn.awg.pro/files/app/download/"+appid+"/"
+wj.xrwb(path+".nomedia","")
+wj.sc(path+".nomedia")
+gd s name = { "url","root" }
+gd s value = { path,path }
+gj.jmxc(){
+  gj.tz(d1.iyu, name, value)
+}</onClick></setOnClickListener></Yu5Src></Button><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入文件下载链接" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:visibility="gone" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginBottom="3dp"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><Spinner android:id="@+id/xlcd1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/xlcdbj" android:layout_marginBottom="3dp"><Yu5Src><setOnItemSelectedListener><onItemSelected>rg ty=="app"{
+  st.bjk(zy.i.bjk2).kjd(8)
+},{
+  rg pn==1||pn==2{
+    s path2="/storage/emulated/0/Android/data/open.cn.awg.pro/files/Download/"
+    s path1="/storage/emulated/0/Download/"
+    s add=".file"
+    int sdk = xt.sbxx().sdk
+    rg sdk&lt;30{
+      st.bjk(zy.i.bjk2).zf(path1+xt.sj(4)+add)
+    },{
+      st.bjk(zy.i.bjk2).zf(path2+xt.sj(4)+add)
+    }
+    st.bjk(zy.i.bjk2).kjd(0)
+  },{
+    st.bjk(zy.i.bjk2).kjd(8)
+  }
+}</onItemSelected></setOnItemSelectedListener></Yu5Src></Spinner><EditText android:id="@+id/bjk2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入文件保存路径" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:visibility="gone" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginBottom="3dp"/><Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:text="下载" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:layout_marginBottom="0dp"><Yu5Src><setOnClickListener><onClick>s bjk1=st.bjk(zy.i.bjk1).zf()
+bjk1=zf.qctwkg(bjk1)
+s bjk2=st.bjk(zy.i.bjk2).zf()
+bjk2=zf.qctwkg(bjk2)
+s xlcd1=st.xlcd(zy.i.xlcd1)
+rg bjk1==""{
+  e1.tsk("提示","文件下载链接不能为空")
+},{
+  rg e1.urlLockString(bjk1)=="0"{
+    e1.tsk("提示","文件下载链接无效")
+  },{
+    s a=xt.qxgl()
+    rg a.qx("android.permission.WRITE_EXTERNAL_STORAGE")==true{
+      rg ty=="app"{
+        rg xlcd1.dqzsxmxh()==0{
+          s path="/storage/emulated/0/Android/data/open.cn.awg.pro/files/app/download/"+appid+"/base.apk"
+          f=wj.wj(path)
+          java gl.xz.download(bjk1,this,1,f);
+          e1.tsk("提示","已在后台开始下载")
+          st.xlcd(zy.i.xlcd1).kjd(8)
+          st.an(zy.i.an1).kjd(8)
+          st.an(zy.i.an4).kjd(0)
+        },xlcd1.dqzsxmxh()==1{
+          bjk2="/storage/emulated/0/Android/data/open.cn.awg.pro/files/app/download/"+appid+"/base.apk"
+          s name = { "url","path" }
+          s value = { bjk1,bjk2 }
+          gj.tz(a5.iyu, name, value)
+          st.xlcd(zy.i.xlcd1).kjd(8)
+          st.an(zy.i.an1).kjd(8)
+          st.an(zy.i.an4).kjd(0)
+        }
+      },{
+        rg xlcd1.dqzsxmxh()==0{
+          java gl.xz.download(bjk1,this,0,f);
+          e1.tsk("提示","已在后台开始下载")
+          gj.gb()
+        },xlcd1.dqzsxmxh()==1{
+          rg bjk2==""{
+            e1.tsk("提示","文件保存路径不能为空")
+          },{
+            f=wj.wj(bjk2)
+            java gl.xz.download(bjk1,this,1,f);
+            e1.tsk("提示","已在后台开始下载")
+            gj.gb()
+          }
+        },xlcd1.dqzsxmxh()==2{
+          rg bjk2==""{
+            e1.tsk("提示","文件保存路径不能为空")
+          },{
+            s name = { "url","path" }
+            s value = { bjk1,bjk2 }
+            gj.tz(a5.iyu, name, value)
+            gj.gb()
+          }
+        }
+      }
+    },{
+      e1.tsk("提示","您未授权应用\"修改或删除您共享存储空间中的内容\"，请先前往设置授权后再使用")
+    }
+  }
+}</onClick></setOnClickListener></Yu5Src></Button><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c18_v" android:layout_width="match_parent" android:layout_height="wrap_content"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="?android:attr/selectableItemBackground" android:gravity="center" android:padding="5dp"><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+yc{
+  s e14=cj.e14()
+  s lb=sj.lb(vw)
+  s a=lb.lbcfsj(zy.i.wb1)
+  s b=lb.lbcfsj(zy.i.wb2)
+  s c=lb.lbcfsj(zy.i.wb3)
+  s d=lb.lbcfsj(zy.i.wb4)
+  e14.dj_cjlbcd(a,b,c,d)
+},(e){
+  e1.upload_error(e,"c18.*")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+s a=lb.lbcfsj(zy.i.wb1)
+e1.tsk("详细信息",a)
+fh shi</onLongClick></setOnLongClickListener><setOnKeyListener><onKey/></setOnKeyListener></Yu5Src><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout></RelativeLayout>
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="20dp" android:text="" android:visibility="gone"/></RelativeLayout>

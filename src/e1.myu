@@ -1,0 +1,1788 @@
+//-----Top-----
+//配置全局变量
+qj i.runlibrary.app.v.v7lb$UserAdapter spq=null
+qj i.runlibrary.app.v.v7lb lb=null
+qj i.runlibrary.app.v.v7lb$UserAdapter cdspq=null
+qj i.runlibrary.app.v.v7lb cdlb=null
+qj i.runlibrary.app.v.v7lb$UserAdapter sxspq=null
+qj i.runlibrary.app.v.v7lb sxlb=null
+qj i.runlibrary.app.v.v7lb$UserAdapter dkspq=null
+qj i.runlibrary.app.v.v7lb dklb=null
+qj android.content.Context context
+qj String d1_rootpaths
+s e11=cj.e11()
+//-----End-----
+
+ff getlic(){
+	gd s auid = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	gd s sec_license = "/data/user/0/open.cn.awg.pro/data/sec/license"
+	s set2e = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	set2e=wj.dqwb(set2e)
+	set2e=urlUnlockString(set2e)
+	rg set2e*?"/"{
+	},{
+		set2e=set2e+"/"
+	}
+	set2e=set2e+"config_v2.json"
+	//gd s starts="**TOP*"
+	//gd s ends="*END**"
+	gd s url=set2e
+	gj.xc(){
+		s setback=""
+		s version=""
+		s allow=""
+		//  s wlhq1={"name1=value1","name2=value2"}
+		// s back = wl.hq(url,wlhq1,"utf-8","uid=123;name=123;",true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+		s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+		rg back==""||back==null{
+			setback="0"
+		},{
+			//setback=zf.qc(back,starts,ends)
+			setback=htmlToText(back)
+			rg setback=="0"{
+				setback="0"
+			},{
+				version=readJson(setback,"UpdateVersion")
+				allow=readJson(setback,"UpdateAllow")
+				setback=1
+			}
+		}
+		rg setback=="0"{
+		},{
+			rg (allow == "0" || allow ? wj.dqwb(auid)) && islogin() {
+				wj.xrwb(sec_license, sj.md5(setback))
+			},{
+				wj.sc(sec_license)
+			}
+		}
+	}
+}
+
+ff update_v2(int a11,string vn_){
+	gd s auid = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	gd s sec_updater = "/data/user/0/open.cn.awg.pro/data/sec/updater"
+	gd int myappversion=a11
+	gd string vn=vn_
+	s set2e = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	set2e=wj.dqwb(set2e)
+	set2e=urlUnlockString(set2e)
+	rg set2e*?"/"{
+	},{
+		set2e=set2e+"/"
+	}
+	set2e=set2e+"config_v2.json"
+	//gd s starts="**TOP*"
+	//gd s ends="*END**"
+	gd s url=set2e
+	gj.xc(){
+		rg yz()==true{
+			s setback=""
+			s version=""
+			s versionname=""
+			s allow=""
+			//  s wlhq1={"name1=value1","name2=value2"}
+			// s back = wl.hq(url,wlhq1,"utf-8","uid=123;name=123;",true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+			s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+			rg back==""||back==null{
+				setback="0"
+			},{
+				//setback=zf.qc(back,starts,ends)
+				setback=htmlToText(back)
+				rg setback=="0"{
+					setback="0"
+				},{
+					version=readJson(setback,"UpdateVersion")
+					versionname=readJson(setback,"UpdateVersionName")
+					allow=readJson(setback,"UpdateAllow")
+					setback=1
+				}
+			}
+			rg setback=="0"{
+			},{
+				rg (allow == "0" || allow ? wj.dqwb(auid)) && islogin() {
+					wj.xrwb(sec_updater, setback)
+					s ek=""
+					gd int b1=version
+					rg myappversion<b1&&b1!=9999999{
+						gd s eks=ek
+						gj.jmxc(){
+							gj.tz(f22.iyu)
+						}
+					},{
+						int ccc = versionname.compareTo(vn)
+						rg versionname!=vn && ccc>0{
+							gd s eks=ek
+							gj.jmxc(){
+								gj.tz(f22.iyu)
+							}
+						}, {
+							wj.sc(sec_updater)
+						}
+					}
+				},{
+					wj.sc(sec_updater)
+				}
+			}
+		},{
+			
+		}
+	}
+}
+
+ff app_backup(){
+	rg islogin()==true{
+		s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+		s tmppath="/data/user/0/open.cn.awg.pro/data/backup/tmp.awgbak"
+		s tmp2path="/data/user/0/open.cn.awg.pro/data/backup/.nomedia"
+		a=sj.md5(wj.dqwb(a))
+		s filename=xt.sj(4)+".awgbak"
+		s backpath="/data/user/0/open.cn.awg.pro/settings"
+		s mkdirpath="/storage/emulated/0/Android/data/open.cn.awg.pro/files/backup/.nomedia"
+		s outpath="/storage/emulated/0/Android/data/open.cn.awg.pro/files/backup/"+filename
+		s out2path="/storage/emulated/0/Download/"+filename
+		wj.xrwb(mkdirpath,"")
+		wj.xrwb(tmp2path,"")
+		int i=wj.ys(backpath,tmppath)
+		java xor.FileXor(tmppath,outpath,a)
+		wj.sc(tmppath,true)
+		wj.sc(mkdirpath,true)
+		wj.sc(tmp2path,true)
+		rg i>0{
+			rg wj.fz(outpath,out2path,true){
+				wj.sc(outpath,true)
+				tsk("提示","导出备份成功\n请勿修改备份文件名，否则将无法导入！\n\n[文件路径]\n"+out2path)
+			},{
+				tsk("提示","导出备份成功\n请勿修改备份文件名，否则将无法导入！\n\n[文件路径]\n"+outpath)
+			}
+		},{
+			tsk("提示","导出备份失败")
+		}
+	},{
+		//gj.gb()
+		gj.tz(n1.iyu)
+		tsk("提示","该操作需要登录Typheye账户")
+	}
+}
+
+ff boolean app_backup2(){
+	boolean bk = false
+	rg islogin()==true{
+		s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+		s tmppath="/data/user/0/open.cn.awg.pro/data/backup/tmp.awgbak"
+		s tmp2path="/data/user/0/open.cn.awg.pro/data/backup/.nomedia"
+		a=sj.md5(wj.dqwb(a))
+		s filename="last.awgbak.zip"
+		s backpath="/data/user/0/open.cn.awg.pro/settings"
+		s mkdirpath="/data/user/0/open.cn.awg.pro/data/backup/yun/.nomedia"
+		s outpath="/data/user/0/open.cn.awg.pro/data/backup/yun/"+filename
+		rg wj.cz(outpath){
+			wj.sc(outpath)
+		}
+		wj.xrwb(mkdirpath,"")
+		wj.xrwb(tmp2path,"")
+		int i=wj.ys(backpath,tmppath)
+		java xor.FileXor(tmppath,outpath,a)
+		wj.sc(tmppath,true)
+		wj.sc(tmp2path,true)
+		wj.sc(mkdirpath,true)
+		rg i>0{
+			bk = true
+		},{
+			tsk("提示","导出备份失败")
+		}
+	},{
+		tsk("提示","该操作需要登录Typheye账户")
+	}
+	fh bk
+}
+
+ff boolean app_recovery(string path){
+	s tmp2path="/data/user/0/open.cn.awg.pro/data/backup/.nomedia"
+	s tmppath="/data/user/0/open.cn.awg.pro/data/backup/tmp.awgbak"
+	s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	a=sj.md5(wj.dqwb(a))
+	s backpath="/data/user/0/open.cn.awg.pro/settings/"
+	wj.xrwb(tmp2path,"")
+	wj.fz(path,tmppath,true)
+	java xor.FileXor(tmppath,tmppath+"_",a)
+	int i=wj.jy(tmppath+"_",backpath,true)
+	wj.sc(tmppath,true)
+	wj.sc(tmppath+"_",true)
+	wj.sc(tmp2path,true)
+	rg i>0{
+		//tsk("提示","导入备份成功，已使用最新备份文件进行恢复，即将重启\n\n[文件路径]\n"+path)
+		gj.zt(1000)
+		gj.jmxc(){
+			s name = { "Msg" }
+			s value = { "导入成功 点击重启" }
+			gj.tz(a0.iyu, name, value)
+		}
+		fh true
+	},{
+		tsk("提示","导入备份失败，请参考\"重要说明\"")
+	}
+	fh false
+}
+
+ff boolean app_gorecovery(){
+	s a=xt.qxgl()
+	rg a.qx("android.permission.WRITE_EXTERNAL_STORAGE")==true{
+		rg islogin()==true{
+			s lists=""
+			s gl = { "*.awgbak"}
+			s lb = wj.czwj("/storage/emulated/0/", gl)
+			xh s c, lb
+			{
+				rg lists==""{
+					lists=c.getAbsolutePath()
+				},{
+					lists=lists+"\n"+c.getAbsolutePath()
+				}
+			}
+			long test0=100000000
+			s endpath=""
+			s d=zf.fg(lists,"\n",true)
+			rg d.length>0{
+				xh s e, d{
+					string[] bb
+					bb=fileinfo("/storage/emulated/0/",e)
+					rg bb[0]=="true"{
+						s sts=zf.qc(bb[3],null,".awgbak")
+						long test1=sj.zh().zlong(sts,0)
+						rg test1>test0{
+							test0=test1
+							endpath=e
+						}
+					}
+				}
+				rg endpath==""{
+					tsk("提示","未在设备存储中找到备份文件")
+				},{
+					rg app_recovery(endpath){
+						fh true
+					}
+				}
+			},{
+				tsk("提示","未在设备存储中找到备份文件")
+			}
+		},{
+			gj.gb()
+			gj.tz(n1.iyu)
+			tsk("提示","该操作需要登录腕管Pro账户")
+		}
+	},{
+		tsk("提示","您未授权应用\"修改或删除您共享存储空间中的内容\"，请先前往设置授权后再操作")
+	}
+	fh false
+}
+
+ff goplu(s pluid,s pluname,boolean p){
+	rg p==true{
+		e11.add_pluginlist(pluid,pluname,pluid+"-"+pluname)
+	}
+	s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+	wj.xrwb(cachehd,pluid)
+	s cachehd2 = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_title"
+	wj.xrwb(cachehd2,pluname)
+	s e14=cj.e14()
+	s set1 = "/data/user/0/open.cn.awg.pro/settings/f19/set1.inf"
+	rg wj.dqwb(set1)=="true"{
+		rg e14.newG(pluid)==true{
+			gj.jmxc(){
+				gj.tz(m2.iyu)
+			}
+		},{
+			tsk("提示","没有可执行此操作的扩展")
+		}
+	},{
+		gj.jmxc(){
+			gj.tz(m2.iyu)
+		}
+	}
+}
+ff string awgwl_getuid(){
+	s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	string b=wj.dqwb(a)
+	rg b==null||b==""||b=="null"
+	{
+		b="0"
+	}
+	fh b
+}
+ff boolean islogin(){
+	s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	s b = "/data/user/0/open.cn.awg.pro/settings/account/pass"
+	rg wj.cz(a)==false||wj.cz(b)==false{
+		fh false
+	},{
+		fh true
+	}
+}
+ff boolean awgwl_state(){
+	s ic = "/data/user/0/open.cn.awg.pro/settings/f11/true"
+	rg wj.cz(ic)&&wj.dqwb(ic)=="1"{
+		fh true
+	},{
+		fh false
+	}
+}
+
+ff boolean awgwl_true(){
+	s ic = "/data/user/0/open.cn.awg.pro/settings/f11/true"
+	boolean f = wj.xrwb(ic,"1")
+	rg f{
+		fh true
+	},{
+		fh false
+	}
+}
+
+ff awgwl_false(){
+	s ic = "/data/user/0/open.cn.awg.pro/settings/f11/true"
+	wj.sc(ic)
+}
+
+ff int getNowUserId()
+{
+	int b=-1
+	yc{
+		java b=android.os.Process.myUid()/100000
+	},{
+		b=-1
+	}
+	fh b
+}
+
+
+ff boolean isJhs(){
+	boolean zt=false
+	s a = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2"
+	rg wj.cz(a)!=false&&wj.dqwb(a)!=""{
+		zt=true
+	},{
+		gj.tz(f7.iyu)
+	}
+	fh zt
+}
+
+ff zfsb(s id){
+	gd s i=id
+	gj.xc(){
+		gj.zt(1000)
+		rg i=="a1"{
+			//应用激活
+		}
+	}
+}
+
+ff zfwc(s id){
+	gd s i=id
+	gj.xc(){
+		gj.zt(1000)
+		rg i=="a1"{
+			//应用激活
+			jh()
+			tsk("提示","应用激活成功")
+		},i=="a0"{
+			tsk("提示","捐赠成功，感谢您的支持！")
+		}
+	}
+}
+
+ff jh(){
+	string a=zf.sjs(1,9)
+	s i = 14
+	xh i > 0{
+		string b=zf.sjs(0,9)
+		a=a+b
+		i = i - 1
+	}
+	s j = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2"
+	wj.xrwb(j,a)
+}
+
+ff boolean yz(){
+	//fh true
+	java context= open.cn.awg.pro.e6.getContext();
+	s sec_isunlock = "/data/user/0/open.cn.awg.pro/data/sec/unlock"
+	s urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	urls=wj.dqwb(urls)
+	urls=urlUnlockString(urls)
+	rg urls*?"/"{
+	},{
+		urls=urls+"/"
+	}
+	s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+	s a2=com.kingqi.zwcj.应用工具.获取应用签名(context,"open.cn.awg.pro")
+	s path=com.kingqi.zwcj.应用工具.获取应用apk文件(context,"open.cn.awg.pro")
+	java.io.File mfile
+	java mfile=new java.io.File(path);
+	string aa=sj.md5(mfile)
+	int a11
+	string vn
+	java a11=com.demo.e4.getVersionCode(context)
+	java vn=com.demo.e4.getVersionName(context)
+	string bb=a11
+	s url=urls+"x.php?token="+a2+ljf+"id="+aa+ljf+"ver="+bb+ljf+"vername="+vn
+	s st5 = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+	rg st5==null{
+		fh false
+	},{
+		wj.xrwb(sec_isunlock, st5)
+		rg st5=="true"{
+			fh true
+		},{
+			fh false
+		}
+	}
+}
+
+ff boolean isJh(){
+	boolean zt=false
+	s a = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2"
+	rg wj.cz(a)!=false&&wj.dqwb(a)!=""{
+		zt=true
+	}
+	fh zt
+}
+//-----Top-----
+//初始化:csh()
+ff csh(){
+	s cachehd = "/data/user/0/open.cn.awg.pro/cache/hd"
+	wj.xrwb(cachehd,"")
+	java context= open.cn.awg.pro.e6.getContext();
+	lb=st.v7lb(zy.i.v7lb1)
+	spq=lb.v7lbspq(c2.lei,zy.b.c2)(ua, pn, vw){
+		s lbsj = sj.lb(vw)
+		s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+		rg f==-1{
+			st.xdbj(vw, zy.i.xdbj1).kjd(8)
+			st.xdbj(vw, zy.i.xdbj1).xydj(false)
+			st.xdbj(vw, zy.i.xdbj1).xyca(false)
+			st.wb(vw, zy.i.dp20).kjd(0)
+		},{
+			st.xdbj(vw, zy.i.xdbj1).kjd(0)
+			st.xdbj(vw, zy.i.xdbj1).xydj(true)
+			st.xdbj(vw, zy.i.xdbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		}
+	}
+	cdlb=st.v7lb(zy.i.v7lb2)
+	cdspq=cdlb.v7lbspq(c4.lei,zy.b.c4)(ua, pn, vw){
+		s lbsj = sj.lb(vw)
+		s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+		rg f == 1{
+			s color=zf.zf(zy.color.colorTextFalse)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		},f==-1{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(8)
+			st.xxbj(vw, zy.i.xxbj1).xydj(false)
+			st.xxbj(vw, zy.i.xxbj1).xyca(false)
+			st.wb(vw, zy.i.dp20).kjd(0)
+		},{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		}
+	}
+	sxlb=st.v7lb(zy.i.v7lb3)
+	sxspq=sxlb.v7lbspq(c5.lei,zy.b.c5)(ua, pn, vw){
+		s lbsj = sj.lb(vw)
+		s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+		rg f == 1{
+			st.xxbj(vw, zy.i.xxbj1).dqfs("center")
+			st.wb(vw, zy.i.wb2).kjd(8)
+			s color=zf.zf(zy.color.colorTextFalse)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		},f==-1{
+			st.xxbj(vw, zy.i.xxbj1).dqfs("left")
+			st.wb(vw, zy.i.wb2).kjd(0)
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(8)
+			st.xxbj(vw, zy.i.xxbj1).xydj(false)
+			st.xxbj(vw, zy.i.xxbj1).xyca(false)
+			st.wb(vw, zy.i.dp20).kjd(0)
+		},{
+			st.xxbj(vw, zy.i.xxbj1).dqfs("left")
+			st.wb(vw, zy.i.wb2).kjd(0)
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		}
+	}
+	dklb=st.v7lb(zy.i.v7lb4)
+	dkspq=dklb.v7lbspq(c6.lei,zy.b.c6)(ua, pn, vw){
+		s lbsj = sj.lb(vw)
+		s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+		rg f == 1{
+			s color=zf.zf(zy.color.colorTextFalse)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.wb(vw, zy.i.wb1).ztdx(13)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		},f==-1{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.wb(vw, zy.i.wb1).ztdx(13)
+			st.xxbj(vw, zy.i.xxbj1).kjd(8)
+			st.xxbj(vw, zy.i.xxbj1).xydj(false)
+			st.xxbj(vw, zy.i.xxbj1).xyca(false)
+			st.wb(vw, zy.i.dp20).kjd(0)
+		},f==0{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.wb(vw, zy.i.wb1).ztdx(13)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		},f==-2{
+			s color=zf.zf(zy.color.colorTextTrue)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.wb(vw, zy.i.wb1).ztdx(13)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		},{
+			s color=zf.zf(zy.color.colorTextU1)
+			st.wb(vw, zy.i.wb1).zfys(color)
+			st.wb(vw, zy.i.wb1).ztdx(13)
+			st.xxbj(vw, zy.i.xxbj1).kjd(0)
+			st.xxbj(vw, zy.i.xxbj1).xydj(true)
+			st.xxbj(vw, zy.i.xxbj1).xyca(true)
+			st.wb(vw, zy.i.dp20).kjd(8)
+		}
+	}
+	e11.setup_filelist()
+}
+//-----End-----
+
+//目录信息
+ff String[] fileinfo(s root,s url){
+	s Root=wj.hqml(url)
+	//s Root=url
+	java.io.File mfile
+	s Runs="true"
+	s FileUrl=""
+	s FileFatherUrl=""
+	s UrlName=""
+	yc{
+		java mfile=new java.io.File(Root);
+		UrlName=mfile.getName();
+		FileFatherUrl=mfile.getParent();
+		mfile.hashCode()
+		FileUrl=mfile.getPath();
+	},(e){
+		Runs="false"
+	}
+	s Back={Runs,FileUrl,FileFatherUrl,UrlName}
+	fh Back
+}
+
+//加载文件(夹)
+ff NewFilesLoad(s url,s roots){
+	gd s set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set1.inf"
+	gd s set1 = "/data/user/0/open.cn.awg.pro/settings/d1/set1.inf"
+	gd s spxx="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+	gd s set3 = "/data/user/0/open.cn.awg.pro/settings/d1/set3.inf"
+	s root=wj.hqml(roots)
+	s srcs=""
+	yc{
+		s FileUrl=wj.hqml(url)
+		rg FileUrl*?"/"{
+			FileUrl=FileUrl
+		},{
+			FileUrl=FileUrl+"/"
+		}
+		//删除
+		spq.sc()
+		//返回上一级
+		s kj={zy.i.tx1,zy.i.wb1,zy.i.wb2,zy.i.wb3,-1}
+		s jk={zy.t.b5,"...",FileUrl,"返回上层目录",0}
+		//开始:主题适配:jk={zy.t.b5,"...",FileUrl,"返回上层目录",0}
+		rg wj.dqwb(set2)=="true"{
+			srcs=getMipmap("b5")
+			rg srcs=="0"{
+				jk={zy.t.b5,"...",FileUrl,"返回上层目录",0}
+			},{
+				jk={srcs,"...",FileUrl,"返回上层目录",0}
+			}
+		},{
+			jk={zy.t.b5,"...",FileUrl,"返回上层目录",0}
+		}
+		//结束
+		spq.j(kj,jk)
+		//列目录
+		s FileXH1=wj.lb(url,true)
+		//java.util.s
+		//java.util.Arrays.sort
+		rg wj.dqwb(set3)=="true"{
+			java java.util.Arrays.sort(FileXH1);
+		}
+		xh s c, FileXH1{
+			//获取标题
+			s urlName=""
+			s fhValue=fileinfo(root,c)
+			rg fhValue[0]=="true"{
+				urlName=fhValue[3]
+			},{
+				urlName="Error"
+			}
+			//列
+			s Two="目录"
+			//开始:主题适配:jk={zy.t.b5,urlName,c,Two,0}
+			rg wj.dqwb(set2)=="true"{
+				srcs=getMipmap("b5")
+				rg srcs=="0"{
+					jk={zy.t.b5,urlName,c,Two,0}
+				},{
+					jk={srcs,urlName,c,Two,0}
+				}
+			},{
+				jk={zy.t.b5,urlName,c,Two,0}
+			}
+			//结束
+			s pb1="/data/user/0/open.cn.awg.pro/settings"
+			s pb2="/data/user/0/open.cn.awg.pro/data"
+			s pb3="/data/user/0/open.cn.awg.pro/fix"
+			s pb4="/data/user/0/open.cn.awg.pro/cache"
+			s pb5="/data/user/0/open.cn.awg.pro/files/cache"
+			s pb6="/storage/emulated/0/Android/data"
+			s pb7="/storage/emulated/0/Android/obb"
+			rg c==pb1||c==pb2||c==pb3||c==pb4||c==pb5||(xt.sbxx().sdk>29&&c==pb6)||(xt.sbxx().sdk>29&&c==pb7) {
+				//rg c==pb1||c==pb2||c==pb3||c==pb4||c==pb5) {
+				//屏蔽
+			},{
+				spq.j(kj,jk)
+			}
+		}
+		//列文件
+		s FileXH2=wj.lb(url,false)
+		rg wj.dqwb(set3)=="true"{
+			java java.util.Arrays.sort(FileXH2);
+		}
+		xh s c, FileXH2{
+			//获取标题
+			s bt=""
+			s fhValue=fileinfo(root,c)
+			rg fhValue[0]=="true"{
+				bt=fhValue[3]
+			},{
+				bt="Error"
+			}
+			//计算大小
+			double dx=wj.dx(c)
+			double d1=0
+			string d0
+			string cc=zf.zhxx(c)
+			s wjdx=""
+			rg dx>=0&&dx<1024{
+				d1=dx
+				java d0=com.demo.e4.doubleToString(d1)
+				wjdx=d0+"B"
+			},dx>=1024&&dx<1048576{
+				d1=dx/1024
+				java d0=com.demo.e4.doubleToString(d1)
+				wjdx=d0+"K"
+			},dx>=1048576&&dx<1073741824{
+				d1=dx/1024/1024
+				java d0=com.demo.e4.doubleToString(d1)
+				wjdx=d0+"M"
+			},{
+				d1=dx/1024/1024/1024
+				java d0=com.demo.e4.doubleToString(d1)
+				wjdx=d0+"G"
+			}
+			//判断文件类型
+			rg cc*?".apk"||cc*?".xapk"||cc*?".apks"{
+				//开始:主题适配:jk={zy.t.b1,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b1")
+					rg srcs=="0"{
+						jk={zy.t.b1,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b1,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".png"||cc*?"jpg"{
+				rg wj.dqwb(set1)=="true"{
+					jk={c,bt,c,wjdx,0}
+				},{
+					//开始:主题适配:jk={zy.t.b11,bt,c,wjdx,0}
+					rg wj.dqwb(set2)=="true"{
+						srcs=getMipmap("b11")
+						rg srcs=="0"{
+							jk={zy.t.b11,bt,c,wjdx,0}
+						},{
+							jk={srcs,bt,c,wjdx,0}
+						}
+					},{
+						jk={zy.t.b11,bt,c,wjdx,0}
+					}
+					//结束
+				}
+				spq.j(kj,jk)
+			},cc*?".mp3"||cc*?".flac"||cc*?".ogg"{
+				//开始:主题适配:jk={zy.t.b9,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b9")
+					rg srcs=="0"{
+						jk={zy.t.b9,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b9,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".mp4"||cc*?".mkv"||cc*?".webm"||cc*?".m3u8"||cc*?".avi"||cc*?".mts"{
+				//开始:主题适配:jk={zy.t.b8,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b8")
+					rg srcs=="0"{
+						jk={zy.t.b8,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b8,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".txt"||cc*?".xml"||cc*?".java"{
+				//开始:主题适配:jk={zy.t.b13,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b13")
+					rg srcs=="0"{
+						jk={zy.t.b13,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b13,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".zip"||cc*?".rar"||cc*?"7z"{
+				//开始:主题适配:jk={zy.t.b16,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b16")
+					rg srcs=="0"{
+						jk={zy.t.b16,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b16,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".html"{
+				//开始:主题适配:jk={zy.t.b6,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b6")
+					rg srcs=="0"{
+						jk={zy.t.b6,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b6,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".pdf"{
+				//开始:主题适配:jk={zy.t.b6,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b10")
+					rg srcs=="0"{
+						jk={zy.t.b10,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b10,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".doc"||cc*?".docx"{
+				//开始:主题适配:jk={zy.t.b6,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b15")
+					rg srcs=="0"{
+						jk={zy.t.b15,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b15,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".xls"||cc*?".xlsx"{
+				//开始:主题适配:jk={zy.t.b6,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b2")
+					rg srcs=="0"{
+						jk={zy.t.b2,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b2,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".ppt"||cc*?".pptx"{
+				//开始:主题适配:jk={zy.t.b6,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b12")
+					rg srcs=="0"{
+						jk={zy.t.b12,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b12,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".awgtheme"{
+				//开始:主题适配:jk={zy.t.b17,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b17")
+					rg srcs=="0"{
+						jk={zy.t.b17,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b17,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".awgsash"{
+				//开始:主题适配:jk={zy.t.b18,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b18")
+					rg srcs=="0"{
+						jk={zy.t.b18,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b18,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".sh"{
+				//开始:主题适配:jk={zy.t.b19,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b19")
+					rg srcs=="0"{
+						jk={zy.t.b19,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b19,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},cc*?".awgbak"{
+				//开始:主题适配:jk={zy.t.b20,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b20")
+					rg srcs=="0"{
+						jk={zy.t.b20,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b20,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			},{
+				//开始:主题适配:jk={zy.t.b14,bt,c,wjdx,0}
+				rg wj.dqwb(set2)=="true"{
+					srcs=getMipmap("b14")
+					rg srcs=="0"{
+						jk={zy.t.b14,bt,c,wjdx,0}
+					},{
+						jk={srcs,bt,c,wjdx,0}
+					}
+				},{
+					jk={zy.t.b14,bt,c,wjdx,0}
+				}
+				//结束
+				spq.j(kj,jk)
+			}
+		}
+		//列间距
+		jk={"","","","",-1}
+		spq.j(kj,jk)
+		s axc=wj.dqwb(spxx)
+		rg axc=="1"||axc=="3"{
+			jk={"","","","",-1}
+			spq.j(kj,jk)
+			jk={"","","","",-1}
+			spq.j(kj,jk)
+		}
+		gd s ok=FileUrl
+		//刷新
+		gj.jmxc(){
+			spq.sx()
+			lb.xzwz(e11.get_filelist(ok))
+			st.wb(zy.id.zywblj).zf(ok)
+		}
+	},(e){
+		upload_error(e,"e1.NewFilesLoad(s,s)")
+		gj.gb()
+	}
+}
+
+//文件点击事件
+ff fileTouch(s text,s url){
+	java d1_rootpaths=open.cn.awg.pro.abc.d1_rootpath
+	s root=d1_rootpaths
+	//int lwz=lb.zhkjxm()
+	//s cpath=st.wb(zy.i.zywblj).zf()
+	rg text=="返回上层目录"{
+		rg url==root{
+			//tsk("提示","已经在根目录\n\""+root+"\"")
+			gj.gb()
+		},{
+			//e11.update_filelist(cpath,lwz)
+			s fhValue=fileinfo("%",url)
+			NewFilesLoad(fhValue[2],root)
+		}
+	},{
+		rg wj.lx(url)==2{
+			//e11.update_filelist(cpath,lwz)
+			NewFilesLoad(url,root)
+		},{
+			s fhValue=fileinfo(root,url)
+			s bts=fhValue[3]
+			s lj=fhValue[1]
+			s ljs=fhValue[2]
+			s c=lj
+			string cc=zf.zhxx(c)
+			rg cc*?".png"||cc*?"jpg"{
+				cdx(6,bts,lj,ljs)
+				dkfs("b",c,1)
+			},cc*?".txt"||cc*?".xml"||cc*?".java"{
+				cdx(6,bts,lj,ljs)
+				dkfs("a",c,1)
+			},cc*?".zip"||cc*?".rar"||cc*?"7z"{
+				cdx(6,bts,lj,ljs)
+				dkfs("e",c,1)
+			},cc*?".html"{
+				cdx(6,bts,lj,ljs)
+				dkfs("a",c,1)
+			},cc*?".pdf"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".doc"||cc*?".docx"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".xls"||cc*?".xlsx"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".ppt"||cc*?".pptx"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".apk"||cc*?".xapk"||cc*?".apks"{
+				cdx(6,bts,lj,ljs)
+				dkfs("f",c,1)
+			},cc*?".mp3"||cc*?".flac"||cc*?".ogg"{
+				cdx(6,bts,lj,ljs)
+				dkfs("c",c,1)
+			},cc*?".mp4"||cc*?".mkv"||cc*?".webm"||cc*?".m3u8"||cc*?".avi"||cc*?".mts"{
+				cdx(6,bts,lj,ljs)
+				dkfs("d",c,1)
+			},cc*?".awgtheme"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".awgsash"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".sh"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},cc*?".awgbak"{
+				cdx(6,bts,lj,ljs)
+				dkfs("g",c,1)
+			},{
+				cdx(6,bts,lj,ljs)
+			}
+		}
+	}
+}
+
+//-----文件打开方式类-----
+ff dkfs(s z,s b,int e){
+	gd s choose="/data/user/0/open.cn.awg.pro/cache/file/choose"
+	gd s choose2="/data/user/0/open.cn.awg.pro/cache/file/choose2"
+	s xx=""
+	dkspq.sc()
+	s kj={zy.i.wb1,zy.i.wb2,zy.i.wb3,-1}
+	s jk={"","","",0}
+	rg z=="a"{
+		xx="文本"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+		},{
+			jk={"腕管Pro：文本浏览","a1",b,0}
+			dkspq.j(kj,jk)
+			jk={"腕管Pro：文本编辑","a2",b,0}
+			dkspq.j(kj,jk)
+		}
+	},z=="b"{
+		xx="图片"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+			jk={"腕上微聊：选择附件","h1",b,0}
+			dkspq.j(kj,jk)
+			jk={"PinchImageView：图片浏览","b1",b,0}
+			dkspq.j(kj,jk)
+		},wj.cz(choose2)==true&&wj.dqwb(choose2)=="h1"{
+			//h1
+			jk={"账户头像：选择附件","i1",b,0}
+			dkspq.j(kj,jk)
+			jk={"PinchImageView：图片浏览","b1",b,0}
+			dkspq.j(kj,jk)
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+		},{
+			jk={"PinchImageView：图片浏览","b1",b,0}
+			dkspq.j(kj,jk)
+		}
+	},z=="c"{
+		xx="音频"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+			jk={"腕上微聊：选择附件","h2",b,0}
+			dkspq.j(kj,jk)
+			jk={"DKPlayer：媒体浏览","c2",b,0}
+			dkspq.j(kj,jk)
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+		},{
+			jk={"DKPlayer：媒体浏览","c2",b,0}
+			dkspq.j(kj,jk)
+			jk={"WearMusic：音频浏览","c1",b,-2}
+			boolean apppd1
+			java apppd1 = com.demo.e8.app(context,"cn.wearbbs.music")
+			rg apppd1==true{
+				dkspq.j(kj,jk)
+			}
+			jk={"抬腕视频：音频浏览","c3",b,-2}
+			boolean apppd2
+			java apppd2 = com.demo.e8.app(context,"com.hankmi.wearmusic")
+			rg apppd2==true{
+				dkspq.j(kj,jk)
+			}
+		}
+	},z=="d"{
+		xx="视频"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+			jk={"腕上微聊：选择附件","h3",b,0}
+			dkspq.j(kj,jk)
+			jk={"DKPlayer：媒体浏览","d2",b,0}
+			dkspq.j(kj,jk)
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+		},{
+			jk={"DKPlayer：媒体浏览","d2",b,0}
+			dkspq.j(kj,jk)
+			jk={"腕上视频：视频浏览","d3",b,-2}
+			boolean apppd1
+			java apppd1 = com.demo.e8.app(context,"cn.luern0313.wristvideoplayer")
+			rg apppd1==true{
+				dkspq.j(kj,jk)
+			}
+			jk={"抬腕视频：视频浏览","d4",b,-2}
+			boolean apppd2
+			java apppd2 = com.demo.e8.app(context,"com.hankmi.media")
+			rg apppd2==true{
+				dkspq.j(kj,jk)
+			}
+		}
+	},z=="e"{
+		xx="压缩"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+			jk={"腕上微聊：选择附件","h4",b,0}
+			dkspq.j(kj,jk)
+		},{
+			jk={"腕管Pro：解压到当前目录","e1",b,0}
+			dkspq.j(kj,jk)
+		}
+	},z=="f"{
+		xx="应用"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+		},{
+			jk={"腕管Pro：应用安装","f1",b,0}
+			dkspq.j(kj,jk)
+			jk={"系统：打包安装程序","f2",b,0}
+			dkspq.j(kj,jk)
+			jk={"系统：打包安装程序(备用)","f3",b,0}
+			dkspq.j(kj,jk)
+		}
+	},z=="g"{
+		xx="其他"
+		rg wj.cz(choose)==true&&wj.dqwb(choose)=="h1"{
+			//h1
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h2"{
+			//h2
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h3"{
+			//h3
+		},wj.cz(choose)==true&&wj.dqwb(choose)=="h4"{
+			//h4
+		},{
+			jk={"腕管Pro：系统打开","g1",b,0}
+			dkspq.j(kj,jk)
+			jk={"腕管Pro：关于主题文件","g2",b,0}
+			rg b*?".awgtheme"{
+				dkspq.j(kj,jk)
+			}
+			jk={"腕管Pro：无障碍脚本执行","g3",b,0}
+			rg b*?".awgsash"{
+				dkspq.j(kj,jk)
+			}
+			jk={"腕管Pro：Shell脚本执行","g4",b,0}
+			rg b*?".sh"{
+				dkspq.j(kj,jk)
+			}
+			jk={"腕管Pro：关于备份文件","g5",b,0}
+			rg b*?".awgbak"{
+				dkspq.j(kj,jk)
+			}
+		}
+	}
+	rg e==0{
+		jk={"返回","0","",1}
+		dkspq.j(kj,jk)
+	},e==1{
+		jk={"返回","-1","",1}
+		dkspq.j(kj,jk)
+	}
+	s spxx="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+	s axc=wj.dqwb(spxx)
+	rg axc=="1"||axc=="3"{
+		jk={"","","",-1}
+		dkspq.j(kj,jk)
+		jk={"","","",-1}
+		dkspq.j(kj,jk)
+	}
+	gd s xxs=xx
+	gj.jmxc(){
+		dkspq.sx()
+		st.v7lb(zy.i.v7lb4).xzwz("top")
+		st.wb(zy.i.Tab).zf(xxs)
+	}
+}
+//-----End-----
+
+//-----Top-----
+//综合菜单功能类
+ff cdx(int i,string a,string b,string c){
+	gj.jmxc(){
+		st.xxbj(zy.i.xxbj9).kjd(0)
+	}
+	gd s choose="/data/user/0/open.cn.awg.pro/cache/file/choose"
+	gd s ftitle="/data/user/0/open.cn.awg.pro/cache/file/title"
+	s cache1 = "/data/user/0/open.cn.awg.pro/cache/1"
+	s cache2 = "/data/user/0/open.cn.awg.pro/cache/2"
+	s cache3 = "/data/user/0/open.cn.awg.pro/cache/3"
+	s cachec1 = "/data/user/0/open.cn.awg.pro/cache/c1"
+	s cachec2 = "/data/user/0/open.cn.awg.pro/cache/c2"
+	s cachec3 = "/data/user/0/open.cn.awg.pro/cache/c3"
+	s cache41 = "/data/user/0/open.cn.awg.pro/cache/41"
+	s cachehd = "/data/user/0/open.cn.awg.pro/cache/hd"
+	//gd s a041="/data/user/0/open.cn.awg.pro/cache/tab"
+	rg i==0{
+		wj.sc(cache3)
+		wj.sc(cachec1)
+		wj.sc(cachec2)
+		wj.sc(cachec3)
+		gj.jmxc(){
+			/*-----隐藏/恢复标题栏-----
+			rg wj.dqwb(a041)=="true"{
+			st.wb(zy.i.Tab).kjd(0)
+			},{
+			st.wb(zy.i.Tab).kjd(8)
+			}
+			-----End-----*/
+			st.wb(zy.i.Tab).kjd(0)
+			st.wb(zy.i.Tab).zf(wj.dqwb(ftitle))
+			st.xxbj(zy.i.xxbj3).kjd(8)
+			st.xxbj(zy.i.xxbj5).kjd(8)
+			st.xxbj(zy.i.xxbj6).kjd(8)
+			st.xxbj(zy.i.xxbj7).kjd(8)
+			st.xxbj(zy.i.xxbj9).kjd(8)
+			lb.v.requestFocus()
+		}
+	},i==1||i==2||i==3{
+		cdspq.sc()
+		s kj={zy.i.wb1,zy.i.wb2,zy.i.wb3,zy.i.wb4,zy.i.wb5,-1}
+		s jk={"","","","","",0}
+		jk={"刷新","",a,b,c,0}
+		cdspq.j(kj,jk)
+		rg wj.cz(cache1)==true || wj.cz(cache2)==true{
+			jk={"粘贴到当前目录","",a,b,c,0}
+			cdspq.j(kj,jk)
+			jk={"取消粘贴","",a,b,c,0}
+			cdspq.j(kj,jk)
+		}
+		rg wj.cz(cache1)!=true&&wj.cz(cache2)!=true{
+			jk={"新建目录","",a,b,c,0}
+			cdspq.j(kj,jk)
+			jk={"新建文件","",a,b,c,0}
+			cdspq.j(kj,jk)
+			rg i==1{
+				jk={"复制","1",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"剪切","1",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"删除","1",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"重命名","1",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"属性","1",a,b,c,0}
+				cdspq.j(kj,jk)
+			},i==2{
+				jk={"打开方式","0",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"复制","2",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"剪切","2",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"删除","2",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"重命名","2",a,b,c,0}
+				cdspq.j(kj,jk)
+				jk={"属性","2",a,b,c,0}
+				cdspq.j(kj,jk)
+			},i==3{
+				//返回上一层事件
+			}
+		}
+		jk={"返回","back","","","",1}
+		cdspq.j(kj,jk)
+		s spxx="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+		jk={"","","","","",-1}
+		cdspq.j(kj,jk)
+		s axc=wj.dqwb(spxx)
+		rg axc=="1"||axc=="3"{
+			jk={"","","","","",-1}
+			cdspq.j(kj,jk)
+			jk={"","","","","",-1}
+			cdspq.j(kj,jk)
+		}
+		gj.jmxc(){
+			cdspq.sx()
+			cdlb.v.requestFocus()
+			st.v7lb(zy.i.v7lb2).xzwz("top")
+			st.wb(zy.i.Tab).kjd(0)
+			st.wb(zy.i.Tab).zf("菜单")
+			st.xxbj(zy.i.xxbj3).kjd(0)
+			st.xxbj(zy.i.xxbj5).kjd(8)
+			st.xxbj(zy.i.xxbj6).kjd(8)
+			st.xxbj(zy.i.xxbj7).kjd(8)
+			st.xxbj(zy.i.xxbj9).kjd(8)
+		}
+	},i==4{
+		rg wj.cz(cache3)==true{
+			s w3=wj.dqwb(cache3)
+			rg w3=="重命名"{
+				gd s nr=a
+				gj.jmxc(){
+					st.bjk(zy.i.bjk1).zf(nr)
+					st.bjk(zy.i.bjk1).tszf("请重命名文件")
+				}
+			},{
+				gj.jmxc(){
+					st.bjk(zy.i.bjk1).zf("")
+					st.bjk(zy.i.bjk1).tszf("请输入目录/文件名")
+				}
+			}
+			gd s xs=wj.dqwb(cache3)
+			wj.xrwb(cachec1,a)
+			wj.xrwb(cachec2,b)
+			wj.xrwb(cachec3,c)
+			gj.jmxc(){
+				st.wb(zy.i.Tab).kjd(0)
+				st.wb(zy.i.Tab).zf(xs)
+				st.bjk(zy.i.bjk1).tszf(xs)
+				st.xxbj(zy.i.xxbj3).kjd(8)
+				st.xxbj(zy.i.xxbj5).kjd(0)
+				st.xxbj(zy.i.xxbj6).kjd(8)
+				st.xxbj(zy.i.xxbj7).kjd(8)
+				st.xxbj(zy.i.xxbj9).kjd(8)
+				st.qtgd(zy.i.qtgd1).v.requestFocus()
+			}
+		},{
+			cdx(0,null,null,null)
+		}
+	},i==5{
+		sxspq.sc()
+		s kj={zy.i.wb1,zy.i.wb2,-1}
+		s jk={"","",0}
+		jk={"名称",a,0}
+		sxspq.j(kj,jk)
+		jk={"目录",c,0}
+		sxspq.j(kj,jk)
+		rg wj.lx(b)==1{
+			s dx=hqwjdx(b)
+			jk={"大小",dx,0}
+			sxspq.j(kj,jk)
+		},{
+			s dxs=wj.dqwb(cache41)
+			jk={"大小",dxs,0}
+			sxspq.j(kj,jk)
+			/*-----Top-----
+			#显示目录内文件(夹)个数
+			s z1=wj.lb(b,true)
+			int y1=z1.length
+			s sx1=zf.zf(y1)
+			jk={"目录",sx1}
+			sxspq.j(kj,jk)
+			s z2=wj.lb(b,false)
+			int y2=z2.length
+			s sx2=zf.zf(y2)
+			jk={"文件",sx2}
+			sxspq.j(kj,jk)
+			-----End-----*/
+		}
+		/*-----Top-----
+		s sjs=hqwjxgsj(b)
+		jk={"修改时间",sjs,0}
+		sxspq.j(kj,jk)
+		-----End-----*/
+		jk={"返回","",1}
+		sxspq.j(kj,jk)
+		s spxx="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+		jk={"","",-1}
+		sxspq.j(kj,jk)
+		s axc=wj.dqwb(spxx)
+		rg axc=="1"||axc=="3"{
+			jk={"","",-1}
+			sxspq.j(kj,jk)
+			jk={"","",-1}
+			sxspq.j(kj,jk)
+		}
+		gj.jmxc(){
+			sxspq.sx()
+			sxlb.v.requestFocus()
+			st.v7lb(zy.i.v7lb3).xzwz("top")
+			st.wb(zy.i.Tab).kjd(0)
+			st.wb(zy.i.Tab).zf("属性")
+			st.xxbj(zy.i.xxbj3).kjd(8)
+			st.xxbj(zy.i.xxbj5).kjd(8)
+			st.xxbj(zy.i.xxbj6).kjd(0)
+			st.xxbj(zy.i.xxbj7).kjd(8)
+			st.xxbj(zy.i.xxbj9).kjd(8)
+		}
+	},i==6{
+		dkspq.sc()
+		s kj={zy.i.wb1,zy.i.wb2,zy.i.wb3,-1}
+		s jk={"","","",0}
+		jk={"文本","a",b,2}
+		dkspq.j(kj,jk)
+		jk={"图片","b",b,2}
+		dkspq.j(kj,jk)
+		jk={"音频","c",b,2}
+		dkspq.j(kj,jk)
+		jk={"视频","d",b,2}
+		dkspq.j(kj,jk)
+		jk={"压缩","e",b,2}
+		dkspq.j(kj,jk)
+		jk={"应用","f",b,2}
+		dkspq.j(kj,jk)
+		jk={"其他","g",b,2}
+		dkspq.j(kj,jk)
+		jk={"返回","-1","",1}
+		dkspq.j(kj,jk)
+		s spxx="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+		jk={"","","",-1}
+		dkspq.j(kj,jk)
+		s axc=wj.dqwb(spxx)
+		rg axc=="1"||axc=="3"{
+			jk={"","","",-1}
+			dkspq.j(kj,jk)
+			jk={"","","",-1}
+			dkspq.j(kj,jk)
+		}
+		gj.jmxc(){
+			dkspq.sx()
+			dklb.v.requestFocus()
+			st.v7lb(zy.i.v7lb4).xzwz("top")
+			st.wb(zy.i.Tab).kjd(0)
+			st.wb(zy.i.Tab).zf("打开方式")
+			st.xxbj(zy.i.xxbj3).kjd(8)
+			st.xxbj(zy.i.xxbj5).kjd(8)
+			st.xxbj(zy.i.xxbj6).kjd(8)
+			st.xxbj(zy.i.xxbj7).kjd(0)
+			st.xxbj(zy.i.xxbj9).kjd(8)
+		}
+	},{
+		//备用
+	}
+}
+//-----End-----
+
+//-----Top-----
+//刷新文件管理
+ff sx(string na,string lj){
+	java d1_rootpaths=open.cn.awg.pro.abc.d1_rootpath
+	s root=d1_rootpaths
+	NewFilesLoad(lj,root)
+}
+//-----End-----
+
+//-----Top-----
+//获取文件大小
+ff string hqwjdx(s url){
+	double dx=wj.dx(url)
+	double d1=0
+	string d0
+	s wjdx=""
+	rg dx>=0&&dx<1024{
+		d1=dx
+		java d0=com.demo.e4.doubleToString(d1)
+		wjdx=d0+"B"
+	},dx>=1024&&dx<1048576{
+		d1=dx/1024
+		java d0=com.demo.e4.doubleToString(d1)
+		wjdx=d0+"K"
+	},dx>=1048576&&dx<1073741824{
+		d1=dx/1024/1024
+		java d0=com.demo.e4.doubleToString(d1)
+		wjdx=d0+"M"
+	},{
+		d1=dx/1024/1024/1024
+		java d0=com.demo.e4.doubleToString(d1)
+		wjdx=d0+"G"
+	}
+	fh wjdx
+}
+//-----End-----
+
+/*-----Top-----
+//获取文件修改时间
+ff string hqwjxgsj(s url){
+string d01
+java d01=com.demo.e4.fileTime(2,wj.hqml(url))
+fh d01
+}
+-----End-----*/
+
+ff tsk(s a,s b){
+	gd s name = { "title" , "text" }
+	gd s value = { a , b }
+	gj.jmxc(){
+		gj.tz(a3.iyu, name, value)
+	}
+}
+
+ff tsk_QR(s a,s b,s c){
+	gd s name = { "title" , "text" , "QR-Code" }
+	gd s value = { a , b , c }
+	gj.jmxc(){
+		gj.tz(a3.iyu, name, value)
+	}
+}
+
+ff upload_error(s a,s b){
+	gd s name = { "log","location" }
+	gd s value = { a,b }
+	gj.jmxc(){
+		gj.tz(b1.iyu, name, value)
+	}
+}
+
+ff String readJson(String text,String value){
+	String back=""
+	yc{
+		s jo = zf.json(text)
+		s json = jo.json
+		s sjs = jo.hq(json, value)
+		back=sjs.toString()
+	},(e){
+		back="0"
+	}
+	fh back
+}
+
+ff String getMipmap(String v){
+	String back=""
+	s mipmaprooturl="/data/user/0/open.cn.awg.pro/res/mipmap/"
+	s m=mipmaprooturl+v+".png"
+	yc{
+		rg wj.cz(m)==true{
+			back=m
+		},{
+			back="0"
+		}
+	},(e){
+		back="0"
+	}
+	fh back
+}
+
+ff loadTheme(String url){
+	int back=0
+	s mipmaprooturl="/data/user/0/open.cn.awg.pro/res/"
+	back=wj.jy(url,mipmaprooturl,true)
+	rg back==0{
+		tsk("提示","导入主题失败\n文件可能已损坏")
+	},{
+		tsk("提示","导入主题成功")
+	}
+}
+
+ff String[] themeInfo(){
+	String[] back={"加载异常...","加载异常...","加载异常...","加载异常...","加载异常...","加载异常..."}
+	s info="/data/user/0/open.cn.awg.pro/res/Manifest.json"
+	s text=wj.dqwb(info)
+	s info1=readJson(text,"name")
+	rg info1!="0"{
+		back[0]=info1
+	}
+	s info2=readJson(text,"version")
+	rg info2!="0"{
+		back[1]=info2
+	}
+	s info3=readJson(text,"maker")
+	rg info3!="0"{
+		back[2]=info3
+	}
+	s info4=readJson(text,"time")
+	rg info4!="0"{
+		back[3]=info4
+	}
+	s info5=readJson(text,"awg_version")
+	rg info5!="0"{
+		back[4]=info5
+	}
+	s info6=readJson(text,"tip")
+	rg info6!="0"{
+		back[5]=info6
+	}
+	fh back
+}
+
+ff String urlLockString(String t){
+	String back=""
+	t=zf.qctwkg(t)
+	rg t?*"awg://"{
+		back=t
+	},{
+		rg t?*"https://service.typheye.cn/"{
+			s n=zf.qc(t,"https://service.typheye.cn/",null)
+			back="awg://web.url/"+n
+		},t?*"https://"{
+			t=zf.th(t,"https://","")
+			back="awg://thirds.url/"+t
+		},t?*"http://"{
+			t=zf.th(t,"http://","")
+			back="awg://third.url/"+t
+		},{
+			back="0"
+		}
+	}
+	fh back
+}
+
+ff String urlUnlockString(String t){
+	String back=""
+	s url="https://service.typheye.cn/"
+	s http="http://"
+	s https="https://"
+	t=zf.qctwkg(t)
+	rg t?*"awg://"{
+		rg t?*"awg://web.url/"{
+			back=zf.th(t,"awg://web.url/",url)
+		},t?*"awg://third.url/"{
+			back=zf.th(t,"awg://third.url/",http)
+		},t?*"awg://thirds.url/"{
+			back=zf.th(t,"awg://thirds.url/",https)
+		},{
+			back="0"
+		}
+	},{
+		back=t
+	}
+	fh back
+}
+
+ff String htmlToText(String t){
+	s back=""
+	t=zf.th(t,"&quot;","\"")
+	back=zf.th(t,"&amp;","&")
+	fh back
+}
+
+ff update(int a11){
+	s set36 = "/data/user/0/open.cn.awg.pro/settings/fixVersion"
+	gd s appfixversion=zf.qctwkg(wj.dqwb(set36))
+	gd int myappversion=a11
+	s set2e = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	set2e=wj.dqwb(set2e)
+	set2e=urlUnlockString(set2e)
+	rg set2e*?"/"{
+	},{
+		set2e=set2e+"/"
+	}
+	set2e=set2e+"config.json"
+	//gd s starts="**TOP*"
+	//gd s ends="*END**"
+	gd s url=set2e
+	gj.xc(){
+		rg yz()==true{
+			s setback=""
+			s version=""
+			s version2=""
+			//  s wlhq1={"name1=value1","name2=value2"}
+			// s back = wl.hq(url,wlhq1,"utf-8","uid=123;name=123;",true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+			s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+			rg back==""||back==null{
+				setback="0"
+			},{
+				//setback=zf.qc(back,starts,ends)
+				setback=htmlToText(back)
+				rg setback=="0"{
+					setback="0"
+				},{
+					version=readJson(setback,"UpdateVersion")
+					version2=readJson(setback,"FixVersion")
+					setback=1
+				}
+			}
+			rg setback=="0"{
+			},{
+				s ek=""
+				gd int b1=version
+				gd int b2=version2
+				rg myappversion>=b1{
+					//无更新
+				},{
+					//有更新
+					ek="应用"
+				}
+				rg appfixversion>=b2{
+					//无更新
+				},{
+					//有更新
+					rg ek=="应用"{
+						ek=ek+"和补丁"
+					},{
+						ek="补丁"
+					}
+				}
+				rg myappversion<b1||appfixversion<b2{
+					gd s eks=ek
+					gj.jmxc(){
+						gj.tz(f9.iyu)
+						tsk("提示",eks+"有新版本了")
+					}
+				}
+			}
+		},{
+			
+		}
+	}
+}
+
+ff online(){
+	onlineall()
+}
+
+ff onlineall(){
+	s set2e = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	set2e=wj.dqwb(set2e)
+	set2e=urlUnlockString(set2e)+"/online.php"
+	gd s url=set2e
+	gj.xc(){
+		s setback=""
+		s version=""
+		s version2=""
+		//  s wlhq1={"name1=value1","name2=value2"}
+		// s back = wl.hq(url,wlhq1,"utf-8","uid=123;name=123;",true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+		s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+		rg back==""||back==null{
+			//下线
+		},{
+			//上线
+		}
+	}
+}
+
+ff boolean isInstallX5(){
+	boolean back
+	rg wj.cz("/data/user/0/open.cn.awg.pro/app_tbs/core_share/tbs.conf")==true||wj.cz("/data/user/0/open.cn.awg.pro/app_tbs_64/core_share/tbs.conf")==true{
+		back=true
+	},{
+		back=false
+	}
+	fh back
+}

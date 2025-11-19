@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/k4_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorBlack">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+csh()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</__layoutIsLoaded></__layoutIsLoaded><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+
+</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><iClass><iClass>qj i.runlibrary.app.v.wb cmd
+qj i.runlibrary.app.v.wb jzt
+s e1=cj.e1()
+ff csh(){
+  gd s qtgd=st.qtgd(zy.i.qtgd1)
+  cmd=st.wb(zy.i.wb1)
+  jzt=st.wb(zy.i.wb2)
+  gj.xc(){
+    gj.jmxc(){
+      cmd.zf("正在准备中...\n")
+      jzt.zf("准备中")
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("准备完成,开始测试网络请求")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("测试中")
+    }
+    s testurl = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+    testurl=wj.dqwb(testurl)
+    testurl=e1.urlUnlockString(testurl)
+    gd s st5 = wl.hq(testurl, null, "utf-8", null, true, null, 20000, 20000, null)
+    gj.jmxc(){
+      cmd.st.append("请求发送成功,返回结果:\n"+st5)
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("测试完成,开始优化")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("优化中")
+    }
+    gj.zt(500)
+    int b=0
+    xh b&lt;100{
+      gj.zt(50)
+      b=b+1
+      gd s c=b
+      gj.jmxc(){
+        cmd.st.append("优化进度:"+c+"%")
+        cmd.st.append("\n")
+        qtgd.st.fullScroll(View.FOCUS_DOWN)
+      }
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("优化完成,结束任务")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("优化完成")
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      gj.gb()
+    }
+  }
+}</iClass></iClass><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+fh fou</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextTrue" android:textSize="9sp" android:scrollbars="vertical"/></android.support.v4.widget.NestedScrollView><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent"><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerInParent="true" android:padding="5dp" android:background="@color/colorThough2" android:gravity="center"><ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="准备中" android:textColor="@color/colorWhite" android:textSize="13sp" android:textStyle="bold"/></LinearLayout></RelativeLayout></RelativeLayout>

@@ -1,0 +1,364 @@
+string url = "https://service.typheye.cn"
+
+qj boolean state_get_data_update = false
+qj boolean state_update_user_data = false
+qj boolean state_get_pericon = false
+
+s uidxml = "/data/user/0/open.cn.awg.pro/settings/account/user"
+s cookiexml = "/data/user/0/open.cn.awg.pro/data/easy/cookie"
+
+s e1 = cj.e1()
+ff string getPerIcon(s uid)
+{
+	string url = getPerIconPath(sj.zh().zstring(uid))
+	rg wj.cz(url) == true
+	{
+		fh url
+	},{
+		fh "null"
+	}
+}
+
+ff string getPerIconPath(s uid)
+{
+	string url = wj.hqml("/data/user/0/open.cn.awg.pro/data/user/src/pericon/" + sj.zh().zstring(uid))
+	fh url
+}
+
+ff getPericon(s a)
+{
+	rg state_get_pericon == false
+	{
+		state_get_pericon = true
+		a = zf.qctwkg(a)
+		gd string uid = sj.zh().zstring(a)
+		gj.xc()
+		{
+			getPericon$1(uid)
+		}
+	}, {
+		gj.jmxc()
+		{
+			//gj.ts("请等待上一个操作执行完毕")
+		}
+	}
+}
+
+ff getPericon$1(string uid)
+{
+	string send = "/src/pericon/" + uid
+	int back = wl.xz(url + send, getPerIconPath(uid), true)
+	rg back == -1
+	{
+		getPericon$error()
+	},{
+		//成功
+	}
+	state_get_pericon = false
+}
+
+ff getPericon$error()
+{
+	gj.jmxc()
+	{
+		//gj.ts("获取头像失败")
+	}
+}
+
+ff getDataUpdate()
+{
+	rg state_get_data_update == false
+	{
+		state_get_data_update = true
+		string a = wj.dqwb(uidxml)
+		string b = wj.dqwb(cookiexml)
+		string sjzx = xt.sj(4)
+		gd s post = { "v1=" , "v2=" , "v3=" }
+		string send0 = "type=get_data_update&uid=" + a + "&cookie=" + b + "&time=" + sjzx
+		gd string send = "/api.php?" + send0 + "&token=" + sj.md5(send0)
+		gj.xc()
+		{
+			string j_code = ""
+			string j_msg = ""
+			int j_info_v0 = 0
+			int j_info_v1 = 0
+			int j_info_v2 = 0
+			int j_info_v3 = 0
+			string back = wl.hq(url + send, post, "utf-8")
+			rg back == "null"||back==null||back==""
+			{
+				getDataUpdate$error()
+			},{
+				yc {
+					java
+					{
+						JSONObject json = JSONObject.parseObject(back);
+						j_code = json.getString("code");
+						j_msg = json.getString("msg");
+						try
+						{
+							JSONObject info = json.getJSONObject("info");
+							j_info_v0 = info.getIntValue("v0");
+							j_info_v1 = info.getIntValue("v1");
+							j_info_v2 = info.getIntValue("v2");
+							j_info_v3 = info.getIntValue("v3");
+						} catch (Exception e){
+							
+						}
+					}
+					rg j_code == "200"
+					{
+						//gj.sc(back)
+						rg j_info_v0 == 1
+						{
+							getLoginError()
+						},{
+						}
+					},{
+					}
+				},{
+					getDataUpdate$error()
+				}
+			}
+			state_get_data_update = false
+		}
+	}, {
+		gj.jmxc()
+		{
+			//gj.ts("请等待上一个操作执行完毕")
+		}
+	}
+}
+
+ff getDataUpdate$error()
+{
+	//出错
+}
+
+
+ff updateUserData()
+{
+	rg state_update_user_data == false
+	{
+		state_update_user_data = true
+		
+		gd s set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf"
+		gd s set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+		gd s set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf"
+		string a = wj.dqwb(uidxml)
+		string b = wj.dqwb(cookiexml)
+        gd s uid_ = a
+		string sjzx = xt.sj(4)
+		string send0 = "type=get_user_data&uid=" + a + "&cookie=" + b + "&time=" + sjzx
+		gd string send = "/api.php?" + send0 + "&token=" + sj.md5(send0)
+		gj.xc()
+		{
+			string j_code = ""
+			string j_msg = ""
+			string j_info_shuo = ""
+			string j_info_nick = ""
+			string back = wl.hq(url + send, null, "utf-8")
+			rg back == "null"||back==null||back==""
+			{
+				updateUserData$error()
+			},{
+				yc {
+					java
+					{
+						JSONObject json = JSONObject.parseObject(back);
+						j_code = json.getString("code");
+						j_msg = json.getString("msg");
+						try{
+							JSONObject info = json.getJSONObject("info");
+							j_info_shuo = info.getString("shuo");
+							j_info_nick = info.getString("nick");
+						} catch (Exception e){
+							
+						}
+					}
+					rg j_code == "200"
+					{
+						getPericon(uid_)
+						wj.xrwb(set2,j_info_nick)
+						wj.xrwb(set2s,j_info_nick)
+						wj.xrwb(set3,j_info_shuo)
+					},{
+					}
+				},{
+					updateUserData$error()
+				}
+			}
+			state_update_user_data = false
+		}
+	}, {
+		gj.jmxc()
+		{
+			//gj.ts("请等待上一个操作执行完毕")
+		}
+	}
+}
+
+ff updateUserData$error()
+{
+	//出错
+}
+
+
+ff getLoginError()
+{
+	//账号异常
+	rg e1.islogin()==true{
+		s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+		s b = "/data/user/0/open.cn.awg.pro/settings/account/pass"
+		s c = "/data/user/0/open.cn.awg.pro/settings/account/userx"
+		s d = "/data/user/0/open.cn.awg.pro/settings/account/passx"
+		wj.sc(a)
+		wj.sc(b)
+		wj.sc(c)
+		wj.sc(d)
+		gj.jmxc(){
+			gj.tz(n2.iyu)
+		}
+		e1.tsk("提示","您的账户异常，已退出登录")
+	}
+}
+
+ff boolean register$request(s a,s b,s c,s d)
+{
+	a = zf.qctwkg(a)
+	b = zf.qctwkg(b)
+	c = zf.qctwkg(c)
+	d = zf.qctwkg(d)
+	gd s username = a
+	gd s regtoken = b
+	gd s password = c
+	gd s password2 = d
+	string sjzx = xt.sj(4)
+	string send0 = "type=register&username=" + sj.zh().zstring(a) + "&regtoken=" + sj.zh().zstring(b) + "&password=" + sj.zh().zstring(c) + "&password2=" + sj.zh().zstring(d) + "&time=" + sjzx
+	gd string send = "/api.php?" + send0 + "&token=" + sj.md5(send0)
+	string j_code = ""
+	string j_msg = ""
+	string cookie = ""
+	string back = wl.hq(url + send, null, "utf-8")
+	rg back == "null"||back==null||back==""
+	{
+		register$error()
+	},{
+		yc {
+			java
+			{
+				JSONObject json = JSONObject.parseObject(back);
+				j_code = json.getString("code");
+				j_msg = json.getString("msg");
+			}
+			rg j_code == "200"
+			{
+				e1.tsk("提示","注册成功")
+			},{
+				gd s msg = j_msg
+				e1.tsk("提示",msg)
+			}
+		},{
+			register$error()
+		}
+	}
+	fh true
+}
+
+ff register$error()
+{
+	e1.tsk("提示","注册失败：未知异常")
+}
+
+ff register$request$token(s a,i.runlibrary.app.v.an b)
+{
+	a = zf.qctwkg(a)
+	gd s an = b
+	string sjzx = xt.sj(4)
+	string send0 = "type=register_token&email=" + sj.zh().zstring(a) + "&time=" + sjzx
+	gd string send = "/api.php?" + send0 + "&token=" + sj.md5(send0)
+	gj.jmxc()
+	{
+		an.zf("发送中")
+	}
+	string j_code = ""
+	string j_msg = ""
+	string back = wl.hq(url + send, null, "utf-8")
+	rg back == "null"||back==null||back==""
+	{
+		register$token$error(an)
+	},{
+		yc {
+			java
+			{
+				JSONObject json = JSONObject.parseObject(back);
+				j_code = json.getString("code");
+				j_msg = json.getString("msg");
+			}
+			rg j_code == "200"
+			{
+				gj.jmxc()
+				{
+					an.zf("已发送")
+					e1.tsk("提示","发送验证码成功,请在邮箱查收")
+				}
+			},{
+				gd s msg = j_msg
+				gj.jmxc()
+				{
+					an.zf("获取")
+					e1.tsk("提示",msg)
+				}
+			}
+		},{
+			register$token$error(an)
+		}
+	}
+}
+
+ff register$token$error(i.runlibrary.app.v.an an)
+{
+	gd s an2 = an
+	gj.jmxc()
+	{
+		an2.zf("获取")
+		e1.tsk("提示","发送失败：未知异常")
+	}
+}
+
+
+ff boolean findpwd(s a,s b,s c,s d)
+{
+	a = zf.qctwkg(a)
+	b = zf.qctwkg(b)
+	c = zf.qctwkg(c)
+	d = zf.qctwkg(d)
+	gd s email = sj.zh().zstring(a)
+	gd s tokenCode = sj.zh().zstring(b)
+	gd s newpassword = sj.zh().zstring(c)
+	gd s newpasswords = sj.zh().zstring(d)
+	string sjzx = xt.sj(4)
+	s postt={"email="+email,"tokenCode="+tokenCode,"newpassword="+newpassword,"newpasswords="+newpasswords}
+	string send0 = "time=" + sjzx
+	gd string send = "/find.php?" + send0 + "&token=" + sj.md5(send0)
+	string j_code = ""
+	string j_msg = ""
+	string cookie = ""
+	string back = wl.hq(url + send, postt, "utf-8")
+	rg back == "null"||back==null||back==""
+	{
+		findpwd$error()
+	},{
+		yc {
+			e1.tsk("提示",back)
+		},{
+			findpwd$error()
+		}
+	}
+	fh true
+}
+
+ff findpwd$error()
+{
+	e1.tsk("提示","密码重置失败：未知异常")
+}

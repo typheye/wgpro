@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/f22_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+update()</onCreate></onCreate><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s e1=cj.e1()
+s update_url=""
+
+
+ff update(){
+	gd s auid = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	gd s sec_updater = "/data/user/0/open.cn.awg.pro/data/sec/updater"
+	s set36 = "/data/user/0/open.cn.awg.pro/settings/fixVersion"
+	int a11
+	string vn
+	java a11=com.demo.e4.getVersionCode(lei)
+	java vn=com.demo.e4.getVersionName(lei)
+	gd s myappversion=a11
+	gd s myappversionname=vn
+	gd s appfixversion=zf.qctwkg(wj.dqwb(set36))
+	s set2e = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	gd s set3 = "/data/user/0/open.cn.awg.pro/cache/update"
+	set2e=wj.dqwb(set2e)
+	set2e=e1.urlUnlockString(set2e)
+	rg set2e*?"/"{
+	},{
+		set2e=set2e+"/"
+	}
+	set2e=set2e+"config_v2.json"
+	//gd s starts="**TOP*"
+	//gd s ends="*END**"
+	gd s url=set2e
+	gj.xc(){
+		gj.jmxc(){
+			s e="Loading..."
+			st.wb(zy.i.wb5).zf(e)
+			st.wb(zy.i.wb8).zf(e)
+			st.wb(zy.i.wb11).zf(e)
+		}
+		s setback=""
+		s version=""
+		s versionname=""
+		s time=""
+		s text=""
+		s urls=""
+		s allow=""
+		//s back = wl.hq(url,null,"utf-8","uid=123;name=123;",true,"User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN",20000,20000,null)
+		s back = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+		rg back==""||back==null{
+			setback="0"
+		},{
+			//setback=zf.qc(back,starts,ends)
+			setback=e1.htmlToText(back)
+			rg setback=="0"{
+				setback="0"
+			},{
+				version=e1.readJson(setback,"UpdateVersion")
+				versionname=e1.readJson(setback,"UpdateVersionName")
+				time=e1.readJson(setback,"UpdateTime")
+				text=e1.readJson(setback,"UpdateText")
+				allow=e1.readJson(setback,"UpdateAllow")
+				urls=e1.readJson(setback,"UpdateUrl")
+				urls=e1.urlUnlockString(urls)
+			}
+		}
+		rg setback=="0"{
+			rg wj.cz(sec_updater) {
+				setback = wj.dqwb(sec_updater)
+				version=e1.readJson(setback,"UpdateVersion")
+				versionname=e1.readJson(setback,"UpdateVersionName")
+				time=e1.readJson(setback,"UpdateTime")
+				text=e1.readJson(setback,"UpdateText")
+				urls=e1.readJson(setback,"UpdateUrl")
+				urls=e1.urlUnlockString(urls)
+				gd int b1=version
+				gd s b2=time
+				gd s b3=text
+				update_url=urls
+				ewm(update_url)
+				gj.jmxc(){
+					st.wb(zy.i.wb5).zf(b1)
+					st.wb(zy.i.wb8).zf(b2)
+					st.wb(zy.i.wb11).zf(b3)
+				}
+			},{
+				gj.jmxc(){
+					s e="加载异常..."
+					st.wb(zy.i.wb5).zf(e)
+					st.wb(zy.i.wb8).zf(e)
+					st.wb(zy.i.wb11).zf(e)
+				}
+			}
+		},{
+			gd int b1=version
+			gd s b2=time
+			gd s b3=text
+			rg (allow == "0" || allow ? wj.dqwb(auid)) &amp;&amp; e1.islogin() {
+				rg myappversion&lt;b1&amp;&amp;b1!=9999999{
+					wj.xrwb(sec_updater, setback)
+				},{
+					int ccc = versionname.compareTo(myappversionname)
+					rg versionname!=myappversionname &amp;&amp; ccc &gt; 0{
+						wj.xrwb(sec_updater, setback)
+					}, {
+						wj.sc(sec_updater)
+					}
+				}
+			},{
+				wj.sc(sec_updater)
+			}
+			update_url=urls
+			ewm(update_url)
+			gj.jmxc(){
+				st.wb(zy.i.wb5).zf(b1)
+				st.wb(zy.i.wb8).zf(b2)
+				st.wb(zy.i.wb11).zf(b3)
+			}
+		}
+	}
+}
+
+ff ewm(string url){
+	gd s qr=url
+	gj.jmxc(){
+		yc{
+			java {
+				android.widget.ImageView imageView=(android.widget.ImageView)findViewById(R.id.tx4);
+				Bitmap bitmap=com.demo.e4.createQRCodeBitmap(qr, 800, 800,"UTF-8","H", "1");
+				imageView.setImageBitmap(bitmap);
+			}
+			st.tx(zy.i.tx4).kjd(0)
+		},(e){
+			st.tx(zy.i.tx4).kjd(8)
+		}
+	}
+}</iClass></iClass><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+},a=="2"{
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+},a=="4"{
+  
+}
+
+st.xxbj(zy.i.xxbj10).kjd(0)
+st.xxbj(zy.i.xxbj8).kjd(8)
+st.xxbj(zy.i.xxbj6).kjd(8)
+st.xxbj(zy.i.xxbj12).kjd(8)
+st.xxbj(zy.i.xxbj11).kjd(8)
+st.xxbj(zy.i.xxbj7).kjd(8)
+//e1.tsk("提示","本功能还在不断建设中...\n仅有界面,并无实际作用")</__layoutIsLoaded></__layoutIsLoaded><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+fh fou</onKeyDown></onKeyDown></_Yu5Src><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true" android:layout_centerInParent="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="50dp" android:layout_height="50dp" app:cardBackgroundColor="@color/colorWBK" app:cardCornerRadius="10dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginTop="5dp" android:layout_marginBottom="3dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/ic_v"/></android.support.v7.widget.CardView><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" android:textColor="@color/colorTextU1" android:textSize="15sp" android:gravity="center" android:textStyle="bold"/><LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="2dp" android:layout_marginBottom="5dp"><TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="新版本" android:textColor="@color/colorTextU1" android:textSize="9sp" android:textStyle="bold" android:visibility="visible" android:layout_marginRight="0dp" android:singleLine="true" android:background="@drawable/text1bj" android:paddingTop="2dp" android:paddingBottom="2dp" android:paddingLeft="6dp" android:paddingRight="6dp"/></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a25" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj10).kjd(8)
+  st.xxbj(zy.i.xxbj8).kjd(0)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a24" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj10).kjd(0)
+  st.xxbj(zy.i.xxbj8).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="更新日志" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="5dp"/><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:padding="5dp" android:visibility="gone"><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginLeft="5dp" android:layout_centerVertical="true" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"><TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新版本" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textStyle="bold"/><TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabBackground" android:layout_marginTop="2dp" android:layout_marginBottom="2dp"/><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="false" android:textIsSelectable="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginLeft="5dp" android:layout_centerVertical="true" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新时间" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textStyle="bold"/><TextView android:id="@+id/wb7" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabBackground" android:layout_marginTop="2dp" android:layout_marginBottom="2dp"/><TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="false" android:textIsSelectable="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="8dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginLeft="5dp" android:layout_centerVertical="true" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp"><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新介绍" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textStyle="bold"/><TextView android:id="@+id/wb10" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabBackground" android:layout_marginTop="2dp" android:layout_marginBottom="2dp"/><TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="false" android:textIsSelectable="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></RelativeLayout><android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx10" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a25" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj8).kjd(8)
+  st.xxbj(zy.i.xxbj6).kjd(0)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a24" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj8).kjd(0)
+  st.xxbj(zy.i.xxbj6).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><TextView android:id="@+id/wb13" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="是否立即更新？" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="5dp"/><LinearLayout android:id="@+id/xxbj9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx16" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj6).kjd(8)
+  st.xxbj(zy.i.xxbj12).kjd(0)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp7" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx11" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.xc()
+{
+  gj.jmxc(){
+    st.xxbj(zy.i.xxbj6).kjd(8)
+    st.xxbj(zy.i.xxbj12).kjd(8)
+    st.xxbj(zy.i.xxbj11).kjd(0)
+  }
+  gj.zt(2000)
+  gj.jmxc(){
+    st.xxbj(zy.i.xxbj11).kjd(8)
+    st.xxbj(zy.i.xxbj7).kjd(0)
+  }
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout><LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><TextView android:id="@+id/wb15" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="确定取消更新？" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="5dp"/><CheckBox android:id="@+id/dx1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="不再提醒" android:textColor="@color/colorTextU1" android:background="@drawable/dxbj" android:layout_margin="3dp" android:padding="5dp" android:visibility="gone"/><LinearLayout android:id="@+id/xxbj13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp9" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx13" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj6).kjd(0)
+  st.xxbj(zy.i.xxbj12).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp10" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp"><ImageView android:id="@+id/tx14" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.xc()
+{
+  gj.jmxc(){
+    st.xxbj(zy.i.xxbj12).kjd(8)
+    st.xxbj(zy.i.xxbj11).kjd(0)
+  }
+  gj.zt(500)
+  gj.gb()
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout><LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp"/><TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中" android:textSize="13sp" android:textColor="@color/colorTextU1" android:textStyle="bold"/></LinearLayout><LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码完成更新" android:textSize="11sp" android:textColor="@color/colorTextU1" android:gravity="center" android:layout_margin="5dp"/><ImageView android:id="@+id/tx4" android:layout_width="100dp" android:layout_height="100dp" android:src="#00000000" android:visibility="gone"><Yu5Src><setOnClickListener><onClick>rg st.wb(zy.i.wb16).kjd()==0 {
+  gj.jmxc(){
+    st.wb(zy.i.wb16).kjd(8)
+    st.an(zy.i.an1).kjd(8)
+  }
+}, {
+  gj.jmxc(){
+    st.wb(zy.i.wb16).kjd(0)
+    st.an(zy.i.an1).kjd(0)
+  }
+}</onClick></setOnClickListener></Yu5Src></ImageView><Button android:id="@+id/an1" android:layout_width="wrap_content" android:layout_height="35dp" android:hint="取消" android:layout_margin="5dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xxbj(zy.i.xxbj7).kjd(8)
+  s tx14=st.tx(zy.i.tx14)
+  tx14.v.performClick()
+}</onClick></setOnClickListener></Yu5Src></Button></LinearLayout></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

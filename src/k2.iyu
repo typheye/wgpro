@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/k2_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorBlack">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+csh()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</__layoutIsLoaded></__layoutIsLoaded><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+
+</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><iClass><iClass>qj i.runlibrary.app.v.wb cmd
+qj i.runlibrary.app.v.wb jzt
+ff csh(){
+  gd s qtgd=st.qtgd(zy.i.qtgd1)
+  cmd=st.wb(zy.i.wb1)
+  jzt=st.wb(zy.i.wb2)
+  gj.xc(){
+    gj.jmxc(){
+      cmd.zf("开始扫描垃圾文件...\n")
+      jzt.zf("扫描中")
+    }
+    s gl = { "*.log" }
+    // 获取一个 File[] 对象数组
+    s lb = wj.czwj("%", gl)
+    // 循环打印
+    xh s c, lb
+    {
+      gj.zt(5)
+      // 通过 c.getAbsolutePath() 来获取文件的完整路径
+      //gj.sc(c.getAbsolutePath())
+      gd String f=c.getAbsolutePath()
+      gj.jmxc(){
+        cmd.st.append("发现日志文件:"+f)
+        cmd.st.append("\n")
+        qtgd.st.fullScroll(View.FOCUS_DOWN)
+        //fullScroll(View.FOCUS_DOWN)
+      }
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("扫描完成,开始清理")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("清理中")
+    }
+    gj.zt(500)
+    xh s c, lb
+    {
+      gj.zt(5)
+      // 通过 c.getAbsolutePath() 来获取文件的完整路径
+      //gj.sc(c.getAbsolutePath())
+      gd String f=c.getAbsolutePath()
+      gj.jmxc(){
+        cmd.st.append("清理日志文件:"+f)
+        wj.sc(f)
+        cmd.st.append("\n")
+        qtgd.st.fullScroll(View.FOCUS_DOWN)
+        //fullScroll(View.FOCUS_DOWN)
+      }
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("清理完成,结束任务")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("清理完成")
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      gj.gb()
+    }
+  }
+}</iClass></iClass><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+fh fou</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorWhite" android:textSize="9sp" android:scrollbars="vertical"/></android.support.v4.widget.NestedScrollView><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent"><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerInParent="true" android:padding="5dp" android:background="@color/colorThough2" android:gravity="center"><ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描中" android:textColor="@color/colorWhite" android:textSize="13sp" android:textStyle="bold"/></LinearLayout></RelativeLayout></RelativeLayout>

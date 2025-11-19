@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/l5_a2_nimin_d0415_y2022_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+//e12.csh()
+show(0)</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.l5_a2_nimin_d0415_y2022_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.l5_a2_nimin_d0415_y2022_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+    int uih=pm.ztl/2+9
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,uih+"dp",0,"9dp")
+    wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}
+
+s xlcd1=st.xlcd(zy.i.xlcd1)
+s sz = { "单曲" }
+//, "专辑", "歌手", "歌单", "用户", "MV", "歌词", "电台", "视频", "综合", "声音" }
+xlcd1.csh(sz)</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+s um=""
+File f
+s e1=cj.e1()
+s e12=cj.e12()
+boolean state_login_xh = true
+s cookiepath="/data/user/0/open.cn.awg.pro/data/plugin/tunefree/cookie"
+
+ff login$exit(){
+  state_login_xh = false
+  show(0)
+}
+
+ff jz(){
+  rg wj.cz(cookiepath) &amp;&amp; wj.dqwb(cookiepath) != ""{
+    gj.jmxc(){
+      st.xdbj(zy.i.xdbj4).kjd(0)
+      st.xxbj(zy.i.xxbj5).kjd(8)
+      st.xxbj(zy.i.xxbj10).kjd(0)
+    }
+  },{
+    gj.jmxc(){
+      st.xdbj(zy.i.xdbj4).kjd(8)
+      st.xxbj(zy.i.xxbj5).kjd(0)
+      st.xxbj(zy.i.xxbj10).kjd(8)
+    }
+  }
+}
+
+ff login_xh(s url_,s key_){
+  gd s url = url_
+  gd s key = key_
+  gd s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+  gd s set35 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/url"
+  gj.xc(){
+    state_login_xh = true
+    ewm(url)
+    gj.jmxc(){
+      st.wb(zy.i.wb11).zf("扫描二维码完成登录")
+    }
+    show(3)
+    xh true {
+      gj.zt(3000)
+      rg state_login_xh == false {
+        tcxh
+      }
+      s setback = ""
+      s code = ""
+      s url=zf.qctwkg(wj.dqwb(set35))+"/login/qr/check"
+      //s whq={"keywords="+xx,"type="+api_search_type[type],"limit=20","offset="+ot }
+      s whq="?key="+key+ljf+"timestamp="+xt.sj(4)
+      //s back = wl.hq(url,whq,"utf-8",null,true,f,20000,20000,null)
+      s back = wl.hq(url+whq,null,"utf-8")
+      //gj.sc(back)
+      rg back==""||back==null{
+        setback="0"
+      },{
+        yc{
+          code = e1.readJson(back, "code")
+        },{
+          back = "0"
+        }
+        setback=back
+      }
+      rg setback=="0"{
+        show(0)
+        e1.tsk("提示","加载失败,请重试")
+        tcxh
+      },{
+        rg code == "803"{
+          s coo = e1.readJson(setback, "cookie")
+          wj.xrwb(cookiepath,coo)
+          show(0)
+          e1.tsk("提示","登录成功")
+          tcxh
+        }, code == "800"{
+          gj.jmxc(){
+            st.wb(zy.i.wb11).zf("二维码已过期")
+            st.tx(zy.i.tx3).kjd(8)
+          }
+        },code == "802"{
+          gj.jmxc(){
+            st.wb(zy.i.wb11).zf("扫码成功 等待确认")
+            st.tx(zy.i.tx3).kjd(8)
+          }
+        },{
+          
+        }
+      }
+    }
+  }
+}
+
+ff login(){
+  gd s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+  gd s set35 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/url"
+  gj.xc(){
+    show(2)
+    s key =""
+    s url=zf.qctwkg(wj.dqwb(set35))+"/login/qr/key?timestamp="+xt.sj(4)
+    s setback=""
+    s f = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN"
+    //s whq={"keywords="+xx,"type="+api_search_type[type],"limit=20","offset="+ot }
+    //s back = wl.hq(url,whq,"utf-8",null,true,f,20000,20000,null)
+    s back = wl.hq(url,null,"utf-8")
+    //gj.sc(back)
+    rg back==""||back==null{
+      setback="0"
+    },{
+      yc {
+        key = e1.readJson(back, "data")
+        key = e1.readJson(key, "unikey")
+        url=zf.qctwkg(wj.dqwb(set35))+"/login/qr/create"
+        //s whq={"keywords="+xx,"type="+api_search_type[type],"limit=20","offset="+ot }
+        s whq="?key="+key+ljf+"timestamp="+xt.sj(4)
+        //s back = wl.hq(url,whq,"utf-8",null,true,f,20000,20000,null)
+        back = wl.hq(url+whq,null,"utf-8")
+        //gj.sc(back)
+        rg back==""||back==null{
+          setback="0"
+        },{
+          yc{
+            back = e1.readJson(back, "data")
+            back = e1.readJson(back, "qrurl")
+          },{
+            back = "0"
+          }
+          setback=back
+        }
+      },{
+      }
+    }
+    rg setback=="0"{
+      show(0)
+      e1.tsk("提示","加载失败,请重试")
+    },{
+      login_xh(setback,key)
+    }
+  }
+}
+
+ff show(int i){
+  gd s tab=st.wb(zy.i.Tab)
+  gd s x1=st.xxbj(zy.i.xxbj1)
+  gd s x2=st.xxbj(zy.i.xxbj6)
+  gd s x3=st.xxbj(zy.i.xxbj2)
+  gd s x4=st.xxbj(zy.i.xxbj8)
+  gd s x5=st.xxbj(zy.i.xxbj12)
+  rg i==0{
+    jz()
+    gj.jmxc(){
+      xt.sbxm(true)
+      tab.zf("&lt; TuneFree")
+      x1.kjd(8)
+      x2.kjd(8)
+      x3.kjd(0)
+      x4.kjd(8)
+      x5.kjd(8)
+    }
+  },i==1{
+    gj.jmxc(){
+      xt.sbxm(true)
+      tab.zf("&lt; 搜索歌曲")
+      x1.kjd(0)
+      x2.kjd(8)
+      x3.kjd(8)
+      x4.kjd(8)
+      x5.kjd(8)
+    }
+  },i==2{
+    gj.jmxc(){
+      xt.sbxm(true)
+      tab.zf("TuneFree")
+      x1.kjd(8)
+      x2.kjd(0)
+      x3.kjd(8)
+      x4.kjd(8)
+      x5.kjd(8)
+    }
+  },i==3{
+    gj.jmxc(){
+      xt.sbxm(false)
+      tab.zf("TuneFree")
+      x1.kjd(8)
+      x2.kjd(8)
+      x3.kjd(8)
+      x4.kjd(0)
+      x5.kjd(8)
+    }
+  },i==4{
+    gj.jmxc(){
+      xt.sbxm(false)
+      tab.zf("TuneFree")
+      x1.kjd(8)
+      x2.kjd(8)
+      x3.kjd(8)
+      x4.kjd(8)
+      x5.kjd(0)
+    }
+  }
+}
+
+ff ewm(string url){
+  gd s qr=url
+  gj.jmxc(){
+    yc{
+      java {
+        android.widget.ImageView imageView=(android.widget.ImageView)findViewById(R.id.tx3);
+        Bitmap bitmap=com.demo.e4.createQRCodeBitmap(qr, 800, 800,"UTF-8","H", "1");
+        imageView.setImageBitmap(bitmap);
+      }
+      st.tx(zy.i.tx3).kjd(0)
+    },(e){
+      st.tx(zy.i.tx3).kjd(8)
+    }
+  }
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+jz()</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onKeyDown><onKeyDown>rg kc==4{
+  rg st.wb(zy.i.Tab).zf()=="&lt; TuneFree"{
+    gj.gb()
+  },st.wb(zy.i.Tab).zf()=="&lt; 搜索歌曲"{
+    show(0)
+  }
+}
+
+fh fou</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; TuneFree" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>rg st.wb(zy.i.Tab).zf()=="&lt; TuneFree"{
+  gj.gb()
+},st.wb(zy.i.Tab).zf()=="&lt; 搜索歌曲"{
+  show(0)
+}</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="visible"><TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="登录" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true"/><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp" android:visibility="gone"><LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出登录" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出当前登录状态" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.xc(){
+  show(2)
+  gj.zt(500)
+  show(4)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb7).zf()
+s lj=st.wb(zy.i.wb8).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TuneFree登录" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="使用TF授权码登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.goplu("20007","TuneFree",false)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb12).zf()
+s lj=st.wb(zy.i.wb13).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp" android:visibility="gone"><LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="网易云登录" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="使用网易云音乐登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>login()</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb9).zf()
+s lj=st.wb(zy.i.wb10).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:gravity="center"><TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="功能" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true"/><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="搜索歌曲" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="全网搜索歌曲歌手" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.bjk(zy.i.bjk1).zf("")
+}
+show(1)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb3).zf()
+s lj=st.wb(zy.i.wb4).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更多" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true"/><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp"><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true"><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="获取帮助" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看此服务的帮助" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>e1.tsk_QR("功能帮助","此服务由TuneFree提供,如有侵权,请联系498978473@qq.com\n\n体验完整TuneFree\n扫描下方二维码继续","https://tunefree.fun")</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb5).zf()
+s lj=st.wb(zy.i.wb6).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="由简繁音乐提供该服务,目前支持音乐搜索缓存播放." android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anybj" android:textColor="@color/colorTextU1" android:padding="5dp" android:textSize="13sp" android:visibility="gone"/><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入歌曲/歌手" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><Spinner android:id="@+id/xlcd1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/xlcdbj"/><Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:textColorHint="@color/colorWhite" android:text="搜索" android:elevation="0dp"><Yu5Src><setOnClickListener><onClick>gd s l=st.bjk(zy.i.bjk1).zf()
+gd int p=st.xlcd(zy.i.xlcd1).dqzsxmxh()
+gj.jmxc(){
+  s a1={"name","type"}
+  s a2={l,p}
+  gj.tz(l5_a2_nimin_d0415_y2022_a1.iyu,a1,a2)
+}</onClick></setOnClickListener></Yu5Src></Button><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>show(0)</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码完成登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><ImageView android:id="@+id/tx3" android:layout_width="100dp" android:layout_height="100dp" android:src="#00000000" android:visibility="gone"/><Button android:id="@+id/an2" android:layout_width="wrap_content" android:layout_height="35dp" android:hint="取消" android:layout_margin="5dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>login$exit()</onClick></setOnClickListener></Yu5Src></Button><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx4" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>show(0)</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="您确定要退出登录吗？" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><LinearLayout android:id="@+id/xxbj13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.xc(){
+  show(2)
+  gj.zt(500)
+  show(0)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx6" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.xc(){
+  show(2)
+  wj.sc(cookiepath)
+  gj.zt(500)
+  show(0)
+  e1.tsk("提示","已退出登录")
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/></LinearLayout></RelativeLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></android.support.v4.widget.NestedScrollView></RelativeLayout>

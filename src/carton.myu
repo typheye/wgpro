@@ -1,0 +1,255 @@
+DevicePolicyManager devicePolicyManager
+Context mContext
+ComponentName componentName
+
+ff gets(Context context){
+  //启用设备管理
+  java {
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isAdminActive(componentName)) {
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+    }
+  }
+}
+
+ff boolean state(Context context){
+  //设备管理状态
+  boolean bak
+  java {
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    bak=devicePolicyManager.isAdminActive(componentName);
+  }
+  fh bak
+}
+
+ff setCameraDisabled(Context context,boolean disabled){
+  //禁用/启用相机
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isAdminActive(componentName)) {
+      devicePolicyManager.setCameraDisabled(componentName, disabled);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff wipeData(Context context){
+  //恢复出厂设置
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isAdminActive(componentName)) {
+      devicePolicyManager.wipeData(1);
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff lockNow(Context context){
+  //立即锁屏
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isAdminActive(componentName)) {
+      devicePolicyManager.lockNow();
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff startDeviceOwner(Context context){
+  //初始化CartonDeviceOwner
+  java{
+    String text="腕管Pro";
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      devicePolicyManager.setOrganizationName(componentName, text);
+      devicePolicyManager.setUninstallBlocked(componentName, "open.cn.awg.pro", true);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff boolean isDeviceOwnerApp(Context context){
+  //是否具有DeviceOwner权限
+  boolean bak
+  java {
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    bak=devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName());
+  }
+  fh bak
+}
+
+ff LockActivity(Context context,boolean i){
+  //锁屏控制
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      if (i==false){
+        devicePolicyManager.setStatusBarDisabled(componentName, true);
+        devicePolicyManager.setCameraDisabled(componentName, true);
+        devicePolicyManager.setScreenCaptureDisabled(componentName, true);
+      }else{
+        devicePolicyManager.setStatusBarDisabled(componentName, false);
+        devicePolicyManager.setCameraDisabled(componentName, false);
+        devicePolicyManager.setScreenCaptureDisabled(componentName, false);
+      }
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff reboot(Context context){
+  //重启
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      devicePolicyManager.reboot(componentName);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff setStatusBarDisabled(Context context,boolean disabled){
+  //禁用/启用状态栏
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      devicePolicyManager.setStatusBarDisabled(componentName, disabled);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+
+ff setUninstallBlocked(Context context,String packageName,boolean uninstallBlocked){
+  //允许/不允许某软件卸载
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      devicePolicyManager.setUninstallBlocked(componentName, packageName, uninstallBlocked);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff setDeviceOwnerLockScreenInfo(Context context,String text){
+  //锁屏显示
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      devicePolicyManager.setDeviceOwnerLockScreenInfo(componentName, text);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}
+
+ff setOrganizationName(Context context,String text){
+  //设置组织名
+  java{
+    mContext = context;
+    devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
+    componentName = new ComponentName(context, DeviceReceiver.class);
+    if (devicePolicyManager.isDeviceOwnerApp(componentName.getPackageName())) {
+      devicePolicyManager.setOrganizationName(componentName, text);
+      
+    } else {
+      Intent intent = new Intent(DevicePolicyManager.ACTION_ADD_DEVICE_ADMIN);
+      intent.putExtra(DevicePolicyManager.EXTRA_DEVICE_ADMIN, componentName);
+      intent.putExtra(DevicePolicyManager.EXTRA_ADD_EXPLANATION,
+      mContext.getString(R.string.dm_extra_add_explanation));
+      mContext.startActivity(intent);
+      
+    }
+  }
+}

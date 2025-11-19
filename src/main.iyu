@@ -1,0 +1,1893 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/main_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+/*
+@2021 a1.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+//进入软件
+
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+rg e1.getNowUserId()==0{
+	gd s a0="/data/user/0/open.cn.awg.pro/settings/a4.inf"
+	gd s a1="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+	gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+	//判断Activity是否已存在
+	java{
+		if((getIntent().getFlags() &amp; android.content.Intent.FLAG_ACTIVITY_BROUGHT_TO_FRONT) != 0){
+			finish();
+			return;
+		}
+	}
+	/*yc
+	{
+	java{
+	if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.LOLLIPOP) {
+	scheduleJob();
+	}
+	Intent intent=new Intent(this, AwgCoreService.class);
+	startService(intent);
+	}
+	}*/
+	gj.xc(){
+		csh0()
+		gj.zt(500)
+		gj.jmxc(){
+			e13.downAssets()
+			s set0 = "/data/user/0/open.cn.awg.pro/settings/version"
+			java vercode=com.demo.e4.getVersionCode(lei)
+			string bb=vercode
+			rg wj.dqwb(set0)!=bb||wj.cz(set0)==false{
+				set()
+			},{
+				inj()
+			}
+			rg isShow==true &amp;&amp; wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") == true{
+				s dh = gj.dh()
+				s jbtm = dh.jbtm(1, 0)
+				jbtm.cxsc(500)
+				st.xdbj(zy.i.xdbj2).kjd(8)
+				st.xdbj(zy.i.xdbj2).dh(jbtm)
+				loaded = true
+				gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+				s a=wj.dqwb(a2)
+				rg a=="4"{
+					rg loaded==true{
+						s clr=zf.zf(zy.color.colorTab)
+						xt.pm().ztl(clr,0)
+					},{
+						s clr=zf.zf(zy.color.colorTabBackground)
+						xt.pm().ztl(clr,0)
+					}
+				}
+				s set67 = "/data/user/0/open.cn.awg.pro/settings/set7.inf"
+				src_url=wj.dqwb(set67)
+				zyqd()
+				rg debug.isShowed()==false{
+					e1.goplu("20005","后台诊断",false)
+				}
+				rg wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") == true{
+					
+					rg e1.islogin(){
+						n3_jz()
+					}
+					
+					s set11 = "/data/user/0/open.cn.awg.pro/settings/f9/set1.inf"
+					rg wj.dqwb(set11)=="true"{
+						int a11
+						string vn
+						java a11=com.demo.e4.getVersionCode(lei)
+						java vn=com.demo.e4.getVersionName(lei)
+						e1.update(a11)
+						rg e1.islogin() {
+							//e1.update_v2(a11,vn)
+						}
+					}
+					
+					//强制更新
+					//gj.tz(f22.iyu)
+					
+					wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/showing")
+					yc{
+						//AppInfo cc=cj.AppInfo(lei)
+						java{
+							//友盟正式初始化
+							UMConfigure.init(lei,"6687f537940d5a4c4983309f","awg_um",UMConfigure.DEVICE_TYPE_PHONE,"673a08d091d30693eb8353adf5c1e554");
+							PushAgent.getInstance(lei).onAppStart();
+							
+							// 注册推送
+							PushAgent api = PushAgent.getInstance(lei);
+							
+							/*api.register(new UPushRegisterCallback() {
+							@Override
+							public void onSuccess(String deviceToken) {
+							//Log.i(TAG, "deviceToken: " + deviceToken);
+							//注册厂商通道
+							registerDevicePush(lei);
+							}
+							
+							@Override
+							public void onFailure(String errCode, String errDesc) {
+							//Log.e(TAG, "register failed! " + "code:" + errCode + ",desc:" + errDesc);
+							}
+							});*/
+							/*
+							if(com.kingqi.zwcj.应用工具.服务是否在运行(lei,"open.cn.awg.pro.AwgCoreService")==false){
+							Intent startIntent=new Intent(lei,open.cn.awg.pro.AwgCoreService.class);
+							if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {
+							startForegroundService(startIntent);
+							} else {
+							startService(startIntent);
+							}
+							}
+							AwgCoreService bdb=new AwgCoreService();
+							bdb.myu(cc,lei);*/
+						}
+					},{
+					}
+				}
+			}
+			//rjh()
+			e13.run()
+		}
+	}
+},{
+	java open.cn.awg.pro.e6.getInstance().exit();
+}</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>/*s set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set10.inf"
+rg wj.dqwb(set2)=="true"{
+st.tx(zy.i.tx1).tx(zy.t.i2)
+}*/
+rg e1.getNowUserId()==0{
+	s pm=xt.pm()
+	rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+		//深色模式
+		rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+			java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+		},{
+			java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+		}
+	}
+	gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+	s a=""
+	rg wj.cz(a2)==true{
+		a=wj.dqwb(a2)
+	}
+	rg a=="4"{
+		st.xdbj(zy.i.main_v).shxtck(true)
+		rg loaded==true{
+			s clr=zf.zf(zy.color.colorTab)
+			xt.pm().ztl(clr,0)
+		},{
+			s clr=zf.zf(zy.color.colorTabBackground)
+			xt.pm().ztl(clr,0)
+		}
+		/*java{
+		//透明状态栏
+		Window window = lei.getWindow();
+		BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+		BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+		}*/
+	},{
+		st.xdbj(zy.i.main_v).shxtck(false)
+		java {
+			//全屏
+			Window window = lei.getWindow();
+			BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+			BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+		}
+	}
+	//int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+	int uu=0
+	rg wj.cz("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")==true{
+		uu=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+	}
+	gd int u=uu
+	/*java {
+	//全屏
+	Window window = lei.getWindow();
+	BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+	BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+	}*/
+	
+	rg a=="1"{
+		st.xdbj(zy.i.xdbj4).wbj(u,10,u,10)
+		s wtab=st.wb(zy.i.Tab)
+		wtab.nbj(0,"15dp",0,"3dp")
+		wtab.dqfs("center")
+		s wtab2=st.wb(zy.i.Title2)
+		wtab2.nbj(0,"15dp",0,"3dp")
+		wtab2.dqfs("center")
+		//列表
+		s lb=st.v7lb(zy.i.v7lb1)
+		spq=lb.v7lbspq(c3.lei,zy.b.c3)(ua, pn, vw){
+			s lbsj = sj.lb(vw)
+			s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+			rg f == 0{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			},f==1{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center_vertical|left")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			},f==-1{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center_vertical|right")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			},f==-2{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center")
+				xxbj.kjd(8)
+				xxbj.xydj(false)
+				xxbj.xyca(false)
+			},{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			}
+		}
+		s kj={zy.i.tx1,zy.i.wb1,zy.i.wb2,zy.i.wb3,-1}
+		s jk={zy.t.a39,"系统工具","10","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a29,"关闭菜单","31","",-1}
+		//spq.j(kj,jk)
+		jk={zy.t.a20,"文件管理","1","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a37,"腕上微聊","9","",1}
+		spq.j(kj,jk)
+		jk={zy.t.a40,"X5浏览器","11","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a48,"扩展插件","20","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a43,"更多功能","13","",1}
+		spq.j(kj,jk)
+		jk={zy.t.a10,"应用设置","8","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a46,"返回桌面","14","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a23,"退出应用","3","",1}
+		spq.j(kj,jk)
+		/*jk={zy.t.a21,"应用列表","5","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a49,"我的账户","21","",1}
+		spq.j(kj,jk)*/
+		jk={"","","","",-2}
+		spq.j(kj,jk)
+		spq.j(kj,jk)
+		spq.j(kj,jk)
+		s lbx=st.v7lb(zy.i.v7lb1)
+		s mLayoutManager=cj.android.support.v7.widget.GridLayoutManager(lei,3)
+		lbx.st.setLayoutManager(mLayoutManager)
+		spq.sx()
+	},a=="2"{
+		s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+		rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+			s wtab=st.wb(zy.i.Tab)
+			wtab.nbj(0,"3dp",0,"3dp")
+			wtab.dqfs("center")
+			s wtab2=st.wb(zy.i.Title2)
+			wtab2.nbj(0,"3dp",0,"3dp")
+			wtab2.dqfs("center")
+		},{
+			s wtab=st.wb(zy.i.Tab)
+			wtab.nbj(0,"9dp",0,"9dp")
+			wtab.dqfs("center")
+			s wtab2=st.wb(zy.i.Title2)
+			wtab2.nbj(0,"9dp",0,"9dp")
+			wtab2.dqfs("center")
+		}
+		st.xdbj(zy.i.xdbj4).wbj(10,10,10,10)
+		//列表
+		s lb=st.v7lb(zy.i.v7lb1)
+		spq=lb.v7lbspq(c3.lei,zy.b.c3)
+		s kj={zy.i.tx1,zy.i.wb1,zy.i.wb2,zy.i.wb3}
+		s jk={zy.t.a39,"系统工具","10",""}
+		spq.j(kj,jk)
+		jk={zy.t.a29,"关闭菜单","31",""}
+		//spq.j(kj,jk)
+		jk={zy.t.a20,"文件管理","1",""}
+		spq.j(kj,jk)
+		jk={zy.t.a37,"腕上微聊","9",""}
+		spq.j(kj,jk)
+		jk={zy.t.a40,"X5浏览器","11",""}
+		spq.j(kj,jk)
+		jk={zy.t.a48,"扩展插件","20",""}
+		spq.j(kj,jk)
+		jk={zy.t.a43,"更多功能","13",""}
+		spq.j(kj,jk)
+		jk={zy.t.a10,"应用设置","8",""}
+		spq.j(kj,jk)
+		jk={zy.t.a46,"返回桌面","14",""}
+		spq.j(kj,jk)
+		jk={zy.t.a23,"退出应用","3",""}
+		spq.j(kj,jk)
+		/*jk={zy.t.a21,"应用列表","5",""}
+		spq.j(kj,jk)
+		jk={zy.t.a49,"我的账户","21",""}
+		spq.j(kj,jk)*/
+		s lbx=st.v7lb(zy.i.v7lb1)
+		rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+			s mLayoutManager=cj.android.support.v7.widget.GridLayoutManager(lei,2)
+			lbx.st.setLayoutManager(mLayoutManager)
+		},{
+			s mLayoutManager=cj.android.support.v7.widget.GridLayoutManager(lei,3)
+			lbx.st.setLayoutManager(mLayoutManager)
+		}
+		spq.sx()
+	},a=="3"{
+		st.xdbj(zy.i.xdbj4).wbj(u,10,u,10)
+		s wtab=st.wb(zy.i.Tab)
+		wtab.nbj(0,"15dp",0,"3dp")
+		wtab.dqfs("center")
+		s wtab2=st.wb(zy.i.Title2)
+		wtab2.nbj(0,"15dp",0,"3dp")
+		wtab2.dqfs("center")
+		//列表
+		s lb=st.v7lb(zy.i.v7lb1)
+		spq=lb.v7lbspq(c3.lei,zy.b.c3)(ua, pn, vw){
+			s lbsj = sj.lb(vw)
+			s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+			rg f == 0{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			},f==1{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center_vertical|left")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			},f==-1{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center_vertical|right")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			},f==-2{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center")
+				xxbj.kjd(8)
+				xxbj.xydj(false)
+				xxbj.xyca(false)
+			},{
+				s xxbj=st.xxbj(vw, zy.i.xxbj2)
+				xxbj.dqfs("center")
+				xxbj.kjd(0)
+				xxbj.xydj(true)
+				xxbj.xyca(true)
+			}
+		}
+		s kj={zy.i.tx1,zy.i.wb1,zy.i.wb2,zy.i.wb3,-1}
+		s jk={zy.t.a39,"系统工具","10","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a29,"关闭菜单","31","",-1}
+		//spq.j(kj,jk)
+		jk={zy.t.a20,"文件管理","1","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a37,"腕上微聊","9","",1}
+		spq.j(kj,jk)
+		jk={zy.t.a40,"X5浏览器","11","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a48,"扩展插件","20","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a43,"更多功能","13","",1}
+		spq.j(kj,jk)
+		jk={zy.t.a10,"应用设置","8","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a46,"返回桌面","14","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a23,"退出应用","3","",1}
+		spq.j(kj,jk)
+		/*jk={zy.t.a21,"应用列表","5","",-1}
+		spq.j(kj,jk)
+		jk={zy.t.a49,"我的账户","21","",1}
+		spq.j(kj,jk)*/
+		jk={"","","","",-2}
+		spq.j(kj,jk)
+		spq.j(kj,jk)
+		spq.j(kj,jk)
+		s lbx=st.v7lb(zy.i.v7lb1)
+		s mLayoutManager=cj.android.support.v7.widget.GridLayoutManager(lei,3)
+		lbx.st.setLayoutManager(mLayoutManager)
+		spq.sx()
+	},a=="4"{
+		/*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+		rg wj.dqwb(f8set)=="true"{
+		int uih=pm.ztl/2+9
+		s wtab=st.wb(zy.i.Tab)
+		wtab.nbj(0,uih+"dp",0,"9dp")
+		wtab.dqfs("center")
+		}*/
+		/*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+		rg wj.dqwb(f8set2)=="true"{
+		pm.xnaj(false)
+		}*/
+		st.xdbj(zy.i.xdbj4).wbj(10,10,10,10)
+		//列表
+		s lb=st.v7lb(zy.i.v7lb1)
+		spq=lb.v7lbspq(c7.lei,zy.b.c7)(ua, pn, vw){
+			s lbsj = sj.lb(vw)
+			s f = sj.zh(lbsj.lbsj(pn, -1)).zint()
+			gd s xdbj1=st.xdbj(vw,zy.i.xdbj1)
+			gd s wb3=st.wb(vw,zy.i.wb3)
+			rg f == 0{
+				xdbj1.kjd(0)
+				wb3.kjd(8)
+			},{
+				xdbj1.kjd(8)
+				wb3.kjd(0)
+			}
+		}
+		s kj={zy.i.tx1,zy.i.wb1,zy.i.wb2,zy.i.wb3,-1}
+		s jk={zy.t.a39,"系统工具","27","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a29,"关闭菜单","31","",0}
+		//spq.j(kj,jk)
+		jk={zy.t.a20,"文件管理","6","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a37,"腕上微聊","7","",0}
+		spq.j(kj,jk)
+		//jk={zy.t.a55,"腕管商店","30","",0}
+		//spq.j(kj,jk)
+		jk={zy.t.a40,"X5浏览器","10","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a48,"扩展插件","20","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a43,"更多功能","13","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a10,"应用设置","2","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a46,"返回桌面","14","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a23,"退出应用","12","",0}
+		spq.j(kj,jk)
+		/*jk={zy.t.a54,"获取帮助","25","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a32,"安装教程","24","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a17,"关于应用","23","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a19,"卸载应用","26","",0}
+		spq.j(kj,jk)
+		jk={zy.t.a,"","","",-1}
+		spq.j(kj,jk)*/
+		spq.sx()
+	}
+}</__layoutIsLoaded></__layoutIsLoaded><onKeyDown><onKeyDown>rg kc==4&amp;&amp;st.xdbj(zy.i.xdbj10).kjd()==8&amp;&amp;st.xdbj(zy.i.xdbj2).kjd()==8&amp;&amp;st.xdbj(zy.i.TCxdbj).kjd()==8{
+  rg st.wb(zy.i.Tab).zf()=="腕管Pro"{
+    show(1)
+  }, st.wb(zy.i.Tab).zf()==" 腕管Pro "{
+    s dh = gj.dh()
+    gd s jbtm = dh.jbtm(0, 1)
+    jbtm.cxsc(300)
+    gj.jmxc(){
+      st.xdbj(zy.i.TCxdbj).kjd(0)
+      st.xdbj(zy.i.TCxdbj).dh(jbtm)
+    }
+  }
+}
+
+fh fou</onKeyDown></onKeyDown><iClass><iClass>qj android.content.Context context
+//定义context为全局
+//-----End-----
+i.runlibrary.app.v.v7lb$UserAdapter spq=null
+s e1=cj.e1()
+s e11=cj.e11()
+s e13=cj.e13()
+s debug=cj.debug()
+int vercode=0
+boolean isNotMainOnce=true
+boolean isShow=true
+boolean loaded=false
+boolean state_homeshow=false
+boolean state_once_homeshow=false
+boolean isHasReq=false
+s div_lbl1_url=""
+s div_ad1_url=""
+s div_yytj_item1_url=""
+s div_yytj_item2_url=""
+s div_yytj_item3_url=""
+s div_jcsp_item1_url=""
+s div_jcsp_item2_url=""
+s div_jcsp_item3_url=""
+s div_rmyy_item1_url=""
+s div_rmyy_item2_url=""
+s div_rmyy_item3_url=""
+s src_url=""
+int supertip_mode = 0
+string android_id
+s easy=cj.easy()
+
+ff csh0()
+{
+	//暂时禁用内测
+	s sec_updater = "/data/user/0/open.cn.awg.pro/data/sec/updater"
+	s sec_license = "/data/user/0/open.cn.awg.pro/data/sec/license"
+	wj.xrwb(sec_license,"1")
+	wj.sc(sec_updater)
+	//e1.getlic()
+}
+
+ff n3_jz(){
+	gj.xc(){
+		java android_id=android.provider.Settings.System.getString(getContentResolver(),android.provider.Settings.Secure.ANDROID_ID);
+		s urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+		urls=wj.dqwb(urls)
+		urls=e1.urlUnlockString(urls)
+		rg urls*?"/"{
+		},{
+			urls=urls+"/"
+		}
+		s url=urls+"api.php"
+		s post_="req=openawg_get&amp;token="+android_id
+		s post=zf.fg(post_,"&amp;",false)
+		rg e1.yz() {
+			s st2 = wl.hq(url,post,"utf-8",null,true,null,20000,20000,null)
+			rg st2==null{
+				//网络异常
+			},{
+				yc{
+					string code=e1.readJson(st2,"code")
+					rg code=="0"{
+						//未经授权的请求
+					}, {
+						isHasReq = true
+						gj.jmxc(){
+							gj.tz(n3.iyu)
+						}
+					}
+					//e1.tsk("提示","code="+code+"\n"+st2)
+				},{
+					//未经授权的请求
+				}
+			}
+		},{
+			//应用验证未通过
+		}
+	}
+}
+
+ff supertip(string t_, int m){
+	supertip_mode = m
+	gd s t = t_
+	isShow = false
+	gj.jmxc() {
+		rg supertip_mode == 0 {
+			st.kp(zy.i.kp5).kjd(0)
+			st.tx(zy.i.tx16).tx(zy.mipmap.a17)
+		}, supertip_mode == 1 {
+			st.kp(zy.i.kp5).kjd(0)
+			st.tx(zy.i.tx16).tx(zy.mipmap.a17)
+		}, supertip_mode == 2 {
+			st.kp(zy.i.kp5).kjd(0)
+			st.tx(zy.i.tx16).tx(zy.mipmap.a28)
+		}, supertip_mode == 3 {
+			st.kp(zy.i.kp5).kjd(0)
+			st.tx(zy.i.tx16).tx(zy.mipmap.a62)
+		}, supertip_mode == 4 {
+			st.kp(zy.i.kp5).kjd(0)
+			st.tx(zy.i.tx16).tx(zy.mipmap.a17)
+		}, {
+			st.kp(zy.i.kp5).kjd(8)
+			st.tx(zy.i.tx16).tx(zy.mipmap.a28)
+		}
+	}
+	gj.jmxc(){
+		st.wb(zy.i.wb17).zf("")
+		st.wb(zy.i.wb17).kjd(8)
+		st.wb(zy.i.wb3).zf(t)
+		st.xdbj(zy.i.xdbj10).kjd(0)
+	}
+	s dh = gj.dh()
+	s jbtm = dh.jbtm(1, 0)
+	jbtm.cxsc(500)
+	st.xdbj(zy.i.xdbj2).kjd(8)
+	st.xdbj(zy.i.xdbj2).dh(jbtm)
+}
+
+ff supertip_an(){
+	rg supertip_mode == 0 {
+		gj.jmxc(){
+			st.wb(zy.i.wb17).zf("等待联网验证腕管Pro，从V4.0.0版本开始，此过程是必须的\n您可以尝试在设备联网后重启腕管Pro")
+			st.wb(zy.i.wb17).kjd(0)
+		}
+	}, supertip_mode == 1 {
+		gj.jmxc(){
+			st.wb(zy.i.wb17).zf("您正在使用非官方发行的腕管Pro，可能存在未知风险\n请前往官方网站（https://awg.typheye.cn）下载安装腕管Pro")
+			st.wb(zy.i.wb17).kjd(0)
+		}
+	}, supertip_mode == 2 {
+		gj.jmxc(){
+			gj.tz(a2.iyu)
+		}
+	}, supertip_mode == 3 {
+		gj.jmxc(){
+			gj.tz(f22.iyu)
+		}
+	}, supertip_mode == 4 {
+		gj.jmxc(){
+			st.wb(zy.i.wb17).zf("您可能并未获得应用许可，该版本不适用于您的设备\n如您已获得应用许可，可以尝试退出应用并联网重新进入应用")
+			st.wb(zy.i.wb17).kjd(0)
+		}
+	}
+}
+
+ff zyqd(){
+	s set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf"
+	rg wj.dqwb(set1)=="1"{
+		show(1)
+	},wj.dqwb(set1)=="2"{
+		show(1)
+		gj.jmxc(){
+			gj.tz(d7.iyu)
+		}
+	},wj.dqwb(set1)=="3"{
+		show(1)
+		gj.jmxc(){
+			gj.tz(i1.iyu)
+		}
+	},wj.dqwb(set1)=="4"{
+		show(1)
+		gj.jmxc(){
+			gj.tz(m1.iyu)
+		}
+	},wj.dqwb(set1)=="5"{
+		show(1)
+		gj.jmxc(){
+			gj.tz(j6.iyu)
+		}
+	},{
+		homeshow(true)
+		isNotMainOnce=false
+	}
+}
+ff homeshow_show(int i_) {
+	gd int i=i_
+	gd s xxbj9=st.xxbj(zy.i.xxbj9)
+	gd s wb2=st.wb(zy.i.wb2)
+	gj.jmxc(){
+		rg i==0{
+			xxbj9.kjd(0)
+			wb2.kjd(8)
+		},i==1{
+			xxbj9.kjd(8)
+			wb2.kjd(0)
+		}
+	}
+}
+
+ff homeshow(boolean t_){
+	gd boolean t=t_
+	rg t{
+		state_once_homeshow=true
+	}
+	rg state_homeshow==false&amp;&amp;state_once_homeshow{
+		state_homeshow=true
+		gd s xdbj20=st.xdbj(zy.i.xdbj20)
+		//轮播栏
+		gd s tx11=st.tx(zy.i.tx11)
+		gd s wb29=st.wb(zy.i.wb29)
+		//广告
+		gd s tx18=st.tx(zy.i.tx18)
+		gd s wb52=st.wb(zy.i.wb52)
+		gd s wb54=st.wb(zy.i.wb54)
+		//应用推荐
+		gd s tx6=st.tx(zy.i.tx6)
+		gd s wb14=st.wb(zy.i.wb14)
+		gd s wb16=st.wb(zy.i.wb16)
+		gd s tx9=st.tx(zy.i.tx9)
+		gd s wb23=st.wb(zy.i.wb23)
+		gd s wb25=st.wb(zy.i.wb25)
+		gd s tx10=st.tx(zy.i.tx10)
+		gd s wb26=st.wb(zy.i.wb26)
+		gd s wb28=st.wb(zy.i.wb28)
+		//精彩视频
+		gd s wb31=st.wb(zy.i.wb31)
+		gd s wb33=st.wb(zy.i.wb33)
+		gd s wb34=st.wb(zy.i.wb34)
+		gd s wb36=st.wb(zy.i.wb36)
+		gd s wb37=st.wb(zy.i.wb37)
+		gd s wb39=st.wb(zy.i.wb39)
+		//热门音乐
+		gd s wb42=st.wb(zy.i.wb42)
+		gd s wb44=st.wb(zy.i.wb44)
+		gd s wb45=st.wb(zy.i.wb45)
+		gd s wb47=st.wb(zy.i.wb47)
+		gd s wb48=st.wb(zy.i.wb48)
+		gd s wb50=st.wb(zy.i.wb50)
+		gj.xc(){
+			rg t{
+				show(2)
+			}
+			gj.zt(500)
+			boolean canshow=false
+			gd s nopa2 = "/data/user/0/open.cn.awg.pro/data/homeshow/json"
+			gd s img_lbl1_path = "/data/user/0/open.cn.awg.pro/data/homeshow/src/img/lbl1"
+			gd s img_ad1_path = "/data/user/0/open.cn.awg.pro/data/homeshow/src/img/ad1"
+			gd s img_yytj_item1_path = "/data/user/0/open.cn.awg.pro/data/homeshow/src/img/yytj_item1"
+			gd s img_yytj_item2_path = "/data/user/0/open.cn.awg.pro/data/homeshow/src/img/yytj_item2"
+			gd s img_yytj_item3_path = "/data/user/0/open.cn.awg.pro/data/homeshow/src/img/yytj_item3"
+			s urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+			urls=wj.dqwb(urls)
+			urls=e1.urlUnlockString(urls)
+			rg urls*?"/"{
+			},{
+				urls=urls+"/"
+			}
+			s url=urls+"homeshow.json"
+			rg e1.yz() {
+				s st2 = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+				rg st2==null{
+					rg wj.cz(nopa2){
+						canshow=true
+					}
+				},{
+					s f1=e1.readJson(st2,"code")
+					rg f1=="200"{
+						rg wj.cz(nopa2){
+							s md5a=sj.md5(wj.dqwb(nopa2))
+							s md5b=sj.md5(st2)
+							rg md5a!=md5b{
+								wj.sc(img_lbl1_path)
+								wj.sc(img_ad1_path)
+								wj.sc(img_yytj_item1_path)
+								wj.sc(img_yytj_item2_path)
+								wj.sc(img_yytj_item3_path)
+							}
+						}
+						wj.xrwb(nopa2,st2)
+						canshow=true
+					}
+				}
+			}
+			rg canshow{
+				gd s st5=wj.dqwb(nopa2)
+				div_lbl1_url=e1.readJson(st5,"div_lbl1_url")
+				div_ad1_url=e1.readJson(st5,"div_ad1_url")
+				div_yytj_item1_url=e1.readJson(st5,"div_yytj_item1_url")
+				div_yytj_item2_url=e1.readJson(st5,"div_yytj_item2_url")
+				div_yytj_item3_url=e1.readJson(st5,"div_yytj_item3_url")
+				div_jcsp_item1_url=e1.readJson(st5,"div_jcsp_item1_url")
+				div_jcsp_item2_url=e1.readJson(st5,"div_jcsp_item2_url")
+				div_jcsp_item3_url=e1.readJson(st5,"div_jcsp_item3_url")
+				div_rmyy_item1_url=e1.readJson(st5,"div_rmyy_item1_url")
+				div_rmyy_item2_url=e1.readJson(st5,"div_rmyy_item2_url")
+				div_rmyy_item3_url=e1.readJson(st5,"div_rmyy_item3_url")
+				gd s ad_state=e1.readJson(st5,"ad_state")
+				gd s div_lbl1_img_url=e1.readJson(st5,"div_lbl1_img_url")
+				gd s div_lbl1_text=e1.readJson(st5,"div_lbl1_text")
+				gd s div_ad1_img_url=e1.readJson(st5,"div_ad1_img_url")
+				gd s div_ad1_text=e1.readJson(st5,"div_ad1_text")
+				gd s div_ad1_subtext=e1.readJson(st5,"div_ad1_subtext")
+				gd s div_yytj_item1_text=e1.readJson(st5,"div_yytj_item1_text")
+				gd s div_yytj_item1_subtext=e1.readJson(st5,"div_yytj_item1_subtext")
+				gd s div_yytj_item2_text=e1.readJson(st5,"div_yytj_item2_text")
+				gd s div_yytj_item2_subtext=e1.readJson(st5,"div_yytj_item2_subtext")
+				gd s div_yytj_item3_text=e1.readJson(st5,"div_yytj_item3_text")
+				gd s div_yytj_item3_subtext=e1.readJson(st5,"div_yytj_item3_subtext")
+				gd s div_jcsp_item1_text=e1.readJson(st5,"div_jcsp_item1_text")
+				gd s div_jcsp_item1_subtext=e1.readJson(st5,"div_jcsp_item1_subtext")
+				gd s div_jcsp_item2_text=e1.readJson(st5,"div_jcsp_item2_text")
+				gd s div_jcsp_item2_subtext=e1.readJson(st5,"div_jcsp_item2_subtext")
+				gd s div_jcsp_item3_text=e1.readJson(st5,"div_jcsp_item3_text")
+				gd s div_jcsp_item3_subtext=e1.readJson(st5,"div_jcsp_item3_subtext")
+				gd s div_rmyy_item1_text=e1.readJson(st5,"div_rmyy_item1_text")
+				gd s div_rmyy_item1_subtext=e1.readJson(st5,"div_rmyy_item1_subtext")
+				gd s div_rmyy_item2_text=e1.readJson(st5,"div_rmyy_item2_text")
+				gd s div_rmyy_item2_subtext=e1.readJson(st5,"div_rmyy_item2_subtext")
+				gd s div_rmyy_item3_text=e1.readJson(st5,"div_rmyy_item3_text")
+				gd s div_rmyy_item3_subtext=e1.readJson(st5,"div_rmyy_item3_subtext")
+				s downfile=div_lbl1_img_url
+				s downfilepath=img_lbl1_path
+				rg wj.cz(downfilepath)==false{
+					rg homeshow_filedown(downfile,null,null,downfilepath)==-1{
+						wj.sc(downfilepath)
+					}
+				}
+				downfile=div_ad1_img_url
+				downfilepath=img_ad1_path
+				rg wj.cz(downfilepath)==false{
+					rg homeshow_filedown(downfile,null,null,downfilepath)==-1{
+						wj.sc(downfilepath)
+					}
+				}
+				downfile=getAppIconUrl(div_yytj_item1_url)
+				downfilepath=img_yytj_item1_path
+				rg wj.cz(downfilepath)==false{
+					rg homeshow_filedown(downfile,null,null,downfilepath)==-1{
+						wj.sc(downfilepath)
+					}
+				}
+				downfile=getAppIconUrl(div_yytj_item2_url)
+				downfilepath=img_yytj_item2_path
+				rg wj.cz(downfilepath)==false{
+					rg homeshow_filedown(downfile,null,null,downfilepath)==-1{
+						wj.sc(downfilepath)
+					}
+				}
+				downfile=getAppIconUrl(div_yytj_item3_url)
+				downfilepath=img_yytj_item3_path
+				rg wj.cz(downfilepath)==false{
+					rg homeshow_filedown(downfile,null,null,downfilepath)==-1{
+						wj.sc(downfilepath)
+					}
+				}
+				gj.jmxc() {
+					rg ad_state=="true"&amp;&amp;e1.isJh()==false {
+						xdbj20.kjd(0)
+					},{
+						xdbj20.kjd(8)
+					}
+					//轮播栏
+					rg wj.cz(img_lbl1_path){
+						tx11.tx(img_lbl1_path)
+					},{
+						tx11.tx(zy.mipmap.load_photo)
+					}
+					wb29.zf(div_lbl1_text)
+					//广告
+					rg wj.cz(img_ad1_path){
+						tx18.tx(img_ad1_path)
+					},{
+						tx18.tx(zy.mipmap.b11)
+					}
+					wb52.zf(div_ad1_text)
+					wb54.zf(div_ad1_subtext)
+					//应用推荐
+					rg wj.cz(img_yytj_item1_path){
+						tx6.tx(img_yytj_item1_path)
+					},{
+						tx6.tx(zy.mipmap.appicon)
+					}
+					wb14.zf(div_yytj_item1_text)
+					wb16.zf(div_yytj_item1_subtext)
+					rg wj.cz(img_yytj_item2_path){
+						tx9.tx(img_yytj_item2_path)
+					},{
+						tx9.tx(zy.mipmap.appicon)
+					}
+					wb23.zf(div_yytj_item2_text)
+					wb25.zf(div_yytj_item2_subtext)
+					rg wj.cz(img_yytj_item3_path){
+						tx10.tx(img_yytj_item3_path)
+					},{
+						tx10.tx(zy.mipmap.appicon)
+					}
+					wb26.zf(div_yytj_item3_text)
+					wb28.zf(div_yytj_item3_subtext)
+					//精彩视频
+					wb31.zf(div_jcsp_item1_text)
+					wb33.zf(div_jcsp_item1_subtext)
+					wb34.zf(div_jcsp_item2_text)
+					wb36.zf(div_jcsp_item2_subtext)
+					wb37.zf(div_jcsp_item3_text)
+					wb39.zf(div_jcsp_item3_subtext)
+					//热门音乐
+					wb42.zf(div_rmyy_item1_text)
+					wb44.zf(div_rmyy_item1_subtext)
+					wb45.zf(div_rmyy_item2_text)
+					wb47.zf(div_rmyy_item2_subtext)
+					wb48.zf(div_rmyy_item3_text)
+					wb50.zf(div_rmyy_item3_subtext)
+				}
+				homeshow_show(0)
+				rg t{
+					show(0)
+				}
+			},{
+				homeshow_show(1)
+				rg t{
+					show(0)
+				}
+			}
+			state_homeshow=false
+		}
+	},{
+		rg t{
+			e1.tsk("提示","操作过于频繁，请稍后重试")
+		}
+	}
+}
+
+ff string getAppIconUrl(s id){
+	id=zf.qc(id,"awg://uri/app/",null)
+	fh src_url+"/app/"+id+"/app-image/icon.png"
+}
+
+ff int homeshow_filedown(s url,s post,s cookie,s path){
+	s a = url
+	s b = path
+	// post提交的数据，对应name1=value1&amp;name2=value2，这个参数可以设置 null 则为 get方式
+	s c = post
+	// 传递cookie项值，格式为nama=value 下例： uid=112;name=nihao;sb=123456789;
+	s d = cookie
+	// 带自动设置cookie方式获取网页，并记录当前网页的Cookie
+	s e = true
+	// 设置Header头:（可设置多条，以“||”隔开）文件头包括了Cookie，User-Agent设备型号
+	s f = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN"
+	fh wl.xz(a, b, true, c, "utf-8", d, e, f)
+	//返回 下载状态码，0为下载成功，1为下载已重复，-1为下载失败
+}
+ff show(int i_) {
+	gd s set65 = "/data/user/0/open.cn.awg.pro/settings/set5.inf"
+	gd int i=i_
+	gd s tab=st.wb(zy.i.Tab)
+	gd s xdbj1=st.xdbj(zy.i.xdbj1) //menu
+	gd s xdbj5=st.xdbj(zy.i.xdbj5) //store
+	gd s xdbj6=st.xdbj(zy.i.xdbj6) //loading
+	gd s qtgd1=st.qtgd(zy.i.qtgd1)
+	gd s v7lb1=st.v7lb(zy.i.v7lb1)
+	gd s set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf"
+	s dh = gj.dh()
+	gd s jbtm = dh.jbtm(0, 1)
+	jbtm.cxsc(300)
+	gj.jmxc(){
+		rg i==0{
+			qtgd1.v.requestFocus()
+			tab.zf(zf.zf(zy.string.app_name))
+			xdbj1.kjd(8)
+			xdbj5.kjd(0)
+			xdbj6.kjd(8)
+			xdbj5.dh(jbtm)
+			rg isNotMainOnce&amp;&amp;wj.dqwb(set1)!="0"{
+				show(2)
+				isNotMainOnce=false
+				homeshow(true)
+			},{
+				homeshow(false)
+			}
+			rg wj.dqwb(set65)=="false"||wj.cz(set65)==false{
+				st.wb(zy.i.wb9).kjd(0)
+			}
+		},i==1{
+			v7lb1.v.requestFocus()
+			tab.zf(" 腕管Pro ")
+			xdbj1.kjd(0)
+			xdbj5.kjd(8)
+			xdbj6.kjd(8)
+			xdbj1.dh(jbtm)
+		},i==2{
+			tab.zf("  腕管Pro  ")
+			xdbj1.kjd(8)
+			xdbj5.kjd(8)
+			xdbj6.kjd(0)
+			xdbj6.dh(jbtm)
+		}
+	}
+}
+
+java{
+	
+	private void scheduleJob() {
+		JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+		if (jobScheduler != null) {
+			int jobId = 1;
+			ComponentName serviceComponent = new ComponentName(this, BootJobService.class);
+			
+			JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceComponent);
+			
+			// 设置Job为开机启动
+			if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.O) {
+				builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
+				builder.setRequiresDeviceIdle(false);
+				builder.setRequiresStorageNotLow(false);
+				builder.setRequiresBatteryNotLow(false);
+				builder.setPersisted(true); // 使Job在设备重启后仍然存在
+			} else {
+				// 对于Android 7.1及以下版本，需要使用其他方法触发Job，因为BOOT_COMPLETED不再可用
+			}
+			
+			JobInfo jobInfo = builder.build();
+			
+			try {
+				jobScheduler.schedule(jobInfo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+}
+
+ff noticeShow(){
+	rg e1.isJh(){
+		st.wb(zy.i.wb11).kjd(8)
+		st.wb(zy.i.wb13).kjd(8)
+	},{
+		st.wb(zy.i.wb11).kjd(0)
+		st.wb(zy.i.wb13).kjd(0)
+	}
+	gd s def="欢迎使用腕管Pro，这是一款优秀的应用。您可以前往腕管Pro官网：https://www.typheye.cn/awg，提出建议或意见。如果您有任何问题，可以联系开发者台风眼(QQ498978473)，或者通过邮箱(498978473@qq.com)联系我们！"
+	gj.xc(){
+		gd s nopa = "/data/user/0/open.cn.awg.pro/data/notice/showing"
+		gd s nopa2 = "/data/user/0/open.cn.awg.pro/data/notice/json"
+		s nr=""
+		rg wj.cz(nopa)==true&amp;&amp;wj.dqwb(nopa)!=""{
+			nr=wj.dqwb(nopa)
+		},{
+			nr=def
+		}
+		gd s nr1=nr
+		gj.jmxc(){
+			st.wb(zy.i.notice_wb).zf(nr1)
+		}
+		s urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+		urls=wj.dqwb(urls)
+		urls=e1.urlUnlockString(urls)
+		rg urls*?"/"{
+		},{
+			urls=urls+"/"
+		}
+		s url=urls+"notice.json"
+		gd s st5 = wl.hq(url,null,"utf-8",null,true,null,20000,20000,null)
+		rg st5==null{
+			gj.jmxc(){
+				s nr=""
+				rg wj.cz(nopa)==true&amp;&amp;wj.dqwb(nopa)!=""{
+					nr=wj.dqwb(nopa)
+				},{
+					nr=def
+				}
+				st.wb(zy.i.notice_wb).zf(nr)
+			}
+		},{
+			s f1=e1.readJson(st5,"Showing")
+			rg f1=="0"{
+				gj.jmxc(){
+					s nr=""
+					rg wj.cz(nopa)==true&amp;&amp;wj.dqwb(nopa)!=""{
+						nr=wj.dqwb(nopa)
+					},{
+						nr=def
+					}
+					st.wb(zy.i.notice_wb).zf(nr)
+				}
+			},{
+				rg f1==""{
+					gj.jmxc(){
+						s nr=""
+						rg wj.cz(nopa)==true&amp;&amp;wj.dqwb(nopa)!=""{
+							nr=wj.dqwb(nopa)
+						},{
+							nr=def
+						}
+						st.wb(zy.i.notice_wb).zf(nr)
+					}
+				},{
+					gd s nr2=f1
+					wj.xrwb(nopa,nr2)
+					wj.xrwb(nopa2,st5)
+					gj.jmxc(){
+						st.wb(zy.i.notice_wb).zf(nr2)
+					}
+				}
+			}
+		}
+	}
+}
+
+ff inj(){
+	gd s sec_updater = "/data/user/0/open.cn.awg.pro/data/sec/updater"
+	gd s sec_isunlock = "/data/user/0/open.cn.awg.pro/data/sec/unlock"
+	gd s sec_license = "/data/user/0/open.cn.awg.pro/data/sec/license"
+	gj.xc(){
+		e1.yz()
+	}
+	rg wj.cz(sec_isunlock) == false
+	{
+		gj.zt(2500)
+	}
+	rg wj.cz(sec_isunlock) {
+		rg wj.dqwb(sec_isunlock)=="false"{
+			supertip("应用验证未通过", 1)
+		},{
+			rg wj.cz(sec_license) {
+				rg wj.cz(sec_updater) {
+					supertip("应用需要更新", 3)
+				},{
+					run()
+				}
+			},{
+				supertip("未获得应用许可", 4)
+			}
+		}
+	},{
+		supertip("等待联网验证", 0)
+	}
+}
+//第一次设置配置文件
+ff set(){
+	s asset_a0 = "/data/user/0/open.cn.awg.pro/data/assets/a0"
+	//s asset_a1 = "/data/user/0/open.cn.awg.pro/data/assets/a1"
+	s asset_a2 = "/data/user/0/open.cn.awg.pro/data/assets/a2"
+	s asset_a3 = "/data/user/0/open.cn.awg.pro/data/assets/a3"
+	s asset_a4 = "/data/user/0/open.cn.awg.pro/data/assets/a4"
+	s asset_a5 = "/data/user/0/open.cn.awg.pro/data/assets/a5"
+	s asset_a6 = "/data/user/0/open.cn.awg.pro/data/assets/a6"
+	s asset_a7 = "/data/user/0/open.cn.awg.pro/data/assets/a7"
+	s asset_a8 = "/data/user/0/open.cn.awg.pro/data/assets/a8"
+	s asset_a9 = "/data/user/0/open.cn.awg.pro/data/assets/a9"
+	s asset_a10 = "/data/user/0/open.cn.awg.pro/data/assets/a10"
+	//s asset_a11 = "/data/user/0/open.cn.awg.pro/data/assets/a11"
+	s asset_a12 = "/data/user/0/open.cn.awg.pro/data/assets/a12"
+	s asset_a13 = "/data/user/0/open.cn.awg.pro/data/assets/a13"
+	s asset_a14 = "/data/user/0/open.cn.awg.pro/data/assets/a14"
+	s asset_a15 = "/data/user/0/open.cn.awg.pro/data/assets/a15"
+	s asset_a16 = "/data/user/0/open.cn.awg.pro/data/assets/a16"
+	s asset_a17 = "/data/user/0/open.cn.awg.pro/data/assets/a17"
+	s asset_a18 = "/data/user/0/open.cn.awg.pro/data/assets/a18"
+	s asset_a19 = "/data/user/0/open.cn.awg.pro/data/assets/a19"
+	s asset_a20 = "/data/user/0/open.cn.awg.pro/data/assets/a20"
+	s asset_b0 = "/data/user/0/open.cn.awg.pro/data/assets/b0"
+	s asset_b1 = "/data/user/0/open.cn.awg.pro/data/assets/b1"
+	s asset_b2 = "/data/user/0/open.cn.awg.pro/data/assets/b2"
+	s asset_b3 = "/data/user/0/open.cn.awg.pro/data/assets/b3"
+	s asset_c1 = "/data/user/0/open.cn.awg.pro/data/assets/c1"
+	//s asset_d0 = "/data/user/0/open.cn.awg.pro/data/assets/d0"
+	s asset_e3 = "/data/user/0/open.cn.awg.pro/data/assets/e3"
+	rg wj.cz(asset_a0)==false{
+		wj.xrwb(asset_a0,"0")
+	}
+	rg wj.cz(asset_a2)==false{
+		wj.xrwb(asset_a2,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a3)==false{
+		wj.xrwb(asset_a3,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a4)==false{
+		wj.xrwb(asset_a4,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a5)==false{
+		wj.xrwb(asset_a5,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a6)==false{
+		wj.xrwb(asset_a6,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a7)==false{
+		wj.xrwb(asset_a7,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a8)==false{
+		wj.xrwb(asset_a8,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a9)==false{
+		wj.xrwb(asset_a9,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a10)==false{
+		wj.xrwb(asset_a10,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a12)==false{
+		wj.xrwb(asset_a12,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a13)==false{
+		wj.xrwb(asset_a13,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a14)==false{
+		wj.xrwb(asset_a14,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a15)==false{
+		wj.xrwb(asset_a15,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a16)==false{
+		wj.xrwb(asset_a16,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a17)==false{
+		wj.xrwb(asset_a17,"&amp;")
+	}
+	rg wj.cz(asset_a18)==false{
+		wj.xrwb(asset_a18,"{}")
+	}
+	rg wj.cz(asset_a19)==false{
+		wj.xrwb(asset_a19,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_a20)==false{
+		wj.xrwb(asset_a20,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_b0)==false{
+		wj.xrwb(asset_b0,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_b1)==false{
+		wj.xrwb(asset_b1,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_b2)==false{
+		wj.xrwb(asset_b2,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_b3)==false{
+		wj.xrwb(asset_b3,"加载失败,未找到该资源!")
+	}
+	rg wj.cz(asset_c1)==false{
+		wj.xrwb(asset_c1,"echo \"加载失败,未找到该资源!\"")
+	}
+	rg wj.cz(asset_e3)==false{
+		wj.xrwb(asset_e3,"加载失败,未找到该资源!")
+	}
+	s set0 = "/data/user/0/open.cn.awg.pro/settings/version"
+	s set1 = "/data/user/0/open.cn.awg.pro/settings/set1.inf"
+	s set2 = "/data/user/0/open.cn.awg.pro/settings/set2.inf"
+	s set3 = "/data/user/0/open.cn.awg.pro/settings/d2/set1.inf"
+	s set4 = "/data/user/0/open.cn.awg.pro/settings/d2/set2.inf"
+	s set5 = "/data/user/0/open.cn.awg.pro/settings/set3.inf"
+	s set6 = "/data/user/0/open.cn.awg.pro/settings/d2/set3.inf"
+	s set7 = "/data/user/0/open.cn.awg.pro/settings/d2/set4.inf"
+	s set8 = "/data/user/0/open.cn.awg.pro/settings/d1/set1.inf"
+	s set9 = "/data/user/0/open.cn.awg.pro/settings/f7/set1.inf"
+	s set10 = "/data/user/0/open.cn.awg.pro/settings/f8/set1.inf"
+	s set11 = "/data/user/0/open.cn.awg.pro/settings/f9/set1.inf"
+	s set12 = "/data/user/0/open.cn.awg.pro/settings/f10/set1.inf"
+	s set13 = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf"
+	s set14 = "/data/user/0/open.cn.awg.pro/settings/f11/set1.inf"
+	s set15 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf"
+	s set16 = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf"
+	s set17 = "/data/user/0/open.cn.awg.pro/settings/db/talking.db"
+	s set18 = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+	s set19 = "/data/user/0/open.cn.awg.pro/settings/f13/set1.inf"
+	s set20 = "/data/user/0/open.cn.awg.pro/settings/f13/set2.inf"
+	s set21 = "/data/user/0/open.cn.awg.pro/settings/f13/set3.inf"
+	s set22 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+	s set23 = "/data/user/0/open.cn.awg.pro/settings/d1/set3.inf"
+	s set24 = "/data/user/0/open.cn.awg.pro/settings/f15/set1.inf"
+	s set25 = "/data/user/0/open.cn.awg.pro/settings/d1/set4.inf"
+	s set26 = "/data/user/0/open.cn.awg.pro/settings/f15/set2.inf"
+	s set27 = "/data/user/0/open.cn.awg.pro/settings/db/file.db"
+	s set28 = "/storage/emulated/0/Download/.nomedia"
+	s set29 = "/data/user/0/open.cn.awg.pro/Download/.nomedia"
+	s set30 = "/data/user/0/open.cn.awg.pro/settings/f8/set10.inf"
+	s set31 = "/data/user/0/open.cn.awg.pro/settings/d2/set5.inf"
+	s set32 = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf"
+	s set33 = "/data/user/0/open.cn.awg.pro/settings/other/0xF0HX1/index.json"
+	s set34 = "/data/user/0/open.cn.awg.pro/settings/f15/set3.inf"
+	s set35 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/url"
+	s set36 = "/data/user/0/open.cn.awg.pro/settings/fixVersion"
+	s set37 = "/data/user/0/open.cn.awg.pro/settings/f15/set4.inf"
+	s set38 = "/data/user/0/open.cn.awg.pro/settings/f13/set5.inf"
+	s set39 = "/data/user/0/open.cn.awg.pro/settings/f11/set4.inf"
+	s set40 = "/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"
+	s set41 = "/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"
+	s set42 = "/data/user/0/open.cn.awg.pro/settings/set4s.inf"
+	s set43 = "/data/user/0/open.cn.awg.pro/settings/l6/set1.inf"
+	s set44 = "/data/user/0/open.cn.awg.pro/settings/db/isO"
+	s set45 = "/data/user/0/open.cn.awg.pro/settings/f18/set1.inf"
+	s set46 = "/data/user/0/open.cn.awg.pro/settings/f18/set2.inf"
+	s set47 = "/data/user/0/open.cn.awg.pro/settings/db/plugin.db"
+	s set48 = "/data/user/0/open.cn.awg.pro/settings/f19/set1.inf"
+	s set49 = "/data/user/0/open.cn.awg.pro/settings/f19/set2.inf"
+	s set50 = "/data/user/0/open.cn.awg.pro/settings/f19/set3.inf"
+	s set51 = "/data/user/0/open.cn.awg.pro/settings/f19/set4.inf"
+	s set52 = "/data/user/0/open.cn.awg.pro/settings/n1/set1.inf"
+	s set53 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf"
+	s set54 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+	s set55 = "/data/user/0/open.cn.awg.pro/settings/n1/set4.inf"
+	s set56 = "/data/user/0/open.cn.awg.pro/settings/db/isO2"
+	s set57 = "/data/user/0/open.cn.awg.pro/settings/n1/url.inf"
+	s set58 = "/data/user/0/open.cn.awg.pro/settings/f7/Enable"
+	s set59 = "/data/user/0/open.cn.awg.pro/settings/other/0xO5HJ7/url"
+	s set60 = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2"
+	s set61 = "/data/user/0/open.cn.awg.pro/settings/f15/set5.inf"
+	s set62 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/cookie"
+	s set63 = "/data/user/0/open.cn.awg.pro/settings/set4.inf"
+	s set64 = "/data/user/0/open.cn.awg.pro/settings/i1/set1.inf"
+	s set65 = "/data/user/0/open.cn.awg.pro/settings/set5.inf"
+	s set66 = "/data/user/0/open.cn.awg.pro/settings/set6.inf"
+	s set67 = "/data/user/0/open.cn.awg.pro/settings/set7.inf"
+	s set68 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf"
+	rg wj.cz(set1)==false{
+		wj.xrwb(set1,"false")
+	}
+	rg wj.cz(set2)==false{
+		wj.xrwb(set2,"false")
+	}
+	rg wj.cz(set3)==false{
+		wj.xrwb(set3,"false")
+	}
+	rg wj.cz(set4)==false{
+		wj.xrwb(set4,"13")
+	}
+	rg wj.cz(set5)==false{
+		wj.xrwb(set5,"false")
+	}
+	rg wj.cz(set6)==false{
+		wj.xrwb(set6,"#ffffff")
+	}
+	rg wj.cz(set7)==false{
+		wj.xrwb(set7,"#000000")
+	}
+	rg wj.cz(set8)==false{
+		wj.xrwb(set8,"false")
+	}
+	rg wj.cz(set9)==false{
+		wj.xrwb(set9,"false")
+	}
+	rg wj.cz(set10)==false{
+		wj.xrwb(set10,"false")
+	}
+	rg wj.cz(set11)==false{
+		wj.xrwb(set11,"true")
+	}
+	rg wj.cz(set12)==false{
+		wj.xrwb(set12,"true")
+	}
+	rg wj.cz(set13)==false{
+		wj.xrwb(set13,"awg://web.url/app/open.cn.awg.pro")
+	}
+	rg wj.cz(set14)==false{
+		wj.xrwb(set14,"true")
+	}
+	rg wj.cz(set15)==false{
+		wj.xrwb(set15,"awg://web.url/app/open.cn.awg.pro/talking")
+	}
+	rg wj.cz(set16)==false{
+		wj.xrwb(set16,"腕管用户"+xt.sj(4))
+	}
+	rg wj.cz(set17)==false{
+		e11.setup_talklist()
+	}
+	rg wj.cz(set18)==false{
+		wj.xrwb(set18,"true")
+	}
+	rg wj.cz(set19)==false{
+		wj.xrwb(set19,"false")
+	}
+	rg wj.cz(set20)==false{
+		wj.xrwb(set20,"awg://thirds.url/www.baidu.com")
+	}
+	rg wj.cz(set21)==false{
+		wj.xrwb(set21,"{\"MODE\":0,\"UA\":\"Android\"}")
+	}
+	rg wj.cz(set22)==false{
+		wj.xrwb(set22,"true")
+	}
+	rg wj.cz(set23)==false{
+		wj.xrwb(set23,"true")
+	}
+	rg wj.cz(set24)==false{
+		wj.xrwb(set24,"false")
+	}
+	rg wj.cz(set25)==false{
+		wj.xrwb(set25,"true")
+	}
+	rg wj.cz(set26)==false{
+		wj.xrwb(set26,"false")
+	}
+	wj.sc(set27)
+	e11.setup_filelist()
+	s a=xt.qxgl()
+	int sdk = xt.sbxx().sdk
+	rg a.qx("android.permission.WRITE_EXTERNAL_STORAGE")==true&amp;&amp;sdk&lt;30{
+		s m="mkdir \"/sdcard/Download\""
+		java com.demo.e3.cmd(lei,m,false)
+		m="mkdir \"/sdcard/DCIM\""
+		java com.demo.e3.cmd(lei,m,false)
+		m="mkdir \"/sdcard/Documents\""
+		java com.demo.e3.cmd(lei,m,false)
+		m="mkdir \"/sdcard/Movies\""
+		java com.demo.e3.cmd(lei,m,false)
+		m="mkdir \"/sdcard/Music\""
+		java com.demo.e3.cmd(lei,m,false)
+		m="mkdir \"/sdcard/Pictures\""
+		java com.demo.e3.cmd(lei,m,false)
+	}
+	rg wj.cz(set29)==false{
+		wj.xrwb(set29,"")
+	}
+	rg wj.cz(set30)==false{
+		wj.xrwb(set30,"false")
+	}
+	rg wj.cz(set31)==false{
+		wj.xrwb(set31,"false")
+	}
+	rg wj.cz(set32)==false{
+		wj.xrwb(set32,"false")
+	}
+	rg wj.cz(set33)==false{
+		wj.xrwb(set33,wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a18"))
+	}
+	rg wj.cz(set34)==false{
+		wj.xrwb(set34,"true")
+	}
+	rg wj.cz(set35)==false{
+		wj.xrwb(set35,"https://api.sayqz.com/tunefree/ncmapi")
+	}
+	rg wj.cz(set36)==false{
+		int a11
+		java a11=com.demo.e4.getVersionCode(lei)
+		string fv=a11+"00"
+		wj.xrwb(set36,fv)
+	}
+	rg wj.cz(set37)==false{
+		wj.xrwb(set37,"false")
+	}
+	rg wj.cz(set38)==false{
+		wj.xrwb(set38,"false")
+	}
+	rg wj.cz(set39)==false{
+		wj.xrwb(set39,"default")
+	}
+	rg wj.cz(set40)==false{
+		wj.xrwb(set40,"20")
+	}
+	rg wj.cz(set41)==false{
+		wj.xrwb(set41,"false")
+	}
+	rg wj.cz(set42)==false{
+		wj.xrwb(set42,"true")
+	}
+	rg wj.cz(set43)==false{
+		wj.xrwb(set43,"false")
+	}
+	rg wj.cz(set44)==false{
+		e11.setup_talklist()
+		e11.add_talklist("10001","官方聊天室","10001-官方聊天室")
+		wj.xrwb(set44,"true")
+	}
+	rg wj.cz(set45)==false{
+		wj.xrwb(set45,"3000")
+	}
+	rg wj.cz(set46)==false{
+		wj.xrwb(set46,"3000")
+	}
+	rg wj.cz(set47)==false{
+		e11.setup_pluginlist()
+	}
+	rg wj.cz(set48)==false{
+		wj.xrwb(set48,"true")
+	}
+	rg wj.cz(set49)==false{
+		wj.xrwb(set49,"awg://web.url/app/open.cn.awg.pro/plugin")
+	}
+	rg wj.cz(set50)==false{
+		wj.xrwb(set50,"default")
+	}
+	rg wj.cz(set51)==false{
+		wj.xrwb(set51,"default")
+	}
+	rg wj.cz(set52)==false{
+		wj.xrwb(set52,"true")
+	}
+	rg wj.cz(set53)==false{
+		wj.xrwb(set53,"default")
+	}
+	rg wj.cz(set54)==false{
+		wj.xrwb(set54,"default")
+	}
+	rg wj.cz(set55)==false{
+		wj.xrwb(set55,"default")
+	}
+	rg wj.cz(set56)==false{
+		e11.setup_pluginlist()
+		s q="10000"
+		s w="扩展推荐"
+		boolean b3=e11.add_pluginlist(q,w,q+"-"+w)
+		wj.xrwb(set56,"true")
+	}
+	rg wj.cz(set57)==false{
+		wj.xrwb(set57,"https://service.typheye.cn")
+	}
+	rg wj.cz(set58)==false{
+		wj.xrwb(set58,"")
+	}
+	rg wj.cz(set59)==false{
+		wj.xrwb(set59,"awg://web.url/upload/up.php")
+	}
+	rg wj.cz(set60)==false{
+		wj.xrwb(set60,"")
+	}
+	rg wj.cz(set61)==false{
+		wj.xrwb(set61,"true")
+	}
+	rg wj.cz(set62)==false{
+		wj.xrwb(set62,"")
+	}
+	rg wj.cz(set64)==false{
+		wj.xrwb(set64,"true")
+	}
+	rg wj.cz(set65)==false{
+		wj.xrwb(set65,"false")
+	}
+	rg wj.cz(set66)==false{
+		wj.xrwb(set66,"false")
+	}
+	rg wj.cz(set67)==false{
+		wj.xrwb(set67,"https://res.typheye.cn")
+	}
+	rg wj.cz(set68)==false{
+		wj.xrwb(set68,"0")
+	}
+	//更新
+	/*
+	rg wj.dqwb(set6)=="#000000"{
+	wj.xrwb(set6,"#ffffff")
+	}
+	rg wj.dqwb(set7)=="#ffffff"{
+	wj.xrwb(set7,"#000000")
+	}
+	rg wj.dqwb(set13)=="awg://web.url/app/com.cn.awg.pro"{
+	wj.xrwb(set13,"awg://web.url/app/open.cn.awg.pro")
+	}
+	rg wj.dqwb(set15)=="awg://web.url/app/com.cn.awg.pro/talking"{
+	wj.xrwb(set15,"awg://web.url/app/open.cn.awg.pro/talking")
+	}
+	rg wj.dqwb(set49)=="awg://web.url/app/com.cn.awg.pro/plugin"{
+	wj.xrwb(set49,"awg://web.url/app/open.cn.awg.pro/plugin")
+	}
+	rg wj.dqwb(set19)=="true"{
+	wj.xrwb(set19,"false")
+	}
+	rg wj.dqwb(set35)=="https://downing-ming-music-i2kjhx777-gsqz.vercel.app"{
+	wj.xrwb(set35,"https://api.csm.sayqz.com")
+	}
+	rg wj.dqwb(set57)=="awg://third.url/hitfy.cn"{
+	wj.xrwb(set57,"awg://third.url/easy.cloud.hitfy.cn")
+	}
+	rg wj.dqwb(set42)=="false"{
+	wj.xrwb(set42,"true")
+	}
+	*/
+	//其他配置
+	wj.xrwb(set5, "false")
+	//wj.xrwb(set30, "false")
+	wj.xrwb(set53,wj.dqwb(set16))
+	java vercode=com.demo.e4.getVersionCode(lei)
+	string fv=vercode
+	wj.xrwb(set0,fv)
+	wj.sc(set63)
+	gd s sec_updater = "/data/user/0/open.cn.awg.pro/data/sec/updater"
+	gd s sec_isunlock = "/data/user/0/open.cn.awg.pro/data/sec/unlock"
+	gd s sec_license = "/data/user/0/open.cn.awg.pro/data/sec/license"
+	rg wj.cz(sec_updater){
+		wj.sc(sec_updater)
+	}
+	/*
+	rg wj.cz(sec_isunlock){
+	wj.sc(sec_isunlock)
+	}
+	rg wj.cz(sec_license){
+	wj.sc(sec_license)
+	}
+	*/
+	inj()
+}
+ff run(){
+	usual()
+}
+//-----End-----
+ff usual(){
+	
+	gd s a0="/data/user/0/open.cn.awg.pro/settings/a4.inf"
+	gd s a1="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+	gd s set66 = "/data/user/0/open.cn.awg.pro/settings/set6.inf"
+	rg wj.cz(a0)==false||wj.dqwb(set66)=="false"||wj.cz(set66)==false{
+		gj.jmxc(){
+			supertip("点击按钮以继续", 2)
+			/*
+			isShow=false
+			gj.tz(a2.iyu)
+			gj.gb()
+			*/
+		}
+	},{
+		/*gd s a=wj.dqwb(a1)
+		gj.jmxc(){
+		rg a=="1"{
+		gj.tz(b1.iyu)
+		},a=="2"{
+		gj.tz(b2.iyu)
+		},a=="3"{
+		gj.tz(b3.iyu)
+		},a=="4"{
+		gj.tz(b4.iyu)
+		}
+		}*/
+	}
+}
+//-----Top-----
+//停止运行
+
+ff rjh(){
+	gj.jmxc(){
+		rg e1.isJh()==false{
+			st.wb(zy.i.wb3).kjd(0)
+		},{
+			st.wb(zy.i.wb3).kjd(8)
+		}
+	}
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>rg e1.getNowUserId()==0{
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a=wj.dqwb(a2)
+  rg a=="4"{
+    rg loaded==true{
+      s clr=zf.zf(zy.color.colorTab)
+      xt.pm().ztl(clr,0)
+    },{
+      s clr=zf.zf(zy.color.colorTabBackground)
+      xt.pm().ztl(clr,0)
+    }
+    /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+    }*/
+  },{
+    java {
+      //全屏
+      Window window = lei.getWindow();
+      BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+      BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }
+  }
+  gd s set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf"
+  rg wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") == true{
+    rg isNotMainOnce==false{
+      homeshow(false)
+    }
+    noticeShow()
+  }
+  rg isHasReq {
+    gd s ca = "/data/user/0/open.cn.awg.pro/cache/req/exit"
+    rg wj.cz(ca)&amp;&amp;wj.dqwb(ca)=="true"{
+      wj.sc(ca)
+      gj.jmxc(){
+        s tx3=st.tx(zy.i.tx3)
+        tx3.v.performClick()
+      }
+    }
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>rg e1.getNowUserId()==0{
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a=wj.dqwb(a2)
+  rg a=="4"{
+    rg loaded==true{
+      s clr=zf.zf(zy.color.colorTab)
+      xt.pm().ztl(clr,0)
+    },{
+      s clr=zf.zf(zy.color.colorTabBackground)
+      xt.pm().ztl(clr,0)
+    }
+    /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+    }*/
+  },{
+    java {
+      //全屏
+      Window window = lei.getWindow();
+      BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+      BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }
+  }
+}</onRestart></onRestart><onStart><onStart>rg e1.getNowUserId()==0{
+  lei.overridePendingTransition(zy.anim.fade_in, zy.anim.fade_out)
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a=wj.dqwb(a2)
+  rg a=="4"{
+    rg loaded==true{
+      s clr=zf.zf(zy.color.colorTab)
+      xt.pm().ztl(clr,0)
+    },{
+      s clr=zf.zf(zy.color.colorTabBackground)
+      xt.pm().ztl(clr,0)
+    }
+    /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+    }*/
+  },{
+    java {
+      //全屏
+      Window window = lei.getWindow();
+      BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+      BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }
+  }
+}
+s v7lb1=st.v7lb(zy.i.v7lb1)
+v7lb1.v.requestFocus()
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>rg e1.getNowUserId()==0{
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a=wj.dqwb(a2)
+  rg a=="4"{
+    rg loaded==true{
+      s clr=zf.zf(zy.color.colorTab)
+      xt.pm().ztl(clr,0)
+    },{
+      s clr=zf.zf(zy.color.colorTabBackground)
+      xt.pm().ztl(clr,0)
+    }
+    /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+    }*/
+  },{
+    java {
+      //全屏
+      Window window = lei.getWindow();
+      BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+      BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+rg e1.getNowUserId()==0{
+	e13.N_cancel()
+	wj.sc("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r")
+	/*java{
+	Intent mIntent=new Intent(lei,open.cn.awg.pro.AwgCoreService.class);
+	//关闭Service
+	stopService(mIntent);
+	}*/
+}</onDestroy></onDestroy><onCreateOptionsMenu><onCreateOptionsMenu/></onCreateOptionsMenu></_Yu5Src><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="match_parent"><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="@string/app_name" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>rg st.wb(zy.i.Tab).zf()==zf.zf(zy.string.app_name){
+  show(1)
+},st.wb(zy.i.Tab).zf()==" 腕管Pro "{
+  show(0)
+}</onClick></setOnClickListener></Yu5Src></TextView><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/Tab" android:visibility="gone"><androidx.core.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true" android:overScrollMode="never" android:scrollbars="none"><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="match_parent"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><RelativeLayout android:id="@+id/xdbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="5dp" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginBottom="5dp" android:background="@drawable/anybj" android:visibility="visible"><LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center"><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="公告" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:visibility="visible" android:singleLine="true" android:textStyle="bold" android:paddingLeft="5dp" android:paddingTop="5dp" android:paddingBottom="5dp" android:paddingRight="3dp"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><TextView android:id="@+id/wb5" android:layout_width="2dp" android:layout_height="match_parent" android:layout_marginTop="2dp" android:layout_marginBottom="2dp" android:background="@color/colorAccent"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><TextView android:id="@+id/notice_wb" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center_vertical" android:visibility="visible" android:singleLine="true" android:layout_weight="1" android:scrollHorizontally="true" android:focusable="true" android:ellipsize="marquee" android:focusableInTouchMode="true" android:marqueeRepeatLimit="marquee_forever" android:paddingLeft="2dp" android:paddingTop="5dp" android:paddingBottom="5dp" android:paddingRight="5dp"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><Yu5Src><setOnClickListener><onClick>gj.tz(j5.iyu)</onClick></setOnClickListener></Yu5Src><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="关闭" android:textColor="@color/colorTextFalse" android:textSize="9sp" android:gravity="center" android:visibility="gone" android:singleLine="true" android:textStyle="bold" android:paddingLeft="3dp" android:paddingTop="5dp" android:paddingBottom="5dp" android:paddingRight="5dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.xdbj(zy.i.xdbj7).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></TextView></LinearLayout></RelativeLayout><TextView android:id="@+id/wb11" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="• 应用未激活 •" android:layout_marginTop="0dp" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginBottom="5dp" android:background="@drawable/anybj2" android:textColor="@color/colorTextFalse" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:padding="5dp" android:singleLine="true" android:visibility="gone"><Yu5Src><setOnClickListener><onClick>gj.tz(f7.iyu)</onClick></setOnClickListener></Yu5Src></TextView><TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="加载失败 点击重试" android:textColor="@color/colorAccentY" android:textSize="11sp" android:gravity="center_horizontal" android:visibility="gone" android:singleLine="true" android:padding="5dp" android:textStyle="bold"><Yu5Src><setOnClickListener><onClick>homeshow(true)</onClick></setOnClickListener></Yu5Src></TextView><LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><LinearLayout android:id="@+id/xxbj13" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><ImageView android:id="@+id/tx11" android:layout_width="match_parent" android:layout_height="100dp" android:src="@mipmap/load_photo" android:background="@color/colorTabBackground" android:scaleType="fitCenter"/><TextView android:id="@+id/wb29" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:singleLine="true" android:background="@color/colorThough2" android:padding="3dp" android:layout_alignParentBottom="true"/><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+	s iyu={ "uri" }
+	s val={ div_lbl1_url }
+	gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb29).zf()
+e1.tsk("详细信息",te)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj20" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp" android:visibility="gone"><ImageView android:id="@+id/tx18" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b11" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj26" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx18" android:gravity="center_vertical" android:layout_centerVertical="true" android:layout_marginRight="30dp"><TextView android:id="@+id/wb52" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb53" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb54" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><TextView android:id="@+id/wb56" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="广告" android:textSize="9sp" android:textColor="@color/colorTextU2" android:textStyle="bold" android:layout_alignParentRight="true" android:layout_margin="3dp" android:singleLine="true" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>e1.tsk("提示","激活腕管Pro后可关闭所有广告")</onClick></setOnClickListener></Yu5Src></TextView><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_ad1_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb52).zf()
+s lj=st.wb(zy.i.wb54).zf()
+e1.tsk("详细信息","[推荐名称]\n"+te+"\n\n[推荐简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx6" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/appicon" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx6" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_yytj_item1_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb14).zf()
+s lj=st.wb(zy.i.wb16).zf()
+e1.tsk("详细信息","[应用名称]\n"+te+"\n\n[应用简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx9" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/appicon" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj15" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx9" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb23" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb24" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb25" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_yytj_item2_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb23).zf()
+s lj=st.wb(zy.i.wb25).zf()
+e1.tsk("详细信息","[应用名称]\n"+te+"\n\n[应用简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj13" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx10" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/appicon" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj16" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx10" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb26" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb27" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb28" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_yytj_item3_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb26).zf()
+s lj=st.wb(zy.i.wb28).zf()
+e1.tsk("详细信息","[应用名称]\n"+te+"\n\n[应用简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><TextView android:id="@+id/wb10" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="查看更多" android:textColor="@color/colorTextU2" android:textSize="11sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "type","search" }
+  s val={ "app","all" }
+  gj.tz(p3.iyu,iyu,val)
+}</onClick></setOnClickListener></Yu5Src></TextView></LinearLayout><LinearLayout android:id="@+id/xxbj18" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj14" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx12" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b8" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj19" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx12" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb31" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb32" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb33" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_jcsp_item1_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb31).zf()
+s lj=st.wb(zy.i.wb33).zf()
+e1.tsk("详细信息","[视频名称]\n"+te+"\n\n[视频简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj15" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx13" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b8" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj20" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx13" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb34" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb35" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb36" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_jcsp_item2_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb34).zf()
+s lj=st.wb(zy.i.wb36).zf()
+e1.tsk("详细信息","[视频名称]\n"+te+"\n\n[视频简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj16" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx14" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b8" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj21" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx14" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb37" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb38" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb39" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_jcsp_item3_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb37).zf()
+s lj=st.wb(zy.i.wb39).zf()
+e1.tsk("详细信息","[视频名称]\n"+te+"\n\n[视频简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><TextView android:id="@+id/wb40" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="查看更多" android:textColor="@color/colorTextU2" android:textSize="11sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "type","search" }
+  s val={ "video","all" }
+  gj.tz(p3.iyu,iyu,val)
+}</onClick></setOnClickListener></Yu5Src></TextView></LinearLayout><LinearLayout android:id="@+id/xxbj22" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj17" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx5" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b9" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj23" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx5"><TextView android:id="@+id/wb42" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb43" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb44" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_rmyy_item1_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb42).zf()
+s lj=st.wb(zy.i.wb44).zf()
+e1.tsk("详细信息","[歌曲名称]\n"+te+"\n\n[歌曲作者]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj18" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx7" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b9" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj24" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx7"><TextView android:id="@+id/wb45" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb46" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb47" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_rmyy_item2_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb45).zf()
+s lj=st.wb(zy.i.wb47).zf()
+e1.tsk("详细信息","[歌曲名称]\n"+te+"\n\n[歌曲作者]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj19" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx8" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b9" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj25" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx8"><TextView android:id="@+id/wb48" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb49" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb50" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "uri" }
+  s val={ div_rmyy_item3_url }
+  gj.tz(p2.iyu,iyu,val)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb48).zf()
+s lj=st.wb(zy.i.wb50).zf()
+e1.tsk("详细信息","[歌曲名称]\n"+te+"\n\n[歌曲作者]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><TextView android:id="@+id/wb51" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="查看更多" android:textColor="@color/colorTextU2" android:textSize="11sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s iyu={ "type","search" }
+  s val={ "music","all" }
+  gj.tz(p3.iyu,iyu,val)
+}</onClick></setOnClickListener></Yu5Src></TextView></LinearLayout><LinearLayout android:id="@+id/xxbj8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical"><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a55" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.tz(p1.iyu)</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></LinearLayout></RelativeLayout></androidx.core.widget.NestedScrollView><Yu5Src><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/Tab" android:visibility="gone"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical"><android.support.v7.widget.RecyclerView android:id="@+id/v7lb1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none"/></LinearLayout><Yu5Src><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src><TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="• 应用未激活 •" android:textColor="@color/colorTextFalse" android:textSize="9sp" android:layout_centerHorizontal="true" android:layout_alignParentBottom="true" android:layout_marginBottom="12dp" android:textStyle="bold" android:visibility="gone" android:singleLine="true" android:padding="3dp"><Yu5Src><setOnClickListener><onClick>gj.tz(f7.iyu)</onClick></setOnClickListener></Yu5Src></TextView></RelativeLayout><TextView android:id="@+id/wb9" android:layout_width="match_parent" android:layout_height="match_parent" android:text="↑点击顶部标题栏切换新/旧主页↑\n长按提示文字将不再显示" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center_horizontal" android:textStyle="bold" android:background="@color/colorThough2" android:layout_below="@id/Tab" android:padding="5dp" android:visibility="gone"><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick>s set65 = "/data/user/0/open.cn.awg.pro/settings/set5.inf"
+wj.xrwb(set65,"true")
+gj.jmxc(){
+  st.wb(zy.i.wb9).kjd(8)
+}
+
+fh fou</onLongClick></setOnLongClickListener></Yu5Src></TextView><RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/Tab" android:visibility="gone"><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp"/><TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx15" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>//state_homeshow=false
+homeshow_show(1)
+show(0)</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><Yu5Src><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></RelativeLayout></RelativeLayout><RelativeLayout android:id="@+id/xdbj10" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="@color/colorTabBackground"><LinearLayout android:id="@+id/xxbj10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerInParent="true" android:gravity="center"><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:gravity="center" android:textStyle="bold" android:layout_margin="5dp" android:singleLine="true"/><android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:visibility="gone"><ImageView android:id="@+id/tx16" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>supertip_an()</onClick></setOnClickListener></Yu5Src></ImageView><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></android.support.v7.widget.CardView></LinearLayout><Yu5Src><setOnTouchListener><onTouch>
+
+fh shi</onTouch></setOnTouchListener><setOnClickListener><onClick/></setOnClickListener></Yu5Src><TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="• 退出应用 •" android:textColor="@color/colorTextU2" android:textSize="9sp" android:gravity="center" android:textStyle="bold" android:layout_centerHorizontal="true" android:layout_alignParentBottom="true" android:padding="3dp" android:background="?android:attr/selectableItemBackground" android:layout_marginBottom="15dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  s tx3=st.tx(zy.i.tx3)
+  tx3.v.performClick()
+}</onClick></setOnClickListener></Yu5Src></TextView><TextView android:id="@+id/wb17" android:layout_width="match_parent" android:layout_height="match_parent" android:text="" android:background="@color/colorTabBackground" android:gravity="center" android:textColor="@color/colorTextU2" android:textSize="11sp" android:visibility="gone" android:padding="8dp"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.wb(zy.i.wb17).kjd(8)
+}</onClick></setOnClickListener><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></TextView></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="visible" android:background="@color/colorTabBackground"><Yu5Src><setOnTouchListener><onTouch>
+
+fh shi</onTouch></setOnTouchListener><setOnClickListener><onClick/></setOnClickListener></Yu5Src><ImageView android:id="@+id/tx4" android:layout_width="76dp" android:layout_height="76dp" android:src="@mipmap/ic_splash" android:layout_centerInParent="true" android:layout_marginLeft="-702dp" android:layout_marginTop="2212dp"/></RelativeLayout><RelativeLayout android:id="@+id/TCxdbj" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="@color/colorTabBackground"><TextView android:id="@+id/Title2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="腕管Pro" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:gravity="center_horizontal|bottom" android:singleLine="true" android:background="@color/colorTab" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp"/><Yu5Src><setOnTouchListener><onTouch>
+
+fh shi</onTouch></setOnTouchListener></Yu5Src><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_below="@id/Title2" android:gravity="center_horizontal"><TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="您确定要退出软件吗？" android:textColor="@color/colorTextU2" android:textSize="13sp" android:gravity="center" android:textIsSelectable="true" android:padding="5dp" android:layout_marginTop="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginBottom="5dp" android:minHeight="40dp"/><LinearLayout android:id="@+id/xxbj4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center"><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_weight="1"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>s dh = gj.dh()
+gd s jbtm = dh.jbtm(1, 0)
+jbtm.cxsc(300)
+gj.jmxc(){
+  st.xdbj(zy.i.TCxdbj).kjd(8)
+  st.xdbj(zy.i.TCxdbj).dh(jbtm)
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_weight="1"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.xc(){
+	gd s main_v = st.xdbj(zy.i.main_v)
+	gj.jmxc(){
+		main_v.scqb()
+	}
+	gj.zt(500)
+	/*gj.jmxc(){
+	st.xdbj(zy.i.TCxdbj).kjd(8)
+	}*/
+	wj.sc("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r")
+	yc {
+		e13.N_cancel()
+		/*java{
+		Intent mIntent=new Intent(lei,open.cn.awg.pro.AwgCoreService.class);
+		//关闭Service
+		stopService(mIntent);
+		}*/
+	},{
+	}
+	//gj.xszm()
+	java open.cn.awg.pro.e6.getInstance().exit();
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout><TextView android:id="@+id/wb_main_kjfs_gbcd" android:layout_width="0dp" android:layout_height="0dp" android:text=""><Yu5Src><setOnClickListener><onClick>show(0)</onClick></setOnClickListener></Yu5Src></TextView></RelativeLayout>

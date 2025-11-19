@@ -1,0 +1,166 @@
+qj s set17 = "/data/user/0/open.cn.awg.pro/settings/db/talking.db"
+qj i.runlibrary.app.sj$sjk sjk
+qj s set27 = "/data/user/0/open.cn.awg.pro/settings/db/file.db"
+qj i.runlibrary.app.sj$sjk sjk2
+qj s set47 = "/data/user/0/open.cn.awg.pro/settings/db/plugin.db"
+qj i.runlibrary.app.sj$sjk sjk3
+
+ff setup_talklist(){
+  sjk=sj.sjk(set17)
+  // 判断 info 数据表 是否存在
+  rg sjk.czsjb("talklist")==false{
+    s table = "_id integer primary key,uid interger, name text,utext text"
+    s sjk8 = sjk.cjsjb("talklist", table)
+  }
+}
+
+
+ff boolean add_talklist(s a,s b,s c){
+  boolean fhz=false
+  s back = sjk.cxsj("talklist", "uid", "uid="+a)
+  back.dyh()
+  s fhs=back.sj(0)
+  rg fhs==null{
+    s table = "uid,name,utext"
+    s data = a+",'"+b+"','"+c+"'"
+    s sjk11 = sjk.cjsj("talklist", table, data)
+    fhz=true
+  },{
+    fhz=false
+  }
+  fh fhz
+}
+
+ff boolean update_talklist(s a,s b,s c){
+  boolean fhz = sjk.gxsj("talklist", b+"='"+c+"'", "_id="+a)
+  fh fhz
+}
+
+ff boolean delete_talklist(s a){
+  boolean fhz = sjk.scsj("talklist", "_id="+a)
+  fh fhz
+}
+
+ff int findid_talklist(s a){
+  int fhz=0
+  s back = sjk.cxsj("talklist", "_id,uid", "uid="+a)
+  back.dyh()
+  s fhs=back.sj(0)
+  rg fhs==null{
+    
+  },{
+    fhz=fhs
+  }
+  fh fhz
+}
+
+ff print_talklist(){
+  s table = "_id,uid,name,utext"
+  s sqlx = null
+  s sjk15 = sjk.cxsj("talklist", table, sqlx)
+  xh sjk15.xyh()
+  {
+    // 输出
+    gj.sc(":" + sjk15.sj(0)+ ", " + sjk15.sj(1)+ ", " + sjk15.sj(2)+ ", " + sjk15.sj(3));
+  }
+}
+
+
+ff setup_filelist(){
+  sjk2=sj.sjk(set27)
+  // 判断 info 数据表 是否存在
+  rg sjk2.czsjb("filelist")==false{
+    s table = "_id integer primary key, path text,value interger"
+    s sjk8 = sjk2.cjsjb("filelist", table)
+  }
+}
+
+ff boolean update_filelist(s a,int b){
+  boolean fhz=false
+  s back = sjk2.cxsj("filelist", "path", "path='"+a+"'")
+  back.dyh()
+  s fhs=back.sj(0)
+  rg fhs==null{
+    s table = "path,value"
+    s data = "'"+a+"',"+b
+    fhz = sjk2.cjsj("filelist", table, data)
+  },{
+    s back2 = sjk2.cxsj("filelist", "_id,path", "path='"+a+"'")
+    back2.dyh()
+    int fhx=back2.sj(0)
+    fhz=sjk2.gxsj("filelist", "value="+b, "_id="+fhx)
+  }
+  fh fhz
+}
+
+ff int get_filelist(s a){
+  int v=0
+  s back = sjk2.cxsj("filelist", "value,path", "path='"+a+"'")
+  back.dyh()
+  s b=back.sj(0)
+  rg b==null{
+    
+  },{
+    v=b
+  }
+  fh v
+}
+
+ff setup_pluginlist(){
+  sjk3=sj.sjk(set47)
+  // 判断 info 数据表 是否存在
+  rg sjk3.czsjb("pluginlist")==false{
+    s table = "_id integer primary key,uid interger, name text,utext text"
+    s sjk8 = sjk3.cjsjb("pluginlist", table)
+  }
+}
+
+ff boolean add_pluginlist(s a,s b,s c){
+  boolean fhz=false
+  s back = sjk3.cxsj("pluginlist", "uid", "uid="+a)
+  back.dyh()
+  s fhs=back.sj(0)
+  rg fhs==null{
+    s table = "uid,name,utext"
+    s data = a+",'"+b+"','"+c+"'"
+    s sjk11 = sjk3.cjsj("pluginlist", table, data)
+    fhz=true
+  },{
+    fhz=false
+  }
+  fh fhz
+}
+
+ff boolean update_pluginlist(s a,s b,s c){
+  boolean fhz = sjk3.gxsj("pluginlist", b+"='"+c+"'", "_id="+a)
+  fh fhz
+}
+
+ff boolean delete_pluginlist(s a){
+  boolean fhz = sjk3.scsj("pluginlist", "_id="+a)
+  fh fhz
+}
+
+ff int findid_pluginlist(s a){
+  int fhz=0
+  s back = sjk3.cxsj("pluginlist", "_id,uid", "uid="+a)
+  back.dyh()
+  s fhs=back.sj(0)
+  rg fhs==null{
+    
+  },{
+    fhz=fhs
+  }
+  fh fhz
+}
+
+ff print_pluginlist(){
+  s table = "_id,uid,name,utext"
+  s sqlx = null
+  s sjk15 = sjk3.cxsj("pluginlist", table, sqlx)
+  xh sjk15.xyh()
+  {
+    // 输出
+    gj.sc(":" + sjk15.sj(0)+ ", " + sjk15.sj(1)+ ", " + sjk15.sj(2)+ ", " + sjk15.sj(3));
+  }
+}

@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8"?><iapp>
+<classExtends><itme name="/src/c1.iyu"/><itme name="/src/f4.iyu"/><itme name="/src/e1.myu"/><itme name="/src/g2.iyu"/><itme name="/src/f2.iyu"/><itme name="/src/f3.iyu"/><itme name="/src/a3.iyu"/><itme name="/src/f1.iyu"/><itme name="/src/b2.iyu"/><itme name="/src/g1.iyu"/><itme name="/src/d3.iyu"/><itme name="/src/d2.iyu"/><itme name="/src/d1.iyu"/><itme name="/src/f5.iyu"/><itme name="/src/b3.iyu"/><itme name="/src/b1.iyu"/><itme name="/src/main.iyu"/><itme name="/src/a0.iyu"/><itme name="/src/a2.iyu"/><itme name="/src/open/cn/awg/pro/e6.java"/><itme name="/src/c5.iyu"/><itme name="/src/c2.iyu"/><itme name="/src/c4.iyu"/><itme name="/src/c6.iyu"/><itme name="/src/c3.iyu"/><itme name="/src/com/demo/e4.java"/><itme name="/src/com/demo/e8.java"/><itme name="/src/com/demo/e3.java"/><itme name="/src/com/demo/e2.java"/><itme name="/src/com/demo/e0.java"/><itme name="/src/com/demo/e7.java"/><itme name="/src/com/demo/e5.java"/><itme name="/src/f6.iyu"/><itme name="/src/g3.iyu"/><itme name="/src/com/demo/e9.java"/><itme name="/src/com/apkinstaller/methods/basemethod.java"/><itme name="/src/com/apkinstaller/methods/commandmethod.java"/><itme name="/src/com/apkinstaller/methods/installmethod.java"/><itme name="/src/com/apkinstaller/methods/permissionmethod.java"/><itme name="/src/com/apkinstaller/methods/apkmethod.java"/><itme name="/src/com/apkinstaller/methods/iomethod.java"/><itme name="/src/f9.iyu"/><itme name="/src/f10.iyu"/><itme name="/src/f8.iyu"/><itme name="/src/f7.iyu"/><itme name="/src/com/super/accessibilityservice.java"/><itme name="/src/com/super/devicereceiver.java"/><itme name="/src/com/super/devicemanger.java"/><itme name="/src/b4.iyu"/><itme name="/src/h1.iyu"/><itme name="/src/c7.iyu"/><itme name="/src/simplecaptureactivity.java"/><itme name="/src/captureactivity.java"/><itme name="/src/c8.iyu"/><itme name="/src/h2.iyu"/><itme name="/src/downloadbroadcastreceiver.java"/><itme name="/src/xz.java"/><itme name="/src/i/app/tool/aid_getandroiddata.java"/><itme name="/src/gad.myu"/><itme name="/src/a4.iyu"/><itme name="/src/e10.myu"/><itme name="/src/c10.iyu"/><itme name="/src/c11.iyu"/><itme name="/src/e11.myu"/><itme name="/src/c12.iyu"/><itme name="/src/cachedatamanager.java"/><itme name="/src/k1.iyu"/><itme name="/src/open/cn/awg/pro/systemaccessibilityservice.java"/><itme name="/src/g5.iyu"/><itme name="/src/f12.iyu"/><itme name="/src/carton.myu"/><itme name="/src/open/cn/awg/pro/devicemanger.java"/><itme name="/src/open/cn/awg/pro/devicereceiver.java"/><itme name="/src/j4.iyu"/><itme name="/src/i/app/x5.java"/><itme name="/src/open/cn/awg/pro/abc.java"/><itme name="/src/j7.iyu"/><itme name="/src/open/cn/awg/pro/e9.java"/><itme name="/src/j6.iyu"/><itme name="/src/j8.iyu"/><itme name="/src/d5.iyu"/><itme name="/src/l1.iyu"/><itme name="/src/l2.iyu"/><itme name="/src/j5.iyu"/><itme name="/src/open/cn/awg/pro/locationlistener.java"/><itme name="/src/l4.iyu"/><itme name="/src/k2.iyu"/><itme name="/src/k4.iyu"/><itme name="/src/k3.iyu"/><itme name="/src/d6.iyu"/><itme name="/src/c13.iyu"/><itme name="/src/j9.iyu"/><itme name="/src/c14.iyu"/><itme name="/src/l5.iyu"/><itme name="/src/e12.myu"/><itme name="/src/l5_a2_nimin_d0415_y2022.iyu"/><itme name="/src/l5_a2_nimin_d0415_y2022_a1.iyu"/><itme name="/src/i3.iyu"/><itme name="/src/f17.iyu"/><itme name="/src/a6.iyu"/><itme name="/src/e13.myu"/><itme name="/src/n1.iyu"/><itme name="/src/n2.iyu"/><itme name="/src/o1.iyu"/><itme name="/src/open/cn/awg/pro/xlinearlayoutmanager.java"/><itme name="/src/open/cn/awg/pro/uri.java"/><itme name="/src/open/cn/awg/pro/repair/exception/crashhandler.java"/><itme name="/src/open/cn/awg/pro/util/dateutil.java"/><itme name="/src/l5_a5_chatg_d0312_y2023.iyu"/><itme name="/src/l5_a6_wearo_d0314_y2023.iyu"/><itme name="/src/n3.iyu"/><itme name="/src/e15.myu"/><itme name="/src/e4m2.myu"/><itme name="/src/e14m2.myu"/><itme name="/src/easy.myu"/><itme name="/src/debug.myu"/><itme name="/src/com/file/xor/xor.java"/><itme name="/src/com/bn/sample13_3/sample13_3_activity.java"/><itme name="/src/com/bn/sample13_3/floorrect.java"/><itme name="/src/com/bn/sample13_3/shadermanager.java"/><itme name="/src/com/bn/sample13_3/skyball.java"/><itme name="/src/com/bn/sample13_3/gamesurfaceview.java"/><itme name="/src/com/bn/sample13_3/constant.java"/><itme name="/src/com/bn/sample13_3/treesforcontrol.java"/><itme name="/src/com/bn/sample13_3/treetrunk.java"/><itme name="/src/com/bn/sample13_3/treetrunkcontrol.java"/><itme name="/src/com/bn/sample13_3/treeleavescontrol.java"/><itme name="/src/com/bn/sample13_3/treeleaves.java"/><itme name="/src/com/bn/sample13_3/shaderutil.java"/><itme name="/src/com/bn/sample13_3/seawater.java"/><itme name="/src/com/bn/sample13_3/matrixstate.java"/><itme name="/src/com/bn/sample13_3/landform.java"/><itme name="/src/c15.iyu"/><itme name="/src/open/cn/awg/pro/bootjobservice.java"/><itme name="/src/open/cn/awg/pro/startreceiver.java"/><itme name="/src/p3.iyu"/><itme name="/src/p4.iyu"/><itme name="/src/c25.iyu"/><itme name="/src/f20.iyu"/><itme name="/src/c20.iyu"/><itme name="/src/l5_a4_debug_d0527_y2022.iyu"/><itme name="/src/p1.iyu"/><itme name="/src/d4.iyu"/><itme name="/src/androidx/pluginmgr/pluginmanager.java"/><itme name="/src/android/app/activitythread.java"/><itme name="/src/android/app/instrumentation.java"/><itme name="/src/android/app/loadedapk.java"/><itme name="/src/androidx/pluginmgr/delegate/delegateactivitythread.java"/><itme name="/src/androidx/pluginmgr/delegate/delegateinstrumentation.java"/><itme name="/src/androidx/pluginmgr/delegate/layoutinflaterproxycontext.java"/><itme name="/src/androidx/pluginmgr/environment/createactivitydata.java"/><itme name="/src/androidx/pluginmgr/environment/pluginfo.java"/><itme name="/src/androidx/pluginmgr/reflect/null.java"/><itme name="/src/androidx/pluginmgr/environment/pluginclassloader.java"/><itme name="/src/androidx/pluginmgr/environment/plugincontext.java"/><itme name="/src/androidx/pluginmgr/environment/plugininstrumentation.java"/><itme name="/src/androidx/pluginmgr/environment/serviceenvironment.java"/><itme name="/src/androidx/pluginmgr/reflect/reflect.java"/><itme name="/src/androidx/pluginmgr/reflect/reflectexception.java"/><itme name="/src/androidx/pluginmgr/selector/defaultactivityselector.java"/><itme name="/src/androidx/pluginmgr/pluginactivitylifecyclecallback.java"/><itme name="/src/androidx/pluginmgr/globals.java"/><itme name="/src/androidx/pluginmgr/dynamicactivity.java"/><itme name="/src/androidx/pluginmgr/widget/viewstub.java"/><itme name="/src/androidx/pluginmgr/widget/layoutinflaterwrapper.java"/><itme name="/src/androidx/pluginmgr/verify/simplelengthverifier.java"/><itme name="/src/androidx/pluginmgr/verify/pluginoverdueverifier.java"/><itme name="/src/androidx/pluginmgr/verify/pluginnotfoundexception.java"/><itme name="/src/androidx/pluginmgr/utils/xmlmanifestreader.java"/><itme name="/src/androidx/pluginmgr/utils/trace.java"/><itme name="/src/androidx/pluginmgr/selector/dynamicactivityselector.java"/><itme name="/src/androidx/pluginmgr/utils/pluginmanifestutil.java"/><itme name="/src/androidx/pluginmgr/utils/fileutil.java"/><itme name="/src/l5_a7_yuanc_d0625_y2024.iyu"/><itme name="/src/b0.iyu"/><itme name="/src/l5_a3_zhibo_d0420_y2022_a1.iyu"/><itme name="/src/f22.iyu"/><itme name="/src/f21.iyu"/></classExtends>
+<pathRemarks><itme name="/src/c1.iyu">界面:设置&gt;重置应用</itme><itme name="/src/f4.iyu">界面:设置</itme><itme name="/src/e1.myu">方法:e1文件管理集合方法</itme><itme name="/src/g2.iyu">界面:DKPlayer</itme><itme name="/src/f2.iyu">界面:设置&gt;关于应用</itme><itme name="/src/a3.iyu">界面:提示</itme><itme name="/src/f1.iyu">界面:系统权限</itme><itme name="/src/d3.iyu">界面:图像浏览</itme><itme name="/src/d2.iyu">界面:文本浏览</itme><itme name="/src/d1.iyu">界面:文件管理</itme><itme name="/src/f5.iyu">界面:设置&gt;文本浏览编辑</itme><itme name="/src/main.iyu">界面:启动器</itme><itme name="/src/a0.iyu">界面:重启应用</itme><itme name="/src/a2.iyu">界面:初始化配置</itme><itme name="/src/open/cn/awg/pro/e6.java">子类:Application类</itme><itme name="/src/c5.iyu">列表:文件管理&gt;菜单项&gt;属性</itme><itme name="/src/c2.iyu">列表:文件管理&gt;文件项</itme><itme name="/src/c4.iyu">列表:文件管理&gt;菜单项</itme><itme name="/src/c6.iyu">列表:文件管理&gt;菜单项&gt;打开方式</itme><itme name="/src/c3.iyu">列表:主界面&gt;功能项</itme><itme name="/src/com/demo/e4.java">子类:多静态方法</itme><itme name="/src/com/demo/e8.java">子类:判断应用安装</itme><itme name="/src/com/demo/e3.java">子类:Shell脚本执行</itme><itme name="/src/com/demo/e2.java">子类:签名验证类</itme><itme name="/src/com/demo/e0.java">子类:获取签名</itme><itme name="/src/com/demo/e5.java">子类:图像浏览类</itme><itme name="/src/f6.iyu">界面:设置&gt;文件管理</itme><itme name="/src/f7.iyu">界面:设置&gt;应用激活</itme><itme name="/src/g3.iyu">界面:WearMusic播放</itme><itme name="/src/com/apkinstaller/methods/basemethod.java">方法:Apk安装方法</itme><itme name="/src/com/apkinstaller/methods/commandmethod.java">方法:Apk安装方法</itme><itme name="/src/com/apkinstaller/methods/installmethod.java">方法:Apk安装方法</itme><itme name="/src/com/apkinstaller/methods/permissionmethod.java">方法:Apk安装方法</itme><itme name="/src/com/apkinstaller/methods/apkmethod.java">方法:Apk安装方法</itme><itme name="/src/com/apkinstaller/methods/iomethod.java">方法:Apk安装方法</itme><itme name="/src/f9.iyu">界面:设置&gt;应用更新</itme><itme name="/src/com/super/devicereceiver.java">广播:设备管理器</itme><itme name="/src/com/super/devicemanger.java">广播:设备管理器类</itme><itme name="/src/com/super/systemaccessibilityservice.java">服务:无障碍服务类</itme><itme name="/src/c7.iyu">列表:主界面&gt;Android手机&gt;功能项</itme><itme name="/src/simplecaptureactivity.java">子类:扫一扫相关类1</itme><itme name="/src/captureactivity.java">子类:扫一扫相关类2</itme><itme name="/src/downloadbroadcastreceiver.java">子类:文件下载类1</itme><itme name="/src/xz.java">子类:文件下载类2</itme><itme name="/src/a4.iyu">界面:设置&gt;更新应用&gt;更新</itme><itme name="/src/i1.iyu">界面:腕聊&gt;列表</itme><itme name="/src/e10.myu">方法:腕聊相关方法</itme><itme name="/src/c9.iyu">列表:腕聊&gt;列表&gt;菜单</itme><itme name="/src/c10.iyu">列表:腕聊&gt;列表&gt;聊天室</itme><itme name="/src/c11.iyu">列表:腕聊&gt;列表&gt;消息</itme><itme name="/src/e11.myu">方法:程序数据库</itme><itme name="/src/i2.iyu">界面:腕聊&gt;列表&gt;聊天室</itme><itme name="/src/cachedatamanager.java">子类:清理缓存</itme><itme name="/src/f12.iyu">界面:设置&gt;开发测试</itme><itme name="/src/j2.iyu">界面:指纹识别</itme><itme name="/src/k1.iyu">界面:系统工具</itme><itme name="/src/j3.iyu">界面:无障碍脚本运行</itme><itme name="/src/open/cn/awg/pro/systemaccessibilityservice.java">子类:无障碍运行类</itme><itme name="/src/g5.iyu">界面:打包安装程序</itme><itme name="/src/g4.iyu">界面:系统打开</itme><itme name="/src/carton.myu">方法:设备管理权限</itme><itme name="/src/open/cn/awg/pro/devicemanger.java">子类:设备管理权限相关</itme><itme name="/src/open/cn/awg/pro/devicereceiver.java">子类:设备管理权限相关</itme><itme name="/src/j4.iyu">界面:Shell执行</itme><itme name="/src/j5.iyu">界面:设置&gt;应用公告</itme><itme name="/src/j6.iyu">界面:X5浏览器</itme><itme name="/src/open/cn/awg/pro/abc.java">子类:全局变量</itme><itme name="/src/f13.iyu">界面:设置&gt;X5浏览器</itme><itme name="/src/j8.iyu">界面:位置信息</itme><itme name="/src/j7.iyu">界面:适配终端</itme><itme name="/src/d5.iyu">界面:文本编辑</itme><itme name="/src/f15.iyu">界面:设置&gt;DKPlayer</itme><itme name="/src/f16.iyu">界面:设置&gt;法律信息</itme><itme name="/src/l1.iyu">界面:更多功能</itme><itme name="/src/l2.iyu">界面:文件下载</itme><itme name="/src/l3.iyu">界面:文本翻译</itme><itme name="/src/a5.iyu">界面:在线下载</itme><itme name="/src/open/cn/awg/pro/locationlistener.java">子类:获取位置信息</itme><itme name="/src/l4.iyu">界面:内核安装</itme><itme name="/src/k2.iyu">界面:系统工具&gt;垃圾清理</itme><itme name="/src/k3.iyu">界面:腕管Pro&gt;应用安装至手表</itme><itme name="/src/k4.iyu">界面:系统工具&gt;网络防护</itme><itme name="/src/c13.iyu">列表:文件分类访问&gt;目录</itme><itme name="/src/d7.iyu">界面:文件分类访问</itme><itme name="/src/j9.iyu">界面:位置信息&gt;详细信息</itme><itme name="/src/c14.iyu">列表:测试功能列表</itme><itme name="/src/l5.iyu">界面:测试功能</itme><itme name="/src/l5_a1_fuwuq_d0313_y2022.iyu">界面:l5_a1_fuwuq_d0313_y2022</itme><itme name="/src/l5_a2_nimin_d0415_y2022.iyu">界面:TuneFree</itme><itme name="/src/b5.iyu">界面:主界面-远程模式</itme><itme name="/src/e12.myu">模块:TuneFree相关</itme><itme name="/src/c15.iyu">列表:TuneFree&gt;搜索列表</itme><itme name="/src/l5_a2_nimin_d0415_y2022_a1.iyu">界面:TuneFree&gt;搜索结果</itme><itme name="/src/l5_a3_zhibo_d0420_y2022.iyu">界面:网络直播</itme><itme name="/src/c16.iyu">列表:网络直播&gt;直播列表</itme><itme name="/src/i3.iyu">界面:腕聊&gt;消息详情</itme><itme name="/src/l5_a4_debug_d0527_y2022.iyu">界面:设置&gt;AppDebug</itme><itme name="/src/f11.iyu">界面:设置&gt;腕聊设置</itme><itme name="/src/f10.iyu">界面:设置&gt;云端服务</itme><itme name="/src/f17.iyu">界面:设置&gt;显示边距</itme><itme name="/src/e13.myu">方法:循环</itme><itme name="/src/l6.iyu">界面:应用列表</itme><itme name="/src/c17.iyu">列表:应用列表&gt;应用项</itme><itme name="/src/m1.iyu">界面:扩展&gt;列表</itme><itme name="/src/e14.myu">方法:扩展相关方法</itme><itme name="/src/c18.iyu">列表:扩展&gt;列表&gt;菜单</itme><itme name="/src/c19.iyu">列表:扩展&gt;列表&gt;扩展插件</itme><itme name="/src/m2.iyu">界面:扩展&gt;Runable</itme><itme name="/src/b0.iyu">界面:错误界面</itme><itme name="/src/b1.iyu">界面:异常反馈</itme><itme name="/src/o1.iyu">界面:产品购买</itme><itme name="/src/c20.iyu">列表:设置&gt;应用公告&gt;公告列表</itme><itme name="/src/open/cn/awg/pro/xlinearlayoutmanager.java">子类:XLinearLayoutManager</itme><itme name="/src/open/cn/awg/pro/uri.java">子类:Uri获取</itme><itme name="/src/open/cn/awg/pro/repair/exception/crashhandler.java">子类:异常处理</itme><itme name="/src/open/cn/awg/pro/util/dateutil.java">子类:时间工具类</itme><itme name="/src/l5_a5_chatg_d0312_y2023.iyu">界面:ChatGPT</itme><itme name="/src/c21.iyu">列表:ChatGPT&gt;消息</itme><itme name="/src/l5_a6_wearo_d0314_y2023.iyu">界面:WearOS工具箱</itme><itme name="/src/c22.iyu">列表:WearOS工具箱列表</itme><itme name="/src/n1.iyu">界面:设置&gt;Typheye账户</itme><itme name="/src/n2.iyu">界面:设置&gt;Typheye账户&gt;登录</itme><itme name="/src/i4.iyu">界面:腕聊&gt;同意协议</itme><itme name="/src/e14m2.myu">模块:扩展运行模块</itme><itme name="/src/easy.myu">模块:简壹后端</itme><itme name="/src/debug.myu">模块:诊断模块</itme><itme name="/src/com/file/xor/xor.java">子类:文件加密模块</itme><itme name="/src/n3.iyu">界面:设置&gt;Typheye账户&gt;账户授权</itme><itme name="/src/open/cn/awg/pro/awgcoreservice.java">服务:腕管Pro主服务</itme><itme name="/src/l5_a7_yuanc_d0625_y2024.iyu">界面:腕管远控</itme><itme name="/src/open/cn/awg/pro/bootjobservice.java">服务:开机启动</itme><itme name="/src/open/cn/awg/pro/startreceiver.java">服务:开机广播</itme><itme name="/src/p1.iyu">界面:资源搜索</itme><itme name="/src/p2.iyu">界面:预览</itme><itme name="/src/p3.iyu">界面:综合</itme><itme name="/src/c23.iyu">列表:应用&gt;列表</itme><itme name="/src/i/app/x5.java">子类:x5内核</itme><itme name="/src/c24.iyu">列表:视频&gt;列表</itme><itme name="/src/c25.iyu">列表:歌曲&gt;列表</itme><itme name="/src/d4.iyu">界面:应用安装</itme><itme name="/src/open/cn/awg/pro/e9.java">界面:ADB安装</itme><itme name="/src/f21.iyu">界面:设置&gt;个性主题</itme><itme name="/src/androidx/pluginmgr/pluginmanager.java">子类：扩展插件运行组件</itme><itme name="/src/android/app/activitythread.java">子类：扩展插件运行组件</itme><itme name="/src/android/app/instrumentation.java">子类：扩展插件运行组件</itme><itme name="/src/android/app/loadedapk.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/delegate/delegateactivitythread.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/delegate/delegateinstrumentation.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/delegate/layoutinflaterproxycontext.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/environment/createactivitydata.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/environment/pluginfo.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/reflect/null.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/environment/pluginclassloader.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/environment/plugincontext.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/environment/plugininstrumentation.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/environment/serviceenvironment.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/reflect/reflect.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/reflect/reflectexception.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/selector/defaultactivityselector.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/pluginactivitylifecyclecallback.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/globals.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/dynamicactivity.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/widget/viewstub.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/widget/layoutinflaterwrapper.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/verify/simplelengthverifier.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/verify/pluginoverdueverifier.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/verify/pluginnotfoundexception.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/utils/xmlmanifestreader.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/utils/trace.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/selector/dynamicactivityselector.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/utils/pluginmanifestutil.java">子类：扩展插件运行组件</itme><itme name="/src/androidx/pluginmgr/utils/fileutil.java">子类：扩展插件运行组件</itme><itme name="/src/d8.iyu">界面:文件管理&gt;删除</itme><itme name="/src/l5_a8_deeps_d0207_y2025.iyu">界面:DeepSeek</itme><itme name="/src/l5_a3_zhibo_d0420_y2022_a1.iyu">界面:网络直播&gt;直播源</itme><itme name="/src/f22.iyu">界面:设置&gt;应用更新&gt;重要更新</itme></pathRemarks>
+<importClass><itme name="/src/d1.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/a0.iyu">android.os.Process
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.content.Intent</itme><itme name="/src/a2.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+android.os.Process
+java.lang.System
+android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/com/demo/e0.java"/><itme name="/src/com/demo/e4.java"/><itme name="/src/d3.iyu">java.io.File
+android.net.Uri
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/g2.iyu">xyz.doikki.videoplayer.ijk.IjkPlayerFactory
+xyz.doikki.videoplayer.ijk.IjkPlayer
+xyz.doikki.videoplayer.controller.BaseVideoController
+xyz.doikki.videoplayer.controller.GestureVideoController
+xyz.doikki.videoplayer.controller.IVideoController
+xyz.doikki.videoplayer.player.VideoViewManager
+xyz.doikki.videoplayer.player.VideoViewConfig
+android.media.AudioManager
+android.net.Uri
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+java.util.HashMap
+java.util.Map
+android.media.MediaPlayer
+android.content.Context
+java.lang.Exception</itme><itme name="/src/f2.iyu">android.content.pm.PackageInfo
+android.content.pm.PackageManager
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/c6.iyu">java.io.File
+android.net.Uri
+java.nio.file.Files
+android.content.Intent
+android.content.ComponentName
+android.os.Bundle
+android.os.Build
+androidx.core.content.FileProvider
+android.provider.Settings
+net.lingala.zip4j.core.ZipFile</itme><itme name="/src/a3.iyu">android.os.Process
+java.lang.System
+android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/open/cn/awg/pro/layout.java"/><itme name="/src/f4.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f5.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f6.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f7.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/g3.iyu">android.os.Process
+java.lang.System
+android.content.Intent
+android.content.Context
+com.alibaba.fastjson.JSON
+com.alibaba.fastjson.JSONArray
+com.alibaba.fastjson.JSONObject
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f9.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/com/super/systemaccessibilityservice.java"/><itme name="/src/main.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.content.Intent
+android.os.PowerManager
+android.provider.Settings
+android.net.Uri
+android.app.job.JobScheduler
+android.app.job.JobInfo
+android.content.ComponentName
+android.os.Bundle
+android.net.Uri
+java.lang.Exception
+android.content.Context
+com.squareup.picasso.Picasso
+android.graphics.Bitmap
+java.net.URL
+android.graphics.BitmapFactory
+com.umeng.commonsdk.UMConfigure
+com.umeng.message.PushAgent
+com.umeng.message.api.UPushRegisterCallback</itme><itme name="/src/c1.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f1.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/d2.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/a4.iyu">com.tananaev.adblib.AdbConnection
+android.content.Intent
+android.os.Bundle
+android.content.Context
+android.net.Uri
+android.graphics.drawable.Drawable
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/i1.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/c9.iyu"/><itme name="/src/c10.iyu"/><itme name="/src/c11.iyu"/><itme name="/src/i2.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.view.inputmethod.InputMethodManager
+java.text.ParseException
+android.app.Activity</itme><itme name="/src/e10.myu">java.net.URLEncoder
+android.support.v7.widget.LinearLayoutManager
+android.view.ViewGroup
+com.kingqi.zwcj.应用工具
+com.kongzue.baseokhttp.listener.ResponseListener
+com.kongzue.baseokhttp.listener.UploadProgressListener
+com.kongzue.baseokhttp.HttpRequest
+android.app.Activity
+java.lang.Exception
+android.icu.util.TimeUnit</itme><itme name="/src/f12.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/j2.iyu">android.os.Process
+java.lang.System
+android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.hardware.fingerprint.FingerprintManager
+android.view.View</itme><itme name="/src/k1.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View</itme><itme name="/src/j3.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.provider.Settings
+android.content.Intent
+android.content.Context</itme><itme name="/src/open/cn/awg/pro/systemaccessibilityservice.java"/><itme name="/src/carton.myu">android.support.v7.app.AppCompatActivity
+android.os.Bundle
+android.view.View
+android.app.admin.DevicePolicyManager
+android.content.ComponentName
+android.content.Context
+android.content.Intent
+android.widget.Toast
+android.os.Process
+android.provider.Settings</itme><itme name="/src/g5.iyu">java.io.File
+android.net.Uri
+java.nio.file.Files
+android.content.Intent
+android.content.ComponentName
+android.os.Bundle
+android.os.Build
+androidx.core.content.FileProvider
+android.provider.Settings
+com.ypz.bangscreentools.BangScreenTools
+android.view.Window
+android.view.View</itme><itme name="/src/g4.iyu">java.io.File
+android.content.Intent
+android.net.Uri
+android.os.Build
+androidx.core.content.FileProvider
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.webkit.MimeTypeMap
+java.lang.Exception</itme><itme name="/src/c4.iyu">android.content.Intent
+android.content.Context</itme><itme name="/src/j4.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View</itme><itme name="/src/j5.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View</itme><itme name="/src/j6.iyu">android.widget.Button
+android.widget.ImageView
+android.view.View
+com.ypz.bangscreentools.BangScreenTools
+android.view.Window
+android.view.KeyEvent
+android.widget.TextView
+android.graphics.PixelFormat
+android.webkit.WebStorage
+android.view.ViewGroup
+com.tencent.smtt.export.external.interfaces.SslErrorHandler
+com.tencent.smtt.export.external.interfaces.SslError
+android.graphics.Bitmap
+android.support.v7.app.AlertDialog
+android.content.DialogInterface
+com.tencent.smtt.export.external.interfaces.JsResult
+com.tencent.smtt.export.external.interfaces.JsPromptResult
+com.tencent.smtt.export.external.interfaces.PermissionRequest
+android.widget.LinearLayout
+android.widget.RelativeLayout
+com.tencent.smtt.sdk.WebView
+android.os.Build
+android.widget.EditText
+com.tencent.smtt.export.external.interfaces.HttpAuthHandler
+android.content.Intent
+android.os.Bundle</itme><itme name="/src/f13.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/simplecaptureactivity.java"/><itme name="/src/j8.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View
+android.location.LocationManager
+android.location.Geocoder
+android.content.Context
+android.location.Address
+java.util.List
+java.util.Locale
+android.location.Location
+android.location.LocationListener
+android.os.Bundle</itme><itme name="/src/j7.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View</itme><itme name="/src/d5.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f15.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f16.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/l1.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/l2.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/l3.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View</itme><itme name="/src/a5.iyu">com.tananaev.adblib.AdbConnection
+android.content.Intent
+android.os.Bundle
+android.content.Context
+android.net.Uri
+android.graphics.drawable.Drawable
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/l4.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View
+java.lang.System</itme><itme name="/src/k2.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.widget.TextView
+android.text.method.ScrollingMovementMethod
+android.view.View</itme><itme name="/src/k3.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.widget.TextView
+android.text.method.ScrollingMovementMethod
+android.view.View
+com.tananaev.adblib.AdbStream
+com.tananaev.adblib.AdbConnection
+com.tananaev.adblib.AdbCrypto
+java.net.Socket
+android.util.Base64
+java.lang.StringBuilder
+com.tananaev.adblib.AdbBase64
+java.io.BufferedReader
+java.io.BufferedWriter
+java.io.InputStream
+java.io.InputStreamReader
+java.io.OutputStreamWriter
+java.util.Scanner
+android.os.Build</itme><itme name="/src/k4.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.widget.TextView
+android.text.method.ScrollingMovementMethod
+android.view.View</itme><itme name="/src/c13.iyu"/><itme name="/src/d7.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.view.MotionEvent
+java.lang.Math</itme><itme name="/src/j9.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View
+android.location.LocationManager
+android.location.Geocoder
+android.content.Context
+android.location.Address
+java.util.List
+java.util.Locale
+android.location.Location
+android.location.LocationListener
+android.os.Bundle
+java.io.IOException</itme><itme name="/src/l5.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/l5_a1_fuwuq_d0313_y2022.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/l5_a2_nimin_d0415_y2022.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View
+android.graphics.Bitmap</itme><itme name="/src/b5.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/c15.iyu"/><itme name="/src/l5_a2_nimin_d0415_y2022_a1.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/l5_a3_zhibo_d0420_y2022.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/c16.iyu"/><itme name="/src/i3.iyu">android.view.WindowManager
+android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View</itme><itme name="/src/l5_a4_debug_d0527_y2022.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/f11.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f10.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+com.kongzue.baseokhttp.listener.ResponseListener
+com.kongzue.baseokhttp.listener.UploadProgressListener
+com.kongzue.baseokhttp.HttpRequest</itme><itme name="/src/f17.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/c3.iyu">android.content.Intent</itme><itme name="/src/c7.iyu">android.content.Intent</itme><itme name="/src/l6.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/c17.iyu"/><itme name="/src/m1.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/e14.myu">java.net.URLEncoder
+android.support.v7.widget.LinearLayoutManager
+android.view.ViewGroup</itme><itme name="/src/c18.iyu"/><itme name="/src/c19.iyu"/><itme name="/src/m2.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.content.Context
+android.content.pm.PackageInfo
+java.lang.ClassLoader
+dalvik.system.DexClassLoader
+android.content.pm.PackageManager
+android.content.Intent
+android.content.ComponentName
+android.os.Environment</itme><itme name="/src/b0.iyu">android.os.Process
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.content.Intent</itme><itme name="/src/b1.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/o1.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.content.Intent
+android.net.Uri</itme><itme name="/src/e12.myu">
+com.kingqi.zwcj.应用工具</itme><itme name="/src/e13.myu">com.kingqi.zwcj.应用工具
+android.app.NotificationManager
+androidx.core.app.NotificationCompat
+android.app.Notification
+android.content.Intent
+android.os.Bundle
+android.graphics.BitmapFactory
+android.app.PendingIntent
+android.os.Build
+android.app.NotificationChannel
+android.app.KeyguardManager</itme><itme name="/src/c20.iyu"/><itme name="/src/l5_a5_chatg_d0312_y2023.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.view.inputmethod.InputMethodManager
+java.text.ParseException
+android.app.Activity
+android.support.v7.widget.LinearLayoutManager
+android.content.Context</itme><itme name="/src/c21.iyu"/><itme name="/src/l5_a6_wearo_d0314_y2023.iyu">android.graphics.Bitmap
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/c22.iyu"/><itme name="/src/n1.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+com.alibaba.fastjson.JSONObject
+com.kongzue.baseokhttp.listener.ResponseListener
+com.kongzue.baseokhttp.listener.UploadProgressListener
+com.kongzue.baseokhttp.HttpRequest</itme><itme name="/src/n2.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+com.alibaba.fastjson.JSONObject</itme><itme name="/src/i4.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/e14m2.myu"/><itme name="/src/easy.myu">com.alibaba.fastjson.JSONObject</itme><itme name="/src/e1.myu">com.file.Xor.xor</itme><itme name="/src/n3.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+com.alibaba.fastjson.JSONObject
+android.graphics.drawable.BitmapDrawable</itme><itme name="/src/open/cn/awg/pro/awgcoreservice.java"/><itme name="/src/l5_a7_yuanc_d0625_y2024.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View
+android.content.Intent
+android.os.Build
+android.content.Context
+android.net.Uri
+java.lang.Exception
+android.provider.Settings</itme><itme name="/src/open/cn/awg/pro/settingutils.java"/><itme name="/src/p1.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/p2.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View
+java.lang.System</itme><itme name="/src/p3.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View
+android.graphics.drawable.Drawable
+android.graphics.drawable.BitmapDrawable</itme><itme name="/src/c23.iyu"/><itme name="/src/c24.iyu"/><itme name="/src/c25.iyu"/><itme name="/src/d4.iyu">com.tananaev.adblib.AdbConnection
+android.content.Intent
+android.os.Bundle
+android.content.Context
+com.apkinstaller.Methods.ApkMethod
+android.net.Uri
+android.graphics.drawable.Drawable
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/f21.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/d8.iyu">android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools</itme><itme name="/src/l5_a8_deeps_d0207_y2025.iyu">android.graphics.Bitmap
+java.lang.Integer
+android.content.pm.ActivityInfo
+android.view.WindowManager
+android.view.Window
+android.os.Build
+android.view.View
+java.lang.reflect.Field
+java.lang.reflect.Method
+com.ypz.bangscreentools.BangScreenTools
+android.view.inputmethod.InputMethodManager
+java.text.ParseException
+android.app.Activity
+android.support.v7.widget.LinearLayoutManager
+android.content.Context</itme><itme name="/src/l5_a3_zhibo_d0420_y2022_a1.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+java.io.File
+android.view.View</itme><itme name="/src/f22.iyu">android.view.Window
+com.ypz.bangscreentools.BangScreenTools
+android.view.View
+android.graphics.Bitmap</itme></importClass>
+<newControl><itme title="DK媒体播放器" info="" class="xyz.doikki.videoplayer.player.VideoView"/><itme title="滑动验证" info="" class="com.mcxtzhang.captchalib.SwipeCaptchaView"/><itme title="腾讯x5浏览器" info="" class="com.tencent.smtt.sdk.WebView"/></newControl>
+<codeEvent/>
+<dexClass/>
+<codeComment/>
+</iapp>

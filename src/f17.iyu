@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/f17_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+jz()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+/*
+@2021 f5.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+int old_i = 0
+String lin=""
+s newcolor=""
+int bs=0
+ff jz(){
+  s set2 = "/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"
+  int i=wj.dqwb(set2)
+  old_i = i
+  s tdt1=st.tdt(zy.i.tdt1)
+  tdt1.jdz(i)
+}</iClass></iClass><onKeyUp><onKeyUp/></onKeyUp><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><onKeyDown><onKeyDown>fh shi</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="0dp"><TextView android:id="@+id/wb5" android:layout_width="match_parent" android:layout_height="3dp" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentTop="true"/><TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="3dp" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentBottom="true"/><TextView android:id="@+id/wb7" android:layout_width="3dp" android:layout_height="match_parent" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentLeft="true"/><TextView android:id="@+id/wb8" android:layout_width="3dp" android:layout_height="match_parent" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentRight="true"/></RelativeLayout><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent"><LinearLayout android:id="@+id/xxbj1" android:layout_width="120dp" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_centerInParent="true"><TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="拖动滑条\n直至完整显示矩形" android:textColor="@color/colorTextTrue" android:textSize="9sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold"/><SeekBar android:id="@+id/tdt1" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="80" android:background="@color/colorTextTrue" android:padding="3dp"><Yu5Src><setOnSeekBarChangeListener><onStartTrackingTouch/><onProgressChanged>s set = "/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"
+s tdt1=st.tdt(zy.i.tdt1)
+gd int i=tdt1.jdz()
+gd int ii=i/2
+gj.jmxc(){
+  st.xdbj(zy.i.xdbj3).wbj(i,i,i,i)
+  st.wb(zy.i.wb10).zf(ii+"dp")
+}
+s sis=sj.zh(i).zstring()
+wj.xrwb(set,sis)</onProgressChanged></setOnSeekBarChangeListener><setWebChromeClient><onProgressChanged/></setWebChromeClient></Yu5Src></SeekBar><LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_margin="5dp" android:layout_centerHorizontal="true"><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="调节边距" android:textColor="@color/colorTextU1" android:textSize="9sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0dp" android:textColor="@color/colorTextU1" android:textSize="9sp" android:singleLine="true" android:layout_marginLeft="3dp"/></LinearLayout><TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="退出/应用" android:textColor="@color/colorTextFalse" android:textSize="11sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:padding="5dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>s tdt1=st.tdt(zy.i.tdt1)
+rg tdt1.jdz() == old_i {
+  gj.gb()
+}, {
+  gj.xc()
+  {
+    //s e1 = cj.e1()
+    //e1.tsk("提示", "应用将在2秒后重启！")
+    //gj.zt(2000)
+    gj.jmxc(){
+      s name = { "Msg" }
+      s value = { "应用成功 点击重启" }
+      gj.tz(a0.iyu, name, value)
+    }
+  }
+}</onClick></setOnClickListener></Yu5Src></TextView></LinearLayout></RelativeLayout></RelativeLayout>

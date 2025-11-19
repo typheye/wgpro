@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/a1_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorWB">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+show()
+e1.online()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</__layoutIsLoaded></__layoutIsLoaded><onKeyDown><onKeyDown>fh shi</onKeyDown></onKeyDown><iClass><iClass>s e1=cj.e1()
+ff show(){
+  gd s a1="/data/user/0/open.cn.awg.pro/settings/a5.inf"
+  boolean t
+  rg wj.dqwb(a1)==""||wj.cz(a1)==false{
+    t=false
+  },{
+    t=true
+  }
+  gd s x1=st.xxbj(zy.i.xxbj1)
+  gd s x2=st.xxbj(zy.i.xxbj2)
+  gd s t2=st.wb(zy.i.wb3)
+  rg t==true{
+    gj.jmxc(){
+      x1.kjd(8)
+      x2.kjd(0)
+      t2.zf(wj.dqwb(a1))
+    }
+  },t==false{
+    gj.jmxc(){
+      x1.kjd(0)
+      x2.kjd(8)
+    }
+  }
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_centerInParent="true"><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" android:textColor="@color/colorTextU1" android:textSize="13sp" android:gravity="center" android:textStyle="bold" android:layout_margin="5dp"><Yu5Src><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></TextView><EditText android:id="@+id/bjk1" android:layout_width="100dp" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入ID" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:numeric="decimal" android:maxLength="5" android:gravity="center" android:layout_margin="5dp"/><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a27" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>s n=st.bjk(zy.i.bjk1).zf()
+gd s a1="/data/user/0/open.cn.awg.pro/settings/a5.inf"
+n=zf.qctwkg(n)
+rg n==""{
+  e1.tsk("提示","ID不能为空")
+},{
+  rg n.length()&gt;4{
+    wj.xrwb(a1,n)
+    show()
+  },{
+    e1.tsk("提示","ID不能小于5位")
+  }
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_centerInParent="true" android:visibility="gone"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" android:textColor="@color/colorTextU1" android:textSize="13sp" android:gravity="center" android:textStyle="bold"><Yu5Src><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></TextView><TextView android:id="@+id/wb3" android:layout_width="100dp" android:layout_height="wrap_content" android:text="00000" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anybj" android:textColor="@color/colorTextU1" android:padding="8dp" android:textSize="13sp" android:gravity="center"><Yu5Src><setOnLongClickListener><onLongClick>gj.tz(f1.iyu)
+
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></TextView><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></RelativeLayout>

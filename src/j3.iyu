@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/j3_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+s cmds=sj.hqtz("cmd")
+cmds=zf.qctwkg(cmds)
+rg cmds!=null&amp;&amp;cmds!=""{
+  st.bjk(zy.i.bjk1).zf(cmds)
+  st.wb(zy.i.wb1).kjd(0)
+  st.bjk(zy.i.bjk1).kjd(8)
+},{
+  st.wb(zy.i.wb1).kjd(8)
+  st.bjk(zy.i.bjk1).kjd(0)
+}
+
+java open.cn.awg.pro.SystemAccessibilityService.pns= "com.iapp.app"</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+//设置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.j3_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.j3_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+    int uih=pm.ztl/2+9
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,uih+"dp",0,"9dp")
+    wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}
+
+/*
+s te=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a14")
+s name = { "title" , "text" }
+s value = { "功能帮助" , te }
+gj.tz(a3.iyu, name, value)
+*/</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//设置命令变量
+String lin
+String ujback
+s e1=cj.e1()
+//运行shell方法
+
+
+ff load(s url,s title){
+  s name = { "url","title","code" }
+  s value = { url,title,"super1" }
+  gj.tz(d2.iyu, name, value)
+}
+
+
+ff run(){
+  gj.xc(){
+    gd s backinfo=st.wb(zy.i.backs)
+    lin=st.bjk(zy.i.bjk1).zf()
+    s ii=st.bjk(zy.i.bjk2).zf()
+    lin=zf.qctwkg(lin)
+    ii=zf.qctwkg(ii)
+    rg lin==""{
+      e1.tsk("提示","脚本命令不能为空")
+    },{
+      rg ii!=""{
+        boolean aa
+        yc{
+          java aa=open.cn.awg.pro.SystemAccessibilityService.isAccessibilitySettingsOn(lei,open.cn.awg.pro.SystemAccessibilityService.class.getName());
+        },(e){
+          aa=false
+        }
+        rg aa==false{
+          e1.tsk("提示","未授权应用无障碍权限\n请授权后重新运行本脚本")
+          yc{
+            java {
+              Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
+              lei.startActivity(intent);
+            }
+          },(e){
+            gj.gb()
+            e1.upload_error(e,"j3.run()")
+          }
+        },{
+          gj.jmxc(){
+            st.wb(zy.i.wb1).kjd(8)
+            st.wb(zy.i.wb2).kjd(0)
+            st.bjk(zy.i.bjk1).kjd(8)
+            st.bjk(zy.i.bjk2).kjd(8)
+            st.an(zy.i.an1).kjd(8)
+            st.an(zy.i.an2).kjd(8)
+          }
+          yc{
+            int a=0
+            int i=ii
+            //e1.tsk("提示","开始运行...")
+            xh a&lt;i{
+              java open.cn.awg.pro.SystemAccessibilityService.addCmd(lin);
+              a=a+1
+            }
+          },(e){
+            gj.gb()
+            e1.upload_error(e,"j3.run()")
+          }
+        }
+      },{
+        e1.tsk("提示","执行次数不能为空")
+      }
+      //gj.gb()
+    }
+  }
+}</iClass></iClass><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; 无障碍脚本" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Running..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp" android:visibility="gone"/><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="false" android:hint="请输入脚本命令" android:background="@drawable/edittext" android:padding="8dp" android:layout_marginTop="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:textColorHint="@color/colorTextU2"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="已成功加载无障碍脚本\n等待执行..." android:textColor="@color/colorTextTrue" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp" android:visibility="gone"/><EditText android:id="@+id/bjk2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="1" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:numeric="integer" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp" android:hint="请输入脚本执行次数" android:textColorHint="@color/colorTextU2"><Yu5Src><setOnFocusChangeListener><onFocusChange/></setOnFocusChangeListener><setOnTouchListener><onTouch>rg vw.isFocused()==false{
+  gj.jmxc(){
+    s qtgd1=st.qtgd(zy.i.qtgd1)
+    qtgd1.v.requestFocus()
+  }
+}
+
+fh fou</onTouch></setOnTouchListener></Yu5Src></EditText><Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:text="执行" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:layout_marginBottom="3dp"><Yu5Src><setOnClickListener><onClick>run()</onClick></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an2" android:layout_width="match_parent" android:layout_height="35dp" android:text="功能帮助" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>//弹出帮助
+load("/data/user/0/open.cn.awg.pro/data/assets/a14","功能帮助")</onClick></setOnClickListener></Yu5Src></Button><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//退出
+gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

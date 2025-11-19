@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c3_v" android:layout_width="match_parent" android:layout_height="50dp">
+    <_Yu5Src><onCreate><onCreate/></onCreate><__layoutIsLoaded><__layoutIsLoaded>
+
+</__layoutIsLoaded></__layoutIsLoaded><onDestroy><onDestroy/></onDestroy></_Yu5Src><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:paddingTop="5dp" android:paddingBottom="2dp"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/setbj"><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:padding="5dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>/*
+@2021 c3.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+s e1=cj.e1()
+yc{
+  s lb=sj.lb(vw)
+  s l=lb.lbcfsj(zy.i.wb2)
+  rg l=="1"{
+    gj.tz(d7.iyu)
+  },l=="5"{
+    gj.tz(l6.iyu)
+  },l=="2"{
+    gj.tz(f2.iyu)
+  },l=="3"{
+    s dh = gj.dh()
+    gd s jbtm = dh.jbtm(0, 1)
+    jbtm.cxsc(300)
+    gj.jmxc(){
+      st.xdbj(zy.i.TCxdbj).kjd(0)
+      st.xdbj(zy.i.TCxdbj).dh(jbtm)
+    }
+  },l=="4"{
+    gj.tz(a3.iyu)
+    gj.gb()
+  },l=="6"{
+    gj.tz(c1.iyu)
+    gj.gb()
+  },l=="8"{
+    gj.tz(f4.iyu)
+  },l=="9"{
+    rg e1.awgwl_state() {
+      gj.tz(i1.iyu)
+    },{
+      gj.tz(i4.iyu)
+    }
+  },l=="10"{
+    gj.tz(k1.iyu)
+  },l=="11"{
+    gj.tz(j6.iyu)
+  },l=="12"{
+    gj.tz(j8.iyu)
+  },l=="13"{
+    gj.tz(l1.iyu)
+  },l=="14"{
+    gj.xszm()
+  },l=="20"{
+    gj.tz(m1.iyu)
+  },l=="31"{
+    gj.jmxc(){
+      yc
+      {
+        st.wb(zy.i.wb_main_kjfs_gbcd).v.performClick()
+      },{
+      }
+    }
+  },{
+    e1.tsk("提示","未找到该选项")
+  }
+},(e){
+  e1.upload_error(e,"c3.*")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>gd s e1=cj.e1()
+s lb=sj.lb(vw)
+s te=lb.lbcfsj(zy.i.wb1)
+e1.tsk("详细信息",te)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src><ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@null" android:layout_margin="0dp" android:padding="3dp" android:layout_weight="1"/><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="test" android:textColor="@color/colorWhite" android:textSize="11sp" android:textStyle="bold" android:visibility="gone"/></LinearLayout></RelativeLayout></LinearLayout></RelativeLayout>

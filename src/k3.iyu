@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/k3_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorBlack">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+
+cmd=st.wb(zy.i.wb1)
+jzt=st.wb(zy.i.wb2)
+csh()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</__layoutIsLoaded></__layoutIsLoaded><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}
+
+</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onStart></onStart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><iClass><iClass>qj i.runlibrary.app.v.wb cmd
+qj i.runlibrary.app.v.wb jzt
+ff csh(){
+  gd s qtgd=st.qtgd(zy.i.qtgd1)
+  gj.xc(){
+    gj.jmxc(){
+      cmd.zf("开始扫描周围设备...\n")
+      jzt.zf("扫描中")
+    }
+    /*gd s basefile="/data/local/tmp/base.apk"
+    rg wj.cz(basefile){
+    wj.sc(basefile)
+    }
+    wj.fz(com.kingqi.zwcj.应用工具.获取应用apk文件(lei,"open.cn.awg.pro"),basefile,true)
+    gj.zt(500)
+    yc {
+    java {
+    String result = null;
+    if (false) {
+    result = runCommand(new String[]{"setprop ro.debuggable 1", "setprop persist.service.adb.enable 1"});
+    print(result);
+    result = runCommand(new String[]{"stop adbd", "start adbd"});
+    print(result);
+    result = runCommand(new String[]{"adb kill-server", "adb devices"});
+    print(result);
+    String device = getDevice(result);
+    if (device != null) {
+    result = runCommand(new String[]{"adb -s " + device + " install -r " + basefile});
+    print(result);
+    }
+    result = runCommand(new String[]{"stop adbd", "start adbd"});
+    print(result);
+    } else {
+    String cmd;
+    if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+    int user_id = android.os.Process.myUserHandle().describeContents();
+    cmd = "pm install -r --user " + user_id + " ";
+    } else {
+    cmd = "pm install -r ";
+    }
+    result = runADBCommand(cmd + "/data/local/tmp/base.apk");
+    print(result);
+    }
+    }
+    },(e){
+    print("出现异常："+e)
+    }*/
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("扫描结束,开始安装")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("安装中")
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      cmd.st.append("安装完成,结束任务")
+      cmd.st.append("\n")
+      qtgd.st.fullScroll(View.FOCUS_DOWN)
+      jzt.zf("安装完成")
+    }
+    gj.zt(500)
+    gj.jmxc(){
+      gj.gb()
+      s e1=cj.e1()
+      e1.tsk("提示","该功能正在开发中...")
+    }
+  }
+}
+
+ff print(s text_){
+  gd s text = text_
+  gj.jmxc(){
+    cmd.st.append(text)
+    cmd.st.append("\n")
+  }
+}
+
+/*java{
+static String runADBCommand(String cmd) throws Exception {
+int port = 5555;
+if (port != -1) {
+Socket socket = new Socket("192.168.1.9", port);
+AdbCrypto crypto = AdbCrypto.generateAdbKeyPair(new AdbBase64() {
+@Override
+public String encodeToString(byte[] data) {
+return Base64.encodeToString(data, Base64.NO_CLOSE);
+}
+});
+AdbConnection connection = AdbConnection.create(socket, crypto);
+connection.connect();
+AdbStream stream = connection.open("shell:" + cmd);
+StringBuilder builder = new StringBuilder();
+try {
+while (!stream.isClosed()) {
+builder.append(new String(stream.read(), "UTF-8")).append("\n");
+}
+} catch (Exception e) {
+e.printStackTrace();
+}
+connection.close();
+return builder.toString();
+}
+return null;
+}
+
+static String runCommand(String[] cmd) throws Exception {
+Process process = Runtime.getRuntime().exec("sh");
+BufferedWriter mOutputWriter = new BufferedWriter(new OutputStreamWriter(process.getOutputStream()));
+BufferedReader mInputReader = new BufferedReader(new InputStreamReader(process.getInputStream()));
+BufferedReader mErrorReader = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+for (String str : cmd) {
+mOutputWriter.write(str + "\n");
+mOutputWriter.flush();
+}
+mOutputWriter.write("exit\n");
+mOutputWriter.flush();
+process.waitFor();
+String line;
+StringBuilder result = new StringBuilder();
+while ((line = mInputReader.readLine()) != null) {
+result.append(line).append("\n");
+}
+while ((line = mErrorReader.readLine()) != null) {
+result.append(line).append("\n");
+}
+mOutputWriter.close();
+mInputReader.close();
+process.destroy();
+return result.toString();
+}
+
+private static String getDevice(String result) {
+String device = null;
+if (result.contains("device")) {
+String[] line = result.split("\n");
+for (String str : line) {
+if (str.contains("device") &amp;&amp; !str.contains("List")) {
+device = str.substring(0, str.lastIndexOf("device")).trim();
+break;
+}
+}
+}
+return device;
+}
+}*/</iClass></iClass><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+fh fou</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorWhite" android:textSize="9sp" android:scrollbars="vertical"/></android.support.v4.widget.NestedScrollView><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent"><Yu5Src><setOnTouchListener><onTouch>fh shi</onTouch></setOnTouchListener></Yu5Src><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerInParent="true" android:padding="5dp" android:background="@color/colorThough2" android:gravity="center"><ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描中" android:textColor="@color/colorWhite" android:textSize="13sp" android:textStyle="bold"/></LinearLayout></RelativeLayout></RelativeLayout>

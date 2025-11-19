@@ -1,0 +1,637 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/n2_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+s aa = "/data/user/0/open.cn.awg.pro/settings/account/userx"
+s bb = "/data/user/0/open.cn.awg.pro/settings/account/passx"
+rg wj.cz(aa)==true&amp;&amp;zf.qctwkg(wj.dqwb(aa))!=""&amp;&amp;wj.cz(bb)==true&amp;&amp;zf.qctwkg(wj.dqwb(bb))!=""{
+  st.bjk(zy.i.bjk1).zf(wj.dqwb(aa))
+  st.bjk(zy.i.bjk2).zf(wj.dqwb(bb))
+}
+
+go2()</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.n2_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.n2_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+  int uih=pm.ztl/2+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+    pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+//设置命令变量
+s e1=cj.e1()
+s easy=cj.easy()
+
+boolean st_go2 = false
+boolean st_go2_xh = false
+boolean go2xh = false
+boolean go2qx = false
+
+ff zt(int a){
+	gd int i=a
+	gj.jmxc(){
+		rg i==0{
+			st.wb(zy.i.wb4).zf("扫描二维码完成登录")
+		},i==1{
+			st.tx(zy.i.tx1).kjd(8)
+			st.wb(zy.i.wb4).zf("已扫码等待用户操作")
+		},i==2{
+			show(1)
+			//st.wb(zy.i.wb4).zf("已授权正在完成登录")
+		}
+	}
+}
+
+
+ff go2(){
+	rg st_go2==false {
+		st_go2=true
+		gj.xc(){
+			show(1)
+			gj.zt(500)
+			s set2 = "/data/user/0/open.cn.awg.pro/settings/f7/Enable"
+			s oback=""
+			rg e1.yz()==true{
+				yc {
+					s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+					s url=e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"))
+					rg url*?"/"{
+					},{
+						url=url+"/"
+					}
+					//debug
+					//url = "https://service.typheye.com/"
+					string send0 = "type=generate_login_request"
+					gd string send = "/api.php?" + send0 + "&amp;token=" + sj.md5(send0)
+					s back = wl.hq(url+send,null,"utf-8",null,true,null,20000,20000,null)
+					rg back==""||back==null{
+						oback="登录失败:连接服务器超时"
+						e1.tsk("提示",oback + url+send)
+						//gj.gb()
+						show(0)
+					},{
+						s ce=e1.readJson(back,"code")
+						rg ce=="200"{
+							//解析json数据
+							yc{
+								s jo = zf.json(back)
+								//获取根json对象
+								s json = jo.json
+								s v_request_id = jo.hq(json, "request_id")
+								s v_qr_code_url = jo.hq(json, "qr_code_url")
+								rg v_request_id!=""&amp;&amp;v_qr_code_url!=""{
+									go2_xh(sj.zh().zstring(v_request_id),sj.zh().zstring(v_qr_code_url))
+								},{
+									oback="登录失败:出现异常"
+									e1.tsk("提示",oback)
+									show(0)
+									//gj.gb()
+								}
+							},(e){
+								oback="登录失败:出现异常"
+								e1.tsk("提示",oback)
+								show(0)
+								//gj.gb()
+							}
+						},{
+							oback="登录失败"
+							e1.tsk("提示",oback)
+							show(0)
+							//gj.gb()
+						}
+					}
+				},{
+					oback="支付失败:出现异常"
+					e1.tsk("提示",oback)
+					show(0)
+					//gj.gb()
+				}
+			},{
+				oback="登录失败:支付环境检测结果异常(-1)"
+				e1.tsk("提示",oback)
+				show(0)
+				//gj.gb()
+			}
+			st_go2=false
+		}
+	},{
+		e1.tsk("提示","操作过于频繁，请稍后重试")
+	}
+}
+
+ff go2_xh(string v_request_id_,string v_qr_code_url_){
+	rg st_go2_xh==false {
+		st_go2_xh=true
+		gd s v_request_id = v_request_id_
+		gd s v_qr_code_url = v_qr_code_url_
+		gj.xc(){
+			go2xh=true
+			go2qx=false
+			show(2)
+			zt(0)
+			ewm(v_qr_code_url)
+			s oback=""
+			s set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf"
+			s set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+			//s set4 = "/data/user/0/open.cn.awg.pro/settings/n1/set4.inf"
+            //s cookiexml = "/data/user/0/open.cn.awg.pro/data/easy/cookie"
+			s set4 = "/data/user/0/open.cn.awg.pro/data/easy/cookie"
+			s set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf"
+			s aa = "/data/user/0/open.cn.awg.pro/settings/account/user"
+			s bb = "/data/user/0/open.cn.awg.pro/settings/account/pass"
+			s aax = "/data/user/0/open.cn.awg.pro/settings/account/userx"
+			s bbx = "/data/user/0/open.cn.awg.pro/settings/account/passx"
+			string j_info_cookie = ""
+			string j_info_email = ""
+			string j_info_more = ""
+			string j_info_uid = ""
+			string j_info_shuo = ""
+			string j_info_nick = ""
+			string j_info_note = ""
+			xh go2xh{
+				gj.zt(3000)
+				rg go2qx==true{
+					go2xh=false
+					oback="登录失败:用户取消登录"
+					e1.tsk("提示",oback)
+					show(0)
+					tcxh
+				}
+				s url=e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"))
+				rg url*?"/"{
+				},{
+					url=url+"/"
+				}
+				//debug
+				//url = "https://service.typheye.com/"
+				s send = "/api.php?type=check_login_request_status&amp;request_id="+v_request_id
+				string back = wl.hq(url + send, "utf-8")
+				rg back==""||back==null{
+					go2xh=false
+					oback="登录失败:连接服务器超时"
+					e1.tsk("提示",oback)
+					show(0)
+					tcxh
+				},{
+					s ce=e1.readJson(back,"code")
+					rg ce=="200"{
+						yc{
+							s jo = zf.json(back)
+							//获取根json对象
+							s json0 = jo.json
+							gd s v_status = sj.zh().zstring(jo.hq(json0, "status"))
+							rg v_status=="approved"{
+								//登录成功
+								//show(0)
+								go2xh=false
+								zt(2)
+								java
+								{
+									JSONObject json = JSONObject.parseObject(back);
+									//j_code = json.getString("code");
+									//j_msg = json.getString("msg");
+									try{
+										JSONObject info = json.getJSONObject("info");
+										j_info_cookie = info.getString("cookie");
+										j_info_shuo = info.getString("shuo");
+										j_info_nick = info.getString("nick");
+										j_info_note = info.getString("note");
+										j_info_uid = info.getString("uid");
+										j_info_more = info.getString("more");
+										j_info_email = info.getString("email");
+									} catch (Exception e){
+										
+									}
+								}
+								e1.tsk("提示","登录成功")
+								easy.getPericon(j_info_uid)
+								wj.xrwb(set2,j_info_nick)
+								wj.xrwb(set2s,j_info_nick)
+								wj.xrwb(set3,j_info_shuo)
+								wj.xrwb(set4,j_info_cookie)
+								s b = sj.md5("none")
+								wj.xrwb(aa,j_info_uid)
+								wj.xrwb(bb,b)
+								wj.xrwb(aax,j_info_uid)
+								wj.xrwb(bbx,b)
+								show(0)
+								tcxh
+							},v_status=="rejected"{
+								//登录失败
+								go2xh=false
+								oback="登录失败:请求被拒绝"
+								e1.tsk("提示",oback)
+								show(0)
+								tcxh
+							},v_status=="pending"{
+								zt(0)
+							},v_status=="waiting"{
+								zt(1)
+							}
+						},(e){
+							//error
+							go2xh=false
+							oback="登录失败:出现异常"
+							e1.tsk("提示",oback)
+							show(0)
+							tcxh
+						}
+					},{
+						//error
+						go2xh=false
+						oback="登录失败:出现异常"
+						e1.tsk("提示",oback)
+						show(0)
+						tcxh
+					}
+				}
+			}
+			st_go2_xh=false
+		}
+	},{
+		//error
+		go2xh=false
+		s oback="登录失败:操作过于频繁，请稍后重试"
+		e1.tsk("提示",oback)
+		show(0)
+	}
+}
+
+
+
+
+ff ewm(string url){
+	gd s qr=url
+	gj.jmxc(){
+		yc{
+			java {
+				android.widget.ImageView imageView=(android.widget.ImageView)findViewById(R.id.tx1);
+				Bitmap bitmap=com.demo.e4.createQRCodeBitmap(qr, 800, 800,"UTF-8","H", "1");
+				imageView.setImageBitmap(bitmap);
+			}
+			st.tx(zy.i.tx1).kjd(0)
+		},(e){
+			st.tx(zy.i.tx1).kjd(8)
+		}
+	}
+}
+
+ff go(){
+	gj.xc(){
+		show(1)
+		gj.zt(500)
+		s set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf"
+		s set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+		//s set4 = "/data/user/0/open.cn.awg.pro/settings/n1/set4.inf"s cookiexml = "/data/user/0/open.cn.awg.pro/data/easy/cookie"
+		s set4 = "/data/user/0/open.cn.awg.pro/data/easy/cookie"
+		s set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf"
+		s aa = "/data/user/0/open.cn.awg.pro/settings/account/user"
+		s bb = "/data/user/0/open.cn.awg.pro/settings/account/pass"
+		s aax = "/data/user/0/open.cn.awg.pro/settings/account/userx"
+		s bbx = "/data/user/0/open.cn.awg.pro/settings/account/passx"
+		s a=st.bjk(zy.i.bjk1).zf()
+		a=zf.qctwkg(a)
+		s b=st.bjk(zy.i.bjk2).zf()
+		b=zf.qctwkg(b)
+		rg a==""||b==""{
+			e1.tsk("提示","账户号码或密码不能为空")
+			show(0)
+		},{
+			gj.zt(250)
+			s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+			s url=e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"))
+			rg url*?"/"{
+			},{
+				url=url+"/"
+			}
+			string j_code = ""
+			string j_msg = ""
+			string j_info_cookie = ""
+			string j_info_email = ""
+			string j_info_more = ""
+			string j_info_uid = ""
+			string j_info_shuo = ""
+			string j_info_nick = ""
+			string j_info_note = ""
+			a = zf.qctwkg(a)
+			b = zf.qctwkg(b)
+			string salt = sj.md5(sj.zh().zstring(a))
+			salt = zf.qc(salt, 0, 6)
+			salt = sj.md5(salt)
+			salt = zf.qc(salt, 0, 5)
+			salt = sj.md5(salt)
+			b = sj.md5(b) + salt
+			string sjzx = xt.sj(4)
+			string send0 = "type=login&amp;username=" + sj.zh().zstring(a) + "&amp;password=" + sj.zh().zstring(b) + "&amp;time=" + sjzx
+			gd string send = "/api.php?" + send0 + "&amp;token=" + sj.md5(send0)
+			rg e1.yz() {
+				gd s back = wl.hq(url+send,null,"utf-8",null,true,null,20000,20000,null)
+				rg back==""||back==null{
+					e1.tsk("提示","登录失败，无法连接到服务器")
+					show(0)
+				},{
+					yc {
+						java
+						{
+							JSONObject json = JSONObject.parseObject(back);
+							j_code = json.getString("code");
+							j_msg = json.getString("msg");
+							try{
+								JSONObject info = json.getJSONObject("info");
+								j_info_cookie = info.getString("cookie");
+								j_info_shuo = info.getString("shuo");
+								j_info_nick = info.getString("nick");
+								j_info_note = info.getString("note");
+								j_info_uid = info.getString("uid");
+								j_info_more = info.getString("more");
+								j_info_email = info.getString("email");
+							} catch (Exception e){
+								
+							}
+						}
+						rg j_code=="200"{
+							e1.tsk("提示","登录成功")
+							easy.getPericon(j_info_uid)
+							wj.xrwb(set2,j_info_nick)
+							wj.xrwb(set2s,j_info_nick)
+							wj.xrwb(set3,j_info_shuo)
+							wj.xrwb(set4,j_info_cookie)
+							wj.xrwb(aa,j_info_uid)
+							wj.xrwb(bb,b)
+							wj.xrwb(aax,j_info_uid)
+							wj.xrwb(bbx,b)
+							gj.gb()
+						},{
+							e1.tsk("提示","登录失败\n"+j_msg)
+							show(0)
+						}
+					},{
+						e1.tsk("提示","登录失败，出现异常")
+						show(0)
+					}
+				}
+			},{
+				e1.tsk("提示","登录失败\n应用验证未通过")
+				show(0)
+			}
+		}
+	}
+}
+
+ff show(int i){
+	gd s ii=i
+	gd s xxbj1=st.xxbj(zy.i.xxbj1)
+	gd s xxbj2=st.xxbj(zy.i.xxbj2)
+	gd s xxbj4=st.xxbj(zy.i.xxbj4)
+	gj.jmxc(){
+		rg ii==0{
+			//xxbj1.kjd(0)
+			xxbj2.kjd(8)
+			xxbj4.kjd(8)
+			//fix
+			xxbj1.kjd(8)
+			gj.gb()
+		},ii==1{
+			xxbj1.kjd(8)
+			xxbj2.kjd(0)
+			xxbj4.kjd(8)
+		},ii==2{
+			xxbj1.kjd(8)
+			xxbj2.kjd(8)
+			xxbj4.kjd(0)
+		}
+	}
+}</iClass></iClass><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onWindowFocusChanged></onWindowFocusChanged><onKeyDown><onKeyDown>rg kc==4{
+  
+}
+
+fh fou</onKeyDown></onKeyDown><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="账户登录" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><LinearLayout android:id="@+id/xxbj32" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="5dp" android:layout_marginBottom="2dp"><TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="• 账户注册" android:textColor="@color/colorTextTrue" android:textSize="11sp" android:gravity="center_vertical|right" android:padding="5dp" android:background="?android:attr/selectableItemBackground" android:textStyle="bold" android:layout_weight="1"><Yu5Src><setOnClickListener><onClick>s url="https://service.typheye.cn/site/user/center/register/"
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a8=wj.dqwb(a2)
+rg a8=="4"{
+  rg e1.isInstallX5()==true{
+    gd s name = { "url" }
+    gd s value = { url }
+    gj.tz(j6.iyu, name, value)
+  },{
+    wl.fw(url)
+  }
+},{
+  rg e1.isInstallX5()==true{
+    gd s name = { "url" }
+    gd s value = { url }
+    gj.tz(j6.iyu, name, value)
+  },{
+    e1.tsk_QR("账户注册","如果您需要注册Typheye账户,请扫描下方二维码后在手机上操作.",url)
+  }
+}
+//e1.goplu("20001","账户注册",false)</onClick></setOnClickListener></Yu5Src></TextView><TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="找回密码 •" android:textColor="@color/colorTextTrue" android:textSize="11sp" android:gravity="center_vertical|left" android:padding="5dp" android:background="?android:attr/selectableItemBackground" android:textStyle="bold" android:layout_weight="1"><Yu5Src><setOnClickListener><onClick>s url="https://service.typheye.cn/site/user/center/find/"
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a8=wj.dqwb(a2)
+rg a8=="4"{
+  rg e1.isInstallX5()==true{
+    gd s name = { "url" }
+    gd s value = { url }
+    gj.tz(j6.iyu, name, value)
+  },{
+    wl.fw(url)
+  }
+},{
+  rg e1.isInstallX5()==true{
+    gd s name = { "url" }
+    gd s value = { url }
+    gj.tz(j6.iyu, name, value)
+  },{
+    e1.tsk_QR("找回密码","如果您需要找回Typheye账户,请扫描下方二维码后在手机上操作.",url)
+  }
+}
+//e1.goplu("20004","密码重置",false)</onClick></setOnClickListener></Yu5Src></TextView></LinearLayout><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入账户号码" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp" android:maxLength="256"/><EditText android:id="@+id/bjk2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入账户密码" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp" android:password="true" android:maxLength="256"/><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//退出
+gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>/*
+@2021 f1.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//执行shell命令
+go()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:background="@color/colorTabBackground" android:visibility="gone"><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码完成登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><ImageView android:id="@+id/tx1" android:layout_width="100dp" android:layout_height="100dp" android:src="#00000000" android:visibility="gone"/><Button android:id="@+id/an1" android:layout_width="wrap_content" android:layout_height="35dp" android:hint="取消" android:layout_margin="5dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>go2qx=true
+show(1)</onClick></setOnClickListener></Yu5Src></Button><androidx.cardview.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx4" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"/></androidx.cardview.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:paddingTop="5dp" android:visibility="visible"><ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold"/></LinearLayout></RelativeLayout></android.support.v4.widget.NestedScrollView></RelativeLayout>

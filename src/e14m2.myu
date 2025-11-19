@@ -1,0 +1,1042 @@
+qj s titleback=""
+qj s titleback2=""
+qj s id=""
+qj s title=""
+s debug=cj.debug()
+s e1=cj.e1()
+s e14=cj.e14()
+
+boolean state_login_base = false
+
+ff jz(){
+	s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+	id = wj.dqwb(cachehd)
+	cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_title"
+	title = wj.dqwb(cachehd)
+	titleback = "< "+title
+	titleback2 = title
+	gj.xc(){
+		viewshow(1)
+		gj.zt(500)
+		s cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id"
+		gd s id=wj.dqwb(cachehd)
+		rg e14.newG(id)==true{
+			yc{
+				rg id=="20000"{
+					m20000()
+				},id=="20001"{
+					m20001()
+				}, id=="20002"{
+					m20002()
+				}, id=="20003"{
+					m20003()
+				}, id=="20004"{
+					m20004()
+				}, id=="20005"{
+					m20005()
+				}, id=="20006"{
+					m20006()
+				}, id=="20007"{
+					m20007()
+				},{
+					csh()
+				}
+			},(e){
+				e1.upload_error(e,"m2.jz()")
+				gj.gb()
+			}
+		},{
+			gj.gb()
+		}
+	}
+}
+
+ff m20000(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("本地激活应用")
+		an1.sj.dj(){
+			e1.jh()
+			gd s msg = "已执行激活操作"
+			e1.tsk("提示", msg)
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s an2 = st.an()
+		an2.kg(-1, -2)
+		an2.zf("取消激活应用")
+		an2.sj.dj(){
+			s a = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2"
+			wj.xrwb(a,"")
+			gd s msg = "已执行取消激活"
+			e1.tsk("提示", msg)
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an2)
+		an2.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	
+	viewshow(0)
+	
+}
+
+ff m20001(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		gd s bjk1 = st.bjk()
+		bjk1.kg(-1, -2)
+		bjk1.tszf("请输入您的邮箱")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk1.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk1.tszfys(color)
+		bjk1.ztdx(13)
+		bjk1.nbj("8dp","8dp","8dp","8dp")
+		//bjk1.bj(zy.drawable.edittext)
+		bjk1.xstyh(true)
+		xxbja.j(bjk1)
+		bjk1.wbj("3dp","3dp","3dp","0dp")
+		
+		s xxbjb = st.xxbj()
+		xxbjb.kg(-1, -2)
+		xxbjb.fx(0)
+		xxbjb.dqfs("center")
+		
+		gd s bjk2 = st.bjk()
+		bjk2.kg(-1, -2)
+		bjk2.tszf("请输入验证码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk2.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk2.tszfys(color)
+		bjk2.ztdx(13)
+		bjk2.nbj("8dp","8dp","8dp","8dp")
+		//bjk2.bj(zy.drawable.edittext)
+		bjk2.xstyh(true)
+		xxbjb.j(bjk2)
+		s bjk2_xxbjgz = bjk2.xxbjgz()
+		bjk2_xxbjgz.bjqz(1)
+		
+		gd s an0 = st.an()
+		an0.kg(-2, -2)
+		an0.zf("获取")
+		an0.sj.dj(){
+			rg an0.zf()=="获取"
+			{
+				gj.xc(){
+					s easy=cj.easy()
+					easy.register$request$token(bjk1.zf(),an0)
+				}
+			},an0.zf()=="已发送"{
+				e1.tsk("提示","发送验证码成功,请在邮箱查收")
+			}
+		}
+		//an0.bj(zy.drawable.anbj)
+		xxbjb.j(an0)
+		an0.wbj("3dp","0dp","0dp","0dp")
+		
+		xxbja.j(xxbjb)
+		xxbjb.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk3 = st.bjk()
+		bjk3.kg(-1, -2)
+		bjk3.tszf("请输入您的密码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk3.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk3.tszfys(color)
+		bjk3.wblx("textpassword")
+		bjk3.ztdx(13)
+		bjk3.nbj("8dp","8dp","8dp","8dp")
+		//bjk3.bj(zy.drawable.edittext)
+		bjk3.xstyh(true)
+		xxbja.j(bjk3)
+		bjk3.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk4 = st.bjk()
+		bjk4.kg(-1, -2)
+		bjk4.tszf("请确认您的密码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk4.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk4.tszfys(color)
+		bjk4.wblx("textpassword")
+		bjk4.ztdx(13)
+		bjk4.nbj("8dp","8dp","8dp","8dp")
+		//bjk4.bj(zy.drawable.edittext)
+		bjk4.xstyh(true)
+		xxbja.j(bjk4)
+		bjk4.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("提交")
+		an1.sj.dj(){
+			gj.xc(){
+				viewshow(1)
+				s easy=cj.easy()
+				rg easy.register$request(bjk1.zf(),bjk2.zf(),bjk3.zf(),bjk4.zf())==true{
+					viewshow(0)
+				}
+			}
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+
+ff m20002(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		gd s bjk1 = st.bjk()
+		bjk1.kg(-1, -2)
+		bjk1.tszf("请输入房间名")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk1.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk1.tszfys(color)
+		bjk1.ztdx(13)
+		bjk1.nbj("8dp","8dp","8dp","8dp")
+		//bjk1.bj(zy.drawable.edittext)
+		bjk1.xstyh(true)
+		xxbja.j(bjk1)
+		bjk1.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk2 = st.bjk()
+		bjk2.kg(-1, -2)
+		bjk2.tszf("请输入房间ID")
+		bjk2.wblx("number")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk2.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk2.tszfys(color)
+		bjk2.ztdx(13)
+		bjk2.nbj("8dp","8dp","8dp","8dp")
+		//bjk2.bj(zy.drawable.edittext)
+		bjk2.xstyh(true)
+		xxbja.j(bjk2)
+		bjk2.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("提交")
+		an1.sj.dj(){
+			gj.xc(){
+				viewshow(1)
+				s e10=cj.e10()
+				rg e10.part_buildNewRoom(bjk1.zf(),bjk2.zf())==true{
+					viewshow(0)
+				}
+			}
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+
+ff m20003(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		gd s bjk1 = st.bjk()
+		bjk1.kg(-1, -2)
+		bjk1.tszf("请输入扩展名")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk1.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk1.tszfys(color)
+		bjk1.ztdx(13)
+		bjk1.nbj("8dp","8dp","8dp","8dp")
+		//bjk1.bj(zy.drawable.edittext)
+		bjk1.xstyh(true)
+		xxbja.j(bjk1)
+		bjk1.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk2 = st.bjk()
+		bjk2.kg(-1, -2)
+		bjk2.tszf("请输入扩展ID")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk2.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk2.tszfys(color)
+		bjk2.ztdx(13)
+		bjk2.nbj("8dp","8dp","8dp","8dp")
+		//bjk2.bj(zy.drawable.edittext)
+		bjk2.xstyh(true)
+		xxbja.j(bjk2)
+		bjk2.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk3 = st.bjk()
+		bjk3.kg(-1, -2)
+		bjk3.tszf("请输入授权码")
+		bjk3.wblx("textpassword")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk3.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk3.tszfys(color)
+		bjk3.ztdx(13)
+		bjk3.nbj("8dp","8dp","8dp","8dp")
+		//bjk3.bj(zy.drawable.edittext)
+		bjk3.xstyh(true)
+		xxbja.j(bjk3)
+		bjk3.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("提交")
+		an1.sj.dj(){
+			gj.xc(){
+				viewshow(1)
+				s e14=cj.e14()
+				rg e14.part_buildNewPlu(bjk1.zf(),bjk2.zf(),bjk3.zf())==true{
+					viewshow(0)
+				}
+			}
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+
+ff m20004(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		gd s bjk1 = st.bjk()
+		bjk1.kg(-1, -2)
+		bjk1.tszf("请输入您的邮箱")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk1.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk1.tszfys(color)
+		bjk1.ztdx(13)
+		bjk1.nbj("8dp","8dp","8dp","8dp")
+		//bjk1.bj(zy.drawable.edittext)
+		bjk1.xstyh(true)
+		xxbja.j(bjk1)
+		bjk1.wbj("3dp","3dp","3dp","0dp")
+		
+		s xxbjb = st.xxbj()
+		xxbjb.kg(-1, -2)
+		xxbjb.fx(0)
+		xxbjb.dqfs("center")
+		
+		gd s bjk2 = st.bjk()
+		bjk2.kg(-1, -2)
+		bjk2.tszf("请输入验证码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk2.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk2.tszfys(color)
+		bjk2.ztdx(13)
+		bjk2.nbj("8dp","8dp","8dp","8dp")
+		//bjk2.bj(zy.drawable.edittext)
+		bjk2.xstyh(true)
+		xxbjb.j(bjk2)
+		s bjk2_xxbjgz = bjk2.xxbjgz()
+		bjk2_xxbjgz.bjqz(1)
+		
+		gd s an0 = st.an()
+		an0.kg(-2, -2)
+		an0.zf("获取")
+		an0.sj.dj(){
+			rg an0.zf()=="获取"
+			{
+				gj.xc(){
+					s easy=cj.easy()
+					easy.register$request$token(bjk1.zf(),an0)
+				}
+			},an0.zf()=="已发送"{
+				e1.tsk("提示","发送验证码成功,请在邮箱查收")
+			}
+		}
+		//an0.bj(zy.drawable.anbj)
+		xxbjb.j(an0)
+		an0.wbj("3dp","0dp","0dp","0dp")
+		
+		xxbja.j(xxbjb)
+		xxbjb.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk3 = st.bjk()
+		bjk3.kg(-1, -2)
+		bjk3.tszf("请输入新密码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk3.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk3.tszfys(color)
+		bjk3.wblx("textpassword")
+		bjk3.ztdx(13)
+		bjk3.nbj("8dp","8dp","8dp","8dp")
+		//bjk3.bj(zy.drawable.edittext)
+		bjk3.xstyh(true)
+		xxbja.j(bjk3)
+		bjk3.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s bjk4 = st.bjk()
+		bjk4.kg(-1, -2)
+		bjk4.tszf("请确认新密码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk4.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk4.tszfys(color)
+		bjk4.wblx("textpassword")
+		bjk4.ztdx(13)
+		bjk4.nbj("8dp","8dp","8dp","8dp")
+		//bjk4.bj(zy.drawable.edittext)
+		bjk4.xstyh(true)
+		xxbja.j(bjk4)
+		bjk4.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("提交")
+		an1.sj.dj(){
+			gj.xc(){
+				viewshow(1)
+				s easy=cj.easy()
+				rg easy.findpwd(bjk1.zf(),bjk2.zf(),bjk3.zf(),bjk4.zf())==true{
+					viewshow(0)
+				}
+			}
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+ff m20005(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		s wb0 = st.wb()
+		wb0.kg(-1, -2)
+		wb0.nbj("8dp","8dp","8dp","8dp")
+		wb0.zf("发送诊断数据，有助于我们更好的为您解决问题，提升更新质量。\n您是否同意腕管Pro发送以下诊断数据？")
+		wb0.szzx("bold")
+		wb0.ztdx(13)
+		color=zf.zf(zy.color.colorTextU1)
+		wb0.zfys(color)
+		//wb0.bj(zy.drawable.anybj)
+		xxbja.j(wb0)
+		wb0.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s dx1 = st.dx()
+		dx1.kg(-1, -2)
+		dx1.nbj("8dp","8dp","8dp","8dp")
+		dx1.zf("允许发送腕管Pro于运行期间产生的日志数据\n*将用于提升用户体验")
+		dx1.bj(zy.drawable.dxxbj)
+		xxbja.j(dx1)
+		dx1.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s dx2 = st.dx()
+		dx2.kg(-1, -2)
+		dx2.nbj("8dp","8dp","8dp","8dp")
+		dx2.zf("允许发送位置信息服务运行期间产生的定位数据\n*将用于提高定位服务精确度")
+		dx2.bj(zy.drawable.dxxbj)
+		xxbja.j(dx2)
+		dx2.wbj("3dp","3dp","3dp","0dp")
+		
+		gd s dx3 = st.dx()
+		dx3.kg(-1, -2)
+		dx3.nbj("8dp","8dp","8dp","8dp")
+		dx3.zf("允许发送用户部分隐私数据(包括但不限定于IP地址、IMEI及GPS定位信息等)\n*将用于改善用户体验")
+		dx3.bj(zy.drawable.dxxbj)
+		xxbja.j(dx3)
+		dx3.wbj("3dp","3dp","3dp","0dp")
+		
+		rg debug.isShowed()==false{
+			dx1.xzzt(true)
+			dx2.xzzt(true)
+			dx3.xzzt(false)
+		},{
+			rg debug.getDebugState("1"){
+				dx1.xzzt(true)
+			}
+			rg debug.getDebugState("2"){
+				dx2.xzzt(true)
+			}
+			rg debug.getDebugState("3"){
+				dx3.xzzt(true)
+			}
+		}
+		
+		s an0 = st.an()
+		an0.kg(-1, -2)
+		an0.zf("同意发送已选诊断数据")
+		an0.sj.dj(){
+			s allowed=""
+			s dx_1=dx1.xzzt()
+			s dx_2=dx2.xzzt()
+			s dx_3=dx3.xzzt()
+			rg dx_1 || dx_2 || dx_3{
+				rg dx_1{
+					debug.setDebugState("1",true)
+					allowed=allowed+"\n*腕管Pro于运行期间产生的日志数据"
+				}
+				rg dx_2{
+					debug.setDebugState("2",true)
+					allowed=allowed+"\n*位置信息服务运行期间产生的定位数据"
+				}
+				rg dx_3{
+					debug.setDebugState("3",true)
+					allowed=allowed+"\n*用户部分隐私数据"
+				}
+				rg dx_1==false{
+					debug.setDebugState("1",false)
+				}
+				rg dx_2==false{
+					debug.setDebugState("2",false)
+				}
+				rg dx_3==false{
+					debug.setDebugState("3",false)
+				}
+			},{
+				debug.setDebugState("1",false)
+				debug.setDebugState("2",false)
+				debug.setDebugState("3",false)
+				allowed="\n（未允许发送任何诊断数据）"
+			}
+			debug.showed()
+			e1.tsk("提示","已允许发送以下诊断数据："+allowed)
+			gj.gb()
+		}
+		//an0.bj(zy.drawable.anbj)
+		xxbja.j(an0)
+		an0.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("拒绝发送所有诊断数据")
+		an1.sj.dj(){
+			debug.setDebugState("1",false)
+			debug.setDebugState("2",false)
+			debug.setDebugState("3",false)
+			debug.showed()
+			e1.tsk("提示","已拒绝发送所有诊断数据")
+			gj.gb()
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+ff m20006(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		s wb0 = st.wb()
+		wb0.kg(-1, -2)
+		wb0.nbj("8dp","8dp","8dp","8dp")
+		wb0.zf("腕管Pro - 配置工具\n快捷备份/恢复应用配置\n\n*重要说明\n1.使用此功能需要登录腕管Pro账户；\n2.同一备份文件仅限在登录同账户下的腕管Pro使用；\n3.若设备存储存在多个备份文件，将导入最新的备份文件完成备份恢复。")
+		wb0.szzx("bold")
+		wb0.ztdx(13)
+		color=zf.zf(zy.color.colorTextU1)
+		wb0.zfys(color)
+		//wb0.bj(zy.drawable.anybj)
+		xxbja.j(wb0)
+		wb0.wbj("3dp","3dp","3dp","0dp")
+		
+		s an0 = st.an()
+		an0.kg(-1, -2)
+		an0.zf("导出备份设置")
+		an0.sj.dj(){
+			gj.xc(){
+				viewshow(1)
+				gj.zt(500)
+				s e1=cj.e1()
+				e1.app_backup()
+				viewshow(0)
+			}
+		}
+		//an0.bj(zy.drawable.anbj)
+		xxbja.j(an0)
+		an0.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("导入备份设置")
+		an1.sj.dj(){
+			gj.xc(){
+				viewshow(1)
+				gj.zt(500)
+				s e1=cj.e1()
+				rg e1.app_gorecovery()==false{
+					viewshow(0)
+				}
+			}
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s an2 = st.an()
+		an2.kg(-1, -2)
+		an2.zf("使用云备份")
+		an2.sj.dj(){
+			gj.tz(f10.iyu)
+			gj.gb()
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an2)
+		an2.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+ff m20007(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		gd s bjk1 = st.bjk()
+		bjk1.kg(-1, -2)
+		bjk1.tszf("请输入授权码")
+		color=zf.zf(zy.color.colorTextU1)
+		bjk1.zfys(color)
+		color=zf.zf(zy.color.colorTextU2)
+		bjk1.tszfys(color)
+		bjk1.ztdx(13)
+		bjk1.nbj("8dp","8dp","8dp","8dp")
+		//bjk1.bj(zy.drawable.edittext)
+		bjk1.xstyh(true)
+		xxbja.j(bjk1)
+		bjk1.wbj("3dp","3dp","3dp","0dp")
+		
+		s an1 = st.an()
+		an1.kg(-1, -2)
+		an1.zf("登录")
+		an1.sj.dj(){
+			gd s authurl="https://auth.sayqz.com"
+			gd s cookiepath = "/data/user/0/open.cn.awg.pro/data/plugin/tunefree/cookie"
+			rg state_login_base == false {
+				state_login_base = true
+				gd s code2 = bjk1.zf()
+				gj.xc() {
+					viewshow(1)
+					s code = ""
+					s hqto = authurl + "/?path=info&code=" + code2
+					s back = wl.hq(hqto, null ,"utf-8" ,null ,true ,null ,5000 ,5000, null)
+					rg back == "" || back == null {
+						
+					}, {
+						code = e1.readJson(back, "code")
+					}
+					rg back == "" || back == null {
+						gd s msg = "请求异常，请检查网络连接"
+						e1.tsk("提示", msg)
+						viewshow(0)
+					}, {
+						rg code == "200"{
+							s mcu = e1.readJson(back, "data")
+							mcu = e1.readJson(mcu, "netease_cookie")
+							mcu = mcu + ";"
+							wj.xrwb(cookiepath, mcu)
+							gd s msg = "登录成功"
+							e1.tsk("提示", msg)
+							gj.gb()
+						}, code == "400"{
+							gd s msg = e1.readJson(back, "message")
+							e1.tsk("提示", msg)
+							viewshow(0)
+						}, {
+							gd s msg = "请求异常，请检查网络连接"
+							e1.tsk("提示", msg)
+							viewshow(0)
+						}
+					}
+					state_login_base = false
+				}
+			}, {
+				gd s msg = "操作过于频繁，请稍后重试"
+				e1.tsk("提示", msg)
+			}
+		}
+		//an1.bj(zy.drawable.anbj)
+		xxbja.j(an1)
+		an1.wbj("3dp","3dp","3dp","0dp")
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj("3dp", -2, "3dp", -2)
+		wba.zf("")
+		wba.szzx("bold")
+		wba.ztdx(9)
+		color=zf.zf(zy.color.colorTextU2)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+	
+}
+
+ff csh(){
+	gj.jmxc(){
+		
+		s color=""
+		
+		gd s root=st.xdbj(zy.i.runable_view)
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		s tx1 = st.tx()
+		tx1.kg(-2, -2)
+		tx1.nbj(0, 20, 0, 0)
+		tx1.tx(zy.t.i)
+		xxbja.j(tx1)
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj(20, 20, 20, 10)
+		wba.zf(title)
+		wba.ztdx(16)
+		color=zf.zf(zy.color.colorTextU1)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		s wbb = st.wb()
+		wbb.kg(-2, -2)
+		wbb.nbj(20, 10, 20, 20)
+		wbb.zf("扩展插件ID: "+id)
+		wbb.ztdx(13)
+		color=zf.zf(zy.color.colorTextU2)
+		wbb.zfys(color)
+		xxbja.j(wbb)
+		
+		s an1 = st.an()
+		an1.kg(-2, -2)
+		an1.zf("打开指令框")
+		an1.sj.dj(){
+			viewshow(2)
+		}
+		xxbja.j(an1)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+}
+
+ff csh_e(){
+	gj.jmxc(){
+		s color=""
+		gd s root=st.xdbj(zy.i.runable_view)
+		
+		root.scqb()
+		
+		
+		s xxbja = st.xxbj()
+		xxbja.kg(-1, -2)
+		xxbja.fx(1)
+		xxbja.dqfs("center")
+		
+		s tx1 = st.tx()
+		tx1.kg(-2, -2)
+		tx1.nbj(0, 20, 0, 0)
+		tx1.tx(zy.t.i)
+		xxbja.j(tx1)
+		
+		s wba = st.wb()
+		wba.kg(-2, -2)
+		wba.nbj(20, 20, 20, 20)
+		wba.zf("欢迎使用AwgRunable")
+		wba.ztdx(16)
+		color=zf.zf(zy.color.colorTextU1)
+		wba.zfys(color)
+		xxbja.j(wba)
+		
+		s an0 = st.an()
+		an0.kg(-2, -2)
+		an0.zf("查看帮助文档")
+		an0.sj.dj(){
+			e1.tsk("提示","暂未开放")
+		}
+		xxbja.j(an0)
+		
+		s wbb = st.wb()
+		wbb.kg(-2, -2)
+		wbb.nbj(20, 10, 20, 20)
+		wbb.zf("示例控件")
+		wbb.ztdx(13)
+		color=zf.zf(zy.color.colorTextTrue)
+		wbb.zfys(color)
+		xxbja.j(wbb)
+		
+		s an1 = st.an()
+		an1.kg(-2, -2)
+		an1.zf("打开指令框")
+		an1.sj.dj(){
+			viewshow(2)
+		}
+		xxbja.j(an1)
+		
+		s an2 = st.an()
+		an2.kg(-2, -2)
+		an2.zf("显隐标题栏")
+		an2.sj.dj(){
+			rg st.wb(zy.i.Tab).kjd()==0{
+				gj.jmxc(){
+					st.wb(zy.i.Tab).kjd(8)
+				}
+			},{
+				gj.jmxc(){
+					st.wb(zy.i.Tab).kjd(0)
+				}
+			}
+		}
+		
+		xxbja.j(an2)
+		
+		root.j(xxbja)
+	}
+	viewshow(0)
+}
+
+ff viewshow(int a){
+	gd int i=a
+	gd s root=st.xdbj(zy.i.runable_view)
+	gd s load=st.xxbj(zy.i.xxbj3)
+	gd s add=st.xxbj(zy.i.xxbj4)
+	gd s tab=st.wb(zy.i.Tab)
+	gd s cmd=st.bjk(zy.i.bjk1)
+	gd s qtgd1=st.qtgd(zy.i.qtgd1)
+	gj.jmxc(){
+		rg i==0{
+			root.kjd(0)
+			load.kjd(8)
+			add.kjd(8)
+			tab.zf(titleback)
+			tab.kjd(0)
+			cmd.zf("")
+		},i==1{
+			root.kjd(8)
+			load.kjd(0)
+			add.kjd(8)
+			tab.zf(titleback2)
+			tab.kjd(0)
+			cmd.zf("")
+		},i==2{
+			root.kjd(8)
+			load.kjd(8)
+			add.kjd(0)
+			tab.zf("指令框")
+			tab.kjd(0)
+			cmd.zf("")
+		}
+		qtgd1.v.requestFocus()
+	}
+}
+
+ff cmd(){
+	s c=st.bjk(zy.i.bjk1).zf()
+	c=zf.qctwkg(c)
+	rg c==""{
+		e1.tsk("提示","指令不能为空")
+	},{
+		rg c=="exit"{
+			viewshow(0)
+			gj.gb()
+		},c=="help"{
+			viewshow(1)
+			csh_e()
+		},c=="run"{
+			jz()
+		},{
+			e1.tsk("提示","未找到该指令")
+		}
+	}
+}

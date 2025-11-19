@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c4_v" android:layout_width="match_parent" android:layout_height="wrap_content"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:gravity="center" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="?android:attr/selectableItemBackground" android:gravity="center" android:padding="5dp"><Yu5Src><setOnClickListener><onClick>gd s e1=cj.e1()
+yc{
+  gd s lb=sj.lb(vw)
+  gj.xc(){
+    gj.jmxc(){
+      st.wb(zy.i.Tab).zf("提示")
+      st.xxbj(zy.i.xxbj9).kjd(0)
+    }
+    string[] aa
+    string[] bb
+    s dbl=""
+    s a=lb.lbcfsj(zy.i.wb1)
+    s b=lb.lbcfsj(zy.i.wb2)
+    s c=lb.lbcfsj(zy.i.wb3)
+    s d=lb.lbcfsj(zy.i.wb4)
+    s es=st.wb(zy.i.zywblj).zf()
+    s cache1 = "/data/user/0/open.cn.awg.pro/cache/1"
+    s cache2 = "/data/user/0/open.cn.awg.pro/cache/2"
+    s cache3 = "/data/user/0/open.cn.awg.pro/cache/3"
+    s cache00 = "/data/user/0/open.cn.awg.pro/cache/00"
+    s cache41 = "/data/user/0/open.cn.awg.pro/cache/41"
+    rg a=="返回"{
+      e1.cdx(0,null,null,null)
+    },a=="删除"{
+      gd s name = { "b", "c", "d", "es" }
+      gd s value = { b, c, d, es }
+      gj.jmxc(){
+        gj.tz(d8.iyu, name, value)
+      }
+      gj.xc(){
+        gj.zt(500)
+        gj.jmxc(){
+          e1.cdx(0,null,null,null)
+        }
+      }
+    },a=="刷新"{
+      e1.sx(c,es)
+      e1.cdx(0,null,null,null)
+    },a=="复制"{
+      rg wj.cz(cache1)==true{
+        wj.sc(cache1)
+      }
+      wj.xrwb(cache1,d)
+      s z="已复制,长按粘贴"
+      e1.tsk("提示",z)
+      e1.cdx(0,null,null,null)
+    },a=="剪切"{
+      rg wj.cz(cache2)==true{
+        wj.sc(cache2)
+      }
+      wj.xrwb(cache2,d)
+      s z="已剪切,长按粘贴"
+      e1.tsk("提示",z)
+      e1.cdx(0,null,null,null)
+    },a=="粘贴到当前目录"{
+      rg wj.cz(cache1)==true{
+        s h1=wj.dqwb(cache1)
+        bb=e1.fileinfo(wj.dqwb(cache00),h1)
+        rg bb[0]=="true"{
+          dbl=es+bb[3]
+        }
+        s pb1="/data/user/0/open.cn.awg.pro/settings"
+        s pb2="/data/user/0/open.cn.awg.pro/data"
+        s pb3="/data/user/0/open.cn.awg.pro/fix"
+        s pb4="/data/user/0/open.cn.awg.pro/cache"
+        s pb5="/data/user/0/open.cn.awg.pro/files/cache"
+        s pb6="/storage/emulated/0/Android/data"
+        s pb7="/storage/emulated/0/Android/obb"
+        rg dbl?*pb1||dbl?*pb2||dbl?*pb3||dbl?*pb4||dbl?*pb5||(xt.sbxx().sdk&gt;29&amp;&amp;dbl?*pb6)||(xt.sbxx().sdk&gt;29&amp;&amp;dbl?*pb7) {
+          //屏蔽
+          e1.tsk("提示","非法操作")
+        },{
+          rg h1==es{
+            gd s z="粘贴失败\n请选择其他目录"
+            e1.tsk("提示",z)
+          },{
+            s m="cp -r \""+h1+"\" \""+es+"\""
+            wj.sc(cache1)
+            java aa=com.demo.e3.cmd(lei,m,false)
+            rg aa[0]==""&amp;&amp;aa[1]!=""{
+              gd s z="粘贴失败\n"+aa[1]
+              e1.tsk("提示",z)
+            },aa[0]!=""&amp;&amp;aa[1]==""{
+              gd s z="粘贴成功"
+              e1.tsk("提示",z)
+            },{
+              gd s z="粘贴成功"
+              e1.tsk("提示",z)
+            }
+          }
+        }
+      },wj.cz(cache2)==true{
+        s h2=wj.dqwb(cache2)
+        bb=e1.fileinfo(wj.dqwb(cache00),h2)
+        rg bb[0]=="true"{
+          dbl=es+bb[3]
+        }
+        s pb1="/data/user/0/open.cn.awg.pro/settings"
+        s pb2="/data/user/0/open.cn.awg.pro/data"
+        s pb3="/data/user/0/open.cn.awg.pro/fix"
+        s pb4="/data/user/0/open.cn.awg.pro/cache"
+        s pb5="/data/user/0/open.cn.awg.pro/files/cache"
+        s pb6="/storage/emulated/0/Android/data"
+        s pb7="/storage/emulated/0/Android/obb"
+        rg dbl?*pb1||dbl?*pb2||dbl?*pb3||dbl?*pb4||dbl?*pb5||(xt.sbxx().sdk&gt;29&amp;&amp;dbl?*pb6)||(xt.sbxx().sdk&gt;29&amp;&amp;dbl?*pb7) {
+          //屏蔽
+          e1.tsk("提示","非法操作")
+        },{
+          rg h2==es{
+            gd s z="粘贴失败\n请选择其他目录"
+            e1.tsk("提示",z)
+          },{
+            s m="mv \""+h2+"\" \""+es+"\""
+            wj.sc(cache2)
+            java aa=com.demo.e3.cmd(lei,m,false)
+            rg aa[0]==""&amp;&amp;aa[1]!=""{
+              gd s z="粘贴失败\n"+aa[1]
+              e1.tsk("提示",z)
+            },aa[0]!=""&amp;&amp;aa[1]==""{
+              gd s z="粘贴成功"
+              e1.tsk("提示",z)
+            },{
+              gd s z="粘贴成功"
+              e1.tsk("提示",z)
+            }
+          }
+        }
+      }
+      e1.sx(c,es)
+      e1.cdx(0,null,null,null)
+    },a=="取消粘贴"{
+      wj.sc(cache1)
+      wj.sc(cache2)
+      s z="已取消"
+      e1.tsk("提示",z)
+      e1.cdx(0,null,null,null)
+    },a=="重命名"{
+      wj.xrwb(cache3,"重命名")
+      e1.cdx(4,c,d,es)
+    },a=="新建目录"{
+      wj.xrwb(cache3,"新建目录")
+      e1.cdx(4,c,d,es)
+    },a=="新建文件"{
+      wj.xrwb(cache3,"新建文件")
+      e1.cdx(4,c,d,es)
+    },a=="打开方式"{
+      e1.cdx(6,c,d,es)
+    },a=="属性"{
+      rg wj.lx(d)==2{
+        string back
+        s m="du -sh \""+d+"\""
+        java aa=com.demo.e3.cmd(lei,m,false)
+        rg aa[0]==""&amp;&amp;aa[1]!=""{
+          back="获取失败"
+        },aa[0]!=""&amp;&amp;aa[1]==""{
+          back=aa[0]
+          back=zf.qc(back,null,d)
+          back=zf.qctwkg(back)
+        },{
+          back="获取失败"
+        }
+        wj.xrwb(cache41,back)
+      },{
+        
+      }
+      e1.cdx(5,c,d,es)
+    },{
+      
+    }
+  }
+},(e){
+  e1.upload_error(e,"c4.*")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+s a=lb.lbcfsj(zy.i.wb1)
+e1.tsk("详细信息",a)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout></RelativeLayout>
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="20dp" android:text="" android:visibility="gone"/></RelativeLayout>

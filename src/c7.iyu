@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_height="wrap_content" android:layout_width="match_parent" android:id="@+id/c7s_v">
+    <_Yu5Src><onCreate><onCreate/></onCreate><__layoutIsLoaded><__layoutIsLoaded>
+
+</__layoutIsLoaded></__layoutIsLoaded><onDestroy><onDestroy/></onDestroy></_Yu5Src><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone"/><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:padding="5dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+yc{
+  s lb=sj.lb(vw)
+  s l=lb.lbcfsj(zy.i.wb2)
+  rg l=="2"{
+    gj.tz(f4.iyu)
+  },l=="3"{
+    gj.tz(l6.iyu)
+  },l=="6"{
+    gj.tz(d7.iyu)
+  },l=="7"{
+    rg e1.awgwl_state() {
+      gj.tz(i1.iyu)
+    },{
+      gj.tz(i4.iyu)
+    }
+  },l=="8"{
+    gj.tz(k1.iyu)
+  },l=="10"{
+    gj.tz(j6.iyu)
+  },l=="11"{
+    gj.tz(j8.iyu)
+  },l=="13"{
+    gj.tz(l1.iyu)
+  },l=="12"{
+    s dh = gj.dh()
+    gd s jbtm = dh.jbtm(0, 1)
+    jbtm.cxsc(300)
+    gj.jmxc(){
+      st.xdbj(zy.i.TCxdbj).kjd(0)
+      st.xdbj(zy.i.TCxdbj).dh(jbtm)
+    }
+  },l=="14"{
+    gj.xszm()
+  },l=="20"{
+    gj.tz(m1.iyu)
+  },l=="21"{
+    gj.tz(j7.iyu)
+  },l=="22"{
+    //wl.fw("https://awg.hitfy.cn/help")
+  },l=="23"{
+    gj.tz(f2.iyu)
+  },l=="24"{
+    //wl.fw("https://awg.hitfy.cn/help/install")
+    //gj.tz(k3.iyu)
+  },l=="25"{
+    e1.tsk("功能帮助",wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a19"))
+  },l=="26"{
+    xt.xzyy("open.cn.awg.pro")
+  },l=="27"{
+    gj.tz(k1.iyu)
+  },l=="31"{
+    gj.jmxc(){
+      yc
+      {
+        st.wb(zy.i.wb_main_kjfs_gbcd).v.performClick()
+      },{
+      }
+    }
+  },{
+    e1.tsk("提示","未找到该选项")
+  }
+},(e){
+  e1.upload_error(e,"c7.*")
+}</onClick></setOnClickListener><setOnTouchListener><onTouch/></setOnTouchListener><setOnLongClickListener><onLongClick>gd s e1=cj.e1()
+s lb=sj.lb(vw)
+s te=lb.lbcfsj(zy.i.wb1)
+e1.tsk("详细信息",te)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src><ImageView android:id="@+id/tx1" android:layout_width="50dp" android:layout_height="50dp" android:src="#00000000" android:layout_margin="0dp" android:padding="8dp"/><TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="match_parent" android:text="" android:textColor="@color/colorWhite" android:textSize="15sp" android:textStyle="bold" android:gravity="center_vertical" android:singleLine="true" android:layout_margin="5dp"/></LinearLayout></RelativeLayout><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="60dp" android:text="" android:visibility="gone"/></RelativeLayout>

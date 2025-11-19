@@ -1,0 +1,387 @@
+i.runlibrary.app.v.v7lb$UserAdapter nmyylbspq=null
+qj android.content.Context context
+s cookiepath="/data/user/0/open.cn.awg.pro/data/plugin/tunefree/cookie"
+
+ff csh(){
+  java context= open.cn.awg.pro.e6.getContext();
+  s lb=st.v7lb(zy.i.nmyyv7lb1)
+  nmyylbspq=lb.v7lbspq(c15.lei,zy.b.c15)
+  s nx = cj.android.support.v7.widget.LinearLayoutManager(context, android.support.v7.widget.LinearLayoutManager.VERTICAL, true)
+  s v7lbdx=lb.st
+  v7lbdx.setLayoutManager(nx)
+}
+s e1=cj.e1()
+ff string lrcFix(string lr){
+  string lrc=zf.qctwkg(lr)
+  s lrcH=zf.fg(lrc,"\n",true)
+  /*s staH=lrcH[lrcH.length-2]
+  s endH=zf.qc(lrcH[lrcH.length-2],9,10)
+  //gj.sc("endH:"+endH)
+  rg staH?*"["&&endH=="]"{
+  fh lrc
+  },{
+  xh s x,lrcH{
+  rg x?*"["{
+  s a=zf.qc(x,1,10)
+  s b=zf.qc(x,1,9)
+  a="["+a+"]"
+  b="["+b+"]"
+  gj.sc(a+b)
+  lrc=zf.th(lrc,a,b)
+  }
+  }
+  fh lrc
+  }*/
+  xh s x,lrcH{
+    s x2=zf.qc(x,10,11)
+    rg x?*"["&&x2=="]"{
+      s a=zf.qc(x,1,10)
+      s b=zf.qc(x,1,9)
+      a="["+a+"]"
+      b="["+b+"]"
+      lrc=zf.th(lrc,a,b)
+    }
+  }
+  fh lrc
+}
+ff search_i1(s v,int o){
+  nmyylbspq.sc()
+  gd int oo=o
+  s kj={zy.i.wb1,zy.i.wb3,zy.i.wb2}
+  s jk={"","",""}
+  //解析json数据
+  s jo = zf.json(v)
+  //获取根json对象
+  s json = jo.json
+  //获取result
+  s v_result = jo.hq(json, "result")
+  //获取code
+  s v_code = jo.hq(json, "code")
+  //输出
+  //gj.sc("|->返回[code:"+v_code+"]")
+  //判空
+  rg v_result!=""{
+    //解析json数据
+    s jo_z1 = zf.json(v_result)
+    //获取根json对象
+    s json_z1 = jo_z1.json
+    //获取searchQcReminder
+    //s v_searchQcReminder = jo_z1.hq(json_z1, "searchQcReminder")
+    //获取songs
+    s v_songs = jo_z1.hq(json_z1, "songs")
+    //获取songCount
+    s v_songCount = jo_z1.hq(json_z1, "songCount")
+    //输出
+    //gj.sc("|->搜索结果[searchQcReminder:\""+v_searchQcReminder+"\",songCount:\""+v_songCount+"\"]")
+    //判空
+    rg v_songs!=""{
+      //获取json对象列表
+      s list = jo_z1.dxlb(json_z1, "songs")
+      //获取列表的长度
+      s size = jo_z1.cd(list)
+      xh size > 0{
+        //下一行
+        size--
+        //获取对象
+        s dx = jo_z1.dx(list, size)
+        //获取name
+        s v_l_name = jo_z1.hq(dx, "name")
+        //获取id
+        s v_l_id = jo_z1.hq(dx, "id")
+        //获取ar(演唱者)
+        s v_l_ar = jo_z1.hq(dx, "ar")
+        //输出
+        //gj.sc("|--->歌曲[name:\""+v_l_name+"\",id:"+v_l_id+"]")
+        //判空
+        rg v_l_ar!=""{
+          v_l_ar=""
+          //解析json数据
+          s jo_z2 = zf.json(dx)
+          //获取根json对象
+          s json_z2 = jo_z2.json
+          //获取json对象列表
+          s list2 = jo_z2.dxlb(json_z2, "ar")
+          s size2 = jo_z2.cd(list2)
+          xh size2 > 0{
+            //下一行
+            size2 = size2 - 1
+            //获取对象
+            s dx2 = jo_z2.dx(list2, size2)
+            //获取id
+            s v_l2_id = jo_z2.hq(dx2, "id")
+            //获取name
+            s v_l2_name = jo_z2.hq(dx2, "name")
+            //输出
+            //gj.sc(v_l2_name)
+            //gj.sc("|--------->歌手[id:"+v_l2_id+",name:\""+v_l2_name+"\"];")
+            v_l_ar=v_l_ar+v_l2_name+";"
+          }
+        }
+        s _v_l_ar=v_l_ar.toString()
+        v_l_ar=zf.qc(v_l_ar,null,_v_l_ar.length()-1)
+        jk={v_l_name.toString(),v_l_ar.toString(),v_l_id.toString()}
+        nmyylbspq.j(kj,jk)
+      }
+    }
+    s nums2=v_songCount.toString()
+    gd s ynums=nums2
+    s nums2_=nums2%20
+    rg nums2_>0{
+      nums2=nums2-nums2_+20
+    }
+    gd s nums=nums2
+    gj.jmxc(){
+      int loo=nums/20
+      rg ynums=="0"{
+        nmyylbspq.sc()
+        st.wb(zy.i.wb3).zf("未搜索到相关歌曲/歌手")
+        st.wb(zy.i.myswb).zf("第1/1页")
+        st.xxbj(zy.i.xxbj1).kjd(8)
+        st.wb(zy.i.wb3).kjd(0)
+      },{
+        st.wb(zy.i.wb3).zf("共搜索到"+nums+"首歌曲")
+        st.wb(zy.i.myswb).zf("第"+oo+"/"+loo+"页")
+        rg oo==1&&loo==1{
+          st.xxbj(zy.i.xxbj1).kjd(8)
+        },{
+          st.xxbj(zy.i.xxbj1).kjd(0)
+        }
+        st.wb(zy.i.wb3).kjd(8)
+      }
+    }
+  }
+  gj.jmxc(){
+    nmyylbspq.sx()
+  }
+}
+
+ff string getMCU() {
+  s cookie = wj.dqwb(cookiepath)
+  s cf = zf.fg(cookie, ";", false)
+  s mcu = ""
+  xh s line, cf {
+    rg line ?* "MUSIC_U"{
+      mcu = line
+    }
+  }
+  fh mcu
+}
+ff search_i2(s v,int o){
+  nmyylbspq.sc()
+  gd int oo=o
+  s kj={zy.i.wb1,zy.i.wb3,zy.i.wb2}
+  s jk={"","",""}
+  //解析json数据
+  s jo = zf.json(v)
+  //获取根json对象
+  s json = jo.json
+  //获取json对象列表
+  s list = jo.dxlb(json, "data")
+  //获取json对象总数
+  s count = jo.hq(json, "count")
+  rg list!=""{
+    //获取列表的长度
+    s size = jo.cd(list)
+    xh size > 0{
+      //下一行
+      size--
+      //获取对象
+      s dx = jo.dx(list, size)
+      //获取name
+      string v_l_name = jo.hq(dx, "songName").toString()
+      //获取id
+      string v_l_id = jo.hq(dx, "songId").toString()
+      //获取ar(演唱者)
+      string v_l_ar = jo.hq(dx, "artist").toString()
+      rg v_l_ar==""{
+        rg v_l_name?" - "{
+          v_l_ar=zf.qc(v_l_name," - ",null)
+          v_l_ar=zf.qctwkg(v_l_ar)
+          v_l_name=zf.qc(v_l_name,null," - ")
+          v_l_name=zf.qctwkg(v_l_name)
+          rg v_l_ar==""{
+            v_l_ar="未知歌手"
+          }
+        },{
+          v_l_ar="未知歌手"
+        }
+      }
+      jk={v_l_name,v_l_ar,v_l_id}
+      nmyylbspq.j(kj,jk)
+    }
+    s nums2=count.toString()
+    gd s ynums=nums2
+    s nums2_=nums2%20
+    rg nums2_>0{
+      nums2=nums2-nums2_+20
+    }
+    gd s nums=nums2
+    gj.jmxc(){
+      int loo=nums/20
+      rg ynums=="0"{
+        nmyylbspq.sc()
+        st.wb(zy.i.wb3).zf("未搜索到相关歌曲/歌手")
+        st.wb(zy.i.myswb).zf("第1/1页")
+        st.xxbj(zy.i.xxbj1).kjd(8)
+        st.wb(zy.i.wb3).kjd(0)
+      },{
+        st.wb(zy.i.wb3).zf("共搜索到"+nums+"首歌曲")
+        st.wb(zy.i.myswb).zf("第"+oo+"/"+loo+"页")
+        rg oo==1&&loo==1{
+          st.xxbj(zy.i.xxbj1).kjd(8)
+        },{
+          st.xxbj(zy.i.xxbj1).kjd(0)
+        }
+        st.wb(zy.i.wb3).kjd(8)
+      }
+    }
+  }
+  gj.jmxc(){
+    nmyylbspq.sx()
+  }
+}
+
+s endurl=""
+s api="/song/url"
+ff loadMusic(s id,s title){
+  s set35 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/url"
+  s set36 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/cookie"
+  gd s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+  gd s xx=id
+  gd s url=zf.qctwkg(wj.dqwb(set35))+api
+  gd s url22="https://auth.sayqz.com/"
+  gd s url_=zf.qctwkg(wj.dqwb(set35))
+  gd s x2=st.xxbj(zy.i.xxbj6)
+  gd s x3=st.xxbj(zy.i.xxbj4)
+  gd s t=title
+  gj.xc(){
+    gj.jmxc(){
+      x2.kjd(0)
+      x3.kjd(8)
+    }
+    rg xx==""{
+      e1.tsk("提示","ID不能为空")
+      gj.jmxc(){
+        x2.kjd(8)
+        x3.kjd(0)
+      }
+    },{
+      /*
+      s whq0=""
+      s back0 = wl.hq(url_+whq0,null,"utf-8")
+      back0=zf.qctwkg(back0)
+      rg back0!=""||back0!=null{
+      yc{
+      int len=15
+      rg back0.length()<=len{
+      back0=""
+      },{
+      back0=back0
+      //cj.String(RC4Utils.decryptFromBase64(back0.toString(),应用工具.获取应用签名(context,"open.cn.awg.pro")))
+      rg back0.length()<=len{
+      back0=""
+      }
+      }
+      },(e){
+      back0=""
+      }
+      back0=zf.qctwkg(back0)
+      rg back0==""||back0==null{
+      e1.tsk("提示","获取链接失败(-1)")
+      gj.jmxc(){
+      x2.kjd(8)
+      x3.kjd(0)
+      }
+      },{*/
+      s setback=""
+      //s whq={"keywords="+xx,"type="+api_search_type[type] }
+      s ljf=wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17")
+      s sjzx=xt.sj(4)
+      s whq="?path=song/url"+ljf+"id="+xx+ljf+"level=standard"+ljf+"cookie="+getMCU()
+      s back = wl.hq(url22+whq,null,"utf-8",null,true,null,20000,20000,null)
+      //s back = wl.hq(url+whq,null,"utf-8")
+      rg back==""||back==null{
+        setback="0"
+      },{
+        setback=back
+      }
+      rg setback=="0"{
+        e1.tsk("提示","加载失败,请重试(-1)")
+        gj.jmxc(){
+          x2.kjd(8)
+          x3.kjd(0)
+        }
+      },{
+        s whq2="/lyric?id="+xx
+        s back2 = wl.hq(url_+whq2,null,"utf-8")
+        rg back2!=""||back2!=null{
+          yc{
+            s jo_l1=zf.json(back2)
+            s json_l1=jo_l1.json
+            s lrc=jo_l1.hq(json_l1,"lrc")
+            rg lrc.toString().length()>4{
+              s jo_l2=zf.json(lrc)
+              s json_l2=jo_l2.json
+              back2=jo_l2.hq(json_l2,"lyric")
+              back2=back2.toString()
+              //gj.sc(lrcFix(back2))
+              back2=lrcFix(back2)
+            },{
+              back2=""
+            }
+          },(e){
+            back2=""
+          }
+        },{
+          back2=""
+        }
+        yc{
+          s jo_z1 = zf.json(setback)
+          //获取根json对象
+          s json_z1 = jo_z1.json
+          //获取json对象列表
+          s list = jo_z1.dxlb(json_z1, "data")
+          //获取列表的长度
+          s size = jo_z1.cd(list)
+          s url=""
+          xh size > 0{
+            //下一行
+            size = size - 1
+            //获取对象
+            s dx = jo_z1.dx(list, size)
+            //获取url
+            url = jo_z1.hq(dx, "url")
+          }
+          rg e1.urlLockString(url)=="0"{
+            e1.tsk("提示","获取链接失败(-2)")
+          },{
+            //e1.tsk("链接",url)
+            /*gd s name = { "url","title","lrc","plugin_flag","is_music" }
+            gd s value = { url,t,back2,"jfyy_10008","true" }*/
+            gd s name = { "url","title","lrc" }
+            gd s value = { url,t,back2 }
+            //gj.sc("url:\n"+url+"\ntitle:\n"+t+"\nlrc:\n"+back2)
+            gj.jmxc(){
+              gj.tz(g2.iyu, name, value)
+            }
+          }
+        },(e){
+          e1.tsk("提示","获取链接失败(-3)")
+        }
+        gj.jmxc(){
+          x2.kjd(8)
+          x3.kjd(0)
+        }
+        /*}
+        }
+        },{
+        e1.tsk("提示","加载失败,请重试(-2)")
+        gj.jmxc(){
+        x2.kjd(8)
+        x3.kjd(0)
+        }
+        }*/
+      }
+    }
+  }
+}

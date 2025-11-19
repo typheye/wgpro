@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c12_v" android:layout_width="match_parent" android:layout_height="wrap_content"><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b5" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><Yu5Src><setOnClickListener><onClick>gd s e1=cj.e1()
+s lb=sj.lb(vw)
+s lj=lb.lbcfsj(zy.i.wb3)
+s pd=lb.lbcfsj(zy.i.wb2)
+s title=lb.lbcfsj(zy.i.wb1)
+s ftitle="/data/user/0/open.cn.awg.pro/cache/file/title"
+wj.xrwb(ftitle,"&lt; "+title)
+rg pd=="a0"{
+  go(lj)
+},pd=="a1"{
+  yc {
+    s a=xt.qxgl()
+    rg a.qx("android.permission.WRITE_EXTERNAL_STORAGE")==true{
+      go(lj)
+    },{
+      e1.tsk("提示","您未授权应用\"修改或删除您共享存储空间中的内容\"，请先前往设置授权后再使用")
+    }
+  },(e){
+    e1.upload_error(e,"c13.*")
+  }
+},pd=="a2"{
+  yc {
+    s a=xt.qxgl()
+    rg a.qx("android.permission.WRITE_EXTERNAL_STORAGE")==true{
+      go(lj)
+      yc
+      {
+        s cs = android.os.Environment.lei
+        s m = cs.getMethod("isExternalStorageManager", null)
+        s o = m.invoke(cs, null)
+        rg o.equals(true) {
+        }, {
+          s set2 = "/data/user/0/open.cn.awg.pro/settings/d1/set2.inf"
+          rg wj.dqwb(set2)=="true" {
+            
+          },{
+            e1.tsk("提示","您未授权应用\"所有文件访问权限\"，可能会存在设备兼容问题，请尝试授权。\n您也可前往应用设置&gt;文件管理页面，打开\"忽略兼容提示\"，使本提示不再弹出。")
+          }
+        }
+      },(e){
+      }
+    },{
+      e1.tsk("提示","您未授权应用\"修改或删除您共享存储空间中的内容\"，请先前往设置授权后再使用")
+    }
+  },(e){
+    e1.upload_error(e,"c13.*")
+  }
+}
+
+//gj.gb()</onClick></setOnClickListener><setOnLongClickListener><onLongClick>gd s e1=cj.e1()
+s lb=sj.lb(vw)
+s te=lb.lbcfsj(zy.i.wb1)
+s lj=lb.lbcfsj(zy.i.wb3)
+e1.tsk("详细信息","[标题]\n"+te+"\n\n[路径]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx1" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout></RelativeLayout></RelativeLayout>
+    <_Yu5Src><onCreate><onCreate/></onCreate><iClass><iClass>ff go(s lj){
+  s cache00 = "/data/user/0/open.cn.awg.pro/cache/00"
+  gd s name = { "url","root" }
+  gd s value = { lj,lj }
+  wj.xrwb(cache00,lj)
+  gj.jmxc(){
+    gj.tz(d1.iyu, name, value)
+  }
+}</iClass></iClass><onDestroy><onDestroy/></onDestroy></_Yu5Src><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src><TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="30dp" android:text="" android:visibility="gone"/></RelativeLayout>

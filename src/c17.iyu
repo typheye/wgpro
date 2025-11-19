@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c17_v" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="5dp">
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/b1" android:layout_margin="2dp" android:layout_centerVertical="true" android:padding="2dp"/><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_toRightOf="@id/tx1" android:gravity="center_vertical" android:layout_centerVertical="true"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true" android:paddingRight="3dp"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="11sp" android:singleLine="true" android:paddingRight="3dp" android:visibility="gone"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU2" android:textSize="9sp" android:singleLine="true" android:paddingRight="3dp"/></LinearLayout><Yu5Src><setOnClickListener><onClick>/*
+@2021 c2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+s e1=cj.e1()
+s e12=cj.e12()
+s lb=sj.lb(vw)
+s app=lb.lbcfsj(-1)
+rg app=="open.cn.awg.pro"{
+  e1.tsk("提示","您已经在该应用内了")
+},{
+  yc{
+    xt.dkyy(app)
+  },(e){
+    e1.upload_error(e,"c17.*")
+  }
+}
+//e1.tsk("详细信息","[歌名]\n"+a1+"\n\n[歌手]\n"+a2+"\n\n[歌曲ID]\n"+a3)</onClick></setOnClickListener><setOnLongClickListener><onLongClick>/*
+@2021 c2.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+s e1=cj.e1()
+s lb=sj.lb(vw)
+s app=lb.lbcfsj(-1)
+android.content.Context ct
+java ct=e6.getContext();
+s a2=com.kingqi.zwcj.应用工具.获取应用签名(ct,app)
+s a3=com.kingqi.zwcj.日期工具.格式化日期时间(com.kingqi.zwcj.应用工具.获取应用第一次安装日期(ct,app))
+s a4=com.kingqi.zwcj.日期工具.格式化日期时间(com.kingqi.zwcj.应用工具.获取应用更新日期(ct,app))
+s a5=com.kingqi.zwcj.应用工具.获取应用的安装市场(ct,app)
+s a6=com.kingqi.zwcj.应用工具.获取应用版本名称(ct,app)
+s a7=com.kingqi.zwcj.应用工具.获取应用版本号(ct,app)
+s a8=com.kingqi.zwcj.应用工具.获取应用名称(ct,app)
+s sho="[应用名称]\n"+a8+"\n\n[应用版本]\n"+a6+"\n\n[应用版本号]\n"+a7+"\n\n[应用安装日期]\n"+a3+"\n\n[应用更新日期]\n"+a4
+e1.tsk("详细信息",sho)
+fh shi</onLongClick></setOnLongClickListener><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></RelativeLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnLongClickListener><onLongClick/></setOnLongClickListener></Yu5Src></RelativeLayout>

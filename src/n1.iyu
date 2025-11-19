@@ -1,0 +1,786 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/n1_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+jz()
+//e1.tsk("温馨提示","当前功能为测试状态,并不能保证该功够能稳定运行,请注意备份您的数据,谢谢!")
+</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//hh.init(lei)
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf")=="true"{
+  //hh.init(lei)
+}
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+gd int u=wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")
+rg a=="4"{
+  st.xdbj(zy.i.n1_v).shxtck(true)
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  st.xdbj(zy.i.n1_v).shxtck(false)
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+rg a=="1"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="2"{
+  s a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf"
+  rg wj.cz(a001)==true||wj.dqwb(a001)=="true"{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"3dp",0,"3dp")
+    wtab.dqfs("center")
+  },{
+    s wtab=st.wb(zy.i.Tab)
+    wtab.nbj(0,"9dp",0,"9dp")
+    wtab.dqfs("center")
+  }
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+},a=="3"{
+  st.xdbj(zy.i.xdbj1).nbj(u,0,u,50)
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,"15dp",0,"3dp")
+  wtab.dqfs("center")
+},a=="4"{
+  /*s f8set = "/data/user/0/open.cn.awg.pro/settings/f8/set2.inf"
+  rg wj.dqwb(f8set)=="true"{
+  int uih=pm.ztl/2+9
+  s wtab=st.wb(zy.i.Tab)
+  wtab.nbj(0,uih+"dp",0,"9dp")
+  wtab.dqfs("center")
+  }*/
+  /*s f8set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set3.inf"
+  rg wj.dqwb(f8set2)=="true"{
+  pm.xnaj(false)
+  }*/
+  st.xdbj(zy.i.xdbj1).nbj(0,0,0,0)
+}
+
+
+s xlcd1=st.xlcd(zy.i.xlcd1)
+s sz = { "应用内置选择器","系统默认选择器"}
+xlcd1.csh(sz)</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>//com.slideback.helper.SlideBackHelper hh
+//类模块
+/*
+@2021 f5.iyu
+时间: 2021-08-14 17:21
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+int mode=0
+boolean isAcc=false
+boolean state_upload = false
+string upload_back=""
+s e1=cj.e1()
+s easy=cj.easy()
+
+s path="/data/user/0/open.cn.awg.pro/cache/user/upload/path"
+ff jz(){
+	gj.jmxc() {
+		s set1 = "/data/user/0/open.cn.awg.pro/settings/n1/set1.inf"
+		s kg1=st.kg(zy.i.kg1)
+		rg wj.dqwb(set1)=="true"{
+			kg1.xzzt(true)
+		}
+		zh()
+	}
+}
+
+ff zh(){
+	s te1=""
+	s te2=""
+	s te3=""
+	s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	s b = "/data/user/0/open.cn.awg.pro/settings/account/pass"
+	s c = "/data/user/0/open.cn.awg.pro/settings/account/isAcc"
+	s set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf"
+	s set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+	//s set4 = "/data/user/0/open.cn.awg.pro/settings/n1/set4.inf"
+	rg wj.cz(a)==false||wj.cz(b)==false{
+		isAcc=false
+		wj.sc(c)
+		te1="请先登录您的账户后再操作"
+		st.wb(zy.i.wb5).zf(te1)
+		te2="请先登录您的账户后再操作"
+		st.wb(zy.i.wb8).zf(te2)
+		//te3="请先登录您的账户后再操作"
+		//st.wb(zy.i.wb9).zf(te3)
+		st.xdbj(zy.i.xdbj2).kjd(8)
+		st.xdbj(zy.i.xdbj5).kjd(8)
+		st.xdbj(zy.i.xdbj6).kjd(8)
+		st.xdbj(zy.i.xdbj8).kjd(8)
+		st.xdbj(zy.i.xdbj9).kjd(8)
+		st.xdbj(zy.i.xdbj10).kjd(8)
+		st.wb(zy.i.wb10).zf("未登录")
+		st.wb(zy.i.wb11).zf("")
+		st.wb(zy.i.wb6).zf("")
+		st.wb(zy.i.wb11).kjd(8)
+		st.wb(zy.i.wb6).kjd(8)
+		//st.wb(zy.i.wb13).kjd(8)
+		//st.wb(zy.i.wb20).kjd(8)
+		st.tx(zy.i.tx4).kjd(0)
+		st.tx(zy.i.tx7).kjd(8)
+	},{
+		isAcc=true
+		wj.xrwb(c,"0")
+		te1=wj.dqwb(set2)
+		st.wb(zy.i.wb5).zf(te1)
+		te2=wj.dqwb(set3)
+		rg zf.qctwkg(te2)==""
+		{
+			te2 = "暂未设置"
+		}
+		st.wb(zy.i.wb8).zf(te2)
+		//te3=wj.dqwb(set4)
+		//st.wb(zy.i.wb9).zf(te3)
+		st.xdbj(zy.i.xdbj2).kjd(0)
+		st.xdbj(zy.i.xdbj5).kjd(0)
+		st.xdbj(zy.i.xdbj6).kjd(0)
+		st.xdbj(zy.i.xdbj8).kjd(0)
+		st.xdbj(zy.i.xdbj9).kjd(0)
+		st.xdbj(zy.i.xdbj10).kjd(0)
+		st.wb(zy.i.wb10).zf(te1)
+		st.wb(zy.i.wb11).zf("UID:"+wj.dqwb(a))
+		st.wb(zy.i.wb6).zf("正")
+		st.wb(zy.i.wb11).kjd(0)
+		st.wb(zy.i.wb6).kjd(8)
+		//st.wb(zy.i.wb13).kjd(0)
+		//st.wb(zy.i.wb20).kjd(0)
+		st.tx(zy.i.tx4).kjd(0)
+		easy.getPericon(wj.dqwb(a))
+		rg easy.getPerIcon(wj.dqwb(a))!="null"{
+			st.tx(zy.i.tx7).tx(easy.getPerIconPath(wj.dqwb(a)))
+			st.tx(zy.i.tx7).kjd(0)
+		}
+	}
+	st.wb(zy.i.wb18).zf("点击更改账户头像")
+	st.wb(zy.i.wb19).zf("点击更改账户昵称")
+	st.wb(zy.i.wb22).zf("点击更改账户简介")
+}
+
+ff qh(){
+	s set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+	rg st.xxbj(zy.i.xxbj1).kjd()==0{
+		s z=""
+		st.xxbj(zy.i.xxbj1).kjd(8)
+		st.xxbj(zy.i.xxbj4).kjd(0)
+		st.xxbj(zy.i.xxbj15).kjd(8)
+		rg mode==1{
+			z=st.wb(zy.i.wb5).zf()
+			st.wb(zy.i.Tab).zf("账户昵称")
+			st.bjk(zy.i.bjk1).tszf("请输入昵称")
+		},mode==2{
+			z=zf.qctwkg(wj.dqwb(set3))
+			//z=st.wb(zy.i.wb8).zf()
+			st.wb(zy.i.Tab).zf("账户简介")
+			st.bjk(zy.i.bjk1).tszf("请输入简介")
+		},mode==3{
+			//z=st.wb(zy.i.wb9).zf()
+			//st.wb(zy.i.Tab).zf("账户秘钥")
+			//st.bjk(zy.i.bjk1).tszf("请输入秘钥")
+		}
+		st.bjk(zy.i.bjk1).zf(z)
+	},{
+		st.xxbj(zy.i.xxbj1).kjd(0)
+		st.xxbj(zy.i.xxbj4).kjd(8)
+		st.xxbj(zy.i.xxbj15).kjd(8)
+		st.bjk(zy.i.bjk1).zf("")
+		st.wb(zy.i.Tab).zf("&lt; Typheye账户")
+	}
+}
+
+ff gx(){
+	gd s set5 = "/data/user/0/open.cn.awg.pro/settings/account/user"
+	gd s set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf"
+	gd s set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf"
+	gd s set4 = "/data/user/0/open.cn.awg.pro/data/easy/cookie"
+	gd s set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf"
+	s b=st.bjk(zy.i.bjk1).zf()
+	b=zf.qctwkg(b)
+	rg mode==1{
+		rg b==""{
+			e1.tsk("提示","昵称不符合规范")
+		},{
+			gd string nick = b
+			gj.xc()
+			{
+				gj.jmxc() {
+					st.wb(zy.i.wb5).zf("加载中...")
+					st.wb(zy.i.wb19).zf("加载中...")
+				}
+				s url=e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"))
+				rg url*?"/"{
+				},{
+					url=url+"/"
+				}
+				string j_code=""
+				string j_msg=""
+				string a = wj.dqwb(set4)
+				string uid = wj.dqwb(set5)
+				string sjzx = xt.sj(4)
+				string send0 = "type=set_nick&amp;uid=" + uid + "&amp;cookie=" + a + "&amp;value=" + sj.zh().zstring(nick) + "&amp;time=" + sjzx
+				gd string send = "/api.php?" + send0 + "&amp;token=" + sj.md5(send0)
+				gd s back = wl.hq(url+send,null,"utf-8",null,true,null,20000,20000,null)
+				rg back==""||back==null{
+					e1.tsk("提示","修改失败，无法连接到服务器")
+					jz()
+				},{
+					yc {
+						java
+						{
+							JSONObject json = JSONObject.parseObject(back);
+							j_code = json.getString("code");
+							j_msg = json.getString("msg");
+						}
+						rg j_code=="200"{
+							wj.xrwb(set2,nick)
+							wj.xrwb(set2s,nick)
+							e1.tsk("提示","昵称设置成功")
+							jz()
+						},{
+							e1.tsk("提示","修改失败\n"+j_msg)
+							jz()
+						}
+					},{
+						e1.tsk("提示","修改失败，出现异常")
+						jz()
+					}
+				}
+			}
+		}
+	},mode==2{
+		rg false{
+			//e1.tsk("提示","简介不符合规范")
+		},{
+			gd string shuo = b
+			gj.xc()
+			{
+				gj.jmxc() {
+					//st.wb(zy.i.wb8).zf("加载中...")
+					st.wb(zy.i.wb22).zf("加载中...")
+				}
+				s url=e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"))
+				rg url*?"/"{
+				},{
+					url=url+"/"
+				}
+				string j_code=""
+				string j_msg=""
+				string a = wj.dqwb(set4)
+				string uid = wj.dqwb(set5)
+				string sjzx = xt.sj(4)
+				string send0 = "type=set_shuo&amp;uid=" + uid + "&amp;cookie=" + a + "&amp;value=" + sj.zh().zstring(shuo) + "&amp;time=" + sjzx
+				gd string send = "/api.php?" + send0 + "&amp;token=" + sj.md5(send0)
+				gd s back = wl.hq(url+send,null,"utf-8",null,true,null,20000,20000,null)
+				rg back==""||back==null{
+					e1.tsk("提示","修改失败，无法连接到服务器")
+					jz()
+				},{
+					yc {
+						java
+						{
+							JSONObject json = JSONObject.parseObject(back);
+							j_code = json.getString("code");
+							j_msg = json.getString("msg");
+						}
+						rg j_code=="200"{
+							wj.xrwb(set3,shuo)
+							e1.tsk("提示","简介设置成功")
+							jz()
+						},{
+							e1.tsk("提示","修改失败\n"+j_msg)
+							jz()
+						}
+					},{
+						e1.tsk("提示","修改失败，出现异常")
+						jz()
+					}
+				}
+			}
+		}
+	},mode==3{
+		rg b==""{
+			e1.tsk("提示","秘钥不符合规范")
+		},{
+			//wj.xrwb(set4,b)
+			e1.tsk("提示","秘钥设置成功")
+		}
+	}
+	jz()
+	qh()
+}
+
+
+ff upload(s a){
+	rg state_upload == false {
+		state_upload = true
+		gd s a3 = "/data/user/0/open.cn.awg.pro/settings/account/user"
+		gd s path_=wj.hqml(a)
+		gd s path={ path_ }
+		gd s wb18 = st.wb(zy.i.wb18)
+		gj.xc(){
+			gj.jmxc(){
+				wb18.zf("加载中...")
+			}
+			upload_back=""
+			rg e1.yz()==true{
+				rg path_==""||wj.cz(path_)==false{
+					jz()
+					e1.tsk("提示","文件路径无效")
+				},{
+					gd s url="https://service.typheye.cn/src/up.php?uid="+wj.dqwb(a3)
+					s fn__="null"
+					string[] fn_=e1.fileinfo("/",path[0])
+					rg fn_[0]=="true"{
+						fn__=fn_[3]
+					}
+					gd s file_name=fn__
+					gd s file_size=wj.dx(path_)
+					//s back = wl.scwj(url,p,path,"utf-8")
+					gj.jmxc(){
+						yc{
+							java {
+								HttpRequest.TIME_OUT_DURATION=300;
+								HttpRequest.build(lei,url)
+								.addParameter("name",file_name)
+								.addParameter("size",file_size)
+								.addParameter("file",wj.wj(path_))
+								.setUploadProgressListener(new UploadProgressListener() {
+									@Override
+									public void onUpload(float percentage, long current, long total, boolean done) {
+										//total 设置进度条上限值
+										//current 设置进度条当前进度
+										long now = current / total * 100;
+										wb18.zf("已上传"+sj.zh().zstring(now)+"%");
+									}
+								})
+								.setResponseListener(new ResponseListener() {
+									@Override
+									public void onResponse(String response, Exception error) {
+										uploadResult(error,response);
+									}
+								})
+								.doPost();
+							}
+						},(e){
+							jz()
+							e1.tsk("提示","上传失败(-1)")
+						}
+					}
+					
+				}
+			},{
+				jz()
+				e1.tsk("提示","上传失败\n连接服务器超时(-2)")
+			}
+			state_upload = false
+		}
+	}, {
+		
+	}
+}
+
+ff uploadResult(Exception error,s upload_back){
+	s back=upload_back
+	rg sj.zh().zstring(error)!=null {
+		jz()
+		e1.tsk("提示","上传失败\n"+sj.zh().zstring(error))
+	},{
+		rg back==""||back==null{
+			jz()
+			e1.tsk("提示","上传失败\n连接服务器超时(-1)")
+		},{
+			jz()
+			e1.tsk("提示",back)
+		}
+	}
+}</iClass></iClass><onKeyUp><onKeyUp/></onKeyUp><onRestart><onRestart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onRestart></onRestart><onStart><onStart>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+s qtgd1=st.qtgd(zy.i.qtgd1)
+java {
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL &amp;&amp; me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+        // Don't forget the negation here
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+        // Swap these axes to scroll horizontally instead
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+}
+qtgd1.v.requestFocus()</onStart></onStart><onResume><onResume>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+    //透明状态栏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}</onResume></onResume><onWindowFocusChanged><onWindowFocusChanged>gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+s a=wj.dqwb(a2)
+rg a=="4"{
+  s clr=zf.zf(zy.color.colorTab)
+  xt.pm().ztl(clr,0)
+  /*java{
+  //透明状态栏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().transparentStatusCutout(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeTransparentStatusCutout(window);
+  }*/
+},{
+  java {
+    //全屏
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  }
+}
+jz()
+
+rg wj.cz(path)==true&amp;&amp;wj.dqwb(path)!=""&amp;&amp;wj.dqwb(path)!="null"{
+  upload(wj.dqwb(path))
+  wj.sc(path)
+}</onWindowFocusChanged></onWindowFocusChanged><onKeyDown><onKeyDown>rg kc==4{
+  rg st.wb(zy.i.Tab).zf()=="&lt; Typheye账户"{
+    gj.gb()
+  }
+}
+
+fh fou</onKeyDown></onKeyDown><onActivityResult><onActivityResult>rg re==1{
+  rg rc==-1{
+    string realPath=null
+    yc{
+      java realPath = uri.getByIntent(lei,it);
+    },(e){
+      //保留
+    }
+    rg realPath!=null{
+      realPath=wj.hqml(realPath)
+      upload(realPath)
+      /*wj.xrwb(path,realPath)
+      gd s an=st.an(zy.i.an_upload)
+      gd s an2=st.an(zy.i.an_disupload)
+      gd s dx_chat_upload=st.dx(zy.i.dx_chat_upload)
+      gd s ltsup_xlcd1=st.xlcd(zy.i.ltsup_xlcd1)
+      gd s ltsup_xlcd2=st.xlcd(zy.i.ltsup_xlcd2)
+      rg an.tszf()=="选择文件"{
+      gj.jmxc(){
+      an.kjd(0)
+      an.tszf("已选择•开始上传")
+      ltsup_xlcd1.st.setEnabled(false)
+      ltsup_xlcd1.kjd(8)
+      ltsup_xlcd2.st.setEnabled(false)
+      ltsup_xlcd2.kjd(8)
+      dx_chat_upload.st.setEnabled(false)
+      an2.kjd(0)
+      }
+      }
+      */
+    }
+  }
+}</onActivityResult></onActivityResult><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&amp;lt; Typheye账户" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>rg st.wb(zy.i.Tab).zf()=="&lt; Typheye账户"{
+  gj.gb()
+}</onClick></setOnClickListener></Yu5Src></TextView><android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true"><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center"><LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="5dp" android:gravity="center" android:layout_margin="5dp"><android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="50dp" android:layout_height="50dp" android:layout_marginTop="5dp" android:layout_marginBottom="3dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" app:cardBackgroundColor="@color/colorAccent" app:cardCornerRadius="25dp"><RelativeLayout android:id="@+id/xdbj7" android:layout_width="match_parent" android:layout_height="match_parent"><ImageView android:id="@+id/tx4" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a49" android:padding="8dp"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView><ImageView android:id="@+id/tx7" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a" android:scaleType="fitXY"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></ImageView><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  gj.tz(n2.iyu)
+},{
+  s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+  rg easy.getPerIcon(wj.dqwb(a))!="null"{
+    gd s name = { "url" }
+    gd s value = { easy.getPerIconPath(wj.dqwb(a)) }
+    gj.jmxc(){
+      gj.tz(d3.iyu, name, value)
+    }
+  },{
+    e1.tsk("账户头像","您还未上传头像")
+  }
+}</onClick></setOnClickListener></Yu5Src></RelativeLayout><TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="match_parent" android:text="普" android:textColor="@color/colorWhite" android:textSize="20sp" android:textStyle="bold" android:gravity="center" android:visibility="gone"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></android.support.v7.widget.CardView><TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="未登录" android:textColor="@color/colorTextU1" android:textSize="15sp" android:gravity="center" android:textStyle="bold" android:singleLine="true"><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  gj.tz(n2.iyu)
+},{
+  rg st.wb(zy.i.wb5).zf()=="加载中..."{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  },{
+    e1.tsk("账户昵称",st.wb(zy.i.wb10).zf())
+  }
+}</onClick></setOnClickListener></Yu5Src></TextView><TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:visibility="gone"><Yu5Src><setOnClickListener><onClick>e1.tsk("账户UID",st.wb(zy.i.wb11).zf())</onClick></setOnClickListener></Yu5Src></TextView><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  gj.tz(n2.iyu)
+},{
+}</onClick></setOnClickListener></Yu5Src><TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true" android:visibility="gone"/></LinearLayout><LinearLayout android:id="@+id/xxbj16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx9" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a70" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx9"><TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="账户简介" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  e1.tsk("提示","请先登录您的账户后再操作")
+},{
+  rg st.wb(zy.i.wb8).zf()=="加载中..."{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  },{
+    e1.tsk("账户简介",st.wb(zy.i.wb8).zf())
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb7).zf()
+s lj=st.wb(zy.i.wb8).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx10" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx10" android:layout_toLeftOf="@id/kg1"><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="允许授权" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="允许将此账户授权至其他应用" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><android.support.v7.widget.SwitchCompat android:id="@+id/kg1" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true"><Yu5Src><setOnClickListener><onClick/></setOnClickListener><setOnCheckedChangeListener><onCheckedChanged>s set = "/data/user/0/open.cn.awg.pro/settings/n1/set1.inf"
+rg ic==true{
+  wj.xrwb(set,"true")
+},{
+  wj.xrwb(set,"false")
+}</onCheckedChanged></setOnCheckedChangeListener></Yu5Src></android.support.v7.widget.SwitchCompat><Yu5Src><setOnClickListener><onClick>s kg=st.kg(zy.i.kg1)
+rg kg.xzzt()==false{
+  kg.xzzt(true)
+},{
+  kg.xzzt(false)
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb2).zf()
+s lj=st.wb(zy.i.wb3).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx11" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a44" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx11"><TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更改头像" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb18" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="点击更改账户头像" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  e1.tsk("提示","请先登录您的账户后再操作")
+},{
+  /*s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+  rg easy.getPerIcon(wj.dqwb(a))!="null"{
+  e1.tsk("账户头像","需要更新头像")
+  },{
+  e1.tsk("账户头像","需要上传头像")
+  }*/
+  rg st.wb(zy.i.wb18).zf()=="点击更改账户头像"{
+    gj.jmxc(){
+      st.wb(zy.i.Tab).zf("账户头像")
+      st.xxbj(zy.i.xxbj1).kjd(8)
+      st.xxbj(zy.i.xxbj4).kjd(8)
+      st.xxbj(zy.i.xxbj9).kjd(8)
+      st.xxbj(zy.i.xxbj15).kjd(0)
+    }
+  },{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb17).zf()
+s lj=st.wb(zy.i.wb18).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx12" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj13" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx12"><TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更改昵称" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="点击更改账户昵称" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  e1.tsk("提示","请先登录您的账户后再操作")
+},{
+  rg st.wb(zy.i.wb19).zf()=="加载中..."{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  },{
+    mode=1
+    qh()
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb16).zf()
+s lj=st.wb(zy.i.wb19).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx13" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj14" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx13"><TextView android:id="@+id/wb21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更改简介" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="点击更改账户简介" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  e1.tsk("提示","请先登录您的账户后再操作")
+},{
+  rg st.wb(zy.i.wb22).zf()=="加载中..."{
+    e1.tsk("提示","操作过于频繁，请稍后重试")
+  },{
+    mode=2
+    qh()
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb21).zf()
+s lj=st.wb(zy.i.wb22).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp"><RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx14" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx14"><TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出登录" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出您的Typheye账户" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  e1.tsk("提示","请先登录您的账户后再操作")
+},{
+  rg st.xxbj(zy.i.xxbj9).kjd()==0{
+    gj.jmxc(){
+      st.wb(zy.i.Tab).zf("&lt; 我的账户")
+      st.xxbj(zy.i.xxbj9).kjd(8)
+      st.xxbj(zy.i.xxbj1).kjd(0)
+    }
+  },{
+    gj.jmxc(){
+      st.wb(zy.i.Tab).zf("提示")
+      st.xxbj(zy.i.xxbj9).kjd(0)
+      st.xxbj(zy.i.xxbj1).kjd(8)
+    }
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb14).zf()
+s lj=st.wb(zy.i.wb15).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp"><ImageView android:id="@+id/tx15" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a85" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true"/><LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx15"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="账户注销" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="注销您的Typheye账户" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true"/></LinearLayout><Yu5Src><setOnClickListener><onClick>rg isAcc==false{
+  e1.tsk("提示","请先登录您的账户后再操作")
+},{
+  s url="https://service.typheye.cn/site/user/center/delete/"
+  gd s a2="/data/user/0/open.cn.awg.pro/settings/a3.inf"
+  s a8=wj.dqwb(a2)
+  rg a8=="4"{
+    rg e1.isInstallX5()==true{
+      gd s name = { "url" }
+      gd s value = { url }
+      gj.tz(j6.iyu, name, value)
+    },{
+      wl.fw(url)
+    }
+  },{
+    rg e1.isInstallX5()==true{
+      gd s name = { "url" }
+      gd s value = { url }
+      gj.tz(j6.iyu, name, value)
+    },{
+      e1.tsk_QR("账户注销","如果您需要注销Typheye账户,请扫描下方二维码后在手机上操作.",url)
+    }
+  }
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s te=st.wb(zy.i.wb1).zf()
+s lj=st.wb(zy.i.wb9).zf()
+e1.tsk("详细信息","[名称]\n"+te+"\n\n[简介]\n"+lj)
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout></LinearLayout><android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="10dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout><LinearLayout android:id="@+id/xxbj15" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone"><Spinner android:id="@+id/xlcd1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/xlcdbj"/><Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:hint="选择" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp"><Yu5Src><setOnClickListener><onClick>s xlcd1=st.xlcd(zy.i.xlcd1)
+rg xlcd1.dqzsxmxh() == 1{
+  yc {
+    java{
+      android.content.Intent intent=new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
+      intent.setType("image/*");
+      lei.startActivityForResult(intent,1);
+    }
+  },(e){
+    e1.tsk("提示","此方式存在异常，暂时无法使用")
+  }
+},{
+  yc {
+    s a=xt.qxgl()
+    rg a.qx("android.permission.WRITE_EXTERNAL_STORAGE")==true{
+      gd s choose2="/data/user/0/open.cn.awg.pro/cache/file/choose2"
+      wj.sc(path)
+      int sdk = xt.sbxx().sdk
+      s ftitle="/data/user/0/open.cn.awg.pro/cache/file/title"
+      wj.xrwb(ftitle,"&lt; 选择头像")
+      wj.xrwb(choose2,"h1")
+      rg sdk&lt;30{
+        s lj=wj.hqml("%")
+        gd s name = { "url","root" }
+        gd s value = { lj,lj }
+        gj.jmxc(){
+          gj.tz(d1.iyu, name, value)
+        }
+      },{
+        s lj="/storage/emulated/0/"
+        gd s name = { "url","root" }
+        gd s value = { lj,lj }
+        gj.jmxc(){
+          gj.tz(d1.iyu, name, value)
+        }
+      }
+    },{
+      e1.tsk("提示","您未授权应用\"修改或删除您共享存储空间中的内容\"，请先前往设置授权后再使用")
+    }
+  },(e){
+    e1.upload_error(e,"n1.*")
+  }
+}
+gj.jmxc(){
+  st.wb(zy.i.Tab).zf("&lt; Typheye账户")
+  st.xxbj(zy.i.xxbj1).kjd(0)
+  st.xxbj(zy.i.xxbj4).kjd(8)
+  st.xxbj(zy.i.xxbj9).kjd(8)
+  st.xxbj(zy.i.xxbj15).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></Button><Button android:id="@+id/an2" android:layout_width="match_parent" android:layout_height="35dp" android:hint="取消" android:layout_margin="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite"><Yu5Src><setOnClickListener><onClick>gj.jmxc(){
+  st.wb(zy.i.Tab).zf("&lt; Typheye账户")
+  st.xxbj(zy.i.xxbj1).kjd(0)
+  st.xxbj(zy.i.xxbj4).kjd(8)
+  st.xxbj(zy.i.xxbj9).kjd(8)
+  st.xxbj(zy.i.xxbj15).kjd(8)
+}</onClick></setOnClickListener></Yu5Src></Button><android.support.v7.widget.CardView android:id="@+id/kp7" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx8" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gj.gb()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView><Yu5Src><setOnTouchListener><onTouch>
+
+fh shi</onTouch></setOnTouchListener></Yu5Src></LinearLayout><LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:background="@color/colorTabBackground" android:visibility="gone"><EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp"/><LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>qh()</onClick></setOnClickListener><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>gx()</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout><LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:background="@color/colorTabBackground" android:visibility="gone"><TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="您确定要退出当前登录的账户吗?" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp"/><LinearLayout android:id="@+id/xxbj10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>rg st.xxbj(zy.i.xxbj9).kjd()==0{
+  gj.jmxc(){
+    st.wb(zy.i.Tab).zf("&lt; Typheye账户")
+    st.xxbj(zy.i.xxbj9).kjd(8)
+    st.xxbj(zy.i.xxbj1).kjd(0)
+  }
+},{
+  gj.jmxc(){
+    st.wb(zy.i.Tab).zf("提示")
+    st.xxbj(zy.i.xxbj9).kjd(0)
+    st.xxbj(zy.i.xxbj1).kjd(8)
+  }
+}</onClick></setOnClickListener><setOnTouchListener><onTouch/></setOnTouchListener></Yu5Src></ImageView></android.support.v7.widget.CardView><android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp"><ImageView android:id="@+id/tx6" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>s a = "/data/user/0/open.cn.awg.pro/settings/account/user"
+s b = "/data/user/0/open.cn.awg.pro/settings/account/pass"
+s c = "/data/user/0/open.cn.awg.pro/settings/account/userx"
+s d = "/data/user/0/open.cn.awg.pro/settings/account/passx"
+wj.sc(a)
+wj.sc(b)
+wj.sc(c)
+wj.sc(d)
+jz()
+rg st.xxbj(zy.i.xxbj9).kjd()==0{
+  gj.jmxc(){
+    st.wb(zy.i.Tab).zf("&lt; Typheye账户")
+    st.xxbj(zy.i.xxbj9).kjd(8)
+    st.xxbj(zy.i.xxbj1).kjd(0)
+  }
+},{
+  gj.jmxc(){
+    st.wb(zy.i.Tab).zf("提示")
+    st.xxbj(zy.i.xxbj9).kjd(0)
+    st.xxbj(zy.i.xxbj1).kjd(8)
+  }
+}</onClick></setOnClickListener></Yu5Src></ImageView></android.support.v7.widget.CardView></LinearLayout></LinearLayout></RelativeLayout><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></android.support.v4.widget.NestedScrollView></RelativeLayout>

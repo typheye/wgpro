@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c22_v" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp">
+    <_Yu5Src><onCreate><onCreate/></onCreate><onDestroy><onDestroy/></onDestroy></_Yu5Src><RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="5dp" android:background="?android:attr/selectableItemBackground"><LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true"/></LinearLayout></RelativeLayout><Yu5Src><setOnClickListener><onClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+gd s a=lb.lbcfsj(-1)
+gd s b=lb.lbcfsj(-2)
+//e1.tsk("附加功能",l)
+yc{
+  gj.jmxc(){
+    xt.dkyy(a,b)
+  }
+},(e){
+  e1.tsk("提示","没有可执行该操作的应用")
+}</onClick></setOnClickListener><setOnLongClickListener><onLongClick>s e1=cj.e1()
+s lb=sj.lb(vw)
+s l1=lb.lbcfsj(zy.i.wb1)
+s l2=lb.lbcfsj(zy.i.wb2)
+s l=lb.lbcfsj(-1)
+e1.tsk("详细信息","[功能名称]\n"+l1+"\n\n[功能简介]\n"+l2)
+
+fh shi</onLongClick></setOnLongClickListener></Yu5Src></RelativeLayout>

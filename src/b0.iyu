@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/b0_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorAccent">
+    <_Yu5Src><onCreate><onCreate>//载入事件内会加载布局，不使用该事件则不加载布局
+java open.cn.awg.pro.e6.getInstance().addActivity(lei);
+// appEnable
+rg wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") {
+  /*
+  @2021 a0.iyu
+  时间: 2021-08-14 17:14
+  开发: hbc123
+  版本: 1.1.5-beta
+  版号: 2007
+  */
+  show(0)
+}, {
+  gj.jmxc() {
+    java{
+      android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+      intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+      lei.startActivity(intent);
+      open.cn.awg.pro.e6.getInstance().exit();
+    }
+  }
+}</onCreate></onCreate><__layoutIsLoaded><__layoutIsLoaded>//配置屏幕
+s pm=xt.pm()
+rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf")=="false"{
+  //深色模式
+  rg wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf")=="true"{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+  },{
+    java getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+  }
+}
+java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</__layoutIsLoaded></__layoutIsLoaded><iClass><iClass>int mode
+
+ff show(int i_){
+  gd s i=i_
+  gd s xxbj4=st.xxbj(zy.i.xxbj4)
+  gd s xxbj1=st.xxbj(zy.i.xxbj1)
+  gj.jmxc(){
+    rg i==0 {
+      xxbj1.kjd(0)
+      xxbj4.kjd(8)
+    },i==1 {
+      xxbj1.kjd(8)
+      xxbj4.kjd(0)
+    },i==2 {
+      xxbj1.kjd(8)
+      xxbj4.kjd(8)
+    }
+  }
+}
+
+ff run(){
+  gj.xc(){
+    show(2)
+    gj.zt(500)
+    rg mode==0{
+      s m="rm -rf \"/data/user/0/open.cn.awg.pro/settings\""
+      java com.demo.e3.cmd(lei,m,false)
+      gj.zt(500)
+      gj.jmxc()
+      {
+        java{
+          android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+          intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+          lei.startActivity(intent);
+          open.cn.awg.pro.e6.getInstance().exit();
+        }
+      }
+    },mode==1{
+      s m="pm clear open.cn.awg.pro"
+      java com.demo.e3.cmd(lei,m,false)
+    },mode==3{
+      gj.zt(500)
+      gj.jmxc()
+      {
+        java{
+          android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+          intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+          lei.startActivity(intent);
+          open.cn.awg.pro.e6.getInstance().exit();
+        }
+      }
+    },mode==4{
+      java open.cn.awg.pro.e6.getInstance().exit();
+    }
+  }
+}</iClass></iClass><onKeyDown><onKeyDown>/*
+@2021 a0.iyu
+时间: 2021-08-14 17:14
+开发: hbc123
+版本: 1.1.5-beta
+版号: 2007
+*/
+
+//禁止返回退出
+fh shi</onKeyDown></onKeyDown><onWindowFocusChanged><onWindowFocusChanged>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onWindowFocusChanged></onWindowFocusChanged><onRestart><onRestart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onRestart></onRestart><onResume><onResume>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onResume></onResume><onStart><onStart>java {
+  //全屏
+  Window window = lei.getWindow();
+  BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+  BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+}</onStart></onStart><onDestroy><onDestroy>java open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+</onDestroy></onDestroy></_Yu5Src><LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerInParent="true" android:gravity="center" android:visibility="gone"><TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="|○_○|" android:textColor="@color/colorTabText" android:textSize="30sp" android:textStyle="bold" android:gravity="center"/><TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="应用程序 出现奔溃" android:textColor="@color/colorTabText" android:textSize="9sp" android:textStyle="bold" android:gravity="center" android:layout_margin="5dp"/><RelativeLayout android:id="@+id/xdbj9" android:layout_width="80dp" android:layout_height="20dp" android:background="@color/colorTabText"><LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_margin="2dp" android:background="@color/colorAccent"><TextView android:id="@+id/wb10" android:layout_width="match_parent" android:layout_height="match_parent" android:text="重启应用" android:textColor="@color/colorWhite" android:textSize="10sp" android:textStyle="bold" android:gravity="center"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><RelativeLayout android:id="@+id/xdbj10" android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>mode=3
+show(1)</onClick></setOnClickListener></Yu5Src></RelativeLayout></RelativeLayout><RelativeLayout android:id="@+id/xdbj1" android:layout_width="80dp" android:layout_height="20dp" android:background="@color/colorTabText" android:layout_marginTop="5dp"><LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_margin="2dp" android:background="@color/colorAccent"><TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="match_parent" android:text="重置设置" android:textColor="@color/colorWhite" android:textSize="10sp" android:textStyle="bold" android:gravity="center"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>mode=0
+show(1)</onClick></setOnClickListener></Yu5Src></RelativeLayout></RelativeLayout><RelativeLayout android:id="@+id/xdbj2" android:layout_width="80dp" android:layout_height="20dp" android:background="@color/colorTabText" android:layout_marginTop="5dp" android:visibility="gone"><LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_margin="2dp" android:background="@color/colorAccent"><TextView android:id="@+id/wb4" android:layout_width="match_parent" android:layout_height="match_parent" android:text="重置应用" android:textColor="@color/colorWhite" android:textSize="10sp" android:textStyle="bold" android:gravity="center"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>mode=1
+show(1)</onClick></setOnClickListener></Yu5Src></RelativeLayout></RelativeLayout><RelativeLayout android:id="@+id/xdbj3" android:layout_width="80dp" android:layout_height="20dp" android:background="@color/colorTabText" android:layout_marginTop="5dp"><TextView android:id="@+id/wb5" android:layout_width="match_parent" android:layout_height="match_parent" android:text="退出" android:textColor="@color/colorAccent" android:textSize="10sp" android:textStyle="bold" android:gravity="center" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>mode=4
+show(1)</onClick></setOnClickListener></Yu5Src></TextView></RelativeLayout></LinearLayout><LinearLayout android:id="@+id/xxbj4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_centerInParent="true" android:visibility="gone"><TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="|○_○|" android:textColor="@color/colorTabText" android:textSize="30sp" android:textStyle="bold" android:gravity="center"/><TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="您确定要执行该操作吗？" android:textColor="@color/colorTabText" android:textSize="9sp" android:textStyle="bold" android:gravity="center" android:layout_margin="5dp"/><LinearLayout android:id="@+id/xxbj6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal"><RelativeLayout android:id="@+id/xdbj6" android:layout_width="40dp" android:layout_height="20dp" android:background="@color/colorTabText" android:layout_marginRight="2dp"><LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:layout_margin="2dp" android:background="@color/colorAccent"><TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="match_parent" android:text="确定" android:textColor="@color/colorWhite" android:textSize="10sp" android:textStyle="bold" android:gravity="center"><Yu5Src><setOnClickListener><onClick/></setOnClickListener></Yu5Src></TextView></LinearLayout><RelativeLayout android:id="@+id/xdbj7" android:layout_width="match_parent" android:layout_height="match_parent" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>run()</onClick></setOnClickListener></Yu5Src></RelativeLayout></RelativeLayout><RelativeLayout android:id="@+id/xdbj8" android:layout_width="40dp" android:layout_height="20dp" android:background="@color/colorTabText" android:layout_marginLeft="2dp"><TextView android:id="@+id/wb7" android:layout_width="match_parent" android:layout_height="match_parent" android:text="返回" android:textColor="@color/colorAccent" android:textSize="10sp" android:textStyle="bold" android:gravity="center" android:background="?android:attr/selectableItemBackground"><Yu5Src><setOnClickListener><onClick>show(0)</onClick></setOnClickListener></Yu5Src></TextView></RelativeLayout></LinearLayout></LinearLayout></RelativeLayout>
