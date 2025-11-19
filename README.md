@@ -1,6 +1,6 @@
 ## 🚀 项目介绍
 
-**wgpro(android-app)** 计划为小米手环端腕管 Pro 提供联网功能
+**wgpro(aosp-app)** 计划为小米手环端腕管 Pro 提供联网功能
 
 ---
 
