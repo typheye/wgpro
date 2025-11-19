@@ -1,0 +1,821 @@
+{
+    "app": {
+        "name": "腕管Pro",
+        "tips": "提示",
+        "menu": "菜单",
+        "menubtn": "打开菜单"
+    },
+    "tips": {
+        "toNull": "敬请期待",
+        "backLaunch" : "请手动返回桌面",
+        "fail": "异常",
+        "run_success": "操作成功",
+        "run_fail": "操作异常",
+        "run_fail_witherror": "操作异常\n"
+    },
+    "menu": {
+        "chatroomlist": {
+            "msginfotext":"消息详情",
+            "msginfodemo":"[用户昵称]\n${usrname}\n\n[用户UID]\n${usruid}\n\n[IP属地]\n${usrip}\n\n[发布时间]\n${date}\n\n[消息内容]\n${data}",
+            "def": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "添加房间",
+                    "id": "addroom",
+                    "err1": "数据不能为空，且不能为非数字",
+                    "err2": "当前房间数量已达到最大限制，无法继续添加",
+                    "err3": "添加失败\n未连接网络或房间不存在"
+                },
+                "item3": {
+                    "name": "新建房间",
+                    "id": "createroom",
+                    "err1": "房间名称不能为空，房间id不能为空，且房间id不能为非数字",
+                    "err2": "添加失败\n",
+                    "err3": "添加失败\n"
+                },
+                "item4": {
+                    "name": "设置",
+                    "id": "gosettings"
+                },
+                "item5": {
+                    "name": "退出",
+                    "id": "exit"
+                },
+                "item6": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }, 
+            "item": {
+                "item1": {
+                    "name": "房间信息",
+                    "id": "roominfo",
+                    "demo":"[房间名称]\n${roomname}\n\n[房间标识]\n${roomid}"
+                },
+                "item2": {
+                    "name": "删除房间",
+                    "id": "delroom"
+                },
+                "item3": {
+                    "name": "清除聊天记录",
+                    "id": "clearchatdb"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }
+        },
+        "pluginlist": {
+            "def": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "添加扩展",
+                    "id": "addplug",
+                    "err1": "数据不能为空，且不能为非数字",
+                    "err2": "当前扩展数量已达到最大限制，无法继续添加",
+                    "err3": "添加失败\n未连接网络或扩展不存在"
+                },
+                "item3": {
+                    "name": "退出",
+                    "id": "exit"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }, 
+            "item": {
+                "item1": {
+                    "name": "删除扩展",
+                    "id": "delplug"
+                },
+                "item2": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }
+        },
+        "pathshowlist": {
+            "backpath": "返回上层目录",
+            "pathtext": "目录",
+            "copytext": "已复制，长按粘贴",
+            "copydeltext": "已剪切，长按粘贴",
+            "cpdcanceltext": "已取消",
+            "fileinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[大小]\n${size}\n\n[修改]\n${ltime}",
+            "pathinfodemotext": "[名称]\n${name}\n\n[目录]\n${path}\n\n[修改]\n${ltime}",
+            "def": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "新建目录",
+                    "id": "addpath"
+                },
+                "item3": {
+                    "name": "新建文件",
+                    "id": "addfile"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }, 
+            "itempath": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "新建目录",
+                    "id": "addpath"
+                },
+                "item3": {
+                    "name": "新建文件",
+                    "id": "addfile"
+                },
+                "item4": {
+                    "name": "复制",
+                    "id": "copy"
+                },
+                "item5": {
+                    "name": "剪切",
+                    "id": "copydel"
+                },
+                "item6": {
+                    "name": "删除",
+                    "id": "deletepath",
+                    "show": "您确定要删除\"${name}\"目录及其子目录和文件吗？"
+                },
+                "item7": {
+                    "name": "重命名",
+                    "id": "renamepath"
+                },
+                "item8": {
+                    "name": "属性",
+                    "id": "pathinfo"
+                },
+                "item9": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            },
+            "itemfile": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "新建目录",
+                    "id": "addpath"
+                },
+                "item3": {
+                    "name": "新建文件",
+                    "id": "addfile"
+                },
+                "item4": {
+                    "name": "打开方式",
+                    "id": "openway"
+                },
+                "item5": {
+                    "name": "复制",
+                    "id": "copy"
+                },
+                "item6": {
+                    "name": "剪切",
+                    "id": "copydel"
+                },
+                "item7": {
+                    "name": "删除",
+                    "id": "deletefile",
+                    "show": "您确定要删除\"${name}\"文件吗？"
+                },
+                "item8": {
+                    "name": "重命名",
+                    "id": "renamefile"
+                },
+                "item9": {
+                    "name": "属性",
+                    "id": "fileinfo"
+                },
+                "item10": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            },
+            "fileopenway": {
+                "item1": {
+                    "name": "文本",
+                    "id": "fow_text"
+                },
+                "item2": {
+                    "name": "图片",
+                    "id": "fow_photo"
+                },
+                "item3": {
+                    "name": "音频",
+                    "id": "fow_music"
+                },
+                "item4": {
+                    "name": "视频",
+                    "id": "fow_video"
+                },
+                "item5": {
+                    "name": "压缩",
+                    "id": "fow_zip"
+                },
+                "item6": {
+                    "name": "其他",
+                    "id": "fow_other"
+                },
+                "item7": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            },
+            "fileopen": {
+                "fow_text": {
+                    "item1": {
+                        "name": "文本浏览",
+                        "id": "fo_text_wgdisplay"
+                    },
+                    "item2": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_photo": {
+                    "item1": {
+                        "name": "图片浏览",
+                        "id": "fo_photo_wgdisplay"
+                    },
+                    "item2": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_music": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_video": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_zip": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                },
+                "fow_other": {
+                    "item1": {
+                        "name": "返回",
+                        "id": "back_fileopen"
+                    }
+                }
+            },
+            "itemcpd": {
+                "item1": {
+                    "name": "刷新",
+                    "id": "update"
+                },
+                "item2": {
+                    "name": "粘贴到当前目录",
+                    "id": "paste"
+                },
+                "item3": {
+                    "name": "取消粘贴",
+                    "id": "pastecancel"
+                },
+                "item4": {
+                    "name": "返回",
+                    "id": "back"
+                }
+            }
+        }
+    },
+    "acts": {
+        "settings": {
+            "appinfo": {
+                "tabtext": "关于应用",
+                "p1": {
+                    "item1": {
+                        "text": "应用信息",
+                        "subtext": "应用的相关信息"
+                    },
+                    "item2": {
+                        "text": "应用激活",
+                        "subtext": "激活使用全功能"
+                    },
+                    "item3": {
+                        "text": "应用更新",
+                        "subtext": "查看和更新应用"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "备份应用",
+                        "subtext": "快捷备份/恢复"
+                    },
+                    "item2": {
+                        "text": "重置应用",
+                        "subtext": "将清除所有配置"
+                    }
+                },
+                "p3": {
+                    "item1": {
+                        "text": "加入Q群",
+                        "subtext": "加入官方QQ群"
+                    }
+                },
+                "run": {
+                    "clilogo": {
+                        "title": "应用程序",
+                        "text": "[应用名称]\n${name}\n\n[编译版本]\n${versionName}\n\n[版本号码]\n${versionCode}"
+                    },
+                    "appabout": {
+                        "title": "应用信息",
+                        "text": "[应用开发]\n\n台风眼Typheye\n\n[联系方式]\n\nQQ：498978473\n邮箱：typheye@typheye.com"
+                    },
+                    "appactive":{
+                        "title": "应用激活",
+                        "text": "已激活"
+                    },
+                    "appupdate":{
+                        "title": "应用更新",
+                        "text": "已经是最新版本"
+                    },
+                    "appbackup":{
+                        "title": "应用备份",
+                        "text": "敬请期待"
+                    },
+                    "appedit":{
+                        "title": "适配终端",
+                        "text": "敬请期待"
+                    },
+                    "appreset":{
+                        "title": "重置应用",
+                        "text": "敬请期待"
+                    },
+                    "joinqqun": {
+                        "title": "加入Q群",
+                        "text": "加入腕管Pro官方QQ群",
+                        "uri": "https://qm.qq.com/q/l9bdfqRmRW"
+                    }
+                }
+            },
+            "appupdate": {
+                "tabtext": "应用更新",
+                "toinfo": "点击查看详情",
+                "fail": "加载异常...",
+                "haveupdate":"有新版本发布",
+                "noupdate":"已是最新版本",
+                "p1": {
+                    "item1": {
+                        "text": "检查更新",
+                        "subtext": "立即检测下更新"
+                    },
+                    "item2": {
+                        "text": "自动检查",
+                        "subtext": "启动时检查更新"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "更新应用",
+                        "subtext": "Loading...",
+                        "sub":{
+                            "item1": {
+                                "text": "我的版本",
+                                "subtext": "Loading..."
+                            },
+                            "item2": {
+                                "text": "最新版本",
+                                "subtext": "Loading..."
+                            },
+                            "item3": {
+                                "text": "发布时间",
+                                "subtext": "Loading..."
+                            },
+                            "item4": {
+                                "text": "更新说明",
+                                "subtext": "Loading..."
+                            },
+                            "item5": {
+                                "text": "立即更新",
+                                "subtext": "扫描二维码更新"
+                            }
+                        }
+                    }
+                }
+            },
+            "taccount": {
+                "tabtext": "Typheye账户",
+                "defname": "未登录",
+                "errname": "加载异常",
+                "nonename": "暂未设置",
+                "uidtext": "账户UID",
+                "usernametext": "账户昵称",
+                "userinfotext": "账户简介",
+                "loginerror":"登录状态已失效，请前往设置重新登录",
+                "delusertext": "如果您需要注销Typheye账户,请扫描下方二维码后在手机上操作",
+                "p1": {
+                    "item1": {
+                        "text": "账户简介",
+                        "subtext": "请先登录账户"
+                    },
+                    "item2": {
+                        "text": "允许授权",
+                        "subtext": "允许账户授权"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "更改昵称",
+                        "subtext": "更改账户昵称"
+                    },
+                    "item2": {
+                        "text": "更改简介",
+                        "subtext": "更改账户简介"
+                    }
+                },
+                "p3": {
+                    "item1": {
+                        "text": "退出登录",
+                        "subtext": "退出您的账户"
+                    },
+                    "item2": {
+                        "text": "账户注销",
+                        "subtext": "注销您的账户",
+                        "uri": "https://service.typheye.cn/site/user/center/delete/"
+                    }
+                }
+            },
+            "tserver": {
+                "tabtext": "云端服务",
+                "p1": {
+                    "item1": {
+                        "text": "应用公告",
+                        "subtext": "了解发布的公告"
+                    },
+                    "item2": {
+                        "text": "腕上微聊",
+                        "subtext": "简易网络聊天室"
+                    }
+                }
+            },
+            "tacclogin": {
+                "tabtext": "账户登录",
+                "err1": "账户或密码不能为空",
+                "err2": "登录失败\n未连接到服务器",
+                "err3": "登录失败\n"
+            },
+            "taccqrlogin": {
+                "tabtext": "账户登录",
+                "info1": "等待用户操作",
+                "err1": "账户或密码不能为空",
+                "err2": "登录失败\n未连接到服务器",
+                "err3": "登录失败\n",
+                "err4": "用户拒绝登录",
+                "err5": "登录超时",
+                "err6": "用户取消登录"
+            },
+            "tacceditnick": {
+                "tabtext": "更改昵称",
+                "err1": "昵称不能为空",
+                "err2": "修改失败\n未连接到服务器",
+                "err3": "修改失败\n"
+            },
+            "tacceditshuo": {
+                "tabtext": "更改简介",
+                "err1": "简介不能为空",
+                "err2": "修改失败\n未连接到服务器",
+                "err3": "修改失败\n"
+            },
+            "textdisplay": {
+                "tabtext": "文本浏览",
+                "p1": {
+                    "item1": {
+                        "text": "保存进度",
+                        "subtext": "保存阅读进度"
+                    },
+                    "item2": {
+                        "text": "禁用滑动",
+                        "subtext": "禁止滑动翻页"
+                    },
+                    "item3": {
+                        "text": "上下翻页",
+                        "subtext": "使用上下翻页"
+                    }
+                },
+                "p2": {
+                    "item1": {
+                        "text": "字体大小"
+                    },
+                    "item2": {
+                        "text": "字体颜色"
+                    },
+                    "item3": {
+                        "text": "背景颜色"
+                    }
+                },
+                "p3": {
+                    "item1": {
+                        "text": "启用九键",
+                        "subtext": "启用输入法九键"
+                    },
+                    "item2": {
+                        "text": "启用长震",
+                        "subtext": "点击键盘长震"
+                    }
+                }
+            },
+            "filemanger": {
+                "tabtext": "文件管理",
+                "p1": {
+                    "item1": {
+                        "text": "保留缓存",
+                        "subtext": "保留复制缓存"
+                    }
+                }
+            },
+            "browser": {
+                "tabtext": "X1浏览器",
+                "p1": {
+                    "item1": {
+                        "text": "隐藏调试",
+                        "subtext": "不显示调试信息"
+                    },
+                    "item2": {
+                        "text": "浏览器主页"
+                    }
+                }
+            },
+            "tdsize": {
+                "tabtext": "字体大小",
+                "settips": "大小:",
+                "demo": "你好"
+            },
+            "tdcolor": {
+                "settips": "颜色:",
+                "demo": "你好"
+            }
+        },
+        "wgchat": {
+            "room": {
+                "typeshow": {
+                    "b11": "[附件]图片",
+                    "b9": "[附件]音频",
+                    "b8": "[附件]视频",
+                    "b14": "[附件]文件"
+                }
+            },
+            "pushmsg": {
+                "tabtext": "发送消息",
+                "tip1": "登录Typheye账户后才可发送消息",
+                "err1": "消息不能为空",
+                "err2": "发送失败\n未连接到服务器",
+                "err3": "发送失败\n"
+            },
+            "settings": {
+                "tabtext": "腕上微聊",
+                "p1": {
+                    "item1": {
+                        "text": "更改昵称",
+                        "subtext": "前往账户更改"
+                    }
+                }
+            }
+        },
+        "browser": {
+            "setdefuri": {
+                "tabtext": "浏览器主页"
+            }
+        },
+        "plugin":{
+            "project": {
+                "p10001": {
+                    "tabtext": "文件传输助手",
+                    "uploadtiptabtext": "上传文件",
+                    "uploadtiptext": "扫描下方二维码继续",
+                    "uploadtipuri": "https://wgpro.typheye.cn/push/",
+                    "success": "下载成功\n\n[文件路径]\n",
+                    "err1": "取件码不能为空，且不能为非数字",
+                    "err2": "下载失败\n",
+                    "err3": "下载失败\n未连接网络或取件码不存在"
+                }
+            }
+        },
+        "filemanger":{
+            "open": {
+                "imageshow": {
+                    "tabtext": "图片浏览"
+                },
+                "textshow": {
+                    "tabtext": "文本浏览",
+                    "err1": "打开失败\n",
+                    "err2": "文件大小超过5MB暂不支持预览，请留意更新"
+                }
+            }
+        }
+    },
+    "display": {
+        "home": {
+            "tabtext": "腕管Pro"
+        },
+        "systool": {
+            "tabtext": "系统工具",
+            "p1":{
+                "item1":{
+                    "text": "系统信息",
+                    "subtext": "系统相关信息"
+                },
+                "item2":{
+                    "text": "存储空间",
+                    "subtext": "查看存储占用"
+                },
+                "item3":{
+                    "text": "显示测试",
+                    "subtext": "测试屏幕显示"
+                }
+            },
+            "run":{
+                "sysinfo": {
+                    "title": "系统信息",
+                    "text": "[设备品牌]\n${brand}\n\n[设备生产商]\n${manufacturer}\n\n[设备型号]\n${model}\n\n[设备代号]\n${product}\n\n[操作系统名称]\n${osType}\n\n[操作系统版本名称]\n${osVersionName}\n\n[操作系统版本号]\n${osVersionCode}\n\n[运行平台版本名称]\n${platformVersionName}\n\n[运行平台版本号]\n${platformVersionCode}\n\n[系统语言]\n${language}\n\n[系统地区]\n${region}\n\n[框架API版本]\n${APILevel}\n\n[屏幕宽]\n${screenWidth}\n\n[屏幕高]\n${screenHeight}\n\n[屏幕密度]\n${screenDensity}\n\n[屏幕形状]\n${screenShape}\n\n[设备类型]\n${deviceType}\n\n[唯一标识]\n${deviceId}\n\n[设备序列号]\n${serial}"
+                },
+                "storagesize": {
+                    "title": "存储空间",
+                    "availabletext":"可用 | ${avasize} MB"
+                }
+            }
+        },
+        "filemanger": {
+            "tabtext": "文件管理",
+            "infotips": "详细信息",
+            "demoinfo": "[标题]\n${name}\n\n[路径]\n${uri}",
+            "p1":{
+                "item1":{
+                    "text": "内部存储",
+                    "subtext": "/",
+                    "uri": "internal://files/mnt"
+                },
+                "item2":{
+                    "text": "用户文档",
+                    "subtext": "/Documents",
+                    "uri": "internal://files/mnt/Documents"
+                },
+                "item3":{
+                    "text": "用户下载",
+                    "subtext": "/Download",
+                    "uri": "internal://files/mnt/Download"
+                },
+                "item4":{
+                    "text": "用户视频",
+                    "subtext": "/Movies",
+                    "uri": "internal://files/mnt/Movies"
+                },
+                "item5":{
+                    "text": "用户音乐",
+                    "subtext": "/Music",
+                    "uri": "internal://files/mnt/Music"
+                },
+                "item6":{
+                    "text": "用户图片",
+                    "subtext": "/Pictures",
+                    "uri": "internal://files/mnt/Pictures"
+                }
+            }
+        },
+        "wgchat": {
+            "tabtext": "腕上微聊"
+        },
+        "browser": {
+            "tabtext": "X1浏览器"
+        },
+        "plugin": {
+            "tabtext": "扩展插件",
+            "p1":{
+                "item1":{
+                    "text": "文本翻译",
+                    "id": "10000"
+                },
+                "item2":{
+                    "text": "扩展2",
+                    "id": "10000"
+                },
+                "item3":{
+                    "text": "扩展3",
+                    "id": "10000"
+                }
+            }
+        },
+        "more": {
+            "tabtext": "更多功能",
+            "none": "暂无更多功能可使用"
+        },
+        "settings": {
+            "tabtext": "应用设置",
+            "p1":{
+                "item1":{
+                    "text":"Typheye账户",
+                    "subtext":"管理我的账户"
+                },
+                "item2":{
+                    "text":"云端服务",
+                    "subtext":"配置云端服务"
+                }
+            },
+            "p2":{
+                "item1":{
+                    "text":"文本浏览",
+                    "subtext":"文本浏览的设置"
+                },
+                "item2":{
+                    "text":"文件管理",
+                    "subtext":"文件管理的设置"
+                },
+                "item3":{
+                    "text":"X1浏览器",
+                    "subtext":"浏览器的设置"
+                }
+            },
+            "p3":{
+                "item1":{
+                    "text":"关于应用",
+                    "subtext":"应用的一些信息"
+                },
+                "item2":{
+                    "text":"法律信息",
+                    "subtext":"应用的法律信息"
+                }
+            },
+            "run":{
+                "browser":{
+                    "title": "X1浏览器",
+                    "text": "敬请期待",
+                    "needlogin": "该功能需要登录Typheye账户"
+                },
+                "polinfo":{
+                    "title": "法律信息",
+                    "text": "有关腕管Pro的法律信息\n请扫描下方二维码查看",
+                    "uri": "https://wgpro.typheye.cn/policies/"
+                }
+            }
+        }
+    },
+    "public": {
+        "tip": "提示",
+        "inittip": "您是否已阅读并同意",
+        "resettip": "您是否要重置腕管Pro，这样将会清除腕管Pro所有数据！",
+        "initpoli": "《服务条款与隐私协议》",
+        "comfirm": "确定",
+        "cancel": "取消",
+        "appexit": "您确定要退出软件吗?",
+        "tacclogout": "您确定要退出登录吗?"
+    },
+    "edittip": {
+        "p10001": {
+            "text1": "输入6位取件码"
+        },
+        "setdefuri": {
+            "text1": "输入主页网址"
+        },
+        "browser": {
+            "text1": "输入访问网址"
+        },
+        "addplug": {
+            "text1": "输入插件ID"
+        },
+        "addroom": {
+            "text1": "输入房间ID"
+        },
+        "createroom": {
+            "text1": "输入房间名称和ID"
+        },
+        "tacceditnick": {
+            "text1": "输入您的昵称"
+        },
+        "tacceditshuo": {
+            "text1": "输入您的简介"
+        },
+        "tacclogin": {
+            "text1": "输入您的账户和密码"
+        },
+        "taccqrlogin": {
+            "text1": "请扫描二维码"
+        }
+    }
+}

@@ -1,0 +1,253 @@
+{
+  "package": "com.typheye.wgpro",
+  "name": "腕管Pro",
+  "versionName": "3.0.0",
+  "versionCode": 2510030,
+  "minPlatformVersion": 1200,
+  "icon": "/common/mipmap/logo.png",
+  "simulationVersion": "default",
+  "deviceTypeList": [
+    "watch"
+  ],
+  "permissions": [
+    { "name": "hapjs.permission.DEVICE_INFO" }
+  ],
+  "features": [
+    {
+      "name": "system.app"
+    },
+    {
+      "name": "system.router"
+    },
+    {
+      "name": "system.interconnect"
+    },
+    {
+      "name": "system.prompt"
+    },
+    {
+      "name": "system.device"
+    },
+    {
+      "name": "system.brightness"
+    },
+    {
+      "name": "system.vibrator"
+    },
+    { 
+      "name": "system.fetch"
+    },
+    {
+      "name": "system.file"
+    },
+    {
+      "name": "system.crypto" 
+    },
+    {
+      "name": "system.request"
+    },
+    {
+      "name": "system.audio"
+    }
+  ],
+  "config": {
+    "logLevel": "log",
+    "designWidth": 192,
+    "background": {
+      "features":[
+        "system.audio",
+        "system.request"
+      ]
+    }
+  },
+  "router": {
+    "entry": "pages/index",
+    "pages": {
+      "pages/index": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/home": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/init": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/reset": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/exit": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/tips": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/showqr": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/input": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/tacclogout": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/systool": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/filemanger": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/wgchat": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/plugin": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/more": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/settings": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/debugs": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/appinfo": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/appupdate": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/taccount": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tserver": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tacclogin": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/taccqrlogin": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tacceditnick": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tacceditshuo": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/textdisplay": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/filemanger": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tdcolor": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/settings/tdsize": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/systool/displaytest": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/systool/storagesize": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/addroom": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/createroom": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/room": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/pushmsg": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchat/settings": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/plugin/addplug": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/plugin/project/p10001": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/pathshow": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/setinfo": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/fpdel": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/imageshow/main": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/imageshow/full": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/filemanger/open/textshow": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/debugs/debug1": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/debugs/debug2": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/debugs/debug3": {
+        "launchMode": "singleTask",
+        "component": "index"
+      }
+    }
+  },
+  "minAPILevel": 1
+}

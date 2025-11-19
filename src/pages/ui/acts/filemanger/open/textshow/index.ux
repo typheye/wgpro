@@ -1,0 +1,568 @@
+<template>
+	<div class="page" style="background-color: {{ value_backgroundColor }};">
+		<div
+			class="tab"
+			style="background-color: black"
+			show="{{ show_tab }}"
+			onclick="toBack()"
+		>
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ tabxt }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isShowText }}">
+			<div class="textshow" onlongpress="scrLong" @swipe="scrTouch">
+				<text
+					id="textview"
+					class="textview"
+					style="font-size:{{ value_fontSize }}px;color: {{ value_fontColor }}"
+				>
+					{{ tnow }}
+				</text>
+			</div>
+			<div
+				class="tab-btm"
+				style="background-color: black"
+				show="{{ show_btm }}"
+			>
+				<text
+					class="tab-btm-back"
+					style="color:{{ btnBackColor }}"
+					onclick="btnBack"
+				>
+					‹
+				</text>
+				<text class="tab-btm-text" onclick="toJump">{{ btmShow }}</text>
+				<text
+					class="tab-btm-next"
+					style="color:{{ btnNextColor }}"
+					onclick="btnNext"
+				>
+					›
+				</text>
+			</div>
+		</div>
+		<scroll
+			class="scroll-root"
+			style="background-color: black"
+			scroll-y="true"
+			else
+		>
+			<div class="wgpro-deflayout">
+				<div
+					class="edittext2-div"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+				>
+					<marquee class="edittext2" style="text-align: center">
+						{{ page_now + " / " + page_total }}
+					</marquee>
+				</div>
+				<slider
+					class="slider"
+					min="1"
+					max="{{ page_total }}"
+					step="1"
+					value="{{ page_process }}"
+					onchange="onSliderChange"
+					show="{{ isShowSlider }}"
+				></slider>
+				<div class="exit-choose" style="margin-top: 60px">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="btnBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a26.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="btnNext()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a27.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import brightness from "@system.brightness";
+import device from "@system.device";
+import file from "../../../../../../utils/file.js";
+import storage from "../../../../../../utils/storage.js";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		tabxt: "",
+		name: "",
+		uri: "",
+		tnow: "",
+		size: 0,
+		page_process: 1,
+		page_now: 1,
+		page_total: 1,
+		page_long: 100,
+		btnBackColor: "#333",
+		btnNextColor: "#333",
+		btmShow: "",
+		isHideTab: false,
+		isShowText: true,
+		isShowSlider: false,
+		show_tab: true,
+		show_btm: true,
+		value_fontSize: 25,
+		value_fontColor: "#FFFFFF",
+		value_backgroundColor: "#000000",
+		swit_it3_state: false,
+		swit_it4_state: false,
+		swit_it5_state: false,
+		scrWidth: 0,
+		scrHeight: 0,
+		saveProcess_fileuri: "internal://files/books.dat",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		if (this.isHideTab) this.scrLong();
+		else {
+			if (this.isShowText) this.$app.$def.toCancel(true);
+			else {
+				this.$app.$def.shortVib(true);
+				this.toJump();
+			}
+		}
+		return true;
+	},
+	onInit() {
+		device.getInfo({
+			success: (ret) => {
+				this.scrWidth = ret.screenWidth;
+				this.scrHeight = ret.screenHeight;
+			},
+			fail: (data) => {
+				this.goBack();
+				this.$app.$def.toTips(
+					this.$t("acts.filemanger.open.textshow.tabtext"),
+					`${this.$t("acts.filemanger.open.textshow.err1")}${data}`
+				);
+			},
+		});
+	},
+	onReady() {
+		this.tabxt = this.name;
+		this.switload();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+		this.saveProcess_save();
+	},
+	onSliderChange(e) {
+		this.page_now = e.progress;
+		this.toRefresh();
+		this.btmState();
+		this.$app.$def.shortVib(true);
+	},
+	toBack() {
+		if (this.isShowText) this.$app.$def.goBack();
+		else this.toJump();
+	},
+	async toRefresh() {
+		try {
+			const data = await this.readFileData();
+			this.tnow = this.uint8ArrayToUTF16String(new Uint8Array(data.buffer));
+		} catch (error) {
+			//console.error("File read error:", error);
+			this.toBack();
+			this.$app.$def.toTips(
+				this.$t("acts.filemanger.open.textshow.tabtext"),
+				`${this.$t("acts.filemanger.open.textshow.err1")}${error}`
+			);
+		}
+	},
+	readFileData() {
+		return new Promise((resolve, reject) => {
+			file.readArrayBuffer({
+				uri: this.uri,
+				position: (this.page_now - 1) * this.page_long,
+				length: this.page_long,
+				success: resolve,
+				fail: reject,
+			});
+		});
+	},
+	toJump() {
+		this.isShowSlider = false;
+		this.isShowText = !this.isShowText;
+		this.tabxt = this.isShowText ? this.name : this.$t("app.menu");
+		this.btmState();
+	},
+	switload() {
+		storage.gets({
+			keys: [
+				"wgsettings_td_saveProcess",
+				"wgsettings_td_disableTouch",
+				"wgsettings_td_useTouchUD",
+				"wgsettings_td_fontSize",
+				"wgsettings_td_fontColor",
+				"wgsettings_td_backgroundColor",
+			],
+			success: (datas) => {
+				if (datas.wgsettings_td_saveProcess == true) this.swit_it3_state = true;
+				if (datas.wgsettings_td_disableTouch == true)
+					this.swit_it4_state = true;
+				if (datas.wgsettings_td_useTouchUD == true) this.swit_it5_state = true;
+				if (datas.wgsettings_td_fontSize)
+					this.value_fontSize = datas.wgsettings_td_fontSize;
+				if (datas.wgsettings_td_fontColor)
+					this.value_fontColor = datas.wgsettings_td_fontColor;
+				if (datas.wgsettings_td_backgroundColor)
+					this.value_backgroundColor = datas.wgsettings_td_backgroundColor;
+				this.page_long = parseInt(this.calcTextNum()) * 2;
+				this.page_total =
+					this.page_long > 0 ? Math.ceil(this.size / this.page_long) : 0;
+				this.saveProcess_read();
+			},
+		});
+	},
+	btmState() {
+		this.page_process = this.page_now;
+		if (this.isHideTab) {
+			this.show_tab = false;
+			this.show_btm = false;
+		} else {
+			this.show_tab = true;
+			this.show_btm = true;
+		}
+		if (this.page_now == 1) {
+			this.btnBackColor = "#333";
+			this.btnNextColor = "white";
+		} else if (this.page_now == this.page_total) {
+			this.btnBackColor = "white";
+			this.btnNextColor = "#333";
+		} else {
+			this.btnBackColor = "white";
+			this.btnNextColor = "white";
+		}
+		this.btmShow = `${this.$app.$def.formatDecimal(
+			(this.page_now / this.page_total) * 100
+		)} %`;
+	},
+	scrLong() {
+		this.$app.$def.shortVib(true);
+		this.isHideTab = !this.isHideTab;
+		this.btmState();
+	},
+	scrTouch(evt) {
+		if (!this.swit_it4_state) {
+			if (this.swit_it5_state) {
+				if (evt.direction === "up") {
+					this.$app.$def.shortVib(true);
+					this.btnNext();
+				} else if (evt.direction === "down") {
+					this.$app.$def.shortVib(true);
+					this.btnBack();
+				}
+			} else {
+				if (evt.direction === "left") {
+					this.$app.$def.shortVib(true);
+					this.btnNext();
+				} else if (evt.direction === "right") {
+					this.$app.$def.shortVib(true);
+					this.btnBack();
+				}
+			}
+		}
+	},
+	btnBack() {
+		if (this.page_now > 1) this.page_now -= 1;
+		else {
+		}
+		this.isShowSlider = true;
+		this.toRefresh();
+		this.btmState();
+	},
+	btnNext() {
+		if (this.page_now < this.page_total) this.page_now += 1;
+		else {
+		}
+		this.isShowSlider = true;
+		this.toRefresh();
+		this.btmState();
+	},
+	uint8ArrayToString(uint8Array) {
+		let str = "";
+		let i = 0;
+
+		while (i < uint8Array.length) {
+			const byte1 = uint8Array[i++];
+
+			// 1字节字符 (0xxxxxxx)
+			if (byte1 < 0x80) {
+				str += String.fromCharCode(byte1);
+			}
+			// 2字节字符 (110xxxxx 10xxxxxx)
+			else if (byte1 >= 0xc0 && byte1 < 0xe0) {
+				const byte2 = uint8Array[i++];
+				if (!this.isContinuationByte(byte2)) continue;
+				const code = ((byte1 & 0x1f) << 6) | (byte2 & 0x3f);
+				str += String.fromCharCode(code);
+			}
+			// 3字节字符 (1110xxxx 10xxxxxx 10xxxxxx) - 中文主要在这里
+			else if (byte1 >= 0xe0 && byte1 < 0xf0) {
+				const byte2 = uint8Array[i++];
+				const byte3 = uint8Array[i++];
+				if (!this.isContinuationByte(byte2) || !this.isContinuationByte(byte3))
+					continue;
+				const code =
+					((byte1 & 0x0f) << 12) | ((byte2 & 0x3f) << 6) | (byte3 & 0x3f);
+				str += String.fromCharCode(code);
+			}
+			// 4字节字符 (11110xxx 10xxxxxx 10xxxxxx 10xxxxxx)
+			else if (byte1 >= 0xf0) {
+				const byte2 = uint8Array[i++];
+				const byte3 = uint8Array[i++];
+				const byte4 = uint8Array[i++];
+				if (
+					!this.isContinuationByte(byte2) ||
+					!this.isContinuationByte(byte3) ||
+					!this.isContinuationByte(byte4)
+				)
+					continue;
+				// 处理代理对（UTF-16）
+				const code =
+					((byte1 & 0x07) << 18) |
+					((byte2 & 0x3f) << 12) |
+					((byte3 & 0x3f) << 6) |
+					(byte4 & 0x3f);
+
+				// 转换为UTF-16代理对
+				str += String.fromCharCode(
+					0xd800 + ((code - 0x10000) >> 10),
+					0xdc00 + ((code - 0x10000) & 0x3ff)
+				);
+			}
+		}
+
+		return str;
+	},
+	isContinuationByte(byte) {
+		return byte >= 0x80 && byte < 0xc0;
+	},
+	uint8ArrayToUTF16String(uint8Array, littleEndian = false) {
+		if (uint8Array.length % 2 !== 0) {
+			throw new Error("Uint8Array length must be even for UTF-16 decoding");
+		}
+
+		const charCodes = [];
+		const view = new DataView(uint8Array.buffer);
+
+		for (let i = 0; i < uint8Array.length; i += 2) {
+			// 从两个字节中读取 UTF-16 代码单元
+			const codeUnit = view.getUint16(i, littleEndian);
+			charCodes.push(codeUnit);
+		}
+
+		// 将代码单元数组转换为字符串
+		return String.fromCharCode.apply(null, charCodes);
+	},
+	calcTextNum() {
+		let maxWidth = this.scrWidth * 0.7;
+		let maxHeight = this.scrHeight * 0.7;
+		let fontSize = parseInt(this.value_fontSize);
+		let wnum = Math.ceil(maxWidth / fontSize);
+		if (wnum > 2) wnum -= 2;
+		let hnum = Math.ceil(maxHeight / fontSize);
+		if (hnum > 1) hnum -= 1;
+		let num = wnum * hnum;
+		if (num % 2 != 0) num += 1;
+		return this.$app.$def.formatDecimal(num, 0);
+	},
+	saveProcess_read() {
+		if (this.swit_it3_state) {
+			let fileuri = this.saveProcess_fileuri;
+			file.readText({
+				uri: fileuri,
+				success: (data) => {
+					try {
+						// 解析JSON数组
+						const progressArray = JSON.parse(data.text || "[]");
+						const currentUri = this.uri;
+						// 查找匹配记录（uri、page_total、page_long都相同）
+						const record = progressArray.find(
+							(item) =>
+								item.uri === currentUri &&
+								item.page_total == this.page_total &&
+								item.page_long == this.page_long
+						);
+						//console.log("读取进度:", JSON.stringify(record));
+						if (record) {
+							this.page_now = record.page_now;
+						}
+						this.page_process = this.page_now;
+						this.btmState();
+						this.toRefresh();
+					} catch (e) {
+						//console.error("读取进度解析失败:", e);
+						this.page_process = this.page_now;
+						this.btmState();
+						this.toRefresh();
+					}
+				},
+				fail: () => {
+					//console.log("进度文件不存在，跳过读取")
+					this.page_process = this.page_now;
+					this.btmState();
+					this.toRefresh();
+				},
+			});
+		} else {
+			this.page_process = this.page_now;
+			this.btmState();
+			this.toRefresh();
+		}
+	},
+	saveProcess_save() {
+		if (this.swit_it3_state) {
+			const fileuri = this.saveProcess_fileuri;
+			const newRecord = {
+				uri: this.uri,
+				page_now: this.page_now,
+				page_total: this.page_total,
+				page_long: this.page_long,
+			};
+			file.access({
+				uri: fileuri,
+				success: () => {
+					// 文件存在时读取现有数据
+					file.readText({
+						uri: fileuri,
+						success: (data) => {
+							try {
+								let progressArray = JSON.parse(data.text || "[]");
+								// 删除旧记录（匹配uri+page_total+page_long）
+								progressArray = progressArray.filter(
+									(item) =>
+										!(
+											item.uri === newRecord.uri &&
+											item.page_total == newRecord.page_total &&
+											item.page_long == newRecord.page_long
+										)
+								);
+								// 添加新记录
+								progressArray.push(newRecord);
+								// 保存更新后的数组
+								file.writeText({
+									uri: fileuri,
+									text: JSON.stringify(progressArray, null, 2),
+								});
+							} catch (e) {
+								//console.error("进度解析失败，重置文件:", e);
+								file.writeText({
+									uri: fileuri,
+									text: JSON.stringify([newRecord], null, 2),
+								});
+							}
+						},
+					});
+				},
+				fail: () => {
+					// 文件不存在时创建新文件
+					file.writeText({
+						uri: fileuri,
+						text: JSON.stringify([newRecord], null, 2),
+					});
+				},
+			});
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../../../common/style/index.css";
+@import "../../../../../../common/style/wgpro.css";
+
+.slider {
+	width: 100%;
+	height: 30px;
+	padding-left: 25px;
+	padding-right: 25px;
+	selected-color: #32618d;
+	block-color: white;
+	margin-top: 20px;
+}
+.textshow {
+	width: 100%;
+	height: 85%;
+	display: flex;
+	justify-content: center;
+}
+
+.textview {
+	width: 70%;
+	height: auto;
+	text-align: left;
+	font-size: 25px;
+}
+
+.tab-btm {
+	width: 100%;
+	height: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	padding-top: 3px;
+}
+
+.tab-btm-back {
+	width: 30%;
+	height: auto;
+	padding-right: 20px;
+	color: grey;
+	text-align: right;
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.tab-btm-text {
+	width: 40%;
+	height: auto;
+	color: white;
+	text-align: center;
+	font-size: 15px;
+	font-weight: bold;
+	padding-top: 10px;
+}
+
+.tab-btm-next {
+	width: 30%;
+	height: auto;
+	padding-left: 20px;
+	color: grey;
+	text-align: left;
+	font-size: 30px;
+	font-weight: bold;
+}
+</style>

@@ -1,0 +1,108 @@
+<template>
+	<div class="page">
+		<scroll
+			id="ys"
+			class="outer"
+			scroll-y="true"
+			bounces="true"
+			onlongpress="scrLong"
+		>
+			<div class="inner-container">
+				<scroll id="xs" class="inner" scroll-x="true" bounces="true">
+					<!-- 添加宽度800px的容器包裹图片 -->
+					<div class="image-container">
+						<image
+							class="image"
+							style="width:{{ sliderValue }}px"
+							src="{{ imguri }}"
+							alt="/common/mipmap/a.png"
+						/>
+					</div>
+				</scroll>
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import brightness from "@system.brightness";
+export default {
+	private: {
+		name: "",
+		uri: "",
+		imguri: "",
+		isScrollCenter: false,
+		sliderValue: 100,
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+		if (!this.isScrollCenter) {
+			this.isScrollCenter = true;
+			this.toCenterView();
+		}
+		this.toRefresh();
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+	},
+	scrLong() {
+		this.toBack();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRefresh() {
+		this.imguri = this.uri;
+	},
+	toCenterView() {
+		this.$element("ys").scrollTo({
+			top: 160,
+			behavior: "instant",
+		});
+		this.$element("xs").scrollTo({
+			left: 160,
+			behavior: "instant",
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../../../common/style/index.css";
+
+.outer {
+	width: 100%;
+	height: 100%;
+	background-color: #222;
+}
+
+.inner-container {
+	height: 800px; /* 触发垂直滚动 */
+}
+
+.inner {
+	width: 100%;
+	height: 100%;
+	flex-direction: row; /* 关键：启用横向布局 */
+}
+
+.image-container {
+	width: 800px; /* 触发水平滚动 */
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+}
+
+.image {
+	width: auto;
+	height: auto;
+}
+</style>

@@ -1,0 +1,61 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">{{ $t("acts.settings.appinfo.run.appreset.title") }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit">
+			<text class="exit-tip-text">{{ $t("public.resettip") }}</text>
+			<div class="exit-choose">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v1 }}"
+					ontouchstart="ht(1, 'v1')"
+					ontouchend="ht(0, 'v1')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+				</div>
+				<div
+					class="exit-choose-value-red"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(-1, 'v2')"
+					onclick="toLaunch()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		fc_v1: "#3c3c3c",
+		fc_v2: "#740000",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#740000'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toLaunch() {
+		this.$app.$def.settingsReset();
+		this.$app.$def.toExit();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+</style>

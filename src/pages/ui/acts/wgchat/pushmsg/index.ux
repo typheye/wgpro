@@ -1,0 +1,173 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ $t("acts.wgchat.pushmsg.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<div
+					class="edittext2-div"
+					style="border: 4px solid {{ fc_v0 }}"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+					onclick="toEditText"
+				>
+					<marquee class="edittext2" @click="changeState">
+						{{ inputValues.msg }}
+					</marquee>
+				</div>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import fetch from "../../../../../utils/fetch.js";
+import storage from "../../../../../utils/storage.js";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		isLoading: false,
+		textValues: "",
+		inputValues: { msg: "" },
+		roomId: "",
+		usrNick: "",
+		usrUid: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onReady() {
+		this.inputReady();
+		this.usrLoad();
+	},
+	usrLoad() {
+		storage.gets({
+			keys: [
+				"wgsettings_wgchat_nowRoomID",
+				"wgsettings_taccount_nick",
+				"wgsettings_taccount_username",
+			],
+			success: (datas) => {
+				if (datas.wgsettings_wgchat_nowRoomID)
+					this.roomId = datas.wgsettings_wgchat_nowRoomID;
+				if (datas.wgsettings_taccount_nick)
+					this.usrNick = datas.wgsettings_taccount_nick;
+				if (datas.wgsettings_taccount_username)
+					this.usrUid = datas.wgsettings_taccount_username;
+			},
+		});
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["msg"] = TVs["msg"];
+		}
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toLaunch() {
+		this.isLoading = true;
+		if (!this.inputValues["msg"])
+			this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err1")),
+				(this.isLoading = false);
+		else {
+			fetch.fetch({
+				url: this.$app.$def.getTS("serverURL") + "talking/class/api.php",
+				data_GET: {
+					type: "release",
+					id: this.roomId,
+				},
+				data: {
+					name: this.usrNick,
+					value: this.inputValues["msg"],
+					code: "",
+					uid: this.usrUid,
+				},
+				method: "POST",
+				responseType: "text",
+				success: (response) => {
+					if (response.code == 200) {
+						if (response.data == "true") {
+							this.toBack();
+						} else
+							this.$app.$def.toTips(
+								"",
+								this.$t("acts.wgchat.pushmsg.err3") + response.data
+							),
+								(this.isLoading = false);
+					} else
+						this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err2")),
+							(this.isLoading = false);
+				},
+				fail: () => {
+					this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.err2"));
+					this.isLoading = false;
+				},
+			});
+		}
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toEditText() {
+		this.$app.$def.shortVib(true);
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/wgchat/pushmsg",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: "msg",
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

@@ -1,0 +1,122 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("display.filemanger.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="wgpro-listlayout-gap"></div>
+		<list
+			class="wgpro-listlayout"
+			bounces="true"
+			onscroll="onScroll"
+			onscrolltop="onScrollTop"
+			onscrollbottom="onScrollBottom"
+			onscrolltouchup="onScrollTouchup"
+		>
+			<list-item
+				for="{{ pathmainList }}"
+				class="wgpro-item3"
+				type="item1"
+				style="height: 100px;background-color: {{ $item.color }};"
+				ontouchstart="ht(1, $item.num)"
+				ontouchend="ht(0, $item.num)"
+				onclick="toRun($item.name, $item.path)"
+				onlongpress="toRunLong($item.name, $item.path)"
+			>
+				<div class="wgpro-item-texts-none">
+					<text class="wgpro-item-texts-text">
+						{{ $item.name }}
+					</text>
+					<text class="wgpro-item-texts-subtext">
+						{{ $item.text }}
+					</text>
+				</div>
+			</list-item>
+		</list>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		pathmainList: [],
+	},
+	ht(t, i) {
+		if (t) eval("this.pathmainList[" + i + "]['color'] = 'black'");
+		else eval("this.pathmainList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onReady() {
+		this.pathmainlistReady();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRun(name, path) {
+		this.$app.$def.goPageWithParams("pages/ui/acts/filemanger/pathshow", {
+			pathName: name,
+			pathUri: path,
+			pathRootUri: path,
+		});
+	},
+	toRunLong(name, path) {
+		this.$app.$def.toTips(
+			this.$t("display.filemanger.infotips"),
+			this.$app.$def.textFormat(this.$t("display.filemanger.demoinfo"), {
+				name: name,
+				uri: this.$app.$def.formatPath(path),
+			})
+		);
+	},
+	pathmainlistReady() {
+		this.pathmainList = [];
+		let listlen = 6;
+		let tol = listlen + 1; //1垫底缓冲
+		for (let i = 0; i < tol; i++) {
+			let inx = i + 1;
+			let list_num = -1;
+			let list_color = "";
+			let list_show = false;
+			let list_id = "";
+			let list_name = "";
+			let list_text = "";
+			let list_path = "";
+			if (inx <= listlen) {
+				let name = "";
+				let text = "";
+				let path = "";
+				eval("name = this.$t('display.filemanger.p1.item" + inx + ".text')");
+				eval("text = this.$t('display.filemanger.p1.item" + inx + ".subtext')");
+				eval("path = this.$t('display.filemanger.p1.item" + inx + ".uri')");
+				list_num = i;
+				list_color = "#3c3c3c";
+				list_show = true;
+				list_id = path;
+				list_name = name;
+				list_text = text;
+				list_path = path;
+			}
+			this.pathmainList.push({
+				num: list_num,
+				color: list_color,
+				show: list_show,
+				id: list_id,
+				name: list_name,
+				text: list_text,
+				path: list_path,
+			});
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
+</style>

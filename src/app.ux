@@ -1,0 +1,258 @@
+<script>
+import router from "@system.router";
+import vibrator from "@system.vibrator";
+import app from "@system.app";
+import storage from "./utils/storage.js";
+import fetch from "./utils/fetch.js";
+import file from "./utils/file.js";
+import crypto from "@system.crypto";
+import prompt from "@system.prompt";
+import device from "@system.device";
+export default {
+	private: {
+		product: "",
+	},
+	onCreate() {
+		device.getInfo({
+			success: (ret) => {
+				this.product = ret.product;
+			},
+		});
+	},
+	goBack() {
+		router.back();
+	},
+	goPageWithParams(_uri, _params) {
+		router.push({
+			uri: _uri,
+			params: _params,
+		});
+	},
+	goPage(_uri) {
+		router.push({
+			uri: _uri,
+		});
+	},
+	goReplacePage(_uri) {
+		router.replace({
+			uri: _uri,
+		});
+	},
+	goReplacePageWithParams(_uri, _params) {
+		router.replace({
+			uri: _uri,
+			params: _params,
+		});
+	},
+	toToast(_msg) {
+		prompt.showToast({ message: _msg });
+	},
+	toTips(_title, _text) {
+		router.push({
+			uri: "pages/ui/popup/tips",
+			params: {
+				title: _title,
+				text: _text,
+			},
+		});
+	},
+	toTipsWithQR(_title, _text, _uri) {
+		router.push({
+			uri: "pages/ui/popup/showqr",
+			params: {
+				title: _title,
+				text: _text,
+				uri: _uri,
+			},
+		});
+	},
+	toCancel(can) {
+		this.shortVib(true);
+		if (can) router.back();
+	},
+	toExit() {
+		app.terminate();
+	},
+	getAppinfo() {
+		return app.getInfo();
+	},
+	textFormat(template, data) {
+		return template.replace(/\${(\w+)}/g, (_, key) => data[key] || "");
+	},
+	shortVib(can) {
+		var _mode = "long";
+		if (can) _mode = "short";
+		vibrator.vibrate({
+			mode: _mode,
+		});
+	},
+	formatDecimal(num, decimalPlaces = 1) {
+		if (typeof num !== "number" || isNaN(num)) return 123;
+		const n = Math.max(0, Math.floor(decimalPlaces));
+		if (n === 0) return Math.round(num).toString();
+		return num.toFixed(n);
+	},
+	settingsInit() {
+		this.settingsChange("wgsettings_init", true);
+		file.listdir({
+			uri: "internal://files",
+		});
+	},
+	settingsReset() {
+		storage.clear();
+	},
+	settingsChange(_key, _data) {
+		storage.set({
+			key: _key,
+			value: _data,
+		});
+	},
+	settingsChangeMore(_key, _data) {
+		storage.sets({
+			keys: _key,
+			values: _data,
+		});
+	},
+	taccountInit() {
+		this.settingsChangeMore(
+			[
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_password",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_nick",
+				"wgsettings_taccount_userinfo",
+			],
+			["", "", "", "", ""]
+		);
+	},
+	taccGetUserData() {
+		if (fetch.isEnableFetch())
+			storage.gets({
+				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
+				success: (datas) => {
+					if (
+						datas.wgsettings_taccount_cookie != null &&
+						datas.wgsettings_taccount_cookie.trim() !== "" &&
+						datas.wgsettings_taccount_username != null &&
+						datas.wgsettings_taccount_username.trim() !== ""
+					) {
+						fetch.fetch({
+							url: this.getTS("taccServerURL") + "api.php",
+							data_GET: {
+								type: "get_user_data",
+								uid: datas.wgsettings_taccount_username,
+								cookie: datas.wgsettings_taccount_cookie,
+							},
+							method: "GET",
+							responseType: "text",
+							success: (response) => {
+								if (response.code == 200) {
+									const reqback = JSON.parse(response.data);
+									if (reqback["code"] == 200) {
+										this.settingsChangeMore(
+											[
+												"wgsettings_taccount_nick",
+												"wgsettings_taccount_userinfo",
+											],
+											[reqback["info"]["nick"], reqback["info"]["shuo"]]
+										);
+									}
+								}
+							},
+						});
+					}
+				},
+			});
+	},
+	taccLoginCheck() {
+		if (fetch.isEnableFetch())
+			storage.gets({
+				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
+				success: (datas) => {
+					if (
+						datas.wgsettings_taccount_cookie != null &&
+						datas.wgsettings_taccount_cookie.trim() !== "" &&
+						datas.wgsettings_taccount_username != null &&
+						datas.wgsettings_taccount_username.trim() !== ""
+					) {
+						const timestamp0 = Date.now();
+						fetch.fetch({
+							url: this.getTS("taccServerURL") + "api.php",
+							data_GET: {
+								type: "get_data_update_easy",
+								uid: datas.wgsettings_taccount_username,
+								cookie: datas.wgsettings_taccount_cookie,
+								time: timestamp0,
+							},
+							method: "GET",
+							responseType: "text",
+							success: (response) => {
+								if (response.code == 200) {
+									const reqback = JSON.parse(response.data);
+									if (reqback["code"] == 200) {
+										if (reqback["info_v0"] == 1) {
+											this.taccountInit();
+											this.toTips(
+												"",
+												"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
+											);
+										}
+									}
+								}
+							},
+						});
+					}
+				},
+			});
+	},
+	isNumeric(str) {
+		for (let i = 0; i < str.length; i++) {
+			if (str[i] < "0" || str[i] > "9") {
+				return false;
+			}
+		}
+		return str.length > 0; // 空字符串返回false
+	},
+	getHash(_data, _algo) {
+		return crypto.hashDigest({
+			data: _data,
+			algo: _algo,
+		});
+	},
+	getRoomNumLimit() {
+		return 5;
+	},
+	getPlugNumLimit() {
+		return 5;
+	},
+	getTS(str) {
+		const URIs = {
+			serverURL: {
+				def: "https://service.typheye.cn/app/com.typheye.wgpro/",
+				proxy: "http://proxy-service.typheye.cn/app/com.typheye.wgpro/",
+			},
+			taccServerURL: {
+				def: "https://service.typheye.cn/",
+				proxy: "http://proxy-service.typheye.cn/",
+			},
+			velaServerURL: {
+				def: "https://vela.typheye.cn/",
+				proxy: "http://proxy-vela.typheye.cn/",
+			},
+			airfilesServerURL: {
+				def: "https://wgpro.typheye.cn/push/",
+				proxy: "http://proxy-wgpro.typheye.cn/push/",
+			},
+		};
+		let flag = "def";
+		if (this.product == "Xiaomi Smart Band 9 Pro") flag = "proxy";
+		//else if (this.product == "Emulator-Vela") flag = "proxy";
+		return URIs[str][flag];
+	},
+	formatPath(uri) {
+		if (uri == "internal://files/mnt") uri = "/";
+		else uri = uri.replace("internal://files/mnt/", "/");
+		return uri;
+	},
+};
+</script>

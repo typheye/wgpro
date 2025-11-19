@@ -1,0 +1,360 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ roomName }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="wgpro-frglayout" @swipe="left">
+			<list
+				id="msgslist"
+				class="wgpro-listlayout3"
+				bounces="true"
+				onscrollbottom="onScrollBottom"
+			>
+				<list-item
+					class="wgpro-msg-layout"
+					for="{{ roommsgList }}"
+					type="item1"
+					style="margin-top:{{ $item.h1 }}px;height: {{ $item.h0 }}px;"
+				>
+					<div
+						class="wgpro-msg-layout"
+						if="{{ $item.isMsg }}"
+						onlongpress="showmsginfo($item.num)"
+					>
+						<div class="wgpro-msg-head" style="height:{{ $item.h2 }};">
+							<!--
+							<text class="wgpro-msg-head-text-role" if="{{ $item.h3 }}">
+								{{ $item.role }}
+							</text>
+							<text class="wgpro-msg-head-text-ip" if="{{ $item.h4 }}">
+								{{ $item.ip }}
+							</text>
+							-->
+							<text class="wgpro-msg-head-text">
+								{{ $item.name }}
+							</text>
+						</div>
+						<div class="wgpro-msg-box" style="align-items:{{ $item.align }};">
+							<text
+								class="wgpro-msg-box-text"
+								style="color:{{ $item.textcolor }};background-color:{{ $item.color }};"
+							>
+								{{ $item.data }}
+							</text>
+							<div
+								class="wgpro-msg-box-file"
+								style="border: 5px solid {{ $item.color }};"
+								if="{{ $item.hasFile }}"
+							>
+								<img
+									class="wgpro-msg-box-file-img"
+									src="/common/mipmap/{{ $item.fileType }}.png"
+								/>
+								<text class="wgpro-msg-box-file-text">
+									{{ $item.showFile }}
+								</text>
+							</div>
+						</div>
+					</div>
+					<div class="wgpro-msg-layout" else>
+						<text class="wgpro-msg-info">{{ $item.data }}</text>
+					</div>
+				</list-item>
+			</list>
+		</div>
+	</div>
+</template>
+
+<script>
+import fetch from "../../../../../utils/fetch.js";
+import storage from "../../../../../utils/storage.js";
+import file from "../../../../../utils/file.js";
+export default {
+	private: {
+		roommsgList: [],
+		roomName: "",
+		roomId: "",
+		roomDB: "internal://files/wgchat/",
+		taccUid: "",
+		isToBottom: false,
+		isLoading: false,
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onInit() {
+		this.userReady();
+	},
+	onReady() {
+		this.msgListReady();
+		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	onScrollBottom() {
+		if (!this.isLoading) this.msgListUpdate(false);
+	},
+	left(evt) {
+		this.$app.$def.settingsChange("wgsettings_wgchat_nowRoomID", this.roomId);
+		const totips = () => {
+			this.$app.$def.toTips("", this.$t("acts.wgchat.pushmsg.tip1"));
+		};
+		if (evt.direction === "left") {
+			this.$app.$def.shortVib(true);
+			//login state
+			storage.get({
+				key: "wgsettings_taccount_cookie",
+				success: (data) => {
+					if (!data) totips();
+					else this.$app.$def.goPage("pages/ui/acts/wgchat/pushmsg");
+				},
+				fail: () => {
+					totips();
+				},
+			});
+		} else if (evt.direction === "right") this.toBack();
+	},
+	userReady() {
+		storage.get({
+			key: "wgsettings_taccount_username",
+			success: (data) => {
+				if (data) this.taccUid = data;
+			},
+		});
+	},
+	msgListReady() {
+		file.access({
+			uri: this.roomDB + this.roomId + ".json",
+			success: () =>
+				file.readText({
+					uri: this.roomDB + this.roomId + ".json",
+					success: (data) => this.msgLoad(data.text),
+					fail: (code) => (
+						this.toBack(),
+						this.$app.$def.toTips("", `handling fail, code = ${code}`)
+					),
+				}),
+			fail: () => this.msgListUpdate(true),
+		});
+	},
+	msgListUpdate(can) {
+		this.isLoading = true;
+		fetch.fetch({
+			url:
+				this.$app.$def.getTS("serverURL") +
+				"talking/chat/" +
+				this.roomId +
+				".json",
+			responseType: "text",
+			success: (response) => {
+				if (response.code == 200) {
+					file.writeText({
+						uri: this.roomDB + this.roomId + ".json",
+						text: response.data,
+						success: () => this.msgLoad(response.data),
+						fail: (code) => {
+							this.isLoading = false;
+							if (can)
+								this.toBack(),
+									this.$app.$def.toTips("", `handling fail, code = ${code}`);
+						},
+					});
+				} else {
+					this.isLoading = false;
+					if (can)
+						this.toBack(),
+							this.$app.$def.toTips(
+								"",
+								`requests fail, code = ${response.code}`
+							);
+				}
+			},
+			fail: (code) => {
+				this.isLoading = false;
+				if (can)
+					this.toBack(),
+						this.$app.$def.toTips("", `handling fail, code = ${code}`);
+			},
+		});
+	},
+	msgLoad(data) {
+		const timestamp0 = Date.now();
+		const roommsgListUpdate = [];
+		const roomInfo = JSON.parse(data);
+		const msgLists = roomInfo.data;
+		if (msgLists.length > 0) {
+			let tol = msgLists.length + 1; //2个缓冲
+			for (let i = 0; i < tol; i++) {
+				let inx = i + 1;
+				let list_num = -1;
+				let list_h0 = 80;
+				let list_h1 = 0;
+				let list_h2 = 0;
+				let list_h3 = true;
+				let list_h4 = true;
+				let list_color = "";
+				let list_textcolor = "";
+				let list_align = "";
+				let list_role = "";
+				let list_ip = "";
+				let list_name = "";
+				let list_data = "";
+				let list_time = "";
+				let list_uid = "";
+				let list_isMsg = true;
+				let list_hasFile = false;
+				let list_fileType = "";
+				let list_showFile = "";
+				let list_fileUri = "";
+				if (inx <= msgLists.length) {
+					list_num = i;
+					list_data = msgLists[i]["data"];
+					const hasMarkers = (str) =>
+						str.startsWith("[INFOS]") && str.endsWith("[I:END]");
+					const hasMarkersPHOTO = (str) => str.endsWith("[P:END]");
+					const hasMarkersAUDIO = (str) => str.endsWith("[A:END]");
+					const hasMarkersVIDEO = (str) => str.endsWith("[V:END]");
+					const hasMarkersOTHER = (str) => str.endsWith("[O:END]");
+					const extractContent = (str) =>
+						str.replace(/^\[INFOS\]|\[I:END\]$/g, "");
+					const calculateTextHeight = (
+						minHeight,
+						text,
+						charsPerLine = "10",
+						lineHeight = "40",
+						lineSpacing = "5"
+					) => {
+						const effectiveLength = [...text].reduce(
+							(len, char) => len + (char.charCodeAt(0) > 255 ? 2 : 1),
+							0
+						);
+
+						const lineCount = Math.max(
+							1,
+							Math.ceil(effectiveLength / charsPerLine)
+						);
+						return Math.max(
+							minHeight,
+							lineCount * lineHeight + (lineCount - 1) * lineSpacing
+						);
+					};
+					if (
+						hasMarkersPHOTO(list_data) ||
+						hasMarkersVIDEO(list_data) ||
+						hasMarkersAUDIO(list_data) ||
+						hasMarkersOTHER(list_data)
+					)
+						list_data = "[INFOS]该类型消息暂不支持显示[I:END]";
+					if (hasMarkers(list_data)) {
+						list_data = extractContent(list_data);
+						list_isMsg = false;
+						list_h0 = 30 + calculateTextHeight(0, list_data, 30, 30, 3);
+						list_h1 = 10;
+						list_h2 = 0;
+					} else {
+						let addh = 0;
+						if (false) {
+							addh = 70;
+							list_hasFile = true;
+							list_fileUri = "";
+							list_fileType = "b14";
+							list_showFile = this.$t(
+								"acts.wgchat.room.typeshow." + list_fileType
+							);
+						}
+						list_ip = msgLists[i]["address"];
+						list_name = msgLists[i]["name"];
+						list_time = msgLists[i]["date"];
+						list_uid = msgLists[i]["uid"];
+						if (!list_uid) list_uid = "未知"; //没有uid
+						if (list_name != "系统消息") list_h3 = false; //没有role
+						if (!list_ip) (list_h4 = false), (list_ip = "未知"); //没有ip
+						if (list_h3) list_role = "管理员"; //role如果有
+						if (list_uid == this.taccUid) {
+							//自己发的消息
+							list_h0 = addh + 30 + calculateTextHeight(0, list_data);
+							list_h1 = 10;
+							list_h2 = 0;
+							list_color = "#3EB575";
+							list_textcolor = "black";
+							list_align = "flex-end";
+						} else {
+							//别人的
+							list_h0 = addh + 70 + calculateTextHeight(0, list_data);
+							list_h1 = 10;
+							list_h2 = 40;
+							list_color = "#3c3c3c";
+							list_textcolor = "white";
+							list_align = "flex-start";
+						}
+					}
+				}
+				roommsgListUpdate.push({
+					num: list_num,
+					h0: list_h0,
+					h1: list_h1,
+					h2: list_h2,
+					h3: list_h3,
+					h4: list_h4,
+					color: list_color,
+					textcolor: list_textcolor,
+					align: list_align,
+					role: list_role,
+					ip: list_ip,
+					name: list_name,
+					data: list_data,
+					time: list_time,
+					uid: list_uid,
+					isMsg: list_isMsg,
+					hasFile: list_hasFile,
+					fileType: list_fileType,
+					showFile: list_showFile,
+					fileUri: list_fileUri,
+				});
+			}
+		}
+		const timestamp1 = Date.now();
+		const delaytamp = 3 * (timestamp1 - timestamp0);
+		this.roommsgList = roommsgListUpdate;
+		setTimeout(() => {
+			if (!this.isToBottom) (this.isToBottom = true), this.toListBottom(true);
+		}, delaytamp);
+		this.isLoading = false;
+	},
+	toListBottom(can) {
+		let _behavior = "instant";
+		if (can) _behavior = "smooth";
+		this.$element("msgslist").scrollTo({
+			index: this.roommsgList.length - 1,
+			behavior: _behavior,
+		});
+	},
+	showmsginfo(num) {
+		if (num != -1) {
+			this.$app.$def.shortVib(true);
+			this.$app.$def.toTips(
+				this.$t("menu.chatroomlist.msginfotext"),
+				this.$app.$def.textFormat(this.$t("menu.chatroomlist.msginfodemo"), {
+					usrname: this.roommsgList[num]["name"],
+					usruid: this.roommsgList[num]["uid"],
+					usrip: this.roommsgList[num]["ip"],
+					date: this.roommsgList[num]["time"],
+					data: this.roommsgList[num]["data"],
+				})
+			);
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

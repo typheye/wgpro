@@ -1,0 +1,282 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">{{ tabtextleft }}</text>
+			<marquee class="tab-text">
+				{{ tabtext }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="wgpro-frglayout" if="{{ isMenu }}">
+			<list
+				class="wgpro-listlayout3"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ chatroommenuList }}"
+					class="wgpro-item4"
+					type="item1"
+					style="background-color: {{ $item.color }};"
+					ontouchstart="htm(1, $item.num)"
+					ontouchend="htm(0, $item.num)"
+					onclick="toRunMenu($item.id)"
+				>
+					<text
+						class="wgpro-item-texts-text2"
+						style="color: {{ $item.textcolor }};"
+					>
+						{{ $item.name }}
+					</text>
+				</list-item>
+			</list>
+		</div>
+		<div class="wgpro-frglayout" else>
+			<text class="wgpro-menu-text" onclick="opmenu(true)">
+				• {{ $t("app.menubtn") }} •
+			</text>
+			<list
+				class="wgpro-listlayout2"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ chatroomList }}"
+					class="wgpro-item3"
+					type="item1"
+					style="background-color: {{ $item.color }};"
+					ontouchstart="ht(1, $item.num)"
+					ontouchend="ht(0, $item.num)"
+					onclick="toRun($item.id, $item.num)"
+					onlongpress="toRunLong($item.id, $item.num)"
+				>
+					<div class="wgpro-item-texts-none2">
+						<text class="wgpro-item-texts-text">
+							{{ $item.name }}
+						</text>
+					</div>
+				</list-item>
+			</list>
+		</div>
+	</div>
+</template>
+
+<script>
+import file from "@system.file";
+import storage from "../../../../utils/storage.js";
+export default {
+	private: {
+		chatroomList: [],
+		chatroommenuList: [],
+		isMenu: false,
+		selectItemNum: -1,
+		menuflag: "def",
+		roomlistJSON: "",
+		tabtext: "",
+		tabtextleft: "‹",
+		roomDB: "internal://files/wgchat/",
+	},
+	ht(t, i) {
+		if (t) eval("this.chatroomList[" + i + "]['color'] = 'black'");
+		else eval("this.chatroomList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	htm(t, i) {
+		if (t) eval("this.chatroommenuList[" + i + "]['color'] = 'black'");
+		else eval("this.chatroommenuList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	onBackPress() {
+		if (!this.isMenu) this.$app.$def.toCancel(true);
+		else {
+			this.$app.$def.shortVib(true);
+			this.opmenu(false);
+		}
+		return true;
+	},
+	onInit() {
+		this.opmenu(false);
+	},
+	onReady() {
+		this.chatroommenuListReady();
+		this.chatroomListReady();
+		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
+	},
+	toBack() {
+		if (!this.isMenu) this.$app.$def.goBack();
+	},
+	toRun(id, num) {
+		if (id == "");
+		else
+			this.$app.$def.goPageWithParams("pages/ui/acts/wgchat/room", {
+				roomName: this.chatroomList[num]["name"],
+				roomId: id,
+			});
+	},
+	toRunLong(id, num) {
+		this.$app.$def.shortVib(true);
+		this.menuflag = "item";
+		this.selectItemNum = num;
+		this.ht(0, num); //fix item color
+		if (id == "");
+		else this.opmenu(true);
+	},
+	toRunMenu(id) {
+		let needoffmenu = true;
+		if (id == "") needoffmenu = false;
+		else if (id == "exit") {
+			needoffmenu = false;
+			this.$app.$def.goBack();
+		} else if (id == "back");
+		else if (id == "gosettings")
+			this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
+		else if (id == "update")
+			this.$app.$def.goReplacePage("pages/ui/function/wgchat");
+		else if (id == "delroom") {
+			var roomlist = JSON.parse(this.roomlistJSON);
+			roomlist.splice(this.selectItemNum, 1);
+			roomlist = JSON.stringify(roomlist, null);
+			this.$app.$def.settingsChange("wgsettings_wgchat_roomlist", roomlist);
+			this.$app.$def.goReplacePage("pages/ui/function/wgchat");
+		} else if (id == "clearchatdb") {
+			file.delete({
+				uri:
+					this.roomDB + this.chatroomList[this.selectItemNum]["id"] + ".json",
+				success: () => this.$app.$def.toTips("", this.$t("tips.run_success")),
+				fail: (code) =>
+					this.$app.$def.toTips(
+						"",
+						this.$t("tips.run_fail_witherror") + `handling fail, code = ${code}`
+					),
+			});
+		} else if (id == "roominfo")
+			this.$app.$def.toTips(
+				this.$t("menu.chatroomlist.item.item1.name"),
+				this.$app.$def.textFormat(
+					this.$t("menu.chatroomlist.item.item1.demo"),
+					{
+						roomname: this.chatroomList[this.selectItemNum]["name"],
+						roomid: this.chatroomList[this.selectItemNum]["id"],
+					}
+				)
+			);
+		else if (id == "addroom") {
+			this.$app.$def.goReplacePage("pages/ui/acts/wgchat/addroom");
+		} else if (id == "createroom") {
+			this.$app.$def.goPageWithParams("pages/ui/acts/wgchat/createroom", {
+				textValues: JSON.stringify({
+					name: "新房间",
+					id: "20001",
+				}),
+			});
+		}
+		this.menuflag = "def";
+		if (needoffmenu) this.opmenu(false);
+	},
+	opmenu(can) {
+		this.chatroommenuListReady();
+		if (can) {
+			this.tabtext = this.$t("app.menu");
+			this.tabtextleft = "";
+			this.isMenu = true;
+		} else {
+			this.tabtext = this.$t("display.wgchat.tabtext");
+			this.tabtextleft = "‹";
+			this.isMenu = false;
+		}
+	},
+	chatroomListReady() {
+		storage.get({
+			key: "wgsettings_wgchat_roomlist",
+			success: (data) => {
+				var chatroomListNew = [];
+				this.roomlistJSON = data;
+				const roomlist = JSON.parse(data);
+				if (roomlist.length > 0) {
+					let tol = roomlist.length + 1; //1 个缓冲垫底
+					for (let i = 0; i < tol; i++) {
+						let inx = i + 1;
+						let list_num = -1;
+						let list_color = "";
+						let list_show = false;
+						let list_id = "";
+						let list_name = "";
+						if (inx <= roomlist.length) {
+							let name = roomlist[i]["name"];
+							let id = roomlist[i]["id"];
+							list_num = i;
+							list_color = "#3c3c3c";
+							list_show = true;
+							list_id = id;
+							list_name = name;
+						}
+						chatroomListNew.push({
+							num: list_num,
+							color: list_color,
+							show: list_show,
+							id: list_id,
+							name: list_name,
+						});
+					}
+				}
+				this.chatroomList = chatroomListNew;
+			},
+		});
+	},
+	chatroommenuListReady() {
+		this.chatroommenuList = []; //清空
+		let menulistlen = 6; //默认菜单个数
+		if (this.menuflag == "item") menulistlen = 4; //房间菜单个数
+		let tol = menulistlen + 1; //1 个缓冲垫底
+		for (let i = 0; i < tol; i++) {
+			let inx = i + 1;
+			let list_num = -1;
+			let list_color = "";
+			let list_textcolor = "";
+			let list_id = "";
+			let list_name = "";
+			if (inx <= menulistlen) {
+				let name = "";
+				let id = "";
+				eval(
+					"name = this.$t('menu.chatroomlist." +
+						this.menuflag +
+						".item" +
+						inx +
+						".name')"
+				);
+				eval(
+					"id = this.$t('menu.chatroomlist." +
+						this.menuflag +
+						".item" +
+						inx +
+						".id')"
+				);
+				list_num = i;
+				list_color = "#3c3c3c";
+				if (inx == menulistlen) list_textcolor = "red";
+				else list_textcolor = "white";
+				list_id = id;
+				list_name = name;
+			}
+			this.chatroommenuList.push({
+				num: list_num,
+				color: list_color,
+				textcolor: list_textcolor,
+				id: list_id,
+				name: list_name,
+			});
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
+</style>

@@ -1,0 +1,319 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack()">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("acts.settings.taccount.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-icodiv" onclick="toRun('tologin')">
+					<div class="wgpro-icodiv-back3">
+						<image
+							class="wgpro-icodiv-back3-deflogo"
+							src="/common/mipmap/a49.png"
+						/>
+					</div>
+					<marquee class="wgpro-icodiv-text" onclick="toRun('tipusername')">
+						{{ taccUsername }}
+					</marquee>
+					<text
+						class="wgpro-icodiv-text3"
+						onclick="toRun('tipuid')"
+						if="{{ isLogin }}"
+					>
+						UID:{{ taccUid }}
+					</text>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v1 }}"
+						ontouchstart="ht(1, 'p1v1')"
+						ontouchend="ht(0, 'p1v1')"
+						onclick="toRun('tipuserinfo')"
+					>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.taccount.p1.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ taccUserinfo }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v2 }}"
+						ontouchstart="ht(1, 'p1v2')"
+						ontouchend="ht(0, 'p1v2')"
+						onclick="toRun('')"
+						if="{{ isLogin }}"
+					>
+						<div class="wgpro-item-texts">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.taccount.p1.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.taccount.p1.item2.subtext") }}
+							</marquee>
+						</div>
+						<div class="wgpro-item-right">
+							<switch
+								checked="{{ swit_it1_state }}"
+								onchange="switchange('wgsettings_taccount_allowShare','swit_it1_state')"
+								class="wgpro-item-right-switch"
+							/>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group" if="{{ isLogin }}">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v1 }}"
+						ontouchstart="ht(1, 'p2v1')"
+						ontouchend="ht(0, 'p2v1')"
+						onclick="toRun('toeditnick')"
+					>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.taccount.p2.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.taccount.p2.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v2 }}"
+						ontouchstart="ht(1, 'p2v2')"
+						ontouchend="ht(0, 'p2v2')"
+						onclick="toRun('toeditshuo')"
+					>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.taccount.p2.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.taccount.p2.item2.subtext") }}
+							</marquee>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group" if="{{ isLogin }}">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p3v1 }}"
+						ontouchstart="ht(1, 'p3v1')"
+						ontouchend="ht(0, 'p3v1')"
+						onclick="toRun('tologout')"
+					>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.taccount.p3.item1.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.taccount.p3.item1.subtext") }}
+							</marquee>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p3v2 }}"
+						ontouchstart="ht(1, 'p3v2')"
+						ontouchend="ht(0, 'p3v2')"
+						onclick="toRun('todeluser')"
+					>
+						<div class="wgpro-item-texts-none">
+							<marquee class="wgpro-item-texts-text">
+								{{ $t("acts.settings.taccount.p3.item2.text") }}
+							</marquee>
+							<marquee class="wgpro-item-texts-subtext">
+								{{ $t("acts.settings.taccount.p3.item2.subtext") }}
+							</marquee>
+						</div>
+					</div>
+				</div>
+				<div
+					class="exit-choose-value"
+					style="margin-top:20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(-1, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import storage from "../../../../../utils/storage.js";
+export default {
+	private: {
+		itc_p0v0: "#3c3c3c",
+		itc_p1v1: "rgba(0,0,0,0)",
+		itc_p1v2: "rgba(0,0,0,0)",
+		itc_p2v1: "rgba(0,0,0,0)",
+		itc_p2v2: "rgba(0,0,0,0)",
+		itc_p3v1: "rgba(0,0,0,0)",
+		itc_p3v2: "rgba(0,0,0,0)",
+		swit_it1_state: false,
+		isLogin: true,
+		taccUsername: "Loading...",
+		taccusr: "",
+		taccpwd: "",
+		taccUid: "Loading...",
+		taccUserinfo: "Loading...",
+		taccUserinfoO: "",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
+		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onReady() {
+		this.switload();
+		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRun(id) {
+		if (id == "tipusername") {
+			if (this.isLogin)
+				this.$app.$def.toTips(
+					this.$t("acts.settings.taccount.usernametext"),
+					this.taccUsername
+				);
+		} else if (id == "tipuid") {
+			if (this.isLogin)
+				this.$app.$def.toTips(
+					this.$t("acts.settings.taccount.uidtext"),
+					this.taccUid
+				);
+		} else if (id == "tipuserinfo") {
+			if (this.isLogin)
+				this.$app.$def.toTips(
+					this.$t("acts.settings.taccount.userinfotext"),
+					this.taccUserinfo
+				);
+			else this.$app.$def.toTips("", this.taccUserinfo);
+		} else if (id == "todeluser") {
+			if (this.isLogin)
+				this.$app.$def.toTipsWithQR(
+					this.$t("acts.settings.taccount.p3.item2.text"),
+					this.$t("acts.settings.taccount.delusertext"),
+					this.$t("acts.settings.taccount.p3.item2.uri")
+				);
+			else this.$app.$def.toTips("", this.taccUserinfo);
+		} else if (id == "tologin") {
+			if (!this.isLogin)
+				this.$app.$def.goReplacePageWithParams(
+					//"pages/ui/acts/settings/tacclogin",
+					"pages/ui/acts/settings/taccqrlogin",
+					{
+						textValues: JSON.stringify({
+							username: this.taccusr,
+							password: this.taccpwd,
+						}),
+					}
+				);
+		} else if (id == "tologout") {
+			if (this.isLogin)
+				this.$app.$def.goReplacePage("pages/ui/popup/tacclogout");
+		} else if (id == "toeditnick") {
+			if (this.isLogin)
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/settings/tacceditnick",
+					{
+						textValues: JSON.stringify({ msg: this.taccUsername }),
+					}
+				);
+		} else if (id == "toeditshuo") {
+			if (this.isLogin)
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/settings/tacceditshuo",
+					{
+						textValues: JSON.stringify({ msg: this.taccUserinfoO.trim() == "" ? "" : this.taccUserinfo }),
+					}
+				);
+		}
+	},
+	switload() {
+		storage.gets({
+			keys: [
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_allowShare",
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_password",
+			],
+			success: (datas) => {
+				if (datas.wgsettings_taccount_username)
+					this.taccusr = datas.wgsettings_taccount_username;
+				if (datas.wgsettings_taccount_password)
+					this.taccpwd = datas.wgsettings_taccount_password;
+				if (datas.wgsettings_taccount_allowShare == true)
+					this.swit_it1_state = true;
+				if (!datas.wgsettings_taccount_cookie) this.loginReady(false);
+				else this.loginReady(true);
+			},
+			fail: () => {
+				this.loginReady(false);
+			},
+		});
+	},
+	switchange(key, id, e) {
+		const state = e["checked"];
+		eval("this." + id + " = " + state);
+		this.$app.$def.settingsChange(key, state);
+	},
+	loginReady(can) {
+		if (can) {
+			storage.gets({
+				keys: [
+					"wgsettings_taccount_nick",
+					"wgsettings_taccount_username",
+					"wgsettings_taccount_userinfo",
+				],
+				success: (datas) => {
+					if (datas.wgsettings_taccount_nick)
+						this.taccUsername = datas.wgsettings_taccount_nick;
+					else this.taccUsername = this.$t("acts.settings.taccount.errname");
+					if (datas.wgsettings_taccount_username)
+						this.taccUid = datas.wgsettings_taccount_username;
+					else this.taccUid = this.$t("acts.settings.taccount.errname");
+					this.taccUserinfoO = datas.wgsettings_taccount_userinfo;
+					if (datas.wgsettings_taccount_userinfo)
+						this.taccUserinfo = datas.wgsettings_taccount_userinfo;
+					else this.taccUserinfo = this.$t("acts.settings.taccount.nonename");
+				},
+				fail: () => {
+					this.taccUsername = this.$t("acts.settings.taccount.errname");
+					this.taccUid = this.$t("acts.settings.taccount.errname");
+					this.taccUserinfo = this.$t("acts.settings.taccount.errname");
+				},
+			});
+		} else {
+			this.isLogin = false;
+			this.taccUsername = this.$t("acts.settings.taccount.defname");
+			this.taccUserinfo = this.$t("acts.settings.taccount.p1.item1.subtext");
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

@@ -1,0 +1,272 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">{{ $t("app.name") }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout" style="margin-top: 10px">
+				<div class="fun-list3">
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toRun('systool')"
+					>
+						<image class="fun-img" src="/common/mipmap/a39.png" />
+					</div>
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toRun('filemanger')"
+					>
+						<image class="fun-img" src="/common/mipmap/a20.png" />
+					</div>
+				</div>
+				<div class="fun-list3">
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v3 }}"
+						ontouchstart="ht(1, 'v3')"
+						ontouchend="ht(0, 'v3')"
+						onclick="toRun('wgchat')"
+					>
+						<image class="fun-img" src="/common/mipmap/a37.png" />
+					</div>
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v5 }}"
+						ontouchstart="ht(1, 'v5')"
+						ontouchend="ht(0, 'v5')"
+						onclick="toRun('plugin')"
+					>
+						<image class="fun-img" src="/common/mipmap/a48.png" />
+					</div>
+				</div>
+				<div class="fun-list3">
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v6 }}"
+						ontouchstart="ht(1, 'v6')"
+						ontouchend="ht(0, 'v6')"
+						onclick="toRun('more')"
+					>
+						<image class="fun-img" src="/common/mipmap/a43.png" />
+					</div>
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v7 }}"
+						ontouchstart="ht(1, 'v7')"
+						ontouchend="ht(0, 'v7')"
+						onclick="toRun('settings')"
+					>
+						<image class="fun-img" src="/common/mipmap/a10.png" />
+					</div>
+				</div>
+				<div class="fun-list3">
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v8 }}"
+						ontouchstart="ht(1, 'v8')"
+						ontouchend="ht(0, 'v8')"
+						onclick="toRun('backlaunch')"
+					>
+						<image class="fun-img" src="/common/mipmap/a46.png" />
+					</div>
+					<div
+						class="fun-item"
+						style="background-color: {{ fc_v9 }}"
+						ontouchstart="ht(1, 'v9')"
+						ontouchend="ht(0, 'v9')"
+						onclick="exitApp()"
+					>
+						<image class="fun-img" src="/common/mipmap/a23.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import storage from "../../../utils/storage.js";
+import fetch from "../../../utils/fetch.js";
+export default {
+	private: {
+		str1: "",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		fc_v3: "#3c3c3c",
+		fc_v4: "#3c3c3c",
+		fc_v5: "#3c3c3c",
+		fc_v6: "#3c3c3c",
+		fc_v7: "#3c3c3c",
+		fc_v8: "#3c3c3c",
+		fc_v9: "#3c3c3c",
+		fc_v10: "#3c3c3c",
+		isPopUpdate: false,
+		isPopErrLogin: false,
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		this.exitApp();
+		return true;
+	},
+	onInit() {
+		this.str1 = this.$t("tips.backLaunch");
+		this.updateCheck();
+	},
+	onShow() {
+		this.testTaccLoginCheck();
+		this.testTaccGetUserData();
+	},
+	toRun(id) {
+		if (id == "backlaunch")
+			this.$app.$def.toTips("", this.$t("tips.backLaunch"));
+		else {
+			var v_uri = "";
+			if (id == "systool") v_uri = "pages/ui/function/systool";
+			else if (id == "filemanger") v_uri = "pages/ui/function/filemanger";
+			else if (id == "wgchat") v_uri = "pages/ui/function/wgchat";
+			else if (id == "plugin") v_uri = "pages/ui/function/plugin";
+			else if (id == "more") v_uri = "pages/ui/function/more";
+			else if (id == "settings") v_uri = "pages/ui/function/settings";
+			this.$app.$def.goPage(v_uri);
+		}
+	},
+	exitApp() {
+		this.$app.$def.goPage("pages/ui/popup/exit");
+	},
+	updateCheck() {
+		//update check
+		storage.get({
+			key: "wgsettings_autoCheckUpdate",
+			success: (data) => {
+				if (data) {
+					var appinfos = this.$app.$def.getAppinfo();
+					const myvercode = appinfos.versionCode;
+					fetch.fetch({
+						url: this.$app.$def.getTS("serverURL") + "config.json",
+						responseType: "text",
+						success: (response) => {
+							//response.code, response.data, response.headers
+							const reqback = JSON.parse(response.data);
+							if (reqback["UpdateVersion"] > myvercode) {
+								storage.get({
+									key: "wgsettings_autoCheckUpdateIsShow",
+									success: (data) => {
+										if (data == "false") {
+											this.$app.$def.settingsChange(
+												"wgsettings_autoCheckUpdateIsShow",
+												"true"
+											);
+											this.$app.$def.goPage("pages/ui/acts/settings/appupdate");
+										}
+									},
+								});
+							}
+						},
+					});
+				}
+			},
+		});
+	},
+	testTaccGetUserData() {
+		if (!fetch.isEnableFetch())
+			storage.gets({
+				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
+				success: (datas) => {
+					if (
+						datas.wgsettings_taccount_cookie != null &&
+						datas.wgsettings_taccount_cookie.trim() !== "" &&
+						datas.wgsettings_taccount_username != null &&
+						datas.wgsettings_taccount_username.trim() !== ""
+					) {
+						fetch.fetch({
+							url: this.$app.$def.getTS("taccServerURL") + "api.php",
+							data_GET: {
+								type: "get_user_data",
+								uid: datas.wgsettings_taccount_username,
+								cookie: datas.wgsettings_taccount_cookie,
+							},
+							method: "GET",
+							responseType: "text",
+							success: (response) => {
+								if (response.code == 200) {
+									const reqback = JSON.parse(response.data);
+									if (reqback["code"] == 200) {
+										this.$app.$def.settingsChangeMore(
+											[
+												"wgsettings_taccount_nick",
+												"wgsettings_taccount_userinfo",
+											],
+											[reqback["info"]["nick"], reqback["info"]["shuo"]]
+										);
+									}
+								}
+							},
+						});
+					}
+				},
+			});
+	},
+	testTaccLoginCheck() {
+		if (!fetch.isEnableFetch())
+			storage.gets({
+				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
+				success: (datas) => {
+					if (
+						datas.wgsettings_taccount_cookie != null &&
+						datas.wgsettings_taccount_cookie.trim() !== "" &&
+						datas.wgsettings_taccount_username != null &&
+						datas.wgsettings_taccount_username.trim() !== ""
+					) {
+						const timestamp0 = Date.now();
+						fetch.fetch({
+							url: this.$app.$def.getTS("taccServerURL") + "api.php",
+							data_GET: {
+								type: "get_data_update_easy",
+								uid: datas.wgsettings_taccount_username,
+								cookie: datas.wgsettings_taccount_cookie,
+								time: timestamp0,
+							},
+							method: "GET",
+							responseType: "text",
+							success: (response) => {
+								if (response.code == 200) {
+									const reqback = JSON.parse(response.data);
+									if (reqback["code"] == 200) {
+										if (reqback["info_v0"] == 1) {
+											this.$app.$def.taccountInit();
+											if (!this.isPopErrLogin) {
+												this.isPopErrLogin = true;
+												this.$app.$def.toTips(
+													"",
+													"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
+												);
+											}
+										}
+									}
+								}
+							},
+						});
+					}
+				},
+			});
+	},
+};
+</script>
+
+<style>
+@import "../../../common/style/index.css";
+@import "../../../common/style/wgpro.css";
+</style>

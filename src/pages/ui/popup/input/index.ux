@@ -1,0 +1,158 @@
+<import
+	name="input-method"
+	src="../../../../components/InputMethod/InputMethod.ux"
+></import>
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab" onclick="toBackInput">
+			<text class="tab-back">{{ exitext }}</text>
+			<marquee class="tab-text"></marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div
+			class="edittext-div"
+			style="border: 4px solid {{ fc_v0 }};"
+			@click="changeState"
+		>
+			<scroll id="text_scroll" scroll-x="true" class="edittext_scroll">
+				<text
+					id="textwidth"
+					style="width: {{ scroll_textwidth }}; height: 100%"
+					class="edittext"
+				>
+					{{ textValue }}_
+				</text>
+			</scroll>
+		</div>
+		<div class="edittext-stack-div">
+			<div class="exit-choose2">
+				<div
+					class="exit-choose-value"
+					style="background-color: {{ fc_v2 }}"
+					ontouchstart="ht(1, 'v2')"
+					ontouchend="ht(0, 'v2')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+				</div>
+			</div>
+		</div>
+		<input-method
+			hide="{{ hide }}"
+			keyboardtype="{{ keyboardtype }}"
+			maxlength="5"
+			vibratemode="{{ vibratemode }}"
+			screentype="{{ screentype }}"
+			@visibility-change="onVisibilityChange"
+			@key-down="onKeyDown"
+			@delete="onDelete"
+			@complete="onComplete"
+		></input-method>
+	</div>
+</template>
+
+<script>
+import device from "@system.device";
+export default {
+	private: {
+		exitext: "‹",
+		fc_v0: "#32618D",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		textValue: "",
+		textValues: "",
+		textIndex: "",
+		hide: false,
+		reqPage: "",
+		keyboardtype: "QWERTY", //QWERTY, T9
+		vibratemode: "short",
+		screentype: "rect", //pill-shaped, rect, circle
+		scroll_textwidth: 50,
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onInit() {
+		device.getInfo({
+			success: (ret) => {
+				this.screentype = ret.screenShape;
+				if (ret.screenWidth == "432" && ret.screenHeight == "514") {
+					if (this.keyboardtype == "T9") this.screentype = "circle"; //REDMI Watch 5系列强开九键
+				}
+			},
+		});
+	},
+	onReady() {
+		const TVs = JSON.parse(this.textValues);
+		if (TVs[this.textIndex]) this.textValue = TVs[this.textIndex];
+		this.setTextWidth(true);
+	},
+	onVisibilityChange() {
+		if (!this.hide) {
+			this.fc_v0 = "#32618D";
+			this.exitext = "‹";
+		} else {
+			this.fc_v0 = "#3c3c3c";
+			this.exitext = "";
+		}
+	},
+	onDelete() {
+		this.textValue = this.textValue.slice(0, -1);
+		this.setTextWidth(false);
+	},
+	onComplete(evt) {
+		this.textValue += evt.detail.content;
+		this.setTextWidth(true);
+	},
+	setTextWidth(can) {
+		const calculateTextWidth = (str) => {
+			let totalWidth = 0;
+			for (let i = 0; i < str.length; i++) {
+				const charCode = str.charCodeAt(i);
+				if (charCode < 128) {
+					// ASCII字符，使用平均宽度18px
+					totalWidth += 18;
+				} else {
+					// 非ASCII字符（如中文），使用30px
+					totalWidth += 30;
+				}
+			}
+			return totalWidth;
+		};
+		let px = 50;
+		this.scroll_textwidth = calculateTextWidth(this.textValue + "_") + px;
+		let xy = this.scroll_textwidth;
+		if (!can) xy = 100000;
+		this.$element("text_scroll").scrollTo({
+			left: xy,
+			behavior: "instant",
+		});
+	},
+	toBack() {
+		const TVs = JSON.parse(this.textValues);
+		TVs[this.textIndex] = this.textValue;
+		this.textValues = JSON.stringify(TVs);
+		this.$app.$def.goReplacePageWithParams(this.reqPage, {
+			textValues: this.textValues,
+		});
+	},
+	toBackInput() {
+		if (!this.hide) this.hide = !this.hide;
+		this.onVisibilityChange();
+	},
+	changeState() {
+		this.$app.$def.shortVib(true);
+		this.hide = !this.hide;
+		this.onVisibilityChange();
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+</style>

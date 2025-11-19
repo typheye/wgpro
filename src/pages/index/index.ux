@@ -1,0 +1,48 @@
+<template>
+	<div class="page" @swipe="right">
+		<image class="splash-logo" src="/common/mipmap/ic_splash.png" />
+	</div>
+</template>
+
+<script>
+import storage from "../../utils/storage.js";
+export default {
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onReady() {
+		setTimeout(this.launch(), 1000);
+	},
+	launch() {
+		storage.gets({
+			keys: ["wgsettings_fm_saveCopyCache", "wgsettings_init"],
+			success: (datas) => {
+				if (datas.wgsettings_init == true) {
+					this.$app.$def.settingsChange(
+						"wgsettings_autoCheckUpdateIsShow",
+						"false"
+					);
+					if (!datas.wgsettings_fm_saveCopyCache == true)
+						this.$app.$def.settingsChangeMore(
+							["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+							["", ""]
+						);
+						this.$app.$def.taccLoginCheck();
+						this.$app.$def.taccGetUserData();
+					this.$app.$def.goReplacePage("pages/ui/home");
+				} else {
+					this.$app.$def.goReplacePage("pages/ui/popup/init");
+				}
+			},
+			fail: () => {
+				this.$app.$def.goReplacePage("pages/ui/popup/init");
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../common/style/index.css";
+</style>

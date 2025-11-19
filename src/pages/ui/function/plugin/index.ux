@@ -1,0 +1,284 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">{{ tabtextleft }}</text>
+			<marquee class="tab-text">
+				{{ tabtext }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="wgpro-frglayout" if="{{ isMenu }}">
+			<list
+				class="wgpro-listlayout3"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ plugmenuList }}"
+					class="wgpro-item4"
+					type="item1"
+					style="background-color: {{ $item.color }};"
+					ontouchstart="htm(1, $item.num)"
+					ontouchend="htm(0, $item.num)"
+					onclick="toRunMenu($item.id)"
+				>
+					<text
+						class="wgpro-item-texts-text2"
+						style="color: {{ $item.textcolor }};"
+					>
+						{{ $item.name }}
+					</text>
+				</list-item>
+			</list>
+		</div>
+		<div class="wgpro-frglayout" else>
+			<text class="wgpro-menu-text" onclick="opmenu(true)">
+				• {{ $t("app.menubtn") }} •
+			</text>
+			<list
+				class="wgpro-listlayout2"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ plugList }}"
+					class="wgpro-item3"
+					type="item1"
+					style="background-color: {{ $item.color }};"
+					ontouchstart="ht(1, $item.num)"
+					ontouchend="ht(0, $item.num)"
+					onclick="toRun($item.id)"
+					onlongpress="toRunLong($item.id, $item.num)"
+				>
+					<div class="wgpro-item-texts-none2">
+						<text class="wgpro-item-texts-text">
+							{{ $item.name }}
+						</text>
+					</div>
+				</list-item>
+			</list>
+		</div>
+	</div>
+</template>
+
+<script>
+import storage from "../../../../utils/storage.js";
+export default {
+	private: {
+		plugList: [],
+		plugmenuList: [],
+		isMenu: false,
+		selectItemNum: -1,
+		menuflag: "def",
+		pluglistJSON: "",
+		tabtext: "",
+		tabtextleft: "‹",
+		plugDB: "internal://files/plugin/",
+	},
+	ht(t, i) {
+		if (t) eval("this.plugList[" + i + "]['color'] = 'black'");
+		else eval("this.plugList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	htm(t, i) {
+		if (t) eval("this.plugmenuList[" + i + "]['color'] = 'black'");
+		else eval("this.plugmenuList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	onBackPress() {
+		if (!this.isMenu) this.$app.$def.toCancel(true);
+		else {
+			this.$app.$def.shortVib(true);
+			this.opmenu(false);
+		}
+		return true;
+	},
+	onInit() {
+		this.opmenu(false);
+	},
+	onReady() {
+		this.plugmenuListReady();
+		this.plugListReady();
+		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
+	},
+	toBack() {
+		if (!this.isMenu) this.$app.$def.goBack();
+	},
+	toRun(id) {
+		if (id == "");
+		else if (id == "10000") {
+			var roomnumlimit = this.$app.$def.getRoomNumLimit();
+			storage.get({
+				key: "wgsettings_wgchat_roomlist",
+				success: (data) => {
+					var roomlist = JSON.parse(data);
+					if (roomlist.length >= roomnumlimit)
+						this.$app.$def.toTips(
+							"",
+							this.$t("menu.chatroomlist.def.item2.err2")
+						);
+					else {
+						const plugroomname = "扩展推荐";
+						const plugroomid = 400;
+						if (!roomlist.some((room) => room.id === plugroomid)) {
+							// 如果不存在，才添加到数组
+							roomlist.push({
+								id: plugroomid,
+								name: plugroomname,
+							});
+						}
+						roomlist = JSON.stringify(roomlist, null);
+						this.$app.$def.settingsChange(
+							"wgsettings_wgchat_roomlist",
+							roomlist
+						);
+						this.$app.$def.goPageWithParams("pages/ui/acts/wgchat/room", {
+							roomName: plugroomname,
+							roomId: plugroomid,
+						});
+					}
+				},
+				fail: () => {
+					this.$app.$def.toTips("", this.$t("tips.run_fail"));
+				},
+			});
+		} else if (id == "10001")
+			this.$app.$def.goPage("pages/ui/acts/plugin/project/p10001");
+		else this.$app.$def.toTips("", this.$t("tips.run_fail"));
+	},
+	toRunLong(id, num) {
+		this.$app.$def.shortVib(true);
+		this.menuflag = "item";
+		this.selectItemNum = num;
+		this.ht(0, num); //fix item color
+		if (id == "");
+		else this.opmenu(true);
+	},
+	toRunMenu(id) {
+		let needoffmenu = true;
+		if (id == "") needoffmenu = false;
+		else if (id == "exit") {
+			needoffmenu = false;
+			this.$app.$def.goBack();
+		} else if (id == "back");
+		else if (id == "update")
+			this.$app.$def.goReplacePage("pages/ui/function/plugin");
+		else if (id == "delplug") {
+			var pluglist = JSON.parse(this.pluglistJSON);
+			pluglist.splice(this.selectItemNum, 1);
+			pluglist = JSON.stringify(pluglist, null);
+			this.$app.$def.settingsChange("wgsettings_plugin_pluglist", pluglist);
+			this.$app.$def.goReplacePage("pages/ui/function/plugin");
+		} else if (id == "addplug") {
+			this.$app.$def.goReplacePage("pages/ui/acts/plugin/addplug");
+		}
+		this.menuflag = "def";
+		if (needoffmenu) this.opmenu(false);
+	},
+	opmenu(can) {
+		this.plugmenuListReady();
+		if (can) {
+			this.tabtext = this.$t("app.menu");
+			this.tabtextleft = "";
+			this.isMenu = true;
+		} else {
+			this.tabtext = this.$t("display.plugin.tabtext");
+			this.tabtextleft = "‹";
+			this.isMenu = false;
+		}
+	},
+	plugListReady() {
+		storage.get({
+			key: "wgsettings_plugin_pluglist",
+			success: (data) => {
+				var plugListNew = [];
+				this.pluglistJSON = data;
+				const pluglist = JSON.parse(data);
+				if (pluglist.length > 0) {
+					let tol = pluglist.length + 1; //1 个缓冲垫底
+					for (let i = 0; i < tol; i++) {
+						let inx = i + 1;
+						let list_num = -1;
+						let list_color = "";
+						let list_show = false;
+						let list_id = "";
+						let list_name = "";
+						if (inx <= pluglist.length) {
+							let name = pluglist[i]["name"];
+							let id = pluglist[i]["id"];
+							list_num = i;
+							list_color = "#3c3c3c";
+							list_show = true;
+							list_id = id;
+							list_name = name;
+						}
+						plugListNew.push({
+							num: list_num,
+							color: list_color,
+							show: list_show,
+							id: list_id,
+							name: list_name,
+						});
+					}
+				}
+				this.plugList = plugListNew;
+			},
+		});
+	},
+	plugmenuListReady() {
+		this.plugmenuList = []; //清空
+		let menulistlen = 4; //默认菜单个数
+		if (this.menuflag == "item") menulistlen = 2; //扩展菜单个数
+		let tol = menulistlen + 1; //1 个缓冲垫底
+		for (let i = 0; i < tol; i++) {
+			let inx = i + 1;
+			let list_num = -1;
+			let list_color = "";
+			let list_textcolor = "";
+			let list_id = "";
+			let list_name = "";
+			if (inx <= menulistlen) {
+				let name = "";
+				let id = "";
+				eval(
+					"name = this.$t('menu.pluginlist." +
+						this.menuflag +
+						".item" +
+						inx +
+						".name')"
+				);
+				eval(
+					"id = this.$t('menu.pluginlist." +
+						this.menuflag +
+						".item" +
+						inx +
+						".id')"
+				);
+				list_num = i;
+				list_color = "#3c3c3c";
+				if (inx == menulistlen) list_textcolor = "red";
+				else list_textcolor = "white";
+				list_id = id;
+				list_name = name;
+			}
+			this.plugmenuList.push({
+				num: list_num,
+				color: list_color,
+				textcolor: list_textcolor,
+				id: list_id,
+				name: list_name,
+			});
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
+</style>
