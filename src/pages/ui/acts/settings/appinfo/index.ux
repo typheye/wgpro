@@ -215,8 +215,8 @@ export default {
 	lonlogo() {
 		this.eggsdj = 0;
 		this.$app.$def.shortVib(true);
-		//Debug Page
-		//this.$app.$def.goPage("pages/ui/function/debugs");
+		// Debug Page
+		// this.$app.$def.goPage("pages/ui/function/debugs");
 		return true;
 	},
 };

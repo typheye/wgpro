@@ -783,6 +783,9 @@
         "initpoli": "《服务条款与隐私协议》",
         "comfirm": "确定",
         "cancel": "取消",
+        "exit": "退出",
+        "ref": "刷新",
+        "wait": "请稍后...",
         "appexit": "您确定要退出软件吗?",
         "tacclogout": "您确定要退出登录吗?"
     },

@@ -388,8 +388,8 @@ export default {
 		return String.fromCharCode.apply(null, charCodes);
 	},
 	calcTextNum() {
-		let maxWidth = this.scrWidth * 0.7;
-		let maxHeight = this.scrHeight * 0.7;
+		let maxWidth = this.scrWidth * 0.5;
+		let maxHeight = this.scrHeight * 0.5;
 		let fontSize = parseInt(this.value_fontSize);
 		let wnum = Math.ceil(maxWidth / fontSize);
 		if (wnum > 2) wnum -= 2;

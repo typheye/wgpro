@@ -220,7 +220,7 @@ export default {
 		});
 	},
 	getRoomNumLimit() {
-		return 5;
+		return 20;
 	},
 	getPlugNumLimit() {
 		return 5;

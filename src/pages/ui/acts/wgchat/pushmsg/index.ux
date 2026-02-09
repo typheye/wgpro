@@ -50,6 +50,7 @@
 </template>
 
 <script>
+import brightness from "@system.brightness";
 import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 export default {
@@ -59,8 +60,9 @@ export default {
 		fc_v2: "#3c3c3c",
 		isLoading: false,
 		textValues: "",
-		inputValues: { msg: "" },
+		inputValues: { msg: "", roomId: "", roomName: "" },
 		roomId: "",
+		roomName: "",
 		usrNick: "",
 		usrUid: "",
 	},
@@ -72,6 +74,16 @@ export default {
 	onReady() {
 		this.inputReady();
 		this.usrLoad();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
 	},
 	usrLoad() {
 		storage.gets({
@@ -94,6 +106,16 @@ export default {
 		if (this.textValues) {
 			const TVs = JSON.parse(this.textValues);
 			this.inputValues["msg"] = TVs["msg"];
+		}
+		if (this.roomId && this.roomName) {
+			this.inputValues["roomId"] = this.roomId;
+			this.inputValues["roomName"] = this.roomName;
+		} else {
+			if (this.textValues) {
+				const TVs = JSON.parse(this.textValues);
+				this.inputValues["roomId"] = TVs["roomId"];
+				this.inputValues["roomName"] = TVs["roomName"];
+			}
 		}
 	},
 	onBackPress() {
@@ -142,7 +164,19 @@ export default {
 		}
 	},
 	toBack() {
-		this.$app.$def.goBack();
+		let rn = "";
+		let ri = "";
+		if (this.roomId && this.roomName) {
+			rn = this.roomName;
+			ri = this.roomId;
+		} else {
+			rn = this.inputValues["roomName"];
+			ri = this.inputValues["roomId"];
+		}
+		this.$app.$def.goReplacePageWithParams("pages/ui/acts/wgchat/room", {
+			roomName: rn,
+			roomId: ri,
+		});
 	},
 	toEditText() {
 		this.$app.$def.shortVib(true);

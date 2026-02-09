@@ -12,6 +12,8 @@
 				id="msgslist"
 				class="wgpro-listlayout3"
 				bounces="true"
+				onscrolltop="onScrollTop"
+				onscroll="onScroll"
 				onscrollbottom="onScrollBottom"
 			>
 				<list-item
@@ -70,6 +72,7 @@
 </template>
 
 <script>
+import brightness from "@system.brightness";
 import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 import file from "../../../../../utils/file.js";
@@ -80,8 +83,11 @@ export default {
 		roomId: "",
 		roomDB: "internal://files/wgchat/",
 		taccUid: "",
-		isToBottom: false,
 		isLoading: false,
+		isUserScrolling: false, // 用户是否正在手动滚动
+		lastScrollY: 0, // 上次滚动位置
+		isNearBottom: true, // 是否在底部附近
+		maxScrollY: 0, // 记录过的最大滚动位置
 	},
 	onBackPress() {
 		this.$app.$def.toCancel(true);
@@ -95,12 +101,23 @@ export default {
 		this.$app.$def.taccLoginCheck();
 		this.$app.$def.taccGetUserData();
 	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+	},
 	toBack() {
 		this.$app.$def.goBack();
 	},
 	onScrollBottom() {
 		if (!this.isLoading) this.msgListUpdate(false);
 	},
+	onScrollTop() {},
 	left(evt) {
 		this.$app.$def.settingsChange("wgsettings_wgchat_nowRoomID", this.roomId);
 		const totips = () => {
@@ -113,7 +130,14 @@ export default {
 				key: "wgsettings_taccount_cookie",
 				success: (data) => {
 					if (!data) totips();
-					else this.$app.$def.goPage("pages/ui/acts/wgchat/pushmsg");
+					else
+						this.$app.$def.goReplacePageWithParams(
+							"pages/ui/acts/wgchat/pushmsg",
+							{
+								roomName: this.roomName,
+								roomId: this.roomId,
+							}
+						);
 				},
 				fail: () => {
 					totips();
@@ -155,10 +179,11 @@ export default {
 			responseType: "text",
 			success: (response) => {
 				if (response.code == 200) {
+					this.msgLoad(response.data);
 					file.writeText({
 						uri: this.roomDB + this.roomId + ".json",
 						text: response.data,
-						success: () => this.msgLoad(response.data),
+						success: () => (this.isLoading = false),
 						fail: (code) => {
 							this.isLoading = false;
 							if (can)
@@ -185,8 +210,8 @@ export default {
 		});
 	},
 	msgLoad(data) {
+		var roommsgListUpdate = [];
 		const timestamp0 = Date.now();
-		const roommsgListUpdate = [];
 		const roomInfo = JSON.parse(data);
 		const msgLists = roomInfo.data;
 		if (msgLists.length > 0) {
@@ -320,17 +345,84 @@ export default {
 				});
 			}
 		}
-		const timestamp1 = Date.now();
-		const delaytamp = 3 * (timestamp1 - timestamp0);
-		this.roommsgList = roommsgListUpdate;
-		setTimeout(() => {
-			if (!this.isToBottom) (this.isToBottom = true), this.toListBottom(true);
-		}, delaytamp);
-		this.isLoading = false;
+
+		// 过滤掉空项（num === -1 的是空项）
+		const realOldMessages = this.roommsgList;
+		const realNewMessages = roommsgListUpdate;
+
+		const oldCount = realOldMessages.length;
+		const newCount = realNewMessages.length;
+
+		if (newCount != oldCount || realOldMessages == 0) {
+			this.roommsgList = roommsgListUpdate;
+			const timestamp1 = Date.now();
+			const delaytamp = 5 * (timestamp1 - timestamp0);
+			this.lastNewMessageTime = timestamp1;
+			setTimeout(() => {
+				this.toListBottom(true);
+			}, delaytamp);
+		}
+	},
+	// 监听滚动事件
+	onScroll(e) {
+		// e.scrollY: 当前垂直滚动位置
+		// e.scrollState: 滚动状态
+
+		this.lastScrollY = e.scrollY;
+
+		// 根据滚动状态判断
+		if (e.scrollState === 1) {
+			// 状态1：用户正在手动滑动
+			this.isUserScrolling = true;
+		} else if (e.scrollState === 0 || e.scrollState === 2) {
+			// 状态0：停止滑动 或 状态2：惯性滑动中
+			// 可以延迟一小段时间后判断用户是否停止交互
+			setTimeout(() => {
+				this.isUserScrolling = false;
+			}, 500);
+		}
+
+		// 更新最大滚动位置（用于判断是否在底部）
+		if (e.scrollY > this.maxScrollY) {
+			this.maxScrollY = e.scrollY;
+		}
+	},
+
+	// 判断是否应该滚动到底部的逻辑
+	shouldScrollToBottom() {
+		// 情况1：用户没有在手动滚动
+		if (!this.isUserScrolling) {
+			return true;
+		}
+
+		// 情况2：用户在底部附近（通过滚动位置判断）
+		// 由于无法获取列表总高度，我们可以用其他方式判断
+		const isAtBottom = this.checkIfAtBottom();
+
+		return isAtBottom;
+	},
+
+	// 判断是否在底部附近
+	checkIfAtBottom() {
+		// 方法1：通过滚动状态和位置简单判断
+		// 如果最近一次滚动是向下的，可能用户在看新消息
+		if (this.lastScrollDirection === "down") {
+			return true;
+		}
+
+		// 方法2：如果没有新消息很长时间，用户可能在查看历史
+		const now = Date.now();
+		if (now - this.lastNewMessageTime > 10000) {
+			// 10秒内没有新消息
+			return false;
+		}
+
+		// 默认返回true，保持友好体验
+		return true;
 	},
 	toListBottom(can) {
-		let _behavior = "instant";
-		if (can) _behavior = "smooth";
+		let _behavior = "smooth";
+		if (can) _behavior = "instant";
 		this.$element("msgslist").scrollTo({
 			index: this.roommsgList.length - 1,
 			behavior: _behavior,
