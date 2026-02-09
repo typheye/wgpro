@@ -1,16 +1,12 @@
 package com.typheye.wgpro.ui.function;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,7 +26,6 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.core.content.ContextCompat;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -48,12 +43,6 @@ public class WebActivity extends AppCompatActivity {
     private WebView webView;
     private ValueCallback<Uri[]> mFilePathCallback; // 保存文件选择回调
     private ActivityResultLauncher<Intent> fileChooserLauncher; // 文件选择器启动器
-    private DownloadManager downloadManager;
-    private ActivityResultLauncher<String> requestPermissionLauncher;
-
-    // 用于存储待下载的文件信息（权限请求后使用）
-    private String pendingDownloadUrl;
-    private String pendingDownloadMimeType;
 
 
     @Override
@@ -236,29 +225,11 @@ public class WebActivity extends AppCompatActivity {
                     .setMessage("是否要下载文件：\n" + fileName)
                     .setPositiveButton("下载", (dialog, which) -> {
                         // 用户确认下载
-                        startDownload(url1, mimeType);
+                        startDownload(url1);
                     })
                     .setNegativeButton("取消", (dialog, which) -> dialog.dismiss())
                     .show();
         });
-
-        downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-
-        // ✅ 权限请求处理
-        requestPermissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                isGranted -> {
-                    if (isGranted && pendingDownloadUrl != null) {
-                        // 权限已授予，执行下载
-                        handleDownload(pendingDownloadUrl, pendingDownloadMimeType);
-                        // 清除待下载状态
-                        pendingDownloadUrl = null;
-                        pendingDownloadMimeType = null;
-                    } else {
-                        Toast.makeText(WebActivity.this, "需要存储权限才能下载", Toast.LENGTH_SHORT).show();
-                    }
-                }
-        );
 
         // 初始化文件选择器启动器
         fileChooserLauncher = registerForActivityResult(
@@ -300,40 +271,30 @@ public class WebActivity extends AppCompatActivity {
     }
 
     // ✅ 处理下载请求（含权限检查）
-    private void startDownload(String url, String mimeType) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            // API 33+ 需要权限
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                    != PackageManager.PERMISSION_GRANTED) {
-                // 保存待下载信息
-                pendingDownloadUrl = url;
-                pendingDownloadMimeType = mimeType;
-                // 请求权限
-                requestPermissionLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-                return;
+    private void startDownload(String url) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // 检查是否有应用可以处理此链接
+            if (intent.resolveActivity(getPackageManager()) != null) {
+                startActivity(intent);
+                Toast.makeText(this, "正在使用系统浏览器下载", Toast.LENGTH_SHORT).show();
+            } else {
+                // 没有可处理的应用，使用默认浏览器
+                intent.setPackage("com.android.chrome"); // 尝试Chrome
+                try {
+                    startActivity(intent);
+                } catch (ActivityNotFoundException e) {
+                    // 回退到任何可用的浏览器
+                    intent.setPackage(null);
+                    startActivity(Intent.createChooser(intent, "选择浏览器进行下载"));
+                }
             }
+        } catch (Exception e) {
+            Toast.makeText(this, "无法打开下载链接: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Log.e("Download", "Failed to open download link", e);
         }
-
-        Toast.makeText(WebActivity.this, "文件已开始下载，打开通知栏查看下载进度", Toast.LENGTH_SHORT).show();
-        // 权限已授予，直接下载
-        handleDownload(url, mimeType);
-    }
-
-    // ✅ 执行实际下载
-    private void handleDownload(String url, String mimeType) {
-        // 从URL提取安全文件名
-        String fileName = getFileNameFromUrl(url);
-        Log.d("Download", "开始下载: " + fileName);
-
-        DownloadManager.Request request = new DownloadManager.Request(Uri.parse(url));
-        request.setMimeType(mimeType);
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
-        request.setTitle("正在下载: " + fileName);
-        request.setDestinationInExternalPublicDir(Environment.DIRECTORY_DOWNLOADS, fileName);
-
-        // 启动下载
-        downloadManager.enqueue(request);
-        Toast.makeText(this, "下载已开始", Toast.LENGTH_SHORT).show();
     }
 
 

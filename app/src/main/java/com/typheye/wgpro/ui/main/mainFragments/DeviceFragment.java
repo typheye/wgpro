@@ -44,8 +44,6 @@ public class DeviceFragment extends Fragment {
         midevice_help = view.findViewById(R.id.card_midevice_help);
         Button midevice_btn_open = view.findViewById(R.id.btn_midevice_open);
         Button midevice_btn_help = view.findViewById(R.id.btn_midevice_help);
-        Button andevice_btn_open = view.findViewById(R.id.btn_andevice_open);
-        Button andevice_btn_help = view.findViewById(R.id.btn_andevice_help);
 
         midevice_btn_open.setOnClickListener(v -> {
             // 获取宿主 Activity，并强转为 MainActivity
@@ -56,18 +54,6 @@ public class DeviceFragment extends Fragment {
         });
 
         midevice_btn_help.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("提示")
-                .setMessage("敬请期待")
-                .setPositiveButton("确定", null)
-                .show());
-
-        andevice_btn_open.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("提示")
-                .setMessage("敬请期待")
-                .setPositiveButton("确定", null)
-                .show());
-
-        andevice_btn_help.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("提示")
                 .setMessage("敬请期待")
                 .setPositiveButton("确定", null)

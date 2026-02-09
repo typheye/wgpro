@@ -65,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
     private DeviceFragment deviceFragment;
     private AccountFragment accountFragment;
     public static UIParams current_params = new UIParams();
-    public static List<String> logs = new ArrayList<>(Arrays.asList("wgpro-android Tool V2", "https://github.com/typheye/wgpro-android"));
+    public static List<String> logs = new ArrayList<>(Arrays.asList("wgpro-android Tool V3", "https://github.com/typheye/wgpro"));
     public static NodeApi nodeApi = null;
     public static AuthApi authApi = null;
     public static MessageApi messageApi = null;
