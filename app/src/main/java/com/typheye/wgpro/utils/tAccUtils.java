@@ -1064,4 +1064,52 @@ public class tAccUtils {
         String tokenString = "type=check_login_request_status&requestId=" + requestId + "&time=" + time;
         return md5(tokenString);
     }
+
+    /**
+     * 为WebActivity设置登录Cookie
+     */
+    public void setWebViewCookies() {
+        try {
+            String uid = getUid();
+            String cookie = getCookie();
+            android.webkit.CookieManager cookieManager = android.webkit.CookieManager.getInstance();
+            cookieManager.setAcceptCookie(true);
+
+            // 针对typheye.cn域设置Cookie
+            String domain = "typheye.cn";
+
+            // 1. 设置 TypheyeCookie = md5(md5(cookie + '#' + uid))
+            String typheyeCookieValue = cookie + "#" + uid;
+            String typheyeCookie = md5(md5(typheyeCookieValue));
+            String cookie1 = "TypheyeCookie=" + typheyeCookie
+                    + "; Domain=" + domain
+                    + "; Path=/"
+                    + "; Secure"
+                    + "; Max-Age=360000";
+            cookieManager.setCookie("https://typheye.cn", cookie1);
+
+            // 2. 设置 TypheyeUserCookie
+            String cookie2 = "TypheyeUserCookie=" + cookie
+                    + "; Domain=" + domain
+                    + "; Path=/"
+                    + "; Secure"
+                    + "; Max-Age=360000";
+            cookieManager.setCookie("https://typheye.cn", cookie2);
+
+            // 3. 设置 TypheyeUserUidCookie
+            String cookie3 = "TypheyeUserUidCookie=" + uid
+                    + "; Domain=" + domain
+                    + "; Path=/"
+                    + "; Secure"
+                    + "; Max-Age=360000";
+            cookieManager.setCookie("https://typheye.cn", cookie3);
+
+            // 强制同步
+            cookieManager.flush();
+
+            Log.d("tAccUtils", "Cookies set for WebView - UID: " + uid);
+        } catch (Exception e) {
+            Log.e("tAccUtils", "Failed to set WebView cookies", e);
+        }
+    }
 }

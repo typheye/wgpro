@@ -2,6 +2,7 @@ package com.typheye.wgpro.ui.main.mainFragments;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -44,9 +46,16 @@ public class HomeFragment extends Fragment {
         Button home_btn_notice_more = view.findViewById(R.id.btn_notice_more);
         Button home_btn_fun_airpush = view.findViewById(R.id.btn_fun_airpush);
         Button home_btn_help_support = view.findViewById(R.id.btn_help_support);
+        ImageView home_img_banner = view.findViewById(R.id.img_banner);
 
         String nick = accUtils.getNick();
         if (accUtils.isLogin()) home_text_hello_title.setText("你好，" + nick);
+
+        home_img_banner.setOnClickListener(v -> {
+            Intent intent = new Intent(getActivity(), WebActivity.class);
+            intent.putExtra("URL", "https://wgpro.typheye.cn");
+            startActivity(intent);
+        });
 
         home_btn_help_play.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebActivity.class);

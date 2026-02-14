@@ -33,6 +33,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.tAccUtils;
 
 import android.view.inputmethod.InputMethodManager;
 
@@ -252,6 +253,9 @@ public class WebActivity extends AppCompatActivity {
 
         // 加载URL
         webView.loadUrl(url);
+
+        tAccUtils accUtils = new tAccUtils(this);
+        if (accUtils.isLogin()) accUtils.setWebViewCookies();
     }
 
     // ✅ 核心：安全提取文件名
