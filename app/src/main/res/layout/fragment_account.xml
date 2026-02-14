@@ -219,58 +219,6 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="已登录设备"
-                            android:textColor="@color/text_u1"
-                            android:textSize="18sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/text_usr_login_device_info"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text=""
-                            android:textColor="@color/text_u2"
-                            android:layout_marginTop="4dp"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layout_marginTop="8dp"
-                            android:gravity="right">
-                            <Button
-                                android:id="@+id/btn_account_manger_device"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="管理"
-                                android:textColor="@color/white"
-                                android:textSize="12sp"
-                                android:paddingHorizontal="5dp"
-                                android:backgroundTint="@color/tab_accent"
-                                android:minHeight="40dp" />
-                        </LinearLayout>
-                    </LinearLayout>
-                </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:cardBackgroundColor="@color/tab_background_th"
-                    android:layout_marginBottom="16dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="16dp">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
                             android:text="退出账户"
                             android:textColor="@color/text_u1"
                             android:textSize="18sp"

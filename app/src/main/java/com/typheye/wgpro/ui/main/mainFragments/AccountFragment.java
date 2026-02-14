@@ -48,12 +48,10 @@ public class AccountFragment extends Fragment {
     private Button account_btn_edit;
     private Button account_btn_logout;
     private Button account_btn_goto_help;
-    private Button account_btn_account_manger_device;
     private TextView account_text_usr_icon;
     private TextView account_text_usr_uid;
     private TextView account_text_usr_nick;
     private TextView account_text_usr_shuo;
-    private TextView account_text_usr_login_device_info;
     private ImageView account_image_usr_icon;
 
     @Override
@@ -75,12 +73,10 @@ public class AccountFragment extends Fragment {
         account_btn_edit = view.findViewById(R.id.btn_account_edit);
         account_btn_logout = view.findViewById(R.id.btn_account_logout);
         account_btn_goto_help = view.findViewById(R.id.btn_account_goto_help);
-        account_btn_account_manger_device = view.findViewById(R.id.btn_account_manger_device);
         account_text_usr_icon = view.findViewById(R.id.text_usr_icon);
         account_text_usr_uid = view.findViewById(R.id.text_usr_uid);
         account_text_usr_nick = view.findViewById(R.id.text_usr_nick);
         account_text_usr_shuo = view.findViewById(R.id.text_usr_shuo);
-        account_text_usr_login_device_info = view.findViewById(R.id.text_usr_login_device_info);
         account_image_usr_icon = view.findViewById(R.id.image_usr_icon);
 
         updateUI();
@@ -127,12 +123,6 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         });
 
-        account_btn_account_manger_device.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("提示")
-                .setMessage("敬请期待")
-                .setPositiveButton("确定", null)
-                .show());
-
         account_btn_logout.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("退出登录")
                 .setMessage("确定要退出登录吗？此操作将清除所有本地账户数据")
@@ -166,7 +156,6 @@ public class AccountFragment extends Fragment {
 
             String cleanShuo = shuo != null ? shuo.trim() : "";
             account_text_usr_shuo.setText(cleanShuo.isEmpty() ? "暂未设置" : cleanShuo);
-            account_text_usr_login_device_info.setText("当前设备: Android " + android.os.Build.VERSION.RELEASE);
 
             // ====== 关键修复：直接加载头像，不隐藏头像区域 ======
             loadAvatarFromCache(uid);
