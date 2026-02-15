@@ -7,6 +7,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -46,12 +47,12 @@ public class HomeFragment extends Fragment {
         Button home_btn_notice_more = view.findViewById(R.id.btn_notice_more);
         Button home_btn_fun_airpush = view.findViewById(R.id.btn_fun_airpush);
         Button home_btn_help_support = view.findViewById(R.id.btn_help_support);
-        ImageView home_img_banner = view.findViewById(R.id.img_banner);
+        CardView home_card_banner = view.findViewById(R.id.card_banner);
 
         String nick = accUtils.getNick();
         if (accUtils.isLogin()) home_text_hello_title.setText("你好，" + nick);
 
-        home_img_banner.setOnClickListener(v -> {
+        home_card_banner.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebActivity.class);
             intent.putExtra("URL", "https://wgpro.typheye.cn");
             startActivity(intent);

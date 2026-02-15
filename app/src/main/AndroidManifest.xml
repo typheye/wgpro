@@ -97,6 +97,11 @@
                 <data android:scheme="wgproGrant" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.oobe.OobeActivity"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:exported="true"
+            android:windowSoftInputMode="stateHidden|adjustPan" />
     </application>
 
 </manifest>

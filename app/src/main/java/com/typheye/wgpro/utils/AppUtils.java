@@ -112,10 +112,27 @@ public class AppUtils {
         SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
         prefs.edit().putBoolean("appInit", true).apply();
     }
+    public static void appUninit(Context context){
+        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
+        SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
+        prefs.edit().putBoolean("appInit", false).apply();
+    }
     public static boolean getAppInit(Context context){
         // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
         SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
         return prefs.getBoolean("appInit", false); // 默认值false
+    }
+
+    public static void setAppVersionMode(Context context, String app_versionMode){
+        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
+        SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
+        prefs.edit().putString("appVersionMode", app_versionMode).apply();
+    }
+
+    public static String getAppVersionMode(Context context){
+        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
+        SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
+        return prefs.getString("appVersionMode", "standard");
     }
     private static void saveAppNotice(Context context, String appNotice){
         // 获取 SharedPreferences 对象（使用自定义名称，如 "app_settings"，避免与其他应用冲突）

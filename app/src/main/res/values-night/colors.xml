@@ -7,4 +7,5 @@
     <color name="text_u1">@color/white</color>
     <color name="tab_accent_th">#1E2A32</color>
     <color name="tab_background_th">#15151A</color>
+    <color name="outline_unselected">#333333</color> <!-- 或使用 ?attr/colorOutline，但需确保对比度 -->
 </resources>

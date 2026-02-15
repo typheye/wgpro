@@ -23,6 +23,7 @@
             android:padding="16dp">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/card_banner"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
                 app:cardCornerRadius="12dp"
@@ -33,14 +34,16 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
+                    android:background="@drawable/banner"
                     android:gravity="center">
-                    <ImageView
-                        android:id="@+id/img_banner"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/banner"
-                        android:scaleType="centerCrop">
-                    </ImageView>
+                    <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="WGPro"
+                            android:textColor="@color/tab_pink"
+                            android:textSize="50sp"
+                            android:textStyle="bold"
+                            android:gravity="center"/>
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>

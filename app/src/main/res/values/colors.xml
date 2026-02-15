@@ -23,5 +23,6 @@
     <color name="text_u2">#FF7B7B7B</color>
     <color name="text_true">#FF12A600</color>
     <color name="text_false">#FFFF0100</color>
+    <color name="outline_unselected">#CCCCCC</color> <!-- 或使用 ?attr/colorOutline，但需确保对比度 -->
 
 </resources>
