@@ -167,6 +167,7 @@
 </template>
 
 <script>
+import brightness from "@system.brightness";
 import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
@@ -199,6 +200,16 @@ export default {
 		this.switload();
 		this.$app.$def.taccLoginCheck();
 		this.$app.$def.taccGetUserData();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
 	},
 	toBack() {
 		this.$app.$def.goBack();

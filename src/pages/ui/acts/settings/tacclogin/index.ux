@@ -12,7 +12,10 @@
 		</div>
 		<scroll class="scroll-root" scroll-y="true" else>
 			<div class="wgpro-deflayout">
-				<text class="exit-tip-text">{{ $t("edittip.tacclogin.text1") }}</text>
+				<text class="wgpro-menu-text" onclick="switchway()">
+					• {{ $t("acts.settings.tacclogin.switchway") }} •
+				</text>
+				<text class="exit-tip-text2">{{ $t("edittip.tacclogin.text1") }}</text>
 				<div
 					class="edittext2-div"
 					style="border: 4px solid {{ fc_v0 }}"
@@ -92,6 +95,20 @@ export default {
 			this.inputValues["username"] = TVs["username"];
 			this.inputValues["password"] = TVs["password"];
 		}
+	},
+	switchway() {
+		this.isLoading = true;
+		setTimeout(() => {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/settings/taccqrlogin",
+				{
+					textValues: JSON.stringify({
+						username: this.inputValues["username"],
+						password: this.inputValues["password"],
+					}),
+				}
+			);
+		}, 500);
 	},
 	toLaunch() {
 		this.isLoading = true;

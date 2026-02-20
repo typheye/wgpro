@@ -482,12 +482,14 @@
             },
             "tacclogin": {
                 "tabtext": "账户登录",
+                "switchway": "扫码登录",
                 "err1": "账户或密码不能为空",
                 "err2": "登录失败\n未连接到服务器",
                 "err3": "登录失败\n"
             },
             "taccqrlogin": {
                 "tabtext": "账户登录",
+                "switchway": "账密登录",
                 "info1": "等待用户操作",
                 "err1": "账户或密码不能为空",
                 "err2": "登录失败\n未连接到服务器",

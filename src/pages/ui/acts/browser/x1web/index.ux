@@ -72,6 +72,7 @@ export default {
 		}
 	},
 	toBack() {
+		this.$app.$def.shortVib(true);
 		this.$app.$def.goBack();
 	},
 	toRefresh() {
