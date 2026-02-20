@@ -68,6 +68,7 @@
 </template>
 
 <script>
+import brightness from "@system.brightness";
 import file from "@system.file";
 import storage from "../../../../utils/storage.js";
 export default {
@@ -106,6 +107,16 @@ export default {
 		this.chatroomListReady();
 		this.$app.$def.taccLoginCheck();
 		this.$app.$def.taccGetUserData();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
 	},
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();

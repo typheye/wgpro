@@ -12,7 +12,15 @@
 		</div>
 		<scroll class="scroll-root" scroll-y="true" else>
 			<div class="wgpro-deflayout">
-				<text class="exit-tip-text">{{ msg }}</text>
+				<text
+					class="wgpro-menu-text"
+					onclick="switchway(false)"
+					if="{{ isShowSwitch }}"
+				>
+					• {{ $t("acts.settings.taccqrlogin.switchway") }} •
+				</text>
+				<text else></text>
+				<text class="exit-tip-text2">{{ msg }}</text>
 				<qrcode
 					class="exit-QR"
 					value="{{ qr_code_url }}"
@@ -50,6 +58,8 @@ export default {
 		isShowQR: false,
 		isXH: false,
 		isXHExit: false,
+		isSwitchWay: false,
+		isShowSwitch: true,
 		textValues: "",
 		inputValues: { username: "", pasword: "" },
 		qr_code_url: "",
@@ -84,6 +94,22 @@ export default {
 			const TVs = JSON.parse(this.textValues);
 			this.inputValues["username"] = TVs["username"];
 			this.inputValues["password"] = TVs["password"];
+		}
+	},
+	switchway(flag) {
+		if (flag) {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/settings/tacclogin",
+				{
+					textValues: JSON.stringify({
+						username: this.inputValues["username"],
+						password: this.inputValues["password"],
+					}),
+				}
+			);
+		} else {
+			this.isLoading = true;
+			this.isSwitchWay = true;
 		}
 	},
 	loadLoginQR() {
@@ -126,6 +152,8 @@ export default {
 		const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 		this.isXH = true;
+		this.isSwitchWay = false;
+		this.isShowSwitch = true;
 
 		while (this.isXH) {
 			const elapsed = Date.now() - startTime;
@@ -134,6 +162,17 @@ export default {
 			if (this.isXHExit) {
 				this.$app.$def.toTips("", this.$t("acts.settings.taccqrlogin.err6"));
 				this.toBackPage();
+				return;
+			}
+			
+			// 切换登录
+			if (this.isSwitchWay) {
+				this.isXH = false;
+				this.isShowQR = false;
+				this.qr_code_url = "";
+				this.isShowSwitch = false;
+				this.isSwitchWay = false;
+				this.switchway(true);
 				return;
 			}
 
@@ -189,6 +228,7 @@ export default {
 							} else if (status == "waiting") {
 								this.msg = this.$t("acts.settings.taccqrlogin.info1");
 								this.isShowQR = false;
+								this.isShowSwitch = false;
 							} else if (status == "pending") {
 								this.isShowQR = true;
 								this.isLoading = false;
@@ -238,6 +278,8 @@ export default {
 		this.isShowQR = false;
 		this.isLoading = false;
 		this.qr_code_url = "";
+		this.isShowSwitch = false;
+		this.isSwitchWay = false;
 		this.msg = this.$t("acts.settings.taccqrlogin.err3");
 	},
 	toEditText(ti) {
