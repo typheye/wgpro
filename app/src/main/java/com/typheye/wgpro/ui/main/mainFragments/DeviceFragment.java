@@ -1,5 +1,6 @@
 package com.typheye.wgpro.ui.main.mainFragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.core.xms.UIParams;
@@ -46,11 +48,10 @@ public class DeviceFragment extends Fragment {
         Button midevice_btn_help = view.findViewById(R.id.btn_midevice_help);
 
         midevice_btn_open.setOnClickListener(v -> {
-            // 获取宿主 Activity，并强转为 MainActivity
-            MainActivity activity = (MainActivity) requireActivity();
-
             // 调用 MainActivity 提供的公共方法
-            activity.showWebView(true);
+            Intent intent = new Intent(getActivity(), WebActivity.class);
+            intent.putExtra("FLAG", "XMS_WEARABLE");
+            startActivity(intent);
         });
 
         midevice_btn_help.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())

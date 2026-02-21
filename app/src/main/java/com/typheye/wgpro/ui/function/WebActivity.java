@@ -5,6 +5,7 @@ import android.content.ActivityNotFoundException;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.webkit.JsResult;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.Toast;
@@ -24,19 +26,24 @@ import androidx.activity.OnBackPressedCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.typheye.wgpro.core.xms.JSKit;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import android.view.inputmethod.InputMethodManager;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class WebActivity extends AppCompatActivity {
@@ -44,6 +51,8 @@ public class WebActivity extends AppCompatActivity {
     private WebView webView;
     private ValueCallback<Uri[]> mFilePathCallback; // 保存文件选择回调
     private ActivityResultLauncher<Intent> fileChooserLauncher; // 文件选择器启动器
+
+    private String FLAG;
 
 
     @Override
@@ -61,6 +70,8 @@ public class WebActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
+        FLAG = getIntent().getStringExtra("FLAG");
+
         // 修复点1：根据request_id构造业务URL（关键修改）
         String requestId = getIntent().getStringExtra("request_id");
         String url;
@@ -74,7 +85,8 @@ public class WebActivity extends AppCompatActivity {
             }
         }
 
-        // 保存当前URL
+        if (Objects.equals(FLAG, "XMS_WEARABLE"))
+            url = "file:///android_asset/index.html";
 
         // 配置WebView
         initWebView(url);
@@ -86,7 +98,6 @@ public class WebActivity extends AppCompatActivity {
                 if (webView.canGoBack()) {
                     webView.goBack();
                 } else {
-                    webView.loadUrl("about:blank");
                     finish();
                 }
             }
@@ -95,6 +106,8 @@ public class WebActivity extends AppCompatActivity {
 
     @SuppressLint("SetJavaScriptEnabled")
     private void initWebView(String url) {
+        webView.setScrollbarFadingEnabled(true);
+
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setSupportZoom(true);
@@ -104,6 +117,9 @@ public class WebActivity extends AppCompatActivity {
         webView.getSettings().setLoadWithOverviewMode(true);
         webView.getSettings().setSupportZoom(true);
         webView.getSettings().setMediaPlaybackRequiresUserGesture(false);
+        webView.getSettings().setAllowFileAccess(true);
+        webView.getSettings().setAllowFileAccessFromFileURLs(true);
+        webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
         webView.setWebViewClient(new WebViewClient() {
             @Override
@@ -150,6 +166,21 @@ public class WebActivity extends AppCompatActivity {
                     Objects.requireNonNull(getSupportActionBar()).setTitle(Uri.parse(url).getHost());
                 } else {
                     Objects.requireNonNull(getSupportActionBar()).setTitle(title);
+                }
+
+                if (Objects.equals(FLAG, "XMS_WEARABLE")) {
+                    // ✅ 在这里获取系统主题并通知前端
+                    boolean isDarkMode = (getResources().getConfiguration().uiMode
+                            & Configuration.UI_MODE_NIGHT_MASK)
+                            == Configuration.UI_MODE_NIGHT_YES;
+                    String jsCode = String.format(
+                            "javascript:window.dispatchEvent(" +
+                                    "  new CustomEvent('systemThemeChange', { detail: { dark: %b } })" +
+                                    ");",
+                            isDarkMode
+                    );
+                    // 根据 API 版本选择执行 JS 的方式
+                    view.evaluateJavascript(jsCode, null);
                 }
             }
         });
@@ -250,6 +281,11 @@ public class WebActivity extends AppCompatActivity {
                     mFilePathCallback = null;
                 }
         );
+
+        if (Objects.equals(FLAG, "XMS_WEARABLE")) {
+            webView.addJavascriptInterface(new JSKit(), "androidlib");
+            webView.setWebViewClient(new XMSLocalContentWebViewClient());
+        }
 
         // 加载URL
         webView.loadUrl(url);
@@ -380,30 +416,48 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void showMoreMenu() {
-        new MaterialAlertDialogBuilder(this)
-                .setTitle("更多")
-                .setItems(new CharSequence[]{
-                        "刷新",
-                        "复制链接",
-                        "使用系统浏览器打开",
-                        "退出"
-                }, (dialog, which) -> {
-                    switch (which) {
-                        case 0: // 刷新
-                            webView.reload();
-                            break;
-                        case 1: // 复制链接
-                            copyToClipboard(webView.getUrl());
-                            break;
-                        case 2: // 使用系统浏览器打开
-                            openInBrowser();
-                            break;
-                        case 3: // 退出
-                            finish();
-                            break;
-                    }
-                })
-                .show();
+        if (Objects.equals(FLAG, "XMS_WEARABLE"))
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("更多")
+                    .setItems(new CharSequence[]{
+                            "刷新",
+                            "退出"
+                    }, (dialog, which) -> {
+                        switch (which) {
+                            case 0: // 刷新
+                                webView.reload();
+                                break;
+                            case 1: // 退出
+                                finish();
+                                break;
+                        }
+                    })
+                    .show();
+        else
+            new MaterialAlertDialogBuilder(this)
+                    .setTitle("更多")
+                    .setItems(new CharSequence[]{
+                            "刷新",
+                            "复制链接",
+                            "使用系统浏览器打开",
+                            "退出"
+                    }, (dialog, which) -> {
+                        switch (which) {
+                            case 0: // 刷新
+                                webView.reload();
+                                break;
+                            case 1: // 复制链接
+                                copyToClipboard(webView.getUrl());
+                                break;
+                            case 2: // 使用系统浏览器打开
+                                openInBrowser();
+                                break;
+                            case 3: // 退出
+                                finish();
+                                break;
+                        }
+                    })
+                    .show();
     }
 
     private void copyToClipboard(String url) {
@@ -419,6 +473,50 @@ public class WebActivity extends AppCompatActivity {
         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(webView.getUrl()));
         // ✅ 移除 setClassName，让系统选择默认浏览器
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (webView != null)
+            webView.loadUrl("about:blank");
+
+        super.onDestroy();
+    }
+
+    // 自定义 WebViewClient
+    private class XMSLocalContentWebViewClient extends WebViewClient {
+
+        @Nullable
+        @Override
+        public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+            String url = request.getUrl().toString();
+            if (url.startsWith("file:///")) {
+                String assetPath = url.substring(8); // 移除 "file:///"
+                try {
+                    InputStream inputStream = getAssets().open(assetPath);
+                    String mimeType = getMimeType(assetPath);
+                    return new WebResourceResponse(mimeType, "UTF-8", inputStream);
+                } catch (IOException e) {
+                    //e.printStackTrace();
+                    return null;
+                }
+            }
+            return super.shouldInterceptRequest(view, request);
+        }
+
+        private String getMimeType(String url) {
+            if (url.endsWith(".html")) return "text/html";
+            else if (url.endsWith(".js")) return "application/javascript";
+            else if (url.endsWith(".css")) return "text/css";
+            else if (url.endsWith(".png")) return "image/png";
+            else if (url.endsWith(".jpg") || url.endsWith(".jpeg")) return "image/jpeg";
+            else if (url.endsWith(".gif")) return "image/gif";
+            else if (url.endsWith(".svg")) return "image/svg+xml";
+            else if (url.endsWith(".woff")) return "font/woff";
+            else if (url.endsWith(".woff2")) return "font/woff2";
+            else if (url.endsWith(".ttf")) return "font/ttf";
+            else return "text/plain";
+        }
     }
 
 }

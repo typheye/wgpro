@@ -26,17 +26,6 @@
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
             app:navigationIcon="@null"/>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar2"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/tab"
-            android:visibility="gone"
-            app:title="小米穿戴"
-            app:titleTextColor="@color/text_u1"
-            app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:navigationIcon="@drawable/ic_back"/>
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <!-- 主内容区域：位于 AppBar 下方，BottomNavigation 上方 -->
@@ -49,17 +38,6 @@
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent" />
-
-    <WebView
-        android:id="@+id/main_webview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/tab"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_layout"
-        app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        android:visibility="gone" />
 
     <!-- 底部导航栏 -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
