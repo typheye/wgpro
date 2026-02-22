@@ -84,11 +84,6 @@ export default {
 			keepScreenOn: true,
 		});
 	},
-	onDestroy() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: false,
-		});
-	},
 	inputReady() {
 		if (this.textValues) {
 			const TVs = JSON.parse(this.textValues);

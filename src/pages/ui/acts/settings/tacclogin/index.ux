@@ -65,6 +65,7 @@
 </template>
 
 <script>
+import brightness from "@system.brightness";
 import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 export default {
@@ -88,6 +89,11 @@ export default {
 	},
 	onReady() {
 		this.inputReady();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
 	},
 	inputReady() {
 		if (this.textValues) {
