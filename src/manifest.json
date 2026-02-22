@@ -2,7 +2,7 @@
   "package": "com.typheye.wgpro",
   "name": "腕管Pro",
   "versionName": "3.26.2",
-  "versionCode": 2602200,
+  "versionCode": 2602220,
   "minPlatformVersion": 1200,
   "icon": "/common/mipmap/logo.png",
   "simulationVersion": "default",
