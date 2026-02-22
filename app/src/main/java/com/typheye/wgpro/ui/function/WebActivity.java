@@ -125,7 +125,7 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 try {
-                    // ✅ 修复：使用当前请求的URL，不是初始URL
+                    // 使用当前请求的URL
                     String currentUrl = request.getUrl().toString();
 
                     // 处理业务链接 (intent://)
@@ -142,16 +142,16 @@ public class WebActivity extends AppCompatActivity {
                         }
                     }
 
-                    // ✅ 修复：使用当前请求的URL加载
-                    if (Objects.requireNonNull(request.getUrl().getScheme()).startsWith("http")) {
-                        view.loadUrl(currentUrl); // ✅ 关键修复
+                    // HTTP/HTTPS 链接 - 直接在WebView加载
+                    if (currentUrl.startsWith("http://") || currentUrl.startsWith("https://")) {
+                        view.loadUrl(currentUrl);
                         return true;
                     }
 
-                    // 处理其他协议
-                    Intent intent = new Intent(Intent.ACTION_VIEW, request.getUrl());
-                    startActivity(intent);
-                    return true;
+                    // 非HTTP链接（外部应用跳转）- 先确认再跳转
+                    showExternalAppConfirmDialog(currentUrl);
+                    return true; // 拦截当前加载，等待用户确认
+
                 } catch (Exception e) {
                     Toast.makeText(WebActivity.this, "无法处理链接: " + request.getUrl(), Toast.LENGTH_SHORT).show();
                 }
@@ -346,6 +346,22 @@ public class WebActivity extends AppCompatActivity {
             return matcher.group(1);
         }
         return null;
+    }
+
+    private void showExternalAppConfirmDialog(String url) {
+        new MaterialAlertDialogBuilder(this)
+                .setTitle("打开外部应用")
+                .setMessage("即将跳转到其他应用，是否继续？")
+                .setPositiveButton("继续", (dialog, which) -> {
+                    try {
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                        startActivity(intent);
+                    } catch (ActivityNotFoundException e) {
+                        Toast.makeText(this, "未找到可打开的应用", Toast.LENGTH_SHORT).show();
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .show();
     }
 
     private void showMd3Alert(String message, JsResult result) {

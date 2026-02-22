@@ -2,9 +2,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="更新"/>
+        android:title="应用程序"/>
 
-    <!-- 关键修改：使用 android:trackTint 和 android:thumbTint -->
+    <Preference
+        android:key="app_about"
+        android:title="关于应用"
+        android:summary="有关“腕管Pro”的详细信息"/>
+
     <SwitchPreferenceCompat
         android:key="appUpdate_autoCheck"
         android:title="自动检查更新"
@@ -20,12 +24,25 @@
         app:defaultValue="false"/>
 
     <PreferenceCategory
+        android:title="法律信息"/>
+
+    <Preference
+        android:key="app_policies"
+        android:title="服务条款与隐私政策"
+        android:summary="点击查看详情"/>
+
+    <Preference
+        android:key="app_license"
+        android:title="开源协议"
+        android:summary="GNU General Public License v3.0"/>
+
+    <PreferenceCategory
         android:title="高级"/>
 
     <Preference
         android:key="app_reset"
         android:title="重新引导"
-        android:summary="点击进入应用引导页"/>
+        android:summary="离开应用并重新进入引导页"/>
 
 
 </PreferenceScreen>

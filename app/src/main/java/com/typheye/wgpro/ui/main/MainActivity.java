@@ -113,8 +113,8 @@ public class MainActivity extends AppCompatActivity {
                 ft.show(homeFragment);
                 toolbar.setTitle(R.string.app_name);
             } else if (id == R.id.nav_dashboard) {
-                if (!deviceFragment.isAdded()) {
-                    ft.add(R.id.fragment_container, dashboardFragment, TAG_DEVICE);
+                if (!dashboardFragment.isAdded()) {
+                    ft.add(R.id.fragment_container, dashboardFragment, TAG_DASHBOARD);
                 }
                 ft.show(dashboardFragment);
                 toolbar.setTitle("导航");
