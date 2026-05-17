@@ -1,0 +1,192 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/f9_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+<TextView android:id="@+id/Tab" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&lt; 应用更新" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true">
+</TextView>
+<android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/Tab" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true">
+<RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content">
+<LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+<LinearLayout android:id="@+id/xxbj20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp">
+<RelativeLayout android:id="@+id/xdbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx3" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a31" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx3">
+<TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="检查更新" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="检查应用和补丁是否有更新" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx2" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx2" android:layout_toLeftOf="@id/kg1">
+<TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="自动检查更新" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="启用软件自动检查更新" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+<android.support.v7.widget.SwitchCompat android:id="@+id/kg1" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+</android.support.v7.widget.SwitchCompat>
+</RelativeLayout>
+</LinearLayout>
+<LinearLayout android:id="@+id/xxbj21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_top" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp">
+<RelativeLayout android:id="@+id/xdbj17" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx4" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a78" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj17" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx4">
+<TextView android:id="@+id/wb22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新补丁" android:textColor="@color/colorTextU1" android:textSize="15sp" android:gravity="center_vertical" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb35" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+<TextView android:id="@+id/wb39" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="「展开」" android:textColor="@color/colorBlue" android:textSize="13sp" android:singleLine="true" android:layout_alignParentRight="true" android:layout_margin="3dp" android:textStyle="bold" android:padding="2dp" android:background="?android:attr/selectableItemBackground" android:layout_centerVertical="true" android:visibility="gone">
+</TextView>
+</RelativeLayout>
+<LinearLayout android:id="@+id/xxbjgxbd" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+<RelativeLayout android:id="@+id/xdbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx6" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx6">
+<TextView android:id="@+id/wb23" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="我的版本" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb24" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx7" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx7">
+<TextView android:id="@+id/wb25" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="最新版本" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb26" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx8" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj13" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx8">
+<TextView android:id="@+id/wb27" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="发布时间" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb28" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj13" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx9" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj14" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx9">
+<TextView android:id="@+id/wb29" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="补丁说明" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb30" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+<TextView android:id="@+id/wb31" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+</RelativeLayout>
+<LinearLayout android:id="@+id/xxbj15" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_vertical" android:visibility="gone">
+<RelativeLayout android:id="@+id/xdbj14" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx10" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a62" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj16" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx10">
+<TextView android:id="@+id/wb33" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="立即更新" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb34" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载补丁文件后在本机更新" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<TextView android:id="@+id/wb37" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+</LinearLayout>
+</LinearLayout>
+</LinearLayout>
+<LinearLayout android:id="@+id/xxbj22" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_bottom" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp">
+<RelativeLayout android:id="@+id/xdbj15" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="5dp" android:background="?android:attr/selectableItemBackground">
+<ImageView android:id="@+id/tx5" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a53" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj18" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx5">
+<TextView android:id="@+id/w22b" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新应用" android:textColor="@color/colorTextU1" android:textSize="15sp" android:gravity="center_vertical" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb36" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+<TextView android:id="@+id/wb40" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="「展开」" android:textColor="@color/colorBlue" android:textSize="13sp" android:singleLine="true" android:layout_alignParentRight="true" android:layout_margin="3dp" android:textStyle="bold" android:padding="2dp" android:background="?android:attr/selectableItemBackground" android:layout_centerVertical="true" android:visibility="gone">
+</TextView>
+</RelativeLayout>
+<LinearLayout android:id="@+id/xxbjgxyy" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+<RelativeLayout android:id="@+id/xdbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx11" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx11">
+<TextView android:id="@+id/wb18" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="我的版本" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb19" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx12" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx12">
+<TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="最新版本" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx13" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx13">
+<TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="发布时间" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx14" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx14">
+<TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新日志" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中..." android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+<TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+</RelativeLayout>
+<LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_vertical" android:visibility="gone">
+<RelativeLayout android:id="@+id/xdbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx15" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a62" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx15">
+<TextView android:id="@+id/wb20" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="立即更新" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb21" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载安装文件后在本机安装" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+<ImageView android:id="@+id/tx16" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a80" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx16">
+<TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="手机更新" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码后通过手机更新" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+</LinearLayout>
+</LinearLayout>
+</LinearLayout>
+<android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="10dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+<ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+</ImageView>
+</android.support.v7.widget.CardView>
+</LinearLayout>
+</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

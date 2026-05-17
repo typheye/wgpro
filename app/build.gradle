@@ -1,0 +1,277 @@
+plugins {
+    id 'com.android.application'
+}
+
+def keystorePropertiesFile = rootProject.file('keystore.properties')
+def keystoreProperties = new Properties()
+keystorePropertiesFile.withInputStream { stream ->
+    keystoreProperties.load(stream)
+}
+
+def usePrecompiledIapp = (project.findProperty('usePrecompiledIapp') ?: 'false').toString().toBoolean()
+def useEditableJava = !usePrecompiledIapp
+
+println("AWGPro build mode: " + (useEditableJava ? "source Java + source iapp-compat-runtime" : "precompiled fallback"))
+
+android {
+    namespace 'open.cn.awg.pro'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId 'open.cn.awg.pro'
+        minSdk 24
+        targetSdk 28
+        versionCode 2605140
+        versionName '5.26.5'
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        debug {
+            storeFile = file(keystoreProperties['release.store.file'] as String)
+            storePassword = keystoreProperties['release.store.password'] as String
+            keyAlias = keystoreProperties['release.key.alias'] as String
+            keyPassword = keystoreProperties['release.key.password'] as String
+
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = true
+        }
+
+        release {
+            storeFile = file(keystoreProperties['release.store.file'] as String)
+            storePassword = keystoreProperties['release.store.password'] as String
+            keyAlias = keystoreProperties['release.key.alias'] as String
+            keyPassword = keystoreProperties['release.key.password'] as String
+
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = true
+        }
+    }
+
+    buildTypes {
+        debug {
+            signingConfig = signingConfigs.debug
+        }
+        release {
+            signingConfig = signingConfigs.release
+        }
+    }
+
+    sourceSets {
+        main {
+            manifest.srcFile 'src/main/AndroidManifest.xml'
+            java.srcDirs = useEditableJava ? ['src/main/java'] : []
+            res.srcDirs = ['src/main/res']
+            assets.srcDirs = ['src/main/assets']
+            jniLibs.srcDirs = ['src/main/jniLibs']
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    // AGP 8.x syntax. Do not collapse jniLibs/resources into a single Groovy line:
+    // `jniLibs { ... } resources { ... }` can be parsed as a chained call and cause:
+    // Cannot invoke method resources() on null object.
+    packaging {
+        jniLibs {
+            useLegacyPackaging false
+            pickFirsts += [
+                    '**/libijkffmpeg.so',
+                    '**/libijkplayer.so',
+                    '**/libijksdl.so',
+                    '**/libtnet-3.1.14.so',
+                    '**/libcrashsdk.so',
+                    '**/libalicomphonenumberauthsdk_core.so',
+                    '**/libpns-*.so',
+                    '**/libpl_droidsonroids_gif.so'
+            ]
+        }
+        resources {
+            excludes += [
+                    'META-INF/**',
+                    'kotlin/**',
+                    'DebugProbesKt.bin'
+            ]
+            pickFirsts += [
+                    'okhttp3/internal/publicsuffix/publicsuffixes.gz'
+            ]
+        }
+    }
+
+    lint {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+}
+
+def excludedLocalAars = [
+        // xyz.doikki.videoplayer.ijk.aar already contains tv.danmaku.ijk.media.player.*.
+        'tv.danmaku.ijk.media.player'
+] as Set
+
+def localAarNames = fileTree(dir: 'libs', include: ['*.aar']).files
+        .collect { it.name.replaceFirst(/\.aar$/, '') }
+        .findAll { !excludedLocalAars.contains(it) }
+        .sort()
+
+dependencies {
+    if (usePrecompiledIapp) {
+        implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: [
+                'iapp_runtime_stubs.jar',
+                'iapp_runtime_api_stubs.jar'
+        ])
+    } else {
+        implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: [
+                'iapp_runtime_stubs.jar',
+                'iapp_runtime_api_stubs.jar',
+                'app_iapp_compiled_classes.jar'
+        ])
+    }
+
+    localAarNames.each { aarName ->
+        implementation(name: aarName, ext: 'aar')
+    }
+
+    implementation 'androidx.core:core:1.13.1'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'androidx.viewpager2:viewpager2:1.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.0'
+    implementation 'androidx.webkit:webkit:1.11.0'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.android.material:material:1.12.0'
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.29'
+}
+
+tasks.register('normalizeIappResourceNames') {
+    doLast {
+        def renamePairs = [
+                [from: file('src/main/res/font/Mono.ttf'), to: file('src/main/res/font/mono.ttf')],
+                [from: file('src/main/res/font/Regular.ttf'), to: file('src/main/res/font/regular.ttf')]
+        ]
+
+        renamePairs.each { p ->
+            if (p.from.exists()) {
+                p.to.parentFile.mkdirs()
+                if (p.to.exists()) {
+                    p.to.delete()
+                }
+                if (!p.from.renameTo(p.to)) {
+                    ant.move(file: p.from.absolutePath, tofile: p.to.absolutePath, overwrite: true)
+                }
+                println "Renamed invalid Android resource filename ${p.from.name} -> ${p.to.name}"
+            }
+        }
+
+        def replacements = new LinkedHashMap<String, String>()
+        replacements['@font/Regular'] = 'sans-serif'
+        replacements['@font/regular'] = 'sans-serif'
+        replacements['@font/Mono'] = 'monospace'
+        replacements['@font/mono'] = 'monospace'
+
+        [file('src/main/res'), file('src/main')].each { dir ->
+            if (dir.exists()) {
+                dir.eachFileRecurse { f ->
+                    if (f.isFile() && (f.name.endsWith('.xml') || f.name.endsWith('.txt'))) {
+                        def txt = f.getText('UTF-8')
+                        def out = txt
+                        replacements.each { k, v ->
+                            out = out.replace(k, v)
+                        }
+                        if (out != txt) {
+                            f.write(out, 'UTF-8')
+                        }
+                    }
+                }
+            }
+        }
+
+        def resDir = file('src/main/res')
+        if (resDir.exists()) {
+            resDir.eachFileRecurse { f ->
+                if (f.isFile() && (f.name.contains('.bak') || f.name.endsWith('.orig') || f.name.endsWith('.tmp'))) {
+                    def target = new File(file('reference/res_removed_by_gradle'), resDir.toPath().relativize(f.toPath()).toString())
+                    target.parentFile.mkdirs()
+                    ant.move(file: f.absolutePath, tofile: target.absolutePath, overwrite: true)
+                    println "Moved invalid resource backup file out of res: ${target}"
+                }
+            }
+        }
+
+        def rtxt = file('src/main/R.txt')
+        if (rtxt.exists()) {
+            file('reference').mkdirs()
+            new File(file('reference'), 'R.original.txt').bytes = rtxt.bytes
+            rtxt.delete()
+            println "Moved src/main/R.txt -> reference/R.original.txt"
+        }
+    }
+}
+
+afterEvaluate {
+    tasks.matching { task ->
+        task.name == 'preBuild' ||
+                (task.name.startsWith('merge') && task.name.endsWith('Resources')) ||
+                (task.name.startsWith('process') && task.name.endsWith('Resources'))
+    }.configureEach {
+        dependsOn tasks.named('normalizeIappResourceNames')
+    }
+}
+
+
+tasks.register('sanitizeIappCompatSources') {
+    doLast {
+        def javaRoot = file('src/main/java')
+        def iRoot = file('src/main/java/i')
+        if (!iRoot.exists()) return
+
+        def backupRoot = file("reference/sanitize_iapp_sources_by_gradle")
+        int removed = 0
+        iRoot.eachFileRecurse { f ->
+            if (f.isFile() && f.name == 'i.java' && !f.path.endsWith('i' + File.separator + 'runlibrary' + File.separator + 'a' + File.separator + 'i.java')) {
+                def rel = javaRoot.toPath().relativize(f.toPath()).toString()
+                def target = new File(backupRoot, rel)
+                target.parentFile.mkdirs()
+                ant.move(file: f.absolutePath, tofile: target.absolutePath, overwrite: true)
+                println "sanitizeIappCompatSources: removed shadowing class " + rel
+                removed++
+            }
+        }
+
+        def appRoot = file('src/main/java/i/app')
+        if (appRoot.exists()) {
+            appRoot.eachFileRecurse { f ->
+                if (f.isFile() && f.name.endsWith('.java')) {
+                    def txt = f.getText('UTF-8')
+                    def out = txt
+                    if (out.contains('package i.app;')) {
+                        out = out.replace('i.app.', '')
+                        out = out.replaceAll('(?m)^\\s*import\\s+i\\.app\\.\\*;\\s*\\r?\\n', '')
+                    }
+                    if (out != txt) {
+                        f.write(out, 'UTF-8')
+                        println "sanitizeIappCompatSources: normalized " + javaRoot.toPath().relativize(f.toPath()).toString()
+                    }
+                }
+            }
+        }
+        println "sanitizeIappCompatSources: removed " + removed + " shadowing i.java source file(s)."
+    }
+}
+
+afterEvaluate {
+    tasks.matching { task ->
+        task.name.startsWith('compile') && task.name.endsWith('JavaWithJavac') ||
+                task.name.startsWith('javaPreCompile')
+    }.configureEach {
+        dependsOn tasks.named('sanitizeIappCompatSources')
+    }
+}

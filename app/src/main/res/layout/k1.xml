@@ -1,0 +1,54 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/k1_v" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabAccent">
+<android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true">
+<RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content">
+<LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+<android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="100dp" android:layout_height="100dp" app:cardBackgroundColor="#64ffffff" app:cardCornerRadius="50dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginTop="40dp" android:layout_marginBottom="5dp">
+<RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent">
+<android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="80dp" android:layout_height="80dp" app:cardCornerRadius="40dp" app:cardBackgroundColor="@color/colorAccent" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_centerInParent="true">
+<LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="?android:attr/selectableItemBackgroundBorderless">
+<ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/a39">
+</ImageView>
+<TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="系统工具" android:textColor="@color/colorWhite" android:textSize="11sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</android.support.v7.widget.CardView>
+</RelativeLayout>
+</android.support.v7.widget.CardView>
+<android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="10dp" app:cardBackgroundColor="#64ffffff" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:layout_marginTop="5dp">
+<RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground">
+<ImageView android:id="@+id/tx3" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/a19" android:layout_centerVertical="true" android:layout_marginLeft="5dp" android:padding="3dp">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="5dp" android:layout_marginLeft="35dp">
+<TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="垃圾清理" android:textColor="@color/colorWhite" android:textStyle="bold" android:textSize="11sp" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabAccent">
+</TextView>
+<TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="清理系统和应用的缓存" android:textColor="@color/colorWhite" android:textSize="11sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+</android.support.v7.widget.CardView>
+<android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="match_parent" android:layout_height="wrap_content" app:cardCornerRadius="10dp" app:cardBackgroundColor="#64ffffff" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp" android:visibility="visible" android:layout_marginTop="5dp">
+<RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground">
+<ImageView android:id="@+id/tx2" android:layout_width="30dp" android:layout_height="30dp" android:src="@mipmap/a10" android:layout_centerVertical="true" android:layout_marginLeft="5dp" android:padding="3dp">
+</ImageView>
+<LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="5dp" android:layout_marginLeft="35dp">
+<TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="系统设置" android:textColor="@color/colorWhite" android:textStyle="bold" android:textSize="11sp" android:singleLine="true">
+</TextView>
+<TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabAccent">
+</TextView>
+<TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="打开系统设置/原生设置" android:textColor="@color/colorWhite" android:textSize="11sp" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+</android.support.v7.widget.CardView>
+<LinearLayout android:id="@+id/xxbj6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+<android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="20dp" app:cardBackgroundColor="#64ffffff" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+<ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+</ImageView>
+</android.support.v7.widget.CardView>
+</LinearLayout>
+</LinearLayout>
+</RelativeLayout>
+</android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

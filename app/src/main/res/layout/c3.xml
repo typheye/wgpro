@@ -1,0 +1,14 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c3_v" android:layout_width="match_parent" android:layout_height="50dp">
+<TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+<LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:paddingTop="5dp" android:paddingBottom="2dp">
+<RelativeLayout android:id="@+id/xdbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:background="@drawable/setbj">
+<LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:padding="5dp" android:background="?android:attr/selectableItemBackground">
+<ImageView android:id="@+id/tx1" android:layout_width="30dp" android:layout_height="30dp" android:src="@null" android:layout_margin="0dp" android:padding="3dp" android:layout_weight="1">
+</ImageView>
+<TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="test" android:textColor="@color/colorWhite" android:textSize="11sp" android:textStyle="bold" android:visibility="gone">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+</LinearLayout>
+</RelativeLayout>

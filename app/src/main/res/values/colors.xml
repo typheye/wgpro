@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorBlack">#ff000000</color>
+    <color name="colorWhite">#ffffffff</color>
+    <color name="colorTextFalse">#ffff0100</color>
+    <color name="colorTextTrue">#ff12a600</color>
+    <color name="colorTextTrue2">#FF3EB575</color>
+    <color name="colorTabBackground">#FF000000</color>
+    <color name="colorSet">#FF242424</color>
+    <color name="colorSet2">#FF740000</color>
+    <color name="colorTextU2">#ff7b7b7b</color>
+    <color name="colorTextU1">#ffffffff</color>
+    <color name="colorTab">@color/colorBlack</color>
+    <color name="colorTabAccent">#ff32618D</color>
+    <color name="colorTabTh">#6432618D</color>
+    <color name="colorTabText">#ffffffff</color>
+    <color name="colorThoughTrue">#01000000</color>
+    <color name="colorWB">#ff000000</color>
+    <color name="colorWBK">#FF3C3C3C</color>
+    <color name="colorThough">@color/colorTabBackground</color>
+    <color name="colorThough2">#a0000000</color>
+    <color name="colorTabSe">#FFEF8724</color>
+    <color name="colorAccent">@color/colorTabAccent</color>
+    <color name="colorAccentTh">@color/colorTabTh</color>
+    <color name="colorAccentY">#ffEF8724</color>
+    <color name="colorBlue">#FF00AFFF</color>
+    <!-- Dark -->
+    <color name="colorTextTrue2_dark">#FF3EB575</color>
+    <color name="colorTabBackground_dark">#FF000000</color>
+    <color name="colorSet_dark">#FF2B2B2B</color>
+    <color name="colorTextU1_dark">#ffffffff</color>
+    <color name="colorTab_dark">#FF2B2B2B</color>
+    <color name="colorTabTh_dark">#64000000</color>
+    <color name="colorWB_dark">#ff000000</color>
+    <color name="colorWBK_dark">#ff2b2b2b</color>
+</resources>

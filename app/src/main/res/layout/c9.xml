@@ -1,0 +1,18 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/c9_v" android:layout_width="match_parent" android:layout_height="wrap_content">
+<RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp">
+<LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:background="?android:attr/selectableItemBackground" android:padding="5dp" android:gravity="center">
+<TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
+</TextView>
+</LinearLayout>
+</RelativeLayout>
+<TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+<TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+<TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+<TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="" android:visibility="gone">
+</TextView>
+<TextView android:id="@+id/dp20" android:layout_width="wrap_content" android:layout_height="20dp" android:text="" android:visibility="gone">
+</TextView>
+</RelativeLayout>

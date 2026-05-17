@@ -1,0 +1,390 @@
+package open.cn.awg.pro;
+
+import i.app.iActivity;
+ import com.tananaev.adblib.AdbConnection; import android.content.Intent; import android.os.Bundle; import android.content.Context; import com.apkinstaller.Methods.ApkMethod; import android.net.Uri; import android.graphics.drawable.Drawable; import android.content.pm.ActivityInfo; import android.view.WindowManager; import android.view.Window; import android.os.Build; import android.view.View; import java.lang.reflect.Field; import java.lang.reflect.Method; import com.ypz.bangscreentools.BangScreenTools;import java.lang.*;
+
+public class d4 extends iActivity {
+
+public void onCreate(android.os.Bundle be){
+super.onCreate(be);
+setContentView(open.cn.awg.pro.R.layout.d4);
+_$_viewAutomaticSettingEvent();
+open.cn.awg.pro.e6.getInstance().addActivity(lei);
+url=sj.hqtz("url");
+
+try{
+
+
+    android.widget.ImageView imageView=(android.widget.ImageView)findViewById(R.id.tx4);
+    android.widget.TextView textView=(android.widget.TextView)findViewById(R.id.wb1);
+    String Apk_Path = url;
+    ApkMethod apkMethod = new ApkMethod(this, Apk_Path);
+    String Apk_Name = apkMethod.getApplicationName();
+    Drawable Apk_Icon = apkMethod.getApplicationIcon(this);
+    textView.setText(Apk_Name);
+    imageView.setImageDrawable(Apk_Icon);
+  
+
+
+}catch(java.lang.Throwable e){
+
+gj.gb();
+e1.tsk("提示","文件打开异常!");
+
+
+}
+
+}
+
+public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw){
+
+i.runlibrary.app.xt$pm pm=xt.pm();
+
+if(zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"),"false")){
+
+
+if(zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"),"true")){
+
+getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+
+
+}
+else{
+
+getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+
+
+}
+
+
+}
+
+final java.lang.String a2="/data/user/0/open.cn.awg.pro/settings/a3.inf";
+
+java.lang.String a=wj.dqwb(a2);
+
+final int u=Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
+
+if(zf.dy(a,"4")){
+
+st.xdbj(open.cn.awg.pro.R.id.d4_v).shxtck(true);
+
+java.lang.String clr=zf.zf(open.cn.awg.pro.R.color.colorTab);
+xt.pm().ztl(clr,0);
+
+
+}
+else{
+
+st.xdbj(open.cn.awg.pro.R.id.d4_v).shxtck(false);
+
+        
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  
+
+
+}
+
+if(zf.dy(a,"1")){
+
+st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u,0,u,50);
+
+i.runlibrary.app.v.wb wtab=st.wb(open.cn.awg.pro.R.id.Tab);
+wtab.nbj(0,"15dp",0,"3dp");
+wtab.dqfs("center");
+
+
+}
+
+else if(zf.dy(a,"2")){
+
+
+java.lang.String a001="/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+
+if(wj.cz(a001)==true||zf.dy(wj.dqwb(a001),"true")){
+
+
+i.runlibrary.app.v.wb wtab=st.wb(open.cn.awg.pro.R.id.Tab);
+wtab.nbj(0,"3dp",0,"3dp");
+wtab.dqfs("center");
+
+
+}
+else{
+
+
+i.runlibrary.app.v.wb wtab=st.wb(open.cn.awg.pro.R.id.Tab);
+wtab.nbj(0,"9dp",0,"9dp");
+wtab.dqfs("center");
+
+
+}
+st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0,0,0,0);
+
+
+}
+
+else if(zf.dy(a,"3")){
+
+st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u,0,u,50);
+
+i.runlibrary.app.v.wb wtab=st.wb(open.cn.awg.pro.R.id.Tab);
+wtab.nbj(0,"15dp",0,"3dp");
+wtab.dqfs("center");
+
+
+}
+
+else if(zf.dy(a,"4")){
+
+st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0,0,0,0);
+
+
+}
+
+}
+
+public open.cn.awg.pro.e1  e1=new e1(_APPINFO);
+
+public static android.content.Context context;
+
+public java.lang.String url="";
+
+public void run(){
+gj.xc(new java.lang.Thread(){
+
+public void run(){
+
+
+      Intent intent = new Intent(lei, open.cn.awg.pro.e9.class);
+      Bundle bundle=new Bundle();
+      bundle.putString("url",url);
+      intent.putExtras(bundle);
+      lei.startActivity(intent);
+    
+gj.gb();
+
+
+}
+
+});
+
+}
+
+public void onWindowFocusChanged(boolean hs){
+super.onWindowFocusChanged(hs);
+
+final java.lang.String a2="/data/user/0/open.cn.awg.pro/settings/a3.inf";
+
+java.lang.String a=wj.dqwb(a2);
+
+if(zf.dy(a,"4")){
+
+
+java.lang.String clr=zf.zf(open.cn.awg.pro.R.color.colorTab);
+xt.pm().ztl(clr,0);
+
+
+}
+else{
+
+
+        
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  
+
+
+}
+
+}
+
+public void onRestart(){
+super.onRestart();
+
+final java.lang.String a2="/data/user/0/open.cn.awg.pro/settings/a3.inf";
+
+java.lang.String a=wj.dqwb(a2);
+
+if(zf.dy(a,"4")){
+
+
+java.lang.String clr=zf.zf(open.cn.awg.pro.R.color.colorTab);
+xt.pm().ztl(clr,0);
+
+
+}
+else{
+
+
+        
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  
+
+
+}
+
+}
+
+public void onStart(){
+super.onStart();
+
+final java.lang.String a2="/data/user/0/open.cn.awg.pro/settings/a3.inf";
+
+java.lang.String a=wj.dqwb(a2);
+
+if(zf.dy(a,"4")){
+
+
+java.lang.String clr=zf.zf(open.cn.awg.pro.R.color.colorTab);
+xt.pm().ztl(clr,0);
+
+
+}
+else{
+
+
+        
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  
+
+
+}
+
+i.runlibrary.app.v.qtgd qtgd1=st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+
+  qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+    @Override
+    public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
+      if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+                                         
+        float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
+        androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
+        android.view.ViewConfiguration.get(lei), lei
+        );
+                                                         
+        vw.scrollBy(0, java.lang.Math.round(delta));
+        return true;
+      }
+      return false;
+    }
+  });
+
+qtgd1.v.requestFocus();
+
+}
+
+public void onResume(){
+super.onResume();
+
+final java.lang.String a2="/data/user/0/open.cn.awg.pro/settings/a3.inf";
+
+java.lang.String a=wj.dqwb(a2);
+
+if(zf.dy(a,"4")){
+
+
+java.lang.String clr=zf.zf(open.cn.awg.pro.R.color.colorTab);
+xt.pm().ztl(clr,0);
+
+
+}
+else{
+
+
+        
+    Window window = lei.getWindow();
+    BangScreenTools.getBangScreenTools().fullscreen(window, lei);
+    BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+  
+
+
+}
+
+}
+
+public boolean onKeyDown(int kc, android.view.KeyEvent ke){
+
+if(kc==4){
+
+
+
+}
+return false;
+
+}
+
+public void onDestroy(){
+super.onDestroy();
+open.cn.awg.pro.e6.getInstance().removeActivity(lei);
+
+}
+
+private void $_onClick_i4d951cdb0e(android.view.View vw){
+gj.gb();
+
+}
+
+private void $_onClick_i8217d42a17(android.view.View vw){
+run();
+
+}
+
+private void $_onClick_i34dc7bf20a(android.view.View vw){
+
+final i.runlibrary.app.v.xxbj cmdlin=st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+
+final i.runlibrary.app.v.xxbj cmdbac=st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+cmdbac.kjd(8);
+cmdlin.kjd(0);
+
+}
+
+private void _$_viewAutomaticSettingEvent(){
+_$_viewAutomaticSettingEvent(this, null);
+}
+private android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a=new android.view.View.OnClickListener(){
+
+public void onClick(android.view.View vw){
+$_onClick_i34dc7bf20a(vw);
+}
+
+};
+private android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17=new android.view.View.OnClickListener(){
+
+public void onClick(android.view.View vw){
+$_onClick_i8217d42a17(vw);
+}
+
+};
+private android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e=new android.view.View.OnClickListener(){
+
+public void onClick(android.view.View vw){
+$_onClick_i4d951cdb0e(vw);
+}
+
+};
+
+public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw){
+
+android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
+i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+
+android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
+i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+
+android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
+i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+
+__layoutIsLoaded(ay, vw);
+}
+
+    public final d4 lei = this, 类 = this;
+}
