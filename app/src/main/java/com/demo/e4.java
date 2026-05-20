@@ -33,13 +33,7 @@ import java.lang.*;
 import java.security.cert.Extension;
 import java.text.DecimalFormat;
 //import android.icu.text.DecimalFormat;
-import java.nio.file.Path;
-import java.nio.file.attribute.BasicFileAttributeView;
-import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Date;
-import java.nio.file.Paths;
-import java.nio.file.Files;
-import java.nio.file.LinkOption;
 import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.BufferedReader;
@@ -265,15 +259,14 @@ public class e4 {
   public static String fileTime(int i,String url){
     String back=null;
     try{
-      Path paths = Paths.get(url);
-      BasicFileAttributeView basicview = Files.getFileAttributeView(paths, BasicFileAttributeView.class,
-      LinkOption.NOFOLLOW_LINKS);
-      BasicFileAttributes attr = basicview.readAttributes();
+      long time = new File(url).lastModified();
       //#修改时间#
       //Date lastmodfiyTimeDate=new Date(attr.lastModifiedTime().toMillis());
       //#创建时间#
       //Date CreateTimeDate= new Date(attr.creationTime().toMillis());
-      long time = attr.lastModifiedTime().toMillis();
+      if (time <= 0L) {
+        return null;
+      }
       String sDate =null;
       if (i==1){
         SimpleDateFormat shortDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm");
@@ -283,7 +276,6 @@ public class e4 {
         sDate = shortDateFormat.format(new Date(time));
       }
       back = sDate;
-    } catch (IOException e) {
     } catch (Exception e) {
     } finally {
     }
@@ -324,11 +316,12 @@ public class e4 {
     }
     /* 获取文件的后缀名 */
     String end=fName.substring(dotIndex,fName.length()).toLowerCase();
-    if(end=="")return type;
+    if(end.length() == 0)return type;
     //在MIME和文件类型的匹配表中找到对应的MIME类型。
     for(int i=0;i<MIME_MapTable.length;i++){ //MIME_MapTable??在这里你一定有疑问，这个MIME_MapTable是什么？
-      if(end.equals(MIME_MapTable[i][0]))
-      type = MIME_MapTable[i][1];
+      if(end.equals(MIME_MapTable[i][0])) {
+        type = MIME_MapTable[i][1];
+      }
     }
     return type;
   }

@@ -1,4 +1,6 @@
-<?xml version="1.0" encoding="UTF-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="2605140" android:versionName="5.26.5">
+<?xml version="1.0" encoding="UTF-8"?><manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:versionCode="2605140" android:versionName="5.26.5">
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -8,28 +10,37 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
     <uses-permission android:name="android.permission.CHANGE_WIFI_MULTICAST_STATE"/>
-    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"/>
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.FLASHLIGHT"/>
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/>
-    <uses-permission android:name="android.permission.INSTALL_PACKAGES"/>
-    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
-    <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
-    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"/>
+    <uses-permission android:name="android.permission.INSTALL_PACKAGES"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"
+        tools:ignore="RequestInstallPackagesPolicy" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.WRITE_SECURE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSERS"/>
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE"
+        tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
     <!--service前台服务-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.INSTANT_APP_FOREGROUND_SERVICE"
+        tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
-    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CAMERA"/>
-    <application android:name="open.cn.awg.pro.e6" android:exported="true" android:usesCleartextTraffic="true" android:windowSoftInputMode="stateHidden|adjustResize" android:persistent="true" android:hardwareAccelerated="true" android:icon="@mipmap/icon" android:label="@string/app_name" android:largeHeap="true" android:resizeableActivity="false" android:supportsRtl="true" android:theme="@style/AppBaseTheme" android:requestLegacyExternalStorage="true" android:networkSecurityConfig="@xml/network_config">
+    <uses-permission android:name="android.permission.MANAGE_DEVICE_POLICY_CAMERA"
+        tools:ignore="ProtectedPermissions" />
+    <application android:name="open.cn.awg.pro.e6" android:exported="true" android:usesCleartextTraffic="true" android:windowSoftInputMode="stateHidden|adjustResize" android:persistent="true" android:hardwareAccelerated="true" android:icon="@mipmap/icon" android:label="@string/app_name" android:largeHeap="true" android:resizeableActivity="false" android:supportsRtl="true" android:theme="@style/AppBaseTheme" android:requestLegacyExternalStorage="true" android:networkSecurityConfig="@xml/network_config"
+        tools:ignore="DiscouragedApi">
         <activity android:name=".main" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop" android:theme="@style/AppBaseTheme.Launcher" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -168,20 +179,24 @@
                 <action android:name="android.intent.action.WALLPAPER_CHANGED"/>
             </intent-filter>
         </receiver>
-        <service android:name="open.cn.awg.pro.SystemAccessibilityService" android:enabled="true" android:exported="true" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+        <service android:name="open.cn.awg.pro.SystemAccessibilityService" android:enabled="true" android:exported="true" android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE"
+            tools:ignore="AccessibilityPolicy">
             <intent-filter android:priority="1000">
                 <action android:name="android.accessibilityservice.AccessibilityService"/>
             </intent-filter>
             <meta-data android:name="android.accessibilityservice" android:resource="@xml/accessibility_service_config"/>
         </service>
-        <service android:name="open.cn.awg.pro.AwgCoreService" android:enabled="true" android:exported="true" android:process=":CoreService">
+        <service android:name="open.cn.awg.pro.AwgCoreService" android:enabled="true" android:exported="true"
+            android:process=":CoreService"
+            tools:ignore="ExportedService">
             <intent-filter android:priority="1000">
                 <action android:name="open.cn.awg.pro.AwgCoreService"/>
             </intent-filter>
         </service>
-        <service android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService" android:label="dexopt" android:process=":dexopt" android:exported="true">
+        <service android:name="com.tencent.smtt.export.external.DexClassLoaderProviderService" android:label="dexopt"
+            android:process=":dexopt" android:exported="true"
+            tools:ignore="ExportedService">
         </service>
-        <service android:name="com.demo.e7"/>
         <service android:name="open.cn.awg.pro.BootJobService" android:permission="android.permission.BIND_JOB_SERVICE" android:exported="true">
             <intent-filter>
                 <action android:name="open.cn.awg.pro.BOOT_JOB"/>

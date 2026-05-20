@@ -1,10 +1,24 @@
+/**
+ ******************************************************************************
+ * @file    e1.java
+ * @author  Typheye
+ * @brief   Shared utility bridge for UI, dialogs, and error reporting.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2021-2026 Typheye. All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 package open.cn.awg.pro;
-
-import i.app.iClass;
 
 import com.file.Xor.xor;
 
-import java.lang.*;
+import i.app.iClass;
 
 public class e1 extends iClass {
 
@@ -27,8 +41,13 @@ public class e1 extends iClass {
     public static android.content.Context context;
 
     public static java.lang.String d1_rootpaths;
-
+    public final e1 lei = this, 类 = this;
     public open.cn.awg.pro.e11 e11 = new e11(_APPINFO);
+
+    public e1(i.runlibrary.app.AppInfo _APPINFO) {
+        super(_APPINFO);
+
+    }
 
     public void getlic() {
 
@@ -46,7 +65,6 @@ public class e1 extends iClass {
 
             set2e = set2e + "/";
 
-
         }
         set2e = set2e + "config_v2.json";
 
@@ -54,7 +72,6 @@ public class e1 extends iClass {
         gj.xc(new java.lang.Thread() {
 
             public void run() {
-
 
                 java.lang.String setback = "";
 
@@ -68,7 +85,6 @@ public class e1 extends iClass {
 
                     setback = "0";
 
-
                 } else {
 
                     setback = htmlToText(back);
@@ -77,40 +93,31 @@ public class e1 extends iClass {
 
                         setback = "0";
 
-
                     } else {
 
                         version = readJson(setback, "UpdateVersion");
                         allow = readJson(setback, "UpdateAllow");
                         setback = String.valueOf(1);
 
-
                     }
-
 
                 }
 
                 if (zf.dy(setback, "0")) {
 
-
                 } else {
-
 
                     if ((zf.dy(allow, "0") || zf.cz(allow, wj.dqwb(auid))) && islogin()) {
 
                         wj.xrwb(sec_license, sj.md5(setback));
 
-
                     } else {
 
                         wj.sc(sec_license);
 
-
                     }
 
-
                 }
-
 
             }
 
@@ -134,11 +141,9 @@ public class e1 extends iClass {
 
         if (zf.cjw(set2e, "/")) {
 
-
         } else {
 
             set2e = set2e + "/";
-
 
         }
         set2e = set2e + "config_v2.json";
@@ -148,9 +153,7 @@ public class e1 extends iClass {
 
             public void run() {
 
-
-                if (yz() == true) {
-
+                if (yz()) {
 
                     java.lang.String setback = "";
 
@@ -166,7 +169,6 @@ public class e1 extends iClass {
 
                         setback = "0";
 
-
                     } else {
 
                         setback = htmlToText(back);
@@ -175,7 +177,6 @@ public class e1 extends iClass {
 
                             setback = "0";
 
-
                         } else {
 
                             version = readJson(setback, "UpdateVersion");
@@ -183,17 +184,13 @@ public class e1 extends iClass {
                             allow = readJson(setback, "UpdateAllow");
                             setback = String.valueOf(1);
 
-
                         }
-
 
                     }
 
                     if (zf.dy(setback, "0")) {
 
-
                     } else {
-
 
                         if ((zf.dy(allow, "0") || zf.cz(allow, wj.dqwb(auid))) && islogin()) {
 
@@ -205,7 +202,6 @@ public class e1 extends iClass {
 
                             if (myappversion < b1 && b1 != 9999999) {
 
-
                                 final java.lang.String eks = ek;
                                 gj.jmxc(new java.lang.Runnable() {
 
@@ -213,19 +209,15 @@ public class e1 extends iClass {
 
                                         gj.tz(f22.class);
 
-
                                     }
 
                                 });
 
-
                             } else {
-
 
                                 int ccc = versionname.compareTo(vn);
 
                                 if (!zf.dy(versionname, vn) && ccc > 0) {
-
 
                                     final java.lang.String eks = ek;
                                     gj.jmxc(new java.lang.Runnable() {
@@ -234,39 +226,29 @@ public class e1 extends iClass {
 
                                             gj.tz(f22.class);
 
-
                                         }
 
                                     });
-
 
                                 } else {
 
                                     wj.sc(sec_updater);
 
-
                                 }
 
-
                             }
-
 
                         } else {
 
                             wj.sc(sec_updater);
 
-
                         }
-
 
                     }
 
-
                 } else {
 
-
                 }
-
 
             }
 
@@ -276,8 +258,7 @@ public class e1 extends iClass {
 
     public void app_backup() {
 
-        if (islogin() == true) {
-
+        if (islogin()) {
 
             java.lang.String a = "/data/user/0/open.cn.awg.pro/settings/account/user";
 
@@ -306,34 +287,27 @@ public class e1 extends iClass {
 
             if (i > 0) {
 
-
                 if (wj.fz(outpath, out2path, true)) {
 
                     wj.sc(outpath, true);
                     tsk("提示", "导出备份成功\n请勿修改备份文件名，否则将无法导入！\n\n[文件路径]\n" + out2path);
 
-
                 } else {
 
                     tsk("提示", "导出备份成功\n请勿修改备份文件名，否则将无法导入！\n\n[文件路径]\n" + outpath);
 
-
                 }
-
 
             } else {
 
                 tsk("提示", "导出备份失败");
 
-
             }
-
 
         } else {
 
             gj.tz(n1.class);
             tsk("提示", "该操作需要登录Typheye账户");
-
 
         }
 
@@ -343,8 +317,7 @@ public class e1 extends iClass {
 
         boolean bk = false;
 
-        if (islogin() == true) {
-
+        if (islogin()) {
 
             java.lang.String a = "/data/user/0/open.cn.awg.pro/settings/account/user";
 
@@ -365,7 +338,6 @@ public class e1 extends iClass {
 
                 wj.sc(outpath);
 
-
             }
             wj.xrwb(mkdirpath, "");
             wj.xrwb(tmp2path, "");
@@ -380,19 +352,15 @@ public class e1 extends iClass {
 
                 bk = true;
 
-
             } else {
 
                 tsk("提示", "导出备份失败");
 
-
             }
-
 
         } else {
 
             tsk("提示", "该操作需要登录Typheye账户");
-
 
         }
         return bk;
@@ -425,23 +393,19 @@ public class e1 extends iClass {
 
                 public void run() {
 
-
                     java.lang.String[] name = new java.lang.String[]{"Msg"};
 
                     java.lang.String[] value = new java.lang.String[]{"导入成功 点击重启"};
                     gj.tz(a0.class, name, value);
-
 
                 }
 
             });
             return true;
 
-
         } else {
 
             tsk("提示", "导入备份失败，请参考\"重要说明\"");
-
 
         }
         return false;
@@ -452,11 +416,9 @@ public class e1 extends iClass {
 
         i.runlibrary.app.xt$qxgl a = xt.qxgl();
 
-        if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE") == true) {
+        if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 
-
-            if (islogin() == true) {
-
+            if (islogin()) {
 
                 java.lang.String lists = "";
 
@@ -466,19 +428,15 @@ public class e1 extends iClass {
 
                 for (java.io.File c : lb) {
 
-
                     if (zf.dy(lists, "")) {
 
                         lists = c.getAbsolutePath();
-
 
                     } else {
 
                         lists = lists + "\n" + c.getAbsolutePath();
 
-
                     }
-
 
                 }
 
@@ -490,15 +448,12 @@ public class e1 extends iClass {
 
                 if (d.length > 0) {
 
-
                     for (java.lang.String e : d) {
-
 
                         java.lang.String[] bb;
                         bb = fileinfo("/storage/emulated/0/", e);
 
                         if (zf.dy(bb[0], "true")) {
-
 
                             java.lang.String sts = zf.qc(bb[3], null, ".awgbak");
 
@@ -509,12 +464,9 @@ public class e1 extends iClass {
                                 test0 = test1;
                                 endpath = e;
 
-
                             }
 
-
                         }
-
 
                     }
 
@@ -522,28 +474,17 @@ public class e1 extends iClass {
 
                         tsk("提示", "未在设备存储中找到备份文件");
 
-
                     } else {
 
-
-                        if (app_recovery(endpath)) {
-
-                            return true;
-
-
-                        }
-
+                        return app_recovery(endpath);
 
                     }
-
 
                 } else {
 
                     tsk("提示", "未在设备存储中找到备份文件");
 
-
                 }
-
 
             } else {
 
@@ -551,14 +492,11 @@ public class e1 extends iClass {
                 gj.tz(n1.class);
                 tsk("提示", "该操作需要登录腕管Pro账户");
 
-
             }
-
 
         } else {
 
             tsk("提示", "您未授权应用\"修改或删除您共享存储空间中的内容\"，请先前往设置授权后再操作");
-
 
         }
         return false;
@@ -567,10 +505,9 @@ public class e1 extends iClass {
 
     public void goplu(java.lang.Object pluid, java.lang.Object pluname, boolean p) {
 
-        if (p == true) {
+        if (p) {
 
             e11.add_pluginlist(pluid, pluname, pluid + "-" + pluname);
-
 
         }
 
@@ -586,8 +523,7 @@ public class e1 extends iClass {
 
         if (zf.dy(wj.dqwb(set1), "true")) {
 
-
-            if (e14.newG(Integer.parseInt(String.valueOf(pluid))) == true) {
+            if (e14.newG(Integer.parseInt(String.valueOf(pluid)))) {
 
                 gj.jmxc(new java.lang.Runnable() {
 
@@ -595,19 +531,15 @@ public class e1 extends iClass {
 
                         gj.tz(m2.class);
 
-
                     }
 
                 });
-
 
             } else {
 
                 tsk("提示", "没有可执行此操作的扩展");
 
-
             }
-
 
         } else {
 
@@ -617,11 +549,9 @@ public class e1 extends iClass {
 
                     gj.tz(m2.class);
 
-
                 }
 
             });
-
 
         }
 
@@ -637,7 +567,6 @@ public class e1 extends iClass {
 
             b = "0";
 
-
         }
         return b;
 
@@ -649,17 +578,7 @@ public class e1 extends iClass {
 
         java.lang.String b = "/data/user/0/open.cn.awg.pro/settings/account/pass";
 
-        if (wj.cz(a) == false || wj.cz(b) == false) {
-
-            return false;
-
-
-        } else {
-
-            return true;
-
-
-        }
+        return wj.cz(a) && wj.cz(b);
 
     }
 
@@ -667,17 +586,7 @@ public class e1 extends iClass {
 
         java.lang.String ic = "/data/user/0/open.cn.awg.pro/settings/f11/true";
 
-        if (wj.cz(ic) && zf.dy(wj.dqwb(ic), "1")) {
-
-            return true;
-
-
-        } else {
-
-            return false;
-
-
-        }
+        return wj.cz(ic) && zf.dy(wj.dqwb(ic), "1");
 
     }
 
@@ -687,17 +596,7 @@ public class e1 extends iClass {
 
         boolean f = wj.xrwb(ic, "1");
 
-        if (f) {
-
-            return true;
-
-
-        } else {
-
-            return false;
-
-
-        }
+        return f;
 
     }
 
@@ -716,11 +615,9 @@ public class e1 extends iClass {
 
             b = android.os.Process.myUid() / 100000;
 
-
         } catch (java.lang.Throwable __$_e__) {
 
             b = -1;
-
 
         }
         return b;
@@ -733,15 +630,13 @@ public class e1 extends iClass {
 
         java.lang.String a = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2";
 
-        if (wj.cz(a) != false && !zf.dy(wj.dqwb(a), "")) {
+        if (wj.cz(a) && !zf.dy(wj.dqwb(a), "")) {
 
             zt = true;
-
 
         } else {
 
             gj.tz(f7.class);
-
 
         }
         return zt;
@@ -759,9 +654,7 @@ public class e1 extends iClass {
 
                 if (zf.dy(i, "a1")) {
 
-
                 }
-
 
             }
 
@@ -783,14 +676,11 @@ public class e1 extends iClass {
                     jh();
                     tsk("提示", "应用激活成功");
 
-
                 } else if (zf.dy(i, "a0")) {
 
                     tsk("提示", "捐赠成功，感谢您的支持！");
 
-
                 }
-
 
             }
 
@@ -806,11 +696,9 @@ public class e1 extends iClass {
 
         while (i > 0) {
 
-
             java.lang.String b = String.valueOf(zf.sjs(0, 9));
             a = a + b;
             i = i - 1;
-
 
         }
 
@@ -833,11 +721,9 @@ public class e1 extends iClass {
 
         if (zf.cjw(urls, "/")) {
 
-
         } else {
 
             urls = urls + "/";
-
 
         }
 
@@ -868,23 +754,11 @@ public class e1 extends iClass {
 
             return false;
 
-
         } else {
 
             wj.xrwb(sec_isunlock, st5);
 
-            if (zf.dy(st5, "true")) {
-
-                return true;
-
-
-            } else {
-
-                return false;
-
-
-            }
-
+            return zf.dy(st5, "true");
 
         }
 
@@ -896,10 +770,9 @@ public class e1 extends iClass {
 
         java.lang.String a = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2";
 
-        if (wj.cz(a) != false && !zf.dy(wj.dqwb(a), "")) {
+        if (wj.cz(a) && !zf.dy(wj.dqwb(a), "")) {
 
             zt = true;
-
 
         }
         return zt;
@@ -916,7 +789,6 @@ public class e1 extends iClass {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
 
-
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
@@ -928,7 +800,6 @@ public class e1 extends iClass {
                     st.xdbj(vw, open.cn.awg.pro.R.id.xdbj1).xyca(false);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(0);
 
-
                 } else {
 
                     st.xdbj(vw, open.cn.awg.pro.R.id.xdbj1).kjd(0);
@@ -936,9 +807,7 @@ public class e1 extends iClass {
                     st.xdbj(vw, open.cn.awg.pro.R.id.xdbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 }
-
 
             }
 
@@ -948,13 +817,11 @@ public class e1 extends iClass {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
 
-
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
                 if (f == 1) {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextFalse);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -963,9 +830,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 } else if (f == -1) {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -974,9 +839,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(false);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(0);
 
-
                 } else {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -985,9 +848,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 }
-
 
             }
 
@@ -996,7 +857,6 @@ public class e1 extends iClass {
         sxspq = sxlb.v7lbspq(c5.class, open.cn.awg.pro.R.layout.c5, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
-
 
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
@@ -1014,7 +874,6 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 } else if (f == -1) {
 
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
@@ -1026,7 +885,6 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xydj(false);
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(false);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(0);
-
 
                 } else {
 
@@ -1040,9 +898,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 }
-
 
             }
 
@@ -1052,13 +908,11 @@ public class e1 extends iClass {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
 
-
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
                 if (f == 1) {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextFalse);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -1068,9 +922,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 } else if (f == -1) {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -1080,9 +932,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(false);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(0);
 
-
                 } else if (f == 0) {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -1092,9 +942,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 } else if (f == -2) {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextTrue);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -1104,9 +952,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 } else {
-
 
                     java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
                     st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
@@ -1116,9 +962,7 @@ public class e1 extends iClass {
                     st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
                     st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
 
-
                 }
-
 
             }
 
@@ -1149,11 +993,9 @@ public class e1 extends iClass {
             mfile.hashCode();
             FileUrl = mfile.getPath();
 
-
         } catch (java.lang.Throwable e) {
 
             Runs = "false";
-
 
         }
 
@@ -1178,18 +1020,15 @@ public class e1 extends iClass {
 
         try {
 
-
             java.lang.String FileUrl = wj.hqml(url);
 
             if (zf.cjw(FileUrl, "/")) {
 
                 FileUrl = FileUrl;
 
-
             } else {
 
                 FileUrl = FileUrl + "/";
-
 
             }
             spq.sc();
@@ -1206,19 +1045,15 @@ public class e1 extends iClass {
 
                     jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b5, "...", FileUrl, "返回上层目录", 0};
 
-
                 } else {
 
                     jk = new java.lang.Object[]{srcs, "...", FileUrl, "返回上层目录", 0};
 
-
                 }
-
 
             } else {
 
                 jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b5, "...", FileUrl, "返回上层目录", 0};
-
 
             }
             spq.j(kj, jk);
@@ -1229,11 +1064,9 @@ public class e1 extends iClass {
 
                 java.util.Arrays.sort(FileXH1);
 
-
             }
 
             for (java.lang.String c : FileXH1) {
-
 
                 java.lang.String urlName = "";
 
@@ -1243,11 +1076,9 @@ public class e1 extends iClass {
 
                     urlName = fhValue[3];
 
-
                 } else {
 
                     urlName = "Error";
-
 
                 }
 
@@ -1261,19 +1092,15 @@ public class e1 extends iClass {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b5, urlName, c, Two, 0};
 
-
                     } else {
 
                         jk = new java.lang.Object[]{srcs, urlName, c, Two, 0};
 
-
                     }
-
 
                 } else {
 
                     jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b5, urlName, c, Two, 0};
-
 
                 }
 
@@ -1293,14 +1120,11 @@ public class e1 extends iClass {
 
                 if (zf.dy(c, pb1) || zf.dy(c, pb2) || zf.dy(c, pb3) || zf.dy(c, pb4) || zf.dy(c, pb5) || (xt.sbxx().sdk > 29 && zf.dy(c, pb6)) || (xt.sbxx().sdk > 29 && zf.dy(c, pb7))) {
 
-
                 } else {
 
                     spq.j(kj, jk);
 
-
                 }
-
 
             }
 
@@ -1310,11 +1134,9 @@ public class e1 extends iClass {
 
                 java.util.Arrays.sort(FileXH2);
 
-
             }
 
             for (java.lang.String c : FileXH2) {
-
 
                 java.lang.String bt = "";
 
@@ -1324,17 +1146,15 @@ public class e1 extends iClass {
 
                     bt = fhValue[3];
 
-
                 } else {
 
                     bt = "Error";
-
 
                 }
 
                 double dx = ((double) (wj.dx(c)));
 
-                double d1 = ((double) (0));
+                double d1 = 0;
 
                 java.lang.String d0;
 
@@ -1348,13 +1168,11 @@ public class e1 extends iClass {
                     d0 = com.demo.e4.doubleToString(d1);
                     wjdx = d0 + "B";
 
-
                 } else if (dx >= 1024 && dx < 1048576) {
 
                     d1 = dx / 1024;
                     d0 = com.demo.e4.doubleToString(d1);
                     wjdx = d0 + "K";
-
 
                 } else if (dx >= 1048576 && dx < 1073741824) {
 
@@ -1362,18 +1180,15 @@ public class e1 extends iClass {
                     d0 = com.demo.e4.doubleToString(d1);
                     wjdx = d0 + "M";
 
-
                 } else {
 
                     d1 = dx / 1024 / 1024 / 1024;
                     d0 = com.demo.e4.doubleToString(d1);
                     wjdx = d0 + "G";
 
-
                 }
 
                 if (zf.cjw(cc, ".apk") || zf.cjw(cc, ".xapk") || zf.cjw(cc, ".apks")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1383,34 +1198,26 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b1, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b1, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".png") || zf.cjw(cc, "jpg")) {
-
 
                     if (zf.dy(wj.dqwb(set1), "true")) {
 
                         jk = new java.lang.Object[]{c, bt, c, wjdx, 0};
 
-
                     } else {
-
 
                         if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1420,29 +1227,22 @@ public class e1 extends iClass {
 
                                 jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b11, bt, c, wjdx, 0};
 
-
                             } else {
 
                                 jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                             }
-
 
                         } else {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b11, bt, c, wjdx, 0};
 
-
                         }
-
 
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".mp3") || zf.cjw(cc, ".flac") || zf.cjw(cc, ".ogg")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1452,26 +1252,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b9, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b9, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".mp4") || zf.cjw(cc, ".mkv") || zf.cjw(cc, ".webm") || zf.cjw(cc, ".m3u8") || zf.cjw(cc, ".avi") || zf.cjw(cc, ".mts")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1481,26 +1275,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b8, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b8, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".txt") || zf.cjw(cc, ".xml") || zf.cjw(cc, ".java")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1510,26 +1298,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b13, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b13, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".zip") || zf.cjw(cc, ".rar") || zf.cjw(cc, "7z")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1539,26 +1321,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b16, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b16, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".html")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1568,26 +1344,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b6, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b6, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".pdf")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1597,26 +1367,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b10, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b10, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".doc") || zf.cjw(cc, ".docx")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1626,26 +1390,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b15, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b15, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".xls") || zf.cjw(cc, ".xlsx")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1655,26 +1413,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b2, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b2, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".ppt") || zf.cjw(cc, ".pptx")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1684,26 +1436,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b12, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b12, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".awgtheme")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1713,26 +1459,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b17, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b17, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".awgsash")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1742,26 +1482,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b18, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b18, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".sh")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1771,26 +1505,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b19, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b19, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else if (zf.cjw(cc, ".awgbak")) {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1800,26 +1528,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b20, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b20, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 } else {
-
 
                     if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -1829,26 +1551,20 @@ public class e1 extends iClass {
 
                             jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b14, bt, c, wjdx, 0};
 
-
                         } else {
 
                             jk = new java.lang.Object[]{srcs, bt, c, wjdx, 0};
 
-
                         }
-
 
                     } else {
 
                         jk = new java.lang.Object[]{open.cn.awg.pro.R.mipmap.b14, bt, c, wjdx, 0};
 
-
                     }
                     spq.j(kj, jk);
 
-
                 }
-
 
             }
             jk = new java.lang.Object[]{"", "", "", "", -1};
@@ -1863,7 +1579,6 @@ public class e1 extends iClass {
                 jk = new java.lang.Object[]{"", "", "", "", -1};
                 spq.j(kj, jk);
 
-
             }
 
             final java.lang.String ok = FileUrl;
@@ -1875,17 +1590,14 @@ public class e1 extends iClass {
                     lb.xzwz(e11.get_filelist(ok));
                     st.wb(open.cn.awg.pro.R.id.zywblj).zf(ok);
 
-
                 }
 
             });
-
 
         } catch (java.lang.Throwable e) {
 
             upload_error(e, "e1.NewFilesLoad(s,s)");
             gj.gb();
-
 
         }
 
@@ -1898,32 +1610,24 @@ public class e1 extends iClass {
 
         if (zf.dy(text, "返回上层目录")) {
 
-
             if (zf.dy(url, root)) {
 
                 gj.gb();
 
-
             } else {
-
 
                 java.lang.String[] fhValue = fileinfo("%", url);
                 NewFilesLoad(fhValue[2], root);
 
-
             }
 
-
         } else {
-
 
             if (wj.lx(url) == 2) {
 
                 NewFilesLoad(url, root);
 
-
             } else {
-
 
                 java.lang.String[] fhValue = fileinfo(root, url);
 
@@ -1942,101 +1646,83 @@ public class e1 extends iClass {
                     cdx(6, bts, lj, ljs);
                     dkfs("b", c, 1);
 
-
                 } else if (zf.cjw(cc, ".txt") || zf.cjw(cc, ".xml") || zf.cjw(cc, ".java")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("a", c, 1);
-
 
                 } else if (zf.cjw(cc, ".zip") || zf.cjw(cc, ".rar") || zf.cjw(cc, "7z")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("e", c, 1);
 
-
                 } else if (zf.cjw(cc, ".html")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("a", c, 1);
-
 
                 } else if (zf.cjw(cc, ".pdf")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-
                 } else if (zf.cjw(cc, ".doc") || zf.cjw(cc, ".docx")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
-
 
                 } else if (zf.cjw(cc, ".xls") || zf.cjw(cc, ".xlsx")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-
                 } else if (zf.cjw(cc, ".ppt") || zf.cjw(cc, ".pptx")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
-
 
                 } else if (zf.cjw(cc, ".apk") || zf.cjw(cc, ".xapk") || zf.cjw(cc, ".apks")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("f", c, 1);
 
-
                 } else if (zf.cjw(cc, ".mp3") || zf.cjw(cc, ".flac") || zf.cjw(cc, ".ogg")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("c", c, 1);
-
 
                 } else if (zf.cjw(cc, ".mp4") || zf.cjw(cc, ".mkv") || zf.cjw(cc, ".webm") || zf.cjw(cc, ".m3u8") || zf.cjw(cc, ".avi") || zf.cjw(cc, ".mts")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("d", c, 1);
 
-
                 } else if (zf.cjw(cc, ".awgtheme")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
-
 
                 } else if (zf.cjw(cc, ".awgsash")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-
                 } else if (zf.cjw(cc, ".sh")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
-
 
                 } else if (zf.cjw(cc, ".awgbak")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-
                 } else {
 
                     cdx(6, bts, lj, ljs);
 
-
                 }
 
-
             }
-
 
         }
 
@@ -2059,17 +1745,13 @@ public class e1 extends iClass {
 
             xx = "文本";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
-
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
             } else {
 
@@ -2078,68 +1760,55 @@ public class e1 extends iClass {
                 jk = new java.lang.Object[]{"腕管Pro：文本编辑", "a2", b, 0};
                 dkspq.j(kj, jk);
 
-
             }
-
 
         } else if (zf.dy(z, "b")) {
 
             xx = "图片";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
                 jk = new java.lang.Object[]{"腕上微聊：选择附件", "h1", b, 0};
                 dkspq.j(kj, jk);
                 jk = new java.lang.Object[]{"PinchImageView：图片浏览", "b1", b, 0};
                 dkspq.j(kj, jk);
 
-
-            } else if (wj.cz(choose2) == true && zf.dy(wj.dqwb(choose2), "h1")) {
+            } else if (wj.cz(choose2) && zf.dy(wj.dqwb(choose2), "h1")) {
 
                 jk = new java.lang.Object[]{"账户头像：选择附件", "i1", b, 0};
                 dkspq.j(kj, jk);
                 jk = new java.lang.Object[]{"PinchImageView：图片浏览", "b1", b, 0};
                 dkspq.j(kj, jk);
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
-
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
             } else {
 
                 jk = new java.lang.Object[]{"PinchImageView：图片浏览", "b1", b, 0};
                 dkspq.j(kj, jk);
 
-
             }
-
 
         } else if (zf.dy(z, "c")) {
 
             xx = "音频";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
                 jk = new java.lang.Object[]{"腕上微聊：选择附件", "h2", b, 0};
                 dkspq.j(kj, jk);
                 jk = new java.lang.Object[]{"DKPlayer：媒体浏览", "c2", b, 0};
                 dkspq.j(kj, jk);
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
-
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
             } else {
 
@@ -2150,10 +1819,9 @@ public class e1 extends iClass {
                 boolean apppd1;
                 apppd1 = com.demo.e8.app(context, "cn.wearbbs.music");
 
-                if (apppd1 == true) {
+                if (apppd1) {
 
                     dkspq.j(kj, jk);
-
 
                 }
                 jk = new java.lang.Object[]{"抬腕视频：音频浏览", "c3", b, -2};
@@ -2161,37 +1829,30 @@ public class e1 extends iClass {
                 boolean apppd2;
                 apppd2 = com.demo.e8.app(context, "com.hankmi.wearmusic");
 
-                if (apppd2 == true) {
+                if (apppd2) {
 
                     dkspq.j(kj, jk);
 
-
                 }
 
-
             }
-
 
         } else if (zf.dy(z, "d")) {
 
             xx = "视频";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
                 jk = new java.lang.Object[]{"腕上微聊：选择附件", "h3", b, 0};
                 dkspq.j(kj, jk);
                 jk = new java.lang.Object[]{"DKPlayer：媒体浏览", "d2", b, 0};
                 dkspq.j(kj, jk);
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
-
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
             } else {
 
@@ -2202,10 +1863,9 @@ public class e1 extends iClass {
                 boolean apppd1;
                 apppd1 = com.demo.e8.app(context, "cn.luern0313.wristvideoplayer");
 
-                if (apppd1 == true) {
+                if (apppd1) {
 
                     dkspq.j(kj, jk);
-
 
                 }
                 jk = new java.lang.Object[]{"抬腕视频：视频浏览", "d4", b, -2};
@@ -2213,60 +1873,47 @@ public class e1 extends iClass {
                 boolean apppd2;
                 apppd2 = com.demo.e8.app(context, "com.hankmi.media");
 
-                if (apppd2 == true) {
+                if (apppd2) {
 
                     dkspq.j(kj, jk);
 
-
                 }
 
-
             }
-
 
         } else if (zf.dy(z, "e")) {
 
             xx = "压缩";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
                 jk = new java.lang.Object[]{"腕上微聊：选择附件", "h4", b, 0};
                 dkspq.j(kj, jk);
-
 
             } else {
 
                 jk = new java.lang.Object[]{"腕管Pro：解压到当前目录", "e1", b, 0};
                 dkspq.j(kj, jk);
 
-
             }
-
 
         } else if (zf.dy(z, "f")) {
 
             xx = "应用";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
-
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
             } else {
 
@@ -2277,25 +1924,19 @@ public class e1 extends iClass {
                 jk = new java.lang.Object[]{"系统：打包安装程序(备用)", "f3", b, 0};
                 dkspq.j(kj, jk);
 
-
             }
-
 
         } else if (zf.dy(z, "g")) {
 
             xx = "其他";
 
-            if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h1")) {
+            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
 
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
 
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
 
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h3")) {
-
-
-            } else if (wj.cz(choose) == true && zf.dy(wj.dqwb(choose), "h4")) {
-
+            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
 
             } else {
 
@@ -2307,14 +1948,12 @@ public class e1 extends iClass {
 
                     dkspq.j(kj, jk);
 
-
                 }
                 jk = new java.lang.Object[]{"腕管Pro：无障碍脚本执行", "g3", b, 0};
 
                 if (zf.cjw(b, ".awgsash")) {
 
                     dkspq.j(kj, jk);
-
 
                 }
                 jk = new java.lang.Object[]{"腕管Pro：Shell脚本执行", "g4", b, 0};
@@ -2323,7 +1962,6 @@ public class e1 extends iClass {
 
                     dkspq.j(kj, jk);
 
-
                 }
                 jk = new java.lang.Object[]{"腕管Pro：关于备份文件", "g5", b, 0};
 
@@ -2331,12 +1969,9 @@ public class e1 extends iClass {
 
                     dkspq.j(kj, jk);
 
-
                 }
 
-
             }
-
 
         }
 
@@ -2345,12 +1980,10 @@ public class e1 extends iClass {
             jk = new java.lang.Object[]{"返回", "0", "", 1};
             dkspq.j(kj, jk);
 
-
         } else if (e == 1) {
 
             jk = new java.lang.Object[]{"返回", "-1", "", 1};
             dkspq.j(kj, jk);
-
 
         }
 
@@ -2365,7 +1998,6 @@ public class e1 extends iClass {
             jk = new java.lang.Object[]{"", "", "", -1};
             dkspq.j(kj, jk);
 
-
         }
 
         final java.lang.String xxs = xx;
@@ -2376,7 +2008,6 @@ public class e1 extends iClass {
                 dkspq.sx();
                 st.v7lb(open.cn.awg.pro.R.id.v7lb4).xzwz("top");
                 st.wb(open.cn.awg.pro.R.id.Tab).zf(xxs);
-
 
             }
 
@@ -2390,7 +2021,6 @@ public class e1 extends iClass {
             public void run() {
 
                 st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
-
 
             }
 
@@ -2435,11 +2065,9 @@ public class e1 extends iClass {
                     st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
                     lb.v.requestFocus();
 
-
                 }
 
             });
-
 
         } else if (i == 1 || i == 2 || i == 3) {
 
@@ -2451,17 +2079,16 @@ public class e1 extends iClass {
             jk = new java.lang.Object[]{"刷新", "", a, b, c, 0};
             cdspq.j(kj, jk);
 
-            if (wj.cz(cache1) == true || wj.cz(cache2) == true) {
+            if (wj.cz(cache1) || wj.cz(cache2)) {
 
                 jk = new java.lang.Object[]{"粘贴到当前目录", "", a, b, c, 0};
                 cdspq.j(kj, jk);
                 jk = new java.lang.Object[]{"取消粘贴", "", a, b, c, 0};
                 cdspq.j(kj, jk);
 
-
             }
 
-            if (wj.cz(cache1) != true && wj.cz(cache2) != true) {
+            if (!wj.cz(cache1) && !wj.cz(cache2)) {
 
                 jk = new java.lang.Object[]{"新建目录", "", a, b, c, 0};
                 cdspq.j(kj, jk);
@@ -2481,7 +2108,6 @@ public class e1 extends iClass {
                     jk = new java.lang.Object[]{"属性", "1", a, b, c, 0};
                     cdspq.j(kj, jk);
 
-
                 } else if (i == 2) {
 
                     jk = new java.lang.Object[]{"打开方式", "0", a, b, c, 0};
@@ -2497,12 +2123,9 @@ public class e1 extends iClass {
                     jk = new java.lang.Object[]{"属性", "2", a, b, c, 0};
                     cdspq.j(kj, jk);
 
-
                 } else if (i == 3) {
 
-
                 }
-
 
             }
             jk = new java.lang.Object[]{"返回", "back", "", "", "", 1};
@@ -2521,7 +2144,6 @@ public class e1 extends iClass {
                 jk = new java.lang.Object[]{"", "", "", "", "", -1};
                 cdspq.j(kj, jk);
 
-
             }
             gj.jmxc(new java.lang.Runnable() {
 
@@ -2538,22 +2160,17 @@ public class e1 extends iClass {
                     st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd(8);
                     st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
 
-
                 }
 
             });
 
-
         } else if (i == 4) {
 
-
-            if (wj.cz(cache3) == true) {
-
+            if (wj.cz(cache3)) {
 
                 java.lang.String w3 = wj.dqwb(cache3);
 
                 if (zf.dy(w3, "重命名")) {
-
 
                     final java.lang.String nr = a;
                     gj.jmxc(new java.lang.Runnable() {
@@ -2563,11 +2180,9 @@ public class e1 extends iClass {
                             st.bjk(open.cn.awg.pro.R.id.bjk1).zf(nr);
                             st.bjk(open.cn.awg.pro.R.id.bjk1).tszf("请重命名文件");
 
-
                         }
 
                     });
-
 
                 } else {
 
@@ -2578,11 +2193,9 @@ public class e1 extends iClass {
                             st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
                             st.bjk(open.cn.awg.pro.R.id.bjk1).tszf("请输入目录/文件名");
 
-
                         }
 
                     });
-
 
                 }
 
@@ -2604,19 +2217,15 @@ public class e1 extends iClass {
                         st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
                         st.qtgd(open.cn.awg.pro.R.id.qtgd1).v.requestFocus();
 
-
                     }
 
                 });
-
 
             } else {
 
                 cdx(0, null, null, null);
 
-
             }
-
 
         } else if (i == 5) {
 
@@ -2632,19 +2241,15 @@ public class e1 extends iClass {
 
             if (wj.lx(b) == 1) {
 
-
                 java.lang.String dx = hqwjdx(b);
                 jk = new java.lang.Object[]{"大小", dx, 0};
                 sxspq.j(kj, jk);
 
-
             } else {
-
 
                 java.lang.String dxs = wj.dqwb(cache41);
                 jk = new java.lang.Object[]{"大小", dxs, 0};
                 sxspq.j(kj, jk);
-
 
             }
             jk = new java.lang.Object[]{"返回", "", 1};
@@ -2663,7 +2268,6 @@ public class e1 extends iClass {
                 jk = new java.lang.Object[]{"", "", -1};
                 sxspq.j(kj, jk);
 
-
             }
             gj.jmxc(new java.lang.Runnable() {
 
@@ -2680,11 +2284,9 @@ public class e1 extends iClass {
                     st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd(8);
                     st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
 
-
                 }
 
             });
-
 
         } else if (i == 6) {
 
@@ -2723,7 +2325,6 @@ public class e1 extends iClass {
                 jk = new java.lang.Object[]{"", "", "", -1};
                 dkspq.j(kj, jk);
 
-
             }
             gj.jmxc(new java.lang.Runnable() {
 
@@ -2740,14 +2341,11 @@ public class e1 extends iClass {
                     st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd(0);
                     st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
 
-
                 }
 
             });
 
-
         } else {
-
 
         }
 
@@ -2765,7 +2363,7 @@ public class e1 extends iClass {
 
         double dx = ((double) (wj.dx(url)));
 
-        double d1 = ((double) (0));
+        double d1 = 0;
 
         java.lang.String d0;
 
@@ -2777,13 +2375,11 @@ public class e1 extends iClass {
             d0 = com.demo.e4.doubleToString(d1);
             wjdx = d0 + "B";
 
-
         } else if (dx >= 1024 && dx < 1048576) {
 
             d1 = dx / 1024;
             d0 = com.demo.e4.doubleToString(d1);
             wjdx = d0 + "K";
-
 
         } else if (dx >= 1048576 && dx < 1073741824) {
 
@@ -2791,13 +2387,11 @@ public class e1 extends iClass {
             d0 = com.demo.e4.doubleToString(d1);
             wjdx = d0 + "M";
 
-
         } else {
 
             d1 = dx / 1024 / 1024 / 1024;
             d0 = com.demo.e4.doubleToString(d1);
             wjdx = d0 + "G";
-
 
         }
         return wjdx;
@@ -2814,7 +2408,6 @@ public class e1 extends iClass {
             public void run() {
 
                 gj.tz(a3.class, name, value);
-
 
             }
 
@@ -2833,7 +2426,6 @@ public class e1 extends iClass {
 
                 gj.tz(a3.class, name, value);
 
-
             }
 
         });
@@ -2851,7 +2443,6 @@ public class e1 extends iClass {
 
                 gj.tz(b1.class, name, value);
 
-
             }
 
         });
@@ -2864,7 +2455,6 @@ public class e1 extends iClass {
 
         try {
 
-
             i.runlibrary.app.zf$json jo = zf.json(text);
 
             org.json.JSONObject json = jo.json;
@@ -2872,11 +2462,9 @@ public class e1 extends iClass {
             java.lang.Object sjs = jo.hq(json, value);
             back = sjs.toString();
 
-
         } catch (java.lang.Throwable e) {
 
             back = "0";
-
 
         }
         return back;
@@ -2893,24 +2481,19 @@ public class e1 extends iClass {
 
         try {
 
-
-            if (wj.cz(m) == true) {
+            if (wj.cz(m)) {
 
                 back = m;
-
 
             } else {
 
                 back = "0";
 
-
             }
-
 
         } catch (java.lang.Throwable e) {
 
             back = "0";
-
 
         }
         return back;
@@ -2928,11 +2511,9 @@ public class e1 extends iClass {
 
             tsk("提示", "导入主题失败\n文件可能已损坏");
 
-
         } else {
 
             tsk("提示", "导入主题成功");
-
 
         }
 
@@ -2952,7 +2533,6 @@ public class e1 extends iClass {
 
             back[0] = info1;
 
-
         }
 
         java.lang.String info2 = readJson(text, "version");
@@ -2960,7 +2540,6 @@ public class e1 extends iClass {
         if (!zf.dy(info2, "0")) {
 
             back[1] = info2;
-
 
         }
 
@@ -2970,7 +2549,6 @@ public class e1 extends iClass {
 
             back[2] = info3;
 
-
         }
 
         java.lang.String info4 = readJson(text, "time");
@@ -2978,7 +2556,6 @@ public class e1 extends iClass {
         if (!zf.dy(info4, "0")) {
 
             back[3] = info4;
-
 
         }
 
@@ -2988,7 +2565,6 @@ public class e1 extends iClass {
 
             back[4] = info5;
 
-
         }
 
         java.lang.String info6 = readJson(text, "tip");
@@ -2996,7 +2572,6 @@ public class e1 extends iClass {
         if (!zf.dy(info6, "0")) {
 
             back[5] = info6;
-
 
         }
         return back;
@@ -3012,36 +2587,28 @@ public class e1 extends iClass {
 
             back = t;
 
-
         } else {
-
 
             if (zf.ckt(t, "https://service.typheye.cn/")) {
 
-
                 java.lang.String n = zf.qc(t, "https://service.typheye.cn/", null);
                 back = "awg://web.url/" + n;
-
 
             } else if (zf.ckt(t, "https://")) {
 
                 t = zf.th(t, "https://", "");
                 back = "awg://thirds.url/" + t;
 
-
             } else if (zf.ckt(t, "http://")) {
 
                 t = zf.th(t, "http://", "");
                 back = "awg://third.url/" + t;
 
-
             } else {
 
                 back = "0";
 
-
             }
-
 
         }
         return back;
@@ -3061,34 +2628,27 @@ public class e1 extends iClass {
 
         if (zf.ckt(t, "awg://")) {
 
-
             if (zf.ckt(t, "awg://web.url/")) {
 
                 back = zf.th(t, "awg://web.url/", url);
-
 
             } else if (zf.ckt(t, "awg://third.url/")) {
 
                 back = zf.th(t, "awg://third.url/", http);
 
-
             } else if (zf.ckt(t, "awg://thirds.url/")) {
 
                 back = zf.th(t, "awg://thirds.url/", https);
-
 
             } else {
 
                 back = "0";
 
-
             }
-
 
         } else {
 
             back = t;
-
 
         }
         return back;
@@ -3118,11 +2678,9 @@ public class e1 extends iClass {
 
         if (zf.cjw(set2e, "/")) {
 
-
         } else {
 
             set2e = set2e + "/";
-
 
         }
         set2e = set2e + "config.json";
@@ -3132,9 +2690,7 @@ public class e1 extends iClass {
 
             public void run() {
 
-
-                if (yz() == true) {
-
+                if (yz()) {
 
                     java.lang.String setback = "";
 
@@ -3148,7 +2704,6 @@ public class e1 extends iClass {
 
                         setback = "0";
 
-
                     } else {
 
                         setback = htmlToText(back);
@@ -3157,24 +2712,19 @@ public class e1 extends iClass {
 
                             setback = "0";
 
-
                         } else {
 
                             version = readJson(setback, "UpdateVersion");
                             version2 = readJson(setback, "FixVersion");
                             setback = String.valueOf(1);
 
-
                         }
-
 
                     }
 
                     if (zf.dy(setback, "0")) {
 
-
                     } else {
-
 
                         java.lang.String ek = "";
 
@@ -3184,37 +2734,29 @@ public class e1 extends iClass {
 
                         if (myappversion >= b1) {
 
-
                         } else {
 
                             ek = "应用";
-
 
                         }
 
                         if (Double.parseDouble(appfixversion) >= b2) {
 
-
                         } else {
-
 
                             if (zf.dy(ek, "应用")) {
 
                                 ek = ek + "和补丁";
 
-
                             } else {
 
                                 ek = "补丁";
 
-
                             }
-
 
                         }
 
                         if (myappversion < b1 || Double.parseDouble(appfixversion) < b2) {
-
 
                             final java.lang.String eks = ek;
                             gj.jmxc(new java.lang.Runnable() {
@@ -3224,23 +2766,17 @@ public class e1 extends iClass {
                                     gj.tz(f9.class);
                                     tsk("提示", eks + "有新版本了");
 
-
                                 }
 
                             });
 
-
                         }
-
 
                     }
 
-
                 } else {
 
-
                 }
-
 
             }
 
@@ -3264,7 +2800,6 @@ public class e1 extends iClass {
 
             public void run() {
 
-
                 java.lang.String setback = "";
 
                 java.lang.String version = "";
@@ -3275,12 +2810,9 @@ public class e1 extends iClass {
 
                 if (zf.dy(back, "") || zf.dy(back, null)) {
 
-
                 } else {
 
-
                 }
-
 
             }
 
@@ -3292,25 +2824,8 @@ public class e1 extends iClass {
 
         boolean back;
 
-        if (wj.cz("/data/user/0/open.cn.awg.pro/app_tbs/core_share/tbs.conf") == true || wj.cz("/data/user/0/open.cn.awg.pro/app_tbs_64/core_share/tbs.conf") == true) {
-
-            back = true;
-
-
-        } else {
-
-            back = false;
-
-
-        }
+        back = wj.cz("/data/user/0/open.cn.awg.pro/app_tbs/core_share/tbs.conf") || wj.cz("/data/user/0/open.cn.awg.pro/app_tbs_64/core_share/tbs.conf");
         return back;
 
     }
-
-    public e1(i.runlibrary.app.AppInfo _APPINFO) {
-        super(_APPINFO);
-
-    }
-
-    public final e1 lei = this, 类 = this;
 }

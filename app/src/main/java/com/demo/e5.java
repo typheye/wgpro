@@ -1,6 +1,7 @@
 package com.demo;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -21,6 +22,7 @@ import java.util.Queue;
 *
 * @author clifford
 */
+@SuppressLint("AppCompatCustomView")
 public class e5 extends ImageView  {
   
   

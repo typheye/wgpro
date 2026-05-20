@@ -1,3 +1,4 @@
+//noinspection GlobalOptionInConsumerRules
 plugins {
     id 'com.android.application'
 }
@@ -20,6 +21,7 @@ android {
     defaultConfig {
         applicationId 'open.cn.awg.pro'
         minSdk 24
+        //noinspection ExpiredTargetSdkVersion
         targetSdk 28
         versionCode 2605140
         versionName '5.26.5'

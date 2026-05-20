@@ -1,47 +1,374 @@
+/**
+ ******************************************************************************
+ * @file    main.java
+ * @author  Typheye
+ * @brief   Main application activity and primary UI workflow.
+ ******************************************************************************
+ * @attention
+ *
+ * Copyright (c) 2021-2026 Typheye. All rights reserved.
+ *
+ * This software is licensed under terms that can be found in the LICENSE file
+ * in the root directory of this software component.
+ * If no LICENSE file comes with this software, it is provided AS-IS.
+ *
+ ******************************************************************************
+ */
 package open.cn.awg.pro;
 
-import i.app.iActivity;
-
-import android.content.pm.ActivityInfo;
-import android.view.WindowManager;
-import android.view.Window;
+import android.app.job.JobInfo;
+import android.app.job.JobScheduler;
+import android.content.ComponentName;
+import android.content.Context;
 import android.os.Build;
 import android.view.View;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-
-import com.ypz.bangscreentools.BangScreenTools;
-
-import android.content.Intent;
-import android.os.PowerManager;
-import android.provider.Settings;
-import android.net.Uri;
-import android.app.job.JobScheduler;
-import android.app.job.JobInfo;
-import android.content.ComponentName;
-import android.os.Bundle;
-import android.net.Uri;
-
-import java.lang.Exception;
-
-import android.content.Context;
-
-import com.squareup.picasso.Picasso;
-
-import android.graphics.Bitmap;
-
-import java.net.URL;
-
-import android.graphics.BitmapFactory;
+import android.view.Window;
 
 import com.umeng.commonsdk.UMConfigure;
 import com.umeng.message.PushAgent;
-import com.umeng.message.api.UPushRegisterCallback;
+import com.ypz.bangscreentools.BangScreenTools;
 
-import java.lang.*;
+import i.app.iActivity;
 
 public class main extends iActivity {
+
+    public static android.content.Context context;
+    public final main lei = this, 类 = this;
+    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public open.cn.awg.pro.e1 e1 = new e1(_APPINFO);
+    public open.cn.awg.pro.e11 e11 = new e11(_APPINFO);
+    public open.cn.awg.pro.e13 e13 = new e13(_APPINFO);
+    public open.cn.awg.pro.debug debug = new debug(_APPINFO);
+    public int vercode = 0;
+    public boolean isNotMainOnce = true;
+    public boolean isShow = true;
+    public boolean loaded = false;
+    public boolean state_homeshow = false;
+    public boolean state_once_homeshow = false;
+    public boolean isHasReq = false;
+    public java.lang.String div_lbl1_url = "";
+    public java.lang.String div_ad1_url = "";
+    public java.lang.String div_yytj_item1_url = "";
+    public java.lang.String div_yytj_item2_url = "";
+    public java.lang.String div_yytj_item3_url = "";
+    public java.lang.String div_jcsp_item1_url = "";
+    public java.lang.String div_jcsp_item2_url = "";
+    public java.lang.String div_jcsp_item3_url = "";
+    public java.lang.String div_rmyy_item1_url = "";
+    public java.lang.String div_rmyy_item2_url = "";
+    public java.lang.String div_rmyy_item3_url = "";
+    public java.lang.String src_url = "";
+    public int supertip_mode = 0;
+    public java.lang.String android_id;
+    public open.cn.awg.pro.easy easy = new easy(_APPINFO);
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i6a8b9facdf = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i6a8b9facdf(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i8217d42a17(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i4d951cdb0e(vw);
+        }
+
+    };
+    private final android.view.View.OnTouchListener $_on_setOnTouchListener_b0f5bad894 = new android.view.View.OnTouchListener() {
+
+        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
+            return $_onTouch_b0f5bad894(vw, me);
+        }
+
+    };
+    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i3167b45174 = new android.view.View.OnTouchListener() {
+
+        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
+            return $_onTouch_i3167b45174(vw, me);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i2318575919 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i2318575919(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i3a177cf5f1 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i3a177cf5f1(vw);
+        }
+
+    };
+    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i5b34eede7f = new android.view.View.OnTouchListener() {
+
+        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
+            return $_onTouch_i5b34eede7f(vw, me);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_a81b730195 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_a81b730195(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i7a998f9ecb = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i7a998f9ecb(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i4ba8980add = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_i4ba8980add(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_adf370a235 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_adf370a235(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i34dc7bf20a(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i6a848b922c = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i6a848b922c(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_a229195608 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_a229195608(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_a229195608 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_a229195608(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i11185eacd9 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_i11185eacd9(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i11185eacd9 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i11185eacd9(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i8890b048c8 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_i8890b048c8(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i8890b048c8 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i8890b048c8(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i3d78c07838 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i3d78c07838(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_c9f5a3ee67 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_c9f5a3ee67(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_c9f5a3ee67 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_c9f5a3ee67(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i6834408ef9 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_i6834408ef9(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i6834408ef9 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i6834408ef9(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_c4cbe9d7ff = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_c4cbe9d7ff(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_c4cbe9d7ff = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_c4cbe9d7ff(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i81652f77b6 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i81652f77b6(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i62f27ff563 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_i62f27ff563(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i62f27ff563 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i62f27ff563(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_f73b53def9 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_f73b53def9(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_f73b53def9 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_f73b53def9(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i5a93676674 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_i5a93676674(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i5a93676674 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i5a93676674(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_bab1d5f82e = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_bab1d5f82e(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_bab1d5f82e = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_bab1d5f82e(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i9d626a4248 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i9d626a4248(vw);
+        }
+
+    };
+    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_fab146d7a5 = new android.view.View.OnLongClickListener() {
+
+        public boolean onLongClick(android.view.View vw) {
+            return $_onLongClick_fab146d7a5(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_fab146d7a5 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_fab146d7a5(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i7c3e3c6b5d = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i7c3e3c6b5d(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_i42afe4289f = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_i42afe4289f(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_b8bc22741b = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_b8bc22741b(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_bd584e50cd = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_bd584e50cd(vw);
+        }
+
+    };
+    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+
+        public void onClick(android.view.View vw) {
+            $_onClick_d26d5d7080(vw);
+        }
+
+    };
 
     public void onCreate(android.os.Bundle be) {
         super.onCreate(be);
@@ -50,7 +377,6 @@ public class main extends iActivity {
         open.cn.awg.pro.e6.getInstance().addActivity(lei);
 
         if (e1.getNowUserId() == 0) {
-
 
             final java.lang.String a0 = "/data/user/0/open.cn.awg.pro/settings/a4.inf";
 
@@ -80,20 +406,17 @@ public class main extends iActivity {
 
                             java.lang.String bb = String.valueOf(vercode);
 
-                            if (!zf.dy(wj.dqwb(set0), bb) || wj.cz(set0) == false) {
+                            if (!zf.dy(wj.dqwb(set0), bb) || !wj.cz(set0)) {
 
                                 set();
-
 
                             } else {
 
                                 inj();
 
-
                             }
 
-                            if (isShow == true && wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") == true) {
-
+                            if (isShow && wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf")) {
 
                                 i.runlibrary.app.gj$dh dh = gj.dh();
 
@@ -109,23 +432,17 @@ public class main extends iActivity {
 
                                 if (zf.dy(a, "4")) {
 
-
-                                    if (loaded == true) {
-
+                                    if (loaded) {
 
                                         java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
                                         xt.pm().ztl(clr, 0);
 
-
                                     } else {
-
 
                                         java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTabBackground);
                                         xt.pm().ztl(clr, 0);
 
-
                                     }
-
 
                                 }
 
@@ -133,27 +450,23 @@ public class main extends iActivity {
                                 src_url = wj.dqwb(set67);
                                 zyqd();
 
-                                if (debug.isShowed() == false) {
+                                if (!debug.isShowed()) {
 
                                     e1.goplu("20005", "后台诊断", false);
 
-
                                 }
 
-                                if (wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") == true) {
-
+                                if (wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf")) {
 
                                     if (e1.islogin()) {
 
                                         n3_jz();
-
 
                                     }
 
                                     java.lang.String set11 = "/data/user/0/open.cn.awg.pro/settings/f9/set1.inf";
 
                                     if (zf.dy(wj.dqwb(set11), "true")) {
-
 
                                         int a11;
 
@@ -164,50 +477,38 @@ public class main extends iActivity {
 
                                         if (e1.islogin()) {
 
-
                                         }
-
 
                                     }
                                     wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/showing");
 
                                     try {
 
-
                                         UMConfigure.init(lei, "6687f537940d5a4c4983309f", "awg_um", UMConfigure.DEVICE_TYPE_PHONE, "673a08d091d30693eb8353adf5c1e554");
                                         PushAgent.getInstance(lei).onAppStart();
 
-
                                         PushAgent api = PushAgent.getInstance(lei);
-
 
                                     } catch (java.lang.Throwable __$_e__) {
 
-
                                     }
-
 
                                 }
 
-
                             }
                             e13.run();
-
 
                         }
 
                     });
 
-
                 }
 
             });
 
-
         } else {
 
             open.cn.awg.pro.e6.getInstance().exit();
-
 
         }
 
@@ -217,24 +518,19 @@ public class main extends iActivity {
 
         if (e1.getNowUserId() == 0) {
 
-
             i.runlibrary.app.xt$pm pm = xt.pm();
 
             if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
 
                 if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
 
                     getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
 
-
                 } else {
 
                     getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
 
-
                 }
-
 
             }
 
@@ -242,10 +538,9 @@ public class main extends iActivity {
 
             java.lang.String a = "";
 
-            if (wj.cz(a2) == true) {
+            if (wj.cz(a2)) {
 
                 a = wj.dqwb(a2);
-
 
             }
 
@@ -253,41 +548,33 @@ public class main extends iActivity {
 
                 st.xdbj(open.cn.awg.pro.R.id.main_v).shxtck(true);
 
-                if (loaded == true) {
-
+                if (loaded) {
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
                     xt.pm().ztl(clr, 0);
 
-
                 } else {
-
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTabBackground);
                     xt.pm().ztl(clr, 0);
 
-
                 }
-
 
             } else {
 
                 st.xdbj(open.cn.awg.pro.R.id.main_v).shxtck(false);
 
-
                 Window window = lei.getWindow();
                 BangScreenTools.getBangScreenTools().fullscreen(window, lei);
                 BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
 
             }
 
             int uu = 0;
 
-            if (wj.cz("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf") == true) {
+            if (wj.cz("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf")) {
 
                 uu = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
 
             }
 
@@ -310,13 +597,11 @@ public class main extends iActivity {
 
                     public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
 
-
                         i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
                         int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
                         if (f == 0) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center");
@@ -324,9 +609,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         } else if (f == 1) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center_vertical|left");
@@ -334,9 +617,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         } else if (f == -1) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center_vertical|right");
@@ -344,9 +625,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         } else if (f == -2) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center");
@@ -354,9 +633,7 @@ public class main extends iActivity {
                             xxbj.xydj(false);
                             xxbj.xyca(false);
 
-
                         } else {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center");
@@ -364,9 +641,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         }
-
 
                     }
 
@@ -401,17 +676,14 @@ public class main extends iActivity {
                 i.runlibrary.app.v.v7lb lbx = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
 
                 android.support.v7.widget.GridLayoutManager mLayoutManager = new android.support.v7.widget.GridLayoutManager(lei, 3);
-                lbx.st.setLayoutManager(((androidx.recyclerview.widget.RecyclerView.LayoutManager) (mLayoutManager)));
+                lbx.st.setLayoutManager(mLayoutManager);
                 spq.sx();
-
 
             } else if (zf.dy(a, "2")) {
 
-
                 java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
 
-                if (wj.cz(a001) == true || zf.dy(wj.dqwb(a001), "true")) {
-
+                if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
                     i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
                     wtab.nbj(0, "3dp", 0, "3dp");
@@ -421,9 +693,7 @@ public class main extends iActivity {
                     wtab2.nbj(0, "3dp", 0, "3dp");
                     wtab2.dqfs("center");
 
-
                 } else {
-
 
                     i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
                     wtab.nbj(0, "9dp", 0, "9dp");
@@ -432,7 +702,6 @@ public class main extends iActivity {
                     i.runlibrary.app.v.wb wtab2 = st.wb(open.cn.awg.pro.R.id.Title2);
                     wtab2.nbj(0, "9dp", 0, "9dp");
                     wtab2.dqfs("center");
-
 
                 }
                 st.xdbj(open.cn.awg.pro.R.id.xdbj4).wbj(10, 10, 10, 10);
@@ -464,23 +733,18 @@ public class main extends iActivity {
 
                 i.runlibrary.app.v.v7lb lbx = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
 
-                if (wj.cz(a001) == true || zf.dy(wj.dqwb(a001), "true")) {
-
+                if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
                     android.support.v7.widget.GridLayoutManager mLayoutManager = new android.support.v7.widget.GridLayoutManager(lei, 2);
-                    lbx.st.setLayoutManager(((androidx.recyclerview.widget.RecyclerView.LayoutManager) (mLayoutManager)));
-
+                    lbx.st.setLayoutManager(mLayoutManager);
 
                 } else {
 
-
                     android.support.v7.widget.GridLayoutManager mLayoutManager = new android.support.v7.widget.GridLayoutManager(lei, 3);
-                    lbx.st.setLayoutManager(((androidx.recyclerview.widget.RecyclerView.LayoutManager) (mLayoutManager)));
-
+                    lbx.st.setLayoutManager(mLayoutManager);
 
                 }
                 spq.sx();
-
 
             } else if (zf.dy(a, "3")) {
 
@@ -499,13 +763,11 @@ public class main extends iActivity {
 
                     public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
 
-
                         i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
                         int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
                         if (f == 0) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center");
@@ -513,9 +775,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         } else if (f == 1) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center_vertical|left");
@@ -523,9 +783,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         } else if (f == -1) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center_vertical|right");
@@ -533,9 +791,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         } else if (f == -2) {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center");
@@ -543,9 +799,7 @@ public class main extends iActivity {
                             xxbj.xydj(false);
                             xxbj.xyca(false);
 
-
                         } else {
-
 
                             i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, open.cn.awg.pro.R.id.xxbj2);
                             xxbj.dqfs("center");
@@ -553,9 +807,7 @@ public class main extends iActivity {
                             xxbj.xydj(true);
                             xxbj.xyca(true);
 
-
                         }
-
 
                     }
 
@@ -590,9 +842,8 @@ public class main extends iActivity {
                 i.runlibrary.app.v.v7lb lbx = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
 
                 android.support.v7.widget.GridLayoutManager mLayoutManager = new android.support.v7.widget.GridLayoutManager(lei, 3);
-                lbx.st.setLayoutManager(((androidx.recyclerview.widget.RecyclerView.LayoutManager) (mLayoutManager)));
+                lbx.st.setLayoutManager(mLayoutManager);
                 spq.sx();
-
 
             } else if (zf.dy(a, "4")) {
 
@@ -602,7 +853,6 @@ public class main extends iActivity {
                 spq = lb.v7lbspq(c7.class, open.cn.awg.pro.R.layout.c7, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
                     public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
-
 
                         i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
@@ -617,15 +867,12 @@ public class main extends iActivity {
                             xdbj1.kjd(0);
                             wb3.kjd(8);
 
-
                         } else {
 
                             xdbj1.kjd(8);
                             wb3.kjd(0);
 
-
                         }
-
 
                     }
 
@@ -654,9 +901,7 @@ public class main extends iActivity {
                 spq.j(kj, jk);
                 spq.sx();
 
-
             }
-
 
         }
 
@@ -666,14 +911,11 @@ public class main extends iActivity {
 
         if (kc == 4 && st.xdbj(open.cn.awg.pro.R.id.xdbj10).kjd() == 8 && st.xdbj(open.cn.awg.pro.R.id.xdbj2).kjd() == 8 && st.xdbj(open.cn.awg.pro.R.id.TCxdbj).kjd() == 8) {
 
-
             if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "腕管Pro")) {
 
                 show(1);
 
-
             } else if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), " 腕管Pro ")) {
-
 
                 i.runlibrary.app.gj$dh dh = gj.dh();
 
@@ -686,75 +928,16 @@ public class main extends iActivity {
                         st.xdbj(open.cn.awg.pro.R.id.TCxdbj).kjd(0);
                         st.xdbj(open.cn.awg.pro.R.id.TCxdbj).dh(jbtm);
 
-
                     }
 
                 });
 
-
             }
-
 
         }
         return false;
 
     }
-
-    public static android.content.Context context;
-
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
-
-    public open.cn.awg.pro.e1 e1 = new e1(_APPINFO);
-
-    public open.cn.awg.pro.e11 e11 = new e11(_APPINFO);
-
-    public open.cn.awg.pro.e13 e13 = new e13(_APPINFO);
-
-    public open.cn.awg.pro.debug debug = new debug(_APPINFO);
-
-    public int vercode = 0;
-
-    public boolean isNotMainOnce = true;
-
-    public boolean isShow = true;
-
-    public boolean loaded = false;
-
-    public boolean state_homeshow = false;
-
-    public boolean state_once_homeshow = false;
-
-    public boolean isHasReq = false;
-
-    public java.lang.String div_lbl1_url = "";
-
-    public java.lang.String div_ad1_url = "";
-
-    public java.lang.String div_yytj_item1_url = "";
-
-    public java.lang.String div_yytj_item2_url = "";
-
-    public java.lang.String div_yytj_item3_url = "";
-
-    public java.lang.String div_jcsp_item1_url = "";
-
-    public java.lang.String div_jcsp_item2_url = "";
-
-    public java.lang.String div_jcsp_item3_url = "";
-
-    public java.lang.String div_rmyy_item1_url = "";
-
-    public java.lang.String div_rmyy_item2_url = "";
-
-    public java.lang.String div_rmyy_item3_url = "";
-
-    public java.lang.String src_url = "";
-
-    public int supertip_mode = 0;
-
-    public java.lang.String android_id;
-
-    public open.cn.awg.pro.easy easy = new easy(_APPINFO);
 
     public void csh0() {
 
@@ -779,11 +962,9 @@ public class main extends iActivity {
 
                 if (zf.cjw(urls, "/")) {
 
-
                 } else {
 
                     urls = urls + "/";
-
 
                 }
 
@@ -795,22 +976,17 @@ public class main extends iActivity {
 
                 if (e1.yz()) {
 
-
                     java.lang.String st2 = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(st2, null)) {
 
-
                     } else {
 
-
                         try {
-
 
                             java.lang.String code = e1.readJson(st2, "code");
 
                             if (zf.dy(code, "0")) {
-
 
                             } else {
 
@@ -821,29 +997,21 @@ public class main extends iActivity {
 
                                         gj.tz(n3.class);
 
-
                                     }
 
                                 });
 
-
                             }
-
 
                         } catch (java.lang.Throwable __$_e__) {
 
-
                         }
-
 
                     }
 
-
                 } else {
 
-
                 }
-
 
             }
 
@@ -860,45 +1028,37 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 if (supertip_mode == 0) {
 
                     st.kp(open.cn.awg.pro.R.id.kp5).kjd(0);
                     st.tx(open.cn.awg.pro.R.id.tx16).tx(open.cn.awg.pro.R.mipmap.a17);
-
 
                 } else if (supertip_mode == 1) {
 
                     st.kp(open.cn.awg.pro.R.id.kp5).kjd(0);
                     st.tx(open.cn.awg.pro.R.id.tx16).tx(open.cn.awg.pro.R.mipmap.a17);
 
-
                 } else if (supertip_mode == 2) {
 
                     st.kp(open.cn.awg.pro.R.id.kp5).kjd(0);
                     st.tx(open.cn.awg.pro.R.id.tx16).tx(open.cn.awg.pro.R.mipmap.a28);
-
 
                 } else if (supertip_mode == 3) {
 
                     st.kp(open.cn.awg.pro.R.id.kp5).kjd(0);
                     st.tx(open.cn.awg.pro.R.id.tx16).tx(open.cn.awg.pro.R.mipmap.a62);
 
-
                 } else if (supertip_mode == 4) {
 
                     st.kp(open.cn.awg.pro.R.id.kp5).kjd(0);
                     st.tx(open.cn.awg.pro.R.id.tx16).tx(open.cn.awg.pro.R.mipmap.a17);
-
 
                 } else {
 
                     st.kp(open.cn.awg.pro.R.id.kp5).kjd(8);
                     st.tx(open.cn.awg.pro.R.id.tx16).tx(open.cn.awg.pro.R.mipmap.a28);
 
-
                 }
-
 
             }
 
@@ -911,7 +1071,6 @@ public class main extends iActivity {
                 st.wb(open.cn.awg.pro.R.id.wb17).kjd(8);
                 st.wb(open.cn.awg.pro.R.id.wb3).zf(t);
                 st.xdbj(open.cn.awg.pro.R.id.xdbj10).kjd(0);
-
 
             }
 
@@ -937,11 +1096,9 @@ public class main extends iActivity {
                     st.wb(open.cn.awg.pro.R.id.wb17).zf("等待联网验证腕管Pro，从V4.0.0版本开始，此过程是必须的\n您可以尝试在设备联网后重启腕管Pro");
                     st.wb(open.cn.awg.pro.R.id.wb17).kjd(0);
 
-
                 }
 
             });
-
 
         } else if (supertip_mode == 1) {
 
@@ -952,11 +1109,9 @@ public class main extends iActivity {
                     st.wb(open.cn.awg.pro.R.id.wb17).zf("您正在使用非官方发行的腕管Pro，可能存在未知风险\n请前往官方网站（https://awg.typheye.cn）下载安装腕管Pro");
                     st.wb(open.cn.awg.pro.R.id.wb17).kjd(0);
 
-
                 }
 
             });
-
 
         } else if (supertip_mode == 2) {
 
@@ -966,11 +1121,9 @@ public class main extends iActivity {
 
                     gj.tz(a2.class);
 
-
                 }
 
             });
-
 
         } else if (supertip_mode == 3) {
 
@@ -980,11 +1133,9 @@ public class main extends iActivity {
 
                     gj.tz(f22.class);
 
-
                 }
 
             });
-
 
         } else if (supertip_mode == 4) {
 
@@ -995,11 +1146,9 @@ public class main extends iActivity {
                     st.wb(open.cn.awg.pro.R.id.wb17).zf("您可能并未获得应用许可，该版本不适用于您的设备\n如您已获得应用许可，可以尝试退出应用并联网重新进入应用");
                     st.wb(open.cn.awg.pro.R.id.wb17).kjd(0);
 
-
                 }
 
             });
-
 
         }
 
@@ -1013,7 +1162,6 @@ public class main extends iActivity {
 
             show(1);
 
-
         } else if (zf.dy(wj.dqwb(set1), "2")) {
 
             show(1);
@@ -1023,11 +1171,9 @@ public class main extends iActivity {
 
                     gj.tz(d7.class);
 
-
                 }
 
             });
-
 
         } else if (zf.dy(wj.dqwb(set1), "3")) {
 
@@ -1038,11 +1184,9 @@ public class main extends iActivity {
 
                     gj.tz(i1.class);
 
-
                 }
 
             });
-
 
         } else if (zf.dy(wj.dqwb(set1), "4")) {
 
@@ -1053,11 +1197,9 @@ public class main extends iActivity {
 
                     gj.tz(m1.class);
 
-
                 }
 
             });
-
 
         } else if (zf.dy(wj.dqwb(set1), "5")) {
 
@@ -1068,17 +1210,14 @@ public class main extends iActivity {
 
                     gj.tz(j6.class);
 
-
                 }
 
             });
-
 
         } else {
 
             homeshow(true);
             isNotMainOnce = false;
-
 
         }
 
@@ -1095,21 +1234,17 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 if (i == 0) {
 
                     xxbj9.kjd(0);
                     wb2.kjd(8);
-
 
                 } else if (i == 1) {
 
                     xxbj9.kjd(8);
                     wb2.kjd(0);
 
-
                 }
-
 
             }
 
@@ -1125,10 +1260,9 @@ public class main extends iActivity {
 
             state_once_homeshow = true;
 
-
         }
 
-        if (state_homeshow == false && state_once_homeshow) {
+        if (!state_homeshow && state_once_homeshow) {
 
             state_homeshow = true;
 
@@ -1189,11 +1323,9 @@ public class main extends iActivity {
 
                 public void run() {
 
-
                     if (t) {
 
                         show(2);
-
 
                     }
                     gj.zt(500);
@@ -1218,11 +1350,9 @@ public class main extends iActivity {
 
                     if (zf.cjw(urls, "/")) {
 
-
                     } else {
 
                         urls = urls + "/";
-
 
                     }
 
@@ -1230,30 +1360,23 @@ public class main extends iActivity {
 
                     if (e1.yz()) {
 
-
                         java.lang.String st2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                         if (zf.dy(st2, null)) {
-
 
                             if (wj.cz(nopa2)) {
 
                                 canshow = true;
 
-
                             }
 
-
                         } else {
-
 
                             java.lang.String f1 = e1.readJson(st2, "code");
 
                             if (zf.dy(f1, "200")) {
 
-
                                 if (wj.cz(nopa2)) {
-
 
                                     java.lang.String md5a = sj.md5(wj.dqwb(nopa2));
 
@@ -1267,25 +1390,19 @@ public class main extends iActivity {
                                         wj.sc(img_yytj_item2_path);
                                         wj.sc(img_yytj_item3_path);
 
-
                                     }
-
 
                                 }
                                 wj.xrwb(nopa2, st2);
                                 canshow = true;
 
-
                             }
 
-
                         }
-
 
                     }
 
                     if (canshow) {
-
 
                         final java.lang.String st5 = wj.dqwb(nopa2);
                         div_lbl1_url = e1.readJson(st5, "div_lbl1_url");
@@ -1352,92 +1469,74 @@ public class main extends iActivity {
 
                         java.lang.String downfilepath = img_lbl1_path;
 
-                        if (wj.cz(downfilepath) == false) {
-
+                        if (!wj.cz(downfilepath)) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
                                 wj.sc(downfilepath);
 
-
                             }
-
 
                         }
                         downfile = div_ad1_img_url;
                         downfilepath = img_ad1_path;
 
-                        if (wj.cz(downfilepath) == false) {
-
+                        if (!wj.cz(downfilepath)) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
                                 wj.sc(downfilepath);
 
-
                             }
-
 
                         }
                         downfile = getAppIconUrl(div_yytj_item1_url);
                         downfilepath = img_yytj_item1_path;
 
-                        if (wj.cz(downfilepath) == false) {
-
+                        if (!wj.cz(downfilepath)) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
                                 wj.sc(downfilepath);
 
-
                             }
-
 
                         }
                         downfile = getAppIconUrl(div_yytj_item2_url);
                         downfilepath = img_yytj_item2_path;
 
-                        if (wj.cz(downfilepath) == false) {
-
+                        if (!wj.cz(downfilepath)) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
                                 wj.sc(downfilepath);
 
-
                             }
-
 
                         }
                         downfile = getAppIconUrl(div_yytj_item3_url);
                         downfilepath = img_yytj_item3_path;
 
-                        if (wj.cz(downfilepath) == false) {
-
+                        if (!wj.cz(downfilepath)) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
                                 wj.sc(downfilepath);
 
-
                             }
-
 
                         }
                         gj.jmxc(new java.lang.Runnable() {
 
                             public void run() {
 
-
-                                if (zf.dy(ad_state, "true") && e1.isJh() == false) {
+                                if (zf.dy(ad_state, "true") && !e1.isJh()) {
 
                                     xdbj20.kjd(0);
-
 
                                 } else {
 
                                     xdbj20.kjd(8);
-
 
                                 }
 
@@ -1445,11 +1544,9 @@ public class main extends iActivity {
 
                                     tx11.tx(img_lbl1_path);
 
-
                                 } else {
 
                                     tx11.tx(open.cn.awg.pro.R.mipmap.load_photo);
-
 
                                 }
                                 wb29.zf(div_lbl1_text);
@@ -1458,11 +1555,9 @@ public class main extends iActivity {
 
                                     tx18.tx(img_ad1_path);
 
-
                                 } else {
 
                                     tx18.tx(open.cn.awg.pro.R.mipmap.b11);
-
 
                                 }
                                 wb52.zf(div_ad1_text);
@@ -1472,11 +1567,9 @@ public class main extends iActivity {
 
                                     tx6.tx(img_yytj_item1_path);
 
-
                                 } else {
 
                                     tx6.tx(open.cn.awg.pro.R.mipmap.appicon);
-
 
                                 }
                                 wb14.zf(div_yytj_item1_text);
@@ -1486,11 +1579,9 @@ public class main extends iActivity {
 
                                     tx9.tx(img_yytj_item2_path);
 
-
                                 } else {
 
                                     tx9.tx(open.cn.awg.pro.R.mipmap.appicon);
-
 
                                 }
                                 wb23.zf(div_yytj_item2_text);
@@ -1500,11 +1591,9 @@ public class main extends iActivity {
 
                                     tx10.tx(img_yytj_item3_path);
 
-
                                 } else {
 
                                     tx10.tx(open.cn.awg.pro.R.mipmap.appicon);
-
 
                                 }
                                 wb26.zf(div_yytj_item3_text);
@@ -1522,7 +1611,6 @@ public class main extends iActivity {
                                 wb48.zf(div_rmyy_item3_text);
                                 wb50.zf(div_rmyy_item3_subtext);
 
-
                             }
 
                         });
@@ -1532,9 +1620,7 @@ public class main extends iActivity {
 
                             show(0);
 
-
                         }
-
 
                     } else {
 
@@ -1544,29 +1630,22 @@ public class main extends iActivity {
 
                             show(0);
 
-
                         }
-
 
                     }
                     state_homeshow = false;
-
 
                 }
 
             });
 
-
         } else {
-
 
             if (t) {
 
                 e1.tsk("提示", "操作过于频繁，请稍后重试");
 
-
             }
-
 
         }
 
@@ -1623,7 +1702,6 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 if (i == 0) {
 
                     qtgd1.v.requestFocus();
@@ -1639,21 +1717,17 @@ public class main extends iActivity {
                         isNotMainOnce = false;
                         homeshow(true);
 
-
                     } else {
 
                         homeshow(false);
 
-
                     }
 
-                    if (zf.dy(wj.dqwb(set65), "false") || wj.cz(set65) == false) {
+                    if (zf.dy(wj.dqwb(set65), "false") || !wj.cz(set65)) {
 
                         st.wb(open.cn.awg.pro.R.id.wb9).kjd(0);
 
-
                     }
-
 
                 } else if (i == 1) {
 
@@ -1664,7 +1738,6 @@ public class main extends iActivity {
                     xdbj6.kjd(8);
                     xdbj1.dh(jbtm);
 
-
                 } else if (i == 2) {
 
                     tab.zf("  腕管Pro  ");
@@ -1673,16 +1746,13 @@ public class main extends iActivity {
                     xdbj6.kjd(0);
                     xdbj6.dh(jbtm);
 
-
                 }
-
 
             }
 
         });
 
     }
-
 
     private void scheduleJob() {
         JobScheduler jobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
@@ -1691,7 +1761,6 @@ public class main extends iActivity {
             ComponentName serviceComponent = new ComponentName(this, BootJobService.class);
 
             JobInfo.Builder builder = new JobInfo.Builder(jobId, serviceComponent);
-
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 builder.setRequiredNetworkType(JobInfo.NETWORK_TYPE_ANY);
@@ -1713,7 +1782,6 @@ public class main extends iActivity {
         }
     }
 
-
     public void noticeShow() {
 
         if (e1.isJh()) {
@@ -1721,12 +1789,10 @@ public class main extends iActivity {
             st.wb(open.cn.awg.pro.R.id.wb11).kjd(8);
             st.wb(open.cn.awg.pro.R.id.wb13).kjd(8);
 
-
         } else {
 
             st.wb(open.cn.awg.pro.R.id.wb11).kjd(0);
             st.wb(open.cn.awg.pro.R.id.wb13).kjd(0);
-
 
         }
 
@@ -1735,22 +1801,19 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 final java.lang.String nopa = "/data/user/0/open.cn.awg.pro/data/notice/showing";
 
                 final java.lang.String nopa2 = "/data/user/0/open.cn.awg.pro/data/notice/json";
 
                 java.lang.String nr = "";
 
-                if (wj.cz(nopa) == true && !zf.dy(wj.dqwb(nopa), "")) {
+                if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
 
                     nr = wj.dqwb(nopa);
-
 
                 } else {
 
                     nr = def;
-
 
                 }
 
@@ -1760,7 +1823,6 @@ public class main extends iActivity {
                     public void run() {
 
                         st.wb(open.cn.awg.pro.R.id.notice_wb).zf(nr1);
-
 
                     }
 
@@ -1772,11 +1834,9 @@ public class main extends iActivity {
 
                 if (zf.cjw(urls, "/")) {
 
-
                 } else {
 
                     urls = urls + "/";
-
 
                 }
 
@@ -1790,30 +1850,24 @@ public class main extends iActivity {
 
                         public void run() {
 
-
                             java.lang.String nr = "";
 
-                            if (wj.cz(nopa) == true && !zf.dy(wj.dqwb(nopa), "")) {
+                            if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
 
                                 nr = wj.dqwb(nopa);
-
 
                             } else {
 
                                 nr = def;
 
-
                             }
                             st.wb(open.cn.awg.pro.R.id.notice_wb).zf(nr);
-
 
                         }
 
                     });
 
-
                 } else {
-
 
                     java.lang.String f1 = e1.readJson(st5, "Showing");
 
@@ -1823,30 +1877,24 @@ public class main extends iActivity {
 
                             public void run() {
 
-
                                 java.lang.String nr = "";
 
-                                if (wj.cz(nopa) == true && !zf.dy(wj.dqwb(nopa), "")) {
+                                if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
 
                                     nr = wj.dqwb(nopa);
-
 
                                 } else {
 
                                     nr = def;
 
-
                                 }
                                 st.wb(open.cn.awg.pro.R.id.notice_wb).zf(nr);
-
 
                             }
 
                         });
 
-
                     } else {
-
 
                         if (zf.dy(f1, "")) {
 
@@ -1854,30 +1902,24 @@ public class main extends iActivity {
 
                                 public void run() {
 
-
                                     java.lang.String nr = "";
 
-                                    if (wj.cz(nopa) == true && !zf.dy(wj.dqwb(nopa), "")) {
+                                    if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
 
                                         nr = wj.dqwb(nopa);
-
 
                                     } else {
 
                                         nr = def;
 
-
                                     }
                                     st.wb(open.cn.awg.pro.R.id.notice_wb).zf(nr);
-
 
                                 }
 
                             });
 
-
                         } else {
-
 
                             final java.lang.String nr2 = f1;
                             wj.xrwb(nopa, nr2);
@@ -1888,20 +1930,15 @@ public class main extends iActivity {
 
                                     st.wb(open.cn.awg.pro.R.id.notice_wb).zf(nr2);
 
-
                                 }
 
                             });
 
-
                         }
-
 
                     }
 
-
                 }
-
 
             }
 
@@ -1922,60 +1959,47 @@ public class main extends iActivity {
 
                 e1.yz();
 
-
             }
 
         });
 
-        if (wj.cz(sec_isunlock) == false) {
+        if (!wj.cz(sec_isunlock)) {
 
             gj.zt(2500);
-
 
         }
 
         if (wj.cz(sec_isunlock)) {
 
-
             if (zf.dy(wj.dqwb(sec_isunlock), "false")) {
 
                 supertip("应用验证未通过", 1);
 
-
             } else {
 
-
                 if (wj.cz(sec_license)) {
-
 
                     if (wj.cz(sec_updater)) {
 
                         supertip("应用需要更新", 3);
 
-
                     } else {
 
                         run();
 
-
                     }
-
 
                 } else {
 
                     supertip("未获得应用许可", 4);
 
-
                 }
 
-
             }
-
 
         } else {
 
             supertip("等待联网验证", 0);
-
 
         }
 
@@ -2033,178 +2057,153 @@ public class main extends iActivity {
 
         java.lang.String asset_e3 = "/data/user/0/open.cn.awg.pro/data/assets/e3";
 
-        if (wj.cz(asset_a0) == false) {
+        if (!wj.cz(asset_a0)) {
 
             wj.xrwb(asset_a0, "0");
 
-
         }
 
-        if (wj.cz(asset_a2) == false) {
+        if (!wj.cz(asset_a2)) {
 
             wj.xrwb(asset_a2, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a3) == false) {
+        if (!wj.cz(asset_a3)) {
 
             wj.xrwb(asset_a3, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a4) == false) {
+        if (!wj.cz(asset_a4)) {
 
             wj.xrwb(asset_a4, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a5) == false) {
+        if (!wj.cz(asset_a5)) {
 
             wj.xrwb(asset_a5, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a6) == false) {
+        if (!wj.cz(asset_a6)) {
 
             wj.xrwb(asset_a6, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a7) == false) {
+        if (!wj.cz(asset_a7)) {
 
             wj.xrwb(asset_a7, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a8) == false) {
+        if (!wj.cz(asset_a8)) {
 
             wj.xrwb(asset_a8, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a9) == false) {
+        if (!wj.cz(asset_a9)) {
 
             wj.xrwb(asset_a9, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a10) == false) {
+        if (!wj.cz(asset_a10)) {
 
             wj.xrwb(asset_a10, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a12) == false) {
+        if (!wj.cz(asset_a12)) {
 
             wj.xrwb(asset_a12, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a13) == false) {
+        if (!wj.cz(asset_a13)) {
 
             wj.xrwb(asset_a13, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a14) == false) {
+        if (!wj.cz(asset_a14)) {
 
             wj.xrwb(asset_a14, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a15) == false) {
+        if (!wj.cz(asset_a15)) {
 
             wj.xrwb(asset_a15, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a16) == false) {
+        if (!wj.cz(asset_a16)) {
 
             wj.xrwb(asset_a16, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a17) == false) {
+        if (!wj.cz(asset_a17)) {
 
             wj.xrwb(asset_a17, "&");
 
-
         }
 
-        if (wj.cz(asset_a18) == false) {
+        if (!wj.cz(asset_a18)) {
 
             wj.xrwb(asset_a18, "{}");
 
-
         }
 
-        if (wj.cz(asset_a19) == false) {
+        if (!wj.cz(asset_a19)) {
 
             wj.xrwb(asset_a19, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_a20) == false) {
+        if (!wj.cz(asset_a20)) {
 
             wj.xrwb(asset_a20, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_b0) == false) {
+        if (!wj.cz(asset_b0)) {
 
             wj.xrwb(asset_b0, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_b1) == false) {
+        if (!wj.cz(asset_b1)) {
 
             wj.xrwb(asset_b1, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_b2) == false) {
+        if (!wj.cz(asset_b2)) {
 
             wj.xrwb(asset_b2, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_b3) == false) {
+        if (!wj.cz(asset_b3)) {
 
             wj.xrwb(asset_b3, "加载失败,未找到该资源!");
 
-
         }
 
-        if (wj.cz(asset_c1) == false) {
+        if (!wj.cz(asset_c1)) {
 
             wj.xrwb(asset_c1, "echo \"加载失败,未找到该资源!\"");
 
-
         }
 
-        if (wj.cz(asset_e3) == false) {
+        if (!wj.cz(asset_e3)) {
 
             wj.xrwb(asset_e3, "加载失败,未找到该资源!");
-
 
         }
 
@@ -2346,185 +2345,159 @@ public class main extends iActivity {
 
         java.lang.String set68 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
 
-        if (wj.cz(set1) == false) {
+        if (!wj.cz(set1)) {
 
             wj.xrwb(set1, "false");
 
-
         }
 
-        if (wj.cz(set2) == false) {
+        if (!wj.cz(set2)) {
 
             wj.xrwb(set2, "false");
 
-
         }
 
-        if (wj.cz(set3) == false) {
+        if (!wj.cz(set3)) {
 
             wj.xrwb(set3, "false");
 
-
         }
 
-        if (wj.cz(set4) == false) {
+        if (!wj.cz(set4)) {
 
             wj.xrwb(set4, "13");
 
-
         }
 
-        if (wj.cz(set5) == false) {
+        if (!wj.cz(set5)) {
 
             wj.xrwb(set5, "false");
 
-
         }
 
-        if (wj.cz(set6) == false) {
+        if (!wj.cz(set6)) {
 
             wj.xrwb(set6, "#ffffff");
 
-
         }
 
-        if (wj.cz(set7) == false) {
+        if (!wj.cz(set7)) {
 
             wj.xrwb(set7, "#000000");
 
-
         }
 
-        if (wj.cz(set8) == false) {
+        if (!wj.cz(set8)) {
 
             wj.xrwb(set8, "false");
 
-
         }
 
-        if (wj.cz(set9) == false) {
+        if (!wj.cz(set9)) {
 
             wj.xrwb(set9, "false");
 
-
         }
 
-        if (wj.cz(set10) == false) {
+        if (!wj.cz(set10)) {
 
             wj.xrwb(set10, "false");
 
-
         }
 
-        if (wj.cz(set11) == false) {
+        if (!wj.cz(set11)) {
 
             wj.xrwb(set11, "true");
 
-
         }
 
-        if (wj.cz(set12) == false) {
+        if (!wj.cz(set12)) {
 
             wj.xrwb(set12, "true");
 
-
         }
 
-        if (wj.cz(set13) == false) {
+        if (!wj.cz(set13)) {
 
             wj.xrwb(set13, "awg://web.url/app/open.cn.awg.pro");
 
-
         }
 
-        if (wj.cz(set14) == false) {
+        if (!wj.cz(set14)) {
 
             wj.xrwb(set14, "true");
 
-
         }
 
-        if (wj.cz(set15) == false) {
+        if (!wj.cz(set15)) {
 
             wj.xrwb(set15, "awg://web.url/app/open.cn.awg.pro/talking");
 
-
         }
 
-        if (wj.cz(set16) == false) {
+        if (!wj.cz(set16)) {
 
             wj.xrwb(set16, "腕管用户" + xt.sj(4));
 
-
         }
 
-        if (wj.cz(set17) == false) {
+        if (!wj.cz(set17)) {
 
             e11.setup_talklist();
 
-
         }
 
-        if (wj.cz(set18) == false) {
+        if (!wj.cz(set18)) {
 
             wj.xrwb(set18, "true");
 
-
         }
 
-        if (wj.cz(set19) == false) {
+        if (!wj.cz(set19)) {
 
             wj.xrwb(set19, "false");
 
-
         }
 
-        if (wj.cz(set20) == false) {
+        if (!wj.cz(set20)) {
 
             wj.xrwb(set20, "awg://thirds.url/www.baidu.com");
 
-
         }
 
-        if (wj.cz(set21) == false) {
+        if (!wj.cz(set21)) {
 
             wj.xrwb(set21, "{\"MODE\":0,\"UA\":\"Android\"}");
 
-
         }
 
-        if (wj.cz(set22) == false) {
+        if (!wj.cz(set22)) {
 
             wj.xrwb(set22, "true");
 
-
         }
 
-        if (wj.cz(set23) == false) {
+        if (!wj.cz(set23)) {
 
             wj.xrwb(set23, "true");
 
-
         }
 
-        if (wj.cz(set24) == false) {
+        if (!wj.cz(set24)) {
 
             wj.xrwb(set24, "false");
 
-
         }
 
-        if (wj.cz(set25) == false) {
+        if (!wj.cz(set25)) {
 
             wj.xrwb(set25, "true");
 
-
         }
 
-        if (wj.cz(set26) == false) {
+        if (!wj.cz(set26)) {
 
             wj.xrwb(set26, "false");
-
 
         }
         wj.sc(set27);
@@ -2534,8 +2507,7 @@ public class main extends iActivity {
 
         int sdk = xt.sbxx().sdk;
 
-        if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE") == true && sdk < 30) {
-
+        if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE") && sdk < 30) {
 
             java.lang.String m = "mkdir \"/sdcard/Download\"";
             com.demo.e3.cmd(lei, m, false);
@@ -2550,60 +2522,51 @@ public class main extends iActivity {
             m = "mkdir \"/sdcard/Pictures\"";
             com.demo.e3.cmd(lei, m, false);
 
-
         }
 
-        if (wj.cz(set29) == false) {
+        if (!wj.cz(set29)) {
 
             wj.xrwb(set29, "");
 
-
         }
 
-        if (wj.cz(set30) == false) {
+        if (!wj.cz(set30)) {
 
             wj.xrwb(set30, "false");
 
-
         }
 
-        if (wj.cz(set31) == false) {
+        if (!wj.cz(set31)) {
 
             wj.xrwb(set31, "false");
 
-
         }
 
-        if (wj.cz(set32) == false) {
+        if (!wj.cz(set32)) {
 
             wj.xrwb(set32, "false");
 
-
         }
 
-        if (wj.cz(set33) == false) {
+        if (!wj.cz(set33)) {
 
             wj.xrwb(set33, wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a18"));
 
-
         }
 
-        if (wj.cz(set34) == false) {
+        if (!wj.cz(set34)) {
 
             wj.xrwb(set34, "true");
 
-
         }
 
-        if (wj.cz(set35) == false) {
+        if (!wj.cz(set35)) {
 
             wj.xrwb(set35, "https://api.sayqz.com/tunefree/ncmapi");
 
-
         }
 
-        if (wj.cz(set36) == false) {
-
+        if (!wj.cz(set36)) {
 
             int a11;
             a11 = com.demo.e4.getVersionCode(lei);
@@ -2611,145 +2574,125 @@ public class main extends iActivity {
             java.lang.String fv = a11 + "00";
             wj.xrwb(set36, fv);
 
-
         }
 
-        if (wj.cz(set37) == false) {
+        if (!wj.cz(set37)) {
 
             wj.xrwb(set37, "false");
 
-
         }
 
-        if (wj.cz(set38) == false) {
+        if (!wj.cz(set38)) {
 
             wj.xrwb(set38, "false");
 
-
         }
 
-        if (wj.cz(set39) == false) {
+        if (!wj.cz(set39)) {
 
             wj.xrwb(set39, "default");
 
-
         }
 
-        if (wj.cz(set40) == false) {
+        if (!wj.cz(set40)) {
 
             wj.xrwb(set40, "20");
 
-
         }
 
-        if (wj.cz(set41) == false) {
+        if (!wj.cz(set41)) {
 
             wj.xrwb(set41, "false");
 
-
         }
 
-        if (wj.cz(set42) == false) {
+        if (!wj.cz(set42)) {
 
             wj.xrwb(set42, "true");
 
-
         }
 
-        if (wj.cz(set43) == false) {
+        if (!wj.cz(set43)) {
 
             wj.xrwb(set43, "false");
 
-
         }
 
-        if (wj.cz(set44) == false) {
+        if (!wj.cz(set44)) {
 
             e11.setup_talklist();
             e11.add_talklist("10001", "官方聊天室", "10001-官方聊天室");
             wj.xrwb(set44, "true");
 
-
         }
 
-        if (wj.cz(set45) == false) {
+        if (!wj.cz(set45)) {
 
             wj.xrwb(set45, "3000");
 
-
         }
 
-        if (wj.cz(set46) == false) {
+        if (!wj.cz(set46)) {
 
             wj.xrwb(set46, "3000");
 
-
         }
 
-        if (wj.cz(set47) == false) {
+        if (!wj.cz(set47)) {
 
             e11.setup_pluginlist();
 
-
         }
 
-        if (wj.cz(set48) == false) {
+        if (!wj.cz(set48)) {
 
             wj.xrwb(set48, "true");
 
-
         }
 
-        if (wj.cz(set49) == false) {
+        if (!wj.cz(set49)) {
 
             wj.xrwb(set49, "awg://web.url/app/open.cn.awg.pro/plugin");
 
-
         }
 
-        if (wj.cz(set50) == false) {
+        if (!wj.cz(set50)) {
 
             wj.xrwb(set50, "default");
 
-
         }
 
-        if (wj.cz(set51) == false) {
+        if (!wj.cz(set51)) {
 
             wj.xrwb(set51, "default");
 
-
         }
 
-        if (wj.cz(set52) == false) {
+        if (!wj.cz(set52)) {
 
             wj.xrwb(set52, "true");
 
-
         }
 
-        if (wj.cz(set53) == false) {
+        if (!wj.cz(set53)) {
 
             wj.xrwb(set53, "default");
 
-
         }
 
-        if (wj.cz(set54) == false) {
+        if (!wj.cz(set54)) {
 
             wj.xrwb(set54, "default");
 
-
         }
 
-        if (wj.cz(set55) == false) {
+        if (!wj.cz(set55)) {
 
             wj.xrwb(set55, "default");
 
-
         }
 
-        if (wj.cz(set56) == false) {
+        if (!wj.cz(set56)) {
 
             e11.setup_pluginlist();
 
@@ -2760,83 +2703,71 @@ public class main extends iActivity {
             boolean b3 = e11.add_pluginlist(q, w, q + "-" + w);
             wj.xrwb(set56, "true");
 
-
         }
 
-        if (wj.cz(set57) == false) {
+        if (!wj.cz(set57)) {
 
             wj.xrwb(set57, "https://service.typheye.cn");
 
-
         }
 
-        if (wj.cz(set58) == false) {
+        if (!wj.cz(set58)) {
 
             wj.xrwb(set58, "");
 
-
         }
 
-        if (wj.cz(set59) == false) {
+        if (!wj.cz(set59)) {
 
             wj.xrwb(set59, "awg://web.url/upload/up.php");
 
-
         }
 
-        if (wj.cz(set60) == false) {
+        if (!wj.cz(set60)) {
 
             wj.xrwb(set60, "");
 
-
         }
 
-        if (wj.cz(set61) == false) {
+        if (!wj.cz(set61)) {
 
             wj.xrwb(set61, "true");
 
-
         }
 
-        if (wj.cz(set62) == false) {
+        if (!wj.cz(set62)) {
 
             wj.xrwb(set62, "");
 
-
         }
 
-        if (wj.cz(set64) == false) {
+        if (!wj.cz(set64)) {
 
             wj.xrwb(set64, "true");
 
-
         }
 
-        if (wj.cz(set65) == false) {
+        if (!wj.cz(set65)) {
 
             wj.xrwb(set65, "false");
 
-
         }
 
-        if (wj.cz(set66) == false) {
+        if (!wj.cz(set66)) {
 
             wj.xrwb(set66, "false");
 
-
         }
 
-        if (wj.cz(set67) == false) {
+        if (!wj.cz(set67)) {
 
             wj.xrwb(set67, "https://res.typheye.cn");
 
-
         }
 
-        if (wj.cz(set68) == false) {
+        if (!wj.cz(set68)) {
 
             wj.xrwb(set68, "0");
-
 
         }
         wj.xrwb(set5, "false");
@@ -2857,7 +2788,6 @@ public class main extends iActivity {
 
             wj.sc(sec_updater);
 
-
         }
         inj();
 
@@ -2876,7 +2806,7 @@ public class main extends iActivity {
 
         final java.lang.String set66 = "/data/user/0/open.cn.awg.pro/settings/set6.inf";
 
-        if (wj.cz(a0) == false || zf.dy(wj.dqwb(set66), "false") || wj.cz(set66) == false) {
+        if (!wj.cz(a0) || zf.dy(wj.dqwb(set66), "false") || !wj.cz(set66)) {
 
             gj.jmxc(new java.lang.Runnable() {
 
@@ -2884,14 +2814,11 @@ public class main extends iActivity {
 
                     supertip("点击按钮以继续", 2);
 
-
                 }
 
             });
 
-
         } else {
-
 
         }
 
@@ -2902,19 +2829,15 @@ public class main extends iActivity {
 
             public void run() {
 
-
-                if (e1.isJh() == false) {
+                if (!e1.isJh()) {
 
                     st.wb(open.cn.awg.pro.R.id.wb3).kjd(0);
-
 
                 } else {
 
                     st.wb(open.cn.awg.pro.R.id.wb3).kjd(8);
 
-
                 }
-
 
             }
 
@@ -2927,59 +2850,46 @@ public class main extends iActivity {
 
         if (e1.getNowUserId() == 0) {
 
-
             final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
 
             java.lang.String a = wj.dqwb(a2);
 
             if (zf.dy(a, "4")) {
 
-
-                if (loaded == true) {
-
+                if (loaded) {
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
                     xt.pm().ztl(clr, 0);
 
-
                 } else {
-
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTabBackground);
                     xt.pm().ztl(clr, 0);
 
-
                 }
 
-
             } else {
-
 
                 Window window = lei.getWindow();
                 BangScreenTools.getBangScreenTools().fullscreen(window, lei);
                 BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
 
-
             }
 
             final java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
 
-            if (wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf") == true) {
+            if (wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf")) {
 
-
-                if (isNotMainOnce == false) {
+                if (!isNotMainOnce) {
 
                     homeshow(false);
-
 
                 }
                 noticeShow();
 
-
             }
 
             if (isHasReq) {
-
 
                 final java.lang.String ca = "/data/user/0/open.cn.awg.pro/cache/req/exit";
 
@@ -2990,21 +2900,16 @@ public class main extends iActivity {
 
                         public void run() {
 
-
                             i.runlibrary.app.v.tx tx3 = st.tx(open.cn.awg.pro.R.id.tx3);
                             tx3.v.performClick();
-
 
                         }
 
                     });
 
-
                 }
 
-
             }
-
 
         }
 
@@ -3015,41 +2920,31 @@ public class main extends iActivity {
 
         if (e1.getNowUserId() == 0) {
 
-
             final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
 
             java.lang.String a = wj.dqwb(a2);
 
             if (zf.dy(a, "4")) {
 
-
-                if (loaded == true) {
-
+                if (loaded) {
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
                     xt.pm().ztl(clr, 0);
 
-
                 } else {
-
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTabBackground);
                     xt.pm().ztl(clr, 0);
 
-
                 }
 
-
             } else {
-
 
                 Window window = lei.getWindow();
                 BangScreenTools.getBangScreenTools().fullscreen(window, lei);
                 BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
 
-
             }
-
 
         }
 
@@ -3068,34 +2963,25 @@ public class main extends iActivity {
 
             if (zf.dy(a, "4")) {
 
-
-                if (loaded == true) {
-
+                if (loaded) {
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
                     xt.pm().ztl(clr, 0);
 
-
                 } else {
-
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTabBackground);
                     xt.pm().ztl(clr, 0);
 
-
                 }
 
-
             } else {
-
 
                 Window window = lei.getWindow();
                 BangScreenTools.getBangScreenTools().fullscreen(window, lei);
                 BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
 
-
             }
-
 
         }
 
@@ -3130,41 +3016,31 @@ public class main extends iActivity {
 
         if (e1.getNowUserId() == 0) {
 
-
             final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
 
             java.lang.String a = wj.dqwb(a2);
 
             if (zf.dy(a, "4")) {
 
-
-                if (loaded == true) {
-
+                if (loaded) {
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
                     xt.pm().ztl(clr, 0);
 
-
                 } else {
-
 
                     java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTabBackground);
                     xt.pm().ztl(clr, 0);
 
-
                 }
 
-
             } else {
-
 
                 Window window = lei.getWindow();
                 BangScreenTools.getBangScreenTools().fullscreen(window, lei);
                 BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
 
-
             }
-
 
         }
 
@@ -3179,7 +3055,6 @@ public class main extends iActivity {
             e13.N_cancel();
             wj.sc("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r");
 
-
         }
 
     }
@@ -3190,11 +3065,9 @@ public class main extends iActivity {
 
             show(1);
 
-
         } else if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), " 腕管Pro ")) {
 
             show(0);
-
 
         }
 
@@ -3211,7 +3084,6 @@ public class main extends iActivity {
             public void run() {
 
                 st.xdbj(open.cn.awg.pro.R.id.xdbj7).kjd(8);
-
 
             }
 
@@ -3234,12 +3106,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_lbl1_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3265,12 +3135,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_ad1_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3293,12 +3161,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_yytj_item1_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3321,12 +3187,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_yytj_item2_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3349,12 +3213,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_yytj_item3_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3377,12 +3239,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"type", "search"};
 
                 java.lang.String[] val = new java.lang.String[]{"app", "all"};
                 gj.tz(p3.class, iyu, val);
-
 
             }
 
@@ -3395,12 +3255,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_jcsp_item1_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3423,12 +3281,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_jcsp_item2_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3451,12 +3307,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_jcsp_item3_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3479,12 +3333,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"type", "search"};
 
                 java.lang.String[] val = new java.lang.String[]{"video", "all"};
                 gj.tz(p3.class, iyu, val);
-
 
             }
 
@@ -3497,12 +3349,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_rmyy_item1_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3525,12 +3375,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_rmyy_item2_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3553,12 +3401,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"uri"};
 
                 java.lang.String[] val = new java.lang.String[]{div_rmyy_item3_url};
                 gj.tz(p2.class, iyu, val);
-
 
             }
 
@@ -3581,12 +3427,10 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 java.lang.String[] iyu = new java.lang.String[]{"type", "search"};
 
                 java.lang.String[] val = new java.lang.String[]{"music", "all"};
                 gj.tz(p3.class, iyu, val);
-
 
             }
 
@@ -3613,7 +3457,6 @@ public class main extends iActivity {
             public void run() {
 
                 st.wb(open.cn.awg.pro.R.id.wb9).kjd(8);
-
 
             }
 
@@ -3643,10 +3486,8 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 i.runlibrary.app.v.tx tx3 = st.tx(open.cn.awg.pro.R.id.tx3);
                 tx3.v.performClick();
-
 
             }
 
@@ -3660,7 +3501,6 @@ public class main extends iActivity {
             public void run() {
 
                 st.wb(open.cn.awg.pro.R.id.wb17).kjd(8);
-
 
             }
 
@@ -3691,7 +3531,6 @@ public class main extends iActivity {
                 st.xdbj(open.cn.awg.pro.R.id.TCxdbj).kjd(8);
                 st.xdbj(open.cn.awg.pro.R.id.TCxdbj).dh(jbtm);
 
-
             }
 
         });
@@ -3703,14 +3542,12 @@ public class main extends iActivity {
 
             public void run() {
 
-
                 final i.runlibrary.app.v.xdbj main_v = st.xdbj(open.cn.awg.pro.R.id.main_v);
                 gj.jmxc(new java.lang.Runnable() {
 
                     public void run() {
 
                         main_v.scqb();
-
 
                     }
 
@@ -3722,13 +3559,10 @@ public class main extends iActivity {
 
                     e13.N_cancel();
 
-
                 } catch (java.lang.Throwable __$_e__) {
-
 
                 }
                 open.cn.awg.pro.e6.getInstance().exit();
-
 
             }
 
@@ -3744,315 +3578,6 @@ public class main extends iActivity {
     private void _$_viewAutomaticSettingEvent() {
         _$_viewAutomaticSettingEvent(this, null);
     }
-
-    private android.view.View.OnClickListener $_on_setOnClickListener_i6a8b9facdf = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i6a8b9facdf(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
-        }
-
-    };
-    private android.view.View.OnTouchListener $_on_setOnTouchListener_b0f5bad894 = new android.view.View.OnTouchListener() {
-
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_b0f5bad894(vw, me);
-        }
-
-    };
-    private android.view.View.OnTouchListener $_on_setOnTouchListener_i3167b45174 = new android.view.View.OnTouchListener() {
-
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i3167b45174(vw, me);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i2318575919 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i2318575919(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i3a177cf5f1 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i3a177cf5f1(vw);
-        }
-
-    };
-    private android.view.View.OnTouchListener $_on_setOnTouchListener_i5b34eede7f = new android.view.View.OnTouchListener() {
-
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i5b34eede7f(vw, me);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_a81b730195 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_a81b730195(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i7a998f9ecb = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i7a998f9ecb(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_i4ba8980add = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i4ba8980add(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_adf370a235 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_adf370a235(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i6a848b922c = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i6a848b922c(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_a229195608 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_a229195608(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_a229195608 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_a229195608(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_i11185eacd9 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i11185eacd9(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i11185eacd9 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i11185eacd9(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_i8890b048c8 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i8890b048c8(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i8890b048c8 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i8890b048c8(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i3d78c07838 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i3d78c07838(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_c9f5a3ee67 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_c9f5a3ee67(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_c9f5a3ee67 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_c9f5a3ee67(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_i6834408ef9 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i6834408ef9(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i6834408ef9 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i6834408ef9(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_c4cbe9d7ff = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_c4cbe9d7ff(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_c4cbe9d7ff = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_c4cbe9d7ff(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i81652f77b6 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i81652f77b6(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_i62f27ff563 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i62f27ff563(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i62f27ff563 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i62f27ff563(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_f73b53def9 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_f73b53def9(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_f73b53def9 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_f73b53def9(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_i5a93676674 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i5a93676674(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i5a93676674 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i5a93676674(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_bab1d5f82e = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_bab1d5f82e(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_bab1d5f82e = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_bab1d5f82e(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i9d626a4248 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i9d626a4248(vw);
-        }
-
-    };
-    private android.view.View.OnLongClickListener $_on_setOnLongClickListener_fab146d7a5 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_fab146d7a5(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_fab146d7a5 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_fab146d7a5(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i7c3e3c6b5d = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i7c3e3c6b5d(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_i42afe4289f = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_i42afe4289f(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_b8bc22741b = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_b8bc22741b(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_bd584e50cd = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_bd584e50cd(vw);
-        }
-
-    };
-    private android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
-        }
-
-    };
 
     public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
 
@@ -4184,6 +3709,4 @@ public class main extends iActivity {
 
         __layoutIsLoaded(ay, vw);
     }
-
-    public final main lei = this, 类 = this;
 }
