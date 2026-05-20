@@ -40,6 +40,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import open.cn.awg.pro.repair.RecoveryOptionsActivity;
+
 
 /**
  * UncaughtException处理类,当程序发生Uncaught异常的时候,有该类来接管程序,并记录发送错误报告.
@@ -100,7 +102,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
             }
             // 退出程序
             //e6.getInstance().exit();
-            Intent intent = new Intent(mContext, open.cn.awg.pro.b0.class);
+            Intent intent = new Intent(mContext, open.cn.awg.pro.repair.RecoveryOptionsActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             mContext.startActivity(intent);
       /*Intent intent = mContext.getPackageManager().getLaunchIntentForPackage(mContext.getPackageName());

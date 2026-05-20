@@ -38,7 +38,7 @@
 <LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
 <TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="系统权限" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
 </TextView>
-<TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="open.cn.awg.pro.f1" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+<TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="open.cn.awg.pro.tools.SystemPermissionActivity" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
 </TextView>
 </LinearLayout>
 </RelativeLayout>
@@ -46,7 +46,7 @@
 <LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
 <TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开发测试" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
 </TextView>
-<TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="open.cn.awg.pro.f12" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+<TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="open.cn.awg.pro.experimental.DeveloperTestActivity" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
 </TextView>
 </LinearLayout>
 </RelativeLayout>

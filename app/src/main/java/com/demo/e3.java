@@ -86,14 +86,14 @@ public class e3 {
       back[0] = successMsg.toString();
       back[1] = errorMsg.toString();
     } catch (IOException e) {
-      Intent intent = new Intent(context, open.cn.awg.pro.b1.class);
+      Intent intent = new Intent(context, open.cn.awg.pro.repair.CrashFeedbackActivity.class);
       Bundle bundle=new Bundle();
       bundle.putString("log",e.toString());
       bundle.putString("location","e3.execCommand(context,s[],boolean)");
       intent.putExtras(bundle);
       context.startActivity(intent);
     } catch (Exception e) {
-      Intent intent = new Intent(context, open.cn.awg.pro.b1.class);
+      Intent intent = new Intent(context, open.cn.awg.pro.repair.CrashFeedbackActivity.class);
       Bundle bundle=new Bundle();
       bundle.putString("log",e.toString());
       bundle.putString("location","e3.execCommand(context,s[],boolean)");

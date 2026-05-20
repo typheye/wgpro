@@ -32,7 +32,7 @@ public class DownLoadBroadcastReceiver extends BroadcastReceiver {
         String serviceString = Context.DOWNLOAD_SERVICE;
         DownloadManager dManager = (DownloadManager) context
         .getSystemService(serviceString);
-        Intent intents = new Intent(context, open.cn.awg.pro.a3.class);
+        Intent intents = new Intent(context, open.cn.awg.pro.ui.main.TextQrDisplayActivity.class);
         Bundle bundle=new Bundle();
         Uri downloadFileUri = dManager.getUriForDownloadedFile(myDwonloadID);
         String path = downloadFileUri.toString();
