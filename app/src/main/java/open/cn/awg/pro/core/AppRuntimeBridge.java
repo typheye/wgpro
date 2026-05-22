@@ -735,59 +735,59 @@ public class AppRuntimeBridge extends iClass {
     }
 
     public boolean yz() {
-        String sec_isunlock = AppPaths.appPath("data/sec/unlock");
-        wj.xrwb(sec_isunlock, "true");
-        return true;
-//        context = AwgProApplication.getContext();
-//
 //        String sec_isunlock = AppPaths.appPath("data/sec/unlock");
-//
-//        String urls = AppPaths.appPath("settings/f10/set2.inf");
-//        urls = wj.dqwb(urls);
-//        urls = urlUnlockString(urls);
-//
-//        if (zf.cjw(urls, "/")) {
-//
-//        } else {
-//
-//            urls = urls + "/";
-//
-//        }
-//
-//        String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
-//
-//        String a2 = 应用工具.获取应用签名(context, "open.cn.awg.pro");
-//
-//        String path = 应用工具.获取应用apk文件(context, "open.cn.awg.pro");
-//
-//        File mfile;
-//        mfile = new File(path);
-//
-//        String aa = sj.md5(mfile);
-//
-//        int a11;
-//
-//        String vn;
-//        a11 = com.demo.e4.getVersionCode(context);
-//        vn = com.demo.e4.getVersionName(context);
-//
-//        String bb = String.valueOf(a11);
-//
-//        String url = urls + "x.php?token=" + a2 + ljf + "id=" + aa + ljf + "ver=" + bb + ljf + "vername=" + vn;
-//
-//        String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
-//
-//        if (zf.dy(st5, null)) {
-//
-//            return false;
-//
-//        } else {
-//
-//            wj.xrwb(sec_isunlock, st5);
-//
-//            return zf.dy(st5, "true");
-//
-//        }
+//        wj.xrwb(sec_isunlock, "true");
+//        return true;
+        context = AwgProApplication.getContext();
+
+        String sec_isunlock = AppPaths.appPath("data/sec/unlock");
+
+        String urls = AppPaths.appPath("settings/f10/set2.inf");
+        urls = wj.dqwb(urls);
+        urls = urlUnlockString(urls);
+
+        if (zf.cjw(urls, "/")) {
+
+        } else {
+
+            urls = urls + "/";
+
+        }
+
+        String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+
+        String a2 = 应用工具.获取应用签名(context, "open.cn.awg.pro");
+
+        String path = 应用工具.获取应用apk文件(context, "open.cn.awg.pro");
+
+        File mfile;
+        mfile = new File(path);
+
+        String aa = sj.md5(mfile);
+
+        int a11;
+
+        String vn;
+        a11 = com.demo.e4.getVersionCode(context);
+        vn = com.demo.e4.getVersionName(context);
+
+        String bb = String.valueOf(a11);
+
+        String url = urls + "x.php?token=" + a2 + ljf + "id=" + aa + ljf + "ver=" + bb + ljf + "vername=" + vn;
+
+        String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+
+        if (zf.dy(st5, null)) {
+
+            return false;
+
+        } else {
+
+            wj.xrwb(sec_isunlock, st5);
+
+            return zf.dy(st5, "true");
+
+        }
 
     }
 
