@@ -29,6 +29,10 @@ import android.os.Bundle;
 import androidx.core.app.NotificationCompat;
 
 import i.app.iClass;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import open.cn.awg.pro.account.TypheyeServiceBridge;
 import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.chat.ChatRoomActivity;
@@ -37,24 +41,23 @@ import open.cn.awg.pro.R;
 import open.cn.awg.pro.service.AwgCoreService;
 import open.cn.awg.pro.service.SystemAccessibilityService;
 
-
 public class CoreRuntimeBootstrap extends iClass {
 
-    public static java.lang.String set17 = "/data/user/0/open.cn.awg.pro/settings/db/talking.db";
+    public static String set17 = AppPaths.appPath("settings/db/talking.db");
 
     public static i.runlibrary.app.sj$sjk sjk;
 
-    public static java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f18/set2.inf";
-    public static android.content.Context context;
-    public static android.app.NotificationManager notificationManager;
-    public static java.lang.String channelId = "chat";
+    public static String set2 = AppPaths.appPath("settings/f18/set2.inf");
+    public static Context context;
+    public static NotificationManager notificationManager;
+    public static String channelId = "chat";
     public static int msgids = 1;
     public static i.runlibrary.app.st$xfc xfc = null;
     public final CoreRuntimeBootstrap lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public open.cn.awg.pro.data.LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
-    public open.cn.awg.pro.account.TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
-    public open.cn.awg.pro.core.DevicePolicyBridge carton = new DevicePolicyBridge(_APPINFO);
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+    public TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+    public DevicePolicyBridge carton = new DevicePolicyBridge(_APPINFO);
     public boolean state_remotelock = false;
     public boolean state_ltstz = false;
 
@@ -63,18 +66,18 @@ public class CoreRuntimeBootstrap extends iClass {
 
     }
 
-    public void upload_log(java.lang.Object type_, java.lang.Object log_) {
+    public void upload_log(Object type_, Object log_) {
 
-        final java.lang.Object type = type_;
+        final Object type = type_;
 
-        final java.lang.Object log = log_;
-        gj.xc(new java.lang.Thread() {
+        final Object log = log_;
+        gj.xc(new Thread() {
 
             public void run() {
 
-                java.lang.String urls = "";
+                String urls = "";
 
-                final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+                final String set2 = AppPaths.appPath("settings/f11/set2.inf");
                 urls = e1.urlUnlockString(wj.dqwb(set2));
 
                 if (zf.cjw(urls, "/")) {
@@ -85,29 +88,29 @@ public class CoreRuntimeBootstrap extends iClass {
 
                 }
 
-                java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                java.lang.String idget = urls + "class/api.php?type=release" + ljf + "id=405";
+                String idget = urls + "class/api.php?type=release" + ljf + "id=405";
 
                 if (zf.dy(log, "")) {
 
                 } else {
 
-                    java.lang.String namex0 = "日志上报";
+                    String namex0 = "日志上报";
 
-                    final java.lang.String namex = namex0;
+                    final String namex = namex0;
 
-                    java.lang.String xxk = "[日志类型]\n" + type + "\n[日志信息]\n" + log;
+                    String xxk = "[日志类型]\n" + type + "\n[日志信息]\n" + log;
 
-                    final java.lang.String xx = xxk;
+                    final String xx = xxk;
 
-                    final java.lang.String url = idget;
+                    final String url = idget;
 
-                    java.lang.String setback = "";
+                    String setback = "";
 
-                    java.lang.String[] wlhq1 = new java.lang.String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
+                    String[] wlhq1 = new String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
 
-                    java.lang.String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -149,11 +152,11 @@ public class CoreRuntimeBootstrap extends iClass {
 
     public void bhxfc() {
 
-        final java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable";
+        final String set1 = AppPaths.appPath("settings/other/0xK9HJ4/Enable");
 
         if (zf.dy(wj.dqwb(set1), "true") && e1.islogin()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -182,26 +185,26 @@ public class CoreRuntimeBootstrap extends iClass {
 
     public void remotelock() {
 
-        final java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable";
+        final String set1 = AppPaths.appPath("settings/other/0xK9HJ4/Enable");
 
-        final java.lang.String user = "/data/user/0/open.cn.awg.pro/settings/account/user";
+        final String user = AppPaths.appPath("settings/account/user");
 
-        final java.lang.String urls = "https://service.typheye.cn/app/com.typheye.awg.remote/command/";
+        final String urls = "https://service.typheye.cn/app/com.typheye.awg.remote/command/";
 
         if (!state_remotelock) {
 
             state_remotelock = true;
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     bhxfc();
 
-                    java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                    java.lang.String url = urls + wj.dqwb(user) + "/running.dat";
+                    String url = urls + wj.dqwb(user) + "/running.dat";
 
-                    java.lang.String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(back, "cmdv1:lock")) {
 
@@ -220,7 +223,7 @@ public class CoreRuntimeBootstrap extends iClass {
 
     public void downAssets() {
 
-        java.lang.String urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf";
+        String urls = AppPaths.appPath("settings/f10/set2.inf");
         urls = wj.dqwb(urls);
         urls = e1.urlUnlockString(urls);
 
@@ -232,14 +235,14 @@ public class CoreRuntimeBootstrap extends iClass {
 
         }
 
-        final java.lang.String url = urls + "download/assets";
+        final String url = urls + "download/assets";
 
-        final java.lang.String filename = "/data/user/0/open.cn.awg.pro/data/down/assets";
+        final String filename = AppPaths.appPath("data/down/assets");
 
-        final java.lang.String filename2 = "@resource/a9d2b8288117333d815efe8e2feb5862";
+        final String filename2 = "@resource/a9d2b8288117333d815efe8e2feb5862";
 
-        final java.lang.String assetspath = "/data/user/0/open.cn.awg.pro/data/assets/";
-        gj.xc(new java.lang.Thread() {
+        final String assetspath = AppPaths.appPath("data/assets/");
+        gj.xc(new Thread() {
 
             public void run() {
 
@@ -283,39 +286,39 @@ public class CoreRuntimeBootstrap extends iClass {
 
         if (e1.getNowUserId() == 0) {
 
-            final java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable";
+            final String set1 = AppPaths.appPath("settings/other/0xK9HJ4/Enable");
 
-            final java.lang.String user = "/data/user/0/open.cn.awg.pro/settings/account/user";
+            final String user = AppPaths.appPath("settings/account/user");
 
-            final java.lang.String urls = "https://service.typheye.cn/app/com.typheye.awg.remote/command/";
-            context = open.cn.awg.pro.app.AwgProApplication.getContext();
-            wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/ftz");
+            final String urls = "https://service.typheye.cn/app/com.typheye.awg.remote/command/";
+            context = AwgProApplication.getContext();
+            wj.sc(AppPaths.appPath("data/ltlb/ftz"));
 
             i.runlibrary.app.sj$zh sjl = sj.zh(wj.dqwb(set2));
 
             final long tim = sjl.zlong(3000);
             N_csh();
 
-            final open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-            gj.xc(new java.lang.Thread() {
+            final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     e11.setup_talklist();
                     sjk = sj.sjk(set17);
 
-                    if (!zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/a3.inf"), "0") && zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f11/set1.inf"), "true")) {
+                    if (!zf.dy(wj.dqwb(AppPaths.appPath("settings/a3.inf")), "0") && zf.dy(wj.dqwb(AppPaths.appPath("settings/f11/set1.inf")), "true")) {
 
                         ltstz();
 
                     }
-                    wj.xrwb("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r", "0");
+                    wj.xrwb(AppPaths.appPath("data/AwgCoreService.r"), "0");
 
-                    while (wj.cz("/data/user/0/open.cn.awg.pro/data/AwgCoreService.r")) {
+                    while (wj.cz(AppPaths.appPath("data/AwgCoreService.r"))) {
 
                         gj.zt(tim);
 
-                        if (e1.awgwl_state() && !zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/a3.inf"), "0") && zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f11/set1.inf"), "true") && !wj.cz("/data/user/0/open.cn.awg.pro/data/ltlb/ftz")) {
+                        if (e1.awgwl_state() && !zf.dy(wj.dqwb(AppPaths.appPath("settings/a3.inf")), "0") && zf.dy(wj.dqwb(AppPaths.appPath("settings/f11/set1.inf")), "true") && !wj.cz(AppPaths.appPath("data/ltlb/ftz"))) {
 
                             ltstz();
 
@@ -325,9 +328,9 @@ public class CoreRuntimeBootstrap extends iClass {
 
                         try {
 
-                            aa = open.cn.awg.pro.service.SystemAccessibilityService.isAccessibilitySettingsOn(context, open.cn.awg.pro.service.SystemAccessibilityService.class.getName());
+                            aa = SystemAccessibilityService.isAccessibilitySettingsOn(context, SystemAccessibilityService.class.getName());
 
-                        } catch (java.lang.Throwable e) {
+                        } catch (Throwable e) {
 
                             aa = false;
 
@@ -367,7 +370,7 @@ public class CoreRuntimeBootstrap extends iClass {
 
             notificationManager.cancel(1);
 
-        } catch (java.lang.Throwable __$_e__) {
+        } catch (Throwable __$_e__) {
 
         }
 
@@ -387,15 +390,15 @@ public class CoreRuntimeBootstrap extends iClass {
 
     }
 
-    public void N_wl(java.lang.String a, java.lang.String b, java.lang.String c) {
+    public void N_wl(String a, String b, String c) {
 
-        final java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+        final String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
         wj.xrwb(cachehd, c);
 
-        final java.lang.String cachehd2 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+        final String cachehd2 = AppPaths.appPath("data/ltlb/lbx_title");
         wj.xrwb(cachehd2, a);
 
-        Intent intent = new Intent(context, open.cn.awg.pro.chat.ChatRoomActivity.class);
+        Intent intent = new Intent(context, ChatRoomActivity.class);
         Bundle bundle = new Bundle();
         bundle.putString("uid", c);
         intent.putExtras(bundle);
@@ -417,36 +420,36 @@ public class CoreRuntimeBootstrap extends iClass {
 
     public void ltstz() {
 
-        final java.lang.String his = "/data/user/0/open.cn.awg.pro/data/ltlb/history";
+        final String his = AppPaths.appPath("data/ltlb/history");
 
-        if (!wj.cz("/data/user/0/open.cn.awg.pro/data/ltlb/showing")) {
+        if (!wj.cz(AppPaths.appPath("data/ltlb/showing"))) {
 
             if (!state_ltstz) {
 
                 state_ltstz = true;
-                gj.xc(new java.lang.Thread() {
+                gj.xc(new Thread() {
 
                     public void run() {
 
-                        wj.xrwb("/data/user/0/open.cn.awg.pro/data/ltlb/ftz", "0");
+                        wj.xrwb(AppPaths.appPath("data/ltlb/ftz"), "0");
 
-                        final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+                        final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
-                        java.lang.String urls = e1.urlUnlockString(wj.dqwb(set2));
+                        String urls = e1.urlUnlockString(wj.dqwb(set2));
 
-                        java.lang.String table = "_id,uid,name,utext";
+                        String table = "_id,uid,name,utext";
 
-                        java.lang.Object sqlx = null;
+                        Object sqlx = null;
 
                         i.runlibrary.app.sj$cxsj sjk15 = sjk.cxsj("talklist", table, sqlx);
 
                         while (sjk15.xyh()) {
 
-                            final java.lang.String rooms = sjk15.sj(2);
+                            final String rooms = sjk15.sj(2);
 
-                            final java.lang.String uids = sjk15.sj(1);
+                            final String uids = sjk15.sj(1);
 
-                            java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uids;
+                            String sjhc = AppPaths.appPath("data/ltlb/chat/") + uids;
 
                             if (zf.cjw(urls, "/")) {
 
@@ -456,41 +459,41 @@ public class CoreRuntimeBootstrap extends iClass {
 
                             }
 
-                            java.lang.String db = "";
+                            String db = "";
 
                             if (wj.cz(sjhc)) {
 
                                 db = String.valueOf(wj.dx(sjhc));
 
-                                java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                                java.lang.String url = urls + "re.php?uid=" + uids + ljf + "token=" + db;
+                                String url = urls + "re.php?uid=" + uids + ljf + "token=" + db;
 
-                                java.lang.String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                 if (zf.dy(back, "") || zf.dy(back, null)) {
 
                                 } else {
 
-                                    java.lang.String be = wj.dqwb(his);
+                                    String be = wj.dqwb(his);
 
-                                    java.lang.String pp = "[" + uids + "]:";
+                                    String pp = "[" + uids + "]:";
 
-                                    java.lang.String pp1 = "[" + uids + "]";
+                                    String pp1 = "[" + uids + "]";
 
                                     if (zf.dy(back, "true")) {
 
-                                        java.lang.String pp2 = pp + db + pp1;
+                                        String pp2 = pp + db + pp1;
 
                                         if (zf.cz(be, pp)) {
 
-                                            java.lang.String db2 = zf.qc(wj.dqwb(his), pp, pp1);
+                                            String db2 = zf.qc(wj.dqwb(his), pp, pp1);
 
                                             if (!zf.dy(db2, db) && update(uids)) {
 
                                                 N_wl(rooms, getdata(uids), uids);
 
-                                                java.lang.String pp3 = pp + db2 + pp1;
+                                                String pp3 = pp + db2 + pp1;
                                                 be = zf.th(be, pp3, pp2);
                                                 wj.xrwb(his, be);
 
@@ -514,17 +517,17 @@ public class CoreRuntimeBootstrap extends iClass {
 
                                     } else if (zf.dy(back, "error")) {
 
-                                        java.lang.String pp2 = pp + "error" + pp1;
+                                        String pp2 = pp + "error" + pp1;
 
                                         if (zf.cz(be, pp)) {
 
-                                            java.lang.String db2 = zf.qc(wj.dqwb(his), pp, pp1);
+                                            String db2 = zf.qc(wj.dqwb(his), pp, pp1);
 
                                             if (!zf.dy(db2, "error")) {
 
                                                 N_wl(rooms, "该房间不存在或已被删除", uids);
 
-                                                java.lang.String pp3 = pp + db2 + pp1;
+                                                String pp3 = pp + db2 + pp1;
                                                 be = zf.th(be, pp3, pp2);
                                                 wj.xrwb(his, be);
 
@@ -547,7 +550,7 @@ public class CoreRuntimeBootstrap extends iClass {
                             }
 
                         }
-                        wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/ftz");
+                        wj.sc(AppPaths.appPath("data/ltlb/ftz"));
                         state_ltstz = false;
 
                     }
@@ -560,19 +563,19 @@ public class CoreRuntimeBootstrap extends iClass {
 
     }
 
-    public boolean update(java.lang.Object uid) {
+    public boolean update(Object uid) {
 
         boolean isF = false;
 
         try {
 
-            if (!wj.cz("/data/user/0/open.cn.awg.pro/data/ltlb/showing")) {
+            if (!wj.cz(AppPaths.appPath("data/ltlb/showing"))) {
 
-                final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+                final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
-                java.lang.String urls = e1.urlUnlockString(wj.dqwb(set2));
+                String urls = e1.urlUnlockString(wj.dqwb(set2));
 
-                java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
+                String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
                 if (zf.cjw(urls, "/")) {
 
@@ -582,9 +585,9 @@ public class CoreRuntimeBootstrap extends iClass {
 
                 }
 
-                java.lang.String url = urls + "chat/" + uid + ".json";
+                String url = urls + "chat/" + uid + ".json";
 
-                java.lang.String back0 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                String back0 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                 if (!zf.dy(back0, "") || !zf.dy(back0, null)) {
 
@@ -595,72 +598,72 @@ public class CoreRuntimeBootstrap extends iClass {
 
             }
 
-        } catch (java.lang.Throwable __$_e__) {
+        } catch (Throwable __$_e__) {
 
         }
         return isF;
 
     }
 
-    public java.lang.String getdata(java.lang.Object uid) {
+    public String getdata(Object uid) {
 
-        java.lang.String back = "";
+        String back = "";
 
-        java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
+        String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
         back = wj.dqwb(sjhc);
 
         try {
 
             i.runlibrary.app.zf$json jo = zf.json(back);
 
-            org.json.JSONObject json = jo.json;
+            JSONObject json = jo.json;
 
-            org.json.JSONArray list = jo.dxlb(json, "data");
+            JSONArray list = jo.dxlb(json, "data");
 
             int size = jo.cd(list);
             size = size - 1;
 
-            org.json.JSONObject dx = jo.dx(list, size);
+            JSONObject dx = jo.dx(list, size);
 
-            java.lang.Object data = jo.hq(dx, "data");
+            Object data = jo.hq(dx, "data");
 
-            java.lang.Object name = jo.hq(dx, "name");
+            Object name = jo.hq(dx, "name");
 
-            java.lang.String jname = "";
+            String jname = "";
 
-            java.lang.String jdata = "";
+            String jdata = "";
             jname = name.toString();
             jdata = data.toString();
 
             if (zf.cz(jdata, "[PHOTO]") && zf.cz(jdata, "[P:END]")) {
 
-                java.lang.String tx = zf.qc(jdata, null, "[PHOTO]");
+                String tx = zf.qc(jdata, null, "[PHOTO]");
                 jdata = tx + "[附件]图片";
 
             } else if (zf.cz(jdata, "[AUDIO]") && zf.cz(jdata, "[A:END]")) {
 
-                java.lang.String tx = zf.qc(jdata, null, "[AUDIO]");
+                String tx = zf.qc(jdata, null, "[AUDIO]");
                 jdata = tx + "[附件]音频";
 
             } else if (zf.cz(jdata, "[VIDEO]") && zf.cz(jdata, "[V:END]")) {
 
-                java.lang.String tx = zf.qc(jdata, null, "[VIDEO]");
+                String tx = zf.qc(jdata, null, "[VIDEO]");
                 jdata = tx + "[附件]视频";
 
             } else if (zf.cz(jdata, "[OTHER]") && zf.cz(jdata, "[O:END]")) {
 
-                java.lang.String tx = zf.qc(jdata, null, "[OTHER]");
+                String tx = zf.qc(jdata, null, "[OTHER]");
                 jdata = tx + "[附件]文件";
 
             } else if (zf.cz(jdata, "[INFOS]") && zf.cz(jdata, "[I:END]")) {
 
-                java.lang.String tx = zf.qc(jdata, "[INFOS]", "[I:END]");
+                String tx = zf.qc(jdata, "[INFOS]", "[I:END]");
                 jdata = tx;
 
             }
             back = jname + ":" + jdata;
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             back = "您有新的消息";
 

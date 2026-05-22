@@ -16,22 +16,32 @@
  */
 package open.cn.awg.pro.music;
 
+import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
+
+import androidx.recyclerview.widget.RecyclerView;
+
 import i.app.iClass;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.media.VideoPlayerActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.ui.list.TuneFreeSongItemActivity;
-
 
 public class TuneFreeMusicBridge extends iClass {
 
-    public static android.content.Context context;
+    public static Context context;
     public final TuneFreeMusicBridge lei = this, 类 = this;
     public i.runlibrary.app.v.v7lb$UserAdapter nmyylbspq = null;
-    public java.lang.String cookiepath = "/data/user/0/open.cn.awg.pro/data/plugin/tunefree/cookie";
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public java.lang.String endurl = "";
-    public java.lang.String api = "/song/url";
+    public String cookiepath = AppPaths.appPath("data/plugin/tunefree/cookie");
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String endurl = "";
+    public String api = "/song/url";
 
     public TuneFreeMusicBridge(i.runlibrary.app.AppInfo _APPINFO) {
         super(_APPINFO);
@@ -39,33 +49,33 @@ public class TuneFreeMusicBridge extends iClass {
     }
 
     public void csh() {
-        context = open.cn.awg.pro.app.AwgProApplication.getContext();
+        context = AwgProApplication.getContext();
 
-        i.runlibrary.app.v.v7lb lb = st.v7lb(open.cn.awg.pro.R.id.nmyyv7lb1);
-        nmyylbspq = lb.v7lbspq(TuneFreeSongItemActivity.class, open.cn.awg.pro.R.layout.c15);
+        i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.nmyyv7lb1);
+        nmyylbspq = lb.v7lbspq(TuneFreeSongItemActivity.class, R.layout.tune_free_song_item);
 
-        android.support.v7.widget.LinearLayoutManager nx = new android.support.v7.widget.LinearLayoutManager(context, android.support.v7.widget.LinearLayoutManager.VERTICAL, true);
+        LinearLayoutManager nx = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true);
 
-        androidx.recyclerview.widget.RecyclerView v7lbdx = lb.st;
+        RecyclerView v7lbdx = lb.st;
         v7lbdx.setLayoutManager(nx);
 
     }
 
-    public java.lang.String lrcFix(java.lang.String lr) {
+    public String lrcFix(String lr) {
 
-        java.lang.String lrc = zf.qctwkg(lr);
+        String lrc = zf.qctwkg(lr);
 
-        java.lang.String[] lrcH = zf.fg(lrc, "\n", true);
+        String[] lrcH = zf.fg(lrc, "\n", true);
 
-        for (java.lang.String x : lrcH) {
+        for (String x : lrcH) {
 
-            java.lang.String x2 = zf.qc(x, 10, 11);
+            String x2 = zf.qc(x, 10, 11);
 
             if (zf.ckt(x, "[") && zf.dy(x2, "]")) {
 
-                java.lang.String a = zf.qc(x, 1, 10);
+                String a = zf.qc(x, 1, 10);
 
-                java.lang.String b = zf.qc(x, 1, 9);
+                String b = zf.qc(x, 1, 9);
                 a = "[" + a + "]";
                 b = "[" + b + "]";
                 lrc = zf.th(lrc, a, b);
@@ -77,36 +87,36 @@ public class TuneFreeMusicBridge extends iClass {
 
     }
 
-    public void search_i1(java.lang.Object v, int o) {
+    public void search_i1(Object v, int o) {
         nmyylbspq.sc();
 
         final int oo = o;
 
-        int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb3, open.cn.awg.pro.R.id.wb2};
+        int[] kj = new int[]{R.id.wb1, R.id.wb3, R.id.wb2};
 
-        java.lang.String[] jk = new java.lang.String[]{"", "", ""};
+        String[] jk = new String[]{"", "", ""};
 
         i.runlibrary.app.zf$json jo = zf.json(v);
 
-        org.json.JSONObject json = jo.json;
+        JSONObject json = jo.json;
 
-        java.lang.Object v_result = jo.hq(json, "result");
+        Object v_result = jo.hq(json, "result");
 
-        java.lang.Object v_code = jo.hq(json, "code");
+        Object v_code = jo.hq(json, "code");
 
         if (!zf.dy(v_result, "")) {
 
             i.runlibrary.app.zf$json jo_z1 = zf.json(v_result);
 
-            org.json.JSONObject json_z1 = jo_z1.json;
+            JSONObject json_z1 = jo_z1.json;
 
-            java.lang.Object v_songs = jo_z1.hq(json_z1, "songs");
+            Object v_songs = jo_z1.hq(json_z1, "songs");
 
-            java.lang.Object v_songCount = jo_z1.hq(json_z1, "songCount");
+            Object v_songCount = jo_z1.hq(json_z1, "songCount");
 
             if (!zf.dy(v_songs, "")) {
 
-                org.json.JSONArray list = jo_z1.dxlb(json_z1, "songs");
+                JSONArray list = jo_z1.dxlb(json_z1, "songs");
 
                 int size = jo_z1.cd(list);
 
@@ -114,13 +124,13 @@ public class TuneFreeMusicBridge extends iClass {
 
                     size--;
 
-                    org.json.JSONObject dx = jo_z1.dx(list, size);
+                    JSONObject dx = jo_z1.dx(list, size);
 
-                    java.lang.Object v_l_name = jo_z1.hq(dx, "name");
+                    Object v_l_name = jo_z1.hq(dx, "name");
 
-                    java.lang.Object v_l_id = jo_z1.hq(dx, "id");
+                    Object v_l_id = jo_z1.hq(dx, "id");
 
-                    java.lang.Object v_l_ar = jo_z1.hq(dx, "ar");
+                    Object v_l_ar = jo_z1.hq(dx, "ar");
 
                     if (!zf.dy(v_l_ar, "")) {
 
@@ -128,9 +138,9 @@ public class TuneFreeMusicBridge extends iClass {
 
                         i.runlibrary.app.zf$json jo_z2 = zf.json(dx);
 
-                        org.json.JSONObject json_z2 = jo_z2.json;
+                        JSONObject json_z2 = jo_z2.json;
 
-                        org.json.JSONArray list2 = jo_z2.dxlb(json_z2, "ar");
+                        JSONArray list2 = jo_z2.dxlb(json_z2, "ar");
 
                         int size2 = jo_z2.cd(list2);
 
@@ -138,29 +148,29 @@ public class TuneFreeMusicBridge extends iClass {
 
                             size2 = size2 - 1;
 
-                            org.json.JSONObject dx2 = jo_z2.dx(list2, size2);
+                            JSONObject dx2 = jo_z2.dx(list2, size2);
 
-                            java.lang.Object v_l2_id = jo_z2.hq(dx2, "id");
+                            Object v_l2_id = jo_z2.hq(dx2, "id");
 
-                            java.lang.Object v_l2_name = jo_z2.hq(dx2, "name");
+                            Object v_l2_name = jo_z2.hq(dx2, "name");
                             v_l_ar = v_l_ar + String.valueOf(v_l2_name) + ";";
 
                         }
 
                     }
 
-                    java.lang.String _v_l_ar = v_l_ar.toString();
+                    String _v_l_ar = v_l_ar.toString();
                     v_l_ar = zf.qc(v_l_ar, null, _v_l_ar.length() - 1);
-                    jk = new java.lang.String[]{v_l_name.toString(), v_l_ar.toString(), v_l_id.toString()};
+                    jk = new String[]{v_l_name.toString(), v_l_ar.toString(), v_l_id.toString()};
                     nmyylbspq.j(kj, jk);
 
                 }
 
             }
 
-            java.lang.String nums2 = v_songCount.toString();
+            String nums2 = v_songCount.toString();
 
-            final java.lang.String ynums = nums2;
+            final String ynums = nums2;
 
             int nums2_ = Integer.parseInt(nums2) % 20;
 
@@ -170,8 +180,8 @@ public class TuneFreeMusicBridge extends iClass {
 
             }
 
-            final java.lang.String nums = nums2;
-            gj.jmxc(new java.lang.Runnable() {
+            final String nums = nums2;
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -180,26 +190,26 @@ public class TuneFreeMusicBridge extends iClass {
                     if (zf.dy(ynums, "0")) {
 
                         nmyylbspq.sc();
-                        st.wb(open.cn.awg.pro.R.id.wb3).zf("未搜索到相关歌曲/歌手");
-                        st.wb(open.cn.awg.pro.R.id.myswb).zf("第1/1页");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                        st.wb(open.cn.awg.pro.R.id.wb3).kjd(0);
+                        st.wb(R.id.wb3).zf("未搜索到相关歌曲/歌手");
+                        st.wb(R.id.myswb).zf("第1/1页");
+                        st.xxbj(R.id.xxbj1).kjd(8);
+                        st.wb(R.id.wb3).kjd(0);
 
                     } else {
 
-                        st.wb(open.cn.awg.pro.R.id.wb3).zf("共搜索到" + nums + "首歌曲");
-                        st.wb(open.cn.awg.pro.R.id.myswb).zf("第" + oo + "/" + loo + "页");
+                        st.wb(R.id.wb3).zf("共搜索到" + nums + "首歌曲");
+                        st.wb(R.id.myswb).zf("第" + oo + "/" + loo + "页");
 
                         if (oo == 1 && loo == 1) {
 
-                            st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
+                            st.xxbj(R.id.xxbj1).kjd(8);
 
                         } else {
 
-                            st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
+                            st.xxbj(R.id.xxbj1).kjd(0);
 
                         }
-                        st.wb(open.cn.awg.pro.R.id.wb3).kjd(8);
+                        st.wb(R.id.wb3).kjd(8);
 
                     }
 
@@ -208,7 +218,7 @@ public class TuneFreeMusicBridge extends iClass {
             });
 
         }
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -220,15 +230,15 @@ public class TuneFreeMusicBridge extends iClass {
 
     }
 
-    public java.lang.String getMCU() {
+    public String getMCU() {
 
-        java.lang.String cookie = wj.dqwb(cookiepath);
+        String cookie = wj.dqwb(cookiepath);
 
-        java.lang.String[] cf = zf.fg(cookie, ";", false);
+        String[] cf = zf.fg(cookie, ";", false);
 
-        java.lang.String mcu = "";
+        String mcu = "";
 
-        for (java.lang.String line : cf) {
+        for (String line : cf) {
 
             if (zf.ckt(line, "MUSIC_U")) {
 
@@ -241,22 +251,22 @@ public class TuneFreeMusicBridge extends iClass {
 
     }
 
-    public void search_i2(java.lang.Object v, int o) {
+    public void search_i2(Object v, int o) {
         nmyylbspq.sc();
 
         final int oo = o;
 
-        int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb3, open.cn.awg.pro.R.id.wb2};
+        int[] kj = new int[]{R.id.wb1, R.id.wb3, R.id.wb2};
 
-        java.lang.String[] jk = new java.lang.String[]{"", "", ""};
+        String[] jk = new String[]{"", "", ""};
 
         i.runlibrary.app.zf$json jo = zf.json(v);
 
-        org.json.JSONObject json = jo.json;
+        JSONObject json = jo.json;
 
-        org.json.JSONArray list = jo.dxlb(json, "data");
+        JSONArray list = jo.dxlb(json, "data");
 
-        java.lang.Object count = jo.hq(json, "count");
+        Object count = jo.hq(json, "count");
 
         if (!zf.dy(list, "")) {
 
@@ -266,13 +276,13 @@ public class TuneFreeMusicBridge extends iClass {
 
                 size--;
 
-                org.json.JSONObject dx = jo.dx(list, size);
+                JSONObject dx = jo.dx(list, size);
 
-                java.lang.String v_l_name = jo.hq(dx, "songName").toString();
+                String v_l_name = jo.hq(dx, "songName").toString();
 
-                java.lang.String v_l_id = jo.hq(dx, "songId").toString();
+                String v_l_id = jo.hq(dx, "songId").toString();
 
-                java.lang.String v_l_ar = jo.hq(dx, "artist").toString();
+                String v_l_ar = jo.hq(dx, "artist").toString();
 
                 if (zf.dy(v_l_ar, "")) {
 
@@ -296,14 +306,14 @@ public class TuneFreeMusicBridge extends iClass {
                     }
 
                 }
-                jk = new java.lang.String[]{v_l_name, v_l_ar, v_l_id};
+                jk = new String[]{v_l_name, v_l_ar, v_l_id};
                 nmyylbspq.j(kj, jk);
 
             }
 
-            java.lang.String nums2 = count.toString();
+            String nums2 = count.toString();
 
-            final java.lang.String ynums = nums2;
+            final String ynums = nums2;
 
             int nums2_ = Integer.parseInt(nums2) % 20;
 
@@ -313,8 +323,8 @@ public class TuneFreeMusicBridge extends iClass {
 
             }
 
-            final java.lang.String nums = nums2;
-            gj.jmxc(new java.lang.Runnable() {
+            final String nums = nums2;
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -323,26 +333,26 @@ public class TuneFreeMusicBridge extends iClass {
                     if (zf.dy(ynums, "0")) {
 
                         nmyylbspq.sc();
-                        st.wb(open.cn.awg.pro.R.id.wb3).zf("未搜索到相关歌曲/歌手");
-                        st.wb(open.cn.awg.pro.R.id.myswb).zf("第1/1页");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                        st.wb(open.cn.awg.pro.R.id.wb3).kjd(0);
+                        st.wb(R.id.wb3).zf("未搜索到相关歌曲/歌手");
+                        st.wb(R.id.myswb).zf("第1/1页");
+                        st.xxbj(R.id.xxbj1).kjd(8);
+                        st.wb(R.id.wb3).kjd(0);
 
                     } else {
 
-                        st.wb(open.cn.awg.pro.R.id.wb3).zf("共搜索到" + nums + "首歌曲");
-                        st.wb(open.cn.awg.pro.R.id.myswb).zf("第" + oo + "/" + loo + "页");
+                        st.wb(R.id.wb3).zf("共搜索到" + nums + "首歌曲");
+                        st.wb(R.id.myswb).zf("第" + oo + "/" + loo + "页");
 
                         if (oo == 1 && loo == 1) {
 
-                            st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
+                            st.xxbj(R.id.xxbj1).kjd(8);
 
                         } else {
 
-                            st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
+                            st.xxbj(R.id.xxbj1).kjd(0);
 
                         }
-                        st.wb(open.cn.awg.pro.R.id.wb3).kjd(8);
+                        st.wb(R.id.wb3).kjd(8);
 
                     }
 
@@ -351,7 +361,7 @@ public class TuneFreeMusicBridge extends iClass {
             });
 
         }
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -363,32 +373,32 @@ public class TuneFreeMusicBridge extends iClass {
 
     }
 
-    public void loadMusic(java.lang.Object id, java.lang.Object title) {
+    public void loadMusic(Object id, Object title) {
 
-        java.lang.String set35 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/url";
+        String set35 = AppPaths.appPath("settings/other/0xO7YX2/url");
 
-        java.lang.String set36 = "/data/user/0/open.cn.awg.pro/settings/other/0xO7YX2/cookie";
+        String set36 = AppPaths.appPath("settings/other/0xO7YX2/cookie");
 
-        final java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+        final String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-        final java.lang.Object xx = id;
+        final Object xx = id;
 
-        final java.lang.String url = zf.qctwkg(wj.dqwb(set35)) + api;
+        final String url = zf.qctwkg(wj.dqwb(set35)) + api;
 
-        final java.lang.String url22 = "https://auth.sayqz.com/";
+        final String url22 = "https://auth.sayqz.com/";
 
-        final java.lang.String url_ = zf.qctwkg(wj.dqwb(set35));
+        final String url_ = zf.qctwkg(wj.dqwb(set35));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(open.cn.awg.pro.R.id.xxbj6);
+        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj4);
 
-        final java.lang.Object t = title;
-        gj.xc(new java.lang.Thread() {
+        final Object t = title;
+        gj.xc(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -402,7 +412,7 @@ public class TuneFreeMusicBridge extends iClass {
                 if (zf.dy(xx, "")) {
 
                     e1.tsk("提示", "ID不能为空");
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -415,15 +425,15 @@ public class TuneFreeMusicBridge extends iClass {
 
                 } else {
 
-                    java.lang.String setback = "";
+                    String setback = "";
 
-                    java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                    java.lang.String sjzx = xt.sj(4);
+                    String sjzx = xt.sj(4);
 
-                    java.lang.String whq = "?path=song/url" + ljf + "id=" + xx + ljf + "level=standard" + ljf + "cookie=" + getMCU();
+                    String whq = "?path=song/url" + ljf + "id=" + xx + ljf + "level=standard" + ljf + "cookie=" + getMCU();
 
-                    java.lang.String back = wl.hq(url22 + whq, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = wl.hq(url22 + whq, null, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -438,7 +448,7 @@ public class TuneFreeMusicBridge extends iClass {
                     if (zf.dy(setback, "0")) {
 
                         e1.tsk("提示", "加载失败,请重试(-1)");
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
@@ -451,9 +461,9 @@ public class TuneFreeMusicBridge extends iClass {
 
                     } else {
 
-                        java.lang.String whq2 = "/lyric?id=" + xx;
+                        String whq2 = "/lyric?id=" + xx;
 
-                        java.lang.String back2 = wl.hq(url_ + whq2, null, "utf-8");
+                        String back2 = wl.hq(url_ + whq2, null, "utf-8");
 
                         if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
 
@@ -461,15 +471,15 @@ public class TuneFreeMusicBridge extends iClass {
 
                                 i.runlibrary.app.zf$json jo_l1 = zf.json(back2);
 
-                                org.json.JSONObject json_l1 = jo_l1.json;
+                                JSONObject json_l1 = jo_l1.json;
 
-                                java.lang.Object lrc = jo_l1.hq(json_l1, "lrc");
+                                Object lrc = jo_l1.hq(json_l1, "lrc");
 
                                 if (lrc.toString().length() > 4) {
 
                                     i.runlibrary.app.zf$json jo_l2 = zf.json(lrc);
 
-                                    org.json.JSONObject json_l2 = jo_l2.json;
+                                    JSONObject json_l2 = jo_l2.json;
                                     back2 = String.valueOf(jo_l2.hq(json_l2, "lyric"));
                                     back2 = back2;
                                     back2 = lrcFix(back2);
@@ -480,7 +490,7 @@ public class TuneFreeMusicBridge extends iClass {
 
                                 }
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 back2 = "";
 
@@ -496,19 +506,19 @@ public class TuneFreeMusicBridge extends iClass {
 
                             i.runlibrary.app.zf$json jo_z1 = zf.json(setback);
 
-                            org.json.JSONObject json_z1 = jo_z1.json;
+                            JSONObject json_z1 = jo_z1.json;
 
-                            org.json.JSONArray list = jo_z1.dxlb(json_z1, "data");
+                            JSONArray list = jo_z1.dxlb(json_z1, "data");
 
                             int size = jo_z1.cd(list);
 
-                            java.lang.String url = "";
+                            String url = "";
 
                             while (size > 0) {
 
                                 size = size - 1;
 
-                                org.json.JSONObject dx = jo_z1.dx(list, size);
+                                JSONObject dx = jo_z1.dx(list, size);
                                 url = String.valueOf(jo_z1.hq(dx, "url"));
 
                             }
@@ -519,10 +529,10 @@ public class TuneFreeMusicBridge extends iClass {
 
                             } else {
 
-                                final java.lang.String[] name = new java.lang.String[]{"url", "title", "lrc"};
+                                final String[] name = new String[]{"url", "title", "lrc"};
 
-                                final java.lang.Object[] value = new java.lang.Object[]{url, t, back2};
-                                gj.jmxc(new java.lang.Runnable() {
+                                final Object[] value = new Object[]{url, t, back2};
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -534,12 +544,12 @@ public class TuneFreeMusicBridge extends iClass {
 
                             }
 
-                        } catch (java.lang.Throwable e) {
+                        } catch (Throwable e) {
 
                             e1.tsk("提示", "获取链接失败(-3)");
 
                         }
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 

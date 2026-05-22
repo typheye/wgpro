@@ -16,148 +16,162 @@
  */
 package open.cn.awg.pro.store;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
+import org.json.JSONObject;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
 
-
-public class ProductPurchaseActivity extends iActivity {
+public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public final ProductPurchaseActivity lei = this, 类 = this;
     public double cp_jg = 0;
-    public java.lang.String cp_name = "";
-    public java.lang.String cp_text = "";
-    public java.lang.String cp_time = "";
-    public java.lang.String cp_id = "";
-    public java.lang.String oback = "";
-    public java.lang.String nopay_why2 = "";
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String cp_name = "";
+    public String cp_text = "";
+    public String cp_time = "";
+    public String cp_id = "";
+    public String oback = "";
+    public String nopay_why2 = "";
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
     public boolean zfxh = true;
     public boolean zfqx = false;
     public boolean st_zf0 = false;
     public boolean st_payconf = false;
     public boolean st_zf0_xh = false;
-    public java.lang.String pay_cache = "$cache/pay/pay_id";
-    public java.lang.String url = "https://pay.typheye.cn";
-    public java.lang.String url2 = "https://service.typheye.cn";
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i6f2c7751cf = new android.view.View.OnClickListener() {
+    public String pay_cache = "$cache/pay/pay_id";
+    public String url = "https://pay.typheye.cn";
+    public String url2 = "https://service.typheye.cn";
+    private final View.OnClickListener tx6ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i6f2c7751cf(vw);
+        public void onClick(View vw) {
+            onTx6Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4a4248a0f2 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4a4248a0f2(vw);
+        public void onClick(View vw) {
+            onTx5Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171ea34f1a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171ea34f1a(vw);
+        public void onClick(View vw) {
+            onAn1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_fab146d7a5 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj8LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_fab146d7a5(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj8LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_fab146d7a5 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj8ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_fab146d7a5(vw);
+        public void onClick(View vw) {
+            onXdbj8Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_e585d94488 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj7LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_e585d94488(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj7LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_e585d94488 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj7ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_e585d94488(vw);
+        public void onClick(View vw) {
+            onXdbj7Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i171cedf1eb = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj6LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i171cedf1eb(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj6LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171cedf1eb = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj6ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171cedf1eb(vw);
+        public void onClick(View vw) {
+            onXdbj6Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i20c2777fab = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i20c2777fab(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj3LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i20c2777fab = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i20c2777fab(vw);
+        public void onClick(View vw) {
+            onXdbj3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i3f6c9f386b = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbj8ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i3f6c9f386b(vw);
+        public void onClick(View vw) {
+            onXxbj8Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.o1);
+        setContentView(R.layout.product_purchase);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         cp_name = sj.hqtz("name");
         cp_jg = Double.parseDouble(sj.hqtz("jg"));
         cp_text = sj.hqtz("text");
@@ -168,85 +182,82 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
         i.runlibrary.app.xt$pm pm = xt.pm();
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
 
         if (zf.dy(a, "4")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.o1_v).shxtck(true);
+            st.xdbj(R.id.product_purchase_root).shxtck(true);
 
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
+            String clr = zf.zf(R.color.colorTab);
             xt.pm().ztl(clr, 0);
 
         } else {
 
-            st.xdbj(open.cn.awg.pro.R.id.o1_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+            st.xdbj(R.id.product_purchase_root).shxtck(false);
+        applyFullscreenWindow();
 
         }
 
         if (zf.dy(a, "1")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
+            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
         } else if (zf.dy(a, "2")) {
 
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+            String a001 = AppPaths.appPath("settings/dpi.inf");
 
             if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "3dp", 0, "3dp");
                 wtab.dqfs("center");
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "9dp", 0, "9dp");
                 wtab.dqfs("center");
 
             }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
+            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
 
         } else if (zf.dy(a, "3")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
+            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
         } else if (zf.dy(a, "4")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
+            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
 
         }
 
@@ -256,16 +267,16 @@ public class ProductPurchaseActivity extends iActivity {
 
         if (i == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
                     xt.sbxm(true);
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("< 产品购买");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                    st.wb(R.id.title_bar).zf("< 产品购买");
+                    st.xxbj(R.id.xxbj1).kjd(0);
+                    st.xxbj(R.id.xxbj9).kjd(8);
+                    st.xxbj(R.id.xxbj6).kjd(8);
+                    st.xxbj(R.id.xxbj5).kjd(8);
 
                 }
 
@@ -273,16 +284,16 @@ public class ProductPurchaseActivity extends iActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
                     xt.sbxm(true);
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("产品购买");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                    st.wb(R.id.title_bar).zf("产品购买");
+                    st.xxbj(R.id.xxbj1).kjd(8);
+                    st.xxbj(R.id.xxbj9).kjd(8);
+                    st.xxbj(R.id.xxbj6).kjd(0);
+                    st.xxbj(R.id.xxbj5).kjd(8);
 
                 }
 
@@ -290,16 +301,16 @@ public class ProductPurchaseActivity extends iActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
                     xt.sbxm(false);
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("产品购买");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(0);
+                    st.wb(R.id.title_bar).zf("产品购买");
+                    st.xxbj(R.id.xxbj1).kjd(8);
+                    st.xxbj(R.id.xxbj9).kjd(8);
+                    st.xxbj(R.id.xxbj6).kjd(8);
+                    st.xxbj(R.id.xxbj5).kjd(0);
 
                 }
 
@@ -311,20 +322,20 @@ public class ProductPurchaseActivity extends iActivity {
 
     public void payconf() {
 
-        final i.runlibrary.app.v.xdbj xdbj7 = st.xdbj(open.cn.awg.pro.R.id.xdbj7);
+        final i.runlibrary.app.v.xdbj xdbj7 = st.xdbj(R.id.xdbj7);
 
-        final i.runlibrary.app.v.xdbj xdbj8 = st.xdbj(open.cn.awg.pro.R.id.xdbj8);
+        final i.runlibrary.app.v.xdbj xdbj8 = st.xdbj(R.id.xdbj8);
 
-        final i.runlibrary.app.v.wb wb18 = st.wb(open.cn.awg.pro.R.id.wb18);
+        final i.runlibrary.app.v.wb wb18 = st.wb(R.id.wb18);
 
         if (!st_payconf) {
 
             st_payconf = true;
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -336,7 +347,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                     });
 
-                    java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f7/Enable";
+                    String set2 = AppPaths.appPath("settings/f7/Enable");
 
                     if (e1.yz()) {
 
@@ -353,7 +364,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                         } else {
 
-                            java.lang.String back = wl.hq(url2 + "/app/open.cn.awg.pro/pay_config_v3.json", null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = wl.hq(url2 + "/app/open.cn.awg.pro/pay_config_v3.json", null, "utf-8", null, true, null, 20000, 20000, null);
 
                             if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -363,13 +374,13 @@ public class ProductPurchaseActivity extends iActivity {
 
                                 try {
 
-                                    java.lang.String can_pay = e1.readJson(back, "can_pay");
+                                    String can_pay = e1.readJson(back, "can_pay");
 
-                                    java.lang.String nopay_why = e1.readJson(back, "nopay_why");
+                                    String nopay_why = e1.readJson(back, "nopay_why");
 
                                     if (zf.dy(can_pay, "1")) {
 
-                                        gj.jmxc(new java.lang.Runnable() {
+                                        gj.jmxc(new Runnable() {
 
                                             public void run() {
 
@@ -388,7 +399,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                                     }
 
-                                } catch (java.lang.Throwable __$_e__) {
+                                } catch (Throwable __$_e__) {
 
                                     payconf$error("");
 
@@ -417,12 +428,12 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    public void payconf$error(java.lang.Object t) {
+    public void payconf$error(Object t) {
         st_payconf = false;
 
-        final i.runlibrary.app.v.wb wb18 = st.wb(open.cn.awg.pro.R.id.wb18);
+        final i.runlibrary.app.v.wb wb18 = st.wb(R.id.wb18);
 
-        final i.runlibrary.app.v.xdbj xdbj8 = st.xdbj(open.cn.awg.pro.R.id.xdbj8);
+        final i.runlibrary.app.v.xdbj xdbj8 = st.xdbj(R.id.xdbj8);
 
         if (zf.dy(t, "")) {
 
@@ -433,7 +444,7 @@ public class ProductPurchaseActivity extends iActivity {
             nopay_why2 = String.valueOf(t);
 
         }
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -446,22 +457,22 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    public void sendPayInfo(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d) {
+    public void sendPayInfo(Object a, Object b, Object c, Object d) {
 
-        final java.lang.Object j1 = a;
+        final Object j1 = a;
 
-        final java.lang.Object j2 = b;
+        final Object j2 = b;
 
-        final java.lang.Object j3 = c;
+        final Object j3 = c;
 
-        final java.lang.Object j4 = d;
-        gj.xc(new java.lang.Thread() {
+        final Object j4 = d;
+        gj.xc(new Thread() {
 
             public void run() {
 
-                java.lang.String urls = "";
+                String urls = "";
 
-                final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+                final String set2 = AppPaths.appPath("settings/f11/set2.inf");
                 urls = e1.urlUnlockString(wj.dqwb(set2));
 
                 if (zf.cjw(urls, "/")) {
@@ -472,29 +483,29 @@ public class ProductPurchaseActivity extends iActivity {
 
                 }
 
-                java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                java.lang.String idget = urls + "class/api.php?type=release" + ljf + "id=600";
+                String idget = urls + "class/api.php?type=release" + ljf + "id=600";
 
                 if (zf.dy(j1, "") || zf.dy(j2, "") || zf.dy(j3, "") || zf.dy(j4, "")) {
 
                 } else {
 
-                    java.lang.String namex0 = "用户交易";
+                    String namex0 = "用户交易";
 
-                    final java.lang.String namex = namex0;
+                    final String namex = namex0;
 
-                    java.lang.String xxk = "[产品标识] " + j1 + "\n[产品价格] " + j2 + "\n[交易方式] " + j3 + "\n[交易标识] " + j4;
+                    String xxk = "[产品标识] " + j1 + "\n[产品价格] " + j2 + "\n[交易方式] " + j3 + "\n[交易标识] " + j4;
 
-                    final java.lang.String xx = xxk;
+                    final String xx = xxk;
 
-                    final java.lang.String url = idget;
+                    final String url = idget;
 
-                    java.lang.String setback = "";
+                    String setback = "";
 
-                    java.lang.String[] wlhq1 = new java.lang.String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
+                    String[] wlhq1 = new String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
 
-                    java.lang.String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -537,47 +548,47 @@ public class ProductPurchaseActivity extends iActivity {
     public void zt(int a) {
 
         final int i = a;
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    java.lang.String cp_jg_;
+                    String cp_jg_;
                     cp_jg_ = com.demo.e4.doubleToString(cp_jg);
-                    st.wb(open.cn.awg.pro.R.id.wb10).zf("¥" + cp_jg_);
-                    st.wb(open.cn.awg.pro.R.id.wb11).zf("待支付");
-                    st.wb(open.cn.awg.pro.R.id.wb11).kjd(0);
-                    st.tx(open.cn.awg.pro.R.id.tx4).tx(open.cn.awg.pro.R.mipmap.a27);
+                    st.wb(R.id.wb10).zf("¥" + cp_jg_);
+                    st.wb(R.id.wb11).zf("待支付");
+                    st.wb(R.id.wb11).kjd(0);
+                    st.tx(R.id.tx4).tx(R.mipmap.a27);
 
-                    java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorAccent);
-                    st.kp(open.cn.awg.pro.R.id.kp4).kpbjys(color);
-                    st.xdbj(open.cn.awg.pro.R.id.xdbj6).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd(0);
+                    String color = zf.zf(R.color.colorAccent);
+                    st.kp(R.id.kp4).kpbjys(color);
+                    st.xdbj(R.id.xdbj6).kjd(8);
+                    st.xxbj(R.id.xxbj7).kjd(0);
 
                 } else if (i == 1) {
 
-                    st.wb(open.cn.awg.pro.R.id.wb10).zf("支付成功");
-                    st.wb(open.cn.awg.pro.R.id.wb11).zf("");
-                    st.wb(open.cn.awg.pro.R.id.wb11).kjd(8);
-                    st.tx(open.cn.awg.pro.R.id.tx4).tx(open.cn.awg.pro.R.mipmap.a28);
+                    st.wb(R.id.wb10).zf("支付成功");
+                    st.wb(R.id.wb11).zf("");
+                    st.wb(R.id.wb11).kjd(8);
+                    st.tx(R.id.tx4).tx(R.mipmap.a28);
 
-                    java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextTrue);
-                    st.kp(open.cn.awg.pro.R.id.kp4).kpbjys(color);
-                    st.xdbj(open.cn.awg.pro.R.id.xdbj6).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd(8);
+                    String color = zf.zf(R.color.colorTextTrue);
+                    st.kp(R.id.kp4).kpbjys(color);
+                    st.xdbj(R.id.xdbj6).kjd(8);
+                    st.xxbj(R.id.xxbj7).kjd(8);
 
                 } else if (i == 2) {
 
-                    st.wb(open.cn.awg.pro.R.id.wb10).zf("支付失败");
-                    st.wb(open.cn.awg.pro.R.id.wb11).zf("");
-                    st.wb(open.cn.awg.pro.R.id.wb11).kjd(8);
-                    st.tx(open.cn.awg.pro.R.id.tx4).tx(open.cn.awg.pro.R.mipmap.a29);
+                    st.wb(R.id.wb10).zf("支付失败");
+                    st.wb(R.id.wb11).zf("");
+                    st.wb(R.id.wb11).kjd(8);
+                    st.tx(R.id.tx4).tx(R.mipmap.a29);
 
-                    java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextFalse);
-                    st.kp(open.cn.awg.pro.R.id.kp4).kpbjys(color);
-                    st.xdbj(open.cn.awg.pro.R.id.xdbj6).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd(8);
+                    String color = zf.zf(R.color.colorTextFalse);
+                    st.kp(R.id.kp4).kpbjys(color);
+                    st.xdbj(R.id.xdbj6).kjd(0);
+                    st.xxbj(R.id.xxbj7).kjd(8);
 
                 }
 
@@ -593,15 +604,15 @@ public class ProductPurchaseActivity extends iActivity {
 
             st_zf0 = true;
 
-            final java.lang.String type = "default";
-            gj.xc(new java.lang.Thread() {
+            final String type = "default";
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     show(1);
                     gj.zt(500);
 
-                    java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f7/Enable";
+                    String set2 = AppPaths.appPath("settings/f7/Enable");
 
                     if (e1.yz()) {
 
@@ -614,7 +625,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                         } else {
 
-                            java.lang.String back = wl.hq(url2 + "/app/open.cn.awg.pro/pay_config_v3.json", null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = wl.hq(url2 + "/app/open.cn.awg.pro/pay_config_v3.json", null, "utf-8", null, true, null, 20000, 20000, null);
 
                             if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -627,18 +638,18 @@ public class ProductPurchaseActivity extends iActivity {
 
                                 try {
 
-                                    java.lang.String pid = "awg";
+                                    String pid = "awg";
 
-                                    java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                                    java.lang.String cp_jg_;
+                                    String cp_jg_;
                                     cp_jg_ = com.demo.e4.doubleToString(cp_jg);
 
-                                    final java.lang.String otn = "D" + xt.sj(4) + sj.zh().zstring(zf.sjs(10000000, 99999999));
+                                    final String otn = "D" + xt.sj(4) + sj.zh().zstring(zf.sjs(10000000, 99999999));
 
-                                    java.lang.String lock = "money=" + cp_jg_ + "&name=" + cp_name + "&id=" + cp_id + "&out_trade_no=" + otn + "&pid=" + pid + "&type=" + type;
+                                    String lock = "money=" + cp_jg_ + "&name=" + cp_name + "&id=" + cp_id + "&out_trade_no=" + otn + "&pid=" + pid + "&type=" + type;
 
-                                    java.lang.String get = "/api/v3/?" + lock + "&sign=" + sj.md5(lock);
+                                    String get = "/api/v3/?" + lock + "&sign=" + sj.md5(lock);
                                     back = wl.hq(url + get, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                     if (zf.dy(back, "") || zf.dy(back, null)) {
@@ -650,7 +661,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                                     } else {
 
-                                        java.lang.String ce = e1.readJson(back, "code");
+                                        String ce = e1.readJson(back, "code");
 
                                         if (zf.dy(ce, "200")) {
 
@@ -658,11 +669,11 @@ public class ProductPurchaseActivity extends iActivity {
 
                                                 i.runlibrary.app.zf$json jo = zf.json(back);
 
-                                                org.json.JSONObject json = jo.json;
+                                                JSONObject json = jo.json;
 
-                                                java.lang.Object v_id = jo.hq(json, "trade_no");
+                                                Object v_id = jo.hq(json, "trade_no");
 
-                                                java.lang.Object v_v = jo.hq(json, "qrcode");
+                                                Object v_v = jo.hq(json, "qrcode");
 
                                                 if (!zf.dy(v_id, "") && !zf.dy(v_v, "")) {
 
@@ -677,7 +688,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                                                 }
 
-                                            } catch (java.lang.Throwable e) {
+                                            } catch (Throwable e) {
 
                                                 oback = "支付失败:出现异常";
                                                 e1.tsk("提示", oback);
@@ -697,7 +708,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                                     }
 
-                                } catch (java.lang.Throwable __$_e__) {
+                                } catch (Throwable __$_e__) {
 
                                     oback = "支付失败:出现异常";
                                     e1.tsk("提示", oback);
@@ -732,18 +743,18 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    public void zf0_xh(java.lang.Object v_v_, java.lang.Object v_id_, java.lang.Object type_) {
+    public void zf0_xh(Object v_v_, Object v_id_, Object type_) {
 
         if (!st_zf0_xh) {
 
             st_zf0_xh = true;
 
-            final java.lang.Object v_v = v_v_;
+            final Object v_v = v_v_;
 
-            final java.lang.Object v_id = v_id_;
+            final Object v_id = v_id_;
 
-            final java.lang.Object type = type_;
-            gj.xc(new java.lang.Thread() {
+            final Object type = type_;
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -769,13 +780,13 @@ public class ProductPurchaseActivity extends iActivity {
 
                         }
 
-                        java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                        String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                        java.lang.String id = wj.dqwb(pay_cache);
+                        String id = wj.dqwb(pay_cache);
 
-                        java.lang.String send = "/api/v3/reback/?trade_no=" + id;
+                        String send = "/api/v3/reback/?trade_no=" + id;
 
-                        java.lang.String back = wl.hq(url + send, "utf-8");
+                        String back = wl.hq(url + send, "utf-8");
 
                         if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -788,7 +799,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                         } else {
 
-                            java.lang.String ce = e1.readJson(back, "code");
+                            String ce = e1.readJson(back, "code");
 
                             if (zf.dy(ce, "200")) {
 
@@ -796,9 +807,9 @@ public class ProductPurchaseActivity extends iActivity {
 
                                     i.runlibrary.app.zf$json jo = zf.json(back);
 
-                                    org.json.JSONObject json = jo.json;
+                                    JSONObject json = jo.json;
 
-                                    final java.lang.String v_status = sj.zh().zstring(jo.hq(json, "status"));
+                                    final String v_status = sj.zh().zstring(jo.hq(json, "status"));
 
                                     if (zf.dy(v_status, "1")) {
 
@@ -828,7 +839,7 @@ public class ProductPurchaseActivity extends iActivity {
 
                                     }
 
-                                } catch (java.lang.Throwable e) {
+                                } catch (Throwable e) {
 
                                     zfxh = false;
                                     oback = "支付失败:出现异常";
@@ -864,24 +875,24 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    public void ewm(java.lang.String url) {
+    public void ewm(String url) {
 
-        final java.lang.String qr = url;
-        gj.jmxc(new java.lang.Runnable() {
+        final String qr = url;
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
                 try {
 
-                    android.widget.ImageView imageView = findViewById(R.id.tx3);
+                    ImageView imageView = findViewById(R.id.tx3);
                     Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                     imageView.setImageBitmap(bitmap);
 
-                    st.tx(open.cn.awg.pro.R.id.tx3).kjd(0);
+                    st.tx(R.id.tx3).kjd(0);
 
-                } catch (java.lang.Throwable e) {
+                } catch (Throwable e) {
 
-                    st.tx(open.cn.awg.pro.R.id.tx3).kjd(8);
+                    st.tx(R.id.tx3).kjd(8);
 
                 }
 
@@ -893,59 +904,27 @@ public class ProductPurchaseActivity extends iActivity {
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -958,61 +937,29 @@ public class ProductPurchaseActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
-        if (kc == 4 && st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd() == 0) {
+        if (kc == 4 && st.xxbj(R.id.xxbj1).kjd() == 0) {
 
-            if (st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd() == 0) {
+            if (st.xxbj(R.id.xxbj9).kjd() == 0) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("< 产品购买");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
+                        st.wb(R.id.title_bar).zf("< 产品购买");
+                        st.xxbj(R.id.xxbj9).kjd(8);
+                        st.xxbj(R.id.xxbj1).kjd(0);
 
                     }
 
@@ -1020,13 +967,13 @@ public class ProductPurchaseActivity extends iActivity {
 
             } else {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("提示");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
+                        st.wb(R.id.title_bar).zf("提示");
+                        st.xxbj(R.id.xxbj9).kjd(0);
+                        st.xxbj(R.id.xxbj1).kjd(8);
 
                     }
 
@@ -1041,23 +988,23 @@ public class ProductPurchaseActivity extends iActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 产品购买") && st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd() == 0) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 产品购买") && st.xxbj(R.id.xxbj1).kjd() == 0) {
 
-            if (st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd() == 0) {
+            if (st.xxbj(R.id.xxbj9).kjd() == 0) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("< 产品购买");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
+                        st.wb(R.id.title_bar).zf("< 产品购买");
+                        st.xxbj(R.id.xxbj9).kjd(8);
+                        st.xxbj(R.id.xxbj1).kjd(0);
 
                     }
 
@@ -1065,13 +1012,13 @@ public class ProductPurchaseActivity extends iActivity {
 
             } else {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("提示");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
+                        st.wb(R.id.title_bar).zf("提示");
+                        st.xxbj(R.id.xxbj9).kjd(0);
+                        st.xxbj(R.id.xxbj1).kjd(8);
 
                     }
 
@@ -1083,13 +1030,13 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    private void $_onClick_i3f6c9f386b(android.view.View vw) {
+    private void onXxbj8Click(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.wb10).zf(), "支付成功")) {
+        if (zf.dy(st.wb(R.id.wb10).zf(), "支付成功")) {
 
             e1.tsk("提示", "您已成功完成支付");
 
-        } else if (zf.dy(st.wb(open.cn.awg.pro.R.id.wb10).zf(), "支付失败")) {
+        } else if (zf.dy(st.wb(R.id.wb10).zf(), "支付失败")) {
 
             e1.tsk("提示", oback);
 
@@ -1101,100 +1048,100 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    private void $_onClick_i20c2777fab(android.view.View vw) {
+    private void onXdbj3Click(View vw) {
 
-        java.lang.String cp_jg_;
+        String cp_jg_;
         cp_jg_ = com.demo.e4.doubleToString(cp_jg);
 
-        java.lang.String sho = "[产品名称]\n" + cp_name + "\n\n[产品价格]\n¥" + cp_jg_ + "\n\n[产品说明]\n" + cp_text;
+        String sho = "[产品名称]\n" + cp_name + "\n\n[产品价格]\n¥" + cp_jg_ + "\n\n[产品说明]\n" + cp_text;
         e1.tsk("产品详情", sho);
 
     }
 
-    private boolean $_onLongClick_i20c2777fab(android.view.View vw) {
+    private boolean onXdbj3LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb4).zf();
+        String te = st.wb(R.id.wb4).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb5).zf();
+        String lj = st.wb(R.id.wb5).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i171cedf1eb(android.view.View vw) {
+    private void onXdbj6Click(View vw) {
         payconf();
         zt(0);
 
     }
 
-    private boolean $_onLongClick_i171cedf1eb(android.view.View vw) {
+    private boolean onXdbj6LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb15).zf();
+        String te = st.wb(R.id.wb15).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb16).zf();
+        String lj = st.wb(R.id.wb16).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_e585d94488(android.view.View vw) {
+    private void onXdbj7Click(View vw) {
         zf0();
 
     }
 
-    private boolean $_onLongClick_e585d94488(android.view.View vw) {
+    private boolean onXdbj7LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb19).zf();
+        String te = st.wb(R.id.wb19).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb20).zf();
+        String lj = st.wb(R.id.wb20).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_fab146d7a5(android.view.View vw) {
+    private void onXdbj8Click(View vw) {
         e1.tsk("产品购买", nopay_why2);
         gj.gb();
 
     }
 
-    private boolean $_onLongClick_fab146d7a5(android.view.View vw) {
+    private boolean onXdbj8LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb21).zf();
+        String te = st.wb(R.id.wb21).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb22).zf();
+        String lj = st.wb(R.id.wb22).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i171ea34f1a(android.view.View vw) {
+    private void onAn1Click(View vw) {
         zfqx = true;
         show(1);
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i4a4248a0f2(android.view.View vw) {
+    private void onTx5Click(View vw) {
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd() == 0) {
+        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("< 产品购买");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
+                    st.wb(R.id.title_bar).zf("< 产品购买");
+                    st.xxbj(R.id.xxbj9).kjd(8);
+                    st.xxbj(R.id.xxbj1).kjd(0);
 
                 }
 
@@ -1202,13 +1149,13 @@ public class ProductPurchaseActivity extends iActivity {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("提示");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
+                    st.wb(R.id.title_bar).zf("提示");
+                    st.xxbj(R.id.xxbj9).kjd(0);
+                    st.xxbj(R.id.xxbj1).kjd(8);
 
                 }
 
@@ -1218,17 +1165,17 @@ public class ProductPurchaseActivity extends iActivity {
 
     }
 
-    private void $_onClick_i6f2c7751cf(android.view.View vw) {
+    private void onTx6Click(View vw) {
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd() == 0) {
+        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("< 产品购买");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
+                    st.wb(R.id.title_bar).zf("< 产品购买");
+                    st.xxbj(R.id.xxbj9).kjd(8);
+                    st.xxbj(R.id.xxbj1).kjd(0);
 
                 }
 
@@ -1236,13 +1183,13 @@ public class ProductPurchaseActivity extends iActivity {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("提示");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
+                    st.wb(R.id.title_bar).zf("提示");
+                    st.xxbj(R.id.xxbj9).kjd(0);
+                    st.xxbj(R.id.xxbj1).kjd(8);
 
                 }
 
@@ -1257,46 +1204,46 @@ public class ProductPurchaseActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.ImageView i11aeec1890 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
 
-        android.widget.LinearLayout i3f6c9f386b = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj8);
-        i3f6c9f386b.setOnClickListener($_on_setOnClickListener_i3f6c9f386b);
+        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        i3f6c9f386b.setOnClickListener(xxbj8ClickListener);
 
-        android.widget.RelativeLayout i20c2777fab = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj3);
-        i20c2777fab.setOnClickListener($_on_setOnClickListener_i20c2777fab);
-        i20c2777fab.setOnLongClickListener($_on_setOnLongClickListener_i20c2777fab);
+        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        i20c2777fab.setOnClickListener(xdbj3ClickListener);
+        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        android.widget.RelativeLayout i171cedf1eb = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj6);
-        i171cedf1eb.setOnClickListener($_on_setOnClickListener_i171cedf1eb);
-        i171cedf1eb.setOnLongClickListener($_on_setOnLongClickListener_i171cedf1eb);
+        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        i171cedf1eb.setOnClickListener(xdbj6ClickListener);
+        i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        android.widget.RelativeLayout e585d94488 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj7);
-        e585d94488.setOnClickListener($_on_setOnClickListener_e585d94488);
-        e585d94488.setOnLongClickListener($_on_setOnLongClickListener_e585d94488);
+        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        e585d94488.setOnClickListener(xdbj7ClickListener);
+        e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        android.widget.RelativeLayout fab146d7a5 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj8);
-        fab146d7a5.setOnClickListener($_on_setOnClickListener_fab146d7a5);
-        fab146d7a5.setOnLongClickListener($_on_setOnLongClickListener_fab146d7a5);
+        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        fab146d7a5.setOnClickListener(xdbj8ClickListener);
+        fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
-        i171ea34f1a.setOnClickListener($_on_setOnClickListener_i171ea34f1a);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        android.widget.ImageView i4a4248a0f2 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx5);
-        i4a4248a0f2.setOnClickListener($_on_setOnClickListener_i4a4248a0f2);
+        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        android.widget.ImageView i6f2c7751cf = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx6);
-        i6f2c7751cf.setOnClickListener($_on_setOnClickListener_i6f2c7751cf);
+        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

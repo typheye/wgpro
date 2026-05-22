@@ -16,39 +16,43 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import open.cn.awg.pro.apps.InstalledAppListActivity;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.experimental.ServerDebugActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.tools.FingerprintActivity;
 import open.cn.awg.pro.tools.ShellExecutorActivity;
 
-
-public class ExperimentalFeatureItemActivity extends iActivity {
+public class ExperimentalFeatureItemActivity extends BaseAwgActivity {
 
     public final ExperimentalFeatureItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i9d5d168854 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener experimentalFeatureItemRootLongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i9d5d168854(vw);
+        public boolean onLongClick(View vw) {
+            return onExperimentalFeatureItemRootLongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i9d5d168854 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener experimentalFeatureItemRootClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i9d5d168854(vw);
+        public void onClick(View vw) {
+            onExperimentalFeatureItemRootClick(vw);
         }
 
     };
 
-    private void $_onClick_i9d5d168854(android.view.View vw) {
+    private void onExperimentalFeatureItemRootClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.String l = String.valueOf(lb.lbcfsj(-1));
+        String l = String.valueOf(lb.lbcfsj(-1));
 
         if (zf.dy(l, "l5_a1_fuwuq_d0313_y2022")) {
 
@@ -64,9 +68,9 @@ public class ExperimentalFeatureItemActivity extends iActivity {
 
         } else if (zf.dy(l, "j4")) {
 
-            java.lang.String[] a = new java.lang.String[]{"szk"};
+            String[] a = new String[]{"szk"};
 
-            java.lang.String[] b = new java.lang.String[]{"true"};
+            String[] b = new String[]{"true"};
             gj.tz(ShellExecutorActivity.class, a, b);
 
         } else {
@@ -77,17 +81,17 @@ public class ExperimentalFeatureItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i9d5d168854(android.view.View vw) {
+    private boolean onExperimentalFeatureItemRootLongClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object l1 = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object l1 = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object l2 = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object l2 = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object l = lb.lbcfsj(-1);
+        Object l = lb.lbcfsj(-1);
         e1.tsk_QR("详细信息", "[功能名称]\n" + l1 + "\n\n[功能简介]\n" + l2 + "\n\n[功能标识]", l);
         return true;
 
@@ -97,11 +101,11 @@ public class ExperimentalFeatureItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.RelativeLayout i9d5d168854 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c14_v);
-        i9d5d168854.setOnClickListener($_on_setOnClickListener_i9d5d168854);
-        i9d5d168854.setOnLongClickListener($_on_setOnLongClickListener_i9d5d168854);
+        RelativeLayout i9d5d168854 = (RelativeLayout) findViewById(ay, vw, R.id.experimental_feature_item_root);
+        i9d5d168854.setOnClickListener(experimentalFeatureItemRootClickListener);
+        i9d5d168854.setOnLongClickListener(experimentalFeatureItemRootLongClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

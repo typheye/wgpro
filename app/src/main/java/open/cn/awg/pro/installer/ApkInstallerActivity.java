@@ -37,8 +37,8 @@ import com.apkinstaller.Methods.InstallMethod;
 import com.apkinstaller.Methods.PermissionMethod;
 
 import java.util.Arrays;
-import open.cn.awg.pro.R;
 
+import open.cn.awg.pro.R;
 
 public class ApkInstallerActivity extends Activity {
     private String Apk_Path;

@@ -20,12 +20,16 @@ import android.app.job.JobParameters;
 import android.app.job.JobService;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Process;
 import android.util.Log;
 
-import java.io.File;
-import open.cn.awg.pro.app.AwgProApplication;
-import open.cn.awg.pro.ui.main.MainActivity;
+import com.kingqi.zwcj.应用工具;
 
+import java.io.File;
+
+import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
+import open.cn.awg.pro.ui.main.MainActivity;
 
 public class BootJobService extends JobService {
 
@@ -43,20 +47,20 @@ public class BootJobService extends JobService {
         //            intent.setData(Uri.parse("package:" + getPackageName()));
         //            startActivityForResult(intent, 0);
         //        }
-        File file = new File("/data/user/0/open.cn.awg.pro/settings/a4.inf");
-        int i = android.os.Process.myUid() / 100000;
+        File file = new File(AppPaths.appPath("settings/a4.inf"));
+        int i = Process.myUid() / 100000;
         // Only auto-open the main UI for the primary user when the user setting flag is present.
         if (file.exists() && i == 0) {
             // 例如，启动一个Activity或者执行其他任务
 
-            Intent intent = new Intent(this, open.cn.awg.pro.ui.main.MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
 
-            context = open.cn.awg.pro.app.AwgProApplication.getContext();
+            context = AwgProApplication.getContext();
 			/*
-			if(com.kingqi.zwcj.应用工具.服务是否在运行(context,"open.cn.awg.pro.service.AwgCoreService")==false){
-			Intent startIntent=new Intent(context,open.cn.awg.pro.service.AwgCoreService.class);
+			if(应用工具.服务是否在运行(context,"open.cn.awg.pro.service.AwgCoreService")==false){
+			Intent startIntent=new Intent(context,AwgCoreService.class);
 			if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 			startForegroundService(startIntent);
 			} else {

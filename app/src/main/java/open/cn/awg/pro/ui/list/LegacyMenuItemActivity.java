@@ -16,49 +16,54 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.LinearLayout;
+
 import open.cn.awg.pro.apps.InstalledAppListActivity;
 import open.cn.awg.pro.browser.X5BrowserActivity;
 import open.cn.awg.pro.chat.WearChatActivity;
 import open.cn.awg.pro.chat.WearChatAgreementActivity;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.experimental.MoreFeaturesActivity;
 import open.cn.awg.pro.file.FileRootPickerActivity;
 import open.cn.awg.pro.plugin.ExtensionPluginActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.settings.SettingsActivity;
 import open.cn.awg.pro.tools.LocationInfoActivity;
 import open.cn.awg.pro.tools.SystemToolsActivity;
 import open.cn.awg.pro.tools.TerminalCompatibilityActivity;
 import open.cn.awg.pro.ui.main.AboutAppActivity;
 
-
-public class LegacyMenuItemActivity extends iActivity {
+public class LegacyMenuItemActivity extends BaseAwgActivity {
 
     public final LegacyMenuItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_e1433e26d6 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xxbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_e1433e26d6(vw);
+        public boolean onLongClick(View vw) {
+            return onXxbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_e1433e26d6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_e1433e26d6(vw);
+        public void onClick(View vw) {
+            onXxbj1Click(vw);
         }
 
     };
 
-    private void $_onClick_e1433e26d6(android.view.View vw) {
+    private void onXxbj1Click(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         try {
 
             i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-            java.lang.Object l = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+            Object l = lb.lbcfsj(R.id.wb2);
 
             if (zf.dy(l, "2")) {
 
@@ -106,12 +111,12 @@ public class LegacyMenuItemActivity extends iActivity {
 
                 final i.runlibrary.app.gj$Animationx jbtm = dh.jbtm(0, 1);
                 jbtm.cxsc(300);
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.xdbj(open.cn.awg.pro.R.id.TCxdbj).kjd(0);
-                        st.xdbj(open.cn.awg.pro.R.id.TCxdbj).dh(jbtm);
+                        st.xdbj(R.id.TCxdbj).kjd(0);
+                        st.xdbj(R.id.TCxdbj).dh(jbtm);
 
                     }
 
@@ -139,7 +144,7 @@ public class LegacyMenuItemActivity extends iActivity {
 
             } else if (zf.dy(l, "25")) {
 
-                e1.tsk("功能帮助", wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a19"));
+                e1.tsk("功能帮助", wj.dqwb(AppPaths.appPath("data/assets/a19")));
 
             } else if (zf.dy(l, "26")) {
 
@@ -151,15 +156,15 @@ public class LegacyMenuItemActivity extends iActivity {
 
             } else if (zf.dy(l, "31")) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
                         try {
 
-                            st.wb(open.cn.awg.pro.R.id.wb_main_kjfs_gbcd).v.performClick();
+                            st.wb(R.id.wb_main_kjfs_gbcd).v.performClick();
 
-                        } catch (java.lang.Throwable __$_e__) {
+                        } catch (Throwable __$_e__) {
 
                         }
 
@@ -173,7 +178,7 @@ public class LegacyMenuItemActivity extends iActivity {
 
             }
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.upload_error(e, "c7.*");
 
@@ -181,13 +186,13 @@ public class LegacyMenuItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_e1433e26d6(android.view.View vw) {
+    private boolean onXxbj1LongClick(View vw) {
 
-        final open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object te = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object te = lb.lbcfsj(R.id.wb1);
         e1.tsk("详细信息", te);
         return true;
 
@@ -197,11 +202,11 @@ public class LegacyMenuItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.LinearLayout e1433e26d6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj1);
-        e1433e26d6.setOnClickListener($_on_setOnClickListener_e1433e26d6);
-        e1433e26d6.setOnLongClickListener($_on_setOnLongClickListener_e1433e26d6);
+        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        e1433e26d6.setOnClickListener(xxbj1ClickListener);
+        e1433e26d6.setOnLongClickListener(xxbj1LongClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

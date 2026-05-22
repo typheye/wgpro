@@ -24,20 +24,21 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 
+import i.runlibrary.app.AppInfo;
+
 import java.io.File;
 
-import i.runlibrary.app.AppInfo;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.CoreRuntimeBootstrap;
 import open.cn.awg.pro.R;
-
 
 public class AwgCoreService extends Service {
 
     private AppInfo myu_;
     private Context context;
     // Marker file used by legacy iApp scripts to decide whether the core runtime should be re-created.
-    private final String runPath = "/data/user/0/open.cn.awg.pro/data/AwgCoreService.r";
+    private final String runPath = AppPaths.appPath("data/AwgCoreService.r");
 
     private NotificationManager notificationManager;
     private final String notificationId = "10001";
@@ -55,7 +56,7 @@ public class AwgCoreService extends Service {
 		}
 		startForeground(1,getNotification());
 		*/
-        context = open.cn.awg.pro.app.AwgProApplication.getContext();
+        context = AwgProApplication.getContext();
     }
 
     public void myu(AppInfo myu, Context too) {

@@ -16,171 +16,162 @@
  */
 package open.cn.awg.pro.settings;
 
-import android.view.Window;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.repair.ErrorMessageActivity;
 
-
-public class DisplayMarginActivity extends iActivity {
+public class DisplayMarginActivity extends BaseAwgActivity {
 
     public final DisplayMarginActivity lei = this, 类 = this;
     public int old_i = 0;
-    public java.lang.String lin = "";
-    public java.lang.String newcolor = "";
+    public String lin = "";
+    public String newcolor = "";
     public int bs = 0;
-    private final android.view.View.OnClickListener $_on_setOnClickListener_ff56a8e7f6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_ff56a8e7f6(vw);
+        public void onClick(View vw) {
+            onWb1Click(vw);
         }
 
     };
-    private final android.widget.SeekBar.OnSeekBarChangeListener $_on_setOnSeekBarChangeListener_d11169f9c0 = new android.widget.SeekBar.OnSeekBarChangeListener() {
+    private final SeekBar.OnSeekBarChangeListener tdt1SeekBarChangeListener = new SeekBar.OnSeekBarChangeListener() {
 
-        public void onProgressChanged(android.widget.SeekBar vw, int ps, boolean fu) {
-            $_onProgressChanged_d11169f9c0(vw, ps, fu);
+        public void onProgressChanged(SeekBar vw, int ps, boolean fu) {
+            onTdt1ProgressChanged(vw, ps, fu);
         }
 
-        public void onStartTrackingTouch(android.widget.SeekBar vw) {
-            $_onStartTrackingTouch_d11169f9c0(vw);
+        public void onStartTrackingTouch(SeekBar vw) {
+            onTdt1StartTrackingTouch(vw);
         }
 
-        public void onStopTrackingTouch(android.widget.SeekBar vw) {
-            $_onStopTrackingTouch_d11169f9c0(vw);
+        public void onStopTrackingTouch(SeekBar vw) {
+            onTdt1StopTrackingTouch(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.f17);
+        setContentView(R.layout.display_margin);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void jz() {
 
-        java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f17/set1.inf";
+        String set2 = AppPaths.appPath("settings/f17/set1.inf");
 
         int i = Integer.parseInt(wj.dqwb(set2));
         old_i = i;
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(open.cn.awg.pro.R.id.tdt1);
+        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
         tdt1.jdz(i);
 
     }
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onStart() {
         super.onStart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onResume() {
         super.onResume();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
         return true;
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onProgressChanged_d11169f9c0(android.widget.SeekBar vw, int ps, boolean fu) {
+    private void onTdt1ProgressChanged(SeekBar vw, int ps, boolean fu) {
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f17/set1.inf";
+        String set = AppPaths.appPath("settings/f17/set1.inf");
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(open.cn.awg.pro.R.id.tdt1);
+        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
 
         final int i = tdt1.jdz();
 
         final int ii = i / 2;
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                st.xdbj(open.cn.awg.pro.R.id.xdbj3).wbj(i, i, i, i);
-                st.wb(open.cn.awg.pro.R.id.wb10).zf(ii + "dp");
+                st.xdbj(R.id.xdbj3).wbj(i, i, i, i);
+                st.wb(R.id.wb10).zf(ii + "dp");
 
             }
 
         });
 
-        java.lang.String sis = sj.zh(i).zstring();
+        String sis = sj.zh(i).zstring();
         wj.xrwb(set, sis);
 
     }
 
-    private void $_onStartTrackingTouch_d11169f9c0(android.widget.SeekBar vw) {
+    private void onTdt1StartTrackingTouch(SeekBar vw) {
 
     }
 
-    private void $_onStopTrackingTouch_d11169f9c0(android.widget.SeekBar vw) {
+    private void onTdt1StopTrackingTouch(SeekBar vw) {
 
     }
 
-    private void $_onClick_ff56a8e7f6(android.view.View vw) {
+    private void onWb1Click(View vw) {
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(open.cn.awg.pro.R.id.tdt1);
+        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
 
         if (tdt1.jdz() == old_i) {
 
@@ -188,17 +179,17 @@ public class DisplayMarginActivity extends iActivity {
 
         } else {
 
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            java.lang.String[] name = new java.lang.String[]{"Msg"};
+                            String[] name = new String[]{"Msg"};
 
-                            java.lang.String[] value = new java.lang.String[]{"应用成功 点击重启"};
+                            String[] value = new String[]{"应用成功 点击重启"};
                             gj.tz(ErrorMessageActivity.class, name, value);
 
                         }
@@ -217,13 +208,13 @@ public class DisplayMarginActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.SeekBar d11169f9c0 = (android.widget.SeekBar) findViewById(ay, vw, open.cn.awg.pro.R.id.tdt1);
-        d11169f9c0.setOnSeekBarChangeListener($_on_setOnSeekBarChangeListener_d11169f9c0);
+        SeekBar d11169f9c0 = (SeekBar) findViewById(ay, vw, R.id.tdt1);
+        d11169f9c0.setOnSeekBarChangeListener(tdt1SeekBarChangeListener);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
-        ff56a8e7f6.setOnClickListener($_on_setOnClickListener_ff56a8e7f6);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

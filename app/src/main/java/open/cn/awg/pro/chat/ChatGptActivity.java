@@ -16,243 +16,257 @@
  */
 package open.cn.awg.pro.chat;
 
+import android.app.Activity;
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.view.View;
-import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import java.util.ArrayList;
+import java.util.HashMap;
 
-import i.app.iActivity;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.ui.list.RuntimeMessageItemActivity;
 import open.cn.awg.pro.ui.widget.XLinearLayoutManager;
 
-
-public class ChatGptActivity extends iActivity {
+public class ChatGptActivity extends BaseAwgActivity {
 
     public static i.runlibrary.app.v.v7lb$UserAdapter spqc;
     public static i.runlibrary.app.v.v7lb lbc;
-    public static android.support.v7.widget.LinearLayoutManager mLayoutManager;
-    public static android.content.Context context;
+    public static LinearLayoutManager mLayoutManager;
+    public static Context context;
     public final ChatGptActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public java.lang.String namer = "User";
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String namer = "User";
     public boolean isOnce = false;
-    public java.lang.String ml = "/data/user/0/open.cn.awg.pro/data/chatgpt/chat";
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i6c4a6b953f = new android.view.View.OnClickListener() {
+    public String ml = AppPaths.appPath("data/chatgpt/chat");
+    private final View.OnClickListener xxbj6ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i6c4a6b953f(vw);
+        public void onClick(View vw) {
+            onXxbj6Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i3f6c9f386b = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj8TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i3f6c9f386b(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj8Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i6f2c7751cf = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx6ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i6f2c7751cf(vw);
+        public void onClick(View vw) {
+            onTx6Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4a4248a0f2 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4a4248a0f2(vw);
+        public void onClick(View vw) {
+            onTx5Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i84f04cd47e = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj7TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i84f04cd47e(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj7Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i11aeec1890 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i11aeec1890(vw);
+        public void onClick(View vw) {
+            onTx4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i9068f5d66e = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj4TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i9068f5d66e(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj4Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
+        public void onClick(View vw) {
+            onTx3Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i32ee139ba1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i32ee139ba1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk1Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_ff56a8e7f6 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener wb1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_ff56a8e7f6(vw);
+        public boolean onLongClick(View vw) {
+            return onWb1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_ff56a8e7f6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_ff56a8e7f6(vw);
+        public void onClick(View vw) {
+            onWb1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_e1433e26d6 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_e1433e26d6(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj1Touch(vw, me);
         }
 
     };
-    private final androidx.recyclerview.widget.RecyclerView.OnScrollListener $_on_addOnScrollListener_f085d7c0f8 = new androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+    private final RecyclerView.OnScrollListener v7lb1ScrollListener = new RecyclerView.OnScrollListener() {
 
-        public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView vw, int ns) {
-            $_onScrollStateChanged_f085d7c0f8(vw, ns);
+        public void onScrollStateChanged(RecyclerView vw, int ns) {
+            onV7lb1ScrollStateChanged(vw, ns);
         }
 
-        public void onScrolled(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy) {
-            $_onScrolled_f085d7c0f8(vw, dx, dy);
-        }
-
-    };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i0d2d4d9236 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i0d2d4d9236(vw);
+        public void onScrolled(RecyclerView vw, int dx, int dy) {
+            onV7lb1Scrolled(vw, dx, dy);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i0d2d4d9236 = new android.view.View.OnClickListener() {
+    private final View.OnLongClickListener wb3LongClickListener = new View.OnLongClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i0d2d4d9236(vw);
+        public boolean onLongClick(View vw) {
+            return onWb3LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onWb3Click(vw);
+        }
+
+    };
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
+
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.l5_a5_chatg_d0312_y2023);
+        setContentView(R.layout.chat_gpt);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/f8/set4.inf")), "true")) {
 
         }
 
         i.runlibrary.app.xt$pm pm = xt.pm();
         xt.sbxm(false);
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-        st.xdbj(open.cn.awg.pro.R.id.l5_a5_chatg_d0312_y2023_v).shxtck(false);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        st.xdbj(R.id.chat_gpt_root).shxtck(false);
+        applyFullscreenWindow();
 
         if (zf.dy(a, "1")) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj1).nbj(u, 0, u, 0);
-            st.xxbj(open.cn.awg.pro.R.id.xxbj4).nbj(u, 0, u, 0);
+            st.xxbj(R.id.xxbj1).nbj(u, 0, u, 0);
+            st.xxbj(R.id.xxbj4).nbj(u, 0, u, 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
         } else if (zf.dy(a, "2")) {
 
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+            String a001 = AppPaths.appPath("settings/dpi.inf");
 
             if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "3dp", 0, "3dp");
                 wtab.dqfs("center");
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "9dp", 0, "9dp");
                 wtab.dqfs("center");
 
             }
-            st.xxbj(open.cn.awg.pro.R.id.xxbj1).nbj(0, 0, 0, 0);
-            st.xxbj(open.cn.awg.pro.R.id.xxbj4).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj1).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj4).nbj(0, 0, 0, 0);
 
         } else if (zf.dy(a, "3")) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj1).nbj(u, 0, u, 0);
-            st.xxbj(open.cn.awg.pro.R.id.xxbj4).nbj(u, 0, u, 0);
+            st.xxbj(R.id.xxbj1).nbj(u, 0, u, 0);
+            st.xxbj(R.id.xxbj4).nbj(u, 0, u, 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
@@ -261,18 +275,18 @@ public class ChatGptActivity extends iActivity {
             int uih = sj.zh().pxzdp(pm.ztl);
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, uih + "dp", 0, "9dp");
             wtab.dqfs("center");
-            st.xxbj(open.cn.awg.pro.R.id.xxbj1).nbj(0, 0, 0, 0);
-            st.xxbj(open.cn.awg.pro.R.id.xxbj4).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj1).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj4).nbj(0, 0, 0, 0);
 
         }
 
     }
 
     public void tobottom() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -285,7 +299,7 @@ public class ChatGptActivity extends iActivity {
     }
 
     public void totop() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -298,7 +312,7 @@ public class ChatGptActivity extends iActivity {
     }
 
     public void del() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
@@ -320,18 +334,18 @@ public class ChatGptActivity extends iActivity {
 
         if (i == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
                     lbc.v.requestFocus();
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("< ChatGPT");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj3s).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(8);
-                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                    st.wb(R.id.title_bar).zf("< ChatGPT");
+                    st.bjk(R.id.bjk1).zf("");
+                    st.xxbj(R.id.xxbj1).kjd(0);
+                    st.xxbj(R.id.xxbj3s).kjd(8);
+                    st.xxbj(R.id.xxbj4).kjd(8);
+                    st.xxbj(R.id.xxbj6).kjd(8);
+                    st.kp(R.id.kp7).kjd(0);
 
                 }
 
@@ -339,17 +353,17 @@ public class ChatGptActivity extends iActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("ChatGPT");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj3s).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(8);
-                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(8);
+                    st.wb(R.id.title_bar).zf("ChatGPT");
+                    st.bjk(R.id.bjk1).zf("");
+                    st.xxbj(R.id.xxbj1).kjd(8);
+                    st.xxbj(R.id.xxbj3s).kjd(0);
+                    st.xxbj(R.id.xxbj4).kjd(8);
+                    st.xxbj(R.id.xxbj6).kjd(8);
+                    st.kp(R.id.kp7).kjd(8);
 
                 }
 
@@ -357,17 +371,17 @@ public class ChatGptActivity extends iActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("发送消息");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj3s).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(0);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(8);
-                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(8);
+                    st.wb(R.id.title_bar).zf("发送消息");
+                    st.bjk(R.id.bjk1).zf("");
+                    st.xxbj(R.id.xxbj1).kjd(8);
+                    st.xxbj(R.id.xxbj3s).kjd(8);
+                    st.xxbj(R.id.xxbj4).kjd(0);
+                    st.xxbj(R.id.xxbj6).kjd(8);
+                    st.kp(R.id.kp7).kjd(8);
 
                 }
 
@@ -375,17 +389,17 @@ public class ChatGptActivity extends iActivity {
 
         } else if (i == 3) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("ChatGPT");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj3s).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd(0);
-                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(8);
+                    st.wb(R.id.title_bar).zf("ChatGPT");
+                    st.bjk(R.id.bjk1).zf("");
+                    st.xxbj(R.id.xxbj1).kjd(8);
+                    st.xxbj(R.id.xxbj3s).kjd(8);
+                    st.xxbj(R.id.xxbj4).kjd(8);
+                    st.xxbj(R.id.xxbj6).kjd(0);
+                    st.kp(R.id.kp7).kjd(8);
 
                 }
 
@@ -396,15 +410,15 @@ public class ChatGptActivity extends iActivity {
     }
 
     public void csh() {
-        lbc = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
+        lbc = st.v7lb(R.id.v7lb1);
 
-        context = open.cn.awg.pro.app.AwgProApplication.getContext();
+        context = AwgProApplication.getContext();
         mLayoutManager = new XLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
         lbc.st.setLayoutManager(mLayoutManager);
-        spqc = lbc.v7lbspq(RuntimeMessageItemActivity.class, open.cn.awg.pro.R.layout.c21, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spqc = lbc.v7lbspq(RuntimeMessageItemActivity.class, R.layout.runtime_message_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
+            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
@@ -412,67 +426,67 @@ public class ChatGptActivity extends iActivity {
 
                 if (f == -1) {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorTextTrue2);
+                    String color0 = zf.zf(R.color.colorTextTrue2);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorBlack);
+                    String color1 = zf.zf(R.color.colorBlack);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("right");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("right");
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(true);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
 
                 } else if (f == 0) {
 
-                    java.lang.String color0 = "#00000000";
+                    String color0 = "#00000000";
 
-                    java.lang.String color1 = "#00000000";
+                    String color1 = "#00000000";
 
-                    java.lang.String color2 = "#00000000";
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xydj(false);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xyca(false);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(0);
+                    String color2 = "#00000000";
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(false);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(false);
+                    st.xxbj(vw, R.id.xxbj3).kjd(0);
 
                 } else if (f == 1) {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorWBK);
+                    String color0 = zf.zf(R.color.colorWBK);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                    String color1 = zf.zf(R.color.colorTextU1);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(true);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
 
                 } else {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorWBK);
+                    String color0 = zf.zf(R.color.colorWBK);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                    String color1 = zf.zf(R.color.colorTextU1);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c21_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(true);
+                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
 
                 }
 
@@ -486,7 +500,7 @@ public class ChatGptActivity extends iActivity {
 
         if (wj.cz(ml) && !zf.dy(wj.dqwb(ml), "")) {
 
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -496,19 +510,19 @@ public class ChatGptActivity extends iActivity {
 
                     }
 
-                    int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb2, open.cn.awg.pro.R.id.wb3, -1};
+                    int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
-                    java.lang.Object[] jk = new java.lang.Object[]{"", "", "", 0};
+                    Object[] jk = new Object[]{"", "", "", 0};
 
                     int size = 0;
 
-                    java.util.ArrayList arr = new java.util.ArrayList();
+                    ArrayList arr = new ArrayList();
 
-                    java.lang.String hcw = wj.dqwb(ml);
+                    String hcw = wj.dqwb(ml);
 
-                    java.lang.String[] hcw2 = zf.fg(hcw, "\n", true);
+                    String[] hcw2 = zf.fg(hcw, "\n", true);
 
-                    for (java.lang.String hcw3 : hcw2) {
+                    for (String hcw3 : hcw2) {
 
                         hcw3 = zf.qctwkg(hcw3);
 
@@ -516,7 +530,7 @@ public class ChatGptActivity extends iActivity {
 
                             try {
 
-                                java.lang.String jname = zf.qc(hcw3, 0, 1);
+                                String jname = zf.qc(hcw3, 0, 1);
 
                                 if (zf.dy(jname, "Q")) {
 
@@ -528,23 +542,23 @@ public class ChatGptActivity extends iActivity {
 
                                 }
 
-                                java.lang.String jdata = zf.qc(hcw3, 22);
+                                String jdata = zf.qc(hcw3, 22);
                                 jdata = zf.th(jdata, "<br>", "\n", true);
 
-                                java.lang.String date = zf.qc(hcw3, 2, 21);
+                                String date = zf.qc(hcw3, 2, 21);
                                 size++;
 
                                 if (zf.dy(jname, namer)) {
 
-                                    jk = new java.lang.Object[]{jdata, jname, date, -1};
+                                    jk = new Object[]{jdata, jname, date, -1};
 
                                 } else {
 
-                                    jk = new java.lang.Object[]{jdata, jname, date, 1};
+                                    jk = new Object[]{jdata, jname, date, 1};
 
                                 }
 
-                                java.util.HashMap hs = new java.util.HashMap();
+                                HashMap hs = new HashMap();
 
                                 for (int ii = 0; ii < kj.length; ii++) {
 
@@ -553,7 +567,7 @@ public class ChatGptActivity extends iActivity {
                                 }
                                 arr.add(hs);
 
-                            } catch (java.lang.Throwable __$_e__) {
+                            } catch (Throwable __$_e__) {
 
                             }
 
@@ -561,7 +575,7 @@ public class ChatGptActivity extends iActivity {
 
                     }
 
-                    java.util.HashMap hs = new java.util.HashMap();
+                    HashMap hs = new HashMap();
                     hs.put(kj[0], "");
                     hs.put(kj[1], "");
                     hs.put(kj[2], "");
@@ -569,7 +583,7 @@ public class ChatGptActivity extends iActivity {
                     arr.add(hs);
                     arr.add(hs);
                     spqc.list_S = arr;
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -593,7 +607,7 @@ public class ChatGptActivity extends iActivity {
 
         } else {
 
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -615,11 +629,11 @@ public class ChatGptActivity extends iActivity {
 
     }
 
-    public void add(java.lang.Object name, java.lang.Object msg) {
+    public void add(Object name, Object msg) {
         msg = zf.qctwkg(msg);
         msg = zf.th(msg, "\n", "<br>", true);
 
-        java.lang.String d = name + " " + xt.sj(0) + " " + msg;
+        String d = name + " " + xt.sj(0) + " " + msg;
 
         if (wj.cz(ml) && !zf.dy(wj.dqwb(ml), "")) {
 
@@ -642,11 +656,11 @@ public class ChatGptActivity extends iActivity {
     }
 
     public void post() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
-                java.lang.String a = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+                String a = st.bjk(R.id.bjk1).zf();
                 a = zf.qctwkg(a);
 
                 if (a.length() == 0) {
@@ -660,7 +674,7 @@ public class ChatGptActivity extends iActivity {
                     gj.zt(500);
                     show(0);
 
-                    java.lang.String bak = wl.hq("https://api.sayqz.com/chatgpt/?msg=" + a + "&sys=", "utf-8");
+                    String bak = wl.hq("https://api.sayqz.com/chatgpt/?msg=" + a + "&sys=", "utf-8");
 
                     if (!zf.dy(bak, null)) {
 
@@ -668,9 +682,9 @@ public class ChatGptActivity extends iActivity {
 
                             i.runlibrary.app.zf$json jo = zf.json(bak);
 
-                            org.json.JSONObject json = jo.json;
+                            JSONObject json = jo.json;
 
-                            org.json.JSONArray list = jo.dxlb(json, "choices");
+                            JSONArray list = jo.dxlb(json, "choices");
 
                             int size = jo.cd(list);
 
@@ -678,15 +692,15 @@ public class ChatGptActivity extends iActivity {
 
                                 size = size - 1;
 
-                                org.json.JSONObject dx = jo.dx(list, size);
+                                JSONObject dx = jo.dx(list, size);
 
-                                java.lang.Object msg = jo.hq(dx, "message");
+                                Object msg = jo.hq(dx, "message");
                                 bak = e1.readJson(String.valueOf(msg), "content");
 
                             }
                             add("A", bak);
 
-                        } catch (java.lang.Throwable __$_e__) {
+                        } catch (Throwable __$_e__) {
 
                             add("A", "很抱歉，程序似乎出现了异常");
 
@@ -710,7 +724,7 @@ public class ChatGptActivity extends iActivity {
 
         try {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -721,7 +735,7 @@ public class ChatGptActivity extends iActivity {
 
             });
 
-        } catch (java.lang.Throwable __$_e__) {
+        } catch (Throwable __$_e__) {
 
         }
 
@@ -730,49 +744,43 @@ public class ChatGptActivity extends iActivity {
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-        st.xdbj(open.cn.awg.pro.R.id.l5_a5_chatg_d0312_y2023_v).shxtck(false);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        st.xdbj(R.id.chat_gpt_root).shxtck(false);
+        applyFullscreenWindow();
 
     }
 
     public void onStart() {
         super.onStart();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-        st.xdbj(open.cn.awg.pro.R.id.l5_a5_chatg_d0312_y2023_v).shxtck(false);
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        st.xdbj(R.id.chat_gpt_root).shxtck(false);
+        applyFullscreenWindow();
 
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
+        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(R.id.v7lb1);
         v7lb1.v.requestFocus();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -784,46 +792,40 @@ public class ChatGptActivity extends iActivity {
     public void onRestart() {
         super.onRestart();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-        st.xdbj(open.cn.awg.pro.R.id.l5_a5_chatg_d0312_y2023_v).shxtck(false);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        st.xdbj(R.id.chat_gpt_root).shxtck(false);
+        applyFullscreenWindow();
 
     }
 
     public void onResume() {
         super.onResume();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-        st.xdbj(open.cn.awg.pro.R.id.l5_a5_chatg_d0312_y2023_v).shxtck(false);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        st.xdbj(R.id.chat_gpt_root).shxtck(false);
+        applyFullscreenWindow();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< ChatGPT")) {
+            if (zf.dy(st.wb(R.id.title_bar).zf(), "< ChatGPT")) {
 
                 gj.gb();
 
@@ -836,9 +838,9 @@ public class ChatGptActivity extends iActivity {
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< ChatGPT")) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< ChatGPT")) {
 
             gj.gb();
 
@@ -846,15 +848,15 @@ public class ChatGptActivity extends iActivity {
 
     }
 
-    private void $_onClick_i0d2d4d9236(android.view.View vw) {
-        gj.jmxc(new java.lang.Runnable() {
+    private void onWb3Click(View vw) {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String z = st.wb(open.cn.awg.pro.R.id.wb3).zf();
+                String z = st.wb(R.id.wb3).zf();
                 z = zf.qc(z, "[提示] ");
 
-                if (zf.dy(st.wb(open.cn.awg.pro.R.id.wb3).zf(), "[提示] 发送成功")) {
+                if (zf.dy(st.wb(R.id.wb3).zf(), "[提示] 发送成功")) {
 
                     z = z + "\n(ps:长按提示可隐藏哦)";
 
@@ -867,16 +869,16 @@ public class ChatGptActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i0d2d4d9236(android.view.View vw) {
+    private boolean onWb3LongClick(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.wb3).zf(), "[提示] 发送成功")) {
+        if (zf.dy(st.wb(R.id.wb3).zf(), "[提示] 发送成功")) {
 
         }
         return true;
 
     }
 
-    private void $_onScrollStateChanged_f085d7c0f8(androidx.recyclerview.widget.RecyclerView vw, int ns) {
+    private void onV7lb1ScrollStateChanged(RecyclerView vw, int ns) {
 
         if (ns == RecyclerView.SCROLL_STATE_IDLE) {
 
@@ -892,35 +894,35 @@ public class ChatGptActivity extends iActivity {
 
     }
 
-    private void $_onScrolled_f085d7c0f8(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy) {
+    private void onV7lb1Scrolled(RecyclerView vw, int dx, int dy) {
 
     }
 
-    private boolean $_onTouch_e1433e26d6(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj1Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_ff56a8e7f6(android.view.View vw) {
+    private void onWb1Click(View vw) {
         show(3);
 
     }
 
-    private boolean $_onLongClick_ff56a8e7f6(android.view.View vw) {
+    private boolean onWb1LongClick(View vw) {
         show(2);
         return true;
 
     }
 
-    private boolean $_onTouch_i32ee139ba1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -932,57 +934,57 @@ public class ChatGptActivity extends iActivity {
 
     }
 
-    private void $_onClick_i8217d42a17(android.view.View vw) {
+    private void onTx3Click(View vw) {
         shouJp();
         show(0);
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         shouJp();
         post();
 
     }
 
-    private boolean $_onTouch_i9068f5d66e(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj4Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         totop();
         show(0);
 
     }
 
-    private void $_onClick_i11aeec1890(android.view.View vw) {
+    private void onTx4Click(View vw) {
         show(2);
 
     }
 
-    private boolean $_onTouch_i84f04cd47e(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj7Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_i4a4248a0f2(android.view.View vw) {
+    private void onTx5Click(View vw) {
         tobottom();
         show(0);
 
     }
 
-    private void $_onClick_i6f2c7751cf(android.view.View vw) {
+    private void onTx6Click(View vw) {
         del();
         show(0);
 
     }
 
-    private boolean $_onTouch_i3f6c9f386b(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj8Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_i6c4a6b953f(android.view.View vw) {
+    private void onXxbj6Click(View vw) {
         show(0);
 
     }
@@ -991,59 +993,59 @@ public class ChatGptActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.TextView i0d2d4d9236 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb3);
-        i0d2d4d9236.setOnClickListener($_on_setOnClickListener_i0d2d4d9236);
-        i0d2d4d9236.setOnLongClickListener($_on_setOnLongClickListener_i0d2d4d9236);
+        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        i0d2d4d9236.setOnClickListener(wb3ClickListener);
+        i0d2d4d9236.setOnLongClickListener(wb3LongClickListener);
 
-        android.support.v7.widget.RecyclerView f085d7c0f8 = (android.support.v7.widget.RecyclerView) findViewById(ay, vw, open.cn.awg.pro.R.id.v7lb1);
-        f085d7c0f8.addOnScrollListener($_on_addOnScrollListener_f085d7c0f8);
+        RecyclerView f085d7c0f8 = (RecyclerView) findViewById(ay, vw, R.id.v7lb1);
+        f085d7c0f8.addOnScrollListener(v7lb1ScrollListener);
 
-        android.widget.LinearLayout e1433e26d6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj1);
-        e1433e26d6.setOnTouchListener($_on_setOnTouchListener_e1433e26d6);
+        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        e1433e26d6.setOnTouchListener(xxbj1TouchListener);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
-        ff56a8e7f6.setOnClickListener($_on_setOnClickListener_ff56a8e7f6);
-        ff56a8e7f6.setOnLongClickListener($_on_setOnLongClickListener_ff56a8e7f6);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        ff56a8e7f6.setOnClickListener(wb1ClickListener);
+        ff56a8e7f6.setOnLongClickListener(wb1LongClickListener);
 
-        android.widget.LinearLayout i469306663f = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj3s);
+        LinearLayout i469306663f = (LinearLayout) findViewById(ay, vw, R.id.xxbj3s);
 
-        android.widget.EditText i32ee139ba1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk1);
-        i32ee139ba1.setOnTouchListener($_on_setOnTouchListener_i32ee139ba1);
+        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
-        i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        android.widget.LinearLayout i9068f5d66e = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj4);
-        i9068f5d66e.setOnTouchListener($_on_setOnTouchListener_i9068f5d66e);
+        LinearLayout i9068f5d66e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4);
+        i9068f5d66e.setOnTouchListener(xxbj4TouchListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        android.widget.ImageView i11aeec1890 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx4);
-        i11aeec1890.setOnClickListener($_on_setOnClickListener_i11aeec1890);
+        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        android.widget.LinearLayout i84f04cd47e = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj7);
-        i84f04cd47e.setOnTouchListener($_on_setOnTouchListener_i84f04cd47e);
+        LinearLayout i84f04cd47e = (LinearLayout) findViewById(ay, vw, R.id.xxbj7);
+        i84f04cd47e.setOnTouchListener(xxbj7TouchListener);
 
-        android.widget.ImageView i4a4248a0f2 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx5);
-        i4a4248a0f2.setOnClickListener($_on_setOnClickListener_i4a4248a0f2);
+        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        android.widget.ImageView i6f2c7751cf = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx6);
-        i6f2c7751cf.setOnClickListener($_on_setOnClickListener_i6f2c7751cf);
+        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        android.widget.LinearLayout i3f6c9f386b = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj8);
-        i3f6c9f386b.setOnTouchListener($_on_setOnTouchListener_i3f6c9f386b);
+        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        i3f6c9f386b.setOnTouchListener(xxbj8TouchListener);
 
-        android.widget.LinearLayout i6c4a6b953f = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj6);
-        i6c4a6b953f.setOnClickListener($_on_setOnClickListener_i6c4a6b953f);
+        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        i6c4a6b953f.setOnClickListener(xxbj6ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

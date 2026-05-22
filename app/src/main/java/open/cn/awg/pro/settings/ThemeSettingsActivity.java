@@ -16,251 +16,263 @@
  */
 package open.cn.awg.pro.settings;
 
+import android.app.Activity;
+import android.content.ComponentName;
+import android.content.pm.PackageManager;
+import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.repair.ErrorMessageActivity;
 import open.cn.awg.pro.ui.main.MainActivity;
 
-
-public class ThemeSettingsActivity extends iActivity {
+public class ThemeSettingsActivity extends BaseAwgActivity {
 
     public final ThemeSettingsActivity lei = this, 类 = this;
-    public android.content.ComponentName mComponentName;
-    public android.content.ComponentName mComponentNameDefault;
-    public android.content.pm.PackageManager mPackageManager;
+    public ComponentName mComponentName;
+    public ComponentName mComponentNameDefault;
+    public PackageManager mPackageManager;
     public boolean iskg2enable = false;
     public boolean old_state_kg3 = false;
-    public java.lang.String old_state_set1 = "0";
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    public String old_state_set1 = "0";
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_d01948645a = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dxx6CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_d01948645a(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDxx6CheckedChanged(vw, ic);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_d983960091 = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dxx5CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_d983960091(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDxx5CheckedChanged(vw, ic);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i5e048391d3 = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dxx4CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i5e048391d3(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDxx4CheckedChanged(vw, ic);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i0628140a2a = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dxx3CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i0628140a2a(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDxx3CheckedChanged(vw, ic);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_fb96c5d3b3 = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dxx2CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_fb96c5d3b3(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDxx2CheckedChanged(vw, ic);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i0e3cd8b2ec = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dxx1CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i0e3cd8b2ec(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDxx1CheckedChanged(vw, ic);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i67b461495f = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj11LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i67b461495f(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj11LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i67b461495f = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj11ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i67b461495f(vw);
+        public void onClick(View vw) {
+            onXdbj11Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_c0d3e00d2b = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj5LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_c0d3e00d2b(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj5LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_c0d3e00d2b = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_c0d3e00d2b(vw);
+        public void onClick(View vw) {
+            onXdbj5Click(vw);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i2e1dda294f = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener kg3CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i2e1dda294f(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onKg3CheckedChanged(vw, ic);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i20c2777fab = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i20c2777fab(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj3LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i20c2777fab = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i20c2777fab(vw);
+        public void onClick(View vw) {
+            onXdbj3Click(vw);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i1bca89f073 = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener kg1CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i1bca89f073(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onKg1CheckedChanged(vw, ic);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i2202ede8ff = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i2202ede8ff(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj4LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i2202ede8ff = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i2202ede8ff(vw);
+        public void onClick(View vw) {
+            onXdbj4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.f21);
+        setContentView(R.layout.theme_settings);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/f8/set4.inf")), "true")) {
 
         }
 
         i.runlibrary.app.xt$pm pm = xt.pm();
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
 
         if (zf.dy(a, "4")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.f21_v).shxtck(true);
+            st.xdbj(R.id.theme_settings_root).shxtck(true);
 
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
+            String clr = zf.zf(R.color.colorTab);
             xt.pm().ztl(clr, 0);
 
         } else {
 
-            st.xdbj(open.cn.awg.pro.R.id.f21_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+            st.xdbj(R.id.theme_settings_root).shxtck(false);
+        applyFullscreenWindow();
 
         }
 
         if (zf.dy(a, "1")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
+            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
-            st.xdbj(open.cn.awg.pro.R.id.xdbj5).kjd(0);
+            st.xdbj(R.id.xdbj5).kjd(0);
 
         } else if (zf.dy(a, "2")) {
 
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+            String a001 = AppPaths.appPath("settings/dpi.inf");
 
             if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "3dp", 0, "3dp");
                 wtab.dqfs("center");
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "9dp", 0, "9dp");
                 wtab.dqfs("center");
 
             }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-            st.xdbj(open.cn.awg.pro.R.id.xdbj5).kjd(8);
+            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            st.xdbj(R.id.xdbj5).kjd(8);
 
         } else if (zf.dy(a, "3")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
+            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
-            st.xdbj(open.cn.awg.pro.R.id.xdbj5).kjd(0);
+            st.xdbj(R.id.xdbj5).kjd(0);
 
         } else if (zf.dy(a, "4")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-            st.xdbj(open.cn.awg.pro.R.id.xdbj5).kjd(8);
+            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            st.xdbj(R.id.xdbj5).kjd(8);
 
         }
 
@@ -268,43 +280,43 @@ public class ThemeSettingsActivity extends iActivity {
 
     public void jz() {
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f8/set10.inf";
+        String set2 = AppPaths.appPath("settings/f8/set10.inf");
 
-        java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f8/set4.inf";
+        String set4 = AppPaths.appPath("settings/f8/set4.inf");
 
         if (zf.dy(wj.dqwb(set1), "1")) {
 
-            st.dxx(open.cn.awg.pro.R.id.dxx2).xzzt(true);
+            st.dxx(R.id.dxx2).xzzt(true);
 
         } else if (zf.dy(wj.dqwb(set1), "2")) {
 
-            st.dxx(open.cn.awg.pro.R.id.dxx3).xzzt(true);
+            st.dxx(R.id.dxx3).xzzt(true);
 
         } else if (zf.dy(wj.dqwb(set1), "3")) {
 
-            st.dxx(open.cn.awg.pro.R.id.dxx4).xzzt(true);
+            st.dxx(R.id.dxx4).xzzt(true);
 
         } else if (zf.dy(wj.dqwb(set1), "4")) {
 
-            st.dxx(open.cn.awg.pro.R.id.dxx5).xzzt(true);
+            st.dxx(R.id.dxx5).xzzt(true);
 
         } else if (zf.dy(wj.dqwb(set1), "5")) {
 
-            st.dxx(open.cn.awg.pro.R.id.dxx6).xzzt(true);
+            st.dxx(R.id.dxx6).xzzt(true);
 
         } else {
 
-            st.dxx(open.cn.awg.pro.R.id.dxx1).xzzt(true);
+            st.dxx(R.id.dxx1).xzzt(true);
 
         }
         old_state_set1 = wj.dqwb(set1);
         jz2();
 
-        i.runlibrary.app.v.kg kg3 = st.kg(open.cn.awg.pro.R.id.kg3);
+        i.runlibrary.app.v.kg kg3 = st.kg(R.id.kg3);
 
-        i.runlibrary.app.v.kg kg1 = st.kg(open.cn.awg.pro.R.id.kg1);
+        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
 
         if (zf.dy(wj.dqwb(set4), "true")) {
 
@@ -319,9 +331,9 @@ public class ThemeSettingsActivity extends iActivity {
 
         }
 
-        mComponentName = new android.content.ComponentName(getBaseContext(), getPackageName() + ".main2");
+        mComponentName = new ComponentName(getBaseContext(), getPackageName() + ".main2");
 
-        mComponentNameDefault = new android.content.ComponentName(getBaseContext(), getPackageName() + ".ui.main.MainActivity");
+        mComponentNameDefault = new ComponentName(getBaseContext(), getPackageName() + ".ui.main.MainActivity");
 
         mPackageManager = getApplication().getPackageManager();
 
@@ -331,34 +343,34 @@ public class ThemeSettingsActivity extends iActivity {
 
     public void jz2() {
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
         if (zf.dy(wj.dqwb(set1), "1")) {
 
-            st.wb(open.cn.awg.pro.R.id.wb18).zf("开启软件将进入旧版主页");
+            st.wb(R.id.wb18).zf("开启软件将进入旧版主页");
 
         } else if (zf.dy(wj.dqwb(set1), "2")) {
 
-            st.wb(open.cn.awg.pro.R.id.wb18).zf("开启软件将进入文件管理");
+            st.wb(R.id.wb18).zf("开启软件将进入文件管理");
 
         } else if (zf.dy(wj.dqwb(set1), "3")) {
 
-            st.wb(open.cn.awg.pro.R.id.wb18).zf("开启软件将进入腕上微聊");
+            st.wb(R.id.wb18).zf("开启软件将进入腕上微聊");
 
         } else if (zf.dy(wj.dqwb(set1), "4")) {
 
-            st.wb(open.cn.awg.pro.R.id.wb18).zf("开启软件将进入扩展插件");
+            st.wb(R.id.wb18).zf("开启软件将进入扩展插件");
 
         } else if (zf.dy(wj.dqwb(set1), "5")) {
 
-            st.wb(open.cn.awg.pro.R.id.wb18).zf("开启软件将进入X5浏览器");
+            st.wb(R.id.wb18).zf("开启软件将进入X5浏览器");
 
         } else {
 
-            st.wb(open.cn.awg.pro.R.id.wb18).zf("开启软件将进入新版主页");
+            st.wb(R.id.wb18).zf("开启软件将进入新版主页");
 
         }
-        st.xdbj(open.cn.awg.pro.R.id.xdbj2).kjd(8);
+        st.xdbj(R.id.xdbj2).kjd(8);
 
     }
 
@@ -366,13 +378,13 @@ public class ThemeSettingsActivity extends iActivity {
 
         if (fl) {
 
-            mPackageManager.setComponentEnabledSetting(mComponentName, android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED, android.content.pm.PackageManager.DONT_KILL_APP);
-            mPackageManager.setComponentEnabledSetting(mComponentNameDefault, android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED, android.content.pm.PackageManager.DONT_KILL_APP);
+            mPackageManager.setComponentEnabledSetting(mComponentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+            mPackageManager.setComponentEnabledSetting(mComponentNameDefault, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
 
         } else {
 
-            mPackageManager.setComponentEnabledSetting(mComponentName, android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_DISABLED, android.content.pm.PackageManager.DONT_KILL_APP);
-            mPackageManager.setComponentEnabledSetting(mComponentNameDefault, android.content.pm.PackageManager.COMPONENT_ENABLED_STATE_ENABLED, android.content.pm.PackageManager.DONT_KILL_APP);
+            mPackageManager.setComponentEnabledSetting(mComponentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
+            mPackageManager.setComponentEnabledSetting(mComponentNameDefault, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
 
         }
 
@@ -380,81 +392,33 @@ public class ThemeSettingsActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -467,47 +431,31 @@ public class ThemeSettingsActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        java.lang.String now = wj.dqwb(set1);
+        String now = wj.dqwb(set1);
 
         if (!zf.dy(now, old_state_set1)) {
 
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            java.lang.String[] name = new java.lang.String[]{"Msg"};
+                            String[] name = new String[]{"Msg"};
 
-                            java.lang.String[] value = new java.lang.String[]{"应用成功 点击重启"};
+                            String[] value = new String[]{"应用成功 点击重启"};
                             gj.tz(ErrorMessageActivity.class, name, value);
 
                         }
@@ -522,14 +470,14 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i2202ede8ff(android.view.View vw) {
+    private void onXdbj4Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(open.cn.awg.pro.R.id.kg1);
+        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
 
         if (!kg.xzzt()) {
 
@@ -543,21 +491,21 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i2202ede8ff(android.view.View vw) {
+    private boolean onXdbj4LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb4).zf();
+        String te = st.wb(R.id.wb4).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb5).zf();
+        String lj = st.wb(R.id.wb5).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onCheckedChanged_i1bca89f073(android.widget.CompoundButton vw, boolean ic) {
+    private void onKg1CheckedChanged(CompoundButton vw, boolean ic) {
 
         if (iskg2enable) {
 
-            java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f8/set10.inf";
+            String set = AppPaths.appPath("settings/f8/set10.inf");
 
             if (ic) {
 
@@ -575,9 +523,9 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private void $_onClick_i20c2777fab(android.view.View vw) {
+    private void onXdbj3Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(open.cn.awg.pro.R.id.kg3);
+        i.runlibrary.app.v.kg kg = st.kg(R.id.kg3);
 
         if (!kg.xzzt()) {
 
@@ -591,19 +539,19 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i20c2777fab(android.view.View vw) {
+    private boolean onXdbj3LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb2).zf();
+        String te = st.wb(R.id.wb2).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb3).zf();
+        String lj = st.wb(R.id.wb3).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onCheckedChanged_i2e1dda294f(android.widget.CompoundButton vw, boolean ic) {
+    private void onKg3CheckedChanged(CompoundButton vw, boolean ic) {
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f8/set4.inf";
+        String set = AppPaths.appPath("settings/f8/set4.inf");
 
         if (ic) {
 
@@ -617,18 +565,18 @@ public class ThemeSettingsActivity extends iActivity {
 
         if (ic != old_state_kg3) {
 
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     gj.zt(2000);
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            java.lang.String[] name = new java.lang.String[]{"Msg"};
+                            String[] name = new String[]{"Msg"};
 
-                            java.lang.String[] value = new java.lang.String[]{"应用成功 点击重启"};
+                            String[] value = new String[]{"应用成功 点击重启"};
                             gj.tz(ErrorMessageActivity.class, name, value);
 
                         }
@@ -643,30 +591,30 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private void $_onClick_c0d3e00d2b(android.view.View vw) {
+    private void onXdbj5Click(View vw) {
         gj.tz(DisplayMarginActivity.class);
 
     }
 
-    private boolean $_onLongClick_c0d3e00d2b(android.view.View vw) {
+    private boolean onXdbj5LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb6).zf();
+        String te = st.wb(R.id.wb6).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb7).zf();
+        String lj = st.wb(R.id.wb7).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i67b461495f(android.view.View vw) {
+    private void onXdbj11Click(View vw) {
 
-        if (st.xdbj(open.cn.awg.pro.R.id.xdbj2).kjd() == 8) {
+        if (st.xdbj(R.id.xdbj2).kjd() == 8) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.xdbj(open.cn.awg.pro.R.id.xdbj2).kjd(0);
+                    st.xdbj(R.id.xdbj2).kjd(0);
 
                 }
 
@@ -674,11 +622,11 @@ public class ThemeSettingsActivity extends iActivity {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.xdbj(open.cn.awg.pro.R.id.xdbj2).kjd(8);
+                    st.xdbj(R.id.xdbj2).kjd(8);
 
                 }
 
@@ -688,36 +636,21 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i67b461495f(android.view.View vw) {
+    private boolean onXdbj11LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb17).zf();
+        String te = st.wb(R.id.wb17).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb18).zf();
+        String lj = st.wb(R.id.wb18).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onCheckedChanged_i0e3cd8b2ec(android.widget.CompoundButton vw, boolean ic) {
+    private void onDxx1CheckedChanged(CompoundButton vw, boolean ic) {
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        java.lang.String update = "0";
-
-        if (ic) {
-
-            wj.xrwb(set1, update);
-            jz2();
-
-        }
-
-    }
-
-    private void $_onCheckedChanged_fb96c5d3b3(android.widget.CompoundButton vw, boolean ic) {
-
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
-
-        java.lang.String update = "1";
+        String update = "0";
 
         if (ic) {
 
@@ -728,26 +661,11 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private void $_onCheckedChanged_i0628140a2a(android.widget.CompoundButton vw, boolean ic) {
+    private void onDxx2CheckedChanged(CompoundButton vw, boolean ic) {
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        java.lang.String update = "2";
-
-        if (ic) {
-
-            wj.xrwb(set1, update);
-            jz2();
-
-        }
-
-    }
-
-    private void $_onCheckedChanged_i5e048391d3(android.widget.CompoundButton vw, boolean ic) {
-
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
-
-        java.lang.String update = "3";
+        String update = "1";
 
         if (ic) {
 
@@ -758,26 +676,11 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private void $_onCheckedChanged_d983960091(android.widget.CompoundButton vw, boolean ic) {
+    private void onDxx3CheckedChanged(CompoundButton vw, boolean ic) {
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        java.lang.String update = "4";
-
-        if (ic) {
-
-            wj.xrwb(set1, update);
-            jz2();
-
-        }
-
-    }
-
-    private void $_onCheckedChanged_d01948645a(android.widget.CompoundButton vw, boolean ic) {
-
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f21/set1.inf";
-
-        java.lang.String update = "5";
+        String update = "2";
 
         if (ic) {
 
@@ -788,7 +691,52 @@ public class ThemeSettingsActivity extends iActivity {
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onDxx4CheckedChanged(CompoundButton vw, boolean ic) {
+
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
+
+        String update = "3";
+
+        if (ic) {
+
+            wj.xrwb(set1, update);
+            jz2();
+
+        }
+
+    }
+
+    private void onDxx5CheckedChanged(CompoundButton vw, boolean ic) {
+
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
+
+        String update = "4";
+
+        if (ic) {
+
+            wj.xrwb(set1, update);
+            jz2();
+
+        }
+
+    }
+
+    private void onDxx6CheckedChanged(CompoundButton vw, boolean ic) {
+
+        String set1 = AppPaths.appPath("settings/f21/set1.inf");
+
+        String update = "5";
+
+        if (ic) {
+
+            wj.xrwb(set1, update);
+            jz2();
+
+        }
+
+    }
+
+    private void onTx1Click(View vw) {
         gj.gb();
 
     }
@@ -797,55 +745,55 @@ public class ThemeSettingsActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.RelativeLayout i2202ede8ff = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj4);
-        i2202ede8ff.setOnClickListener($_on_setOnClickListener_i2202ede8ff);
-        i2202ede8ff.setOnLongClickListener($_on_setOnLongClickListener_i2202ede8ff);
+        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        i2202ede8ff.setOnClickListener(xdbj4ClickListener);
+        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        androidx.appcompat.widget.SwitchCompat i1bca89f073 = (androidx.appcompat.widget.SwitchCompat) findViewById(ay, vw, open.cn.awg.pro.R.id.kg1);
-        i1bca89f073.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i1bca89f073);
+        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        android.widget.RelativeLayout i20c2777fab = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj3);
-        i20c2777fab.setOnClickListener($_on_setOnClickListener_i20c2777fab);
-        i20c2777fab.setOnLongClickListener($_on_setOnLongClickListener_i20c2777fab);
+        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        i20c2777fab.setOnClickListener(xdbj3ClickListener);
+        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        androidx.appcompat.widget.SwitchCompat i2e1dda294f = (androidx.appcompat.widget.SwitchCompat) findViewById(ay, vw, open.cn.awg.pro.R.id.kg3);
-        i2e1dda294f.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i2e1dda294f);
+        SwitchCompat i2e1dda294f = (SwitchCompat) findViewById(ay, vw, R.id.kg3);
+        i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
-        android.widget.RelativeLayout c0d3e00d2b = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj5);
-        c0d3e00d2b.setOnClickListener($_on_setOnClickListener_c0d3e00d2b);
-        c0d3e00d2b.setOnLongClickListener($_on_setOnLongClickListener_c0d3e00d2b);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
+        c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        android.widget.RelativeLayout i67b461495f = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj11);
-        i67b461495f.setOnClickListener($_on_setOnClickListener_i67b461495f);
-        i67b461495f.setOnLongClickListener($_on_setOnLongClickListener_i67b461495f);
+        RelativeLayout i67b461495f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj11);
+        i67b461495f.setOnClickListener(xdbj11ClickListener);
+        i67b461495f.setOnLongClickListener(xdbj11LongClickListener);
 
-        android.widget.RadioButton i0e3cd8b2ec = (android.widget.RadioButton) findViewById(ay, vw, open.cn.awg.pro.R.id.dxx1);
-        i0e3cd8b2ec.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i0e3cd8b2ec);
+        RadioButton i0e3cd8b2ec = (RadioButton) findViewById(ay, vw, R.id.dxx1);
+        i0e3cd8b2ec.setOnCheckedChangeListener(dxx1CheckedChangeListener);
 
-        android.widget.RadioButton fb96c5d3b3 = (android.widget.RadioButton) findViewById(ay, vw, open.cn.awg.pro.R.id.dxx2);
-        fb96c5d3b3.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_fb96c5d3b3);
+        RadioButton fb96c5d3b3 = (RadioButton) findViewById(ay, vw, R.id.dxx2);
+        fb96c5d3b3.setOnCheckedChangeListener(dxx2CheckedChangeListener);
 
-        android.widget.RadioButton i0628140a2a = (android.widget.RadioButton) findViewById(ay, vw, open.cn.awg.pro.R.id.dxx3);
-        i0628140a2a.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i0628140a2a);
+        RadioButton i0628140a2a = (RadioButton) findViewById(ay, vw, R.id.dxx3);
+        i0628140a2a.setOnCheckedChangeListener(dxx3CheckedChangeListener);
 
-        android.widget.RadioButton i5e048391d3 = (android.widget.RadioButton) findViewById(ay, vw, open.cn.awg.pro.R.id.dxx4);
-        i5e048391d3.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i5e048391d3);
+        RadioButton i5e048391d3 = (RadioButton) findViewById(ay, vw, R.id.dxx4);
+        i5e048391d3.setOnCheckedChangeListener(dxx4CheckedChangeListener);
 
-        android.widget.RadioButton d983960091 = (android.widget.RadioButton) findViewById(ay, vw, open.cn.awg.pro.R.id.dxx5);
-        d983960091.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_d983960091);
+        RadioButton d983960091 = (RadioButton) findViewById(ay, vw, R.id.dxx5);
+        d983960091.setOnCheckedChangeListener(dxx5CheckedChangeListener);
 
-        android.widget.RadioButton d01948645a = (android.widget.RadioButton) findViewById(ay, vw, open.cn.awg.pro.R.id.dxx6);
-        d01948645a.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_d01948645a);
+        RadioButton d01948645a = (RadioButton) findViewById(ay, vw, R.id.dxx6);
+        d01948645a.setOnCheckedChangeListener(dxx6CheckedChangeListener);
 
-        android.widget.RelativeLayout i3167b45174 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

@@ -16,96 +16,99 @@
  */
 package open.cn.awg.pro.account;
 
-import android.view.Window;
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.tools.SystemPermissionActivity;
 
-
-public class OnlineIdActivity extends iActivity {
+public class OnlineIdActivity extends BaseAwgActivity {
 
     public final OnlineIdActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i0d2d4d9236 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener wb3LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i0d2d4d9236(vw);
+        public boolean onLongClick(View vw) {
+            return onWb3LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.b5);
+        setContentView(R.layout.online_id);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         show();
         e1.online();
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
         return true;
 
     }
 
     public void show() {
 
-        final java.lang.String a1 = "/data/user/0/open.cn.awg.pro/settings/a5.inf";
+        final String a1 = AppPaths.appPath("settings/a5.inf");
 
         boolean t;
 
         t = !zf.dy(wj.dqwb(a1), "") && wj.cz(a1);
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj2);
 
-        final i.runlibrary.app.v.wb t2 = st.wb(open.cn.awg.pro.R.id.wb3);
+        final i.runlibrary.app.v.wb t2 = st.wb(R.id.wb3);
 
         if (t) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -119,7 +122,7 @@ public class OnlineIdActivity extends iActivity {
 
         } else if (!t) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -136,51 +139,39 @@ public class OnlineIdActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onStart() {
         super.onStart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onResume() {
         super.onResume();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
 
-        java.lang.String n = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+        String n = st.bjk(R.id.bjk1).zf();
 
-        final java.lang.String a1 = "/data/user/0/open.cn.awg.pro/settings/a5.inf";
+        final String a1 = AppPaths.appPath("settings/a5.inf");
         n = zf.qctwkg(n);
 
         if (zf.dy(n, "")) {
@@ -204,13 +195,13 @@ public class OnlineIdActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i0d2d4d9236(android.view.View vw) {
+    private boolean onWb3LongClick(View vw) {
         gj.tz(SystemPermissionActivity.class);
         return true;
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         gj.gb();
 
     }
@@ -219,20 +210,20 @@ public class OnlineIdActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView i7c3e3c6b5d = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
 
-        android.widget.TextView i0d2d4d9236 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb3);
-        i0d2d4d9236.setOnLongClickListener($_on_setOnLongClickListener_i0d2d4d9236);
+        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        i0d2d4d9236.setOnLongClickListener(wb3LongClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

@@ -16,100 +16,114 @@
  */
 package open.cn.awg.pro.browser;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
+import java.io.File;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.download.DownloadProgressActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.repair.ErrorMessageActivity;
 import open.cn.awg.pro.tools.ShellExecutorActivity;
 
-
-public class X5CoreInstallActivity extends iActivity {
+public class X5CoreInstallActivity extends BaseAwgActivity {
 
     public final X5CoreInstallActivity lei = this, 类 = this;
-    public java.lang.String um = "";
-    public java.lang.String osArch;
-    public java.io.File f;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    public String um = "";
+    public String osArch;
+    public File f;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i74ce6319f3 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i74ce6319f3(vw);
+        public void onClick(View vw) {
+            onAn4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i0b66a667b1 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i0b66a667b1(vw);
+        public void onClick(View vw) {
+            onAn2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8f51a35692 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8f51a35692(vw);
+        public void onClick(View vw) {
+            onAn3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171ea34f1a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171ea34f1a(vw);
+        public void onClick(View vw) {
+            onAn1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i63f06183a1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk2TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i63f06183a1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk2Touch(vw, me);
         }
 
     };
-    private final android.widget.AdapterView.OnItemSelectedListener $_on_setOnItemSelectedListener_fef1635c8d = new android.widget.AdapterView.OnItemSelectedListener() {
+    private final AdapterView.OnItemSelectedListener xlcd2ItemSelectedListener = new AdapterView.OnItemSelectedListener() {
 
-        public void onItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id) {
-            $_onItemSelected_fef1635c8d(vw, view, pn, id);
+        public void onItemSelected(AdapterView vw, View view, int pn, long id) {
+            onXlcd2ItemSelected(vw, view, pn, id);
         }
 
-        public void onNothingSelected(android.widget.AdapterView vw) {
-            $_onNothingSelected_fef1635c8d(vw);
-        }
-
-    };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
-
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onNothingSelected(AdapterView vw) {
+            onXlcd2NothingSelected(vw);
         }
 
     };
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-    public void onCreate(android.os.Bundle be) {
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
+        }
+
+    };
+
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.l4);
+        setContentView(R.layout.x5_core_install);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
         if (e1.isInstallX5()) {
 
             show(2);
 
-            java.lang.String path2 = "/storage/emulated/0/Android/data/open.cn.awg.pro/files/Download/x5install.zip";
+            String path2 = AppPaths.externalFilesPath("Download/x5install.zip");
 
-            java.lang.String path1 = "/storage/emulated/0/Download/x5install.zip";
+            String path1 = "/storage/emulated/0/Download/x5install.zip";
 
             if (wj.cz(path1)) {
 
@@ -123,20 +137,20 @@ public class X5CoreInstallActivity extends iActivity {
 
         } else {
 
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     show(4);
                     osArch = System.getProperty("os.arch");
 
-                    java.lang.String path3_32 = "@resource/2c951a41d7c917f0a76ae46ed499d2ff";
+                    String path3_32 = "@resource/2c951a41d7c917f0a76ae46ed499d2ff";
 
-                    java.lang.String path3_64 = "@resource/e0a8f35f2676b288f562b8aaf29de9d1";
+                    String path3_64 = "@resource/e0a8f35f2676b288f562b8aaf29de9d1";
 
-                    java.lang.String path2 = "/storage/emulated/0/Android/data/open.cn.awg.pro/files/Download/x5install.zip";
+                    String path2 = AppPaths.externalFilesPath("Download/x5install.zip");
 
-                    java.lang.String path1 = "/storage/emulated/0/Download/x5install.zip";
+                    String path1 = "/storage/emulated/0/Download/x5install.zip";
 
                     if (wj.cz(path1) || wj.cz(path2) || wj.cz(path3_32) || wj.cz(path3_64)) {
 
@@ -167,11 +181,11 @@ public class X5CoreInstallActivity extends iActivity {
 
                     } else {
 
-                        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(open.cn.awg.pro.R.id.xlcd2);
+                        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.xlcd2);
 
-                        java.lang.String[] sz1 = new java.lang.String[]{"源1:X5内核32位[81.1M]", "源2:X5内核32位[81.1M]", "自定义下载源"};
+                        String[] sz1 = new String[]{"源1:X5内核32位[81.1M]", "源2:X5内核32位[81.1M]", "自定义下载源"};
 
-                        java.lang.String[] sz2 = new java.lang.String[]{"源1:X5内核64位[92.2M]", "源2:X5内核64位[92.2M]", "自定义下载源"};
+                        String[] sz2 = new String[]{"源1:X5内核64位[92.2M]", "源2:X5内核64位[92.2M]", "自定义下载源"};
 
                         if (zf.cz(osArch, "64")) {
 
@@ -194,101 +208,19 @@ public class X5CoreInstallActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
+        applyStandardScreenMode(R.id.x5_core_install_root, R.id.xdbj1, R.id.title_bar);
 
-        }
+        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.l4_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.l4_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
-
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(open.cn.awg.pro.R.id.xlcd1);
-
-        java.lang.String[] sz = new java.lang.String[]{"使用系统下载器下载", "使用软件下载器下载"};
+        String[] sz = new String[]{"使用系统下载器下载", "使用软件下载器下载"};
         xlcd1.csh(sz);
 
     }
 
     public void c1() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
@@ -314,21 +246,21 @@ public class X5CoreInstallActivity extends iActivity {
     }
 
     public void c2() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
                 show(4);
 
-                java.lang.String xx = "内核删除执行结果如下，应用将在2秒后重启以完成卸载！\n\n";
+                String xx = "内核删除执行结果如下，应用将在2秒后重启以完成卸载！\n\n";
 
-                java.lang.String[] d = new java.lang.String[]{"/data/user/0/open.cn.awg.pro/app_tbs", "/data/user/0/open.cn.awg.pro/app_tbs_64", "/data/user/0/open.cn.awg.pro/app_tbs_common_share", "/data/user/0/open.cn.awg.pro/shared_prefs"};
+                String[] d = new String[]{AppPaths.appPath("app_tbs"), AppPaths.appPath("app_tbs_64"), AppPaths.appPath("app_tbs_common_share"), AppPaths.appPath("shared_prefs")};
 
                 for (int i = 0; i < 4; i++) {
 
-                    java.lang.String m = "rm -rf \"" + d[i] + "\"";
+                    String m = "rm -rf \"" + d[i] + "\"";
 
-                    java.lang.String[] aa = new java.lang.String[]{"", ""};
+                    String[] aa = new String[]{"", ""};
                     aa = com.demo.e3.cmd(lei, m, false);
 
                     if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
@@ -347,13 +279,13 @@ public class X5CoreInstallActivity extends iActivity {
 
                 }
                 gj.zt(2000);
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        java.lang.String[] name = new java.lang.String[]{"Msg"};
+                        String[] name = new String[]{"Msg"};
 
-                        java.lang.String[] value = new java.lang.String[]{"卸载成功 点击重启"};
+                        String[] value = new String[]{"卸载成功 点击重启"};
                         gj.tz(ErrorMessageActivity.class, name, value);
 
                     }
@@ -369,17 +301,17 @@ public class X5CoreInstallActivity extends iActivity {
     public void show(int i_) {
 
         final int i = i_;
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.xxbj x1 = st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+                i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj2);
 
-                i.runlibrary.app.v.xxbj x2 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+                i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj4);
 
-                i.runlibrary.app.v.xxbj x3 = st.xxbj(open.cn.awg.pro.R.id.xxbj5);
+                i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj5);
 
-                i.runlibrary.app.v.xxbj x4 = st.xxbj(open.cn.awg.pro.R.id.xxbj6);
+                i.runlibrary.app.v.xxbj x4 = st.xxbj(R.id.xxbj6);
 
                 if (i == 0) {
 
@@ -419,81 +351,33 @@ public class X5CoreInstallActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -506,64 +390,48 @@ public class X5CoreInstallActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private void $_onItemSelected_fef1635c8d(android.widget.AdapterView vw, android.view.View view, int pn, long id) {
+    private void onXlcd2ItemSelected(AdapterView vw, View view, int pn, long id) {
 
         if (pn == 2) {
 
-            st.bjk(open.cn.awg.pro.R.id.bjk2).kjd(0);
+            st.bjk(R.id.bjk2).kjd(0);
 
         } else {
 
-            st.bjk(open.cn.awg.pro.R.id.bjk2).kjd(8);
+            st.bjk(R.id.bjk2).kjd(8);
 
         }
 
     }
 
-    private void $_onNothingSelected_fef1635c8d(android.widget.AdapterView vw) {
+    private void onXlcd2NothingSelected(AdapterView vw) {
 
     }
 
-    private boolean $_onTouch_i63f06183a1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk2Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -575,24 +443,24 @@ public class X5CoreInstallActivity extends iActivity {
 
     }
 
-    private void $_onClick_i171ea34f1a(android.view.View vw) {
+    private void onAn1Click(View vw) {
 
-        java.lang.String bjk2 = st.bjk(open.cn.awg.pro.R.id.bjk2).zf();
+        String bjk2 = st.bjk(R.id.bjk2).zf();
         bjk2 = zf.qctwkg(bjk2);
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(open.cn.awg.pro.R.id.xlcd1);
+        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
 
-        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(open.cn.awg.pro.R.id.xlcd2);
+        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.xlcd2);
 
-        java.lang.String url = "";
+        String url = "";
 
-        java.lang.String path = "";
+        String path = "";
 
-        java.lang.String path2 = "/storage/emulated/0/Android/data/open.cn.awg.pro/files/Download/";
+        String path2 = AppPaths.externalFilesPath("Download/");
 
-        java.lang.String path1 = "/storage/emulated/0/Download/";
+        String path1 = "/storage/emulated/0/Download/";
 
-        java.lang.String add = "x5install.zip";
+        String add = "x5install.zip";
 
         int sdk = xt.sbxx().sdk;
 
@@ -659,9 +527,9 @@ public class X5CoreInstallActivity extends iActivity {
 
                 } else if (xlcd1.dqzsxmxh() == 1) {
 
-                    java.lang.String[] name = new java.lang.String[]{"url", "path"};
+                    String[] name = new String[]{"url", "path"};
 
-                    java.lang.String[] value = new java.lang.String[]{url, path};
+                    String[] value = new String[]{url, path};
                     gj.tz(DownloadProgressActivity.class, name, value);
                     e1.tsk("提示", "已开始下载\n请在下载完成后重新进入本页面,进行下一步的安装");
                     gj.gb();
@@ -678,21 +546,21 @@ public class X5CoreInstallActivity extends iActivity {
 
     }
 
-    private void $_onClick_i8f51a35692(android.view.View vw) {
+    private void onAn3Click(View vw) {
         show(4);
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
-                java.lang.String nwj = "/data/user/0/open.cn.awg.pro/cache/x5/";
+                String nwj = AppPaths.appPath("cache/x5/");
                 wj.jy(um, nwj, true);
 
-                java.lang.String nrs = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/c1");
+                String nrs = wj.dqwb(AppPaths.appPath("data/assets/c1"));
 
-                final java.lang.String[] name = new java.lang.String[]{"sh", "auto"};
+                final String[] name = new String[]{"sh", "auto"};
 
-                final java.lang.String[] value = new java.lang.String[]{nrs, "enable"};
-                gj.jmxc(new java.lang.Runnable() {
+                final String[] value = new String[]{nrs, "enable"};
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -709,17 +577,17 @@ public class X5CoreInstallActivity extends iActivity {
 
     }
 
-    private void $_onClick_i0b66a667b1(android.view.View vw) {
+    private void onAn2Click(View vw) {
         c1();
 
     }
 
-    private void $_onClick_i74ce6319f3(android.view.View vw) {
+    private void onAn4Click(View vw) {
         c2();
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         gj.gb();
 
     }
@@ -728,33 +596,33 @@ public class X5CoreInstallActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.Spinner fef1635c8d = (android.widget.Spinner) findViewById(ay, vw, open.cn.awg.pro.R.id.xlcd2);
-        fef1635c8d.setOnItemSelectedListener($_on_setOnItemSelectedListener_fef1635c8d);
+        Spinner fef1635c8d = (Spinner) findViewById(ay, vw, R.id.xlcd2);
+        fef1635c8d.setOnItemSelectedListener(xlcd2ItemSelectedListener);
 
-        android.widget.EditText i63f06183a1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk2);
-        i63f06183a1.setOnTouchListener($_on_setOnTouchListener_i63f06183a1);
+        EditText i63f06183a1 = (EditText) findViewById(ay, vw, R.id.bjk2);
+        i63f06183a1.setOnTouchListener(bjk2TouchListener);
 
-        android.widget.Spinner i004a739c93 = (android.widget.Spinner) findViewById(ay, vw, open.cn.awg.pro.R.id.xlcd1);
+        Spinner i004a739c93 = (Spinner) findViewById(ay, vw, R.id.xlcd1);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
-        i171ea34f1a.setOnClickListener($_on_setOnClickListener_i171ea34f1a);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        android.widget.Button i8f51a35692 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an3);
-        i8f51a35692.setOnClickListener($_on_setOnClickListener_i8f51a35692);
+        Button i8f51a35692 = (Button) findViewById(ay, vw, R.id.an3);
+        i8f51a35692.setOnClickListener(an3ClickListener);
 
-        android.widget.Button i0b66a667b1 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an2);
-        i0b66a667b1.setOnClickListener($_on_setOnClickListener_i0b66a667b1);
+        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        android.widget.Button i74ce6319f3 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an4);
-        i74ce6319f3.setOnClickListener($_on_setOnClickListener_i74ce6319f3);
+        Button i74ce6319f3 = (Button) findViewById(ay, vw, R.id.an4);
+        i74ce6319f3.setOnClickListener(an4ClickListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

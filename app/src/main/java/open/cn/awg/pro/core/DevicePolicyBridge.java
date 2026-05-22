@@ -22,23 +22,23 @@ import android.content.Context;
 import android.content.Intent;
 
 import i.app.iClass;
+
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.receiver.DeviceReceiver;
-
 
 public class DevicePolicyBridge extends iClass {
 
     public final DevicePolicyBridge lei = this, 类 = this;
-    public android.app.admin.DevicePolicyManager devicePolicyManager;
-    public android.content.Context mContext;
-    public android.content.ComponentName componentName;
+    public DevicePolicyManager devicePolicyManager;
+    public Context mContext;
+    public ComponentName componentName;
 
     public DevicePolicyBridge(i.runlibrary.app.AppInfo _APPINFO) {
         super(_APPINFO);
 
     }
 
-    public void gets(android.content.Context context) {
+    public void gets(Context context) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -55,7 +55,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public boolean state(android.content.Context context) {
+    public boolean state(Context context) {
 
         boolean bak;
 
@@ -68,7 +68,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void setCameraDisabled(android.content.Context context, boolean disabled) {
+    public void setCameraDisabled(Context context, boolean disabled) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -87,7 +87,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void wipeData(android.content.Context context) {
+    public void wipeData(Context context) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -105,7 +105,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void lockNow(android.content.Context context) {
+    public void lockNow(Context context) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -124,7 +124,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void startDeviceOwner(android.content.Context context) {
+    public void startDeviceOwner(Context context) {
 
         String text = "腕管Pro";
         mContext = context;
@@ -145,7 +145,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public boolean isDeviceOwnerApp(android.content.Context context) {
+    public boolean isDeviceOwnerApp(Context context) {
 
         boolean bak;
 
@@ -158,7 +158,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void LockActivity(android.content.Context context, boolean i) {
+    public void LockActivity(Context context, boolean i) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -185,7 +185,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void reboot(android.content.Context context) {
+    public void reboot(Context context) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -204,7 +204,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void setStatusBarDisabled(android.content.Context context, boolean disabled) {
+    public void setStatusBarDisabled(Context context, boolean disabled) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -223,7 +223,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void setUninstallBlocked(android.content.Context context, java.lang.String packageName, boolean uninstallBlocked) {
+    public void setUninstallBlocked(Context context, String packageName, boolean uninstallBlocked) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -242,7 +242,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void setDeviceOwnerLockScreenInfo(android.content.Context context, java.lang.String text) {
+    public void setDeviceOwnerLockScreenInfo(Context context, String text) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);
@@ -261,7 +261,7 @@ public class DevicePolicyBridge extends iClass {
 
     }
 
-    public void setOrganizationName(android.content.Context context, java.lang.String text) {
+    public void setOrganizationName(Context context, String text) {
 
         mContext = context;
         devicePolicyManager = (DevicePolicyManager) context.getSystemService(Context.DEVICE_POLICY_SERVICE);

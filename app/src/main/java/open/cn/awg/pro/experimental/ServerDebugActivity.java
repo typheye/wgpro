@@ -16,255 +16,189 @@
  */
 package open.cn.awg.pro.experimental;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
+import java.io.File;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.viewer.TextViewerActivity;
 
-
-public class ServerDebugActivity extends iActivity {
+public class ServerDebugActivity extends BaseAwgActivity {
 
     public final ServerDebugActivity lei = this, 类 = this;
-    public java.lang.String um = "";
-    public java.io.File f;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    public String um = "";
+    public File f;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171ea34f1a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171ea34f1a(vw);
+        public void onClick(View vw) {
+            onAn1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i026fdb816d = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks7TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i026fdb816d(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks7Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i3793cc74e0 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks6TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i3793cc74e0(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks6Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i8dfdb24277 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks5TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i8dfdb24277(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks5Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_fc0b80656a = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks4TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_fc0b80656a(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks4Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_d9fcd0aec2 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks3TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_d9fcd0aec2(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks3Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_b7e129881e = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks2TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_b7e129881e(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks2Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i2ce2aa6972 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjks1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i2ce2aa6972(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjks1Touch(vw, me);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i3d918d2dcb = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener dx1CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i3d918d2dcb(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onDx1CheckedChanged(vw, ic);
         }
 
     };
-    private final android.widget.AdapterView.OnItemSelectedListener $_on_setOnItemSelectedListener_fef1635c8d = new android.widget.AdapterView.OnItemSelectedListener() {
+    private final AdapterView.OnItemSelectedListener xlcd2ItemSelectedListener = new AdapterView.OnItemSelectedListener() {
 
-        public void onItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id) {
-            $_onItemSelected_fef1635c8d(vw, view, pn, id);
+        public void onItemSelected(AdapterView vw, View view, int pn, long id) {
+            onXlcd2ItemSelected(vw, view, pn, id);
         }
 
-        public void onNothingSelected(android.widget.AdapterView vw) {
-            $_onNothingSelected_fef1635c8d(vw);
-        }
-
-    };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i956d0f4bd8 = new android.view.View.OnTouchListener() {
-
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i956d0f4bd8(vw, me);
+        public void onNothingSelected(AdapterView vw) {
+            onXlcd2NothingSelected(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i8d69eec323 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjkgp2TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i8d69eec323(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjkgp2Touch(vw, me);
         }
 
     };
-    private final android.widget.AdapterView.OnItemSelectedListener $_on_setOnItemSelectedListener_i004a739c93 = new android.widget.AdapterView.OnItemSelectedListener() {
+    private final View.OnTouchListener bjkgp1TouchListener = new View.OnTouchListener() {
 
-        public void onItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id) {
-            $_onItemSelected_i004a739c93(vw, view, pn, id);
-        }
-
-        public void onNothingSelected(android.widget.AdapterView vw) {
-            $_onNothingSelected_i004a739c93(vw);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjkgp1Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_e45f6690d3 = new android.view.View.OnTouchListener() {
+    private final AdapterView.OnItemSelectedListener xlcd1ItemSelectedListener = new AdapterView.OnItemSelectedListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_e45f6690d3(vw, me);
+        public void onItemSelected(AdapterView vw, View view, int pn, long id) {
+            onXlcd1ItemSelected(vw, view, pn, id);
+        }
+
+        public void onNothingSelected(AdapterView vw) {
+            onXlcd1NothingSelected(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnTouchListener bjkurlTouchListener = new View.OnTouchListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjkurlTouch(vw, me);
+        }
+
+    };
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
+
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.l5_a1_fuwuq_d0313_y2022);
+        setContentView(R.layout.server_debug);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         show(0);
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
+        applyStandardScreenMode(R.id.server_debug_root, R.id.xdbj1, R.id.title_bar);
 
-        }
+        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.l5_a1_fuwuq_d0313_y2022_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.l5_a1_fuwuq_d0313_y2022_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
-
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(open.cn.awg.pro.R.id.xlcd1);
-
-        java.lang.String[] sz = new java.lang.String[]{"GET方式", "POST提交数据方式", "POST提交JSON数据方式"};
+        String[] sz = new String[]{"GET方式", "POST提交数据方式", "POST提交JSON数据方式"};
         xlcd1.csh(sz);
 
-        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(open.cn.awg.pro.R.id.xlcd2);
-        sz = new java.lang.String[]{"常规模式", "高级模式"};
+        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.xlcd2);
+        sz = new String[]{"常规模式", "高级模式"};
         xlcd2.csh(sz);
 
     }
 
     public void show(int i) {
 
-        i.runlibrary.app.v.xxbj x1 = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+        i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
 
-        i.runlibrary.app.v.xxbj x2 = st.xxbj(open.cn.awg.pro.R.id.xxbj6);
+        i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
 
         if (i == 0) {
 
@@ -280,92 +214,44 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    public void load(java.lang.Object url, java.lang.Object title) {
+    public void load(Object url, Object title) {
 
-        java.lang.String[] name = new java.lang.String[]{"url", "title", "code"};
+        String[] name = new String[]{"url", "title", "code"};
 
-        java.lang.Object[] value = new java.lang.Object[]{url, title, "super1"};
+        Object[] value = new Object[]{url, title, "super1"};
         gj.tz(TextViewerActivity.class, name, value);
 
     }
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -378,46 +264,30 @@ public class ServerDebugActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private boolean $_onTouch_e45f6690d3(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjkurlTouch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -429,15 +299,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private void $_onItemSelected_i004a739c93(android.widget.AdapterView vw, android.view.View view, int pn, long id) {
+    private void onXlcd1ItemSelected(AdapterView vw, View view, int pn, long id) {
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
 
-        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(open.cn.awg.pro.R.id.xxbj5);
+        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(R.id.xxbj5);
 
         if (pn == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -450,7 +320,7 @@ public class ServerDebugActivity extends iActivity {
 
         } else if (pn == 1) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -463,7 +333,7 @@ public class ServerDebugActivity extends iActivity {
 
         } else if (pn == 2) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -478,19 +348,19 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private void $_onNothingSelected_i004a739c93(android.widget.AdapterView vw) {
+    private void onXlcd1NothingSelected(AdapterView vw) {
 
     }
 
-    private boolean $_onTouch_i8d69eec323(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjkgp1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -502,15 +372,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i956d0f4bd8(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjkgp2Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -522,13 +392,13 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private void $_onItemSelected_fef1635c8d(android.widget.AdapterView vw, android.view.View view, int pn, long id) {
+    private void onXlcd2ItemSelected(AdapterView vw, View view, int pn, long id) {
 
-        final i.runlibrary.app.v.xxbj xxbj7 = st.xxbj(open.cn.awg.pro.R.id.xxbj7);
+        final i.runlibrary.app.v.xxbj xxbj7 = st.xxbj(R.id.xxbj7);
 
         if (pn == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -540,7 +410,7 @@ public class ServerDebugActivity extends iActivity {
 
         } else if (pn == 1) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -554,43 +424,43 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private void $_onNothingSelected_fef1635c8d(android.widget.AdapterView vw) {
+    private void onXlcd2NothingSelected(AdapterView vw) {
 
     }
 
-    private void $_onCheckedChanged_i3d918d2dcb(android.widget.CompoundButton vw, boolean ic) {
+    private void onDx1CheckedChanged(CompoundButton vw, boolean ic) {
 
-        final i.runlibrary.app.v.bjk bjks1 = st.bjk(open.cn.awg.pro.R.id.bjks1);
+        final i.runlibrary.app.v.bjk bjks1 = st.bjk(R.id.bjks1);
 
-        final i.runlibrary.app.v.bjk bjks2 = st.bjk(open.cn.awg.pro.R.id.bjks2);
+        final i.runlibrary.app.v.bjk bjks2 = st.bjk(R.id.bjks2);
 
-        final i.runlibrary.app.v.bjk bjks3 = st.bjk(open.cn.awg.pro.R.id.bjks3);
+        final i.runlibrary.app.v.bjk bjks3 = st.bjk(R.id.bjks3);
 
-        final i.runlibrary.app.v.bjk bjks4 = st.bjk(open.cn.awg.pro.R.id.bjks4);
+        final i.runlibrary.app.v.bjk bjks4 = st.bjk(R.id.bjks4);
 
-        final i.runlibrary.app.v.bjk bjks5 = st.bjk(open.cn.awg.pro.R.id.bjks5);
+        final i.runlibrary.app.v.bjk bjks5 = st.bjk(R.id.bjks5);
 
-        final i.runlibrary.app.v.bjk bjks6 = st.bjk(open.cn.awg.pro.R.id.bjks6);
+        final i.runlibrary.app.v.bjk bjks6 = st.bjk(R.id.bjks6);
 
-        final i.runlibrary.app.v.bjk bjks7 = st.bjk(open.cn.awg.pro.R.id.bjks7);
+        final i.runlibrary.app.v.bjk bjks7 = st.bjk(R.id.bjks7);
 
-        final java.lang.String va1 = "utf-8";
+        final String va1 = "utf-8";
 
-        final java.lang.String va2 = "name1=value1;name2=value2;";
+        final String va2 = "name1=value1;name2=value2;";
 
-        final java.lang.String va3 = "true";
+        final String va3 = "true";
 
-        final java.lang.String va4 = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN";
+        final String va4 = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN";
 
-        final java.lang.String va5 = "20000";
+        final String va5 = "20000";
 
-        final java.lang.String va6 = "20000";
+        final String va6 = "20000";
 
-        final java.lang.String va7 = "10.0.0.172:80";
+        final String va7 = "10.0.0.172:80";
 
         if (ic) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -608,7 +478,7 @@ public class ServerDebugActivity extends iActivity {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -628,15 +498,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i2ce2aa6972(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -648,15 +518,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_b7e129881e(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks2Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -668,15 +538,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_d9fcd0aec2(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks3Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -688,15 +558,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_fc0b80656a(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks4Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -708,15 +578,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i8dfdb24277(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks5Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -728,15 +598,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i3793cc74e0(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks6Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -748,15 +618,15 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i026fdb816d(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjks7Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -768,54 +638,54 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private void $_onClick_i171ea34f1a(android.view.View vw) {
+    private void onAn1Click(View vw) {
 
-        java.lang.String a = "";
+        String a = "";
 
-        java.lang.String[] b = new java.lang.String[]{""};
+        String[] b = new String[]{""};
 
-        java.lang.String c = "utf-8";
+        String c = "utf-8";
 
-        java.lang.String d = "";
+        String d = "";
 
         boolean e = true;
 
-        java.lang.String f = "";
+        String f = "";
 
         int g = -1;
 
         int h = -1;
 
-        java.lang.String i = "";
+        String i = "";
 
-        final i.runlibrary.app.v.xlcd xl1 = st.xlcd(open.cn.awg.pro.R.id.xlcd1);
+        final i.runlibrary.app.v.xlcd xl1 = st.xlcd(R.id.xlcd1);
 
-        final i.runlibrary.app.v.xlcd xl2 = st.xlcd(open.cn.awg.pro.R.id.xlcd2);
+        final i.runlibrary.app.v.xlcd xl2 = st.xlcd(R.id.xlcd2);
 
-        if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjkurl).zf(), "")) {
+        if (zf.dy(st.bjk(R.id.bjkurl).zf(), "")) {
 
             e1.tsk("提示", "参数:\"服务端链接\"不能为空");
 
         } else {
 
-            a = st.bjk(open.cn.awg.pro.R.id.bjkurl).zf();
+            a = st.bjk(R.id.bjkurl).zf();
             a = zf.qctwkg(a);
 
         }
 
         if (xl1.dqzsxmxh() == 0) {
 
-            b = new java.lang.String[]{""};
+            b = new String[]{""};
 
         } else if (xl1.dqzsxmxh() == 1) {
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjkgp1).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjkgp1).zf(), "")) {
 
                 e1.tsk("提示", "参数\"POST提交的数据\"不能为空");
 
             } else {
 
-                java.lang.String fb = st.bjk(open.cn.awg.pro.R.id.bjkgp1).zf();
+                String fb = st.bjk(R.id.bjkgp1).zf();
                 fb = zf.qctwkg(fb);
                 b = zf.fg(fb, "\n", true);
 
@@ -823,13 +693,13 @@ public class ServerDebugActivity extends iActivity {
 
         } else if (xl1.dqzsxmxh() == 2) {
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjkgp2).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjkgp2).zf(), "")) {
 
                 e1.tsk("提示", "参数\"POST提交的JSON数据\"不能为空");
 
             } else {
 
-                java.lang.String fb = st.bjk(open.cn.awg.pro.R.id.bjkgp2).zf();
+                String fb = st.bjk(R.id.bjkgp2).zf();
                 fb = zf.qctwkg(fb);
                 b = zf.fg(fb, "\n", true);
 
@@ -839,26 +709,26 @@ public class ServerDebugActivity extends iActivity {
 
         if (xl2.dqzsxmxh() == 1) {
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjks1).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjks1).zf(), "")) {
 
                 e1.tsk("提示", "参数\"编码\"不能为空");
 
             } else {
 
-                c = st.bjk(open.cn.awg.pro.R.id.bjks1).zf();
+                c = st.bjk(R.id.bjks1).zf();
                 c = zf.qctwkg(c);
 
             }
-            d = st.bjk(open.cn.awg.pro.R.id.bjks2).zf();
+            d = st.bjk(R.id.bjks2).zf();
             d = zf.qctwkg(d);
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjks3).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjks3).zf(), "")) {
 
                 e1.tsk("提示", "参数\"是否自动设置Cookie\"不能为空");
 
             } else {
 
-                java.lang.String fe = st.bjk(open.cn.awg.pro.R.id.bjks3).zf();
+                String fe = st.bjk(R.id.bjks3).zf();
                 fe = zf.qctwkg(fe);
 
                 if (zf.dy(fe, "true")) {
@@ -873,37 +743,37 @@ public class ServerDebugActivity extends iActivity {
 
             }
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjks4).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjks4).zf(), "")) {
 
                 e1.tsk("提示", "参数\"Header头\"不能为空");
 
             } else {
 
-                f = st.bjk(open.cn.awg.pro.R.id.bjks4).zf();
+                f = st.bjk(R.id.bjks4).zf();
                 f = zf.qctwkg(f);
 
             }
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjks5).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjks5).zf(), "")) {
 
                 e1.tsk("提示", "参数\"连接超时\"不能为空");
 
             } else {
 
-                g = Integer.parseInt(st.bjk(open.cn.awg.pro.R.id.bjks5).zf());
+                g = Integer.parseInt(st.bjk(R.id.bjks5).zf());
 
             }
 
-            if (zf.dy(st.bjk(open.cn.awg.pro.R.id.bjks6).zf(), "")) {
+            if (zf.dy(st.bjk(R.id.bjks6).zf(), "")) {
 
                 e1.tsk("提示", "参数\"接收超时\"不能为空");
 
             } else {
 
-                h = Integer.parseInt(st.bjk(open.cn.awg.pro.R.id.bjks6).zf());
+                h = Integer.parseInt(st.bjk(R.id.bjks6).zf());
 
             }
-            i = st.bjk(open.cn.awg.pro.R.id.bjks7).zf();
+            i = st.bjk(R.id.bjks7).zf();
             i = zf.qctwkg(i);
 
         } else {
@@ -921,29 +791,29 @@ public class ServerDebugActivity extends iActivity {
 
         } else {
 
-            final java.lang.String s_a = a;
+            final String s_a = a;
 
-            final java.lang.String[] s_b = b;
+            final String[] s_b = b;
 
-            final java.lang.String s_c = c;
+            final String s_c = c;
 
-            final java.lang.String s_d = d;
+            final String s_d = d;
 
             final boolean s_e = e;
 
-            final java.lang.String s_f = f;
+            final String s_f = f;
 
             final int s_g = g;
 
             final int s_h = h;
 
-            final java.lang.String s_i = i;
-            gj.xc(new java.lang.Thread() {
+            final String s_i = i;
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    java.lang.String back = "";
-                    gj.jmxc(new java.lang.Runnable() {
+                    String back = "";
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -961,10 +831,10 @@ public class ServerDebugActivity extends iActivity {
 
                                 back = wl.hq(s_a, null, s_c);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -982,10 +852,10 @@ public class ServerDebugActivity extends iActivity {
 
                                 back = wl.hq(s_a, null, s_c, s_d, s_e, s_f, s_g, s_h, null);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -1007,10 +877,10 @@ public class ServerDebugActivity extends iActivity {
 
                                 back = wl.hq(s_a, s_b, s_c);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -1028,10 +898,10 @@ public class ServerDebugActivity extends iActivity {
 
                                 back = wl.hq(s_a, s_b, s_c, s_d, s_e, s_f, s_g, s_h, null);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -1053,10 +923,10 @@ public class ServerDebugActivity extends iActivity {
 
                                 back = wl.hqjson(s_a, s_b, s_c);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -1074,10 +944,10 @@ public class ServerDebugActivity extends iActivity {
 
                                 back = wl.hqjson(s_a, s_b, s_c, s_d, s_e, s_f, s_g, s_h, null);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -1093,11 +963,11 @@ public class ServerDebugActivity extends iActivity {
 
                     }
 
-                    final java.lang.String wblj = "/data/user/0/open.cn.awg.pro/cache/webbacktext";
+                    final String wblj = AppPaths.appPath("cache/webbacktext");
 
-                    final java.lang.String nr = back;
+                    final String nr = back;
                     gj.sc(nr);
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -1105,7 +975,7 @@ public class ServerDebugActivity extends iActivity {
 
                                 wj.xrwb(wblj, nr);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
 
@@ -1125,7 +995,7 @@ public class ServerDebugActivity extends iActivity {
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         gj.gb();
 
     }
@@ -1134,55 +1004,55 @@ public class ServerDebugActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.EditText e45f6690d3 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjkurl);
-        e45f6690d3.setOnTouchListener($_on_setOnTouchListener_e45f6690d3);
+        EditText e45f6690d3 = (EditText) findViewById(ay, vw, R.id.bjkurl);
+        e45f6690d3.setOnTouchListener(bjkurlTouchListener);
 
-        android.widget.Spinner i004a739c93 = (android.widget.Spinner) findViewById(ay, vw, open.cn.awg.pro.R.id.xlcd1);
-        i004a739c93.setOnItemSelectedListener($_on_setOnItemSelectedListener_i004a739c93);
+        Spinner i004a739c93 = (Spinner) findViewById(ay, vw, R.id.xlcd1);
+        i004a739c93.setOnItemSelectedListener(xlcd1ItemSelectedListener);
 
-        android.widget.EditText i8d69eec323 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjkgp1);
-        i8d69eec323.setOnTouchListener($_on_setOnTouchListener_i8d69eec323);
+        EditText i8d69eec323 = (EditText) findViewById(ay, vw, R.id.bjkgp1);
+        i8d69eec323.setOnTouchListener(bjkgp1TouchListener);
 
-        android.widget.EditText i956d0f4bd8 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjkgp2);
-        i956d0f4bd8.setOnTouchListener($_on_setOnTouchListener_i956d0f4bd8);
+        EditText i956d0f4bd8 = (EditText) findViewById(ay, vw, R.id.bjkgp2);
+        i956d0f4bd8.setOnTouchListener(bjkgp2TouchListener);
 
-        android.widget.Spinner fef1635c8d = (android.widget.Spinner) findViewById(ay, vw, open.cn.awg.pro.R.id.xlcd2);
-        fef1635c8d.setOnItemSelectedListener($_on_setOnItemSelectedListener_fef1635c8d);
+        Spinner fef1635c8d = (Spinner) findViewById(ay, vw, R.id.xlcd2);
+        fef1635c8d.setOnItemSelectedListener(xlcd2ItemSelectedListener);
 
-        android.widget.CheckBox i3d918d2dcb = (android.widget.CheckBox) findViewById(ay, vw, open.cn.awg.pro.R.id.dx1);
-        i3d918d2dcb.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i3d918d2dcb);
+        CheckBox i3d918d2dcb = (CheckBox) findViewById(ay, vw, R.id.dx1);
+        i3d918d2dcb.setOnCheckedChangeListener(dx1CheckedChangeListener);
 
-        android.widget.EditText i2ce2aa6972 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks1);
-        i2ce2aa6972.setOnTouchListener($_on_setOnTouchListener_i2ce2aa6972);
+        EditText i2ce2aa6972 = (EditText) findViewById(ay, vw, R.id.bjks1);
+        i2ce2aa6972.setOnTouchListener(bjks1TouchListener);
 
-        android.widget.EditText b7e129881e = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks2);
-        b7e129881e.setOnTouchListener($_on_setOnTouchListener_b7e129881e);
+        EditText b7e129881e = (EditText) findViewById(ay, vw, R.id.bjks2);
+        b7e129881e.setOnTouchListener(bjks2TouchListener);
 
-        android.widget.EditText d9fcd0aec2 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks3);
-        d9fcd0aec2.setOnTouchListener($_on_setOnTouchListener_d9fcd0aec2);
+        EditText d9fcd0aec2 = (EditText) findViewById(ay, vw, R.id.bjks3);
+        d9fcd0aec2.setOnTouchListener(bjks3TouchListener);
 
-        android.widget.EditText fc0b80656a = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks4);
-        fc0b80656a.setOnTouchListener($_on_setOnTouchListener_fc0b80656a);
+        EditText fc0b80656a = (EditText) findViewById(ay, vw, R.id.bjks4);
+        fc0b80656a.setOnTouchListener(bjks4TouchListener);
 
-        android.widget.EditText i8dfdb24277 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks5);
-        i8dfdb24277.setOnTouchListener($_on_setOnTouchListener_i8dfdb24277);
+        EditText i8dfdb24277 = (EditText) findViewById(ay, vw, R.id.bjks5);
+        i8dfdb24277.setOnTouchListener(bjks5TouchListener);
 
-        android.widget.EditText i3793cc74e0 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks6);
-        i3793cc74e0.setOnTouchListener($_on_setOnTouchListener_i3793cc74e0);
+        EditText i3793cc74e0 = (EditText) findViewById(ay, vw, R.id.bjks6);
+        i3793cc74e0.setOnTouchListener(bjks6TouchListener);
 
-        android.widget.EditText i026fdb816d = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjks7);
-        i026fdb816d.setOnTouchListener($_on_setOnTouchListener_i026fdb816d);
+        EditText i026fdb816d = (EditText) findViewById(ay, vw, R.id.bjks7);
+        i026fdb816d.setOnTouchListener(bjks7TouchListener);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
-        i171ea34f1a.setOnClickListener($_on_setOnClickListener_i171ea34f1a);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

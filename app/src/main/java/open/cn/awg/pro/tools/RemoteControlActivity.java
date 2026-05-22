@@ -16,283 +16,215 @@
  */
 package open.cn.awg.pro.tools;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
+import android.os.Bundle;
 import android.provider.Settings;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
+import java.io.File;
+
 import open.cn.awg.pro.account.TypheyeAccountActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.core.DevicePolicyBridge;
 import open.cn.awg.pro.music.TuneFreeMusicBridge;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.service.SystemAccessibilityService;
 
-
-public class RemoteControlActivity extends iActivity {
+public class RemoteControlActivity extends BaseAwgActivity {
 
     public final RemoteControlActivity lei = this, 类 = this;
-    public java.lang.String um = "";
-    public java.io.File f;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public open.cn.awg.pro.music.TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
-    public open.cn.awg.pro.core.DevicePolicyBridge carton = new DevicePolicyBridge(_APPINFO);
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    public String um = "";
+    public File f;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
+    public DevicePolicyBridge carton = new DevicePolicyBridge(_APPINFO);
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i5a93676674 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj9LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i5a93676674(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj9LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i5a93676674 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj9ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i5a93676674(vw);
+        public void onClick(View vw) {
+            onXdbj9Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_e585d94488 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj7LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_e585d94488(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj7LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_e585d94488 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj7ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_e585d94488(vw);
+        public void onClick(View vw) {
+            onXdbj7Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_fab146d7a5 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj8LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_fab146d7a5(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj8LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_fab146d7a5 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj8ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_fab146d7a5(vw);
+        public void onClick(View vw) {
+            onXdbj8Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i5b34eede7f = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj10LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i5b34eede7f(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj10LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i5b34eede7f = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj10ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i5b34eede7f(vw);
+        public void onClick(View vw) {
+            onXdbj10Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i171cedf1eb = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj6LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i171cedf1eb(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj6LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171cedf1eb = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj6ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171cedf1eb(vw);
+        public void onClick(View vw) {
+            onXdbj6Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i20c2777fab = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i20c2777fab(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj3LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i20c2777fab = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i20c2777fab(vw);
+        public void onClick(View vw) {
+            onXdbj3Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i3167b45174 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i3167b45174(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj2LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i3167b45174 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i3167b45174(vw);
+        public void onClick(View vw) {
+            onXdbj2Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_c0d3e00d2b = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj5LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_c0d3e00d2b(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj5LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_c0d3e00d2b = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_c0d3e00d2b(vw);
+        public void onClick(View vw) {
+            onXdbj5Click(vw);
         }
 
     };
-    private final android.widget.CompoundButton.OnCheckedChangeListener $_on_setOnCheckedChangeListener_i1bca89f073 = new android.widget.CompoundButton.OnCheckedChangeListener() {
+    private final CompoundButton.OnCheckedChangeListener kg1CheckedChangeListener = new CompoundButton.OnCheckedChangeListener() {
 
-        public void onCheckedChanged(android.widget.CompoundButton vw, boolean ic) {
-            $_onCheckedChanged_i1bca89f073(vw, ic);
+        public void onCheckedChanged(CompoundButton vw, boolean ic) {
+            onKg1CheckedChanged(vw, ic);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i2202ede8ff = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i2202ede8ff(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj4LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i2202ede8ff = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i2202ede8ff(vw);
+        public void onClick(View vw) {
+            onXdbj4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.l5_a7_yuanc_d0625_y2024);
+        setContentView(R.layout.remote_control);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         csh();
         show(0);
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
-
-        }
-
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.l5_a7_yuanc_d0625_y2024_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.l5_a7_yuanc_d0625_y2024_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
+        applyStandardScreenMode(R.id.remote_control_root, R.id.xdbj1, R.id.title_bar);
 
     }
 
@@ -318,17 +250,17 @@ public class RemoteControlActivity extends iActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(open.cn.awg.pro.R.id.Tab);
+        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(open.cn.awg.pro.R.id.xxbj6);
+        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj2);
 
         if (i == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -343,7 +275,7 @@ public class RemoteControlActivity extends iActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -358,7 +290,7 @@ public class RemoteControlActivity extends iActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -377,15 +309,15 @@ public class RemoteControlActivity extends iActivity {
 
     public void csh() {
 
-        java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable";
+        String set1 = AppPaths.appPath("settings/other/0xK9HJ4/Enable");
 
-        java.lang.String user = "/data/user/0/open.cn.awg.pro/settings/account/user";
+        String user = AppPaths.appPath("settings/account/user");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(open.cn.awg.pro.R.id.kg1);
+        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
 
-        i.runlibrary.app.v.wb wb4 = st.wb(open.cn.awg.pro.R.id.wb4);
+        i.runlibrary.app.v.wb wb4 = st.wb(R.id.wb4);
 
-        i.runlibrary.app.v.wb wb9 = st.wb(open.cn.awg.pro.R.id.wb9);
+        i.runlibrary.app.v.wb wb9 = st.wb(R.id.wb9);
 
         if (e1.islogin()) {
 
@@ -407,9 +339,9 @@ public class RemoteControlActivity extends iActivity {
 
         try {
 
-            aa = open.cn.awg.pro.service.SystemAccessibilityService.isAccessibilitySettingsOn(lei, open.cn.awg.pro.service.SystemAccessibilityService.class.getName());
+            aa = SystemAccessibilityService.isAccessibilitySettingsOn(lei, SystemAccessibilityService.class.getName());
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             aa = false;
 
@@ -431,7 +363,7 @@ public class RemoteControlActivity extends iActivity {
     public void jzpd() {
         show(1);
 
-        i.runlibrary.app.v.wb wb11 = st.wb(open.cn.awg.pro.R.id.wb11);
+        i.runlibrary.app.v.wb wb11 = st.wb(R.id.wb11);
 
         if (carton.state(lei)) {
 
@@ -447,15 +379,15 @@ public class RemoteControlActivity extends iActivity {
 
         try {
 
-            aa = open.cn.awg.pro.service.SystemAccessibilityService.isAccessibilitySettingsOn(lei, open.cn.awg.pro.service.SystemAccessibilityService.class.getName());
+            aa = SystemAccessibilityService.isAccessibilitySettingsOn(lei, SystemAccessibilityService.class.getName());
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             aa = false;
 
         }
 
-        i.runlibrary.app.v.wb wb21 = st.wb(open.cn.awg.pro.R.id.wb21);
+        i.runlibrary.app.v.wb wb21 = st.wb(R.id.wb21);
 
         if (aa) {
 
@@ -471,29 +403,13 @@ public class RemoteControlActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 远程锁屏")) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 远程锁屏")) {
 
             csh();
 
-        } else if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 扩展权限")) {
+        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 扩展权限")) {
 
             jzpd();
 
@@ -503,59 +419,27 @@ public class RemoteControlActivity extends iActivity {
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -568,35 +452,19 @@ public class RemoteControlActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 腕管远控")) {
+            if (zf.dy(st.wb(R.id.title_bar).zf(), "< 腕管远控")) {
 
                 gj.gb();
 
-            } else if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 扩展权限")) {
+            } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 扩展权限")) {
 
                 show(0);
                 csh();
@@ -610,17 +478,17 @@ public class RemoteControlActivity extends iActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 腕管远控")) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 腕管远控")) {
 
             gj.gb();
 
-        } else if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 扩展权限")) {
+        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 扩展权限")) {
 
             show(0);
             csh();
@@ -629,9 +497,9 @@ public class RemoteControlActivity extends iActivity {
 
     }
 
-    private void $_onClick_i2202ede8ff(android.view.View vw) {
+    private void onXdbj4Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(open.cn.awg.pro.R.id.kg1);
+        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
 
         if (!kg.xzzt()) {
 
@@ -645,19 +513,19 @@ public class RemoteControlActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i2202ede8ff(android.view.View vw) {
+    private boolean onXdbj4LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb2).zf();
+        String te = st.wb(R.id.wb2).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb7).zf();
+        String lj = st.wb(R.id.wb7).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onCheckedChanged_i1bca89f073(android.widget.CompoundButton vw, boolean ic) {
+    private void onKg1CheckedChanged(CompoundButton vw, boolean ic) {
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/other/0xK9HJ4/Enable";
+        String set = AppPaths.appPath("settings/other/0xK9HJ4/Enable");
 
         if (ic) {
 
@@ -667,9 +535,9 @@ public class RemoteControlActivity extends iActivity {
 
                 try {
 
-                    aa = open.cn.awg.pro.service.SystemAccessibilityService.isAccessibilitySettingsOn(lei, open.cn.awg.pro.service.SystemAccessibilityService.class.getName());
+                    aa = SystemAccessibilityService.isAccessibilitySettingsOn(lei, SystemAccessibilityService.class.getName());
 
-                } catch (java.lang.Throwable e) {
+                } catch (Throwable e) {
 
                     aa = false;
 
@@ -683,7 +551,7 @@ public class RemoteControlActivity extends iActivity {
 
                     e1.tsk("提示", "存在必要权限未授权");
 
-                    i.runlibrary.app.v.kg kg1 = st.kg(open.cn.awg.pro.R.id.kg1);
+                    i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
                     kg1.xzzt(false);
 
                 }
@@ -691,11 +559,11 @@ public class RemoteControlActivity extends iActivity {
             } else {
 
                 wj.xrwb(set, "false");
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        i.runlibrary.app.v.kg kg = st.kg(open.cn.awg.pro.R.id.kg1);
+                        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
                         kg.xzzt(false);
                         gj.tz(TypheyeAccountActivity.class);
                         e1.tsk("提示", "该操作需要登录Typheye账户");
@@ -714,80 +582,80 @@ public class RemoteControlActivity extends iActivity {
 
     }
 
-    private void $_onClick_c0d3e00d2b(android.view.View vw) {
-        e1.tsk("扩展身份", st.wb(open.cn.awg.pro.R.id.wb9).zf());
+    private void onXdbj5Click(View vw) {
+        e1.tsk("扩展身份", st.wb(R.id.wb9).zf());
 
     }
 
-    private boolean $_onLongClick_c0d3e00d2b(android.view.View vw) {
+    private boolean onXdbj5LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb8).zf();
+        String te = st.wb(R.id.wb8).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb9).zf();
+        String lj = st.wb(R.id.wb9).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i3167b45174(android.view.View vw) {
+    private void onXdbj2Click(View vw) {
         jzpd();
 
     }
 
-    private boolean $_onLongClick_i3167b45174(android.view.View vw) {
+    private boolean onXdbj2LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb3).zf();
+        String te = st.wb(R.id.wb3).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb4).zf();
+        String lj = st.wb(R.id.wb4).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i20c2777fab(android.view.View vw) {
+    private void onXdbj3Click(View vw) {
         e1.tsk("功能帮助", "此服务由官方提供");
 
     }
 
-    private boolean $_onLongClick_i20c2777fab(android.view.View vw) {
+    private boolean onXdbj3LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb5).zf();
+        String te = st.wb(R.id.wb5).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb6).zf();
+        String lj = st.wb(R.id.wb6).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i171cedf1eb(android.view.View vw) {
+    private void onXdbj6Click(View vw) {
         carton.gets(lei);
 
     }
 
-    private boolean $_onLongClick_i171cedf1eb(android.view.View vw) {
+    private boolean onXdbj6LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb10).zf();
+        String te = st.wb(R.id.wb10).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb11).zf();
+        String lj = st.wb(R.id.wb11).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i5b34eede7f(android.view.View vw) {
+    private void onXdbj10Click(View vw) {
 
         boolean aa;
 
         try {
 
-            aa = open.cn.awg.pro.service.SystemAccessibilityService.isAccessibilitySettingsOn(lei, open.cn.awg.pro.service.SystemAccessibilityService.class.getName());
+            aa = SystemAccessibilityService.isAccessibilitySettingsOn(lei, SystemAccessibilityService.class.getName());
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             aa = false;
 
@@ -800,7 +668,7 @@ public class RemoteControlActivity extends iActivity {
                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                 lei.startActivity(intent);
 
-            } catch (java.lang.Throwable e) {
+            } catch (Throwable e) {
 
                 gj.gb();
                 e1.upload_error(e, "j3.run()");
@@ -813,62 +681,62 @@ public class RemoteControlActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i5b34eede7f(android.view.View vw) {
+    private boolean onXdbj10LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb20).zf();
+        String te = st.wb(R.id.wb20).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb21).zf();
+        String lj = st.wb(R.id.wb21).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_fab146d7a5(android.view.View vw) {
+    private void onXdbj8Click(View vw) {
         simpleSetting(lei);
 
     }
 
-    private boolean $_onLongClick_fab146d7a5(android.view.View vw) {
+    private boolean onXdbj8LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb16).zf();
+        String te = st.wb(R.id.wb16).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb17).zf();
+        String lj = st.wb(R.id.wb17).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_e585d94488(android.view.View vw) {
+    private void onXdbj7Click(View vw) {
         simpleSetting(lei);
 
     }
 
-    private boolean $_onLongClick_e585d94488(android.view.View vw) {
+    private boolean onXdbj7LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb12).zf();
+        String te = st.wb(R.id.wb12).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb13).zf();
+        String lj = st.wb(R.id.wb13).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i5a93676674(android.view.View vw) {
+    private void onXdbj9Click(View vw) {
         simpleSetting(lei);
 
     }
 
-    private boolean $_onLongClick_i5a93676674(android.view.View vw) {
+    private boolean onXdbj9LongClick(View vw) {
 
-        java.lang.String te = st.wb(open.cn.awg.pro.R.id.wb18).zf();
+        String te = st.wb(R.id.wb18).zf();
 
-        java.lang.String lj = st.wb(open.cn.awg.pro.R.id.wb19).zf();
+        String lj = st.wb(R.id.wb19).zf();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         show(0);
 
     }
@@ -877,55 +745,55 @@ public class RemoteControlActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.RelativeLayout i2202ede8ff = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj4);
-        i2202ede8ff.setOnClickListener($_on_setOnClickListener_i2202ede8ff);
-        i2202ede8ff.setOnLongClickListener($_on_setOnLongClickListener_i2202ede8ff);
+        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        i2202ede8ff.setOnClickListener(xdbj4ClickListener);
+        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        androidx.appcompat.widget.SwitchCompat i1bca89f073 = (androidx.appcompat.widget.SwitchCompat) findViewById(ay, vw, open.cn.awg.pro.R.id.kg1);
-        i1bca89f073.setOnCheckedChangeListener($_on_setOnCheckedChangeListener_i1bca89f073);
+        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        android.widget.RelativeLayout c0d3e00d2b = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj5);
-        c0d3e00d2b.setOnClickListener($_on_setOnClickListener_c0d3e00d2b);
-        c0d3e00d2b.setOnLongClickListener($_on_setOnLongClickListener_c0d3e00d2b);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
+        c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        android.widget.RelativeLayout i3167b45174 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj2);
-        i3167b45174.setOnClickListener($_on_setOnClickListener_i3167b45174);
-        i3167b45174.setOnLongClickListener($_on_setOnLongClickListener_i3167b45174);
+        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        i3167b45174.setOnClickListener(xdbj2ClickListener);
+        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        android.widget.RelativeLayout i20c2777fab = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj3);
-        i20c2777fab.setOnClickListener($_on_setOnClickListener_i20c2777fab);
-        i20c2777fab.setOnLongClickListener($_on_setOnLongClickListener_i20c2777fab);
+        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        i20c2777fab.setOnClickListener(xdbj3ClickListener);
+        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        android.widget.RelativeLayout i171cedf1eb = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj6);
-        i171cedf1eb.setOnClickListener($_on_setOnClickListener_i171cedf1eb);
-        i171cedf1eb.setOnLongClickListener($_on_setOnLongClickListener_i171cedf1eb);
+        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        i171cedf1eb.setOnClickListener(xdbj6ClickListener);
+        i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        android.widget.RelativeLayout i5b34eede7f = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj10);
-        i5b34eede7f.setOnClickListener($_on_setOnClickListener_i5b34eede7f);
-        i5b34eede7f.setOnLongClickListener($_on_setOnLongClickListener_i5b34eede7f);
+        RelativeLayout i5b34eede7f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj10);
+        i5b34eede7f.setOnClickListener(xdbj10ClickListener);
+        i5b34eede7f.setOnLongClickListener(xdbj10LongClickListener);
 
-        android.widget.RelativeLayout fab146d7a5 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj8);
-        fab146d7a5.setOnClickListener($_on_setOnClickListener_fab146d7a5);
-        fab146d7a5.setOnLongClickListener($_on_setOnLongClickListener_fab146d7a5);
+        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        fab146d7a5.setOnClickListener(xdbj8ClickListener);
+        fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        android.widget.RelativeLayout e585d94488 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj7);
-        e585d94488.setOnClickListener($_on_setOnClickListener_e585d94488);
-        e585d94488.setOnLongClickListener($_on_setOnLongClickListener_e585d94488);
+        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        e585d94488.setOnClickListener(xdbj7ClickListener);
+        e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        android.widget.RelativeLayout i5a93676674 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj9);
-        i5a93676674.setOnClickListener($_on_setOnClickListener_i5a93676674);
-        i5a93676674.setOnLongClickListener($_on_setOnLongClickListener_i5a93676674);
+        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        i5a93676674.setOnClickListener(xdbj9ClickListener);
+        i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

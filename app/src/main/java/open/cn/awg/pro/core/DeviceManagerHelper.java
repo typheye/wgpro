@@ -20,9 +20,9 @@ import android.app.admin.DevicePolicyManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.receiver.DeviceReceiver;
-
 
 public class DeviceManagerHelper {
 

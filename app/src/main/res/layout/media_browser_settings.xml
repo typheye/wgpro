@@ -1,0 +1,66 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/media_browser_settings_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <TextView android:id="@+id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&lt; 媒体浏览" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true">
+    </TextView>
+    <android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="match_parent" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/title_bar" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true">
+        <RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                <LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp">
+                    <RelativeLayout android:id="@+id/xdbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+                        <ImageView android:id="@+id/tx2" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a57" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+                        </ImageView>
+                        <LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx2" android:layout_marginLeft="5dp" android:layout_marginRight="55dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="长按呼出功能" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb18" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="长按底部呼出更多功能" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                        <android.support.v7.widget.SwitchCompat android:id="@+id/kg2" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                        </android.support.v7.widget.SwitchCompat>
+                    </RelativeLayout>
+                    <RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+                        <ImageView android:id="@+id/tx3" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+                        </ImageView>
+                        <LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx3" android:layout_marginLeft="5dp" android:layout_marginRight="55dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="持续播放" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="在后台或锁屏时持续播放" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                        <android.support.v7.widget.SwitchCompat android:id="@+id/kg1" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                        </android.support.v7.widget.SwitchCompat>
+                    </RelativeLayout>
+                    <RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+                        <ImageView android:id="@+id/tx4" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+                        </ImageView>
+                        <LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx4" android:layout_marginLeft="5dp" android:layout_marginRight="55dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="屏蔽按键" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="屏蔽Android系统返回键" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                        <android.support.v7.widget.SwitchCompat android:id="@+id/kg4" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                        </android.support.v7.widget.SwitchCompat>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:background="@drawable/setbjx_group" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="10dp" android:layout_marginBottom="0dp">
+                    <RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
+                        <ImageView android:id="@+id/tx5" android:layout_width="34dp" android:layout_height="34dp" android:src="#00000000" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
+                        </ImageView>
+                        <LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_toRightOf="@id/tx5" android:layout_marginLeft="5dp" android:layout_marginRight="55dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="兼容模式" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="对不同的播放源兼容" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                        <android.support.v7.widget.SwitchCompat android:id="@+id/kg3" android:layout_width="50dp" android:layout_height="wrap_content" android:layout_margin="5dp" android:layout_alignParentRight="true" android:layout_centerVertical="true">
+                        </android.support.v7.widget.SwitchCompat>
+                    </RelativeLayout>
+                </LinearLayout>
+                <android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="10dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

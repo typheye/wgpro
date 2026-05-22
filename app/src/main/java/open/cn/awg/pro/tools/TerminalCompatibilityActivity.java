@@ -16,96 +16,107 @@
  */
 package open.cn.awg.pro.tools;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 
-
-public class TerminalCompatibilityActivity extends iActivity {
+public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
     public final TerminalCompatibilityActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public java.lang.String p = "";
-    public java.lang.String q = "";
-    public java.lang.String x = "";
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String p = "";
+    public String q = "";
+    public String x = "";
+    private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
+        public void onClick(View vw) {
+            onTx3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i74ce6319f3 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i74ce6319f3(vw);
+        public void onClick(View vw) {
+            onAn4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8f51a35692 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8f51a35692(vw);
+        public void onClick(View vw) {
+            onAn3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i0afd0fa55f = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an2sClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i0afd0fa55f(vw);
+        public void onClick(View vw) {
+            onAn2sClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i0b66a667b1 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i0b66a667b1(vw);
+        public void onClick(View vw) {
+            onAn2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171ea34f1a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171ea34f1a(vw);
+        public void onClick(View vw) {
+            onAn1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.j7);
+        setContentView(R.layout.terminal_compatibility);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        java.lang.String a1 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        String a1 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+        String a001 = AppPaths.appPath("settings/dpi.inf");
         p = wj.dqwb(a1);
 
         if (wj.cz(a001) && zf.dy(wj.dqwb(a001), "true")) {
@@ -116,113 +127,31 @@ public class TerminalCompatibilityActivity extends iActivity {
 
         if (zf.dy(p, "1")) {
 
-            st.an(open.cn.awg.pro.R.id.an1).kjd(8);
+            st.an(R.id.an1).kjd(8);
 
         } else if (zf.dy(p, "2") && zf.dy(q, "")) {
 
-            st.an(open.cn.awg.pro.R.id.an2).kjd(8);
+            st.an(R.id.an2).kjd(8);
 
         } else if (zf.dy(p, "2") && zf.dy(q, "true")) {
 
-            st.an(open.cn.awg.pro.R.id.an2s).kjd(8);
+            st.an(R.id.an2s).kjd(8);
 
         } else if (zf.dy(p, "3")) {
 
-            st.an(open.cn.awg.pro.R.id.an3).kjd(8);
+            st.an(R.id.an3).kjd(8);
 
         } else if (zf.dy(p, "4")) {
 
-            st.an(open.cn.awg.pro.R.id.an4).kjd(8);
+            st.an(R.id.an4).kjd(8);
 
         }
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
-
-        }
-
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.j7_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.j7_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
+        applyStandardScreenMode(R.id.terminal_compatibility_root, R.id.xdbj1, R.id.title_bar);
 
     }
 
@@ -230,14 +159,14 @@ public class TerminalCompatibilityActivity extends iActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
 
-        final i.runlibrary.app.v.xxbj xxbj2 = st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+        final i.runlibrary.app.v.xxbj xxbj2 = st.xxbj(R.id.xxbj2);
 
-        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(open.cn.awg.pro.R.id.xxbj5);
+        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(R.id.xxbj5);
 
-        final i.runlibrary.app.v.wb tab = st.wb(open.cn.awg.pro.R.id.Tab);
-        gj.jmxc(new java.lang.Runnable() {
+        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -272,81 +201,33 @@ public class TerminalCompatibilityActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -359,37 +240,21 @@ public class TerminalCompatibilityActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 适配终端")) {
+            if (zf.dy(st.wb(R.id.title_bar).zf(), "< 适配终端")) {
 
                 gj.gb();
 
@@ -400,9 +265,9 @@ public class TerminalCompatibilityActivity extends iActivity {
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 适配终端")) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 适配终端")) {
 
             gj.gb();
 
@@ -410,57 +275,57 @@ public class TerminalCompatibilityActivity extends iActivity {
 
     }
 
-    private void $_onClick_i171ea34f1a(android.view.View vw) {
+    private void onAn1Click(View vw) {
         p = "1";
         show(1);
 
     }
 
-    private void $_onClick_i0b66a667b1(android.view.View vw) {
+    private void onAn2Click(View vw) {
         p = "2";
         show(1);
 
     }
 
-    private void $_onClick_i0afd0fa55f(android.view.View vw) {
+    private void onAn2sClick(View vw) {
         p = "2";
         q = "true";
         show(1);
 
     }
 
-    private void $_onClick_i8f51a35692(android.view.View vw) {
+    private void onAn3Click(View vw) {
         p = "3";
         show(1);
 
     }
 
-    private void $_onClick_i74ce6319f3(android.view.View vw) {
+    private void onAn4Click(View vw) {
         p = "4";
         show(1);
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         show(0);
 
     }
 
-    private void $_onClick_i8217d42a17(android.view.View vw) {
-        gj.xc(new java.lang.Thread() {
+    private void onTx3Click(View vw) {
+        gj.xc(new Thread() {
 
             public void run() {
 
                 show(2);
 
-                java.lang.String a1 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+                String a1 = AppPaths.appPath("settings/a3.inf");
 
-                java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+                String a001 = AppPaths.appPath("settings/dpi.inf");
 
                 if (zf.dy(p, "1")) {
 
@@ -489,14 +354,14 @@ public class TerminalCompatibilityActivity extends iActivity {
 
                 }
                 gj.zt(2000);
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
-                        intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         lei.startActivity(intent);
-                        open.cn.awg.pro.app.AwgProApplication.getInstance().exit();
+                        AwgProApplication.getInstance().exit();
 
                     }
 
@@ -512,34 +377,34 @@ public class TerminalCompatibilityActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
-        i171ea34f1a.setOnClickListener($_on_setOnClickListener_i171ea34f1a);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        android.widget.Button i0b66a667b1 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an2);
-        i0b66a667b1.setOnClickListener($_on_setOnClickListener_i0b66a667b1);
+        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        android.widget.Button i0afd0fa55f = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an2s);
-        i0afd0fa55f.setOnClickListener($_on_setOnClickListener_i0afd0fa55f);
+        Button i0afd0fa55f = (Button) findViewById(ay, vw, R.id.an2s);
+        i0afd0fa55f.setOnClickListener(an2sClickListener);
 
-        android.widget.Button i8f51a35692 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an3);
-        i8f51a35692.setOnClickListener($_on_setOnClickListener_i8f51a35692);
+        Button i8f51a35692 = (Button) findViewById(ay, vw, R.id.an3);
+        i8f51a35692.setOnClickListener(an3ClickListener);
 
-        android.widget.Button i74ce6319f3 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an4);
-        i74ce6319f3.setOnClickListener($_on_setOnClickListener_i74ce6319f3);
+        Button i74ce6319f3 = (Button) findViewById(ay, vw, R.id.an4);
+        i74ce6319f3.setOnClickListener(an4ClickListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
-        i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        i8217d42a17.setOnClickListener(tx3ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

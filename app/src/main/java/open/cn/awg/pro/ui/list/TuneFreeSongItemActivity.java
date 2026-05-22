@@ -16,57 +16,61 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.music.TuneFreeMusicBridge;
+import open.cn.awg.pro.R;
 
-
-public class TuneFreeSongItemActivity extends iActivity {
+public class TuneFreeSongItemActivity extends BaseAwgActivity {
 
     public final TuneFreeSongItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_aaeebbd136 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_aaeebbd136(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_aaeebbd136 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_aaeebbd136(vw);
+        public void onClick(View vw) {
+            onXdbj1Click(vw);
         }
 
     };
 
-    private void $_onClick_aaeebbd136(android.view.View vw) {
+    private void onXdbj1Click(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        open.cn.awg.pro.music.TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
+        TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a1 = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object a1 = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object a2 = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+        Object a2 = lb.lbcfsj(R.id.wb3);
 
-        java.lang.Object a3 = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object a3 = lb.lbcfsj(R.id.wb2);
         e12.loadMusic(a3, a1 + "-" + a2);
 
     }
 
-    private boolean $_onLongClick_aaeebbd136(android.view.View vw) {
+    private boolean onXdbj1LongClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a1 = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object a1 = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object a2 = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+        Object a2 = lb.lbcfsj(R.id.wb3);
 
-        java.lang.Object a3 = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object a3 = lb.lbcfsj(R.id.wb2);
         e1.tsk("详细信息", "[歌名]\n" + a1 + "\n\n[歌手]\n" + a2 + "\n\n[歌曲ID]\n" + a3);
         return true;
 
@@ -76,13 +80,13 @@ public class TuneFreeSongItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
-        aaeebbd136.setOnClickListener($_on_setOnClickListener_aaeebbd136);
-        aaeebbd136.setOnLongClickListener($_on_setOnLongClickListener_aaeebbd136);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        aaeebbd136.setOnClickListener(xdbj1ClickListener);
+        aaeebbd136.setOnLongClickListener(xdbj1LongClickListener);
 
-        android.widget.RelativeLayout i4fe9eaa1ba = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c15_v);
+        RelativeLayout i4fe9eaa1ba = (RelativeLayout) findViewById(ay, vw, R.id.tune_free_song_item_root);
 
         __layoutIsLoaded(ay, vw);
     }

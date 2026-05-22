@@ -1,0 +1,108 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/tune_free_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="true">
+    <TextView android:id="@+id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&lt; TuneFree" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true">
+    </TextView>
+    <android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:layout_below="@id/title_bar" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true">
+        <RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="visible">
+                <TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="登录" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true">
+                </TextView>
+                <RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp" android:visibility="gone">
+                    <LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
+                        <TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出登录" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
+                        </TextView>
+                        <TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出当前登录状态" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+                        </TextView>
+                    </LinearLayout>
+                </RelativeLayout>
+                <LinearLayout android:id="@+id/xxbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <RelativeLayout android:id="@+id/xdbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp">
+                        <LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
+                            <TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TuneFree登录" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="使用TF授权码登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp" android:visibility="gone">
+                        <LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
+                            <TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="网易云登录" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="使用网易云音乐登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone" android:gravity="center">
+                    <TextView android:id="@+id/wb15" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="功能" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true">
+                    </TextView>
+                    <RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp">
+                        <LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
+                            <TextView android:id="@+id/wb3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="搜索歌曲" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
+                            </TextView>
+                            <TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="全网搜索歌曲歌手" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+                            </TextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+                <TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更多" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold" android:singleLine="true">
+                </TextView>
+                <RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="0dp" android:layout_marginBottom="0dp" android:padding="5dp">
+                    <LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_margin="5dp" android:layout_centerVertical="true">
+                        <TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="获取帮助" android:textColor="@color/colorTextU1" android:textSize="13sp" android:textStyle="bold" android:singleLine="true">
+                        </TextView>
+                        <TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="查看此服务的帮助" android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="true">
+                        </TextView>
+                    </LinearLayout>
+                </RelativeLayout>
+                <android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a23" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                <TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="由简繁音乐提供该服务,目前支持音乐搜索缓存播放." android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anybj" android:textColor="@color/colorTextU1" android:padding="5dp" android:textSize="13sp" android:visibility="gone">
+                </TextView>
+                <EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入歌曲/歌手" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp">
+                </EditText>
+                <Spinner android:id="@+id/xlcd1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/xlcdbj" android:textAlignment="center">
+                </Spinner>
+                <Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:layout_marginTop="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:textColorHint="@color/colorWhite" android:text="搜索" android:elevation="0dp" android:textSize="11sp">
+                </Button>
+                <android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                <TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码完成登录" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                </TextView>
+                <ImageView android:id="@+id/tx3" android:layout_width="100dp" android:layout_height="100dp" android:src="#00000000" android:visibility="gone">
+                </ImageView>
+                <Button android:id="@+id/an2" android:layout_width="wrap_content" android:layout_height="35dp" android:hint="取消" android:layout_margin="5dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite" android:textSize="11sp">
+                </Button>
+                <android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx4" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                <TextView android:id="@+id/wb17" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="您确定要退出登录吗？" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                </TextView>
+                <LinearLayout android:id="@+id/xxbj13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                    <android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                        <ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                    <android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                        <ImageView android:id="@+id/tx6" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                <TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                </TextView>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

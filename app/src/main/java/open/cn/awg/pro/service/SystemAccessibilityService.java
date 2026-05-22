@@ -22,8 +22,8 @@ import android.accessibilityservice.GestureDescription;
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.ActivityManager;
-import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ClipData;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -331,7 +331,7 @@ public class SystemAccessibilityService extends AccessibilityService {
     }
 
     public void copy(String content) {
-        android.content.ClipboardManager clipboard = (android.content.ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
         if (clipboard != null) {
             clipboard.setPrimaryClip(ClipData.newPlainText(null, content));
         }
@@ -390,11 +390,11 @@ public class SystemAccessibilityService extends AccessibilityService {
      */
     @TargetApi(Build.VERSION_CODES.N)
     private void Click(float x, float y) {
-        android.graphics.Path path = new android.graphics.Path();
+        Path path = new Path();
         path.moveTo(x, y);
-        android.accessibilityservice.GestureDescription.Builder builder = new android.accessibilityservice.GestureDescription.Builder();
+        GestureDescription.Builder builder = new GestureDescription.Builder();
         //100L 第一个是开始的时间，第二个是持续时间
-        android.accessibilityservice.GestureDescription description = builder.addStroke(new android.accessibilityservice.GestureDescription.StrokeDescription(path, 100L, 100L)).build();
+        GestureDescription description = builder.addStroke(new GestureDescription.StrokeDescription(path, 100L, 100L)).build();
         dispatchGesture(description, new GestureResultCallback() {
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);
@@ -410,11 +410,11 @@ public class SystemAccessibilityService extends AccessibilityService {
 
     @TargetApi(Build.VERSION_CODES.N)
     private void LongClick(float x, float y) {
-        android.graphics.Path path = new android.graphics.Path();
+        Path path = new Path();
         path.moveTo(x, y);
-        android.accessibilityservice.GestureDescription.Builder builder = new android.accessibilityservice.GestureDescription.Builder();
+        GestureDescription.Builder builder = new GestureDescription.Builder();
         //100L 第一个是开始的时间，第二个是持续时间
-        android.accessibilityservice.GestureDescription description = builder.addStroke(new android.accessibilityservice.GestureDescription.StrokeDescription(path, 100L, 1000L)).build();
+        GestureDescription description = builder.addStroke(new GestureDescription.StrokeDescription(path, 100L, 1000L)).build();
         dispatchGesture(description, new GestureResultCallback() {
             public void onCompleted(GestureDescription gestureDescription) {
                 super.onCompleted(gestureDescription);

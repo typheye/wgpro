@@ -19,10 +19,12 @@ package open.cn.awg.pro.receiver;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Process;
 
 import java.io.File;
-import open.cn.awg.pro.ui.main.MainActivity;
 
+import open.cn.awg.pro.core.AppPaths;
+import open.cn.awg.pro.ui.main.MainActivity;
 
 public class StartReceiver extends BroadcastReceiver {
     static final String ACTION = "android.intent.action.BOOT_COMPLETED";
@@ -30,8 +32,8 @@ public class StartReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (intent.getAction().equals(ACTION)) {
-            File file = new File("/data/user/0/open.cn.awg.pro/settings/a4.inf");
-            int i = android.os.Process.myUid() / 100000;
+            File file = new File(AppPaths.appPath("settings/a4.inf"));
+            int i = Process.myUid() / 100000;
             // Re-open the app after boot only when the persisted startup flag is enabled.
             if (file.exists() && i == 0) {
 

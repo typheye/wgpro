@@ -25,12 +25,14 @@ import com.tencent.smtt.sdk.QbSdk;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
+import i.app.applicationMain;
+
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 
-import i.app.applicationMain;
 import open.cn.awg.pro.repair.exception.CrashHandler;
+
 import xyz.doikki.videoplayer.ijk.IjkPlayerFactory;
 import xyz.doikki.videoplayer.player.VideoViewConfig;
 import xyz.doikki.videoplayer.player.VideoViewManager;

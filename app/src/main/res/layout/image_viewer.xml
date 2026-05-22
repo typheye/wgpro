@@ -1,0 +1,16 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/image_viewer_root" android:layout_width="match_parent" android:layout_height="match_parent">
+    <TextView android:id="@+id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&lt; 图像浏览" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true">
+    </TextView>
+    <RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/title_bar">
+        <LinearLayout android:id="@+id/xx" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/colorBlack">
+        </LinearLayout>
+    </RelativeLayout>
+    <LinearLayout android:id="@+id/xxbj2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_centerInParent="true" android:visibility="visible">
+        <ProgressBar android:id="@+id/jdt1" android:layout_width="30dp" android:layout_height="30dp">
+        </ProgressBar>
+        <TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中" android:textColor="@color/colorWhite" android:textSize="9sp" android:textStyle="bold" android:gravity="center">
+        </TextView>
+    </LinearLayout>
+    <TextView android:id="@+id/wb2" android:layout_width="50dp" android:layout_height="50dp" android:text="" android:layout_centerInParent="true">
+    </TextView>
+</RelativeLayout>

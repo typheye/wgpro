@@ -1,0 +1,114 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/update_prompt_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground">
+    <android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true" android:layout_centerInParent="true">
+        <RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:id="@+id/xxbj1" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                <LinearLayout android:id="@+id/xxbj10" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="50dp" android:layout_height="50dp" app:cardBackgroundColor="@color/colorWBK" app:cardCornerRadius="10dp" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginTop="5dp" android:layout_marginBottom="3dp">
+                        <ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/ic_v">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                    <TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/app_name" android:textColor="@color/colorTextU1" android:textSize="15sp" android:gravity="center" android:textStyle="bold">
+                    </TextView>
+                    <LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="2dp" android:layout_marginBottom="5dp">
+                        <TextView android:id="@+id/wb12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="新版本" android:textColor="@color/colorTextU1" android:textSize="9sp" android:textStyle="bold" android:visibility="visible" android:layout_marginRight="0dp" android:singleLine="true" android:background="@drawable/text1bj" android:paddingTop="2dp" android:paddingBottom="2dp" android:paddingLeft="6dp" android:paddingRight="6dp">
+                        </TextView>
+                    </LinearLayout>
+                    <android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                        <ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a25" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                        <ImageView android:id="@+id/tx2" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a24" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                    <TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="更新日志" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="5dp">
+                    </TextView>
+                    <RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp" android:padding="5dp" android:visibility="gone">
+                        <LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginLeft="5dp" android:layout_centerVertical="true" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新版本" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textStyle="bold">
+                            </TextView>
+                            <TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabBackground" android:layout_marginTop="2dp" android:layout_marginBottom="2dp">
+                            </TextView>
+                            <TextView android:id="@+id/wb5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="false" android:textIsSelectable="true">
+                            </TextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="0dp" android:padding="5dp">
+                        <LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginLeft="5dp" android:layout_centerVertical="true" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新时间" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textStyle="bold">
+                            </TextView>
+                            <TextView android:id="@+id/wb7" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabBackground" android:layout_marginTop="2dp" android:layout_marginBottom="2dp">
+                            </TextView>
+                            <TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="false" android:textIsSelectable="true">
+                            </TextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/setbj" android:layout_marginLeft="5dp" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="8dp" android:padding="5dp">
+                        <LinearLayout android:id="@+id/xxbj3" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_marginLeft="5dp" android:layout_centerVertical="true" android:layout_marginRight="5dp" android:layout_marginTop="5dp" android:layout_marginBottom="5dp">
+                            <TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="更新介绍" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:textStyle="bold">
+                            </TextView>
+                            <TextView android:id="@+id/wb10" android:layout_width="match_parent" android:layout_height="1dp" android:text="" android:background="@color/colorTabBackground" android:layout_marginTop="2dp" android:layout_marginBottom="2dp">
+                            </TextView>
+                            <TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Loading..." android:textColor="@color/colorTextU1" android:textSize="11sp" android:singleLine="false" android:textIsSelectable="true">
+                            </TextView>
+                        </LinearLayout>
+                    </RelativeLayout>
+                    <android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                        <ImageView android:id="@+id/tx10" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a25" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj6" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                        <ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a24" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                        </ImageView>
+                    </android.support.v7.widget.CardView>
+                    <TextView android:id="@+id/wb13" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="是否立即更新？" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="5dp">
+                    </TextView>
+                    <LinearLayout android:id="@+id/xxbj9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                            <ImageView android:id="@+id/tx16" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                        <android.support.v7.widget.CardView android:id="@+id/kp7" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                            <ImageView android:id="@+id/tx11" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj12" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <TextView android:id="@+id/wb15" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="确定取消更新？" android:textColor="@color/colorTextU1" android:textSize="11sp" android:textStyle="bold" android:gravity="center" android:layout_marginBottom="5dp">
+                    </TextView>
+                    <CheckBox android:id="@+id/dx1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="不再提醒" android:textColor="@color/colorTextU1" android:background="@drawable/dxbj" android:layout_margin="3dp" android:padding="5dp" android:visibility="gone">
+                    </CheckBox>
+                    <LinearLayout android:id="@+id/xxbj13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <android.support.v7.widget.CardView android:id="@+id/kp9" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                            <ImageView android:id="@+id/tx13" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                        <android.support.v7.widget.CardView android:id="@+id/kp10" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_margin="5dp">
+                            <ImageView android:id="@+id/tx14" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj11" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <ProgressBar android:id="@+id/jdt1" android:layout_width="50dp" android:layout_height="50dp">
+                    </ProgressBar>
+                    <TextView android:id="@+id/wb14" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="加载中" android:textSize="13sp" android:textColor="@color/colorTextU1" android:textStyle="bold">
+                    </TextView>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/xxbj7" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center">
+                    <TextView android:id="@+id/wb16" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="扫描二维码完成更新" android:textSize="11sp" android:textColor="@color/colorTextU1" android:gravity="center" android:layout_margin="5dp">
+                    </TextView>
+                    <ImageView android:id="@+id/tx4" android:layout_width="100dp" android:layout_height="100dp" android:src="#00000000" android:visibility="gone">
+                    </ImageView>
+                    <Button android:id="@+id/an1" android:layout_width="wrap_content" android:layout_height="35dp" android:hint="取消" android:layout_margin="5dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColorHint="@color/colorWhite" android:textSize="11sp">
+                    </Button>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </android.support.v4.widget.NestedScrollView>
+</RelativeLayout>

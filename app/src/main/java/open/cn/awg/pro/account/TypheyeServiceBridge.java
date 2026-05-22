@@ -19,8 +19,9 @@ package open.cn.awg.pro.account;
 import com.alibaba.fastjson.JSONObject;
 
 import i.app.iClass;
-import open.cn.awg.pro.core.AppRuntimeBridge;
 
+import open.cn.awg.pro.core.AppPaths;
+import open.cn.awg.pro.core.AppRuntimeBridge;
 
 public class TypheyeServiceBridge extends iClass {
 
@@ -28,19 +29,19 @@ public class TypheyeServiceBridge extends iClass {
     public static boolean state_update_user_data = false;
     public static boolean state_get_pericon = false;
     public final TypheyeServiceBridge lei = this, 类 = this;
-    public java.lang.String url = "https://service.typheye.cn";
-    public java.lang.String uidxml = "/data/user/0/open.cn.awg.pro/settings/account/user";
-    public java.lang.String cookiexml = "/data/user/0/open.cn.awg.pro/data/easy/cookie";
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String url = "https://service.typheye.cn";
+    public String uidxml = AppPaths.appPath("settings/account/user");
+    public String cookiexml = AppPaths.appPath("data/easy/cookie");
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
     public TypheyeServiceBridge(i.runlibrary.app.AppInfo _APPINFO) {
         super(_APPINFO);
 
     }
 
-    public java.lang.String getPerIcon(java.lang.Object uid) {
+    public String getPerIcon(Object uid) {
 
-        java.lang.String url = getPerIconPath(sj.zh().zstring(uid));
+        String url = getPerIconPath(sj.zh().zstring(uid));
 
         if (wj.cz(url)) {
 
@@ -54,22 +55,22 @@ public class TypheyeServiceBridge extends iClass {
 
     }
 
-    public java.lang.String getPerIconPath(java.lang.Object uid) {
+    public String getPerIconPath(Object uid) {
 
-        java.lang.String url = wj.hqml("/data/user/0/open.cn.awg.pro/data/user/src/pericon/" + sj.zh().zstring(uid));
+        String url = wj.hqml(AppPaths.appPath("data/user/src/pericon/") + sj.zh().zstring(uid));
         return url;
 
     }
 
-    public void getPericon(java.lang.Object a) {
+    public void getPericon(Object a) {
 
         if (!state_get_pericon) {
 
             state_get_pericon = true;
             a = zf.qctwkg(a);
 
-            final java.lang.String uid = sj.zh().zstring(a);
-            gj.xc(new java.lang.Thread() {
+            final String uid = sj.zh().zstring(a);
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -81,7 +82,7 @@ public class TypheyeServiceBridge extends iClass {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -93,9 +94,9 @@ public class TypheyeServiceBridge extends iClass {
 
     }
 
-    public void getPericon$1(java.lang.String uid) {
+    public void getPericon$1(String uid) {
 
-        java.lang.String send = "/src/pericon/" + uid;
+        String send = "/src/pericon/" + uid;
 
         int back = wl.xz(url + send, getPerIconPath(uid), true);
 
@@ -111,7 +112,7 @@ public class TypheyeServiceBridge extends iClass {
     }
 
     public void getPericon$error() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -127,24 +128,24 @@ public class TypheyeServiceBridge extends iClass {
 
             state_get_data_update = true;
 
-            java.lang.String a = wj.dqwb(uidxml);
+            String a = wj.dqwb(uidxml);
 
-            java.lang.String b = wj.dqwb(cookiexml);
+            String b = wj.dqwb(cookiexml);
 
-            java.lang.String sjzx = xt.sj(4);
+            String sjzx = xt.sj(4);
 
-            final java.lang.String[] post = new java.lang.String[]{"v1=", "v2=", "v3="};
+            final String[] post = new String[]{"v1=", "v2=", "v3="};
 
-            java.lang.String send0 = "type=get_data_update&uid=" + a + "&cookie=" + b + "&time=" + sjzx;
+            String send0 = "type=get_data_update&uid=" + a + "&cookie=" + b + "&time=" + sjzx;
 
-            final java.lang.String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
-            gj.xc(new java.lang.Thread() {
+            final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    java.lang.String j_code = "";
+                    String j_code = "";
 
-                    java.lang.String j_msg = "";
+                    String j_msg = "";
 
                     int j_info_v0 = 0;
 
@@ -154,7 +155,7 @@ public class TypheyeServiceBridge extends iClass {
 
                     int j_info_v3 = 0;
 
-                    java.lang.String back = wl.hq(url + send, post, "utf-8");
+                    String back = wl.hq(url + send, post, "utf-8");
 
                     if (zf.dy(back, "null") || zf.dy(back, null) || zf.dy(back, "")) {
 
@@ -191,7 +192,7 @@ public class TypheyeServiceBridge extends iClass {
 
                             }
 
-                        } catch (java.lang.Throwable __$_e__) {
+                        } catch (Throwable __$_e__) {
 
                             getDataUpdate$error();
 
@@ -206,7 +207,7 @@ public class TypheyeServiceBridge extends iClass {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -228,36 +229,36 @@ public class TypheyeServiceBridge extends iClass {
 
             state_update_user_data = true;
 
-            final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf";
+            final String set2 = AppPaths.appPath("settings/n1/set2.inf");
 
-            final java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf";
+            final String set3 = AppPaths.appPath("settings/n1/set3.inf");
 
-            final java.lang.String set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf";
+            final String set2s = AppPaths.appPath("settings/f11/set3.inf");
 
-            java.lang.String a = wj.dqwb(uidxml);
+            String a = wj.dqwb(uidxml);
 
-            java.lang.String b = wj.dqwb(cookiexml);
+            String b = wj.dqwb(cookiexml);
 
-            final java.lang.String uid_ = a;
+            final String uid_ = a;
 
-            java.lang.String sjzx = xt.sj(4);
+            String sjzx = xt.sj(4);
 
-            java.lang.String send0 = "type=get_user_data&uid=" + a + "&cookie=" + b + "&time=" + sjzx;
+            String send0 = "type=get_user_data&uid=" + a + "&cookie=" + b + "&time=" + sjzx;
 
-            final java.lang.String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
-            gj.xc(new java.lang.Thread() {
+            final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    java.lang.String j_code = "";
+                    String j_code = "";
 
-                    java.lang.String j_msg = "";
+                    String j_msg = "";
 
-                    java.lang.String j_info_shuo = "";
+                    String j_info_shuo = "";
 
-                    java.lang.String j_info_nick = "";
+                    String j_info_nick = "";
 
-                    java.lang.String back = wl.hq(url + send, null, "utf-8");
+                    String back = wl.hq(url + send, null, "utf-8");
 
                     if (zf.dy(back, "null") || zf.dy(back, null) || zf.dy(back, "")) {
 
@@ -289,7 +290,7 @@ public class TypheyeServiceBridge extends iClass {
 
                             }
 
-                        } catch (java.lang.Throwable __$_e__) {
+                        } catch (Throwable __$_e__) {
 
                             updateUserData$error();
 
@@ -304,7 +305,7 @@ public class TypheyeServiceBridge extends iClass {
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -324,18 +325,18 @@ public class TypheyeServiceBridge extends iClass {
 
         if (e1.islogin()) {
 
-            java.lang.String a = "/data/user/0/open.cn.awg.pro/settings/account/user";
+            String a = AppPaths.appPath("settings/account/user");
 
-            java.lang.String b = "/data/user/0/open.cn.awg.pro/settings/account/pass";
+            String b = AppPaths.appPath("settings/account/pass");
 
-            java.lang.String c = "/data/user/0/open.cn.awg.pro/settings/account/userx";
+            String c = AppPaths.appPath("settings/account/userx");
 
-            java.lang.String d = "/data/user/0/open.cn.awg.pro/settings/account/passx";
+            String d = AppPaths.appPath("settings/account/passx");
             wj.sc(a);
             wj.sc(b);
             wj.sc(c);
             wj.sc(d);
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -350,33 +351,33 @@ public class TypheyeServiceBridge extends iClass {
 
     }
 
-    public boolean register$request(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d) {
+    public boolean register$request(Object a, Object b, Object c, Object d) {
         a = zf.qctwkg(a);
         b = zf.qctwkg(b);
         c = zf.qctwkg(c);
         d = zf.qctwkg(d);
 
-        final java.lang.Object username = a;
+        final Object username = a;
 
-        final java.lang.Object regtoken = b;
+        final Object regtoken = b;
 
-        final java.lang.Object password = c;
+        final Object password = c;
 
-        final java.lang.Object password2 = d;
+        final Object password2 = d;
 
-        java.lang.String sjzx = xt.sj(4);
+        String sjzx = xt.sj(4);
 
-        java.lang.String send0 = "type=register&username=" + sj.zh().zstring(a) + "&regtoken=" + sj.zh().zstring(b) + "&password=" + sj.zh().zstring(c) + "&password2=" + sj.zh().zstring(d) + "&time=" + sjzx;
+        String send0 = "type=register&username=" + sj.zh().zstring(a) + "&regtoken=" + sj.zh().zstring(b) + "&password=" + sj.zh().zstring(c) + "&password2=" + sj.zh().zstring(d) + "&time=" + sjzx;
 
-        final java.lang.String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+        final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 
-        java.lang.String j_code = "";
+        String j_code = "";
 
-        java.lang.String j_msg = "";
+        String j_msg = "";
 
-        java.lang.String cookie = "";
+        String cookie = "";
 
-        java.lang.String back = wl.hq(url + send, null, "utf-8");
+        String back = wl.hq(url + send, null, "utf-8");
 
         if (zf.dy(back, "null") || zf.dy(back, null) || zf.dy(back, "")) {
 
@@ -396,12 +397,12 @@ public class TypheyeServiceBridge extends iClass {
 
                 } else {
 
-                    final java.lang.String msg = j_msg;
+                    final String msg = j_msg;
                     e1.tsk("提示", msg);
 
                 }
 
-            } catch (java.lang.Throwable __$_e__) {
+            } catch (Throwable __$_e__) {
 
                 register$error();
 
@@ -417,17 +418,17 @@ public class TypheyeServiceBridge extends iClass {
 
     }
 
-    public void register$request$token(java.lang.Object a, i.runlibrary.app.v.an b) {
+    public void register$request$token(Object a, i.runlibrary.app.v.an b) {
         a = zf.qctwkg(a);
 
         final i.runlibrary.app.v.an an = b;
 
-        java.lang.String sjzx = xt.sj(4);
+        String sjzx = xt.sj(4);
 
-        java.lang.String send0 = "type=register_token&email=" + sj.zh().zstring(a) + "&time=" + sjzx;
+        String send0 = "type=register_token&email=" + sj.zh().zstring(a) + "&time=" + sjzx;
 
-        final java.lang.String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
-        gj.jmxc(new java.lang.Runnable() {
+        final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -437,11 +438,11 @@ public class TypheyeServiceBridge extends iClass {
 
         });
 
-        java.lang.String j_code = "";
+        String j_code = "";
 
-        java.lang.String j_msg = "";
+        String j_msg = "";
 
-        java.lang.String back = wl.hq(url + send, null, "utf-8");
+        String back = wl.hq(url + send, null, "utf-8");
 
         if (zf.dy(back, "null") || zf.dy(back, null) || zf.dy(back, "")) {
 
@@ -457,7 +458,7 @@ public class TypheyeServiceBridge extends iClass {
 
                 if (zf.dy(j_code, "200")) {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -470,8 +471,8 @@ public class TypheyeServiceBridge extends iClass {
 
                 } else {
 
-                    final java.lang.String msg = j_msg;
-                    gj.jmxc(new java.lang.Runnable() {
+                    final String msg = j_msg;
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -484,7 +485,7 @@ public class TypheyeServiceBridge extends iClass {
 
                 }
 
-            } catch (java.lang.Throwable __$_e__) {
+            } catch (Throwable __$_e__) {
 
                 register$token$error(an);
 
@@ -497,7 +498,7 @@ public class TypheyeServiceBridge extends iClass {
     public void register$token$error(i.runlibrary.app.v.an an) {
 
         final i.runlibrary.app.v.an an2 = an;
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -510,35 +511,35 @@ public class TypheyeServiceBridge extends iClass {
 
     }
 
-    public boolean findpwd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d) {
+    public boolean findpwd(Object a, Object b, Object c, Object d) {
         a = zf.qctwkg(a);
         b = zf.qctwkg(b);
         c = zf.qctwkg(c);
         d = zf.qctwkg(d);
 
-        final java.lang.String email = sj.zh().zstring(a);
+        final String email = sj.zh().zstring(a);
 
-        final java.lang.String tokenCode = sj.zh().zstring(b);
+        final String tokenCode = sj.zh().zstring(b);
 
-        final java.lang.String newpassword = sj.zh().zstring(c);
+        final String newpassword = sj.zh().zstring(c);
 
-        final java.lang.String newpasswords = sj.zh().zstring(d);
+        final String newpasswords = sj.zh().zstring(d);
 
-        java.lang.String sjzx = xt.sj(4);
+        String sjzx = xt.sj(4);
 
-        java.lang.String[] postt = new java.lang.String[]{"email=" + email, "tokenCode=" + tokenCode, "newpassword=" + newpassword, "newpasswords=" + newpasswords};
+        String[] postt = new String[]{"email=" + email, "tokenCode=" + tokenCode, "newpassword=" + newpassword, "newpasswords=" + newpasswords};
 
-        java.lang.String send0 = "time=" + sjzx;
+        String send0 = "time=" + sjzx;
 
-        final java.lang.String send = "/find.php?" + send0 + "&token=" + sj.md5(send0);
+        final String send = "/find.php?" + send0 + "&token=" + sj.md5(send0);
 
-        java.lang.String j_code = "";
+        String j_code = "";
 
-        java.lang.String j_msg = "";
+        String j_msg = "";
 
-        java.lang.String cookie = "";
+        String cookie = "";
 
-        java.lang.String back = wl.hq(url + send, postt, "utf-8");
+        String back = wl.hq(url + send, postt, "utf-8");
 
         if (zf.dy(back, "null") || zf.dy(back, null) || zf.dy(back, "")) {
 
@@ -550,7 +551,7 @@ public class TypheyeServiceBridge extends iClass {
 
                 e1.tsk("提示", back);
 
-            } catch (java.lang.Throwable __$_e__) {
+            } catch (Throwable __$_e__) {
 
                 findpwd$error();
 

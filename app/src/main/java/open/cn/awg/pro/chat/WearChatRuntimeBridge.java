@@ -16,23 +16,33 @@
  */
 package open.cn.awg.pro.chat;
 
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.View;
 
 import com.kongzue.baseokhttp.HttpRequest;
 import com.kongzue.baseokhttp.listener.ResponseListener;
 import com.kongzue.baseokhttp.listener.UploadProgressListener;
 
 import i.app.iClass;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import open.cn.awg.pro.account.TypheyeAccountActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.data.LocalDatabaseBridge;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.settings.WearChatSettingsActivity;
 import open.cn.awg.pro.ui.list.ChatAttachmentItemActivity;
 import open.cn.awg.pro.ui.list.ChatRoomListItemActivity;
 import open.cn.awg.pro.ui.list.WearChatMenuItemActivity;
 import open.cn.awg.pro.ui.widget.XLinearLayoutManager;
-
 
 public class WearChatRuntimeBridge extends iClass {
 
@@ -48,11 +58,11 @@ public class WearChatRuntimeBridge extends iClass {
 
     public static i.runlibrary.app.v.v7lb lb3;
 
-    public static android.content.Context context;
+    public static Context context;
 
-    public static android.support.v7.widget.LinearLayoutManager mLayoutManager;
+    public static LinearLayoutManager mLayoutManager;
 
-    public static java.lang.String set17 = "/data/user/0/open.cn.awg.pro/settings/db/talking.db";
+    public static String set17 = AppPaths.appPath("settings/db/talking.db");
 
     public static i.runlibrary.app.sj$sjk sjk;
 
@@ -67,18 +77,18 @@ public class WearChatRuntimeBridge extends iClass {
     public static boolean state_upload = false;
     public static boolean state_online = false;
     public final WearChatRuntimeBridge lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public open.cn.awg.pro.data.LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
-    public java.lang.String upload_back = "";
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+    public String upload_back = "";
 
     public WearChatRuntimeBridge(i.runlibrary.app.AppInfo _APPINFO) {
         super(_APPINFO);
 
     }
 
-    public java.lang.String getTabName(java.lang.String room_name) {
+    public String getTabName(String room_name) {
 
-        java.lang.String exist = "< ";
+        String exist = "< ";
 
         if (zf.cd(room_name) > 5) {
 
@@ -89,10 +99,10 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public boolean part_buildNewRoom(java.lang.Object name, java.lang.Object id) {
+    public boolean part_buildNewRoom(Object name, Object id) {
         gj.zt(500);
 
-        final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+        final String set2 = AppPaths.appPath("settings/f11/set2.inf");
         name = zf.qctwkg(name);
         id = zf.qctwkg(id);
 
@@ -104,7 +114,7 @@ public class WearChatRuntimeBridge extends iClass {
 
             try {
 
-                java.lang.String url = e1.urlUnlockString(wj.dqwb(set2));
+                String url = e1.urlUnlockString(wj.dqwb(set2));
 
                 if (zf.cjw(url, "/")) {
 
@@ -114,11 +124,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                 }
 
-                java.lang.String idget = url + "class/api.php?type=make";
+                String idget = url + "class/api.php?type=make";
 
-                java.lang.String[] pt = new java.lang.String[]{"title=" + name, "id=" + id, "pass=123456"};
+                String[] pt = new String[]{"title=" + name, "id=" + id, "pass=123456"};
 
-                java.lang.String st5 = wl.hq(idget, pt, "utf-8", null, true, null, 20000, 20000, null);
+                String st5 = wl.hq(idget, pt, "utf-8", null, true, null, 20000, 20000, null);
 
                 if (zf.dy(st5, "null") || zf.dy(st5, "") || zf.dy(st5, null)) {
 
@@ -132,7 +142,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                 }
 
-            } catch (java.lang.Throwable __$_e__) {
+            } catch (Throwable __$_e__) {
 
                 e1.tsk("提示", "提交失败：出现异常");
 
@@ -145,17 +155,17 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void lts_csh() {
         csh_once = true;
-        wj.xrwb("/data/user/0/open.cn.awg.pro/data/ltlb/hdva", "0");
-        lb3 = st.v7lb(open.cn.awg.pro.R.id.ltsv7lb1);
+        wj.xrwb(AppPaths.appPath("data/ltlb/hdva"), "0");
+        lb3 = st.v7lb(R.id.ltsv7lb1);
 
-        context = open.cn.awg.pro.app.AwgProApplication.getContext();
+        context = AwgProApplication.getContext();
         mLayoutManager = new XLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
         lb3.st.setLayoutManager(mLayoutManager);
-        wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/disTouch");
-        spq3 = lb3.v7lbspq(ChatAttachmentItemActivity.class, open.cn.awg.pro.R.layout.c11, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
+        spq3 = lb3.v7lbspq(ChatAttachmentItemActivity.class, R.layout.chat_attachment_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
+            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
@@ -163,34 +173,34 @@ public class WearChatRuntimeBridge extends iClass {
 
                 if (f == -1) {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorTextTrue2);
+                    String color0 = zf.zf(R.color.colorTextTrue2);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorBlack);
+                    String color1 = zf.zf(R.color.colorBlack);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).zfys(color2);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("right");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj4k).kjd(8);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb2).zfys(color2);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.wb(vw, R.id.wb2).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("right");
+                    st.xxbj(vw, R.id.xxbjat).kjd(8);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    st.wb(vw, R.id.wb21).kjd(8);
+                    st.wb(vw, R.id.wb22).kjd(8);
+                    st.xxbj(vw, R.id.xxbj24).kjd(8);
+                    st.xxbj(vw, R.id.xxbj4k).kjd(8);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, open.cn.awg.pro.R.id.kp2);
+                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(0);
 
                     i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(false);
                     kp2_xdbjgz.dqfyb(true);
 
-                    java.lang.String wb = st.wb(vw, open.cn.awg.pro.R.id.wb2).zf();
+                    String wb = st.wb(vw, R.id.wb2).zf();
 
                     int isVip = 8;
 
@@ -202,187 +212,187 @@ public class WearChatRuntimeBridge extends iClass {
                         isVip2 = 8;
 
                     }
-                    st.wb(vw, open.cn.awg.pro.R.id.wb7).kjd(isVip);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(isVip2);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb6).zf("我");
+                    st.wb(vw, R.id.wb7).kjd(isVip);
+                    st.wb(vw, R.id.wb21).kjd(isVip2);
+                    st.wb(vw, R.id.wb6).zf("我");
 
-                    java.lang.Object luid = lbsj.lbsj(pn, -3);
+                    Object luid = lbsj.lbsj(pn, -3);
                     luid = zf.qctwkg(luid);
 
                     if (zf.dy(luid, "w0") || zf.dy(luid, "") || zf.dy(luid, null) || zf.dy(luid, "0") || zf.dy(luid, "null")) {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(0);
+                        st.wb(vw, R.id.wb22).kjd(0);
 
                     } else {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
+                        st.wb(vw, R.id.wb22).kjd(8);
 
                     }
 
-                    if (zf.dy(st.wb(vw, open.cn.awg.pro.R.id.wb21).zf(), "未知")) {
+                    if (zf.dy(st.wb(vw, R.id.wb21).zf(), "未知")) {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(8);
+                        st.wb(vw, R.id.wb21).kjd(8);
 
                     } else {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(0);
+                        st.wb(vw, R.id.wb21).kjd(0);
 
                     }
 
-                    java.lang.String wb2 = st.wb(vw, open.cn.awg.pro.R.id.wb1).zf();
+                    String wb2 = st.wb(vw, R.id.wb1).zf();
 
                     if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b11);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[PHOTO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]图片");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b9);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[AUDIO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]音频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[VIDEO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]视频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b14);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[OTHER]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]文件");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf("");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf(ur);
+                        String tx = zf.qc(wb2, null, "[INFOS]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf("");
+                        st.xxbj(vw, R.id.xxbj1).kjd(8);
+                        st.wb(vw, R.id.wb10).kjd(0);
+                        st.wb(vw, R.id.wb10).zf(ur);
 
                     } else {
 
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(wb2);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf(wb2);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     }
 
                 } else if (f == 0) {
 
-                    java.lang.String color0 = "#00000000";
+                    String color0 = "#00000000";
 
-                    java.lang.String color1 = "#00000000";
+                    String color1 = "#00000000";
 
-                    java.lang.String color2 = "#00000000";
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).zfys(color2);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xydj(false);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xyca(false);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj4k).kjd(0);
+                    String color2 = "#00000000";
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb2).zfys(color2);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.wb(vw, R.id.wb2).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbjat).kjd(8);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(false);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(false);
+                    st.xxbj(vw, R.id.xxbj3).kjd(0);
+                    st.wb(vw, R.id.wb21).kjd(8);
+                    st.wb(vw, R.id.wb22).kjd(8);
+                    st.xxbj(vw, R.id.xxbj24).kjd(8);
+                    st.xxbj(vw, R.id.xxbj4k).kjd(0);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, open.cn.awg.pro.R.id.kp2);
+                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(8);
 
                     i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb7).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb6).zf("");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                    st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                    st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zf("");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                    st.wb(vw, R.id.wb7).kjd(8);
+                    st.wb(vw, R.id.wb6).zf("");
+                    st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                    st.wb(vw, R.id.wb8).zf("");
+                    st.wb(vw, R.id.wb9).zf("");
+                    st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                    st.wb(vw, R.id.wb1).zf("");
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.wb(vw, R.id.wb10).kjd(8);
+                    st.wb(vw, R.id.wb10).zf("");
 
                 } else if (f == 1) {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorWBK);
+                    String color0 = zf.zf(R.color.colorWBK);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                    String color1 = zf.zf(R.color.colorTextU1);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).zfys(color2);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj4k).kjd(0);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb2).zfys(color2);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.wb(vw, R.id.wb2).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbjat).kjd(8);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    st.wb(vw, R.id.wb21).kjd(0);
+                    st.wb(vw, R.id.wb22).kjd(8);
+                    st.xxbj(vw, R.id.xxbj24).kjd(8);
+                    st.xxbj(vw, R.id.xxbj4k).kjd(0);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, open.cn.awg.pro.R.id.kp2);
+                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(0);
 
                     i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
 
-                    java.lang.String wb = st.wb(vw, open.cn.awg.pro.R.id.wb2).zf();
+                    String wb = st.wb(vw, R.id.wb2).zf();
 
                     int isVip = 8;
 
@@ -394,149 +404,149 @@ public class WearChatRuntimeBridge extends iClass {
                         isVip2 = 8;
 
                     }
-                    st.wb(vw, open.cn.awg.pro.R.id.wb7).kjd(isVip);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(isVip2);
+                    st.wb(vw, R.id.wb7).kjd(isVip);
+                    st.wb(vw, R.id.wb21).kjd(isVip2);
 
-                    java.lang.Object luid = lbsj.lbsj(pn, -3);
+                    Object luid = lbsj.lbsj(pn, -3);
                     luid = zf.qctwkg(luid);
 
                     if (zf.dy(luid, "w0") || zf.dy(luid, "") || zf.dy(luid, null) || zf.dy(luid, "0") || zf.dy(luid, "null")) {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(0);
+                        st.wb(vw, R.id.wb22).kjd(0);
 
                     } else {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
+                        st.wb(vw, R.id.wb22).kjd(8);
 
                     }
                     wb = zf.qc(wb, 0, 1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb6).zf(wb);
+                    st.wb(vw, R.id.wb6).zf(wb);
 
-                    if (zf.dy(st.wb(vw, open.cn.awg.pro.R.id.wb21).zf(), "未知")) {
+                    if (zf.dy(st.wb(vw, R.id.wb21).zf(), "未知")) {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(8);
+                        st.wb(vw, R.id.wb21).kjd(8);
 
                     } else {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(0);
+                        st.wb(vw, R.id.wb21).kjd(0);
 
                     }
 
-                    java.lang.String wb2 = st.wb(vw, open.cn.awg.pro.R.id.wb1).zf();
+                    String wb2 = st.wb(vw, R.id.wb1).zf();
 
                     if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b11);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[PHOTO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]图片");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b9);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[AUDIO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]音频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[VIDEO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]视频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b14);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[OTHER]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]文件");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf("");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf(ur);
+                        String tx = zf.qc(wb2, null, "[INFOS]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf("");
+                        st.xxbj(vw, R.id.xxbj1).kjd(8);
+                        st.wb(vw, R.id.wb10).kjd(0);
+                        st.wb(vw, R.id.wb10).zf(ur);
 
                     } else {
 
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(wb2);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf(wb2);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     }
 
                 } else if (f == 2) {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorWBK);
+                    String color0 = zf.zf(R.color.colorWBK);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                    String color1 = zf.zf(R.color.colorTextU1);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).zfys(color2);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbjat).kjd(0);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj4k).kjd(0);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb2).zfys(color2);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.wb(vw, R.id.wb2).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbjat).kjd(0);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    st.wb(vw, R.id.wb21).kjd(0);
+                    st.wb(vw, R.id.wb22).kjd(8);
+                    st.xxbj(vw, R.id.xxbj24).kjd(8);
+                    st.xxbj(vw, R.id.xxbj4k).kjd(0);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, open.cn.awg.pro.R.id.kp2);
+                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(0);
 
                     i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
 
-                    java.lang.String wb = st.wb(vw, open.cn.awg.pro.R.id.wb2).zf();
+                    String wb = st.wb(vw, R.id.wb2).zf();
 
                     int isVip = 8;
 
@@ -548,232 +558,232 @@ public class WearChatRuntimeBridge extends iClass {
                         isVip2 = 8;
 
                     }
-                    st.wb(vw, open.cn.awg.pro.R.id.wb7).kjd(isVip);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(isVip2);
+                    st.wb(vw, R.id.wb7).kjd(isVip);
+                    st.wb(vw, R.id.wb21).kjd(isVip2);
 
-                    java.lang.Object luid = lbsj.lbsj(pn, -3);
+                    Object luid = lbsj.lbsj(pn, -3);
                     luid = zf.qctwkg(luid);
 
                     if (zf.dy(luid, "w0") || zf.dy(luid, "") || zf.dy(luid, null) || zf.dy(luid, "0") || zf.dy(luid, "null")) {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(0);
+                        st.wb(vw, R.id.wb22).kjd(0);
 
                     } else {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
+                        st.wb(vw, R.id.wb22).kjd(8);
 
                     }
                     wb = zf.qc(wb, 0, 1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb6).zf(wb);
+                    st.wb(vw, R.id.wb6).zf(wb);
 
-                    if (zf.dy(st.wb(vw, open.cn.awg.pro.R.id.wb21).zf(), "未知")) {
+                    if (zf.dy(st.wb(vw, R.id.wb21).zf(), "未知")) {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(8);
+                        st.wb(vw, R.id.wb21).kjd(8);
 
                     } else {
 
-                        st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(0);
+                        st.wb(vw, R.id.wb21).kjd(0);
 
                     }
 
-                    java.lang.String wb2 = st.wb(vw, open.cn.awg.pro.R.id.wb1).zf();
+                    String wb2 = st.wb(vw, R.id.wb1).zf();
 
                     if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b11);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[PHOTO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]图片");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b9);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[AUDIO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]音频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[VIDEO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]视频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b14);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[OTHER]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]文件");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf("");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf(ur);
+                        String tx = zf.qc(wb2, null, "[INFOS]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf("");
+                        st.xxbj(vw, R.id.xxbj1).kjd(8);
+                        st.wb(vw, R.id.wb10).kjd(0);
+                        st.wb(vw, R.id.wb10).zf(ur);
 
                     } else {
 
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(wb2);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf(wb2);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     }
 
                 } else {
 
-                    java.lang.String color0 = zf.zf(open.cn.awg.pro.R.color.colorWBK);
+                    String color0 = zf.zf(R.color.colorWBK);
 
-                    java.lang.String color1 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                    String color1 = zf.zf(R.color.colorTextU1);
 
-                    java.lang.String color2 = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).zfys(color2);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb3).zfys(color2);
-                    st.kp(vw, open.cn.awg.pro.R.id.kp1).kpbjys(color0);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb2).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xydj(true);
-                    st.xdbj(vw, open.cn.awg.pro.R.id.c11_v).xyca(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj3).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb21).kjd(8);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb22).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj4k).kjd(8);
+                    String color2 = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color1);
+                    st.wb(vw, R.id.wb2).zfys(color2);
+                    st.wb(vw, R.id.wb3).zfys(color2);
+                    st.kp(vw, R.id.kp1).kpbjys(color0);
+                    st.wb(vw, R.id.wb2).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
+                    st.xxbj(vw, R.id.xxbjat).kjd(8);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
+                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
+                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    st.wb(vw, R.id.wb21).kjd(8);
+                    st.wb(vw, R.id.wb22).kjd(8);
+                    st.xxbj(vw, R.id.xxbj24).kjd(8);
+                    st.xxbj(vw, R.id.xxbj4k).kjd(8);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, open.cn.awg.pro.R.id.kp2);
+                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(8);
 
                     i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb6).zf("");
-                    st.wb(vw, open.cn.awg.pro.R.id.wb7).kjd(8);
+                    st.wb(vw, R.id.wb6).zf("");
+                    st.wb(vw, R.id.wb7).kjd(8);
 
-                    java.lang.String wb2 = st.wb(vw, open.cn.awg.pro.R.id.wb1).zf();
+                    String wb2 = st.wb(vw, R.id.wb1).zf();
 
                     if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b11);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[PHOTO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]图片");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b9);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[AUDIO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]音频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[VIDEO]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]视频");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf(ur);
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.b14);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(tx);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        String tx = zf.qc(wb2, null, "[OTHER]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
+                        st.wb(vw, R.id.wb8).zf("[附件]文件");
+                        st.wb(vw, R.id.wb9).zf(ur);
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
+                        st.wb(vw, R.id.wb1).zf(tx);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
 
-                        java.lang.String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
 
-                        java.lang.String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf("");
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf(ur);
+                        String tx = zf.qc(wb2, null, "[INFOS]");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf("");
+                        st.xxbj(vw, R.id.xxbj1).kjd(8);
+                        st.wb(vw, R.id.wb10).kjd(0);
+                        st.wb(vw, R.id.wb10).zf(ur);
 
                     } else {
 
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbjfj).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb8).zf("");
-                        st.wb(vw, open.cn.awg.pro.R.id.wb9).zf("");
-                        st.tx(vw, open.cn.awg.pro.R.id.tx2).tx(open.cn.awg.pro.R.mipmap.a);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb1).zf(wb2);
-                        st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).kjd(8);
-                        st.wb(vw, open.cn.awg.pro.R.id.wb10).zf("");
+                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
+                        st.wb(vw, R.id.wb8).zf("");
+                        st.wb(vw, R.id.wb9).zf("");
+                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
+                        st.wb(vw, R.id.wb1).zf(wb2);
+                        st.xxbj(vw, R.id.xxbj1).kjd(0);
+                        st.wb(vw, R.id.wb10).kjd(8);
+                        st.wb(vw, R.id.wb10).zf("");
 
                     }
 
@@ -788,10 +798,10 @@ public class WearChatRuntimeBridge extends iClass {
     public void csh() {
         e11.setup_talklist();
         sjk = sj.sjk(set17);
-        wllbcdlb = st.v7lb(open.cn.awg.pro.R.id.wllbv7lb2);
-        wllbcdspq = wllbcdlb.v7lbspq(WearChatMenuItemActivity.class, open.cn.awg.pro.R.layout.c9, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        wllbcdlb = st.v7lb(R.id.wllbv7lb2);
+        wllbcdspq = wllbcdlb.v7lbspq(WearChatMenuItemActivity.class, R.layout.wear_chat_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
+            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
                 i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
 
@@ -799,40 +809,40 @@ public class WearChatRuntimeBridge extends iClass {
 
                 if (f == 1) {
 
-                    java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextFalse);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
-                    st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
+                    String color = zf.zf(R.color.colorTextFalse);
+                    st.wb(vw, R.id.wb1).zfys(color);
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).xydj(true);
+                    st.xxbj(vw, R.id.xxbj1).xyca(true);
+                    st.wb(vw, R.id.dp20).kjd(8);
 
                 } else if (f == -1) {
 
-                    java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(8);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xydj(false);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(false);
-                    st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(0);
+                    String color = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color);
+                    st.xxbj(vw, R.id.xxbj1).kjd(8);
+                    st.xxbj(vw, R.id.xxbj1).xydj(false);
+                    st.xxbj(vw, R.id.xxbj1).xyca(false);
+                    st.wb(vw, R.id.dp20).kjd(0);
 
                 } else {
 
-                    java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
-                    st.wb(vw, open.cn.awg.pro.R.id.wb1).zfys(color);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, open.cn.awg.pro.R.id.xxbj1).xyca(true);
-                    st.wb(vw, open.cn.awg.pro.R.id.dp20).kjd(8);
+                    String color = zf.zf(R.color.colorTextU1);
+                    st.wb(vw, R.id.wb1).zfys(color);
+                    st.xxbj(vw, R.id.xxbj1).kjd(0);
+                    st.xxbj(vw, R.id.xxbj1).xydj(true);
+                    st.xxbj(vw, R.id.xxbj1).xyca(true);
+                    st.wb(vw, R.id.dp20).kjd(8);
 
                 }
 
             }
 
         });
-        lb2 = st.v7lb(open.cn.awg.pro.R.id.wllbv7lb1);
-        spq2 = lb2.v7lbspq(ChatRoomListItemActivity.class, open.cn.awg.pro.R.layout.c10, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        lb2 = st.v7lb(R.id.wllbv7lb1);
+        spq2 = lb2.v7lbspq(ChatRoomListItemActivity.class, R.layout.chat_room_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, android.view.View vw) {
+            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
             }
 
@@ -844,16 +854,16 @@ public class WearChatRuntimeBridge extends iClass {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xxbj root = st.xxbj(open.cn.awg.pro.R.id.i2xxbj1);
+        final i.runlibrary.app.v.xxbj root = st.xxbj(R.id.i2xxbj1);
 
-        final i.runlibrary.app.v.xxbj load = st.xxbj(open.cn.awg.pro.R.id.ltssxxxbj3);
+        final i.runlibrary.app.v.xxbj load = st.xxbj(R.id.ltssxxxbj3);
 
-        final i.runlibrary.app.v.xxbj cd = st.xxbj(open.cn.awg.pro.R.id.xxbjcd);
+        final i.runlibrary.app.v.xxbj cd = st.xxbj(R.id.xxbjcd);
 
-        final i.runlibrary.app.v.xxbj add = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj add = st.xxbj(R.id.xxbj4);
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
-        gj.jmxc(new java.lang.Runnable() {
+        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -904,16 +914,16 @@ public class WearChatRuntimeBridge extends iClass {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xxbj root = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+        final i.runlibrary.app.v.xxbj root = st.xxbj(R.id.xxbj1);
 
-        final i.runlibrary.app.v.xxbj load = st.xxbj(open.cn.awg.pro.R.id.xxbj3);
+        final i.runlibrary.app.v.xxbj load = st.xxbj(R.id.xxbj3);
 
-        final i.runlibrary.app.v.xxbj cd = st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+        final i.runlibrary.app.v.xxbj cd = st.xxbj(R.id.xxbj2);
 
-        final i.runlibrary.app.v.xxbj add = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj add = st.xxbj(R.id.xxbj4);
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
-        gj.jmxc(new java.lang.Runnable() {
+        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -959,23 +969,23 @@ public class WearChatRuntimeBridge extends iClass {
         if (!state_online) {
 
             state_online = true;
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            st.wb(open.cn.awg.pro.R.id.wb24).zf("Online: Loading...");
+                            st.wb(R.id.wb24).zf("Online: Loading...");
 
                         }
 
                     });
 
-                    java.lang.String text = "";
+                    String text = "";
 
-                    java.lang.String urls = "/data/user/0/open.cn.awg.pro/settings/f10/set2.inf";
+                    String urls = AppPaths.appPath("settings/f10/set2.inf");
                     urls = wj.dqwb(urls);
                     urls = e1.urlUnlockString(urls);
 
@@ -987,9 +997,9 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    java.lang.String url = urls + "online.php";
+                    String url = urls + "online.php";
 
-                    java.lang.String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
                     st5 = zf.qctwkg(st5);
 
                     if (zf.dy(st5, "null") || zf.dy(st5, "") || zf.dy(st5, null)) {
@@ -1002,12 +1012,12 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    final java.lang.String text_ = text;
-                    gj.jmxc(new java.lang.Runnable() {
+                    final String text_ = text;
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            st.wb(open.cn.awg.pro.R.id.wb24).zf(text_);
+                            st.wb(R.id.wb24).zf(text_);
 
                         }
 
@@ -1026,11 +1036,11 @@ public class WearChatRuntimeBridge extends iClass {
 
         if (i == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("< 腕上微聊");
+                    st.wb(R.id.title_bar).zf("< 腕上微聊");
                     wllbview(0);
 
                 }
@@ -1039,12 +1049,12 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (i == 4) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("添加房间");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
+                    st.wb(R.id.title_bar).zf("添加房间");
+                    st.bjk(R.id.bjk1).zf("");
                     wllbview(3);
                     bjkmode = 1;
 
@@ -1054,15 +1064,15 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (i == 5) {
 
-            java.lang.String cachehd1 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+            String cachehd1 = AppPaths.appPath("data/ltlb/lbx_title");
 
-            final java.lang.String bz = wj.dqwb(cachehd1);
-            gj.jmxc(new java.lang.Runnable() {
+            final String bz = wj.dqwb(cachehd1);
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("房间备注");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf(bz);
+                    st.wb(R.id.title_bar).zf("房间备注");
+                    st.bjk(R.id.bjk1).zf(bz);
                     wllbview(3);
                     bjkmode = 2;
 
@@ -1075,75 +1085,75 @@ public class WearChatRuntimeBridge extends iClass {
             wllbview(2);
             wllbcdspq.sc();
 
-            java.lang.String set64 = "/data/user/0/open.cn.awg.pro/settings/i1/set1.inf";
+            String set64 = AppPaths.appPath("settings/i1/set1.inf");
 
-            int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb2, open.cn.awg.pro.R.id.wb3, open.cn.awg.pro.R.id.wb4, open.cn.awg.pro.R.id.wb5, -1};
+            int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3, R.id.wb4, R.id.wb5, -1};
 
-            java.lang.Object[] jk = new java.lang.Object[]{"", "", "", "", "", 0};
+            Object[] jk = new Object[]{"", "", "", "", "", 0};
 
             if (i == 1) {
 
-                jk = new java.lang.Object[]{"刷新", "", "", "", "", 0};
+                jk = new Object[]{"刷新", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"添加房间", "", "", "", "", 0};
+                jk = new Object[]{"添加房间", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"新建房间", "", "", "", "", 0};
+                jk = new Object[]{"新建房间", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
 
                 if (zf.dy(wj.dqwb(set64), "true")) {
 
-                    jk = new java.lang.Object[]{"关闭Online", "", "", "", "", 0};
+                    jk = new Object[]{"关闭Online", "", "", "", "", 0};
                     wllbcdspq.j(kj, jk);
 
                 } else {
 
-                    jk = new java.lang.Object[]{"开启Online", "", "", "", "", 0};
+                    jk = new Object[]{"开启Online", "", "", "", "", 0};
                     wllbcdspq.j(kj, jk);
 
                 }
-                jk = new java.lang.Object[]{"拒绝《公约》", "", "", "", "", 0};
+                jk = new Object[]{"拒绝《公约》", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"设置", "", "", "", "", 0};
+                jk = new Object[]{"设置", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"退出", "", "", "", "", 0};
+                jk = new Object[]{"退出", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
 
             } else if (i == 2) {
 
-                jk = new java.lang.Object[]{"房间信息", "", "", "", "", 0};
+                jk = new Object[]{"房间信息", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"备注房间", "", "", "", "", 0};
+                jk = new Object[]{"备注房间", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"移除房间", "", "", "", "", 0};
+                jk = new Object[]{"移除房间", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"清除聊天记录", "", "", "", "", 0};
+                jk = new Object[]{"清除聊天记录", "", "", "", "", 0};
                 wllbcdspq.j(kj, jk);
 
             }
-            jk = new java.lang.Object[]{"返回", "back", "", "", "", 1};
+            jk = new Object[]{"返回", "back", "", "", "", 1};
             wllbcdspq.j(kj, jk);
 
-            java.lang.String spxx = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-            jk = new java.lang.Object[]{"", "", "", "", "", -1};
+            String spxx = AppPaths.appPath("settings/a3.inf");
+            jk = new Object[]{"", "", "", "", "", -1};
             wllbcdspq.j(kj, jk);
 
-            java.lang.String axc = wj.dqwb(spxx);
+            String axc = wj.dqwb(spxx);
 
             if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
 
-                jk = new java.lang.Object[]{"", "", "", "", "", -1};
+                jk = new Object[]{"", "", "", "", "", -1};
                 wllbcdspq.j(kj, jk);
-                jk = new java.lang.Object[]{"", "", "", "", "", -1};
+                jk = new Object[]{"", "", "", "", "", -1};
                 wllbcdspq.j(kj, jk);
 
             }
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
                     wllbcdspq.sx();
-                    st.v7lb(open.cn.awg.pro.R.id.wllbv7lb2).xzwz("top");
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("菜单");
+                    st.v7lb(R.id.wllbv7lb2).xzwz("top");
+                    st.wb(R.id.title_bar).zf("菜单");
 
                 }
 
@@ -1153,7 +1163,7 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void dj_wllbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d) {
+    public void dj_wllbcd(Object a, Object b, Object c, Object d) {
 
         if (zf.dy(a, "返回")) {
 
@@ -1161,27 +1171,27 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (zf.dy(a, "备注房间")) {
 
-            java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+            String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            java.lang.String id = wj.dqwb(cachehd);
-            st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-            st.bjk(open.cn.awg.pro.R.id.bjk1).tszf("请输入备注");
-            st.bjk(open.cn.awg.pro.R.id.bjk1).wblx("text");
+            String id = wj.dqwb(cachehd);
+            st.bjk(R.id.bjk1).zf("");
+            st.bjk(R.id.bjk1).tszf("请输入备注");
+            st.bjk(R.id.bjk1).wblx("text");
             wllbcd(5);
 
         } else if (zf.dy(a, "房间信息")) {
 
-            java.lang.String cachehd1 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+            String cachehd1 = AppPaths.appPath("data/ltlb/lbx_title");
 
-            java.lang.String bz = wj.dqwb(cachehd1);
+            String bz = wj.dqwb(cachehd1);
 
-            java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+            String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            java.lang.String id = wj.dqwb(cachehd);
+            String id = wj.dqwb(cachehd);
 
-            java.lang.String cachehd3 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_info";
+            String cachehd3 = AppPaths.appPath("data/ltlb/lbx_info");
 
-            java.lang.String info = wj.dqwb(cachehd3);
+            String info = wj.dqwb(cachehd3);
             info = zf.th(info, id + "-", "");
             e1.tsk("房间信息", "[房间备注]\n" + bz + "\n\n" + "[房间名称]\n" + info + "\n\n" + "[房间标识]\n" + id);
             wllbcd(0);
@@ -1193,9 +1203,9 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (zf.dy(a, "添加房间")) {
 
-            st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-            st.bjk(open.cn.awg.pro.R.id.bjk1).tszf("请输入房间ID");
-            st.bjk(open.cn.awg.pro.R.id.bjk1).wblx("number");
+            st.bjk(R.id.bjk1).zf("");
+            st.bjk(R.id.bjk1).tszf("请输入房间ID");
+            st.bjk(R.id.bjk1).wblx("number");
             wllbcd(4);
 
         } else if (zf.dy(a, "新建房间")) {
@@ -1210,13 +1220,13 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (zf.dy(a, "关闭Online")) {
 
-            java.lang.String set64 = "/data/user/0/open.cn.awg.pro/settings/i1/set1.inf";
+            String set64 = AppPaths.appPath("settings/i1/set1.inf");
             wj.xrwb(set64, "false");
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.wb24).kjd(8);
+                    st.wb(R.id.wb24).kjd(8);
 
                 }
 
@@ -1225,13 +1235,13 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (zf.dy(a, "开启Online")) {
 
-            java.lang.String set64 = "/data/user/0/open.cn.awg.pro/settings/i1/set1.inf";
+            String set64 = AppPaths.appPath("settings/i1/set1.inf");
             wj.xrwb(set64, "true");
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.wb24).kjd(0);
+                    st.wb(R.id.wb24).kjd(0);
 
                 }
 
@@ -1248,17 +1258,17 @@ public class WearChatRuntimeBridge extends iClass {
 
             wllbcd(0);
 
-            java.lang.String nr = "";
+            String nr = "";
 
-            java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+            String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            java.lang.String id = wj.dqwb(cachehd);
+            String id = wj.dqwb(cachehd);
 
-            java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + id;
+            String sjhc = AppPaths.appPath("data/ltlb/chat/") + id;
 
             int u = e11.findid_talklist(id);
 
-            java.lang.String uss = String.valueOf(u);
+            String uss = String.valueOf(u);
 
             boolean b1 = e11.delete_talklist(uss);
             wj.sc(sjhc);
@@ -1280,13 +1290,13 @@ public class WearChatRuntimeBridge extends iClass {
 
             wllbcd(0);
 
-            java.lang.String nr = "";
+            String nr = "";
 
-            java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+            String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            java.lang.String id = wj.dqwb(cachehd);
+            String id = wj.dqwb(cachehd);
 
-            java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + id;
+            String sjhc = AppPaths.appPath("data/ltlb/chat/") + id;
 
             boolean b1 = (wj.sc(sjhc) > 0);
 
@@ -1315,20 +1325,20 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void wllbsx() {
 
-        final java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f11/set4.inf";
+        final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-        final java.lang.String code = wj.dqwb(set4);
+        final String code = wj.dqwb(set4);
 
-        final java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f11/set1.inf";
-        gj.xc(new java.lang.Thread() {
+        final String set1 = AppPaths.appPath("settings/f11/set1.inf");
+        gj.xc(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("< 腕上微聊");
+                        st.wb(R.id.title_bar).zf("< 腕上微聊");
                         wllbview(1);
 
                     }
@@ -1336,9 +1346,9 @@ public class WearChatRuntimeBridge extends iClass {
                 });
                 online();
 
-                final int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb2, open.cn.awg.pro.R.id.wb3};
+                final int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3};
 
-                java.lang.String[] jk = new java.lang.String[]{"", "", ""};
+                String[] jk = new String[]{"", "", ""};
                 spq2.sc();
 
                 if (zf.cz(code, "Admin:true")) {
@@ -1347,18 +1357,18 @@ public class WearChatRuntimeBridge extends iClass {
 
                     wllbcd(0);
 
-                    java.lang.String[] uids = new java.lang.String[]{"110", "404", "600", "405"};
+                    String[] uids = new String[]{"110", "404", "600", "405"};
 
-                    for (java.lang.String uid : uids) {
+                    for (String uid : uids) {
 
-                        java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
-                        wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/showing");
+                        String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
+                        wj.sc(AppPaths.appPath("data/ltlb/showing"));
 
                         int u = e11.findid_talklist(uid);
 
                         if (u != 0) {
 
-                            java.lang.String uss = String.valueOf(u);
+                            String uss = String.valueOf(u);
 
                             boolean b1 = e11.delete_talklist(uss);
                             wj.sc(sjhc);
@@ -1369,19 +1379,19 @@ public class WearChatRuntimeBridge extends iClass {
 
                 }
 
-                java.lang.String table = "_id,uid,name,utext";
+                String table = "_id,uid,name,utext";
 
-                java.lang.Object sqlx = null;
+                Object sqlx = null;
 
                 i.runlibrary.app.sj$cxsj sjk15 = sjk.cxsj("talklist", table, sqlx);
 
                 while (sjk15.xyh()) {
 
-                    jk = new java.lang.String[]{sjk15.sj(2), sjk15.sj(1), sjk15.sj(3)};
+                    jk = new String[]{sjk15.sj(2), sjk15.sj(1), sjk15.sj(3)};
                     spq2.j(kj, jk);
 
                 }
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -1400,18 +1410,18 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void bjsj() {
 
-        final java.lang.String ltsjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/";
+        final String ltsjhc = AppPaths.appPath("data/ltlb/chat/");
 
-        final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+        final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
-        final java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f11/set4.inf";
+        final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-        final java.lang.String code = wj.dqwb(set4);
+        final String code = wj.dqwb(set4);
 
-        java.lang.String bjknr = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+        String bjknr = st.bjk(R.id.bjk1).zf();
         bjknr = zf.qctwkg(bjknr);
 
-        final java.lang.String bjknrs = bjknr;
+        final String bjknrs = bjknr;
 
         if (zf.dy(bjknrs, "")) {
 
@@ -1429,19 +1439,19 @@ public class WearChatRuntimeBridge extends iClass {
 
             if (bjkmode == 2) {
 
-                java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+                String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-                final java.lang.String id = wj.dqwb(cachehd);
-                gj.xc(new java.lang.Thread() {
+                final String id = wj.dqwb(cachehd);
+                gj.xc(new Thread() {
 
                     public void run() {
 
-                        java.lang.String nr = "";
+                        String nr = "";
                         wllbview(1);
 
                         int u = e11.findid_talklist(id);
 
-                        java.lang.String uss = String.valueOf(u);
+                        String uss = String.valueOf(u);
 
                         boolean b1 = e11.update_talklist(uss, "name", bjknrs);
 
@@ -1463,13 +1473,13 @@ public class WearChatRuntimeBridge extends iClass {
 
             } else if (bjkmode == 1) {
 
-                gj.xc(new java.lang.Thread() {
+                gj.xc(new Thread() {
 
                     public void run() {
 
                         wllbview(1);
 
-                        java.lang.String nr = "";
+                        String nr = "";
 
                         i.runlibrary.app.zf$zzbds zz = zf.zzbds(bjknrs, "[0-9]*$", 0);
 
@@ -1479,7 +1489,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                             try {
 
-                                java.lang.String url = e1.urlUnlockString(wj.dqwb(set2));
+                                String url = e1.urlUnlockString(wj.dqwb(set2));
 
                                 if (zf.cjw(url, "/")) {
 
@@ -1489,9 +1499,9 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 }
 
-                                java.lang.String idget = url + "chat/" + bjknrs + ".json";
+                                String idget = url + "chat/" + bjknrs + ".json";
 
-                                java.lang.String st5 = wl.hq(idget, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String st5 = wl.hq(idget, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                 if (zf.dy(st5, null)) {
 
@@ -1503,7 +1513,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                                         if (zf.cz(code, "Admin:true")) {
 
-                                            java.lang.String b4 = e1.readJson(st5, "room");
+                                            String b4 = e1.readJson(st5, "room");
                                             b4 = b4;
 
                                             boolean b3 = e11.add_talklist(bjknrs, b4, bjknrs + "-" + b4);
@@ -1527,7 +1537,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                                     } else {
 
-                                        java.lang.String b4 = e1.readJson(st5, "room");
+                                        String b4 = e1.readJson(st5, "room");
                                         b4 = b4;
 
                                         boolean b3 = e11.add_talklist(bjknrs, b4, bjknrs + "-" + b4);
@@ -1547,7 +1557,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 }
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 nr = "添加失败";
 
@@ -1578,7 +1588,7 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public void ltstobottom() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -1591,7 +1601,7 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public void ltstotop() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -1605,9 +1615,9 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void ltsgx() {
 
-        final java.lang.String uid = wj.dqwb("/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id");
+        final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
 
-        final java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
+        final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
         if (!wj.cz(sjhc) || zf.dy(wj.dqwb(sjhc), "")) {
 
@@ -1629,32 +1639,32 @@ public class WearChatRuntimeBridge extends iClass {
 
             final boolean ffs = f_;
 
-            final java.lang.String userid = "/data/user/0/open.cn.awg.pro/settings/account/user";
+            final String userid = AppPaths.appPath("settings/account/user");
 
-            final java.lang.String uid = wj.dqwb("/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id");
+            final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
 
-            java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+            String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-            final java.lang.String name = wj.dqwb(cachehd);
+            final String name = wj.dqwb(cachehd);
 
-            final java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
-            gj.jmxc(new java.lang.Runnable() {
+            final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(name));
+                    st.wb(R.id.title_bar).zf(getTabName(name));
 
                 }
 
             });
 
-            final java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf";
+            final String set3 = AppPaths.appPath("settings/f11/set3.inf");
 
-            final java.lang.String namer = wj.dqwb(set3);
+            final String namer = wj.dqwb(set3);
 
-            java.lang.String urls = "";
+            String urls = "";
 
-            final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+            final String set2 = AppPaths.appPath("settings/f11/set2.inf");
             urls = e1.urlUnlockString(wj.dqwb(set2));
 
             if (zf.cjw(urls, "/")) {
@@ -1665,16 +1675,16 @@ public class WearChatRuntimeBridge extends iClass {
 
             }
 
-            java.lang.String idget = urls + "chat/" + uid + ".json";
+            String idget = urls + "chat/" + uid + ".json";
 
-            final java.lang.String url = idget;
+            final String url = idget;
 
-            final java.lang.String lable = "";
-            gj.xc(new java.lang.Thread() {
+            final String lable = "";
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -1688,45 +1698,45 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb2, open.cn.awg.pro.R.id.wb3, open.cn.awg.pro.R.id.wb21, -1, -2, -3};
+                    int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3, R.id.wb21, -1, -2, -3};
 
-                    java.lang.Object[] jk = new java.lang.Object[]{"", "", "", "", 0, "", ""};
+                    Object[] jk = new Object[]{"", "", "", "", 0, "", ""};
 
-                    java.lang.String setback = "";
+                    String setback = "";
 
-                    java.lang.String data = "";
+                    String data = "";
 
-                    java.lang.String name = "";
+                    String name = "";
 
-                    java.lang.String date = "";
+                    String date = "";
 
-                    java.lang.String luid = "";
+                    String luid = "";
 
-                    java.lang.String address = "";
+                    String address = "";
 
-                    java.lang.String back = wj.dqwb(sjhc);
+                    String back = wj.dqwb(sjhc);
 
                     try {
 
-                        java.lang.String spxx = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+                        String spxx = AppPaths.appPath("settings/a3.inf");
 
-                        java.lang.String axc = wj.dqwb(spxx);
+                        String axc = wj.dqwb(spxx);
 
                         i.runlibrary.app.zf$json jo = zf.json(back);
 
-                        org.json.JSONObject json = jo.json;
+                        JSONObject json = jo.json;
 
-                        org.json.JSONArray list = jo.dxlb(json, "data");
+                        JSONArray list = jo.dxlb(json, "data");
 
                         int i = jo.cd(list);
 
                         int size = 0;
 
-                        java.util.ArrayList arr = new java.util.ArrayList();
+                        ArrayList arr = new ArrayList();
 
                         while (size < i) {
 
-                            org.json.JSONObject dx = jo.dx(list, size);
+                            JSONObject dx = jo.dx(list, size);
                             size++;
                             data = String.valueOf(jo.hq(dx, "data"));
                             name = String.valueOf(jo.hq(dx, "name"));
@@ -1741,43 +1751,43 @@ public class WearChatRuntimeBridge extends iClass {
 
                             }
 
-                            java.lang.String jname = "";
+                            String jname = "";
 
-                            java.lang.String jdata = "";
+                            String jdata = "";
                             jname = name;
                             jdata = data;
 
                             if (!zf.dy(luid, "0") && wj.cz(userid) && !zf.dy(wj.dqwb(userid), "") && zf.dy(luid, wj.dqwb(userid))) {
 
-                                jk = new java.lang.Object[]{jdata, jname, date, address, -1, address, luid};
+                                jk = new Object[]{jdata, jname, date, address, -1, address, luid};
 
                             } else {
 
-                                java.lang.String at = "@" + namer + " ";
+                                String at = "@" + namer + " ";
 
-                                java.lang.String at_ = zf.qctwkg(at);
+                                String at_ = zf.qctwkg(at);
 
                                 if (zf.cz(jdata, at)) {
 
-                                    java.lang.String ats = "@我 ";
+                                    String ats = "@我 ";
                                     jdata = zf.th(jdata, at, ats);
-                                    jk = new java.lang.Object[]{jdata, jname, date, address, 2, address, luid};
+                                    jk = new Object[]{jdata, jname, date, address, 2, address, luid};
 
                                 } else if (zf.dy(jdata, at_)) {
 
-                                    java.lang.String ats = "@我";
+                                    String ats = "@我";
                                     jdata = zf.th(jdata, at_, ats);
-                                    jk = new java.lang.Object[]{jdata, jname, date, address, 2, address, luid};
+                                    jk = new Object[]{jdata, jname, date, address, 2, address, luid};
 
                                 } else {
 
-                                    jk = new java.lang.Object[]{jdata, jname, date, address, 1, address, luid};
+                                    jk = new Object[]{jdata, jname, date, address, 1, address, luid};
 
                                 }
 
                             }
 
-                            java.util.HashMap hs = new java.util.HashMap();
+                            HashMap hs = new HashMap();
 
                             for (int ii = 0; ii < kj.length; ii++) {
 
@@ -1788,7 +1798,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                         }
 
-                        java.util.HashMap hs = new java.util.HashMap();
+                        HashMap hs = new HashMap();
                         hs.put(kj[0], "");
                         hs.put(kj[1], "");
                         hs.put(kj[2], "");
@@ -1800,7 +1810,7 @@ public class WearChatRuntimeBridge extends iClass {
                         arr.add(hs);
                         spq3.list_S = arr;
 
-                    } catch (java.lang.Throwable e) {
+                    } catch (Throwable e) {
 
                         setback = "0";
 
@@ -1811,11 +1821,11 @@ public class WearChatRuntimeBridge extends iClass {
                         if (!ffs) {
 
                             ltsview(0);
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                                    st.kp(R.id.kp7).kjd(0);
 
                                 }
 
@@ -1842,11 +1852,11 @@ public class WearChatRuntimeBridge extends iClass {
                         if (!ffs) {
 
                             ltsview(0);
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                                    st.kp(R.id.kp7).kjd(0);
 
                                 }
 
@@ -1856,7 +1866,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                         try {
 
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -1866,7 +1876,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                             });
 
-                        } catch (java.lang.Throwable e) {
+                        } catch (Throwable e) {
 
                             e1.upload_error(e, "e10.ltsgx1()");
 
@@ -1874,7 +1884,7 @@ public class WearChatRuntimeBridge extends iClass {
                         ltjmshowgb();
 
                     }
-                    wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/disTouch");
+                    wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
                     state_ltsgx1 = false;
 
                 }
@@ -1893,17 +1903,17 @@ public class WearChatRuntimeBridge extends iClass {
 
             state_ltsgx2 = true;
 
-            final java.lang.String uid = wj.dqwb("/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id");
+            final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
 
-            final java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
+            final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
-            final java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f11/set4.inf";
+            final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-            final java.lang.String code = wj.dqwb(set4);
+            final String code = wj.dqwb(set4);
 
-            java.lang.String urls = "";
+            String urls = "";
 
-            final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+            final String set2 = AppPaths.appPath("settings/f11/set2.inf");
             urls = e1.urlUnlockString(wj.dqwb(set2));
 
             if (zf.cjw(urls, "/")) {
@@ -1914,21 +1924,21 @@ public class WearChatRuntimeBridge extends iClass {
 
             }
 
-            final java.lang.String urls_ = urls;
+            final String urls_ = urls;
 
-            java.lang.String idget = urls + "chat/" + uid + ".json";
+            String idget = urls + "chat/" + uid + ".json";
 
-            final java.lang.String url = idget;
+            final String url = idget;
 
-            final java.lang.String lable = "";
-            gj.xc(new java.lang.Thread() {
+            final String lable = "";
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     boolean dontOff = false;
-                    wj.xrwb("/data/user/0/open.cn.awg.pro/data/ltlb/disTouch", "0");
+                    wj.xrwb(AppPaths.appPath("data/ltlb/disTouch"), "0");
 
-                    java.lang.String db_ = "";
+                    String db_ = "";
 
                     if (wj.cz(sjhc)) {
 
@@ -1940,11 +1950,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                    java.lang.String url_ = urls_ + "re.php?uid=" + uid + ljf + "token=" + db_;
+                    String url_ = urls_ + "re.php?uid=" + uid + ljf + "token=" + db_;
 
-                    java.lang.String back = wl.hq(url_, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = wl.hq(url_, null, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -1954,14 +1964,14 @@ public class WearChatRuntimeBridge extends iClass {
 
                         if (zf.dy(back, "error")) {
 
-                            java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
-                            wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/showing");
+                            String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
+                            wj.sc(AppPaths.appPath("data/ltlb/showing"));
 
                             int u = e11.findid_talklist(uid);
 
                             if (u != 0) {
 
-                                java.lang.String uss = String.valueOf(u);
+                                String uss = String.valueOf(u);
 
                                 boolean b1 = e11.delete_talklist(uss);
                                 wj.sc(sjhc);
@@ -1974,11 +1984,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                             if (!wj.cz(sjhc)) {
 
-                                java.lang.String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                 if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
 
-                                    if (st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbjcd).kjd() == 8) {
+                                    if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
 
                                         wj.xrwb(sjhc, back2);
                                         ltsgx1(false);
@@ -1996,7 +2006,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                             } else {
 
-                                java.lang.String db = wj.dqwb(sjhc);
+                                String db = wj.dqwb(sjhc);
 
                                 if (zf.dy(back, db)) {
 
@@ -2004,11 +2014,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                                     if (zf.dy(back, "true")) {
 
-                                        java.lang.String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                        String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                         if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
 
-                                            if (st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbjcd).kjd() == 8) {
+                                            if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
 
                                                 wj.xrwb(sjhc, back2);
                                                 ltsgx1(false);
@@ -2038,21 +2048,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    if (st.xxbj(open.cn.awg.pro.R.id.i2xxbj1).kjd() == 0 && st.xxbj(open.cn.awg.pro.R.id.xxbjcd).kjd() == 8 && !dontOff) {
+                    if (st.xxbj(R.id.i2xxbj1).kjd() == 0 && st.xxbj(R.id.xxbjcd).kjd() == 8 && !dontOff) {
 
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
                                 ltsview(0);
-                                st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                                st.kp(R.id.kp7).kjd(0);
 
                             }
 
                         });
 
                     }
-                    wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/disTouch");
+                    wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
                     state_ltsgx2 = false;
 
                 }
@@ -2071,17 +2081,17 @@ public class WearChatRuntimeBridge extends iClass {
 
             state_ltsgx3 = true;
 
-            final java.lang.String uid = wj.dqwb("/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id");
+            final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
 
-            final java.lang.String sjhc = "/data/user/0/open.cn.awg.pro/data/ltlb/chat/" + uid;
+            final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
-            final java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f11/set4.inf";
+            final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-            final java.lang.String code = wj.dqwb(set4);
+            final String code = wj.dqwb(set4);
 
-            java.lang.String urls = "";
+            String urls = "";
 
-            final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+            final String set2 = AppPaths.appPath("settings/f11/set2.inf");
             urls = e1.urlUnlockString(wj.dqwb(set2));
 
             if (zf.cjw(urls, "/")) {
@@ -2092,18 +2102,18 @@ public class WearChatRuntimeBridge extends iClass {
 
             }
 
-            final java.lang.String urls_ = urls;
+            final String urls_ = urls;
 
-            java.lang.String idget = urls + "chat/" + uid + ".json";
+            String idget = urls + "chat/" + uid + ".json";
 
-            final java.lang.String url = idget;
+            final String url = idget;
 
-            final java.lang.String lable = "";
-            gj.xc(new java.lang.Thread() {
+            final String lable = "";
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -2111,9 +2121,9 @@ public class WearChatRuntimeBridge extends iClass {
 
                     });
                     ltsview(1);
-                    wj.xrwb("/data/user/0/open.cn.awg.pro/data/ltlb/disTouch", "0");
+                    wj.xrwb(AppPaths.appPath("data/ltlb/disTouch"), "0");
 
-                    java.lang.String db_ = "";
+                    String db_ = "";
 
                     if (wj.cz(sjhc)) {
 
@@ -2125,22 +2135,22 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                    java.lang.String url_ = urls_ + "re.php?uid=" + uid + ljf + "token=" + db_;
+                    String url_ = urls_ + "re.php?uid=" + uid + ljf + "token=" + db_;
 
-                    java.lang.String back = wl.hq(url_, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = wl.hq(url_, null, "utf-8", null, true, null, 20000, 20000, null);
 
                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
                         ltjmshow("连接服务器失败,请检查网络连接", false);
                         gj.zt(750);
                         ltsview(0);
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
-                                st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                                st.kp(R.id.kp7).kjd(0);
 
                             }
 
@@ -2157,11 +2167,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                             if (!wj.cz(sjhc)) {
 
-                                java.lang.String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                 if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
 
-                                    if (st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbjcd).kjd() == 8) {
+                                    if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
 
                                         wj.xrwb(sjhc, back2);
                                         ltsgx1(false);
@@ -2177,7 +2187,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                             } else {
 
-                                java.lang.String db = wj.dqwb(sjhc);
+                                String db = wj.dqwb(sjhc);
 
                                 if (zf.dy(back, db)) {
 
@@ -2185,11 +2195,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                                     if (zf.dy(back, "true")) {
 
-                                        java.lang.String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                        String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
 
                                         if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
 
-                                            if (st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbjcd).kjd() == 8) {
+                                            if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
 
                                                 wj.xrwb(sjhc, back2);
                                                 ltsgx1(false);
@@ -2218,21 +2228,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    if (st.xxbj(open.cn.awg.pro.R.id.ltssxxxbj3).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbjcd).kjd() == 8) {
+                    if (st.xxbj(R.id.ltssxxxbj3).kjd() == 8 && st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
 
                         ltsview(0);
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
-                                st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                                st.kp(R.id.kp7).kjd(0);
 
                             }
 
                         });
 
                     }
-                    wj.sc("/data/user/0/open.cn.awg.pro/data/ltlb/disTouch");
+                    wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
                     state_ltsgx3 = false;
 
                 }
@@ -2247,18 +2257,18 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void ltspost(int i) {
 
-        java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+        String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-        final java.lang.String name = wj.dqwb(cachehd);
+        final String name = wj.dqwb(cachehd);
 
         if (i == 0) {
 
             ltsview(0);
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(name));
+                    st.wb(R.id.title_bar).zf(getTabName(name));
 
                 }
 
@@ -2268,7 +2278,7 @@ public class WearChatRuntimeBridge extends iClass {
 
             if (!e1.islogin()) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -2282,24 +2292,24 @@ public class WearChatRuntimeBridge extends iClass {
             } else {
 
                 ltsview(3);
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        java.lang.String path = "/data/user/0/open.cn.awg.pro/cache/chat/upload/path";
+                        String path = AppPaths.appPath("cache/chat/upload/path");
                         wj.sc(path);
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("发送信息");
-                        st.bjk(open.cn.awg.pro.R.id.bjk1).tszf("请输入信息");
-                        st.bjk(open.cn.awg.pro.R.id.bjk1).zf("");
-                        st.an(open.cn.awg.pro.R.id.an_upload).tszf("选择文件");
-                        st.an(open.cn.awg.pro.R.id.an_upload).kjd(0);
-                        st.an(open.cn.awg.pro.R.id.an_disupload).kjd(8);
-                        st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd1).st.setEnabled(true);
-                        st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd2).st.setEnabled(true);
-                        st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd1).kjd(0);
-                        st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd2).kjd(0);
-                        st.dx(open.cn.awg.pro.R.id.dx_chat_upload).st.setEnabled(true);
-                        st.dx(open.cn.awg.pro.R.id.dx_chat_upload).xzzt(false);
+                        st.wb(R.id.title_bar).zf("发送信息");
+                        st.bjk(R.id.bjk1).tszf("请输入信息");
+                        st.bjk(R.id.bjk1).zf("");
+                        st.an(R.id.an_upload).tszf("选择文件");
+                        st.an(R.id.an_upload).kjd(0);
+                        st.an(R.id.an_disupload).kjd(8);
+                        st.xlcd(R.id.ltsup_xlcd1).st.setEnabled(true);
+                        st.xlcd(R.id.ltsup_xlcd2).st.setEnabled(true);
+                        st.xlcd(R.id.ltsup_xlcd1).kjd(0);
+                        st.xlcd(R.id.ltsup_xlcd2).kjd(0);
+                        st.dx(R.id.dx_chat_upload).st.setEnabled(true);
+                        st.dx(R.id.dx_chat_upload).xzzt(false);
 
                     }
 
@@ -2311,11 +2321,11 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void ltspostat(java.lang.Object nam) {
+    public void ltspostat(Object nam) {
 
         if (!e1.islogin()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -2328,27 +2338,27 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else {
 
-            final java.lang.String name = "@" + nam + " ";
+            final String name = "@" + nam + " ";
             ltsview(3);
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    java.lang.String path = "/data/user/0/open.cn.awg.pro/cache/chat/upload/path";
+                    String path = AppPaths.appPath("cache/chat/upload/path");
                     wj.sc(path);
-                    st.wb(open.cn.awg.pro.R.id.Tab).zf("发送信息");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).tszf("请输入信息");
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).zf(name);
-                    st.bjk(open.cn.awg.pro.R.id.bjk1).st.setSelection(name.length());
-                    st.an(open.cn.awg.pro.R.id.an_upload).tszf("选择文件");
-                    st.an(open.cn.awg.pro.R.id.an_upload).kjd(0);
-                    st.an(open.cn.awg.pro.R.id.an_disupload).kjd(8);
-                    st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd1).st.setEnabled(true);
-                    st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd2).st.setEnabled(true);
-                    st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd1).kjd(0);
-                    st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd2).kjd(0);
-                    st.dx(open.cn.awg.pro.R.id.dx_chat_upload).st.setEnabled(true);
-                    st.dx(open.cn.awg.pro.R.id.dx_chat_upload).xzzt(false);
+                    st.wb(R.id.title_bar).zf("发送信息");
+                    st.bjk(R.id.bjk1).tszf("请输入信息");
+                    st.bjk(R.id.bjk1).zf(name);
+                    st.bjk(R.id.bjk1).st.setSelection(name.length());
+                    st.an(R.id.an_upload).tszf("选择文件");
+                    st.an(R.id.an_upload).kjd(0);
+                    st.an(R.id.an_disupload).kjd(8);
+                    st.xlcd(R.id.ltsup_xlcd1).st.setEnabled(true);
+                    st.xlcd(R.id.ltsup_xlcd2).st.setEnabled(true);
+                    st.xlcd(R.id.ltsup_xlcd1).kjd(0);
+                    st.xlcd(R.id.ltsup_xlcd2).kjd(0);
+                    st.dx(R.id.dx_chat_upload).st.setEnabled(true);
+                    st.dx(R.id.dx_chat_upload).xzzt(false);
 
                 }
 
@@ -2366,7 +2376,7 @@ public class WearChatRuntimeBridge extends iClass {
 
             if (!e1.islogin()) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -2381,21 +2391,21 @@ public class WearChatRuntimeBridge extends iClass {
 
             } else {
 
-                java.lang.String xxs = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+                String xxs = st.bjk(R.id.bjk1).zf();
                 xxs = zf.qctwkg(xxs);
 
-                java.lang.String urls = "";
+                String urls = "";
 
-                java.lang.String uid = wj.dqwb("/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id");
+                String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
 
-                final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+                final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
-                final java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf";
+                final String set3 = AppPaths.appPath("settings/f11/set3.inf");
 
-                final java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f11/set4.inf";
+                final String set4 = AppPaths.appPath("settings/f11/set4.inf");
                 urls = e1.urlUnlockString(wj.dqwb(set2));
 
-                java.lang.String namer = wj.dqwb(set3);
+                String namer = wj.dqwb(set3);
 
                 if (zf.cjw(urls, "/")) {
 
@@ -2405,26 +2415,26 @@ public class WearChatRuntimeBridge extends iClass {
 
                 }
 
-                java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                java.lang.String idget = urls + "class/api.php?type=release" + ljf + "id=" + uid;
+                String idget = urls + "class/api.php?type=release" + ljf + "id=" + uid;
 
-                final java.lang.String name = namer;
+                final String name = namer;
 
-                final java.lang.String xx = xxs;
+                final String xx = xxs;
 
-                final java.lang.String url = idget;
+                final String url = idget;
 
-                final java.lang.String code = wj.dqwb(set4);
+                final String code = wj.dqwb(set4);
 
-                final i.runlibrary.app.v.dx dx = st.dx(open.cn.awg.pro.R.id.dx_chat_upload);
+                final i.runlibrary.app.v.dx dx = st.dx(R.id.dx_chat_upload);
 
-                final i.runlibrary.app.v.an an = st.an(open.cn.awg.pro.R.id.an_upload);
+                final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
 
-                java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+                String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-                final java.lang.String title = wj.dqwb(cachehd);
-                gj.xc(new java.lang.Thread() {
+                final String title = wj.dqwb(cachehd);
+                gj.xc(new Thread() {
 
                     public void run() {
 
@@ -2463,17 +2473,17 @@ public class WearChatRuntimeBridge extends iClass {
 
                             if (ppp) {
 
-                                java.lang.String name_ = name;
+                                String name_ = name;
 
-                                java.lang.String _xx_ = xx;
+                                String _xx_ = xx;
 
                                 if (dx.xzzt()) {
 
                                     if (zf.dy(an.tszf(), "上传成功")) {
 
-                                        java.lang.String u_ = wj.dqwb("/data/user/0/open.cn.awg.pro/cache/chat/upload/info");
+                                        String u_ = wj.dqwb(AppPaths.appPath("cache/chat/upload/info"));
 
-                                        java.lang.String t_ = wj.dqwb("/data/user/0/open.cn.awg.pro/cache/chat/upload/type");
+                                        String t_ = wj.dqwb(AppPaths.appPath("cache/chat/upload/type"));
 
                                         if (zf.dy(t_, "0")) {
 
@@ -2497,19 +2507,19 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 }
 
-                                java.lang.String xx_ = _xx_;
+                                String xx_ = _xx_;
                                 ltsview(0);
                                 ltjmshow2("正在发送中...");
 
-                                java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+                                String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-                                final java.lang.String name = wj.dqwb(cachehd);
-                                gj.jmxc(new java.lang.Runnable() {
+                                final String name = wj.dqwb(cachehd);
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(name));
-                                        st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
+                                        st.wb(R.id.title_bar).zf(getTabName(name));
+                                        st.kp(R.id.kp7).kjd(0);
 
                                     }
 
@@ -2517,11 +2527,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 if (e1.yz()) {
 
-                                    java.lang.String setback = "";
+                                    String setback = "";
 
-                                    java.lang.String[] wlhq1 = new java.lang.String[]{"name=" + name_, "value=" + xx_, "code=" + code, "uid=" + e1.awgwl_getuid()};
+                                    String[] wlhq1 = new String[]{"name=" + name_, "value=" + xx_, "code=" + code, "uid=" + e1.awgwl_getuid()};
 
-                                    java.lang.String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                                    String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
 
                                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -2546,12 +2556,12 @@ public class WearChatRuntimeBridge extends iClass {
                                         ltsview(0);
                                         ltjmshowgb();
                                         e1.tsk("提示", "发送失败(-1)");
-                                        gj.jmxc(new java.lang.Runnable() {
+                                        gj.jmxc(new Runnable() {
 
                                             public void run() {
 
-                                                st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
-                                                st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(title));
+                                                st.kp(R.id.kp7).kjd(0);
+                                                st.wb(R.id.title_bar).zf(getTabName(title));
 
                                             }
 
@@ -2563,12 +2573,12 @@ public class WearChatRuntimeBridge extends iClass {
 
                                         if (zf.dy(setback, "true")) {
 
-                                            gj.jmxc(new java.lang.Runnable() {
+                                            gj.jmxc(new Runnable() {
 
                                                 public void run() {
 
-                                                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
-                                                    st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(title));
+                                                    st.kp(R.id.kp7).kjd(0);
+                                                    st.wb(R.id.title_bar).zf(getTabName(title));
 
                                                 }
 
@@ -2581,12 +2591,12 @@ public class WearChatRuntimeBridge extends iClass {
                                             e1.tsk("提示", "发送失败\n" + setback);
                                             ltsview(0);
                                             ltjmshowgb();
-                                            gj.jmxc(new java.lang.Runnable() {
+                                            gj.jmxc(new Runnable() {
 
                                                 public void run() {
 
-                                                    st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
-                                                    st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(title));
+                                                    st.kp(R.id.kp7).kjd(0);
+                                                    st.wb(R.id.title_bar).zf(getTabName(title));
 
                                                 }
 
@@ -2601,12 +2611,12 @@ public class WearChatRuntimeBridge extends iClass {
                                     ltsview(0);
                                     e1.tsk("提示", "发送失败(-2)");
                                     ltjmshowgb();
-                                    gj.jmxc(new java.lang.Runnable() {
+                                    gj.jmxc(new Runnable() {
 
                                         public void run() {
 
-                                            st.kp(open.cn.awg.pro.R.id.kp7).kjd(0);
-                                            st.wb(open.cn.awg.pro.R.id.Tab).zf(getTabName(title));
+                                            st.kp(R.id.kp7).kjd(0);
+                                            st.wb(R.id.title_bar).zf(getTabName(title));
 
                                         }
 
@@ -2631,35 +2641,35 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void post_jb(java.lang.Object c, java.lang.Object d, java.lang.Object e, java.lang.Object f) {
+    public void post_jb(Object c, Object d, Object e, Object f) {
 
         if (!state_post_jb) {
 
             state_post_jb = true;
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd(8);
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(0);
+                    st.xxbj(R.id.xxbj3).kjd(8);
+                    st.xxbj(R.id.xxbj5).kjd(0);
 
                 }
 
             });
 
-            java.lang.Object xxs = c;
+            Object xxs = c;
             xxs = zf.qctwkg(xxs);
 
-            java.lang.String urls = "";
+            String urls = "";
 
-            java.lang.String uid = wj.dqwb("/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id");
+            String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
 
-            final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f11/set2.inf";
+            final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
-            final java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf";
+            final String set3 = AppPaths.appPath("settings/f11/set3.inf");
             urls = e1.urlUnlockString(wj.dqwb(set2));
 
-            java.lang.String namer = wj.dqwb(set3);
+            String namer = wj.dqwb(set3);
 
             if (zf.cjw(urls, "/")) {
 
@@ -2669,21 +2679,21 @@ public class WearChatRuntimeBridge extends iClass {
 
             }
 
-            java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+            String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-            java.lang.String idget = urls + "class/api.php?type=release" + ljf + "id=110";
+            String idget = urls + "class/api.php?type=release" + ljf + "id=110";
 
-            java.lang.String j = uid;
+            String j = uid;
 
             if (zf.dy(xxs, "")) {
 
                 e1.tsk("提示", "举报理由不能为空");
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd(0);
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                        st.xxbj(R.id.xxbj3).kjd(0);
+                        st.xxbj(R.id.xxbj5).kjd(8);
 
                     }
 
@@ -2692,28 +2702,28 @@ public class WearChatRuntimeBridge extends iClass {
 
             } else {
 
-                java.lang.String namex0 = "用户举报";
+                String namex0 = "用户举报";
 
-                final java.lang.String namex = namex0;
+                final String namex = namex0;
 
-                java.lang.String xxk = "【举报人】\n" + namer + "\n【举报理由】\n" + xxs + "\n\n【被举报人昵称】\n" + d + "\n【被举报消息内容】\n" + f + "\n【被消息发出时间】\n" + e + "\n【被举报消息所在房间】\n" + j;
+                String xxk = "【举报人】\n" + namer + "\n【举报理由】\n" + xxs + "\n\n【被举报人昵称】\n" + d + "\n【被举报消息内容】\n" + f + "\n【被消息发出时间】\n" + e + "\n【被举报消息所在房间】\n" + j;
 
-                final java.lang.String xx = xxk;
+                final String xx = xxk;
 
-                final java.lang.String name = namer;
+                final String name = namer;
 
-                final java.lang.String url = idget;
-                gj.xc(new java.lang.Thread() {
+                final String url = idget;
+                gj.xc(new Thread() {
 
                     public void run() {
 
                         if (e1.yz()) {
 
-                            java.lang.String setback = "";
+                            String setback = "";
 
-                            java.lang.String[] wlhq1 = new java.lang.String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
+                            String[] wlhq1 = new String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
 
-                            java.lang.String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
 
                             if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -2736,12 +2746,12 @@ public class WearChatRuntimeBridge extends iClass {
                             if (zf.dy(setback, "0")) {
 
                                 e1.tsk("提示", "举报失败(-1)");
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
-                                        st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd(0);
-                                        st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                                        st.xxbj(R.id.xxbj3).kjd(0);
+                                        st.xxbj(R.id.xxbj5).kjd(8);
 
                                     }
 
@@ -2752,12 +2762,12 @@ public class WearChatRuntimeBridge extends iClass {
                                 if (zf.dy(setback, "true")) {
 
                                     e1.tsk("提示", "举报成功");
-                                    gj.jmxc(new java.lang.Runnable() {
+                                    gj.jmxc(new Runnable() {
 
                                         public void run() {
 
-                                            st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd(0);
-                                            st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                                            st.xxbj(R.id.xxbj3).kjd(0);
+                                            st.xxbj(R.id.xxbj5).kjd(8);
 
                                         }
 
@@ -2767,12 +2777,12 @@ public class WearChatRuntimeBridge extends iClass {
                                 } else {
 
                                     e1.tsk("提示", "举报失败\n" + setback);
-                                    gj.jmxc(new java.lang.Runnable() {
+                                    gj.jmxc(new Runnable() {
 
                                         public void run() {
 
-                                            st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd(0);
-                                            st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                                            st.xxbj(R.id.xxbj3).kjd(0);
+                                            st.xxbj(R.id.xxbj5).kjd(8);
 
                                         }
 
@@ -2785,12 +2795,12 @@ public class WearChatRuntimeBridge extends iClass {
                         } else {
 
                             e1.tsk("提示", "举报失败(-2)");
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd(0);
-                                    st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd(8);
+                                    st.xxbj(R.id.xxbj3).kjd(0);
+                                    st.xxbj(R.id.xxbj5).kjd(8);
 
                                 }
 
@@ -2811,28 +2821,28 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void ltjmshow(java.lang.Object a, boolean b) {
+    public void ltjmshow(Object a, boolean b) {
 
-        final java.lang.Object bt = a;
+        final Object bt = a;
 
-        java.lang.String color = "";
+        String color = "";
 
         if (b) {
 
-            color = zf.zf(open.cn.awg.pro.R.color.colorTextTrue);
+            color = zf.zf(R.color.colorTextTrue);
 
         } else {
 
-            color = zf.zf(open.cn.awg.pro.R.color.colorTextFalse);
+            color = zf.zf(R.color.colorTextFalse);
 
         }
 
-        final java.lang.String bj = color;
-        gj.jmxc(new java.lang.Runnable() {
+        final String bj = color;
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb wb = st.wb(open.cn.awg.pro.R.id.wb3);
+                i.runlibrary.app.v.wb wb = st.wb(R.id.wb3);
                 wb.zf("[提示] " + bt);
                 wb.bj(bj);
                 wb.kjd(0);
@@ -2843,18 +2853,18 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void ltjmshow2(java.lang.Object a) {
+    public void ltjmshow2(Object a) {
 
-        final java.lang.Object bt = a;
+        final Object bt = a;
 
-        java.lang.String color = zf.zf(open.cn.awg.pro.R.color.colorAccent);
+        String color = zf.zf(R.color.colorAccent);
 
-        final java.lang.String bj = color;
-        gj.jmxc(new java.lang.Runnable() {
+        final String bj = color;
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb wb = st.wb(open.cn.awg.pro.R.id.wb3);
+                i.runlibrary.app.v.wb wb = st.wb(R.id.wb3);
                 wb.zf("[提示] " + bt);
                 wb.bj(bj);
                 wb.kjd(0);
@@ -2866,11 +2876,11 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public void ltjmshowgb() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb wb = st.wb(open.cn.awg.pro.R.id.wb3);
+                i.runlibrary.app.v.wb wb = st.wb(R.id.wb3);
                 wb.kjd(8);
 
             }
@@ -2879,7 +2889,7 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void upload(java.lang.Object a, int types) {
+    public void upload(Object a, int types) {
 
         if (!state_upload) {
 
@@ -2887,29 +2897,29 @@ public class WearChatRuntimeBridge extends iClass {
 
             final int type = types;
 
-            final java.lang.String uu = "/data/user/0/open.cn.awg.pro/settings/other/0xO5HJ7/url";
+            final String uu = AppPaths.appPath("settings/other/0xO5HJ7/url");
 
-            final java.lang.String path_ = wj.hqml(a);
+            final String path_ = wj.hqml(a);
 
-            final java.lang.String[] path = new java.lang.String[]{path_};
+            final String[] path = new String[]{path_};
 
-            final i.runlibrary.app.v.dx dx = st.dx(open.cn.awg.pro.R.id.dx_chat_upload);
+            final i.runlibrary.app.v.dx dx = st.dx(R.id.dx_chat_upload);
 
-            final i.runlibrary.app.v.an an = st.an(open.cn.awg.pro.R.id.an_upload);
+            final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
 
-            final i.runlibrary.app.v.jdt jdt2 = st.jdt(open.cn.awg.pro.R.id.jdt2);
+            final i.runlibrary.app.v.jdt jdt2 = st.jdt(R.id.jdt2);
 
-            final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd1);
+            final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
 
-            final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd2);
+            final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
 
-            final i.runlibrary.app.v.an an2 = st.an(open.cn.awg.pro.R.id.an_disupload);
-            gj.xc(new java.lang.Thread() {
+            final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     upload_back = "";
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -2932,7 +2942,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                         if (zf.dy(path_, "") || !wj.cz(path_)) {
 
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -2953,14 +2963,14 @@ public class WearChatRuntimeBridge extends iClass {
 
                         } else {
 
-                            java.lang.String urls = wj.dqwb(uu);
+                            String urls = wj.dqwb(uu);
                             urls = e1.urlUnlockString(urls);
 
-                            final java.lang.String url = urls;
+                            final String url = urls;
 
-                            java.lang.String fn__ = "null";
+                            String fn__ = "null";
 
-                            java.lang.String[] fn_ = e1.fileinfo("/", path[0]);
+                            String[] fn_ = e1.fileinfo("/", path[0]);
 
                             if (zf.dy(fn_[0], "true")) {
 
@@ -2968,12 +2978,12 @@ public class WearChatRuntimeBridge extends iClass {
 
                             }
 
-                            final java.lang.String file_name = fn__;
+                            final String file_name = fn__;
 
                             final long file_size = wj.dx(path[0]);
 
-                            java.lang.String[] p = new java.lang.String[]{"name=" + fn__, "size=" + wj.dx(path[0])};
-                            gj.jmxc(new java.lang.Runnable() {
+                            String[] p = new String[]{"name=" + fn__, "size=" + wj.dx(path[0])};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -3011,7 +3021,7 @@ public class WearChatRuntimeBridge extends iClass {
                                                 })
                                                 .doPost();
 
-                                    } catch (java.lang.Throwable e) {
+                                    } catch (Throwable e) {
 
                                         jdt2.kjd(8);
                                         an.kjd(0);
@@ -3034,7 +3044,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                     } else {
 
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
@@ -3066,25 +3076,25 @@ public class WearChatRuntimeBridge extends iClass {
 
     }
 
-    public void uploadResult(java.lang.Exception error, java.lang.Object upload_back, int type) {
+    public void uploadResult(Exception error, Object upload_back, int type) {
 
-        final i.runlibrary.app.v.dx dx = st.dx(open.cn.awg.pro.R.id.dx_chat_upload);
+        final i.runlibrary.app.v.dx dx = st.dx(R.id.dx_chat_upload);
 
-        final i.runlibrary.app.v.an an = st.an(open.cn.awg.pro.R.id.an_upload);
+        final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
 
-        final i.runlibrary.app.v.jdt jdt2 = st.jdt(open.cn.awg.pro.R.id.jdt2);
+        final i.runlibrary.app.v.jdt jdt2 = st.jdt(R.id.jdt2);
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd1);
+        final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(open.cn.awg.pro.R.id.ltsup_xlcd2);
+        final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
 
-        final i.runlibrary.app.v.an an2 = st.an(open.cn.awg.pro.R.id.an_disupload);
+        final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
 
-        java.lang.Object back = upload_back;
+        Object back = upload_back;
 
         if (!zf.dy(sj.zh().zstring(error), null)) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -3107,7 +3117,7 @@ public class WearChatRuntimeBridge extends iClass {
 
             if (zf.dy(back, "") || zf.dy(back, null)) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -3141,9 +3151,9 @@ public class WearChatRuntimeBridge extends iClass {
                         back = zf.qctwkg(back);
 
                     }
-                    wj.xrwb("/data/user/0/open.cn.awg.pro/cache/chat/upload/info", back);
-                    wj.xrwb("/data/user/0/open.cn.awg.pro/cache/chat/upload/type", sj.zh().zstring(type));
-                    gj.jmxc(new java.lang.Runnable() {
+                    wj.xrwb(AppPaths.appPath("cache/chat/upload/info"), back);
+                    wj.xrwb(AppPaths.appPath("cache/chat/upload/type"), sj.zh().zstring(type));
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
@@ -3163,7 +3173,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                 } else {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 

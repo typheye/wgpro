@@ -21,17 +21,17 @@ import i.app.iClass;
 public class DebugStateStore extends iClass {
 
     public final DebugStateStore lei = this, 类 = this;
-    public java.lang.String de = "/data/user/0/open.cn.awg.pro/data/debug/state/";
-    public java.lang.String dd = "/data/user/0/open.cn.awg.pro/data/debug/showed.inf";
+    public String de = AppPaths.appPath("data/debug/state/");
+    public String dd = AppPaths.appPath("data/debug/showed.inf");
 
     public DebugStateStore(i.runlibrary.app.AppInfo _APPINFO) {
         super(_APPINFO);
 
     }
 
-    public boolean getDebugState(java.lang.Object i) {
+    public boolean getDebugState(Object i) {
 
-        java.lang.String ph = de + i;
+        String ph = de + i;
 
         if (wj.cz(ph)) {
 
@@ -42,9 +42,9 @@ public class DebugStateStore extends iClass {
 
     }
 
-    public boolean setDebugState(java.lang.Object i, boolean i2) {
+    public boolean setDebugState(Object i, boolean i2) {
 
-        java.lang.String ph = de + i;
+        String ph = de + i;
 
         if (i2) {
 

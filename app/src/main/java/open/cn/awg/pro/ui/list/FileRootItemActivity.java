@@ -16,38 +16,46 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.os.Environment;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+import java.lang.reflect.Method;
+
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.file.FileManagerActivity;
+import open.cn.awg.pro.R;
 
-
-public class FileRootItemActivity extends iActivity {
+public class FileRootItemActivity extends BaseAwgActivity {
 
     public final FileRootItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_aaeebbd136 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_aaeebbd136(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_aaeebbd136 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_aaeebbd136(vw);
+        public void onClick(View vw) {
+            onXdbj1Click(vw);
         }
 
     };
 
-    public void go(java.lang.Object lj) {
+    public void go(Object lj) {
 
-        java.lang.String cache00 = "/data/user/0/open.cn.awg.pro/cache/00";
+        String cache00 = AppPaths.appPath("cache/00");
 
-        final java.lang.String[] name = new java.lang.String[]{"url", "root"};
+        final String[] name = new String[]{"url", "root"};
 
-        final java.lang.Object[] value = new java.lang.Object[]{lj, lj};
+        final Object[] value = new Object[]{lj, lj};
         wj.xrwb(cache00, lj);
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -59,19 +67,19 @@ public class FileRootItemActivity extends iActivity {
 
     }
 
-    private void $_onClick_aaeebbd136(android.view.View vw) {
+    private void onXdbj1Click(View vw) {
 
-        final open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object lj = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+        Object lj = lb.lbcfsj(R.id.wb3);
 
-        java.lang.Object pd = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object pd = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object title = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object title = lb.lbcfsj(R.id.wb1);
 
-        java.lang.String ftitle = "/data/user/0/open.cn.awg.pro/cache/file/title";
+        String ftitle = AppPaths.appPath("cache/file/title");
         wj.xrwb(ftitle, "< " + title);
 
         if (zf.dy(pd, "a0")) {
@@ -94,7 +102,7 @@ public class FileRootItemActivity extends iActivity {
 
                 }
 
-            } catch (java.lang.Throwable e) {
+            } catch (Throwable e) {
 
                 e1.upload_error(e, "c13.*");
 
@@ -112,17 +120,17 @@ public class FileRootItemActivity extends iActivity {
 
                     try {
 
-                        java.lang.Class cs = android.os.Environment.class;
+                        Class cs = Environment.class;
 
-                        java.lang.reflect.Method m = cs.getMethod("isExternalStorageManager");
+                        Method m = cs.getMethod("isExternalStorageManager");
 
-                        java.lang.Object o = m.invoke(null);
+                        Object o = m.invoke(null);
 
                         if (o.equals(true)) {
 
                         } else {
 
-                            java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/d1/set2.inf";
+                            String set2 = AppPaths.appPath("settings/d1/set2.inf");
 
                             if (zf.dy(wj.dqwb(set2), "true")) {
 
@@ -134,7 +142,7 @@ public class FileRootItemActivity extends iActivity {
 
                         }
 
-                    } catch (java.lang.Throwable e) {
+                    } catch (Throwable e) {
 
                     }
 
@@ -144,7 +152,7 @@ public class FileRootItemActivity extends iActivity {
 
                 }
 
-            } catch (java.lang.Throwable e) {
+            } catch (Throwable e) {
 
                 e1.upload_error(e, "c13.*");
 
@@ -154,15 +162,15 @@ public class FileRootItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_aaeebbd136(android.view.View vw) {
+    private boolean onXdbj1LongClick(View vw) {
 
-        final open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object te = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object te = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object lj = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+        Object lj = lb.lbcfsj(R.id.wb3);
         e1.tsk("详细信息", "[标题]\n" + te + "\n\n[路径]\n" + lj);
         return true;
 
@@ -172,13 +180,13 @@ public class FileRootItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
-        aaeebbd136.setOnClickListener($_on_setOnClickListener_aaeebbd136);
-        aaeebbd136.setOnLongClickListener($_on_setOnLongClickListener_aaeebbd136);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        aaeebbd136.setOnClickListener(xdbj1ClickListener);
+        aaeebbd136.setOnLongClickListener(xdbj1LongClickListener);
 
-        android.widget.RelativeLayout i0e9a1c6629 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c12_v);
+        RelativeLayout i0e9a1c6629 = (RelativeLayout) findViewById(ay, vw, R.id.file_root_item_root);
 
         __layoutIsLoaded(ay, vw);
     }

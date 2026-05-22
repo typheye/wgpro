@@ -16,209 +16,137 @@
  */
 package open.cn.awg.pro.account;
 
+import android.app.Activity;
 import android.graphics.Bitmap;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
 import com.alibaba.fastjson.JSONObject;
-import com.ypz.bangscreentools.BangScreenTools;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.browser.X5BrowserActivity;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
 
-
-public class TypheyeLoginActivity extends iActivity {
+public class TypheyeLoginActivity extends BaseAwgActivity {
 
     public final TypheyeLoginActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public open.cn.awg.pro.account.TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
     public boolean st_go2 = false;
     public boolean st_go2_xh = false;
     public boolean go2xh = false;
     public boolean go2qx = false;
     public boolean switch_pwdlogin = false;
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171ea34f1a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171ea34f1a(vw);
+        public void onClick(View vw) {
+            onAn1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i2a86c78b06 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i2a86c78b06(vw);
+        public void onClick(View vw) {
+            onWb5Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
+        public void onClick(View vw) {
+            onTx3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i0d2d4d9236 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i0d2d4d9236(vw);
+        public void onClick(View vw) {
+            onWb3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_ff56a8e7f6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_ff56a8e7f6(vw);
+        public void onClick(View vw) {
+            onWb1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_f52e07ac8c = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb6ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_f52e07ac8c(vw);
+        public void onClick(View vw) {
+            onWb6Click(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.n2);
+        setContentView(R.layout.typheye_login);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        java.lang.String aa = "/data/user/0/open.cn.awg.pro/settings/account/userx";
+        String aa = AppPaths.appPath("settings/account/userx");
 
-        java.lang.String bb = "/data/user/0/open.cn.awg.pro/settings/account/passx";
+        String bb = AppPaths.appPath("settings/account/passx");
 
         if (wj.cz(aa) && !zf.dy(zf.qctwkg(wj.dqwb(aa)), "") && wj.cz(bb) && !zf.dy(zf.qctwkg(wj.dqwb(bb)), "")) {
 
-            st.bjk(open.cn.awg.pro.R.id.bjk1).zf(wj.dqwb(aa));
-            st.bjk(open.cn.awg.pro.R.id.bjk2).zf(wj.dqwb(bb));
+            st.bjk(R.id.bjk1).zf(wj.dqwb(aa));
+            st.bjk(R.id.bjk2).zf(wj.dqwb(bb));
 
         }
         go2();
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
-
-        }
-
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.n2_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.n2_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
+        applyStandardScreenMode(R.id.typheye_login_root, R.id.xdbj1, R.id.title_bar);
 
     }
 
     public void zt(int a) {
 
         final int i = a;
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    st.wb(open.cn.awg.pro.R.id.wb5).kjd(0);
-                    st.wb(open.cn.awg.pro.R.id.wb4).zf("扫描二维码完成登录");
+                    st.wb(R.id.wb5).kjd(0);
+                    st.wb(R.id.wb4).zf("扫描二维码完成登录");
 
                 } else if (i == 1) {
 
-                    st.wb(open.cn.awg.pro.R.id.wb5).kjd(4);
-                    st.tx(open.cn.awg.pro.R.id.tx1).kjd(8);
-                    st.wb(open.cn.awg.pro.R.id.wb4).zf("已扫码等待用户操作");
+                    st.wb(R.id.wb5).kjd(4);
+                    st.tx(R.id.tx1).kjd(8);
+                    st.wb(R.id.wb4).zf("已扫码等待用户操作");
 
                 } else if (i == 2) {
 
-                    st.wb(open.cn.awg.pro.R.id.wb5).kjd(4);
+                    st.wb(R.id.wb5).kjd(4);
                     show(1);
 
                 }
@@ -234,24 +162,24 @@ public class TypheyeLoginActivity extends iActivity {
         if (!st_go2) {
 
             st_go2 = true;
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
                     show(1);
                     gj.zt(500);
 
-                    java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f7/Enable";
+                    String set2 = AppPaths.appPath("settings/f7/Enable");
 
-                    java.lang.String oback = "";
+                    String oback = "";
 
                     if (e1.yz()) {
 
                         try {
 
-                            java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                            String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                            java.lang.String url = e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"));
+                            String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
 
                             if (zf.cjw(url, "/")) {
 
@@ -261,11 +189,11 @@ public class TypheyeLoginActivity extends iActivity {
 
                             }
 
-                            java.lang.String send0 = "type=generate_login_request";
+                            String send0 = "type=generate_login_request";
 
-                            final java.lang.String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+                            final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 
-                            java.lang.String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
 
                             if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -275,7 +203,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                             } else {
 
-                                java.lang.String ce = e1.readJson(back, "code");
+                                String ce = e1.readJson(back, "code");
 
                                 if (zf.dy(ce, "200")) {
 
@@ -285,9 +213,9 @@ public class TypheyeLoginActivity extends iActivity {
 
                                         org.json.JSONObject json = jo.json;
 
-                                        java.lang.Object v_request_id = jo.hq(json, "request_id");
+                                        Object v_request_id = jo.hq(json, "request_id");
 
-                                        java.lang.Object v_qr_code_url = jo.hq(json, "qr_code_url");
+                                        Object v_qr_code_url = jo.hq(json, "qr_code_url");
 
                                         if (!zf.dy(v_request_id, "") && !zf.dy(v_qr_code_url, "")) {
 
@@ -301,7 +229,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                                         }
 
-                                    } catch (java.lang.Throwable e) {
+                                    } catch (Throwable e) {
 
                                         oback = "登录失败:出现异常";
                                         e1.tsk("提示", oback);
@@ -319,7 +247,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                             }
 
-                        } catch (java.lang.Throwable __$_e__) {
+                        } catch (Throwable __$_e__) {
 
                             oback = "支付失败:出现异常";
                             e1.tsk("提示", oback);
@@ -348,16 +276,16 @@ public class TypheyeLoginActivity extends iActivity {
 
     }
 
-    public void go2_xh(java.lang.String v_request_id_, java.lang.String v_qr_code_url_) {
+    public void go2_xh(String v_request_id_, String v_qr_code_url_) {
 
         if (!st_go2_xh) {
 
             st_go2_xh = true;
 
-            final java.lang.String v_request_id = v_request_id_;
+            final String v_request_id = v_request_id_;
 
-            final java.lang.String v_qr_code_url = v_qr_code_url_;
-            gj.xc(new java.lang.Thread() {
+            final String v_qr_code_url = v_qr_code_url_;
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -368,37 +296,37 @@ public class TypheyeLoginActivity extends iActivity {
                     zt(0);
                     ewm(v_qr_code_url);
 
-                    java.lang.String oback = "";
+                    String oback = "";
 
-                    java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf";
+                    String set2 = AppPaths.appPath("settings/n1/set2.inf");
 
-                    java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf";
+                    String set3 = AppPaths.appPath("settings/n1/set3.inf");
 
-                    java.lang.String set4 = "/data/user/0/open.cn.awg.pro/data/easy/cookie";
+                    String set4 = AppPaths.appPath("data/easy/cookie");
 
-                    java.lang.String set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf";
+                    String set2s = AppPaths.appPath("settings/f11/set3.inf");
 
-                    java.lang.String aa = "/data/user/0/open.cn.awg.pro/settings/account/user";
+                    String aa = AppPaths.appPath("settings/account/user");
 
-                    java.lang.String bb = "/data/user/0/open.cn.awg.pro/settings/account/pass";
+                    String bb = AppPaths.appPath("settings/account/pass");
 
-                    java.lang.String aax = "/data/user/0/open.cn.awg.pro/settings/account/userx";
+                    String aax = AppPaths.appPath("settings/account/userx");
 
-                    java.lang.String bbx = "/data/user/0/open.cn.awg.pro/settings/account/passx";
+                    String bbx = AppPaths.appPath("settings/account/passx");
 
-                    java.lang.String j_info_cookie = "";
+                    String j_info_cookie = "";
 
-                    java.lang.String j_info_email = "";
+                    String j_info_email = "";
 
-                    java.lang.String j_info_more = "";
+                    String j_info_more = "";
 
-                    java.lang.String j_info_uid = "";
+                    String j_info_uid = "";
 
-                    java.lang.String j_info_shuo = "";
+                    String j_info_shuo = "";
 
-                    java.lang.String j_info_nick = "";
+                    String j_info_nick = "";
 
-                    java.lang.String j_info_note = "";
+                    String j_info_note = "";
 
                     while (go2xh) {
 
@@ -422,7 +350,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                         }
 
-                        java.lang.String url = e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"));
+                        String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
 
                         if (zf.cjw(url, "/")) {
 
@@ -432,9 +360,9 @@ public class TypheyeLoginActivity extends iActivity {
 
                         }
 
-                        java.lang.String send = "/api.php?type=check_login_request_status&request_id=" + v_request_id;
+                        String send = "/api.php?type=check_login_request_status&request_id=" + v_request_id;
 
-                        java.lang.String back = wl.hq(url + send, "utf-8");
+                        String back = wl.hq(url + send, "utf-8");
 
                         if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -446,7 +374,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                         } else {
 
-                            java.lang.String ce = e1.readJson(back, "code");
+                            String ce = e1.readJson(back, "code");
 
                             if (zf.dy(ce, "200")) {
 
@@ -456,7 +384,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                                     org.json.JSONObject json0 = jo.json;
 
-                                    final java.lang.String v_status = sj.zh().zstring(jo.hq(json0, "status"));
+                                    final String v_status = sj.zh().zstring(jo.hq(json0, "status"));
 
                                     if (zf.dy(v_status, "approved")) {
 
@@ -484,7 +412,7 @@ public class TypheyeLoginActivity extends iActivity {
                                         wj.xrwb(set3, j_info_shuo);
                                         wj.xrwb(set4, j_info_cookie);
 
-                                        java.lang.String b = sj.md5("none");
+                                        String b = sj.md5("none");
                                         wj.xrwb(aa, j_info_uid);
                                         wj.xrwb(bb, b);
                                         wj.xrwb(aax, j_info_uid);
@@ -511,7 +439,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                                     }
 
-                                } catch (java.lang.Throwable e) {
+                                } catch (Throwable e) {
 
                                     go2xh = false;
                                     oback = "登录失败:出现异常";
@@ -544,7 +472,7 @@ public class TypheyeLoginActivity extends iActivity {
 
             go2xh = false;
 
-            java.lang.String oback = "登录失败:操作过于频繁，请稍后重试";
+            String oback = "登录失败:操作过于频繁，请稍后重试";
             e1.tsk("提示", oback);
             show(0);
 
@@ -552,24 +480,24 @@ public class TypheyeLoginActivity extends iActivity {
 
     }
 
-    public void ewm(java.lang.String url) {
+    public void ewm(String url) {
 
-        final java.lang.String qr = url;
-        gj.jmxc(new java.lang.Runnable() {
+        final String qr = url;
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
                 try {
 
-                    android.widget.ImageView imageView = findViewById(R.id.tx1);
+                    ImageView imageView = findViewById(R.id.tx1);
                     Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                     imageView.setImageBitmap(bitmap);
 
-                    st.tx(open.cn.awg.pro.R.id.tx1).kjd(0);
+                    st.tx(R.id.tx1).kjd(0);
 
-                } catch (java.lang.Throwable e) {
+                } catch (Throwable e) {
 
-                    st.tx(open.cn.awg.pro.R.id.tx1).kjd(8);
+                    st.tx(R.id.tx1).kjd(8);
 
                 }
 
@@ -580,33 +508,33 @@ public class TypheyeLoginActivity extends iActivity {
     }
 
     public void go() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
                 show(1);
                 gj.zt(500);
 
-                java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/n1/set2.inf";
+                String set2 = AppPaths.appPath("settings/n1/set2.inf");
 
-                java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/n1/set3.inf";
+                String set3 = AppPaths.appPath("settings/n1/set3.inf");
 
-                java.lang.String set4 = "/data/user/0/open.cn.awg.pro/data/easy/cookie";
+                String set4 = AppPaths.appPath("data/easy/cookie");
 
-                java.lang.String set2s = "/data/user/0/open.cn.awg.pro/settings/f11/set3.inf";
+                String set2s = AppPaths.appPath("settings/f11/set3.inf");
 
-                java.lang.String aa = "/data/user/0/open.cn.awg.pro/settings/account/user";
+                String aa = AppPaths.appPath("settings/account/user");
 
-                java.lang.String bb = "/data/user/0/open.cn.awg.pro/settings/account/pass";
+                String bb = AppPaths.appPath("settings/account/pass");
 
-                java.lang.String aax = "/data/user/0/open.cn.awg.pro/settings/account/userx";
+                String aax = AppPaths.appPath("settings/account/userx");
 
-                java.lang.String bbx = "/data/user/0/open.cn.awg.pro/settings/account/passx";
+                String bbx = AppPaths.appPath("settings/account/passx");
 
-                java.lang.String a = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+                String a = st.bjk(R.id.bjk1).zf();
                 a = zf.qctwkg(a);
 
-                java.lang.String b = st.bjk(open.cn.awg.pro.R.id.bjk2).zf();
+                String b = st.bjk(R.id.bjk2).zf();
                 b = zf.qctwkg(b);
 
                 if (zf.dy(a, "") || zf.dy(b, "")) {
@@ -618,9 +546,9 @@ public class TypheyeLoginActivity extends iActivity {
 
                     gj.zt(250);
 
-                    java.lang.String ljf = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a17");
+                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
 
-                    java.lang.String url = e1.urlUnlockString(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/n1/url.inf"));
+                    String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
 
                     if (zf.cjw(url, "/")) {
 
@@ -630,42 +558,42 @@ public class TypheyeLoginActivity extends iActivity {
 
                     }
 
-                    java.lang.String j_code = "";
+                    String j_code = "";
 
-                    java.lang.String j_msg = "";
+                    String j_msg = "";
 
-                    java.lang.String j_info_cookie = "";
+                    String j_info_cookie = "";
 
-                    java.lang.String j_info_email = "";
+                    String j_info_email = "";
 
-                    java.lang.String j_info_more = "";
+                    String j_info_more = "";
 
-                    java.lang.String j_info_uid = "";
+                    String j_info_uid = "";
 
-                    java.lang.String j_info_shuo = "";
+                    String j_info_shuo = "";
 
-                    java.lang.String j_info_nick = "";
+                    String j_info_nick = "";
 
-                    java.lang.String j_info_note = "";
+                    String j_info_note = "";
                     a = zf.qctwkg(a);
                     b = zf.qctwkg(b);
 
-                    java.lang.String salt = sj.md5(sj.zh().zstring(a));
+                    String salt = sj.md5(sj.zh().zstring(a));
                     salt = zf.qc(salt, 0, 6);
                     salt = sj.md5(salt);
                     salt = zf.qc(salt, 0, 5);
                     salt = sj.md5(salt);
                     b = sj.md5(b) + salt;
 
-                    java.lang.String sjzx = xt.sj(4);
+                    String sjzx = xt.sj(4);
 
-                    java.lang.String send0 = "type=login&username=" + sj.zh().zstring(a) + "&password=" + sj.zh().zstring(b) + "&time=" + sjzx;
+                    String send0 = "type=login&username=" + sj.zh().zstring(a) + "&password=" + sj.zh().zstring(b) + "&time=" + sjzx;
 
-                    final java.lang.String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+                    final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 
                     if (e1.yz()) {
 
-                        final java.lang.String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
+                        final String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
 
                         if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -713,7 +641,7 @@ public class TypheyeLoginActivity extends iActivity {
 
                                 }
 
-                            } catch (java.lang.Throwable __$_e__) {
+                            } catch (Throwable __$_e__) {
 
                                 e1.tsk("提示", "登录失败，出现异常");
                                 show(0);
@@ -741,18 +669,18 @@ public class TypheyeLoginActivity extends iActivity {
 
         final int ii = i;
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
+        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
 
-        final i.runlibrary.app.v.xxbj xxbj2 = st.xxbj(open.cn.awg.pro.R.id.xxbj2);
+        final i.runlibrary.app.v.xxbj xxbj2 = st.xxbj(R.id.xxbj2);
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
-        gj.jmxc(new java.lang.Runnable() {
+        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
                 if (ii == 0) {
 
-                    st.wb(open.cn.awg.pro.R.id.wb5).kjd(4);
+                    st.wb(R.id.wb5).kjd(4);
                     xxbj2.kjd(8);
                     xxbj4.kjd(8);
                     xxbj1.kjd(8);
@@ -786,59 +714,27 @@ public class TypheyeLoginActivity extends iActivity {
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -851,49 +747,17 @@ public class TypheyeLoginActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
@@ -904,31 +768,31 @@ public class TypheyeLoginActivity extends iActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_f52e07ac8c(android.view.View vw) {
+    private void onWb6Click(View vw) {
         show(1);
         go2();
 
     }
 
-    private void $_onClick_ff56a8e7f6(android.view.View vw) {
+    private void onWb1Click(View vw) {
 
-        java.lang.String url = "https://service.typheye.cn/site/user/center/register/";
+        String url = "https://service.typheye.cn/site/user/center/register/";
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a8 = wj.dqwb(a2);
+        String a8 = wj.dqwb(a2);
 
         if (zf.dy(a8, "4")) {
 
             if (e1.isInstallX5()) {
 
-                final java.lang.String[] name = new java.lang.String[]{"url"};
+                final String[] name = new String[]{"url"};
 
-                final java.lang.String[] value = new java.lang.String[]{url};
+                final String[] value = new String[]{url};
                 gj.tz(X5BrowserActivity.class, name, value);
 
             } else {
@@ -941,9 +805,9 @@ public class TypheyeLoginActivity extends iActivity {
 
             if (e1.isInstallX5()) {
 
-                final java.lang.String[] name = new java.lang.String[]{"url"};
+                final String[] name = new String[]{"url"};
 
-                final java.lang.String[] value = new java.lang.String[]{url};
+                final String[] value = new String[]{url};
                 gj.tz(X5BrowserActivity.class, name, value);
 
             } else {
@@ -956,21 +820,21 @@ public class TypheyeLoginActivity extends iActivity {
 
     }
 
-    private void $_onClick_i0d2d4d9236(android.view.View vw) {
+    private void onWb3Click(View vw) {
 
-        java.lang.String url = "https://service.typheye.cn/site/user/center/find/";
+        String url = "https://service.typheye.cn/site/user/center/find/";
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a8 = wj.dqwb(a2);
+        String a8 = wj.dqwb(a2);
 
         if (zf.dy(a8, "4")) {
 
             if (e1.isInstallX5()) {
 
-                final java.lang.String[] name = new java.lang.String[]{"url"};
+                final String[] name = new String[]{"url"};
 
-                final java.lang.String[] value = new java.lang.String[]{url};
+                final String[] value = new String[]{url};
                 gj.tz(X5BrowserActivity.class, name, value);
 
             } else {
@@ -983,9 +847,9 @@ public class TypheyeLoginActivity extends iActivity {
 
             if (e1.isInstallX5()) {
 
-                final java.lang.String[] name = new java.lang.String[]{"url"};
+                final String[] name = new String[]{"url"};
 
-                final java.lang.String[] value = new java.lang.String[]{url};
+                final String[] value = new String[]{url};
                 gj.tz(X5BrowserActivity.class, name, value);
 
             } else {
@@ -998,23 +862,23 @@ public class TypheyeLoginActivity extends iActivity {
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i8217d42a17(android.view.View vw) {
+    private void onTx3Click(View vw) {
         go();
 
     }
 
-    private void $_onClick_i2a86c78b06(android.view.View vw) {
+    private void onWb5Click(View vw) {
         switch_pwdlogin = true;
         show(1);
 
     }
 
-    private void $_onClick_i171ea34f1a(android.view.View vw) {
+    private void onAn1Click(View vw) {
         go2qx = true;
         show(1);
 
@@ -1024,30 +888,30 @@ public class TypheyeLoginActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
 
-        android.widget.TextView f52e07ac8c = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb6);
-        f52e07ac8c.setOnClickListener($_on_setOnClickListener_f52e07ac8c);
+        TextView f52e07ac8c = (TextView) findViewById(ay, vw, R.id.wb6);
+        f52e07ac8c.setOnClickListener(wb6ClickListener);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
-        ff56a8e7f6.setOnClickListener($_on_setOnClickListener_ff56a8e7f6);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
-        android.widget.TextView i0d2d4d9236 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb3);
-        i0d2d4d9236.setOnClickListener($_on_setOnClickListener_i0d2d4d9236);
+        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        i0d2d4d9236.setOnClickListener(wb3ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
-        i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        android.widget.TextView i2a86c78b06 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb5);
-        i2a86c78b06.setOnClickListener($_on_setOnClickListener_i2a86c78b06);
+        TextView i2a86c78b06 = (TextView) findViewById(ay, vw, R.id.wb5);
+        i2a86c78b06.setOnClickListener(wb5ClickListener);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
-        i171ea34f1a.setOnClickListener($_on_setOnClickListener_i171ea34f1a);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        i171ea34f1a.setOnClickListener(an1ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

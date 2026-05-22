@@ -16,81 +16,88 @@
  */
 package open.cn.awg.pro.repair;
 
-import android.view.Window;
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 
-
-public class RecoveryOptionsActivity extends iActivity {
+public class RecoveryOptionsActivity extends BaseAwgActivity {
 
     public final RecoveryOptionsActivity lei = this, 类 = this;
     public int mode;
-    private final android.view.View.OnClickListener $_on_setOnClickListener_b8bc22741b = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb7ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_b8bc22741b(vw);
+        public void onClick(View vw) {
+            onWb7Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_e585d94488 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj7ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_e585d94488(vw);
+        public void onClick(View vw) {
+            onXdbj7Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i2a86c78b06 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i2a86c78b06(vw);
+        public void onClick(View vw) {
+            onWb5Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_c0d3e00d2b = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_c0d3e00d2b(vw);
+        public void onClick(View vw) {
+            onXdbj5Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i2202ede8ff = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i2202ede8ff(vw);
+        public void onClick(View vw) {
+            onXdbj4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i5b34eede7f = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj10ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i5b34eede7f(vw);
+        public void onClick(View vw) {
+            onXdbj10Click(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.b0);
+        setContentView(R.layout.recovery_options);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        if (wj.cz("/data/user/0/open.cn.awg.pro/settings/a4.inf")) {
+        if (wj.cz(AppPaths.appPath("settings/a4.inf"))) {
 
             show(0);
 
         } else {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
-                    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     lei.startActivity(intent);
-                    open.cn.awg.pro.app.AwgProApplication.getInstance().exit();
+                    AwgProApplication.getInstance().exit();
 
                 }
 
@@ -100,27 +107,24 @@ public class RecoveryOptionsActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
         i.runlibrary.app.xt$pm pm = xt.pm();
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
@@ -128,10 +132,10 @@ public class RecoveryOptionsActivity extends iActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(open.cn.awg.pro.R.id.xxbj1);
-        gj.jmxc(new java.lang.Runnable() {
+        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -159,7 +163,7 @@ public class RecoveryOptionsActivity extends iActivity {
     }
 
     public void run() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
@@ -168,17 +172,17 @@ public class RecoveryOptionsActivity extends iActivity {
 
                 if (mode == 0) {
 
-                    java.lang.String m = "rm -rf \"/data/user/0/open.cn.awg.pro/settings\"";
+                    String m = "rm -rf \"" + AppPaths.appPath("settings") + "\"";
                     com.demo.e3.cmd(lei, m, false);
                     gj.zt(500);
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
-                            intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             lei.startActivity(intent);
-                            open.cn.awg.pro.app.AwgProApplication.getInstance().exit();
+                            AwgProApplication.getInstance().exit();
 
                         }
 
@@ -186,20 +190,20 @@ public class RecoveryOptionsActivity extends iActivity {
 
                 } else if (mode == 1) {
 
-                    java.lang.String m = "pm clear open.cn.awg.pro";
+                    String m = "pm clear open.cn.awg.pro";
                     com.demo.e3.cmd(lei, m, false);
 
                 } else if (mode == 3) {
 
                     gj.zt(500);
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            android.content.Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
-                            intent.addFlags(android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                            Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
+                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             lei.startActivity(intent);
-                            open.cn.awg.pro.app.AwgProApplication.getInstance().exit();
+                            AwgProApplication.getInstance().exit();
 
                         }
 
@@ -207,7 +211,7 @@ public class RecoveryOptionsActivity extends iActivity {
 
                 } else if (mode == 4) {
 
-                    open.cn.awg.pro.app.AwgProApplication.getInstance().exit();
+                    AwgProApplication.getInstance().exit();
 
                 }
 
@@ -217,83 +221,71 @@ public class RecoveryOptionsActivity extends iActivity {
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
         return true;
 
     }
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onResume() {
         super.onResume();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onStart() {
         super.onStart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_i5b34eede7f(android.view.View vw) {
+    private void onXdbj10Click(View vw) {
         mode = 3;
         show(1);
 
     }
 
-    private void $_onClick_i2202ede8ff(android.view.View vw) {
+    private void onXdbj4Click(View vw) {
         mode = 0;
         show(1);
 
     }
 
-    private void $_onClick_c0d3e00d2b(android.view.View vw) {
+    private void onXdbj5Click(View vw) {
         mode = 1;
         show(1);
 
     }
 
-    private void $_onClick_i2a86c78b06(android.view.View vw) {
+    private void onWb5Click(View vw) {
         mode = 4;
         show(1);
 
     }
 
-    private void $_onClick_e585d94488(android.view.View vw) {
+    private void onXdbj7Click(View vw) {
         run();
 
     }
 
-    private void $_onClick_b8bc22741b(android.view.View vw) {
+    private void onWb7Click(View vw) {
         show(0);
 
     }
@@ -302,33 +294,33 @@ public class RecoveryOptionsActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView i81652f77b6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb10);
+        TextView i81652f77b6 = (TextView) findViewById(ay, vw, R.id.wb10);
 
-        android.widget.RelativeLayout i5b34eede7f = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj10);
-        i5b34eede7f.setOnClickListener($_on_setOnClickListener_i5b34eede7f);
+        RelativeLayout i5b34eede7f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj10);
+        i5b34eede7f.setOnClickListener(xdbj10ClickListener);
 
-        android.widget.TextView i0d2d4d9236 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
 
-        android.widget.RelativeLayout i2202ede8ff = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj4);
-        i2202ede8ff.setOnClickListener($_on_setOnClickListener_i2202ede8ff);
+        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        i2202ede8ff.setOnClickListener(xdbj4ClickListener);
 
-        android.widget.TextView e943ebd71e = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb4);
+        TextView e943ebd71e = (TextView) findViewById(ay, vw, R.id.wb4);
 
-        android.widget.RelativeLayout c0d3e00d2b = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj5);
-        c0d3e00d2b.setOnClickListener($_on_setOnClickListener_c0d3e00d2b);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
 
-        android.widget.TextView i2a86c78b06 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb5);
-        i2a86c78b06.setOnClickListener($_on_setOnClickListener_i2a86c78b06);
+        TextView i2a86c78b06 = (TextView) findViewById(ay, vw, R.id.wb5);
+        i2a86c78b06.setOnClickListener(wb5ClickListener);
 
-        android.widget.TextView f52e07ac8c = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb6);
+        TextView f52e07ac8c = (TextView) findViewById(ay, vw, R.id.wb6);
 
-        android.widget.RelativeLayout e585d94488 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj7);
-        e585d94488.setOnClickListener($_on_setOnClickListener_e585d94488);
+        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        e585d94488.setOnClickListener(xdbj7ClickListener);
 
-        android.widget.TextView b8bc22741b = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb7);
-        b8bc22741b.setOnClickListener($_on_setOnClickListener_b8bc22741b);
+        TextView b8bc22741b = (TextView) findViewById(ay, vw, R.id.wb7);
+        b8bc22741b.setOnClickListener(wb7ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

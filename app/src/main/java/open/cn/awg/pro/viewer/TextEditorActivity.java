@@ -16,63 +16,74 @@
  */
 package open.cn.awg.pro.viewer;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.core.GlobalRuntimeState;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.ui.main.TextQrDisplayActivity;
 
-
-public class TextEditorActivity extends iActivity {
+public class TextEditorActivity extends BaseAwgActivity {
 
     public final TextEditorActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public java.lang.String url = "";
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String url = "";
+    private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
+        public void onClick(View vw) {
+            onTx3Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i32ee139ba1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i32ee139ba1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk1Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.d5);
+        setContentView(R.layout.text_editor);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         try {
 
             url = sj.hqtz("url");
 
-            java.lang.String d1_rootpaths;
-            d1_rootpaths = open.cn.awg.pro.core.GlobalRuntimeState.d1_rootpath;
+            String d1_rootpaths;
+            d1_rootpaths = GlobalRuntimeState.d1_rootpath;
 
-            java.lang.String[] fhValue = e1.fileinfo(d1_rootpaths, url);
+            String[] fhValue = e1.fileinfo(d1_rootpaths, url);
 
-            java.lang.String bts = "";
+            String bts = "";
 
             if (zf.dy(fhValue[3], "")) {
 
@@ -93,9 +104,9 @@ public class TextEditorActivity extends iActivity {
 
                 } else {
 
-                    java.lang.String t = wj.dqwb(url);
+                    String t = wj.dqwb(url);
 
-                    i.runlibrary.app.v.bjk text = st.bjk(open.cn.awg.pro.R.id.bjk1);
+                    i.runlibrary.app.v.bjk text = st.bjk(R.id.bjk1);
                     text.szzt("@resource/a7e484743f6796f092cd859819cb5fc8");
                     text.zf(t);
 
@@ -108,7 +119,7 @@ public class TextEditorActivity extends iActivity {
 
             }
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.upload_error(e, "d5.*");
             gj.gb();
@@ -117,109 +128,106 @@ public class TextEditorActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
         i.runlibrary.app.xt$pm pm = xt.pm();
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
 
         if (zf.dy(a, "4")) {
 
-            st.xdbj(open.cn.awg.pro.R.id.d5_v).shxtck(true);
+            st.xdbj(R.id.text_editor_root).shxtck(true);
 
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
+            String clr = zf.zf(R.color.colorTab);
             xt.pm().ztl(clr, 0);
 
         } else {
 
-            st.xdbj(open.cn.awg.pro.R.id.d5_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+            st.xdbj(R.id.text_editor_root).shxtck(false);
+        applyFullscreenWindow();
 
         }
 
         if (zf.dy(a, "1")) {
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
-            st.xxbj(open.cn.awg.pro.R.id.xxbj2).nbj(u, 0, u, 50);
+            st.xxbj(R.id.xxbj2).nbj(u, 0, u, 50);
 
         } else if (zf.dy(a, "2")) {
 
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+            String a001 = AppPaths.appPath("settings/dpi.inf");
 
             if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "3dp", 0, "3dp");
                 wtab.dqfs("center");
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "9dp", 0, "9dp");
                 wtab.dqfs("center");
 
             }
-            st.xxbj(open.cn.awg.pro.R.id.xxbj2).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj2).nbj(0, 0, 0, 0);
 
         } else if (zf.dy(a, "3")) {
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
-            st.xxbj(open.cn.awg.pro.R.id.xxbj2).nbj(u, 0, u, 50);
+            st.xxbj(R.id.xxbj2).nbj(u, 0, u, 50);
 
         } else if (zf.dy(a, "4")) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj2).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj2).nbj(0, 0, 0, 0);
 
         }
 
-        java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/d2/set2.inf";
+        String set2 = AppPaths.appPath("settings/d2/set2.inf");
 
         int iss = Integer.parseInt(wj.dqwb(set2));
 
-        i.runlibrary.app.v.bjk text = st.bjk(open.cn.awg.pro.R.id.bjk1);
+        i.runlibrary.app.v.bjk text = st.bjk(R.id.bjk1);
 
-        java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/d2/set3.inf";
+        String set3 = AppPaths.appPath("settings/d2/set3.inf");
 
-        java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/d2/set4.inf";
+        String set4 = AppPaths.appPath("settings/d2/set4.inf");
 
-        final java.lang.String color1 = wj.dqwb(set3);
+        final String color1 = wj.dqwb(set3);
 
-        final java.lang.String color2 = wj.dqwb(set4);
+        final String color2 = wj.dqwb(set4);
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/set3.inf";
+        String set = AppPaths.appPath("settings/set3.inf");
 
         if (zf.dy(wj.dqwb(set), "true")) {
 
-            java.lang.String te = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a15");
+            String te = wj.dqwb(AppPaths.appPath("data/assets/a15"));
 
-            java.lang.String[] name = new java.lang.String[]{"title", "text"};
+            String[] name = new String[]{"title", "text"};
 
-            java.lang.String[] value = new java.lang.String[]{"新手教程", te};
+            String[] value = new String[]{"新手教程", te};
             gj.tz(TextQrDisplayActivity.class, name, value);
 
         }
@@ -228,81 +236,33 @@ public class TextEditorActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -315,33 +275,17 @@ public class TextEditorActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
@@ -350,20 +294,20 @@ public class TextEditorActivity extends iActivity {
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private boolean $_onTouch_i32ee139ba1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -375,9 +319,9 @@ public class TextEditorActivity extends iActivity {
 
     }
 
-    private void $_onClick_i8217d42a17(android.view.View vw) {
+    private void onTx3Click(View vw) {
 
-        java.lang.String te = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+        String te = st.bjk(R.id.bjk1).zf();
 
         if (wj.xrwb(url, te)) {
 
@@ -395,16 +339,16 @@ public class TextEditorActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.EditText i32ee139ba1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk1);
-        i32ee139ba1.setOnTouchListener($_on_setOnTouchListener_i32ee139ba1);
+        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
-        i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        i8217d42a17.setOnClickListener(tx3ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

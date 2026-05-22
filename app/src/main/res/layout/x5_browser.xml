@@ -1,0 +1,172 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/x5_browser_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground" android:fitsSystemWindows="false">
+    <TextView android:id="@+id/title_bar" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="&lt; X5浏览器" android:textColor="@color/colorTabText" android:textSize="13sp" android:textStyle="bold" android:background="@color/colorTab" android:gravity="center_horizontal|bottom" android:paddingBottom="9dp" android:paddingLeft="35dp" android:paddingTop="9dp" android:paddingRight="35dp" android:singleLine="true">
+    </TextView>
+    <RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_below="@id/title_bar" android:focusable="true" android:focusableInTouchMode="true" android:focusedByDefault="true">
+        <LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+            <LinearLayout android:id="@+id/browser_container" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+            </LinearLayout>
+        </LinearLayout>
+        <RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent">
+            <ProgressBar android:id="@+id/jdt1" android:layout_width="100dp" android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:max="100" android:progress="0" android:visibility="gone" android:layout_below="@id/title_bar" android:background="@drawable/jdtbj" android:layout_margin="3dp" android:paddingLeft="5dp" android:paddingRight="5dp" android:elevation="6dp" android:layout_centerInParent="true">
+            </ProgressBar>
+        </RelativeLayout>
+        <RelativeLayout android:id="@+id/llqHdRoot" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="@color/colorTabBackground">
+            <androidx.core.widget.NestedScrollView android:id="@+id/qtgd2" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:focusedByDefault="false" android:focusable="true" android:focusableInTouchMode="true">
+                <RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="wrap_content">
+                    <LinearLayout android:id="@+id/llqAuSfrz" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                        <TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="HttpAuth认证" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp">
+                        </TextView>
+                        <TextView android:id="@+id/llqAuSfrzTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="网页要求进行身份认证" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                        </TextView>
+                        <EditText android:id="@+id/llqAuSfrzUsername" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入USERNAME" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp">
+                        </EditText>
+                        <EditText android:id="@+id/llqAuSfrzPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入PASSWORD" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp" android:password="true">
+                        </EditText>
+                        <LinearLayout android:id="@+id/xxbj3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <android.support.v7.widget.CardView android:id="@+id/kp1" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqAuSfrzFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                            <android.support.v7.widget.CardView android:id="@+id/kp2" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqAuSfrzTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                        <android.support.v7.widget.CardView android:id="@+id/kp11" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                            <ImageView android:id="@+id/tx11" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/llqJsPrompt" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                        <TextView android:id="@+id/wb3" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="JS Prompt" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp">
+                        </TextView>
+                        <TextView android:id="@+id/llqJsPromptTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="提示内容" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                        </TextView>
+                        <EditText android:id="@+id/llqJsPromptBjk" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp">
+                        </EditText>
+                        <LinearLayout android:id="@+id/xxbj11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <android.support.v7.widget.CardView android:id="@+id/kp9" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqJsPromptFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                            <android.support.v7.widget.CardView android:id="@+id/kp10" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqJsPromptTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                        <android.support.v7.widget.CardView android:id="@+id/kp12" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                            <ImageView android:id="@+id/tx12" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/llqJsConfirm" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                        <TextView android:id="@+id/wb4" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="JS Confirm" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp">
+                        </TextView>
+                        <TextView android:id="@+id/llqJsConfirmTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="提示内容" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                        </TextView>
+                        <LinearLayout android:id="@+id/xxbj10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <android.support.v7.widget.CardView android:id="@+id/kp13" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqJsConfirmFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                            <android.support.v7.widget.CardView android:id="@+id/kp14" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqJsConfirmTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                        <android.support.v7.widget.CardView android:id="@+id/kp15" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                            <ImageView android:id="@+id/tx15" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/llqJsAlert" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                        <TextView android:id="@+id/wb5" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="JS Alert" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp">
+                        </TextView>
+                        <TextView android:id="@+id/llqJsAlertTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="提示内容" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                        </TextView>
+                        <LinearLayout android:id="@+id/xxbj12" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <android.support.v7.widget.CardView android:id="@+id/kp16" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqJsAlertTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                        <android.support.v7.widget.CardView android:id="@+id/kp18" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                            <ImageView android:id="@+id/tx18" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                    <LinearLayout android:id="@+id/llqQqDkyy" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:visibility="gone">
+                        <TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="互动申请" android:textColor="@color/colorTextTrue" android:textSize="13sp" android:gravity="center" android:padding="5dp" android:textStyle="bold" android:singleLine="true" android:layout_marginTop="10dp">
+                        </TextView>
+                        <TextView android:id="@+id/llqQqDkyyTs" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="该网页请求打开外部应用" android:textColor="@color/colorTextU1" android:textSize="11sp" android:gravity="center" android:layout_margin="5dp">
+                        </TextView>
+                        <LinearLayout android:id="@+id/xxbj13" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                            <android.support.v7.widget.CardView android:id="@+id/kp17" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqQqDkyyFalse" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a29" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                            <android.support.v7.widget.CardView android:id="@+id/kp19" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                                <ImageView android:id="@+id/llqQqDkyyTrue" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a28" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                                </ImageView>
+                            </android.support.v7.widget.CardView>
+                        </LinearLayout>
+                        <android.support.v7.widget.CardView android:id="@+id/kp20" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" android:visibility="invisible" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                            <ImageView android:id="@+id/tx20" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </RelativeLayout>
+            </androidx.core.widget.NestedScrollView>
+        </RelativeLayout>
+        <android.support.v7.widget.CardView android:id="@+id/kp3" android:layout_width="50dp" android:layout_height="50dp" app:cardCornerRadius="25dp" app:cardBackgroundColor="@color/colorTabTh" app:cardElevation="0dp" app:cardMaxElevation="0dp" android:layout_marginBottom="-25dp" android:layout_alignParentBottom="true" android:layout_centerHorizontal="true">
+            <ImageView android:id="@+id/tx1" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a43" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground" android:visibility="gone">
+            </ImageView>
+            <TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="25dp" android:text="+" android:textColor="@color/colorWhite" android:textSize="18sp" android:gravity="center" android:background="?android:attr/selectableItemBackground">
+            </TextView>
+        </android.support.v7.widget.CardView>
+        <LinearLayout android:id="@+id/xxbj8" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:visibility="gone" android:background="@color/colorTabBackground">
+            <android.support.v4.widget.NestedScrollView android:id="@+id/qtgd1" android:layout_width="match_parent" android:layout_height="wrap_content" android:overScrollMode="never" android:scrollbars="none" android:focusedByDefault="false" android:focusable="true" android:focusableInTouchMode="true">
+                <LinearLayout android:id="@+id/xxbj9" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center_horizontal">
+                    <EditText android:id="@+id/bjk1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="" android:textColor="@color/colorTextU1" android:textSize="13sp" android:singleLine="true" android:hint="请输入网址" android:textColorHint="@color/colorTextU2" android:background="@drawable/edittext" android:padding="8dp" android:layout_margin="3dp">
+                    </EditText>
+                    <Button android:id="@+id/an1" android:layout_width="match_parent" android:layout_height="35dp" android:text="访问" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:textSize="11sp">
+                    </Button>
+                    <Button android:id="@+id/an2" android:layout_width="match_parent" android:layout_height="35dp" android:text="调试" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:textSize="11sp">
+                    </Button>
+                    <Button android:id="@+id/an4" android:layout_width="match_parent" android:layout_height="35dp" android:text="设置" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:textSize="11sp">
+                    </Button>
+                    <Button android:id="@+id/an3" android:layout_width="match_parent" android:layout_height="35dp" android:text="退出" android:layout_marginBottom="3dp" android:layout_marginLeft="3dp" android:layout_marginRight="3dp" android:background="@drawable/anbj" style="?android:attr/borderlessButtonStyle" android:textColor="@color/colorWhite" android:textSize="11sp">
+                    </Button>
+                    <LinearLayout android:id="@+id/xxbj7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                        <android.support.v7.widget.CardView android:id="@+id/kp8" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                            <ImageView android:id="@+id/tx7" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                            </ImageView>
+                        </android.support.v7.widget.CardView>
+                    </LinearLayout>
+                </LinearLayout>
+            </android.support.v4.widget.NestedScrollView>
+        </LinearLayout>
+        <LinearLayout android:id="@+id/xxbj4" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:gravity="center" android:background="@color/colorThough" android:visibility="gone">
+            <LinearLayout android:id="@+id/xxbj6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                <android.support.v7.widget.CardView android:id="@+id/kp6" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx5" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a26" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView android:id="@+id/kp7" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx6" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a27" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+            <LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal">
+                <android.support.v7.widget.CardView android:id="@+id/kp4" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx3" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a31" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+                <android.support.v7.widget.CardView android:id="@+id/kp5" android:layout_width="40dp" android:layout_height="40dp" app:cardCornerRadius="10dp" app:cardBackgroundColor="@color/colorSet" android:layout_margin="5dp" app:cardElevation="0dp" app:cardMaxElevation="0dp">
+                    <ImageView android:id="@+id/tx4" android:layout_width="match_parent" android:layout_height="match_parent" android:src="@mipmap/a43" android:layout_margin="0dp" android:padding="8dp" android:background="?android:attr/selectableItemBackground">
+                    </ImageView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

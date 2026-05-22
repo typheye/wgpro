@@ -16,41 +16,45 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 
-
-public class AppActionItemActivity extends iActivity {
+public class AppActionItemActivity extends BaseAwgActivity {
 
     public final AppActionItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i2b32d98dc8 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener appActionItemRootLongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i2b32d98dc8(vw);
+        public boolean onLongClick(View vw) {
+            return onAppActionItemRootLongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i2b32d98dc8 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener appActionItemRootClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i2b32d98dc8(vw);
+        public void onClick(View vw) {
+            onAppActionItemRootClick(vw);
         }
 
     };
 
-    private void $_onClick_i2b32d98dc8(android.view.View vw) {
+    private void onAppActionItemRootClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        final java.lang.Object a = lb.lbcfsj(-1);
+        final Object a = lb.lbcfsj(-1);
 
-        final java.lang.Object b = lb.lbcfsj(-2);
+        final Object b = lb.lbcfsj(-2);
 
         try {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -60,7 +64,7 @@ public class AppActionItemActivity extends iActivity {
 
             });
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.tsk("提示", "没有可执行该操作的应用");
 
@@ -68,17 +72,17 @@ public class AppActionItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_i2b32d98dc8(android.view.View vw) {
+    private boolean onAppActionItemRootLongClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object l1 = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object l1 = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object l2 = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object l2 = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object l = lb.lbcfsj(-1);
+        Object l = lb.lbcfsj(-1);
         e1.tsk("详细信息", "[功能名称]\n" + l1 + "\n\n[功能简介]\n" + l2);
         return true;
 
@@ -88,11 +92,11 @@ public class AppActionItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.RelativeLayout i2b32d98dc8 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c22_v);
-        i2b32d98dc8.setOnClickListener($_on_setOnClickListener_i2b32d98dc8);
-        i2b32d98dc8.setOnLongClickListener($_on_setOnLongClickListener_i2b32d98dc8);
+        RelativeLayout i2b32d98dc8 = (RelativeLayout) findViewById(ay, vw, R.id.app_action_item_root);
+        i2b32d98dc8.setOnClickListener(appActionItemRootClickListener);
+        i2b32d98dc8.setOnLongClickListener(appActionItemRootLongClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

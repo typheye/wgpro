@@ -16,76 +16,83 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.file.DeleteConfirmActivity;
+import open.cn.awg.pro.R;
 
-
-public class FileOperationMenuItemActivity extends iActivity {
+public class FileOperationMenuItemActivity extends BaseAwgActivity {
 
     public final FileOperationMenuItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_e1433e26d6 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xxbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_e1433e26d6(vw);
+        public boolean onLongClick(View vw) {
+            return onXxbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_e1433e26d6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_e1433e26d6(vw);
+        public void onClick(View vw) {
+            onXxbj1Click(vw);
         }
 
     };
 
-    private void $_onClick_e1433e26d6(android.view.View vw) {
+    private void onXxbj1Click(View vw) {
 
-        final open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         try {
 
             final i.runlibrary.app.sj$lb lb = sj.lb(vw);
-            gj.xc(new java.lang.Thread() {
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new java.lang.Runnable() {
+                    gj.jmxc(new Runnable() {
 
                         public void run() {
 
-                            st.wb(open.cn.awg.pro.R.id.Tab).zf("提示");
-                            st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
+                            st.wb(R.id.title_bar).zf("提示");
+                            st.xxbj(R.id.xxbj9).kjd(0);
 
                         }
 
                     });
 
-                    java.lang.String[] aa;
+                    String[] aa;
 
-                    java.lang.String[] bb;
+                    String[] bb;
 
-                    java.lang.String dbl = "";
+                    String dbl = "";
 
-                    java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+                    Object a = lb.lbcfsj(R.id.wb1);
 
-                    java.lang.Object b = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+                    Object b = lb.lbcfsj(R.id.wb2);
 
-                    java.lang.Object c = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+                    Object c = lb.lbcfsj(R.id.wb3);
 
-                    java.lang.Object d = lb.lbcfsj(open.cn.awg.pro.R.id.wb4);
+                    Object d = lb.lbcfsj(R.id.wb4);
 
-                    java.lang.String es = st.wb(open.cn.awg.pro.R.id.zywblj).zf();
+                    String es = st.wb(R.id.zywblj).zf();
 
-                    java.lang.String cache1 = "/data/user/0/open.cn.awg.pro/cache/1";
+                    String cache1 = AppPaths.appPath("cache/1");
 
-                    java.lang.String cache2 = "/data/user/0/open.cn.awg.pro/cache/2";
+                    String cache2 = AppPaths.appPath("cache/2");
 
-                    java.lang.String cache3 = "/data/user/0/open.cn.awg.pro/cache/3";
+                    String cache3 = AppPaths.appPath("cache/3");
 
-                    java.lang.String cache00 = "/data/user/0/open.cn.awg.pro/cache/00";
+                    String cache00 = AppPaths.appPath("cache/00");
 
-                    java.lang.String cache41 = "/data/user/0/open.cn.awg.pro/cache/41";
+                    String cache41 = AppPaths.appPath("cache/41");
 
                     if (zf.dy(a, "返回")) {
 
@@ -93,10 +100,10 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                     } else if (zf.dy(a, "删除")) {
 
-                        final java.lang.String[] name = new java.lang.String[]{"b", "c", "d", "es"};
+                        final String[] name = new String[]{"b", "c", "d", "es"};
 
-                        final java.lang.Object[] value = new java.lang.Object[]{b, c, d, es};
-                        gj.jmxc(new java.lang.Runnable() {
+                        final Object[] value = new Object[]{b, c, d, es};
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
@@ -105,12 +112,12 @@ public class FileOperationMenuItemActivity extends iActivity {
                             }
 
                         });
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 gj.zt(500);
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -138,7 +145,7 @@ public class FileOperationMenuItemActivity extends iActivity {
                         }
                         wj.xrwb(cache1, d);
 
-                        java.lang.String z = "已复制,长按粘贴";
+                        String z = "已复制,长按粘贴";
                         e1.tsk("提示", z);
                         e1.cdx(0, null, null, null);
 
@@ -151,7 +158,7 @@ public class FileOperationMenuItemActivity extends iActivity {
                         }
                         wj.xrwb(cache2, d);
 
-                        java.lang.String z = "已剪切,长按粘贴";
+                        String z = "已剪切,长按粘贴";
                         e1.tsk("提示", z);
                         e1.cdx(0, null, null, null);
 
@@ -159,7 +166,7 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                         if (wj.cz(cache1)) {
 
-                            java.lang.String h1 = wj.dqwb(cache1);
+                            String h1 = wj.dqwb(cache1);
                             bb = e1.fileinfo(wj.dqwb(cache00), h1);
 
                             if (zf.dy(bb[0], "true")) {
@@ -168,19 +175,19 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                             }
 
-                            java.lang.String pb1 = "/data/user/0/open.cn.awg.pro/settings";
+                            String pb1 = AppPaths.appPath("settings");
 
-                            java.lang.String pb2 = "/data/user/0/open.cn.awg.pro/data";
+                            String pb2 = AppPaths.appPath("data");
 
-                            java.lang.String pb3 = "/data/user/0/open.cn.awg.pro/fix";
+                            String pb3 = AppPaths.appPath("fix");
 
-                            java.lang.String pb4 = "/data/user/0/open.cn.awg.pro/cache";
+                            String pb4 = AppPaths.appPath("cache");
 
-                            java.lang.String pb5 = "/data/user/0/open.cn.awg.pro/files/cache";
+                            String pb5 = AppPaths.appPath("files/cache");
 
-                            java.lang.String pb6 = "/storage/emulated/0/Android/data";
+                            String pb6 = "/storage/emulated/0/Android/data";
 
-                            java.lang.String pb7 = "/storage/emulated/0/Android/obb";
+                            String pb7 = "/storage/emulated/0/Android/obb";
 
                             if (zf.ckt(dbl, pb1) || zf.ckt(dbl, pb2) || zf.ckt(dbl, pb3) || zf.ckt(dbl, pb4) || zf.ckt(dbl, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb7))) {
 
@@ -190,28 +197,28 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                                 if (zf.dy(h1, es)) {
 
-                                    final java.lang.String z = "粘贴失败\n请选择其他目录";
+                                    final String z = "粘贴失败\n请选择其他目录";
                                     e1.tsk("提示", z);
 
                                 } else {
 
-                                    java.lang.String m = "cp -r \"" + h1 + "\" \"" + es + "\"";
+                                    String m = "cp -r \"" + h1 + "\" \"" + es + "\"";
                                     wj.sc(cache1);
                                     aa = com.demo.e3.cmd(lei, m, false);
 
                                     if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
 
-                                        final java.lang.String z = "粘贴失败\n" + aa[1];
+                                        final String z = "粘贴失败\n" + aa[1];
                                         e1.tsk("提示", z);
 
                                     } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
 
-                                        final java.lang.String z = "粘贴成功";
+                                        final String z = "粘贴成功";
                                         e1.tsk("提示", z);
 
                                     } else {
 
-                                        final java.lang.String z = "粘贴成功";
+                                        final String z = "粘贴成功";
                                         e1.tsk("提示", z);
 
                                     }
@@ -222,7 +229,7 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                         } else if (wj.cz(cache2)) {
 
-                            java.lang.String h2 = wj.dqwb(cache2);
+                            String h2 = wj.dqwb(cache2);
                             bb = e1.fileinfo(wj.dqwb(cache00), h2);
 
                             if (zf.dy(bb[0], "true")) {
@@ -231,19 +238,19 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                             }
 
-                            java.lang.String pb1 = "/data/user/0/open.cn.awg.pro/settings";
+                            String pb1 = AppPaths.appPath("settings");
 
-                            java.lang.String pb2 = "/data/user/0/open.cn.awg.pro/data";
+                            String pb2 = AppPaths.appPath("data");
 
-                            java.lang.String pb3 = "/data/user/0/open.cn.awg.pro/fix";
+                            String pb3 = AppPaths.appPath("fix");
 
-                            java.lang.String pb4 = "/data/user/0/open.cn.awg.pro/cache";
+                            String pb4 = AppPaths.appPath("cache");
 
-                            java.lang.String pb5 = "/data/user/0/open.cn.awg.pro/files/cache";
+                            String pb5 = AppPaths.appPath("files/cache");
 
-                            java.lang.String pb6 = "/storage/emulated/0/Android/data";
+                            String pb6 = "/storage/emulated/0/Android/data";
 
-                            java.lang.String pb7 = "/storage/emulated/0/Android/obb";
+                            String pb7 = "/storage/emulated/0/Android/obb";
 
                             if (zf.ckt(dbl, pb1) || zf.ckt(dbl, pb2) || zf.ckt(dbl, pb3) || zf.ckt(dbl, pb4) || zf.ckt(dbl, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb7))) {
 
@@ -253,28 +260,28 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                                 if (zf.dy(h2, es)) {
 
-                                    final java.lang.String z = "粘贴失败\n请选择其他目录";
+                                    final String z = "粘贴失败\n请选择其他目录";
                                     e1.tsk("提示", z);
 
                                 } else {
 
-                                    java.lang.String m = "mv \"" + h2 + "\" \"" + es + "\"";
+                                    String m = "mv \"" + h2 + "\" \"" + es + "\"";
                                     wj.sc(cache2);
                                     aa = com.demo.e3.cmd(lei, m, false);
 
                                     if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
 
-                                        final java.lang.String z = "粘贴失败\n" + aa[1];
+                                        final String z = "粘贴失败\n" + aa[1];
                                         e1.tsk("提示", z);
 
                                     } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
 
-                                        final java.lang.String z = "粘贴成功";
+                                        final String z = "粘贴成功";
                                         e1.tsk("提示", z);
 
                                     } else {
 
-                                        final java.lang.String z = "粘贴成功";
+                                        final String z = "粘贴成功";
                                         e1.tsk("提示", z);
 
                                     }
@@ -292,7 +299,7 @@ public class FileOperationMenuItemActivity extends iActivity {
                         wj.sc(cache1);
                         wj.sc(cache2);
 
-                        java.lang.String z = "已取消";
+                        String z = "已取消";
                         e1.tsk("提示", z);
                         e1.cdx(0, null, null, null);
 
@@ -319,9 +326,9 @@ public class FileOperationMenuItemActivity extends iActivity {
 
                         if (wj.lx(d) == 2) {
 
-                            java.lang.String back;
+                            String back;
 
-                            java.lang.String m = "du -sh \"" + d + "\"";
+                            String m = "du -sh \"" + d + "\"";
                             aa = com.demo.e3.cmd(lei, m, false);
 
                             if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
@@ -354,7 +361,7 @@ public class FileOperationMenuItemActivity extends iActivity {
 
             });
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.upload_error(e, "c4.*");
 
@@ -362,13 +369,13 @@ public class FileOperationMenuItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_e1433e26d6(android.view.View vw) {
+    private boolean onXxbj1LongClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object a = lb.lbcfsj(R.id.wb1);
         e1.tsk("详细信息", a);
         return true;
 
@@ -378,15 +385,15 @@ public class FileOperationMenuItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.LinearLayout e1433e26d6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj1);
-        e1433e26d6.setOnClickListener($_on_setOnClickListener_e1433e26d6);
-        e1433e26d6.setOnLongClickListener($_on_setOnLongClickListener_e1433e26d6);
+        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        e1433e26d6.setOnClickListener(xxbj1ClickListener);
+        e1433e26d6.setOnLongClickListener(xxbj1LongClickListener);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
 
-        android.widget.RelativeLayout i1aae26e9a0 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c4_v);
+        RelativeLayout i1aae26e9a0 = (RelativeLayout) findViewById(ay, vw, R.id.file_operation_menu_item_root);
 
         __layoutIsLoaded(ay, vw);
     }

@@ -16,98 +16,105 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
 import open.cn.awg.pro.chat.ChatMessageDetailActivity;
 import open.cn.awg.pro.chat.WearChatRuntimeBridge;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.download.AppDownloadActivity;
 import open.cn.awg.pro.media.VideoPlayerActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.viewer.ImageViewerActivity;
 
-
-public class ChatAttachmentItemActivity extends iActivity {
+public class ChatAttachmentItemActivity extends BaseAwgActivity {
 
     public final ChatAttachmentItemActivity lei = this, 类 = this;
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i81652f77b6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb10ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i81652f77b6(vw);
+        public void onClick(View vw) {
+            onWb10Click(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_aaeebbd136 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_aaeebbd136(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_bf684e97e0 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbjfjClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_bf684e97e0(vw);
+        public void onClick(View vw) {
+            onXxbjfjClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_dc4433170e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbj4kClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_dc4433170e(vw);
+        public void onClick(View vw) {
+            onXxbj4kClick(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_dc4433170e = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xxbj4kLongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_dc4433170e(vw);
+        public boolean onLongClick(View vw) {
+            return onXxbj4kLongClick(vw);
         }
 
     };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i34dc7bf20a = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener tx1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i34dc7bf20a(vw);
+        public boolean onLongClick(View vw) {
+            return onTx1LongClick(vw);
         }
 
     };
 
-    private boolean $_onLongClick_i34dc7bf20a(android.view.View vw) {
+    private boolean onTx1LongClick(View vw) {
 
-        open.cn.awg.pro.chat.WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+        WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object b = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object b = lb.lbcfsj(R.id.wb2);
         e10.ltspostat(b);
-        st.kp(open.cn.awg.pro.R.id.kp7).kjd(8);
+        st.kp(R.id.kp7).kjd(8);
         return true;
 
     }
 
-    private boolean $_onLongClick_dc4433170e(android.view.View vw) {
+    private boolean onXxbj4kLongClick(View vw) {
 
-        open.cn.awg.pro.chat.WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+        WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object b = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object b = lb.lbcfsj(R.id.wb2);
         e10.ltspostat(b);
-        st.kp(open.cn.awg.pro.R.id.kp7).kjd(8);
+        st.kp(R.id.kp7).kjd(8);
         return true;
 
     }
 
-    private void $_onClick_dc4433170e(android.view.View vw) {
+    private void onXxbj4kClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object a = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object b = lb.lbcfsj(-3);
+        Object b = lb.lbcfsj(-3);
 
-        java.lang.Object c = lb.lbcfsj(-2);
+        Object c = lb.lbcfsj(-2);
         b = zf.qctwkg(b);
 
         if (zf.dy(b, "w0") || zf.dy(b, "") || zf.dy(b, "0") || zf.dy(b, null) || zf.dy(b, "null")) {
@@ -126,13 +133,13 @@ public class ChatAttachmentItemActivity extends iActivity {
 
     }
 
-    private void $_onClick_bf684e97e0(android.view.View vw) {
+    private void onXxbjfjClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        java.lang.String a = st.wb(vw, open.cn.awg.pro.R.id.wb8).zf();
+        String a = st.wb(vw, R.id.wb8).zf();
 
-        java.lang.String b = st.wb(vw, open.cn.awg.pro.R.id.wb9).zf();
+        String b = st.wb(vw, R.id.wb9).zf();
 
         if (zf.dy(a, "[附件]图片")) {
 
@@ -144,20 +151,20 @@ public class ChatAttachmentItemActivity extends iActivity {
 
                 if (!zf.dy(b, "")) {
 
-                    java.lang.String c1 = b;
+                    String c1 = b;
 
                     try {
 
-                        java.lang.String[] cc = zf.fg(b, "/");
+                        String[] cc = zf.fg(b, "/");
 
-                        java.lang.String c2 = cc[cc.length - 1];
+                        String c2 = cc[cc.length - 1];
 
                         if (!zf.dy(c1, "") && !zf.dy(c2, "")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url", "md5"};
+                            final String[] name = new String[]{"url", "md5"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c1, c2};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c1, c2};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -173,7 +180,7 @@ public class ChatAttachmentItemActivity extends iActivity {
 
                         }
 
-                    } catch (java.lang.Throwable e) {
+                    } catch (Throwable e) {
 
                         e1.upload_error(e, "c11.*");
 
@@ -197,19 +204,19 @@ public class ChatAttachmentItemActivity extends iActivity {
 
                 if (!zf.dy(b, "")) {
 
-                    java.lang.String c1 = b;
+                    String c1 = b;
 
                     try {
 
-                        java.lang.String[] cc = zf.fg(b, "/");
+                        String[] cc = zf.fg(b, "/");
 
-                        java.lang.String c2 = cc[cc.length - 1];
+                        String c2 = cc[cc.length - 1];
 
                         if (!zf.dy(c1, "") && !zf.dy(c2, "")) {
 
-                            java.lang.String[] name = new java.lang.String[]{"url"};
+                            String[] name = new String[]{"url"};
 
-                            java.lang.String[] value = new java.lang.String[]{c1};
+                            String[] value = new String[]{c1};
                             gj.tz(VideoPlayerActivity.class, name, value);
 
                         } else {
@@ -218,7 +225,7 @@ public class ChatAttachmentItemActivity extends iActivity {
 
                         }
 
-                    } catch (java.lang.Throwable e) {
+                    } catch (Throwable e) {
 
                         e1.upload_error(e, "c11.*");
 
@@ -242,20 +249,20 @@ public class ChatAttachmentItemActivity extends iActivity {
 
                 if (!zf.dy(b, "")) {
 
-                    java.lang.String c1 = b;
+                    String c1 = b;
 
                     try {
 
-                        java.lang.String[] cc = zf.fg(b, "/");
+                        String[] cc = zf.fg(b, "/");
 
-                        java.lang.String c2 = cc[cc.length - 1];
+                        String c2 = cc[cc.length - 1];
 
                         if (!zf.dy(c1, "") && !zf.dy(c2, "")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c1};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c1};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -271,7 +278,7 @@ public class ChatAttachmentItemActivity extends iActivity {
 
                         }
 
-                    } catch (java.lang.Throwable e) {
+                    } catch (Throwable e) {
 
                         e1.upload_error(e, "c11.*");
 
@@ -293,35 +300,35 @@ public class ChatAttachmentItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_aaeebbd136(android.view.View vw) {
+    private boolean onXdbj1LongClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object a = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object b = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object b = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object c = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+        Object c = lb.lbcfsj(R.id.wb3);
 
-        java.lang.Object d = lb.lbcfsj(-2);
+        Object d = lb.lbcfsj(-2);
 
-        java.lang.Object e = lb.lbcfsj(-3);
+        Object e = lb.lbcfsj(-3);
 
-        java.lang.String[] name = new java.lang.String[]{"name", "time", "data", "address", "luid"};
+        String[] name = new String[]{"name", "time", "data", "address", "luid"};
 
-        java.lang.Object[] value = new java.lang.Object[]{b, c, a, d, e};
+        Object[] value = new Object[]{b, c, a, d, e};
         gj.tz(ChatMessageDetailActivity.class, name, value);
         return true;
 
     }
 
-    private void $_onClick_i81652f77b6(android.view.View vw) {
+    private void onWb10Click(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        java.lang.String a = st.wb(vw, open.cn.awg.pro.R.id.wb10).zf();
+        String a = st.wb(vw, R.id.wb10).zf();
         e1.tsk("消息详情", a);
 
     }
@@ -330,35 +337,35 @@ public class ChatAttachmentItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnLongClickListener($_on_setOnLongClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnLongClickListener(tx1LongClickListener);
 
-        android.widget.TextView i0d2d4d9236 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
 
-        android.widget.LinearLayout e1433e26d6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj1);
+        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
 
-        android.widget.TextView i7c3e3c6b5d = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
 
-        android.widget.LinearLayout dc4433170e = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj4k);
-        dc4433170e.setOnLongClickListener($_on_setOnLongClickListener_dc4433170e);
-        dc4433170e.setOnClickListener($_on_setOnClickListener_dc4433170e);
+        LinearLayout dc4433170e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4k);
+        dc4433170e.setOnLongClickListener(xxbj4kLongClickListener);
+        dc4433170e.setOnClickListener(xxbj4kClickListener);
 
-        android.widget.TextView e943ebd71e = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb4);
+        TextView e943ebd71e = (TextView) findViewById(ay, vw, R.id.wb4);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
 
-        android.widget.LinearLayout bf684e97e0 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbjfj);
-        bf684e97e0.setOnClickListener($_on_setOnClickListener_bf684e97e0);
+        LinearLayout bf684e97e0 = (LinearLayout) findViewById(ay, vw, R.id.xxbjfj);
+        bf684e97e0.setOnClickListener(xxbjfjClickListener);
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
-        aaeebbd136.setOnLongClickListener($_on_setOnLongClickListener_aaeebbd136);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        aaeebbd136.setOnLongClickListener(xdbj1LongClickListener);
 
-        android.widget.RelativeLayout i9a2a79f0f0 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c11_v);
+        RelativeLayout i9a2a79f0f0 = (RelativeLayout) findViewById(ay, vw, R.id.chat_attachment_item_root);
 
-        android.widget.TextView i81652f77b6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb10);
-        i81652f77b6.setOnClickListener($_on_setOnClickListener_i81652f77b6);
+        TextView i81652f77b6 = (TextView) findViewById(ay, vw, R.id.wb10);
+        i81652f77b6.setOnClickListener(wb10ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

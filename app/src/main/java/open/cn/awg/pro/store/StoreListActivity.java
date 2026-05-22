@@ -16,176 +16,108 @@
  */
 package open.cn.awg.pro.store;
 
+import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
+import java.io.File;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.ui.list.StoreAppItemActivity;
 import open.cn.awg.pro.ui.list.StoreMusicItemActivity;
 import open.cn.awg.pro.ui.list.StoreVideoItemActivity;
 
-
-public class StoreListActivity extends iActivity {
+public class StoreListActivity extends BaseAwgActivity {
 
     public final StoreListActivity lei = this, 类 = this;
-    public java.lang.String um = "";
-    public java.io.File f;
-    public java.lang.String ll = "";
-    public java.lang.String type = "";
-    public java.lang.String search = "";
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String um = "";
+    public File f;
+    public String ll = "";
+    public String type = "";
+    public String search = "";
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
     public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
-    public java.lang.String src_url = "";
+    public String src_url = "";
     public int v_totalPages = 0;
     public int v_nowPages = 0;
-    public android.graphics.drawable.Drawable dbe;
+    public Drawable dbe;
     public boolean state_fun_app = false;
     public boolean state_fun_video = false;
     public boolean state_fun_music = false;
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
+        public void onClick(View vw) {
+            onTx3Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.p3);
+        setContentView(R.layout.store_list);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
         type = sj.hqtz("type");
         search = sj.hqtz("search");
         csh();
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
-
-        }
-
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.p3_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.p3_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
+        applyStandardScreenMode(R.id.store_list_root, R.id.xdbj1, R.id.title_bar);
 
     }
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(open.cn.awg.pro.R.id.Tab);
+        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(open.cn.awg.pro.R.id.xxbj6);
+        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj4);
 
         if (i == 1) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -198,7 +130,7 @@ public class StoreListActivity extends iActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
@@ -210,7 +142,7 @@ public class StoreListActivity extends iActivity {
             });
 
         }
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -236,7 +168,7 @@ public class StoreListActivity extends iActivity {
 
     public void csh() {
 
-        java.lang.String set67 = "/data/user/0/open.cn.awg.pro/settings/set7.inf";
+        String set67 = AppPaths.appPath("settings/set7.inf");
         src_url = wj.dqwb(set67);
         show(1);
 
@@ -316,13 +248,13 @@ public class StoreListActivity extends iActivity {
 
             final int y = y_;
 
-            i.runlibrary.app.v.v7lb lb = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
-            spq = lb.v7lbspq(StoreMusicItemActivity.class, open.cn.awg.pro.R.layout.c25);
+            i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
+            spq = lb.v7lbspq(StoreMusicItemActivity.class, R.layout.store_music_item);
 
-            final int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb3, -1};
+            final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
-            final i.runlibrary.app.v.wb wb2 = st.wb(open.cn.awg.pro.R.id.wb2);
-            gj.xc(new java.lang.Thread() {
+            final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -331,9 +263,9 @@ public class StoreListActivity extends iActivity {
 
                     boolean canshow = false;
 
-                    java.lang.String url = src_url + "/api.php";
+                    String url = src_url + "/api.php";
 
-                    java.lang.String[] post = new java.lang.String[]{"type=music", "code=" + search, "page=1"};
+                    String[] post = new String[]{"type=music", "code=" + search, "page=1"};
 
                     if (y != 0) {
 
@@ -353,7 +285,7 @@ public class StoreListActivity extends iActivity {
 
                     if (e1.yz()) {
 
-                        java.lang.String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
 
                         if (!zf.dy(v, null)) {
 
@@ -361,25 +293,25 @@ public class StoreListActivity extends iActivity {
 
                                 i.runlibrary.app.zf$json jo = zf.json(v);
 
-                                org.json.JSONObject json = jo.json;
+                                JSONObject json = jo.json;
 
-                                java.lang.Object v_msg = jo.hq(json, "msg");
+                                Object v_msg = jo.hq(json, "msg");
 
-                                java.lang.Object v_code = jo.hq(json, "code");
+                                Object v_code = jo.hq(json, "code");
 
                                 if (zf.dy(v_code, 200)) {
 
-                                    java.lang.Object v_totalItems = jo.hq(json, "totalItems");
+                                    Object v_totalItems = jo.hq(json, "totalItems");
                                     v_totalPages = Integer.parseInt(String.valueOf(jo.hq(json, "totalPages")));
 
-                                    java.lang.Object v_nowItems = jo.hq(json, "nowItems");
+                                    Object v_nowItems = jo.hq(json, "nowItems");
                                     v_nowPages = Integer.parseInt(String.valueOf(jo.hq(json, "nowPages")));
 
                                     if (zf.dy(v_totalItems, 0)) {
 
                                     } else {
 
-                                        org.json.JSONArray list = jo.dxlb(json, "info");
+                                        JSONArray list = jo.dxlb(json, "info");
 
                                         int size = jo.cd(list);
 
@@ -387,23 +319,23 @@ public class StoreListActivity extends iActivity {
 
                                             size--;
 
-                                            org.json.JSONObject dx = jo.dx(list, size);
+                                            JSONObject dx = jo.dx(list, size);
 
-                                            java.lang.Object v_l_title = jo.hq(dx, "title");
+                                            Object v_l_title = jo.hq(dx, "title");
 
-                                            java.lang.Object v_l_text = jo.hq(dx, "text");
+                                            Object v_l_text = jo.hq(dx, "text");
 
-                                            java.lang.Object v_l_aurl = jo.hq(dx, "aurl");
+                                            Object v_l_aurl = jo.hq(dx, "aurl");
 
-                                            java.lang.Object v_l_id = jo.hq(dx, "id");
+                                            Object v_l_id = jo.hq(dx, "id");
 
-                                            java.lang.Object[] jk = new java.lang.Object[]{v_l_title, v_l_text, v_l_id};
+                                            Object[] jk = new Object[]{v_l_title, v_l_text, v_l_id};
                                             spq.j(kj, jk);
 
                                         }
 
-                                        final java.lang.String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
-                                        gj.jmxc(new java.lang.Runnable() {
+                                        final String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
+                                        gj.jmxc(new Runnable() {
 
                                             public void run() {
 
@@ -419,7 +351,7 @@ public class StoreListActivity extends iActivity {
 
                                 }
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "p3.fun_music(int)");
 
@@ -435,11 +367,11 @@ public class StoreListActivity extends iActivity {
 
                     } else {
 
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
-                                st.wb(open.cn.awg.pro.R.id.wb1).zf("加载失败");
+                                st.wb(R.id.wb1).zf("加载失败");
 
                             }
 
@@ -468,13 +400,13 @@ public class StoreListActivity extends iActivity {
 
             final int y = y_;
 
-            i.runlibrary.app.v.v7lb lb = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
-            spq = lb.v7lbspq(StoreVideoItemActivity.class, open.cn.awg.pro.R.layout.c24);
+            i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
+            spq = lb.v7lbspq(StoreVideoItemActivity.class, R.layout.store_video_item);
 
-            final int[] kj = new int[]{open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb3, -1};
+            final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
-            final i.runlibrary.app.v.wb wb2 = st.wb(open.cn.awg.pro.R.id.wb2);
-            gj.xc(new java.lang.Thread() {
+            final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -483,9 +415,9 @@ public class StoreListActivity extends iActivity {
 
                     boolean canshow = false;
 
-                    java.lang.String url = src_url + "/api.php";
+                    String url = src_url + "/api.php";
 
-                    java.lang.String[] post = new java.lang.String[]{"type=video", "code=" + search, "page=1"};
+                    String[] post = new String[]{"type=video", "code=" + search, "page=1"};
 
                     if (y != 0) {
 
@@ -505,7 +437,7 @@ public class StoreListActivity extends iActivity {
 
                     if (e1.yz()) {
 
-                        java.lang.String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
 
                         if (!zf.dy(v, null)) {
 
@@ -513,25 +445,25 @@ public class StoreListActivity extends iActivity {
 
                                 i.runlibrary.app.zf$json jo = zf.json(v);
 
-                                org.json.JSONObject json = jo.json;
+                                JSONObject json = jo.json;
 
-                                java.lang.Object v_msg = jo.hq(json, "msg");
+                                Object v_msg = jo.hq(json, "msg");
 
-                                java.lang.Object v_code = jo.hq(json, "code");
+                                Object v_code = jo.hq(json, "code");
 
                                 if (zf.dy(v_code, 200)) {
 
-                                    java.lang.Object v_totalItems = jo.hq(json, "totalItems");
+                                    Object v_totalItems = jo.hq(json, "totalItems");
                                     v_totalPages = Integer.parseInt(String.valueOf(jo.hq(json, "totalPages")));
 
-                                    java.lang.Object v_nowItems = jo.hq(json, "nowItems");
+                                    Object v_nowItems = jo.hq(json, "nowItems");
                                     v_nowPages = Integer.parseInt(String.valueOf(jo.hq(json, "nowPages")));
 
                                     if (zf.dy(v_totalItems, 0)) {
 
                                     } else {
 
-                                        org.json.JSONArray list = jo.dxlb(json, "info");
+                                        JSONArray list = jo.dxlb(json, "info");
 
                                         int size = jo.cd(list);
 
@@ -539,24 +471,24 @@ public class StoreListActivity extends iActivity {
 
                                             size--;
 
-                                            org.json.JSONObject dx = jo.dx(list, size);
+                                            JSONObject dx = jo.dx(list, size);
 
-                                            java.lang.Object v_l_title = jo.hq(dx, "title");
+                                            Object v_l_title = jo.hq(dx, "title");
 
-                                            java.lang.Object v_l_text = jo.hq(dx, "text");
+                                            Object v_l_text = jo.hq(dx, "text");
                                             v_l_text = zf.th(v_l_text, "<br>", " ");
 
-                                            java.lang.Object v_l_aurl = jo.hq(dx, "aurl");
+                                            Object v_l_aurl = jo.hq(dx, "aurl");
 
-                                            java.lang.Object v_l_id = jo.hq(dx, "id");
+                                            Object v_l_id = jo.hq(dx, "id");
 
-                                            java.lang.Object[] jk = new java.lang.Object[]{v_l_title, v_l_text, v_l_id};
+                                            Object[] jk = new Object[]{v_l_title, v_l_text, v_l_id};
                                             spq.j(kj, jk);
 
                                         }
 
-                                        final java.lang.String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
-                                        gj.jmxc(new java.lang.Runnable() {
+                                        final String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
+                                        gj.jmxc(new Runnable() {
 
                                             public void run() {
 
@@ -572,7 +504,7 @@ public class StoreListActivity extends iActivity {
 
                                 }
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "p3.fun_video(int)");
 
@@ -588,11 +520,11 @@ public class StoreListActivity extends iActivity {
 
                     } else {
 
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
-                                st.wb(open.cn.awg.pro.R.id.wb1).zf("加载失败");
+                                st.wb(R.id.wb1).zf("加载失败");
 
                             }
 
@@ -621,13 +553,13 @@ public class StoreListActivity extends iActivity {
 
             final int y = y_;
 
-            i.runlibrary.app.v.v7lb lb = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
-            spq = lb.v7lbspq(StoreAppItemActivity.class, open.cn.awg.pro.R.layout.c23);
+            i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
+            spq = lb.v7lbspq(StoreAppItemActivity.class, R.layout.store_app_item);
 
-            final int[] kj = new int[]{open.cn.awg.pro.R.id.tx1, open.cn.awg.pro.R.id.wb1, open.cn.awg.pro.R.id.wb3, -1};
+            final int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb3, -1};
 
-            final i.runlibrary.app.v.wb wb2 = st.wb(open.cn.awg.pro.R.id.wb2);
-            gj.xc(new java.lang.Thread() {
+            final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
+            gj.xc(new Thread() {
 
                 public void run() {
 
@@ -636,9 +568,9 @@ public class StoreListActivity extends iActivity {
 
                     boolean canshow = false;
 
-                    java.lang.String url = src_url + "/api.php";
+                    String url = src_url + "/api.php";
 
-                    java.lang.String[] post = new java.lang.String[]{"type=app", "code=" + search, "page=1"};
+                    String[] post = new String[]{"type=app", "code=" + search, "page=1"};
 
                     if (y != 0) {
 
@@ -658,7 +590,7 @@ public class StoreListActivity extends iActivity {
 
                     if (e1.yz()) {
 
-                        java.lang.String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
 
                         if (!zf.dy(v, null)) {
 
@@ -666,25 +598,25 @@ public class StoreListActivity extends iActivity {
 
                                 i.runlibrary.app.zf$json jo = zf.json(v);
 
-                                org.json.JSONObject json = jo.json;
+                                JSONObject json = jo.json;
 
-                                java.lang.Object v_msg = jo.hq(json, "msg");
+                                Object v_msg = jo.hq(json, "msg");
 
-                                java.lang.Object v_code = jo.hq(json, "code");
+                                Object v_code = jo.hq(json, "code");
 
                                 if (zf.dy(v_code, 200)) {
 
-                                    java.lang.Object v_totalItems = jo.hq(json, "totalItems");
+                                    Object v_totalItems = jo.hq(json, "totalItems");
                                     v_totalPages = Integer.parseInt(String.valueOf(jo.hq(json, "totalPages")));
 
-                                    java.lang.Object v_nowItems = jo.hq(json, "nowItems");
+                                    Object v_nowItems = jo.hq(json, "nowItems");
                                     v_nowPages = Integer.parseInt(String.valueOf(jo.hq(json, "nowPages")));
 
                                     if (zf.dy(v_totalItems, 0)) {
 
                                     } else {
 
-                                        org.json.JSONArray list = jo.dxlb(json, "info");
+                                        JSONArray list = jo.dxlb(json, "info");
 
                                         int size = jo.cd(list);
 
@@ -692,30 +624,30 @@ public class StoreListActivity extends iActivity {
 
                                             size--;
 
-                                            org.json.JSONObject dx = jo.dx(list, size);
+                                            JSONObject dx = jo.dx(list, size);
 
-                                            java.lang.Object v_l_appname = jo.hq(dx, "appname");
+                                            Object v_l_appname = jo.hq(dx, "appname");
 
-                                            java.lang.Object v_l_appsize = jo.hq(dx, "appsize");
+                                            Object v_l_appsize = jo.hq(dx, "appsize");
 
-                                            java.lang.Object v_l_apptext = jo.hq(dx, "apptext");
+                                            Object v_l_apptext = jo.hq(dx, "apptext");
 
-                                            java.lang.Object v_l_appdown = jo.hq(dx, "appdown");
+                                            Object v_l_appdown = jo.hq(dx, "appdown");
 
-                                            java.lang.Object v_l_appid = jo.hq(dx, "appid");
+                                            Object v_l_appid = jo.hq(dx, "appid");
 
-                                            java.lang.String jian = v_l_appsize + " | " + v_l_apptext;
+                                            String jian = v_l_appsize + " | " + v_l_apptext;
 
-                                            java.lang.String img_url = src_url + "/app/" + v_l_appid + "/app-image/icon.png";
+                                            String img_url = src_url + "/app/" + v_l_appid + "/app-image/icon.png";
                                             dbe = new BitmapDrawable(lei.getResources(), com.demo.e4.getURLimage(img_url));
 
-                                            java.lang.Object[] jk = new java.lang.Object[]{dbe, v_l_appname, jian, v_l_appid};
+                                            Object[] jk = new Object[]{dbe, v_l_appname, jian, v_l_appid};
                                             spq.j(kj, jk);
 
                                         }
 
-                                        final java.lang.String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
-                                        gj.jmxc(new java.lang.Runnable() {
+                                        final String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
+                                        gj.jmxc(new Runnable() {
 
                                             public void run() {
 
@@ -731,7 +663,7 @@ public class StoreListActivity extends iActivity {
 
                                 }
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.upload_error(e, "p3.fun_app(int)");
 
@@ -747,11 +679,11 @@ public class StoreListActivity extends iActivity {
 
                     } else {
 
-                        gj.jmxc(new java.lang.Runnable() {
+                        gj.jmxc(new Runnable() {
 
                             public void run() {
 
-                                st.wb(open.cn.awg.pro.R.id.wb1).zf("加载失败");
+                                st.wb(R.id.wb1).zf("加载失败");
 
                             }
 
@@ -774,81 +706,33 @@ public class StoreListActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -861,48 +745,32 @@ public class StoreListActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         but_back();
 
     }
 
-    private void $_onClick_i8217d42a17(android.view.View vw) {
+    private void onTx3Click(View vw) {
         but_next();
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         gj.gb();
 
     }
@@ -911,21 +779,21 @@ public class StoreListActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        android.widget.TextView i7c3e3c6b5d = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
-        i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

@@ -16,61 +16,68 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.core.GlobalRuntimeState;
 import open.cn.awg.pro.file.FileOpenActivity;
 import open.cn.awg.pro.installer.ApkPreviewActivity;
 import open.cn.awg.pro.installer.PackageInstallerActivity;
 import open.cn.awg.pro.media.VideoPlayerActivity;
 import open.cn.awg.pro.media.WearMusicActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.tools.AccessibilityScriptActivity;
 import open.cn.awg.pro.tools.ShellExecutorActivity;
 import open.cn.awg.pro.viewer.ImageViewerActivity;
 import open.cn.awg.pro.viewer.TextEditorActivity;
 import open.cn.awg.pro.viewer.TextViewerActivity;
 
-
-public class FileOpenOptionItemActivity extends iActivity {
+public class FileOpenOptionItemActivity extends BaseAwgActivity {
 
     public final FileOpenOptionItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_e1433e26d6 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xxbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_e1433e26d6(vw);
+        public boolean onLongClick(View vw) {
+            return onXxbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_e1433e26d6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_e1433e26d6(vw);
+        public void onClick(View vw) {
+            onXxbj1Click(vw);
         }
 
     };
 
-    private void $_onClick_e1433e26d6(android.view.View vw) {
+    private void onXxbj1Click(View vw) {
 
-        final open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         try {
 
             final i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-            final java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+            final Object a = lb.lbcfsj(R.id.wb1);
 
-            final java.lang.Object n = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+            final Object n = lb.lbcfsj(R.id.wb2);
 
-            final java.lang.String es = st.wb(open.cn.awg.pro.R.id.zywblj).zf();
+            final String es = st.wb(R.id.zywblj).zf();
 
-            final java.lang.String c = String.valueOf(lb.lbcfsj(open.cn.awg.pro.R.id.wb3));
-            gj.xc(new java.lang.Thread() {
+            final String c = String.valueOf(lb.lbcfsj(R.id.wb3));
+            gj.xc(new Thread() {
 
                 public void run() {
 
-                    java.lang.String d1_rootpaths;
-                    d1_rootpaths = open.cn.awg.pro.core.GlobalRuntimeState.d1_rootpath;
+                    String d1_rootpaths;
+                    d1_rootpaths = GlobalRuntimeState.d1_rootpath;
 
                     if (zf.dy(n, "-1")) {
 
@@ -88,10 +95,10 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         if (zf.dy(n, "a1")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -103,16 +110,16 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "a2")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    java.lang.String[] name = new java.lang.String[]{"url"};
+                                    String[] name = new String[]{"url"};
 
-                                    java.lang.String[] value = new java.lang.String[]{c};
+                                    String[] value = new String[]{c};
                                     gj.tz(TextEditorActivity.class, name, value);
 
                                 }
@@ -121,10 +128,10 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "b1")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -136,10 +143,10 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "c1")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -151,10 +158,10 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "c2")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -166,12 +173,12 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "c3")) {
 
-                            java.lang.String pa1 = "/HankMi/cache/music/keydata.hmd";
+                            String pa1 = "/HankMi/cache/music/keydata.hmd";
                             pa1 = wj.hqml("%") + pa1;
 
-                            java.lang.String nr = "hmmedia=" + c;
+                            String nr = "hmmedia=" + c;
                             wj.xrwb(pa1, nr);
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -179,7 +186,7 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                                         xt.dkyy("com.hankmi.wearmusic");
 
-                                    } catch (java.lang.Throwable e) {
+                                    } catch (Throwable e) {
 
                                         e1.tsk("提示", "打开异常\n" + e);
 
@@ -191,10 +198,10 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "d2")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -206,23 +213,23 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "d3")) {
 
-                            final java.lang.String url = c;
+                            final String url = c;
 
-                            java.lang.String[] fhValue = e1.fileinfo(d1_rootpaths, c);
+                            String[] fhValue = e1.fileinfo(d1_rootpaths, c);
 
-                            java.lang.String bts = fhValue[3];
+                            String bts = fhValue[3];
 
-                            final java.lang.String title = bts;
+                            final String title = bts;
 
                             try {
 
-                                gj.jmxc(new java.lang.Runnable() {
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
                                         boolean fhs = true;
 
-                                        android.content.Context context = open.cn.awg.pro.app.AwgProApplication.getContext();
+                                        Context context = AwgProApplication.getContext();
                                         fhs = com.demo.e4.wearvideo(context, url, title);
 
                                         if (!fhs) {
@@ -235,7 +242,7 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                                 });
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 e1.tsk("提示", "打开异常\n" + e);
 
@@ -243,12 +250,12 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "d4")) {
 
-                            java.lang.String pa1 = "/HankMi/cache/media/keydata.hmd";
+                            String pa1 = "/HankMi/cache/media/keydata.hmd";
                             pa1 = wj.hqml("%") + pa1;
 
-                            java.lang.String nr = "hmmedia=" + c;
+                            String nr = "hmmedia=" + c;
                             wj.xrwb(pa1, nr);
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -256,7 +263,7 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                                         xt.dkyy("com.hankmi.media");
 
-                                    } catch (java.lang.Throwable e) {
+                                    } catch (Throwable e) {
 
                                         e1.tsk("提示", "打开异常\n" + e);
 
@@ -268,17 +275,17 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "e1")) {
 
-                            java.lang.String[] fhValue = e1.fileinfo(d1_rootpaths, c);
+                            String[] fhValue = e1.fileinfo(d1_rootpaths, c);
 
-                            final java.lang.String lj = fhValue[2];
+                            final String lj = fhValue[2];
 
-                            final java.lang.String c1 = c;
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String c1 = c;
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(open.cn.awg.pro.R.id.Tab).zf("提示");
-                                    st.xxbj(open.cn.awg.pro.R.id.xxbj9).kjd(0);
+                                    st.wb(R.id.title_bar).zf("提示");
+                                    st.xxbj(R.id.xxbj9).kjd(0);
 
                                 }
 
@@ -297,10 +304,10 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "f1")) {
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -312,14 +319,14 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "f2")) {
 
-                            java.lang.String b = wj.hqml("%");
+                            String b = wj.hqml("%");
 
-                            java.lang.String kl = zf.th(c, b, "%");
+                            String kl = zf.th(c, b, "%");
 
-                            final java.lang.String[] name = new java.lang.String[]{"url", "mode"};
+                            final String[] name = new String[]{"url", "mode"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c, "0"};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c, "0"};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -331,14 +338,14 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "f3")) {
 
-                            java.lang.String b = wj.hqml("%");
+                            String b = wj.hqml("%");
 
-                            java.lang.String kl = zf.th(c, b, "%");
+                            String kl = zf.th(c, b, "%");
 
-                            final java.lang.String[] name = new java.lang.String[]{"url", "mode"};
+                            final String[] name = new String[]{"url", "mode"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c, "1"};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c, "1"};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -350,14 +357,14 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "g1")) {
 
-                            java.lang.String b = wj.hqml("%");
+                            String b = wj.hqml("%");
 
-                            java.lang.String kl = zf.th(c, b, "%");
+                            String kl = zf.th(c, b, "%");
 
-                            final java.lang.String[] name = new java.lang.String[]{"url"};
+                            final String[] name = new String[]{"url"};
 
-                            final java.lang.String[] value = new java.lang.String[]{c};
-                            gj.jmxc(new java.lang.Runnable() {
+                            final String[] value = new String[]{c};
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
@@ -379,12 +386,12 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                             } else {
 
-                                java.lang.String nrs = wj.dqwb(c);
+                                String nrs = wj.dqwb(c);
 
-                                final java.lang.String[] name = new java.lang.String[]{"cmd"};
+                                final String[] name = new String[]{"cmd"};
 
-                                final java.lang.String[] value = new java.lang.String[]{nrs};
-                                gj.jmxc(new java.lang.Runnable() {
+                                final String[] value = new String[]{nrs};
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -404,12 +411,12 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                             } else {
 
-                                java.lang.String nrs = wj.dqwb(c);
+                                String nrs = wj.dqwb(c);
 
-                                final java.lang.String[] name = new java.lang.String[]{"sh"};
+                                final String[] name = new String[]{"sh"};
 
-                                final java.lang.String[] value = new java.lang.String[]{nrs};
-                                gj.jmxc(new java.lang.Runnable() {
+                                final String[] value = new String[]{nrs};
+                                gj.jmxc(new Runnable() {
 
                                     public void run() {
 
@@ -427,16 +434,16 @@ public class FileOpenOptionItemActivity extends iActivity {
 
                         } else if (zf.dy(n, "h1") || zf.dy(n, "h2") || zf.dy(n, "h3") || zf.dy(n, "h4")) {
 
-                            java.lang.String choose = "/data/user/0/open.cn.awg.pro/cache/file/choose";
+                            String choose = AppPaths.appPath("cache/file/choose");
                             wj.sc(choose);
-                            wj.xrwb("/data/user/0/open.cn.awg.pro/cache/chat/upload/path", c);
+                            wj.xrwb(AppPaths.appPath("cache/chat/upload/path"), c);
                             gj.gb();
 
                         } else if (zf.dy(n, "i1")) {
 
-                            java.lang.String choose2 = "/data/user/0/open.cn.awg.pro/cache/file/choose2";
+                            String choose2 = AppPaths.appPath("cache/file/choose2");
                             wj.sc(choose2);
-                            wj.xrwb("/data/user/0/open.cn.awg.pro/cache/user/upload/path", c);
+                            wj.xrwb(AppPaths.appPath("cache/user/upload/path"), c);
                             gj.gb();
 
                         } else {
@@ -452,7 +459,7 @@ public class FileOpenOptionItemActivity extends iActivity {
 
             });
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.upload_error(e, "c6.*");
 
@@ -460,13 +467,13 @@ public class FileOpenOptionItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_e1433e26d6(android.view.View vw) {
+    private boolean onXxbj1LongClick(View vw) {
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object a = lb.lbcfsj(R.id.wb1);
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
         e1.tsk("详细信息", a);
         return true;
 
@@ -476,15 +483,15 @@ public class FileOpenOptionItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.LinearLayout e1433e26d6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj1);
-        e1433e26d6.setOnClickListener($_on_setOnClickListener_e1433e26d6);
-        e1433e26d6.setOnLongClickListener($_on_setOnLongClickListener_e1433e26d6);
+        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        e1433e26d6.setOnClickListener(xxbj1ClickListener);
+        e1433e26d6.setOnLongClickListener(xxbj1LongClickListener);
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
 
-        android.widget.RelativeLayout i9f15e08dfa = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c6_v);
+        RelativeLayout i9f15e08dfa = (RelativeLayout) findViewById(ay, vw, R.id.file_open_option_item_root);
 
         __layoutIsLoaded(ay, vw);
     }

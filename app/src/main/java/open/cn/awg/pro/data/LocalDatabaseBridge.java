@@ -18,17 +18,19 @@ package open.cn.awg.pro.data;
 
 import i.app.iClass;
 
+import open.cn.awg.pro.core.AppPaths;
+
 public class LocalDatabaseBridge extends iClass {
 
-    public static java.lang.String set17 = "/data/user/0/open.cn.awg.pro/settings/db/talking.db";
+    public static String set17 = AppPaths.appPath("settings/db/talking.db");
 
     public static i.runlibrary.app.sj$sjk sjk;
 
-    public static java.lang.String set27 = "/data/user/0/open.cn.awg.pro/settings/db/file.db";
+    public static String set27 = AppPaths.appPath("settings/db/file.db");
 
     public static i.runlibrary.app.sj$sjk sjk2;
 
-    public static java.lang.String set47 = "/data/user/0/open.cn.awg.pro/settings/db/plugin.db";
+    public static String set47 = AppPaths.appPath("settings/db/plugin.db");
 
     public static i.runlibrary.app.sj$sjk sjk3;
     public final LocalDatabaseBridge lei = this, 类 = this;
@@ -43,7 +45,7 @@ public class LocalDatabaseBridge extends iClass {
 
         if (!sjk.czsjb("talklist")) {
 
-            java.lang.String table = "_id integer primary key,uid interger, name text,utext text";
+            String table = "_id integer primary key,uid interger, name text,utext text";
 
             boolean sjk8 = sjk.cjsjb("talklist", table);
 
@@ -51,20 +53,20 @@ public class LocalDatabaseBridge extends iClass {
 
     }
 
-    public boolean add_talklist(java.lang.Object a, java.lang.Object b, java.lang.Object c) {
+    public boolean add_talklist(Object a, Object b, Object c) {
 
         boolean fhz = false;
 
         i.runlibrary.app.sj$cxsj back = sjk.cxsj("talklist", "uid", "uid=" + a);
         back.dyh();
 
-        java.lang.String fhs = back.sj(0);
+        String fhs = back.sj(0);
 
         if (zf.dy(fhs, null)) {
 
-            java.lang.String table = "uid,name,utext";
+            String table = "uid,name,utext";
 
-            java.lang.String data = a + ",'" + b + "','" + c + "'";
+            String data = a + ",'" + b + "','" + c + "'";
 
             boolean sjk11 = sjk.cjsj("talklist", table, data);
             fhz = true;
@@ -78,28 +80,28 @@ public class LocalDatabaseBridge extends iClass {
 
     }
 
-    public boolean update_talklist(java.lang.Object a, java.lang.Object b, java.lang.Object c) {
+    public boolean update_talklist(Object a, Object b, Object c) {
 
         boolean fhz = sjk.gxsj("talklist", b + "='" + c + "'", "_id=" + a);
         return fhz;
 
     }
 
-    public boolean delete_talklist(java.lang.Object a) {
+    public boolean delete_talklist(Object a) {
 
         boolean fhz = sjk.scsj("talklist", "_id=" + a);
         return fhz;
 
     }
 
-    public int findid_talklist(java.lang.Object a) {
+    public int findid_talklist(Object a) {
 
         int fhz = 0;
 
         i.runlibrary.app.sj$cxsj back = sjk.cxsj("talklist", "_id,uid", "uid=" + a);
         back.dyh();
 
-        java.lang.String fhs = back.sj(0);
+        String fhs = back.sj(0);
 
         if (zf.dy(fhs, null)) {
 
@@ -114,9 +116,9 @@ public class LocalDatabaseBridge extends iClass {
 
     public void print_talklist() {
 
-        java.lang.String table = "_id,uid,name,utext";
+        String table = "_id,uid,name,utext";
 
-        java.lang.Object sqlx = null;
+        Object sqlx = null;
 
         i.runlibrary.app.sj$cxsj sjk15 = sjk.cxsj("talklist", table, sqlx);
 
@@ -133,7 +135,7 @@ public class LocalDatabaseBridge extends iClass {
 
         if (!sjk2.czsjb("filelist")) {
 
-            java.lang.String table = "_id integer primary key, path text,value interger";
+            String table = "_id integer primary key, path text,value interger";
 
             boolean sjk8 = sjk2.cjsjb("filelist", table);
 
@@ -141,20 +143,20 @@ public class LocalDatabaseBridge extends iClass {
 
     }
 
-    public boolean update_filelist(java.lang.Object a, int b) {
+    public boolean update_filelist(Object a, int b) {
 
         boolean fhz = false;
 
         i.runlibrary.app.sj$cxsj back = sjk2.cxsj("filelist", "path", "path='" + a + "'");
         back.dyh();
 
-        java.lang.String fhs = back.sj(0);
+        String fhs = back.sj(0);
 
         if (zf.dy(fhs, null)) {
 
-            java.lang.String table = "path,value";
+            String table = "path,value";
 
-            java.lang.String data = "'" + a + "'," + b;
+            String data = "'" + a + "'," + b;
             fhz = sjk2.cjsj("filelist", table, data);
 
         } else {
@@ -170,14 +172,14 @@ public class LocalDatabaseBridge extends iClass {
 
     }
 
-    public int get_filelist(java.lang.Object a) {
+    public int get_filelist(Object a) {
 
         int v = 0;
 
         i.runlibrary.app.sj$cxsj back = sjk2.cxsj("filelist", "value,path", "path='" + a + "'");
         back.dyh();
 
-        java.lang.String b = back.sj(0);
+        String b = back.sj(0);
 
         if (zf.dy(b, null)) {
 
@@ -195,7 +197,7 @@ public class LocalDatabaseBridge extends iClass {
 
         if (!sjk3.czsjb("pluginlist")) {
 
-            java.lang.String table = "_id integer primary key,uid interger, name text,utext text";
+            String table = "_id integer primary key,uid interger, name text,utext text";
 
             boolean sjk8 = sjk3.cjsjb("pluginlist", table);
 
@@ -203,20 +205,20 @@ public class LocalDatabaseBridge extends iClass {
 
     }
 
-    public boolean add_pluginlist(java.lang.Object a, java.lang.Object b, java.lang.Object c) {
+    public boolean add_pluginlist(Object a, Object b, Object c) {
 
         boolean fhz = false;
 
         i.runlibrary.app.sj$cxsj back = sjk3.cxsj("pluginlist", "uid", "uid=" + a);
         back.dyh();
 
-        java.lang.String fhs = back.sj(0);
+        String fhs = back.sj(0);
 
         if (zf.dy(fhs, null)) {
 
-            java.lang.String table = "uid,name,utext";
+            String table = "uid,name,utext";
 
-            java.lang.String data = a + ",'" + b + "','" + c + "'";
+            String data = a + ",'" + b + "','" + c + "'";
 
             boolean sjk11 = sjk3.cjsj("pluginlist", table, data);
             fhz = true;
@@ -230,28 +232,28 @@ public class LocalDatabaseBridge extends iClass {
 
     }
 
-    public boolean update_pluginlist(java.lang.Object a, java.lang.Object b, java.lang.Object c) {
+    public boolean update_pluginlist(Object a, Object b, Object c) {
 
         boolean fhz = sjk3.gxsj("pluginlist", b + "='" + c + "'", "_id=" + a);
         return fhz;
 
     }
 
-    public boolean delete_pluginlist(java.lang.Object a) {
+    public boolean delete_pluginlist(Object a) {
 
         boolean fhz = sjk3.scsj("pluginlist", "_id=" + a);
         return fhz;
 
     }
 
-    public int findid_pluginlist(java.lang.Object a) {
+    public int findid_pluginlist(Object a) {
 
         int fhz = 0;
 
         i.runlibrary.app.sj$cxsj back = sjk3.cxsj("pluginlist", "_id,uid", "uid=" + a);
         back.dyh();
 
-        java.lang.String fhs = back.sj(0);
+        String fhs = back.sj(0);
 
         if (zf.dy(fhs, null)) {
 
@@ -266,9 +268,9 @@ public class LocalDatabaseBridge extends iClass {
 
     public void print_pluginlist() {
 
-        java.lang.String table = "_id,uid,name,utext";
+        String table = "_id,uid,name,utext";
 
-        java.lang.Object sqlx = null;
+        Object sqlx = null;
 
         i.runlibrary.app.sj$cxsj sjk15 = sjk3.cxsj("pluginlist", table, sqlx);
 

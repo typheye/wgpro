@@ -1,0 +1,28 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/display_margin_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground">
+    <RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="0dp">
+        <TextView android:id="@+id/wb5" android:layout_width="match_parent" android:layout_height="3dp" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentTop="true">
+        </TextView>
+        <TextView android:id="@+id/wb6" android:layout_width="match_parent" android:layout_height="3dp" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentBottom="true">
+        </TextView>
+        <TextView android:id="@+id/wb7" android:layout_width="3dp" android:layout_height="match_parent" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentLeft="true">
+        </TextView>
+        <TextView android:id="@+id/wb8" android:layout_width="3dp" android:layout_height="match_parent" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentRight="true">
+        </TextView>
+    </RelativeLayout>
+    <RelativeLayout android:id="@+id/xdbj1" android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:id="@+id/xxbj1" android:layout_width="120dp" android:layout_height="wrap_content" android:orientation="vertical" android:gravity="center" android:layout_centerInParent="true">
+            <TextView android:id="@+id/wb11" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="拖动滑条\n直至完整显示矩形" android:textColor="@color/colorTextTrue" android:textSize="9sp" android:gravity="center" android:layout_margin="5dp" android:textStyle="bold">
+            </TextView>
+            <SeekBar android:id="@+id/tdt1" android:layout_width="match_parent" android:layout_height="wrap_content" android:max="80" android:background="@color/colorTextTrue" android:padding="3dp">
+            </SeekBar>
+            <LinearLayout android:id="@+id/xxbj5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_margin="5dp" android:layout_centerHorizontal="true">
+                <TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="调节边距" android:textColor="@color/colorTextU1" android:textSize="9sp" android:textStyle="bold" android:singleLine="true">
+                </TextView>
+                <TextView android:id="@+id/wb10" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0dp" android:textColor="@color/colorTextU1" android:textSize="9sp" android:singleLine="true" android:layout_marginLeft="3dp">
+                </TextView>
+            </LinearLayout>
+            <TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="退出/应用" android:textColor="@color/colorTextFalse" android:textSize="11sp" android:gravity="center" android:textStyle="bold" android:singleLine="true" android:padding="5dp" android:background="?android:attr/selectableItemBackground">
+            </TextView>
+        </LinearLayout>
+    </RelativeLayout>
+</RelativeLayout>

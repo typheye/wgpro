@@ -16,46 +16,52 @@
  */
 package open.cn.awg.pro.viewer;
 
+import android.app.Activity;
 import android.net.Uri;
-import android.view.Window;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import java.io.File;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.ui.main.TextQrDisplayActivity;
 
-
-public class ImageViewerActivity extends iActivity {
+public class ImageViewerActivity extends BaseAwgActivity {
 
     public final ImageViewerActivity lei = this, 类 = this;
-    public java.lang.String url;
-    public java.lang.String md5;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_i7c3e3c6b5d = new android.view.View.OnLongClickListener() {
+    public String url;
+    public String md5;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    private final View.OnLongClickListener wb2LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_i7c3e3c6b5d(vw);
+        public boolean onLongClick(View vw) {
+            return onWb2LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.d3);
+        setContentView(R.layout.image_viewer);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
         try {
 
@@ -77,7 +83,7 @@ public class ImageViewerActivity extends iActivity {
 
             } else {
 
-                final java.lang.String pa = "/storage/emulated/0/Android/data/open.cn.awg.pro/files/Chat/Pictures/" + md5;
+                final String pa = AppPaths.externalFilesPath("Chat/Pictures/") + md5;
 
                 if (zf.ckt(url, "http")) {
 
@@ -88,7 +94,7 @@ public class ImageViewerActivity extends iActivity {
 
                     } else {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
@@ -101,10 +107,10 @@ public class ImageViewerActivity extends iActivity {
 
                                 } else {
 
-                                    final java.lang.String[] name = new java.lang.String[]{"url", "md5"};
+                                    final String[] name = new String[]{"url", "md5"};
 
-                                    final java.lang.String[] value = new java.lang.String[]{url, md5};
-                                    gj.jmxc(new java.lang.Runnable() {
+                                    final String[] value = new String[]{url, md5};
+                                    gj.jmxc(new Runnable() {
 
                                         public void run() {
 
@@ -131,7 +137,7 @@ public class ImageViewerActivity extends iActivity {
 
             }
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.upload_error(e, "d3.*");
             gj.gb();
@@ -140,54 +146,51 @@ public class ImageViewerActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
         i.runlibrary.app.xt$pm pm = xt.pm();
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
         xt.sbxm(false);
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        applyFullscreenWindow();
 
         if (zf.dy(a, "1")) {
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
         } else if (zf.dy(a, "2")) {
 
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+            String a001 = AppPaths.appPath("settings/dpi.inf");
 
             if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "3dp", 0, "3dp");
                 wtab.dqfs("center");
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "9dp", 0, "9dp");
                 wtab.dqfs("center");
 
@@ -195,7 +198,7 @@ public class ImageViewerActivity extends iActivity {
 
         } else if (zf.dy(a, "3")) {
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
@@ -204,21 +207,21 @@ public class ImageViewerActivity extends iActivity {
             int uih = sj.zh().pxzdp(pm.ztl);
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, uih + "dp", 0, "9dp");
             wtab.dqfs("center");
 
         }
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/set3.inf";
+        String set = AppPaths.appPath("settings/set3.inf");
 
         if (zf.dy(wj.dqwb(set), "true")) {
 
-            java.lang.String te = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a6");
+            String te = wj.dqwb(AppPaths.appPath("data/assets/a6"));
 
-            java.lang.String[] name = new java.lang.String[]{"title", "text"};
+            String[] name = new String[]{"title", "text"};
 
-            java.lang.String[] value = new java.lang.String[]{"新手教程", te};
+            String[] value = new String[]{"新手教程", te};
             gj.tz(TextQrDisplayActivity.class, name, value);
 
         }
@@ -229,12 +232,12 @@ public class ImageViewerActivity extends iActivity {
 
         if (wj.cz(url)) {
 
-            java.lang.String[] fhValue = e1.fileinfo("%", url);
+            String[] fhValue = e1.fileinfo("%", url);
 
-            java.lang.String bts = fhValue[3];
-            st.xxbj(open.cn.awg.pro.R.id.xxbj2).kjd(8);
+            String bts = fhValue[3];
+            st.xxbj(R.id.xxbj2).kjd(8);
 
-            android.widget.LinearLayout xx = findViewById(R.id.xx);
+            LinearLayout xx = findViewById(R.id.xx);
             com.demo.e5 pic = new com.demo.e5(this);
             xx.addView(pic, -1, -1);
             Uri uri = Uri.fromFile(new File(url));
@@ -251,47 +254,35 @@ public class ImageViewerActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onStart() {
         super.onStart();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onResume() {
         super.onResume();
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
@@ -300,20 +291,20 @@ public class ImageViewerActivity extends iActivity {
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private boolean $_onLongClick_i7c3e3c6b5d(android.view.View vw) {
+    private boolean onWb2LongClick(View vw) {
 
-        if (st.wb(open.cn.awg.pro.R.id.Tab).kjd() == 0) {
+        if (st.wb(R.id.title_bar).kjd() == 0) {
 
-            st.wb(open.cn.awg.pro.R.id.Tab).kjd(8);
+            st.wb(R.id.title_bar).kjd(8);
 
         } else {
 
-            st.wb(open.cn.awg.pro.R.id.Tab).kjd(0);
+            st.wb(R.id.title_bar).kjd(0);
 
         }
         return true;
@@ -324,17 +315,17 @@ public class ImageViewerActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.LinearLayout bfde3e272b = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xx);
+        LinearLayout bfde3e272b = (LinearLayout) findViewById(ay, vw, R.id.xx);
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
 
-        android.widget.TextView i7c3e3c6b5d = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb2);
-        i7c3e3c6b5d.setOnLongClickListener($_on_setOnLongClickListener_i7c3e3c6b5d);
+        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
+        i7c3e3c6b5d.setOnLongClickListener(wb2LongClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

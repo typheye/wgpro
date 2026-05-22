@@ -16,14 +16,18 @@
  */
 package open.cn.awg.pro.browser;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.PixelFormat;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.view.Window;
 import android.webkit.WebStorage;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,155 +36,163 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
+
 import com.tencent.smtt.export.external.interfaces.HttpAuthHandler;
+import com.tencent.smtt.export.external.interfaces.IX5WebChromeClient;
 import com.tencent.smtt.export.external.interfaces.JsPromptResult;
 import com.tencent.smtt.export.external.interfaces.JsResult;
 import com.tencent.smtt.export.external.interfaces.PermissionRequest;
 import com.tencent.smtt.export.external.interfaces.SslError;
 import com.tencent.smtt.export.external.interfaces.SslErrorHandler;
+import com.tencent.smtt.sdk.ValueCallback;
+import com.tencent.smtt.sdk.WebChromeClient;
 import com.tencent.smtt.sdk.WebView;
-import com.ypz.bangscreentools.BangScreenTools;
+import com.tencent.smtt.sdk.WebViewClient;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.download.AppDownloadActivity;
 import open.cn.awg.pro.R;
 
-
-public class X5BrowserActivity extends iActivity {
+public class X5BrowserActivity extends BaseAwgActivity {
 
     public final X5BrowserActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public java.lang.String hqdz;
-    public java.lang.String Url;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public String hqdz;
+    public String Url;
     public boolean isTip = false;
-    public android.net.Uri cameraUri;
-    public com.tencent.smtt.export.external.interfaces.PermissionRequest request2 = null;
+    public Uri cameraUri;
+    public PermissionRequest request2 = null;
     public int REQUEST_CAMERA = 1;
     public int REQUEST_CHOOSE = 2;
-    public com.tencent.smtt.sdk.ValueCallback<android.net.Uri> uploadFile;
-    public com.tencent.smtt.sdk.ValueCallback<android.net.Uri[]> uploadFiles;
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i9068f5d66e = new android.view.View.OnClickListener() {
+    public ValueCallback<Uri> uploadFile;
+    public ValueCallback<Uri[]> uploadFiles;
+    private final View.OnClickListener xxbj4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i9068f5d66e(vw);
+        public void onClick(View vw) {
+            onXxbj4Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_bd584e50cd = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj5TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_bd584e50cd(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj5Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i6c4a6b953f = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj6TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i6c4a6b953f(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj6Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i32ee139ba1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i32ee139ba1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk1Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i3f6c9f386b = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xxbj8ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i3f6c9f386b(vw);
+        public void onClick(View vw) {
+            onXxbj8Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_ff56a8e7f6 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener wb1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_ff56a8e7f6(vw);
+        public void onClick(View vw) {
+            onWb1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i701ef6a186 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener llqHdRootTouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i701ef6a186(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onLlqHdRootTouch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i0726d8c523 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj13TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i0726d8c523(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj13Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_c26905d21b = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj12TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_c26905d21b(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj12Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i464e6cc6fb = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj10TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i464e6cc6fb(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj10Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_ee3b885ad5 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj11TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_ee3b885ad5(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj11Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i015f182c91 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener llqJsPromptBjkTouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i015f182c91(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onLlqJsPromptBjkTouch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_efa568dfe6 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj3TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_efa568dfe6(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj3Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i812801c3fe = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener llqAuSfrzPasswordTouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i812801c3fe(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onLlqAuSfrzPasswordTouch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_e294616700 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener llqAuSfrzUsernameTouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_e294616700(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onLlqAuSfrzUsernameTouch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.j6);
+        setContentView(R.layout.x5_browser);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        java.lang.String ul = sj.hqtz("url");
+        String ul = sj.hqtz("url");
         ul = zf.qctwkg(ul);
 
         if (!zf.dy(ul, null) && !zf.dy(ul, "")) {
@@ -189,10 +201,10 @@ public class X5BrowserActivity extends iActivity {
 
         } else {
 
-            android.content.Intent intent = getIntent();
+            Intent intent = getIntent();
             String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
-                android.net.Uri uri = intent.getData();
+                Uri uri = intent.getData();
                 hqdz = uri.getScheme() + "://" + uri.getHost();
                 if (uri.getPort() != -1) hqdz = hqdz + ":" + uri.getPort();
                 if (uri.getPath() != null) hqdz = hqdz + uri.getPath();
@@ -207,13 +219,13 @@ public class X5BrowserActivity extends iActivity {
 
         }
 
-        if (wj.cz("/data/user/0/open.cn.awg.pro/app_tbs/core_share/tbs.conf") || wj.cz("/data/user/0/open.cn.awg.pro/app_tbs_64/core_share/tbs.conf")) {
+        if (wj.cz(AppPaths.appPath("app_tbs/core_share/tbs.conf")) || wj.cz(AppPaths.appPath("app_tbs_64/core_share/tbs.conf"))) {
 
             try {
 
                 csh();
 
-            } catch (java.lang.Throwable e) {
+            } catch (Throwable e) {
 
                 e1.tsk("提示", "出现异常\n" + e);
 
@@ -229,66 +241,66 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
         i.runlibrary.app.xt$pm pm = xt.pm();
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
+        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
+            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
             } else {
 
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
 
             }
 
         }
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
+        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
         restart();
 
         if (zf.dy(a, "1")) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj9).nbj(u, 0, u, 50);
-            st.xdbj(open.cn.awg.pro.R.id.xdbj3).nbj(u, 0, u, 50);
+            st.xxbj(R.id.xxbj9).nbj(u, 0, u, 50);
+            st.xdbj(R.id.xdbj3).nbj(u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
         } else if (zf.dy(a, "2")) {
 
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
+            String a001 = AppPaths.appPath("settings/dpi.inf");
 
             if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "3dp", 0, "3dp");
                 wtab.dqfs("center");
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
                 wtab.nbj(0, "9dp", 0, "9dp");
                 wtab.dqfs("center");
 
             }
-            st.xxbj(open.cn.awg.pro.R.id.xxbj9).nbj(0, 0, 0, 0);
-            st.xdbj(open.cn.awg.pro.R.id.xdbj3).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj9).nbj(0, 0, 0, 0);
+            st.xdbj(R.id.xdbj3).nbj(0, 0, 0, 0);
 
         } else if (zf.dy(a, "3")) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj9).nbj(u, 0, u, 50);
-            st.xdbj(open.cn.awg.pro.R.id.xdbj3).nbj(u, 0, u, 50);
+            st.xxbj(R.id.xxbj9).nbj(u, 0, u, 50);
+            st.xdbj(R.id.xdbj3).nbj(u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, "15dp", 0, "3dp");
             wtab.dqfs("center");
 
@@ -297,27 +309,27 @@ public class X5BrowserActivity extends iActivity {
             int uih = sj.zh().pxzdp(pm.ztl);
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
+            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
             wtab.nbj(0, uih + "dp", 0, "9dp");
             wtab.dqfs("center");
-            st.xxbj(open.cn.awg.pro.R.id.xxbj9).nbj(0, 0, 0, 0);
-            st.xdbj(open.cn.awg.pro.R.id.xdbj3).nbj(0, 0, 0, 0);
+            st.xxbj(R.id.xxbj9).nbj(0, 0, 0, 0);
+            st.xdbj(R.id.xdbj3).nbj(0, 0, 0, 0);
 
         }
 
     }
 
     public void llqhdyc() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                st.xdbj(open.cn.awg.pro.R.id.llqHdRoot).kjd(8);
-                st.xxbj(open.cn.awg.pro.R.id.llqAuSfrz).kjd(8);
-                st.xxbj(open.cn.awg.pro.R.id.llqJsAlert).kjd(8);
-                st.xxbj(open.cn.awg.pro.R.id.llqJsConfirm).kjd(8);
-                st.xxbj(open.cn.awg.pro.R.id.llqJsPrompt).kjd(8);
-                st.xxbj(open.cn.awg.pro.R.id.llqQqDkyy).kjd(8);
+                st.xdbj(R.id.llqHdRoot).kjd(8);
+                st.xxbj(R.id.llqAuSfrz).kjd(8);
+                st.xxbj(R.id.llqJsAlert).kjd(8);
+                st.xxbj(R.id.llqJsConfirm).kjd(8);
+                st.xxbj(R.id.llqJsPrompt).kjd(8);
+                st.xxbj(R.id.llqQqDkyy).kjd(8);
 
             }
 
@@ -327,16 +339,16 @@ public class X5BrowserActivity extends iActivity {
 
     public void csh() {
 
-        final java.lang.String set1 = "/data/user/0/open.cn.awg.pro/settings/f13/set1.inf";
+        final String set1 = AppPaths.appPath("settings/f13/set1.inf");
 
-        final java.lang.String set2 = "/data/user/0/open.cn.awg.pro/settings/f13/set2.inf";
+        final String set2 = AppPaths.appPath("settings/f13/set2.inf");
 
-        final java.lang.String set3 = "/data/user/0/open.cn.awg.pro/settings/f13/set3.inf";
+        final String set3 = AppPaths.appPath("settings/f13/set3.inf");
 
         if (zf.dy(wj.dqwb(set1), "true")) {
 
             int pk;
-            pk = open.cn.awg.pro.app.AwgProApplication.x5(lei);
+            pk = AwgProApplication.x5(lei);
 
             if (pk != 1) {
 
@@ -354,25 +366,25 @@ public class X5BrowserActivity extends iActivity {
 
         }
 
-        final i.runlibrary.app.v.xxbj xxbj = st.xxbj(open.cn.awg.pro.R.id.llq_v);
+        final i.runlibrary.app.v.xxbj xxbj = st.xxbj(R.id.browser_container);
 
-        final i.runlibrary.app.v.wb bt = st.wb(open.cn.awg.pro.R.id.Tab);
+        final i.runlibrary.app.v.wb bt = st.wb(R.id.title_bar);
 
-        final i.runlibrary.app.v.bjk bjk1 = st.bjk(open.cn.awg.pro.R.id.bjk1);
+        final i.runlibrary.app.v.bjk bjk1 = st.bjk(R.id.bjk1);
 
-        final i.runlibrary.app.v.xxbj xxbj8 = st.xxbj(open.cn.awg.pro.R.id.xxbj8);
+        final i.runlibrary.app.v.xxbj xxbj8 = st.xxbj(R.id.xxbj8);
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
 
-        final i.runlibrary.app.v.kp kp3 = st.kp(open.cn.awg.pro.R.id.kp3);
+        final i.runlibrary.app.v.kp kp3 = st.kp(R.id.kp3);
 
-        final i.runlibrary.app.v.jdt jdt1 = st.jdt(open.cn.awg.pro.R.id.jdt1);
+        final i.runlibrary.app.v.jdt jdt1 = st.jdt(R.id.jdt1);
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
-        final i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(open.cn.awg.pro.R.id.qtgd2);
+        final i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(R.id.qtgd2);
 
-        final java.lang.String isShowTab = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf";
+        final String isShowTab = AppPaths.appPath("settings/f13/set4.inf");
 
         lei.getWindow().setFormat(PixelFormat.TRANSLUCENT);
         Button an1 = findViewById(R.id.an1);
@@ -416,13 +428,13 @@ public class X5BrowserActivity extends iActivity {
         x5llq.st.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                com.tencent.smtt.sdk.WebView.HitTestResult htr = x5llq.st.getHitTestResult();
+                WebView.HitTestResult htr = x5llq.st.getHitTestResult();
                 int type = htr.getType();
-                final int IMAGE_TYPE = com.tencent.smtt.sdk.WebView.HitTestResult.IMAGE_TYPE;
-                final int SRC_IMAGE_ANCHOR_TYPE = com.tencent.smtt.sdk.WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE;
+                final int IMAGE_TYPE = WebView.HitTestResult.IMAGE_TYPE;
+                final int SRC_IMAGE_ANCHOR_TYPE = WebView.HitTestResult.SRC_IMAGE_ANCHOR_TYPE;
                 if (type == IMAGE_TYPE || type == SRC_IMAGE_ANCHOR_TYPE) {
                     String imageUrl = htr.getExtra();
-                    Intent intent = new Intent(lei, open.cn.awg.pro.download.AppDownloadActivity.class);
+                    Intent intent = new Intent(lei, AppDownloadActivity.class);
                     Bundle bundle = new Bundle();
                     bundle.putString("url", imageUrl);
                     intent.putExtras(bundle);
@@ -431,12 +443,12 @@ public class X5BrowserActivity extends iActivity {
                 return true;
             }
         });
-        x5llq.st.setWebChromeClient(new com.tencent.smtt.sdk.WebChromeClient() {
+        x5llq.st.setWebChromeClient(new WebChromeClient() {
 
             private View myVideoView = null;
-            private com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback callback = null;
+            private IX5WebChromeClient.CustomViewCallback callback = null;
 
-            public void onShowCustomView(View view, com.tencent.smtt.export.external.interfaces.IX5WebChromeClient.CustomViewCallback customViewCallback) {
+            public void onShowCustomView(View view, IX5WebChromeClient.CustomViewCallback customViewCallback) {
                 ViewGroup viewGroup = (ViewGroup) x5llq.st.getParent();
                 viewGroup.removeView(x5llq.st);
                 viewGroup.addView(view);
@@ -464,19 +476,19 @@ public class X5BrowserActivity extends iActivity {
                 quotaUpdater.updateQuota(spaceNeeded * 2);
             }
 
-            public boolean onShowFileChooser(com.tencent.smtt.sdk.WebView webView,
-                                             com.tencent.smtt.sdk.ValueCallback<android.net.Uri[]> filePathCallback,
-                                             com.tencent.smtt.sdk.WebChromeClient.FileChooserParams fileChooserParams) {
+            public boolean onShowFileChooser(WebView webView,
+                                             ValueCallback<Uri[]> filePathCallback,
+                                             WebChromeClient.FileChooserParams fileChooserParams) {
 
                 uploadFiles = filePathCallback;
-                android.content.Intent i = new android.content.Intent(android.content.Intent.ACTION_GET_CONTENT);
-                i.addCategory(android.content.Intent.CATEGORY_OPENABLE);
+                Intent i = new Intent(Intent.ACTION_GET_CONTENT);
+                i.addCategory(Intent.CATEGORY_OPENABLE);
                 i.setType("*/*");
-                startActivityForResult(android.content.Intent.createChooser(i, "test"), 0);
+                startActivityForResult(Intent.createChooser(i, "test"), 0);
                 return true;
             }
 
-            public void onProgressChanged(com.tencent.smtt.sdk.WebView vw, int np) {
+            public void onProgressChanged(WebView vw, int np) {
                 if (np < 99) {
                     jdt1.kjd(0);
                     jdt1.jdz(np);
@@ -580,8 +592,8 @@ public class X5BrowserActivity extends iActivity {
 
         });
 
-        x5llq.st.setWebViewClient(new com.tencent.smtt.sdk.WebViewClient() {
-            public boolean shouldOverrideUrlLoading(com.tencent.smtt.sdk.WebView view, String url) {
+        x5llq.st.setWebViewClient(new WebViewClient() {
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
                 String urlX = url.toLowerCase();
                 if (urlX.startsWith("http:") || urlX.startsWith("https:") || urlX.startsWith("rtsp:") || urlX.startsWith("ftp:")) {
@@ -595,8 +607,8 @@ public class X5BrowserActivity extends iActivity {
                         @Override
                         public void onClick(View v) {
                             try {
-                                android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW, android.net.Uri.parse(url2));
-                                intent.setFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url2));
+                                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent);
                             } catch (Exception e) {
 
@@ -619,16 +631,16 @@ public class X5BrowserActivity extends iActivity {
                 return true;
             }
 
-            public void onReceivedSslError(com.tencent.smtt.sdk.WebView view, SslErrorHandler handler, SslError error) {
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
 
                 handler.proceed();
             }
 
-            public void onPageStarted(com.tencent.smtt.sdk.WebView view, String url, Bitmap favicon) {
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 super.onPageStarted(view, url, favicon);
             }
 
-            public void onPageFinished(com.tencent.smtt.sdk.WebView view, String url) {
+            public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
             }
 
@@ -710,7 +722,7 @@ public class X5BrowserActivity extends iActivity {
         an4.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                gj.tz(open.cn.awg.pro.browser.X5BrowserSettingsActivity.class);
+                gj.tz(X5BrowserSettingsActivity.class);
                 kp3.kjd(0);
                 xxbj8.kjd(8);
                 restart();
@@ -858,25 +870,25 @@ public class X5BrowserActivity extends iActivity {
 
     public void restart() {
 
-        final i.runlibrary.app.v.xxbj xxbj8 = st.xxbj(open.cn.awg.pro.R.id.xxbj8);
+        final i.runlibrary.app.v.xxbj xxbj8 = st.xxbj(R.id.xxbj8);
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf";
+        String set = AppPaths.appPath("settings/f13/set4.inf");
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
         if (zf.dy(a, "4")) {
 
             if (zf.dy(wj.dqwb(set), "true") && xxbj4.kjd() == 8 && xxbj8.kjd() == 8) {
 
-                st.wb(open.cn.awg.pro.R.id.Tab).kjd(8);
+                st.wb(R.id.title_bar).kjd(8);
 
             } else {
 
-                st.wb(open.cn.awg.pro.R.id.Tab).kjd(0);
+                st.wb(R.id.title_bar).kjd(0);
 
             }
 
@@ -884,49 +896,43 @@ public class X5BrowserActivity extends iActivity {
 
             if (zf.dy(wj.dqwb(set), "true") && xxbj4.kjd() == 8 && xxbj8.kjd() == 8) {
 
-                st.wb(open.cn.awg.pro.R.id.Tab).kjd(8);
+                st.wb(R.id.title_bar).kjd(8);
 
             } else {
 
-                st.wb(open.cn.awg.pro.R.id.Tab).kjd(0);
+                st.wb(R.id.title_bar).kjd(0);
 
             }
 
         }
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
     public void showtab() {
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf";
+        String set = AppPaths.appPath("settings/f13/set4.inf");
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        java.lang.String a = wj.dqwb(a2);
+        String a = wj.dqwb(a2);
 
         if (zf.dy(a, "4")) {
 
-            st.wb(open.cn.awg.pro.R.id.Tab).kjd(0);
+            st.wb(R.id.title_bar).kjd(0);
 
         } else {
 
-            st.wb(open.cn.awg.pro.R.id.Tab).kjd(0);
+            st.wb(R.id.title_bar).kjd(0);
 
         }
-
-        Window window = lei.getWindow();
-        BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-        BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+        applyFullscreenWindow();
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
-        java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/f13/set5.inf";
+        String set4 = AppPaths.appPath("settings/f13/set5.inf");
 
         if (zf.dy(wj.dqwb(set4), "false")) {
 
@@ -947,22 +953,22 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    public void onActivityResult(int re, int rc, android.content.Intent it) {
+    public void onActivityResult(int re, int rc, Intent it) {
         super.onActivityResult(re, rc, it);
 
         if (rc == RESULT_OK) {
             switch (re) {
                 case 0:
                     if (uploadFile != null) {
-                        android.net.Uri result = it == null || rc != RESULT_OK ? null
+                        Uri result = it == null || rc != RESULT_OK ? null
                                 : it.getData();
                         uploadFile.onReceiveValue(result);
                         uploadFile = null;
                     }
                     if (uploadFiles != null) {
-                        android.net.Uri result = it == null || rc != RESULT_OK ? null
+                        Uri result = it == null || rc != RESULT_OK ? null
                                 : it.getData();
-                        uploadFiles.onReceiveValue(new android.net.Uri[]{result});
+                        uploadFiles.onReceiveValue(new Uri[]{result});
                         uploadFiles = null;
                     }
                     break;
@@ -984,9 +990,9 @@ public class X5BrowserActivity extends iActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
-        i.runlibrary.app.v.xxbj xxbj = st.xxbj(open.cn.awg.pro.R.id.llq_v);
+        i.runlibrary.app.v.xxbj xxbj = st.xxbj(R.id.browser_container);
         xxbj.scqb();
 
     }
@@ -1001,38 +1007,38 @@ public class X5BrowserActivity extends iActivity {
         super.onStart();
         restart();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
             }
         });
 
-        i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(open.cn.awg.pro.R.id.qtgd2);
+        i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(R.id.qtgd2);
 
         qtgd2.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -1053,9 +1059,9 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< X5浏览器")) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< X5浏览器")) {
 
             gj.gb();
 
@@ -1063,15 +1069,15 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_e294616700(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onLlqAuSfrzUsernameTouch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(open.cn.awg.pro.R.id.qtgd2);
+                    i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(R.id.qtgd2);
                     qtgd2.v.requestFocus();
 
                 }
@@ -1083,15 +1089,15 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i812801c3fe(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onLlqAuSfrzPasswordTouch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(open.cn.awg.pro.R.id.qtgd2);
+                    i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(R.id.qtgd2);
                     qtgd2.v.requestFocus();
 
                 }
@@ -1103,20 +1109,20 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_efa568dfe6(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj3Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i015f182c91(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onLlqJsPromptBjkTouch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(open.cn.awg.pro.R.id.qtgd2);
+                    i.runlibrary.app.v.qtgd qtgd2 = st.qtgd(R.id.qtgd2);
                     qtgd2.v.requestFocus();
 
                 }
@@ -1128,65 +1134,65 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_ee3b885ad5(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj11Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i464e6cc6fb(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj10Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_c26905d21b(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj12Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i0726d8c523(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj13Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i701ef6a186(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onLlqHdRootTouch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_ff56a8e7f6(android.view.View vw) {
+    private void onWb1Click(View vw) {
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 0) {
+        if (st.xxbj(R.id.xxbj4).kjd() == 0) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(8);
-                    st.kp(open.cn.awg.pro.R.id.kp3).kjd(0);
+                    st.xxbj(R.id.xxbj4).kjd(8);
+                    st.kp(R.id.kp3).kjd(0);
 
                 }
 
             });
 
-            java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf";
+            String set = AppPaths.appPath("settings/f13/set4.inf");
             restart();
 
         } else {
 
-            if (st.xdbj(open.cn.awg.pro.R.id.llqHdRoot).kjd() == 0) {
+            if (st.xdbj(R.id.llqHdRoot).kjd() == 0) {
 
                 e1.tsk("提示", "请先完成当前操作");
 
             } else {
 
                 showtab();
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.Tab).zf("菜单");
-                        st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(0);
-                        st.kp(open.cn.awg.pro.R.id.kp3).kjd(8);
+                        st.wb(R.id.title_bar).zf("菜单");
+                        st.xxbj(R.id.xxbj4).kjd(0);
+                        st.kp(R.id.kp3).kjd(8);
 
                     }
 
@@ -1198,21 +1204,21 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private void $_onClick_i3f6c9f386b(android.view.View vw) {
+    private void onXxbj8Click(View vw) {
 
         int i;
 
     }
 
-    private boolean $_onTouch_i32ee139ba1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -1224,32 +1230,32 @@ public class X5BrowserActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i6c4a6b953f(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj6Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_bd584e50cd(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj5Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_i9068f5d66e(android.view.View vw) {
+    private void onXxbj4Click(View vw) {
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd() == 0) {
+        if (st.xxbj(R.id.xxbj4).kjd() == 0) {
 
-            st.wb(open.cn.awg.pro.R.id.Tab).zf("< X5浏览器");
-            st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(8);
-            st.kp(open.cn.awg.pro.R.id.kp3).kjd(0);
+            st.wb(R.id.title_bar).zf("< X5浏览器");
+            st.xxbj(R.id.xxbj4).kjd(8);
+            st.kp(R.id.kp3).kjd(0);
 
-            java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/f13/set4.inf";
+            String set = AppPaths.appPath("settings/f13/set4.inf");
             restart();
 
         } else {
 
             showtab();
-            st.xxbj(open.cn.awg.pro.R.id.xxbj4).kjd(0);
-            st.kp(open.cn.awg.pro.R.id.kp3).kjd(8);
+            st.xxbj(R.id.xxbj4).kjd(0);
+            st.kp(R.id.kp3).kjd(8);
 
         }
 
@@ -1259,103 +1265,103 @@ public class X5BrowserActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.EditText e294616700 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.llqAuSfrzUsername);
-        e294616700.setOnTouchListener($_on_setOnTouchListener_e294616700);
+        EditText e294616700 = (EditText) findViewById(ay, vw, R.id.llqAuSfrzUsername);
+        e294616700.setOnTouchListener(llqAuSfrzUsernameTouchListener);
 
-        android.widget.EditText i812801c3fe = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.llqAuSfrzPassword);
-        i812801c3fe.setOnTouchListener($_on_setOnTouchListener_i812801c3fe);
+        EditText i812801c3fe = (EditText) findViewById(ay, vw, R.id.llqAuSfrzPassword);
+        i812801c3fe.setOnTouchListener(llqAuSfrzPasswordTouchListener);
 
-        android.widget.ImageView i16a1d50d32 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqAuSfrzFalse);
+        ImageView i16a1d50d32 = (ImageView) findViewById(ay, vw, R.id.llqAuSfrzFalse);
 
-        android.widget.ImageView i434644d42f = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqAuSfrzTrue);
+        ImageView i434644d42f = (ImageView) findViewById(ay, vw, R.id.llqAuSfrzTrue);
 
-        android.widget.LinearLayout efa568dfe6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj3);
-        efa568dfe6.setOnTouchListener($_on_setOnTouchListener_efa568dfe6);
+        LinearLayout efa568dfe6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj3);
+        efa568dfe6.setOnTouchListener(xxbj3TouchListener);
 
-        android.widget.ImageView i75b44e9f85 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx11);
+        ImageView i75b44e9f85 = (ImageView) findViewById(ay, vw, R.id.tx11);
 
-        android.widget.EditText i015f182c91 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.llqJsPromptBjk);
-        i015f182c91.setOnTouchListener($_on_setOnTouchListener_i015f182c91);
+        EditText i015f182c91 = (EditText) findViewById(ay, vw, R.id.llqJsPromptBjk);
+        i015f182c91.setOnTouchListener(llqJsPromptBjkTouchListener);
 
-        android.widget.ImageView i442dd3f223 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqJsPromptFalse);
+        ImageView i442dd3f223 = (ImageView) findViewById(ay, vw, R.id.llqJsPromptFalse);
 
-        android.widget.ImageView i712f96d728 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqJsPromptTrue);
+        ImageView i712f96d728 = (ImageView) findViewById(ay, vw, R.id.llqJsPromptTrue);
 
-        android.widget.LinearLayout ee3b885ad5 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj11);
-        ee3b885ad5.setOnTouchListener($_on_setOnTouchListener_ee3b885ad5);
+        LinearLayout ee3b885ad5 = (LinearLayout) findViewById(ay, vw, R.id.xxbj11);
+        ee3b885ad5.setOnTouchListener(xxbj11TouchListener);
 
-        android.widget.ImageView f1070075ac = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx12);
+        ImageView f1070075ac = (ImageView) findViewById(ay, vw, R.id.tx12);
 
-        android.widget.ImageView i3727f0a4c0 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqJsConfirmFalse);
+        ImageView i3727f0a4c0 = (ImageView) findViewById(ay, vw, R.id.llqJsConfirmFalse);
 
-        android.widget.ImageView i0180fbc5c7 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqJsConfirmTrue);
+        ImageView i0180fbc5c7 = (ImageView) findViewById(ay, vw, R.id.llqJsConfirmTrue);
 
-        android.widget.LinearLayout i464e6cc6fb = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj10);
-        i464e6cc6fb.setOnTouchListener($_on_setOnTouchListener_i464e6cc6fb);
+        LinearLayout i464e6cc6fb = (LinearLayout) findViewById(ay, vw, R.id.xxbj10);
+        i464e6cc6fb.setOnTouchListener(xxbj10TouchListener);
 
-        android.widget.ImageView i7a998f9ecb = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx15);
+        ImageView i7a998f9ecb = (ImageView) findViewById(ay, vw, R.id.tx15);
 
-        android.widget.ImageView eccd04b893 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqJsAlertTrue);
+        ImageView eccd04b893 = (ImageView) findViewById(ay, vw, R.id.llqJsAlertTrue);
 
-        android.widget.LinearLayout c26905d21b = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj12);
-        c26905d21b.setOnTouchListener($_on_setOnTouchListener_c26905d21b);
+        LinearLayout c26905d21b = (LinearLayout) findViewById(ay, vw, R.id.xxbj12);
+        c26905d21b.setOnTouchListener(xxbj12TouchListener);
 
-        android.widget.ImageView i4edbdd42e9 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx18);
+        ImageView i4edbdd42e9 = (ImageView) findViewById(ay, vw, R.id.tx18);
 
-        android.widget.ImageView deff5c19b4 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqQqDkyyFalse);
+        ImageView deff5c19b4 = (ImageView) findViewById(ay, vw, R.id.llqQqDkyyFalse);
 
-        android.widget.ImageView i1203bdd8db = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.llqQqDkyyTrue);
+        ImageView i1203bdd8db = (ImageView) findViewById(ay, vw, R.id.llqQqDkyyTrue);
 
-        android.widget.LinearLayout i0726d8c523 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj13);
-        i0726d8c523.setOnTouchListener($_on_setOnTouchListener_i0726d8c523);
+        LinearLayout i0726d8c523 = (LinearLayout) findViewById(ay, vw, R.id.xxbj13);
+        i0726d8c523.setOnTouchListener(xxbj13TouchListener);
 
-        android.widget.ImageView e75270b207 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx20);
+        ImageView e75270b207 = (ImageView) findViewById(ay, vw, R.id.tx20);
 
-        android.widget.RelativeLayout i701ef6a186 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.llqHdRoot);
-        i701ef6a186.setOnTouchListener($_on_setOnTouchListener_i701ef6a186);
+        RelativeLayout i701ef6a186 = (RelativeLayout) findViewById(ay, vw, R.id.llqHdRoot);
+        i701ef6a186.setOnTouchListener(llqHdRootTouchListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
 
-        android.widget.TextView ff56a8e7f6 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.wb1);
-        ff56a8e7f6.setOnClickListener($_on_setOnClickListener_ff56a8e7f6);
+        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
-        android.widget.LinearLayout i3f6c9f386b = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj8);
-        i3f6c9f386b.setOnClickListener($_on_setOnClickListener_i3f6c9f386b);
+        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        i3f6c9f386b.setOnClickListener(xxbj8ClickListener);
 
-        android.widget.EditText i32ee139ba1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk1);
-        i32ee139ba1.setOnTouchListener($_on_setOnTouchListener_i32ee139ba1);
+        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
 
-        android.widget.Button i0b66a667b1 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an2);
+        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
 
-        android.widget.Button i74ce6319f3 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an4);
+        Button i74ce6319f3 = (Button) findViewById(ay, vw, R.id.an4);
 
-        android.widget.Button i8f51a35692 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an3);
+        Button i8f51a35692 = (Button) findViewById(ay, vw, R.id.an3);
 
-        android.widget.ImageView i3621e3f4a1 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx7);
+        ImageView i3621e3f4a1 = (ImageView) findViewById(ay, vw, R.id.tx7);
 
-        android.widget.ImageView i4a4248a0f2 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
 
-        android.widget.ImageView i6f2c7751cf = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
 
-        android.widget.LinearLayout i6c4a6b953f = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj6);
-        i6c4a6b953f.setOnTouchListener($_on_setOnTouchListener_i6c4a6b953f);
+        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        i6c4a6b953f.setOnTouchListener(xxbj6TouchListener);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
 
-        android.widget.ImageView i11aeec1890 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
 
-        android.widget.LinearLayout bd584e50cd = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj5);
-        bd584e50cd.setOnTouchListener($_on_setOnTouchListener_bd584e50cd);
+        LinearLayout bd584e50cd = (LinearLayout) findViewById(ay, vw, R.id.xxbj5);
+        bd584e50cd.setOnTouchListener(xxbj5TouchListener);
 
-        android.widget.LinearLayout i9068f5d66e = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj4);
-        i9068f5d66e.setOnClickListener($_on_setOnClickListener_i9068f5d66e);
+        LinearLayout i9068f5d66e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4);
+        i9068f5d66e.setOnClickListener(xxbj4ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

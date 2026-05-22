@@ -16,27 +16,31 @@
  */
 package open.cn.awg.pro.plugin;
 
+import android.view.View;
+
 import i.app.iClass;
+
 import open.cn.awg.pro.account.TypheyeServiceBridge;
 import open.cn.awg.pro.chat.WearChatRuntimeBridge;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.DebugStateStore;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.tools.CloudServiceActivity;
-
 
 public class ExtensionPluginConfigBridge extends iClass {
 
-    public static java.lang.String titleback = "";
+    public static String titleback = "";
 
-    public static java.lang.String titleback2 = "";
+    public static String titleback2 = "";
 
-    public static java.lang.String id = "";
+    public static String id = "";
 
-    public static java.lang.String title = "";
+    public static String title = "";
     public final ExtensionPluginConfigBridge lei = this, 类 = this;
-    public open.cn.awg.pro.core.DebugStateStore debug = new DebugStateStore(_APPINFO);
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public open.cn.awg.pro.plugin.ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
+    public DebugStateStore debug = new DebugStateStore(_APPINFO);
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
     public boolean state_login_base = false;
 
     public ExtensionPluginConfigBridge(i.runlibrary.app.AppInfo _APPINFO) {
@@ -46,22 +50,22 @@ public class ExtensionPluginConfigBridge extends iClass {
 
     public void jz() {
 
-        java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id";
+        String cachehd = AppPaths.appPath("data/cjlb/lbx_id");
         id = wj.dqwb(cachehd);
-        cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_title";
+        cachehd = AppPaths.appPath("data/cjlb/lbx_title");
         title = wj.dqwb(cachehd);
         titleback = "< " + title;
         titleback2 = title;
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
                 viewshow(1);
                 gj.zt(500);
 
-                java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/cjlb/lbx_id";
+                String cachehd = AppPaths.appPath("data/cjlb/lbx_id");
 
-                final java.lang.String id = wj.dqwb(cachehd);
+                final String id = wj.dqwb(cachehd);
 
                 if (e14.newG(Integer.parseInt(id))) {
 
@@ -105,7 +109,7 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                         }
 
-                    } catch (java.lang.Throwable e) {
+                    } catch (Throwable e) {
 
                         e1.upload_error(e, "m2.jz()");
                         gj.gb();
@@ -125,13 +129,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20000() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -142,13 +146,13 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("本地激活应用");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         e1.jh();
 
-                        final java.lang.String msg = "已执行激活操作";
+                        final String msg = "已执行激活操作";
                         e1.tsk("提示", msg);
 
                     }
@@ -160,14 +164,14 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an2 = st.an();
                 an2.kg(-1, -2);
                 an2.zf("取消激活应用");
-                an2.sj.dj(new android.view.View.OnClickListener() {
+                an2.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        java.lang.String a = "/data/user/0/open.cn.awg.pro/settings/f7/Enable2";
+                        String a = AppPaths.appPath("settings/f7/Enable2");
                         wj.xrwb(a, "");
 
-                        final java.lang.String msg = "已执行取消激活";
+                        final String msg = "已执行取消激活";
                         e1.tsk("提示", msg);
 
                     }
@@ -182,7 +186,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -195,13 +199,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20001() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -212,9 +216,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk1 = st.bjk();
                 bjk1.kg(-1, -2);
                 bjk1.tszf("请输入您的邮箱");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk1.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk1.tszfys(color);
                 bjk1.ztdx(13);
                 bjk1.nbj("8dp", "8dp", "8dp", "8dp");
@@ -230,9 +234,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk2 = st.bjk();
                 bjk2.kg(-1, -2);
                 bjk2.tszf("请输入验证码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk2.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk2.tszfys(color);
                 bjk2.ztdx(13);
                 bjk2.nbj("8dp", "8dp", "8dp", "8dp");
@@ -245,17 +249,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.an an0 = st.an();
                 an0.kg(-2, -2);
                 an0.zf("获取");
-                an0.sj.dj(new android.view.View.OnClickListener() {
+                an0.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         if (zf.dy(an0.zf(), "获取")) {
 
-                            gj.xc(new java.lang.Thread() {
+                            gj.xc(new Thread() {
 
                                 public void run() {
 
-                                    open.cn.awg.pro.account.TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+                                    TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
                                     easy.register$request$token(bjk1.zf(), an0);
 
                                 }
@@ -279,9 +283,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk3 = st.bjk();
                 bjk3.kg(-1, -2);
                 bjk3.tszf("请输入您的密码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk3.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk3.tszfys(color);
                 bjk3.wblx("textpassword");
                 bjk3.ztdx(13);
@@ -293,9 +297,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk4 = st.bjk();
                 bjk4.kg(-1, -2);
                 bjk4.tszf("请确认您的密码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk4.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk4.tszfys(color);
                 bjk4.wblx("textpassword");
                 bjk4.ztdx(13);
@@ -307,17 +311,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("提交");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                open.cn.awg.pro.account.TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+                                TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
 
                                 if (easy.register$request(bjk1.zf(), bjk2.zf(), bjk3.zf(), bjk4.zf())) {
 
@@ -341,7 +345,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -354,13 +358,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20002() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -371,9 +375,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk1 = st.bjk();
                 bjk1.kg(-1, -2);
                 bjk1.tszf("请输入房间名");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk1.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk1.tszfys(color);
                 bjk1.ztdx(13);
                 bjk1.nbj("8dp", "8dp", "8dp", "8dp");
@@ -385,9 +389,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 bjk2.kg(-1, -2);
                 bjk2.tszf("请输入房间ID");
                 bjk2.wblx("number");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk2.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk2.tszfys(color);
                 bjk2.ztdx(13);
                 bjk2.nbj("8dp", "8dp", "8dp", "8dp");
@@ -398,17 +402,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("提交");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                open.cn.awg.pro.chat.WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+                                WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
 
                                 if (e10.part_buildNewRoom(bjk1.zf(), bjk2.zf())) {
 
@@ -432,7 +436,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -445,13 +449,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20003() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -462,9 +466,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk1 = st.bjk();
                 bjk1.kg(-1, -2);
                 bjk1.tszf("请输入扩展名");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk1.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk1.tszfys(color);
                 bjk1.ztdx(13);
                 bjk1.nbj("8dp", "8dp", "8dp", "8dp");
@@ -475,9 +479,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk2 = st.bjk();
                 bjk2.kg(-1, -2);
                 bjk2.tszf("请输入扩展ID");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk2.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk2.tszfys(color);
                 bjk2.ztdx(13);
                 bjk2.nbj("8dp", "8dp", "8dp", "8dp");
@@ -489,9 +493,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 bjk3.kg(-1, -2);
                 bjk3.tszf("请输入授权码");
                 bjk3.wblx("textpassword");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk3.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk3.tszfys(color);
                 bjk3.ztdx(13);
                 bjk3.nbj("8dp", "8dp", "8dp", "8dp");
@@ -502,17 +506,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("提交");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                open.cn.awg.pro.plugin.ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
+                                ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
 
                                 if (e14.part_buildNewPlu(bjk1.zf(), bjk2.zf(), bjk3.zf())) {
 
@@ -536,7 +540,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -549,13 +553,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20004() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -566,9 +570,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk1 = st.bjk();
                 bjk1.kg(-1, -2);
                 bjk1.tszf("请输入您的邮箱");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk1.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk1.tszfys(color);
                 bjk1.ztdx(13);
                 bjk1.nbj("8dp", "8dp", "8dp", "8dp");
@@ -584,9 +588,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk2 = st.bjk();
                 bjk2.kg(-1, -2);
                 bjk2.tszf("请输入验证码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk2.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk2.tszfys(color);
                 bjk2.ztdx(13);
                 bjk2.nbj("8dp", "8dp", "8dp", "8dp");
@@ -599,17 +603,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.an an0 = st.an();
                 an0.kg(-2, -2);
                 an0.zf("获取");
-                an0.sj.dj(new android.view.View.OnClickListener() {
+                an0.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         if (zf.dy(an0.zf(), "获取")) {
 
-                            gj.xc(new java.lang.Thread() {
+                            gj.xc(new Thread() {
 
                                 public void run() {
 
-                                    open.cn.awg.pro.account.TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+                                    TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
                                     easy.register$request$token(bjk1.zf(), an0);
 
                                 }
@@ -633,9 +637,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk3 = st.bjk();
                 bjk3.kg(-1, -2);
                 bjk3.tszf("请输入新密码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk3.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk3.tszfys(color);
                 bjk3.wblx("textpassword");
                 bjk3.ztdx(13);
@@ -647,9 +651,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk4 = st.bjk();
                 bjk4.kg(-1, -2);
                 bjk4.tszf("请确认新密码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk4.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk4.tszfys(color);
                 bjk4.wblx("textpassword");
                 bjk4.ztdx(13);
@@ -661,17 +665,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("提交");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                open.cn.awg.pro.account.TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+                                TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
 
                                 if (easy.findpwd(bjk1.zf(), bjk2.zf(), bjk3.zf(), bjk4.zf())) {
 
@@ -695,7 +699,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -708,13 +712,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20005() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -728,7 +732,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wb0.zf("发送诊断数据，有助于我们更好的为您解决问题，提升更新质量。\n您是否同意腕管Pro发送以下诊断数据？");
                 wb0.szzx("bold");
                 wb0.ztdx(13);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 wb0.zfys(color);
                 xxbja.j(wb0);
                 wb0.wbj("3dp", "3dp", "3dp", "0dp");
@@ -737,7 +741,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 dx1.kg(-1, -2);
                 dx1.nbj("8dp", "8dp", "8dp", "8dp");
                 dx1.zf("允许发送腕管Pro于运行期间产生的日志数据\n*将用于提升用户体验");
-                dx1.bj(open.cn.awg.pro.R.drawable.dxxbj);
+                dx1.bj(R.drawable.dxxbj);
                 xxbja.j(dx1);
                 dx1.wbj("3dp", "3dp", "3dp", "0dp");
 
@@ -745,7 +749,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 dx2.kg(-1, -2);
                 dx2.nbj("8dp", "8dp", "8dp", "8dp");
                 dx2.zf("允许发送位置信息服务运行期间产生的定位数据\n*将用于提高定位服务精确度");
-                dx2.bj(open.cn.awg.pro.R.drawable.dxxbj);
+                dx2.bj(R.drawable.dxxbj);
                 xxbja.j(dx2);
                 dx2.wbj("3dp", "3dp", "3dp", "0dp");
 
@@ -753,7 +757,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 dx3.kg(-1, -2);
                 dx3.nbj("8dp", "8dp", "8dp", "8dp");
                 dx3.zf("允许发送用户部分隐私数据(包括但不限定于IP地址、IMEI及GPS定位信息等)\n*将用于改善用户体验");
-                dx3.bj(open.cn.awg.pro.R.drawable.dxxbj);
+                dx3.bj(R.drawable.dxxbj);
                 xxbja.j(dx3);
                 dx3.wbj("3dp", "3dp", "3dp", "0dp");
 
@@ -788,11 +792,11 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an0 = st.an();
                 an0.kg(-1, -2);
                 an0.zf("同意发送已选诊断数据");
-                an0.sj.dj(new android.view.View.OnClickListener() {
+                an0.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        java.lang.String allowed = "";
+                        String allowed = "";
 
                         boolean dx_1 = dx1.xzzt();
 
@@ -862,9 +866,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("拒绝发送所有诊断数据");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         debug.setDebugState("1", false);
                         debug.setDebugState("2", false);
@@ -885,7 +889,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -898,13 +902,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20006() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -918,7 +922,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wb0.zf("腕管Pro - 配置工具\n快捷备份/恢复应用配置\n\n*重要说明\n1.使用此功能需要登录腕管Pro账户；\n2.同一备份文件仅限在登录同账户下的腕管Pro使用；\n3.若设备存储存在多个备份文件，将导入最新的备份文件完成备份恢复。");
                 wb0.szzx("bold");
                 wb0.ztdx(13);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 wb0.zfys(color);
                 xxbja.j(wb0);
                 wb0.wbj("3dp", "3dp", "3dp", "0dp");
@@ -926,18 +930,18 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an0 = st.an();
                 an0.kg(-1, -2);
                 an0.zf("导出备份设置");
-                an0.sj.dj(new android.view.View.OnClickListener() {
+                an0.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
                                 gj.zt(500);
 
-                                open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+                                AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
                                 e1.app_backup();
                                 viewshow(0);
 
@@ -954,18 +958,18 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("导入备份设置");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        gj.xc(new java.lang.Thread() {
+                        gj.xc(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
                                 gj.zt(500);
 
-                                open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+                                AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
                                 if (!e1.app_gorecovery()) {
 
@@ -986,9 +990,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an2 = st.an();
                 an2.kg(-1, -2);
                 an2.zf("使用云备份");
-                an2.sj.dj(new android.view.View.OnClickListener() {
+                an2.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         gj.tz(CloudServiceActivity.class);
                         gj.gb();
@@ -1005,7 +1009,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -1018,13 +1022,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20007() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -1035,9 +1039,9 @@ public class ExtensionPluginConfigBridge extends iClass {
                 final i.runlibrary.app.v.bjk bjk1 = st.bjk();
                 bjk1.kg(-1, -2);
                 bjk1.tszf("请输入授权码");
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 bjk1.zfys(color);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 bjk1.tszfys(color);
                 bjk1.ztdx(13);
                 bjk1.nbj("8dp", "8dp", "8dp", "8dp");
@@ -1048,30 +1052,30 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-1, -2);
                 an1.zf("登录");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        final java.lang.String authurl = "https://auth.sayqz.com";
+                        final String authurl = "https://auth.sayqz.com";
 
-                        final java.lang.String cookiepath = "/data/user/0/open.cn.awg.pro/data/plugin/tunefree/cookie";
+                        final String cookiepath = AppPaths.appPath("data/plugin/tunefree/cookie");
 
                         if (!state_login_base) {
 
                             state_login_base = true;
 
-                            final java.lang.String code2 = bjk1.zf();
-                            gj.xc(new java.lang.Thread() {
+                            final String code2 = bjk1.zf();
+                            gj.xc(new Thread() {
 
                                 public void run() {
 
                                     viewshow(1);
 
-                                    java.lang.String code = "";
+                                    String code = "";
 
-                                    java.lang.String hqto = authurl + "/?path=info&code=" + code2;
+                                    String hqto = authurl + "/?path=info&code=" + code2;
 
-                                    java.lang.String back = wl.hq(hqto, null, "utf-8", null, true, null, 5000, 5000, null);
+                                    String back = wl.hq(hqto, null, "utf-8", null, true, null, 5000, 5000, null);
 
                                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
@@ -1083,7 +1087,7 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                                     if (zf.dy(back, "") || zf.dy(back, null)) {
 
-                                        final java.lang.String msg = "请求异常，请检查网络连接";
+                                        final String msg = "请求异常，请检查网络连接";
                                         e1.tsk("提示", msg);
                                         viewshow(0);
 
@@ -1091,24 +1095,24 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                                         if (zf.dy(code, "200")) {
 
-                                            java.lang.String mcu = e1.readJson(back, "data");
+                                            String mcu = e1.readJson(back, "data");
                                             mcu = e1.readJson(mcu, "netease_cookie");
                                             mcu = mcu + ";";
                                             wj.xrwb(cookiepath, mcu);
 
-                                            final java.lang.String msg = "登录成功";
+                                            final String msg = "登录成功";
                                             e1.tsk("提示", msg);
                                             gj.gb();
 
                                         } else if (zf.dy(code, "400")) {
 
-                                            final java.lang.String msg = e1.readJson(back, "message");
+                                            final String msg = e1.readJson(back, "message");
                                             e1.tsk("提示", msg);
                                             viewshow(0);
 
                                         } else {
 
-                                            final java.lang.String msg = "请求异常，请检查网络连接";
+                                            final String msg = "请求异常，请检查网络连接";
                                             e1.tsk("提示", msg);
                                             viewshow(0);
 
@@ -1123,7 +1127,7 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                         } else {
 
-                            final java.lang.String msg = "操作过于频繁，请稍后重试";
+                            final String msg = "操作过于频繁，请稍后重试";
                             e1.tsk("提示", msg);
 
                         }
@@ -1140,7 +1144,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.zf("");
                 wba.szzx("bold");
                 wba.ztdx(9);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wba.zfys(color);
                 xxbja.j(wba);
                 root.j(xxbja);
@@ -1153,13 +1157,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void csh() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -1170,7 +1174,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.tx tx1 = st.tx();
                 tx1.kg(-2, -2);
                 tx1.nbj(0, 20, 0, 0);
-                tx1.tx(open.cn.awg.pro.R.mipmap.i);
+                tx1.tx(R.mipmap.i);
                 xxbja.j(tx1);
 
                 i.runlibrary.app.v.wb wba = st.wb();
@@ -1178,7 +1182,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.nbj(20, 20, 20, 10);
                 wba.zf(title);
                 wba.ztdx(16);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 wba.zfys(color);
                 xxbja.j(wba);
 
@@ -1187,16 +1191,16 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wbb.nbj(20, 10, 20, 20);
                 wbb.zf("扩展插件ID: " + id);
                 wbb.ztdx(13);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU2);
+                color = zf.zf(R.color.colorTextU2);
                 wbb.zfys(color);
                 xxbja.j(wbb);
 
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-2, -2);
                 an1.zf("打开指令框");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         viewshow(2);
 
@@ -1214,13 +1218,13 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void csh_e() {
-        gj.jmxc(new java.lang.Runnable() {
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
-                java.lang.String color = "";
+                String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
                 root.scqb();
 
                 i.runlibrary.app.v.xxbj xxbja = st.xxbj();
@@ -1231,7 +1235,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.tx tx1 = st.tx();
                 tx1.kg(-2, -2);
                 tx1.nbj(0, 20, 0, 0);
-                tx1.tx(open.cn.awg.pro.R.mipmap.i);
+                tx1.tx(R.mipmap.i);
                 xxbja.j(tx1);
 
                 i.runlibrary.app.v.wb wba = st.wb();
@@ -1239,16 +1243,16 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wba.nbj(20, 20, 20, 20);
                 wba.zf("欢迎使用AwgRunable");
                 wba.ztdx(16);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextU1);
+                color = zf.zf(R.color.colorTextU1);
                 wba.zfys(color);
                 xxbja.j(wba);
 
                 i.runlibrary.app.v.an an0 = st.an();
                 an0.kg(-2, -2);
                 an0.zf("查看帮助文档");
-                an0.sj.dj(new android.view.View.OnClickListener() {
+                an0.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         e1.tsk("提示", "暂未开放");
 
@@ -1262,16 +1266,16 @@ public class ExtensionPluginConfigBridge extends iClass {
                 wbb.nbj(20, 10, 20, 20);
                 wbb.zf("示例控件");
                 wbb.ztdx(13);
-                color = zf.zf(open.cn.awg.pro.R.color.colorTextTrue);
+                color = zf.zf(R.color.colorTextTrue);
                 wbb.zfys(color);
                 xxbja.j(wbb);
 
                 i.runlibrary.app.v.an an1 = st.an();
                 an1.kg(-2, -2);
                 an1.zf("打开指令框");
-                an1.sj.dj(new android.view.View.OnClickListener() {
+                an1.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
                         viewshow(2);
 
@@ -1283,17 +1287,17 @@ public class ExtensionPluginConfigBridge extends iClass {
                 i.runlibrary.app.v.an an2 = st.an();
                 an2.kg(-2, -2);
                 an2.zf("显隐标题栏");
-                an2.sj.dj(new android.view.View.OnClickListener() {
+                an2.sj.dj(new View.OnClickListener() {
 
-                    public void onClick(android.view.View _vw) {
+                    public void onClick(View _vw) {
 
-                        if (st.wb(open.cn.awg.pro.R.id.Tab).kjd() == 0) {
+                        if (st.wb(R.id.title_bar).kjd() == 0) {
 
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(open.cn.awg.pro.R.id.Tab).kjd(8);
+                                    st.wb(R.id.title_bar).kjd(8);
 
                                 }
 
@@ -1301,11 +1305,11 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                         } else {
 
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(open.cn.awg.pro.R.id.Tab).kjd(0);
+                                    st.wb(R.id.title_bar).kjd(0);
 
                                 }
 
@@ -1330,18 +1334,18 @@ public class ExtensionPluginConfigBridge extends iClass {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xdbj root = st.xdbj(open.cn.awg.pro.R.id.runable_view);
+        final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
 
-        final i.runlibrary.app.v.xxbj load = st.xxbj(open.cn.awg.pro.R.id.xxbj3);
+        final i.runlibrary.app.v.xxbj load = st.xxbj(R.id.xxbj3);
 
-        final i.runlibrary.app.v.xxbj add = st.xxbj(open.cn.awg.pro.R.id.xxbj4);
+        final i.runlibrary.app.v.xxbj add = st.xxbj(R.id.xxbj4);
 
-        final i.runlibrary.app.v.wb tab = st.wb(open.cn.awg.pro.R.id.Tab);
+        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
 
-        final i.runlibrary.app.v.bjk cmd = st.bjk(open.cn.awg.pro.R.id.bjk1);
+        final i.runlibrary.app.v.bjk cmd = st.bjk(R.id.bjk1);
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
-        gj.jmxc(new java.lang.Runnable() {
+        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        gj.jmxc(new Runnable() {
 
             public void run() {
 
@@ -1383,7 +1387,7 @@ public class ExtensionPluginConfigBridge extends iClass {
 
     public void cmd() {
 
-        java.lang.String c = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+        String c = st.bjk(R.id.bjk1).zf();
         c = zf.qctwkg(c);
 
         if (zf.dy(c, "")) {

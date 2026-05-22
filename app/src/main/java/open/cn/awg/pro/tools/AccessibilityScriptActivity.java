@@ -16,200 +16,128 @@
  */
 package open.cn.awg.pro.tools;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.provider.Settings;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 
-import com.ypz.bangscreentools.BangScreenTools;
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.service.SystemAccessibilityService;
 import open.cn.awg.pro.viewer.TextViewerActivity;
 
-
-public class AccessibilityScriptActivity extends iActivity {
+public class AccessibilityScriptActivity extends BaseAwgActivity {
 
     public final AccessibilityScriptActivity lei = this, 类 = this;
-    public java.lang.String lin;
-    public java.lang.String ujback;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    public String lin;
+    public String ujback;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i0b66a667b1 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i0b66a667b1(vw);
+        public void onClick(View vw) {
+            onAn2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i171ea34f1a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i171ea34f1a(vw);
+        public void onClick(View vw) {
+            onAn1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i63f06183a1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk2TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i63f06183a1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk2Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i32ee139ba1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i32ee139ba1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk1Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.j3);
+        setContentView(R.layout.accessibility_script);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        java.lang.String cmds = sj.hqtz("cmd");
+        String cmds = sj.hqtz("cmd");
         cmds = zf.qctwkg(cmds);
 
         if (!zf.dy(cmds, null) && !zf.dy(cmds, "")) {
 
-            st.bjk(open.cn.awg.pro.R.id.bjk1).zf(cmds);
-            st.wb(open.cn.awg.pro.R.id.wb1).kjd(0);
-            st.bjk(open.cn.awg.pro.R.id.bjk1).kjd(8);
+            st.bjk(R.id.bjk1).zf(cmds);
+            st.wb(R.id.wb1).kjd(0);
+            st.bjk(R.id.bjk1).kjd(8);
 
         } else {
 
-            st.wb(open.cn.awg.pro.R.id.wb1).kjd(8);
-            st.bjk(open.cn.awg.pro.R.id.bjk1).kjd(0);
+            st.wb(R.id.wb1).kjd(8);
+            st.bjk(R.id.bjk1).kjd(0);
 
         }
-        open.cn.awg.pro.service.SystemAccessibilityService.pns = "com.iapp.app";
+        SystemAccessibilityService.pns = "com.iapp.app";
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
-
-        }
-
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.j3_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.j3_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(u, 0, u, 50);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj1).nbj(0, 0, 0, 0);
-
-        }
+        applyStandardScreenMode(R.id.accessibility_script_root, R.id.xdbj1, R.id.title_bar);
 
     }
 
-    public void load(java.lang.Object url, java.lang.Object title) {
+    public void load(Object url, Object title) {
 
-        java.lang.String[] name = new java.lang.String[]{"url", "title", "code"};
+        String[] name = new String[]{"url", "title", "code"};
 
-        java.lang.Object[] value = new java.lang.Object[]{url, title, "super1"};
+        Object[] value = new Object[]{url, title, "super1"};
         gj.tz(TextViewerActivity.class, name, value);
 
     }
 
     public void run() {
-        gj.xc(new java.lang.Thread() {
+        gj.xc(new Thread() {
 
             public void run() {
 
-                final i.runlibrary.app.v.wb backinfo = st.wb(open.cn.awg.pro.R.id.backs);
-                lin = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+                final i.runlibrary.app.v.wb backinfo = st.wb(R.id.backs);
+                lin = st.bjk(R.id.bjk1).zf();
 
-                java.lang.String ii = st.bjk(open.cn.awg.pro.R.id.bjk2).zf();
+                String ii = st.bjk(R.id.bjk2).zf();
                 lin = zf.qctwkg(lin);
                 ii = zf.qctwkg(ii);
 
@@ -225,9 +153,9 @@ public class AccessibilityScriptActivity extends iActivity {
 
                         try {
 
-                            aa = open.cn.awg.pro.service.SystemAccessibilityService.isAccessibilitySettingsOn(lei, open.cn.awg.pro.service.SystemAccessibilityService.class.getName());
+                            aa = SystemAccessibilityService.isAccessibilitySettingsOn(lei, SystemAccessibilityService.class.getName());
 
-                        } catch (java.lang.Throwable e) {
+                        } catch (Throwable e) {
 
                             aa = false;
 
@@ -242,7 +170,7 @@ public class AccessibilityScriptActivity extends iActivity {
                                 Intent intent = new Intent(Settings.ACTION_ACCESSIBILITY_SETTINGS);
                                 lei.startActivity(intent);
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 gj.gb();
                                 e1.upload_error(e, "j3.run()");
@@ -251,16 +179,16 @@ public class AccessibilityScriptActivity extends iActivity {
 
                         } else {
 
-                            gj.jmxc(new java.lang.Runnable() {
+                            gj.jmxc(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(open.cn.awg.pro.R.id.wb1).kjd(8);
-                                    st.wb(open.cn.awg.pro.R.id.wb2).kjd(0);
-                                    st.bjk(open.cn.awg.pro.R.id.bjk1).kjd(8);
-                                    st.bjk(open.cn.awg.pro.R.id.bjk2).kjd(8);
-                                    st.an(open.cn.awg.pro.R.id.an1).kjd(8);
-                                    st.an(open.cn.awg.pro.R.id.an2).kjd(8);
+                                    st.wb(R.id.wb1).kjd(8);
+                                    st.wb(R.id.wb2).kjd(0);
+                                    st.bjk(R.id.bjk1).kjd(8);
+                                    st.bjk(R.id.bjk2).kjd(8);
+                                    st.an(R.id.an1).kjd(8);
+                                    st.an(R.id.an2).kjd(8);
 
                                 }
 
@@ -274,12 +202,12 @@ public class AccessibilityScriptActivity extends iActivity {
 
                                 while (a < i) {
 
-                                    open.cn.awg.pro.service.SystemAccessibilityService.addCmd(lin);
+                                    SystemAccessibilityService.addCmd(lin);
                                     a = a + 1;
 
                                 }
 
-                            } catch (java.lang.Throwable e) {
+                            } catch (Throwable e) {
 
                                 gj.gb();
                                 e1.upload_error(e, "j3.run()");
@@ -304,81 +232,33 @@ public class AccessibilityScriptActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -391,46 +271,30 @@ public class AccessibilityScriptActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
         gj.gb();
 
     }
 
-    private boolean $_onTouch_i32ee139ba1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -442,15 +306,15 @@ public class AccessibilityScriptActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i63f06183a1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk2Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -462,17 +326,17 @@ public class AccessibilityScriptActivity extends iActivity {
 
     }
 
-    private void $_onClick_i171ea34f1a(android.view.View vw) {
+    private void onAn1Click(View vw) {
         run();
 
     }
 
-    private void $_onClick_i0b66a667b1(android.view.View vw) {
-        load("/data/user/0/open.cn.awg.pro/data/assets/a14", "功能帮助");
+    private void onAn2Click(View vw) {
+        load(AppPaths.appPath("data/assets/a14"), "功能帮助");
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
         gj.gb();
 
     }
@@ -481,25 +345,25 @@ public class AccessibilityScriptActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        android.widget.EditText i32ee139ba1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk1);
-        i32ee139ba1.setOnTouchListener($_on_setOnTouchListener_i32ee139ba1);
+        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        android.widget.EditText i63f06183a1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk2);
-        i63f06183a1.setOnTouchListener($_on_setOnTouchListener_i63f06183a1);
+        EditText i63f06183a1 = (EditText) findViewById(ay, vw, R.id.bjk2);
+        i63f06183a1.setOnTouchListener(bjk2TouchListener);
 
-        android.widget.Button i171ea34f1a = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an1);
-        i171ea34f1a.setOnClickListener($_on_setOnClickListener_i171ea34f1a);
+        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        android.widget.Button i0b66a667b1 = (android.widget.Button) findViewById(ay, vw, open.cn.awg.pro.R.id.an2);
-        i0b66a667b1.setOnClickListener($_on_setOnClickListener_i0b66a667b1);
+        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

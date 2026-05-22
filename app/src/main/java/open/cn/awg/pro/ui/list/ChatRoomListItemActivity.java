@@ -16,55 +16,60 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.view.View;
+import android.widget.RelativeLayout;
+
 import open.cn.awg.pro.chat.ChatRoomActivity;
 import open.cn.awg.pro.chat.WearChatRuntimeBridge;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.data.LocalDatabaseBridge;
+import open.cn.awg.pro.R;
 
-
-public class ChatRoomListItemActivity extends iActivity {
+public class ChatRoomListItemActivity extends BaseAwgActivity {
 
     public final ChatRoomListItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_aaeebbd136 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_aaeebbd136(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_aaeebbd136 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_aaeebbd136(vw);
+        public void onClick(View vw) {
+            onXdbj1Click(vw);
         }
 
     };
 
-    private void $_onClick_aaeebbd136(android.view.View vw) {
+    private void onXdbj1Click(View vw) {
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object a = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object b = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object b = lb.lbcfsj(R.id.wb1);
 
-        open.cn.awg.pro.data.LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+        LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
         e11.setup_talklist();
 
         if (e11.findid_talklist(a) != 0) {
 
-            java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+            String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
             wj.xrwb(cachehd, a);
 
-            java.lang.String cachehd2 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+            String cachehd2 = AppPaths.appPath("data/ltlb/lbx_title");
             wj.xrwb(cachehd2, b);
 
-            java.lang.String[] name = new java.lang.String[]{"uid"};
+            String[] name = new String[]{"uid"};
 
-            java.lang.Object[] value = new java.lang.Object[]{a};
+            Object[] value = new Object[]{a};
             gj.tz(ChatRoomActivity.class, name, value);
 
         } else {
@@ -75,26 +80,26 @@ public class ChatRoomListItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_aaeebbd136(android.view.View vw) {
+    private boolean onXdbj1LongClick(View vw) {
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object a = lb.lbcfsj(open.cn.awg.pro.R.id.wb2);
+        Object a = lb.lbcfsj(R.id.wb2);
 
-        java.lang.Object b = lb.lbcfsj(open.cn.awg.pro.R.id.wb1);
+        Object b = lb.lbcfsj(R.id.wb1);
 
-        java.lang.Object c = lb.lbcfsj(open.cn.awg.pro.R.id.wb3);
+        Object c = lb.lbcfsj(R.id.wb3);
 
-        open.cn.awg.pro.chat.WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+        WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
         e10.wllbcd(2);
 
-        java.lang.String cachehd = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_id";
+        String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
         wj.xrwb(cachehd, a);
 
-        java.lang.String cachehd2 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_title";
+        String cachehd2 = AppPaths.appPath("data/ltlb/lbx_title");
         wj.xrwb(cachehd2, b);
 
-        java.lang.String cachehd3 = "/data/user/0/open.cn.awg.pro/data/ltlb/lbx_info";
+        String cachehd3 = AppPaths.appPath("data/ltlb/lbx_info");
         wj.xrwb(cachehd3, c);
         return true;
 
@@ -104,13 +109,13 @@ public class ChatRoomListItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.RelativeLayout i25520aa38a = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c10_v);
+        RelativeLayout i25520aa38a = (RelativeLayout) findViewById(ay, vw, R.id.chat_room_list_item_root);
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
-        aaeebbd136.setOnClickListener($_on_setOnClickListener_aaeebbd136);
-        aaeebbd136.setOnLongClickListener($_on_setOnLongClickListener_aaeebbd136);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        aaeebbd136.setOnClickListener(xdbj1ClickListener);
+        aaeebbd136.setOnLongClickListener(xdbj1LongClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

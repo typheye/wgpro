@@ -16,150 +16,160 @@
  */
 package open.cn.awg.pro.file;
 
+import android.app.Activity;
+import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
+import android.view.ViewConfiguration;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import androidx.core.view.InputDeviceCompat;
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewConfigurationCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.ypz.bangscreentools.BangScreenTools;
-
-import i.app.iActivity;
 import open.cn.awg.pro.app.AwgProApplication;
+import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.core.GlobalRuntimeState;
 import open.cn.awg.pro.data.LocalDatabaseBridge;
+import open.cn.awg.pro.R;
 import open.cn.awg.pro.ui.main.TextQrDisplayActivity;
 
-
-public class FileManagerActivity extends iActivity {
+public class FileManagerActivity extends BaseAwgActivity {
 
     public final FileManagerActivity lei = this, 类 = this;
-    public open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-    public java.lang.String titles = "";
+    public String titles = "";
 
-    public open.cn.awg.pro.data.LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
 
-    public java.lang.String jmroot = "";
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i464e6cc6fb = new android.view.View.OnTouchListener() {
+    public String jmroot = "";
+    private final View.OnTouchListener xxbj10TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i464e6cc6fb(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj10Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i11aeec1890 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx4ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i11aeec1890(vw);
+        public void onClick(View vw) {
+            onTx4Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i8217d42a17 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i8217d42a17(vw);
+        public void onClick(View vw) {
+            onTx3Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i9926c2f556 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj9TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i9926c2f556(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj9Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i4d951cdb0e = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i4d951cdb0e(vw);
+        public void onClick(View vw) {
+            onTx2Click(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_i34dc7bf20a = new android.view.View.OnClickListener() {
+    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_i34dc7bf20a(vw);
+        public void onClick(View vw) {
+            onTx1Click(vw);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i32ee139ba1 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener bjk1TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i32ee139ba1(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onBjk1Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_bd584e50cd = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj5TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_bd584e50cd(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj5Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i84f04cd47e = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj7TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i84f04cd47e(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj7Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_i6c4a6b953f = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj6TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_i6c4a6b953f(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj6Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_efa568dfe6 = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj3TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_efa568dfe6(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj3Touch(vw, me);
         }
 
     };
-    private final android.view.View.OnTouchListener $_on_setOnTouchListener_dc0a1b897b = new android.view.View.OnTouchListener() {
+    private final View.OnTouchListener xxbj2TouchListener = new View.OnTouchListener() {
 
-        public boolean onTouch(android.view.View vw, android.view.MotionEvent me) {
-            return $_onTouch_dc0a1b897b(vw, me);
+        public boolean onTouch(View vw, MotionEvent me) {
+            return onXxbj2Touch(vw, me);
         }
 
     };
-    private final androidx.recyclerview.widget.RecyclerView.OnScrollListener $_on_addOnScrollListener_f085d7c0f8 = new androidx.recyclerview.widget.RecyclerView.OnScrollListener() {
+    private final RecyclerView.OnScrollListener v7lb1ScrollListener = new RecyclerView.OnScrollListener() {
 
-        public void onScrollStateChanged(androidx.recyclerview.widget.RecyclerView vw, int ns) {
-            $_onScrollStateChanged_f085d7c0f8(vw, ns);
+        public void onScrollStateChanged(RecyclerView vw, int ns) {
+            onV7lb1ScrollStateChanged(vw, ns);
         }
 
-        public void onScrolled(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy) {
-            $_onScrolled_f085d7c0f8(vw, dx, dy);
-        }
-
-    };
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_d26d5d7080 = new android.view.View.OnLongClickListener() {
-
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_d26d5d7080(vw);
+        public void onScrolled(RecyclerView vw, int dx, int dy) {
+            onV7lb1Scrolled(vw, dx, dy);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_d26d5d7080 = new android.view.View.OnClickListener() {
+    private final View.OnLongClickListener titleBarLongClickListener = new View.OnLongClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_d26d5d7080(vw);
+        public boolean onLongClick(View vw) {
+            return onTitleBarLongClick(vw);
+        }
+
+    };
+    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
+
+        public void onClick(View vw) {
+            onTitleBarClick(vw);
         }
 
     };
 
-    public void onCreate(android.os.Bundle be) {
+    public void onCreate(Bundle be) {
         super.onCreate(be);
-        setContentView(open.cn.awg.pro.R.layout.d1);
+        setContentView(R.layout.file_manager);
         _$_viewAutomaticSettingEvent();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().addActivity(lei);
+        AwgProApplication.getInstance().addActivity(lei);
 
-        java.lang.String cache00 = "/data/user/0/open.cn.awg.pro/cache/00";
+        String cache00 = AppPaths.appPath("cache/00");
 
-        java.lang.String ftitle = "/data/user/0/open.cn.awg.pro/cache/file/title";
+        String ftitle = AppPaths.appPath("cache/file/title");
 
         if (zf.dy(wj.dqwb(ftitle), null)) {
 
@@ -167,12 +177,12 @@ public class FileManagerActivity extends iActivity {
 
         }
         titles = wj.dqwb(ftitle);
-        st.wb(open.cn.awg.pro.R.id.Tab).zf(wj.dqwb(ftitle));
+        st.wb(R.id.title_bar).zf(wj.dqwb(ftitle));
         e1.csh();
 
-        java.lang.String urls = sj.hqtz("url");
+        String urls = sj.hqtz("url");
 
-        java.lang.String roots = sj.hqtz("root");
+        String roots = sj.hqtz("root");
 
         if (zf.dy(urls, "") || zf.dy(urls, null) || zf.dy(roots, "") || zf.dy(roots, null)) {
 
@@ -189,7 +199,7 @@ public class FileManagerActivity extends iActivity {
             jmroot = roots;
             e1.NewFilesLoad(urls, roots);
             wj.xrwb(cache00, roots);
-            open.cn.awg.pro.core.GlobalRuntimeState.d1_rootpath = roots;
+            GlobalRuntimeState.d1_rootpath = roots;
 
             int sdk = xt.sbxx().sdk;
 
@@ -215,19 +225,19 @@ public class FileManagerActivity extends iActivity {
             }
             jmroot = roots;
             e1.NewFilesLoad(urls, roots);
-            open.cn.awg.pro.core.GlobalRuntimeState.d1_rootpath = roots;
+            GlobalRuntimeState.d1_rootpath = roots;
 
         }
 
-        java.lang.String set = "/data/user/0/open.cn.awg.pro/settings/set3.inf";
+        String set = AppPaths.appPath("settings/set3.inf");
 
         if (zf.dy(wj.dqwb(set), "true")) {
 
-            java.lang.String te = wj.dqwb("/data/user/0/open.cn.awg.pro/data/assets/a4");
+            String te = wj.dqwb(AppPaths.appPath("data/assets/a4"));
 
-            java.lang.String[] name = new java.lang.String[]{"title", "text"};
+            String[] name = new String[]{"title", "text"};
 
-            java.lang.String[] value = new java.lang.String[]{"新手教程", te};
+            String[] value = new String[]{"新手教程", te};
             gj.tz(TextQrDisplayActivity.class, name, value);
 
         }
@@ -236,13 +246,13 @@ public class FileManagerActivity extends iActivity {
 
     public void ts1(int a) {
 
-        final java.lang.String a041 = "/data/user/0/open.cn.awg.pro/cache/tab";
+        final String a041 = AppPaths.appPath("cache/tab");
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj3).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbj6).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbj7).kjd() == 8 && st.xxbj(open.cn.awg.pro.R.id.xxbj5).kjd() == 8) {
+        if (st.xxbj(R.id.xxbj3).kjd() == 8 && st.xxbj(R.id.xxbj6).kjd() == 8 && st.xxbj(R.id.xxbj7).kjd() == 8 && st.xxbj(R.id.xxbj5).kjd() == 8) {
 
             if (a == 1) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -254,7 +264,7 @@ public class FileManagerActivity extends iActivity {
 
             } else if (a == -1) {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
@@ -266,11 +276,11 @@ public class FileManagerActivity extends iActivity {
 
             } else {
 
-                gj.jmxc(new java.lang.Runnable() {
+                gj.jmxc(new Runnable() {
 
                     public void run() {
 
-                        st.wb(open.cn.awg.pro.R.id.ts1).g(0);
+                        st.wb(R.id.ts1).g(0);
                         wj.xrwb(a041, "false");
 
                     }
@@ -283,102 +293,20 @@ public class FileManagerActivity extends iActivity {
 
     }
 
-    public void __layoutIsLoaded(android.app.Activity ay, android.view.View vw) {
+    public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f8/set4.inf"), "true")) {
+        applyStandardScreenMode(R.id.file_manager_root, R.id.xdbj2, R.id.title_bar);
 
-        }
-
-        i.runlibrary.app.xt$pm pm = xt.pm();
-
-        if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4s.inf"), "false")) {
-
-            if (zf.dy(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/set4.inf"), "true")) {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES);
-
-            } else {
-
-                getDelegate().setLocalNightMode(androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO);
-
-            }
-
-        }
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        final int u = Integer.parseInt(wj.dqwb("/data/user/0/open.cn.awg.pro/settings/f17/set1.inf"));
-
-        if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.d1_v).shxtck(true);
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            st.xdbj(open.cn.awg.pro.R.id.d1_v).shxtck(false);
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        if (zf.dy(a, "1")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj2).nbj(u, 0, u, 0);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "2")) {
-
-            java.lang.String a001 = "/data/user/0/open.cn.awg.pro/settings/dpi.inf";
-
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
-
-            } else {
-
-                i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
-
-            }
-            st.xdbj(open.cn.awg.pro.R.id.xdbj2).nbj(0, 0, 0, 0);
-
-        } else if (zf.dy(a, "3")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj2).nbj(u, 0, u, 0);
-
-            i.runlibrary.app.v.wb wtab = st.wb(open.cn.awg.pro.R.id.Tab);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-
-        } else if (zf.dy(a, "4")) {
-
-            st.xdbj(open.cn.awg.pro.R.id.xdbj2).nbj(0, 0, 0, 0);
-
-        }
-
-        final java.lang.String a041 = "/data/user/0/open.cn.awg.pro/cache/tab";
+        final String a041 = AppPaths.appPath("cache/tab");
         wj.xrwb(a041, "true");
 
     }
 
-    public boolean onKeyDown(int kc, android.view.KeyEvent ke) {
+    public boolean onKeyDown(int kc, KeyEvent ke) {
 
         if (kc == 4) {
 
-            java.lang.String url = st.wb(open.cn.awg.pro.R.id.zywblj).zf();
+            String url = st.wb(R.id.zywblj).zf();
 
             if (zf.dy(url, jmroot)) {
 
@@ -386,7 +314,7 @@ public class FileManagerActivity extends iActivity {
 
             } else {
 
-                java.lang.String[] fhValue = e1.fileinfo("%", url);
+                String[] fhValue = e1.fileinfo("%", url);
                 e1.NewFilesLoad(fhValue[2], jmroot);
 
             }
@@ -398,27 +326,11 @@ public class FileManagerActivity extends iActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
+        String cache_c = AppPaths.appPath("cache/c");
 
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        java.lang.String cache_c = "/data/user/0/open.cn.awg.pro/cache/c";
-
-        java.lang.String cache_es = "/data/user/0/open.cn.awg.pro/cache/es";
+        String cache_es = AppPaths.appPath("cache/es");
 
         if (wj.cz(cache_c) && wj.cz(cache_es)) {
 
@@ -432,17 +344,17 @@ public class FileManagerActivity extends iActivity {
 
     public void onDestroy() {
         super.onDestroy();
-        open.cn.awg.pro.app.AwgProApplication.getInstance().removeActivity(lei);
+        AwgProApplication.getInstance().removeActivity(lei);
 
-        java.lang.String cache00 = "/data/user/0/open.cn.awg.pro/cache/00";
+        String cache00 = AppPaths.appPath("cache/00");
 
-        java.lang.String cache1 = "/data/user/0/open.cn.awg.pro/cache/1";
+        String cache1 = AppPaths.appPath("cache/1");
 
-        java.lang.String cache2 = "/data/user/0/open.cn.awg.pro/cache/2";
+        String cache2 = AppPaths.appPath("cache/2");
 
-        java.lang.String cache3 = "/data/user/0/open.cn.awg.pro/cache/3";
+        String cache3 = AppPaths.appPath("cache/3");
 
-        java.lang.String set4 = "/data/user/0/open.cn.awg.pro/settings/d1/set4.inf";
+        String set4 = AppPaths.appPath("settings/d1/set4.inf");
 
         if (zf.dy(wj.dqwb(set4), "false")) {
 
@@ -453,72 +365,40 @@ public class FileManagerActivity extends iActivity {
 
         }
 
-        java.lang.String ftitle = "/data/user/0/open.cn.awg.pro/cache/file/title";
+        String ftitle = AppPaths.appPath("cache/file/title");
         wj.sc(ftitle);
 
-        java.lang.String choose = "/data/user/0/open.cn.awg.pro/cache/file/choose";
+        String choose = AppPaths.appPath("cache/file/choose");
         wj.sc(choose);
 
     }
 
     public void onRestart() {
         super.onRestart();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
     public void onStart() {
         super.onStart();
+            applyWindowModeFromSettings();
 
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
-
-        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(open.cn.awg.pro.R.id.v7lb1);
+        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(R.id.v7lb1);
         v7lb1.v.requestFocus();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
 
         qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
-            public boolean onGenericMotion(View vw, android.view.MotionEvent me) {
-                if (me.getAction() == android.view.MotionEvent.ACTION_SCROLL && me.isFromSource(androidx.core.view.InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
+            public boolean onGenericMotion(View vw, MotionEvent me) {
+                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
 
-                    float delta = -me.getAxisValue(androidx.core.view.MotionEventCompat.AXIS_SCROLL) *
-                            androidx.core.view.ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    android.view.ViewConfiguration.get(lei), lei
+                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
+                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
+                                    ViewConfiguration.get(lei), lei
                             );
 
-                    vw.scrollBy(0, java.lang.Math.round(delta));
+                    vw.scrollBy(0, Math.round(delta));
                     return true;
                 }
                 return false;
@@ -529,33 +409,17 @@ public class FileManagerActivity extends iActivity {
 
     public void onResume() {
         super.onResume();
-
-        final java.lang.String a2 = "/data/user/0/open.cn.awg.pro/settings/a3.inf";
-
-        java.lang.String a = wj.dqwb(a2);
-
-        if (zf.dy(a, "4")) {
-
-            java.lang.String clr = zf.zf(open.cn.awg.pro.R.color.colorTab);
-            xt.pm().ztl(clr, 0);
-
-        } else {
-
-            Window window = lei.getWindow();
-            BangScreenTools.getBangScreenTools().fullscreen(window, lei);
-            BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
-
-        }
+            applyWindowModeFromSettings();
 
     }
 
-    private void $_onClick_d26d5d7080(android.view.View vw) {
+    private void onTitleBarClick(View vw) {
 
-        java.lang.String r = titles;
+        String r = titles;
 
-        if (zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), "< 文件管理") || zf.dy(st.wb(open.cn.awg.pro.R.id.Tab).zf(), r)) {
+        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 文件管理") || zf.dy(st.wb(R.id.title_bar).zf(), r)) {
 
-            java.lang.String url = st.wb(open.cn.awg.pro.R.id.zywblj).zf();
+            String url = st.wb(R.id.zywblj).zf();
 
             if (zf.dy(url, jmroot)) {
 
@@ -563,7 +427,7 @@ public class FileManagerActivity extends iActivity {
 
             } else {
 
-                java.lang.String[] fhValue = e1.fileinfo("%", url);
+                String[] fhValue = e1.fileinfo("%", url);
                 e1.NewFilesLoad(fhValue[2], jmroot);
 
             }
@@ -572,16 +436,16 @@ public class FileManagerActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_d26d5d7080(android.view.View vw) {
+    private boolean onTitleBarLongClick(View vw) {
         return true;
 
     }
 
-    private void $_onScrollStateChanged_f085d7c0f8(androidx.recyclerview.widget.RecyclerView vw, int ns) {
+    private void onV7lb1ScrollStateChanged(RecyclerView vw, int ns) {
 
-        int lwz = st.v7lb(open.cn.awg.pro.R.id.v7lb1).zhkjxm();
+        int lwz = st.v7lb(R.id.v7lb1).zhkjxm();
 
-        java.lang.String cpath = st.wb(open.cn.awg.pro.R.id.zywblj).zf();
+        String cpath = st.wb(R.id.zywblj).zf();
 
         if (ns == RecyclerView.SCROLL_STATE_IDLE) {
 
@@ -606,44 +470,44 @@ public class FileManagerActivity extends iActivity {
 
     }
 
-    private void $_onScrolled_f085d7c0f8(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy) {
+    private void onV7lb1Scrolled(RecyclerView vw, int dx, int dy) {
 
     }
 
-    private boolean $_onTouch_dc0a1b897b(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj2Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_efa568dfe6(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj3Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i6c4a6b953f(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj6Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i84f04cd47e(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj7Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_bd584e50cd(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj5Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private boolean $_onTouch_i32ee139ba1(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onBjk1Touch(View vw, MotionEvent me) {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new java.lang.Runnable() {
+            gj.jmxc(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(open.cn.awg.pro.R.id.qtgd1);
+                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
                     qtgd1.v.requestFocus();
 
                 }
@@ -655,69 +519,69 @@ public class FileManagerActivity extends iActivity {
 
     }
 
-    private void $_onClick_i34dc7bf20a(android.view.View vw) {
+    private void onTx1Click(View vw) {
         e1.cdx(0, null, null, null);
 
     }
 
-    private void $_onClick_i4d951cdb0e(android.view.View vw) {
+    private void onTx2Click(View vw) {
 
         try {
 
-            java.lang.String bzf = st.bjk(open.cn.awg.pro.R.id.bjk1).zf();
+            String bzf = st.bjk(R.id.bjk1).zf();
 
-            java.lang.String cache3 = "/data/user/0/open.cn.awg.pro/cache/3";
+            String cache3 = AppPaths.appPath("cache/3");
 
-            java.lang.String cachec1 = "/data/user/0/open.cn.awg.pro/cache/c1";
+            String cachec1 = AppPaths.appPath("cache/c1");
 
-            java.lang.String cachec2 = "/data/user/0/open.cn.awg.pro/cache/c2";
+            String cachec2 = AppPaths.appPath("cache/c2");
 
-            java.lang.String cachec3 = "/data/user/0/open.cn.awg.pro/cache/c3";
+            String cachec3 = AppPaths.appPath("cache/c3");
 
-            java.lang.String wa = wj.dqwb(cache3);
+            String wa = wj.dqwb(cache3);
 
-            java.lang.String wb = wj.dqwb(cachec1);
+            String wb = wj.dqwb(cachec1);
 
-            java.lang.String wc = wj.dqwb(cachec2);
+            String wc = wj.dqwb(cachec2);
 
-            java.lang.String wd = wj.dqwb(cachec3);
+            String wd = wj.dqwb(cachec3);
 
-            open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+            AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-            java.lang.String[] aa;
+            String[] aa;
             bzf = zf.qctwkg(bzf);
 
             if (zf.dy(bzf, "") || zf.dy(bzf, null)) {
 
-                final java.lang.String z = "编辑框不能为空";
+                final String z = "编辑框不能为空";
                 gj.ts(z);
 
             } else {
 
-                java.lang.String we = wd + bzf;
+                String we = wd + bzf;
 
                 if (zf.dy(wa, "重命名")) {
 
                     if (zf.dy(wc, we)) {
 
-                        final java.lang.String z = "重命名失败\n文件(夹)已存在";
+                        final String z = "重命名失败\n文件(夹)已存在";
                         e1.tsk("提示", z);
 
                     } else {
 
-                        java.lang.String pb1 = "/data/user/0/open.cn.awg.pro/settings";
+                        String pb1 = AppPaths.appPath("settings");
 
-                        java.lang.String pb2 = "/data/user/0/open.cn.awg.pro/data";
+                        String pb2 = AppPaths.appPath("data");
 
-                        java.lang.String pb3 = "/data/user/0/open.cn.awg.pro/fix";
+                        String pb3 = AppPaths.appPath("fix");
 
-                        java.lang.String pb4 = "/data/user/0/open.cn.awg.pro/cache";
+                        String pb4 = AppPaths.appPath("cache");
 
-                        java.lang.String pb5 = "/data/user/0/open.cn.awg.pro/files/cache";
+                        String pb5 = AppPaths.appPath("files/cache");
 
-                        java.lang.String pb6 = "/storage/emulated/0/Android/data";
+                        String pb6 = "/storage/emulated/0/Android/data";
 
-                        java.lang.String pb7 = "/storage/emulated/0/Android/obb";
+                        String pb7 = "/storage/emulated/0/Android/obb";
 
                         if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb7))) {
 
@@ -725,23 +589,23 @@ public class FileManagerActivity extends iActivity {
 
                         } else {
 
-                            java.lang.String m = "mv \"" + wc + "\" \"" + we + "\"";
+                            String m = "mv \"" + wc + "\" \"" + we + "\"";
                             aa = com.demo.e3.cmd(lei, m, false);
 
                             if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
 
-                                final java.lang.String z = "重命名失败\n" + aa[1];
+                                final String z = "重命名失败\n" + aa[1];
                                 e1.tsk("提示", z);
 
                             } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
 
-                                final java.lang.String z = "重命名成功";
+                                final String z = "重命名成功";
                                 e1.tsk("提示", z);
                                 e1.sx(wb, wd);
 
                             } else {
 
-                                final java.lang.String z = "重命名成功";
+                                final String z = "重命名成功";
                                 e1.tsk("提示", z);
                                 e1.sx(wb, wd);
 
@@ -754,19 +618,19 @@ public class FileManagerActivity extends iActivity {
 
                 } else if (zf.dy(wa, "新建目录")) {
 
-                    java.lang.String pb1 = "/data/user/0/open.cn.awg.pro/settings";
+                    String pb1 = AppPaths.appPath("settings");
 
-                    java.lang.String pb2 = "/data/user/0/open.cn.awg.pro/data";
+                    String pb2 = AppPaths.appPath("data");
 
-                    java.lang.String pb3 = "/data/user/0/open.cn.awg.pro/fix";
+                    String pb3 = AppPaths.appPath("fix");
 
-                    java.lang.String pb4 = "/data/user/0/open.cn.awg.pro/cache";
+                    String pb4 = AppPaths.appPath("cache");
 
-                    java.lang.String pb5 = "/data/user/0/open.cn.awg.pro/files/cache";
+                    String pb5 = AppPaths.appPath("files/cache");
 
-                    java.lang.String pb6 = "/storage/emulated/0/Android/data";
+                    String pb6 = "/storage/emulated/0/Android/data";
 
-                    java.lang.String pb7 = "/storage/emulated/0/Android/obb";
+                    String pb7 = "/storage/emulated/0/Android/obb";
 
                     if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb7))) {
 
@@ -774,23 +638,23 @@ public class FileManagerActivity extends iActivity {
 
                     } else {
 
-                        java.lang.String m = "mkdir \"" + we + "\"";
+                        String m = "mkdir \"" + we + "\"";
                         aa = com.demo.e3.cmd(lei, m, false);
 
                         if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
 
-                            final java.lang.String z = "新建目录失败\n" + aa[1];
+                            final String z = "新建目录失败\n" + aa[1];
                             e1.tsk("提示", z);
 
                         } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
 
-                            final java.lang.String z = "新建目录成功";
+                            final String z = "新建目录成功";
                             e1.tsk("提示", z);
                             e1.sx(wb, wd);
 
                         } else {
 
-                            final java.lang.String z = "新建目录成功";
+                            final String z = "新建目录成功";
                             e1.tsk("提示", z);
                             e1.sx(wb, wd);
 
@@ -801,19 +665,19 @@ public class FileManagerActivity extends iActivity {
 
                 } else if (zf.dy(wa, "新建文件")) {
 
-                    java.lang.String pb1 = "/data/user/0/open.cn.awg.pro/settings";
+                    String pb1 = AppPaths.appPath("settings");
 
-                    java.lang.String pb2 = "/data/user/0/open.cn.awg.pro/data";
+                    String pb2 = AppPaths.appPath("data");
 
-                    java.lang.String pb3 = "/data/user/0/open.cn.awg.pro/fix";
+                    String pb3 = AppPaths.appPath("fix");
 
-                    java.lang.String pb4 = "/data/user/0/open.cn.awg.pro/cache";
+                    String pb4 = AppPaths.appPath("cache");
 
-                    java.lang.String pb5 = "/data/user/0/open.cn.awg.pro/files/cache";
+                    String pb5 = AppPaths.appPath("files/cache");
 
-                    java.lang.String pb6 = "/storage/emulated/0/Android/data";
+                    String pb6 = "/storage/emulated/0/Android/data";
 
-                    java.lang.String pb7 = "/storage/emulated/0/Android/obb";
+                    String pb7 = "/storage/emulated/0/Android/obb";
 
                     if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb7))) {
 
@@ -821,23 +685,23 @@ public class FileManagerActivity extends iActivity {
 
                     } else {
 
-                        java.lang.String m = "touch \"" + we + "\"";
+                        String m = "touch \"" + we + "\"";
                         aa = com.demo.e3.cmd(lei, m, false);
 
                         if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
 
-                            final java.lang.String z = "新建文件失败\n" + aa[1];
+                            final String z = "新建文件失败\n" + aa[1];
                             e1.tsk("提示", z);
 
                         } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
 
-                            final java.lang.String z = "新建文件成功";
+                            final String z = "新建文件成功";
                             e1.tsk("提示", z);
                             e1.sx(wb, wd);
 
                         } else {
 
-                            final java.lang.String z = "新建文件成功";
+                            final String z = "新建文件成功";
                             e1.tsk("提示", z);
                             e1.sx(wb, wd);
 
@@ -852,7 +716,7 @@ public class FileManagerActivity extends iActivity {
 
             }
 
-        } catch (java.lang.Throwable e) {
+        } catch (Throwable e) {
 
             e1.upload_error(e, "e1.NewFilesLoad(s,s)");
             gj.gb();
@@ -861,41 +725,41 @@ public class FileManagerActivity extends iActivity {
 
     }
 
-    private boolean $_onTouch_i9926c2f556(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj9Touch(View vw, MotionEvent me) {
         return true;
 
     }
 
-    private void $_onClick_i8217d42a17(android.view.View vw) {
+    private void onTx3Click(View vw) {
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj10).kjd() == 0) {
+        if (st.xxbj(R.id.xxbj10).kjd() == 0) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj10).kjd(8);
+            st.xxbj(R.id.xxbj10).kjd(8);
 
         } else {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj10).kjd(0);
+            st.xxbj(R.id.xxbj10).kjd(0);
 
         }
         gj.gb();
 
     }
 
-    private void $_onClick_i11aeec1890(android.view.View vw) {
+    private void onTx4Click(View vw) {
 
-        if (st.xxbj(open.cn.awg.pro.R.id.xxbj10).kjd() == 0) {
+        if (st.xxbj(R.id.xxbj10).kjd() == 0) {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj10).kjd(8);
+            st.xxbj(R.id.xxbj10).kjd(8);
 
         } else {
 
-            st.xxbj(open.cn.awg.pro.R.id.xxbj10).kjd(0);
+            st.xxbj(R.id.xxbj10).kjd(0);
 
         }
 
     }
 
-    private boolean $_onTouch_i464e6cc6fb(android.view.View vw, android.view.MotionEvent me) {
+    private boolean onXxbj10Touch(View vw, MotionEvent me) {
         return true;
 
     }
@@ -904,56 +768,56 @@ public class FileManagerActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.TextView d26d5d7080 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.Tab);
-        d26d5d7080.setOnClickListener($_on_setOnClickListener_d26d5d7080);
-        d26d5d7080.setOnLongClickListener($_on_setOnLongClickListener_d26d5d7080);
+        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        d26d5d7080.setOnClickListener(titleBarClickListener);
+        d26d5d7080.setOnLongClickListener(titleBarLongClickListener);
 
-        android.support.v7.widget.RecyclerView f085d7c0f8 = (android.support.v7.widget.RecyclerView) findViewById(ay, vw, open.cn.awg.pro.R.id.v7lb1);
-        f085d7c0f8.addOnScrollListener($_on_addOnScrollListener_f085d7c0f8);
+        RecyclerView f085d7c0f8 = (RecyclerView) findViewById(ay, vw, R.id.v7lb1);
+        f085d7c0f8.addOnScrollListener(v7lb1ScrollListener);
 
-        android.widget.LinearLayout dc0a1b897b = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj2);
-        dc0a1b897b.setOnTouchListener($_on_setOnTouchListener_dc0a1b897b);
+        LinearLayout dc0a1b897b = (LinearLayout) findViewById(ay, vw, R.id.xxbj2);
+        dc0a1b897b.setOnTouchListener(xxbj2TouchListener);
 
-        android.widget.LinearLayout efa568dfe6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj3);
-        efa568dfe6.setOnTouchListener($_on_setOnTouchListener_efa568dfe6);
+        LinearLayout efa568dfe6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj3);
+        efa568dfe6.setOnTouchListener(xxbj3TouchListener);
 
-        android.widget.LinearLayout i6c4a6b953f = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj6);
-        i6c4a6b953f.setOnTouchListener($_on_setOnTouchListener_i6c4a6b953f);
+        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        i6c4a6b953f.setOnTouchListener(xxbj6TouchListener);
 
-        android.widget.LinearLayout i84f04cd47e = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj7);
-        i84f04cd47e.setOnTouchListener($_on_setOnTouchListener_i84f04cd47e);
+        LinearLayout i84f04cd47e = (LinearLayout) findViewById(ay, vw, R.id.xxbj7);
+        i84f04cd47e.setOnTouchListener(xxbj7TouchListener);
 
-        android.widget.LinearLayout bd584e50cd = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj5);
-        bd584e50cd.setOnTouchListener($_on_setOnTouchListener_bd584e50cd);
+        LinearLayout bd584e50cd = (LinearLayout) findViewById(ay, vw, R.id.xxbj5);
+        bd584e50cd.setOnTouchListener(xxbj5TouchListener);
 
-        android.widget.EditText i32ee139ba1 = (android.widget.EditText) findViewById(ay, vw, open.cn.awg.pro.R.id.bjk1);
-        i32ee139ba1.setOnTouchListener($_on_setOnTouchListener_i32ee139ba1);
+        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        android.widget.ImageView i34dc7bf20a = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx1);
-        i34dc7bf20a.setOnClickListener($_on_setOnClickListener_i34dc7bf20a);
+        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        android.widget.ImageView i4d951cdb0e = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx2);
-        i4d951cdb0e.setOnClickListener($_on_setOnClickListener_i4d951cdb0e);
+        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        android.widget.LinearLayout i9926c2f556 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj9);
-        i9926c2f556.setOnTouchListener($_on_setOnTouchListener_i9926c2f556);
+        LinearLayout i9926c2f556 = (LinearLayout) findViewById(ay, vw, R.id.xxbj9);
+        i9926c2f556.setOnTouchListener(xxbj9TouchListener);
 
-        android.widget.ImageView i8217d42a17 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx3);
-        i8217d42a17.setOnClickListener($_on_setOnClickListener_i8217d42a17);
+        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        android.widget.ImageView i11aeec1890 = (android.widget.ImageView) findViewById(ay, vw, open.cn.awg.pro.R.id.tx4);
-        i11aeec1890.setOnClickListener($_on_setOnClickListener_i11aeec1890);
+        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        android.widget.LinearLayout i464e6cc6fb = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj10);
-        i464e6cc6fb.setOnTouchListener($_on_setOnTouchListener_i464e6cc6fb);
+        LinearLayout i464e6cc6fb = (LinearLayout) findViewById(ay, vw, R.id.xxbj10);
+        i464e6cc6fb.setOnTouchListener(xxbj10TouchListener);
 
-        android.widget.TextView d0ffa028ae = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.bt);
+        TextView d0ffa028ae = (TextView) findViewById(ay, vw, R.id.bt);
 
-        android.widget.TextView i203811ac10 = (android.widget.TextView) findViewById(ay, vw, open.cn.awg.pro.R.id.zywblj);
+        TextView i203811ac10 = (TextView) findViewById(ay, vw, R.id.zywblj);
 
-        android.widget.LinearLayout e1433e26d6 = (android.widget.LinearLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xxbj1);
+        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
 
         __layoutIsLoaded(ay, vw);
     }

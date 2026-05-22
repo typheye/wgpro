@@ -16,39 +16,47 @@
  */
 package open.cn.awg.pro.ui.list;
 
-import i.app.iActivity;
+import android.app.Activity;
+import android.content.Context;
+import android.view.View;
+import android.widget.RelativeLayout;
+
+import com.kingqi.zwcj.日期工具;
+import com.kingqi.zwcj.应用工具;
+
 import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.music.TuneFreeMusicBridge;
+import open.cn.awg.pro.R;
 
-
-public class InstalledAppItemActivity extends iActivity {
+public class InstalledAppItemActivity extends BaseAwgActivity {
 
     public final InstalledAppItemActivity lei = this, 类 = this;
-    private final android.view.View.OnLongClickListener $_on_setOnLongClickListener_aaeebbd136 = new android.view.View.OnLongClickListener() {
+    private final View.OnLongClickListener xdbj1LongClickListener = new View.OnLongClickListener() {
 
-        public boolean onLongClick(android.view.View vw) {
-            return $_onLongClick_aaeebbd136(vw);
+        public boolean onLongClick(View vw) {
+            return onXdbj1LongClick(vw);
         }
 
     };
-    private final android.view.View.OnClickListener $_on_setOnClickListener_aaeebbd136 = new android.view.View.OnClickListener() {
+    private final View.OnClickListener xdbj1ClickListener = new View.OnClickListener() {
 
-        public void onClick(android.view.View vw) {
-            $_onClick_aaeebbd136(vw);
+        public void onClick(View vw) {
+            onXdbj1Click(vw);
         }
 
     };
 
-    private void $_onClick_aaeebbd136(android.view.View vw) {
+    private void onXdbj1Click(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        open.cn.awg.pro.music.TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
+        TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object app = lb.lbcfsj(-1);
+        Object app = lb.lbcfsj(-1);
 
         if (zf.dy(app, "open.cn.awg.pro")) {
 
@@ -60,7 +68,7 @@ public class InstalledAppItemActivity extends iActivity {
 
                 xt.dkyy(app);
 
-            } catch (java.lang.Throwable e) {
+            } catch (Throwable e) {
 
                 e1.upload_error(e, "c17.*");
 
@@ -70,32 +78,32 @@ public class InstalledAppItemActivity extends iActivity {
 
     }
 
-    private boolean $_onLongClick_aaeebbd136(android.view.View vw) {
+    private boolean onXdbj1LongClick(View vw) {
 
-        open.cn.awg.pro.core.AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
         i.runlibrary.app.sj$lb lb = sj.lb(vw);
 
-        java.lang.Object app = lb.lbcfsj(-1);
+        Object app = lb.lbcfsj(-1);
 
-        android.content.Context ct;
+        Context ct;
         ct = AwgProApplication.getContext();
 
-        java.lang.String a2 = com.kingqi.zwcj.应用工具.获取应用签名(ct, String.valueOf(app));
+        String a2 = 应用工具.获取应用签名(ct, String.valueOf(app));
 
-        java.lang.String a3 = com.kingqi.zwcj.日期工具.格式化日期时间(com.kingqi.zwcj.应用工具.获取应用第一次安装日期(ct, String.valueOf(app)));
+        String a3 = 日期工具.格式化日期时间(应用工具.获取应用第一次安装日期(ct, String.valueOf(app)));
 
-        java.lang.String a4 = com.kingqi.zwcj.日期工具.格式化日期时间(com.kingqi.zwcj.应用工具.获取应用更新日期(ct, String.valueOf(app)));
+        String a4 = 日期工具.格式化日期时间(应用工具.获取应用更新日期(ct, String.valueOf(app)));
 
-        java.lang.String a5 = com.kingqi.zwcj.应用工具.获取应用的安装市场(ct, String.valueOf(app));
+        String a5 = 应用工具.获取应用的安装市场(ct, String.valueOf(app));
 
-        java.lang.String a6 = com.kingqi.zwcj.应用工具.获取应用版本名称(ct, String.valueOf(app));
+        String a6 = 应用工具.获取应用版本名称(ct, String.valueOf(app));
 
-        int a7 = com.kingqi.zwcj.应用工具.获取应用版本号(ct, String.valueOf(app));
+        int a7 = 应用工具.获取应用版本号(ct, String.valueOf(app));
 
-        java.lang.String a8 = com.kingqi.zwcj.应用工具.获取应用名称(ct, String.valueOf(app));
+        String a8 = 应用工具.获取应用名称(ct, String.valueOf(app));
 
-        java.lang.String sho = "[应用名称]\n" + a8 + "\n\n[应用版本]\n" + a6 + "\n\n[应用版本号]\n" + a7 + "\n\n[应用安装日期]\n" + a3 + "\n\n[应用更新日期]\n" + a4;
+        String sho = "[应用名称]\n" + a8 + "\n\n[应用版本]\n" + a6 + "\n\n[应用版本号]\n" + a7 + "\n\n[应用安装日期]\n" + a3 + "\n\n[应用更新日期]\n" + a4;
         e1.tsk("详细信息", sho);
         return true;
 
@@ -105,13 +113,13 @@ public class InstalledAppItemActivity extends iActivity {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
-    public void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw) {
+    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        android.widget.RelativeLayout aaeebbd136 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.xdbj1);
-        aaeebbd136.setOnClickListener($_on_setOnClickListener_aaeebbd136);
-        aaeebbd136.setOnLongClickListener($_on_setOnLongClickListener_aaeebbd136);
+        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        aaeebbd136.setOnClickListener(xdbj1ClickListener);
+        aaeebbd136.setOnLongClickListener(xdbj1LongClickListener);
 
-        android.widget.RelativeLayout i6b77a3b312 = (android.widget.RelativeLayout) findViewById(ay, vw, open.cn.awg.pro.R.id.c17_v);
+        RelativeLayout i6b77a3b312 = (RelativeLayout) findViewById(ay, vw, R.id.installed_app_item_root);
 
         __layoutIsLoaded(ay, vw);
     }
