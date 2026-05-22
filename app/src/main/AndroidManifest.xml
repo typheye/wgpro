@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:versionCode="2605140" android:versionName="5.26.5">
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-feature android:name="android.hardware.type.watch" android:required="true" />
     <uses-feature android:name="android.hardware.location.gps" android:required="false"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
@@ -123,31 +124,6 @@
         <activity android:name=".plugin.ExtensionPluginActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
         <activity android:name=".store.StoreDetailActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
         <activity android:name=".store.StoreListActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
-        <!--
-        <activity android:name=".ui.list.FileListItemActivity"/>
-        <activity android:name=".ui.list.MainMenuItemActivity"/>
-        <activity android:name=".ui.list.FileOperationMenuItemActivity"/>
-        <activity android:name=".ui.list.FileOperationInfoItemActivity"/>
-        <activity android:name=".ui.list.FileOpenOptionItemActivity"/>
-        <activity android:name=".ui.list.LegacyMenuItemActivity"/>
-        <activity android:name=".ui.list.WearChatMenuItemActivity"/>
-        <activity android:name=".ui.list.ChatRoomListItemActivity"/>
-        <activity android:name=".ui.list.ChatAttachmentItemActivity"/>
-        <activity android:name=".ui.list.FileRootItemActivity"/>
-        <activity android:name=".ui.list.ExperimentalFeatureItemActivity"/>
-        <activity android:name=".ui.list.TuneFreeSongItemActivity"/>
-        <activity android:name=".ui.list.LiveStreamItemActivity"/>
-        <activity android:name=".ui.list.InstalledAppItemActivity"/>
-        <activity android:name=".ui.list.ExtensionPluginMenuItemActivity"/>
-        <activity android:name=".ui.list.ExtensionPluginListItemActivity"/>
-        <activity android:name=".ui.list.AnnouncementItemActivity"/>
-        <activity android:name=".ui.list.RuntimeMessageItemActivity"/>
-        <activity android:name=".ui.list.AppActionItemActivity"/>
-        <activity android:name=".ui.list.StoreAppItemActivity"/>
-        <activity android:name=".ui.list.StoreVideoItemActivity"/>
-        <activity android:name=".ui.list.StoreMusicItemActivity"/>
-        <activity android:name=".c26"/>
-        -->
         <activity android:name=".experimental.ServerDebugActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
         <activity android:name=".music.TuneFreeActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
         <activity android:name=".music.TuneFreeCloudSearchActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop"/>
