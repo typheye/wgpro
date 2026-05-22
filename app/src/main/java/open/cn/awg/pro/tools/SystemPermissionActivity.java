@@ -129,7 +129,7 @@ public class SystemPermissionActivity extends BaseAwgActivity {
             st.xdbj(R.id.system_permission_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 

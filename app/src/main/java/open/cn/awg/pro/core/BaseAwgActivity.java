@@ -22,6 +22,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 import com.ypz.bangscreentools.BangScreenTools;
 
+import java.lang.reflect.Method;
+
 import i.app.iActivity;
 
 import open.cn.awg.pro.R;
@@ -67,7 +69,7 @@ public class BaseAwgActivity extends iActivity {
             st.xdbj(windowRootId).shxtck(true);
 
             String color = zf.zf(R.color.colorTab);
-            xt.pm().ztl(color, 0);
+            setStatusBarColor(color);
             return;
         }
 
@@ -81,7 +83,7 @@ public class BaseAwgActivity extends iActivity {
     protected void applyWindowModeFromSettings() {
         if (zf.dy(readDisplayMode(), "4")) {
             String color = zf.zf(R.color.colorTab);
-            xt.pm().ztl(color, 0);
+            setStatusBarColor(color);
         } else {
             applyFullscreenWindow();
         }
@@ -91,6 +93,15 @@ public class BaseAwgActivity extends iActivity {
         Window window = getWindow();
         BangScreenTools.getBangScreenTools().fullscreen(window, this);
         BangScreenTools.getBangScreenTools().windowChangeFullscreen(window);
+    }
+
+    protected void setStatusBarColor(String color) {
+        try {
+            Object screen = xt.pm();
+            Method method = screen.getClass().getMethod("ztl", Object.class, Object.class);
+            method.invoke(screen, color, 0);
+        } catch (Exception ignored) {
+        }
     }
 
     /**

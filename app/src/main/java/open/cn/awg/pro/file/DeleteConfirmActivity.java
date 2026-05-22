@@ -113,7 +113,7 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
             st.xdbj(R.id.delete_confirm_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 

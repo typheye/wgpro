@@ -474,12 +474,12 @@ public class MainActivity extends BaseAwgActivity {
                                     if (loaded) {
 
                                         String clr = zf.zf(R.color.colorTab);
-                                        xt.pm().ztl(clr, 0);
+                                        setStatusBarColor(clr);
 
                                     } else {
 
                                         String clr = zf.zf(R.color.colorTabBackground);
-                                        xt.pm().ztl(clr, 0);
+                                        setStatusBarColor(clr);
 
                                     }
 
@@ -590,12 +590,12 @@ public class MainActivity extends BaseAwgActivity {
                 if (loaded) {
 
                     String clr = zf.zf(R.color.colorTab);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 } else {
 
                     String clr = zf.zf(R.color.colorTabBackground);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 }
 
@@ -2895,12 +2895,12 @@ public class MainActivity extends BaseAwgActivity {
                 if (loaded) {
 
                     String clr = zf.zf(R.color.colorTab);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 } else {
 
                     String clr = zf.zf(R.color.colorTabBackground);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 }
 
@@ -2962,12 +2962,12 @@ public class MainActivity extends BaseAwgActivity {
                 if (loaded) {
 
                     String clr = zf.zf(R.color.colorTab);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 } else {
 
                     String clr = zf.zf(R.color.colorTabBackground);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 }
 
@@ -2996,12 +2996,12 @@ public class MainActivity extends BaseAwgActivity {
                 if (loaded) {
 
                     String clr = zf.zf(R.color.colorTab);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 } else {
 
                     String clr = zf.zf(R.color.colorTabBackground);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 }
 
@@ -3052,12 +3052,12 @@ public class MainActivity extends BaseAwgActivity {
                 if (loaded) {
 
                     String clr = zf.zf(R.color.colorTab);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 } else {
 
                     String clr = zf.zf(R.color.colorTabBackground);
-                    xt.pm().ztl(clr, 0);
+                    setStatusBarColor(clr);
 
                 }
 

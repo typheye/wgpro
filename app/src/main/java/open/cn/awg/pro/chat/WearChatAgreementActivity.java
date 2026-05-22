@@ -100,7 +100,7 @@ public class WearChatAgreementActivity extends BaseAwgActivity {
             st.xdbj(R.id.wear_chat_agreement_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 

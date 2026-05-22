@@ -157,7 +157,7 @@ public class TextEditorActivity extends BaseAwgActivity {
             st.xdbj(R.id.text_editor_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 

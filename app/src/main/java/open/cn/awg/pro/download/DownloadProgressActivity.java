@@ -87,7 +87,7 @@ public class DownloadProgressActivity extends BaseAwgActivity {
             st.xdbj(R.id.download_progress_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 

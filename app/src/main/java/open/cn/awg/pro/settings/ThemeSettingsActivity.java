@@ -222,7 +222,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
             st.xdbj(R.id.theme_settings_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 

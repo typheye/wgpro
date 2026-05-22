@@ -125,7 +125,7 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
             st.xdbj(R.id.extension_plugin_detail_root).shxtck(true);
 
             String clr = zf.zf(R.color.colorTab);
-            xt.pm().ztl(clr, 0);
+            setStatusBarColor(clr);
 
         } else {
 
