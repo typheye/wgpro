@@ -46,7 +46,7 @@ public class FileListItemActivity extends BaseAwgActivity {
 
         AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object lj = lb.lbcfsj(R.id.wb2);
 
@@ -61,7 +61,7 @@ public class FileListItemActivity extends BaseAwgActivity {
 
         try {
 
-            i.runlibrary.app.sj$lb lb = sj.lb(vw);
+            i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
             Object bts = lb.lbcfsj(R.id.wb1);
 

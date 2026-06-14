@@ -71,7 +71,7 @@ public class FileRootItemActivity extends BaseAwgActivity {
 
         final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object lj = lb.lbcfsj(R.id.wb3);
 
@@ -90,7 +90,7 @@ public class FileRootItemActivity extends BaseAwgActivity {
 
             try {
 
-                i.runlibrary.app.xt$qxgl a = xt.qxgl();
+                i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
 
                 if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 
@@ -112,7 +112,7 @@ public class FileRootItemActivity extends BaseAwgActivity {
 
             try {
 
-                i.runlibrary.app.xt$qxgl a = xt.qxgl();
+                i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
 
                 if (true) {
 
@@ -166,7 +166,7 @@ public class FileRootItemActivity extends BaseAwgActivity {
 
         final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object te = lb.lbcfsj(R.id.wb1);
 

@@ -249,7 +249,7 @@ public class StoreListActivity extends BaseAwgActivity {
             final int y = y_;
 
             i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = lb.v7lbspq(StoreMusicItemActivity.class, R.layout.store_music_item);
+            spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(StoreMusicItemActivity.class, R.layout.store_music_item);
 
             final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
@@ -291,7 +291,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = zf.json(v);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
 
                                 JSONObject json = jo.json;
 
@@ -401,7 +401,7 @@ public class StoreListActivity extends BaseAwgActivity {
             final int y = y_;
 
             i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = lb.v7lbspq(StoreVideoItemActivity.class, R.layout.store_video_item);
+            spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(StoreVideoItemActivity.class, R.layout.store_video_item);
 
             final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
@@ -443,7 +443,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = zf.json(v);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
 
                                 JSONObject json = jo.json;
 
@@ -554,7 +554,7 @@ public class StoreListActivity extends BaseAwgActivity {
             final int y = y_;
 
             i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = lb.v7lbspq(StoreAppItemActivity.class, R.layout.store_app_item);
+            spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(StoreAppItemActivity.class, R.layout.store_app_item);
 
             final int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb3, -1};
 
@@ -596,7 +596,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = zf.json(v);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
 
                                 JSONObject json = jo.json;
 

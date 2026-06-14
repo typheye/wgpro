@@ -243,7 +243,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 

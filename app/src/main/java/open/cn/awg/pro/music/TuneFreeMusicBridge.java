@@ -52,7 +52,7 @@ public class TuneFreeMusicBridge extends iClass {
         context = AwgProApplication.getContext();
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.nmyyv7lb1);
-        nmyylbspq = lb.v7lbspq(TuneFreeSongItemActivity.class, R.layout.tune_free_song_item);
+        nmyylbspq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(TuneFreeSongItemActivity.class, R.layout.tune_free_song_item);
 
         LinearLayoutManager nx = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true);
 
@@ -96,7 +96,7 @@ public class TuneFreeMusicBridge extends iClass {
 
         String[] jk = new String[]{"", "", ""};
 
-        i.runlibrary.app.zf$json jo = zf.json(v);
+        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
 
         JSONObject json = jo.json;
 
@@ -106,7 +106,7 @@ public class TuneFreeMusicBridge extends iClass {
 
         if (!zf.dy(v_result, "")) {
 
-            i.runlibrary.app.zf$json jo_z1 = zf.json(v_result);
+            i.runlibrary.app.zf$json jo_z1 = (i.runlibrary.app.zf$json) zf.json(v_result);
 
             JSONObject json_z1 = jo_z1.json;
 
@@ -136,7 +136,7 @@ public class TuneFreeMusicBridge extends iClass {
 
                         v_l_ar = "";
 
-                        i.runlibrary.app.zf$json jo_z2 = zf.json(dx);
+                        i.runlibrary.app.zf$json jo_z2 = (i.runlibrary.app.zf$json) zf.json(dx);
 
                         JSONObject json_z2 = jo_z2.json;
 
@@ -260,7 +260,7 @@ public class TuneFreeMusicBridge extends iClass {
 
         String[] jk = new String[]{"", "", ""};
 
-        i.runlibrary.app.zf$json jo = zf.json(v);
+        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
 
         JSONObject json = jo.json;
 
@@ -469,7 +469,7 @@ public class TuneFreeMusicBridge extends iClass {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo_l1 = zf.json(back2);
+                                i.runlibrary.app.zf$json jo_l1 = (i.runlibrary.app.zf$json) zf.json(back2);
 
                                 JSONObject json_l1 = jo_l1.json;
 
@@ -477,7 +477,7 @@ public class TuneFreeMusicBridge extends iClass {
 
                                 if (lrc.toString().length() > 4) {
 
-                                    i.runlibrary.app.zf$json jo_l2 = zf.json(lrc);
+                                    i.runlibrary.app.zf$json jo_l2 = (i.runlibrary.app.zf$json) zf.json(lrc);
 
                                     JSONObject json_l2 = jo_l2.json;
                                     back2 = String.valueOf(jo_l2.hq(json_l2, "lyric"));
@@ -504,7 +504,7 @@ public class TuneFreeMusicBridge extends iClass {
 
                         try {
 
-                            i.runlibrary.app.zf$json jo_z1 = zf.json(setback);
+                            i.runlibrary.app.zf$json jo_z1 = (i.runlibrary.app.zf$json) zf.json(setback);
 
                             JSONObject json_z1 = jo_z1.json;
 

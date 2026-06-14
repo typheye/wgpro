@@ -123,13 +123,13 @@ public class ExtensionPluginBridge extends iClass {
 
     public void csh() {
         e11.setup_pluginlist();
-        sjk = sj.sjk(set47);
+        sjk = (i.runlibrary.app.sj$sjk) sj.sjk(set47);
         cjlbcdlb = st.v7lb(R.id.cjlbv7lb2);
-        cjlbcdspq = cjlbcdlb.v7lbspq(ExtensionPluginMenuItemActivity.class, R.layout.extension_plugin_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        cjlbcdspq = (i.runlibrary.app.v.v7lb$UserAdapter) cjlbcdlb.v7lbspq(ExtensionPluginMenuItemActivity.class, R.layout.extension_plugin_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 final int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -166,7 +166,7 @@ public class ExtensionPluginBridge extends iClass {
 
         });
         lb2 = st.v7lb(R.id.cjlbv7lb1);
-        spq2 = lb2.v7lbspq(ExtensionPluginListItemActivity.class, R.layout.extension_plugin_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spq2 = (i.runlibrary.app.v.v7lb$UserAdapter) lb2.v7lbspq(ExtensionPluginListItemActivity.class, R.layout.extension_plugin_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
@@ -485,7 +485,7 @@ public class ExtensionPluginBridge extends iClass {
 
                 Object sqlx = null;
 
-                i.runlibrary.app.sj$cxsj sjk15 = sjk.cxsj("pluginlist", table, sqlx);
+                i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) sjk.cxsj("pluginlist", table, sqlx);
 
                 while (sjk15.xyh()) {
 
@@ -582,7 +582,7 @@ public class ExtensionPluginBridge extends iClass {
 
                         String nr = "";
 
-                        i.runlibrary.app.zf$zzbds zz = zf.zzbds(bjknrs, "[0-9]*$", 0);
+                        i.runlibrary.app.zf$zzbds zz = (i.runlibrary.app.zf$zzbds) zf.zzbds(bjknrs, "[0-9]*$", 0);
 
                         boolean b2 = zz.sfppcg();
 

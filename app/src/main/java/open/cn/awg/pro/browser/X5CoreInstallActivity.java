@@ -514,7 +514,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         } else {
 
-            i.runlibrary.app.xt$qxgl a = xt.qxgl();
+            i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
 
             if (true) {
 

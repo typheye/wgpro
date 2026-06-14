@@ -171,7 +171,7 @@ public class CoreRuntimeBootstrap extends iClass {
 
                     if (zf.dy(xfc, null)) {
 
-                        xfc = st.xfc(xxbj, 1, 1, 0, 0);
+                        xfc = (i.runlibrary.app.st$xfc) st.xfc(xxbj, 1, 1, 0, 0);
 
                     }
 
@@ -294,7 +294,7 @@ public class CoreRuntimeBootstrap extends iClass {
             context = AwgProApplication.getContext();
             wj.sc(AppPaths.appPath("data/ltlb/ftz"));
 
-            i.runlibrary.app.sj$zh sjl = sj.zh(wj.dqwb(set2));
+            i.runlibrary.app.sj$zh sjl = (i.runlibrary.app.sj$zh) sj.zh(wj.dqwb(set2));
 
             final long tim = sjl.zlong(3000);
             N_csh();
@@ -305,7 +305,7 @@ public class CoreRuntimeBootstrap extends iClass {
                 public void run() {
 
                     e11.setup_talklist();
-                    sjk = sj.sjk(set17);
+                    sjk = (i.runlibrary.app.sj$sjk) sj.sjk(set17);
 
                     if (!zf.dy(wj.dqwb(AppPaths.appPath("settings/a3.inf")), "0") && zf.dy(wj.dqwb(AppPaths.appPath("settings/f11/set1.inf")), "true")) {
 
@@ -441,7 +441,7 @@ public class CoreRuntimeBootstrap extends iClass {
 
                         Object sqlx = null;
 
-                        i.runlibrary.app.sj$cxsj sjk15 = sjk.cxsj("talklist", table, sqlx);
+                        i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) sjk.cxsj("talklist", table, sqlx);
 
                         while (sjk15.xyh()) {
 
@@ -614,7 +614,7 @@ public class CoreRuntimeBootstrap extends iClass {
 
         try {
 
-            i.runlibrary.app.zf$json jo = zf.json(back);
+            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
 
             JSONObject json = jo.json;
 

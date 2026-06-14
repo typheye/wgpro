@@ -166,7 +166,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -363,7 +363,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (zf.dy(wj.dqwb(set5), "true") || zf.dy(code, "super1")) {
 
-            i.runlibrary.app.xt$pm pm = xt.pm();
+            i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
 
             int i = sj.zh().pxzdp(pm.k) - psd;
             text.k(i + "dp");

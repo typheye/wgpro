@@ -441,7 +441,7 @@ public class AppRuntimeBridge extends iClass {
 
     public boolean app_gorecovery() {
 
-        i.runlibrary.app.xt$qxgl a = xt.qxgl();
+        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
 
         if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 
@@ -812,11 +812,11 @@ public class AppRuntimeBridge extends iClass {
         wj.xrwb(cachehd, "");
         context = AwgProApplication.getContext();
         lb = st.v7lb(R.id.v7lb1);
-        spq = lb.v7lbspq(FileListItemActivity.class, R.layout.file_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(FileListItemActivity.class, R.layout.file_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -840,11 +840,11 @@ public class AppRuntimeBridge extends iClass {
 
         });
         cdlb = st.v7lb(R.id.v7lb2);
-        cdspq = cdlb.v7lbspq(FileOperationMenuItemActivity.class, R.layout.file_operation_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        cdspq = (i.runlibrary.app.v.v7lb$UserAdapter) cdlb.v7lbspq(FileOperationMenuItemActivity.class, R.layout.file_operation_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -881,11 +881,11 @@ public class AppRuntimeBridge extends iClass {
 
         });
         sxlb = st.v7lb(R.id.v7lb3);
-        sxspq = sxlb.v7lbspq(FileOperationInfoItemActivity.class, R.layout.file_operation_info_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        sxspq = (i.runlibrary.app.v.v7lb$UserAdapter) sxlb.v7lbspq(FileOperationInfoItemActivity.class, R.layout.file_operation_info_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -931,11 +931,11 @@ public class AppRuntimeBridge extends iClass {
 
         });
         dklb = st.v7lb(R.id.v7lb4);
-        dkspq = dklb.v7lbspq(FileOpenOptionItemActivity.class, R.layout.file_open_option_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        dkspq = (i.runlibrary.app.v.v7lb$UserAdapter) dklb.v7lbspq(FileOpenOptionItemActivity.class, R.layout.file_open_option_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -2482,7 +2482,7 @@ public class AppRuntimeBridge extends iClass {
 
         try {
 
-            i.runlibrary.app.zf$json jo = zf.json(text);
+            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(text);
 
             JSONObject json = jo.json;
 

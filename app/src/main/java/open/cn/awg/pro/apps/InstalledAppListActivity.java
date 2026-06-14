@@ -133,7 +133,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
         boolean issa = false;
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = lb.v7lbspq(InstalledAppItemActivity.class, R.layout.installed_app_item);
+        spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(InstalledAppItemActivity.class, R.layout.installed_app_item);
 
         String set1 = AppPaths.appPath("settings/l6/set1.inf");
 
@@ -157,7 +157,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
                 try {
 
-                    i.runlibrary.app.xt$yylb[] sz = xt.yylb(iss);
+                    i.runlibrary.app.xt$yylb[] sz = (i.runlibrary.app.xt$yylb[]) xt.yylb(iss);
 
                     for (i.runlibrary.app.xt$yylb app : sz) {
 

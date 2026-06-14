@@ -163,11 +163,11 @@ public class WearChatRuntimeBridge extends iClass {
 
         lb3.st.setLayoutManager(mLayoutManager);
         wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
-        spq3 = lb3.v7lbspq(ChatAttachmentItemActivity.class, R.layout.chat_attachment_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spq3 = (i.runlibrary.app.v.v7lb$UserAdapter) lb3.v7lbspq(ChatAttachmentItemActivity.class, R.layout.chat_attachment_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 final int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -196,7 +196,7 @@ public class WearChatRuntimeBridge extends iClass {
                     i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(0);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
+                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(false);
                     kp2_xdbjgz.dqfyb(true);
 
@@ -349,7 +349,7 @@ public class WearChatRuntimeBridge extends iClass {
                     i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(8);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
+                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
                     st.wb(vw, R.id.wb7).kjd(8);
@@ -388,7 +388,7 @@ public class WearChatRuntimeBridge extends iClass {
                     i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(0);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
+                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
 
@@ -542,7 +542,7 @@ public class WearChatRuntimeBridge extends iClass {
                     i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(0);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
+                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
 
@@ -696,7 +696,7 @@ public class WearChatRuntimeBridge extends iClass {
                     i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
                     kp2.kjd(8);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = kp2.xdbjgz();
+                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) kp2.xdbjgz();
                     kp2_xdbjgz.dqfzb(true);
                     kp2_xdbjgz.dqfyb(false);
                     st.wb(vw, R.id.wb6).zf("");
@@ -797,13 +797,13 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void csh() {
         e11.setup_talklist();
-        sjk = sj.sjk(set17);
+        sjk = (i.runlibrary.app.sj$sjk) sj.sjk(set17);
         wllbcdlb = st.v7lb(R.id.wllbv7lb2);
-        wllbcdspq = wllbcdlb.v7lbspq(WearChatMenuItemActivity.class, R.layout.wear_chat_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        wllbcdspq = (i.runlibrary.app.v.v7lb$UserAdapter) wllbcdlb.v7lbspq(WearChatMenuItemActivity.class, R.layout.wear_chat_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 final int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -840,7 +840,7 @@ public class WearChatRuntimeBridge extends iClass {
 
         });
         lb2 = st.v7lb(R.id.wllbv7lb1);
-        spq2 = lb2.v7lbspq(ChatRoomListItemActivity.class, R.layout.chat_room_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spq2 = (i.runlibrary.app.v.v7lb$UserAdapter) lb2.v7lbspq(ChatRoomListItemActivity.class, R.layout.chat_room_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
@@ -1383,7 +1383,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                 Object sqlx = null;
 
-                i.runlibrary.app.sj$cxsj sjk15 = sjk.cxsj("talklist", table, sqlx);
+                i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) sjk.cxsj("talklist", table, sqlx);
 
                 while (sjk15.xyh()) {
 
@@ -1481,7 +1481,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                         String nr = "";
 
-                        i.runlibrary.app.zf$zzbds zz = zf.zzbds(bjknrs, "[0-9]*$", 0);
+                        i.runlibrary.app.zf$zzbds zz = (i.runlibrary.app.zf$zzbds) zf.zzbds(bjknrs, "[0-9]*$", 0);
 
                         boolean b2 = zz.sfppcg();
 
@@ -1722,7 +1722,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                         String axc = wj.dqwb(spxx);
 
-                        i.runlibrary.app.zf$json jo = zf.json(back);
+                        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
 
                         JSONObject json = jo.json;
 

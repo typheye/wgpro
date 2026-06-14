@@ -207,7 +207,7 @@ public class ChatGptActivity extends BaseAwgActivity {
 
         }
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
         xt.sbxm(false);
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
@@ -416,11 +416,11 @@ public class ChatGptActivity extends BaseAwgActivity {
         mLayoutManager = new XLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
         lbc.st.setLayoutManager(mLayoutManager);
-        spqc = lbc.v7lbspq(RuntimeMessageItemActivity.class, R.layout.runtime_message_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spqc = (i.runlibrary.app.v.v7lb$UserAdapter) lbc.v7lbspq(RuntimeMessageItemActivity.class, R.layout.runtime_message_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 final int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 
@@ -680,7 +680,7 @@ public class ChatGptActivity extends BaseAwgActivity {
 
                         try {
 
-                            i.runlibrary.app.zf$json jo = zf.json(bak);
+                            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(bak);
 
                             JSONObject json = jo.json;
 

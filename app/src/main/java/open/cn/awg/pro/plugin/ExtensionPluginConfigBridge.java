@@ -243,7 +243,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 bjk2.xstyh(true);
                 xxbjb.j(bjk2);
 
-                i.runlibrary.app.v.xxbj$xxbjgz bjk2_xxbjgz = bjk2.xxbjgz();
+                i.runlibrary.app.v.xxbj$xxbjgz bjk2_xxbjgz = (i.runlibrary.app.v.xxbj$xxbjgz) bjk2.xxbjgz();
                 bjk2_xxbjgz.bjqz(1);
 
                 final i.runlibrary.app.v.an an0 = st.an();
@@ -597,7 +597,7 @@ public class ExtensionPluginConfigBridge extends iClass {
                 bjk2.xstyh(true);
                 xxbjb.j(bjk2);
 
-                i.runlibrary.app.v.xxbj$xxbjgz bjk2_xxbjgz = bjk2.xxbjgz();
+                i.runlibrary.app.v.xxbj$xxbjgz bjk2_xxbjgz = (i.runlibrary.app.v.xxbj$xxbjgz) bjk2.xxbjgz();
                 bjk2_xxbjgz.bjqz(1);
 
                 final i.runlibrary.app.v.an an0 = st.an();

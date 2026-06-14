@@ -70,7 +70,7 @@ public class WearOsToolboxActivity extends BaseAwgActivity {
         applyStandardScreenMode(R.id.wear_os_toolbox_root, R.id.xdbj1, R.id.title_bar);
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = lb.v7lbspq(AppActionItemActivity.class, R.layout.app_action_item);
+        spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(AppActionItemActivity.class, R.layout.app_action_item);
 
         int[] kj = new int[]{R.id.wb1, R.id.wb2, -1, -2};
 

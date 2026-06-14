@@ -1290,7 +1290,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
             try {
 
-                i.runlibrary.app.xt$qxgl a = xt.qxgl();
+                i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
 
                 if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 

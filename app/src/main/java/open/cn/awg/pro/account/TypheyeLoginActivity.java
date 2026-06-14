@@ -209,7 +209,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                     try {
 
-                                        i.runlibrary.app.zf$json jo = zf.json(back);
+                                        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
 
                                         org.json.JSONObject json = jo.json;
 
@@ -380,7 +380,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                 try {
 
-                                    i.runlibrary.app.zf$json jo = zf.json(back);
+                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
 
                                     org.json.JSONObject json0 = jo.json;
 

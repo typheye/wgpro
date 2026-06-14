@@ -87,11 +87,11 @@ public class FileRootPickerActivity extends BaseAwgActivity {
         final String spxx = AppPaths.appPath("settings/a3.inf");
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        lbspq = lb.v7lbspq(FileRootItemActivity.class, R.layout.file_root_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        lbspq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(FileRootItemActivity.class, R.layout.file_root_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
 
             public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
                 int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
 

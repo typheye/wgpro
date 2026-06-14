@@ -102,7 +102,7 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -440,7 +440,7 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
                         try {
 
-                            i.runlibrary.app.zf$json jo = zf.json(back);
+                            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
 
                             JSONObject json = jo.json;
 

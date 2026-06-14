@@ -256,7 +256,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         }
 
-        i.runlibrary.app.xt$pm pm = xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
         xt.sbxm(false);
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
@@ -371,7 +371,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         String set2 = AppPaths.appPath("settings/f18/set1.inf");
 
-        i.runlibrary.app.sj$zh sjl = sj.zh(wj.dqwb(set2));
+        i.runlibrary.app.sj$zh sjl = (i.runlibrary.app.sj$zh) sj.zh(wj.dqwb(set2));
 
         final long tim = sjl.zlong(3000);
         gj.xc(new Thread() {
@@ -410,7 +410,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
                                 String back = wj.dqwb(sjhc);
 
-                                i.runlibrary.app.zf$json jo = zf.json(back);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
 
                                 JSONObject json = jo.json;
 
@@ -899,7 +899,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
                 try {
 
-                    i.runlibrary.app.xt$qxgl a = xt.qxgl();
+                    i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
 
                     if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 

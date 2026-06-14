@@ -179,7 +179,7 @@ public class LiveStreamActivity extends BaseAwgActivity {
     public void csh() {
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.wlzbv7lb1);
-        wlzblbspq = lb.v7lbspq(LiveStreamItemActivity.class, R.layout.live_stream_item);
+        wlzblbspq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(LiveStreamItemActivity.class, R.layout.live_stream_item);
 
     }
 
@@ -201,7 +201,7 @@ public class LiveStreamActivity extends BaseAwgActivity {
 
                     String v = wj.dqwb(set33);
 
-                    i.runlibrary.app.zf$json jo = zf.json(v);
+                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
 
                     JSONObject json = jo.json;
 

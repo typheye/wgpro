@@ -82,7 +82,7 @@ public class ChatAttachmentItemActivity extends BaseAwgActivity {
 
         WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object b = lb.lbcfsj(R.id.wb2);
         e10.ltspostat(b);
@@ -95,7 +95,7 @@ public class ChatAttachmentItemActivity extends BaseAwgActivity {
 
         WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object b = lb.lbcfsj(R.id.wb2);
         e10.ltspostat(b);
@@ -108,7 +108,7 @@ public class ChatAttachmentItemActivity extends BaseAwgActivity {
 
         AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb2);
 
@@ -304,7 +304,7 @@ public class ChatAttachmentItemActivity extends BaseAwgActivity {
 
         AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb1);
 
