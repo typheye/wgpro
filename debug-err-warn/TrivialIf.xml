@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checksignture(android.content.Context context, int sign)" />
+  <problem_class id="TrivialIf" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">冗余的 'if' 语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句可以简化 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>946</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 boolean scrollBy(float xDiff, float yDiff)" />
+  <problem_class id="TrivialIf" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">冗余的 'if' 语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句可以简化 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>2</length>
+</problem>
+</problems>

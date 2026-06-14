@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>723</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$48 void run()" />
+  <problem_class id="InfiniteLoopStatement" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">无限循环语句</problem_class>
+  <description>&lt;code&gt;while&lt;/code&gt; 语句不能在未抛出异常的情况下完成 #loc</description>
+  <highlighted_element>while</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>170</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService$2 void run()" />
+  <problem_class id="InfiniteLoopStatement" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">无限循环语句</problem_class>
+  <description>&lt;code&gt;while&lt;/code&gt; 语句不能在未抛出异常的情况下完成 #loc</description>
+  <highlighted_element>while</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>5</length>
+</problem>
+</problems>

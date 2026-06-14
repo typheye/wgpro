@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/third_party_authorization.xml</file>
+  <line>27</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/third_party_authorization.xml" />
+  <problem_class id="AndroidLintUseCompoundDrawables" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Node can be replaced by a TextView with compound drawables</problem_class>
+  <hints />
+  <description>&lt;html&gt;This tag and its children can be replaced by one &lt;code&gt;&amp;lt;TextView/&gt;&lt;/code&gt; and a compound drawable&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintUseCompoundDrawables" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Node can be replaced by a TextView with compound drawables</problem_class>
+  <hints />
+  <description>&lt;html&gt;This tag and its children can be replaced by one &lt;code&gt;&amp;lt;TextView/&gt;&lt;/code&gt; and a compound drawable&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>37</offset>
+  <length>12</length>
+</problem>
+</problems>

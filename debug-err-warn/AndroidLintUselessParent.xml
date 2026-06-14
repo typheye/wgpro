@@ -1,0 +1,1380 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/accessibility_script.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/accessibility_script.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_action_item.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_action_item.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml</file>
+  <line>16</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml</file>
+  <line>30</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_download.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_download.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update_install.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update_install.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>17</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>33</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml</file>
+  <line>18</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/device_scan_placeholder.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/device_scan_placeholder.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml</file>
+  <line>13</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/download_progress.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/download_progress.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/experimental_feature_item.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/experimental_feature_item.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/experimental_features.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/experimental_features.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_open.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_open.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_root_picker.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_root_picker.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/fingerprint.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/fingerprint.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>17</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>25</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_channel_detail.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_channel_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream.xml</file>
+  <line>16</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>16</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml</file>
+  <line>16</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/log_cleanup.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/log_cleanup.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>29</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>190</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_menu_item.xml</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_menu_item.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;RelativeLayout&lt;/code&gt; layout or its &lt;code&gt;LinearLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>RelativeLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/more_features.xml</file>
+  <line>13</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/more_features.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/network_optimize.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/network_optimize.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/package_installer.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/package_installer.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml</file>
+  <line>20</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml</file>
+  <line>49</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>18</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>50</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>68</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>76</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>84</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/reset_app.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/reset_app.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/runtime_message_item.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/runtime_message_item.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>17</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/shell_executor.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/shell_executor.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>19</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>33</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>49</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>59</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>71</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>113</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>123</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>133</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>157</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>167</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/system_tools.xml</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/system_tools.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>9</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_qr_display.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_qr_display.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_translate.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_translate.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>80</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>88</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>96</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>104</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;RadioGroup&lt;/code&gt; layout or its &lt;code&gt;LinearLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>RadioGroup</highlighted_element>
+  <language>XML</language>
+  <offset>29</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml</file>
+  <line>19</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml</file>
+  <line>27</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml</file>
+  <line>50</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>21</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml</file>
+  <line>2</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;RelativeLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>RelativeLayout</highlighted_element>
+  <language>XML</language>
+  <offset>5</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml</file>
+  <line>49</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary; transfer the &lt;code&gt;background&lt;/code&gt; attribute to the other view&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>25</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;RelativeLayout&lt;/code&gt; layout or its &lt;code&gt;LinearLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>RelativeLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>180</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;RelativeLayout&lt;/code&gt; layout or its &lt;code&gt;LinearLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>RelativeLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_agreement.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_agreement.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_music.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_music.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_os_toolbox.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_os_toolbox.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_core_install.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_core_install.xml" />
+  <problem_class id="AndroidLintUselessParent" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Unnecessary parent layout</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;LinearLayout&lt;/code&gt; layout or its &lt;code&gt;RelativeLayout&lt;/code&gt; parent is possibly unnecessary&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>13</offset>
+  <length>12</length>
+</problem>
+</problems>

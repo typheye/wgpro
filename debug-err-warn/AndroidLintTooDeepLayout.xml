@@ -1,0 +1,67 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>92</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintTooDeepLayout" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Layout hierarchy is too deep</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;app_update.xml&lt;/code&gt; has more than 10 levels, bad for performance&lt;/html&gt;</description>
+  <highlighted_element>TextView</highlighted_element>
+  <language>XML</language>
+  <offset>37</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintTooDeepLayout" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Layout hierarchy is too deep</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;chat_message_detail.xml&lt;/code&gt; has more than 10 levels, bad for performance&lt;/html&gt;</description>
+  <highlighted_element>LinearLayout</highlighted_element>
+  <language>XML</language>
+  <offset>37</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintTooDeepLayout" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Layout hierarchy is too deep</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;main_activity.xml&lt;/code&gt; has more than 10 levels, bad for performance&lt;/html&gt;</description>
+  <highlighted_element>ImageView</highlighted_element>
+  <language>XML</language>
+  <offset>37</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>142</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintTooDeepLayout" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Layout hierarchy is too deep</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;store_detail.xml&lt;/code&gt; has more than 10 levels, bad for performance&lt;/html&gt;</description>
+  <highlighted_element>ImageView</highlighted_element>
+  <language>XML</language>
+  <offset>37</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintTooDeepLayout" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Layout hierarchy is too deep</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;video_player.xml&lt;/code&gt; has more than 10 levels, bad for performance&lt;/html&gt;</description>
+  <highlighted_element>TextView</highlighted_element>
+  <language>XML</language>
+  <offset>37</offset>
+  <length>8</length>
+</problem>
+</problems>

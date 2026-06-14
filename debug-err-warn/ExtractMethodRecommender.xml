@@ -1,0 +1,41 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java</file>
+  <line>145</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.installer.ApkInstallerActivity void showBeforeInstallDialog()" />
+  <problem_class id="ExtractMethodRecommender" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">方法可以提取</problem_class>
+  <description>可以从长周围方法中提取返回 'builder' 的方法</description>
+  <highlighted_element>AlertDialog.Builder builder = new AlertDialog.Builder(this);</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>60</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/WearMusicActivity.java</file>
+  <line>66</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.WearMusicActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="ExtractMethodRecommender" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">方法可以提取</problem_class>
+  <description>可以从长周围方法中提取返回 'intent' 的方法</description>
+  <highlighted_element>JSONArray ja = new JSONArray();</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1802</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void scheduleJob()" />
+  <problem_class id="ExtractMethodRecommender" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">方法可以提取</problem_class>
+  <description>可以从长周围方法中提取返回 'builder' 的方法</description>
+  <highlighted_element>ComponentName serviceComponent = new ComponentName(this, BootJobService.class);</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>79</length>
+</problem>
+</problems>

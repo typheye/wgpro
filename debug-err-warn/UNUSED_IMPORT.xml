@@ -1,0 +1,450 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.net.Uri;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.net.Uri;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/IOMethod.java</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/IOMethod.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.FileInputStream;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.FileInputStream;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/IOMethod.java</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/IOMethod.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.FileOutputStream;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.FileOutputStream;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>32</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/IOMethod.java</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/IOMethod.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.InputStream;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.InputStream;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e0.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e0.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.lang.*;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.lang.*;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.content.pm.PackageManager;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.content.pm.PackageManager;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>41</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.content.ServiceConnection;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.content.ServiceConnection;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>41</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.database.Cursor;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.database.Cursor;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.provider.MediaStore;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.provider.MediaStore;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>18</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.app.Activity;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.app.Activity;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>28</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>19</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.app.ActivityManager;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.app.ActivityManager;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>22</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.os.Bundle;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.os.Bundle;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>25</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.os.FileUriExposedException;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.os.FileUriExposedException;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>42</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.webkit.MimeTypeMap;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.webkit.MimeTypeMap;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>34</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.lang.*;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.lang.*;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>33</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.security.cert.Extension;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.security.cert.Extension;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.BufferedReader;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.BufferedReader;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>30</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.DataOutputStream;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.DataOutputStream;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>32</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.IOException;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.IOException;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.io.InputStreamReader;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.io.InputStreamReader;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>33</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.util.Locale;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.util.Locale;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e8.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e8.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.lang.*;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.lang.*;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/file/Xor/xor.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.file.Xor</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/file/Xor/xor.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.nio.ByteBuffer;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.nio.ByteBuffer;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/gl/DownLoadBroadcastReceiver.java</file>
+  <line>13</line>
+  <module>wgpro-wear.app.main</module>
+  <package>gl</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/gl/DownLoadBroadcastReceiver.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import java.lang.Exception;&lt;/code&gt; #loc</description>
+  <highlighted_element>import java.lang.Exception;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>22</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.content.Context;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.content.Context;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>31</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import open.cn.awg.pro.service.AwgCoreService;&lt;/code&gt; #loc</description>
+  <highlighted_element>import open.cn.awg.pro.service.AwgCoreService;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.view.ViewGroup;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.view.ViewGroup;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>30</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/WearMusicActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/WearMusicActivity.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import open.cn.awg.pro.ui.main.MainActivity;&lt;/code&gt; #loc</description>
+  <highlighted_element>import open.cn.awg.pro.ui.main.MainActivity;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>44</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import com.kingqi.zwcj.应用工具;&lt;/code&gt; #loc</description>
+  <highlighted_element>import com.kingqi.zwcj.应用工具;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>28</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import open.cn.awg.pro.ui.main.MainActivity;&lt;/code&gt; #loc</description>
+  <highlighted_element>import open.cn.awg.pro.ui.main.MainActivity;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>44</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>67</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import open.cn.awg.pro.service.AwgCoreService;&lt;/code&gt; #loc</description>
+  <highlighted_element>import open.cn.awg.pro.service.AwgCoreService;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/widget/XLinearLayoutManager.java</file>
+  <line>23</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.widget</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/widget/XLinearLayoutManager.java" />
+  <problem_class id="UNUSED_IMPORT" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的 import</problem_class>
+  <hints />
+  <description>未使用的 import &lt;code&gt;import android.util.Log;&lt;/code&gt; #loc</description>
+  <highlighted_element>import android.util.Log;</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>24</length>
+</problem>
+</problems>

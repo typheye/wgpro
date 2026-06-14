@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java</file>
+  <line>88</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.AwgCoreService$1 void run()" />
+  <problem_class id="BusyWait" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">忙等待</problem_class>
+  <description>在循环中调用 &lt;code&gt;Thread.sleep()&lt;/code&gt;，可能处于忙等待 #loc</description>
+  <highlighted_element>sleep</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java</file>
+  <line>125</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.AwgCoreService.ServiceThread void run()" />
+  <problem_class id="BusyWait" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">忙等待</problem_class>
+  <description>在循环中调用 &lt;code&gt;Thread.sleep()&lt;/code&gt;，可能处于忙等待 #loc</description>
+  <highlighted_element>sleep</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>5</length>
+</problem>
+</problems>

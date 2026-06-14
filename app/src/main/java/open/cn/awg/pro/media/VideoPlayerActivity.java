@@ -720,7 +720,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                 int intime = 0;
 
-                while (true) {
+                while (play && !Thread.currentThread().isInterrupted()) {
 
                     gj.zt(100);
                     intime = intime + 100;

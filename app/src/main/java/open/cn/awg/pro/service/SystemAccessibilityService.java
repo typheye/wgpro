@@ -148,7 +148,7 @@ public class SystemAccessibilityService extends AccessibilityService {
         try {
             Thread.sleep(s);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
         }
     }
 
@@ -167,7 +167,7 @@ public class SystemAccessibilityService extends AccessibilityService {
         new Thread() {
             public void run() {
 
-                while (true) {
+                while (!Thread.currentThread().isInterrupted()) {
           /*
           if(cmd != null)
           {

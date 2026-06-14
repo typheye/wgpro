@@ -1,0 +1,2225 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>127</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 android.graphics.Matrix getOuterMatrix(android.graphics.Matrix matrix)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>145</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 android.graphics.Matrix getInnerMatrix(android.graphics.Matrix matrix)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>174</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 android.graphics.Matrix getCurrentImageMatrix(android.graphics.Matrix matrix)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>194</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 android.graphics.RectF getImageBound(android.graphics.RectF rectF)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>301</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void outerMatrixTo(android.graphics.Matrix endMatrix, long duration)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>332</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void zoomMaskTo(android.graphics.RectF mask, long duration)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>367</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void reset()" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>402</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.OuterMatrixChangedListener void onOuterMatrixChanged(com.demo.e5 pinchImageView)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>432</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mDispatchOuterMatrixChangedLock" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>500</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void dispatchOuterMatrixChanged()" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>536</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 float getMaxScale()" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>553</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 float calculateNextScale(float innerScale, float outerScale)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>627</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 boolean isReady()" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>642</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mMaskAnimator" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>651</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="class" FQNAME="com.demo.e5.MaskAnimator" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>718</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mLastMovePoint" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>731</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mScaleCenter" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>744</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mScaleBase" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>755</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mScaleAnimator" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>775</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="field" FQNAME="com.demo.e5 mGestureDetector" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>884</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 boolean scrollBy(float xDiff, float yDiff)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>955</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void saveScaleContext(float x1, float y1, float x2, float y2)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1010</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void doubleTap(float x, float y)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1090</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void scaleEnd()" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1176</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void fling(float vx, float vy)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1179</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 void fling(float vx, float vy)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1213</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="class" FQNAME="com.demo.e5.FlingAnimator" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1226</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.FlingAnimator FlingAnimator(float vectorX, float vectorY)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1256</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="class" FQNAME="com.demo.e5.ScaleAnimator" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1278</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.ScaleAnimator ScaleAnimator(android.graphics.Matrix start, android.graphics.Matrix end)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1290</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.ScaleAnimator ScaleAnimator(android.graphics.Matrix start, android.graphics.Matrix end, long duration)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1326</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="class" FQNAME="com.demo.e5.ObjectsPool" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>2</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1357</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.ObjectsPool T take()" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1379</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.ObjectsPool void given(T obj)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1402</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.ObjectsPool T resetInstance(T obj)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1576</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.MathUtils float[] inverseMatrixPoint(float[] point, android.graphics.Matrix matrix)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>1602</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5.MathUtils void calculateRectTranslateMatrix(android.graphics.RectF from, android.graphics.RectF to, android.graphics.Matrix result)" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/gl/DownLoadBroadcastReceiver.java</file>
+  <line>17</line>
+  <module>wgpro-wear.app.main</module>
+  <package>gl</package>
+  <entry_point TYPE="class" FQNAME="gl.DownLoadBroadcastReceiver" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>0</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="class" FQNAME="i.app.x5" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="class" FQNAME="i.app.x5" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="class" FQNAME="i.app.x5" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="class" FQNAME="i.app.x5" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>22</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="class" FQNAME="i.app.x5" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/Manifest.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/Manifest.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/OnlineIdActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/OnlineIdActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/announcement/AnnouncementActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.announcement</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/announcement/AnnouncementActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/app/AwgProApplication.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.app</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/app/AwgProApplication.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/apps/InstalledAppListActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.apps</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/apps/InstalledAppListActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatAgreementActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatAgreementActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppPaths.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppPaths.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/BaseAwgActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/BaseAwgActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CacheDataManager.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CacheDataManager.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DebugStateStore.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DebugStateStore.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DeviceManagerHelper.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DeviceManagerHelper.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DevicePolicyBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DevicePolicyBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/EmptyLocationListener.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/EmptyLocationListener.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/GlobalRuntimeState.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/GlobalRuntimeState.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/IappCompat.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/IappCompat.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ExperimentalFeaturesActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ExperimentalFeaturesActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/MoreFeaturesActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/MoreFeaturesActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/DeleteConfirmActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/DeleteConfirmActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileOpenActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileOpenActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkPreviewActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkPreviewActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveChannelDetailActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveChannelDetailActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveStreamActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveStreamActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/WearMusicActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/WearMusicActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeCloudSearchActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeCloudSearchActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeMusicBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeMusicBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/DeviceReceiver.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.receiver</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/DeviceReceiver.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/StartReceiver.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.receiver</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/StartReceiver.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/CrashFeedbackActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/CrashFeedbackActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ErrorMessageActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ErrorMessageActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/RecoveryOptionsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/RecoveryOptionsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ResetAppActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ResetAppActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair.exception</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/DisplayMarginActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/DisplayMarginActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/LegalInfoActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/LegalInfoActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/WearChatSettingsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/WearChatSettingsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreListActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreListActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationInfoActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationInfoActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemToolsActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemToolsActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TerminalCompatibilityActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TerminalCompatibilityActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/WearOsToolboxActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/WearOsToolboxActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AnnouncementItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AnnouncementItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AppActionItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AppActionItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatAttachmentItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatAttachmentItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatRoomListItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatRoomListItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExperimentalFeatureItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExperimentalFeatureItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginListItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginListItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginMenuItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginMenuItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileListItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileListItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOpenOptionItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOpenOptionItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationInfoItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationInfoItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationMenuItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationMenuItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/InstalledAppItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/InstalledAppItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LegacyMenuItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LegacyMenuItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LiveStreamItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LiveStreamItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/MainMenuItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/MainMenuItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/RuntimeMessageItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/RuntimeMessageItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreAppItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreAppItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreMusicItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreMusicItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreVideoItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreVideoItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/TuneFreeSongItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/TuneFreeSongItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/WearChatMenuItemActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/WearChatMenuItemActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/OnboardingSetupActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/OnboardingSetupActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/TextQrDisplayActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/TextQrDisplayActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/widget/XLinearLayoutManager.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.widget</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/widget/XLinearLayoutManager.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateInstallActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateInstallActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/util/DateUtil.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.util</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/util/DateUtil.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/ImageViewerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/ImageViewerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java" />
+  <problem_class id="JavadocBlankLines" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空行应替换为 &lt;p&gt; 以换行</problem_class>
+  <description>空白行将被忽略</description>
+  <highlighted_element>*</highlighted_element>
+  <language>JAVA</language>
+  <offset>1</offset>
+  <length>1</length>
+</problem>
+</problems>

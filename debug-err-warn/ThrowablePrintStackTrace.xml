@@ -1,0 +1,262 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/ApkMethod.java</file>
+  <line>87</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.ApkMethod java.lang.String[] getApplicationPermission()" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.BaseMethod boolean checkHasADB()" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/CommandMethod.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.CommandMethod java.lang.String runADBCommand(java.lang.String cmd)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/CommandMethod.java</file>
+  <line>99</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.CommandMethod boolean isPortUsed(int port)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/InstallMethod.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.InstallMethod$1 void run()" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/InstallMethod.java</file>
+  <line>50</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.InstallMethod$1 void run()" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/PermissionMethod.java</file>
+  <line>22</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.PermissionMethod boolean verifyStoragePermissions(android.app.Activity activity)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e0.java</file>
+  <line>22</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e0 int signture(android.content.Context context)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checksignture(android.content.Context context, int sign)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checkIPackageManager(android.content.Context context)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>147</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 android.graphics.Bitmap getURLimage(java.lang.String url)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>219</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 boolean wearvideo(android.content.Context context, java.lang.String mvUrl, java.lang.String title)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>291</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 java.lang.String getVersionName(android.content.Context context)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>303</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 int getVersionCode(android.content.Context context)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CacheDataManager.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CacheDataManager long getFolderSize(java.io.File file)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.AwgCoreService$1 void run()" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>151</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService void Sleep(int s)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java</file>
+  <line>199</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationActivity$8 void onLocationChanged(android.location.Location location)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1821</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void scheduleJob()" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/util/DateUtil.java</file>
+  <line>104</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.util</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.util.DateUtil java.lang.String getStringTimestamp(java.lang.String time)" />
+  <problem_class id="ThrowablePrintStackTrace" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">调用 'printStackTrace()'</problem_class>
+  <description>对 &lt;code&gt;printStackTrace()&lt;/code&gt; 的调用可能应当替换为更可靠的日志 #loc</description>
+  <highlighted_element>printStackTrace</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>15</length>
+</problem>
+</problems>

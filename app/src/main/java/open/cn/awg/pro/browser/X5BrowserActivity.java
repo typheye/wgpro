@@ -207,10 +207,12 @@ public class X5BrowserActivity extends BaseAwgActivity {
             String action = intent.getAction();
             if (Intent.ACTION_VIEW.equals(action)) {
                 Uri uri = intent.getData();
-                hqdz = uri.getScheme() + "://" + uri.getHost();
-                if (uri.getPort() != -1) hqdz = hqdz + ":" + uri.getPort();
-                if (uri.getPath() != null) hqdz = hqdz + uri.getPath();
-                if (uri.getQuery() != null) hqdz = hqdz + "?" + uri.getQuery();
+                if (uri != null) {
+                    hqdz = uri.getScheme() + "://" + uri.getHost();
+                    if (uri.getPort() != -1) hqdz = hqdz + ":" + uri.getPort();
+                    if (uri.getPath() != null) hqdz = hqdz + uri.getPath();
+                    if (uri.getQuery() != null) hqdz = hqdz + "?" + uri.getQuery();
+                }
             }
 
             if (!zf.dy(hqdz, null) && !zf.dy(hqdz, "")) {
@@ -498,15 +500,6 @@ public class X5BrowserActivity extends BaseAwgActivity {
                     jdt1.jdz(100);
                     jdt1.kjd(8);
                 }
-                String btss = x5llq.bt();
-                String wzss = x5llq.wz();
-                if (!isTip) {
-                    if (btss == null || btss == "" || btss == "null") {
-
-                    } else {
-
-                    }
-                }
             }
 
             @Override
@@ -680,7 +673,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
             public void onClick(View v) {
                 String bj = bjk1.zf();
                 bj = zf.qctwkg(bj);
-                if (bj == "") {
+                if (bj == null || bj.length() == 0) {
                     e1.tsk("提示", "编辑框不能为空");
                 } else {
                     llqhdyc();
@@ -688,14 +681,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                     kp3.kjd(0);
                     xxbj8.kjd(8);
                     restart();
-                    String btss = x5llq.bt();
-                    String wzss = x5llq.wz();
                     isTip = false;
-                    if (btss == null || btss == "" || btss == "null") {
-
-                    } else {
-
-                    }
                     bt.zf("< X5浏览器");
                 }
             }
@@ -709,14 +695,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 kp3.kjd(0);
                 xxbj8.kjd(8);
                 restart();
-                String btss = x5llq.bt();
-                String wzss = x5llq.wz();
                 isTip = false;
-                if (btss == null || btss == "" || btss == "null") {
-
-                } else {
-
-                }
                 bt.zf("< X5浏览器");
             }
         });
@@ -728,14 +707,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 kp3.kjd(0);
                 xxbj8.kjd(8);
                 restart();
-                String btss = x5llq.bt();
-                String wzss = x5llq.wz();
                 isTip = false;
-                if (btss == null || btss == "" || btss == "null") {
-
-                } else {
-
-                }
                 bt.zf("< X5浏览器");
             }
         });
@@ -836,14 +808,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 kp3.kjd(0);
                 xxbj8.kjd(8);
                 restart();
-                String btss = x5llq.bt();
-                String wzss = x5llq.wz();
                 isTip = false;
-                if (btss == null || btss == "" || btss == "null") {
-
-                } else {
-
-                }
                 bt.zf("< X5浏览器");
                 x5llq.st.requestFocus();
             }

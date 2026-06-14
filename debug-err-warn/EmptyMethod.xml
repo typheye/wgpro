@@ -1,0 +1,610 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/SwipeRefreshLayout.java</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.SwipeRefreshLayout void setColorSchemeResources(int... colors)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>setColorSchemeResources</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/SwipeRefreshLayout.java</file>
+  <line>15</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.SwipeRefreshLayout void setColorSchemeColors(int... colors)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>setColorSchemeColors</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager void setAdapter(java.lang.Object adapter)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>setAdapter</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager void setCurrentItem(int item)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>setCurrentItem</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager void setCurrentItem(int item, boolean smoothScroll)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>setCurrentItem</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>224</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge void getDataUpdate$error()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>getDataUpdate$error</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>322</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge void updateUserData$error()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>updateUserData$error</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>424</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity void onXlcd2NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onXlcd2NothingSelected</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>902</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity void onV7lb1Scrolled(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onV7lb1Scrolled</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>777</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity void onLtsv7lb1Scrolled(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onLtsv7lb1Scrolled</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>902</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity void onV7lb1Scrolled(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onV7lb1Scrolled</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>357</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.download.AppDownloadActivity void onXlcd1NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onXlcd1NothingSelected</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>217</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity void csh()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>csh</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java</file>
+  <line>118</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.DeveloperTestActivity void jz()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>jz</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ExperimentalFeaturesActivity.java</file>
+  <line>95</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ExperimentalFeaturesActivity void jz()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>jz</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>351</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onXlcd1NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onXlcd1NothingSelected</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>427</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onXlcd2NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onXlcd2NothingSelected</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>475</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity void onV7lb1Scrolled(androidx.recyclerview.widget.RecyclerView vw, int dx, int dy)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onV7lb1Scrolled</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>15</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveChannelDetailActivity.java</file>
+  <line>202</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.live.LiveChannelDetailActivity void onXlcd1NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onXlcd1NothingSelected</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1298</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity void onTdt1StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt1StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1302</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity void onTdt1ProgressChanged(android.widget.SeekBar vw, int ps, boolean fu)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt1ProgressChanged</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1313</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity void onTdt3StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt3StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1317</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity void onTdt3StopTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt3StopTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java</file>
+  <line>106</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.AwgCoreService void onDestroy()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>方法只调用它的 super</description>
+  <highlighted_element>onDestroy</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>340</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService void log(java.lang.Object o)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>log</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/DisplayMarginActivity.java</file>
+  <line>166</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.DisplayMarginActivity void onTdt1StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt1StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/DisplayMarginActivity.java</file>
+  <line>170</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.DisplayMarginActivity void onTdt1StopTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt1StopTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>685</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt1StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt1StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>689</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt1StopTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt1StopTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>733</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt2StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt2StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>737</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt2StopTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt2StopTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>746</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt3StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt3StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>750</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt3StopTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt3StopTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>759</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt4StartTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt4StartTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>763</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void onTdt4StopTrackingTouch(android.widget.SeekBar vw)" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>onTdt4StopTrackingTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/WearOsToolboxActivity.java</file>
+  <line>96</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.WearOsToolboxActivity void jz()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>jz</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>230</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity void yz()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>yz</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>551</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity void downing()" />
+  <problem_class id="EmptyMethod" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空方法</problem_class>
+  <hints>
+    <hint value="false" />
+  </hints>
+  <description>该方法为空</description>
+  <highlighted_element>downing</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>7</length>
+</problem>
+</problems>

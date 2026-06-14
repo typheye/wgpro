@@ -1,0 +1,444 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>410</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity void onXlcd2ItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>424</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity void onXlcd2NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>524</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;ArrayList&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>ArrayList</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>524</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;ArrayList&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>ArrayList</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>566</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>566</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>49</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>583</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>583</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>524</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;ArrayList&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>ArrayList</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>524</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;ArrayList&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>ArrayList</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>566</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>566</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>49</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>583</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>583</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1740</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;ArrayList&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>ArrayList</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1740</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;ArrayList&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>ArrayList</highlighted_element>
+  <language>JAVA</language>
+  <offset>44</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1795</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1795</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>45</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1806</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1806</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;HashMap&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>HashMap</highlighted_element>
+  <language>JAVA</language>
+  <offset>41</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>318</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.download.AppDownloadActivity void onXlcd1ItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>357</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.download.AppDownloadActivity void onXlcd1NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>302</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onXlcd1ItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>351</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onXlcd1NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>395</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onXlcd2ItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>427</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onXlcd2NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveChannelDetailActivity.java</file>
+  <line>197</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.live.LiveChannelDetailActivity void onXlcd1ItemSelected(android.widget.AdapterView vw, android.view.View view, int pn, long id)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveChannelDetailActivity.java</file>
+  <line>202</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.live.LiveChannelDetailActivity void onXlcd1NothingSelected(android.widget.AdapterView vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;AdapterView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>AdapterView</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>71</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="field" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity mPlayer" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;VideoView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>VideoView</highlighted_element>
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1597</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;VideoView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>VideoView</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1597</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity void _$_viewAutomaticSettingEvent(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;VideoView&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>VideoView</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>230</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity void jz()" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;Class&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>Class</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>490</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity void onXdbj6Click(android.view.View vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;Class&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>Class</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>123</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity void onXdbj1Click(android.view.View vw)" />
+  <problem_class id="RawUseOfParameterizedType" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">形参化类的原始使用</problem_class>
+  <description>形参化类 &lt;code&gt;Class&lt;/code&gt; 的原始使用 #loc</description>
+  <highlighted_element>Class</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>5</length>
+</problem>
+</problems>

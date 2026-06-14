@@ -1818,7 +1818,7 @@ public class MainActivity extends BaseAwgActivity {
             try {
                 jobScheduler.schedule(jobInfo);
             } catch (Exception e) {
-                e.printStackTrace();
+                android.util.Log.e("AWGPro", "Unhandled exception", e);
             }
         }
     }

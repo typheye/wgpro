@@ -1,0 +1,44 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>391</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java" />
+  <problem_class id="AndroidLintUseRequiresApi" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use @RequiresApi instead of @TargetApi</problem_class>
+  <hints />
+  <description>&lt;html&gt;Use &lt;code&gt;@RequiresApi(Build.VERSION_CODES.N)&lt;/code&gt; instead of &lt;code&gt;@TargetApi&lt;/code&gt; to propagate the requirement to callers of &lt;code&gt;Click&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>@TargetApi(Build.VERSION_CODES.N)</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>33</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>411</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java" />
+  <problem_class id="AndroidLintUseRequiresApi" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use @RequiresApi instead of @TargetApi</problem_class>
+  <hints />
+  <description>&lt;html&gt;Use &lt;code&gt;@RequiresApi(Build.VERSION_CODES.N)&lt;/code&gt; instead of &lt;code&gt;@TargetApi&lt;/code&gt; to propagate the requirement to callers of &lt;code&gt;LongClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>@TargetApi(Build.VERSION_CODES.N)</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>33</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>435</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java" />
+  <problem_class id="AndroidLintUseRequiresApi" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Use @RequiresApi instead of @TargetApi</problem_class>
+  <hints />
+  <description>&lt;html&gt;Use &lt;code&gt;@RequiresApi(Build.VERSION_CODES.N)&lt;/code&gt; instead of &lt;code&gt;@TargetApi&lt;/code&gt; to propagate the requirement to callers of &lt;code&gt;Touch&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>@TargetApi(Build.VERSION_CODES.N)</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>33</length>
+</problem>
+</problems>

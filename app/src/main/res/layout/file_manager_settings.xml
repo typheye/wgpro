@@ -20,7 +20,7 @@
                     <RelativeLayout android:id="@+id/xdbj4" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
                         <ImageView android:id="@+id/tx3" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a18" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
                         </ImageView>
-                        <LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx3" android:layout_toLeftOf="@id/kg3">
+                        <LinearLayout android:id="@+id/file_sort_label_group" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx3" android:layout_toLeftOf="@id/kg3">
                             <TextView android:id="@+id/wb6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="字母排序" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
                             </TextView>
                             <TextView android:id="@+id/wb7" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="将按照字母顺序排列文件" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">
@@ -32,7 +32,7 @@
                     <RelativeLayout android:id="@+id/xdbj5" android:layout_width="match_parent" android:layout_height="wrap_content" android:background="?android:attr/selectableItemBackground" android:padding="5dp">
                         <ImageView android:id="@+id/tx4" android:layout_width="34dp" android:layout_height="34dp" android:src="@mipmap/a64" android:layout_margin="0dp" android:padding="5dp" android:layout_centerVertical="true">
                         </ImageView>
-                        <LinearLayout android:id="@+id/xxbj2" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx4" android:layout_toLeftOf="@id/kg4">
+                        <LinearLayout android:id="@+id/file_cache_label_group" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerVertical="true" android:layout_margin="5dp" android:layout_toRightOf="@id/tx4" android:layout_toLeftOf="@id/kg4">
                             <TextView android:id="@+id/wb8" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="保留缓存" android:textColor="@color/colorTextU1" android:textSize="15sp" android:textStyle="bold" android:singleLine="true">
                             </TextView>
                             <TextView android:id="@+id/wb9" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="保留文件复制剪切的缓存" android:textColor="@color/colorTextU2" android:textSize="10sp" android:singleLine="true">

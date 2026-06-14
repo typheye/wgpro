@@ -1,0 +1,16 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>105</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java" />
+  <problem_class id="AndroidLintSetJavaScriptEnabled" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Using setJavaScriptEnabled</problem_class>
+  <hints />
+  <description>&lt;html&gt;Using &lt;code&gt;setJavaScriptEnabled&lt;/code&gt; can introduce XSS vulnerabilities into your application, review carefully&lt;/html&gt;</description>
+  <highlighted_element>s.setJavaScriptEnabled(true)</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>28</length>
+</problem>
+</problems>

@@ -1,0 +1,16 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>57</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="AndroidLintRecycle" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Missing recycle() calls</problem_class>
+  <hints />
+  <description>&lt;html&gt;This &lt;code&gt;Cursor&lt;/code&gt; should be freed up after use with &lt;code&gt;#close()&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>query</highlighted_element>
+  <language>JAVA</language>
+  <offset>55</offset>
+  <length>5</length>
+</problem>
+</problems>

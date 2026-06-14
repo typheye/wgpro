@@ -41,7 +41,7 @@ class IOMethod {
                 return new_Path;
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            android.util.Log.e("AWGPro", "Unhandled exception", e);
         }*/
         return path;
         //return FAILED;

@@ -1,0 +1,20 @@
+<problems>
+<problem>
+  <package>com.file.Xor</package>
+  <entry_point TYPE="package" FQNAME="com.file.Xor" />
+  <problem_class id="PackageName" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">软件包命名约定</problem_class>
+  <hints />
+  <description>软件包名称 &lt;code&gt;Xor&lt;/code&gt; 部分 不应以大写字母开头</description>
+  <highlighted_element />
+  <language />
+</problem>
+<problem>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="package" FQNAME="com.apkinstaller.Methods" />
+  <problem_class id="PackageName" severity="WEAK WARNING" attribute_key="INFO_ATTRIBUTES">软件包命名约定</problem_class>
+  <hints />
+  <description>软件包名称 &lt;code&gt;Methods&lt;/code&gt; 部分 不应以大写字母开头</description>
+  <highlighted_element />
+  <language />
+</problem>
+</problems>

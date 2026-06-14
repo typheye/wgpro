@@ -1,0 +1,314 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/ApkMethod.java</file>
+  <line>70</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.ApkMethod android.graphics.drawable.Drawable zoomImg(android.graphics.drawable.Drawable drawable, int newWidth, int newHeight)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'BitmapDrawable(android.graphics.Bitmap)' 已弃用 as of API 15 (&quot;IceCreamSandwich&quot;; Android 4.0.3)</description>
+  <highlighted_element>BitmapDrawable</highlighted_element>
+  <language>JAVA</language>
+  <offset>15</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.BaseMethod boolean checkRun(android.content.Context context)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'getDefaultSharedPreferences(android.content.Context)' 已弃用</description>
+  <highlighted_element>getDefaultSharedPreferences</highlighted_element>
+  <language>JAVA</language>
+  <offset>60</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.BaseMethod void setRunOnce(android.content.Context context)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'getDefaultSharedPreferences(android.content.Context)' 已弃用</description>
+  <highlighted_element>getDefaultSharedPreferences</highlighted_element>
+  <language>JAVA</language>
+  <offset>60</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.BaseMethod boolean hasADB(android.content.Context context)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'getDefaultSharedPreferences(android.content.Context)' 已弃用</description>
+  <highlighted_element>getDefaultSharedPreferences</highlighted_element>
+  <language>JAVA</language>
+  <offset>60</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/BaseMethod.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.BaseMethod void setHasADB(android.content.Context context)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'getDefaultSharedPreferences(android.content.Context)' 已弃用</description>
+  <highlighted_element>getDefaultSharedPreferences</highlighted_element>
+  <language>JAVA</language>
+  <offset>60</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>105</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="method" FQNAME="i.app.x5 void initSettings()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'setJavaScriptEnabled(boolean)' 已弃用</description>
+  <highlighted_element>setJavaScriptEnabled</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1283</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'startActivityForResult(android.content.Intent, int)' 已弃用</description>
+  <highlighted_element>startActivityForResult</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>473</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 void onExceededDatabaseQuota(java.lang.String url, java.lang.String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, android.webkit.WebStorage.QuotaUpdater quotaUpdater)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'android.webkit.WebStorage.QuotaUpdater' 已弃用 as of API 19 (&quot;KitKat&quot;; Android 4.4)</description>
+  <highlighted_element>QuotaUpdater</highlighted_element>
+  <language>JAVA</language>
+  <offset>158</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>474</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 void onExceededDatabaseQuota(java.lang.String url, java.lang.String databaseIdentifier, long currentQuota, long estimatedSize, long totalUsedQuota, android.webkit.WebStorage.QuotaUpdater quotaUpdater)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'updateQuota(long)' 已弃用</description>
+  <highlighted_element>updateQuota</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>477</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 void onReachedMaxAppCacheSize(long spaceNeeded, long totalUsedQuota, android.webkit.WebStorage.QuotaUpdater quotaUpdater)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'android.webkit.WebStorage.QuotaUpdater' 已弃用 as of API 19 (&quot;KitKat&quot;; Android 4.4)</description>
+  <highlighted_element>QuotaUpdater</highlighted_element>
+  <language>JAVA</language>
+  <offset>99</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>478</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 void onReachedMaxAppCacheSize(long spaceNeeded, long totalUsedQuota, android.webkit.WebStorage.QuotaUpdater quotaUpdater)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'updateQuota(long)' 已弃用</description>
+  <highlighted_element>updateQuota</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>489</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 boolean onShowFileChooser(com.tencent.smtt.sdk.WebView webView, com.tencent.smtt.sdk.ValueCallback&lt;android.net.Uri[]&gt; filePathCallback, com.tencent.smtt.sdk.WebChromeClient.FileChooserParams fileChooserParams)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'startActivityForResult(android.content.Intent, int)' 已弃用</description>
+  <highlighted_element>startActivityForResult</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>969</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity void onAnUploadClick(android.view.View vw)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'startActivityForResult(android.content.Intent, int)' 已弃用</description>
+  <highlighted_element>startActivityForResult</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java</file>
+  <line>171</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.installer.PackageInstallerActivity void install()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'startActivityForResult(android.content.Intent, int)' 已弃用</description>
+  <highlighted_element>startActivityForResult</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.FingerprintActivity$1" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>Default constructor in android.hardware.fingerprint.FingerprintManager.AuthenticationCallback is deprecated</description>
+  <highlighted_element>FingerprintManager.AuthenticationCallback</highlighted_element>
+  <language>JAVA</language>
+  <offset>61</offset>
+  <length>41</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity$1 void onAuthenticationSucceeded(android.hardware.fingerprint.FingerprintManager.AuthenticationResult result)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>重写 'android.hardware.fingerprint.FingerprintManager.AuthenticationCallback' 中弃用的方法</description>
+  <highlighted_element>onAuthenticationSucceeded</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>25</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>52</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity$1 void onAuthenticationError(int errorCode, java.lang.CharSequence errString)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>重写 'android.hardware.fingerprint.FingerprintManager.AuthenticationCallback' 中弃用的方法</description>
+  <highlighted_element>onAuthenticationError</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity$1 void onAuthenticationHelp(int helpCode, java.lang.CharSequence helpString)" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>重写 'android.hardware.fingerprint.FingerprintManager.AuthenticationCallback' 中弃用的方法</description>
+  <highlighted_element>onAuthenticationHelp</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>63</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity$1 void onAuthenticationFailed()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>重写 'android.hardware.fingerprint.FingerprintManager.AuthenticationCallback' 中弃用的方法</description>
+  <highlighted_element>onAuthenticationFailed</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>120</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity void start()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'isHardwareDetected()' 已弃用</description>
+  <highlighted_element>isHardwareDetected</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>18</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>120</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity void start()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'hasEnrolledFingerprints()' 已弃用</description>
+  <highlighted_element>hasEnrolledFingerprints</highlighted_element>
+  <language>JAVA</language>
+  <offset>74</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.FingerprintActivity void start()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'authenticate(android.hardware.fingerprint.FingerprintManager.CryptoObject, android.os.CancellationSignal, int, android.hardware.fingerprint.FingerprintManager.AuthenticationCallback, android.os.Handler)' 已弃用</description>
+  <highlighted_element>authenticate</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java</file>
+  <line>162</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationActivity void load()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'startActivityForResult(android.content.Intent, int)' 已弃用</description>
+  <highlighted_element>startActivityForResult</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationInfoActivity.java</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationInfoActivity void getZb()" />
+  <problem_class id="Deprecation" severity="WARNING" attribute_key="DEPRECATED_ATTRIBUTES">Deprecated API usage</problem_class>
+  <description>'startActivityForResult(android.content.Intent, int)' 已弃用</description>
+  <highlighted_element>startActivityForResult</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>22</length>
+</problem>
+</problems>

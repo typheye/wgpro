@@ -1,0 +1,1003 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/accessibility_script.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/accessibility_script.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>244</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/apk_preview.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/apk_preview.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>235</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_debug.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_download.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_download.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>234</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update_install.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update_install.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>242</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_gpt.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_gpt.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>232</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>243</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_room.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_room.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/crash_feedback.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/crash_feedback.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/deep_seek.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/deep_seek.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/delete_confirm.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/delete_confirm.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/developer_test.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/device_scan_placeholder.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/device_scan_placeholder.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorBlack&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorBlack&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/download_progress.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/download_progress.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>241</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorAccent&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorAccent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>39</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/experimental_features.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/experimental_features.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>245</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>240</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_detail.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_detail.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>245</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_open.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_open.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_root_picker.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_root_picker.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>240</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/fingerprint.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/fingerprint.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>235</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_list.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_list.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>242</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>234</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_channel_detail.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_channel_detail.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>243</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>235</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>232</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/location_info.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/log_cleanup.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/log_cleanup.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorBlack&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorBlack&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>235</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>246</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/more_features.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/more_features.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/network_optimize.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/network_optimize.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorBlack&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorBlack&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>240</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>240</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/online_id.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/online_id.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorWB&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorWB&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/package_installer.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/package_installer.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>241</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/product_purchase.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>240</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorAccent&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorAccent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>240</offset>
+  <length>39</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/remote_control.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/reset_app.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/reset_app.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/server_debug.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/server_debug.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>232</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/shell_executor.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/shell_executor.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_list.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_list.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>234</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_search.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_search.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/system_permission.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/system_permission.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>241</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/system_tools.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/system_tools.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabAccent&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabAccent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>42</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/terminal_compatibility.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/terminal_compatibility.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>246</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_editor.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>235</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_qr_display.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_qr_display.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>239</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_translate.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_translate.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>235</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>244</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>238</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/third_party_authorization.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/third_party_authorization.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>249</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_cloud_search.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_cloud_search.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>246</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>239</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_login.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_login.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>237</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorBlack&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorBlack&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>236</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>233</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_agreement.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_agreement.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>243</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>242</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_music.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_music.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>234</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_os_toolbox.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_os_toolbox.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>239</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>234</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>243</offset>
+  <length>46</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_core_install.xml</file>
+  <line>1</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_core_install.xml" />
+  <problem_class id="AndroidLintOverdraw" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Overdraw: Painting regions more than once</problem_class>
+  <hints />
+  <description>&lt;html&gt;Possible overdraw: Root element paints background &lt;code&gt;@color/colorTabBackground&lt;/code&gt; with a theme that also paints a background (inferred theme is &lt;code&gt;@style/AppBaseTheme&lt;/code&gt;)&lt;/html&gt;</description>
+  <highlighted_element>android:background=&quot;@color/colorTabBackground&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>239</offset>
+  <length>46</length>
+</problem>
+</problems>

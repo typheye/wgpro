@@ -1,0 +1,2284 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>813</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view &lt;code&gt;e5&lt;/code&gt; overrides &lt;code&gt;onTouchEvent&lt;/code&gt; but not &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>onTouchEvent</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>843</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>96</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1564</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i38cf17850d.setOnTouchListener(xxbj15TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>87</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>94</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>101</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>122</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>129</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>136</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>143</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>150</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>157</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>164</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>171</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>178</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1276</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e294616700.setOnTouchListener(llqAuSfrzUsernameTouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>61</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1279</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i812801c3fe.setOnTouchListener(llqAuSfrzPasswordTouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>62</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1286</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>efa568dfe6.setOnTouchListener(xxbj3TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1291</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i015f182c91.setOnTouchListener(llqJsPromptBjkTouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>59</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1298</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>ee3b885ad5.setOnTouchListener(xxbj11TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1307</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i464e6cc6fb.setOnTouchListener(xxbj10TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1314</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>c26905d21b.setOnTouchListener(xxbj12TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1323</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i0726d8c523.setOnTouchListener(xxbj13TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1328</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i701ef6a186.setOnTouchListener(llqHdRootTouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>54</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1339</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1356</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i6c4a6b953f.setOnTouchListener(xxbj6TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1363</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>bd584e50cd.setOnTouchListener(xxbj5TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>62</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>531</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>92</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>610</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i63f06183a1.setOnTouchListener(bjk2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>99</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>120</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>141</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>162</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>1014</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e1433e26d6.setOnTouchListener(xxbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>1023</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>1032</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9068f5d66e.setOnTouchListener(xxbj4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>1041</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i84f04cd47e.setOnTouchListener(xxbj7TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>1050</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i3f6c9f386b.setOnTouchListener(xxbj8TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>60</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>431</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>96</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>117</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>159</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>180</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1181</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e76307d04a.setOnTouchListener(i2xxbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1192</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1210</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9068f5d66e.setOnTouchListener(xxbj4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1219</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i84f04cd47e.setOnTouchListener(xxbj7TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1228</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i6c4a6b953f.setOnTouchListener(xxbj6TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>99</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>120</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>141</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>162</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>1014</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e1433e26d6.setOnTouchListener(xxbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>1023</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>1032</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9068f5d66e.setOnTouchListener(xxbj4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>1041</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i84f04cd47e.setOnTouchListener(xxbj7TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>1050</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i3f6c9f386b.setOnTouchListener(xxbj8TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>76</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>313</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e1433e26d6.setOnTouchListener(xxbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>316</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>efa568dfe6.setOnTouchListener(xxbj3TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>319</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>dc0a1b897b.setOnTouchListener(xxbj2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>322</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>331</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9068f5d66e.setOnTouchListener(xxbj4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>80</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>484</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>68</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>82</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>89</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>96</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>103</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>110</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>135</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>142</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>160</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1013</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e45f6690d3.setOnTouchListener(bjkurlTouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1019</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i8d69eec323.setOnTouchListener(bjkgp1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1022</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i956d0f4bd8.setOnTouchListener(bjkgp2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1031</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i2ce2aa6972.setOnTouchListener(bjks1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1034</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>b7e129881e.setOnTouchListener(bjks2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1037</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>d9fcd0aec2.setOnTouchListener(bjks3TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1040</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>fc0b80656a.setOnTouchListener(bjks4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1043</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i8dfdb24277.setOnTouchListener(bjks5TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1046</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i3793cc74e0.setOnTouchListener(bjks6TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>1049</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i026fdb816d.setOnTouchListener(bjks7TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>100</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>107</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>114</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>128</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>135</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>783</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>dc0a1b897b.setOnTouchListener(xxbj2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>786</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>efa568dfe6.setOnTouchListener(xxbj3TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>789</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i6c4a6b953f.setOnTouchListener(xxbj6TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>792</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i84f04cd47e.setOnTouchListener(xxbj7TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>795</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>bd584e50cd.setOnTouchListener(xxbj5TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>798</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>807</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9926c2f556.setOnTouchListener(xxbj9TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>816</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i464e6cc6fb.setOnTouchListener(xxbj10TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>307</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i464e6cc6fb.setOnTouchListener(xxbj10TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>97</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>111</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1697</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;NestedScrollView&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>a6dab51133.setOnTouchListener(qtgd1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1705</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i28d59c5074.setOnTouchListener(xxbj19TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>98</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>888</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>76</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>282</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>e1433e26d6.setOnTouchListener(xxbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>285</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>efa568dfe6.setOnTouchListener(xxbj3TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>288</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>dc0a1b897b.setOnTouchListener(xxbj2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>291</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>300</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9068f5d66e.setOnTouchListener(xxbj4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>49</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>70</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>77</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>310</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>efa568dfe6.setOnTouchListener(xxbj3TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>313</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>322</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;LinearLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i9068f5d66e.setOnTouchListener(xxbj4TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java</file>
+  <line>60</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java</file>
+  <line>301</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>72</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>354</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>357</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i63f06183a1.setOnTouchListener(bjk2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java</file>
+  <line>210</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>aaeebbd136.setOnTouchListener(xdbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java</file>
+  <line>236</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>aaeebbd136.setOnTouchListener(xdbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java</file>
+  <line>245</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>aaeebbd136.setOnTouchListener(xdbj1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>88</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>494</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>89</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>816</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java</file>
+  <line>72</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java</file>
+  <line>321</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>131</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>138</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>159</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3716</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i5b34eede7f.setOnTouchListener(xdbj10TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>51</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3725</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i3167b45174.setOnTouchListener(xdbj2TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3728</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;RelativeLayout&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>b0f5bad894.setOnTouchListener(tCxdbjTouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;onTouch&lt;/code&gt; should call &lt;code&gt;View#performClick&lt;/code&gt; when a click is detected&lt;/html&gt;</description>
+  <highlighted_element>onTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>348</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java" />
+  <problem_class id="AndroidLintClickableViewAccessibility" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Accessibility in Custom Views</problem_class>
+  <hints />
+  <description>&lt;html&gt;Custom view `&lt;code&gt;EditText&lt;/code&gt;` has &lt;code&gt;setOnTouchListener&lt;/code&gt; called on it but does not override &lt;code&gt;performClick&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>i32ee139ba1.setOnTouchListener(bjk1TouchListener)</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>49</length>
+</problem>
+</problems>

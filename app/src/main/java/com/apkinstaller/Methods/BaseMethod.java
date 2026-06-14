@@ -23,7 +23,7 @@ public class BaseMethod {
     try {
       return !CommandMethod.runCommand(new String[]{"adb"}).contains("adb: not found");
     } catch (Exception e) {
-      e.printStackTrace();
+      android.util.Log.e("AWGPro", "Unhandled exception", e);
     }
     return false;
   }

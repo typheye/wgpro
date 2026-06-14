@@ -32,7 +32,7 @@ public class ApkMethod {
   
   public String getApplicationName() {
     PackageInfo packageInfo = packageManager.getPackageArchiveInfo(applicationPath, PackageManager.GET_ACTIVITIES);
-    if (packageInfo != null) {
+    if (packageInfo != null && packageInfo.applicationInfo != null) {
       packageInfo.applicationInfo.sourceDir = applicationPath;
       packageInfo.applicationInfo.publicSourceDir = applicationPath;
       return packageInfo.applicationInfo.loadLabel(packageManager).toString();
@@ -84,7 +84,7 @@ public class ApkMethod {
               permissionInfo = packageManager.getPermissionInfo(permissionName, 0);
               result_a.add(permissionInfo.loadLabel(packageManager).toString());
             } catch (PackageManager.NameNotFoundException e) {
-              e.printStackTrace();
+              android.util.Log.e("AWGPro", "Unhandled exception", e);
               result_b.add(permissionName);
             }
           }
@@ -114,6 +114,9 @@ public class ApkMethod {
   
   public Drawable getApplicationIcon(Context context) {
     PackageInfo packageInfo = packageManager.getPackageArchiveInfo(applicationPath, PackageManager.GET_ACTIVITIES);
+    if (context == null || packageInfo == null || packageInfo.applicationInfo == null) {
+      return null;
+    }
     packageInfo.applicationInfo.sourceDir = applicationPath;
     packageInfo.applicationInfo.publicSourceDir = applicationPath;
     Drawable icon = packageInfo.applicationInfo.loadIcon(packageManager);

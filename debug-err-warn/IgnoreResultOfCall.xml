@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1023</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String[] fileinfo(java.lang.Object root, java.lang.Object url)" />
+  <problem_class id="IgnoreResultOfCall" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法调用的结果已忽略</problem_class>
+  <description>&lt;code&gt;File.hashCode()&lt;/code&gt; 的结果已忽略 #loc</description>
+  <highlighted_element>hashCode</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java</file>
+  <line>211</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair.exception</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.exception.CrashHandler java.lang.String saveCrashInfo2File(java.lang.Throwable ex)" />
+  <problem_class id="IgnoreResultOfCall" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法调用的结果已忽略</problem_class>
+  <description>&lt;code&gt;File.mkdirs()&lt;/code&gt; 的结果已忽略 #loc</description>
+  <highlighted_element>mkdirs</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+</problems>

@@ -1,0 +1,67 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer.xml" />
+  <problem_class id="AndroidLintScrollViewSize" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">ScrollView size validation</problem_class>
+  <hints />
+  <description>&lt;html&gt;This RelativeLayout should use &lt;code&gt;android:layout_width=&quot;wrap_content&quot;&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_width=&quot;match_parent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>56</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>60</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintScrollViewSize" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">ScrollView size validation</problem_class>
+  <hints />
+  <description>&lt;html&gt;This LinearLayout should use &lt;code&gt;android:layout_width=&quot;wrap_content&quot;&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_width=&quot;match_parent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>83</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>92</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintScrollViewSize" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">ScrollView size validation</problem_class>
+  <hints />
+  <description>&lt;html&gt;This LinearLayout should use &lt;code&gt;android:layout_width=&quot;wrap_content&quot;&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_width=&quot;match_parent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>83</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>116</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintScrollViewSize" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">ScrollView size validation</problem_class>
+  <hints />
+  <description>&lt;html&gt;This LinearLayout should use &lt;code&gt;android:layout_width=&quot;wrap_content&quot;&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_width=&quot;match_parent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>83</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>141</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintScrollViewSize" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">ScrollView size validation</problem_class>
+  <hints />
+  <description>&lt;html&gt;This LinearLayout should use &lt;code&gt;android:layout_width=&quot;wrap_content&quot;&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_width=&quot;match_parent&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>79</offset>
+  <length>35</length>
+</problem>
+</problems>

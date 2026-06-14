@@ -1,0 +1,16 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DebugStateStore.java</file>
+  <line>61</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.DebugStateStore boolean isShowed()" />
+  <problem_class id="BooleanMethodIsAlwaysInverted" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">布尔方法总是反向的</problem_class>
+  <hints />
+  <description>始终反转对布尔方法 'isShowed()' 的调用</description>
+  <highlighted_element>isShowed</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>8</length>
+</problem>
+</problems>

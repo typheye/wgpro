@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/OnlineIdActivity.java</file>
+  <line>109</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.OnlineIdActivity void show()" />
+  <problem_class id="DuplicateCondition" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">条件重复</problem_class>
+  <description>重复条件 &lt;code&gt;t&lt;/code&gt; #loc</description>
+  <highlighted_element>t</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/OnlineIdActivity.java</file>
+  <line>123</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.OnlineIdActivity void show()" />
+  <problem_class id="DuplicateCondition" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">条件重复</problem_class>
+  <description>重复条件 &lt;code&gt;t&lt;/code&gt; #loc</description>
+  <highlighted_element>t</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>1</length>
+</problem>
+</problems>

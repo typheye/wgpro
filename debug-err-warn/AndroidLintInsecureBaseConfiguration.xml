@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/xml/network_config.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/xml/network_config.xml" />
+  <problem_class id="AndroidLintInsecureBaseConfiguration" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Insecure Base Configuration</problem_class>
+  <hints />
+  <description>&lt;html&gt;Insecure Base Configuration&lt;/html&gt;</description>
+  <highlighted_element>true</highlighted_element>
+  <language>XML</language>
+  <offset>44</offset>
+  <length>4</length>
+</problem>
+</problems>

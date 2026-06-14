@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e3.java</file>
+  <line>95</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e3 java.lang.String[] execCommand(android.content.Context context, java.lang.String[] commands, boolean isRoot)" />
+  <problem_class id="TryWithIdenticalCatches" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'try' 语句中的相同 'catch' 分支</problem_class>
+  <description>'catch' 分支与 'IOException' 分支相同 #loc</description>
+  <highlighted_element>catch (Exception e)</highlighted_element>
+  <language>JAVA</language>
+  <offset>6</offset>
+  <length>19</length>
+</problem>
+</problems>

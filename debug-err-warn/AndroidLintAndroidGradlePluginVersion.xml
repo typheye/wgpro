@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/build.gradle</file>
+  <line>2</line>
+  <module>wgpro-wear</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/build.gradle" />
+  <problem_class id="AndroidLintAndroidGradlePluginVersion" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete Android Gradle Plugin Version</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of com.android.application than 8.5.2 is available: 9.2.1&lt;/html&gt;</description>
+  <highlighted_element>'8.5.2'</highlighted_element>
+  <language>Groovy</language>
+  <offset>41</offset>
+  <length>7</length>
+</problem>
+</problems>

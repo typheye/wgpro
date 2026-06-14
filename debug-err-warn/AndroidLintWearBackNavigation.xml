@@ -1,0 +1,41 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/values/styles.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+  <problem_class id="AndroidLintWearBackNavigation" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear: Disabling Back navigation</problem_class>
+  <hints />
+  <description>&lt;html&gt;Disabling swipe-to-dismiss is generally not recommended for Wear applications&lt;/html&gt;</description>
+  <highlighted_element>&lt;item name=&quot;android:windowSwipeToDismiss&quot;&gt;false&lt;/item&gt;</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>54</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/values/styles.xml</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+  <problem_class id="AndroidLintWearBackNavigation" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear: Disabling Back navigation</problem_class>
+  <hints />
+  <description>&lt;html&gt;Disabling swipe-to-dismiss is generally not recommended for Wear applications&lt;/html&gt;</description>
+  <highlighted_element>&lt;item name=&quot;android:windowSwipeToDismiss&quot;&gt;false&lt;/item&gt;</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>54</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/values/styles.xml</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
+  <problem_class id="AndroidLintWearBackNavigation" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear: Disabling Back navigation</problem_class>
+  <hints />
+  <description>&lt;html&gt;Disabling swipe-to-dismiss is generally not recommended for Wear applications&lt;/html&gt;</description>
+  <highlighted_element>&lt;item name=&quot;android:windowSwipeToDismiss&quot;&gt;false&lt;/item&gt;</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>54</length>
+</problem>
+</problems>

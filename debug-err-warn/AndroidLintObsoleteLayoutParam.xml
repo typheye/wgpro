@@ -1,0 +1,54 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_room.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_room.xml" />
+  <problem_class id="AndroidLintObsoleteLayoutParam" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete layout params</problem_class>
+  <hints />
+  <description>&lt;html&gt;Invalid layout param in a &lt;code&gt;LinearLayout&lt;/code&gt;: &lt;code&gt;layout_below&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_below=&quot;@id/title_bar&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml</file>
+  <line>18</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml" />
+  <problem_class id="AndroidLintObsoleteLayoutParam" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete layout params</problem_class>
+  <hints />
+  <description>&lt;html&gt;Invalid layout param in a &lt;code&gt;LinearLayout&lt;/code&gt;: &lt;code&gt;layout_centerHorizontal&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_centerHorizontal=&quot;true&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>184</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintObsoleteLayoutParam" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete layout params</problem_class>
+  <hints />
+  <description>&lt;html&gt;Invalid layout param in a &lt;code&gt;LinearLayout&lt;/code&gt;: &lt;code&gt;layout_below&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_below=&quot;@id/xxbj4&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>147</offset>
+  <length>32</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>16</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintObsoleteLayoutParam" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete layout params</problem_class>
+  <hints />
+  <description>&lt;html&gt;Invalid layout param in a &lt;code&gt;LinearLayout&lt;/code&gt;: &lt;code&gt;layout_centerHorizontal&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_centerHorizontal=&quot;true&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>244</offset>
+  <length>38</length>
+</problem>
+</problems>

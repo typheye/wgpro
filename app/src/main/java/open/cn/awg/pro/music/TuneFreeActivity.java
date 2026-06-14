@@ -271,7 +271,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
                 });
                 show(3);
 
-                while (true) {
+                while (state_login_xh && !Thread.currentThread().isInterrupted()) {
 
                     gj.zt(3000);
 

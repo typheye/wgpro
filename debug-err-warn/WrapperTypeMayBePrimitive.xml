@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/util/DateUtil.java</file>
+  <line>100</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.util</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.util.DateUtil java.lang.String getStringTimestamp(java.lang.String time)" />
+  <problem_class id="WrapperTypeMayBePrimitive" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">包装器类型可能是基元</problem_class>
+  <description>类型可能是基元</description>
+  <highlighted_element>Long</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>4</length>
+</problem>
+</problems>

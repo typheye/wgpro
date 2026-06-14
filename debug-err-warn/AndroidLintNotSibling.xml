@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser.xml" />
+  <problem_class id="AndroidLintNotSibling" severity="ERROR" attribute_key="ERRORS_ATTRIBUTES">Invalid Constraints</problem_class>
+  <hints />
+  <description>&lt;html&gt;&lt;code&gt;@id/title_bar&lt;/code&gt; is not a sibling in the same &lt;code&gt;RelativeLayout&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:layout_below=&quot;@id/title_bar&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>228</offset>
+  <length>36</length>
+</problem>
+</problems>

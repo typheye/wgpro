@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>1</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintGlobalOptionInConsumerRules" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Library has global options in consumer rules</problem_class>
+  <hints />
+  <description>&lt;html&gt;The consumer keep rules at &lt;code&gt;jetified-umeng-abtest-v1.0.1/proguard.txt&lt;/code&gt; (from &lt;code&gt;:umeng-abtest-v1.0.1:&lt;/code&gt;) contains a global option which should not be specified in library consumer rules: -ignorewarnings&lt;/html&gt;</description>
+  <highlighted_element>//noinspection GlobalOptionInConsumerRules plugins { id 'com.android.application' } def keystor...</highlighted_element>
+  <language>Groovy</language>
+  <offset>0</offset>
+  <length>10316</length>
+</problem>
+</problems>

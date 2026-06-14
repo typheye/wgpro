@@ -29,11 +29,17 @@ import android.provider.DocumentsContract;
 public class UriPathResolver {
 
     public static String getByIntent(Context context, Intent intent) throws Exception {
+        if (intent == null) {
+            return null;
+        }
         return getByUri(context, intent.getData());
     }
 
     public static String getByUri(Context context, Uri uri) throws Exception {
         String realPath = null;
+        if (context == null || uri == null) {
+            return null;
+        }
         // Resolve common document/content/file providers used by Android file pickers.
         //如果大于4.4
         if (isKitKat()) {
@@ -80,7 +86,10 @@ public class UriPathResolver {
                 } else if (isQQBrowserFileProvider(uri)) {
                     realPath = getRootPath() + uri.getPath();
                 } else if (isFileExplorerMyProvider(uri)) {
-                    realPath = uri.getPath().replaceFirst("/external_files", getRootPath());
+                    String path = uri.getPath();
+                    if (path != null) {
+                        realPath = path.replaceFirst("/external_files", getRootPath());
+                    }
                 } else {
                     realPath = getRealPath(context, uri, null);
                 }
@@ -118,19 +127,19 @@ public class UriPathResolver {
     private static boolean isRE(Uri uri) {
         ///storage/emulated/0/log.txt
         // content
-        return uri.getAuthority().equals("com.speedsoftware.rootexplorer.content");
+        return "com.speedsoftware.rootexplorer.content".equals(uri.getAuthority());
     }
 
     private static boolean isEstrongs(Uri uri) {
         ///storage/emulated/0/log.txt
         // content
-        return uri.getAuthority().equals("com.estrongs.files");
+        return "com.estrongs.files".equals(uri.getAuthority());
     }
 
     private static boolean isMIUIGallery(Uri uri) {
         // /raw//storage/emulated/0/DCIM/Camera/IMG_20200318_080535.jpg
         // content
-        return uri.getAuthority().equals("com.miui.gallery.open");
+        return "com.miui.gallery.open".equals(uri.getAuthority());
     }
 
     private static boolean isMedia(Uri uri) {
@@ -138,25 +147,25 @@ public class UriPathResolver {
         // /external/images/media/86837
         // /external/file/130685
         // content
-        return uri.getAuthority().equals("media");
+        return "media".equals(uri.getAuthority());
     }
 
     private static boolean isQQBrowserFileProvider(Uri uri) {
         // /QQBrowser/log.txt
         // content
-        return uri.getAuthority().equals("com.tencent.mtt.fileprovider");
+        return "com.tencent.mtt.fileprovider".equals(uri.getAuthority());
     }
 
     private static boolean isFileExplorerMyProvider(Uri uri) {
         // /external_files/netease/cloudmusic/Music/许嵩 - 幻听.mp3
         // content
-        return uri.getAuthority().equals("com.android.fileexplorer.myprovider");
+        return "com.android.fileexplorer.myprovider".equals(uri.getAuthority());
     }
 
     private static boolean isDownloadsDocuments(Uri uri) {
         // /document/503
         // documentUri
-        return uri.getAuthority().equals("com.android.providers.downloads.documents");
+        return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 
     private static boolean isMediaDocuments(Uri uri) {
@@ -164,13 +173,13 @@ public class UriPathResolver {
         // /document/video:126419
         // /document/image:130682
         // documentUri
-        return uri.getAuthority().equals("com.android.providers.media.documents");
+        return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
 
     private static boolean isExternalStorageDocuments(Uri uri) {
         // /document/primary:{文件相对路径}
         // documentUri
-        return uri.getAuthority().equals("com.android.externalstorage.documents");
+        return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
 
     private static boolean isKitKat() {
@@ -178,11 +187,11 @@ public class UriPathResolver {
     }
 
     private static boolean isSchemeContent(Uri uri) {
-        return uri.getScheme().equals(ContentResolver.SCHEME_CONTENT);
+        return ContentResolver.SCHEME_CONTENT.equals(uri.getScheme());
     }
 
     private static boolean isSchemeFile(Uri uri) {
-        return uri.getScheme().equals(ContentResolver.SCHEME_FILE);
+        return ContentResolver.SCHEME_FILE.equals(uri.getScheme());
     }
 
     private static String getRootPath() {

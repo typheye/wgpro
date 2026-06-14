@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>73</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 java.lang.String getFilePathForN(android.net.Uri uri, android.content.Context context)" />
+  <problem_class id="PointlessArithmeticExpression" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">无意义的算术表达式</problem_class>
+  <description>&lt;code&gt;1 * 1024 * 1024&lt;/code&gt; 可被替换为 '1024 * 1024' #loc</description>
+  <highlighted_element>1 * 1024 * 1024</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>15</length>
+</problem>
+</problems>

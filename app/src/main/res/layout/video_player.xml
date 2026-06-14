@@ -155,7 +155,7 @@
                                         <TextView android:id="@+id/wb2" android:layout_width="match_parent" android:layout_height="match_parent" android:text="锁定" android:textColor="@color/colorTabText" android:textSize="7sp" android:textStyle="bold" android:gravity="center" android:background="?android:attr/selectableItemBackground">
                                         </TextView>
                                     </LinearLayout>
-                                    <LinearLayout android:id="@+id/xxbj2" android:layout_width="25dp" android:layout_height="15dp" android:orientation="vertical" android:background="@color/colorAccent" android:layout_margin="3dp" android:visibility="gone">
+                                    <LinearLayout android:id="@+id/player_settings_button_container" android:layout_width="25dp" android:layout_height="15dp" android:orientation="vertical" android:background="@color/colorAccent" android:layout_margin="3dp" android:visibility="gone">
                                         <TextView android:id="@+id/wb1" android:layout_width="match_parent" android:layout_height="match_parent" android:text="设置" android:textColor="@color/colorTabText" android:textSize="7sp" android:textStyle="bold" android:gravity="center" android:background="?android:attr/selectableItemBackground">
                                         </TextView>
                                     </LinearLayout>

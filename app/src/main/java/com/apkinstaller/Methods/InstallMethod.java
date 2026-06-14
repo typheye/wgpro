@@ -43,11 +43,11 @@ public class InstallMethod {
               }
             }
           } catch (Exception e) {
-            e.printStackTrace();
+            android.util.Log.e("AWGPro", "Unhandled exception", e);
             try {
               CommandMethod.runCommand(new String[]{"stop adbd", "start adbd"});
             } catch (Exception err) {
-              err.printStackTrace();
+              android.util.Log.e("AWGPro", "Unhandled exception", err);
             }
             showStatus(activity, installDialog, activity.getString(R.string.install_failed), ExceptionToString(e), apkName, apkIcon, pkgName);
           }

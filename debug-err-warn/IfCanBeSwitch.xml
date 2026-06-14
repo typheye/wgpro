@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/IappCompat.java</file>
+  <line>116</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.IappCompat java.lang.Object handleObjectMethod(java.lang.Object proxy, java.lang.reflect.Method method, java.lang.Object[] args)" />
+  <problem_class id="IfCanBeSwitch" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'if' 可被替换为 'switch'</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句可被替换为 'switch' 语句 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+</problems>

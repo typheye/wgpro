@@ -196,7 +196,7 @@ public class LocationActivity extends BaseAwgActivity {
                         }
                     } catch (IOException e) {
                         loca = "未知";
-                        e.printStackTrace();
+                        android.util.Log.e("AWGPro", "Unhandled exception", e);
                     }
                     show();
 

@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/gl/xz.java</file>
+  <line>21</line>
+  <module>wgpro-wear.app.main</module>
+  <package>gl</package>
+  <entry_point TYPE="method" FQNAME="gl.xz void download(java.lang.String downloadUrl, android.content.Context ei, int i, java.io.File f)" />
+  <problem_class id="AccessStaticViaInstance" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">通过实例引用访问 static 成员</problem_class>
+  <description>通过实例引用访问 static 成员 'android.content.Context.DOWNLOAD_SERVICE'</description>
+  <highlighted_element>ei.DOWNLOAD_SERVICE</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>19</length>
+</problem>
+</problems>

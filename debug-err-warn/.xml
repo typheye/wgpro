@@ -1,0 +1,3300 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/constraint/ConstraintLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.constraint</package>
+  <entry_point TYPE="class" FQNAME="android.support.constraint.ConstraintLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>ConstraintLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/constraint/ConstraintLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.constraint</package>
+  <entry_point TYPE="method" FQNAME="android.support.constraint.ConstraintLayout ConstraintLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>ConstraintLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/constraint/ConstraintLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.constraint</package>
+  <entry_point TYPE="method" FQNAME="android.support.constraint.ConstraintLayout ConstraintLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>ConstraintLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/constraint/ConstraintLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.constraint</package>
+  <entry_point TYPE="method" FQNAME="android.support.constraint.ConstraintLayout ConstraintLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>ConstraintLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/AppBarLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.AppBarLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>12</length>
+  <highlighted_element>AppBarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/AppBarLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.AppBarLayout AppBarLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>AppBarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/AppBarLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.AppBarLayout AppBarLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>AppBarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/AppBarLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.AppBarLayout AppBarLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>AppBarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CollapsingToolbarLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.CollapsingToolbarLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>23</length>
+  <highlighted_element>CollapsingToolbarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CollapsingToolbarLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.CollapsingToolbarLayout CollapsingToolbarLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>23</length>
+  <highlighted_element>CollapsingToolbarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CollapsingToolbarLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.CollapsingToolbarLayout CollapsingToolbarLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>23</length>
+  <highlighted_element>CollapsingToolbarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CollapsingToolbarLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.CollapsingToolbarLayout CollapsingToolbarLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>23</length>
+  <highlighted_element>CollapsingToolbarLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CoordinatorLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.CoordinatorLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>CoordinatorLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CoordinatorLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.CoordinatorLayout CoordinatorLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>CoordinatorLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CoordinatorLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.CoordinatorLayout CoordinatorLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>CoordinatorLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/CoordinatorLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.CoordinatorLayout CoordinatorLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>CoordinatorLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/FloatingActionButton.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.FloatingActionButton" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>FloatingActionButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/FloatingActionButton.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.FloatingActionButton FloatingActionButton(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>20</length>
+  <highlighted_element>FloatingActionButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/FloatingActionButton.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.FloatingActionButton FloatingActionButton(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>20</length>
+  <highlighted_element>FloatingActionButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/FloatingActionButton.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.FloatingActionButton FloatingActionButton(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>20</length>
+  <highlighted_element>FloatingActionButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TabLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.TabLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>9</length>
+  <highlighted_element>TabLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TabLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TabLayout TabLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>9</length>
+  <highlighted_element>TabLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TabLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TabLayout TabLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>9</length>
+  <highlighted_element>TabLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TabLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TabLayout TabLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>9</length>
+  <highlighted_element>TabLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputEditText.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.TextInputEditText" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>TextInputEditText</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputEditText.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TextInputEditText TextInputEditText(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>TextInputEditText</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputEditText.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TextInputEditText TextInputEditText(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>TextInputEditText</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputEditText.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TextInputEditText TextInputEditText(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>TextInputEditText</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.design.widget.TextInputLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>15</length>
+  <highlighted_element>TextInputLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TextInputLayout TextInputLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>15</length>
+  <highlighted_element>TextInputLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TextInputLayout TextInputLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>15</length>
+  <highlighted_element>TextInputLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/design/widget/TextInputLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.design.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.design.widget.TextInputLayout TextInputLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>15</length>
+  <highlighted_element>TextInputLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/view/ViewPager.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.view</package>
+  <entry_point TYPE="class" FQNAME="android.support.v4.view.ViewPager" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>9</length>
+  <highlighted_element>ViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/view/ViewPager.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.view</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.view.ViewPager ViewPager(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>9</length>
+  <highlighted_element>ViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/view/ViewPager.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.view</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.view.ViewPager ViewPager(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>9</length>
+  <highlighted_element>ViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/DrawerLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v4.widget.DrawerLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>12</length>
+  <highlighted_element>DrawerLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/DrawerLayout.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.DrawerLayout DrawerLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>DrawerLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/DrawerLayout.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.DrawerLayout DrawerLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>DrawerLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/DrawerLayout.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.DrawerLayout DrawerLayout(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>DrawerLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/NestedScrollView.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v4.widget.NestedScrollView" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>NestedScrollView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/NestedScrollView.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.NestedScrollView NestedScrollView(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>NestedScrollView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/NestedScrollView.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.NestedScrollView NestedScrollView(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>NestedScrollView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/NestedScrollView.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.NestedScrollView NestedScrollView(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>NestedScrollView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/SwipeRefreshLayout.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v4.widget.SwipeRefreshLayout" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>SwipeRefreshLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/SwipeRefreshLayout.java</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.SwipeRefreshLayout SwipeRefreshLayout(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>18</length>
+  <highlighted_element>SwipeRefreshLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v4/widget/SwipeRefreshLayout.java</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v4.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v4.widget.SwipeRefreshLayout SwipeRefreshLayout(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>18</length>
+  <highlighted_element>SwipeRefreshLayout</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/app/AppCompatActivity.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.app</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.app.AppCompatActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>AppCompatActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatButton.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.AppCompatButton" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>15</length>
+  <highlighted_element>AppCompatButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatButton.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatButton AppCompatButton(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>15</length>
+  <highlighted_element>AppCompatButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatButton.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatButton AppCompatButton(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>15</length>
+  <highlighted_element>AppCompatButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatButton.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatButton AppCompatButton(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>15</length>
+  <highlighted_element>AppCompatButton</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatImageView.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.AppCompatImageView" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>AppCompatImageView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatImageView.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatImageView AppCompatImageView(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>18</length>
+  <highlighted_element>AppCompatImageView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatImageView.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatImageView AppCompatImageView(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>18</length>
+  <highlighted_element>AppCompatImageView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatImageView.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatImageView AppCompatImageView(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>18</length>
+  <highlighted_element>AppCompatImageView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatSeekBar.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.AppCompatSeekBar" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>AppCompatSeekBar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatSeekBar.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatSeekBar AppCompatSeekBar(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>AppCompatSeekBar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatSeekBar.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatSeekBar AppCompatSeekBar(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>AppCompatSeekBar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/AppCompatSeekBar.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.AppCompatSeekBar AppCompatSeekBar(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>16</length>
+  <highlighted_element>AppCompatSeekBar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/CardView.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.CardView" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>8</length>
+  <highlighted_element>CardView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/CardView.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.CardView CardView(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>8</length>
+  <highlighted_element>CardView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/CardView.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.CardView CardView(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>8</length>
+  <highlighted_element>CardView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/CardView.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.CardView CardView(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>8</length>
+  <highlighted_element>CardView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/RecyclerView.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.RecyclerView" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>12</length>
+  <highlighted_element>RecyclerView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/RecyclerView.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.RecyclerView RecyclerView(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>RecyclerView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/RecyclerView.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.RecyclerView RecyclerView(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>RecyclerView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/RecyclerView.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.RecyclerView RecyclerView(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>RecyclerView</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/SwitchCompat.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.SwitchCompat" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>12</length>
+  <highlighted_element>SwitchCompat</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/SwitchCompat.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.SwitchCompat SwitchCompat(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>SwitchCompat</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/SwitchCompat.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.SwitchCompat SwitchCompat(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>SwitchCompat</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/SwitchCompat.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.SwitchCompat SwitchCompat(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>12</length>
+  <highlighted_element>SwitchCompat</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/Toolbar.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="class" FQNAME="android.support.v7.widget.Toolbar" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>7</length>
+  <highlighted_element>Toolbar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/Toolbar.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.Toolbar Toolbar(android.content.Context c)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>7</length>
+  <highlighted_element>Toolbar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/Toolbar.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.Toolbar Toolbar(android.content.Context c, android.util.AttributeSet a)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>7</length>
+  <highlighted_element>Toolbar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/android/support/v7/widget/Toolbar.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>android.support.v7.widget</package>
+  <entry_point TYPE="method" FQNAME="android.support.v7.widget.Toolbar Toolbar(android.content.Context c, android.util.AttributeSet a, int d)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>7</length>
+  <highlighted_element>Toolbar</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="class" FQNAME="com.demo.e5" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>2</length>
+  <highlighted_element>e5</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类有一个实例化，但无法从入口点到达。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>576</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 e5(android.content.Context context)" />
+  <language>JAVA</language>
+  <offset>9</offset>
+  <length>2</length>
+  <highlighted_element>e5</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数有一个用法，但无法从入口点到达。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>581</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 e5(android.content.Context context, android.util.AttributeSet attrs)" />
+  <language>JAVA</language>
+  <offset>9</offset>
+  <length>2</length>
+  <highlighted_element>e5</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e5.java</file>
+  <line>586</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e5 e5(android.content.Context context, android.util.AttributeSet attrs, int defStyle)" />
+  <language>JAVA</language>
+  <offset>9</offset>
+  <length>2</length>
+  <highlighted_element>e5</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="class" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>VerticalViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>4</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager VerticalViewPager(android.content.Context context)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>VerticalViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager VerticalViewPager(android.content.Context context, android.util.AttributeSet attrs)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>VerticalViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager VerticalViewPager(android.content.Context context, android.util.AttributeSet attrs, int defStyleAttr)" />
+  <language>JAVA</language>
+  <offset>11</offset>
+  <length>17</length>
+  <highlighted_element>VerticalViewPager</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>构造函数从未使用过。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/gl/DownLoadBroadcastReceiver.java</file>
+  <line>19</line>
+  <module>wgpro-wear.app.main</module>
+  <package>gl</package>
+  <entry_point TYPE="class" FQNAME="gl.DownLoadBroadcastReceiver" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>25</length>
+  <highlighted_element>DownLoadBroadcastReceiver</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/gl/xz.java</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <package>gl</package>
+  <entry_point TYPE="class" FQNAME="gl.xz" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>2</length>
+  <highlighted_element>xz</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/i/app/x5.java</file>
+  <line>300</line>
+  <module>wgpro-wear.app.main</module>
+  <package>i.app</package>
+  <entry_point TYPE="class" FQNAME="i.app.x5.ApplicationHolder" />
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>17</length>
+  <highlighted_element>ApplicationHolder</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>未发现类引用。类 static 初始值设定项不可到达。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.account.AppActivationActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>AppActivationActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/OnlineIdActivity.java</file>
+  <line>35</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.account.OnlineIdActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>OnlineIdActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.account.ThirdPartyAuthorizationActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>31</length>
+  <highlighted_element>ThirdPartyAuthorizationActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>22</length>
+  <highlighted_element>TypheyeAccountActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>TypheyeLoginActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/announcement/AnnouncementActivity.java</file>
+  <line>49</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.announcement</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.announcement.AnnouncementActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>AnnouncementActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/app/AwgProApplication.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.app</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.app.AwgProApplication" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>AwgProApplication</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类有一个实例化，但无法从入口点到达。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/apps/InstalledAppListActivity.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.apps</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.apps.InstalledAppListActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>InstalledAppListActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>65</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>X5BrowserActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>25</length>
+  <highlighted_element>X5BrowserSettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>X5CoreInstallActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.chat.ChatGptActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>15</length>
+  <highlighted_element>ChatGptActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.chat.ChatMessageDetailActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>25</length>
+  <highlighted_element>ChatMessageDetailActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>ChatRoomActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>DeepSeekActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.chat.WearChatActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>WearChatActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatAgreementActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.chat.WearChatAgreementActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>25</length>
+  <highlighted_element>WearChatAgreementActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/BaseAwgActivity.java</file>
+  <line>31</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.core.BaseAwgActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>15</length>
+  <highlighted_element>BaseAwgActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类和它的 100 个实现从未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.download.AppDownloadActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>AppDownloadActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/DownloadProgressActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.download.DownloadProgressActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>DownloadProgressActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>AppDebugActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.experimental.DeveloperTestActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>DeveloperTestActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ExperimentalFeaturesActivity.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.experimental.ExperimentalFeaturesActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>28</length>
+  <highlighted_element>ExperimentalFeaturesActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/MoreFeaturesActivity.java</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.experimental.MoreFeaturesActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>MoreFeaturesActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>ServerDebugActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/DeleteConfirmActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.file.DeleteConfirmActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>DeleteConfirmActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.file.FileManagerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>FileManagerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileOpenActivity.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.file.FileOpenActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>FileOpenActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.file.FileRootPickerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>22</length>
+  <highlighted_element>FileRootPickerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.installer.ApkInstallerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>ApkInstallerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkPreviewActivity.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.installer.ApkPreviewActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>ApkPreviewActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.installer.PackageInstallerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>PackageInstallerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveChannelDetailActivity.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.live.LiveChannelDetailActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>25</length>
+  <highlighted_element>LiveChannelDetailActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveStreamActivity.java</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.live.LiveStreamActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>LiveStreamActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>59</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>VideoPlayerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/WearMusicActivity.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.media.WearMusicActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>WearMusicActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.music.TuneFreeActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>TuneFreeActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeCloudSearchActivity.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.music.TuneFreeCloudSearchActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>27</length>
+  <highlighted_element>TuneFreeCloudSearchActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>23</length>
+  <highlighted_element>ExtensionPluginActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginDetailActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>29</length>
+  <highlighted_element>ExtensionPluginDetailActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/DeviceReceiver.java</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.receiver</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.receiver.DeviceReceiver" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>14</length>
+  <highlighted_element>DeviceReceiver</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/StartReceiver.java</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.receiver</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.receiver.StartReceiver" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>13</length>
+  <highlighted_element>StartReceiver</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/CrashFeedbackActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.repair.CrashFeedbackActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>CrashFeedbackActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ErrorMessageActivity.java</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.repair.ErrorMessageActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>ErrorMessageActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/RecoveryOptionsActivity.java</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.repair.RecoveryOptionsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>23</length>
+  <highlighted_element>RecoveryOptionsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ResetAppActivity.java</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.repair.ResetAppActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>ResetAppActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/AwgCoreService.java</file>
+  <line>36</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.service.AwgCoreService" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>14</length>
+  <highlighted_element>AwgCoreService</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.service.BootJobService" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>14</length>
+  <highlighted_element>BootJobService</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>26</length>
+  <highlighted_element>SystemAccessibilityService</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/DisplayMarginActivity.java</file>
+  <line>36</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.DisplayMarginActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>DisplayMarginActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>27</length>
+  <highlighted_element>FileManagerSettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/LegalInfoActivity.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.LegalInfoActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>LegalInfoActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.MediaBrowserSettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>28</length>
+  <highlighted_element>MediaBrowserSettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.SettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>SettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>26</length>
+  <highlighted_element>TextViewerSettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.ThemeSettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>ThemeSettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/WearChatSettingsActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.settings.WearChatSettingsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>WearChatSettingsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>23</length>
+  <highlighted_element>ProductPurchaseActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.store.StoreDetailActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>StoreDetailActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreListActivity.java</file>
+  <line>49</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.store.StoreListActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>StoreListActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.store.StoreSearchActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>StoreSearchActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.AccessibilityScriptActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>27</length>
+  <highlighted_element>AccessibilityScriptActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>CloudServiceActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.DeviceScanPlaceholderActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>29</length>
+  <highlighted_element>DeviceScanPlaceholderActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/FingerprintActivity.java</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.FingerprintActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>FingerprintActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java</file>
+  <line>55</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.LocationActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>LocationActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationInfoActivity.java</file>
+  <line>43</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.LocationInfoActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>LocationInfoActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.LogCleanupActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>LogCleanupActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.NetworkOptimizeActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>23</length>
+  <highlighted_element>NetworkOptimizeActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>52</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>RemoteControlActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.ShellExecutorActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>ShellExecutorActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>52</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>SystemPermissionActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemToolsActivity.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.SystemToolsActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>SystemToolsActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TerminalCompatibilityActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.TerminalCompatibilityActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>29</length>
+  <highlighted_element>TerminalCompatibilityActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.TextTranslateActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>TextTranslateActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/WearOsToolboxActivity.java</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.tools.WearOsToolboxActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>WearOsToolboxActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AnnouncementItemActivity.java</file>
+  <line>30</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.AnnouncementItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>AnnouncementItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AppActionItemActivity.java</file>
+  <line>27</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.AppActionItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>AppActionItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatAttachmentItemActivity.java</file>
+  <line>35</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.ChatAttachmentItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>26</length>
+  <highlighted_element>ChatAttachmentItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatRoomListItemActivity.java</file>
+  <line>31</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.ChatRoomListItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>ChatRoomListItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExperimentalFeatureItemActivity.java</file>
+  <line>31</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.ExperimentalFeatureItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>31</length>
+  <highlighted_element>ExperimentalFeatureItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginListItemActivity.java</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.ExtensionPluginListItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>31</length>
+  <highlighted_element>ExtensionPluginListItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginMenuItemActivity.java</file>
+  <line>30</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.ExtensionPluginMenuItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>31</length>
+  <highlighted_element>ExtensionPluginMenuItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileListItemActivity.java</file>
+  <line>27</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.FileListItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>FileListItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOpenOptionItemActivity.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.FileOpenOptionItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>26</length>
+  <highlighted_element>FileOpenOptionItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationInfoItemActivity.java</file>
+  <line>27</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.FileOperationInfoItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>29</length>
+  <highlighted_element>FileOperationInfoItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationMenuItemActivity.java</file>
+  <line>33</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.FileOperationMenuItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>29</length>
+  <highlighted_element>FileOperationMenuItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>FileRootItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/InstalledAppItemActivity.java</file>
+  <line>33</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.InstalledAppItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>InstalledAppItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LegacyMenuItemActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.LegacyMenuItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>22</length>
+  <highlighted_element>LegacyMenuItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LiveStreamItemActivity.java</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.LiveStreamItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>22</length>
+  <highlighted_element>LiveStreamItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/MainMenuItemActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.MainMenuItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>MainMenuItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/RuntimeMessageItemActivity.java</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.RuntimeMessageItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>26</length>
+  <highlighted_element>RuntimeMessageItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreAppItemActivity.java</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.StoreAppItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>StoreAppItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreMusicItemActivity.java</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.StoreMusicItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>22</length>
+  <highlighted_element>StoreMusicItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreVideoItemActivity.java</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.StoreVideoItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>22</length>
+  <highlighted_element>StoreVideoItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/TuneFreeSongItemActivity.java</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.TuneFreeSongItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>TuneFreeSongItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/WearChatMenuItemActivity.java</file>
+  <line>30</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.list.WearChatMenuItemActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>WearChatMenuItemActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>16</length>
+  <highlighted_element>AboutAppActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>77</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.main.MainActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>12</length>
+  <highlighted_element>MainActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/OnboardingSetupActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.main.OnboardingSetupActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>23</length>
+  <highlighted_element>OnboardingSetupActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/TextQrDisplayActivity.java</file>
+  <line>36</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.ui.main.TextQrDisplayActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>21</length>
+  <highlighted_element>TextQrDisplayActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.update.AppUpdateActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>17</length>
+  <highlighted_element>AppUpdateActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateInstallActivity.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.update.AppUpdateInstallActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>24</length>
+  <highlighted_element>AppUpdateInstallActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>20</length>
+  <highlighted_element>UpdatePromptActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/ImageViewerActivity.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.viewer.ImageViewerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>19</length>
+  <highlighted_element>ImageViewerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.viewer.TextEditorActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>TextEditorActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="class" FQNAME="open.cn.awg.pro.viewer.TextViewerActivity" />
+  <language>JAVA</language>
+  <offset>13</offset>
+  <length>18</length>
+  <highlighted_element>TextViewerActivity</highlighted_element>
+  <problem_class id="" severity="WARNING" attribute_key="NOT_USED_ELEMENT_ATTRIBUTES">未使用的声明</problem_class>
+  <hints>
+    <hint value="comment" />
+    <hint value="delete" />
+  </hints>
+  <description>类未实例化。</description>
+</problem>
+</problems>

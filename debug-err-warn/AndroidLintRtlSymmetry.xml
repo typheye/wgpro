@@ -1,0 +1,873 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>226</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>225</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_open_option_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_open_option_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>243</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_operation_info_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_operation_info_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>256</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml</file>
+  <line>7</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>226</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>225</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>37</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>53</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>55</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>57</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>65</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>67</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>77</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>93</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>95</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>97</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>105</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>107</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>109</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>117</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>119</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>133</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>135</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>137</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>145</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>147</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>149</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>157</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>286</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>159</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>251</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>161</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>260</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml</file>
+  <line>6</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>247</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>222</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>221</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingRight&lt;/code&gt; you should probably also define &lt;code&gt;paddingLeft&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingRight</highlighted_element>
+  <language>XML</language>
+  <offset>303</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintRtlSymmetry" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Padding and margin symmetry</problem_class>
+  <hints />
+  <description>&lt;html&gt;When you define &lt;code&gt;paddingLeft&lt;/code&gt; you should probably also define &lt;code&gt;paddingRight&lt;/code&gt; for right-to-left symmetry&lt;/html&gt;</description>
+  <highlighted_element>android:paddingLeft</highlighted_element>
+  <language>XML</language>
+  <offset>302</offset>
+  <length>19</length>
+</problem>
+</problems>

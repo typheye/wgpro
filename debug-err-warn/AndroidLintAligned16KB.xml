@@ -1,0 +1,54 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>1</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintAligned16KB" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Native library dependency not 16 KB aligned</problem_class>
+  <hints />
+  <description>&lt;html&gt;The native library &lt;code&gt;arm64-v8a/libcrashsdk.so&lt;/code&gt; (from &lt;code&gt;:umeng-apm-v1.9.8:&lt;/code&gt;) is not 16 KB aligned&lt;/html&gt;</description>
+  <highlighted_element>//noinspection GlobalOptionInConsumerRules plugins { id 'com.android.application' } def keystor...</highlighted_element>
+  <language>Groovy</language>
+  <offset>0</offset>
+  <length>10316</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>1</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintAligned16KB" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Native library dependency not 16 KB aligned</problem_class>
+  <hints />
+  <description>&lt;html&gt;The native library &lt;code&gt;arm64-v8a/libpns-2.13.9-LogOnlineStandardCuumRelease_alijtca_plus.so&lt;/code&gt; (from &lt;code&gt;:umeng-uverify-2.6.3:&lt;/code&gt;) is not 16 KB aligned&lt;/html&gt;</description>
+  <highlighted_element>//noinspection GlobalOptionInConsumerRules plugins { id 'com.android.application' } def keystor...</highlighted_element>
+  <language>Groovy</language>
+  <offset>0</offset>
+  <length>10316</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>1</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintAligned16KB" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Native library dependency not 16 KB aligned</problem_class>
+  <hints />
+  <description>&lt;html&gt;The native library &lt;code&gt;x86_64/libijkffmpeg.so&lt;/code&gt; (from &lt;code&gt;:xyz.doikki.videoplayer.ijk:&lt;/code&gt;) is not 16 KB aligned&lt;/html&gt;</description>
+  <highlighted_element>//noinspection GlobalOptionInConsumerRules plugins { id 'com.android.application' } def keystor...</highlighted_element>
+  <language>Groovy</language>
+  <offset>0</offset>
+  <length>10316</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>1</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintAligned16KB" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Native library dependency not 16 KB aligned</problem_class>
+  <hints />
+  <description>&lt;html&gt;The native library &lt;code&gt;x86_64/libtnet-3.1.14.so&lt;/code&gt; (from &lt;code&gt;:umeng-agoo_tnet4android-3.1.14.10.2:&lt;/code&gt;) is not 16 KB aligned&lt;/html&gt;</description>
+  <highlighted_element>//noinspection GlobalOptionInConsumerRules plugins { id 'com.android.application' } def keystor...</highlighted_element>
+  <language>Groovy</language>
+  <offset>0</offset>
+  <length>10316</length>
+</problem>
+</problems>

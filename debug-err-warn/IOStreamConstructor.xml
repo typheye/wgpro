@@ -1,0 +1,28 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/file/Xor/xor.java</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.file.Xor</package>
+  <entry_point TYPE="method" FQNAME="com.file.Xor.xor void FileXor(java.lang.String inputPath, java.lang.String outputPath, java.lang.String keys)" />
+  <problem_class id="IOStreamConstructor" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">可以使用 'Files' 方法构建 'InputStream' 和 'OutputStream'</problem_class>
+  <description>可以使用 'Files.newInputStream()' 构建 'InputStream'</description>
+  <highlighted_element>new FileInputStream(inputPath)</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>30</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/file/Xor/xor.java</file>
+  <line>25</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.file.Xor</package>
+  <entry_point TYPE="method" FQNAME="com.file.Xor.xor void FileXor(java.lang.String inputPath, java.lang.String outputPath, java.lang.String keys)" />
+  <problem_class id="IOStreamConstructor" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">可以使用 'Files' 方法构建 'InputStream' 和 'OutputStream'</problem_class>
+  <description>可以使用 'Files.newOutputStream()' 构建 'OutputStream'</description>
+  <highlighted_element>new FileOutputStream(outputPath)</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>32</length>
+</problem>
+</problems>

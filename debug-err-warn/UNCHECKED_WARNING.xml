@@ -1,0 +1,418 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>570</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>573</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>584</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>585</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>586</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>587</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>588</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>589</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>570</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>573</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>584</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>585</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>586</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>587</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>588</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>589</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1799</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1802</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1807</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1808</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1809</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1810</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1811</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1812</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1813</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.HashMap' 的成员对 'put(K, V)' 的未检查的调用</description>
+  <highlighted_element>hs.put</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1814</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1815</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.util.ArrayList' 的成员对 'add(E)' 的未检查的调用</description>
+  <highlighted_element>arr.add</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>463</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$43$3 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'xyz.doikki.videoplayer.player.VideoView' 的成员对 'setUrl(String, Map&lt;String, String&gt;)' 的未检查的调用</description>
+  <highlighted_element>mPlayer.setUrl</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>500</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$43$6 void run()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'xyz.doikki.videoplayer.player.VideoView' 的成员对 'setPlayerFactory(PlayerFactory&lt;P&gt;)' 的未检查的调用</description>
+  <highlighted_element>mPlayer.setPlayerFactory</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>232</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity void jz()" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.lang.Class' 的成员对 'getMethod(String, Class&lt;?&gt;...)' 的未检查的调用</description>
+  <highlighted_element>cs.getMethod</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>492</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity void onXdbj6Click(android.view.View vw)" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.lang.Class' 的成员对 'getMethod(String, Class&lt;?&gt;...)' 的未检查的调用</description>
+  <highlighted_element>cs.getMethod</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>125</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity void onXdbj1Click(android.view.View vw)" />
+  <problem_class id="UNCHECKED_WARNING" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未检查的警告</problem_class>
+  <description>作为原始类型 'java.lang.Class' 的成员对 'getMethod(String, Class&lt;?&gt;...)' 的未检查的调用</description>
+  <highlighted_element>cs.getMethod</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>12</length>
+</problem>
+</problems>

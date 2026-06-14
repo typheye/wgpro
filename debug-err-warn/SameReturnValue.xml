@@ -1,0 +1,3586 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager java.lang.Object getAdapter()" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;getAdapter()&lt;/code&gt; 始终返回 &lt;code&gt;null&lt;/code&gt;</description>
+  <highlighted_element>getAdapter</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/fr/castorflex/android/verticalviewpager/VerticalViewPager.java</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <package>fr.castorflex.android.verticalviewpager</package>
+  <entry_point TYPE="method" FQNAME="fr.castorflex.android.verticalviewpager.VerticalViewPager int getCurrentItem()" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;getCurrentItem()&lt;/code&gt; 始终返回 &lt;code&gt;0&lt;/code&gt;</description>
+  <highlighted_element>getCurrentItem</highlighted_element>
+  <language>JAVA</language>
+  <offset>15</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>666</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>681</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>696</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>711</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/OnlineIdActivity.java</file>
+  <line>198</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.OnlineIdActivity boolean onWb3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>994</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1036</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1080</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1113</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1146</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj10LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj10LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj10LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1198</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1258</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>1395</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity boolean onXxbj15Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj15Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj15Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>356</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge boolean register$request(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;register$request()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>register$request</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>516</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge boolean findpwd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;findpwd()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>findpwd</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/announcement/AnnouncementActivity.java</file>
+  <line>381</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.announcement</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.announcement.AnnouncementActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/announcement/AnnouncementActivity.java</file>
+  <line>396</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.announcement</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.announcement.AnnouncementActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/apps/InstalledAppListActivity.java</file>
+  <line>287</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.apps</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.apps.InstalledAppListActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1074</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onLlqAuSfrzUsernameTouch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onLlqAuSfrzUsernameTouch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onLlqAuSfrzUsernameTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1094</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onLlqAuSfrzPasswordTouch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onLlqAuSfrzPasswordTouch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onLlqAuSfrzPasswordTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1114</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj3Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj3Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj3Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1119</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onLlqJsPromptBjkTouch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onLlqJsPromptBjkTouch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onLlqJsPromptBjkTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>21</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1139</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj11Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj11Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj11Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1144</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj10Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj10Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj10Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1149</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj12Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj12Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj12Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1154</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj13Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj13Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj13Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1159</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onLlqHdRootTouch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onLlqHdRootTouch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onLlqHdRootTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1215</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1235</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj6Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj6Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj6Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>1240</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onXxbj5Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj5Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj5Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>378</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>420</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>436</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>451</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>466</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>428</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity boolean onBjk2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>877</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onWb3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>906</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onXxbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>916</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onWb1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>922</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>954</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onXxbj4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>970</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onXxbj7Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj7Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj7Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>987</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onXxbj8Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj8Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj8Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>310</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatMessageDetailActivity boolean onTx1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onTx1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onTx1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>342</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatMessageDetailActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatMessageDetailActivity.java</file>
+  <line>360</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatMessageDetailActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>727</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onWb3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>781</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onI2xxbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onI2xxbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onI2xxbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>806</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onWb1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>813</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1046</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onXxbj4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1092</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onXxbj7Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj7Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj7Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>1139</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onXxbj6Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj6Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj6Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>877</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onWb3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>906</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onXxbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>916</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onWb1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>922</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>954</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onXxbj4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>970</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onXxbj7Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj7Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj7Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>987</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onXxbj8Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj8Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj8Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>244</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatActivity boolean onXxbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>249</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatActivity boolean onXxbj3Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj3Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj3Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>254</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatActivity boolean onXxbj2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>259</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>289</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatActivity boolean onXxbj4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>107</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge boolean part_buildNewRoom(java.lang.Object name, java.lang.Object id)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;part_buildNewRoom()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>part_buildNewRoom</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DebugStateStore.java</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.DebugStateStore boolean delShowed()" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;delShowed()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>delShowed</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/AppDownloadActivity.java</file>
+  <line>298</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.download.AppDownloadActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>343</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>358</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>392</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>407</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/AppDebugActivity.java</file>
+  <line>422</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.AppDebugActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java</file>
+  <line>183</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.DeveloperTestActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java</file>
+  <line>198</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.DeveloperTestActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/DeveloperTestActivity.java</file>
+  <line>213</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.DeveloperTestActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/MoreFeaturesActivity.java</file>
+  <line>163</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.MoreFeaturesActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>282</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjkurlTouch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjkurlTouch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjkurlTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>355</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjkgp1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjkgp1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjkgp1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>375</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjkgp2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjkgp2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjkgp2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>501</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>521</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>541</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks3Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks3Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks3Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>561</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>581</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks5Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks5Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks5Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>601</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks6Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks6Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks6Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>621</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity boolean onBjks7Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjks7Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjks7Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>441</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onTitleBarLongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onTitleBarLongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onTitleBarLongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>479</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>484</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj3Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj3Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj3Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>489</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj6Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj6Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj6Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>494</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj7Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj7Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj7Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>499</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj5Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj5Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj5Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>504</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>730</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj9Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj9Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj9Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>764</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity boolean onXxbj10Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj10Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj10Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>249</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileRootPickerActivity boolean onTitleBarLongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onTitleBarLongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onTitleBarLongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>19</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>283</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileRootPickerActivity boolean onXxbj10Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj10Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj10Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveStreamActivity.java</file>
+  <line>362</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.live.LiveStreamActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveStreamActivity.java</file>
+  <line>377</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.live.LiveStreamActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1261</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onXxbj10LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj10LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj10LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1532</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onQtgd1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onQtgd1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onQtgd1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1572</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onXxbj19Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj19Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj19Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1583</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onWb8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>684</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>699</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>714</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>738</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>753</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>768</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>216</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity boolean onXxbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>221</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity boolean onXxbj3Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj3Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj3Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>226</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity boolean onXxbj2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>231</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>261</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity boolean onXxbj4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge boolean part_buildNewPlu(java.lang.Object name, java.lang.Object id, java.lang.Object pass)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;part_buildNewPlu()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>part_buildNewPlu</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>260</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginDetailActivity boolean onXxbj3Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj3Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj3Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>265</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginDetailActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>295</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginDetailActivity boolean onXxbj4Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>350</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>392</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>434</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>476</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>516</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/LegalInfoActivity.java</file>
+  <line>186</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.LegalInfoActivity boolean onXdbj14LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj14LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj14LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/LegalInfoActivity.java</file>
+  <line>201</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.LegalInfoActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/LegalInfoActivity.java</file>
+  <line>216</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.LegalInfoActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>296</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.MediaBrowserSettingsActivity boolean onXdbj11LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj11LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj11LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>338</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.MediaBrowserSettingsActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>380</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.MediaBrowserSettingsActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>422</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.MediaBrowserSettingsActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>378</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>393</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj14LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj14LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj14LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>408</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj11LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj11LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj11LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>423</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>438</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>453</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>468</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj15LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj15LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj15LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>483</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj18LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj18LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj18LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>498</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj19LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj19LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj19LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>513</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/SettingsActivity.java</file>
+  <line>539</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.SettingsActivity boolean onXdbj13LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj13LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj13LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>603</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>645</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>661</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity boolean onXdbj51LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj51LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj51LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>698</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity boolean onXdbj52LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj52LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj52LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>713</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity boolean onXdbj53LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj53LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj53LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>494</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.ThemeSettingsActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>542</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.ThemeSettingsActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>599</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.ThemeSettingsActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>639</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.ThemeSettingsActivity boolean onXdbj11LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj11LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj11LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/WearChatSettingsActivity.java</file>
+  <line>217</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.WearChatSettingsActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/WearChatSettingsActivity.java</file>
+  <line>232</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.WearChatSettingsActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>1063</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>1079</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>1094</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>1110</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java</file>
+  <line>872</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreDetailActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java</file>
+  <line>898</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreDetailActivity boolean onXdbj12LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj12LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj12LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java</file>
+  <line>220</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreSearchActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>289</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.AccessibilityScriptActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/AccessibilityScriptActivity.java</file>
+  <line>309</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.AccessibilityScriptActivity boolean onBjk2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>686</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>701</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>716</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>741</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>756</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>771</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java</file>
+  <line>198</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.DeviceScanPlaceholderActivity boolean onXdbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationInfoActivity.java</file>
+  <line>206</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationInfoActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationInfoActivity.java</file>
+  <line>221</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationInfoActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java</file>
+  <line>224</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LogCleanupActivity boolean onXdbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java</file>
+  <line>233</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.NetworkOptimizeActivity boolean onXdbj1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>516</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>590</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>605</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>620</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>640</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>684</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj10LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj10LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj10LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>699</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>714</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>729</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>405</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.ShellExecutorActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>463</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.ShellExecutorActivity boolean onWb1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>756</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>789</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity boolean onBacksLongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBacksLongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onBacksLongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemToolsActivity.java</file>
+  <line>217</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemToolsActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemToolsActivity.java</file>
+  <line>281</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemToolsActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java</file>
+  <line>160</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.TextTranslateActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TextTranslateActivity.java</file>
+  <line>289</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.TextTranslateActivity boolean onWb1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AnnouncementItemActivity.java</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.AnnouncementItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/AppActionItemActivity.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.AppActionItemActivity boolean onAppActionItemRootLongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onAppActionItemRootLongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onAppActionItemRootLongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>28</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatAttachmentItemActivity.java</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ChatAttachmentItemActivity boolean onTx1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onTx1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onTx1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatAttachmentItemActivity.java</file>
+  <line>94</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ChatAttachmentItemActivity boolean onXxbj4kLongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj4kLongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj4kLongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatAttachmentItemActivity.java</file>
+  <line>303</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ChatAttachmentItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ChatRoomListItemActivity.java</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ChatRoomListItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExperimentalFeatureItemActivity.java</file>
+  <line>84</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ExperimentalFeatureItemActivity boolean onExperimentalFeatureItemRootLongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onExperimentalFeatureItemRootLongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onExperimentalFeatureItemRootLongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>38</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginListItemActivity.java</file>
+  <line>97</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ExtensionPluginListItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/ExtensionPluginMenuItemActivity.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.ExtensionPluginMenuItemActivity boolean onXxbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileListItemActivity.java</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileListItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOpenOptionItemActivity.java</file>
+  <line>470</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileOpenOptionItemActivity boolean onXxbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationMenuItemActivity.java</file>
+  <line>374</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileOperationMenuItemActivity boolean onXxbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>165</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/InstalledAppItemActivity.java</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.InstalledAppItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LegacyMenuItemActivity.java</file>
+  <line>189</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.LegacyMenuItemActivity boolean onXxbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LiveStreamItemActivity.java</file>
+  <line>102</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.LiveStreamItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/MainMenuItemActivity.java</file>
+  <line>179</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.MainMenuItemActivity boolean onXxbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/RuntimeMessageItemActivity.java</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.RuntimeMessageItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreAppItemActivity.java</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.StoreAppItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreMusicItemActivity.java</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.StoreMusicItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/StoreVideoItemActivity.java</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.StoreVideoItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/TuneFreeSongItemActivity.java</file>
+  <line>63</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.TuneFreeSongItemActivity boolean onXdbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/WearChatMenuItemActivity.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.WearChatMenuItemActivity boolean onXxbj1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXxbj1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXxbj1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>330</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onTx1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onTx1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onTx1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>342</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>357</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>372</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>387</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>402</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>417</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/AboutAppActivity.java</file>
+  <line>432</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.AboutAppActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3149</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3178</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj20LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj20LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj20LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3204</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3230</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj12LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj12LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj12LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3256</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj13LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj13LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj13LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3298</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj14LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj14LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj14LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3324</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj15LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj15LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj15LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3350</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj16LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj16LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj16LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3392</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj17LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj17LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj17LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3418</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj18LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj18LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj18LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3444</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj19LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj19LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj19LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3480</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onWb9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onWb9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3508</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj10Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj10Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj10Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3540</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onXdbj2Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2Touch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>3545</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity boolean onTCxdbjTouch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onTCxdbjTouch()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onTCxdbjTouch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>616</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj7LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj7LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj7LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>658</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>707</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj17LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj17LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj17LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>723</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj10LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj10LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj10LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>739</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj11LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj11LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj11LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>755</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj12LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj12LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj12LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>780</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj13LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj13LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj13LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>804</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj14LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj14LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj14LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>853</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj15LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj15LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj15LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>17</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>869</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj8LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj8LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj8LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>885</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj3LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj3LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj3LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>901</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj4LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj4LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj4LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>926</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj5LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj5LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj5LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>948</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj9LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj9LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj9LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>965</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity boolean onXdbj6LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onXdbj6LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onXdbj6LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/ImageViewerActivity.java</file>
+  <line>301</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.ImageViewerActivity boolean onWb2LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb2LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb2LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>302</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextEditorActivity boolean onBjk1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onBjk1Touch()&lt;/code&gt; 始终返回 &lt;code&gt;false&lt;/code&gt;</description>
+  <highlighted_element>onBjk1Touch</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>522</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextViewerActivity boolean onWb1LongClick(android.view.View vw)" />
+  <problem_class id="SameReturnValue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">方法始终返回相同的值</problem_class>
+  <hints />
+  <description>方法 &lt;code&gt;onWb1LongClick()&lt;/code&gt; 始终返回 &lt;code&gt;true&lt;/code&gt;</description>
+  <highlighted_element>onWb1LongClick</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>14</length>
+</problem>
+</problems>

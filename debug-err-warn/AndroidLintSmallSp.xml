@@ -1,0 +1,2329 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>15</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>175</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>66</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/about_app.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement.xml</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/announcement_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>194</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_activation.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>51</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>61</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>71</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>94</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>209</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>110</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>123</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>133</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>143</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>153</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>166</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>209</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml</file>
+  <line>176</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/app_update.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>209</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>16</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>177</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>18</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>190</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>23</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>178</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>174</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>174</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_attachment_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>190</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>25</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>194</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>190</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>30</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>190</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_message_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>206</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/chat_room_list_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>24</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml</file>
+  <line>66</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/cloud_service.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/device_scan_placeholder.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/device_scan_placeholder.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>167</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>189</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml</file>
+  <line>19</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>180</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml</file>
+  <line>21</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/display_margin.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>180</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>180</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml</file>
+  <line>8</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>176</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml</file>
+  <line>15</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>180</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml</file>
+  <line>20</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>181</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml</file>
+  <line>27</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/error_message.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>178</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/extension_plugin_list_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_list_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>176</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>52</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>202</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml</file>
+  <line>64</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_manager_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/file_root_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>176</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/image_viewer.xml</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/image_viewer.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>170</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/installed_app_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>12</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>204</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>20</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>203</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/legal_info.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/live_stream_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/log_cleanup.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/log_cleanup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>167</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>17</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>160</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>57</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>97</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>109</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>137</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>149</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>161</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>211</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>184</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>185</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml</file>
+  <line>211</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/main_activity.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>177</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>202</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml</file>
+  <line>52</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/media_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/network_optimize.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/network_optimize.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>170</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>15</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>188</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>21</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>188</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>188</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>35</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>188</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>187</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml</file>
+  <line>61</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/onboarding_setup.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>5</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>178</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>180</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>17</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>179</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>25</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>179</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>174</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>39</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>180</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>44</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>181</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml</file>
+  <line>51</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/recovery_options.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>178</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/runtime_message_item.xml</file>
+  <line>3</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/runtime_message_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>187</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>28</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>202</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>202</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>60</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>70</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>80</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>204</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>102</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>112</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml</file>
+  <line>122</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_app_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>93</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>95</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml</file>
+  <line>97</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_detail.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_list.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_list.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>186</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_music_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/store_video_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>198</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>192</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>52</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml</file>
+  <line>64</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/text_viewer_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml</file>
+  <line>50</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/theme_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_cloud_search.xml</file>
+  <line>9</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_cloud_search.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>186</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml</file>
+  <line>10</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/tune_free_song_item.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>172</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>32</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>194</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>42</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>66</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>76</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>197</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>88</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>202</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml</file>
+  <line>98</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/typheye_account.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml</file>
+  <line>13</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/update_prompt.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>188</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>231</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>29</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>203</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>231</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>40</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>225</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>48</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>225</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>57</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>230</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>62</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>216</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>66</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>216</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>70</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>216</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>74</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>216</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>217</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>82</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>89</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>230</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>94</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>216</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>98</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>217</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>102</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>106</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>113</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>230</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>118</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>122</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>126</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>130</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>218</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>138</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>226</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>143</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>212</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>147</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>212</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>155</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>203</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>159</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>203</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>163</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>204</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>184</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>183</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml</file>
+  <line>188</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/video_player.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;7sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;7sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>184</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat.xml</file>
+  <line>11</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;9sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;9sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>195</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>199</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/wear_chat_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>204</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>201</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>203</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>194</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml</file>
+  <line>50</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/res/layout/x5_browser_settings.xml" />
+  <problem_class id="AndroidLintSmallSp" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Text size is too small</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using sizes smaller than &lt;code&gt;11sp&lt;/code&gt;: &lt;code&gt;10sp&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>android:textSize=&quot;10sp&quot;</highlighted_element>
+  <language>XML</language>
+  <offset>200</offset>
+  <length>23</length>
+</problem>
+</problems>

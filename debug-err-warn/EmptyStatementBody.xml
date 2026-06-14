@@ -1,0 +1,2433 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>361</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity$21 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>424</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity$24 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>111</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.ThirdPartyAuthorizationActivity$13 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>277</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.ThirdPartyAuthorizationActivity$19 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>395</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.ThirdPartyAuthorizationActivity$25 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>656</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.ThirdPartyAuthorizationActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>417</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void qh()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>543</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void gx()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>475</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity$32 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>564</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity$34 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>751</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void upload(java.lang.Object a)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>966</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void onXxbj8Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>186</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$9 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>357</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$10 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>555</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$12 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>764</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>109</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge void getPericon$1(java.lang.String uid)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>189</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>193</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>291</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>504</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 void onProgressChanged(com.tencent.smtt.sdk.WebView vw, int np)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>590</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$24 void onPermissionRequest(com.tencent.smtt.export.external.interfaces.PermissionRequest request)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>694</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$30 void onClick(android.view.View v)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>715</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$31 void onClick(android.view.View v)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>734</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$32 void onClick(android.view.View v)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>842</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity$38 void onClick(android.view.View v)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>949</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>187</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity void jz()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>211</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>837</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>879</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity boolean onWb3LongClick(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>890</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity void onV7lb1ScrollStateChanged(androidx.recyclerview.widget.RecyclerView vw, int ns)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>892</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity void onV7lb1ScrollStateChanged(androidx.recyclerview.widget.RecyclerView vw, int ns)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>257</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatRoomActivity.java</file>
+  <line>666</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatRoomActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>211</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>837</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>879</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity boolean onWb3LongClick(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>890</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity void onV7lb1ScrollStateChanged(androidx.recyclerview.widget.RecyclerView vw, int ns)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>892</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity void onV7lb1ScrollStateChanged(androidx.recyclerview.widget.RecyclerView vw, int ns)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatActivity.java</file>
+  <line>145</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatActivity void jz()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>124</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge boolean part_buildNewRoom(java.lang.Object name, java.lang.Object id)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>997</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$8 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1325</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void dj_wllbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1359</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$17 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1499</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$19 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1675</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx1(boolean f_)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1899</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx1(boolean f_)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1924</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx2()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2077</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx2()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2016</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$29 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2102</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx3()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2257</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx3()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2197</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$33 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2415</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void post()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2643</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void post()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2679</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void post_jb(java.lang.Object c, java.lang.Object d, java.lang.Object e, java.lang.Object f)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2823</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void post_jb(java.lang.Object c, java.lang.Object d, java.lang.Object e, java.lang.Object f)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>3078</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void upload(java.lang.Object a, int types)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>92</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void getlic()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>136</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>172</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void update_v2(int a11, java.lang.String vn_)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>221</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>279</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>685</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$8 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>752</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge boolean yz()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1151</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1778</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1780</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1782</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1784</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1813</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1815</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1817</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1830</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1839</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1841</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1874</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1876</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1885</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1918</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1920</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1922</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1940</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1942</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1944</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1946</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1963</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1965</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1967</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1969</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2156</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void cdx(int i, java.lang.String a, java.lang.String b, java.lang.String c)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2378</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void cdx(int i, java.lang.String a, java.lang.String b, java.lang.String c)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2709</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void update(int a11)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2755</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$28 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2765</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$28 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2773</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$28 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2807</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$28 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2841</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$29 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>86</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>98</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>136</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>140</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>233</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap void downAssets()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>256</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>266</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>276</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$4 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>457</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>477</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>503</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>46</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>515</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>46</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>537</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>46</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>583</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap boolean update(java.lang.Object uid)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DeviceManagerHelper.java</file>
+  <line>56</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.DeviceManagerHelper void enableDeviceManager()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/DevicePolicyBridge.java</file>
+  <line>46</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.DevicePolicyBridge void gets(android.content.Context context)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>106</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge int findid_talklist(java.lang.Object a)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>184</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge int get_filelist(java.lang.Object a)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>258</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge int findid_pluginlist(java.lang.Object a)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>790</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/DeleteConfirmActivity.java</file>
+  <line>343</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.DeleteConfirmActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>194</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>221</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileManagerActivity.java</file>
+  <line>715</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileManagerActivity void onTx2Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkPreviewActivity.java</file>
+  <line>249</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.installer.ApkPreviewActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>396</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$43 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>400</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$43 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>753</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$48 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1187</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1554</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onQtgd1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1556</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onQtgd1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>1558</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity boolean onQtgd1Touch(android.view.View vw, android.view.MotionEvent me)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>355</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity$25 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginActivity.java</file>
+  <line>136</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginActivity void jz()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>92</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge boolean part_buildNewPlu(java.lang.Object name, java.lang.Object id, java.lang.Object pass)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>444</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge void dj_cjlbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>475</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge$10 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>656</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge$12 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>1080</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$32$2$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginDetailActivity.java</file>
+  <line>241</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginDetailActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/CrashFeedbackActivity.java</file>
+  <line>132</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.CrashFeedbackActivity$6 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ResetAppActivity.java</file>
+  <line>201</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.ResetAppActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>212</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService void cmd(java.lang.String cmd)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/MediaBrowserSettingsActivity.java</file>
+  <line>202</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.MediaBrowserSettingsActivity void jz()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>548</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/ThemeSettingsActivity.java</file>
+  <line>194</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.ThemeSettingsActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>480</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$23 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>492</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$23 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>530</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$23 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>534</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$23 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>855</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$26 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreListActivity.java</file>
+  <line>312</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreListActivity$10 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreListActivity.java</file>
+  <line>464</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreListActivity$13 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreListActivity.java</file>
+  <line>617</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreListActivity$16 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreSearchActivity.java</file>
+  <line>213</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreSearchActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/CloudServiceActivity.java</file>
+  <line>572</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.CloudServiceActivity void upload(java.lang.Object a)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/DeviceScanPlaceholderActivity.java</file>
+  <line>185</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.DeviceScanPlaceholderActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java</file>
+  <line>157</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationActivity void load()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LogCleanupActivity.java</file>
+  <line>211</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LogCleanupActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/NetworkOptimizeActivity.java</file>
+  <line>220</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.NetworkOptimizeActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>678</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.RemoteControlActivity void onXdbj10Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>749</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemToolsActivity.java</file>
+  <line>199</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemToolsActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationMenuItemActivity.java</file>
+  <line>353</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileOperationMenuItemActivity$7 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOperationMenuItemActivity.java</file>
+  <line>358</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileOperationMenuItemActivity$7 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>129</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity void onXdbj1Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>135</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity void onXdbj1Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LegacyMenuItemActivity.java</file>
+  <line>137</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.LegacyMenuItemActivity void onXxbj1Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/LegacyMenuItemActivity.java</file>
+  <line>143</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.LegacyMenuItemActivity void onXxbj1Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>522</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$46$1 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1004</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$52 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1022</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$52 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1030</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$52 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1053</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$52 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1392</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$66 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1812</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void scheduleJob()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>14</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1876</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$73 void run()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>2862</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void usual()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;else&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>else</highlighted_element>
+  <language>JAVA</language>
+  <offset>10</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/OnboardingSetupActivity.java</file>
+  <line>624</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.OnboardingSetupActivity void onKg1CheckedChanged(android.widget.CompoundButton vw, boolean ic)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/OnboardingSetupActivity.java</file>
+  <line>791</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.OnboardingSetupActivity void onTx7Click(android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>335</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity void update()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateInstallActivity.java</file>
+  <line>386</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateInstallActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>153</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity void update()" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>391</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>15</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>456</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/ImageViewerActivity.java</file>
+  <line>289</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.ImageViewerActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>290</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextEditorActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>389</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextViewerActivity boolean onKeyDown(int kc, android.view.KeyEvent ke)" />
+  <problem_class id="EmptyStatementBody" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">带空体的语句</problem_class>
+  <description>&lt;code&gt;if&lt;/code&gt; 语句具有空体 #loc</description>
+  <highlighted_element>if</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>2</length>
+</problem>
+</problems>

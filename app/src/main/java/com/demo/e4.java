@@ -34,13 +34,13 @@ import java.security.cert.Extension;
 import java.text.DecimalFormat;
 //import android.icu.text.DecimalFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.text.SimpleDateFormat;
 import java.io.File;
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Locale;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.HttpURLConnection;
@@ -53,40 +53,57 @@ import android.provider.OpenableColumns;
 public class e4 {
   
   public static String getFilePathForN(Uri uri, Context context) {
+    if (uri == null || context == null) {
+      return null;
+    }
     Uri returnUri = uri;
     Cursor returnCursor = context.getContentResolver().query(returnUri, null, null, null, null);
+    if (returnCursor == null) {
+      return null;
+    }
     /*
     * Get the column indexes of the data in the Cursor,
     *     * move to the first row in the Cursor, get the data,
     *     * and display it.
     * */
-    int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-    int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-    returnCursor.moveToFirst();
-    String name = (returnCursor.getString(nameIndex));
-    String size = (Long.toString(returnCursor.getLong(sizeIndex)));
-    File file = new File(context.getCacheDir(), name);
+    File file;
     try {
+      int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
+      int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
+      if (nameIndex < 0 || sizeIndex < 0 || !returnCursor.moveToFirst()) {
+        return null;
+      }
+      String name = returnCursor.getString(nameIndex);
+      file = new File(context.getCacheDir(), name);
       InputStream inputStream = context.getContentResolver().openInputStream(uri);
+      if (inputStream == null) {
+        return null;
+      }
       FileOutputStream outputStream = new FileOutputStream(file);
-      int read = 0;
-      int maxBufferSize = 1 * 1024 * 1024;
-      int bytesAvailable = inputStream.available();
-      
-      //int bufferSize = 1024;
-      int bufferSize = Math.min(bytesAvailable, maxBufferSize);
-      
-      final byte[] buffers = new byte[bufferSize];
-      while ((read = inputStream.read(buffers)) != -1) {
-        outputStream.write(buffers, 0, read);
+      try {
+        int read = 0;
+        int maxBufferSize = 1 * 1024 * 1024;
+        int bytesAvailable = inputStream.available();
+        
+        //int bufferSize = 1024;
+        int bufferSize = Math.max(1, Math.min(bytesAvailable, maxBufferSize));
+        
+        final byte[] buffers = new byte[bufferSize];
+        while ((read = inputStream.read(buffers)) != -1) {
+          outputStream.write(buffers, 0, read);
+        }
+      } finally {
+        inputStream.close();
+        outputStream.close();
       }
       //Log.e("File Size", "Size " + file.length());
-      inputStream.close();
-      outputStream.close();
       //Log.e("File Path", "Path " + file.getPath());
       //Log.e("File Size", "Size " + file.length());
     } catch (Exception e) {
       //Log.e("Exception", e.getMessage());
+      return null;
+    } finally {
+      returnCursor.close();
     }
     return file.getPath();
   }
@@ -144,7 +161,7 @@ public class e4 {
       bmp = BitmapFactory.decodeStream(is);
       is.close();
     } catch (Exception e) {
-      e.printStackTrace();
+      android.util.Log.e("AWGPro", "Unhandled exception", e);
     }
     return bmp;
   }
@@ -216,7 +233,7 @@ public class e4 {
       context.startActivity(intent);
     }
     catch(Exception e) {
-      e.printStackTrace();
+      android.util.Log.e("AWGPro", "Unhandled exception", e);
       try {
         intent.setComponent(new ComponentName("cn.luern0313.wristvideoplayer_free", "cn.luern0313.wristvideoplayer_free.ui.PlayerActivity"));
         context.startActivity(intent);
@@ -269,15 +286,14 @@ public class e4 {
       }
       String sDate =null;
       if (i==1){
-        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm");
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yy-MM-dd hh:mm", Locale.getDefault());
         sDate = shortDateFormat.format(new Date(time));
       }else if(i==2){
-        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat shortDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss", Locale.getDefault());
         sDate = shortDateFormat.format(new Date(time));
       }
       back = sDate;
     } catch (Exception e) {
-    } finally {
     }
     return back;
   }
@@ -288,7 +304,7 @@ public class e4 {
       context.getPackageName(), 0);
       return packageInfo.versionName;
     } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
+      android.util.Log.e("AWGPro", "Unhandled exception", e);
     }
     return null;
   }
@@ -300,7 +316,7 @@ public class e4 {
       context.getPackageName(), 0);
       return packageInfo.versionCode;
     } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
+      android.util.Log.e("AWGPro", "Unhandled exception", e);
     }
     return 0;
   }

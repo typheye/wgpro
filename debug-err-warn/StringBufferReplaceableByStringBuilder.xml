@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java</file>
+  <line>185</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair.exception</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.exception.CrashHandler java.lang.String saveCrashInfo2File(java.lang.Throwable ex)" />
+  <problem_class id="StringBufferReplaceableByStringBuilder" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">'StringBuffer' 可能是 'StringBuilder'</problem_class>
+  <description>&lt;code&gt;StringBuffer sb&lt;/code&gt; 可能被声明为 'StringBuilder' #loc</description>
+  <highlighted_element>sb</highlighted_element>
+  <language>JAVA</language>
+  <offset>21</offset>
+  <length>2</length>
+</problem>
+</problems>

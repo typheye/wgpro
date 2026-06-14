@@ -137,11 +137,13 @@ public class AwgProApplication extends applicationMain {
 
     // 添加Activity到容器中
     public void addActivity(Activity activity) {
-        if (activitys != null && activitys.size() > 0) {
-            if (!activitys.contains(activity)) {
-                activitys.add(activity);
-            }
-        } else {
+        if (activity == null) {
+            return;
+        }
+        if (activitys == null) {
+            activitys = new LinkedList<Activity>();
+        }
+        if (!activitys.contains(activity)) {
             activitys.add(activity);
         }
     }

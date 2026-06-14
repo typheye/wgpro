@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/CommandMethod.java</file>
+  <line>36</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.CommandMethod java.lang.String runADBCommand(java.lang.String cmd)" />
+  <problem_class id="CharsetObjectCanBeUsed" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">可以使用标准 'Charset' 对象</problem_class>
+  <description>可以改用StandardCharsets.UTF_8</description>
+  <highlighted_element>&quot;UTF-8&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>61</offset>
+  <length>7</length>
+</problem>
+</problems>

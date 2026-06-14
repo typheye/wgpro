@@ -1,0 +1,15 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>280</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 java.lang.String fileTime(int i, java.lang.String url)" />
+  <problem_class id="EmptyFinallyBlock" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">空 'finally' 块</problem_class>
+  <description>空 &lt;code&gt;finally&lt;/code&gt; 块 #loc</description>
+  <highlighted_element>finally</highlighted_element>
+  <language>JAVA</language>
+  <offset>6</offset>
+  <length>7</length>
+</problem>
+</problems>

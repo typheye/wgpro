@@ -413,7 +413,11 @@ public class CoreRuntimeBootstrap extends iClass {
                 .setWhen(System.currentTimeMillis())
                 .setSmallIcon(R.mipmap.a37)
                 .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.mipmap.c1))
-                .setContentIntent(PendingIntent.getActivity(context, 0, intent, 0))
+                .setContentIntent(PendingIntent.getActivity(
+                        context,
+                        0,
+                        intent,
+                        PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE))
 
                 .build();
         notificationManager.notify(msgids, notification);

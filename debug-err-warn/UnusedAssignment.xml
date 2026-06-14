@@ -1,0 +1,2173 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>14</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checksignture(android.content.Context context, int sign)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;same&lt;/code&gt; 初始值设定项 &lt;code&gt;false&lt;/code&gt; 冗余</description>
+  <highlighted_element>false</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e3.java</file>
+  <line>61</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e3 java.lang.String[] execCommand(android.content.Context context, java.lang.String[] commands, boolean isRoot)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;successMsg&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e3.java</file>
+  <line>62</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e3 java.lang.String[] execCommand(android.content.Context context, java.lang.String[] commands, boolean isRoot)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;errorMsg&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>72</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 java.lang.String getFilePathForN(android.net.Uri uri, android.content.Context context)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;read&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/AppActivationActivity.java</file>
+  <line>293</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.AppActivationActivity$19 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;z&lt;/code&gt; 的值 &lt;code&gt;st.wb(R.id.wb5).zf()&lt;/code&gt; 从未使用</description>
+  <highlighted_element>z</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/ThirdPartyAuthorizationActivity.java</file>
+  <line>542</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.ThirdPartyAuthorizationActivity$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;te1&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>314</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void zh()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;te1&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>21</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>316</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity void zh()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;te2&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>21</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>483</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity$32 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>485</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity$32 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_msg&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>39</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>572</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity$34 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeAccountActivity.java</file>
+  <line>574</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeAccountActivity$34 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_msg&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>39</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>176</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$9 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;oback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>301</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$10 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;oback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>403</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$10 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_note&lt;/code&gt; 的值 &lt;code&gt;info.getString(&quot;note&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_note</highlighted_element>
+  <language>JAVA</language>
+  <offset>44</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>405</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$10 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_more&lt;/code&gt; 的值 &lt;code&gt;info.getString(&quot;more&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_more</highlighted_element>
+  <language>JAVA</language>
+  <offset>44</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>406</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$10 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_email&lt;/code&gt; 的值 &lt;code&gt;info.getString(&quot;email&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_email</highlighted_element>
+  <language>JAVA</language>
+  <offset>44</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>563</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>565</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_msg&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>617</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_note&lt;/code&gt; 的值 &lt;code&gt;info.getString(&quot;note&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_note</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>619</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_more&lt;/code&gt; 的值 &lt;code&gt;info.getString(&quot;more&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_more</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeLoginActivity.java</file>
+  <line>620</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeLoginActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_email&lt;/code&gt; 的值 &lt;code&gt;info.getString(&quot;email&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_email</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>148</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>172</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_msg&lt;/code&gt; 的值 &lt;code&gt;json.getString(&quot;msg&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_msg</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>176</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_v1&lt;/code&gt; 的值 &lt;code&gt;info.getIntValue(&quot;v1&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_v1</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>177</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_v2&lt;/code&gt; 的值 &lt;code&gt;info.getIntValue(&quot;v2&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_v2</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>178</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_info_v3&lt;/code&gt; 的值 &lt;code&gt;info.getIntValue(&quot;v3&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_info_v3</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>255</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$6 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>275</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge$6 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;j_msg&lt;/code&gt; 的值 &lt;code&gt;json.getString(&quot;msg&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>j_msg</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>376</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge boolean register$request(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>378</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge boolean register$request(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_msg&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>443</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge void register$request$token(java.lang.Object a, i.runlibrary.app.v.an b)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_code&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/account/TypheyeServiceBridge.java</file>
+  <line>445</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.account</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.account.TypheyeServiceBridge void register$request$token(java.lang.Object a, i.runlibrary.app.v.an b)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;j_msg&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/announcement/AnnouncementActivity.java</file>
+  <line>234</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.announcement</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.announcement.AnnouncementActivity$13 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/app/AwgProApplication.java</file>
+  <line>47</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.app</package>
+  <entry_point TYPE="field" FQNAME="open.cn.awg.pro.app.AwgProApplication activitys" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;activitys&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>39</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>169</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity void jz()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;te1&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>21</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserSettingsActivity.java</file>
+  <line>204</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserSettingsActivity void jz()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;te2&lt;/code&gt; 的值 &lt;code&gt;wj.dqwb(set3)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>te2</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>265</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;aa&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>20</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5CoreInstallActivity.java</file>
+  <line>459</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5CoreInstallActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;path&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/ChatGptActivity.java</file>
+  <line>520</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.ChatGptActivity$28 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/DeepSeekActivity.java</file>
+  <line>520</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.DeepSeekActivity$28 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>991</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$8 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;text&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1097</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void wllbcd(int i)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1266</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void dj_wllbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1298</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void dj_wllbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1356</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$17 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1454</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$18 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1487</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$19 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1670</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx1(boolean f_)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1708</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>39</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1712</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;data&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1714</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;name&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1716</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;date&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1718</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;luid&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1720</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;address&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1759</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jname&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>43</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1761</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jdata&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>43</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1820</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$27 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;setback&lt;/code&gt; 的值 &lt;code&gt;&quot;0&quot;&lt;/code&gt; 从未使用</description>
+  <highlighted_element>setback</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1919</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx2()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>1946</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$29 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;db_&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2097</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltsgx3()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2131</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge$33 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;db_&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2402</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void post()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2668</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void post_jb(java.lang.Object c, java.lang.Object d, java.lang.Object e, java.lang.Object f)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/chat/WearChatRuntimeBridge.java</file>
+  <line>2833</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.chat</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.chat.WearChatRuntimeBridge void ltjmshow(java.lang.Object a, boolean b)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>106</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$1 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>128</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$1 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;version&lt;/code&gt; 的值 &lt;code&gt;readJson(setback, &quot;UpdateVersion&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>version</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>188</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>642</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge int getNowUserId()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;b&lt;/code&gt; 初始值设定项 &lt;code&gt;-1&lt;/code&gt; 冗余</description>
+  <highlighted_element>-1</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1049</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;srcs&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1068</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{R.mipmap.b5, &quot;...&quot;, FileUrl, &quot;返回上层目录&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{R.mipmap.b5, &quot;...&quot;, FileUrl, &quot;返回上层目录&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>54</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1101</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urlName&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1171</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;bt&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1187</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;d1&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1193</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void NewFilesLoad(java.lang.Object url, java.lang.Object roots)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;wjdx&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>1772</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void dkfs(java.lang.Object z, java.lang.Object b, int e)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2108</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void cdx(int i, java.lang.String a, java.lang.String b, java.lang.String c)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2266</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void cdx(int i, java.lang.String a, java.lang.String b, java.lang.String c)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2327</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void cdx(int i, java.lang.String a, java.lang.String b, java.lang.String c)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2396</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String hqwjdx(java.lang.Object url)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;d1&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2400</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String hqwjdx(java.lang.Object url)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;wjdx&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2484</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String readJson(java.lang.String text, java.lang.String value)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2506</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String getMipmap(java.lang.String v)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2535</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge void loadTheme(java.lang.String url)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2613</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String urlLockString(java.lang.String t)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2650</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String urlUnlockString(java.lang.String t)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2690</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge java.lang.String htmlToText(java.lang.String t)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>2725</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge$28 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$1 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>465</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap$6 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;db&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>613</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap java.lang.String getdata(java.lang.Object uid)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;back&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>635</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap java.lang.String getdata(java.lang.Object uid)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jname&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CoreRuntimeBootstrap.java</file>
+  <line>637</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CoreRuntimeBootstrap java.lang.String getdata(java.lang.Object uid)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jdata&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge boolean add_talklist(java.lang.Object a, java.lang.Object b, java.lang.Object c)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;fhz&lt;/code&gt; 初始值设定项 &lt;code&gt;false&lt;/code&gt; 冗余</description>
+  <highlighted_element>false</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>148</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge boolean update_filelist(java.lang.Object a, int b)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;fhz&lt;/code&gt; 初始值设定项 &lt;code&gt;false&lt;/code&gt; 冗余</description>
+  <highlighted_element>false</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>210</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge boolean add_pluginlist(java.lang.Object a, java.lang.Object b, java.lang.Object c)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;fhz&lt;/code&gt; 初始值设定项 &lt;code&gt;false&lt;/code&gt; 冗余</description>
+  <highlighted_element>false</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/download/DownloadProgressActivity.java</file>
+  <line>184</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.download</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.download.DownloadProgressActivity$7 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;bk&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ExperimentalFeaturesActivity.java</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ExperimentalFeaturesActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>649</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;d&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>659</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;i&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/DeleteConfirmActivity.java</file>
+  <line>74</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.DeleteConfirmActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;lx&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileOpenActivity.java</file>
+  <line>50</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileOpenActivity java.lang.String getMimeType(java.lang.String url)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;type&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;*/*&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;*/*&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>125</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileRootPickerActivity void list()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;values2&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;a1&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;a1&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>29</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileRootPickerActivity.java</file>
+  <line>170</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.file.FileRootPickerActivity void list()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;values2&lt;/code&gt; 的值 &lt;code&gt;new Object[]{&quot;应用目录&quot;, AppPaths.appPath(&quot;&quot;), &quot;a0&quot;, 0}&lt;/code&gt; 从未使用</description>
+  <highlighted_element>values2</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>7</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/live/LiveStreamActivity.java</file>
+  <line>200</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.live</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.live.LiveStreamActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>28</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeActivity.java</file>
+  <line>284</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeActivity$25 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeCloudSearchActivity.java</file>
+  <line>176</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeCloudSearchActivity$8 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>41</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeCloudSearchActivity.java</file>
+  <line>264</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeCloudSearchActivity$8 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>49</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeMusicBridge.java</file>
+  <line>102</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeMusicBridge void search_i1(java.lang.Object v, int o)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeMusicBridge.java</file>
+  <line>266</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeMusicBridge void search_i2(java.lang.Object v, int o)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/music/TuneFreeMusicBridge.java</file>
+  <line>433</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.music</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.music.TuneFreeMusicBridge$10 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>293</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge void cjlbcd(int i)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new Object[]{&quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}</highlighted_element>
+  <language>JAVA</language>
+  <offset>26</offset>
+  <length>35</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>312</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge void cjlbcd(int i)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;jk&lt;/code&gt; 的值 &lt;code&gt;new Object[]{&quot;清除扩展缓存&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, &quot;&quot;, 0}&lt;/code&gt; 从未使用</description>
+  <highlighted_element>jk</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>385</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge void dj_cjlbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>417</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge void dj_cjlbcd(java.lang.Object a, java.lang.Object b, java.lang.Object c, java.lang.Object d)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>470</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge$10 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>552</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge$11 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>588</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>735</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge boolean newG(int ii)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;isR&lt;/code&gt; 初始值设定项 &lt;code&gt;false&lt;/code&gt; 冗余</description>
+  <highlighted_element>false</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>5</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>136</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>206</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$9 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>365</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>456</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$15 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>560</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$20 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>719</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$23 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>909</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$29 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>1029</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$32 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>1164</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$34 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginConfigBridge.java</file>
+  <line>1225</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginConfigBridge$40 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/CrashFeedbackActivity.java</file>
+  <line>127</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.CrashFeedbackActivity$6 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>127</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService android.view.accessibility.AccessibilityNodeInfo get_api25(android.view.accessibility.AccessibilityNodeInfo node, java.lang.StringBuilder sb, java.lang.String id)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;anf&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>36</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>380</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void rgbsx()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;r1&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>382</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void rgbsx()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;g1&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>384</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void rgbsx()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;b1&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>419</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void rgbcsh(int o)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;r1&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>421</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void rgbcsh(int o)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;g1&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/TextViewerSettingsActivity.java</file>
+  <line>423</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.TextViewerSettingsActivity void rgbcsh(int o)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;b1&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>396</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$21 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;st_payconf&lt;/code&gt; 的值 &lt;code&gt;false&lt;/code&gt; 从未使用</description>
+  <highlighted_element>st_payconf</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/ProductPurchaseActivity.java</file>
+  <line>475</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.ProductPurchaseActivity$23 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;urls&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java</file>
+  <line>238</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreDetailActivity$20 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;id&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/store/StoreDetailActivity.java</file>
+  <line>240</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.store</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.store.StoreDetailActivity$20 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;ini&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>258</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.ShellExecutorActivity void runtime(java.lang.String cmd)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;result&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/ShellExecutorActivity.java</file>
+  <line>264</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.ShellExecutorActivity void runtime(java.lang.String cmd)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;errorResult&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>37</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>624</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity void bak(boolean i)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>626</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity void bak(boolean i)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;z&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/SystemPermissionActivity.java</file>
+  <line>668</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.SystemPermissionActivity void bak_s(java.lang.Object z, boolean i)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;color&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/WearOsToolboxActivity.java</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.WearOsToolboxActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;jk&lt;/code&gt; 初始值设定项 &lt;code&gt;new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}&lt;/code&gt; 冗余</description>
+  <highlighted_element>new String[]{&quot;&quot;, &quot;&quot;, &quot;&quot;}</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>24</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileOpenOptionItemActivity.java</file>
+  <line>230</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileOpenOptionItemActivity$19$8 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;fhs&lt;/code&gt; 初始值设定项 &lt;code&gt;true&lt;/code&gt; 冗余</description>
+  <highlighted_element>true</highlighted_element>
+  <language>JAVA</language>
+  <offset>54</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>519</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$46$1 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;vn&lt;/code&gt; 的值 &lt;code&gt;com.demo.e4.getVersionName(lei)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>vn</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>695</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;jk&lt;/code&gt; 的值 &lt;code&gt;new Object[]{R.mipmap.a29, &quot;关闭菜单&quot;, &quot;31&quot;, &quot;&quot;, -1}&lt;/code&gt; 从未使用</description>
+  <highlighted_element>jk</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>757</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;jk&lt;/code&gt; 的值 &lt;code&gt;new Object[]{R.mipmap.a29, &quot;关闭菜单&quot;, &quot;31&quot;, &quot;&quot;}&lt;/code&gt; 从未使用</description>
+  <highlighted_element>jk</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>861</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;jk&lt;/code&gt; 的值 &lt;code&gt;new Object[]{R.mipmap.a29, &quot;关闭菜单&quot;, &quot;31&quot;, &quot;&quot;, -1}&lt;/code&gt; 从未使用</description>
+  <highlighted_element>jk</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>926</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity void __layoutIsLoaded(android.app.Activity ay, android.view.View vw)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;jk&lt;/code&gt; 的值 &lt;code&gt;new Object[]{R.mipmap.a29, &quot;关闭菜单&quot;, &quot;31&quot;, &quot;&quot;, 0}&lt;/code&gt; 从未使用</description>
+  <highlighted_element>jk</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1849</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$73 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1894</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$73$2 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>40</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1921</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$73$3 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>44</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/MainActivity.java</file>
+  <line>1946</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.MainActivity$73$4 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;nr&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>48</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateActivity.java</file>
+  <line>374</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateActivity$38 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>41</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/AppUpdateInstallActivity.java</file>
+  <line>233</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.AppUpdateInstallActivity$12 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;bk&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>28</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>180</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity$15 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;setback&lt;/code&gt; 初始值设定项 &lt;code&gt;&quot;&quot;&lt;/code&gt; 冗余</description>
+  <highlighted_element>&quot;&quot;</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>2</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>228</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity$15 void run()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;versionname&lt;/code&gt; 的值 &lt;code&gt;e1.readJson(setback, &quot;UpdateVersionName&quot;)&lt;/code&gt; 从未使用</description>
+  <highlighted_element>versionname</highlighted_element>
+  <language>JAVA</language>
+  <offset>24</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/util/DateUtil.java</file>
+  <line>85</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.util</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.util.DateUtil java.lang.String formatTime(long time)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;times&lt;/code&gt; 初始值设定项 &lt;code&gt;null&lt;/code&gt; 冗余</description>
+  <highlighted_element>null</highlighted_element>
+  <language>JAVA</language>
+  <offset>23</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextEditorActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;bts&lt;/code&gt; 的值 &lt;code&gt;&quot;文本编辑器&quot;&lt;/code&gt; 从未使用</description>
+  <highlighted_element>bts</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextEditorActivity.java</file>
+  <line>94</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextEditorActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;bts&lt;/code&gt; 的值 &lt;code&gt;fhValue[3]&lt;/code&gt; 从未使用</description>
+  <highlighted_element>bts</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>125</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextViewerActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;bts&lt;/code&gt; 的值 &lt;code&gt;bt&lt;/code&gt; 从未使用</description>
+  <highlighted_element>bts</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>133</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextViewerActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>赋给 &lt;code&gt;bts&lt;/code&gt; 的值 &lt;code&gt;fhValue[3]&lt;/code&gt; 从未使用</description>
+  <highlighted_element>bts</highlighted_element>
+  <language>JAVA</language>
+  <offset>16</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/viewer/TextViewerActivity.java</file>
+  <line>348</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.viewer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.viewer.TextViewerActivity void gxh()" />
+  <problem_class id="UnusedAssignment" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">未使用的赋值</problem_class>
+  <description>变量 &lt;code&gt;psd&lt;/code&gt; 初始值设定项 &lt;code&gt;0&lt;/code&gt; 冗余</description>
+  <highlighted_element>0</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>1</length>
+</problem>
+</problems>

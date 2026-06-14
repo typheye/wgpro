@@ -36,7 +36,7 @@ class CommandMethod {
                     builder.append(new String(stream.read(), "UTF-8")).append("\n");
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                android.util.Log.e("AWGPro", "Unhandled exception", e);
             }
             connection.close();
             return builder.toString();
@@ -96,7 +96,7 @@ class CommandMethod {
             }
             return isUsed;
         } catch (Exception e) {
-            e.printStackTrace();
+            android.util.Log.e("AWGPro", "Unhandled exception", e);
             return false;
         } finally {
             if (process != null) {

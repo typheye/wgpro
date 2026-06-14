@@ -24,6 +24,9 @@ import java.io.File;
 public class CacheDataManager {
     public static String getTotalCacheSize(Context context) throws Exception {
         // Include both internal and external cache so the UI shows the full removable cache size.
+        if (context == null) {
+            return getFormatSize(0);
+        }
         long cacheSize = getFolderSize(context.getCacheDir());
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             cacheSize += getFolderSize(context.getExternalCacheDir());
@@ -34,7 +37,13 @@ public class CacheDataManager {
     public static long getFolderSize(File file) throws Exception {
         long size = 0;
         try {
+            if (file == null || !file.exists()) {
+                return 0;
+            }
             File[] fileList = file.listFiles();
+            if (fileList == null) {
+                return 0;
+            }
             for (int i = 0; i < fileList.length; i++) {
                 if (fileList[i].isDirectory()) {
                     size = size + getFolderSize(fileList[i]);
@@ -43,7 +52,7 @@ public class CacheDataManager {
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            android.util.Log.e("AWGPro", "Unhandled exception", e);
         }
         return size;
     }
@@ -62,6 +71,9 @@ public class CacheDataManager {
     }
 
     public static void clearAllCache(Context context) {
+        if (context == null) {
+            return;
+        }
         deleteDir(context.getCacheDir());
         if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
             deleteDir(context.getExternalCacheDir());
@@ -70,8 +82,14 @@ public class CacheDataManager {
 
     private static boolean deleteDir(File dir) {
         // Recursively delete child entries before deleting the directory itself.
+        if (dir == null) {
+            return true;
+        }
         if (dir != null && dir.isDirectory()) {
             String[] children = dir.list();
+            if (children == null) {
+                return dir.delete();
+            }
             for (int i = 0; i < children.length; i++) {
                 boolean success = deleteDir(new File(dir, children[i]));
                 if (!success) {

@@ -42,6 +42,7 @@
         tools:ignore="ProtectedPermissions" />
     <application android:name="open.cn.awg.pro.app.AwgProApplication" android:exported="true" android:usesCleartextTraffic="true" android:windowSoftInputMode="stateHidden|adjustResize" android:persistent="true" android:hardwareAccelerated="true" android:icon="@mipmap/icon" android:label="@string/app_name" android:largeHeap="true" android:resizeableActivity="false" android:supportsRtl="true" android:theme="@style/AppBaseTheme" android:requestLegacyExternalStorage="true" android:networkSecurityConfig="@xml/network_config"
         tools:ignore="DiscouragedApi">
+        <meta-data android:name="com.google.android.wearable.standalone" android:value="true" />
         <activity android:name=".ui.main.MainActivity" android:configChanges="uiMode|screenSize|keyboardHidden|orientation" android:windowSoftInputMode="stateHidden|adjustPan" android:launchMode="singleTop" android:theme="@style/AppBaseTheme.Launcher" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

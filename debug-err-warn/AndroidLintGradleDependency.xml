@@ -1,0 +1,67 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>19</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintGradleDependency" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete Gradle Dependency</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of &lt;code&gt;compileSdk&lt;/code&gt; than 35 is available: 37&lt;/html&gt;</description>
+  <highlighted_element>compileSdk 35</highlighted_element>
+  <language>Groovy</language>
+  <offset>4</offset>
+  <length>13</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>147</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintGradleDependency" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete Gradle Dependency</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of androidx.core:core than 1.13.1 is available: 1.17.0&lt;/html&gt;</description>
+  <highlighted_element>'androidx.core:core:1.13.1'</highlighted_element>
+  <language>Groovy</language>
+  <offset>19</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>148</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintGradleDependency" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete Gradle Dependency</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of androidx.appcompat:appcompat than 1.7.0 is available: 1.7.1&lt;/html&gt;</description>
+  <highlighted_element>'androidx.appcompat:appcompat:1.7.0'</highlighted_element>
+  <language>Groovy</language>
+  <offset>19</offset>
+  <length>36</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>152</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintGradleDependency" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete Gradle Dependency</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of androidx.constraintlayout:constraintlayout than 2.2.0 is available: 2.2.1&lt;/html&gt;</description>
+  <highlighted_element>'androidx.constraintlayout:constraintlayout:2.2.0'</highlighted_element>
+  <language>Groovy</language>
+  <offset>19</offset>
+  <length>50</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/build.gradle</file>
+  <line>155</line>
+  <module>wgpro-wear.app</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/build.gradle" />
+  <problem_class id="AndroidLintGradleDependency" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Obsolete Gradle Dependency</problem_class>
+  <hints />
+  <description>&lt;html&gt;A newer version of com.google.android.material:material than 1.12.0 is available: 1.13.0&lt;/html&gt;</description>
+  <highlighted_element>'com.google.android.material:material:1.12.0'</highlighted_element>
+  <language>Groovy</language>
+  <offset>19</offset>
+  <length>45</length>
+</problem>
+</problems>

@@ -1,0 +1,652 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/ApkMethod.java</file>
+  <line>36</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.ApkMethod java.lang.String getApplicationName()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;packageInfo.applicationInfo&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>packageInfo.applicationInfo</highlighted_element>
+  <language>JAVA</language>
+  <offset>6</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/ApkMethod.java</file>
+  <line>117</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.ApkMethod android.graphics.drawable.Drawable getApplicationIcon(android.content.Context context)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;packageInfo&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>packageInfo</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>11</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/apkinstaller/Methods/ApkMethod.java</file>
+  <line>117</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.apkinstaller.Methods</package>
+  <entry_point TYPE="method" FQNAME="com.apkinstaller.Methods.ApkMethod android.graphics.drawable.Drawable getApplicationIcon(android.content.Context context)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;packageInfo.applicationInfo&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>packageInfo.applicationInfo</highlighted_element>
+  <language>JAVA</language>
+  <offset>4</offset>
+  <length>27</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e0.java</file>
+  <line>18</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e0 int signture(android.content.Context context)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;signatures&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>signatures</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>20</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checksignture(android.content.Context context, int sign)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;signatures&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>signatures</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>10</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>26</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checksignture(android.content.Context context, int sign)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>same</highlighted_element>
+  <language>JAVA</language>
+  <offset>57</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e2.java</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e2 boolean checkIPackageManager(android.content.Context context)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;getClass&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>getClass</highlighted_element>
+  <language>JAVA</language>
+  <offset>17</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>63</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 java.lang.String getFilePathForN(android.net.Uri uri, android.content.Context context)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;getColumnIndex&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>getColumnIndex</highlighted_element>
+  <language>JAVA</language>
+  <offset>33</offset>
+  <length>14</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>74</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="method" FQNAME="com.demo.e4 java.lang.String getFilePathForN(android.net.Uri uri, android.content.Context context)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;available&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>available</highlighted_element>
+  <language>JAVA</language>
+  <offset>39</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/app/AwgProApplication.java</file>
+  <line>145</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.app</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.app.AwgProApplication void addActivity(android.app.Activity activity)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;add&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>add</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>210</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.browser.X5BrowserActivity void onCreate(android.os.Bundle be)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;getScheme&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>getScheme</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/AppRuntimeBridge.java</file>
+  <line>650</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.AppRuntimeBridge int getNowUserId()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>b</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CacheDataManager.java</file>
+  <line>38</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CacheDataManager long getFolderSize(java.io.File file)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;fileList&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>fileList</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CacheDataManager.java</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CacheDataManager boolean deleteDir(java.io.File dir)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>取消引用&lt;code&gt;children&lt;/code&gt; 可能导致 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>children</highlighted_element>
+  <language>JAVA</language>
+  <offset>32</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/CacheDataManager.java</file>
+  <line>82</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.CacheDataManager boolean deleteDir(java.io.File dir)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;delete&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>delete</highlighted_element>
+  <language>JAVA</language>
+  <offset>19</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver java.lang.String getByUri(android.content.Context context, android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;replaceFirst&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>replaceFirst</highlighted_element>
+  <language>JAVA</language>
+  <offset>45</offset>
+  <length>12</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isRE(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>127</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isEstrongs(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>133</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isMIUIGallery(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>141</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isMedia(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>147</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isQQBrowserFileProvider(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>153</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isFileExplorerMyProvider(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>159</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isDownloadsDocuments(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>167</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isMediaDocuments(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>173</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isExternalStorageDocuments(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>34</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>181</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isSchemeContent(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/core/UriPathResolver.java</file>
+  <line>185</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.core</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.core.UriPathResolver boolean isSchemeFile(android.net.Uri uri)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>76</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge boolean add_talklist(java.lang.Object a, java.lang.Object b, java.lang.Object c)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>fhz</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/data/LocalDatabaseBridge.java</file>
+  <line>228</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.data</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.data.LocalDatabaseBridge boolean add_pluginlist(java.lang.Object a, java.lang.Object b, java.lang.Object c)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>fhz</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>736</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>e</highlighted_element>
+  <language>JAVA</language>
+  <offset>20</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/experimental/ServerDebugActivity.java</file>
+  <line>782</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.experimental</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.experimental.ServerDebugActivity void onAn1Click(android.view.View vw)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>e</highlighted_element>
+  <language>JAVA</language>
+  <offset>12</offset>
+  <length>1</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/ApkInstallerActivity.java</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.installer.ApkInstallerActivity void getInstallInfo()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;getString&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>getString</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/media/VideoPlayerActivity.java</file>
+  <line>372</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.media</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.media.VideoPlayerActivity$43 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>实参 &lt;code&gt;uri&lt;/code&gt; 可能为null</description>
+  <highlighted_element>uri</highlighted_element>
+  <language>JAVA</language>
+  <offset>75</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/plugin/ExtensionPluginBridge.java</file>
+  <line>738</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.plugin</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.plugin.ExtensionPluginBridge boolean newG(int ii)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>变量已被指定给此值</description>
+  <highlighted_element>isR</highlighted_element>
+  <language>JAVA</language>
+  <offset>8</offset>
+  <length>3</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/StartReceiver.java</file>
+  <line>34</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.receiver</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.receiver.StartReceiver void onReceive(android.content.Context context, android.content.Intent intent)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ErrorMessageActivity.java</file>
+  <line>77</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.ErrorMessageActivity$4 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/ErrorMessageActivity.java</file>
+  <line>174</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.ErrorMessageActivity$7$1 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/RecoveryOptionsActivity.java</file>
+  <line>98</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.RecoveryOptionsActivity$7 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>27</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/RecoveryOptionsActivity.java</file>
+  <line>183</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.RecoveryOptionsActivity$11$1 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/RecoveryOptionsActivity.java</file>
+  <line>204</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.RecoveryOptionsActivity$11$2 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java</file>
+  <line>170</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair.exception</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.repair.exception.CrashHandler void collectDeviceInfo(android.content.Context ctx)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;toString&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>toString</highlighted_element>
+  <language>JAVA</language>
+  <offset>59</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>279</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.service.SystemAccessibilityService void applist()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;loadLabel&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>loadLabel</highlighted_element>
+  <language>JAVA</language>
+  <offset>99</offset>
+  <length>9</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>236</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity void jz()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>22</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/settings/FileManagerSettingsActivity.java</file>
+  <line>496</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.settings</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.settings.FileManagerSettingsActivity void onXdbj6Click(android.view.View vw)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>18</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/LocationActivity.java</file>
+  <line>191</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.LocationActivity$8 void onLocationChanged(android.location.Location location)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;size&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>size</highlighted_element>
+  <language>JAVA</language>
+  <offset>38</offset>
+  <length>4</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/TerminalCompatibilityActivity.java</file>
+  <line>362</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.tools.TerminalCompatibilityActivity$13$1 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>31</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/list/FileRootItemActivity.java</file>
+  <line>129</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.list</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.list.FileRootItemActivity void onXdbj1Click(android.view.View vw)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;equals&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>equals</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>6</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/ui/main/OnboardingSetupActivity.java</file>
+  <line>779</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.ui.main</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.ui.main.OnboardingSetupActivity$46$2 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;addFlags&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>addFlags</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>8</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/update/UpdatePromptActivity.java</file>
+  <line>286</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.update</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.update.UpdatePromptActivity$15 void run()" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>实参 &lt;code&gt;myappversionname&lt;/code&gt; 可能为null</description>
+  <highlighted_element>myappversionname</highlighted_element>
+  <language>JAVA</language>
+  <offset>60</offset>
+  <length>16</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/util/DateUtil.java</file>
+  <line>100</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.util</package>
+  <entry_point TYPE="method" FQNAME="open.cn.awg.pro.util.DateUtil java.lang.String getStringTimestamp(java.lang.String time)" />
+  <problem_class id="DataFlowIssue" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">为 null 性和数据流问题</problem_class>
+  <description>方法调用 &lt;code&gt;getTime&lt;/code&gt; 可能产生 &lt;code&gt;NullPointerException&lt;/code&gt;</description>
+  <highlighted_element>getTime</highlighted_element>
+  <language>JAVA</language>
+  <offset>44</offset>
+  <length>7</length>
+</problem>
+</problems>

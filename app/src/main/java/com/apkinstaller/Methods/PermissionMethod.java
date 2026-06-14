@@ -19,7 +19,7 @@ public class PermissionMethod {
         }
         return true;
       } catch (Exception e) {
-        e.printStackTrace();
+        android.util.Log.e("AWGPro", "Unhandled exception", e);
       }
     }
     return true;

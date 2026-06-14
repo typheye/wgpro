@@ -15,11 +15,13 @@ public class e0 {
       PackageManager packageManager = context.getPackageManager();
       PackageInfo packageInfo = packageManager.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
       Signature[] signatures = packageInfo.signatures;
-      for (Signature signature : signatures) {
-        text.append(signature.toString());
+      if (signatures != null) {
+        for (Signature signature : signatures) {
+          text.append(signature.toString());
+        }
       }
     } catch (PackageManager.NameNotFoundException e) {
-      e.printStackTrace();
+      android.util.Log.e("AWGPro", "Unhandled exception", e);
     }
     return text.toString().hashCode();
   }

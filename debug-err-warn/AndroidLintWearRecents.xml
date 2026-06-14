@@ -1,0 +1,1197 @@
+<problems>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>45</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.ui.main.MainActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboardHidd...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>489</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>57</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.repair.ErrorMessageActivity&quot; android:theme=&quot;@style/AppBaseTheme.ErrorActivi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>257</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>58</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.repair.RecoveryOptionsActivity&quot; android:theme=&quot;@style/AppBaseTheme.ErrorAct...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>260</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>59</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.repair.CrashFeedbackActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>259</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>60</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.ui.main.OnboardingSetupActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeTo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>262</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>61</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.update.AppUpdateInstallActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeTo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>262</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>62</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.download.DownloadProgressActivity&quot; android:theme=&quot;@style/AppBaseTheme.Swipe...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>264</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>63</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.account.OnlineIdActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>255</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>64</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.repair.ResetAppActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss&quot;...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>254</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>65</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.chat.WearChatAgreementActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToD...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>261</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>66</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.viewer.TextViewerActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>256</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>67</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.viewer.ImageViewerActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>257</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>68</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.installer.ApkPreviewActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>259</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>69</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.viewer.TextEditorActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>256</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>70</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.file.DeleteConfirmActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>257</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>71</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.SystemPermissionActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToD...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>261</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>72</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.TextViewerSettingsActivity&quot; android:theme=&quot;@style/AppBaseTheme.Swi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>266</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>73</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.DisplayMarginActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToD...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>261</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>74</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.update.UpdatePromptActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDism...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>258</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>75</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.media.VideoPlayerActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>256</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>76</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.media.WearMusicActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss&quot;...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>254</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>77</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.file.FileOpenActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss&quot; a...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>252</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>78</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.installer.PackageInstallerActivity&quot; android:theme=&quot;@style/AppBaseTheme.Swip...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>265</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>79</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.chat.ChatRoomActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss&quot; a...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>252</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>80</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.browser.X5BrowserActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>256</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>81</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.TerminalCompatibilityActivity&quot; android:theme=&quot;@style/AppBaseTheme.Swi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>266</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>82</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.SystemToolsActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>256</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>83</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.LogCleanupActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>255</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>84</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.DeviceScanPlaceholderActivity&quot; android:theme=&quot;@style/AppBaseTheme.Swi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>266</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>85</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.NetworkOptimizeActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>260</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>86</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.plugin.ExtensionPluginDetailActivity&quot; android:theme=&quot;@style/AppBaseTheme.Sw...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>267</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>87</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.account.TypheyeLoginActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>259</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>88</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.account.ThirdPartyAuthorizationActivity&quot; android:theme=&quot;@style/AppBaseTheme...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>270</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>89</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.store.ProductPurchaseActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>260</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>90</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.store.StoreSearchActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismis...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>256</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>91</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.chat.ChatGptActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss&quot; an...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>251</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>92</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.chat.DeepSeekActivity&quot; android:theme=&quot;@style/AppBaseTheme.SwipeToDismiss&quot; a...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>252</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>93</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.installer.ApkInstallerActivity&quot; android:theme=&quot;@android:style/Theme.DeviceD...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>279</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>94</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.ui.main.TextQrDisplayActivity&quot; android:configChanges=&quot;uiMode|screenSize|key...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>209</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>95</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.file.FileManagerActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboard...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>204</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>96</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.file.FileRootPickerActivity&quot; android:configChanges=&quot;uiMode|screenSize|keybo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>207</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>97</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.ui.main.AboutAppActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboard...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>204</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>98</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.account.TypheyeAccountActivity&quot; android:configChanges=&quot;uiMode|screenSize|ke...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>210</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>99</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.SettingsActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboar...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>205</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>100</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.FileManagerSettingsActivity&quot; android:configChanges=&quot;uiMode|screenS...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>216</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>101</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.account.AppActivationActivity&quot; android:configChanges=&quot;uiMode|screenSize|key...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>209</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>102</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.update.AppUpdateActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboard...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>204</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>103</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.CloudServiceActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboa...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>206</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>104</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.WearChatSettingsActivity&quot; android:configChanges=&quot;uiMode|screenSize...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>213</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>105</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.experimental.DeveloperTestActivity&quot; android:configChanges=&quot;uiMode|screenSiz...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>214</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>106</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.browser.X5BrowserSettingsActivity&quot; android:configChanges=&quot;uiMode|screenSize...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>213</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>107</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.MediaBrowserSettingsActivity&quot; android:configChanges=&quot;uiMode|screen...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>217</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>108</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.LegalInfoActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboa...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>206</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>109</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.settings.ThemeSettingsActivity&quot; android:configChanges=&quot;uiMode|screenSize|ke...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>210</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>110</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.chat.WearChatActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboardHid...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>201</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>111</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.chat.ChatMessageDetailActivity&quot; android:configChanges=&quot;uiMode|screenSize|ke...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>210</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>112</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.FingerprintActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboar...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>205</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>113</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.AccessibilityScriptActivity&quot; android:configChanges=&quot;uiMode|screenSize...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>213</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>114</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.ShellExecutorActivity&quot; android:configChanges=&quot;uiMode|screenSize|keybo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>207</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>115</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.announcement.AnnouncementActivity&quot; android:configChanges=&quot;uiMode|screenSize...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>213</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>116</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.LocationInfoActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboa...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>206</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>117</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.LocationActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboardHi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>202</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>118</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.experimental.MoreFeaturesActivity&quot; android:configChanges=&quot;uiMode|screenSize...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>213</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>119</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.download.AppDownloadActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyb...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>208</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>120</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.TextTranslateActivity&quot; android:configChanges=&quot;uiMode|screenSize|keybo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>207</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>121</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.browser.X5CoreInstallActivity&quot; android:configChanges=&quot;uiMode|screenSize|key...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>209</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>122</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.experimental.ExperimentalFeaturesActivity&quot; android:configChanges=&quot;uiMode|sc...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>221</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>123</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.apps.InstalledAppListActivity&quot; android:configChanges=&quot;uiMode|screenSize|key...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>209</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>124</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.plugin.ExtensionPluginActivity&quot; android:configChanges=&quot;uiMode|screenSize|ke...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>210</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>125</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.store.StoreDetailActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboar...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>205</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>126</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.store.StoreListActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboardH...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>203</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>127</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.experimental.ServerDebugActivity&quot; android:configChanges=&quot;uiMode|screenSize|...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>212</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>128</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.music.TuneFreeActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboardHi...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>202</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>129</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.music.TuneFreeCloudSearchActivity&quot; android:configChanges=&quot;uiMode|screenSize...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>213</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>130</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.live.LiveStreamActivity&quot; android:configChanges=&quot;uiMode|screenSize|keyboardH...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>203</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>131</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.live.LiveChannelDetailActivity&quot; android:configChanges=&quot;uiMode|screenSize|ke...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>210</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>132</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.experimental.AppDebugActivity&quot; android:configChanges=&quot;uiMode|screenSize|key...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>209</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>133</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.WearOsToolboxActivity&quot; android:configChanges=&quot;uiMode|screenSize|keybo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>207</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml</file>
+  <line>134</line>
+  <module>wgpro-wear.app.main</module>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Set &lt;code&gt;taskAffinity&lt;/code&gt; for Wear activities to make them appear correctly in recents&lt;/html&gt;</description>
+  <highlighted_element>&lt;activity android:name=&quot;.tools.RemoteControlActivity&quot; android:configChanges=&quot;uiMode|screenSize|keybo...</highlighted_element>
+  <language>XML</language>
+  <offset>8</offset>
+  <length>207</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java</file>
+  <line>409</line>
+  <module>wgpro-wear.app.main</module>
+  <package>com.demo</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/com/demo/e4.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>29</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java</file>
+  <line>613</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.browser</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/browser/X5BrowserActivity.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>55</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileOpenActivity.java</file>
+  <line>91</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.file</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/file/FileOpenActivity.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java</file>
+  <line>175</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>43</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java</file>
+  <line>193</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>39</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java</file>
+  <line>215</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.installer</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/installer/PackageInstallerActivity.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/StartReceiver.java</file>
+  <line>41</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.receiver</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/receiver/StartReceiver.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>51</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java</file>
+  <line>109</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.repair.exception</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/repair/exception/CrashHandler.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java</file>
+  <line>57</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/BootJobService.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>326</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>30</offset>
+  <length>22</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java</file>
+  <line>326</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.service</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/service/SystemAccessibilityService.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_CLEAR_TOP</highlighted_element>
+  <language>JAVA</language>
+  <offset>106</offset>
+  <length>23</length>
+</problem>
+<problem>
+  <file>file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java</file>
+  <line>234</line>
+  <module>wgpro-wear.app.main</module>
+  <package>open.cn.awg.pro.tools</package>
+  <entry_point TYPE="file" FQNAME="file://$PROJECT_DIR$/app/src/main/java/open/cn/awg/pro/tools/RemoteControlActivity.java" />
+  <problem_class id="AndroidLintWearRecents" severity="WARNING" attribute_key="WARNING_ATTRIBUTES">Wear OS: Recents and app resume</problem_class>
+  <hints />
+  <description>&lt;html&gt;Avoid using &lt;code&gt;FLAG_ACTIVITY_NEW_TASK&lt;/code&gt; and &lt;code&gt;FLAG_ACTIVITY_CLEAR_TOP&lt;/code&gt;&lt;/html&gt;</description>
+  <highlighted_element>FLAG_ACTIVITY_NEW_TASK</highlighted_element>
+  <language>JAVA</language>
+  <offset>35</offset>
+  <length>22</length>
+</problem>
+</problems>

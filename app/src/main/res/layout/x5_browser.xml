@@ -7,7 +7,7 @@
             </LinearLayout>
         </LinearLayout>
         <RelativeLayout android:id="@+id/xdbj2" android:layout_width="match_parent" android:layout_height="match_parent">
-            <ProgressBar android:id="@+id/jdt1" android:layout_width="100dp" android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:max="100" android:progress="0" android:visibility="gone" android:layout_below="@id/title_bar" android:background="@drawable/jdtbj" android:layout_margin="3dp" android:paddingLeft="5dp" android:paddingRight="5dp" android:elevation="6dp" android:layout_centerInParent="true">
+            <ProgressBar android:id="@+id/jdt1" android:layout_width="100dp" android:layout_height="wrap_content" style="?android:attr/progressBarStyleHorizontal" android:max="100" android:progress="0" android:visibility="gone" android:background="@drawable/jdtbj" android:layout_margin="3dp" android:paddingLeft="5dp" android:paddingRight="5dp" android:elevation="6dp" android:layout_centerInParent="true">
             </ProgressBar>
         </RelativeLayout>
         <RelativeLayout android:id="@+id/llqHdRoot" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone" android:background="@color/colorTabBackground">
