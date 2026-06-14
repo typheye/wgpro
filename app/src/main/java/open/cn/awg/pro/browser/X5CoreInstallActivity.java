@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.browser;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -462,7 +464,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         String add = "x5install.zip";
 
-        int sdk = xt.sbxx().sdk;
+        int sdk = IappCompat.sdk(xt.sbxx());
 
         if (sdk < 30) {
 
@@ -514,7 +516,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         } else {
 
-            i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
+            i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
 
             if (true) {
 

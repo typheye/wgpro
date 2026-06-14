@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.account;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -446,19 +448,19 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                             String money = e1.readJson(back, "Money");
 
-                            double money_ = sj.zh(money).zdouble(((double) (0)));
+                            double money_ = IappCompat.zh(sj.zh(money)).zdouble(((double) (0)));
 
                             String h_y = e1.readJson(back, "Act_Y");
 
-                            int h_y_ = sj.zh(h_y).zint(0);
+                            int h_y_ = IappCompat.zh(sj.zh(h_y)).zint(0);
 
                             String h_m = e1.readJson(back, "Act_M");
 
-                            int h_m_ = sj.zh(h_m).zint(0);
+                            int h_m_ = IappCompat.zh(sj.zh(h_m)).zint(0);
 
                             String h_d = e1.readJson(back, "Act_D");
 
-                            int h_d_ = sj.zh(h_d).zint(0);
+                            int h_d_ = IappCompat.zh(sj.zh(h_d)).zint(0);
 
                             String a3 = 日期工具.格式化日期时间(应用工具.获取应用第一次安装日期(lei, "open.cn.awg.pro"));
 
@@ -468,11 +470,11 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                             String d = zf.qc(a3, 8, 10);
 
-                            int y_ = sj.zh(y).zint(9999);
+                            int y_ = IappCompat.zh(sj.zh(y)).zint(9999);
 
-                            int m_ = sj.zh(m).zint(99);
+                            int m_ = IappCompat.zh(sj.zh(m)).zint(99);
 
-                            int d_ = sj.zh(d).zint(99);
+                            int d_ = IappCompat.zh(sj.zh(d)).zint(99);
 
                             final String[] name = new String[]{"id", "name", "jg", "text"};
 

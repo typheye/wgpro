@@ -16,6 +16,10 @@
  */
 package open.cn.awg.pro.ui.main;
 
+
+
+import android.annotation.SuppressLint;
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
@@ -69,6 +73,7 @@ import open.cn.awg.pro.ui.list.LegacyMenuItemActivity;
 import open.cn.awg.pro.ui.list.MainMenuItemActivity;
 import open.cn.awg.pro.update.UpdatePromptActivity;
 
+@SuppressLint("StaticFieldLeak")
 public class MainActivity extends BaseAwgActivity {
 
     public static Context context;
@@ -457,9 +462,9 @@ public class MainActivity extends BaseAwgActivity {
 
                             if (isShow && wj.cz(AppPaths.appPath("settings/a4.inf"))) {
 
-                                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) gj.dh();
+                                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
 
-                                i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) dh.jbtm(1, 0);
+                                i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(1, 0);
                                 jbtm.cxsc(500);
                                 st.xdbj(R.id.xdbj2).kjd(8);
                                 st.xdbj(R.id.xdbj2).dh(jbtm);
@@ -557,7 +562,7 @@ public class MainActivity extends BaseAwgActivity {
 
         if (e1.getNowUserId() == 0) {
 
-            i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+            i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
             if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -629,13 +634,13 @@ public class MainActivity extends BaseAwgActivity {
                 wtab2.dqfs("center");
 
                 i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(MainMenuItemActivity.class, R.layout.main_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+                spq = IappCompat.v7lbAdapter(lb, MainMenuItemActivity.class, R.layout.main_menu_item, new IappCompat.V7lbViewBinder() {
 
-                    public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+                    public void bind(Object ua, int pn, View vw) {
 
-                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                        int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                        int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                         if (f == 0) {
 
@@ -743,7 +748,7 @@ public class MainActivity extends BaseAwgActivity {
                 st.xdbj(R.id.xdbj4).wbj(10, 10, 10, 10);
 
                 i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(MainMenuItemActivity.class, R.layout.main_menu_item);
+                spq = IappCompat.v7lbAdapter(lb, MainMenuItemActivity.class, R.layout.main_menu_item);
 
                 int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb2, R.id.wb3};
 
@@ -795,13 +800,13 @@ public class MainActivity extends BaseAwgActivity {
                 wtab2.dqfs("center");
 
                 i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(MainMenuItemActivity.class, R.layout.main_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+                spq = IappCompat.v7lbAdapter(lb, MainMenuItemActivity.class, R.layout.main_menu_item, new IappCompat.V7lbViewBinder() {
 
-                    public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+                    public void bind(Object ua, int pn, View vw) {
 
-                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                        int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                        int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                         if (f == 0) {
 
@@ -886,13 +891,13 @@ public class MainActivity extends BaseAwgActivity {
                 st.xdbj(R.id.xdbj4).wbj(10, 10, 10, 10);
 
                 i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(LegacyMenuItemActivity.class, R.layout.legacy_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+                spq = IappCompat.v7lbAdapter(lb, LegacyMenuItemActivity.class, R.layout.legacy_menu_item, new IappCompat.V7lbViewBinder() {
 
-                    public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+                    public void bind(Object ua, int pn, View vw) {
 
-                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                        int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                        int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                         final i.runlibrary.app.v.xdbj xdbj1 = st.xdbj(vw, R.id.xdbj1);
 
@@ -953,9 +958,9 @@ public class MainActivity extends BaseAwgActivity {
 
             } else if (zf.dy(st.wb(R.id.title_bar).zf(), " 腕管Pro ")) {
 
-                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) gj.dh();
+                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
 
-                final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) dh.jbtm(0, 1);
+                final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(0, 1);
                 jbtm.cxsc(300);
                 gj.jmxc(new Runnable() {
 
@@ -1112,9 +1117,9 @@ public class MainActivity extends BaseAwgActivity {
 
         });
 
-        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) gj.dh();
+        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
 
-        i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) dh.jbtm(1, 0);
+        i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(1, 0);
         jbtm.cxsc(500);
         st.xdbj(R.id.xdbj2).kjd(8);
         st.xdbj(R.id.xdbj2).dh(jbtm);
@@ -1730,9 +1735,9 @@ public class MainActivity extends BaseAwgActivity {
 
         final String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) gj.dh();
+        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
 
-        final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) dh.jbtm(0, 1);
+        final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(0, 1);
         jbtm.cxsc(300);
         gj.jmxc(new Runnable() {
 
@@ -2539,9 +2544,9 @@ public class MainActivity extends BaseAwgActivity {
         wj.sc(set27);
         e11.setup_filelist();
 
-        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
+        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
 
-        int sdk = xt.sbxx().sdk;
+        int sdk = IappCompat.sdk(xt.sbxx());
 
         if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE") && sdk < 30) {
 
@@ -3544,9 +3549,9 @@ public class MainActivity extends BaseAwgActivity {
 
     private void onTx2Click(View vw) {
 
-        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) gj.dh();
+        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
 
-        final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) dh.jbtm(1, 0);
+        final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(1, 0);
         jbtm.cxsc(300);
         gj.jmxc(new Runnable() {
 

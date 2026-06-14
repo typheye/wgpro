@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.file;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -87,13 +89,13 @@ public class FileRootPickerActivity extends BaseAwgActivity {
         final String spxx = AppPaths.appPath("settings/a3.inf");
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        lbspq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(FileRootItemActivity.class, R.layout.file_root_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        lbspq = IappCompat.v7lbAdapter(lb, FileRootItemActivity.class, R.layout.file_root_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                 if (f == -1) {
 
@@ -122,7 +124,7 @@ public class FileRootPickerActivity extends BaseAwgActivity {
 
         Object[] values2 = new Object[]{"", "", "a1", 0};
 
-        int sdk = xt.sbxx().sdk;
+        int sdk = IappCompat.sdk(xt.sbxx());
 
         if (sdk < 30) {
 

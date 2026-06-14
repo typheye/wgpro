@@ -16,6 +16,10 @@
  */
 package open.cn.awg.pro.plugin;
 
+
+
+import android.annotation.SuppressLint;
+import open.cn.awg.pro.core.IappCompat;
 import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
@@ -39,6 +43,7 @@ import open.cn.awg.pro.tools.WearOsToolboxActivity;
 import open.cn.awg.pro.ui.list.ExtensionPluginListItemActivity;
 import open.cn.awg.pro.ui.list.ExtensionPluginMenuItemActivity;
 
+@SuppressLint("StaticFieldLeak")
 public class ExtensionPluginBridge extends iClass {
 
     public static i.runlibrary.app.v.v7lb$UserAdapter cjlbcdspq;
@@ -123,15 +128,15 @@ public class ExtensionPluginBridge extends iClass {
 
     public void csh() {
         e11.setup_pluginlist();
-        sjk = (i.runlibrary.app.sj$sjk) sj.sjk(set47);
+        sjk = (i.runlibrary.app.sj$sjk) (Object) sj.sjk(set47);
         cjlbcdlb = st.v7lb(R.id.cjlbv7lb2);
-        cjlbcdspq = (i.runlibrary.app.v.v7lb$UserAdapter) cjlbcdlb.v7lbspq(ExtensionPluginMenuItemActivity.class, R.layout.extension_plugin_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        cjlbcdspq = IappCompat.v7lbAdapter(cjlbcdlb, ExtensionPluginMenuItemActivity.class, R.layout.extension_plugin_menu_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                final int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                final int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                 if (f == 1) {
 
@@ -166,9 +171,9 @@ public class ExtensionPluginBridge extends iClass {
 
         });
         lb2 = st.v7lb(R.id.cjlbv7lb1);
-        spq2 = (i.runlibrary.app.v.v7lb$UserAdapter) lb2.v7lbspq(ExtensionPluginListItemActivity.class, R.layout.extension_plugin_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spq2 = IappCompat.v7lbAdapter(lb2, ExtensionPluginListItemActivity.class, R.layout.extension_plugin_list_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
             }
 
@@ -485,7 +490,7 @@ public class ExtensionPluginBridge extends iClass {
 
                 Object sqlx = null;
 
-                i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) sjk.cxsj("pluginlist", table, sqlx);
+                i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) (Object) sjk.cxsj("pluginlist", table, sqlx);
 
                 while (sjk15.xyh()) {
 
@@ -582,7 +587,7 @@ public class ExtensionPluginBridge extends iClass {
 
                         String nr = "";
 
-                        i.runlibrary.app.zf$zzbds zz = (i.runlibrary.app.zf$zzbds) zf.zzbds(bjknrs, "[0-9]*$", 0);
+                        i.runlibrary.app.zf$zzbds zz = (i.runlibrary.app.zf$zzbds) (Object) zf.zzbds(bjknrs, "[0-9]*$", 0);
 
                         boolean b2 = zz.sfppcg();
 

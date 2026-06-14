@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.experimental;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -70,7 +72,7 @@ public class ExperimentalFeaturesActivity extends BaseAwgActivity {
         applyStandardScreenMode(R.id.experimental_features_root, R.id.xdbj1, R.id.title_bar);
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(ExperimentalFeatureItemActivity.class, R.layout.experimental_feature_item);
+        spq = IappCompat.v7lbAdapter(lb, ExperimentalFeatureItemActivity.class, R.layout.experimental_feature_item);
 
         int[] kj = new int[]{R.id.wb1, R.id.wb2, -1};
 

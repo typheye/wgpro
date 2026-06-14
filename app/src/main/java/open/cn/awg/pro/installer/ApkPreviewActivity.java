@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.installer;
 
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -41,6 +43,7 @@ import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
 
+@SuppressLint("StaticFieldLeak")
 public class ApkPreviewActivity extends BaseAwgActivity {
 
     public static Context context;
@@ -98,7 +101,7 @@ public class ApkPreviewActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 

@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.tools;
 
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -32,6 +34,7 @@ import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
 
+@SuppressLint("StaticFieldLeak")
 public class LogCleanupActivity extends BaseAwgActivity {
 
     public static i.runlibrary.app.v.wb cmd;

@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.viewer;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -166,7 +168,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -351,11 +353,11 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (zf.dy(a, "1") || zf.dy(a, "3")) {
 
-            psd = 2 * sj.zh().pxzdp(50);
+            psd = 2 * IappCompat.zh(sj.zh()).pxzdp(50);
 
         } else {
 
-            psd = 2 * sj.zh().pxzdp(40);
+            psd = 2 * IappCompat.zh(sj.zh()).pxzdp(40);
 
         }
 
@@ -363,9 +365,9 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (zf.dy(wj.dqwb(set5), "true") || zf.dy(code, "super1")) {
 
-            i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+            i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
-            int i = sj.zh().pxzdp(pm.k) - psd;
+            int i = IappCompat.zh(sj.zh()).pxzdp(pm.k) - psd;
             text.k(i + "dp");
 
         } else {

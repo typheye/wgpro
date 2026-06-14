@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.account;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import com.alibaba.fastjson.JSONObject;
 
 import i.app.iClass;
@@ -41,7 +43,7 @@ public class TypheyeServiceBridge extends iClass {
 
     public String getPerIcon(Object uid) {
 
-        String url = getPerIconPath(sj.zh().zstring(uid));
+        String url = getPerIconPath(IappCompat.zh(sj.zh()).zstring(uid));
 
         if (wj.cz(url)) {
 
@@ -57,7 +59,7 @@ public class TypheyeServiceBridge extends iClass {
 
     public String getPerIconPath(Object uid) {
 
-        String url = wj.hqml(AppPaths.appPath("data/user/src/pericon/") + sj.zh().zstring(uid));
+        String url = wj.hqml(AppPaths.appPath("data/user/src/pericon/") + IappCompat.zh(sj.zh()).zstring(uid));
         return url;
 
     }
@@ -69,7 +71,7 @@ public class TypheyeServiceBridge extends iClass {
             state_get_pericon = true;
             a = zf.qctwkg(a);
 
-            final String uid = sj.zh().zstring(a);
+            final String uid = IappCompat.zh(sj.zh()).zstring(a);
             gj.xc(new Thread() {
 
                 public void run() {
@@ -367,7 +369,7 @@ public class TypheyeServiceBridge extends iClass {
 
         String sjzx = xt.sj(4);
 
-        String send0 = "type=register&username=" + sj.zh().zstring(a) + "&regtoken=" + sj.zh().zstring(b) + "&password=" + sj.zh().zstring(c) + "&password2=" + sj.zh().zstring(d) + "&time=" + sjzx;
+        String send0 = "type=register&username=" + IappCompat.zh(sj.zh()).zstring(a) + "&regtoken=" + IappCompat.zh(sj.zh()).zstring(b) + "&password=" + IappCompat.zh(sj.zh()).zstring(c) + "&password2=" + IappCompat.zh(sj.zh()).zstring(d) + "&time=" + sjzx;
 
         final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 
@@ -425,7 +427,7 @@ public class TypheyeServiceBridge extends iClass {
 
         String sjzx = xt.sj(4);
 
-        String send0 = "type=register_token&email=" + sj.zh().zstring(a) + "&time=" + sjzx;
+        String send0 = "type=register_token&email=" + IappCompat.zh(sj.zh()).zstring(a) + "&time=" + sjzx;
 
         final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
         gj.jmxc(new Runnable() {
@@ -517,13 +519,13 @@ public class TypheyeServiceBridge extends iClass {
         c = zf.qctwkg(c);
         d = zf.qctwkg(d);
 
-        final String email = sj.zh().zstring(a);
+        final String email = IappCompat.zh(sj.zh()).zstring(a);
 
-        final String tokenCode = sj.zh().zstring(b);
+        final String tokenCode = IappCompat.zh(sj.zh()).zstring(b);
 
-        final String newpassword = sj.zh().zstring(c);
+        final String newpassword = IappCompat.zh(sj.zh()).zstring(c);
 
-        final String newpasswords = sj.zh().zstring(d);
+        final String newpasswords = IappCompat.zh(sj.zh()).zstring(d);
 
         String sjzx = xt.sj(4);
 

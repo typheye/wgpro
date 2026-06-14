@@ -16,6 +16,7 @@
  */
 package open.cn.awg.pro.repair.exception;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -50,6 +51,7 @@ import open.cn.awg.pro.repair.RecoveryOptionsActivity;
 public class CrashHandler implements UncaughtExceptionHandler {
     public static final String TAG = "CrashHandler";
     // CrashHandler实例
+    @SuppressLint("StaticFieldLeak")
     private static final CrashHandler INSTANCE = new CrashHandler();
     // 系统默认的UncaughtException处理类
     private Thread.UncaughtExceptionHandler mDefaultHandler;
@@ -79,7 +81,7 @@ public class CrashHandler implements UncaughtExceptionHandler {
      * @param context
      */
     public void init(Context context) {
-        mContext = context;
+        mContext = context.getApplicationContext();
         // 获取系统默认的UncaughtException处理器
         mDefaultHandler = Thread.getDefaultUncaughtExceptionHandler();
         // 设置该CrashHandler为程序的默认处理器

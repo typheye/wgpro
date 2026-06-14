@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.file;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -201,7 +203,7 @@ public class FileManagerActivity extends BaseAwgActivity {
             wj.xrwb(cache00, roots);
             GlobalRuntimeState.d1_rootpath = roots;
 
-            int sdk = xt.sbxx().sdk;
+            int sdk = IappCompat.sdk(xt.sbxx());
 
             if (sdk >= 30) {
 
@@ -583,7 +585,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
                         String pb7 = "/storage/emulated/0/Android/obb";
 
-                        if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb7))) {
+                        if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb7))) {
 
                             e1.tsk("提示", "非法操作");
 
@@ -632,7 +634,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
                     String pb7 = "/storage/emulated/0/Android/obb";
 
-                    if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb7))) {
+                    if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb7))) {
 
                         e1.tsk("提示", "非法操作");
 
@@ -679,7 +681,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
                     String pb7 = "/storage/emulated/0/Android/obb";
 
-                    if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(we, pb7))) {
+                    if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb7))) {
 
                         e1.tsk("提示", "非法操作");
 

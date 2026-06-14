@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.live;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -118,7 +120,7 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
 
                 } else {
 
-                    show.add("[备用源" + sj.zh(i).zstring() + "] " + j);
+                    show.add("[备用源" + IappCompat.zh(sj.zh(i)).zstring() + "] " + j);
 
                 }
                 i++;

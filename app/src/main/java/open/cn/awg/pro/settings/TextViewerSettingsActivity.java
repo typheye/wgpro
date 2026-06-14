@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.settings;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
@@ -232,7 +234,7 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -675,7 +677,7 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
         int i = tdt1.jdz();
         st.wb(R.id.wb10).zf(i + "sp");
 
-        String sis = sj.zh(i).zstring();
+        String sis = IappCompat.zh(sj.zh(i)).zstring();
         wj.xrwb(set, sis);
 
     }

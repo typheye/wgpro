@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.store;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -249,7 +251,7 @@ public class StoreListActivity extends BaseAwgActivity {
             final int y = y_;
 
             i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(StoreMusicItemActivity.class, R.layout.store_music_item);
+            spq = IappCompat.v7lbAdapter(lb, StoreMusicItemActivity.class, R.layout.store_music_item);
 
             final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
@@ -272,12 +274,12 @@ public class StoreListActivity extends BaseAwgActivity {
                         if (y == 1) {
 
                             int yy = v_nowPages + 1;
-                            post[2] = "page=" + sj.zh().zstring(yy);
+                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
 
                         } else {
 
                             int yy = v_nowPages - 1;
-                            post[2] = "page=" + sj.zh().zstring(yy);
+                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
 
                         }
 
@@ -291,7 +293,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
 
                                 JSONObject json = jo.json;
 
@@ -334,7 +336,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                                         }
 
-                                        final String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
+                                        final String wb2_zf = "第" + IappCompat.zh(sj.zh()).zstring(v_nowPages) + "/" + IappCompat.zh(sj.zh()).zstring(v_totalPages) + "页";
                                         gj.jmxc(new Runnable() {
 
                                             public void run() {
@@ -401,7 +403,7 @@ public class StoreListActivity extends BaseAwgActivity {
             final int y = y_;
 
             i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(StoreVideoItemActivity.class, R.layout.store_video_item);
+            spq = IappCompat.v7lbAdapter(lb, StoreVideoItemActivity.class, R.layout.store_video_item);
 
             final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
@@ -424,12 +426,12 @@ public class StoreListActivity extends BaseAwgActivity {
                         if (y == 1) {
 
                             int yy = v_nowPages + 1;
-                            post[2] = "page=" + sj.zh().zstring(yy);
+                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
 
                         } else {
 
                             int yy = v_nowPages - 1;
-                            post[2] = "page=" + sj.zh().zstring(yy);
+                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
 
                         }
 
@@ -443,7 +445,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
 
                                 JSONObject json = jo.json;
 
@@ -487,7 +489,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                                         }
 
-                                        final String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
+                                        final String wb2_zf = "第" + IappCompat.zh(sj.zh()).zstring(v_nowPages) + "/" + IappCompat.zh(sj.zh()).zstring(v_totalPages) + "页";
                                         gj.jmxc(new Runnable() {
 
                                             public void run() {
@@ -554,7 +556,7 @@ public class StoreListActivity extends BaseAwgActivity {
             final int y = y_;
 
             i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(StoreAppItemActivity.class, R.layout.store_app_item);
+            spq = IappCompat.v7lbAdapter(lb, StoreAppItemActivity.class, R.layout.store_app_item);
 
             final int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb3, -1};
 
@@ -577,12 +579,12 @@ public class StoreListActivity extends BaseAwgActivity {
                         if (y == 1) {
 
                             int yy = v_nowPages + 1;
-                            post[2] = "page=" + sj.zh().zstring(yy);
+                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
 
                         } else {
 
                             int yy = v_nowPages - 1;
-                            post[2] = "page=" + sj.zh().zstring(yy);
+                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
 
                         }
 
@@ -596,7 +598,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
+                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
 
                                 JSONObject json = jo.json;
 
@@ -646,7 +648,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
                                         }
 
-                                        final String wb2_zf = "第" + sj.zh().zstring(v_nowPages) + "/" + sj.zh().zstring(v_totalPages) + "页";
+                                        final String wb2_zf = "第" + IappCompat.zh(sj.zh()).zstring(v_nowPages) + "/" + IappCompat.zh(sj.zh()).zstring(v_totalPages) + "页";
                                         gj.jmxc(new Runnable() {
 
                                             public void run() {

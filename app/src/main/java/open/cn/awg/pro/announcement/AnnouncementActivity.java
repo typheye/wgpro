@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.announcement;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -213,7 +215,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
     public void csh() {
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.yyggv7lb1);
-        yygglbspq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(AnnouncementItemActivity.class, R.layout.announcement_item);
+        yygglbspq = IappCompat.v7lbAdapter(lb, AnnouncementItemActivity.class, R.layout.announcement_item);
 
     }
 
@@ -235,7 +237,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
                     String v = wj.dqwb(set33);
 
-                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(v);
+                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
 
                     JSONObject json = jo.json;
 

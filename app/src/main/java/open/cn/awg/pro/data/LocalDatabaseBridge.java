@@ -41,7 +41,7 @@ public class LocalDatabaseBridge extends iClass {
     }
 
     public void setup_talklist() {
-        sjk = (i.runlibrary.app.sj$sjk) sj.sjk(set17);
+        sjk = (i.runlibrary.app.sj$sjk) (Object) sj.sjk(set17);
 
         if (!sjk.czsjb("talklist")) {
 
@@ -57,7 +57,7 @@ public class LocalDatabaseBridge extends iClass {
 
         boolean fhz = false;
 
-        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) sjk.cxsj("talklist", "uid", "uid=" + a);
+        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) (Object) sjk.cxsj("talklist", "uid", "uid=" + a);
         back.dyh();
 
         String fhs = back.sj(0);
@@ -98,7 +98,7 @@ public class LocalDatabaseBridge extends iClass {
 
         int fhz = 0;
 
-        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) sjk.cxsj("talklist", "_id,uid", "uid=" + a);
+        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) (Object) sjk.cxsj("talklist", "_id,uid", "uid=" + a);
         back.dyh();
 
         String fhs = back.sj(0);
@@ -120,7 +120,7 @@ public class LocalDatabaseBridge extends iClass {
 
         Object sqlx = null;
 
-        i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) sjk.cxsj("talklist", table, sqlx);
+        i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) (Object) sjk.cxsj("talklist", table, sqlx);
 
         while (sjk15.xyh()) {
 
@@ -131,7 +131,7 @@ public class LocalDatabaseBridge extends iClass {
     }
 
     public void setup_filelist() {
-        sjk2 = (i.runlibrary.app.sj$sjk) sj.sjk(set27);
+        sjk2 = (i.runlibrary.app.sj$sjk) (Object) sj.sjk(set27);
 
         if (!sjk2.czsjb("filelist")) {
 
@@ -147,7 +147,7 @@ public class LocalDatabaseBridge extends iClass {
 
         boolean fhz = false;
 
-        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) sjk2.cxsj("filelist", "path", "path='" + a + "'");
+        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) (Object) sjk2.cxsj("filelist", "path", "path='" + a + "'");
         back.dyh();
 
         String fhs = back.sj(0);
@@ -161,7 +161,7 @@ public class LocalDatabaseBridge extends iClass {
 
         } else {
 
-            i.runlibrary.app.sj$cxsj back2 = (i.runlibrary.app.sj$cxsj) sjk2.cxsj("filelist", "_id,path", "path='" + a + "'");
+            i.runlibrary.app.sj$cxsj back2 = (i.runlibrary.app.sj$cxsj) (Object) sjk2.cxsj("filelist", "_id,path", "path='" + a + "'");
             back2.dyh();
 
             int fhx = Integer.parseInt(back2.sj(0));
@@ -176,7 +176,7 @@ public class LocalDatabaseBridge extends iClass {
 
         int v = 0;
 
-        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) sjk2.cxsj("filelist", "value,path", "path='" + a + "'");
+        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) (Object) sjk2.cxsj("filelist", "value,path", "path='" + a + "'");
         back.dyh();
 
         String b = back.sj(0);
@@ -193,7 +193,7 @@ public class LocalDatabaseBridge extends iClass {
     }
 
     public void setup_pluginlist() {
-        sjk3 = (i.runlibrary.app.sj$sjk) sj.sjk(set47);
+        sjk3 = (i.runlibrary.app.sj$sjk) (Object) sj.sjk(set47);
 
         if (!sjk3.czsjb("pluginlist")) {
 
@@ -209,7 +209,7 @@ public class LocalDatabaseBridge extends iClass {
 
         boolean fhz = false;
 
-        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) sjk3.cxsj("pluginlist", "uid", "uid=" + a);
+        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) (Object) sjk3.cxsj("pluginlist", "uid", "uid=" + a);
         back.dyh();
 
         String fhs = back.sj(0);
@@ -250,7 +250,7 @@ public class LocalDatabaseBridge extends iClass {
 
         int fhz = 0;
 
-        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) sjk3.cxsj("pluginlist", "_id,uid", "uid=" + a);
+        i.runlibrary.app.sj$cxsj back = (i.runlibrary.app.sj$cxsj) (Object) sjk3.cxsj("pluginlist", "_id,uid", "uid=" + a);
         back.dyh();
 
         String fhs = back.sj(0);
@@ -272,7 +272,7 @@ public class LocalDatabaseBridge extends iClass {
 
         Object sqlx = null;
 
-        i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) sjk3.cxsj("pluginlist", table, sqlx);
+        i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) (Object) sjk3.cxsj("pluginlist", table, sqlx);
 
         while (sjk15.xyh()) {
 

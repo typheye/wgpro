@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.tools;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -531,7 +533,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
                                                     public void onUpload(float percentage, long current, long total, boolean done) {
 
                                                         long now = current / total * 100;
-                                                        wb11.zf("已上传" + sj.zh().zstring(now) + "%");
+                                                        wb11.zf("已上传" + IappCompat.zh(sj.zh()).zstring(now) + "%");
                                                     }
                                                 })
                                                 .setResponseListener(new ResponseListener() {
@@ -577,10 +579,10 @@ public class CloudServiceActivity extends BaseAwgActivity {
 
         Object back = upload_back;
 
-        if (!zf.dy(sj.zh().zstring(error), null)) {
+        if (!zf.dy(IappCompat.zh(sj.zh()).zstring(error), null)) {
 
             updata();
-            e1.tsk("提示", "上传失败\n" + sj.zh().zstring(error));
+            e1.tsk("提示", "上传失败\n" + IappCompat.zh(sj.zh()).zstring(error));
 
         } else {
 

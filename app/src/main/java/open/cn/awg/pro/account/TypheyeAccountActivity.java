@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.account;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -488,7 +490,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                         String sjzx = xt.sj(4);
 
-                        String send0 = "type=set_nick&uid=" + uid + "&cookie=" + a + "&value=" + sj.zh().zstring(nick) + "&time=" + sjzx;
+                        String send0 = "type=set_nick&uid=" + uid + "&cookie=" + a + "&value=" + IappCompat.zh(sj.zh()).zstring(nick) + "&time=" + sjzx;
 
                         final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 
@@ -577,7 +579,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                         String sjzx = xt.sj(4);
 
-                        String send0 = "type=set_shuo&uid=" + uid + "&cookie=" + a + "&value=" + sj.zh().zstring(shuo) + "&time=" + sjzx;
+                        String send0 = "type=set_shuo&uid=" + uid + "&cookie=" + a + "&value=" + IappCompat.zh(sj.zh()).zstring(shuo) + "&time=" + sjzx;
 
                         final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 
@@ -710,7 +712,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
                                                     public void onUpload(float percentage, long current, long total, boolean done) {
 
                                                         long now = current / total * 100;
-                                                        wb18.zf("已上传" + sj.zh().zstring(now) + "%");
+                                                        wb18.zf("已上传" + IappCompat.zh(sj.zh()).zstring(now) + "%");
                                                     }
                                                 })
                                                 .setResponseListener(new ResponseListener() {
@@ -756,10 +758,10 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         Object back = upload_back;
 
-        if (!zf.dy(sj.zh().zstring(error), null)) {
+        if (!zf.dy(IappCompat.zh(sj.zh()).zstring(error), null)) {
 
             jz();
-            e1.tsk("提示", "上传失败\n" + sj.zh().zstring(error));
+            e1.tsk("提示", "上传失败\n" + IappCompat.zh(sj.zh()).zstring(error));
 
         } else {
 
@@ -1290,14 +1292,14 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
             try {
 
-                i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
+                i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
 
                 if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 
                     final String choose2 = AppPaths.appPath("cache/file/choose2");
                     wj.sc(path);
 
-                    int sdk = xt.sbxx().sdk;
+                    int sdk = IappCompat.sdk(xt.sbxx());
 
                     String ftitle = AppPaths.appPath("cache/file/title");
                     wj.xrwb(ftitle, "< 选择头像");

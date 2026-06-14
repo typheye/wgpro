@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.settings;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -156,7 +158,7 @@ public class DisplayMarginActivity extends BaseAwgActivity {
 
         });
 
-        String sis = sj.zh(i).zstring();
+        String sis = IappCompat.zh(sj.zh(i)).zstring();
         wj.xrwb(set, sis);
 
     }

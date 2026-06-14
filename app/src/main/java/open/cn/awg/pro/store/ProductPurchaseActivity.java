@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.store;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -184,7 +186,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -645,7 +647,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                                     String cp_jg_;
                                     cp_jg_ = com.demo.e4.doubleToString(cp_jg);
 
-                                    final String otn = "D" + xt.sj(4) + sj.zh().zstring(zf.sjs(10000000, 99999999));
+                                    final String otn = "D" + xt.sj(4) + IappCompat.zh(sj.zh()).zstring(zf.sjs(10000000, 99999999));
 
                                     String lock = "money=" + cp_jg_ + "&name=" + cp_name + "&id=" + cp_id + "&out_trade_no=" + otn + "&pid=" + pid + "&type=" + type;
 
@@ -667,7 +669,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                             try {
 
-                                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
+                                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
 
                                                 JSONObject json = jo.json;
 
@@ -805,11 +807,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                 try {
 
-                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
+                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
 
                                     JSONObject json = jo.json;
 
-                                    final String v_status = sj.zh().zstring(jo.hq(json, "status"));
+                                    final String v_status = IappCompat.zh(sj.zh()).zstring(jo.hq(json, "status"));
 
                                     if (zf.dy(v_status, "1")) {
 

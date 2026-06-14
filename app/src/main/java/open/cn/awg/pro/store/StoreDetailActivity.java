@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.store;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -474,7 +476,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 final boolean vv_yysfaz = 应用工具.应用是否安装(lei, v_id);
 
                                 final long vv_yybbh = 应用工具.获取应用版本号(lei, v_id);
-                                v_appcode = sj.zh().zlong(v_app_latest_code, vv_yybbh);
+                                v_appcode = IappCompat.zh(sj.zh()).zlong(v_app_latest_code, vv_yybbh);
                                 gj.jmxc(new Runnable() {
 
                                     public void run() {
@@ -673,7 +675,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
         } else {
 
-            return sj.zh().zstring(file);
+            return IappCompat.zh(sj.zh()).zstring(file);
 
         }
 

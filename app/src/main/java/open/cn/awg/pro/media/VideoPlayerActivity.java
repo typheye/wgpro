@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.media;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -531,7 +533,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -630,7 +632,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             st.xxbj(R.id.xxbj25).nbj("3dp", 0, "3dp", 0);
             st.xxbj(R.id.xxbj32).nbj("3dp", 0, "3dp", 0);
 
-            int uih = sj.zh().pxzdp(pm.ztl);
+            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
             uih = uih + 9;
 
             i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);

@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.apps;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.SwitchCompat;
@@ -133,7 +135,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
         boolean issa = false;
 
         i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(InstalledAppItemActivity.class, R.layout.installed_app_item);
+        spq = IappCompat.v7lbAdapter(lb, InstalledAppItemActivity.class, R.layout.installed_app_item);
 
         String set1 = AppPaths.appPath("settings/l6/set1.inf");
 
@@ -157,7 +159,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
                 try {
 
-                    i.runlibrary.app.xt$yylb[] sz = (i.runlibrary.app.xt$yylb[]) xt.yylb(iss);
+                    i.runlibrary.app.xt$yylb[] sz = (i.runlibrary.app.xt$yylb[]) (Object) xt.yylb(iss);
 
                     for (i.runlibrary.app.xt$yylb app : sz) {
 

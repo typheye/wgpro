@@ -47,7 +47,7 @@ public class StoreAppItemActivity extends BaseAwgActivity {
 
         AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object app = lb.lbcfsj(-1);
 
@@ -70,7 +70,7 @@ public class StoreAppItemActivity extends BaseAwgActivity {
 
         final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object te = lb.lbcfsj(R.id.wb1);
 

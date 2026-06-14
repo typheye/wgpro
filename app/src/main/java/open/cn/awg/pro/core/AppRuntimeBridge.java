@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.core;
 
+
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Process;
 import android.view.View;
@@ -47,6 +49,7 @@ import open.cn.awg.pro.ui.main.TextQrDisplayActivity;
 import open.cn.awg.pro.update.AppUpdateActivity;
 import open.cn.awg.pro.update.UpdatePromptActivity;
 
+@SuppressLint("StaticFieldLeak")
 public class AppRuntimeBridge extends iClass {
 
     public static i.runlibrary.app.v.v7lb$UserAdapter spq = null;
@@ -441,7 +444,7 @@ public class AppRuntimeBridge extends iClass {
 
     public boolean app_gorecovery() {
 
-        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) xt.qxgl();
+        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
 
         if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
 
@@ -484,7 +487,7 @@ public class AppRuntimeBridge extends iClass {
 
                             String sts = zf.qc(bb[3], null, ".awgbak");
 
-                            long test1 = sj.zh().zlong(sts, 0);
+                            long test1 = IappCompat.zh(sj.zh()).zlong(sts, 0);
 
                             if (test1 > test0) {
 
@@ -812,13 +815,13 @@ public class AppRuntimeBridge extends iClass {
         wj.xrwb(cachehd, "");
         context = AwgProApplication.getContext();
         lb = st.v7lb(R.id.v7lb1);
-        spq = (i.runlibrary.app.v.v7lb$UserAdapter) lb.v7lbspq(FileListItemActivity.class, R.layout.file_list_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        spq = IappCompat.v7lbAdapter(lb, FileListItemActivity.class, R.layout.file_list_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                 if (f == -1) {
 
@@ -840,13 +843,13 @@ public class AppRuntimeBridge extends iClass {
 
         });
         cdlb = st.v7lb(R.id.v7lb2);
-        cdspq = (i.runlibrary.app.v.v7lb$UserAdapter) cdlb.v7lbspq(FileOperationMenuItemActivity.class, R.layout.file_operation_menu_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        cdspq = IappCompat.v7lbAdapter(cdlb, FileOperationMenuItemActivity.class, R.layout.file_operation_menu_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                 if (f == 1) {
 
@@ -881,13 +884,13 @@ public class AppRuntimeBridge extends iClass {
 
         });
         sxlb = st.v7lb(R.id.v7lb3);
-        sxspq = (i.runlibrary.app.v.v7lb$UserAdapter) sxlb.v7lbspq(FileOperationInfoItemActivity.class, R.layout.file_operation_info_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        sxspq = IappCompat.v7lbAdapter(sxlb, FileOperationInfoItemActivity.class, R.layout.file_operation_info_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                 if (f == 1) {
 
@@ -931,13 +934,13 @@ public class AppRuntimeBridge extends iClass {
 
         });
         dklb = st.v7lb(R.id.v7lb4);
-        dkspq = (i.runlibrary.app.v.v7lb$UserAdapter) dklb.v7lbspq(FileOpenOptionItemActivity.class, R.layout.file_open_option_item, new i.runlibrary.app.v.v7lb$OnUserAdapterView() {
+        dkspq = IappCompat.v7lbAdapter(dklb, FileOpenOptionItemActivity.class, R.layout.file_open_option_item, new IappCompat.V7lbViewBinder() {
 
-            public void getView(i.runlibrary.app.v.v7lb$UserAdapter ua, int pn, View vw) {
+            public void bind(Object ua, int pn, View vw) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) sj.lb(vw);
+                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
-                int f = sj.zh(lbsj.lbsj(pn, -1)).zint();
+                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
 
                 if (f == 1) {
 
@@ -1145,7 +1148,7 @@ public class AppRuntimeBridge extends iClass {
 
                 String pb7 = "/storage/emulated/0/Android/obb";
 
-                if (zf.dy(c, pb1) || zf.dy(c, pb2) || zf.dy(c, pb3) || zf.dy(c, pb4) || zf.dy(c, pb5) || (xt.sbxx().sdk > 29 && zf.dy(c, pb6)) || (xt.sbxx().sdk > 29 && zf.dy(c, pb7))) {
+                if (zf.dy(c, pb1) || zf.dy(c, pb2) || zf.dy(c, pb3) || zf.dy(c, pb4) || zf.dy(c, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.dy(c, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.dy(c, pb7))) {
 
                 } else {
 
@@ -2482,7 +2485,7 @@ public class AppRuntimeBridge extends iClass {
 
         try {
 
-            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(text);
+            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(text);
 
             JSONObject json = jo.json;
 

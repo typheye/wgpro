@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.settings;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -219,7 +221,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         i.runlibrary.app.v.wb wb12 = st.wb(R.id.wb12);
 
-        int sdk = xt.sbxx().sdk;
+        int sdk = IappCompat.sdk(xt.sbxx());
 
         if (sdk >= 30) {
 

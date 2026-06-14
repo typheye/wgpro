@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.file;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -86,7 +88,7 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -234,7 +236,7 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
 
                 String pb7 = "/storage/emulated/0/Android/obb";
 
-                if (zf.ckt(c, pb1) || zf.ckt(c, pb2) || zf.ckt(c, pb3) || zf.ckt(c, pb4) || zf.ckt(c, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(c, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(c, pb7))) {
+                if (zf.ckt(c, pb1) || zf.ckt(c, pb2) || zf.ckt(c, pb3) || zf.ckt(c, pb4) || zf.ckt(c, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(c, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(c, pb7))) {
 
                     e1.tsk("提示", "非法操作");
 

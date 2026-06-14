@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.app;
 
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
@@ -37,6 +39,7 @@ import xyz.doikki.videoplayer.ijk.IjkPlayerFactory;
 import xyz.doikki.videoplayer.player.VideoViewConfig;
 import xyz.doikki.videoplayer.player.VideoViewManager;
 
+@SuppressLint("StaticFieldLeak")
 public class AwgProApplication extends applicationMain {
     private static Context mContext;
     private static AwgProApplication instance;

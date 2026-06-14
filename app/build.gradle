@@ -124,6 +124,9 @@ def localAarNames = fileTree(dir: 'libs', include: ['*.aar']).files
         .sort()
 
 dependencies {
+    // Keep iapp runtime stub jars out of app/libs. They duplicate i.runlibrary
+    // classes from iapp-sdk-core.jar and can make Android Studio resolve the
+    // empty stub API instead of the real SDK API.
     if (usePrecompiledIapp) {
         implementation fileTree(dir: 'libs', include: ['*.jar'], exclude: [
                 'iapp_runtime_stubs.jar',

@@ -61,7 +61,7 @@ public class MainMenuItemActivity extends BaseAwgActivity {
 
         try {
 
-            i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+            i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
             Object l = lb.lbcfsj(R.id.wb2);
 
@@ -79,9 +79,9 @@ public class MainMenuItemActivity extends BaseAwgActivity {
 
             } else if (zf.dy(l, "3")) {
 
-                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) gj.dh();
+                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
 
-                final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) dh.jbtm(0, 1);
+                final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(0, 1);
                 jbtm.cxsc(300);
                 gj.jmxc(new Runnable() {
 
@@ -180,7 +180,7 @@ public class MainMenuItemActivity extends BaseAwgActivity {
 
         final AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object te = lb.lbcfsj(R.id.wb1);
         e1.tsk("详细信息", te);

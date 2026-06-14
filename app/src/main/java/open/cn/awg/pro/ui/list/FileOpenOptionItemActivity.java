@@ -63,7 +63,7 @@ public class FileOpenOptionItemActivity extends BaseAwgActivity {
 
         try {
 
-            final i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+            final i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
             final Object a = lb.lbcfsj(R.id.wb1);
 
@@ -469,7 +469,7 @@ public class FileOpenOptionItemActivity extends BaseAwgActivity {
 
     private boolean onXxbj1LongClick(View vw) {
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb1);
 

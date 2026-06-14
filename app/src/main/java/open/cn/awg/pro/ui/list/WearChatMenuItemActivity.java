@@ -53,7 +53,7 @@ public class WearChatMenuItemActivity extends BaseAwgActivity {
 
             WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
 
-            i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+            i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
             Object a = lb.lbcfsj(R.id.wb1);
 
@@ -76,7 +76,7 @@ public class WearChatMenuItemActivity extends BaseAwgActivity {
 
         AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb1);
         e1.tsk("详细信息", a);

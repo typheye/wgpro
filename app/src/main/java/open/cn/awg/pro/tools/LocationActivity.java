@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.tools;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -226,8 +228,8 @@ public class LocationActivity extends BaseAwgActivity {
     }
 
     public void show() {
-        v1 = sj.zh().zstring((latitude));
-        v2 = sj.zh().zstring((longitude));
+        v1 = IappCompat.zh(sj.zh()).zstring((latitude));
+        v2 = IappCompat.zh(sj.zh()).zstring((longitude));
         v3 = com.demo.e4.doubleToString(altitude);
         v4 = com.demo.e4.doubleToString(speed * 3.6);
         v1 = v1 + "°";

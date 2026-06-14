@@ -48,7 +48,7 @@ public class ChatRoomListItemActivity extends BaseAwgActivity {
 
     private void onXdbj1Click(View vw) {
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb2);
 
@@ -82,7 +82,7 @@ public class ChatRoomListItemActivity extends BaseAwgActivity {
 
     private boolean onXdbj1LongClick(View vw) {
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb2);
 

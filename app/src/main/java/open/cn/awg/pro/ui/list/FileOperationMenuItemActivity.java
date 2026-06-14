@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.ui.list;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -52,7 +54,7 @@ public class FileOperationMenuItemActivity extends BaseAwgActivity {
 
         try {
 
-            final i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+            final i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
             gj.xc(new Thread() {
 
                 public void run() {
@@ -189,7 +191,7 @@ public class FileOperationMenuItemActivity extends BaseAwgActivity {
 
                             String pb7 = "/storage/emulated/0/Android/obb";
 
-                            if (zf.ckt(dbl, pb1) || zf.ckt(dbl, pb2) || zf.ckt(dbl, pb3) || zf.ckt(dbl, pb4) || zf.ckt(dbl, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb7))) {
+                            if (zf.ckt(dbl, pb1) || zf.ckt(dbl, pb2) || zf.ckt(dbl, pb3) || zf.ckt(dbl, pb4) || zf.ckt(dbl, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(dbl, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(dbl, pb7))) {
 
                                 e1.tsk("提示", "非法操作");
 
@@ -252,7 +254,7 @@ public class FileOperationMenuItemActivity extends BaseAwgActivity {
 
                             String pb7 = "/storage/emulated/0/Android/obb";
 
-                            if (zf.ckt(dbl, pb1) || zf.ckt(dbl, pb2) || zf.ckt(dbl, pb3) || zf.ckt(dbl, pb4) || zf.ckt(dbl, pb5) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb6)) || (xt.sbxx().sdk > 29 && zf.ckt(dbl, pb7))) {
+                            if (zf.ckt(dbl, pb1) || zf.ckt(dbl, pb2) || zf.ckt(dbl, pb3) || zf.ckt(dbl, pb4) || zf.ckt(dbl, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(dbl, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(dbl, pb7))) {
 
                                 e1.tsk("提示", "非法操作");
 
@@ -373,7 +375,7 @@ public class FileOperationMenuItemActivity extends BaseAwgActivity {
 
         AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
 
-        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) sj.lb(vw);
+        i.runlibrary.app.sj$lb lb = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
 
         Object a = lb.lbcfsj(R.id.wb1);
         e1.tsk("详细信息", a);

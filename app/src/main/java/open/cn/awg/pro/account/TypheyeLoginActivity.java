@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.account;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -209,7 +211,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                     try {
 
-                                        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
+                                        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
 
                                         org.json.JSONObject json = jo.json;
 
@@ -219,7 +221,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                         if (!zf.dy(v_request_id, "") && !zf.dy(v_qr_code_url, "")) {
 
-                                            go2_xh(sj.zh().zstring(v_request_id), sj.zh().zstring(v_qr_code_url));
+                                            go2_xh(IappCompat.zh(sj.zh()).zstring(v_request_id), IappCompat.zh(sj.zh()).zstring(v_qr_code_url));
 
                                         } else {
 
@@ -380,11 +382,11 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                 try {
 
-                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) zf.json(back);
+                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
 
                                     org.json.JSONObject json0 = jo.json;
 
-                                    final String v_status = sj.zh().zstring(jo.hq(json0, "status"));
+                                    final String v_status = IappCompat.zh(sj.zh()).zstring(jo.hq(json0, "status"));
 
                                     if (zf.dy(v_status, "approved")) {
 
@@ -578,7 +580,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                     a = zf.qctwkg(a);
                     b = zf.qctwkg(b);
 
-                    String salt = sj.md5(sj.zh().zstring(a));
+                    String salt = sj.md5(IappCompat.zh(sj.zh()).zstring(a));
                     salt = zf.qc(salt, 0, 6);
                     salt = sj.md5(salt);
                     salt = zf.qc(salt, 0, 5);
@@ -587,7 +589,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                     String sjzx = xt.sj(4);
 
-                    String send0 = "type=login&username=" + sj.zh().zstring(a) + "&password=" + sj.zh().zstring(b) + "&time=" + sjzx;
+                    String send0 = "type=login&username=" + IappCompat.zh(sj.zh()).zstring(a) + "&password=" + IappCompat.zh(sj.zh()).zstring(b) + "&time=" + sjzx;
 
                     final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
 

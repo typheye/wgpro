@@ -16,6 +16,8 @@
  */
 package open.cn.awg.pro.tools;
 
+
+import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -94,7 +96,7 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) xt.pm();
+        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
 
         if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
 
@@ -131,7 +133,7 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
         } else if (zf.dy(a, "4")) {
 
-            int uih = sj.zh().pxzdp(pm.ztl);
+            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
             uih = uih + 40;
 
             i.runlibrary.app.v.kp kp1 = st.kp(R.id.kp1);
