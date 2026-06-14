@@ -23,8 +23,8 @@ android {
         minSdk 24
         //noinspection ExpiredTargetSdkVersion
         targetSdk 28
-        versionCode 2605220
-        versionName '5.26.5.Patch1'
+        versionCode 2606140
+        versionName '5.26.6.Patch1'
         multiDexEnabled true
     }
 
