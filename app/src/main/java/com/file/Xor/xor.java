@@ -1,7 +1,6 @@
 package com.file.Xor;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 
 public class xor{
   

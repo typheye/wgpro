@@ -776,8 +776,10 @@ public class OnboardingSetupActivity extends BaseAwgActivity {
                         public void run() {
 
                             Intent intent = lei.getPackageManager().getLaunchIntentForPackage(lei.getPackageName());
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                            lei.startActivity(intent);
+                            if (intent != null) {
+                                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                lei.startActivity(intent);
+                            }
                             AwgProApplication.getInstance().exit();
 
                         }

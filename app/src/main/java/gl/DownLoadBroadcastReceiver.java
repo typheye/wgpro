@@ -10,7 +10,6 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 
-import java.lang.Exception;
 
 /**
 * 下载完成广播监听：比如下载APP

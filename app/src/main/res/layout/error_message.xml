@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/error_message_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorAccent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/error_message_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorAccent">
     <LinearLayout android:id="@+id/xxbj1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="vertical" android:layout_centerInParent="true" android:gravity="center" android:visibility="gone">
         <TextView android:id="@+id/wb1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="|○_○|" android:textColor="@color/colorTabText" android:textSize="30sp" android:textStyle="bold" android:gravity="center">
         </TextView>

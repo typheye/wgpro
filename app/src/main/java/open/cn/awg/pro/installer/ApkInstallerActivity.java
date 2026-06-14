@@ -26,7 +26,6 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -76,7 +75,13 @@ public class ApkInstallerActivity extends Activity {
 
     private void getInstallInfo() {
         Bundle bundle = this.getIntent().getExtras();
+        if (bundle == null) {
+            return;
+        }
         String path = bundle.getString("url");
+        if (path == null) {
+            return;
+        }
         Apk_Path = path;
         apkMethod = new ApkMethod(this, Apk_Path);
         Apk_Name = apkMethod.getApplicationName();

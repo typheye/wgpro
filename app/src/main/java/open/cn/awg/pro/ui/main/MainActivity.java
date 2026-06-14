@@ -64,7 +64,6 @@ import open.cn.awg.pro.data.LocalDatabaseBridge;
 import open.cn.awg.pro.file.FileRootPickerActivity;
 import open.cn.awg.pro.plugin.ExtensionPluginActivity;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.service.AwgCoreService;
 import open.cn.awg.pro.service.BootJobService;
 import open.cn.awg.pro.store.StoreDetailActivity;
 import open.cn.awg.pro.store.StoreListActivity;

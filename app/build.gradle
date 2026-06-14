@@ -280,3 +280,7 @@ afterEvaluate {
         dependsOn tasks.named('sanitizeIappCompatSources')
     }
 }
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += ['-Xlint:-options']
+}

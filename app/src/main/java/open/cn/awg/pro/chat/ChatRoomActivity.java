@@ -19,7 +19,6 @@ package open.cn.awg.pro.chat;
 
 import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.inputmethod.InputMethodManager;

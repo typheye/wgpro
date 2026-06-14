@@ -233,8 +233,6 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                                 } else {
 
-                                    back0 = back0;
-
                                     if (back0.length() <= len) {
 
                                         back0 = "";

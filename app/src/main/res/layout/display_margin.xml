@@ -1,4 +1,4 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/display_margin_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/display_margin_root" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/colorTabBackground">
     <RelativeLayout android:id="@+id/xdbj3" android:layout_width="match_parent" android:layout_height="match_parent" android:layout_margin="0dp">
         <TextView android:id="@+id/wb5" android:layout_width="match_parent" android:layout_height="3dp" android:text="" android:background="@color/colorTextFalse" android:layout_alignParentTop="true">
         </TextView>

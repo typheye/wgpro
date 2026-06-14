@@ -40,7 +40,6 @@ import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.chat.ChatRoomActivity;
 import open.cn.awg.pro.data.LocalDatabaseBridge;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.service.AwgCoreService;
 import open.cn.awg.pro.service.SystemAccessibilityService;
 
 @SuppressLint("StaticFieldLeak")

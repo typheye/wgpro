@@ -486,7 +486,6 @@ public class TuneFreeMusicBridge extends iClass {
 
                                     JSONObject json_l2 = jo_l2.json;
                                     back2 = String.valueOf(jo_l2.hq(json_l2, "lyric"));
-                                    back2 = back2;
                                     back2 = lrcFix(back2);
 
                                 } else {

@@ -8,46 +8,32 @@ import com.google.zxing.EncodeHintType;
 import com.google.zxing.common.BitMatrix;
 import android.graphics.Bitmap;
 import android.content.ComponentName;
-import android.content.ServiceConnection;
-import android.database.Cursor;
 import android.content.ContentResolver;
-import android.provider.MediaStore;
+import android.database.Cursor;
 import android.net.Uri;
 import android.content.Context;
 import android.content.Intent;
-import android.app.Activity;
-import android.app.ActivityManager;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.os.Bundle;
 import android.os.Build;
 import android.text.TextUtils;
-import android.os.FileUriExposedException;
 import androidx.core.content.FileProvider;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.webkit.MimeTypeMap;
 import java.util.List;
 import android.content.pm.ResolveInfo;
-import java.lang.*;
-import java.security.cert.Extension;
 import java.text.DecimalFormat;
 //import android.icu.text.DecimalFormat;
 import java.util.Date;
 import java.util.Locale;
 import java.text.SimpleDateFormat;
 import java.io.File;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import android.graphics.BitmapFactory;
-import android.database.Cursor;
-import android.provider.MediaStore;
 import java.io.FileOutputStream;
+import android.provider.MediaStore;
 import android.provider.OpenableColumns;
 
 public class e4 {
@@ -56,8 +42,7 @@ public class e4 {
     if (uri == null || context == null) {
       return null;
     }
-    Uri returnUri = uri;
-    Cursor returnCursor = context.getContentResolver().query(returnUri, null, null, null, null);
+    Cursor returnCursor = context.getContentResolver().query(uri, null, null, null, null);
     if (returnCursor == null) {
       return null;
     }
@@ -69,8 +54,7 @@ public class e4 {
     File file;
     try {
       int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-      int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-      if (nameIndex < 0 || sizeIndex < 0 || !returnCursor.moveToFirst()) {
+      if (nameIndex < 0 || !returnCursor.moveToFirst()) {
         return null;
       }
       String name = returnCursor.getString(nameIndex);
@@ -81,7 +65,7 @@ public class e4 {
       }
       FileOutputStream outputStream = new FileOutputStream(file);
       try {
-        int read = 0;
+        int read;
         int maxBufferSize = 1 * 1024 * 1024;
         int bytesAvailable = inputStream.available();
         
@@ -110,6 +94,9 @@ public class e4 {
   
   
   public static String getRealPathFromUri(Context context, Uri uri) {
+    if (context == null || uri == null) {
+      return "";
+    }
     String filePath = "";
     String scheme = uri.getScheme();
     if (scheme == null)
@@ -331,7 +318,7 @@ public class e4 {
       return type;
     }
     /* 获取文件的后缀名 */
-    String end=fName.substring(dotIndex,fName.length()).toLowerCase();
+    String end=fName.substring(dotIndex,fName.length()).toLowerCase(Locale.ROOT);
     if(end.length() == 0)return type;
     //在MIME和文件类型的匹配表中找到对应的MIME类型。
     for(int i=0;i<MIME_MapTable.length;i++){ //MIME_MapTable??在这里你一定有疑问，这个MIME_MapTable是什么？

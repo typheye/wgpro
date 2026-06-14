@@ -31,7 +31,11 @@ public class StartReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (intent.getAction().equals(ACTION)) {
+        if (context == null || intent == null) {
+            return;
+        }
+        String action = intent.getAction();
+        if (ACTION.equals(action)) {
             File file = new File(AppPaths.appPath("settings/a4.inf"));
             int i = Process.myUid() / 100000;
             // Re-open the app after boot only when the persisted startup flag is enabled.
@@ -43,7 +47,7 @@ public class StartReceiver extends BroadcastReceiver {
 
             }
         }
-        if (intent.getAction().equals("WALLPAPER_CHANGED")) {
+        if ("WALLPAPER_CHANGED".equals(action)) {
             System.out.println("=============");
         }
     }

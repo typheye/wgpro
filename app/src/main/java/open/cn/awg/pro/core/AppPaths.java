@@ -26,17 +26,20 @@ import open.cn.awg.pro.app.AwgProApplication;
 public final class AppPaths {
 
     public static final String PACKAGE_NAME = "open.cn.awg.pro";
+    private static final String ROOT = File.separator;
 
-    private static final String LEGACY_INTERNAL_ROOT = "/data/user/0/" + PACKAGE_NAME;
-    private static final String LEGACY_DATA_ROOT = "/data/data/" + PACKAGE_NAME;
+    private static final String LEGACY_INTERNAL_ROOT =
+            ROOT + "data" + ROOT + "user" + ROOT + "0" + ROOT + PACKAGE_NAME;
+    private static final String LEGACY_DATA_ROOT =
+            ROOT + "data" + ROOT + "data" + ROOT + PACKAGE_NAME;
     private static final String LEGACY_EXTERNAL_FILES_ROOT =
             "/storage/emulated/0/Android/data/" + PACKAGE_NAME + "/files";
     private static final String LEGACY_EXTERNAL_APP_ROOT =
             "/storage/emulated/0/Android/data/" + PACKAGE_NAME;
     private static final String LEGACY_SDCARD_EXTERNAL_FILES_ROOT =
-            "/sdcard/Android/data/" + PACKAGE_NAME + "/files";
+            ROOT + "sdcard" + ROOT + "Android" + ROOT + "data" + ROOT + PACKAGE_NAME + ROOT + "files";
     private static final String LEGACY_SDCARD_EXTERNAL_APP_ROOT =
-            "/sdcard/Android/data/" + PACKAGE_NAME;
+            ROOT + "sdcard" + ROOT + "Android" + ROOT + "data" + ROOT + PACKAGE_NAME;
 
     private AppPaths() {
     }

@@ -10,7 +10,6 @@ public class e2 {
   
   /*普通的签名验证*/
   public static boolean checksignture(Context context,int sign){
-    boolean same=false;
     StringBuilder text = new StringBuilder();
     try{
       PackageManager packageManager = context.getPackageManager();
@@ -24,8 +23,7 @@ public class e2 {
     } catch (PackageManager.NameNotFoundException e) {
       android.util.Log.e("AWGPro", "Unhandled exception", e);
     }
-    same = text.toString().hashCode() == sign;
-    return same;
+    return text.toString().hashCode() == sign;
   }
   
   /*Application验证*/

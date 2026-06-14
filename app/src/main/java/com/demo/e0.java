@@ -1,6 +1,5 @@
 package com.demo;
 
-import java.lang.*;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;

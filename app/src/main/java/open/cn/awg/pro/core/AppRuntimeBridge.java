@@ -1053,9 +1053,6 @@ public class AppRuntimeBridge extends iClass {
             String FileUrl = wj.hqml(url);
 
             if (zf.cjw(FileUrl, "/")) {
-
-                FileUrl = FileUrl;
-
             } else {
 
                 FileUrl = FileUrl + "/";

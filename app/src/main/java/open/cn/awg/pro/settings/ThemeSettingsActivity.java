@@ -41,7 +41,6 @@ import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.repair.ErrorMessageActivity;
-import open.cn.awg.pro.ui.main.MainActivity;
 
 public class ThemeSettingsActivity extends BaseAwgActivity {
 

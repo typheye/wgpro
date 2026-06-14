@@ -38,6 +38,8 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.Locale;
+
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -590,7 +592,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
         x5llq.st.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
 
-                String urlX = url.toLowerCase();
+                String urlX = url.toLowerCase(Locale.ROOT);
                 if (urlX.startsWith("http:") || urlX.startsWith("https:") || urlX.startsWith("rtsp:") || urlX.startsWith("ftp:")) {
                     view.loadUrl(url);
                 } else {

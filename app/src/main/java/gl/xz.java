@@ -41,7 +41,7 @@ public class xz extends Activity {
     long refernece = manager.enqueue(request);// 加入下载并取得下载ID
     SharedPreferences sPreferences = ei.getSharedPreferences(
     "downloadplato", 0);
-    sPreferences.edit().putLong("plato", refernece).commit();
+    sPreferences.edit().putLong("plato", refernece).apply();
     //保存此次下载ID
   }
   

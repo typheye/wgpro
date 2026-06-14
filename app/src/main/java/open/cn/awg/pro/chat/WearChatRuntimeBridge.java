@@ -1519,7 +1519,6 @@ public class WearChatRuntimeBridge extends iClass {
                                         if (zf.cz(code, "Admin:true")) {
 
                                             String b4 = e1.readJson(st5, "room");
-                                            b4 = b4;
 
                                             boolean b3 = e11.add_talklist(bjknrs, b4, bjknrs + "-" + b4);
 
@@ -1543,7 +1542,6 @@ public class WearChatRuntimeBridge extends iClass {
                                     } else {
 
                                         String b4 = e1.readJson(st5, "room");
-                                        b4 = b4;
 
                                         boolean b3 = e11.add_talklist(bjknrs, b4, bjknrs + "-" + b4);
 

@@ -38,7 +38,6 @@ import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.main.MainActivity;
 
 public class WearMusicActivity extends BaseAwgActivity {
 

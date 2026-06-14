@@ -367,11 +367,12 @@ public class VideoPlayerActivity extends BaseAwgActivity {
                     String action = intent.getAction();
                     if (Intent.ACTION_VIEW.equals(action)) {
                         Uri uri = intent.getData();
-
-                        try {
-                            hqdz = com.demo.e4.getRealPathFromUri(context, uri);
-                        } catch (Exception e) {
-                            hqdz = com.demo.e4.getFilePathForN(uri, context);
+                        if (uri != null) {
+                            try {
+                                hqdz = com.demo.e4.getRealPathFromUri(context, uri);
+                            } catch (Exception e) {
+                                hqdz = com.demo.e4.getFilePathForN(uri, context);
+                            }
                         }
                     }
 

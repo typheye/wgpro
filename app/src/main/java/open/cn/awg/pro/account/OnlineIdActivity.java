@@ -120,7 +120,7 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
             });
 
-        } else if (!t) {
+        } else {
 
             gj.jmxc(new Runnable() {
 

@@ -672,7 +672,6 @@ public class ExtensionPluginBridge extends iClass {
                                     } else {
 
                                         String _b4 = e1.readJson(st5, "room");
-                                        _b4 = _b4;
                                         b4 = _b4;
                                         wj.xrwb(kzsjhc + bjknrs, st5);
 
