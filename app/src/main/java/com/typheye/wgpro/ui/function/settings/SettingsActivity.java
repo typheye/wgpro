@@ -112,6 +112,8 @@ public class SettingsActivity extends AppCompatActivity {
     private void openAboutPage() {
         getSupportFragmentManager().beginTransaction()
                 .setReorderingAllowed(true)
+                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit,
+                        R.animator.fragment_pop_enter, R.animator.fragment_pop_exit)
                 .replace(R.id.settings, new AboutFragment())
                 .addToBackStack("about")
                 .commit();

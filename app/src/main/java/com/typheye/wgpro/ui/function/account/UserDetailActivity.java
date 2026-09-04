@@ -6,10 +6,12 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,9 +29,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.tabs.TabLayout;
-import com.google.android.material.tabs.TabLayoutMediator;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -44,6 +45,18 @@ public class UserDetailActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private AppBarLayout appBar;
     private Menu toolbarMenu;
+    private View detailRoot;
+    private View detailSheet;
+    private View expandedIdentity;
+    private BottomSheetBehavior<View> sheetBehavior;
+    private ViewTreeObserver.OnPreDrawListener pendingProfileLayout;
+    private int lastRootWidth = -1;
+    private int lastRootHeight = -1;
+    private final Runnable settledWindowLayout = () -> {
+        if (detailRoot != null && detailRoot.isAttachedToWindow()) {
+            scheduleProfileLayout(true);
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle state) {
@@ -67,7 +80,9 @@ public class UserDetailActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
 
         TextView avatarText = findViewById(R.id.detail_avatar_text);
+        TextView collapsedAvatarText = findViewById(R.id.detail_collapsed_avatar_text);
         ImageView avatar = findViewById(R.id.detail_avatar);
+        ImageView collapsedAvatar = findViewById(R.id.detail_collapsed_avatar);
         String nick = account.getNick();
         String uid = account.getUid();
         String bio = account.getShuo();
@@ -77,7 +92,9 @@ public class UserDetailActivity extends AppCompatActivity {
         ((TextView) findViewById(R.id.detail_uid)).setText(uid == null || uid.isEmpty() ? "UID 未知" : "UID " + uid);
         ((TextView) findViewById(R.id.detail_bio)).setText(bio == null || bio.trim().isEmpty()
                 ? "这个人还没有简介呢~" : bio.trim());
-        avatarText.setText(displayName.substring(0, 1).toUpperCase());
+        String avatarInitial = displayName.substring(0, 1).toUpperCase();
+        avatarText.setText(avatarInitial);
+        collapsedAvatarText.setText(avatarInitial);
         if (uid != null && !uid.isEmpty()) {
             File file = new File(getFilesDir(), "avatar_" + uid + ".jpg");
             Bitmap bitmap = file.exists() ? BitmapFactory.decodeFile(file.getAbsolutePath()) : null;
@@ -85,12 +102,14 @@ public class UserDetailActivity extends AppCompatActivity {
                 avatar.setImageBitmap(bitmap);
                 avatar.setVisibility(View.VISIBLE);
                 avatarText.setVisibility(View.GONE);
-                ((ImageView) findViewById(R.id.detail_collapsed_avatar)).setImageBitmap(bitmap);
+                collapsedAvatar.setImageBitmap(bitmap);
+                collapsedAvatar.setVisibility(View.VISIBLE);
+                collapsedAvatarText.setVisibility(View.GONE);
             }
         }
         if (avatar.getVisibility() != View.VISIBLE) {
-            ((ImageView) findViewById(R.id.detail_collapsed_avatar))
-                    .setImageResource(R.drawable.ic_person_placeholder_vector);
+            collapsedAvatar.setVisibility(View.GONE);
+            collapsedAvatarText.setVisibility(View.VISIBLE);
         }
 
         setupProfileSheet();
@@ -99,20 +118,19 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void setupProfileSheet() {
-        View root = findViewById(R.id.detail_root);
-        View sheet = findViewById(R.id.detail_sheet);
-        View expandedIdentity = findViewById(R.id.detail_expanded_identity);
+        detailRoot = findViewById(R.id.detail_root);
+        detailSheet = findViewById(R.id.detail_sheet);
+        expandedIdentity = findViewById(R.id.detail_expanded_identity);
         View collapsedIdentity = findViewById(R.id.detail_collapsed_identity);
-        View bio = findViewById(R.id.detail_bio);
-        BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
-        behavior.setFitToContents(false);
-        behavior.setHideable(false);
-        behavior.setDraggable(true);
-        behavior.setShouldRemoveExpandedCorners(false);
-        behavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+        sheetBehavior = BottomSheetBehavior.from(detailSheet);
+        sheetBehavior.setFitToContents(false);
+        sheetBehavior.setHideable(false);
+        sheetBehavior.setDraggable(true);
+        sheetBehavior.setShouldRemoveExpandedCorners(false);
+        sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HALF_EXPANDED) {
-                    behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
                 }
             }
 
@@ -122,30 +140,108 @@ public class UserDetailActivity extends AppCompatActivity {
                 collapsedIdentity.setAlpha(Math.max(0f, (progress - 0.78f) / 0.22f));
             }
         });
-        root.post(() -> {
-            int minimumVisibleSheet = dp(180);
-            WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(root);
-            int statusBarInset = insets == null ? 0
-                    : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-            // The expanded sheet stops at the measured system bar plus the standard
-            // 64dp app bar. This is an absolute parent coordinate on every density.
-            behavior.setExpandedOffset(statusBarInset + dp(64));
-            int[] rootPosition = new int[2];
-            int[] bioPosition = new int[2];
-            root.getLocationInWindow(rootPosition);
-            bio.getLocationInWindow(bioPosition);
-            int bioBottom = bioPosition[1] - rootPosition[1] + bio.getHeight();
-            int collapsedTop = Math.max(dp(386), bioBottom + dp(24));
-            collapsedTop = Math.min(collapsedTop, root.getHeight() - minimumVisibleSheet);
-            ViewGroup.LayoutParams headerParams = appBar.getLayoutParams();
-            int requiredHeaderHeight = Math.max(dp(410), collapsedTop + dp(24));
-            if (headerParams.height != requiredHeaderHeight) {
-                headerParams.height = requiredHeaderHeight;
-                appBar.setLayoutParams(headerParams);
-            }
-            behavior.setPeekHeight(Math.max(minimumVisibleSheet, root.getHeight() - collapsedTop), false);
-            behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+        detailRoot.addOnLayoutChangeListener((view, left, top, right, bottom,
+                                               oldLeft, oldTop, oldRight, oldBottom) -> {
+            int width = right - left;
+            int height = bottom - top;
+            if (width == lastRootWidth && height == lastRootHeight) return;
+            boolean preserveState = lastRootWidth >= 0 && lastRootHeight >= 0;
+            lastRootWidth = width;
+            lastRootHeight = height;
+            scheduleProfileLayout(preserveState);
+            if (preserveState) scheduleSettledWindowLayout();
         });
+    }
+
+    private void scheduleSettledWindowLayout() {
+        detailRoot.removeCallbacks(settledWindowLayout);
+        detailRoot.postDelayed(settledWindowLayout, 350L);
+    }
+
+    private void scheduleProfileLayout(boolean preserveState) {
+        int currentState = sheetBehavior.getState();
+        int targetState = preserveState && currentState == BottomSheetBehavior.STATE_EXPANDED
+                ? BottomSheetBehavior.STATE_EXPANDED
+                : BottomSheetBehavior.STATE_COLLAPSED;
+        ViewTreeObserver observer = detailRoot.getViewTreeObserver();
+        if (pendingProfileLayout != null && observer.isAlive()) {
+            observer.removeOnPreDrawListener(pendingProfileLayout);
+        }
+        pendingProfileLayout = new ViewTreeObserver.OnPreDrawListener() {
+            @Override
+            public boolean onPreDraw() {
+                ViewTreeObserver currentObserver = detailRoot.getViewTreeObserver();
+                if (currentObserver.isAlive()) currentObserver.removeOnPreDrawListener(this);
+                pendingProfileLayout = null;
+                WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
+                int statusBarInset = insets == null ? 0
+                        : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+                // Freeform windows may report a zero status-bar inset even though MIUI
+                // reserves a caption area. Use the toolbar's rendered bottom edge so the
+                // identity and expanded sheet remain below the real app bar.
+                int toolbarBottom = Math.round(toolbar.getY() + toolbar.getHeight());
+                if (toolbarBottom <= 0) toolbarBottom = statusBarInset + dp(64);
+                sheetBehavior.setExpandedOffset(toolbarBottom);
+
+                // Anchor the identity directly below the inset-aware 64dp app bar, then let
+                // its measured content determine the rest of the hero on every screen size.
+                expandedIdentity.setY(toolbarBottom);
+                int identityBottom = toolbarBottom + expandedIdentity.getMeasuredHeight();
+                int collapsedTop = identityBottom - dp(8);
+
+                // Keep two 24dp sheet-corner radii of the dimmed header behind the sheet.
+                // The sheet position stays content-driven; only its backdrop extends.
+                int requiredHeaderHeight = collapsedTop + dp(48);
+                ViewGroup.LayoutParams headerParams = appBar.getLayoutParams();
+                if (headerParams.height != requiredHeaderHeight) {
+                    headerParams.height = requiredHeaderHeight;
+                    appBar.setLayoutParams(headerParams);
+                }
+
+                // Keep a shallow overlap for the floating rounded edge. CollapsingToolbarLayout
+                // also offsets inset-aware children, so a larger overlap can cover the last
+                // bio line on devices with tall status bars. Preserve a compact selector-sized
+                // peek on short windows instead of covering the bio.
+                int minimumPeek = dp(96);
+                collapsedTop = Math.min(collapsedTop, detailRoot.getHeight() - minimumPeek);
+                sheetBehavior.setPeekHeight(Math.max(minimumPeek,
+                        detailRoot.getHeight() - collapsedTop), false);
+                sheetBehavior.setState(targetState);
+                detailSheet.requestLayout();
+                // Cancel this frame so the resized header and positioned sheet are the
+                // first version ever submitted to the display compositor.
+                return false;
+            }
+        };
+        observer.addOnPreDrawListener(pendingProfileLayout);
+        detailRoot.invalidate();
+    }
+
+    @Override
+    public void onConfigurationChanged(@NonNull Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        refreshWindowGeometry();
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode,
+                                         @NonNull Configuration newConfig) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        refreshWindowGeometry();
+    }
+
+    private void refreshWindowGeometry() {
+        if (detailRoot == null) return;
+        ViewCompat.requestApplyInsets(detailRoot);
+        detailRoot.requestLayout();
+        scheduleProfileLayout(true);
+        scheduleSettledWindowLayout();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (detailRoot != null) detailRoot.removeCallbacks(settledWindowLayout);
+        super.onDestroy();
     }
 
     private int dp(int value) {
@@ -153,7 +249,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void setupProfilePages() {
-        TabLayout tabs = findViewById(R.id.detail_tabs);
+        MaterialButtonToggleGroup segments = findViewById(R.id.detail_segments);
         ViewPager2 pager = findViewById(R.id.detail_pager);
         FrameLayout pool = findViewById(R.id.detail_page_pool);
         List<View> pages = Arrays.asList(findViewById(R.id.detail_page_activity),
@@ -163,10 +259,23 @@ public class UserDetailActivity extends AppCompatActivity {
         pager.setOffscreenPageLimit(2);
         RecyclerView pagerRecycler = (RecyclerView) pager.getChildAt(0);
         ViewCompat.setNestedScrollingEnabled(pagerRecycler, false);
-        new TabLayoutMediator(tabs, pager, (tab, position) ->
-                tab.setText(new String[]{"动态", "收藏", "资源"}[position])).attach();
+        int[] segmentIds = {R.id.detail_segment_activity, R.id.detail_segment_favorites,
+                R.id.detail_segment_resources};
+        segments.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
+            if (!isChecked) return;
+            for (int i = 0; i < segmentIds.length; i++) {
+                if (segmentIds[i] == checkedId && pager.getCurrentItem() != i) {
+                    pager.setCurrentItem(i, true);
+                    break;
+                }
+            }
+        });
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override public void onPageSelected(int position) {
+                if (position >= 0 && position < segmentIds.length
+                        && segments.getCheckedButtonId() != segmentIds[position]) {
+                    segments.check(segmentIds[position]);
+                }
                 findViewById(R.id.detail_sheet).requestLayout();
             }
         });
