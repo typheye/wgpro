@@ -7,12 +7,15 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.Build;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.typheye.wgpro.R;
 
@@ -31,8 +34,10 @@ import java.util.concurrent.TimeUnit;
 
 public class tAccUtils {
     private static final String BASE_URL = "https://service.typheye.cn/api.php";
-    private static final String ACTION_LOGIN = "login";
+    private static final String ACTION_LOGIN = "login2";
     private static final String ACTION_GET_DATA_UPDATE = "get_data_update";
+    private static final String ACTION_GET_DATA_UPDATE_V2 = "get_data_update2";
+    private static final String ACTION_SESSION_LOGOUT_V2 = "session_logout2";
     private static final String ACTION_SET_NICK = "set_nick";
     private static final String ACTION_SET_SHUO = "set_shuo";
     private static final String ACTION_CONFIRM_LOGIN_REQUEST = "confirm_login_request";
@@ -55,6 +60,12 @@ public class tAccUtils {
     private static final String PREFS_EMAIL = "email";
     private static final String PREFS_NICK = "nick";
     private static final String PREFS_SHUO = "shuo";
+    private static final String PREFS_PROTOCOL = "protocol";
+    private static final String PROTOCOL_LEGACY = "legacy";
+    private static final String PROTOCOL_V2 = "v2";
+    private static final String SECURE_PREFS_NAME = "account_secure_prefs";
+    private static final String PREFS_SESSION_ID = "session_id";
+    private static final String PREFS_SESSION_TOKEN = "session_token";
     private static final String KEY_REQUEST_ID = "request_id";
     private static final String ACTION_UPDATE_USER_DATA = "get_user_data";
     private final Context context;
@@ -91,15 +102,18 @@ public class tAccUtils {
         String token = calculateToken_login(username, encryptedPassword, time);
 
         try {
-            String url = BASE_URL + "?type=" + ACTION_LOGIN
-                    + "&" + KEY_USERNAME + "=" + URLEncoder.encode(username, "UTF-8")
-                    + "&" + KEY_PASSWORD + "=" + URLEncoder.encode(encryptedPassword, "UTF-8")
-                    + "&" + KEY_TIME + "=" + URLEncoder.encode(String.valueOf(time), "UTF-8")
-                    + "&" + KEY_TOKEN + "=" + URLEncoder.encode(token, "UTF-8");
+            String url = BASE_URL + "?type=" + ACTION_LOGIN;
+            RequestBody body = new FormBody.Builder()
+                    .add(KEY_USERNAME, username)
+                    .add(KEY_PASSWORD, encryptedPassword)
+                    .add(KEY_TIME, String.valueOf(time))
+                    .add(KEY_TOKEN, token)
+                    .build();
 
             Request request = new Request.Builder()
                     .url(url)
-                    .get()
+                    .headers(clientHeaders())
+                    .post(body)
                     .build();
 
             client.newCall(request).enqueue(new Callback() {
@@ -119,15 +133,20 @@ public class tAccUtils {
                                 JSONObject json = new JSONObject(responseData);
                                 if (json.has("code") && json.getInt("code") == 200) {
                                     JSONObject info = json.getJSONObject("info");
-                                    String cookie = info.getString(KEY_COOKIE);
                                     String uid = info.getString(KEY_UID);
-                                    String email = info.getString(KEY_EMAIL);
+                                    String email = info.optString(KEY_EMAIL, "");
                                     String nick = info.optString(KEY_NICK, "");
                                     String shuo = info.optString(KEY_SHUO, "");
+                                    JSONObject session = json.getJSONObject("session");
+                                    String sessionId = session.getString(PREFS_SESSION_ID);
+                                    String sessionToken = session.getString(PREFS_SESSION_TOKEN);
 
-                                    LoginResult result = new LoginResult(cookie, uid, email, nick, shuo);
-                                    saveLoginData(result);
-                                    callback.onSuccess(result);
+                                    LoginResult result = LoginResult.v2(uid, email, nick, shuo, sessionId, sessionToken);
+                                    if (saveLoginData(result)) {
+                                        callback.onSuccess(result);
+                                    } else {
+                                        callback.onError("无法安全保存登录会话");
+                                    }
                                 } else {
                                     String message = json.optString("msg", "登录失败");
                                     callback.onError(message);
@@ -150,7 +169,7 @@ public class tAccUtils {
     }
 
     private String calculateToken_login(String username, String encryptedPassword, long time) {
-        String tokenString = "type=login&username=" + username + "&password=" + encryptedPassword + "&time=" + time;
+        String tokenString = "type=" + ACTION_LOGIN + "&username=" + username + "&password=" + encryptedPassword + "&time=" + time;
         return md5(tokenString);
     }
 
@@ -183,15 +202,31 @@ public class tAccUtils {
         }
     }
 
-    private void saveLoginData(LoginResult result) {
+    private boolean saveLoginData(LoginResult result) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        if (PROTOCOL_V2.equals(result.protocol)) {
+            SharedPreferences securePrefs = getSecurePreferences();
+            if (securePrefs == null || !securePrefs.edit()
+                    .putString(PREFS_SESSION_ID, result.sessionId)
+                    .putString(PREFS_SESSION_TOKEN, result.sessionToken)
+                    .commit()) {
+                return false;
+            }
+        } else {
+            clearSecureSession();
+        }
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putString(PREFS_COOKIE, result.cookie);
+        if (PROTOCOL_LEGACY.equals(result.protocol)) {
+            editor.putString(PREFS_COOKIE, result.cookie);
+        } else {
+            editor.remove(PREFS_COOKIE);
+        }
         editor.putString(PREFS_UID, result.uid);
         editor.putString(PREFS_EMAIL, result.email);
         editor.putString(PREFS_NICK, result.nick);
         editor.putString(PREFS_SHUO, result.shuo);
-        editor.apply();
+        editor.putString(PREFS_PROTOCOL, result.protocol);
+        return editor.commit();
     }
 
     private void showProgressDialog(String message) {
@@ -226,13 +261,29 @@ public class tAccUtils {
         public final String email;
         public final String nick;
         public final String shuo;
+        public final String protocol;
+        public final String sessionId;
+        private final String sessionToken;
 
         public LoginResult(String cookie, String uid, String email, String nick, String shuo) {
+            this(cookie, uid, email, nick, shuo, PROTOCOL_LEGACY, "", "");
+        }
+
+        private LoginResult(String cookie, String uid, String email, String nick, String shuo,
+                            String protocol, String sessionId, String sessionToken) {
             this.cookie = cookie;
             this.uid = uid;
             this.email = email;
             this.nick = nick;
             this.shuo = shuo;
+            this.protocol = protocol;
+            this.sessionId = sessionId;
+            this.sessionToken = sessionToken;
+        }
+
+        private static LoginResult v2(String uid, String email, String nick, String shuo,
+                                      String sessionId, String sessionToken) {
+            return new LoginResult("", uid, email, nick, shuo, PROTOCOL_V2, sessionId, sessionToken);
         }
     }
 
@@ -244,7 +295,12 @@ public class tAccUtils {
 
     public boolean isLogin() {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
-        return prefs.getString(PREFS_UID, null) != null;
+        String uid = prefs.getString(PREFS_UID, "");
+        if (uid.isEmpty()) return false;
+        if (isV2Session()) {
+            return !getSessionId().isEmpty() && !getSessionToken().isEmpty();
+        }
+        return !getCookie().isEmpty();
     }
 
     public String getNick() {
@@ -267,7 +323,82 @@ public class tAccUtils {
         return prefs.getString(PREFS_COOKIE, "");
     }
 
+    public boolean isV2Session() {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        return PROTOCOL_V2.equals(prefs.getString(PREFS_PROTOCOL, PROTOCOL_LEGACY));
+    }
+
+    private String getSessionId() {
+        SharedPreferences prefs = getSecurePreferences();
+        return prefs == null ? "" : prefs.getString(PREFS_SESSION_ID, "");
+    }
+
+    private String getSessionToken() {
+        SharedPreferences prefs = getSecurePreferences();
+        return prefs == null ? "" : prefs.getString(PREFS_SESSION_TOKEN, "");
+    }
+
+    private SharedPreferences getSecurePreferences() {
+        try {
+            MasterKey masterKey = new MasterKey.Builder(context)
+                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                    .build();
+            return EncryptedSharedPreferences.create(
+                    context,
+                    SECURE_PREFS_NAME,
+                    masterKey,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+        } catch (Exception e) {
+            Log.e("tAccUtils", "Secure session storage unavailable", e);
+            return null;
+        }
+    }
+
+    private void clearSecureSession() {
+        SharedPreferences prefs = getSecurePreferences();
+        if (prefs != null) prefs.edit().clear().apply();
+    }
+
+    private Headers clientHeaders() {
+        String version = getClientVersion();
+        String device = asciiHeaderValue(Build.MANUFACTURER + " " + Build.MODEL);
+        String userAgent = "WristManagerPro/" + version + " (Android "
+                + asciiHeaderValue(Build.VERSION.RELEASE) + "; " + device + ")";
+        return new Headers.Builder()
+                .add("X-Typheye-Platform", "android")
+                .add("X-Typheye-Version", version)
+                .add("User-Agent", userAgent)
+                .build();
+    }
+
+    private String asciiHeaderValue(String value) {
+        return value.replaceAll("[^\\x20-\\x7E]", "_");
+    }
+
+    private String getClientVersion() {
+        try {
+            String version = context.getPackageManager()
+                    .getPackageInfo(context.getPackageName(), 0).versionName;
+            return version == null ? "unknown" : version;
+        } catch (Exception e) {
+            return "unknown";
+        }
+    }
+
+    private Request.Builder authenticatedRequest(String url, String sessionId, String sessionToken) {
+        return new Request.Builder()
+                .url(url)
+                .headers(clientHeaders())
+                .header("Authorization", "Bearer " + sessionToken)
+                .header("X-Typheye-Session-Id", sessionId);
+    }
+
     public void logout() {
+        clearLocalLoginData();
+    }
+
+    private void clearLocalLoginData() {
         File filesDir = context.getFilesDir();
         File avatarFile = new File(filesDir, "avatar_" + getUid() + ".jpg");
         // ✅ 保留头像文件删除逻辑（检查删除结果）
@@ -282,7 +413,9 @@ public class tAccUtils {
         editor.remove(PREFS_EMAIL);
         editor.remove(PREFS_NICK);
         editor.remove(PREFS_SHUO);
+        editor.remove(PREFS_PROTOCOL);
         editor.apply();
+        clearSecureSession();
     }
 
     public static void saveAvatarToCache(Context context, String uid, Bitmap bitmap) {
@@ -297,6 +430,10 @@ public class tAccUtils {
     }
 
     public void getUserDataUpdateJson(@NonNull final UserDataUpdateCallback callback) {
+        if (isV2Session()) {
+            getV2UserDataUpdate(callback);
+            return;
+        }
         String uid = getUid();
         String cookie = getCookie();
         if (cookie == null || cookie.isEmpty()) {
@@ -371,6 +508,103 @@ public class tAccUtils {
         } catch (Exception e) {
             callback.onError("参数编码错误: " + e.getMessage());
         }
+    }
+
+    private void getV2UserDataUpdate(@NonNull final UserDataUpdateCallback callback) {
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            clearLocalLoginData();
+            callback.onSuccess(new UserDataUpdateResult(false, false, false, false));
+            return;
+        }
+
+        try {
+            String url = BASE_URL + "?type=" + ACTION_GET_DATA_UPDATE_V2
+                    + "&" + KEY_UID + "=" + URLEncoder.encode(uid, "UTF-8");
+            Request request = authenticatedRequest(url, sessionId, sessionToken)
+                    .post(new FormBody.Builder().add("v1", "").add("v2", "").add("v3", "").build())
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    callback.onError("网络请求失败: " + e.getMessage());
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    try (ResponseBody responseBody = response.body()) {
+                        if (!response.isSuccessful() || responseBody == null) {
+                            callback.onError("请求失败: " + response.code());
+                            return;
+                        }
+                        JSONObject json = new JSONObject(responseBody.string());
+                        if (json.optInt("code") != 200) {
+                            callback.onError(json.optString("msg", "服务器返回错误"));
+                            return;
+                        }
+                        JSONObject info = json.getJSONObject("info");
+                        boolean valid = info.optInt("v0", 1) == 0;
+                        if (!valid) {
+                            clearLocalLoginData();
+                            new Handler(Looper.getMainLooper()).post(() ->
+                                    new MaterialAlertDialogBuilder(context)
+                                            .setTitle("登录已失效")
+                                            .setCancelable(false)
+                                            .setMessage("当前设备的登录会话已失效，请重新登录")
+                                            .setPositiveButton("确定", null)
+                                            .show());
+                        }
+                        callback.onSuccess(new UserDataUpdateResult(valid,
+                                info.optInt("v1") == 1, info.optInt("v2") == 1, info.optInt("v3") == 1));
+                    } catch (IOException | JSONException e) {
+                        callback.onError("解析响应失败: " + e.getMessage());
+                    }
+                }
+            });
+        } catch (Exception e) {
+            callback.onError("参数编码错误: " + e.getMessage());
+        }
+    }
+
+    public void logoutCurrentSession(@NonNull final LogoutCallback callback) {
+        if (!isV2Session()) {
+            clearLocalLoginData();
+            callback.onComplete();
+            return;
+        }
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        try {
+            String url = BASE_URL + "?type=" + ACTION_SESSION_LOGOUT_V2
+                    + "&" + KEY_UID + "=" + URLEncoder.encode(uid, "UTF-8");
+            Request request = authenticatedRequest(url, sessionId, sessionToken)
+                    .post(new FormBody.Builder().build())
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    clearLocalLoginData();
+                    callback.onComplete();
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    response.close();
+                    clearLocalLoginData();
+                    callback.onComplete();
+                }
+            });
+        } catch (Exception e) {
+            clearLocalLoginData();
+            callback.onComplete();
+        }
+    }
+
+    public interface LogoutCallback {
+        void onComplete();
     }
 
     public interface UserDataUpdateCallback {
@@ -1069,6 +1303,7 @@ public class tAccUtils {
      * 为WebActivity设置登录Cookie
      */
     public void setWebViewCookies() {
+        if (isV2Session()) return;
         try {
             String uid = getUid();
             String cookie = getCookie();

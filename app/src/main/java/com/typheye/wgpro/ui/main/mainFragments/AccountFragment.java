@@ -127,9 +127,13 @@ public class AccountFragment extends Fragment {
                 .setTitle("退出登录")
                 .setMessage("确定要退出登录吗？此操作将清除所有本地账户数据")
                 .setPositiveButton("确定", (dialog, which) -> {
-                    accUtils.logout();
-                    updateUI();
-                    Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show();
+                    account_btn_logout.setEnabled(false);
+                    accUtils.logoutCurrentSession(() -> mainHandler.post(() -> {
+                        if (!isAdded()) return;
+                        account_btn_logout.setEnabled(true);
+                        updateUI();
+                        Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show();
+                    }));
                 })
                 .setNegativeButton("取消", null)
                 .show());
@@ -146,6 +150,7 @@ public class AccountFragment extends Fragment {
         if (accUtils.isLogin()) {
             account_card_loginless.setVisibility(View.GONE);
             account_linear_logined.setVisibility(View.VISIBLE);
+            account_btn_edit.setVisibility(accUtils.isV2Session() ? View.GONE : View.VISIBLE);
 
             String uid = accUtils.getUid();
             String nick = accUtils.getNick();
