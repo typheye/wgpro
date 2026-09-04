@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="76dp" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="4dp" android:paddingEnd="4dp">
+    <TextView android:layout_width="52dp" android:layout_height="52dp" android:background="@color/media_amber" android:gravity="center" android:text="FM" android:textColor="@color/banner_amber" android:textSize="15sp" android:textStyle="bold" />
+    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="14dp" android:layout_weight="1" android:orientation="vertical">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="腕上电台" android:textColor="@color/text_primary" android:textSize="15sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="收藏你的在线频道 · 940 KB" android:textColor="@color/text_secondary" android:textSize="13sp" />
+    </LinearLayout>
+    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="获取" android:textColor="@color/brand_primary" android:textSize="14sp" android:textStyle="bold" />
+</LinearLayout>

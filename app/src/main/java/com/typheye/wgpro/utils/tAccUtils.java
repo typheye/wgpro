@@ -34,7 +34,9 @@ import java.util.concurrent.TimeUnit;
 
 public class tAccUtils {
     private static final String BASE_URL = "https://service.typheye.cn/api.php";
-    private static final String ACTION_LOGIN = "login2";
+    // V2 profile routes are available; unsupported legacy-only features remain explicitly blocked.
+    private static final boolean USE_V2_LOGIN = true;
+    private static final String ACTION_LOGIN = USE_V2_LOGIN ? "login2" : "login";
     private static final String ACTION_GET_DATA_UPDATE = "get_data_update";
     private static final String ACTION_GET_DATA_UPDATE_V2 = "get_data_update2";
     private static final String ACTION_SESSION_LOGOUT_V2 = "session_logout2";
@@ -43,6 +45,16 @@ public class tAccUtils {
     private static final String ACTION_CONFIRM_LOGIN_REQUEST = "confirm_login_request";
     private static final String ACTION_APPROVE_LOGIN_REQUEST = "approve_login_request";
     private static final String ACTION_REJECT_LOGIN_REQUEST = "reject_login_request";
+    private static final String ACTION_GET_USER_DATA_V2 = "get_user_data2";
+    private static final String ACTION_SET_NICK_V2 = "set_nick2";
+    private static final String ACTION_SET_SHUO_V2 = "set_shuo2";
+    private static final String ACTION_GET_AVATAR_V2 = "get_avatar2";
+    private static final String ACTION_SET_AVATAR_V2 = "account_avatar2";
+    private static final String ACTION_GENERATE_LOGIN_REQUEST_V2 = "generate_login_request2";
+    private static final String ACTION_CONFIRM_LOGIN_REQUEST_V2 = "confirm_login_request2";
+    private static final String ACTION_APPROVE_LOGIN_REQUEST_V2 = "approve_login_request2";
+    private static final String ACTION_REJECT_LOGIN_REQUEST_V2 = "reject_login_request2";
+    private static final String ACTION_CHECK_LOGIN_REQUEST_STATUS_V2 = "check_login_request_status2";
 
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
@@ -70,16 +82,19 @@ public class tAccUtils {
     private static final String ACTION_UPDATE_USER_DATA = "get_user_data";
     private final Context context;
     private final OkHttpClient client;
+    private static final Object SECURE_PREFS_LOCK = new Object();
+    private static volatile SharedPreferences securePreferences;
+    private static final OkHttpClient SHARED_CLIENT = new OkHttpClient.Builder()
+            .connectTimeout(15, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .build();
 
-    private static AlertDialog progressDialog;
+    private AlertDialog progressDialog;
 
     public tAccUtils(Context context) {
         this.context = context;
-        this.client = new OkHttpClient.Builder()
-                .connectTimeout(15, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .build();
+        this.client = SHARED_CLIENT;
     }
 
     public void login(String username, String password, @NonNull final LoginCallback callback) {
@@ -137,11 +152,16 @@ public class tAccUtils {
                                     String email = info.optString(KEY_EMAIL, "");
                                     String nick = info.optString(KEY_NICK, "");
                                     String shuo = info.optString(KEY_SHUO, "");
-                                    JSONObject session = json.getJSONObject("session");
-                                    String sessionId = session.getString(PREFS_SESSION_ID);
-                                    String sessionToken = session.getString(PREFS_SESSION_TOKEN);
-
-                                    LoginResult result = LoginResult.v2(uid, email, nick, shuo, sessionId, sessionToken);
+                                    LoginResult result;
+                                    if (USE_V2_LOGIN) {
+                                        JSONObject session = json.getJSONObject("session");
+                                        String sessionId = session.getString(PREFS_SESSION_ID);
+                                        String sessionToken = session.getString(PREFS_SESSION_TOKEN);
+                                        result = LoginResult.v2(uid, email, nick, shuo, sessionId, sessionToken);
+                                    } else {
+                                        String cookie = info.getString(KEY_COOKIE);
+                                        result = new LoginResult(cookie, uid, email, nick, shuo);
+                                    }
                                     if (saveLoginData(result)) {
                                         callback.onSuccess(result);
                                     } else {
@@ -231,7 +251,7 @@ public class tAccUtils {
 
     private void showProgressDialog(String message) {
         new Handler(Looper.getMainLooper()).post(() -> {
-            hideProgressDialog();
+            dismissProgressDialogNow();
             MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
             builder.setTitle("请稍候");
 
@@ -249,9 +269,17 @@ public class tAccUtils {
     }
 
     private void hideProgressDialog() {
-        if (progressDialog != null && progressDialog.isShowing()) {
-            progressDialog.dismiss();
-            progressDialog = null;
+        new Handler(Looper.getMainLooper()).post(this::dismissProgressDialogNow);
+    }
+
+    private void dismissProgressDialogNow() {
+        AlertDialog dialog = progressDialog;
+        progressDialog = null;
+        if (dialog == null || !dialog.isShowing()) return;
+        try {
+            dialog.dismiss();
+        } catch (IllegalArgumentException ignored) {
+            // The host Activity may have been closed while the network request completed.
         }
     }
 
@@ -297,9 +325,9 @@ public class tAccUtils {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String uid = prefs.getString(PREFS_UID, "");
         if (uid.isEmpty()) return false;
-        if (isV2Session()) {
-            return !getSessionId().isEmpty() && !getSessionToken().isEmpty();
-        }
+        // Keystore initialization may involve disk and binder I/O. UI state is based on
+        // the non-secret protocol marker; authenticated background requests verify V2 credentials.
+        if (isV2Session()) return true;
         return !getCookie().isEmpty();
     }
 
@@ -339,6 +367,16 @@ public class tAccUtils {
     }
 
     private SharedPreferences getSecurePreferences() {
+        SharedPreferences cached = securePreferences;
+        if (cached != null) return cached;
+        synchronized (SECURE_PREFS_LOCK) {
+            if (securePreferences != null) return securePreferences;
+            securePreferences = createSecurePreferences();
+            return securePreferences;
+        }
+    }
+
+    private SharedPreferences createSecurePreferences() {
         try {
             MasterKey masterKey = new MasterKey.Builder(context)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -392,6 +430,11 @@ public class tAccUtils {
                 .headers(clientHeaders())
                 .header("Authorization", "Bearer " + sessionToken)
                 .header("X-Typheye-Session-Id", sessionId);
+    }
+
+    private String v2Url(String action, String uid) throws Exception {
+        return BASE_URL + "?type=" + action + "&" + KEY_UID + "="
+                + URLEncoder.encode(uid, "UTF-8");
     }
 
     public void logout() {
@@ -515,8 +558,7 @@ public class tAccUtils {
         String sessionId = getSessionId();
         String sessionToken = getSessionToken();
         if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
-            clearLocalLoginData();
-            callback.onSuccess(new UserDataUpdateResult(false, false, false, false));
+            callback.onError("本地登录会话读取失败");
             return;
         }
 
@@ -545,8 +587,17 @@ public class tAccUtils {
                             return;
                         }
                         JSONObject info = json.getJSONObject("info");
-                        boolean valid = info.optInt("v0", 1) == 0;
-                        if (!valid) {
+                        if (!info.has("v0")) {
+                            callback.onError("服务器响应缺少会话状态");
+                            return;
+                        }
+                        int sessionState = info.optInt("v0", -1);
+                        if (sessionState != 0 && sessionState != 1) {
+                            callback.onError("服务器返回了未知的会话状态");
+                            return;
+                        }
+                        boolean valid = sessionState == 0;
+                        if (sessionState == 1) {
                             clearLocalLoginData();
                             new Handler(Looper.getMainLooper()).post(() ->
                                     new MaterialAlertDialogBuilder(context)
@@ -569,6 +620,10 @@ public class tAccUtils {
     }
 
     public void logoutCurrentSession(@NonNull final LogoutCallback callback) {
+        new Thread(() -> logoutCurrentSessionInBackground(callback), "typheye-session-logout").start();
+    }
+
+    private void logoutCurrentSessionInBackground(@NonNull final LogoutCallback callback) {
         if (!isV2Session()) {
             clearLocalLoginData();
             callback.onComplete();
@@ -648,6 +703,10 @@ public class tAccUtils {
         showProgressDialog("正在请求...");
 
         String uid = getUid();
+        if (isV2Session()) {
+            runV2LoginAuthorization(ACTION_CONFIRM_LOGIN_REQUEST_V2, uid, requestId, callback);
+            return;
+        }
         String cookie = getCookie();
         if (uid == null || uid.isEmpty() || cookie == null || cookie.isEmpty()) {
             hideProgressDialog();
@@ -660,7 +719,6 @@ public class tAccUtils {
 
         try {
             String url = BASE_URL + "?type=" + ACTION_CONFIRM_LOGIN_REQUEST
-                    + "&" + KEY_COOKIE + "=" + URLEncoder.encode(cookie, "UTF-8")
                     + "&" + KEY_UID + "=" + URLEncoder.encode(uid, "UTF-8")
                     + "&" + KEY_COOKIE + "=" + URLEncoder.encode(cookie, "UTF-8")
                     + "&" + KEY_REQUEST_ID + "=" + URLEncoder.encode(requestId, "UTF-8")
@@ -724,6 +782,11 @@ public class tAccUtils {
         showProgressDialog("正在请求...");
 
         String uid = getUid();
+        if (isV2Session()) {
+            runV2LoginAuthorization(isApprove ? ACTION_APPROVE_LOGIN_REQUEST_V2
+                    : ACTION_REJECT_LOGIN_REQUEST_V2, uid, requestId, callback);
+            return;
+        }
         String cookie = getCookie();
         if (uid == null || uid.isEmpty() || cookie == null || cookie.isEmpty()) {
             hideProgressDialog();
@@ -783,8 +846,51 @@ public class tAccUtils {
     }
 
 
+    private void runV2LoginAuthorization(String action, String uid, String requestId,
+                                         @NonNull final SetCallback callback) {
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (uid == null || uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            hideProgressDialog();
+            callback.onError("登录会话无效");
+            return;
+        }
+        try {
+            String url = v2Url(action, uid) + "&" + KEY_REQUEST_ID + "="
+                    + URLEncoder.encode(requestId, "UTF-8");
+            Request request = authenticatedRequest(url, sessionId, sessionToken).get().build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    hideProgressDialog();
+                    callback.onError("请求失败: " + error.getMessage());
+                }
+
+                @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    hideProgressDialog();
+                    try (ResponseBody body = response.body()) {
+                        JSONObject json = new JSONObject(body == null ? "" : body.string());
+                        if (response.isSuccessful() && json.optInt("code") == 200) {
+                            callback.onSuccess();
+                        } else {
+                            callback.onError(json.optString("msg", "请求失败: " + response.code()));
+                        }
+                    } catch (Exception error) {
+                        callback.onError("解析响应失败: " + error.getMessage());
+                    }
+                }
+            });
+        } catch (Exception error) {
+            hideProgressDialog();
+            callback.onError("参数编码错误: " + error.getMessage());
+        }
+    }
+
     // 新增：更新数据
     public void updateUserData(@NonNull final SetCallback callback) {
+        if (isV2Session()) {
+            getV2Profile(callback);
+            return;
+        }
         // 1. 快速网络检测
         if (isNetworkAvailable()) {
             callback.onError("网络不可用");
@@ -848,6 +954,10 @@ public class tAccUtils {
 
     // 新增：设置昵称
     public void setNick(String value, @NonNull final SetCallback callback) {
+        if (isV2Session()) {
+            mutateV2Profile(ACTION_SET_NICK_V2, value, true, callback);
+            return;
+        }
         hideProgressDialog();
 
         // 1. 快速网络检测
@@ -924,6 +1034,10 @@ public class tAccUtils {
 
     // 新增：设置签名(说说)
     public void setShuo(String value, @NonNull final SetCallback callback) {
+        if (isV2Session()) {
+            mutateV2Profile(ACTION_SET_SHUO_V2, value, false, callback);
+            return;
+        }
         hideProgressDialog();
 
         // 1. 快速网络检测
@@ -998,6 +1112,93 @@ public class tAccUtils {
         }
     }
 
+    private void getV2Profile(@NonNull final SetCallback callback) {
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            callback.onError("登录会话无效");
+            return;
+        }
+        final Request request;
+        try {
+            request = authenticatedRequest(v2Url(ACTION_GET_USER_DATA_V2, uid), sessionId, sessionToken)
+                    .get().build();
+        } catch (Exception error) {
+            callback.onError("参数编码错误: " + error.getMessage());
+            return;
+        }
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                callback.onError("网络请求失败: " + error.getMessage());
+            }
+
+            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try (ResponseBody body = response.body()) {
+                    String responseData = body == null ? "" : body.string();
+                    if (response.code() == 401) {
+                        callback.onError("资料服务暂时无法验证登录会话");
+                        return;
+                    }
+                    JSONObject json = new JSONObject(responseData);
+                    if (!response.isSuccessful() || json.optInt("code") != 200) {
+                        callback.onError(json.optString("msg", "请求失败: " + response.code()));
+                        return;
+                    }
+                    JSONObject info = json.getJSONObject("info");
+                    saveNick(info.optString("nick", ""));
+                    saveShuo(info.optString("shuo", ""));
+                    callback.onSuccess();
+                } catch (Exception error) {
+                    callback.onError("解析响应失败: " + error.getMessage());
+                }
+            }
+        });
+    }
+
+    private void mutateV2Profile(String action, String value, boolean nickname,
+                                 @NonNull final SetCallback callback) {
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            callback.onError("登录会话无效");
+            return;
+        }
+        final Request request;
+        try {
+            request = authenticatedRequest(v2Url(action, uid), sessionId, sessionToken)
+                    .post(new FormBody.Builder().add(KEY_VALUE, value).build()).build();
+        } catch (Exception error) {
+            callback.onError("参数编码错误: " + error.getMessage());
+            return;
+        }
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                callback.onError("网络请求失败: " + error.getMessage());
+            }
+
+            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try (ResponseBody body = response.body()) {
+                    String responseData = body == null ? "" : body.string();
+                    if (response.code() == 401) {
+                        callback.onError("资料服务暂时无法验证登录会话");
+                        return;
+                    }
+                    JSONObject json = new JSONObject(responseData);
+                    if (!response.isSuccessful() || json.optInt("code") != 200) {
+                        callback.onError(json.optString("msg", "修改失败: " + response.code()));
+                        return;
+                    }
+                    if (nickname) saveNick(value); else saveShuo(value);
+                    callback.onSuccess();
+                } catch (Exception error) {
+                    callback.onError("解析响应失败: " + error.getMessage());
+                }
+            }
+        });
+    }
+
     // 修复：移除本地保存逻辑，由调用者处理
     public void setAvatar(File avatarFile, @NonNull final SetCallback callback) {
         hideProgressDialog();
@@ -1014,6 +1215,10 @@ public class tAccUtils {
         showProgressDialog("正在上传头像...");
 
         String uid = getUid();
+        if (isV2Session()) {
+            setV2Avatar(uid, avatarFile, callback);
+            return;
+        }
         String cookie = getCookie();
         if (uid == null || uid.isEmpty() || cookie == null || cookie.isEmpty()) {
             hideProgressDialog();
@@ -1066,6 +1271,108 @@ public class tAccUtils {
             hideProgressDialog();
             callback.onError("参数编码错误: " + e.getMessage());
         }
+    }
+
+    private void setV2Avatar(String uid, File avatarFile, @NonNull final SetCallback callback) {
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (uid == null || uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            hideProgressDialog();
+            callback.onError("登录会话无效");
+            return;
+        }
+        if (!avatarFile.isFile() || avatarFile.length() == 0 || avatarFile.length() > 3L * 1024L * 1024L) {
+            hideProgressDialog();
+            callback.onError("头像文件需为 3 MB 以内的 JPG、PNG 或 WebP 图片");
+            return;
+        }
+        try {
+            RequestBody fileBody = RequestBody.create(avatarFile, MediaType.parse("image/jpeg"));
+            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("avatar", "avatar.jpg", fileBody).build();
+            Request request = authenticatedRequest(v2Url(ACTION_SET_AVATAR_V2, uid),
+                    sessionId, sessionToken).post(body).build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    hideProgressDialog();
+                    callback.onError("上传失败: " + error.getMessage());
+                }
+
+                @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    hideProgressDialog();
+                    try (ResponseBody responseBody = response.body()) {
+                        JSONObject json = new JSONObject(responseBody == null ? "" : responseBody.string());
+                        if (response.isSuccessful() && json.optInt("code") == 200) {
+                            callback.onSuccess();
+                        } else {
+                            callback.onError(json.optString("msg", "上传失败: " + response.code()));
+                        }
+                    } catch (Exception error) {
+                        callback.onError("解析响应失败: " + error.getMessage());
+                    }
+                }
+            });
+        } catch (Exception error) {
+            hideProgressDialog();
+            callback.onError("参数编码错误: " + error.getMessage());
+        }
+    }
+
+    public void getAvatarInfo(String localMd5, @NonNull final AvatarInfoCallback callback) {
+        String uid = getUid();
+        if (uid == null || uid.isEmpty()) {
+            callback.onError("未获取到用户信息");
+            return;
+        }
+        try {
+            String url;
+            Request.Builder builder;
+            if (isV2Session()) {
+                String sessionId = getSessionId();
+                String sessionToken = getSessionToken();
+                if (sessionId.isEmpty() || sessionToken.isEmpty()) {
+                    callback.onError("登录会话无效");
+                    return;
+                }
+                url = v2Url(ACTION_GET_AVATAR_V2, uid);
+                builder = authenticatedRequest(url, sessionId, sessionToken);
+            } else {
+                url = BASE_URL + "?type=get_avatar&uid=" + URLEncoder.encode(uid, "UTF-8")
+                        + "&md5=" + URLEncoder.encode(localMd5, "UTF-8");
+                builder = new Request.Builder().url(url).headers(clientHeaders());
+            }
+            client.newCall(builder.get().build()).enqueue(new Callback() {
+                @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    callback.onError("头像信息获取失败: " + error.getMessage());
+                }
+
+                @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    try (ResponseBody body = response.body()) {
+                        JSONObject json = new JSONObject(body == null ? "" : body.string());
+                        if (!response.isSuccessful() || json.optInt("code") != 200) {
+                            callback.onError(json.optString("msg", "头像信息获取失败: " + response.code()));
+                            return;
+                        }
+                        JSONObject info = json.getJSONObject("info");
+                        boolean hasAvatar = info.optBoolean("isHave", false);
+                        String remoteMd5 = info.optString("md5", "");
+                        boolean shouldDownload = isV2Session()
+                                ? hasAvatar && (remoteMd5.isEmpty() || !remoteMd5.equalsIgnoreCase(localMd5))
+                                : hasAvatar && !info.optBoolean("isUpdated", false);
+                        callback.onSuccess(hasAvatar, shouldDownload, info.optString("url", ""));
+                    } catch (Exception error) {
+                        callback.onError("头像信息解析失败: " + error.getMessage());
+                    }
+                }
+            });
+        } catch (Exception error) {
+            callback.onError("参数编码错误: " + error.getMessage());
+        }
+    }
+
+    public interface AvatarInfoCallback {
+        void onSuccess(boolean hasAvatar, boolean shouldDownload, String url);
+        void onError(String message);
     }
 
     // 新增：计算postLoginRequest的token
@@ -1157,15 +1464,11 @@ public class tAccUtils {
         showProgressDialog("正在生成登录请求...");
         new Thread(() -> {
             try {
-                long time = System.currentTimeMillis();
-                String token = calculateToken_generateLoginRequest(time);
-
-                String url = BASE_URL + "?type=generate_login_request"
-                        + "&" + KEY_TIME + "=" + URLEncoder.encode(String.valueOf(time), "UTF-8")
-                        + "&" + KEY_TOKEN + "=" + URLEncoder.encode(token, "UTF-8");
+                String url = BASE_URL + "?type=" + ACTION_GENERATE_LOGIN_REQUEST_V2;
 
                 Request request = new Request.Builder()
                         .url(url)
+                        .headers(clientHeaders())
                         .get()
                         .build();
 
@@ -1176,8 +1479,14 @@ public class tAccUtils {
                     JSONObject json = new JSONObject(responseData);
 
                     if (json.getInt("code") == 200) {
-                        String requestId = json.getString("request_id");
-                        String qrCodeUrl = json.getString("qr_code_url");
+                        JSONObject info = json.optJSONObject("info");
+                        String requestId = json.optString("request_id",
+                                info == null ? "" : info.optString("request_id", ""));
+                        String qrCodeUrl = json.optString("qr_code_url",
+                                info == null ? "" : info.optString("qr_code_url", ""));
+                        if (requestId.isEmpty() || qrCodeUrl.isEmpty()) {
+                            throw new JSONException("响应缺少 request_id 或 qr_code_url");
+                        }
 
                         // 在主线程回调
                         new Handler(Looper.getMainLooper()).post(() -> callback.onSuccess(requestId, qrCodeUrl));
@@ -1212,17 +1521,13 @@ public class tAccUtils {
 
 //        showProgressDialog("正在检查请求状态...");
 
-        long time = System.currentTimeMillis();
-        String token = calculateToken_checkLoginRequestStatus(requestId, time);
-
         try {
-            String url = BASE_URL + "?type=check_login_request_status"
-                    + "&" + KEY_REQUEST_ID + "=" + URLEncoder.encode(requestId, "UTF-8")
-                    + "&" + KEY_TIME + "=" + URLEncoder.encode(String.valueOf(time), "UTF-8")
-                    + "&" + KEY_TOKEN + "=" + URLEncoder.encode(token, "UTF-8");
+            String url = BASE_URL + "?type=" + ACTION_CHECK_LOGIN_REQUEST_STATUS_V2
+                    + "&" + KEY_REQUEST_ID + "=" + URLEncoder.encode(requestId, "UTF-8");
 
             Request request = new Request.Builder()
                     .url(url)
+                    .headers(clientHeaders())
                     .get()
                     .build();
 
@@ -1244,14 +1549,31 @@ public class tAccUtils {
                             if (json.getInt("code") == 200) {
                                 String status = json.getString("status");
                                 if ("approved".equals(status)) {
-                                    JSONObject info = json.getJSONObject("info");
-                                    String cookie = info.getString(KEY_COOKIE);
-                                    String uid = info.getString(KEY_UID);
-                                    String email = info.getString(KEY_EMAIL);
-                                    String nick = info.optString(KEY_NICK, "");
-                                    String shuo = info.optString(KEY_SHUO, "");
-                                    LoginResult result = new LoginResult(cookie, uid, email, nick, shuo);
-                                    saveLoginData(result);
+                                    JSONObject session = json.optJSONObject("session");
+                                    JSONObject info = json.optJSONObject("info");
+                                    if (info == null) info = json.optJSONObject("user");
+                                    String uid = firstNonEmpty(json.optString(KEY_UID, ""),
+                                            info == null ? "" : info.optString(KEY_UID, ""),
+                                            session == null ? "" : session.optString(KEY_UID, ""));
+                                    String sessionId = session == null ? ""
+                                            : session.optString(PREFS_SESSION_ID, "");
+                                    String sessionToken = session == null ? ""
+                                            : session.optString(PREFS_SESSION_TOKEN, "");
+                                    if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+                                        callback.onError("授权响应缺少用户或会话信息，请重新扫码");
+                                        return;
+                                    }
+                                    String email = firstNonEmpty(json.optString(KEY_EMAIL, ""),
+                                            info == null ? "" : info.optString(KEY_EMAIL, ""));
+                                    String nick = firstNonEmpty(json.optString(KEY_NICK, ""),
+                                            info == null ? "" : info.optString(KEY_NICK, ""));
+                                    String shuo = firstNonEmpty(json.optString(KEY_SHUO, ""),
+                                            info == null ? "" : info.optString(KEY_SHUO, ""));
+                                    if (!saveLoginData(LoginResult.v2(uid, email, nick, shuo,
+                                            sessionId, sessionToken))) {
+                                        callback.onError("无法安全保存登录会话");
+                                        return;
+                                    }
                                 }
                                 callback.onSuccess(status);
                             } else {
@@ -1271,6 +1593,13 @@ public class tAccUtils {
             hideProgressDialog();
             callback.onError("参数编码错误: " + e.getMessage());
         }
+    }
+
+    private String firstNonEmpty(String... values) {
+        for (String value : values) {
+            if (value != null && !value.isEmpty()) return value;
+        }
+        return "";
     }
 
     // 添加接口：GenerateRequestCallback

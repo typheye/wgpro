@@ -23,9 +23,8 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
+import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.utils.tAccUtils;
-
-import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -46,13 +45,15 @@ public class AccountFragment extends Fragment {
     private Button account_btn_sign_up;
     private LinearLayout account_linear_logined;
     private Button account_btn_edit;
-    private Button account_btn_logout;
-    private Button account_btn_goto_help;
+    private View account_btn_goto_help;
     private TextView account_text_usr_icon;
     private TextView account_text_usr_uid;
     private TextView account_text_usr_nick;
     private TextView account_text_usr_shuo;
     private ImageView account_image_usr_icon;
+    private View account_content;
+    private View account_stats_card;
+    private long lastAccountRefreshAt;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,16 +72,21 @@ public class AccountFragment extends Fragment {
         account_btn_sign_in = view.findViewById(R.id.btn_account_sign_in);
         account_btn_sign_up = view.findViewById(R.id.btn_account_sign_up);
         account_btn_edit = view.findViewById(R.id.btn_account_edit);
-        account_btn_logout = view.findViewById(R.id.btn_account_logout);
         account_btn_goto_help = view.findViewById(R.id.btn_account_goto_help);
         account_text_usr_icon = view.findViewById(R.id.text_usr_icon);
         account_text_usr_uid = view.findViewById(R.id.text_usr_uid);
         account_text_usr_nick = view.findViewById(R.id.text_usr_nick);
         account_text_usr_shuo = view.findViewById(R.id.text_usr_shuo);
         account_image_usr_icon = view.findViewById(R.id.image_usr_icon);
+        account_content = view.findViewById(R.id.account_content);
+        account_stats_card = view.findViewById(R.id.account_stats_card);
+        view.findViewById(R.id.profile_card).setOnClickListener(v -> {
+            Intent intent = new Intent(requireContext(), UserDetailActivity.class);
+            startActivity(intent);
+        });
 
         updateUI();
-        setupListeners();
+        setupListeners(view);
         return view;
     }
 
@@ -108,7 +114,7 @@ public class AccountFragment extends Fragment {
                 .show();
     }
 
-    private void setupListeners() {
+    private void setupListeners(View root) {
         account_btn_sign_in.setOnClickListener(v -> showMoreMenu());
 
         account_btn_sign_up.setOnClickListener(v -> {
@@ -123,50 +129,52 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         });
 
-        account_btn_logout.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("退出登录")
-                .setMessage("确定要退出登录吗？此操作将清除所有本地账户数据")
-                .setPositiveButton("确定", (dialog, which) -> {
-                    account_btn_logout.setEnabled(false);
-                    accUtils.logoutCurrentSession(() -> mainHandler.post(() -> {
-                        if (!isAdded()) return;
-                        account_btn_logout.setEnabled(true);
-                        updateUI();
-                        Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show();
-                    }));
-                })
-                .setNegativeButton("取消", null)
-                .show());
-
         account_btn_goto_help.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebActivity.class);
-            intent.putExtra("URL", "https://service.typheye.cn/site/user/center/");
+            intent.putExtra("URL", "https://account.typheye.cn/?tab=security");
             startActivity(intent);
         });
+
+        View.OnClickListener localPreview = v -> Toast.makeText(requireContext(),
+                "本地演示数据，云端内容暂未接入", Toast.LENGTH_SHORT).show();
+        root.findViewById(R.id.account_favorites).setOnClickListener(localPreview);
+        root.findViewById(R.id.account_history).setOnClickListener(localPreview);
+        root.findViewById(R.id.account_resources).setOnClickListener(localPreview);
+        root.findViewById(R.id.account_identity).setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
+                .setTitle("社区身份")
+                .setMessage("当前为普通用户。社区等级、创作者认证与徽章将在社区服务开放后同步。")
+                .setPositiveButton("完成", null)
+                .show());
     }
 
     @SuppressLint("SetTextI18n")
     private void updateUI() {
         if (accUtils.isLogin()) {
+            viewServicesVisibility(View.VISIBLE);
             account_card_loginless.setVisibility(View.GONE);
             account_linear_logined.setVisibility(View.VISIBLE);
-            account_btn_edit.setVisibility(accUtils.isV2Session() ? View.GONE : View.VISIBLE);
+            account_btn_edit.setVisibility(View.VISIBLE);
+            account_stats_card.setVisibility(View.VISIBLE);
+            account_content.setVisibility(View.VISIBLE);
 
             String uid = accUtils.getUid();
             String nick = accUtils.getNick();
             String shuo = accUtils.getShuo();
 
-            account_text_usr_uid.setText(uid != null ? "UID: " + uid : "UID: 未知");
+            account_text_usr_uid.setText(uid != null && !uid.isEmpty() ? "UID " + uid : "UID 未知");
             account_text_usr_nick.setText(nick != null && !nick.isEmpty() ? nick : "用户");
 
             String cleanShuo = shuo != null ? shuo.trim() : "";
-            account_text_usr_shuo.setText(cleanShuo.isEmpty() ? "暂未设置" : cleanShuo);
+            account_text_usr_shuo.setText(cleanShuo.isEmpty() ? "这个人还没有简介呢~" : cleanShuo);
 
             // ====== 关键修复：直接加载头像，不隐藏头像区域 ======
             loadAvatarFromCache(uid);
         } else {
             account_card_loginless.setVisibility(View.VISIBLE);
             account_linear_logined.setVisibility(View.GONE);
+            account_stats_card.setVisibility(View.GONE);
+            account_content.setVisibility(View.GONE);
+            viewServicesVisibility(View.GONE);
             account_text_usr_uid.setText("");
             account_text_usr_nick.setText("");
             account_text_usr_shuo.setText("");
@@ -174,6 +182,13 @@ public class AccountFragment extends Fragment {
             account_text_usr_icon.setText("U");
             account_text_usr_icon.setVisibility(View.VISIBLE);
             account_image_usr_icon.setVisibility(View.GONE);
+        }
+    }
+
+    private void viewServicesVisibility(int visibility) {
+        if (getView() != null) {
+            View services = getView().findViewById(R.id.account_services_container);
+            if (services != null) services.setVisibility(visibility);
         }
     }
 
@@ -249,45 +264,22 @@ public class AccountFragment extends Fragment {
         File cacheFile = new File(cacheDir, "avatar_" + uid + ".jpg");
         String md5Str = cacheFile.exists() ? getMd5OfFile(cacheFile) : "none";
 
-        // 2. 构建API请求
-        String apiUrl = "https://service.typheye.cn/api.php?type=get_avatar&uid=" + uid + "&md5=" + md5Str;
-
-        Request request = new Request.Builder()
-                .url(apiUrl)
-                .header("User-Agent", "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36")
-                .build();
-
-        accUtils.getClient().newCall(request).enqueue(new Callback() {
+        accUtils.getAvatarInfo(md5Str, new tAccUtils.AvatarInfoCallback() {
             @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                // 网络失败，保持当前头像
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    // 不做任何操作，保持当前头像
-                });
+            public void onSuccess(boolean hasAvatar, boolean shouldDownload, String url) {
+                if (!hasAvatar) {
+                    if (cacheFile.exists() && !cacheFile.delete()) {
+                        android.util.Log.w("AccountFragment", "Unable to remove stale avatar cache");
+                    }
+                    showTextAvatar();
+                } else if (shouldDownload && url != null && !url.isEmpty()) {
+                    downloadAvatar(uid, url);
+                }
             }
 
             @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {
-                if (response.isSuccessful()) {
-                    try {
-                        String responseStr = response.body().string();
-                        JSONObject json = new JSONObject(responseStr);
-                        int code = json.getInt("code");
-                        if (code == 200) {
-                            JSONObject info = json.getJSONObject("info");
-                            boolean isHave = info.getBoolean("isHave");
-                            boolean isUpdated = info.getBoolean("isUpdated");
-                            String url = info.getString("url");
-
-                            // 仅当需要更新时才下载
-                            if (isHave && !isUpdated) {
-                                downloadAvatar(uid, url);
-                            }
-                        }
-                    } catch (Exception e) {
-                        // 解析失败，保持当前头像
-                    }
-                }
+            public void onError(String message) {
+                android.util.Log.w("AccountFragment", message);
             }
         });
     }
@@ -371,12 +363,14 @@ public class AccountFragment extends Fragment {
 
     private void updataUIShow() {
         updateUI();
-        // 仅在登录状态下检查头像
         if (accUtils.isLogin()) {
-            // 调用 MainActivity 提供的公共方法
-            new Thread(this::whileUpdateBeta).start();
-            updateUI();
-            checkAvatarAndUpdate();
+            long now = System.currentTimeMillis();
+            if (now - lastAccountRefreshAt < 60_000L) return;
+            lastAccountRefreshAt = now;
+            new Thread(() -> {
+                whileUpdateBeta();
+                checkAvatarAndUpdate();
+            }, "typheye-account-refresh").start();
         }
     }
 

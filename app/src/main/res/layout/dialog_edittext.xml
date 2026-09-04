@@ -5,11 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="16dp">
+    android:paddingTop="8dp"
+    android:paddingBottom="4dp">
 
     <com.google.android.material.textfield.TextInputLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/textInputLayout"
         style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
@@ -17,18 +16,20 @@
         android:layout_marginStart="24dp"
         android:layout_marginEnd="24dp"
         android:hint="请输入内容"
-        android:textColorHint="@color/text_u2"
-        app:boxStrokeColor="@color/tab_accent"
-        app:hintTextColor="@color/text_u2"
+        android:textColorHint="@color/text_secondary"
+        app:boxStrokeColor="@color/brand_primary"
+        app:hintTextColor="@color/text_secondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:ignore="MissingConstraints">
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/editText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/text_u1"
+            android:minHeight="56dp"
+            android:textColor="@color/text_primary"
             android:inputType="text"
             android:autofillHints="username"
             android:paddingStart="16dp"

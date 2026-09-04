@@ -24,7 +24,7 @@
             app:title=""
             app:titleTextColor="@color/text_u1"
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:navigationIcon="@drawable/ic_back"/>
+            app:navigationIcon="@drawable/ic_back_vector"/>
 
     </com.google.android.material.appbar.AppBarLayout>
 

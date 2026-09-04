@@ -4,6 +4,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,8 +14,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.NotificationCompat;
-import androidx.fragment.app.FragmentTransaction;
+import androidx.core.view.ViewCompat;
 import androidx.activity.OnBackPressedCallback;
+import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.typheye.wgpro.core.xms.InterconnectLogic;
@@ -41,10 +46,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static final String TAG_HOME = "home";
-    private static final String TAG_DASHBOARD = "dashboard";
-    private static final String TAG_DEVICE = "device";
-    private static final String TAG_ACCOUNT = "account";
     private static final String KEY_SELECTED_ITEM = "selected_bottom_nav_item";
     private static final int NOTIFICATION_ID = 1001;
     private static final String CHANNEL_ID = "account_channel";
@@ -59,36 +60,34 @@ public class MainActivity extends AppCompatActivity {
     public static AuthApi authApi = null;
     public static MessageApi messageApi = null;
     public static String connectedNodeId = "";
+    private long lastCloudRefreshAt;
+    private int selectedPage = R.id.nav_home;
+    private OnBackPressedCallback rootBackCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_main);
-        AppUtils.fixScreenCutArea(findViewById(R.id.container));
 
         // 初始化视图
         toolbar = findViewById(R.id.toolbar);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        ViewPager2 mainPager = findViewById(R.id.fragment_container);
+        AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout), bottomNavigation);
 
         setSupportActionBar(toolbar);
 
-        // 初始化 Fragment 缓存
-        if (savedInstanceState == null) {
-            homeFragment = new HomeFragment();
-            dashboardFragment = new DashboardFragment();
-            deviceFragment = new DeviceFragment();
-            accountFragment = new AccountFragment();
-
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.fragment_container, homeFragment, TAG_HOME)
-                    .commit();
-        } else {
-            homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentByTag(TAG_HOME);
-            dashboardFragment = (DashboardFragment) getSupportFragmentManager().findFragmentByTag(TAG_DASHBOARD);
-            deviceFragment = (DeviceFragment) getSupportFragmentManager().findFragmentByTag(TAG_DEVICE);
-            accountFragment = (AccountFragment) getSupportFragmentManager().findFragmentByTag(TAG_ACCOUNT);
-        }
+        mainPager.setAdapter(new FragmentStateAdapter(this) {
+            @NonNull @Override public Fragment createFragment(int position) {
+                if (position == 0) return homeFragment = new HomeFragment();
+                if (position == 1) return dashboardFragment = new DashboardFragment();
+                if (position == 2) return deviceFragment = new DeviceFragment();
+                return accountFragment = new AccountFragment();
+            }
+            @Override public int getItemCount() { return 4; }
+        });
+        mainPager.setOffscreenPageLimit(1);
 
         // 默认选中首页（如果未恢复状态）
         if (savedInstanceState == null) {
@@ -98,51 +97,29 @@ public class MainActivity extends AppCompatActivity {
             bottomNavigation.setSelectedItemId(savedItemId);
         }
 
-        // 设置 BottomNavigationView 点击事件
         bottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-
-            // 隐藏所有 Fragment
-            hideAllFragments(ft);
-
-            if (id == R.id.nav_home) {
-                if (!homeFragment.isAdded()) {
-                    ft.add(R.id.fragment_container, homeFragment, TAG_HOME);
-                }
-                ft.show(homeFragment);
-                toolbar.setTitle(R.string.app_name);
-            } else if (id == R.id.nav_dashboard) {
-                if (!dashboardFragment.isAdded()) {
-                    ft.add(R.id.fragment_container, dashboardFragment, TAG_DASHBOARD);
-                }
-                ft.show(dashboardFragment);
-                toolbar.setTitle("导航");
-            } else if (id == R.id.nav_device) {
-                if (!deviceFragment.isAdded()) {
-                    ft.add(R.id.fragment_container, deviceFragment, TAG_DEVICE);
-                }
-                ft.show(deviceFragment);
-                toolbar.setTitle("设备");
-            } else if (id == R.id.nav_account) {
-                if (!accountFragment.isAdded()) {
-                    ft.add(R.id.fragment_container, accountFragment, TAG_ACCOUNT);
-                }
-                ft.show(accountFragment);
-                toolbar.setTitle("我的");
-            }
-
-            ft.commit();
+            mainPager.setCurrentItem(navIdToPosition(id), true);
             return true;
+        });
+        mainPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageSelected(int position) {
+                int id = positionToNavId(position);
+                selectedPage = id;
+                bottomNavigation.setSelectedItemId(id);
+                toolbar.setTitle(new String[]{getString(R.string.app_name), "发现", "设备", "我的"}[position]);
+                invalidateOptionsMenu();
+            }
         });
 
         // 返回键处理
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        rootBackCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 moveTaskToBack(true);
             }
-        });
+        };
+        getOnBackPressedDispatcher().addCallback(this, rootBackCallback);
 
         // 初始化小米 Wearable API
         initWearableApi();
@@ -154,9 +131,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // 使用线程或AsyncTask来执行网络请求
-        // 执行网络请求等操作
-        // 注意：如果whileUpdate内部有网络请求，这里可能需要调整
+        rootBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("predictive_back_enabled", false));
+        long now = System.currentTimeMillis();
+        if (now - lastCloudRefreshAt < 60_000L) return;
+        lastCloudRefreshAt = now;
         new Thread(this::whileUpdate).start();
     }
 
@@ -231,11 +210,15 @@ public class MainActivity extends AppCompatActivity {
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
         notificationManager.notify(NOTIFICATION_ID, builder.build());
     }
-    private void hideAllFragments(FragmentTransaction ft) {
-        if (homeFragment != null && homeFragment.isAdded()) ft.hide(homeFragment);
-        if (dashboardFragment != null && dashboardFragment.isAdded()) ft.hide(dashboardFragment);
-        if (deviceFragment != null && deviceFragment.isAdded()) ft.hide(deviceFragment);
-        if (accountFragment != null && accountFragment.isAdded()) ft.hide(accountFragment);
+    private int navIdToPosition(int id) {
+        if (id == R.id.nav_dashboard) return 1;
+        if (id == R.id.nav_device) return 2;
+        if (id == R.id.nav_account) return 3;
+        return 0;
+    }
+
+    private int positionToNavId(int position) {
+        return new int[]{R.id.nav_home, R.id.nav_dashboard, R.id.nav_device, R.id.nav_account}[position];
     }
 
     private void initWearableApi() {
@@ -291,6 +274,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean home = selectedPage == R.id.nav_home;
+        boolean account = selectedPage == R.id.nav_account;
+        MenuItem notification = menu.findItem(R.id.action_notifications);
+        MenuItem compose = menu.findItem(R.id.action_compose);
+        MenuItem scan = menu.findItem(R.id.action_scanqr);
+        MenuItem settings = menu.findItem(R.id.action_settings);
+        if (notification != null) notification.setVisible(home);
+        if (compose != null) compose.setVisible(home);
+        if (scan != null) scan.setVisible(account);
+        if (settings != null) settings.setVisible(account);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     protected void onDestroy() {
         if (messageApi != null && connectedNodeId != null && !connectedNodeId.isEmpty()) {
             messageApi.removeListener(connectedNodeId);
@@ -299,8 +297,24 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode, @NonNull Configuration newConfig) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        ViewCompat.requestApplyInsets(findViewById(R.id.app_bar_layout));
+        ViewCompat.requestApplyInsets(findViewById(R.id.bottom_navigation));
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
+        if (id == R.id.action_notifications) {
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                    .setTitle("通知").setMessage("暂无新通知").setPositiveButton("完成", null).show();
+            return true;
+        } else if (id == R.id.action_compose) {
+            new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+                    .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, null).show();
+            return true;
+        }
         if (id == R.id.action_scanqr) {
             Intent intent = new Intent(MainActivity.this, ScanQRActivity.class);
             startActivity(intent);

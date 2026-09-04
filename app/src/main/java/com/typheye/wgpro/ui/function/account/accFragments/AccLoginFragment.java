@@ -60,8 +60,9 @@ public class AccLoginFragment extends Fragment {
                 accUtils.login( username, password, new tAccUtils.LoginCallback() {
                     @Override
                     public void onSuccess(tAccUtils.LoginResult result) {
-                        // ✅ 修复：在后台线程获取昵称，避免阻塞主线程
-                        requireActivity().finish();
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            if (isAdded()) requireActivity().finish();
+                        });
                     }
 
                     @Override

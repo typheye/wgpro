@@ -13,6 +13,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.content.Intent;
 import android.widget.Button;
+import android.view.View;
+import android.view.animation.AnimationUtils;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -29,7 +31,7 @@ import com.typheye.wgpro.utils.AppUtils;
 
 @SuppressLint("CustomSplashScreen")
 public class SplashActivity extends AppCompatActivity {
-    private static final long SPLASH_DELAY = 800;
+    private static final long SPLASH_DELAY = 420;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,19 @@ public class SplashActivity extends AppCompatActivity {
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_splash);
         AppUtils.fixScreenCutArea(findViewById(R.id.container));
+
+        View logo = findViewById(R.id.iv_logo);
+        logo.setAlpha(0f);
+        logo.setScaleX(0.88f);
+        logo.setScaleY(0.88f);
+        logo.animate()
+                .alpha(1f)
+                .scaleX(1f)
+                .scaleY(1f)
+                .setDuration(300)
+                .setInterpolator(AnimationUtils.loadInterpolator(this,
+                        android.R.interpolator.fast_out_slow_in))
+                .start();
 
         new Handler(Looper.getMainLooper()).postDelayed(this::goToMain, SPLASH_DELAY);
     }
@@ -52,12 +67,14 @@ public class SplashActivity extends AppCompatActivity {
     void goMain(){
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.main_enter_from_splash, R.anim.splash_exit);
         finish();
     }
 
     void goOOBE(){
         Intent intent = new Intent(SplashActivity.this, OobeActivity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.main_enter_from_splash, R.anim.splash_exit);
         finish();
     }
 

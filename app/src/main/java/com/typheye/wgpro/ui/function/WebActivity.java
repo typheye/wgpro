@@ -29,6 +29,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
@@ -51,6 +52,7 @@ public class WebActivity extends AppCompatActivity {
     private WebView webView;
     private ValueCallback<Uri[]> mFilePathCallback; // 保存文件选择回调
     private ActivityResultLauncher<Intent> fileChooserLauncher; // 文件选择器启动器
+    private OnBackPressedCallback webBackCallback;
 
     private String FLAG;
 
@@ -72,6 +74,10 @@ public class WebActivity extends AppCompatActivity {
 
         FLAG = getIntent().getStringExtra("FLAG");
 
+        if (getIntent().getData() != null && openGrantRequest(getIntent().getData().toString())) {
+            return;
+        }
+
         // 修复点1：根据request_id构造业务URL（关键修改）
         String requestId = getIntent().getStringExtra("request_id");
         String url;
@@ -92,7 +98,7 @@ public class WebActivity extends AppCompatActivity {
         initWebView(url);
 
         // 返回键处理
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        webBackCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 if (webView.canGoBack()) {
@@ -101,7 +107,9 @@ public class WebActivity extends AppCompatActivity {
                     finish();
                 }
             }
-        });
+        };
+        getOnBackPressedDispatcher().addCallback(this, webBackCallback);
+        updateBackCallback();
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -128,19 +136,7 @@ public class WebActivity extends AppCompatActivity {
                     // 使用当前请求的URL
                     String currentUrl = request.getUrl().toString();
 
-                    // 处理业务链接 (intent://)
-                    if (currentUrl.contains("intent://*#Intent;scheme=wgproGrant;")) {
-                        String requestId = extractRequestIdFromIntentUri(currentUrl);
-                        if (requestId != null && !requestId.isEmpty()) {
-                            Intent intent = new Intent(WebActivity.this, AccMangerActivity.class);
-                            intent.putExtra("TARGET_FRAGMENT", "grant");
-                            intent.putExtra("REQUEST_ID", requestId);
-                            startActivity(intent);
-                            webView.loadUrl("about:blank");
-                            finish();
-                            return true;
-                        }
-                    }
+                    if (openGrantRequest(currentUrl)) return true;
 
                     // HTTP/HTTPS 链接 - 直接在WebView加载
                     if (currentUrl.startsWith("http://") || currentUrl.startsWith("https://")) {
@@ -161,6 +157,7 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                updateBackCallback();
                 String title = view.getTitle();
                 if (title == null || title.isEmpty()) {
                     Objects.requireNonNull(getSupportActionBar()).setTitle(Uri.parse(url).getHost());
@@ -346,6 +343,57 @@ public class WebActivity extends AppCompatActivity {
             return matcher.group(1);
         }
         return null;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        updateBackCallback();
+    }
+
+    private void updateBackCallback() {
+        if (webBackCallback == null || webView == null) return;
+        boolean predictiveEnabled = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("predictive_back_enabled", false);
+        webBackCallback.setEnabled(!predictiveEnabled || webView.canGoBack());
+    }
+
+    private boolean openGrantRequest(String rawUri) {
+        try {
+            String requestId = null;
+            String scheme = Uri.parse(rawUri).getScheme();
+            if (rawUri.startsWith("intent:")) {
+                Intent parsed = Intent.parseUri(rawUri, Intent.URI_INTENT_SCHEME);
+                Uri data = parsed.getData();
+                scheme = data == null ? parsed.getScheme() : data.getScheme();
+                requestId = parsed.getStringExtra("request_id");
+                if ((requestId == null || requestId.isEmpty()) && data != null) {
+                    requestId = data.getQueryParameter("request_id");
+                }
+            } else if ("wgproGrant".equalsIgnoreCase(scheme)) {
+                Uri data = Uri.parse(rawUri);
+                requestId = data.getQueryParameter("request_id");
+            }
+            if (!"wgproGrant".equalsIgnoreCase(scheme)) return false;
+            if (requestId == null || requestId.isEmpty()) {
+                requestId = extractRequestIdFromIntentUri(rawUri);
+            }
+            if (requestId == null || requestId.trim().isEmpty()) {
+                Toast.makeText(this, "登录请求缺少 request_id", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            Intent intent = new Intent(this, AccMangerActivity.class);
+            intent.putExtra("TARGET_FRAGMENT", "grant");
+            intent.putExtra("REQUEST_ID", requestId.trim());
+            startActivity(intent);
+            if (webView != null) webView.loadUrl("about:blank");
+            finish();
+            return true;
+        } catch (Exception e) {
+            Log.e("WebActivity", "Unable to parse grant URI", e);
+            Toast.makeText(this, "无法识别登录授权请求", Toast.LENGTH_SHORT).show();
+            return rawUri.startsWith("intent:") || rawUri.startsWith("wgproGrant:");
+        }
     }
 
     private void showExternalAppConfirmDialog(String url) {

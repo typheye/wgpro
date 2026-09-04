@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent" app:cardBackgroundColor="@color/banner_green" app:cardCornerRadius="8dp" app:cardElevation="0dp" app:strokeWidth="0dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="bottom" android:orientation="vertical" android:padding="20dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="社区故事" android:textColor="#CDEFE7" android:textSize="12sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="7dp" android:text="一块表，也可以很有个性" android:textColor="@color/white" android:textSize="24sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="看看大家最近在用什么表盘" android:textColor="#E2F6F1" android:textSize="14sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

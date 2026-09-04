@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 app:cardCornerRadius="12dp"
-                app:strokeWidth="2dp"
+                app:strokeWidth="0dp"
                 app:strokeColor="?attr/colorPrimary"
                 app:cardBackgroundColor="@android:color/transparent">
 
@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
                 app:cardCornerRadius="12dp"
-                app:strokeWidth="2dp"
+                app:strokeWidth="0dp"
                 app:strokeColor="@color/outline_unselected"
                 app:cardBackgroundColor="@android:color/transparent">
 
@@ -140,7 +140,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
-                app:strokeWidth="2dp"
+                app:strokeWidth="0dp"
                 app:strokeColor="@color/outline_unselected"
                 app:cardBackgroundColor="@android:color/transparent">
 

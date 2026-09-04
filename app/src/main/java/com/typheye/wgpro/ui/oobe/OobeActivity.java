@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.preference.PreferenceManager;
 
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.oobe.oobeFragments.OobeFinishFragment;
@@ -31,6 +32,7 @@ public class OobeActivity extends AppCompatActivity {
     Fragment fragment_oobeFinishFragment;
     Fragment fragment_oobePoliciesFragment;
     Fragment fragment_now;
+    private OnBackPressedCallback compatibilityBackCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,11 +73,19 @@ public class OobeActivity extends AppCompatActivity {
         }
 
         // 返回键处理
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        compatibilityBackCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
             }
-        });
+        };
+        getOnBackPressedDispatcher().addCallback(this, compatibilityBackCallback);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("predictive_back_enabled", false));
     }
 
     public void onCreateFragment(){
@@ -95,6 +105,7 @@ public class OobeActivity extends AppCompatActivity {
         // 替换 Fragment
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit)
                 .replace(R.id.fragment_container, fragment_now)
                 .commit();
     }
@@ -126,6 +137,7 @@ public class OobeActivity extends AppCompatActivity {
         // 替换 Fragment
         getSupportFragmentManager()
                 .beginTransaction()
+                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit)
                 .replace(R.id.fragment_container, fragment_now)
                 .commit();
     }

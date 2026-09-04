@@ -43,6 +43,10 @@ public class AccGrantFragment extends Fragment {
         button_approve = view.findViewById(R.id.button_approve);
         button_reject = view.findViewById(R.id.button_reject);
 
+        if (activity_accmanger.grant_requestId == null || activity_accmanger.grant_requestId.trim().isEmpty()) {
+            view.post(() -> showFailToast("登录请求无效或已过期"));
+            return view;
+        }
         button_approve.setOnClickListener(v -> {
             // 防止重复点击
             v.setEnabled(false);

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="168dp" android:layout_marginTop="12dp"
+    app:cardBackgroundColor="@color/media_green" app:strokeWidth="0dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="bottom" android:orientation="vertical" android:padding="18dp">
+        <TextView android:layout_width="52dp" android:layout_height="52dp" android:background="@color/surface_primary" android:gravity="center" android:text="✓" android:textColor="@color/banner_green" android:textSize="24sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:text="清单 · 腕上待办" android:textColor="@color/text_primary" android:textSize="19sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="纯离线 · 86 KB · Vela OS" android:textColor="@color/text_secondary" android:textSize="13sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

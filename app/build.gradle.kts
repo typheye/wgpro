@@ -17,9 +17,9 @@ android {
     defaultConfig {
         applicationId = "com.typheye.wgpro"
         minSdk = 24
-        targetSdk = 34
-        versionCode = 2602220
-        versionName = "3.26.2.Patch5"
+        targetSdk = 36
+        versionCode = 2609040
+        versionName = "3.26.9"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -73,6 +73,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.1")
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
+    implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("com.squareup.okhttp3:okhttp:5.1.0")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))

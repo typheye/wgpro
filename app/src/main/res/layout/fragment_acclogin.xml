@@ -1,94 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.core.widget.NestedScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/acc_manager"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingHorizontal="24dp"
-    android:background="@color/tab"
+    android:background="@color/surface_page"
+    android:fillViewport="true"
     tools:context=".ui.function.account.accFragments.AccLoginFragment">
-
-    <!-- 滚动容器 -->
-    <androidx.core.widget.NestedScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingTop="48dp"
+        android:paddingStart="24dp"
+        android:paddingTop="36dp"
+        android:paddingEnd="24dp"
         android:paddingBottom="32dp">
 
-        <!-- 登录标题 -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TYPHEYE CLOUD"
+            android:textColor="@color/brand_primary"
+            android:textSize="12sp"
+            android:textStyle="bold" />
         <TextView
             android:id="@+id/textView_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Typheye账户"
-            android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
-            android:textColor="@color/text_u1"
-            android:gravity="center" />
+            android:layout_marginTop="8dp"
+            android:text="欢迎回来"
+            android:textColor="@color/text_primary"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="登录你的 Typheye 账户"
+            android:textColor="@color/text_secondary"
+            android:textSize="15sp" />
 
-        <!-- 账号输入框 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout_account"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="账号"
-            android:textColorHint="@color/text_u2"
-            android:layout_marginTop="32dp"
-            android:backgroundTint="@color/tab_accent">
-
+            android:layout_marginTop="36dp"
+            android:hint="UID 或邮箱"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_account"
-                android:textColor="@color/text_u1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName"
-                android:autofillHints="username" />
+                android:autofillHints="username"
+                android:inputType="textEmailAddress"
+                android:textColor="@color/text_primary"
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- 密码输入框 -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout_password"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
             android:hint="密码"
-            android:textColorHint="@color/text_u2"
-            android:layout_marginTop="16dp"
-            android:backgroundTint="@color/tab_accent"
-            app:passwordToggleEnabled="true">
-
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:endIconMode="password_toggle">
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/editText_password"
-                android:textColor="@color/text_u1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:autofillHints="password"
                 android:inputType="textPassword"
-                android:autofillHints="password" />
+                android:textColor="@color/text_primary"
+                android:textSize="16sp" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- 登录按钮 -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_login"
-            style="@style/Widget.Material3.Button.ElevatedButton"
+            style="@style/Widget.WGPro.Button.Primary"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="登录"
-            android:textColor="@color/white"
             android:layout_marginTop="24dp"
-            android:backgroundTint="@color/tab_accent"/>
+            android:text="登录" />
 
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="18dp"
+            android:gravity="center"
+            android:text="当前设备将使用独立加密会话"
+            android:textColor="@color/status_success"
+            android:textSize="12sp" />
     </LinearLayout>
-    </androidx.core.widget.NestedScrollView>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

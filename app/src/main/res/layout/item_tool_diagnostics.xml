@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="142dp" android:layout_marginTop="12dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:gravity="bottom" android:orientation="vertical" android:padding="16dp">
+        <TextView android:layout_width="44dp" android:layout_height="44dp" android:background="@color/media_blue" android:gravity="center" android:text="◎" android:textColor="@color/banner_blue" android:textSize="24sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" android:text="连接诊断" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold" />
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="3dp" android:text="检查通道与权限" android:textColor="@color/text_secondary" android:textSize="13sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -16,6 +16,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.zxing.BarcodeFormat;
@@ -38,10 +39,12 @@ public class ScanQRActivity extends AppCompatActivity {
     private DecoratedBarcodeView barcodeScannerView;
     private FloatingActionButton fabBack, fabFlashlight;
     private boolean isFlashlightEnabled = false;
+    private OnBackPressedCallback compatibilityBackCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        com.typheye.wgpro.utils.AppUtils.configureActivityTransitions(this);
 
         // ✅ 检查是否处于分屏/小窗模式
         if (isInMultiWindowMode()) {
@@ -80,12 +83,13 @@ public class ScanQRActivity extends AppCompatActivity {
         setupClickListeners();
         requestCameraPermission();
 
-        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+        compatibilityBackCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
                 onBack();
             }
-        });
+        };
+        getOnBackPressedDispatcher().addCallback(this, compatibilityBackCallback);
     }
 
     private void initViews() {
@@ -175,6 +179,8 @@ public class ScanQRActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("predictive_back_enabled", false));
         // ✅ 再次检查是否进入分屏模式（可选增强体验）
         if (isInMultiWindowMode()) {
             Toast.makeText(this, "已退出分屏模式后才能使用扫码", Toast.LENGTH_LONG).show();

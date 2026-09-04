@@ -1,6 +1,8 @@
 package com.typheye.wgpro.utils;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
@@ -19,6 +21,8 @@ import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.core.view.WindowCompat;
 import androidx.preference.PreferenceManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
@@ -48,49 +52,107 @@ public class AppUtils {
      * @param window 当前 Activity 的 Window
      */
     public static void useScreenCutArea(@NonNull Window window, Context context) {
+        if (context instanceof Activity) {
+            configureActivityTransitions((Activity) context);
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
             // 允许内容延伸到挖孔区域（关键）
             window.getAttributes().layoutInDisplayCutoutMode =
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
 
-        // 状态栏透明（关键：让背景色延伸上去）
-        int colorTab = ContextCompat.getColor(context, R.color.tab);
+        WindowCompat.setDecorFitsSystemWindows(window, false);
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.setStatusBarColor(colorTab); // 完全透明
-
-        // 设置系统UI标志：
-        int systemUiFlags = View.SYSTEM_UI_FLAG_LAYOUT_STABLE |
-                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN;
-
-        // 判断当前是否为浅色模式（需要深色文字）
-        boolean isLightMode = isLightMode(context);
-        if (isLightMode) {
-            systemUiFlags |= View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+        int chromeColor = ContextCompat.getColor(context, R.color.surface_primary);
+        window.setStatusBarColor(chromeColor);
+        window.setNavigationBarColor(chromeColor);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            window.setStatusBarContrastEnforced(false);
+            window.setNavigationBarContrastEnforced(false);
         }
 
-        window.getDecorView().setSystemUiVisibility(systemUiFlags);
+        boolean isLightMode = isLightMode(context);
+        WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(
+                window, window.getDecorView());
+        controller.setAppearanceLightStatusBars(isLightMode);
+        controller.setAppearanceLightNavigationBars(isLightMode);
 
+    }
+
+    public static void configureActivityTransitions(@NonNull Activity activity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,
+                    R.anim.activity_open_enter, R.anim.activity_open_exit);
+            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,
+                    R.anim.activity_close_enter, R.anim.activity_close_exit);
+        }
+    }
+
+    public static void applyMainWindowInsets(View appBar, View bottomNavigation) {
+        int appBarLeft = appBar.getPaddingLeft();
+        int appBarTop = appBar.getPaddingTop();
+        int appBarRight = appBar.getPaddingRight();
+        int appBarBottom = appBar.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(appBar, (view, insets) -> {
+            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars()
+                    | WindowInsetsCompat.Type.displayCutout());
+            int freeform = isInMultiWindow(view) ? dp(view, 18) : 0;
+            int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
+            view.setPadding(appBarLeft + statusBars.left + freeformSide,
+                    appBarTop + statusBars.top + freeform,
+                    appBarRight + statusBars.right + freeformSide, appBarBottom);
+            return insets;
+        });
+
+        int navLeft = bottomNavigation.getPaddingLeft();
+        int navTop = bottomNavigation.getPaddingTop();
+        int navRight = bottomNavigation.getPaddingRight();
+        int navBottom = bottomNavigation.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigation, (view, insets) -> {
+            Insets navigationBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+            int freeformBottom = isInMultiWindow(view) ? dp(view, 22) : 0;
+            int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
+            view.setPadding(navLeft + navigationBars.left + freeformSide, navTop,
+                    navRight + navigationBars.right + freeformSide,
+                    navBottom + navigationBars.bottom + freeformBottom);
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(appBar);
+        ViewCompat.requestApplyInsets(bottomNavigation);
+    }
+
+    private static boolean isInMultiWindow(View view) {
+        Context context = view.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) return ((Activity) context).isInMultiWindowMode();
+            Context base = ((ContextWrapper) context).getBaseContext();
+            if (base == context) break;
+            context = base;
+        }
+        return false;
+    }
+
+    private static int dp(View view, int value) {
+        return Math.round(value * view.getResources().getDisplayMetrics().density);
     }
 
     public static void fixScreenCutArea(View view) {
         try {
+            int initialLeft = view.getPaddingLeft();
+            int initialTop = view.getPaddingTop();
+            int initialRight = view.getPaddingRight();
+            int initialBottom = view.getPaddingBottom();
             ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-                // 获取系统栏（状态栏、导航栏）的 insets
-                int systemBars = WindowInsetsCompat.Type.systemBars();
-                Insets systemBarsInsets = insets.getInsets(systemBars);
-
-                int top = systemBarsInsets.top;
-                int bottom = systemBarsInsets.bottom;
-
-                // 设置 padding 来“吸收”系统栏占用的空间
-                v.setPadding(0, top, 0, bottom);
-
-                // ✅ 正确做法：返回未处理的 insets（即原始 insets 减去已处理的部分）
-                // 这样子视图就不会再收到 systemBars insets，避免重复处理
-                return insets.inset(systemBarsInsets);
+                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+                v.setPadding(
+                        initialLeft + systemBars.left,
+                        initialTop + systemBars.top,
+                        initialRight + systemBars.right,
+                        initialBottom);
+                return WindowInsetsCompat.CONSUMED;
             });
+            ViewCompat.requestApplyInsets(view);
         } catch (Exception ignored) {
             // 异常捕获保留（虽然通常不需要）
         }

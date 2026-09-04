@@ -5,20 +5,34 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.content.SharedPreferences;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Toast;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.preference.Preference;
-import androidx.preference.PreferenceFragmentCompat;
+import androidx.fragment.app.Fragment;
+import androidx.core.view.ViewCompat;
+import androidx.preference.PreferenceManager;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.materialswitch.MaterialSwitch;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.tAccUtils;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -27,17 +41,27 @@ import java.util.Date;
 import java.util.Locale;
 
 public class SettingsActivity extends AppCompatActivity {
+    private Toolbar toolbar;
+    private OnBackPressedCallback compatibilityBackCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_settings);
-        AppUtils.fixScreenCutArea(findViewById(R.id.container));
+        AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout), findViewById(R.id.settings));
 
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
+        getSupportFragmentManager().addOnBackStackChangedListener(() ->
+                toolbar.setTitle(getSupportFragmentManager().getBackStackEntryCount() > 0 ? "关于应用" : "设置"));
+        compatibilityBackCallback = new OnBackPressedCallback(true) {
+            @Override public void handleOnBackPressed() {
+                navigateBack();
+            }
+        };
+        getOnBackPressedDispatcher().addCallback(this, compatibilityBackCallback);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -52,67 +76,135 @@ public class SettingsActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if (id == android.R.id.home) {
-            // 返回按钮被点击
-            finish();
+            navigateBack();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
-    public static class SettingsFragment extends PreferenceFragmentCompat {
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("predictive_back_enabled", false));
+    }
+
+    private void navigateBack() {
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            finish();
+        }
+    }
+
+    private void setPredictiveBackEnabled(boolean enabled) {
+        compatibilityBackCallback.setEnabled(!enabled);
+    }
+
+    @Override
+    public void onMultiWindowModeChanged(boolean isInMultiWindowMode, @NonNull Configuration newConfig) {
+        super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        ViewCompat.requestApplyInsets(findViewById(R.id.app_bar_layout));
+        ViewCompat.requestApplyInsets(findViewById(R.id.settings));
+    }
+
+    private void openAboutPage() {
+        getSupportFragmentManager().beginTransaction()
+                .setReorderingAllowed(true)
+                .replace(R.id.settings, new AboutFragment())
+                .addToBackStack("about")
+                .commit();
+    }
+
+    public static class SettingsFragment extends Fragment {
+        private final Handler mainHandler = new Handler(Looper.getMainLooper());
+        private tAccUtils accUtils;
+        private View accountLabel;
+        private View logoutCard;
+
         @Override
-        public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-            setPreferencesFromResource(R.xml.root_preferences, rootKey);
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_settings_md3, container, false);
+            accUtils = new tAccUtils(requireContext());
+            accountLabel = view.findViewById(R.id.label_account);
+            logoutCard = view.findViewById(R.id.card_logout);
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            MaterialSwitch autoCheck = view.findViewById(R.id.switch_auto_check);
+            MaterialSwitch autoOpen = view.findViewById(R.id.switch_auto_open);
+            MaterialSwitch predictiveBack = view.findViewById(R.id.switch_predictive_back);
 
-            // 获取重新引导的 Preference
-            Preference resetPreference = findPreference("app_reset");
-
-            // 设置点击事件
-            if (resetPreference != null) {
-                resetPreference.setOnPreferenceClickListener(preference -> {
-                    appReset();
-                    return true;
-                });
+            boolean predictiveBackAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
+            if (!predictiveBackAvailable) {
+                preferences.edit().putBoolean("predictive_back_enabled", false).apply();
+                view.findViewById(R.id.card_predictive_back).setAlpha(0.55f);
+                ((TextView) view.findViewById(R.id.text_predictive_back_summary))
+                        .setText("需要 Android 14 或更高版本");
             }
+            predictiveBack.setEnabled(predictiveBackAvailable);
+            predictiveBack.setChecked(predictiveBackAvailable
+                    && preferences.getBoolean("predictive_back_enabled", false));
+            autoCheck.setChecked(preferences.getBoolean("appUpdate_autoCheck", true));
+            autoOpen.setChecked(preferences.getBoolean("appUpdate_autoOpenDownPage", false));
+            autoOpen.setEnabled(autoCheck.isChecked());
+            view.findViewById(R.id.row_auto_open).setAlpha(autoCheck.isChecked() ? 1f : 0.5f);
 
+            autoCheck.setOnCheckedChangeListener((button, checked) -> {
+                preferences.edit().putBoolean("appUpdate_autoCheck", checked).apply();
+                autoOpen.setEnabled(checked);
+                view.findViewById(R.id.row_auto_open).animate().alpha(checked ? 1f : 0.5f).setDuration(150).start();
+            });
+            autoOpen.setOnCheckedChangeListener((button, checked) ->
+                    preferences.edit().putBoolean("appUpdate_autoOpenDownPage", checked).apply());
+            predictiveBack.setOnCheckedChangeListener((button, checked) -> {
+                preferences.edit().putBoolean("predictive_back_enabled", checked).apply();
+                ((SettingsActivity) requireActivity()).setPredictiveBackEnabled(checked);
+            });
 
-            // 获取关于应用的 Preference
-            Preference aboutPreference = findPreference("app_about");
+            view.findViewById(R.id.row_auto_open).setOnClickListener(v -> {
+                if (autoOpen.isEnabled()) autoOpen.toggle();
+            });
+            view.findViewById(R.id.row_reset).setOnClickListener(v -> appReset());
+            view.findViewById(R.id.row_about).setOnClickListener(v ->
+                    ((SettingsActivity) requireActivity()).openAboutPage());
+            view.findViewById(R.id.row_policies).setOnClickListener(v -> openWeb("https://www.typheye.cn/policies/"));
+            view.findViewById(R.id.row_license).setOnClickListener(v -> openWeb("https://www.typheye.cn/licenses/gpl-3.0.html"));
+            View logoutRow = view.findViewById(R.id.row_logout);
+            logoutRow.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
+                    .setTitle("退出登录")
+                    .setMessage("确定要退出登录吗？此操作将清除当前设备上的本地账户数据。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("退出", (dialog, which) -> {
+                        logoutRow.setEnabled(false);
+                        accUtils.logoutCurrentSession(() -> mainHandler.post(() -> {
+                            if (!isAdded()) return;
+                            logoutRow.setEnabled(true);
+                            updateLogoutVisibility();
+                            Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show();
+                        }));
+                    })
+                    .show());
+            updateLogoutVisibility();
+            return view;
+        }
 
-            // 设置点击事件
-            if (aboutPreference != null) {
-                aboutPreference.setOnPreferenceClickListener(preference -> {
-                    appAbout();
-                    return true;
-                });
-            }
+        @Override
+        public void onResume() {
+            super.onResume();
+            if (accUtils != null) updateLogoutVisibility();
+        }
 
-            // 获取隐私政策的 Preference
-            Preference policiesPreference = findPreference("app_policies");
+        private void updateLogoutVisibility() {
+            int visibility = accUtils.isLogin() ? View.VISIBLE : View.GONE;
+            accountLabel.setVisibility(visibility);
+            logoutCard.setVisibility(visibility);
+        }
 
-            // 设置点击事件
-            if (policiesPreference != null) {
-                policiesPreference.setOnPreferenceClickListener(preference -> {
-                    Intent intent = new Intent(requireActivity(), WebActivity.class);
-                    intent.putExtra("URL", "https://www.typheye.cn/policies/");
-                    startActivity(intent);
-                    return true;
-                });
-            }
-
-
-            // 获取开源协议的 Preference
-            Preference licensePreference = findPreference("app_license");
-
-            // 设置点击事件
-            if (licensePreference != null) {
-                licensePreference.setOnPreferenceClickListener(preference -> {
-                    Intent intent = new Intent(requireActivity(), WebActivity.class);
-                    intent.putExtra("URL", "https://www.typheye.cn/licenses/gpl-3.0.html");
-                    startActivity(intent);
-                    return true;
-                });
-            }
+        private void openWeb(String url) {
+            Intent intent = new Intent(requireActivity(), WebActivity.class);
+            intent.putExtra("URL", url);
+            startActivity(intent);
         }
 
         private void appReset() {
@@ -308,5 +400,44 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(Intent.createChooser(shareIntent, "分享到"));
         }
 
+    }
+
+    public static class AboutFragment extends Fragment {
+        @Override
+        public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                                 Bundle savedInstanceState) {
+            View view = inflater.inflate(R.layout.fragment_about, container, false);
+            view.setBackgroundColor(requireContext().getColor(R.color.surface_page));
+            String versionName = "未知";
+            long versionCode = 0;
+            try {
+                PackageInfo info = requireContext().getPackageManager()
+                        .getPackageInfo(requireContext().getPackageName(), 0);
+                versionName = info.versionName == null ? "未知" : info.versionName;
+                versionCode = android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.P
+                        ? info.getLongVersionCode() : info.versionCode;
+            } catch (PackageManager.NameNotFoundException ignored) {
+            }
+            ((android.widget.TextView) view.findViewById(R.id.about_version)).setText("版本 " + versionName);
+            ((android.widget.TextView) view.findViewById(R.id.about_version_code)).setText(String.valueOf(versionCode));
+            ((android.widget.TextView) view.findViewById(R.id.about_android)).setText(
+                    String.valueOf(requireContext().getApplicationInfo().targetSdkVersion));
+            view.findViewById(R.id.about_share).setOnClickListener(v -> shareApp());
+            return view;
+        }
+
+        private void openWeb(String url) {
+            Intent intent = new Intent(requireContext(), WebActivity.class);
+            intent.putExtra("URL", url);
+            startActivity(intent);
+        }
+
+        private void shareApp() {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_SUBJECT, "腕管Pro");
+            intent.putExtra(Intent.EXTRA_TEXT, "腕管Pro\nhttps://wgpro.typheye.cn");
+            startActivity(Intent.createChooser(intent, "分享应用"));
+        }
     }
 }

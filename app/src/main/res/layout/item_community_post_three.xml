@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginStart="16dp" android:layout_marginTop="12dp" android:layout_marginEnd="16dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="56dp" android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="14dp" android:paddingEnd="14dp">
+            <TextView android:layout_width="36dp" android:layout_height="36dp" android:background="@color/media_coral" android:gravity="center" android:text="沐" android:textColor="@color/banner_coral" android:textStyle="bold" />
+            <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="10dp" android:layout_weight="1" android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="沐光" android:textColor="@color/text_primary" android:textSize="14sp" android:textStyle="bold" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="周三 · 使用心得" android:textColor="@color/text_tertiary" android:textSize="12sp" />
+            </LinearLayout>
+            <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="更多" android:src="@drawable/ic_post_more_vector" />
+        </LinearLayout>
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:paddingStart="14dp" android:paddingEnd="14dp"
+            android:text="腕管 Pro 的文件传输终于跑通了，整理了一份避坑清单，连接失败时可以逐项检查。" android:textColor="@color/text_primary" android:textSize="15sp" />
+        <LinearLayout android:layout_width="match_parent" android:layout_height="48dp" android:orientation="horizontal"><LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="horizontal"><ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_favorite_vector"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="203" android:textColor="@color/text_secondary"/></LinearLayout><LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="horizontal"><ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_comment_vector"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="41" android:textColor="@color/text_secondary"/></LinearLayout><LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:gravity="center" android:orientation="horizontal"><ImageView android:layout_width="20dp" android:layout_height="20dp" android:src="@drawable/ic_bookmark_vector"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="6dp" android:text="58" android:textColor="@color/text_secondary"/></LinearLayout></LinearLayout>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>
