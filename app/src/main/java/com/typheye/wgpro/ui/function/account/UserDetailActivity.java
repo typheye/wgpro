@@ -160,6 +160,11 @@ public class UserDetailActivity extends AppCompatActivity {
 
     private void scheduleProfileLayout(boolean preserveState) {
         int currentState = sheetBehavior.getState();
+        if (preserveState && (currentState == BottomSheetBehavior.STATE_DRAGGING
+                || currentState == BottomSheetBehavior.STATE_SETTLING)) {
+            scheduleSettledWindowLayout();
+            return;
+        }
         int targetState = preserveState && currentState == BottomSheetBehavior.STATE_EXPANDED
                 ? BottomSheetBehavior.STATE_EXPANDED
                 : BottomSheetBehavior.STATE_COLLAPSED;

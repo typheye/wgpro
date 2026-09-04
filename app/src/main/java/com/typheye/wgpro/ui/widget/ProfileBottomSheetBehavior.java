@@ -38,10 +38,13 @@ public final class ProfileBottomSheetBehavior<V extends View> extends BottomShee
         if (action == MotionEvent.ACTION_MOVE && startedCollapsed) {
             float dx = event.getX() - downX;
             float dy = event.getY() - downY;
+            // A collapsed sheet has nowhere lower to go. Leave downward and
+            // horizontal-dominant gestures to its children instead of starting
+            // ViewDragHelper's over-drag and spring-back animation.
             if (dy > touchSlop) {
                 return false;
             }
-            if (Math.abs(dx) < touchSlop && Math.abs(dy) < touchSlop) {
+            if (Math.abs(dx) > touchSlop && Math.abs(dx) > Math.abs(dy)) {
                 return false;
             }
         }
