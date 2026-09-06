@@ -1,0 +1,2 @@
+package com.typheye.wgpro.ui.function.device; import android.os.Bundle; import android.view.*; import android.widget.*; import androidx.annotation.*; import androidx.fragment.app.Fragment;
+public class GenericDeviceFragment extends Fragment { public View onCreateView(@NonNull LayoutInflater i,ViewGroup p,Bundle b){TextView t=new TextView(requireContext());t.setPadding(32,32,32,32);t.setText("设备详情\n\n暂无更多设备信息");t.setTextSize(18);return t;} }
