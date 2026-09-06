@@ -19,7 +19,7 @@ import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
@@ -91,7 +91,7 @@ public class AccountFragment extends Fragment {
     }
 
     private void showMoreMenu() {
-        new MaterialAlertDialogBuilder(requireActivity())
+        new WGProAlertDialogBuilder(requireActivity())
                 .setTitle("登录")
                 .setItems(new CharSequence[]{
                         "通过账号密码登录",
@@ -140,7 +140,7 @@ public class AccountFragment extends Fragment {
         root.findViewById(R.id.account_favorites).setOnClickListener(localPreview);
         root.findViewById(R.id.account_history).setOnClickListener(localPreview);
         root.findViewById(R.id.account_resources).setOnClickListener(localPreview);
-        root.findViewById(R.id.account_identity).setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
+        root.findViewById(R.id.account_identity).setOnClickListener(v -> new WGProAlertDialogBuilder(requireContext())
                 .setTitle("社区身份")
                 .setMessage("当前为普通用户。社区等级、创作者认证与徽章将在社区服务开放后同步。")
                 .setPositiveButton("完成", null)
@@ -156,6 +156,7 @@ public class AccountFragment extends Fragment {
             account_btn_edit.setVisibility(View.VISIBLE);
             account_stats_card.setVisibility(View.VISIBLE);
             account_content.setVisibility(View.VISIBLE);
+            account_btn_goto_help.setVisibility(View.VISIBLE);
 
             String uid = accUtils.getUid();
             String nick = accUtils.getNick();
@@ -174,6 +175,7 @@ public class AccountFragment extends Fragment {
             account_linear_logined.setVisibility(View.GONE);
             account_stats_card.setVisibility(View.GONE);
             account_content.setVisibility(View.GONE);
+            account_btn_goto_help.setVisibility(View.GONE);
             viewServicesVisibility(View.GONE);
             account_text_usr_uid.setText("");
             account_text_usr_nick.setText("");

@@ -25,7 +25,7 @@ import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.core.view.WindowCompat;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.zxing.client.android.BuildConfig;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
@@ -66,7 +66,7 @@ public class AppUtils {
         window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
         int chromeColor = ContextCompat.getColor(context, R.color.surface_primary);
         window.setStatusBarColor(chromeColor);
-        window.setNavigationBarColor(chromeColor);
+        window.setNavigationBarColor(android.graphics.Color.TRANSPARENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             window.setStatusBarContrastEnforced(false);
             window.setNavigationBarContrastEnforced(false);
@@ -315,7 +315,7 @@ public class AppUtils {
     }
 
     private static void showUpdateDialog(Context context, String updateContext, String downloadUrl) {
-        new Thread(() -> new Handler(Looper.getMainLooper()).post(() -> new MaterialAlertDialogBuilder(context)
+        new Thread(() -> new Handler(Looper.getMainLooper()).post(() -> new WGProAlertDialogBuilder(context)
                 .setTitle("有新版本")
                 .setMessage(updateContext)
                 .setPositiveButton("立即更新", (dialog, which) -> openDownPage(context, downloadUrl))

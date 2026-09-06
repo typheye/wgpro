@@ -13,10 +13,10 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
 
 import okhttp3.*;
@@ -90,7 +90,7 @@ public class tAccUtils {
             .writeTimeout(30, TimeUnit.SECONDS)
             .build();
 
-    private AlertDialog progressDialog;
+    private WGProBottomSheetDialog progressDialog;
 
     public tAccUtils(Context context) {
         this.context = context;
@@ -252,7 +252,7 @@ public class tAccUtils {
     private void showProgressDialog(String message) {
         new Handler(Looper.getMainLooper()).post(() -> {
             dismissProgressDialogNow();
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(context);
+            WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(context);
             builder.setTitle("请稍候");
 
             View view = View.inflate(context, R.layout.progress_dialog, null);
@@ -273,7 +273,7 @@ public class tAccUtils {
     }
 
     private void dismissProgressDialogNow() {
-        AlertDialog dialog = progressDialog;
+        WGProBottomSheetDialog dialog = progressDialog;
         progressDialog = null;
         if (dialog == null || !dialog.isShowing()) return;
         try {
@@ -522,7 +522,7 @@ public class tAccUtils {
                                 if (info.getInt("v0") == 1) {
                                     isLoginValid = false;
                                     logout();
-                                    new Handler(Looper.getMainLooper()).post(() -> new MaterialAlertDialogBuilder(context)
+                                    new Handler(Looper.getMainLooper()).post(() -> new WGProAlertDialogBuilder(context)
                                             .setTitle("提示")
                                             .setCancelable(false)
                                             .setMessage("当前登录状态已失效，账户已在别处登录")
@@ -600,7 +600,7 @@ public class tAccUtils {
                         if (sessionState == 1) {
                             clearLocalLoginData();
                             new Handler(Looper.getMainLooper()).post(() ->
-                                    new MaterialAlertDialogBuilder(context)
+                    new WGProAlertDialogBuilder(context)
                                             .setTitle("登录已失效")
                                             .setCancelable(false)
                                             .setMessage("当前设备的登录会话已失效，请重新登录")

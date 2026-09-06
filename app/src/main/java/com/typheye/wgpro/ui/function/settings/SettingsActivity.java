@@ -26,8 +26,9 @@ import androidx.fragment.app.Fragment;
 import androidx.core.view.ViewCompat;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
@@ -173,22 +174,20 @@ public class SettingsActivity extends AppCompatActivity {
             view.findViewById(R.id.row_policies).setOnClickListener(v -> openWeb("https://www.typheye.cn/policies/"));
             view.findViewById(R.id.row_license).setOnClickListener(v -> openWeb("https://www.typheye.cn/licenses/gpl-3.0.html"));
             View logoutRow = view.findViewById(R.id.row_logout);
-            logoutRow.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
+            logoutRow.setOnClickListener(v -> showLogoutSheet(logoutRow));
+            updateLogoutVisibility();
+            return view;
+        }
+
+        private void showLogoutSheet(View logoutRow) {
+            new WGProAlertDialogBuilder(requireContext())
                     .setTitle("退出登录")
                     .setMessage("确定要退出登录吗？此操作将清除当前设备上的本地账户数据。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("退出", (dialog, which) -> {
-                        logoutRow.setEnabled(false);
-                        accUtils.logoutCurrentSession(() -> mainHandler.post(() -> {
-                            if (!isAdded()) return;
-                            logoutRow.setEnabled(true);
-                            updateLogoutVisibility();
-                            Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show();
-                        }));
-                    })
-                    .show());
-            updateLogoutVisibility();
-            return view;
+                logoutRow.setEnabled(false);
+                accUtils.logoutCurrentSession(() -> mainHandler.post(() -> { if (!isAdded()) return; logoutRow.setEnabled(true); updateLogoutVisibility(); Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show(); }));
+            }).show();
         }
 
         @Override
@@ -210,7 +209,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private void appReset() {
-            new MaterialAlertDialogBuilder(requireContext())
+            new WGProAlertDialogBuilder(requireContext())
                     .setTitle("提示")
                     .setMessage("您确定要重新进入引导页吗？")
                     .setPositiveButton("确定", (dialog, which) -> {
@@ -278,7 +277,7 @@ public class SettingsActivity extends AppCompatActivity {
                     android.os.Build.VERSION.SDK_INT
             );
 
-            new MaterialAlertDialogBuilder(requireContext())
+            new WGProAlertDialogBuilder(requireContext())
                     .setTitle("关于 腕管Pro")
                     .setMessage(appInfo)
                     .setPositiveButton("关闭", (dialog, which) -> dialog.dismiss())

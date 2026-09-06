@@ -1,1 +1,27 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android" android:width="24dp" android:height="24dp" android:viewportWidth="24" android:viewportHeight="24"><path android:fillColor="#FF000000" android:pathData="M8,3h8l1,4h1v10h-1l-1,4H8l-1,-4H6V7h1zM9,7h6v10H9z"/></vector>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="24"
+    android:viewportHeight="24">
+
+    <!-- Tapered upper strap and connector. -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M9,1.5C9,0.95 9.45,0.5 10,0.5H14C14.55,0.5 15,0.95 15,1.5L15.55,5H8.45L9,1.5Z" />
+
+    <!-- Rounded case with an explicitly cut-out display. -->
+    <path
+        android:fillColor="#FF000000"
+        android:fillType="evenOdd"
+        android:pathData="M8.2,4.5H15.8C17.57,4.5 19,5.93 19,7.7V16.3C19,18.07 17.57,19.5 15.8,19.5H8.2C6.43,19.5 5,18.07 5,16.3V7.7C5,5.93 6.43,4.5 8.2,4.5ZM8.6,7.3C8.16,7.3 7.8,7.66 7.8,8.1V15.9C7.8,16.34 8.16,16.7 8.6,16.7H15.4C15.84,16.7 16.2,16.34 16.2,15.9V8.1C16.2,7.66 15.84,7.3 15.4,7.3H8.6Z" />
+
+    <!-- Small side crown. -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M19,9.2H19.7C20.08,9.2 20.4,9.52 20.4,9.9V12.7C20.4,13.08 20.08,13.4 19.7,13.4H19V9.2Z" />
+
+    <!-- Tapered lower strap and connector. -->
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M8.45,19H15.55L15,22.5C15,23.05 14.55,23.5 14,23.5H10C9.45,23.5 9,23.05 9,22.5L8.45,19Z" />
+</vector>

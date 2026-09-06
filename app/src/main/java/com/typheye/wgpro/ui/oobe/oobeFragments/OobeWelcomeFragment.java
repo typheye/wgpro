@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.card.MaterialCardView;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.typheye.wgpro.R;
@@ -102,15 +103,15 @@ public class OobeWelcomeFragment extends Fragment {
 
     private void exitApp(){
         // 创建对话框（关键：使用 MaterialAlertDialogBuilder 但自定义按钮行为）
-            MaterialAlertDialogBuilder builder = new MaterialAlertDialogBuilder(requireActivity())
+            WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(requireActivity())
                     .setTitle("提示")
                     .setMessage("您确定要退出应用吗？")
                     .setPositiveButton("退出", (dialog, which) -> requireActivity().finish())
-                    .setNegativeButton("返回", null)
-                    .setCancelable(false); // 防止点击空白区域关闭
+                    .setNegativeButton("返回", null);
+            builder.setCancelable(false); // 防止点击空白区域关闭
 
             // 创建对话框实例
-            AlertDialog dialog = builder.create();
+            com.google.android.material.bottomsheet.BottomSheetDialog dialog = builder.create();
 
             // 显示对话框
             dialog.show();

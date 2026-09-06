@@ -7,7 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import com.google.android.material.button.MaterialButton;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.tApplication;
 import com.typheye.wgpro.ui.SplashActivity;
@@ -39,7 +39,7 @@ public class CrashActivity extends AppCompatActivity {
         btnRestart.setOnClickListener(v -> restartApp());
 
         // 设置上报按钮
-        btnReport.setOnClickListener(v -> new MaterialAlertDialogBuilder(this)
+        btnReport.setOnClickListener(v -> new WGProAlertDialogBuilder(this)
                 .setTitle("异常上报")
                 .setMessage("异常已记录，我们正在处理中")
                 .setPositiveButton("确定", (dialog, which) -> Toast.makeText(this, "异常已上报", Toast.LENGTH_SHORT).show())

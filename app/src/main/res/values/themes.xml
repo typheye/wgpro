@@ -85,10 +85,24 @@
         <item name="colorSurfaceContainerHigh">@color/surface_elevated</item>
         <item name="android:colorBackground">@color/surface_elevated</item>
         <item name="backgroundTint">@color/surface_elevated</item>
+        <item name="android:windowMinWidthMajor">100%</item>
+        <item name="android:windowMinWidthMinor">100%</item>
+        <item name="android:windowAnimationStyle">@style/WGPro.DialogAnimation</item>
+    </style>
+    <style name="ThemeOverlay.WGPro.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="enableEdgeToEdge">true</item>
+        <item name="android:navigationBarColor">@color/surface_elevated</item>
+        <item name="android:navigationBarDividerColor">@color/surface_elevated</item>
+        <item name="android:windowLightNavigationBar">true</item>
+        <item name="colorSurface">@color/surface_elevated</item>
+    </style>
+    <style name="WGPro.DialogAnimation" parent="@android:style/Animation.Dialog">
+        <item name="android:windowEnterAnimation">@anim/activity_open_enter</item>
+        <item name="android:windowExitAnimation">@anim/activity_close_exit</item>
     </style>
     <style name="ShapeAppearanceOverlayWGProDialog">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">16dp</item>
+        <item name="cornerSize">24dp</item>
     </style>
     <style name="ActivityAnimation" parent="android:Animation.Activity">
         <item name="android:activityOpenEnterAnimation">@anim/fade_in</item>

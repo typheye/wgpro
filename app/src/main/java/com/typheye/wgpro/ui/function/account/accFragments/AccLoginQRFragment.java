@@ -20,7 +20,7 @@ import androidx.fragment.app.Fragment;
 import com.typheye.wgpro.utils.ImageUtils;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.tAccUtils;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 
 public class AccLoginQRFragment extends Fragment {
     String request_id;
@@ -173,7 +173,7 @@ public class AccLoginQRFragment extends Fragment {
             statusText.setVisibility(View.GONE);
             button_cancel.setVisibility(View.GONE);
             if (isAdded() && getContext() != null) {
-                new MaterialAlertDialogBuilder(requireContext())
+                new WGProAlertDialogBuilder(requireContext())
                         .setTitle("登录失败")
                         .setCancelable(false)
                         .setMessage(message)

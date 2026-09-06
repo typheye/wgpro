@@ -30,7 +30,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButtonToggleGroup;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -301,7 +301,7 @@ public class UserDetailActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.action_profile_more) {
-            new MaterialAlertDialogBuilder(this)
+            new WGProAlertDialogBuilder(this)
                     .setItems(new String[]{"编辑资料", "分享主页"}, (dialog, which) -> {
                         if (which == 0) {
                             startActivity(new Intent(this, AccMangerActivity.class)

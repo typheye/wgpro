@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -69,7 +69,7 @@ public class AccLoginFragment extends Fragment {
                     public void onError(String message) {
                         new Handler(Looper.getMainLooper()).post(() -> {
                             if (isAdded() && getContext() != null) {
-                                new MaterialAlertDialogBuilder(requireContext())
+                                new WGProAlertDialogBuilder(requireContext())
                                         .setTitle("登录失败")
                                         .setCancelable(false)
                                         .setMessage(message)

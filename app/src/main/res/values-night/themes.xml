@@ -3,4 +3,11 @@
     <style name="Base.Theme.WGProAndroid" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="android:windowLightStatusBar">false</item>
     </style>
+    <style name="ThemeOverlay.WGPro.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
+        <item name="enableEdgeToEdge">true</item>
+        <item name="android:navigationBarColor">@color/surface_elevated</item>
+        <item name="android:navigationBarDividerColor">@color/surface_elevated</item>
+        <item name="android:windowLightNavigationBar">false</item>
+        <item name="colorSurface">@color/surface_elevated</item>
+    </style>
 </resources>

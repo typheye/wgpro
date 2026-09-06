@@ -31,7 +31,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.core.xms.JSKit;
@@ -249,7 +249,7 @@ public class WebActivity extends AppCompatActivity {
             String fileName = getFileNameFromUrl(url1);
 
             // ✅ 添加用户确认弹窗
-            new MaterialAlertDialogBuilder(WebActivity.this)
+            new WGProAlertDialogBuilder(WebActivity.this)
                     .setTitle("文件下载")
                     .setMessage("是否要下载文件：\n" + fileName)
                     .setPositiveButton("下载", (dialog, which) -> {
@@ -397,7 +397,7 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void showExternalAppConfirmDialog(String url) {
-        new MaterialAlertDialogBuilder(this)
+        new WGProAlertDialogBuilder(this)
                 .setTitle("打开外部应用")
                 .setMessage("即将跳转到其他应用，是否继续？")
                 .setPositiveButton("继续", (dialog, which) -> {
@@ -413,7 +413,7 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void showMd3Alert(String message, JsResult result) {
-        new MaterialAlertDialogBuilder(this)
+        new WGProAlertDialogBuilder(this)
                 .setTitle("提示")
                 .setMessage(message)
                 .setPositiveButton("确定", (dialog, which) -> result.confirm())
@@ -421,7 +421,7 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void showMd3Confirm(String message, JsResult result) {
-        new MaterialAlertDialogBuilder(this)
+        new WGProAlertDialogBuilder(this)
                 .setTitle("确认")
                 .setMessage(message)
                 .setPositiveButton("确定", (dialog, which) -> result.confirm())
@@ -444,7 +444,7 @@ public class WebActivity extends AppCompatActivity {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
 
-        new MaterialAlertDialogBuilder(this)
+        new WGProAlertDialogBuilder(this)
                 .setTitle("输入")
                 .setView(view)
                 .setPositiveButton("确定", (dialog, which) -> {
@@ -481,7 +481,7 @@ public class WebActivity extends AppCompatActivity {
 
     private void showMoreMenu() {
         if (Objects.equals(FLAG, "XMS_WEARABLE"))
-            new MaterialAlertDialogBuilder(this)
+            new WGProAlertDialogBuilder(this)
                     .setTitle("更多")
                     .setItems(new CharSequence[]{
                             "刷新",
@@ -498,7 +498,7 @@ public class WebActivity extends AppCompatActivity {
                     })
                     .show();
         else
-            new MaterialAlertDialogBuilder(this)
+            new WGProAlertDialogBuilder(this)
                     .setTitle("更多")
                     .setItems(new CharSequence[]{
                             "刷新",

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.ScanQRActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
@@ -29,7 +29,7 @@ public class DashboardFragment extends Fragment {
         view.findViewById(R.id.tool_scan).setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), ScanQRActivity.class)));
         view.findViewById(R.id.tool_diagnostics).setOnClickListener(v -> showDiagnostics());
-        view.findViewById(R.id.tool_logs).setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
+        view.findViewById(R.id.tool_logs).setOnClickListener(v -> new WGProAlertDialogBuilder(requireContext())
                 .setTitle("运行日志")
                 .setMessage(String.join("\n", MainActivity.logs))
                 .setPositiveButton("完成", null)
@@ -52,7 +52,7 @@ public class DashboardFragment extends Fragment {
         String message = connected
                 ? "穿戴服务正常\n当前设备：" + (device == null || device.isEmpty() ? "已连接设备" : device) + "\n消息通道：可用"
                 : "暂未发现穿戴设备\n请打开小米运动健康，并检查设备管理权限。";
-        new MaterialAlertDialogBuilder(requireContext())
+        new WGProAlertDialogBuilder(requireContext())
                 .setTitle("连接诊断")
                 .setMessage(message)
                 .setPositiveButton("完成", null)

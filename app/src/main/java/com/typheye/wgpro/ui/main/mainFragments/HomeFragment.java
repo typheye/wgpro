@@ -17,7 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
 import com.google.android.material.textfield.TextInputEditText;
@@ -76,7 +76,7 @@ public class HomeFragment extends Fragment {
             @Override public void onPageSelected(int position) { updateCarouselPosition(); }
         });
 
-        pages.get(0).findViewById(R.id.notice_bar).setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
+        pages.get(0).findViewById(R.id.notice_bar).setOnClickListener(v -> new WGProAlertDialogBuilder(requireContext())
                 .setTitle("社区公告")
                 .setMessage("新版社区正在小范围测试。当前内容均为本地演示数据，发布、评论和云端资源将在接口稳定后开放。")
                 .setPositiveButton("知道了", null).show());

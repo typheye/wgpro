@@ -231,6 +231,11 @@ public class MainActivity extends AppCompatActivity {
             if (!nodes.isEmpty()) {
                 current_params.connected = true;
                 current_params.connected_device_name = nodes.get(0).name;
+                current_params.connected_device_id = nodes.get(0).id;
+                if (current_params.connected_since == 0L) current_params.connected_since = System.currentTimeMillis();
+                com.typheye.wgpro.data.DeviceDatabase deviceDb = new com.typheye.wgpro.data.DeviceDatabase(this);
+                if (deviceDb.exists(current_params.connected_device_id)) deviceDb.updateConnection(current_params.connected_device_id, true);
+                deviceDb.close();
 
                 runOnUiThread(() -> {
                     if (deviceFragment != null && deviceFragment.isAdded()) {
@@ -277,14 +282,17 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean home = selectedPage == R.id.nav_home;
         boolean account = selectedPage == R.id.nav_account;
+        boolean accountLoggedIn = new com.typheye.wgpro.utils.tAccUtils(this).isLogin();
         MenuItem notification = menu.findItem(R.id.action_notifications);
         MenuItem compose = menu.findItem(R.id.action_compose);
         MenuItem scan = menu.findItem(R.id.action_scanqr);
         MenuItem settings = menu.findItem(R.id.action_settings);
+        MenuItem deviceAdd = menu.findItem(R.id.action_device_add);
         if (notification != null) notification.setVisible(home);
         if (compose != null) compose.setVisible(home);
-        if (scan != null) scan.setVisible(account);
-        if (settings != null) settings.setVisible(account);
+        if (scan != null) scan.setVisible(account && accountLoggedIn);
+        if (settings != null) settings.setVisible(account && accountLoggedIn);
+        if (deviceAdd != null) deviceAdd.setVisible(selectedPage == R.id.nav_device);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -307,12 +315,15 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_notifications) {
-            new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
                     .setTitle("通知").setMessage("暂无新通知").setPositiveButton("完成", null).show();
             return true;
         } else if (id == R.id.action_compose) {
-            new com.google.android.material.dialog.MaterialAlertDialogBuilder(this)
+            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
                     .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, null).show();
+            return true;
+        } else if (id == R.id.action_device_add) {
+            startActivity(new Intent(this, com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));
             return true;
         }
         if (id == R.id.action_scanqr) {

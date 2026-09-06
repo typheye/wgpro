@@ -31,7 +31,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.TextView;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -176,7 +177,7 @@ public class AccMangerActivity extends AppCompatActivity {
                     ? InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES | InputType.TYPE_TEXT_FLAG_MULTI_LINE
                     : InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
 
-            AlertDialog dialog = new MaterialAlertDialogBuilder(requireContext())
+            WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
                     .setTitle(title)
                     .setView(content)
                     .setNegativeButton("取消", null)
@@ -370,7 +371,7 @@ public class AccMangerActivity extends AppCompatActivity {
 
         private void showSuccessToast(String message) {
             android.util.Log.d("AccEdit", "Success: " + message);
-            new MaterialAlertDialogBuilder(requireContext())
+            new WGProAlertDialogBuilder(requireContext())
                     .setTitle("修改成功")
                     .setMessage(message)
                     .setPositiveButton("确定", null)
@@ -379,7 +380,7 @@ public class AccMangerActivity extends AppCompatActivity {
 
         private void showErrorToast(String message) {
             android.util.Log.e("AccEdit", "Error: " + message);
-            new MaterialAlertDialogBuilder(requireContext())
+            new WGProAlertDialogBuilder(requireContext())
                     .setTitle("修改失败")
                     .setMessage(message)
                     .setPositiveButton("确定", null)

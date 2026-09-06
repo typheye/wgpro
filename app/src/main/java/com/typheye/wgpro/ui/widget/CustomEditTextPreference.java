@@ -5,7 +5,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import androidx.preference.EditTextPreference;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -38,7 +38,7 @@ public class CustomEditTextPreference extends EditTextPreference {
         }
 
         // ✅ 4. 显示对话框
-        new MaterialAlertDialogBuilder(context)
+        new WGProAlertDialogBuilder(context)
                 .setTitle(getDialogTitle())
                 .setView(view)  // ✅ 直接传入整个 View
                 .setPositiveButton(getPositiveButtonText(), (dialog, which) -> {

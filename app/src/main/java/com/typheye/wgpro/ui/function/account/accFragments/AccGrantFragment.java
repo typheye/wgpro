@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -101,7 +101,7 @@ public class AccGrantFragment extends Fragment {
 
     private void showSuccessToast(String message) {
         android.util.Log.d("AccEdit", "Success: " + message);
-        new MaterialAlertDialogBuilder(requireContext())
+        new WGProAlertDialogBuilder(requireContext())
                 .setTitle("授权成功")
                 .setMessage(message)
                 .setPositiveButton("确定", (dialog, which) -> requireActivity().finish())
@@ -110,7 +110,7 @@ public class AccGrantFragment extends Fragment {
 
     private void showErrorToast(String message) {
         android.util.Log.e("AccEdit", "Error: " + message);
-        new MaterialAlertDialogBuilder(requireContext())
+        new WGProAlertDialogBuilder(requireContext())
                 .setTitle("授权失败")
                 .setMessage(message)
                 .setPositiveButton("确定", (dialog, which) -> requireActivity().finish())
@@ -119,7 +119,7 @@ public class AccGrantFragment extends Fragment {
 
     private void showFailToast(String message) {
         android.util.Log.e("AccEdit", "Error: " + message);
-        new MaterialAlertDialogBuilder(requireContext())
+        new WGProAlertDialogBuilder(requireContext())
                 .setTitle("请求失败")
                 .setMessage(message)
                 .setPositiveButton("确定", (dialog, which) -> requireActivity().finish())

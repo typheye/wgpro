@@ -1,88 +1,121 @@
 package com.typheye.wgpro.ui.main.mainFragments;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.view.WindowManager;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
-
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.typheye.wgpro.ui.function.WebActivity;
-import com.typheye.wgpro.ui.main.MainActivity;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.core.xms.UIParams;
+import com.typheye.wgpro.data.DeviceDatabase;
+import com.typheye.wgpro.ui.function.device.AddDeviceActivity;
+import com.typheye.wgpro.ui.function.device.DeviceDetailActivity;
+import com.typheye.wgpro.ui.main.MainActivity;
 
 public class DeviceFragment extends Fragment {
-    private TextView midevice_status;
-    private TextView midevice_info;
+    private LinearLayout wearable;
+    private View wearableEmpty, otherEmpty, detected;
+    private TextView detectedName;
 
-    private LinearLayout midevice_btns;
-
-    private CardView midevice_help;
-    private View midevice_status_dot;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Nullable @Override public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup parent, @Nullable Bundle state) {
+        View root = inflater.inflate(R.layout.fragment_device, parent, false);
+        wearable = root.findViewById(R.id.container_wearable_devices);
+        wearableEmpty = root.findViewById(R.id.card_wearable_empty);
+        otherEmpty = root.findViewById(R.id.card_other_empty);
+        detected = root.findViewById(R.id.card_detected_device);
+        detectedName = root.findViewById(R.id.text_detected_name);
+        detected.setOnClickListener(v -> startActivity(new Intent(requireContext(), AddDeviceActivity.class)));
+        return root;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
-                             @Nullable Bundle savedInstanceState) {
+    @Override public void onResume() { super.onResume(); refresh(); }
+    public void updateUI(UIParams ignored) { refresh(); }
 
-        View view = inflater.inflate(R.layout.fragment_device, container, false);
-
-        midevice_status = view.findViewById(R.id.text_midevice_status);
-        midevice_info = view.findViewById(R.id.text_midevice_info);
-        midevice_btns = view.findViewById(R.id.linear_midevice_btns);
-        midevice_help = view.findViewById(R.id.card_midevice_help);
-        midevice_status_dot = view.findViewById(R.id.view_device_status_dot);
-        Button midevice_btn_open = view.findViewById(R.id.btn_midevice_open);
-        Button midevice_btn_help = view.findViewById(R.id.btn_midevice_help);
-
-        midevice_btn_open.setOnClickListener(v -> {
-            // 调用 MainActivity 提供的公共方法
-            Intent intent = new Intent(getActivity(), WebActivity.class);
-            intent.putExtra("FLAG", "XMS_WEARABLE");
-            startActivity(intent);
-        });
-
-        midevice_btn_help.setOnClickListener(v -> new MaterialAlertDialogBuilder(requireContext())
-                .setTitle("连接帮助")
-                .setMessage("请确认小米运动健康正在运行，并已允许腕管 Pro 使用设备管理与通知权限。随后返回本页重新检查连接状态。")
-                .setPositiveButton("知道了", null)
-                .show());
-
-        // 初始状态
-        updateUI(MainActivity.current_params);
-
-        return view;
-        //return inflater.inflate(R.layout.fragment_device, container, false);
-    }
-
-    // 提供一个公共方法更新 UI
-    public void updateUI(UIParams params) {
-        if (midevice_status != null && midevice_info != null) {
-            midevice_status.setText(params.connected ? "已连接" : "未连接");
-            String name = params.connected_device_name;
-            midevice_info.setText(params.connected && name != null && !name.isEmpty() ? name : "等待发现设备");
-            midevice_btns.setVisibility(params.connected ? View.VISIBLE : View.GONE);
-            midevice_help.setVisibility(params.connected ? View.GONE : View.VISIBLE);
-            midevice_status.setTextColor(ContextCompat.getColor(requireContext(),
-                    params.connected ? R.color.status_success : R.color.text_primary));
-            midevice_status_dot.setBackgroundResource(params.connected
-                    ? R.drawable.status_dot_online : R.drawable.status_dot_offline);
+    private void refresh() {
+        if (!isAdded() || wearable == null) return;
+        try (DeviceDatabase db = new DeviceDatabase(requireContext()); Cursor cursor = db.all("xiaomi")) {
+            wearable.removeAllViews();
+            boolean hasDevice = false;
+            while (cursor.moveToNext()) { hasDevice = true; addCard(cursor, wearable); }
+            wearableEmpty.setVisibility(hasDevice ? View.GONE : View.VISIBLE);
+            otherEmpty.setVisibility(View.VISIBLE);
+            UIParams params = MainActivity.current_params;
+            boolean found = params != null && params.connected && params.connected_device_id != null
+                    && !params.connected_device_id.isEmpty() && !db.exists(params.connected_device_id);
+            detected.setVisibility(found ? View.VISIBLE : View.GONE);
+            if (found) detectedName.setText(params.connected_device_name);
         }
     }
 
+    private void addCard(Cursor cursor, LinearLayout parent) {
+        String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+        String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+        String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
+        boolean connected = cursor.getInt(cursor.getColumnIndexOrThrow("connected")) != 0;
+        View card = getLayoutInflater().inflate(R.layout.item_device, parent, false);
+        ((TextView) card.findViewById(R.id.text_device_initial)).setText(model.substring(0, 1).toUpperCase());
+        ((TextView) card.findViewById(R.id.text_device_model)).setText(note == null || note.trim().isEmpty() ? model : note.trim());
+        ((TextView) card.findViewById(R.id.text_device_version)).setText(cursor.getString(cursor.getColumnIndexOrThrow("version")));
+        TextView status = card.findViewById(R.id.text_device_status);
+        status.setText(connected ? "已连接" : "已断开");
+        status.setBackgroundResource(connected ? R.drawable.bg_device_status_connected : R.drawable.bg_device_status_disconnected);
+        ((TextView) card.findViewById(R.id.text_device_since)).setText(connected ? "连接于刚刚" : "最近离线");
+        card.setOnClickListener(v -> openDetail(id));
+        card.findViewById(R.id.button_device_more).setOnClickListener(v -> showMenu(v, id, note));
+        parent.addView(card);
+    }
+
+    private void openDetail(String id) {
+        Intent intent = new Intent(requireContext(), DeviceDetailActivity.class);
+        intent.putExtra(DeviceDetailActivity.EXTRA_ID, id);
+        intent.putExtra(DeviceDetailActivity.EXTRA_TYPE, "xiaomi");
+        startActivity(intent);
+    }
+
+    private void showMenu(View anchor, String id, String currentNote) {
+        PopupMenu menu = new PopupMenu(requireContext(), anchor);
+        menu.getMenu().add("备注"); menu.getMenu().add("移除");
+        menu.setOnMenuItemClickListener(item -> {
+            if ("备注".contentEquals(item.getTitle())) showNoteDialog(id, currentNote);
+            else new WGProAlertDialogBuilder(requireContext()).setTitle("移除设备？")
+                    .setMessage("移除后可在设备重新连接时再次添加。")
+                    .setNegativeButton("取消", null).setPositiveButton("移除", (dialog, which) -> {
+                        try (DeviceDatabase db = new DeviceDatabase(requireContext())) { db.remove(id); }
+                        refresh();
+                    }).show();
+            return true;
+        });
+        menu.show();
+    }
+
+    private void showNoteDialog(String id, String currentNote) {
+        View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null, false);
+        TextInputLayout layout = content.findViewById(R.id.textInputLayout);
+        TextInputEditText input = content.findViewById(R.id.editText);
+        layout.setHint("备注"); input.setText(currentNote == null ? "" : currentNote); input.setSelection(input.length()); input.setSingleLine(true);
+        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext()).setTitle("修改设备备注").setView(content)
+                .setNegativeButton("取消", null).setPositiveButton("保存", null).create();
+        dialog.setOnShowListener(ignored -> {
+            dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+                String value = input.getText() == null ? "" : input.getText().toString().trim();
+                try (DeviceDatabase db = new DeviceDatabase(requireContext())) { db.updateNote(id, value); }
+                dialog.dismiss(); refresh();
+            });
+            input.requestFocus(); dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+        });
+        dialog.show();
+    }
 }
