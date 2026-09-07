@@ -16,7 +16,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -24,6 +23,7 @@ import androidx.annotation.Nullable;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -40,6 +40,11 @@ public final class WGProAlertDialogBuilder {
     private CharSequence[] items;
     private View customView;
     private boolean cancelable = true;
+    private FixedSectionsLayout panel;
+    private LinearLayout scrollingContent;
+    private NestedScrollView contentScroll;
+    private LinearLayout fixedActions;
+    private View fixedTitle;
 
     public WGProAlertDialogBuilder(@NonNull Context context) { this.context = context; }
     public WGProAlertDialogBuilder setTitle(CharSequence v) { title = v; return this; }
@@ -75,8 +80,7 @@ public final class WGProAlertDialogBuilder {
     }
 
     private View buildContent(WGProBottomSheetDialog dialog) {
-        LinearLayout panel = new LinearLayout(context);
-        panel.setOrientation(LinearLayout.VERTICAL);
+        panel = new FixedSectionsLayout(context);
         panel.setPadding(dp(24), dp(26), dp(24), dp(PANEL_BOTTOM_PADDING_DP));
         GradientDrawable background = new GradientDrawable();
         background.setColor(context.getColor(R.color.surface_elevated));
@@ -92,16 +96,25 @@ public final class WGProAlertDialogBuilder {
         if (title != null && title.length() > 0) {
             TextView heading = text(title, 24, R.color.text_primary);
             heading.setTypeface(null, Typeface.BOLD);
-            panel.addView(heading, params(-1, -2, 0));
+            fixedTitle = heading;
+            panel.addView(heading, new ViewGroup.LayoutParams(-1, -2));
         }
+
+        contentScroll = new NestedScrollView(context);
+        contentScroll.setClipToPadding(false);
+        contentScroll.setFillViewport(false);
+        contentScroll.setOverScrollMode(View.OVER_SCROLL_IF_CONTENT_SCROLLS);
+        scrollingContent = new LinearLayout(context);
+        scrollingContent.setOrientation(LinearLayout.VERTICAL);
         if (message != null && message.length() > 0) {
             TextView body = text(message, 16, R.color.text_secondary);
             body.setLineSpacing(dp(3), 1f);
-            panel.addView(body, params(-1, -2, 14));
+            scrollingContent.addView(body, params(-1, -2, 0));
         }
         if (customView != null) {
             if (customView.getParent() instanceof ViewGroup) ((ViewGroup) customView.getParent()).removeView(customView);
-            panel.addView(customView, params(-1, -2, 12));
+            scrollingContent.addView(customView,
+                    params(-1, -2, scrollingContent.getChildCount() == 0 ? 0 : 12));
         }
         if (items != null) {
             MaterialCardView group = new MaterialCardView(context);
@@ -149,25 +162,27 @@ public final class WGProAlertDialogBuilder {
                 }
             }
             group.addView(list, new MaterialCardView.LayoutParams(-1, -2));
-            ScrollView scroll = new ScrollView(context);
-            scroll.setClipToPadding(false);
-            scroll.addView(group, new ScrollView.LayoutParams(-1, -2));
-            panel.addView(scroll, params(-1, -2, 18));
+            scrollingContent.addView(group,
+                    params(-1, -2, scrollingContent.getChildCount() == 0 ? 0 : 18));
         }
+        contentScroll.addView(scrollingContent,
+                new NestedScrollView.LayoutParams(-1, -2));
+        panel.addView(contentScroll, new ViewGroup.LayoutParams(-1, -2));
         if (neutralText != null || negativeText != null || positiveText != null) {
-            LinearLayout actions = new LinearLayout(context);
-            actions.setOrientation(LinearLayout.HORIZONTAL);
-            actions.setGravity(Gravity.CENTER_VERTICAL);
+            fixedActions = new LinearLayout(context);
+            fixedActions.setOrientation(LinearLayout.HORIZONTAL);
+            fixedActions.setGravity(Gravity.CENTER_VERTICAL);
             int count = (neutralText == null ? 0 : 1) + (negativeText == null ? 0 : 1)
                     + (positiveText == null ? 0 : 1);
-            if (neutralText != null) addAction(actions,
+            if (neutralText != null) addAction(fixedActions,
                     button(dialog, neutralText, neutralListener, DialogInterface.BUTTON_NEUTRAL, false), count);
-            if (negativeText != null) addAction(actions,
+            if (negativeText != null) addAction(fixedActions,
                     button(dialog, negativeText, negativeListener, DialogInterface.BUTTON_NEGATIVE, false), count);
-            if (positiveText != null) addAction(actions,
+            if (positiveText != null) addAction(fixedActions,
                     button(dialog, positiveText, positiveListener, DialogInterface.BUTTON_POSITIVE, true), count);
-            panel.addView(actions, params(-1, -2, 22));
+            panel.addView(fixedActions, new ViewGroup.LayoutParams(-1, -2));
         }
+        panel.setSections(fixedTitle, contentScroll, fixedActions);
         return panel;
     }
 
@@ -226,7 +241,104 @@ public final class WGProAlertDialogBuilder {
             behavior.setDraggable(cancelable);
             behavior.setHideable(cancelable);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+            sheet.post(() -> constrainSheetHeight(window, sheet, behavior));
             ViewCompat.requestApplyInsets(sheet);
+        }
+    }
+
+    private void constrainSheetHeight(Window window, View sheet,
+                                      BottomSheetBehavior<View> behavior) {
+        if (panel == null) return;
+        int windowHeight = window.getDecorView().getHeight();
+        if (windowHeight <= 0) windowHeight = context.getResources().getDisplayMetrics().heightPixels;
+        WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(window.getDecorView());
+        int statusBarHeight = insets == null ? 0
+                : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+        android.util.TypedValue actionBar = new android.util.TypedValue();
+        int actionBarHeight = context.getTheme().resolveAttribute(
+                androidx.appcompat.R.attr.actionBarSize, actionBar, true)
+                ? android.util.TypedValue.complexToDimensionPixelSize(
+                        actionBar.data, context.getResources().getDisplayMetrics())
+                : dp(56);
+        int maxHeight = Math.max(dp(220), windowHeight - statusBarHeight - actionBarHeight);
+        behavior.setMaxHeight(maxHeight);
+        panel.setMaximumHeight(maxHeight);
+        sheet.requestLayout();
+    }
+
+    private final class FixedSectionsLayout extends ViewGroup {
+        private View titleView;
+        private View middleView;
+        private View actionsView;
+        private int maximumHeight = Integer.MAX_VALUE;
+
+        FixedSectionsLayout(Context context) {
+            super(context);
+        }
+
+        void setSections(View title, View middle, View actions) {
+            titleView = title;
+            middleView = middle;
+            actionsView = actions;
+        }
+
+        void setMaximumHeight(int value) {
+            maximumHeight = value > 0 ? value : Integer.MAX_VALUE;
+            requestLayout();
+        }
+
+        @Override
+        protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+            int width = MeasureSpec.getSize(widthMeasureSpec);
+            int contentWidth = Math.max(0, width - getPaddingLeft() - getPaddingRight());
+            int parentLimit = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.UNSPECIFIED
+                    ? Integer.MAX_VALUE : MeasureSpec.getSize(heightMeasureSpec);
+            int heightLimit = Math.min(parentLimit, maximumHeight);
+            if (heightLimit == Integer.MAX_VALUE) {
+                heightLimit = context.getResources().getDisplayMetrics().heightPixels;
+            }
+
+            int titleHeight = measureFixed(titleView, contentWidth, heightLimit);
+            int actionsHeight = measureFixed(actionsView, contentWidth, heightLimit);
+            int titleSpacing = titleView == null ? 0 : dp(16);
+            int actionSpacing = actionsView == null ? 0 : dp(20);
+            int fixedHeight = getPaddingTop() + getPaddingBottom() + titleHeight
+                    + titleSpacing + actionSpacing + actionsHeight;
+            int middleLimit = Math.max(0, heightLimit - fixedHeight);
+            int middleHeight = 0;
+            if (middleView != null) {
+                middleView.measure(
+                        MeasureSpec.makeMeasureSpec(contentWidth, MeasureSpec.EXACTLY),
+                        MeasureSpec.makeMeasureSpec(middleLimit, MeasureSpec.AT_MOST));
+                middleHeight = middleView.getMeasuredHeight();
+            }
+            setMeasuredDimension(width, Math.min(heightLimit, fixedHeight + middleHeight));
+        }
+
+        private int measureFixed(View view, int width, int heightLimit) {
+            if (view == null) return 0;
+            view.measure(MeasureSpec.makeMeasureSpec(width, MeasureSpec.EXACTLY),
+                    MeasureSpec.makeMeasureSpec(heightLimit, MeasureSpec.AT_MOST));
+            return view.getMeasuredHeight();
+        }
+
+        @Override
+        protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
+            int x = getPaddingLeft();
+            int width = getMeasuredWidth() - getPaddingLeft() - getPaddingRight();
+            int y = getPaddingTop();
+            if (titleView != null) {
+                titleView.layout(x, y, x + width, y + titleView.getMeasuredHeight());
+                y += titleView.getMeasuredHeight() + dp(16);
+            }
+            if (middleView != null) {
+                middleView.layout(x, y, x + width, y + middleView.getMeasuredHeight());
+                y += middleView.getMeasuredHeight();
+            }
+            if (actionsView != null) {
+                y += dp(20);
+                actionsView.layout(x, y, x + width, y + actionsView.getMeasuredHeight());
+            }
         }
     }
 

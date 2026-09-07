@@ -16,15 +16,30 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/tab"
-            app:title=""
-            app:titleTextColor="@color/text_u1"
-            app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:navigationIcon="@drawable/ic_back_vector"/>
+            android:background="@color/tab">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/tab"
+                app:title=""
+                app:titleTextColor="@color/text_u1"
+                app:titleTextAppearance="@style/ToolbarTitleAppearance"
+                app:navigationIcon="@drawable/ic_back_vector" />
+            <com.google.android.material.progressindicator.LinearProgressIndicator
+                android:id="@+id/web_load_progress"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:layout_gravity="bottom"
+                android:max="100"
+                android:visibility="gone"
+                app:indicatorColor="@color/brand_primary"
+                app:trackColor="@android:color/transparent"
+                app:trackThickness="3dp" />
+        </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>
 

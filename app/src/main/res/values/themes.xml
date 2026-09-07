@@ -31,13 +31,6 @@
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:letterSpacing">0</item>
     </style>
-    <style name="TextAppearance.WGPro.Section" parent="TextAppearance.Material3.TitleMedium">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/text_primary</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:letterSpacing">0</item>
-    </style>
     <style name="Widget.WGPro.Card" parent="Widget.Material3.CardView.Filled">
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">0dp</item>

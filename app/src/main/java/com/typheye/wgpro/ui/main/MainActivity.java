@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.provider.Settings;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -25,6 +26,7 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.typheye.wgpro.core.xms.InterconnectLogic;
+import com.typheye.wgpro.core.xms.XmsConnectionProbe;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.ScanQRActivity;
 import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
@@ -42,6 +44,7 @@ import com.xiaomi.xms.wearable.auth.Permission;
 import com.xiaomi.xms.wearable.message.MessageApi;
 import com.xiaomi.xms.wearable.message.OnMessageReceivedListener;
 import com.xiaomi.xms.wearable.node.NodeApi;
+import com.xiaomi.xms.wearable.node.Node;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -54,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int NOTIFICATION_ID = 1001;
     private static final String CHANNEL_ID = "account_channel";
     private static final long ACCOUNT_POLL_INTERVAL_MS = 15_000L;
+    private static final long WEARABLE_POLL_INTERVAL_MS = 3_000L;
     private Toolbar toolbar;
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
@@ -69,13 +73,22 @@ public class MainActivity extends AppCompatActivity {
     private int selectedPage = R.id.nav_home;
     private OnBackPressedCallback rootBackCallback;
     private volatile boolean accountPollInFlight;
+    private volatile boolean wearablePollInFlight;
+    private int consecutiveDisconnectedProbes;
     private String pendingGrantRequestId;
     private boolean grantFlowActive;
     private final Handler accountPollHandler = new Handler(Looper.getMainLooper());
+    private final Handler wearablePollHandler = new Handler(Looper.getMainLooper());
     private final Runnable accountPoll = new Runnable() {
         @Override public void run() {
             if (!accountPollInFlight && !grantFlowActive) getAccUtils();
             accountPollHandler.postDelayed(this, ACCOUNT_POLL_INTERVAL_MS);
+        }
+    };
+    private final Runnable wearablePoll = new Runnable() {
+        @Override public void run() {
+            refreshWearableConnection();
+            wearablePollHandler.postDelayed(this, WEARABLE_POLL_INTERVAL_MS);
         }
     };
 
@@ -178,6 +191,8 @@ public class MainActivity extends AppCompatActivity {
         }
         accountPollHandler.removeCallbacks(accountPoll);
         accountPollHandler.post(accountPoll);
+        wearablePollHandler.removeCallbacks(wearablePoll);
+        wearablePollHandler.post(wearablePoll);
         consumePendingGrantRequest();
     }
 
@@ -208,6 +223,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onPause() {
         accountPollHandler.removeCallbacks(accountPoll);
+        wearablePollHandler.removeCallbacks(wearablePoll);
         super.onPause();
     }
 
@@ -256,9 +272,19 @@ public class MainActivity extends AppCompatActivity {
     private void refreshAccountUi(boolean refreshAvatar) {
         runOnUiThread(() -> {
             invalidateOptionsMenu();
-            if (accountFragment != null && accountFragment.isAdded()) {
-                accountFragment.refreshAccountUi(refreshAvatar);
+            AccountFragment target = accountFragment;
+            Fragment restored = getSupportFragmentManager().findFragmentByTag("f3");
+            if (restored instanceof AccountFragment) target = (AccountFragment) restored;
+            if (target == null || !target.isAdded()) {
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof AccountFragment && fragment.isAdded()) {
+                        target = (AccountFragment) fragment;
+                        break;
+                    }
+                }
             }
+            accountFragment = target;
+            if (target != null && target.isAdded()) target.refreshAccountUi(refreshAvatar);
         });
     }
 
@@ -309,49 +335,124 @@ public class MainActivity extends AppCompatActivity {
         authApi = Wearable.getAuthApi(getApplicationContext());
         messageApi = Wearable.getMessageApi(getApplicationContext());
 
-        nodeApi.getConnectedNodes().addOnSuccessListener(nodes -> {
-            logs.add("Node Count: " + nodes.size());
-            if (!nodes.isEmpty()) {
-                current_params.connected = true;
-                current_params.connected_device_name = nodes.get(0).name;
-                current_params.connected_device_id = nodes.get(0).id;
-                if (current_params.connected_since == 0L) current_params.connected_since = System.currentTimeMillis();
-                com.typheye.wgpro.data.DeviceDatabase deviceDb = new com.typheye.wgpro.data.DeviceDatabase(this);
-                if (deviceDb.exists(current_params.connected_device_id)) deviceDb.updateConnection(current_params.connected_device_id, true);
-                deviceDb.close();
+        refreshWearableConnection();
+    }
 
-                runOnUiThread(() -> {
-                    if (deviceFragment != null && deviceFragment.isAdded()) {
-                        deviceFragment.updateUI(current_params);
-                    }
-                });
+    private void refreshWearableConnection() {
+        if (wearablePollInFlight || nodeApi == null) return;
+        if (Settings.Global.getInt(getContentResolver(), Settings.Global.BLUETOOTH_ON, 0) == 0) {
+            applyDisconnectedWearableState();
+            return;
+        }
+        wearablePollInFlight = true;
 
-                logs.add("Connected to device: " + nodes.get(0).name);
-                authApi.checkPermission(nodes.get(0).id, Permission.DEVICE_MANAGER)
-                        .addOnSuccessListener(aBoolean -> {
-                            current_params.mifitness_connected = true;
-                            connectedNodeId = nodes.get(0).id;
-                            logs.add("checkPermission: Permission.DEVICE_MANAGER状态为" + aBoolean);
-
-                            authApi.requestPermission(connectedNodeId, Permission.DEVICE_MANAGER, Permission.NOTIFY)
-                                    .addOnSuccessListener(permissions -> {
-                                        current_params.device_permission = true;
-                                        logs.add("权限 Permission.DEVICE_MANAGER 申请成功");
-                                        logs.add("所有准备工作已完成！开始等待Hello Packet...");
-
-                                        OnMessageReceivedListener listener = (nodeId, bytes) -> {
-                                            logs.add("收到长度为" + bytes.length + "的消息，准备处理");
-                                            InterconnectLogic.ProcessMessage(nodeId, new String(bytes));
-                                        };
-
-                                        messageApi.addListener(connectedNodeId, listener)
-                                                .addOnSuccessListener(unused -> logs.add("开始监听消息！"))
-                                                .addOnFailureListener(e -> logs.add("监听消息失败！" + e.getMessage()));
-                                    })
-                                    .addOnFailureListener(e -> logs.add("设备权限申请失败：" + e.getMessage()));
-                        })
-                        .addOnFailureListener(e -> logs.add("检查权限失败：" + e.getMessage()));
+        XmsConnectionProbe.probe(nodeApi, new XmsConnectionProbe.Callback() {
+            @Override public void onResult(Node node) {
+                wearablePollInFlight = false;
+                if (node == null) {
+                    consecutiveDisconnectedProbes++;
+                    if (consecutiveDisconnectedProbes >= 2) applyDisconnectedWearableState();
+                } else {
+                    consecutiveDisconnectedProbes = 0;
+                    applyConnectedWearableState(node);
+                }
             }
+
+            @Override public void onError(@NonNull Exception error) {
+                wearablePollInFlight = false;
+                logs.add("刷新设备连接失败：" + error.getMessage());
+            }
+        });
+    }
+
+    private void applyConnectedWearableState(Node node) {
+        String previousNodeId = connectedNodeId;
+        boolean stateChanged = !current_params.connected
+                || !node.id.equals(current_params.connected_device_id);
+        current_params.connected = true;
+        current_params.connected_device_name = node.name;
+        current_params.connected_device_id = node.id;
+        if (current_params.connected_since == 0L) {
+            current_params.connected_since = System.currentTimeMillis();
+        }
+        com.typheye.wgpro.data.DeviceDatabase deviceDb =
+                new com.typheye.wgpro.data.DeviceDatabase(this);
+        int databaseChanges = deviceDb.markOtherConnectedDevicesOffline("xiaomi", node.id);
+        if (deviceDb.exists(node.id)) databaseChanges += deviceDb.updateConnection(node.id, true);
+        deviceDb.close();
+        if (stateChanged || databaseChanges > 0) refreshDeviceUi();
+
+        if (stateChanged) logs.add("Connected to device: " + node.name);
+        if (node.id.equals(previousNodeId)) return;
+        if (messageApi != null && previousNodeId != null && !previousNodeId.isEmpty()) {
+            messageApi.removeListener(previousNodeId);
+        }
+        connectedNodeId = node.id;
+        authApi.checkPermission(node.id, Permission.DEVICE_MANAGER)
+                .addOnSuccessListener(granted -> {
+                    current_params.mifitness_connected = true;
+                    logs.add("checkPermission: Permission.DEVICE_MANAGER状态为" + granted);
+                    authApi.requestPermission(connectedNodeId,
+                                    Permission.DEVICE_MANAGER, Permission.NOTIFY)
+                            .addOnSuccessListener(permissions -> {
+                                current_params.device_permission = true;
+                                logs.add("权限 Permission.DEVICE_MANAGER 申请成功");
+                                OnMessageReceivedListener listener = (nodeId, bytes) -> {
+                                    logs.add("收到长度为" + bytes.length + "的消息，准备处理");
+                                    InterconnectLogic.ProcessMessage(nodeId, new String(bytes));
+                                };
+                                messageApi.addListener(connectedNodeId, listener)
+                                        .addOnSuccessListener(unused -> logs.add("开始监听消息！"))
+                                        .addOnFailureListener(error ->
+                                                logs.add("监听消息失败！" + error.getMessage()));
+                            })
+                            .addOnFailureListener(error ->
+                                    logs.add("设备权限申请失败：" + error.getMessage()));
+                })
+                .addOnFailureListener(error -> logs.add("检查权限失败：" + error.getMessage()));
+    }
+
+    private void applyDisconnectedWearableState() {
+        wearablePollInFlight = false;
+        consecutiveDisconnectedProbes = 0;
+        boolean stateChanged = current_params.connected;
+        String previousNodeId = connectedNodeId;
+        if (messageApi != null && previousNodeId != null && !previousNodeId.isEmpty()) {
+            messageApi.removeListener(previousNodeId);
+        }
+        connectedNodeId = "";
+        current_params.connected = false;
+        current_params.connected_device_name = "未知设备";
+        current_params.connected_device_id = "";
+        current_params.connected_since = 0L;
+        current_params.mifitness_connected = false;
+        current_params.device_permission = false;
+        int databaseChanges;
+        try (com.typheye.wgpro.data.DeviceDatabase deviceDb =
+                     new com.typheye.wgpro.data.DeviceDatabase(this)) {
+            databaseChanges = deviceDb.markConnectedDevicesOffline("xiaomi");
+        }
+        if (stateChanged || databaseChanges > 0) {
+            logs.add("Wearable disconnected");
+            refreshDeviceUi();
+        }
+    }
+
+    private void refreshDeviceUi() {
+        runOnUiThread(() -> {
+            DeviceFragment target = deviceFragment;
+            Fragment restored = getSupportFragmentManager().findFragmentByTag("f2");
+            if (restored instanceof DeviceFragment) target = (DeviceFragment) restored;
+            if (target == null || !target.isAdded()) {
+                for (Fragment fragment : getSupportFragmentManager().getFragments()) {
+                    if (fragment instanceof DeviceFragment && fragment.isAdded()) {
+                        target = (DeviceFragment) fragment;
+                        break;
+                    }
+                }
+            }
+            deviceFragment = target;
+            if (target != null && target.isAdded()) target.updateUI(current_params);
         });
     }
 
@@ -383,6 +484,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        wearablePollHandler.removeCallbacks(wearablePoll);
         if (messageApi != null && connectedNodeId != null && !connectedNodeId.isEmpty()) {
             messageApi.removeListener(connectedNodeId);
         }

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.Toast;
 import android.widget.TextView;
 
@@ -28,6 +29,7 @@ import androidx.core.view.ViewCompat;
 import androidx.preference.PreferenceManager;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.typheye.wgpro.R;
@@ -41,6 +43,8 @@ import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class SettingsActivity extends AppCompatActivity {
     private Toolbar toolbar;
@@ -123,6 +127,7 @@ public class SettingsActivity extends AppCompatActivity {
 
     public static class SettingsFragment extends Fragment {
         private final Handler mainHandler = new Handler(Looper.getMainLooper());
+        private final ExecutorService cacheExecutor = Executors.newSingleThreadExecutor();
         private tAccUtils accUtils;
         private View accountLabel;
         private View logoutCard;
@@ -186,6 +191,7 @@ public class SettingsActivity extends AppCompatActivity {
             });
 
             view.findViewById(R.id.row_reset).setOnClickListener(v -> appReset());
+            view.findViewById(R.id.row_clear_cache).setOnClickListener(v -> showClearCacheSheet());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());
             view.findViewById(R.id.row_policies).setOnClickListener(v -> openWeb("https://www.typheye.cn/policies/"));
@@ -242,6 +248,86 @@ public class SettingsActivity extends AppCompatActivity {
                     })
                     .setNegativeButton("取消", null)
                     .show();
+        }
+
+        private void showClearCacheSheet() {
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("清除缓存")
+                    .setMessage("将清理内置浏览器缓存和应用临时文件。登录状态、设备、设置与下载内容不会受到影响。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("清除", (dialog, which) -> {
+                        if (dialog instanceof WGProBottomSheetDialog) {
+                            ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                        }
+                        mainHandler.postDelayed(this::showCacheProgress, 40L);
+                    })
+                    .show();
+        }
+
+        private void showCacheProgress() {
+            if (!isAdded()) return;
+            View progressView = View.inflate(requireContext(), R.layout.progress_dialog, null);
+            ((TextView) progressView.findViewById(android.R.id.message)).setText("正在清理缓存...");
+            WGProBottomSheetDialog progressDialog = new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("清理中")
+                    .setView(progressView)
+                    .setCancelable(false)
+                    .create();
+            progressDialog.show();
+
+            // Let the sheet finish its entrance before initializing the temporary WebView.
+            mainHandler.postDelayed(() -> {
+                if (!isAdded()) return;
+                WebView temporaryWebView = new WebView(requireContext().getApplicationContext());
+                temporaryWebView.clearCache(true);
+                temporaryWebView.clearFormData();
+                temporaryWebView.clearHistory();
+                temporaryWebView.destroy();
+
+                File internalCache = requireContext().getCacheDir();
+                File externalCache = requireContext().getExternalCacheDir();
+                cacheExecutor.execute(() -> {
+                    boolean success = clearDirectoryContents(internalCache)
+                            & clearDirectoryContents(externalCache);
+                    mainHandler.post(() -> {
+                        if (!isAdded()) return;
+                        progressDialog.dismissForReplacement();
+                        new WGProAlertDialogBuilder(requireContext())
+                                .setTitle(success ? "缓存已清除" : "清理未完全完成")
+                                .setMessage(success
+                                        ? "浏览器缓存和应用临时文件已清理。"
+                                        : "部分正在使用的临时文件无法删除，可稍后重试。")
+                                .setPositiveButton("完成", null)
+                                .show();
+                    });
+                });
+            }, 180L);
+        }
+
+        private boolean clearDirectoryContents(File directory) {
+            if (directory == null || !directory.exists()) return true;
+            File[] children = directory.listFiles();
+            if (children == null) return false;
+            boolean success = true;
+            for (File child : children) success &= deleteRecursively(child);
+            return success;
+        }
+
+        private boolean deleteRecursively(File file) {
+            if (file.isDirectory()) {
+                File[] children = file.listFiles();
+                if (children == null) return false;
+                boolean success = true;
+                for (File child : children) success &= deleteRecursively(child);
+                if (!success) return false;
+            }
+            return file.delete() || !file.exists();
+        }
+
+        @Override
+        public void onDestroy() {
+            cacheExecutor.shutdownNow();
+            super.onDestroy();
         }
         private void appAbout() {
             // 获取应用版本信息

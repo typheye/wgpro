@@ -172,7 +172,7 @@ public class DeviceFragment extends Fragment {
                     .setText(note == null || note.trim().isEmpty() ? model : note.trim());
             String systemVersion = version == null || version.trim().isEmpty() ? "系统版本未知" : version.trim();
             ((TextView) content.findViewById(R.id.sheet_device_status_version))
-                    .setText((connected ? "已连接" : "未连接") + "  |  " + systemVersion);
+                    .setText((connected ? "已连接" : "已断开") + "  |  " + systemVersion);
             View actions = content.findViewById(R.id.sheet_device_actions);
             actions.setVisibility("xiaomi".equals(type) ? View.VISIBLE : View.GONE);
             WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())

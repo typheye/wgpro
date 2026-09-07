@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF111318</color>
     <color name="white">#FFFFFFFF</color>
     <color name="brand_primary">#FF4D6BFE</color>
-    <color name="brand_primary_pressed">#FF3E59DE</color>
     <color name="brand_soft">#FFE8ECFF</color>
     <color name="brand_on_soft">#FF2844C7</color>
     <color name="surface_page">#FFF6F7F9</color>
@@ -22,32 +20,17 @@
     <color name="status_warning">#FFB86B16</color>
     <color name="status_warning_soft">#FFFFEED7</color>
     <color name="status_danger">#FFD84A4A</color>
-    <color name="status_danger_soft">#FFFFE7E7</color>
-    <color name="accent_coral">#FFE45F74</color>
     <color name="banner_blue">#FF3855C8</color>
     <color name="banner_green">#FF087B67</color>
     <color name="banner_coral">#FFB8495B</color>
     <color name="banner_amber">#FF9A641B</color>
-    <color name="banner_violet">#FF6B50A3</color>
     <color name="media_blue">#FFDCE5FF</color>
     <color name="media_green">#FFD7F0E9</color>
     <color name="media_coral">#FFFFE0E5</color>
     <color name="media_amber">#FFFFE9C9</color>
     <color name="tab_accent">@color/brand_primary</color>
     <color name="tab_accent_th">@color/brand_soft</color>
-    <color name="tab_accent_th2">@color/brand_soft</color>
-    <color name="tab_background_th">@color/surface_primary</color>
-    <color name="tab_background">@color/surface_page</color>
     <color name="tab">@color/surface_primary</color>
-    <color name="tab_bw">@color/text_primary</color>
-    <color name="tab_se">@color/status_success</color>
-    <color name="tab_pink">@color/accent_coral</color>
-    <color name="tab_pink_th">@color/status_danger_soft</color>
-    <color name="tab_red">@color/status_danger</color>
-    <color name="grey600">@color/text_secondary</color>
     <color name="text_u1">@color/text_primary</color>
     <color name="text_u2">@color/text_secondary</color>
-    <color name="text_true">@color/status_success</color>
-    <color name="text_false">@color/status_danger</color>
-    <color name="outline_unselected">@color/outline_soft</color>
 </resources>

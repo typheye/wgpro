@@ -84,6 +84,10 @@ public class AccountFragment extends Fragment {
         setGroupRowTitle(view, R.id.account_starred_apps, "星标应用");
         setGroupRowTitle(view, R.id.account_resources, "星标资源");
         setGroupRowTitle(view, R.id.account_identity, "社区身份");
+        TextView identity = view.findViewById(R.id.account_identity)
+                .findViewById(R.id.account_row_value);
+        identity.setText("普通用户");
+        identity.setVisibility(View.VISIBLE);
         setGroupRowTitle(view, R.id.account_creator_center, "创作中心");
         view.findViewById(R.id.profile_card).setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), UserDetailActivity.class);
