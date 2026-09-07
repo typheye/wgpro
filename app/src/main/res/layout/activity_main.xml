@@ -33,20 +33,13 @@
             app:titleTextColor="@color/text_primary" />
     </com.google.android.material.appbar.AppBarLayout>
 
-    <View
-        android:id="@+id/app_bar_divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="@color/outline_soft"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_layout" />
-
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:background="@color/surface_page"
         app:layout_constraintBottom_toTopOf="@id/bottom_navigation"
-        app:layout_constraintTop_toBottomOf="@id/app_bar_divider" />
+        app:layout_constraintTop_toBottomOf="@id/app_bar_layout" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

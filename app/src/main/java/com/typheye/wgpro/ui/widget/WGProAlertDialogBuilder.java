@@ -62,12 +62,14 @@ public final class WGProAlertDialogBuilder {
     public WGProAlertDialogBuilder setNeutralButton(int v, @Nullable DialogInterface.OnClickListener l) { return setNeutralButton(context.getText(v), l); }
 
     public WGProBottomSheetDialog create() {
+        boolean progressContent = containsProgressIndicator(customView);
+        if (progressContent && negativeText == null) negativeText = "取消";
         WGProBottomSheetDialog dialog = new WGProBottomSheetDialog(context);
         dialog.setCancelable(cancelable);
         dialog.setCanceledOnTouchOutside(cancelable);
         dialog.setDismissWithAnimation(true);
         dialog.setContentView(buildContent(dialog));
-        if (containsProgressIndicator(customView)) dialog.setMinimumShowDuration(300L);
+        if (progressContent) dialog.setMinimumShowDuration(300L);
         dialog.setWindowConfigurator(() -> configureWindow(dialog));
         return dialog;
     }

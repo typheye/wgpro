@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +19,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -29,16 +32,29 @@ import com.typheye.wgpro.ui.function.device.AddDeviceActivity;
 import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.utils.tAccUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.util.Arrays;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DeviceFragment extends Fragment {
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private LinearLayout wearable;
     private LinearLayout other;
     private View wearableEmpty;
     private View otherEmpty;
     private View detected;
+    private JSONArray cloudSessions = new JSONArray();
+    private boolean cloudSessionsLoading;
+    private boolean wearableLoaded;
+    private boolean otherLoaded;
+    private SwipeRefreshLayout wearableRefresh;
+    private SwipeRefreshLayout otherRefresh;
 
     @Nullable
     @Override
@@ -49,7 +65,42 @@ public class DeviceFragment extends Fragment {
         other = root.findViewById(R.id.container_other_devices);
         wearableEmpty = root.findViewById(R.id.card_wearable_empty);
         otherEmpty = root.findViewById(R.id.card_other_empty);
+        ((TextView) wearableEmpty.findViewById(R.id.stream_empty_title)).setText("还没有穿戴设备");
+        ((TextView) wearableEmpty.findViewById(R.id.stream_empty_description))
+                .setText("连接小米手表或手环后，可在这里添加并集中管理。");
+        ((TextView) otherEmpty.findViewById(R.id.stream_empty_title)).setText("暂无其他设备");
+        ((TextView) otherEmpty.findViewById(R.id.stream_empty_description))
+                .setText("使用同一 Typheye 账户登录的设备会显示在这里。");
         detected = root.findViewById(R.id.card_detected_device);
+        wearableRefresh = root.findViewById(R.id.device_page_wearable);
+        otherRefresh = root.findViewById(R.id.device_page_other);
+        int accent = requireContext().getColor(R.color.brand_primary);
+        wearableRefresh.setColorSchemeColors(accent);
+        otherRefresh.setColorSchemeColors(accent);
+        wearableRefresh.setOnRefreshListener(() -> {
+            wearableLoaded = false;
+            refresh();
+            mainHandler.postDelayed(() -> {
+                if (!isAdded()) return;
+                wearableLoaded = true;
+                refresh();
+                wearableRefresh.setRefreshing(false);
+            }, 400L);
+        });
+        otherRefresh.setOnRefreshListener(() -> {
+            otherLoaded = false;
+            refresh();
+            cloudSessionsLoading = false;
+            loadCloudSessions();
+        });
+        wearableRefresh.post(() -> wearableRefresh.setRefreshing(true));
+        otherRefresh.post(() -> otherRefresh.setRefreshing(true));
+        mainHandler.postDelayed(() -> {
+            if (!isAdded()) return;
+            wearableLoaded = true;
+            refresh();
+            wearableRefresh.setRefreshing(false);
+        }, 400L);
         View dismissDetected = root.findViewById(R.id.button_dismiss_detected);
         detected.setOnClickListener(v ->
                 startActivity(new Intent(requireContext(), AddDeviceActivity.class)));
@@ -94,7 +145,11 @@ public class DeviceFragment extends Fragment {
         });
     }
 
-    @Override public void onResume() { super.onResume(); refresh(); }
+    @Override public void onResume() {
+        super.onResume();
+        refresh();
+        loadCloudSessions();
+    }
     public void updateUI(UIParams ignored) { refresh(); }
 
     private void refresh() {
@@ -114,8 +169,15 @@ public class DeviceFragment extends Fragment {
                 hasOther = true;
                 addCard(otherCursor, other);
             }
-            wearableEmpty.setVisibility(hasWearable ? View.GONE : View.VISIBLE);
-            otherEmpty.setVisibility(hasOther ? View.GONE : View.VISIBLE);
+            for (int index = 0; index < cloudSessions.length(); index++) {
+                JSONObject session = cloudSessions.optJSONObject(index);
+                if (session != null) {
+                    hasOther = true;
+                    addSessionCard(session);
+                }
+            }
+            wearableEmpty.setVisibility(wearableLoaded && !hasWearable ? View.VISIBLE : View.GONE);
+            otherEmpty.setVisibility(otherLoaded && !hasOther ? View.VISIBLE : View.GONE);
             UIParams params = MainActivity.current_params;
             boolean found = params != null && params.connected && params.connected_device_id != null
                     && !params.connected_device_id.isEmpty() && !db.exists(params.connected_device_id);
@@ -125,6 +187,134 @@ public class DeviceFragment extends Fragment {
             found = found && !params.connected_device_id.equals(dismissedId);
             detected.setVisibility(found ? View.VISIBLE : View.GONE);
         }
+    }
+
+    private void loadCloudSessions() {
+        if (cloudSessionsLoading || !isAdded()) return;
+        tAccUtils account = new tAccUtils(requireContext());
+        if (!account.isLogin()) {
+            cloudSessions = new JSONArray();
+            refresh();
+            mainHandler.postDelayed(() -> {
+                if (!isAdded()) return;
+                otherLoaded = true;
+                refresh();
+                if (otherRefresh != null) otherRefresh.setRefreshing(false);
+            }, 300L);
+            return;
+        }
+        cloudSessionsLoading = true;
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("page", "1");
+        query.put("size", "20");
+        account.getV2Json("sessions2", query, true, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray result = json.optJSONArray("items");
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    cloudSessionsLoading = false;
+                    cloudSessions = result == null ? new JSONArray() : result;
+                    otherLoaded = true;
+                    refresh();
+                    otherRefresh.setRefreshing(false);
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    cloudSessionsLoading = false;
+                    if (code == 401) cloudSessions = new JSONArray();
+                    otherLoaded = true;
+                    refresh();
+                    otherRefresh.setRefreshing(false);
+                });
+            }
+        });
+    }
+
+    private void addSessionCard(JSONObject session) {
+        View card = getLayoutInflater().inflate(R.layout.item_device, other, false);
+        String remark = session.optString("remark", "").trim();
+        String device = session.optString("device", "未知设备").trim();
+        String displayName = remark.isEmpty() ? device : remark;
+        boolean current = session.optBoolean("is_current");
+        String platform = session.optString("platform", "");
+        String version = session.optString("client_version", "");
+        String secondary = platform.isEmpty() ? "Typheye 登录设备" : platform;
+        if (!version.isEmpty()) secondary += "  ·  " + version;
+        ((TextView) card.findViewById(R.id.text_device_initial)).setText(firstCharacter(displayName));
+        ((TextView) card.findViewById(R.id.text_device_model)).setText(displayName);
+        ((TextView) card.findViewById(R.id.text_device_version)).setText(secondary);
+        TextView status = card.findViewById(R.id.text_device_status);
+        status.setText(current ? "当前设备" : "已登录");
+        status.setBackgroundResource(R.drawable.bg_device_status_connected);
+        String lastSeen = session.optString("last_seen_at", "");
+        ((TextView) card.findViewById(R.id.text_device_since))
+                .setText(lastSeen.isEmpty() ? "在线状态未知" : "活跃于 " + relativeCloudTime(lastSeen));
+        card.setOnClickListener(v -> showSessionDetail(session));
+        View more = card.findViewById(R.id.button_device_more);
+        more.setVisibility(session.optBoolean("can_revoke", false) ? View.VISIBLE : View.GONE);
+        more.setOnClickListener(v -> confirmRevokeSession(session));
+        other.addView(card);
+    }
+
+    private void showSessionDetail(JSONObject session) {
+        StringBuilder detail = new StringBuilder();
+        appendDetail(detail, "设备", session.optString("device"));
+        appendDetail(detail, "平台", session.optString("platform"));
+        appendDetail(detail, "客户端版本", session.optString("client_version"));
+        appendDetail(detail, "位置", session.optString("location"));
+        appendDetail(detail, "IP", session.optString("ip"));
+        appendDetail(detail, "创建时间", session.optString("created_at"));
+        appendDetail(detail, "最后活跃", session.optString("last_seen_at"));
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle(session.optBoolean("is_current") ? "当前登录设备" : "登录设备详情")
+                .setMessage(detail.length() == 0 ? "暂无更多设备信息" : detail.toString())
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private static void appendDetail(StringBuilder target, String label, String value) {
+        if (value == null || value.trim().isEmpty()) return;
+        if (target.length() > 0) target.append('\n');
+        target.append(label).append("：").append(value.trim());
+    }
+
+    private void confirmRevokeSession(JSONObject session) {
+        String id = session.optString("id", "");
+        if (id.isEmpty()) return;
+        boolean current = session.optBoolean("is_current");
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle(current ? "退出当前设备？" : "移除登录设备？")
+                .setMessage(current ? "当前 Typheye 账户会立即退出登录。" : "该设备需要重新验证后才能访问账户。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton(current ? "退出" : "移除", (dialog, which) -> revokeSession(id, current))
+                .show();
+    }
+
+    private void revokeSession(String id, boolean current) {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("session_record_id", id);
+        tAccUtils account = new tAccUtils(requireContext());
+        account.postV2Json("session_revoke2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                if (current || json.optBoolean("revoked_current")) account.logout();
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    cloudSessions = new JSONArray();
+                    refresh();
+                    loadCloudSessions();
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("操作失败")
+                            .setMessage(message).setNegativeButton("关闭", null).show();
+                });
+            }
+        });
     }
 
     private void addCard(Cursor cursor, LinearLayout parent) {
@@ -144,8 +334,9 @@ public class DeviceFragment extends Fragment {
         status.setText(connected ? "已连接" : "已断开");
         status.setBackgroundResource(connected ? R.drawable.bg_device_status_connected
                 : R.drawable.bg_device_status_disconnected);
+        long stateTime = cursor.getLong(cursor.getColumnIndexOrThrow("last_seen"));
         ((TextView) card.findViewById(R.id.text_device_since))
-                .setText(connected ? "连接于刚刚" : "最近离线");
+                .setText("活跃于 " + relativeTime(stateTime));
         card.setOnClickListener(v -> showDeviceDetail(id));
         card.findViewById(R.id.button_device_more).setOnClickListener(v -> showMenu(id, note));
         parent.addView(card);
@@ -155,6 +346,27 @@ public class DeviceFragment extends Fragment {
         String trimmed = value == null ? "" : value.trim();
         if (trimmed.isEmpty()) return "?";
         return trimmed.substring(0, 1).toUpperCase();
+    }
+
+    private static String relativeTime(long timestamp) {
+        if (timestamp <= 0L) return "未知时间";
+        long seconds = Math.max(0L, (System.currentTimeMillis() - timestamp) / 1000L);
+        if (seconds < 60) return "刚刚";
+        if (seconds < 3600) return seconds / 60 + " 分钟前";
+        if (seconds < 86400) return seconds / 3600 + " 小时前";
+        if (seconds < 2592000L) return seconds / 86400 + " 天前";
+        return new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                .format(new java.util.Date(timestamp));
+    }
+
+    private static String relativeCloudTime(String value) {
+        String normalized = value == null ? "" : value.replace('T', ' ');
+        int zone = normalized.indexOf('Z'); if (zone >= 0) normalized = normalized.substring(0, zone);
+        int decimal = normalized.indexOf('.'); if (decimal >= 0) normalized = normalized.substring(0, decimal);
+        try {
+            return relativeTime(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                    java.util.Locale.getDefault()).parse(normalized).getTime());
+        } catch (Exception ignored) { return value; }
     }
 
     private void showDeviceDetail(String id) {

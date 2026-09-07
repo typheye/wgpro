@@ -29,9 +29,11 @@
         </com.typheye.wgpro.ui.widget.NestedScrollableHost>
         <FrameLayout android:id="@+id/device_page_pool" android:layout_width="match_parent"
             android:layout_height="match_parent" android:visibility="gone">
-            <androidx.core.widget.NestedScrollView android:id="@+id/device_page_wearable"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/device_page_wearable"
                 android:layout_width="match_parent" android:layout_height="match_parent"
-                android:clipToPadding="false" android:fillViewport="true">
+                android:clipToPadding="false">
+              <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="6dp"
                     android:paddingEnd="16dp" android:paddingBottom="24dp">
@@ -55,49 +57,29 @@
                     <LinearLayout android:id="@+id/container_wearable_devices"
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:orientation="vertical" />
-                    <com.google.android.material.card.MaterialCardView android:id="@+id/card_wearable_empty"
-                        style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:layout_marginTop="12dp"
-                        app:cardBackgroundColor="@android:color/transparent">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:background="@drawable/bg_empty_device" android:orientation="vertical"
-                            android:padding="20dp">
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:text="还没有穿戴设备" android:textColor="@color/text_primary"
-                                android:textSize="16sp" android:textStyle="bold" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp" android:text="连接小米手表或手环后，可在这里添加并集中管理。"
-                                android:textColor="@color/text_secondary" android:textSize="14sp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    <include android:id="@+id/card_wearable_empty"
+                        layout="@layout/view_stream_empty" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
-            <androidx.core.widget.NestedScrollView android:id="@+id/device_page_other"
+              </androidx.core.widget.NestedScrollView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/device_page_other"
                 android:layout_width="match_parent" android:layout_height="match_parent"
-                android:clipToPadding="false" android:fillViewport="true">
+                android:clipToPadding="false">
+              <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="6dp"
                     android:paddingEnd="16dp" android:paddingBottom="24dp">
                     <LinearLayout android:id="@+id/container_other_devices"
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:orientation="vertical" />
-                    <com.google.android.material.card.MaterialCardView android:id="@+id/card_other_empty"
-                        style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:layout_marginTop="12dp"
-                        app:cardBackgroundColor="@android:color/transparent">
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:background="@drawable/bg_empty_device" android:orientation="vertical"
-                            android:padding="20dp">
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:text="暂无其他设备" android:textColor="@color/text_primary"
-                                android:textSize="16sp" android:textStyle="bold" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:layout_marginTop="6dp" android:text="使用同一 Typheye 账户登录的设备会显示在这里。"
-                                android:textColor="@color/text_secondary" android:textSize="14sp" />
-                        </LinearLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    <include android:id="@+id/card_other_empty"
+                        layout="@layout/view_stream_empty" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
                 </LinearLayout>
-            </androidx.core.widget.NestedScrollView>
+              </androidx.core.widget.NestedScrollView>
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
         </FrameLayout>
     </FrameLayout>
 </LinearLayout>

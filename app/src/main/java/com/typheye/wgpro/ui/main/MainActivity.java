@@ -502,12 +502,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.action_notifications) {
-            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
-                    .setTitle("通知").setMessage("暂无新通知").setPositiveButton("完成", null).show();
+            startActivity(new Intent(this,
+                    com.typheye.wgpro.ui.function.community.NotificationActivity.class));
             return true;
         } else if (id == R.id.action_compose) {
             new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
-                    .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, null).show();
+                    .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, (dialog, which) -> {
+                        Intent intent = new Intent(this,
+                                com.typheye.wgpro.ui.function.community.ComposerActivity.class);
+                        intent.putExtra(com.typheye.wgpro.ui.function.community.ComposerActivity.EXTRA_MODE,
+                                which == 0
+                                        ? com.typheye.wgpro.ui.function.community.ComposerActivity.MODE_DYNAMIC
+                                        : com.typheye.wgpro.ui.function.community.ComposerActivity.MODE_RESOURCE);
+                        startActivity(intent);
+                    }).show();
             return true;
         } else if (id == R.id.action_device_add) {
             startActivity(new Intent(this, com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));

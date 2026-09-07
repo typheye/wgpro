@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cloud_refresh" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/surface_page">
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+        <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+            android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true">
+            <LinearLayout android:id="@+id/cloud_list" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:orientation="vertical"
+                android:padding="16dp" />
+        </androidx.core.widget.NestedScrollView>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="top" android:paddingStart="16dp" android:paddingEnd="16dp">
+            <include android:id="@+id/cloud_state" layout="@layout/view_stream_empty" />
+        </FrameLayout>
+    </FrameLayout>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

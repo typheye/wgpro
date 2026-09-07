@@ -1,19 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="32dp">
-    <ImageView android:layout_width="64dp" android:layout_height="64dp"
-        android:background="@drawable/bg_oobe_icon_brand" android:padding="16dp"
-        android:src="@drawable/ic_compose_vector" app:tint="@color/brand_on_soft" />
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" android:text="社区还很安静"
-        android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold" />
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginTop="7dp" android:gravity="center"
-        android:text="连接社区服务后，动态会出现在这里"
-        android:textColor="@color/text_secondary" android:textSize="14sp" />
-</LinearLayout>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/community_refresh" android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_page" android:clipToPadding="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:paddingBottom="28dp">
+        <HorizontalScrollView android:id="@+id/community_banner_scroll"
+            android:layout_width="match_parent" android:layout_height="154dp"
+            android:clipToPadding="false" android:paddingStart="16dp"
+            android:paddingEnd="16dp" android:scrollbars="none">
+            <LinearLayout android:id="@+id/community_banners" android:layout_width="wrap_content"
+                android:layout_height="match_parent" android:gravity="center_vertical"
+                android:orientation="horizontal" />
+        </HorizontalScrollView>
+        <com.google.android.material.card.MaterialCardView android:id="@+id/community_announcement"
+            style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginStart="16dp"
+            android:layout_marginTop="6dp" android:layout_marginEnd="16dp"
+            android:visibility="gone">
+            <TextView android:id="@+id/community_announcement_text" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:padding="16dp"
+                android:textColor="@color/text_primary" android:textSize="14sp" />
+        </com.google.android.material.card.MaterialCardView>
+        <LinearLayout android:id="@+id/community_feed" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical"
+            android:paddingStart="16dp" android:paddingTop="6dp" android:paddingEnd="16dp" />
+        <include android:id="@+id/community_status" layout="@layout/view_stream_empty"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginStart="16dp" android:layout_marginEnd="16dp" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

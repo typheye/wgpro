@@ -1,19 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:padding="32dp">
-    <ImageView android:layout_width="64dp" android:layout_height="64dp"
-        android:background="@drawable/bg_oobe_icon_success" android:padding="16dp"
-        android:src="@drawable/ic_code_vector" app:tint="@color/status_success" />
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginTop="20dp" android:text="暂无可用应用"
-        android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold" />
-    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
-        android:layout_marginTop="7dp" android:gravity="center"
-        android:text="应用目录同步后会显示在这里"
-        android:textColor="@color/text_secondary" android:textSize="14sp" />
-</LinearLayout>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/apps_refresh" android:layout_width="match_parent" android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_page" android:clipToPadding="false">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:padding="16dp">
+        <LinearLayout android:id="@+id/apps_list" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:orientation="vertical" />
+        <include android:id="@+id/apps_status" layout="@layout/view_stream_empty"
+            android:layout_width="match_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

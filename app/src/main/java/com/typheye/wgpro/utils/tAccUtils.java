@@ -13,11 +13,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.data.CloudCacheDatabase;
 
 import okhttp3.*;
 import org.json.JSONException;
@@ -31,6 +33,7 @@ import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.UUID;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class tAccUtils {
@@ -266,6 +269,7 @@ public class tAccUtils {
 
             builder.setView(view);
             builder.setCancelable(false);
+            builder.setNegativeButton("取消", (dialog, which) -> client.dispatcher().cancelAll());
 
             progressDialog = builder.create();
             progressDialog.show();
@@ -274,6 +278,10 @@ public class tAccUtils {
 
     private void hideProgressDialog() {
         new Handler(Looper.getMainLooper()).post(this::dismissProgressDialogNow);
+    }
+
+    public void cancelAllRequests() {
+        client.dispatcher().cancelAll();
     }
 
     private void dismissProgressDialogNow() {
@@ -700,6 +708,174 @@ public class tAccUtils {
 
     public OkHttpClient getClient() {
         return client;
+    }
+
+    public interface JsonCallback {
+        void onSuccess(@NonNull JSONObject json);
+        void onError(int statusCode, @NonNull String message);
+    }
+
+    public void getV2Json(@NonNull String action, @NonNull Map<String, String> query,
+                          boolean authenticationRequired, @NonNull JsonCallback callback) {
+        String cacheKey = buildCloudCacheKey(action, query, authenticationRequired);
+        executeV2Json(action, query, null, authenticationRequired, null, new JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+                    cache.put(cacheKey, json.toString());
+                }
+                callback.onSuccess(json);
+            }
+
+            @Override public void onError(int statusCode, @NonNull String message) {
+                if (statusCode == 0 || statusCode >= 500) {
+                    try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+                        String payload = cache.get(cacheKey);
+                        if (payload != null) {
+                            callback.onSuccess(new JSONObject(payload));
+                            return;
+                        }
+                    } catch (Exception ignored) { }
+                }
+                callback.onError(statusCode, message);
+            }
+        });
+    }
+
+    private String buildCloudCacheKey(String action, Map<String, String> query,
+                                      boolean authenticationRequired) {
+        StringBuilder key = new StringBuilder(action);
+        if (authenticationRequired) key.append("|uid=").append(getUid());
+        java.util.TreeMap<String, String> sorted = new java.util.TreeMap<>(query);
+        for (Map.Entry<String, String> entry : sorted.entrySet()) {
+            key.append('|').append(entry.getKey()).append('=').append(entry.getValue());
+        }
+        return key.toString();
+    }
+
+    public void postV2Json(@NonNull String action, @NonNull Map<String, String> fields,
+                           @NonNull JsonCallback callback) {
+        executeV2Json(action, java.util.Collections.emptyMap(), fields,
+                true, java.util.UUID.randomUUID().toString(), callback);
+    }
+
+    public void getPublicJsonUrl(@NonNull String url, @NonNull JsonCallback callback) {
+        String cacheKey = "url|" + url;
+        Request request;
+        try {
+            request = new Request.Builder().url(url).headers(clientHeaders()).get().build();
+        } catch (Exception error) {
+            callback.onError(0, "请求地址无效");
+            return;
+        }
+        client.newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                if (!deliverCachedJson(cacheKey, callback)) {
+                    callback.onError(0, "网络请求失败: " + error.getMessage());
+                }
+            }
+
+            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try (ResponseBody body = response.body()) {
+                    JSONObject json = new JSONObject(body == null ? "" : body.string());
+                    int code = json.optInt("code", response.code());
+                    if (response.isSuccessful() && (code == 200 || !json.has("code"))) {
+                        try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+                            cache.put(cacheKey, json.toString());
+                        }
+                        callback.onSuccess(json);
+                    } else {
+                        if (response.code() >= 500 && deliverCachedJson(cacheKey, callback)) return;
+                        callback.onError(code, json.optString("msg", "请求失败: " + response.code()));
+                    }
+                } catch (Exception error) {
+                    if (!deliverCachedJson(cacheKey, callback)) {
+                        callback.onError(response.code(), "响应解析失败: " + error.getMessage());
+                    }
+                }
+            }
+        });
+    }
+
+    private boolean deliverCachedJson(String cacheKey, JsonCallback callback) {
+        try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+            String payload = cache.get(cacheKey);
+            if (payload == null) return false;
+            callback.onSuccess(new JSONObject(payload));
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    private void executeV2Json(String action, Map<String, String> query,
+                               @Nullable Map<String, String> fields,
+                               boolean authenticationRequired, @Nullable String idempotencyKey,
+                               JsonCallback callback) {
+        try {
+            HttpUrl.Builder url = HttpUrl.get(BASE_URL).newBuilder()
+                    .setQueryParameter("type", action);
+            Request.Builder request = new Request.Builder().headers(clientHeaders());
+            if (authenticationRequired) {
+                String uid = getUid();
+                String sessionId = getSessionId();
+                String sessionToken = getSessionToken();
+                if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+                    callback.onError(401, "请先登录 Typheye 账户");
+                    return;
+                }
+                url.setQueryParameter(KEY_UID, uid);
+                request.header("Authorization", "Bearer " + sessionToken)
+                        .header("X-Typheye-Session-Id", sessionId);
+            } else if (isV2Session()) {
+                String uid = getUid();
+                String sessionId = getSessionId();
+                String sessionToken = getSessionToken();
+                if (!uid.isEmpty() && !sessionId.isEmpty() && !sessionToken.isEmpty()) {
+                    url.setQueryParameter(KEY_UID, uid);
+                    request.header("Authorization", "Bearer " + sessionToken)
+                            .header("X-Typheye-Session-Id", sessionId);
+                }
+            }
+            for (Map.Entry<String, String> entry : query.entrySet()) {
+                if (entry.getValue() != null) url.setQueryParameter(entry.getKey(), entry.getValue());
+            }
+            request.url(url.build());
+            if (fields == null) {
+                request.get();
+            } else {
+                FormBody.Builder form = new FormBody.Builder();
+                for (Map.Entry<String, String> entry : fields.entrySet()) {
+                    if (entry.getValue() != null) form.add(entry.getKey(), entry.getValue());
+                }
+                request.post(form.build());
+                if (idempotencyKey != null) request.header("Idempotency-Key", idempotencyKey);
+            }
+            client.newCall(request.build()).enqueue(new Callback() {
+                @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    callback.onError(0, "网络请求失败: " + error.getMessage());
+                }
+
+                @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    try (ResponseBody body = response.body()) {
+                        String raw = body == null ? "" : body.string();
+                        JSONObject json = raw.isEmpty() ? new JSONObject() : new JSONObject(raw);
+                        int code = json.optInt("code", response.code());
+                        if (response.code() == 401 || code == 401) {
+                            logout();
+                            callback.onError(401, json.optString("msg", "会话已失效"));
+                        } else if (!response.isSuccessful() || code != 200) {
+                            callback.onError(code, json.optString("msg", "请求失败: " + response.code()));
+                        } else {
+                            callback.onSuccess(json);
+                        }
+                    } catch (Exception error) {
+                        callback.onError(response.code(), "响应解析失败: " + error.getMessage());
+                    }
+                }
+            });
+        } catch (Exception error) {
+            callback.onError(0, "请求构建失败: " + error.getMessage());
+        }
     }
 
 

@@ -11,6 +11,7 @@
     <color name="profile_detail_sheet">@color/surface_page</color>
     <color name="profile_detail_segments">@color/surface_secondary</color>
     <color name="profile_card_pressed">#FF292D35</color>
+    <color name="profile_loading_overlay">#E60E1014</color>
     <color name="outline_soft">#FF30343C</color>
     <color name="text_primary">#FFF2F3F5</color>
     <color name="text_secondary">#FFADB2BC</color>

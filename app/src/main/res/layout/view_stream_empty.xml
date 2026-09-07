@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
+    android:layout_height="wrap_content" android:layout_marginTop="12dp"
+    android:visibility="gone" app:cardBackgroundColor="@android:color/transparent">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@drawable/bg_empty_device" android:orientation="vertical"
+        android:padding="20dp">
+        <TextView android:id="@+id/stream_empty_title" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textColor="@color/text_primary"
+            android:textSize="16sp" android:textStyle="bold" />
+        <TextView android:id="@+id/stream_empty_description" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:layout_marginTop="6dp"
+            android:textColor="@color/text_secondary" android:textSize="14sp" />
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

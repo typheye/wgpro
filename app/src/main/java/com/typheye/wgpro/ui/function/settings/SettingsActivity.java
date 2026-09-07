@@ -266,12 +266,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         private void showCacheProgress() {
             if (!isAdded()) return;
+            java.util.concurrent.atomic.AtomicBoolean cancelled = new java.util.concurrent.atomic.AtomicBoolean(false);
+            java.util.concurrent.Future<?>[] task = new java.util.concurrent.Future<?>[1];
             View progressView = View.inflate(requireContext(), R.layout.progress_dialog, null);
             ((TextView) progressView.findViewById(android.R.id.message)).setText("正在清理缓存...");
             WGProBottomSheetDialog progressDialog = new WGProAlertDialogBuilder(requireContext())
                     .setTitle("清理中")
                     .setView(progressView)
                     .setCancelable(false)
+                    .setNegativeButton("取消", (dialog, which) -> {
+                        cancelled.set(true);
+                        if (task[0] != null) task[0].cancel(true);
+                    })
                     .create();
             progressDialog.show();
 
@@ -286,11 +292,11 @@ public class SettingsActivity extends AppCompatActivity {
 
                 File internalCache = requireContext().getCacheDir();
                 File externalCache = requireContext().getExternalCacheDir();
-                cacheExecutor.execute(() -> {
+                task[0] = cacheExecutor.submit(() -> {
                     boolean success = clearDirectoryContents(internalCache)
                             & clearDirectoryContents(externalCache);
                     mainHandler.post(() -> {
-                        if (!isAdded()) return;
+                        if (!isAdded() || cancelled.get()) return;
                         progressDialog.dismissForReplacement();
                         new WGProAlertDialogBuilder(requireContext())
                                 .setTitle(success ? "缓存已清除" : "清理未完全完成")

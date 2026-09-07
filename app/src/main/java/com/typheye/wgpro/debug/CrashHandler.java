@@ -1,14 +1,17 @@
 package com.typheye.wgpro.debug;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Process;
+import android.os.SystemClock;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.zxing.client.android.BuildConfig;
 import com.typheye.wgpro.tApplication;
 import com.typheye.wgpro.ui.function.debug.CrashActivity;
 
@@ -23,32 +26,49 @@ import java.util.Date;
 public class CrashHandler implements Thread.UncaughtExceptionHandler {
     private final Context context;
     private final tApplication myApp;
+    private final Thread.UncaughtExceptionHandler defaultHandler;
+    private volatile boolean handlingCrash;
 
     public CrashHandler(Context context) {
         this.context = context;
         this.myApp = (tApplication) context.getApplicationContext();
-        Thread.getDefaultUncaughtExceptionHandler();
+        this.defaultHandler = Thread.getDefaultUncaughtExceptionHandler();
     }
 
     @Override
     public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
+        if (handlingCrash) {
+            delegateOrExit(thread, throwable);
+            return;
+        }
+        handlingCrash = true;
         try {
             saveCrashLog(throwable);
             Intent intent = new Intent(context, CrashActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-            context.startActivity(intent);
-
-            // 关键修复：不要调用defaultHandler，否则应用会退出
-            // defaultHandler.uncaughtException(thread, throwable);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    | Intent.FLAG_ACTIVITY_NO_ANIMATION);
+            PendingIntent restart = PendingIntent.getActivity(context, 9041, intent,
+                    PendingIntent.FLAG_CANCEL_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+            AlarmManager alarms = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+            if (alarms == null) throw new IllegalStateException("AlarmManager unavailable");
+            alarms.set(AlarmManager.ELAPSED_REALTIME,
+                    SystemClock.elapsedRealtime() + 350L, restart);
         } catch (Exception e) {
             Log.e("CrashHandler", "Failed to handle crash", e);
-            // 如果启动CrashActivity失败，尝试用Log记录
-            Log.e("CrashHandler", "Failed to start CrashActivity", e);
+            delegateOrExit(thread, throwable);
+            return;
         }
+        Process.killProcess(Process.myPid());
+        System.exit(10);
+    }
 
-        // 关键：不要调用defaultHandler，否则应用会退出
-        // 保留以下代码会导致应用直接退出
-        // defaultHandler.uncaughtException(thread, throwable);
+    private void delegateOrExit(Thread thread, Throwable throwable) {
+        if (defaultHandler != null && defaultHandler != this) {
+            defaultHandler.uncaughtException(thread, throwable);
+        } else {
+            Process.killProcess(Process.myPid());
+            System.exit(10);
+        }
     }
 
     void saveCrashLog(Throwable throwable) {
@@ -80,12 +100,21 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
 
         return "===== CRASH REPORT =====\n" +
                 "Application: com.typheye.wgpro\n" +
-                "Version: " + BuildConfig.VERSION_NAME + "\n" +
+                "Version: " + getVersionName() + "\n" +
                 "Device: " + Build.MANUFACTURER + " " + Build.MODEL + "\n" +
                 "Android: " + Build.VERSION.RELEASE + " (API " + Build.VERSION.SDK_INT + ")\n" +
                 "Time: " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date()) + "\n" +
                 "\n=== STACK TRACE ===\n" +
                 writer +
                 "\n==================\n";
+    }
+
+    private String getVersionName() {
+        try {
+            return context.getPackageManager().getPackageInfo(context.getPackageName(), 0)
+                    .versionName;
+        } catch (Exception ignored) {
+            return "unknown";
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.typheye.wgpro.ui.main.mainFragments;
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -24,6 +25,9 @@ import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
+import com.typheye.wgpro.ui.function.community.AccountListActivity;
+import com.typheye.wgpro.ui.function.community.CloudListFragment;
+import com.typheye.wgpro.ui.function.community.ContactActivity;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import java.io.File;
@@ -31,6 +35,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Collections;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -53,11 +63,18 @@ public class AccountFragment extends Fragment {
     private ImageView account_image_usr_icon;
     private View account_content;
     private View account_stats_card;
+    private TextView accountIdentityValue;
+    private TextView activityCount;
+    private TextView followingCount;
+    private TextView followersCount;
+    private boolean profileRequestInFlight;
+    private Context appContext;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accUtils = new tAccUtils(getActivity());
+        appContext = requireContext().getApplicationContext();
+        accUtils = new tAccUtils(appContext);
     }
 
     @Nullable
@@ -84,10 +101,13 @@ public class AccountFragment extends Fragment {
         setGroupRowTitle(view, R.id.account_starred_apps, "星标应用");
         setGroupRowTitle(view, R.id.account_resources, "星标资源");
         setGroupRowTitle(view, R.id.account_identity, "社区身份");
-        TextView identity = view.findViewById(R.id.account_identity)
+        accountIdentityValue = view.findViewById(R.id.account_identity)
                 .findViewById(R.id.account_row_value);
-        identity.setText("普通用户");
-        identity.setVisibility(View.VISIBLE);
+        accountIdentityValue.setText("普通用户");
+        accountIdentityValue.setVisibility(View.VISIBLE);
+        activityCount = view.findViewById(R.id.account_activity_count);
+        followingCount = view.findViewById(R.id.account_following_count);
+        followersCount = view.findViewById(R.id.account_followers_count);
         setGroupRowTitle(view, R.id.account_creator_center, "创作中心");
         view.findViewById(R.id.profile_card).setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), UserDetailActivity.class);
@@ -138,17 +158,20 @@ public class AccountFragment extends Fragment {
 
         root.findViewById(R.id.account_identity).setOnClickListener(v -> new WGProAlertDialogBuilder(requireContext())
                 .setTitle("社区身份")
-                .setMessage("社区身份尚未同步。")
+                .setMessage(accountIdentityValue.getText())
                 .setPositiveButton("完成", null)
                 .show());
-        root.findViewById(R.id.account_activity).setOnClickListener(v -> openUserDetail());
-        root.findViewById(R.id.account_following).setOnClickListener(v -> showPending("关注"));
-        root.findViewById(R.id.account_followers).setOnClickListener(v -> showPending("粉丝"));
-        root.findViewById(R.id.account_history).setOnClickListener(v -> showPending("浏览历史"));
-        root.findViewById(R.id.account_favorites).setOnClickListener(v -> showPending("我的收藏"));
-        root.findViewById(R.id.account_starred_apps).setOnClickListener(v -> showPending("星标应用"));
-        root.findViewById(R.id.account_resources).setOnClickListener(v -> showPending("星标资源"));
-        root.findViewById(R.id.account_creator_center).setOnClickListener(v -> showPending("创作中心"));
+        root.findViewById(R.id.account_activity).setOnClickListener(v ->
+                openAccountList("我的动态", CloudListFragment.MODE_ACTIVITY));
+        root.findViewById(R.id.account_following).setOnClickListener(v ->
+                openContacts(CloudListFragment.MODE_FOLLOWING, numberOf(followingCount)));
+        root.findViewById(R.id.account_followers).setOnClickListener(v ->
+                openContacts(CloudListFragment.MODE_FOLLOWERS, numberOf(followersCount)));
+        root.findViewById(R.id.account_history).setOnClickListener(v -> openAccountList("浏览历史", CloudListFragment.MODE_HISTORY));
+        root.findViewById(R.id.account_favorites).setOnClickListener(v -> openAccountList("我的收藏", CloudListFragment.MODE_COLLECTION_DYNAMIC));
+        root.findViewById(R.id.account_starred_apps).setOnClickListener(v -> openAccountList("星标应用", CloudListFragment.MODE_COLLECTION_APP));
+        root.findViewById(R.id.account_resources).setOnClickListener(v -> openAccountList("星标资源", CloudListFragment.MODE_COLLECTION_RESOURCE));
+        root.findViewById(R.id.account_creator_center).setOnClickListener(v -> showCreatorStats());
     }
 
     private void setGroupRowTitle(View root, int rowId, String title) {
@@ -161,16 +184,102 @@ public class AccountFragment extends Fragment {
         startActivity(new Intent(requireContext(), UserDetailActivity.class));
     }
 
-    private void showPending(String title) {
-        new WGProAlertDialogBuilder(requireContext())
-                .setTitle(title)
-                .setMessage("相关云端数据正在接入。")
-                .setPositiveButton("完成", null)
-                .show();
+    private int numberOf(TextView view) {
+        try { return Integer.parseInt(view.getText().toString()); }
+        catch (Exception ignored) { return -1; }
+    }
+
+    private void openContacts(String mode, int expectedCount) {
+        startActivity(new Intent(requireContext(), ContactActivity.class)
+                .putExtra(ContactActivity.EXTRA_MODE, mode)
+                .putExtra(ContactActivity.EXTRA_EXPECTED_COUNT, expectedCount));
+    }
+
+    private void openAccountList(String title, String mode) {
+        startActivity(new Intent(requireContext(), AccountListActivity.class)
+                .putExtra(AccountListActivity.EXTRA_TITLE, title)
+                .putExtra(AccountListActivity.EXTRA_MODE, mode));
+    }
+
+    private void showCloudList(String title, String action, @Nullable String targetType) {
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("page", "1");
+        query.put("size", "20");
+        if (targetType != null) query.put("target_type", targetType);
+        accUtils.getV2Json(action, query, true, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    JSONArray items = json.optJSONArray("items");
+                    String message = formatCloudItems(items);
+                    new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
+                            .setNegativeButton("关闭", null).show();
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("加载失败")
+                            .setMessage(message).setNegativeButton("关闭", null).show();
+                });
+            }
+        });
+    }
+
+    private String formatCloudItems(@Nullable JSONArray items) {
+        if (items == null || items.length() == 0) return "这里暂时还没有内容。";
+        StringBuilder result = new StringBuilder();
+        for (int index = 0; index < items.length(); index++) {
+            JSONObject item = items.optJSONObject(index);
+            if (item == null) continue;
+            JSONObject target = item.optJSONObject("target");
+            if (target == null) target = item;
+            String label = target.optString("title", target.optString("name",
+                    target.optString("content", ""))).trim();
+            if (label.isEmpty()) {
+                String type = item.optString("target_type", "内容");
+                String key = item.optString("target_key", "");
+                label = key.isEmpty() ? "未命名内容" : type + "  " + key;
+            }
+            if (label.length() > 44) label = label.substring(0, 44) + "…";
+            if (result.length() > 0) result.append("\n\n");
+            result.append(label);
+            String time = item.optString("created_at", item.optString("last_viewed_at", ""));
+            if (!time.isEmpty()) result.append("\n").append(time);
+        }
+        return result.length() == 0 ? "这里暂时还没有内容。" : result.toString();
+    }
+
+    private void showCreatorStats() {
+        accUtils.getV2Json("creator_stats2", Collections.emptyMap(), true, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    JSONObject info = json.optJSONObject("info");
+                    if (info == null) info = new JSONObject();
+                    String message = "动态  " + info.optInt("dynamic_count")
+                            + "\n资源  " + info.optInt("resource_count")
+                            + "\n审核中  " + info.optInt("pending_count")
+                            + "\n未通过  " + info.optInt("rejected_count");
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("创作中心")
+                            .setMessage(message).setNegativeButton("关闭", null).show();
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                mainHandler.post(() -> {
+                    if (!isAdded()) return;
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("加载失败")
+                            .setMessage(message).setNegativeButton("关闭", null).show();
+                });
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
     private void updateUI() {
+        if (!isAdded() || getView() == null) return;
         if (accUtils.isLogin()) {
             viewServicesVisibility(View.VISIBLE);
             account_card_loginless.setVisibility(View.GONE);
@@ -192,7 +301,9 @@ public class AccountFragment extends Fragment {
 
             // ====== 关键修复：直接加载头像，不隐藏头像区域 ======
             loadAvatarFromCache(uid);
+            loadPublicProfile();
         } else {
+            profileRequestInFlight = false;
             account_card_loginless.setVisibility(View.VISIBLE);
             account_linear_logined.setVisibility(View.GONE);
             account_stats_card.setVisibility(View.GONE);
@@ -207,6 +318,37 @@ public class AccountFragment extends Fragment {
             account_text_usr_icon.setVisibility(View.VISIBLE);
             account_image_usr_icon.setVisibility(View.GONE);
         }
+    }
+
+    private void loadPublicProfile() {
+        if (profileRequestInFlight || !isAdded()) return;
+        String uid = accUtils.getUid();
+        if (uid == null || uid.isEmpty()) return;
+        profileRequestInFlight = true;
+        accUtils.getV2Json("user_profile2",
+                Collections.singletonMap("target_uid", uid), true,
+                new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        mainHandler.post(() -> {
+                            profileRequestInFlight = false;
+                            if (!isAdded() || getView() == null || !accUtils.isLogin()) return;
+                            JSONObject info = json.optJSONObject("info");
+                            if (info == null) return;
+                            activityCount.setText(String.valueOf(info.optInt("dynamic_count", 0)));
+                            followingCount.setText(String.valueOf(info.optInt("following_count", 0)));
+                            followersCount.setText(String.valueOf(info.optInt("follower_count", 0)));
+                            String role = info.optString("role_name", "").trim();
+                            accountIdentityValue.setText(role.isEmpty() ? "普通用户" : role);
+                        });
+                    }
+
+                    @Override public void onError(int statusCode, @NonNull String message) {
+                        mainHandler.post(() -> {
+                            profileRequestInFlight = false;
+                            if (isAdded() && statusCode == 401) updateUI();
+                        });
+                    }
+                });
     }
 
     public void refreshAccountUi() {
@@ -239,7 +381,7 @@ public class AccountFragment extends Fragment {
             return;
         }
 
-        File cacheDir = requireActivity().getFilesDir();
+        File cacheDir = appContext.getFilesDir();
         File cacheFile = new File(cacheDir, "avatar_" + uid + ".jpg");
 
         // 1. 本地头像存在且有效 → 直接显示图片头像
@@ -248,6 +390,7 @@ public class AccountFragment extends Fragment {
                 Bitmap bitmap = BitmapFactory.decodeFile(cacheFile.getAbsolutePath());
                 if (bitmap != null && !bitmap.isRecycled()) {
                     new Handler(Looper.getMainLooper()).post(() -> {
+                        if (!isAdded() || getView() == null) return;
                         account_image_usr_icon.setImageBitmap(bitmap);
                         account_image_usr_icon.setVisibility(View.VISIBLE);
                         account_text_usr_icon.setVisibility(View.GONE);
@@ -279,6 +422,7 @@ public class AccountFragment extends Fragment {
         }
 
         new Handler(Looper.getMainLooper()).post(() -> {
+            if (!isAdded() || getView() == null) return;
             account_text_usr_icon.setText(initial);
             account_text_usr_icon.setVisibility(View.VISIBLE);
             account_image_usr_icon.setVisibility(View.GONE);
@@ -288,6 +432,7 @@ public class AccountFragment extends Fragment {
     // 未登录状态的默认文字头像
     private void showDefaultTextAvatar() {
         new Handler(Looper.getMainLooper()).post(() -> {
+            if (!isAdded() || getView() == null) return;
             account_text_usr_icon.setText("U");
             account_text_usr_icon.setVisibility(View.VISIBLE);
             account_image_usr_icon.setVisibility(View.GONE);
@@ -296,11 +441,12 @@ public class AccountFragment extends Fragment {
 
     // 检查服务器头像更新
     private void checkAvatarAndUpdate() {
+        if (!isAdded() || getView() == null) return;
         String uid = accUtils.getUid();
         if (uid == null || uid.isEmpty()) return;
 
         // 1. 检查本地头像是否存在（用于计算MD5）
-        File cacheDir = requireActivity().getFilesDir();
+        File cacheDir = appContext.getFilesDir();
         File cacheFile = new File(cacheDir, "avatar_" + uid + ".jpg");
         String md5Str = cacheFile.exists() ? getMd5OfFile(cacheFile) : "none";
 
@@ -348,9 +494,10 @@ public class AccountFragment extends Fragment {
                         Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
                         if (bitmap != null && !bitmap.isRecycled()) {
                             // 保存到缓存
-                            tAccUtils.saveAvatarToCache(requireActivity(), uid, bitmap);
+                            tAccUtils.saveAvatarToCache(appContext, uid, bitmap);
 
                             new Handler(Looper.getMainLooper()).post(() -> {
+                                if (!isAdded() || getView() == null) return;
                                 // 直接更新头像（不会闪烁，因为已有头像显示）
                                 account_image_usr_icon.setImageBitmap(bitmap);
                                 account_image_usr_icon.setVisibility(View.VISIBLE);

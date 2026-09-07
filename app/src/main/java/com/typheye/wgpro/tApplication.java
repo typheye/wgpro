@@ -56,8 +56,10 @@ public class tApplication extends Application {
     }
 
     public File getExternalLogDir() {
+        File externalFiles = getExternalFilesDir(null);
+        if (externalFiles == null) return new File(getFilesDir(), "log");
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            return new File(getExternalFilesDir(null), "log");
+            return new File(externalFiles, "log");
         }
         return new File(
                 Environment.getExternalStorageDirectory(),

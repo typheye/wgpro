@@ -75,6 +75,13 @@
             android:configChanges="screenSize|keyboardHidden|orientation"
             android:windowSoftInputMode="stateHidden|adjustResize" android:exported="false" />
         <activity android:name=".ui.function.device.AddDeviceActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.function.community.ComposerActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".ui.function.community.AccountListActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.function.community.ContactActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.function.community.NotificationActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.function.community.ChatActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateAlwaysHidden|adjustResize" />
+        <activity android:name=".ui.function.community.DynamicDetailActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".ui.function.community.AppDetailActivity" android:exported="false" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".ui.function.settings.SettingsActivity"
             android:screenOrientation="portrait"

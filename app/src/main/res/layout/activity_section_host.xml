@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/section_root" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:background="@color/surface_page">
+    <com.google.android.material.appbar.AppBarLayout android:id="@+id/section_app_bar"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/surface_primary" app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+        <androidx.appcompat.widget.Toolbar android:id="@+id/section_toolbar"
+            android:layout_width="match_parent" android:layout_height="64dp"
+            android:background="@color/surface_primary" android:paddingEnd="8dp"
+            app:navigationIcon="@drawable/ic_back_vector"
+            app:titleTextAppearance="@style/ToolbarTitleAppearance"
+            app:titleTextColor="@color/text_primary" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <androidx.fragment.app.FragmentContainerView android:id="@+id/section_container"
+        android:layout_width="match_parent" android:layout_height="0dp"
+        android:background="@color/surface_page"
+        app:layout_constraintTop_toBottomOf="@id/section_app_bar"
+        app:layout_constraintBottom_toBottomOf="parent" />
+    <FrameLayout android:id="@+id/section_loading_overlay" android:layout_width="0dp"
+        android:layout_height="0dp" android:background="@color/profile_loading_overlay"
+        android:clickable="true" android:elevation="32dp" android:focusable="true"
+        android:visibility="gone" app:layout_constraintTop_toBottomOf="@id/section_app_bar"
+        app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="center"
+            android:indeterminate="true" />
+    </FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -3,7 +3,10 @@ package com.typheye.wgpro.ui.function.account;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.RenderEffect;
+import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -26,21 +29,35 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.viewpager2.adapter.FragmentStateAdapter;
+import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButtonToggleGroup;
+import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
+import com.typheye.wgpro.ui.function.community.CloudListFragment;
 
 import java.io.File;
 import java.util.Arrays;
 import java.util.List;
+import java.util.LinkedHashMap;
+import java.util.Map;
+
+import org.json.JSONObject;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Request;
+import okhttp3.Response;
+import java.io.IOException;
 
 /** Reusable profile surface used when opening the account card. */
 public class UserDetailActivity extends AppCompatActivity {
+    public static final String EXTRA_TARGET_UID = "target_uid";
     private tAccUtils account;
     private Toolbar toolbar;
     private AppBarLayout appBar;
@@ -48,10 +65,17 @@ public class UserDetailActivity extends AppCompatActivity {
     private View detailRoot;
     private View detailSheet;
     private View expandedIdentity;
+    private View collapsedIdentity;
     private BottomSheetBehavior<View> sheetBehavior;
     private ViewTreeObserver.OnPreDrawListener pendingProfileLayout;
     private int lastRootWidth = -1;
     private int lastRootHeight = -1;
+    private String targetUid;
+    private boolean isSelf;
+    private boolean following;
+    private boolean canUnfollow = true;
+    private MaterialButton followButton;
+    private long profileLoadingStarted;
     private final Runnable settledWindowLayout = () -> {
         if (detailRoot != null && detailRoot.isAttachedToWindow()) {
             scheduleProfileLayout(true);
@@ -67,7 +91,12 @@ public class UserDetailActivity extends AppCompatActivity {
         new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
                 .setAppearanceLightStatusBars(false);
         setContentView(R.layout.activity_user_detail);
+        profileLoadingStarted = android.os.SystemClock.uptimeMillis();
         account = new tAccUtils(this);
+        String requestedUid = getIntent().getStringExtra(EXTRA_TARGET_UID);
+        targetUid = requestedUid == null || requestedUid.trim().isEmpty()
+                ? account.getUid() : requestedUid.trim();
+        isSelf = targetUid.equals(account.getUid());
         toolbar = findViewById(R.id.toolbar);
         appBar = findViewById(R.id.detail_app_bar);
         toolbar.setTitle("");
@@ -83,9 +112,9 @@ public class UserDetailActivity extends AppCompatActivity {
         TextView collapsedAvatarText = findViewById(R.id.detail_collapsed_avatar_text);
         ImageView avatar = findViewById(R.id.detail_avatar);
         ImageView collapsedAvatar = findViewById(R.id.detail_collapsed_avatar);
-        String nick = account.getNick();
-        String uid = account.getUid();
-        String bio = account.getShuo();
+        String nick = isSelf ? account.getNick() : "用户";
+        String uid = targetUid;
+        String bio = isSelf ? account.getShuo() : "";
         String displayName = nick == null || nick.trim().isEmpty() ? "用户" : nick.trim();
         ((TextView) findViewById(R.id.detail_nick)).setText(displayName);
         ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(displayName);
@@ -112,16 +141,144 @@ public class UserDetailActivity extends AppCompatActivity {
             collapsedAvatarText.setVisibility(View.VISIBLE);
         }
 
+        followButton = findViewById(R.id.detail_follow);
+        MaterialButton messageButton = findViewById(R.id.detail_message);
+        followButton.setVisibility(isSelf ? View.GONE : View.VISIBLE);
+        messageButton.setVisibility(isSelf ? View.GONE : View.VISIBLE);
+        followButton.setOnClickListener(v -> changeFollowState());
+        messageButton.setOnClickListener(v -> startActivity(new Intent(this,
+                com.typheye.wgpro.ui.function.community.ChatActivity.class)
+                .putExtra(com.typheye.wgpro.ui.function.community.ChatActivity.EXTRA_PEER_UID, targetUid)
+                .putExtra(com.typheye.wgpro.ui.function.community.ChatActivity.EXTRA_PEER_NAME,
+                        ((TextView) findViewById(R.id.detail_nick)).getText().toString())));
+
         setupProfileSheet();
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            RenderEffect blur = RenderEffect.createBlurEffect(18f, 18f, Shader.TileMode.CLAMP);
+            appBar.setRenderEffect(blur);
+            detailSheet.setRenderEffect(blur);
+        }
         setupProfilePages();
+        loadPublicProfile(avatar, collapsedAvatar, avatarText, collapsedAvatarText);
         appBar.post(this::applyAdaptiveChromeColors);
+    }
+
+    private void loadPublicProfile(ImageView avatar, ImageView collapsedAvatar,
+                                   TextView avatarText, TextView collapsedAvatarText) {
+        if (targetUid == null || targetUid.isEmpty()) return;
+        account.getV2Json("user_profile2", java.util.Collections.singletonMap("target_uid", targetUid),
+                false, new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        JSONObject info = json.optJSONObject("info");
+                        runOnUiThread(() -> {
+                            if (isFinishing() || isDestroyed() || info == null) return;
+                            String name = info.optString("nick", "用户");
+                            String bio = info.optString("bio", "").trim();
+                            ((TextView) findViewById(R.id.detail_nick)).setText(name);
+                            ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(name);
+                            ((TextView) findViewById(R.id.detail_uid)).setText("UID " + info.optString("uid", targetUid));
+                            ((TextView) findViewById(R.id.detail_bio)).setText(bio.isEmpty()
+                                    ? "这个人还没有简介呢~" : bio);
+                            String initial = name.isEmpty() ? "U" : name.substring(0, 1).toUpperCase();
+                            avatarText.setText(initial); collapsedAvatarText.setText(initial);
+                            following = info.optBoolean("is_following", false);
+                            canUnfollow = info.optBoolean("can_unfollow", true);
+                            updateFollowButton();
+                            expandedIdentity.setVisibility(View.VISIBLE);
+                            collapsedIdentity.setVisibility(View.VISIBLE);
+                            String avatarUrl = info.optString("avatar_url", "");
+                            if (!avatarUrl.isEmpty()) loadRemoteAvatar(avatarUrl, avatar, collapsedAvatar,
+                                    avatarText, collapsedAvatarText);
+                            finishProfileLoading();
+                        });
+                    }
+                    @Override public void onError(int code, @NonNull String message) {
+                        runOnUiThread(() -> {
+                            expandedIdentity.setVisibility(View.VISIBLE);
+                            collapsedIdentity.setVisibility(View.VISIBLE);
+                            finishProfileLoading();
+                        });
+                    }
+                });
+    }
+
+    private void finishProfileLoading() {
+        long delay = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - profileLoadingStarted));
+        findViewById(R.id.detail_loading_overlay).postDelayed(() -> {
+            if (isFinishing() || isDestroyed()) return;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+                appBar.setRenderEffect(null);
+                detailSheet.setRenderEffect(null);
+            }
+            View overlay = findViewById(R.id.detail_loading_overlay);
+            overlay.animate().alpha(0f).setDuration(120L).withEndAction(() -> overlay.setVisibility(View.GONE)).start();
+        }, delay);
+    }
+
+    private void updateFollowButton() {
+        if (followButton == null || isSelf) return;
+        followButton.setText(following ? "已关注" : "关注");
+        followButton.setEnabled(!following || canUnfollow);
+    }
+
+    private void changeFollowState() {
+        if (targetUid == null || targetUid.isEmpty()) return;
+        if (!account.isLogin()) {
+            new WGProAlertDialogBuilder(this).setTitle("需要登录")
+                    .setMessage("登录后才能关注其他用户。")
+                    .setNegativeButton("关闭", null).show();
+            return;
+        }
+        followButton.setEnabled(false);
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("target_uid", targetUid);
+        fields.put("action", following ? "unfollow" : "follow");
+        account.postV2Json("follow_action2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                runOnUiThread(() -> {
+                    following = json.optBoolean("following", !following);
+                    canUnfollow = json.optBoolean("can_unfollow", true);
+                    updateFollowButton();
+                });
+            }
+            @Override public void onError(int code, @NonNull String message) {
+                runOnUiThread(() -> {
+                    updateFollowButton();
+                    new WGProAlertDialogBuilder(UserDetailActivity.this).setTitle("操作失败")
+                            .setMessage(message).setNegativeButton("关闭", null).show();
+                });
+            }
+        });
+    }
+
+    private void loadRemoteAvatar(String url, ImageView avatar, ImageView collapsedAvatar,
+                                  TextView avatarText, TextView collapsedAvatarText) {
+        Request request;
+        try { request = new Request.Builder().url(url).build(); }
+        catch (IllegalArgumentException ignored) { return; }
+        account.getClient().newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(@NonNull Call call, @NonNull IOException e) { }
+            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try (Response body = response) {
+                    if (!body.isSuccessful() || body.body() == null) return;
+                    Bitmap bitmap = BitmapFactory.decodeStream(body.body().byteStream());
+                    if (bitmap == null) return;
+                    runOnUiThread(() -> {
+                        if (isFinishing() || isDestroyed()) return;
+                        avatar.setImageBitmap(bitmap); avatar.setVisibility(View.VISIBLE); avatarText.setVisibility(View.GONE);
+                        collapsedAvatar.setImageBitmap(bitmap); collapsedAvatar.setVisibility(View.VISIBLE);
+                        collapsedAvatarText.setVisibility(View.GONE);
+                    });
+                }
+            }
+        });
     }
 
     private void setupProfileSheet() {
         detailRoot = findViewById(R.id.detail_root);
         detailSheet = findViewById(R.id.detail_sheet);
         expandedIdentity = findViewById(R.id.detail_expanded_identity);
-        View collapsedIdentity = findViewById(R.id.detail_collapsed_identity);
+        collapsedIdentity = findViewById(R.id.detail_collapsed_identity);
         sheetBehavior = BottomSheetBehavior.from(detailSheet);
         sheetBehavior.setFitToContents(false);
         sheetBehavior.setHideable(false);
@@ -257,10 +414,17 @@ public class UserDetailActivity extends AppCompatActivity {
         MaterialButtonToggleGroup segments = findViewById(R.id.detail_segments);
         ViewPager2 pager = findViewById(R.id.detail_pager);
         FrameLayout pool = findViewById(R.id.detail_page_pool);
-        List<View> pages = Arrays.asList(findViewById(R.id.detail_page_activity),
-                findViewById(R.id.detail_page_favorites), findViewById(R.id.detail_page_resources));
-        for (View page : pages) pool.removeView(page);
-        pager.setAdapter(new ProfilePageAdapter(pages));
+        pool.setVisibility(View.GONE);
+        pager.setAdapter(new FragmentStateAdapter(this) {
+            @NonNull @Override public Fragment createFragment(int position) {
+                if (position == 0) return CloudListFragment.newInstance(
+                        CloudListFragment.MODE_ACTIVITY, targetUid);
+                if (position == 1) return CloudListFragment.newInstance(
+                        CloudListFragment.MODE_USER_APPS, targetUid);
+                return CloudListFragment.newInstance(CloudListFragment.MODE_USER_RESOURCES, targetUid);
+            }
+            @Override public int getItemCount() { return 3; }
+        });
         pager.setOffscreenPageLimit(2);
         RecyclerView pagerRecycler = (RecyclerView) pager.getChildAt(0);
         ViewCompat.setNestedScrollingEnabled(pagerRecycler, false);
@@ -301,6 +465,16 @@ public class UserDetailActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.action_profile_more) {
+            if (!isSelf) {
+                new WGProAlertDialogBuilder(this).setTitle("更多操作")
+                        .setItems(new String[]{"分享主页", "举报用户"}, (dialog, which) -> {
+                            if (which == 0) shareProfile();
+                            else new WGProAlertDialogBuilder(this).setTitle("举报用户")
+                                    .setMessage("请选择具体内容后再发起举报。")
+                                    .setNegativeButton("关闭", null).show();
+                        }).show();
+                return true;
+            }
             new WGProAlertDialogBuilder(this)
                     .setTitle("更多操作")
                     .setItems(new String[]{"编辑资料", "分享主页"}, (dialog, which) -> {
@@ -308,15 +482,19 @@ public class UserDetailActivity extends AppCompatActivity {
                             startActivity(new Intent(this, AccMangerActivity.class)
                                     .putExtra("TARGET_FRAGMENT", "edit"));
                         } else {
-                            Intent share = new Intent(Intent.ACTION_SEND)
-                                    .setType("text/plain")
-                                    .putExtra(Intent.EXTRA_TEXT, "Typheye 用户 " + account.getNick());
-                            startActivity(Intent.createChooser(share, "分享主页"));
+                            shareProfile();
                         }
                     }).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void shareProfile() {
+        Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
+                .putExtra(Intent.EXTRA_TEXT, "Typheye 用户 "
+                        + ((TextView) findViewById(R.id.detail_nick)).getText() + "  UID " + targetUid);
+        startActivity(Intent.createChooser(share, "分享主页"));
     }
 
     private void applyAdaptiveChromeColors() {
