@@ -40,9 +40,13 @@ public final class AppDetailFragment extends Fragment {
     @Nullable @Override public View onCreateView(@NonNull LayoutInflater inflater,
                                                   @Nullable ViewGroup container, @Nullable Bundle state) {
         View root = inflater.inflate(R.layout.fragment_app_detail, container, false);
+        BaseSectionActivity host = (BaseSectionActivity) requireActivity();
+        host.showContentLoading();
         JSONObject app; try { app = new JSONObject(requireArguments().getString("json", "{}")); }
         catch (Exception ignored) { app = new JSONObject(); }
-        bind(root, app); return root;
+        bind(root, app);
+        root.post(host::hideContentLoading);
+        return root;
     }
 
     private void bind(View root, JSONObject app) {

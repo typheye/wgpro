@@ -265,6 +265,10 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    public void refreshAccountFromUser() {
+        if (!accountPollInFlight && !grantFlowActive) getAccUtils();
+    }
+
     private void refreshAccountUi() {
         refreshAccountUi(false);
     }

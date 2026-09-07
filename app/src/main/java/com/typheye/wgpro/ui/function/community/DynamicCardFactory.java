@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.GradientDrawable;
 import android.graphics.Typeface;
 import android.view.Gravity;
 import android.view.View;
@@ -18,6 +19,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
@@ -44,6 +46,8 @@ public final class DynamicCardFactory {
     private DynamicCardFactory() { }
 
     public static void bindAvatar(Context context, String uid, String url, ImageView avatar, View initial) {
+        initial.setVisibility(View.VISIBLE);
+        avatar.setVisibility(View.GONE);
         loadImage(context, url, avatar, initial,
                 uid == null || uid.isEmpty() ? null : new File(context.getFilesDir(), "avatar_" + uid + ".jpg"));
     }
@@ -64,16 +68,15 @@ public final class DynamicCardFactory {
         LinearLayout body = new LinearLayout(context);
         body.setOrientation(LinearLayout.VERTICAL); body.setPadding(pad, pad, pad, dp(context, 8));
         LinearLayout header = new LinearLayout(context); header.setGravity(Gravity.CENTER_VERTICAL);
-        MaterialCardView avatarBox = new MaterialCardView(context);
-        avatarBox.setRadius(dp(context, 20)); avatarBox.setCardElevation(0); avatarBox.setStrokeWidth(0);
-        avatarBox.setCardBackgroundColor(context.getColor(R.color.brand_soft)); avatarBox.setClipToOutline(true);
+        FrameLayout avatarBox = new FrameLayout(context);
         TextView initial = text(context, first(item.optString("nick", "用")), 16, true, R.color.brand_on_soft);
         initial.setGravity(Gravity.CENTER); initial.setVisibility(View.VISIBLE);
-        avatarBox.addView(initial, new MaterialCardView.LayoutParams(-1, -1));
+        initial.setBackground(circle(context.getColor(R.color.brand_soft)));
+        avatarBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
         ShapeableImageView avatar = new ShapeableImageView(context); avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
         avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel()
-                .toBuilder().setAllCornerSizes(1000f).build());
-        avatarBox.addView(avatar, new MaterialCardView.LayoutParams(-1, -1));
+                .toBuilder().setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
+        avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         header.addView(avatarBox, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
 
         LinearLayout identity = new LinearLayout(context); identity.setOrientation(LinearLayout.VERTICAL);
@@ -112,23 +115,99 @@ public final class DynamicCardFactory {
         }
 
         LinearLayout actions = new LinearLayout(context); actions.setGravity(Gravity.CENTER_VERTICAL);
-        actions.addView(action(context, R.drawable.ic_like_vector, item.optInt("like_count")), weighted(context));
-        actions.addView(action(context, R.drawable.ic_comment_vector, item.optInt("comment_count")), weighted(context));
-        actions.addView(action(context, R.drawable.ic_bookmark_vector,
-                item.optInt("collection_count", item.optBoolean("is_favorited") ? 1 : 0)), weighted(context));
+        ActionView like = action(context, R.drawable.ic_like_vector, item.optInt("like_count"));
+        ActionView comment = action(context, R.drawable.ic_comment_vector, item.optInt("comment_count"));
+        ActionView favorite = action(context, R.drawable.ic_bookmark_vector,
+                item.optInt("collection_count", item.optBoolean("is_favorited") ? 1 : 0));
+        actions.addView(like.root, weighted(context)); actions.addView(comment.root, weighted(context));
+        actions.addView(favorite.root, weighted(context));
+        boolean liked = item.optBoolean("is_liked"); boolean favorited = item.optBoolean("is_favorited");
+        setActionState(context, like, liked); setActionState(context, favorite, favorited);
+        like.root.setOnClickListener(v -> toggleReaction(context, item, like));
+        favorite.root.setOnClickListener(v -> toggleCollection(context, item, favorite));
+        comment.root.setOnClickListener(v -> openDetail(context, item));
         LinearLayout.LayoutParams actionParams = new LinearLayout.LayoutParams(-1, dp(context, 42));
         actionParams.topMargin = dp(context, 8); body.addView(actions, actionParams);
         card.addView(body);
         return card;
     }
 
-    private static View action(Context context, int iconRes, int count) {
+    private static ActionView action(Context context, int iconRes, int count) {
         LinearLayout action = new LinearLayout(context); action.setGravity(Gravity.CENTER);
+        action.setClickable(true); action.setFocusable(true);
+        action.setBackgroundResource(R.drawable.bg_list_item_ripple);
         ImageView icon = new ImageView(context); icon.setImageResource(iconRes);
         action.addView(icon, new LinearLayout.LayoutParams(dp(context, 20), dp(context, 20)));
         TextView number = text(context, String.valueOf(Math.max(0, count)), 12, false, R.color.text_secondary);
         LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-2, -2); p.setMarginStart(dp(context, 6));
-        action.addView(number, p); return action;
+        action.addView(number, p); return new ActionView(action, icon, number, Math.max(0, count));
+    }
+
+    private static void openDetail(Context context, JSONObject item) {
+        context.startActivity(new Intent(context, DynamicDetailActivity.class)
+                .putExtra(DynamicDetailActivity.EXTRA_DYNAMIC_ID, item.optString("id")));
+    }
+
+    private static void toggleReaction(Context context, JSONObject item, ActionView view) {
+        boolean before = item.optBoolean("is_liked");
+        setOptimistic(context, view, item, "is_liked", !before);
+        Map<String, String> fields = new LinkedHashMap<>(); fields.put("dynamic_id", item.optString("id"));
+        fields.put("action", before ? "unlike" : "like");
+        new tAccUtils(context.getApplicationContext()).postV2Json("dynamic_reaction2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(JSONObject json) { view.root.post(() -> {
+                boolean active = json.optBoolean("liked", !before); putBoolean(item, "is_liked", active);
+                view.count = json.optInt("like_count", view.count); view.number.setText(String.valueOf(view.count));
+                view.root.setEnabled(true); setActionState(context, view, active);
+            }); }
+            @Override public void onError(int code, String message) { view.root.post(() -> {
+                view.root.setEnabled(true); setOptimistic(context, view, item, "is_liked", before); error(context, message);
+            }); }
+        });
+        view.root.setEnabled(false);
+    }
+
+    private static void toggleCollection(Context context, JSONObject item, ActionView view) {
+        boolean before = item.optBoolean("is_favorited");
+        setOptimistic(context, view, item, "is_favorited", !before);
+        Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "dynamic");
+        fields.put("target_key", item.optString("id")); fields.put("action", before ? "remove" : "add");
+        new tAccUtils(context.getApplicationContext()).postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(JSONObject json) { view.root.post(() -> {
+                boolean active = json.optBoolean("collected", !before); putBoolean(item, "is_favorited", active);
+                view.root.setEnabled(true); setActionState(context, view, active);
+            }); }
+            @Override public void onError(int code, String message) { view.root.post(() -> {
+                view.root.setEnabled(true); setOptimistic(context, view, item, "is_favorited", before); error(context, message);
+            }); }
+        });
+        view.root.setEnabled(false);
+    }
+
+    private static void setOptimistic(Context context, ActionView view, JSONObject item, String key, boolean active) {
+        boolean old = item.optBoolean(key); putBoolean(item, key, active);
+        if (old != active) view.count = Math.max(0, view.count + (active ? 1 : -1));
+        view.number.setText(String.valueOf(view.count)); setActionState(context, view, active);
+    }
+
+    private static void putBoolean(JSONObject item, String key, boolean value) {
+        try { item.put(key, value); } catch (Exception ignored) { }
+    }
+
+    private static void setActionState(Context context, ActionView view, boolean active) {
+        int color = context.getColor(active ? R.color.brand_primary : R.color.text_secondary);
+        view.icon.setColorFilter(color); view.number.setTextColor(color);
+    }
+
+    private static GradientDrawable circle(int color) {
+        GradientDrawable drawable = new GradientDrawable(); drawable.setShape(GradientDrawable.OVAL);
+        drawable.setColor(color); return drawable;
+    }
+
+    private static final class ActionView {
+        final LinearLayout root; final ImageView icon; final TextView number; int count;
+        ActionView(LinearLayout root, ImageView icon, TextView number, int count) {
+            this.root = root; this.icon = icon; this.number = number; this.count = count;
+        }
     }
 
     private static LinearLayout.LayoutParams weighted(Context context) {
@@ -157,7 +236,7 @@ public final class DynamicCardFactory {
         return raw == null || raw.isEmpty() ? "未知时间" : raw;
     }
 
-    private static void showActions(Context context, JSONObject item, View card) {
+    public static void showActions(Context context, JSONObject item, View card) {
         tAccUtils account = new tAccUtils(context.getApplicationContext());
         boolean self = item.optBoolean("is_self") || account.getUid().equals(item.optString("uid"));
         CharSequence[] actions = self ? new CharSequence[]{"删除", "分享"}
@@ -184,7 +263,10 @@ public final class DynamicCardFactory {
                 .setPositiveButton("删除", (dialog, which) -> {
                     Map<String, String> fields = new LinkedHashMap<>(); fields.put("dynamic_id", item.optString("id"));
                     account.postV2Json("dynamic_delete2", fields, new tAccUtils.JsonCallback() {
-                        @Override public void onSuccess(JSONObject json) { card.post(() -> card.setVisibility(View.GONE)); }
+                        @Override public void onSuccess(JSONObject json) { card.post(() -> {
+                            if (context instanceof DynamicDetailActivity) ((DynamicDetailActivity) context).finish();
+                            else card.setVisibility(View.GONE);
+                        }); }
                         @Override public void onError(int code, String message) { card.post(() -> error(context, message)); }
                     });
                 }).show();

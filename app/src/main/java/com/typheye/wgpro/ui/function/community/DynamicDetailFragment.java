@@ -21,6 +21,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -92,11 +93,12 @@ public final class DynamicDetailFragment extends Fragment {
     private void bind(View root, @Nullable JSONObject info) {
         if (info == null) return;
         String nick = info.optString("nick", "Typheye 用户");
-        ((DynamicDetailActivity) requireActivity()).bindAuthor(info.optString("uid"), nick,
-                info.optString("avatar_url"));
+        ((DynamicDetailActivity) requireActivity()).bindAuthor(info);
         ((TextView) root.findViewById(R.id.dynamic_detail_content)).setText(info.optString("content"));
         ((TextView) root.findViewById(R.id.dynamic_detail_tail)).setText("发布于 "
                 + relativeTime(info.optString("created_at")));
+        ((TextView) root.findViewById(R.id.dynamic_comments_title)).setText("评论（"
+                + Math.max(0, info.optInt("comment_count")) + "）");
         JSONArray media = info.optJSONArray("media"); JSONObject first = media == null ? null : media.optJSONObject(0);
         ImageView image = root.findViewById(R.id.dynamic_detail_media);
         if (first == null) image.setVisibility(View.GONE); else {
@@ -120,31 +122,43 @@ public final class DynamicDetailFragment extends Fragment {
         LinearLayout row = new LinearLayout(requireContext()); row.setGravity(android.view.Gravity.TOP);
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2); rowParams.bottomMargin = dp(12);
         row.setLayoutParams(rowParams);
-        MaterialCardView avatarBox = new MaterialCardView(requireContext()); avatarBox.setRadius(dp(18));
-        avatarBox.setCardElevation(0); avatarBox.setStrokeWidth(0);
-        avatarBox.setCardBackgroundColor(requireContext().getColor(R.color.brand_soft)); avatarBox.setClipToOutline(true);
+        FrameLayout avatarBox = new FrameLayout(requireContext());
         TextView initial = text(first(item.optString("nick", "用户")), 14, true, R.color.brand_on_soft);
-        initial.setGravity(android.view.Gravity.CENTER); avatarBox.addView(initial, new MaterialCardView.LayoutParams(-1, -1));
+        initial.setGravity(android.view.Gravity.CENTER); initial.setBackgroundResource(R.drawable.bg_avatar_placeholder_circle);
+        avatarBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
         ShapeableImageView avatar = new ShapeableImageView(requireContext()); avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
         avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel().toBuilder()
-                .setAllCornerSizes(1000f).build()); avatarBox.addView(avatar, new MaterialCardView.LayoutParams(-1, -1));
+                .setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
+        avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         row.addView(avatarBox, new LinearLayout.LayoutParams(dp(36), dp(36)));
         DynamicCardFactory.bindAvatar(requireContext(), item.optString("uid"), item.optString("avatar_url"), avatar, initial);
 
         LinearLayout right = new LinearLayout(requireContext()); right.setOrientation(LinearLayout.VERTICAL);
-        right.addView(text(item.optString("nick", "用户"), 14, true, R.color.text_primary));
+        LinearLayout author = new LinearLayout(requireContext());
+        author.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        TextView authorName = text(item.optString("nick", "用户"), 14, true, R.color.text_primary);
+        author.addView(authorName, new LinearLayout.LayoutParams(0, -2, 1f));
+        TextView commentTime = text(DynamicCardFactory.relativeTime(item.optString("created_at")),
+                12, false, R.color.text_secondary);
+        commentTime.setGravity(android.view.Gravity.END | android.view.Gravity.CENTER_VERTICAL);
+        author.addView(commentTime, new LinearLayout.LayoutParams(-2, -2));
+        right.addView(author);
         MaterialCardView bubble = new MaterialCardView(requireContext()); bubble.setRadius(dp(12));
         bubble.setCardElevation(0); bubble.setStrokeWidth(0);
         bubble.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
         LinearLayout content = new LinearLayout(requireContext()); content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(13), dp(10), dp(13), dp(9));
-        content.addView(text(item.optString("content"), 15, false, R.color.text_primary));
-        content.addView(text(DynamicCardFactory.relativeTime(item.optString("created_at")),
-                12, false, R.color.text_secondary)); bubble.addView(content);
+        content.addView(text(item.optString("content"), 15, false, R.color.text_primary)); bubble.addView(content);
         LinearLayout.LayoutParams bubbleParams = new LinearLayout.LayoutParams(-1, -2); bubbleParams.topMargin = dp(4);
         right.addView(bubble, bubbleParams);
         LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(0, -2, 1f); rightParams.setMarginStart(dp(10));
-        row.addView(right, rightParams); return row;
+        row.addView(right, rightParams);
+        String uid = item.optString("uid", "");
+        View.OnClickListener openUser = v -> { if (!uid.isEmpty()) startActivity(new android.content.Intent(
+                requireContext(), com.typheye.wgpro.ui.function.account.UserDetailActivity.class)
+                .putExtra(com.typheye.wgpro.ui.function.account.UserDetailActivity.EXTRA_TARGET_UID, uid)); };
+        avatarBox.setOnClickListener(openUser); author.setOnClickListener(openUser);
+        return row;
     }
 
     private void showCommentSheet(View root) {
@@ -196,7 +210,7 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void updateActions() {
-        likeButton.setText(""); favoriteButton.setText("");
+        likeButton.setText("赞"); favoriteButton.setText("收藏");
         tint(likeButton, liked); tint(favoriteButton, favorited);
     }
 

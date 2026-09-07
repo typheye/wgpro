@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 
 import com.typheye.wgpro.R;
@@ -27,6 +28,12 @@ abstract class BaseSectionActivity extends AppCompatActivity {
         appBar = findViewById(R.id.section_app_bar);
         content = findViewById(R.id.section_container);
         loadingOverlay = findViewById(R.id.section_loading_overlay);
+        if (loadingCoversAppBar()) {
+            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) loadingOverlay.getLayoutParams();
+            params.topToBottom = ConstraintLayout.LayoutParams.UNSET;
+            params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
+            loadingOverlay.setLayoutParams(params);
+        }
         AppUtils.applyMainWindowInsets(appBar, content);
         Toolbar toolbar = findViewById(R.id.section_toolbar);
         toolbar.setTitle(screenTitle());
@@ -39,6 +46,7 @@ abstract class BaseSectionActivity extends AppCompatActivity {
     protected abstract String screenTitle();
     protected abstract Fragment createContent();
     protected Toolbar sectionToolbar() { return findViewById(R.id.section_toolbar); }
+    protected boolean loadingCoversAppBar() { return false; }
 
     void showContentLoading() {
         loadingStarted = android.os.SystemClock.uptimeMillis();
@@ -46,6 +54,7 @@ abstract class BaseSectionActivity extends AppCompatActivity {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
             RenderEffect blur = RenderEffect.createBlurEffect(18f, 18f, Shader.TileMode.CLAMP);
             content.setRenderEffect(blur);
+            if (loadingCoversAppBar()) appBar.setRenderEffect(blur);
         }
     }
 
@@ -55,6 +64,7 @@ abstract class BaseSectionActivity extends AppCompatActivity {
             if (isFinishing() || isDestroyed()) return;
             if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
                 content.setRenderEffect(null);
+                if (loadingCoversAppBar()) appBar.setRenderEffect(null);
             }
             loadingOverlay.animate().alpha(0f).setDuration(120L)
                     .withEndAction(() -> loadingOverlay.setVisibility(View.GONE)).start();

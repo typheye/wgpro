@@ -7,17 +7,23 @@
         android:paddingBottom="32dp">
         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:gravity="center_vertical" android:paddingTop="18dp" android:paddingBottom="20dp">
-            <FrameLayout android:layout_width="96dp" android:layout_height="96dp">
-                <TextView android:id="@+id/app_detail_initial" android:layout_width="match_parent"
-                    android:layout_height="match_parent" android:background="@drawable/bg_function_initial_blue"
-                    android:gravity="center" android:textColor="@color/brand_primary" android:textSize="32sp"
+            <FrameLayout android:layout_width="76dp" android:layout_height="76dp">
+
+                <TextView
+                    android:id="@+id/app_detail_initial"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/bg_app_initial_rounded"
+                    android:gravity="center"
+                    android:textColor="@color/brand_primary"
+                    android:textSize="26sp"
                     android:textStyle="bold" />
                 <ImageView android:id="@+id/app_detail_icon" android:layout_width="match_parent"
                     android:layout_height="match_parent" android:background="@drawable/bg_app_icon_clip"
                     android:clipToOutline="true" android:scaleType="centerCrop" android:visibility="gone" />
             </FrameLayout>
             <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                android:layout_weight="1" android:layout_marginStart="20dp" android:orientation="vertical">
+                android:layout_weight="1" android:layout_marginStart="16dp" android:orientation="vertical">
                 <TextView android:id="@+id/app_detail_name" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="1" android:textColor="@color/text_primary"
                     android:textSize="25sp" android:textStyle="bold" />

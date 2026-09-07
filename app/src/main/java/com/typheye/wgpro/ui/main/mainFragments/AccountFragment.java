@@ -18,6 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
@@ -68,6 +69,8 @@ public class AccountFragment extends Fragment {
     private TextView followingCount;
     private TextView followersCount;
     private boolean profileRequestInFlight;
+    private SwipeRefreshLayout accountRefresh;
+    private View accountPageContent;
     private Context appContext;
 
     @Override
@@ -82,6 +85,17 @@ public class AccountFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
+        accountRefresh = view.findViewById(R.id.account_refresh);
+        accountPageContent = view.findViewById(R.id.account_page_content);
+        accountRefresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        accountRefresh.setOnRefreshListener(() -> {
+            if (getActivity() instanceof com.typheye.wgpro.ui.main.MainActivity) {
+                ((com.typheye.wgpro.ui.main.MainActivity) getActivity()).refreshAccountFromUser();
+            } else {
+                refreshAccountUi(true);
+            }
+            accountRefresh.postDelayed(() -> accountRefresh.setRefreshing(false), 10000L);
+        });
         // 初始化所有控件
         account_card_loginless = view.findViewById(R.id.card_loginless);
         account_linear_logined = view.findViewById(R.id.linear_logined);
@@ -280,6 +294,7 @@ public class AccountFragment extends Fragment {
     @SuppressLint("SetTextI18n")
     private void updateUI() {
         if (!isAdded() || getView() == null) return;
+        accountPageContent.setVisibility(View.VISIBLE);
         if (accUtils.isLogin()) {
             viewServicesVisibility(View.VISIBLE);
             account_card_loginless.setVisibility(View.GONE);
@@ -358,6 +373,7 @@ public class AccountFragment extends Fragment {
     public void refreshAccountUi(boolean refreshAvatar) {
         if (isAdded()) updateUI();
         if (refreshAvatar && isAdded() && accUtils.isLogin()) checkAvatarAndUpdate();
+        if (accountRefresh != null) accountRefresh.setRefreshing(false);
     }
 
     private void onAccountChanged() {

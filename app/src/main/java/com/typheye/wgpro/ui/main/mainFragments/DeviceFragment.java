@@ -334,9 +334,12 @@ public class DeviceFragment extends Fragment {
         status.setText(connected ? "已连接" : "已断开");
         status.setBackgroundResource(connected ? R.drawable.bg_device_status_connected
                 : R.drawable.bg_device_status_disconnected);
-        long stateTime = cursor.getLong(cursor.getColumnIndexOrThrow("last_seen"));
+        String stateColumn = connected ? "connected_at" : "disconnected_at";
+        int stateIndex = cursor.getColumnIndex(stateColumn);
+        long stateTime = stateIndex < 0 ? cursor.getLong(cursor.getColumnIndexOrThrow("last_seen"))
+                : cursor.getLong(stateIndex);
         ((TextView) card.findViewById(R.id.text_device_since))
-                .setText("活跃于 " + relativeTime(stateTime));
+                .setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
         card.setOnClickListener(v -> showDeviceDetail(id));
         card.findViewById(R.id.button_device_more).setOnClickListener(v -> showMenu(id, note));
         parent.addView(card);
