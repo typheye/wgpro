@@ -88,14 +88,6 @@ public class MainActivity extends AppCompatActivity {
             @Override public int getItemCount() { return 4; }
         });
         mainPager.setOffscreenPageLimit(1);
-        mainPager.setPageTransformer((page, position) -> {
-            float distance = Math.min(1f, Math.abs(position));
-            page.setAlpha(position <= 0f ? 1f : Math.max(0f, 1f - position));
-            float scale = 0.94f + 0.06f * (1f - distance);
-            page.setScaleX(scale);
-            page.setScaleY(scale);
-            page.setTranslationX(-position * page.getWidth());
-        });
 
         // 默认选中首页（如果未恢复状态）
         if (savedInstanceState == null) {

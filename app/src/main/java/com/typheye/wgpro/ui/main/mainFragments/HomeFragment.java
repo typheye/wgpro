@@ -31,6 +31,7 @@ public class HomeFragment extends Fragment {
     private ViewPager2 carousel;
     private TextView carouselPosition;
     private boolean pageVisible;
+    private int selectedHomePage;
 
     private final Runnable advanceCarousel = new Runnable() {
         @Override public void run() {
@@ -61,7 +62,8 @@ public class HomeFragment extends Fragment {
                 tab.setText(new String[]{"社区", "应用", "资源"}[position])).attach();
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override public void onPageSelected(int position) {
-                if (position == 0 && isResumed() && !isHidden()) startCarousel(); else stopCarousel();
+                selectedHomePage = position;
+                updateCarouselPlayback();
             }
         });
 
@@ -142,9 +144,14 @@ public class HomeFragment extends Fragment {
         carouselHandler.removeCallbacks(advanceCarousel);
     }
 
-    @Override public void onResume() { super.onResume(); startCarousel(); }
+    private void updateCarouselPlayback() {
+        if (selectedHomePage == 0 && isResumed() && !isHidden()) startCarousel();
+        else stopCarousel();
+    }
+
+    @Override public void onResume() { super.onResume(); updateCarouselPlayback(); }
     @Override public void onPause() { stopCarousel(); super.onPause(); }
-    @Override public void onHiddenChanged(boolean hidden) { super.onHiddenChanged(hidden); if (hidden) stopCarousel(); else startCarousel(); }
+    @Override public void onHiddenChanged(boolean hidden) { super.onHiddenChanged(hidden); updateCarouselPlayback(); }
     @Override public void onDestroyView() { stopCarousel(); carousel = null; carouselPosition = null; super.onDestroyView(); }
 
     private static final class LocalPageAdapter extends RecyclerView.Adapter<LocalPageAdapter.Holder> {
