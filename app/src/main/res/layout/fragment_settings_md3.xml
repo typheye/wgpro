@@ -25,13 +25,33 @@
             android:textColor="@color/brand_primary" />
 
         <com.google.android.material.card.MaterialCardView android:id="@+id/card_predictive_back" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
-            <LinearLayout android:id="@+id/row_predictive_back" android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
-                <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_gesture_back_vector" />
-                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
-                    <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="预见式返回手势" android:textColor="@color/text_primary" />
-                    <TextView android:id="@+id/text_predictive_back_summary" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="返回时预览即将进入的界面" android:textColor="@color/text_secondary" />
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <LinearLayout android:id="@+id/row_follow_system_theme" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_theme_vector" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="自动切换主题" android:textColor="@color/text_primary" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="根据系统自动切换深浅主题" android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_follow_system_theme" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="自动切换主题" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
-                <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_predictive_back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="启用预见式返回手势" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
+                <LinearLayout android:id="@+id/row_dark_mode" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp" android:visibility="gone">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_theme_vector" android:visibility="invisible" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="深色模式" android:textColor="@color/text_primary" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="启用深色模式" android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_dark_mode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="深色模式" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
+                <LinearLayout android:id="@+id/row_predictive_back" android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_gesture_back_vector" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="预见式返回手势" android:textColor="@color/text_primary" />
+                        <TextView android:id="@+id/text_predictive_back_summary" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="返回时预览即将进入的界面" android:textColor="@color/text_secondary" />
+                    </LinearLayout>
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_predictive_back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="启用预见式返回手势" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
+                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -90,21 +110,6 @@
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_auto_check" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="自动检查更新" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
-
-                <LinearLayout
-                    android:id="@+id/row_auto_open"
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:gravity="center_vertical"
-                    android:paddingStart="60dp"
-                    android:paddingEnd="12dp">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="自动打开下载页" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="发现更新后直接进入下载页面" android:textColor="@color/text_secondary" />
-                    </LinearLayout>
-                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_auto_open" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="自动打开下载页" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
-                </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 

@@ -62,4 +62,9 @@ public final class DeviceDatabase extends SQLiteOpenHelper {
     public Cursor all(String type) {
         return getReadableDatabase().rawQuery("SELECT * FROM devices WHERE type=? ORDER BY last_seen DESC", new String[]{type});
     }
+
+    public Cursor allExcept(String type) {
+        return getReadableDatabase().rawQuery(
+                "SELECT * FROM devices WHERE type<>? ORDER BY last_seen DESC", new String[]{type});
+    }
 }

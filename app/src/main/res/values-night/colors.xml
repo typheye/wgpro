@@ -10,6 +10,8 @@
     <color name="surface_primary">#FF17191E</color>
     <color name="surface_secondary">#FF202329</color>
     <color name="surface_elevated">#FF24272E</color>
+    <color name="profile_detail_sheet">@color/surface_page</color>
+    <color name="profile_detail_segments">@color/surface_secondary</color>
     <color name="profile_card_pressed">#FF292D35</color>
     <color name="outline_soft">#FF30343C</color>
     <color name="text_primary">#FFF2F3F5</color>

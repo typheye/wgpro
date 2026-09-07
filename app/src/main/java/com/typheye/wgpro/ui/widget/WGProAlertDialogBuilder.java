@@ -12,8 +12,10 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -31,6 +33,7 @@ import com.typheye.wgpro.R;
 
 /** Alert-like API backed by a real custom Material bottom sheet. */
 public final class WGProAlertDialogBuilder {
+    private static final int PANEL_BOTTOM_PADDING_DP = 39;
     private final Context context;
     private CharSequence title, message, positiveText, negativeText, neutralText;
     private DialogInterface.OnClickListener positiveListener, negativeListener, neutralListener, itemListener;
@@ -59,13 +62,12 @@ public final class WGProAlertDialogBuilder {
         dialog.setCanceledOnTouchOutside(cancelable);
         dialog.setDismissWithAnimation(true);
         dialog.setContentView(buildContent(dialog));
+        if (containsProgressIndicator(customView)) dialog.setMinimumShowDuration(300L);
         dialog.setWindowConfigurator(() -> configureWindow(dialog));
         return dialog;
     }
 
     public WGProBottomSheetDialog show() {
-        WGProBottomSheetDialog active = WGProBottomSheetDialog.activeFor(context);
-        if (active != null) return active;
         WGProBottomSheetDialog dialog = create();
         dialog.show();
         WGProBottomSheetDialog shown = WGProBottomSheetDialog.activeFor(context);
@@ -75,7 +77,7 @@ public final class WGProAlertDialogBuilder {
     private View buildContent(WGProBottomSheetDialog dialog) {
         LinearLayout panel = new LinearLayout(context);
         panel.setOrientation(LinearLayout.VERTICAL);
-        panel.setPadding(dp(24), dp(26), dp(24), dp(12));
+        panel.setPadding(dp(24), dp(26), dp(24), dp(PANEL_BOTTOM_PADDING_DP));
         GradientDrawable background = new GradientDrawable();
         background.setColor(context.getColor(R.color.surface_elevated));
         float radius = dp(28);
@@ -83,7 +85,8 @@ public final class WGProAlertDialogBuilder {
         panel.setBackground(background);
         ViewCompat.setOnApplyWindowInsetsListener(panel, (view, insets) -> {
             int navigationBottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
-            view.setPadding(dp(24), dp(26), dp(24), dp(12) + navigationBottom);
+            view.setPadding(dp(24), dp(26), dp(24),
+                    dp(PANEL_BOTTOM_PADDING_DP) + navigationBottom);
             return insets;
         });
         if (title != null && title.length() > 0) {
@@ -210,6 +213,8 @@ public final class WGProAlertDialogBuilder {
         WindowCompat.setDecorFitsSystemWindows(window, false);
         window.setNavigationBarColor(surface);
         window.setNavigationBarDividerColor(surface);
+        window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
+                | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (android.os.Build.VERSION.SDK_INT >= 29) window.setNavigationBarContrastEnforced(false);
         window.setDimAmount(0.68f);
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
@@ -218,6 +223,8 @@ public final class WGProAlertDialogBuilder {
             sheet.setBackgroundColor(Color.TRANSPARENT);
             BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
             behavior.setSkipCollapsed(true);
+            behavior.setDraggable(cancelable);
+            behavior.setHideable(cancelable);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             ViewCompat.requestApplyInsets(sheet);
         }
@@ -242,6 +249,16 @@ public final class WGProAlertDialogBuilder {
                 ColorStateList.valueOf(ripple),
                 new ColorDrawable(Color.TRANSPARENT),
                 new ColorDrawable(Color.WHITE));
+    }
+    private boolean containsProgressIndicator(View view) {
+        if (view == null) return false;
+        if (view instanceof ProgressBar) return true;
+        if (!(view instanceof ViewGroup)) return false;
+        ViewGroup group = (ViewGroup) view;
+        for (int i = 0; i < group.getChildCount(); i++) {
+            if (containsProgressIndicator(group.getChildAt(i))) return true;
+        }
+        return false;
     }
     private int dp(int value) { return (int) (value * context.getResources().getDisplayMetrics().density + 0.5f); }
 }

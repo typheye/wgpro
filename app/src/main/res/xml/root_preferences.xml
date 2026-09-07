@@ -15,14 +15,6 @@
         android:enabled="false"
         app:defaultValue="true"/>
 
-    <SwitchPreferenceCompat
-        android:dependency="appUpdate_autoCheck"
-        android:key="appUpdate_autoOpenDownPage"
-        android:summaryOff="已禁用"
-        android:summaryOn="已启用"
-        android:title="有更新时自动打开下载页"
-        app:defaultValue="false"/>
-
     <PreferenceCategory
         android:title="法律信息"/>
 

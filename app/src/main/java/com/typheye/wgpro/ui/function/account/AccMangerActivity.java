@@ -28,7 +28,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
@@ -37,9 +36,6 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.R;
-import com.typheye.wgpro.ui.function.account.accFragments.AccGrantFragment;
-import com.typheye.wgpro.ui.function.account.accFragments.AccLoginFragment;
-import com.typheye.wgpro.ui.function.account.accFragments.AccLoginQRFragment;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
 
@@ -50,7 +46,6 @@ import java.util.Locale;
 
 public class AccMangerActivity extends AppCompatActivity {
 
-    public String grant_requestId = "";
     private OnBackPressedCallback compatibilityBackCallback;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,35 +62,12 @@ public class AccMangerActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, compatibilityBackCallback);
 
-        // 获取传入的参数
-        Intent intent = getIntent();
-        String target = intent.getStringExtra("TARGET_FRAGMENT");
-        grant_requestId = intent.getStringExtra("REQUEST_ID");
+        toolbar.setTitle("编辑资料");
 
-        // 根据参数决定加载哪个 Fragment
-        Fragment fragment;
-        if ("login".equals(target)) {
-            fragment = new AccLoginFragment();
-            toolbar.setTitle("登录");
-        } else if ("login_qr".equals(target)) {
-            fragment = new AccLoginQRFragment();
-            toolbar.setTitle("登录");
-        } else if ("edit".equals(target)) {
-            fragment = new AccEditFragment();
-            toolbar.setTitle("编辑资料");
-        } else if ("grant".equals(target)) {
-            fragment = new AccGrantFragment();
-            toolbar.setTitle("授权");
-        } else {
-            fragment = new AccLoginFragment();
-            toolbar.setTitle("登录");
-        }
-
-        // 替换 Fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager()
                     .beginTransaction()
-                    .replace(R.id.fragment_container, fragment)
+                    .replace(R.id.fragment_container, new AccEditFragment())
                     .commit();
         }
     }
@@ -194,8 +166,6 @@ public class AccMangerActivity extends AppCompatActivity {
                     dialog.dismiss();
                     if (allowEmpty) saveShuo(value); else saveNick(value);
                 });
-                input.requestFocus();
-                dialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
             });
             dialog.show();
         }

@@ -3,6 +3,8 @@ package com.typheye.wgpro.ui.widget;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.SparseArray;
 import android.view.View;
 import android.view.Window;
@@ -12,6 +14,7 @@ import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.R;
 
@@ -25,11 +28,16 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
 
     private final SparseArray<MaterialButton> buttons = new SparseArray<>();
     private final Context owner;
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private Runnable windowConfigurator;
     private boolean registered;
     private boolean actionHandled;
     private boolean allowImmediateReplacement;
     private boolean backDismissEnabled = true;
+    private long minimumShowDurationMs;
+    private long shownAtMs;
+    private boolean dismissPending;
+    private boolean showQueued;
     private android.window.OnBackInvokedCallback backCallback;
 
     WGProBottomSheetDialog(Context context) {
@@ -42,7 +50,17 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
         synchronized (ACTIVE) {
             WeakReference<WGProBottomSheetDialog> reference = ACTIVE.get(owner);
             WGProBottomSheetDialog active = reference == null ? null : reference.get();
-            if (active != null && active != this && active.isShowing()) return;
+            if (active != null && active != this && active.isShowing()) {
+                if (active.dismissPending && !showQueued) {
+                    showQueued = true;
+                    active.allowImmediateReplacement = true;
+                    mainHandler.postDelayed(() -> {
+                        showQueued = false;
+                        show();
+                    }, active.remainingMinimumDuration() + 16L);
+                }
+                return;
+            }
 
             Long lastDismiss = LAST_DISMISS_AT.get(owner);
             if (active != this && lastDismiss != null
@@ -52,6 +70,7 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
         }
         try {
             super.show();
+            shownAtMs = android.os.SystemClock.uptimeMillis();
         } catch (RuntimeException exception) {
             releaseRegistration(false);
             throw exception;
@@ -62,6 +81,15 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
     public void setCancelable(boolean cancelable) {
         super.setCancelable(cancelable);
         backDismissEnabled = cancelable;
+        if (!isShowing()) return;
+        unregisterDirectBackCallback();
+        registerDirectBackCallback();
+        View sheet = findViewById(com.google.android.material.R.id.design_bottom_sheet);
+        if (sheet != null) {
+            BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
+            behavior.setDraggable(cancelable);
+            behavior.setHideable(cancelable);
+        }
     }
 
     @Override
@@ -79,29 +107,51 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
 
     @Override
     public void dismiss() {
-        try {
-            super.dismiss();
-        } finally {
-            releaseRegistration(true);
-        }
+        requestDismiss(false);
     }
 
     @Override
     public void cancel() {
+        requestDismiss(true);
+    }
+
+    private void requestDismiss(boolean cancel) {
+        long remaining = remainingMinimumDuration();
+        if (isShowing() && remaining > 0L) {
+            if (!dismissPending) {
+                dismissPending = true;
+                mainHandler.postDelayed(() -> performDismiss(cancel), remaining);
+            }
+            return;
+        }
+        performDismiss(cancel);
+    }
+
+    private void performDismiss(boolean cancel) {
         try {
-            super.cancel();
+            if (cancel) super.cancel(); else super.dismiss();
         } finally {
+            dismissPending = false;
             releaseRegistration(true);
         }
     }
 
+    private long remainingMinimumDuration() {
+        if (minimumShowDurationMs <= 0L || shownAtMs <= 0L) return 0L;
+        return Math.max(0L, minimumShowDurationMs
+                - (android.os.SystemClock.uptimeMillis() - shownAtMs));
+    }
+
     void setWindowConfigurator(Runnable configurator) { windowConfigurator = configurator; }
+    void setMinimumShowDuration(long durationMs) {
+        minimumShowDurationMs = Math.max(0L, durationMs);
+    }
     boolean tryConsumeAction() {
         if (actionHandled) return false;
         actionHandled = true;
         return true;
     }
-    void dismissForReplacement() {
+    public void dismissForReplacement() {
         allowImmediateReplacement = true;
         dismiss();
     }

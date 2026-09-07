@@ -3,104 +3,38 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/surface_page" android:orientation="vertical">
-
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/home_tabs" android:layout_width="match_parent" android:layout_height="48dp"
-        android:background="@color/surface_primary" app:tabGravity="fill"
-        app:tabIndicatorColor="@color/brand_primary" app:tabIndicatorFullWidth="false"
-        app:tabIndicatorHeight="3dp" app:tabMode="fixed" app:tabRippleColor="@color/brand_soft"
-        app:tabSelectedTextColor="@color/text_primary" app:tabTextColor="@color/text_secondary" />
-
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent" android:layout_height="52dp"
+        android:layout_marginStart="16dp" android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="6dp"
+        app:cardBackgroundColor="@color/surface_primary" app:cardCornerRadius="8dp"
+        app:cardElevation="0dp" app:contentPadding="0dp" app:strokeWidth="0dp">
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/home_segments" android:layout_width="match_parent"
+            android:layout_height="match_parent" app:checkedButton="@id/home_segment_community"
+            app:selectionRequired="true" app:singleSelection="true">
+            <com.google.android.material.button.MaterialButton android:id="@+id/home_segment_community"
+                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
+                android:layout_height="match_parent" android:layout_weight="1" android:text="社区" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/home_segment_apps"
+                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
+                android:layout_height="match_parent" android:layout_weight="1" android:text="应用" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/home_segment_resources"
+                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
+                android:layout_height="match_parent" android:layout_weight="1" android:text="资源" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </com.google.android.material.card.MaterialCardView>
     <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
-        <androidx.viewpager2.widget.ViewPager2 android:id="@+id/home_pager" android:layout_width="match_parent" android:layout_height="match_parent" />
-        <FrameLayout android:id="@+id/home_page_pool" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone">
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/page_community" android:layout_width="match_parent" android:layout_height="match_parent"
-            android:clipToPadding="false" android:fillViewport="true">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:orientation="vertical" android:paddingBottom="24dp">
-                <FrameLayout android:layout_width="match_parent" android:layout_height="190dp"
-                    android:layout_marginStart="16dp" android:layout_marginTop="16dp" android:layout_marginEnd="16dp">
-                    <androidx.viewpager2.widget.ViewPager2 android:id="@+id/community_carousel" android:layout_width="match_parent" android:layout_height="match_parent" />
-                    <FrameLayout android:id="@+id/banner_page_pool" android:layout_width="match_parent" android:layout_height="match_parent" android:visibility="gone">
-                        <include layout="@layout/item_home_banner_one" />
-                        <include layout="@layout/item_home_banner_two" />
-                        <include layout="@layout/item_home_banner_three" />
-                        <include layout="@layout/item_home_banner_four" />
-                        <include layout="@layout/item_home_banner_five" />
-                    </FrameLayout>
-                    <TextView android:id="@+id/text_carousel_position" android:layout_width="wrap_content"
-                        android:layout_height="28dp" android:layout_gravity="end|bottom" android:layout_margin="12dp"
-                        android:background="@drawable/bg_carousel_counter" android:gravity="center" android:minWidth="48dp"
-                        android:paddingStart="10dp" android:paddingEnd="10dp" android:textColor="@color/white" android:textSize="12sp" />
-                </FrameLayout>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/notice_bar" style="@style/Widget.WGPro.Card"
-                    android:layout_width="match_parent" android:layout_height="52dp"
-                    android:layout_marginStart="16dp" android:layout_marginTop="12dp" android:layout_marginEnd="16dp"
-                    app:cardBackgroundColor="@color/status_warning_soft" app:strokeWidth="0dp">
-                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
-                        android:gravity="center_vertical" android:orientation="horizontal" android:paddingStart="14dp" android:paddingEnd="12dp">
-                        <TextView android:layout_width="36dp" android:layout_height="28dp" android:gravity="center"
-                            android:text="公告" android:textColor="@color/status_warning" android:textSize="12sp" android:textStyle="bold" />
-                        <TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="8dp"
-                            android:layout_weight="1" android:ellipsize="end" android:maxLines="1"
-                            android:text="社区新版开启内测，分享你的腕上玩法" android:textColor="@color/text_primary" android:textSize="14sp" />
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="›"
-                            android:textColor="@color/text_secondary" android:textSize="24sp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-                <TextView style="@style/TextAppearance.WGPro.Section" android:layout_marginStart="18dp" android:layout_marginTop="22dp" android:text="正在发生" />
-                <include android:id="@+id/post_one" layout="@layout/item_community_post_one" />
-                <include android:id="@+id/post_two" layout="@layout/item_community_post_two" />
-                <include android:id="@+id/post_three" layout="@layout/item_community_post_three" />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-        <androidx.core.widget.NestedScrollView android:id="@+id/page_apps" android:layout_width="match_parent"
-            android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true" android:visibility="gone">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <com.google.android.material.textfield.TextInputLayout
-                    style="@style/Widget.Material3.TextInputLayout.FilledBox" android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:hint="搜索应用" app:boxBackgroundColor="@color/surface_secondary"
-                    app:boxCornerRadiusBottomEnd="8dp" app:boxCornerRadiusBottomStart="8dp"
-                    app:boxCornerRadiusTopEnd="8dp" app:boxCornerRadiusTopStart="8dp" app:boxStrokeWidth="0dp">
-                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/input_app_search" android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:imeOptions="actionSearch" android:inputType="text" android:maxLines="1" />
-                </com.google.android.material.textfield.TextInputLayout>
-                <TextView style="@style/TextAppearance.WGPro.Section" android:layout_marginTop="22dp" android:text="本周精选" />
-                <include android:id="@+id/app_featured" layout="@layout/item_app_featured" />
-                <TextView style="@style/TextAppearance.WGPro.Section" android:layout_marginTop="24dp" android:text="热门应用" />
-                <include android:id="@+id/app_item_one" layout="@layout/item_app_catalog_one" />
-                <include android:id="@+id/app_item_two" layout="@layout/item_app_catalog_two" />
-                <include android:id="@+id/app_item_three" layout="@layout/item_app_catalog_three" />
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
-
-        <androidx.core.widget.NestedScrollView android:id="@+id/page_resources" android:layout_width="match_parent"
-            android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true" android:visibility="gone">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="创作者资源" android:textColor="@color/text_primary" android:textSize="22sp" android:textStyle="bold" />
-                <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="4dp" android:text="表盘、主题和配置，由社区共同维护" android:textColor="@color/text_secondary" android:textSize="14sp" />
-                <com.google.android.material.chip.ChipGroup android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="14dp" app:singleSelection="true">
-                    <com.google.android.material.chip.Chip style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true" android:text="推荐" />
-                    <com.google.android.material.chip.Chip style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="表盘" />
-                    <com.google.android.material.chip.Chip style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="工具" />
-                    <com.google.android.material.chip.Chip style="@style/Widget.Material3.Chip.Filter" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="配置" />
-                </com.google.android.material.chip.ChipGroup>
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:baselineAligned="false">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginEnd="6dp">
-                        <include android:id="@+id/resource_one" layout="@layout/item_resource_one" />
-                        <include android:id="@+id/resource_three" layout="@layout/item_resource_three" />
-                    </LinearLayout>
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:layout_marginStart="6dp">
-                        <include android:id="@+id/resource_two" layout="@layout/item_resource_two" />
-                        <include android:id="@+id/resource_four" layout="@layout/item_resource_four" />
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        <com.typheye.wgpro.ui.widget.NestedScrollableHost
+            android:layout_width="match_parent" android:layout_height="match_parent">
+            <androidx.viewpager2.widget.ViewPager2 android:id="@+id/home_pager"
+                android:layout_width="match_parent" android:layout_height="match_parent" />
+        </com.typheye.wgpro.ui.widget.NestedScrollableHost>
+        <FrameLayout android:id="@+id/home_page_pool" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:visibility="gone">
+            <include android:id="@+id/page_community" layout="@layout/view_empty_community" />
+            <include android:id="@+id/page_apps" layout="@layout/view_empty_apps" />
+            <include android:id="@+id/page_resources" layout="@layout/view_empty_resources" />
         </FrameLayout>
     </FrameLayout>
 </LinearLayout>

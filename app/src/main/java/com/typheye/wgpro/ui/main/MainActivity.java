@@ -6,6 +6,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -25,6 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.typheye.wgpro.core.xms.InterconnectLogic;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.ScanQRActivity;
+import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
 import com.typheye.wgpro.ui.function.settings.SettingsActivity;
 import com.typheye.wgpro.core.xms.UIParams;
 import com.typheye.wgpro.ui.main.mainFragments.AccountFragment;
@@ -46,9 +49,11 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final String EXTRA_LOGIN_GRANT_REQUEST_ID = "login_grant_request_id";
     private static final String KEY_SELECTED_ITEM = "selected_bottom_nav_item";
     private static final int NOTIFICATION_ID = 1001;
     private static final String CHANNEL_ID = "account_channel";
+    private static final long ACCOUNT_POLL_INTERVAL_MS = 15_000L;
     private Toolbar toolbar;
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
@@ -63,6 +68,16 @@ public class MainActivity extends AppCompatActivity {
     private long lastCloudRefreshAt;
     private int selectedPage = R.id.nav_home;
     private OnBackPressedCallback rootBackCallback;
+    private volatile boolean accountPollInFlight;
+    private String pendingGrantRequestId;
+    private boolean grantFlowActive;
+    private final Handler accountPollHandler = new Handler(Looper.getMainLooper());
+    private final Runnable accountPoll = new Runnable() {
+        @Override public void run() {
+            if (!accountPollInFlight && !grantFlowActive) getAccUtils();
+            accountPollHandler.postDelayed(this, ACCOUNT_POLL_INTERVAL_MS);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +159,7 @@ public class MainActivity extends AppCompatActivity {
 
         // 初始化小米 Wearable API
         initWearableApi();
+        acceptGrantIntent(getIntent());
 
     }
 
@@ -154,48 +170,94 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         rootBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean("predictive_back_enabled", false));
+        invalidateOptionsMenu();
         long now = System.currentTimeMillis();
-        if (now - lastCloudRefreshAt < 60_000L) return;
-        lastCloudRefreshAt = now;
-        new Thread(this::whileUpdate).start();
+        if (now - lastCloudRefreshAt >= 60_000L) {
+            lastCloudRefreshAt = now;
+            new Thread(() -> AppUtils.loadServerConfig(this)).start();
+        }
+        accountPollHandler.removeCallbacks(accountPoll);
+        accountPollHandler.post(accountPoll);
+        consumePendingGrantRequest();
     }
 
-    public void whileUpdate(){
-        // 加载服务器配置
-        AppUtils.loadServerConfig(this);
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        acceptGrantIntent(intent);
+    }
 
-        getAccUtils();
+    private void acceptGrantIntent(Intent intent) {
+        if (intent == null || grantFlowActive) return;
+        String requestId = intent.getStringExtra(EXTRA_LOGIN_GRANT_REQUEST_ID);
+        intent.removeExtra(EXTRA_LOGIN_GRANT_REQUEST_ID);
+        if (requestId != null && !requestId.trim().isEmpty()) {
+            pendingGrantRequestId = requestId.trim();
+        }
+    }
+
+    private void consumePendingGrantRequest() {
+        if (grantFlowActive || pendingGrantRequestId == null || isFinishing() || isDestroyed()) return;
+        String requestId = pendingGrantRequestId;
+        pendingGrantRequestId = null;
+        grantFlowActive = true;
+        AccountBottomSheets.showGrant(this, requestId, () -> grantFlowActive = false);
+    }
+
+    @Override
+    protected void onPause() {
+        accountPollHandler.removeCallbacks(accountPoll);
+        super.onPause();
     }
 
     private void getAccUtils() {
         tAccUtils accUtils = new tAccUtils(this);
+        if (!accUtils.isLogin()) {
+            accountPollInFlight = false;
+            refreshAccountUi();
+            return;
+        }
+        accountPollInFlight = true;
 
-        // 简单调用，不需要处理dialog，因为内部已经处理
         accUtils.getUserDataUpdateJson(new tAccUtils.UserDataUpdateCallback() {
             @Override
             public void onSuccess(tAccUtils.UserDataUpdateResult result) {
                 if (!result.isLoginValid) {
-                    // 登录状态失效
                     sendNotification();
+                    accountPollInFlight = false;
+                    refreshAccountUi();
+                    return;
                 }
+                accUtils.updateUserData(new tAccUtils.SetCallback() {
+                    @Override public void onSuccess() {
+                        accountPollInFlight = false;
+                        refreshAccountUi(result.v3Changed);
+                    }
+                    @Override public void onError(String message) {
+                        accountPollInFlight = false;
+                        refreshAccountUi(result.v3Changed);
+                    }
+                });
             }
 
             @Override
             public void onError(String message) {
-                // 处理网络错误
+                accountPollInFlight = false;
+                refreshAccountUi();
             }
         });
+    }
 
-        // 简单调用，不需要处理dialog，因为内部已经处理
-        accUtils.updateUserData(new tAccUtils.SetCallback() {
-            @Override
-            public void onSuccess() {
-                // 成功更新数据
-            }
+    private void refreshAccountUi() {
+        refreshAccountUi(false);
+    }
 
-            @Override
-            public void onError(String message) {
-                // 处理网络错误
+    private void refreshAccountUi(boolean refreshAvatar) {
+        runOnUiThread(() -> {
+            invalidateOptionsMenu();
+            if (accountFragment != null && accountFragment.isAdded()) {
+                accountFragment.refreshAccountUi(refreshAvatar);
             }
         });
     }
@@ -309,11 +371,13 @@ public class MainActivity extends AppCompatActivity {
         MenuItem scan = menu.findItem(R.id.action_scanqr);
         MenuItem settings = menu.findItem(R.id.action_settings);
         MenuItem deviceAdd = menu.findItem(R.id.action_device_add);
+        MenuItem dashboardEdit = menu.findItem(R.id.action_dashboard_edit);
         if (notification != null) notification.setVisible(home);
         if (compose != null) compose.setVisible(home);
         if (scan != null) scan.setVisible(account && accountLoggedIn);
-        if (settings != null) settings.setVisible(account && accountLoggedIn);
+        if (settings != null) settings.setVisible(account);
         if (deviceAdd != null) deviceAdd.setVisible(selectedPage == R.id.nav_device);
+        if (dashboardEdit != null) dashboardEdit.setVisible(selectedPage == R.id.nav_dashboard);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -345,6 +409,14 @@ public class MainActivity extends AppCompatActivity {
             return true;
         } else if (id == R.id.action_device_add) {
             startActivity(new Intent(this, com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));
+            return true;
+        } else if (id == R.id.action_dashboard_edit) {
+            Fragment restored = getSupportFragmentManager().findFragmentByTag("f1");
+            DashboardFragment target = restored instanceof DashboardFragment
+                    ? (DashboardFragment) restored : dashboardFragment;
+            if (target != null && target.isAdded()) {
+                target.showEditor();
+            }
             return true;
         }
         if (id == R.id.action_scanqr) {

@@ -13,7 +13,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
@@ -21,6 +20,7 @@ import androidx.fragment.app.Fragment;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
+import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
@@ -53,7 +53,6 @@ public class AccountFragment extends Fragment {
     private ImageView account_image_usr_icon;
     private View account_content;
     private View account_stats_card;
-    private long lastAccountRefreshAt;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -80,6 +79,12 @@ public class AccountFragment extends Fragment {
         account_image_usr_icon = view.findViewById(R.id.image_usr_icon);
         account_content = view.findViewById(R.id.account_content);
         account_stats_card = view.findViewById(R.id.account_stats_card);
+        setGroupRowTitle(view, R.id.account_history, "浏览历史");
+        setGroupRowTitle(view, R.id.account_favorites, "我的收藏");
+        setGroupRowTitle(view, R.id.account_starred_apps, "星标应用");
+        setGroupRowTitle(view, R.id.account_resources, "星标资源");
+        setGroupRowTitle(view, R.id.account_identity, "社区身份");
+        setGroupRowTitle(view, R.id.account_creator_center, "创作中心");
         view.findViewById(R.id.profile_card).setOnClickListener(v -> {
             Intent intent = new Intent(requireContext(), UserDetailActivity.class);
             startActivity(intent);
@@ -97,18 +102,10 @@ public class AccountFragment extends Fragment {
                         "通过账号密码登录",
                         "通过其他设备扫码登录",
                 }, (dialog, which) -> {
-                    Intent intent;
-                    switch (which) {
-                        case 0: // 通过账号密码登录
-                            intent = new Intent(requireContext(), AccMangerActivity.class);
-                            intent.putExtra("TARGET_FRAGMENT", "login");
-                            startActivity(intent);
-                            break;
-                        case 1: // 通过其他设备扫码登录
-                            intent = new Intent(requireContext(), AccMangerActivity.class);
-                            intent.putExtra("TARGET_FRAGMENT", "login_qr");
-                            startActivity(intent);
-                            break;
+                    if (which == 0) {
+                        AccountBottomSheets.showPasswordLogin(requireActivity(), this::onAccountChanged);
+                    } else {
+                        AccountBottomSheets.showQrLogin(requireActivity(), this::onAccountChanged);
                     }
                 })
                 .show();
@@ -135,16 +132,37 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         });
 
-        View.OnClickListener localPreview = v -> Toast.makeText(requireContext(),
-                "本地演示数据，云端内容暂未接入", Toast.LENGTH_SHORT).show();
-        root.findViewById(R.id.account_favorites).setOnClickListener(localPreview);
-        root.findViewById(R.id.account_history).setOnClickListener(localPreview);
-        root.findViewById(R.id.account_resources).setOnClickListener(localPreview);
         root.findViewById(R.id.account_identity).setOnClickListener(v -> new WGProAlertDialogBuilder(requireContext())
                 .setTitle("社区身份")
-                .setMessage("当前为普通用户。社区等级、创作者认证与徽章将在社区服务开放后同步。")
+                .setMessage("社区身份尚未同步。")
                 .setPositiveButton("完成", null)
                 .show());
+        root.findViewById(R.id.account_activity).setOnClickListener(v -> openUserDetail());
+        root.findViewById(R.id.account_following).setOnClickListener(v -> showPending("关注"));
+        root.findViewById(R.id.account_followers).setOnClickListener(v -> showPending("粉丝"));
+        root.findViewById(R.id.account_history).setOnClickListener(v -> showPending("浏览历史"));
+        root.findViewById(R.id.account_favorites).setOnClickListener(v -> showPending("我的收藏"));
+        root.findViewById(R.id.account_starred_apps).setOnClickListener(v -> showPending("星标应用"));
+        root.findViewById(R.id.account_resources).setOnClickListener(v -> showPending("星标资源"));
+        root.findViewById(R.id.account_creator_center).setOnClickListener(v -> showPending("创作中心"));
+    }
+
+    private void setGroupRowTitle(View root, int rowId, String title) {
+        View row = root.findViewById(rowId);
+        TextView label = row == null ? null : row.findViewById(R.id.account_row_title);
+        if (label != null) label.setText(title);
+    }
+
+    private void openUserDetail() {
+        startActivity(new Intent(requireContext(), UserDetailActivity.class));
+    }
+
+    private void showPending(String title) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle(title)
+                .setMessage("相关云端数据正在接入。")
+                .setPositiveButton("完成", null)
+                .show();
     }
 
     @SuppressLint("SetTextI18n")
@@ -185,6 +203,22 @@ public class AccountFragment extends Fragment {
             account_text_usr_icon.setVisibility(View.VISIBLE);
             account_image_usr_icon.setVisibility(View.GONE);
         }
+    }
+
+    public void refreshAccountUi() {
+        refreshAccountUi(false);
+    }
+
+    public void refreshAccountUi(boolean refreshAvatar) {
+        if (isAdded()) updateUI();
+        if (refreshAvatar && isAdded() && accUtils.isLogin()) checkAvatarAndUpdate();
+    }
+
+    private void onAccountChanged() {
+        if (!isAdded()) return;
+        updateUI();
+        if (accUtils.isLogin()) checkAvatarAndUpdate();
+        requireActivity().invalidateOptionsMenu();
     }
 
     private void viewServicesVisibility(int visibility) {
@@ -365,40 +399,5 @@ public class AccountFragment extends Fragment {
 
     private void updataUIShow() {
         updateUI();
-        if (accUtils.isLogin()) {
-            long now = System.currentTimeMillis();
-            if (now - lastAccountRefreshAt < 60_000L) return;
-            lastAccountRefreshAt = now;
-            new Thread(() -> {
-                whileUpdateBeta();
-                checkAvatarAndUpdate();
-            }, "typheye-account-refresh").start();
-        }
-    }
-
-    public void whileUpdateBeta(){
-        // 简单调用，不需要处理dialog，因为内部已经处理
-        accUtils.getUserDataUpdateJson(new tAccUtils.UserDataUpdateCallback() {
-            @Override
-            public void onSuccess(tAccUtils.UserDataUpdateResult result) {
-                if (!result.isLoginValid) {
-                    // 登录状态失效
-                    mainHandler.post(() -> updateUI());
-                }
-            }
-            @Override
-            public void onError(String message) {
-            }
-        });
-        // 简单调用，不需要处理dialog，因为内部已经处理
-        accUtils.updateUserData(new tAccUtils.SetCallback() {
-            @Override
-            public void onSuccess() {
-                mainHandler.post(() -> updateUI());
-            }
-            @Override
-            public void onError(String message) {
-            }
-        });
     }
 }

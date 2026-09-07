@@ -1,12 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:background="@color/surface_page" android:fillViewport="true">
- <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
-  <TextView style="@style/TextAppearance.WGPro.Section" android:text="穿戴设备"/>
-  <com.google.android.material.card.MaterialCardView android:id="@+id/card_detected_device" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" android:clickable="true" android:visibility="gone"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:gravity="center_vertical" android:padding="16dp"><TextView android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="检测到新的小米穿戴设备\n点击立即添加" android:textColor="@color/text_primary"/><TextView android:id="@+id/text_detected_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/brand_on_soft" android:textStyle="bold"/></LinearLayout></com.google.android.material.card.MaterialCardView>
-  <LinearLayout android:id="@+id/container_wearable_devices" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
-  <com.google.android.material.card.MaterialCardView android:id="@+id/card_wearable_empty" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardBackgroundColor="@android:color/transparent"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_empty_device" android:orientation="vertical" android:padding="20dp"><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="还没有穿戴设备" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold"/><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="连接小米手表或手环后，可在这里添加并集中管理。" android:textColor="@color/text_secondary" android:textSize="14sp"/></LinearLayout></com.google.android.material.card.MaterialCardView>
-  <TextView style="@style/TextAppearance.WGPro.Section" android:layout_marginTop="28dp" android:text="其他设备"/>
-  <LinearLayout android:id="@+id/container_other_devices" android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"/>
-  <com.google.android.material.card.MaterialCardView android:id="@+id/card_other_empty" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp" app:cardBackgroundColor="@android:color/transparent"><LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="@drawable/bg_empty_device" android:orientation="vertical" android:padding="20dp"><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="暂无其他设备" android:textColor="@color/text_primary" android:textSize="16sp" android:textStyle="bold"/><TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="6dp" android:text="使用同一 Typheye 账户登录的设备会显示在这里。" android:textColor="@color/text_secondary" android:textSize="14sp"/></LinearLayout></com.google.android.material.card.MaterialCardView>
- </LinearLayout>
-</androidx.core.widget.NestedScrollView>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_page" android:orientation="vertical">
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent" android:layout_height="52dp"
+        android:layout_marginStart="16dp" android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp" android:layout_marginBottom="6dp"
+        app:cardBackgroundColor="@color/surface_primary" app:cardCornerRadius="8dp"
+        app:cardElevation="0dp" app:contentPadding="0dp" app:strokeWidth="0dp">
+        <com.google.android.material.button.MaterialButtonToggleGroup
+            android:id="@+id/device_segments" android:layout_width="match_parent"
+            android:layout_height="match_parent" app:checkedButton="@id/device_segment_wearable"
+            app:selectionRequired="true" app:singleSelection="true">
+            <com.google.android.material.button.MaterialButton android:id="@+id/device_segment_wearable"
+                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
+                android:layout_height="match_parent" android:layout_weight="1" android:text="穿戴设备" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/device_segment_other"
+                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
+                android:layout_height="match_parent" android:layout_weight="1" android:text="其他设备" />
+        </com.google.android.material.button.MaterialButtonToggleGroup>
+    </com.google.android.material.card.MaterialCardView>
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <com.typheye.wgpro.ui.widget.NestedScrollableHost
+            android:layout_width="match_parent" android:layout_height="match_parent">
+            <androidx.viewpager2.widget.ViewPager2 android:id="@+id/device_pager"
+                android:layout_width="match_parent" android:layout_height="match_parent" />
+        </com.typheye.wgpro.ui.widget.NestedScrollableHost>
+        <FrameLayout android:id="@+id/device_page_pool" android:layout_width="match_parent"
+            android:layout_height="match_parent" android:visibility="gone">
+            <androidx.core.widget.NestedScrollView android:id="@+id/device_page_wearable"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:clipToPadding="false" android:fillViewport="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="6dp"
+                    android:paddingEnd="16dp" android:paddingBottom="24dp">
+                    <com.google.android.material.card.MaterialCardView android:id="@+id/card_detected_device"
+                        style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                        android:clickable="true" android:visibility="gone">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:gravity="center_vertical" android:padding="16dp">
+                            <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                                android:layout_weight="1" android:text="检测到新的小米设备，点击查看"
+                                android:textColor="@color/text_primary" />
+                            <TextView android:id="@+id/button_dismiss_detected"
+                                android:layout_width="wrap_content" android:layout_height="48dp"
+                                android:background="?attr/selectableItemBackgroundBorderless"
+                                android:clickable="true" android:focusable="true" android:gravity="center"
+                                android:paddingStart="12dp" android:paddingEnd="12dp" android:text="关闭"
+                                android:textColor="@color/brand_primary" android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                    <LinearLayout android:id="@+id/container_wearable_devices"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                    <com.google.android.material.card.MaterialCardView android:id="@+id/card_wearable_empty"
+                        style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                        app:cardBackgroundColor="@android:color/transparent">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:background="@drawable/bg_empty_device" android:orientation="vertical"
+                            android:padding="20dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:text="还没有穿戴设备" android:textColor="@color/text_primary"
+                                android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp" android:text="连接小米手表或手环后，可在这里添加并集中管理。"
+                                android:textColor="@color/text_secondary" android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+            <androidx.core.widget.NestedScrollView android:id="@+id/device_page_other"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:clipToPadding="false" android:fillViewport="true">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="6dp"
+                    android:paddingEnd="16dp" android:paddingBottom="24dp">
+                    <LinearLayout android:id="@+id/container_other_devices"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:orientation="vertical" />
+                    <com.google.android.material.card.MaterialCardView android:id="@+id/card_other_empty"
+                        style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                        app:cardBackgroundColor="@android:color/transparent">
+                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                            android:background="@drawable/bg_empty_device" android:orientation="vertical"
+                            android:padding="20dp">
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:text="暂无其他设备" android:textColor="@color/text_primary"
+                                android:textSize="16sp" android:textStyle="bold" />
+                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                                android:layout_marginTop="6dp" android:text="使用同一 Typheye 账户登录的设备会显示在这里。"
+                                android:textColor="@color/text_secondary" android:textSize="14sp" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+            </androidx.core.widget.NestedScrollView>
+        </FrameLayout>
+    </FrameLayout>
+</LinearLayout>

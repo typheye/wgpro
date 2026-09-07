@@ -40,6 +40,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AppUtils {
+    private static final int CURRENT_OOBE_VERSION = 2;
     // 在类中添加 OkHttp 客户端（建议在初始化时创建单例）
     private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .connectTimeout(15, TimeUnit.SECONDS)
@@ -171,32 +172,25 @@ public class AppUtils {
     }
 
     public static void appInit(Context context){
-        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
         SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
-        prefs.edit().putBoolean("appInit", true).apply();
+        prefs.edit()
+                .putBoolean("appInit", true)
+                .putInt("oobeVersion", CURRENT_OOBE_VERSION)
+                .apply();
     }
     public static void appUninit(Context context){
-        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
         SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
-        prefs.edit().putBoolean("appInit", false).apply();
+        prefs.edit()
+                .putBoolean("appInit", false)
+                .remove("oobeVersion")
+                .apply();
     }
     public static boolean getAppInit(Context context){
-        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
         SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
-        return prefs.getBoolean("appInit", false); // 默认值false
+        return prefs.getBoolean("appInit", false)
+                && prefs.getInt("oobeVersion", 0) >= CURRENT_OOBE_VERSION;
     }
 
-    public static void setAppVersionMode(Context context, String app_versionMode){
-        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
-        SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
-        prefs.edit().putString("appVersionMode", app_versionMode).apply();
-    }
-
-    public static String getAppVersionMode(Context context){
-        // 获取 SharedPreferences 对象（必须使用相同的名称和 MODE_PRIVATE）
-        SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
-        return prefs.getString("appVersionMode", "standard");
-    }
     private static void saveAppNotice(Context context, String appNotice){
         // 获取 SharedPreferences 对象（使用自定义名称，如 "app_settings"，避免与其他应用冲突）
         SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
@@ -218,16 +212,6 @@ public class AppUtils {
     public static boolean isAutoCheckUpdate(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
         return prefs.getBoolean("appUpdate_autoCheck", true); // 默认开启
-    }
-
-    /**
-     * 检查是否启用自动打开下载页
-     * @param context 上下文
-     * @return true 表示启用自动打开下载页
-     */
-    public static boolean isAutoOpenDownPage(Context context) {
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-        return prefs.getBoolean("appUpdate_autoOpenDownPage", false); // 默认关闭
     }
 
     public static int getVersionCode(Context context) {
@@ -275,11 +259,7 @@ public class AppUtils {
 
                 if (isAutoCheckUpdate(context)) {
                     if (latestVersionCode > currentVersionCode) {
-                        if (isAutoOpenDownPage(context)) {
-                            openDownPage(context, downloadUrl);
-                        } else {
-                            showUpdateDialog(context, updateContext, downloadUrl);
-                        }
+                        showUpdateDialog(context, updateContext, downloadUrl);
                     }
                 }
                 Log.e("UpdateChecker", updateContext);

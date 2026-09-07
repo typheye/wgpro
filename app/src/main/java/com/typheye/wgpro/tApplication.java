@@ -5,6 +5,9 @@ import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.preference.PreferenceManager;
+
 import com.typheye.wgpro.debug.CrashHandler;
 
 import java.io.File;
@@ -16,6 +19,13 @@ public class tApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        boolean followSystem = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("theme_follow_system", true);
+        boolean darkMode = PreferenceManager.getDefaultSharedPreferences(this)
+                .getBoolean("theme_dark_mode", false);
+        AppCompatDelegate.setDefaultNightMode(followSystem
+                ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                : darkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         initCrashHandler();
 
         // 确保日志目录存在

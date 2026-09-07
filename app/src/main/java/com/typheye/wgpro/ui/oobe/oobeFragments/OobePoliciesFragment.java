@@ -6,20 +6,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.oobe.OobeActivity;
 
 public class OobePoliciesFragment extends Fragment {
-    FloatingActionButton oobe_btn_forward;
-    Button oobe_btn_approve;
+    MaterialButton oobe_btn_forward;
+    MaterialButton oobe_btn_approve;
     boolean isGoPolicies = false;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -34,7 +33,7 @@ public class OobePoliciesFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_oobe_policies, container, false);
 
         oobe_btn_approve = view.findViewById(R.id.button_approve);
-        FloatingActionButton oobe_btn_back = view.findViewById(R.id.btn_back);
+        MaterialButton oobe_btn_back = view.findViewById(R.id.btn_back);
         oobe_btn_forward = view.findViewById(R.id.btn_forward);
 
         oobe_btn_back.setVisibility(View.VISIBLE);
@@ -52,13 +51,7 @@ public class OobePoliciesFragment extends Fragment {
         if (requireActivity() instanceof OobeActivity) {
             OobeActivity hostActivity = (OobeActivity) requireActivity();
 
-            String fragment_back = "welcome";
-            String fragment_forward;
-            if (false);
-            else
-                fragment_forward = "finish";
-
-            hostActivity.switchFragment(isForward ? fragment_forward : fragment_back);
+            hostActivity.switchFragment(isForward ? "finish" : "welcome");
         }
     }
 

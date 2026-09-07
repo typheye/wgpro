@@ -35,24 +35,29 @@ import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.core.xms.JSKit;
-import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
 
-import android.view.inputmethod.InputMethodManager;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Objects;
 
 public class WebActivity extends AppCompatActivity {
+
+    private static final String WEB_LOGIN_AUTH_URL = "https://account.typheye.cn/auth";
 
     private WebView webView;
     private ValueCallback<Uri[]> mFilePathCallback; // 保存文件选择回调
     private ActivityResultLauncher<Intent> fileChooserLauncher; // 文件选择器启动器
     private OnBackPressedCallback webBackCallback;
+    private boolean grantRequestForwarded;
+    private boolean webLoginExchangePending;
+    private String webLoginTargetUrl;
 
     private String FLAG;
 
@@ -157,6 +162,22 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                if (webLoginExchangePending) {
+                    android.webkit.CookieManager.getInstance().flush();
+                    String target = webLoginTargetUrl;
+                    webLoginExchangePending = false;
+                    webLoginTargetUrl = null;
+                    tAccUtils accountUtils = new tAccUtils(WebActivity.this);
+                    if (!accountUtils.markWebViewSessionSynchronized()
+                            || !accountUtils.hasWebViewSessionCookie()) {
+                        Toast.makeText(WebActivity.this,
+                                "网页登录状态同步失败，请稍后重试", Toast.LENGTH_LONG).show();
+                    }
+                    if (target != null && !target.equals(url)) {
+                        view.loadUrl(target);
+                        return;
+                    }
+                }
                 updateBackCallback();
                 String title = view.getTitle();
                 if (title == null || title.isEmpty()) {
@@ -282,13 +303,72 @@ public class WebActivity extends AppCompatActivity {
         if (Objects.equals(FLAG, "XMS_WEARABLE")) {
             webView.addJavascriptInterface(new JSKit(), "androidlib");
             webView.setWebViewClient(new XMSLocalContentWebViewClient());
+            webView.loadUrl(url);
+            return;
         }
 
-        // 加载URL
-        webView.loadUrl(url);
-
         tAccUtils accUtils = new tAccUtils(this);
-        if (accUtils.isLogin()) accUtils.setWebViewCookies();
+        if (accUtils.isLogin()) {
+            if (accUtils.isV2Session()) {
+                if (accUtils.hasWebViewSessionCookie()) {
+                    webView.loadUrl(url);
+                } else {
+                    accUtils.setWebViewCookies(() -> runOnUiThread(() -> {
+                        if (!isFinishing() && !isDestroyed()) startV2WebLogin(accUtils, url);
+                    }));
+                }
+            } else {
+                accUtils.setWebViewCookies(() -> {
+                    if (!isFinishing() && !isDestroyed()) webView.loadUrl(url);
+                });
+            }
+        } else {
+            webView.loadUrl(url);
+        }
+    }
+
+    private void startV2WebLogin(tAccUtils accUtils, String targetUrl) {
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("正在同步登录...");
+        final String redirectPath = "/site/user/center/";
+        accUtils.createWebLoginTicket(redirectPath, new tAccUtils.WebLoginTicketCallback() {
+            @Override
+            public void onSuccess(String ticket, String authUrl, String confirmedRedirectPath) {
+                runOnUiThread(() -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    if (!WEB_LOGIN_AUTH_URL.equals(authUrl)) {
+                        onError("服务器返回了不受信任的网页登录地址");
+                        return;
+                    }
+                    try {
+                        String body = "ticket=" + URLEncoder.encode(ticket, "UTF-8")
+                                + "&redirect_path=" + URLEncoder.encode(
+                                        safeRedirectPath(confirmedRedirectPath), "UTF-8");
+                        webLoginTargetUrl = targetUrl;
+                        webLoginExchangePending = true;
+                        webView.postUrl(WEB_LOGIN_AUTH_URL,
+                                body.getBytes(StandardCharsets.UTF_8));
+                    } catch (Exception e) {
+                        onError("无法提交网页登录票据");
+                    }
+                });
+            }
+
+            @Override
+            public void onError(String message) {
+                runOnUiThread(() -> {
+                    if (isFinishing() || isDestroyed()) return;
+                    webLoginExchangePending = false;
+                    webLoginTargetUrl = null;
+                    Toast.makeText(WebActivity.this, message, Toast.LENGTH_LONG).show();
+                    webView.loadUrl(targetUrl);
+                });
+            }
+        });
+    }
+
+    private String safeRedirectPath(String value) {
+        return value != null && value.startsWith("/") && !value.startsWith("//")
+                ? value : "/site/user/center/";
     }
 
     // ✅ 核心：安全提取文件名
@@ -382,11 +462,12 @@ public class WebActivity extends AppCompatActivity {
                 Toast.makeText(this, "登录请求缺少 request_id", Toast.LENGTH_SHORT).show();
                 return true;
             }
-            Intent intent = new Intent(this, AccMangerActivity.class);
-            intent.putExtra("TARGET_FRAGMENT", "grant");
-            intent.putExtra("REQUEST_ID", requestId.trim());
-            startActivity(intent);
-            if (webView != null) webView.loadUrl("about:blank");
+            if (grantRequestForwarded) return true;
+            grantRequestForwarded = true;
+            Intent grantIntent = new Intent(this, MainActivity.class);
+            grantIntent.putExtra(MainActivity.EXTRA_LOGIN_GRANT_REQUEST_ID, requestId.trim());
+            grantIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            startActivity(grantIntent);
             finish();
             return true;
         } catch (Exception e) {
@@ -438,12 +519,6 @@ public class WebActivity extends AppCompatActivity {
         textInputLayout.setHint(message);
         editText.setText(defaultValue);
         editText.setSelection(Objects.requireNonNull(editText.getText()).length());
-        editText.requestFocus();
-
-        // 显示键盘
-        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(editText, InputMethodManager.SHOW_IMPLICIT);
-
         new WGProAlertDialogBuilder(this)
                 .setTitle("输入")
                 .setView(view)

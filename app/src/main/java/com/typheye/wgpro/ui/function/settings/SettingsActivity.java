@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.ViewCompat;
@@ -134,14 +135,21 @@ public class SettingsActivity extends AppCompatActivity {
             accountLabel = view.findViewById(R.id.label_account);
             logoutCard = view.findViewById(R.id.card_logout);
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            MaterialSwitch followSystem = view.findViewById(R.id.switch_follow_system_theme);
+            MaterialSwitch darkMode = view.findViewById(R.id.switch_dark_mode);
             MaterialSwitch autoCheck = view.findViewById(R.id.switch_auto_check);
-            MaterialSwitch autoOpen = view.findViewById(R.id.switch_auto_open);
             MaterialSwitch predictiveBack = view.findViewById(R.id.switch_predictive_back);
+            View darkModeRow = view.findViewById(R.id.row_dark_mode);
+
+            boolean followsSystemTheme = preferences.getBoolean("theme_follow_system", true);
+            followSystem.setChecked(followsSystemTheme);
+            darkMode.setChecked(preferences.getBoolean("theme_dark_mode", false));
+            darkModeRow.setVisibility(followsSystemTheme ? View.GONE : View.VISIBLE);
 
             boolean predictiveBackAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
             if (!predictiveBackAvailable) {
                 preferences.edit().putBoolean("predictive_back_enabled", false).apply();
-                view.findViewById(R.id.card_predictive_back).setAlpha(0.55f);
+                view.findViewById(R.id.row_predictive_back).setAlpha(0.55f);
                 ((TextView) view.findViewById(R.id.text_predictive_back_summary))
                         .setText("需要 Android 14 或更高版本");
             }
@@ -149,25 +157,34 @@ public class SettingsActivity extends AppCompatActivity {
             predictiveBack.setChecked(predictiveBackAvailable
                     && preferences.getBoolean("predictive_back_enabled", false));
             autoCheck.setChecked(preferences.getBoolean("appUpdate_autoCheck", true));
-            autoOpen.setChecked(preferences.getBoolean("appUpdate_autoOpenDownPage", false));
-            autoOpen.setEnabled(autoCheck.isChecked());
-            view.findViewById(R.id.row_auto_open).setAlpha(autoCheck.isChecked() ? 1f : 0.5f);
+
+            followSystem.setOnCheckedChangeListener((button, checked) -> {
+                preferences.edit().putBoolean("theme_follow_system", checked).apply();
+                darkModeRow.setVisibility(checked ? View.GONE : View.VISIBLE);
+                AppCompatDelegate.setDefaultNightMode(checked
+                        ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                        : darkMode.isChecked() ? AppCompatDelegate.MODE_NIGHT_YES
+                        : AppCompatDelegate.MODE_NIGHT_NO);
+            });
+            darkMode.setOnCheckedChangeListener((button, checked) -> {
+                preferences.edit().putBoolean("theme_dark_mode", checked).apply();
+                if (!followSystem.isChecked()) {
+                    AppCompatDelegate.setDefaultNightMode(checked
+                            ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+                }
+            });
+            view.findViewById(R.id.row_follow_system_theme)
+                    .setOnClickListener(v -> followSystem.toggle());
+            darkModeRow.setOnClickListener(v -> darkMode.toggle());
 
             autoCheck.setOnCheckedChangeListener((button, checked) -> {
                 preferences.edit().putBoolean("appUpdate_autoCheck", checked).apply();
-                autoOpen.setEnabled(checked);
-                view.findViewById(R.id.row_auto_open).animate().alpha(checked ? 1f : 0.5f).setDuration(150).start();
             });
-            autoOpen.setOnCheckedChangeListener((button, checked) ->
-                    preferences.edit().putBoolean("appUpdate_autoOpenDownPage", checked).apply());
             predictiveBack.setOnCheckedChangeListener((button, checked) -> {
                 preferences.edit().putBoolean("predictive_back_enabled", checked).apply();
                 ((SettingsActivity) requireActivity()).setPredictiveBackEnabled(checked);
             });
 
-            view.findViewById(R.id.row_auto_open).setOnClickListener(v -> {
-                if (autoOpen.isEnabled()) autoOpen.toggle();
-            });
             view.findViewById(R.id.row_reset).setOnClickListener(v -> appReset());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());

@@ -18,5 +18,7 @@
         app:showAsAction="ifRoom" />
     <item android:id="@+id/action_device_add" android:title="添加设备"
         android:icon="@drawable/ic_add_vector" app:showAsAction="ifRoom" />
+    <item android:id="@+id/action_dashboard_edit" android:title="编辑常用功能"
+        android:icon="@drawable/ic_edit_vector" app:showAsAction="ifRoom" />
 
 </menu>

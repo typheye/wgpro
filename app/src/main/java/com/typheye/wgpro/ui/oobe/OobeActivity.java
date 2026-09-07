@@ -12,11 +12,9 @@ import android.os.Bundle;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
-import androidx.preference.PreferenceManager;
 
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.oobe.oobeFragments.OobeFinishFragment;
@@ -38,12 +36,15 @@ public class OobeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
+        int oobeSurface = getColor(R.color.surface_page);
+        getWindow().setStatusBarColor(oobeSurface);
+        getWindow().setNavigationBarColor(oobeSurface);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            getWindow().setStatusBarContrastEnforced(false);
+            getWindow().setNavigationBarContrastEnforced(false);
+        }
         setContentView(R.layout.activity_oobe);
         AppUtils.fixScreenCutArea(findViewById(R.id.container));
-
-        Toolbar toolbar = findViewById(R.id.toolbar);
-
-        setSupportActionBar(toolbar);
 
         fragment_oobeWelcomeFragment = new OobeWelcomeFragment();
         fragment_oobeFinishFragment = new OobeFinishFragment();
@@ -60,7 +61,16 @@ public class OobeActivity extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             switchFragment(target);
-            onCreateFragment();
+        } else {
+            Fragment restored = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
+            if (restored instanceof OobePoliciesFragment) {
+                fragment_oobePoliciesFragment = restored;
+            } else if (restored instanceof OobeFinishFragment) {
+                fragment_oobeFinishFragment = restored;
+            } else if (restored instanceof OobeWelcomeFragment) {
+                fragment_oobeWelcomeFragment = restored;
+            }
+            fragment_now = restored;
         }
 
         // 在启动服务前请求通知权限
@@ -76,40 +86,17 @@ public class OobeActivity extends AppCompatActivity {
         compatibilityBackCallback = new OnBackPressedCallback(true) {
             @Override
             public void handleOnBackPressed() {
+                if (fragment_now == fragment_oobePoliciesFragment) {
+                    switchFragment("welcome");
+                } else if (fragment_now == fragment_oobeFinishFragment) {
+                    switchFragment("policies");
+                } else {
+                    finish();
+                }
             }
         };
         getOnBackPressedDispatcher().addCallback(this, compatibilityBackCallback);
     }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("predictive_back_enabled", false));
-    }
-
-    public void onCreateFragment(){
-
-        boolean p1 = false;
-        boolean p2 = false;
-
-        if (fragment_now == fragment_oobeWelcomeFragment){
-            if (p1 || p2) {
-                //noinspection StatementWithEmptyBody
-                if (!p1) {}
-                else if (!p2)
-                    fragment_now = fragment_oobePoliciesFragment;
-            }
-        }
-
-        // 替换 Fragment
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit)
-                .replace(R.id.fragment_container, fragment_now)
-                .commit();
-    }
-
 
     public void switchFragment(String target){
 

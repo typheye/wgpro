@@ -1,37 +1,20 @@
 package com.typheye.wgpro.ui.oobe.oobeFragments;
 
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.oobe.OobeActivity;
-import com.typheye.wgpro.utils.AppUtils;
-import com.typheye.wgpro.utils.AppUtils;
 
 public class OobeWelcomeFragment extends Fragment {
-
-    private MaterialCardView cardStandard, cardProfessional, cardDevelopment;
-    private String selectedEdition = "standard"; // 默认
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        selectedEdition = AppUtils.getAppVersionMode(requireContext());
-    }
 
     @Nullable
     @Override
@@ -40,65 +23,16 @@ public class OobeWelcomeFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_oobe_welcome, container, false);
 
-        cardStandard = view.findViewById(R.id.card_standard);
-        cardProfessional = view.findViewById(R.id.card_professional);
-        cardDevelopment = view.findViewById(R.id.card_development);
-
-        FloatingActionButton oobe_btn_forward = view.findViewById(R.id.btn_forward);
-        FloatingActionButton oobe_btn_back = view.findViewById(R.id.btn_back);
-
-        // 初始化：标准版选中
-        updateCardSelection();
-
-        // 设置点击监听
-        cardStandard.setOnClickListener(v -> {
-            selectedEdition = "standard";
-            updateCardSelection();
-        });
-        cardProfessional.setOnClickListener(v -> {
-            selectedEdition = "professional";
-            updateCardSelection();
-        });
-        cardDevelopment.setOnClickListener(v -> {
-            selectedEdition = "development";
-            updateCardSelection();
-        });
-
-        oobe_btn_forward.setOnClickListener(v -> {
-            // 检查 activity 是否是 InitCoreActivity，并调用其 switchFragment
+        MaterialButton forward = view.findViewById(R.id.btn_forward);
+        View exit = view.findViewById(R.id.btn_back);
+        forward.setOnClickListener(v -> {
             if (requireActivity() instanceof OobeActivity) {
-                OobeActivity hostActivity = (OobeActivity) requireActivity();
-
-                String fragment_forward;
-                boolean p1 = false;
-                if (!p1)
-                    fragment_forward = "policies";
-                else
-                    fragment_forward = "finish";
-
-                AppUtils.setAppVersionMode(requireContext(), selectedEdition);
-
-                hostActivity.switchFragment(fragment_forward);
+                ((OobeActivity) requireActivity()).switchFragment("policies");
             }
         });
-
-        oobe_btn_back.setOnClickListener(v -> exitApp());
+        exit.setOnClickListener(v -> exitApp());
 
         return view;
-    }
-
-    private void updateCardSelection() {
-        // 获取 colorPrimary（选中色）
-        TypedValue typedValue = new TypedValue();
-        requireContext().getTheme().resolveAttribute(android.R.attr.colorPrimary, typedValue, true);
-        int selectedStroke = typedValue.data;
-
-        // 获取未选中颜色（从 colors.xml）
-        int unselectedStroke = ContextCompat.getColor(requireContext(), R.color.outline_unselected);
-
-        cardStandard.setStrokeColor(selectedEdition.equals("standard") ? selectedStroke : unselectedStroke);
-        cardProfessional.setStrokeColor(selectedEdition.equals("professional") ? selectedStroke : unselectedStroke);
-        cardDevelopment.setStrokeColor(selectedEdition.equals("development") ? selectedStroke : unselectedStroke);
     }
 
     private void exitApp(){

@@ -30,6 +30,7 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
 public class tAccUtils {
@@ -55,6 +56,8 @@ public class tAccUtils {
     private static final String ACTION_APPROVE_LOGIN_REQUEST_V2 = "approve_login_request2";
     private static final String ACTION_REJECT_LOGIN_REQUEST_V2 = "reject_login_request2";
     private static final String ACTION_CHECK_LOGIN_REQUEST_STATUS_V2 = "check_login_request_status2";
+    private static final String ACTION_CREATE_WEB_LOGIN_TICKET_V2 = "create_web_login_ticket2";
+    private static final String WEB_AUTH_URL = "https://account.typheye.cn/auth";
 
     private static final String KEY_USERNAME = "username";
     private static final String KEY_PASSWORD = "password";
@@ -78,6 +81,7 @@ public class tAccUtils {
     private static final String SECURE_PREFS_NAME = "account_secure_prefs";
     private static final String PREFS_SESSION_ID = "session_id";
     private static final String PREFS_SESSION_TOKEN = "session_token";
+    private static final String PREFS_WEB_SESSION_SOURCE_ID = "web_session_source_id";
     private static final String KEY_REQUEST_ID = "request_id";
     private static final String ACTION_UPDATE_USER_DATA = "get_user_data";
     private final Context context;
@@ -277,9 +281,20 @@ public class tAccUtils {
         progressDialog = null;
         if (dialog == null || !dialog.isShowing()) return;
         try {
-            dialog.dismiss();
+            dialog.dismissForReplacement();
         } catch (IllegalArgumentException ignored) {
             // The host Activity may have been closed while the network request completed.
+        }
+    }
+
+    private void dismissProgressDialogForReplacement() {
+        WGProBottomSheetDialog dialog = progressDialog;
+        progressDialog = null;
+        if (dialog == null || !dialog.isShowing()) return;
+        try {
+            dialog.dismissForReplacement();
+        } catch (IllegalArgumentException ignored) {
+            // The host Activity may have closed while the network request completed.
         }
     }
 
@@ -459,6 +474,7 @@ public class tAccUtils {
         editor.remove(PREFS_PROTOCOL);
         editor.apply();
         clearSecureSession();
+        clearWebViewCookies();
     }
 
     public static void saveAvatarToCache(Context context, String uid, Bitmap bitmap) {
@@ -1489,7 +1505,10 @@ public class tAccUtils {
                         }
 
                         // 在主线程回调
-                        new Handler(Looper.getMainLooper()).post(() -> callback.onSuccess(requestId, qrCodeUrl));
+                        new Handler(Looper.getMainLooper()).post(() -> {
+                            dismissProgressDialogForReplacement();
+                            callback.onSuccess(requestId, qrCodeUrl);
+                        });
                     } else {
                         final String errorMsg = json.optString("msg", "请求失败");
                         new Handler(Looper.getMainLooper()).post(() -> callback.onError(errorMsg));
@@ -1616,6 +1635,82 @@ public class tAccUtils {
         void onError(String message);
     }
 
+    public interface WebLoginTicketCallback {
+        void onSuccess(String ticket, String authUrl, String redirectPath);
+
+        void onError(String message);
+    }
+
+    /** Creates a short-lived, single-use ticket without exposing the V2 session to WebView. */
+    public void createWebLoginTicket(String redirectPath,
+                                     @NonNull final WebLoginTicketCallback callback) {
+        if (!isV2Session()) {
+            callback.onError("当前账户不是 V2 会话");
+            return;
+        }
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            callback.onError("登录会话不完整，请重新登录");
+            return;
+        }
+        String safeRedirect = redirectPath == null || !redirectPath.startsWith("/")
+                || redirectPath.startsWith("//") ? "/site/user/center/" : redirectPath;
+        try {
+            Request request = authenticatedRequest(
+                    v2Url(ACTION_CREATE_WEB_LOGIN_TICKET_V2, uid), sessionId, sessionToken)
+                    .post(new FormBody.Builder()
+                            .add("redirect_path", safeRedirect)
+                            .add("client_nonce", UUID.randomUUID().toString())
+                            .build())
+                    .build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    callback.onError("无法同步网页登录状态，请检查网络");
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    try (Response closedResponse = response) {
+                        String responseData = closedResponse.body() == null
+                                ? "" : closedResponse.body().string();
+                        JSONObject json = responseData.isEmpty()
+                                ? new JSONObject() : new JSONObject(responseData);
+                        if (!closedResponse.isSuccessful() || json.optInt("code") != 200) {
+                            callback.onError(json.optString("msg",
+                                    "网页登录同步失败: " + closedResponse.code()));
+                            return;
+                        }
+                        JSONObject payload = json.optJSONObject("info");
+                        if (payload == null) payload = json.optJSONObject("data");
+                        String ticket = firstNonEmpty(json.optString("ticket", ""),
+                                payload == null ? "" : payload.optString("ticket", ""));
+                        String authUrl = firstNonEmpty(json.optString("auth_url", ""),
+                                json.optString("exchange_url", ""),
+                                payload == null ? "" : payload.optString("auth_url", ""),
+                                payload == null ? "" : payload.optString("exchange_url", ""),
+                                WEB_AUTH_URL);
+                        String confirmedRedirect = firstNonEmpty(
+                                json.optString("redirect_path", ""),
+                                payload == null ? "" : payload.optString("redirect_path", ""),
+                                safeRedirect);
+                        if (ticket.isEmpty()) {
+                            callback.onError("网页登录票据响应不完整");
+                            return;
+                        }
+                        callback.onSuccess(ticket, authUrl, confirmedRedirect);
+                    } catch (Exception e) {
+                        callback.onError("无法解析网页登录票据");
+                    }
+                }
+            });
+        } catch (Exception e) {
+            callback.onError("无法创建网页登录票据");
+        }
+    }
+
     // 添加方法：calculateToken_generateLoginRequest
     private String calculateToken_generateLoginRequest(long time) {
         String tokenString = "type=generate_login_request&time=" + time;
@@ -1632,7 +1727,14 @@ public class tAccUtils {
      * 为WebActivity设置登录Cookie
      */
     public void setWebViewCookies() {
-        if (isV2Session()) return;
+        setWebViewCookies(null);
+    }
+
+    public void setWebViewCookies(Runnable onComplete) {
+        if (isV2Session()) {
+            clearWebViewCookies(onComplete);
+            return;
+        }
         try {
             String uid = getUid();
             String cookie = getCookie();
@@ -1650,30 +1752,81 @@ public class tAccUtils {
                     + "; Path=/"
                     + "; Secure"
                     + "; Max-Age=360000";
-            cookieManager.setCookie("https://typheye.cn", cookie1);
-
             // 2. 设置 TypheyeUserCookie
             String cookie2 = "TypheyeUserCookie=" + cookie
                     + "; Domain=" + domain
                     + "; Path=/"
                     + "; Secure"
                     + "; Max-Age=360000";
-            cookieManager.setCookie("https://typheye.cn", cookie2);
-
             // 3. 设置 TypheyeUserUidCookie
             String cookie3 = "TypheyeUserUidCookie=" + uid
                     + "; Domain=" + domain
                     + "; Path=/"
                     + "; Secure"
                     + "; Max-Age=360000";
-            cookieManager.setCookie("https://typheye.cn", cookie3);
-
-            // 强制同步
-            cookieManager.flush();
-
-            Log.d("tAccUtils", "Cookies set for WebView - UID: " + uid);
+            cookieManager.setCookie("https://typheye.cn", cookie1, firstSaved ->
+                    cookieManager.setCookie("https://typheye.cn", cookie2, secondSaved ->
+                            cookieManager.setCookie("https://typheye.cn", cookie3, thirdSaved -> {
+                                cookieManager.flush();
+                                if (onComplete != null) onComplete.run();
+                            })));
         } catch (Exception e) {
             Log.e("tAccUtils", "Failed to set WebView cookies", e);
+            if (onComplete != null) new Handler(Looper.getMainLooper()).post(onComplete);
+        }
+    }
+
+    public boolean hasWebViewSessionCookie() {
+        try {
+            SharedPreferences securePrefs = getSecurePreferences();
+            String sourceSessionId = securePrefs == null ? ""
+                    : securePrefs.getString(PREFS_WEB_SESSION_SOURCE_ID, "");
+            if (sourceSessionId.isEmpty() || !sourceSessionId.equals(getSessionId())) return false;
+            String cookies = android.webkit.CookieManager.getInstance()
+                    .getCookie("https://account.typheye.cn");
+            if (cookies == null || cookies.isEmpty()) return false;
+            for (String cookie : cookies.split(";")) {
+                if (cookie.trim().startsWith("TypheyeWebSession=")) {
+                    return cookie.trim().length() > "TypheyeWebSession=".length();
+                }
+            }
+        } catch (Exception e) {
+            Log.w("tAccUtils", "Unable to inspect WebView session cookie", e);
+        }
+        return false;
+    }
+
+    public boolean markWebViewSessionSynchronized() {
+        SharedPreferences securePrefs = getSecurePreferences();
+        String sessionId = getSessionId();
+        return securePrefs != null && !sessionId.isEmpty() && securePrefs.edit()
+                .putString(PREFS_WEB_SESSION_SOURCE_ID, sessionId)
+                .commit();
+    }
+
+    private void clearWebViewCookies() {
+        clearWebViewCookies(null);
+    }
+
+    private void clearWebViewCookies(Runnable onComplete) {
+        try {
+            SharedPreferences securePrefs = getSecurePreferences();
+            if (securePrefs != null) securePrefs.edit().remove(PREFS_WEB_SESSION_SOURCE_ID).apply();
+            android.webkit.CookieManager cookieManager = android.webkit.CookieManager.getInstance();
+            String expired = "; Domain=typheye.cn; Path=/; Max-Age=0; Secure";
+            cookieManager.setCookie("https://typheye.cn", "TypheyeCookie=" + expired, firstCleared ->
+                    cookieManager.setCookie("https://typheye.cn", "TypheyeUserCookie=" + expired, secondCleared ->
+                            cookieManager.setCookie("https://typheye.cn", "TypheyeUserUidCookie=" + expired, thirdCleared -> {
+                                String webExpired = "; Domain=.typheye.cn; Path=/; Max-Age=0; Secure";
+                                cookieManager.setCookie("https://account.typheye.cn",
+                                        "TypheyeWebSession=" + webExpired, webSessionCleared -> {
+                                            cookieManager.flush();
+                                            if (onComplete != null) onComplete.run();
+                                        });
+                            })));
+        } catch (Exception e) {
+            Log.w("tAccUtils", "Unable to clear WebView account cookies", e);
+            if (onComplete != null) new Handler(Looper.getMainLooper()).post(onComplete);
         }
     }
 }

@@ -63,6 +63,20 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:letterSpacing">0</item>
     </style>
+    <style name="Widget.WGPro.SegmentButton" parent="Widget.Material3.Button.TextButton">
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+        <item name="android:textColor">@color/profile_segment_text</item>
+        <item name="backgroundTint">@color/profile_segment_background</item>
+        <item name="cornerRadius">6dp</item>
+        <item name="strokeWidth">0dp</item>
+    </style>
     <style name="ShapeAppearanceOverlay.WGPro.Circle" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>

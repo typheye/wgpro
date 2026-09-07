@@ -78,7 +78,7 @@
     <com.google.android.material.card.MaterialCardView android:id="@+id/detail_sheet"
         android:layout_width="match_parent" android:layout_height="match_parent"
         android:elevation="8dp"
-        app:cardBackgroundColor="@color/surface_page"
+        app:cardBackgroundColor="@color/profile_detail_sheet"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.WGPro.ProfileSheet"
         app:cardElevation="0dp" app:strokeWidth="0dp"
         app:cardUseCompatPadding="false" app:cardPreventCornerOverlap="false"
@@ -91,7 +91,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent" android:layout_height="44dp"
                 android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@color/surface_secondary" app:cardCornerRadius="22dp"
+                app:cardBackgroundColor="@color/profile_detail_segments" app:cardCornerRadius="22dp"
                 app:cardElevation="0dp" app:strokeWidth="0dp">
                 <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/detail_segments"
                     android:layout_width="match_parent" android:layout_height="match_parent"
@@ -102,6 +102,7 @@
                         android:layout_height="match_parent" android:layout_weight="1" android:text="动态"
                         android:insetLeft="0dp" android:insetTop="0dp"
                         android:insetRight="0dp" android:insetBottom="0dp"
+                        android:textSize="16sp" android:textStyle="bold"
                         android:textColor="@color/profile_segment_text" app:backgroundTint="@color/profile_segment_background"
                         app:cornerRadius="20dp" app:strokeWidth="0dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/detail_segment_favorites"
@@ -109,6 +110,7 @@
                         android:layout_height="match_parent" android:layout_weight="1" android:text="收藏"
                         android:insetLeft="0dp" android:insetTop="0dp"
                         android:insetRight="0dp" android:insetBottom="0dp"
+                        android:textSize="16sp" android:textStyle="bold"
                         android:textColor="@color/profile_segment_text" app:backgroundTint="@color/profile_segment_background"
                         app:cornerRadius="20dp" app:strokeWidth="0dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/detail_segment_resources"
@@ -116,6 +118,7 @@
                         android:layout_height="match_parent" android:layout_weight="1" android:text="资源"
                         android:insetLeft="0dp" android:insetTop="0dp"
                         android:insetRight="0dp" android:insetBottom="0dp"
+                        android:textSize="16sp" android:textStyle="bold"
                         android:textColor="@color/profile_segment_text" app:backgroundTint="@color/profile_segment_background"
                         app:cornerRadius="20dp" app:strokeWidth="0dp" />
                 </com.google.android.material.button.MaterialButtonToggleGroup>
@@ -130,9 +133,8 @@
                         android:clipToPadding="false" android:fillViewport="true">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="vertical" android:paddingTop="8dp" android:paddingBottom="32dp">
-                            <include android:id="@+id/detail_post_one" layout="@layout/item_community_post_one" />
-                            <include android:id="@+id/detail_post_two" layout="@layout/item_community_post_two" />
-                            <include android:id="@+id/detail_post_three" layout="@layout/item_community_post_three" />
+                            <include layout="@layout/view_empty_community"
+                                android:layout_width="match_parent" android:layout_height="300dp" />
                         </LinearLayout>
                     </androidx.core.widget.NestedScrollView>
                     <androidx.core.widget.NestedScrollView android:id="@+id/detail_page_favorites"
@@ -140,14 +142,8 @@
                         android:clipToPadding="false" android:fillViewport="true" android:visibility="gone">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="vertical" android:padding="16dp">
-                            <TextView style="@style/TextAppearance.WGPro.Section" android:text="收藏的应用" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp" android:layout_marginBottom="10dp"
-                                android:text="稍后安装到腕上设备" android:textColor="@color/text_secondary" android:textSize="14sp" />
-                            <include android:id="@+id/detail_favorite_featured" layout="@layout/item_app_featured" />
-                            <include android:id="@+id/detail_favorite_one" layout="@layout/item_app_catalog_one" />
-                            <include android:id="@+id/detail_favorite_two" layout="@layout/item_app_catalog_two" />
-                            <include android:id="@+id/detail_favorite_three" layout="@layout/item_app_catalog_three" />
+                            <include layout="@layout/view_empty_apps"
+                                android:layout_width="match_parent" android:layout_height="300dp" />
                         </LinearLayout>
                     </androidx.core.widget.NestedScrollView>
                     <androidx.core.widget.NestedScrollView android:id="@+id/detail_page_resources"
@@ -155,23 +151,8 @@
                         android:clipToPadding="false" android:fillViewport="true" android:visibility="gone">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:orientation="vertical" android:padding="16dp">
-                            <TextView style="@style/TextAppearance.WGPro.Section" android:text="分享的资源" />
-                            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:layout_marginTop="4dp" android:layout_marginBottom="10dp"
-                                android:text="表盘、主题与实用配置" android:textColor="@color/text_secondary" android:textSize="14sp" />
-                            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                                android:baselineAligned="false" android:orientation="horizontal">
-                                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                    android:layout_weight="1" android:layout_marginEnd="6dp" android:orientation="vertical">
-                                    <include android:id="@+id/detail_resource_one" layout="@layout/item_resource_one" />
-                                    <include android:id="@+id/detail_resource_three" layout="@layout/item_resource_three" />
-                                </LinearLayout>
-                                <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
-                                    android:layout_weight="1" android:layout_marginStart="6dp" android:orientation="vertical">
-                                    <include android:id="@+id/detail_resource_two" layout="@layout/item_resource_two" />
-                                    <include android:id="@+id/detail_resource_four" layout="@layout/item_resource_four" />
-                                </LinearLayout>
-                            </LinearLayout>
+                            <include layout="@layout/view_empty_resources"
+                                android:layout_width="match_parent" android:layout_height="300dp" />
                         </LinearLayout>
                     </androidx.core.widget.NestedScrollView>
                 </FrameLayout>
