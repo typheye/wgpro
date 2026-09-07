@@ -302,6 +302,7 @@ public class UserDetailActivity extends AppCompatActivity {
         }
         if (item.getItemId() == R.id.action_profile_more) {
             new WGProAlertDialogBuilder(this)
+                    .setTitle("更多操作")
                     .setItems(new String[]{"编辑资料", "分享主页"}, (dialog, which) -> {
                         if (which == 0) {
                             startActivity(new Intent(this, AccMangerActivity.class)

@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -74,7 +73,7 @@ public class DeviceFragment extends Fragment {
         status.setBackgroundResource(connected ? R.drawable.bg_device_status_connected : R.drawable.bg_device_status_disconnected);
         ((TextView) card.findViewById(R.id.text_device_since)).setText(connected ? "连接于刚刚" : "最近离线");
         card.setOnClickListener(v -> openDetail(id));
-        card.findViewById(R.id.button_device_more).setOnClickListener(v -> showMenu(v, id, note));
+        card.findViewById(R.id.button_device_more).setOnClickListener(v -> showMenu(id, note));
         parent.addView(card);
     }
 
@@ -85,20 +84,27 @@ public class DeviceFragment extends Fragment {
         startActivity(intent);
     }
 
-    private void showMenu(View anchor, String id, String currentNote) {
-        PopupMenu menu = new PopupMenu(requireContext(), anchor);
-        menu.getMenu().add("备注"); menu.getMenu().add("移除");
-        menu.setOnMenuItemClickListener(item -> {
-            if ("备注".contentEquals(item.getTitle())) showNoteDialog(id, currentNote);
-            else new WGProAlertDialogBuilder(requireContext()).setTitle("移除设备？")
-                    .setMessage("移除后可在设备重新连接时再次添加。")
-                    .setNegativeButton("取消", null).setPositiveButton("移除", (dialog, which) -> {
-                        try (DeviceDatabase db = new DeviceDatabase(requireContext())) { db.remove(id); }
-                        refresh();
-                    }).show();
-            return true;
-        });
-        menu.show();
+    private void showMenu(String id, String currentNote) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("设备管理")
+                .setItems(new CharSequence[]{"修改备注", "移除设备"}, (menuDialog, selected) -> {
+                    if (selected == 0) {
+                        showNoteDialog(id, currentNote);
+                        return;
+                    }
+                    new WGProAlertDialogBuilder(requireContext())
+                            .setTitle("移除设备？")
+                            .setMessage("移除后可在设备重新连接时再次添加。")
+                            .setNegativeButton("取消", null)
+                            .setPositiveButton("移除", (confirmDialog, button) -> {
+                                try (DeviceDatabase db = new DeviceDatabase(requireContext())) {
+                                    db.remove(id);
+                                }
+                                refresh();
+                            })
+                            .show();
+                })
+                .show();
     }
 
     private void showNoteDialog(String id, String currentNote) {

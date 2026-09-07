@@ -81,6 +81,7 @@ public class AppUtils {
     }
 
     public static void configureActivityTransitions(@NonNull Activity activity) {
+        activity.getWindow().setWindowAnimations(R.style.ActivityAnimation);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
             activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,
                     R.anim.activity_open_enter, R.anim.activity_open_exit);

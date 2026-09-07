@@ -88,6 +88,14 @@ public class MainActivity extends AppCompatActivity {
             @Override public int getItemCount() { return 4; }
         });
         mainPager.setOffscreenPageLimit(1);
+        mainPager.setPageTransformer((page, position) -> {
+            float distance = Math.min(1f, Math.abs(position));
+            page.setAlpha(position <= 0f ? 1f : Math.max(0f, 1f - position));
+            float scale = 0.94f + 0.06f * (1f - distance);
+            page.setScaleX(scale);
+            page.setScaleY(scale);
+            page.setTranslationX(-position * page.getWidth());
+        });
 
         // 默认选中首页（如果未恢复状态）
         if (savedInstanceState == null) {
@@ -99,7 +107,28 @@ public class MainActivity extends AppCompatActivity {
 
         bottomNavigation.setOnItemSelectedListener(item -> {
             int id = item.getItemId();
-            mainPager.setCurrentItem(navIdToPosition(id), true);
+            int target = navIdToPosition(id);
+            if (mainPager.getCurrentItem() != target) {
+                mainPager.animate().cancel();
+                mainPager.animate()
+                        .alpha(0.15f)
+                        .scaleX(0.98f)
+                        .scaleY(0.98f)
+                        .setDuration(70L)
+                        .withEndAction(() -> {
+                            mainPager.setCurrentItem(target, false);
+                            mainPager.setAlpha(0.15f);
+                            mainPager.setScaleX(0.94f);
+                            mainPager.setScaleY(0.94f);
+                            mainPager.animate()
+                                    .alpha(1f)
+                                    .scaleX(1f)
+                                    .scaleY(1f)
+                                    .setDuration(140L)
+                                    .start();
+                        })
+                        .start();
+            }
             return true;
         });
         mainPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {

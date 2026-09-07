@@ -5,11 +5,14 @@ import android.content.DialogInterface;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -23,6 +26,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
 
 /** Alert-like API backed by a real custom Material bottom sheet. */
@@ -53,16 +57,19 @@ public final class WGProAlertDialogBuilder {
         WGProBottomSheetDialog dialog = new WGProBottomSheetDialog(context);
         dialog.setCancelable(cancelable);
         dialog.setCanceledOnTouchOutside(cancelable);
+        dialog.setDismissWithAnimation(true);
         dialog.setContentView(buildContent(dialog));
-        dialog.setOnShowListener(ignored -> configureWindow(dialog));
+        dialog.setWindowConfigurator(() -> configureWindow(dialog));
         return dialog;
     }
 
     public WGProBottomSheetDialog show() {
+        WGProBottomSheetDialog active = WGProBottomSheetDialog.activeFor(context);
+        if (active != null) return active;
         WGProBottomSheetDialog dialog = create();
         dialog.show();
-        configureWindow(dialog);
-        return dialog;
+        WGProBottomSheetDialog shown = WGProBottomSheetDialog.activeFor(context);
+        return shown == null ? dialog : shown;
     }
 
     private View buildContent(WGProBottomSheetDialog dialog) {
@@ -94,40 +101,106 @@ public final class WGProAlertDialogBuilder {
             panel.addView(customView, params(-1, -2, 12));
         }
         if (items != null) {
+            MaterialCardView group = new MaterialCardView(context);
+            group.setRadius(dp(18));
+            group.setCardElevation(0f);
+            group.setStrokeWidth(0);
+            group.setUseCompatPadding(false);
+            group.setPreventCornerOverlap(false);
+            group.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
+            group.setClipToOutline(true);
+
             LinearLayout list = new LinearLayout(context);
             list.setOrientation(LinearLayout.VERTICAL);
             for (int i = 0; i < items.length; i++) {
                 final int index = i;
-                TextView row = text(items[i], 17, R.color.text_primary);
+                LinearLayout row = new LinearLayout(context);
+                row.setOrientation(LinearLayout.HORIZONTAL);
                 row.setGravity(Gravity.CENTER_VERTICAL);
-                row.setMinHeight(dp(54));
-                int selectable = resolveSelectableBackground();
-                if (selectable != 0) row.setBackgroundResource(selectable);
-                row.setOnClickListener(v -> { if (itemListener != null) itemListener.onClick(dialog, index); dialog.dismiss(); });
-                list.addView(row, new LinearLayout.LayoutParams(-1, dp(54)));
+                row.setPadding(dp(18), 0, dp(16), 0);
+                row.setClickable(true);
+                row.setFocusable(true);
+                row.setBackground(menuRipple());
+
+                TextView label = text(items[i], 17, R.color.text_primary);
+                label.setTypeface(null, Typeface.BOLD);
+                row.addView(label, new LinearLayout.LayoutParams(0, -2, 1f));
+
+                ImageView arrow = new ImageView(context);
+                arrow.setImageResource(R.drawable.ic_chevron_right_vector);
+                arrow.setImageTintList(ColorStateList.valueOf(context.getColor(R.color.text_tertiary)));
+                arrow.setContentDescription(null);
+                row.addView(arrow, new LinearLayout.LayoutParams(dp(22), dp(22)));
+
+                row.setOnClickListener(v -> {
+                    if (!dialog.tryConsumeAction()) return;
+                    dialog.dismissForReplacement();
+                    if (itemListener != null) itemListener.onClick(dialog, index);
+                });
+                list.addView(row, new LinearLayout.LayoutParams(-1, dp(64)));
+
+                if (i < items.length - 1) {
+                    View divider = new View(context);
+                    divider.setBackgroundColor(context.getColor(R.color.outline_soft));
+                    list.addView(divider, new LinearLayout.LayoutParams(-1, dp(1)));
+                }
             }
+            group.addView(list, new MaterialCardView.LayoutParams(-1, -2));
             ScrollView scroll = new ScrollView(context);
-            scroll.addView(list);
-            panel.addView(scroll, params(-1, -2, 10));
+            scroll.setClipToPadding(false);
+            scroll.addView(group, new ScrollView.LayoutParams(-1, -2));
+            panel.addView(scroll, params(-1, -2, 18));
         }
         if (neutralText != null || negativeText != null || positiveText != null) {
             LinearLayout actions = new LinearLayout(context);
-            actions.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
-            if (neutralText != null) actions.addView(button(dialog, neutralText, neutralListener, DialogInterface.BUTTON_NEUTRAL));
-            if (negativeText != null) actions.addView(button(dialog, negativeText, negativeListener, DialogInterface.BUTTON_NEGATIVE));
-            if (positiveText != null) actions.addView(button(dialog, positiveText, positiveListener, DialogInterface.BUTTON_POSITIVE));
-            panel.addView(actions, params(-1, -2, 18));
+            actions.setOrientation(LinearLayout.HORIZONTAL);
+            actions.setGravity(Gravity.CENTER_VERTICAL);
+            int count = (neutralText == null ? 0 : 1) + (negativeText == null ? 0 : 1)
+                    + (positiveText == null ? 0 : 1);
+            if (neutralText != null) addAction(actions,
+                    button(dialog, neutralText, neutralListener, DialogInterface.BUTTON_NEUTRAL, false), count);
+            if (negativeText != null) addAction(actions,
+                    button(dialog, negativeText, negativeListener, DialogInterface.BUTTON_NEGATIVE, false), count);
+            if (positiveText != null) addAction(actions,
+                    button(dialog, positiveText, positiveListener, DialogInterface.BUTTON_POSITIVE, true), count);
+            panel.addView(actions, params(-1, -2, 22));
         }
         return panel;
     }
 
-    private MaterialButton button(WGProBottomSheetDialog dialog, CharSequence label, @Nullable DialogInterface.OnClickListener listener, int which) {
-        MaterialButton button = new MaterialButton(context, null, android.R.attr.borderlessButtonStyle);
+    private MaterialButton button(WGProBottomSheetDialog dialog, CharSequence label,
+                                  @Nullable DialogInterface.OnClickListener listener,
+                                  int which, boolean primary) {
+        MaterialButton button = new MaterialButton(context);
         button.setText(label);
-        button.setTextColor(ColorStateList.valueOf(context.getColor(R.color.brand_primary)));
-        button.setOnClickListener(v -> { if (listener != null) listener.onClick(dialog, which); dialog.dismiss(); });
+        button.setTextSize(18);
+        button.setTypeface(null, Typeface.BOLD);
+        button.setAllCaps(false);
+        button.setLetterSpacing(0f);
+        button.setMinHeight(0);
+        button.setInsetTop(0);
+        button.setInsetBottom(0);
+        button.setCornerRadius(dp(12));
+        button.setStrokeWidth(0);
+        button.setTextColor(ColorStateList.valueOf(context.getColor(
+                primary ? R.color.white : R.color.text_primary)));
+        button.setBackgroundTintList(ColorStateList.valueOf(context.getColor(
+                primary ? R.color.brand_primary : R.color.surface_secondary)));
+        button.setRippleColor(ColorStateList.valueOf(androidx.core.graphics.ColorUtils.setAlphaComponent(
+                context.getColor(primary ? R.color.white : R.color.brand_primary), primary ? 46 : 28)));
+        button.setOnClickListener(v -> {
+            if (!dialog.tryConsumeAction()) return;
+            if (listener != null) listener.onClick(dialog, which);
+            dialog.dismiss();
+        });
         dialog.registerButton(which, button);
         return button;
+    }
+
+    private void addAction(LinearLayout actions, MaterialButton button, int count) {
+        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(0, dp(54), 1f);
+        if (actions.getChildCount() > 0) layout.leftMargin = dp(count > 2 ? 8 : 10);
+        actions.addView(button, layout);
     }
 
     private void configureWindow(BottomSheetDialog dialog) {
@@ -162,10 +235,13 @@ public final class WGProAlertDialogBuilder {
         value.topMargin = dp(top);
         return value;
     }
-    private int resolveSelectableBackground() {
-        android.util.TypedValue value = new android.util.TypedValue();
-        context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, value, true);
-        return value.resourceId;
+    private RippleDrawable menuRipple() {
+        int ripple = androidx.core.graphics.ColorUtils.setAlphaComponent(
+                context.getColor(R.color.brand_primary), 28);
+        return new RippleDrawable(
+                ColorStateList.valueOf(ripple),
+                new ColorDrawable(Color.TRANSPARENT),
+                new ColorDrawable(Color.WHITE));
     }
     private int dp(int value) { return (int) (value * context.getResources().getDisplayMetrics().density + 0.5f); }
 }

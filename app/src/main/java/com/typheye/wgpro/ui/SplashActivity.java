@@ -67,14 +67,14 @@ public class SplashActivity extends AppCompatActivity {
     void goMain(){
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.main_enter_from_splash, R.anim.splash_exit);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
 
     void goOOBE(){
         Intent intent = new Intent(SplashActivity.this, OobeActivity.class);
         startActivity(intent);
-        overridePendingTransition(R.anim.main_enter_from_splash, R.anim.splash_exit);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         finish();
     }
 
