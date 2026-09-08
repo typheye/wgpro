@@ -3,6 +3,10 @@ package com.typheye.wgpro.ui.function.debug;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import android.widget.EditText;
+import android.text.InputType;
+import android.content.Intent;
+import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.typheye.wgpro.R;
@@ -47,6 +51,14 @@ public final class TestActivity extends AppCompatActivity {
             TestHandler.probeApis(this, summary -> runOnUiThread(() -> {
                 showResult("云端 API 探测结果", summary);
             }));
+        });
+        findViewById(R.id.test_open_user).setOnClickListener(v -> {
+            EditText input = new EditText(this); input.setHint("用户 UID"); input.setSingleLine(true); input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            new WGProAlertDialogBuilder(this).setTitle("打开用户主页").setView(input)
+                    .setNegativeButton("取消", null).setPositiveButton("打开", (d,w) -> {
+                        String uid = input.getText() == null ? "" : input.getText().toString().trim();
+                        if (!uid.isEmpty()) startActivity(new Intent(this, UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
+                    }).show();
         });
         update();
     }

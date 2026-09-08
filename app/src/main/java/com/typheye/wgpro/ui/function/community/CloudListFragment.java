@@ -707,24 +707,59 @@ public class CloudListFragment extends Fragment {
     }
 
     private void showCatalogActions(JSONObject item, boolean app, View anchor) {
+        if (item.optBoolean("_invalid", false)) {
+            String kind = app ? "应用" : "资源";
+            new WGProAlertDialogBuilder(requireContext()).setTitle(kind + "已失效")
+                    .setItems(new String[]{"移除", "元数据"}, (d, which) -> {
+                        if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除？").setMessage("移除后不会再显示在当前列表。")
+                                .setNegativeButton("取消", null).setPositiveButton("移除", (x,y) -> deleteHistory(item, anchor)).show();
+                        else new WGProAlertDialogBuilder(requireContext()).setTitle(kind + "元数据").setMessage("数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("target_uid", "--"))).setNegativeButton("关闭", null).show();
+                    }).show();
+            return;
+        }
         java.util.ArrayList<String> actions = new java.util.ArrayList<>();
-        actions.add(app ? "应用操作" : "资源操作");
-        actions.add("查看标识");
+        String owner = item.optString("uid", item.optString("author_uid", item.optString("publisher_uid", "")));
+        boolean mine = !owner.isEmpty() && owner.equals(account.getUid());
+        if (mine) actions.add("删除"); else actions.add("举报");
+        actions.add("分享");
         if (MODE_HISTORY.equals(mode)) actions.add("删除记录");
         new WGProAlertDialogBuilder(requireContext()).setTitle(app ? "应用操作" : "资源操作")
                 .setItems(actions.toArray(new String[0]), (d, which) -> {
                     if (which == 0) {
-                        new WGProAlertDialogBuilder(requireContext()).setTitle(actions.get(0)).setMessage("打开详情、查看或执行相关操作")
-                                .setNegativeButton("关闭", null).show();
+                        if (mine) confirmCatalogDelete(item, app); else reportCatalog(item, app);
                     } else if (which == 1) {
-                        new WGProAlertDialogBuilder(requireContext()).setTitle("记录标识")
-                                .setMessage("类型：" + (app ? "应用" : "资源") + "\n数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("publisher_uid", "--")))
-                                .setNegativeButton("关闭", null).show();
+                        if ("分享".equals(actions.get(1))) {
+                            Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
+                                    .putExtra(Intent.EXTRA_TEXT, (app ? "应用" : "资源") + "：" + item.optString(app ? "name" : "title", "未知"));
+                            startActivity(Intent.createChooser(share, "分享"));
+                        } else deleteHistory(item, anchor);
                     } else {
                         new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")
                                 .setNegativeButton("取消", null).setPositiveButton("删除", (x,y) -> deleteHistory(item, anchor)).show();
                     }
                 }).show();
+    }
+
+    private void confirmCatalogDelete(JSONObject item, boolean app) {
+        new WGProAlertDialogBuilder(requireContext()).setTitle("确认删除？").setMessage("删除后无法恢复。")
+                .setNegativeButton("取消", null).setPositiveButton("删除", (d,w) -> {
+                    Map<String,String> fields = new LinkedHashMap<>();
+                    fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id", item.optString("target_key", "")));
+                    account.postV2Json(app ? "app_delete2" : "resource_delete2", fields, new tAccUtils.JsonCallback() {
+                        public void onSuccess(JSONObject json) { new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage("已删除").setNegativeButton("关闭", null).show(); }
+                        public void onError(int code, String msg) { new WGProAlertDialogBuilder(requireContext()).setTitle("操作失败").setMessage(msg).setNegativeButton("关闭", null).show(); }
+                    });
+                }).show();
+    }
+
+    private void reportCatalog(JSONObject item, boolean app) {
+        Map<String,String> fields = new LinkedHashMap<>(); fields.put("target_type", app ? "app" : "resource");
+        fields.put("target_key", item.optString(app ? "package" : "id", item.optString("target_key", "")));
+        fields.put("reason_code", "other"); fields.put("description", "通过 Android 客户端举报");
+        account.postV2Json("report_create2", fields, new tAccUtils.JsonCallback() {
+            public void onSuccess(JSONObject json) { new WGProAlertDialogBuilder(requireContext()).setTitle("举报已提交").setMessage("感谢你的反馈").setNegativeButton("关闭", null).show(); }
+            public void onError(int code, String msg) { new WGProAlertDialogBuilder(requireContext()).setTitle("举报失败").setMessage(msg).setNegativeButton("关闭", null).show(); }
+        });
     }
 
     private View createSystemMessageRow(JSONObject item) {

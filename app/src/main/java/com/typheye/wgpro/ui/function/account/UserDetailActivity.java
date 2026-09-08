@@ -77,6 +77,8 @@ public class UserDetailActivity extends AppCompatActivity {
     private boolean canUnfollow = true;
     private MaterialButton followButton;
     private long profileLoadingStarted;
+    private boolean profileLoaded;
+    private boolean profileRequestActive;
     private final Runnable settledWindowLayout = () -> {
         if (detailRoot != null && detailRoot.isAttachedToWindow()) {
             scheduleProfileLayout(true);
@@ -176,12 +178,16 @@ public class UserDetailActivity extends AppCompatActivity {
     private void loadPublicProfile(ImageView avatar, ImageView collapsedAvatar,
                                    TextView avatarText, TextView collapsedAvatarText) {
         if (targetUid == null || targetUid.isEmpty()) return;
+        if (profileRequestActive) return;
+        profileRequestActive = true;
         account.getV2Json("user_profile2", java.util.Collections.singletonMap("target_uid", targetUid),
                 false, new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
                         JSONObject info = json.optJSONObject("info");
                         runOnUiThread(() -> {
-                            if (isFinishing() || isDestroyed() || info == null) return;
+                            profileRequestActive = false;
+                            if (isFinishing() || isDestroyed()) return;
+                            if (info == null) { finishProfileLoading(); showProfileError("未找到该用户"); return; }
                             String name = info.optString("nick", "用户");
                             String bio = info.optString("bio", "").trim();
                             ((TextView) findViewById(R.id.detail_nick)).setText(name);
@@ -202,16 +208,31 @@ public class UserDetailActivity extends AppCompatActivity {
                             if (!avatarUrl.isEmpty()) loadRemoteAvatar(avatarUrl, avatar, collapsedAvatar,
                                     avatarText, collapsedAvatarText);
                             finishProfileLoading();
+                            profileLoaded = true;
                         });
                     }
                     @Override public void onError(int code, @NonNull String message) {
                         runOnUiThread(() -> {
-                            expandedIdentity.setVisibility(View.VISIBLE);
-                            collapsedIdentity.setVisibility(View.VISIBLE);
-                            finishProfileLoading();
+                            profileRequestActive = false;
+                            if (!profileLoaded) { finishProfileLoading(); showProfileError(message); }
                         });
                     }
                 });
+    }
+
+    private void showProfileError(String message) {
+        if (isFinishing() || isDestroyed()) return;
+        new WGProAlertDialogBuilder(this).setTitle("无法加载用户主页")
+                .setMessage(message == null || message.trim().isEmpty() ? "用户不存在或暂无可加载数据" : message)
+                .setNegativeButton("关闭", (d,w) -> finish()).show();
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        if (profileLoaded && !isFinishing()) {
+            ImageView avatar = findViewById(R.id.detail_avatar), collapsed = findViewById(R.id.detail_collapsed_avatar);
+            loadPublicProfile(avatar, collapsed, findViewById(R.id.detail_avatar_text), findViewById(R.id.detail_collapsed_avatar_text));
+        }
     }
 
     private void finishProfileLoading() {

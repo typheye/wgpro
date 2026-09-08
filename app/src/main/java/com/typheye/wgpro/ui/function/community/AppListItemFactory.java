@@ -66,6 +66,7 @@ public final class AppListItemFactory {
         if (menuListener != null) {
             ImageView menu = new ImageView(context); menu.setImageResource(R.drawable.ic_more_vertical_vector);
             menu.setColorFilter(context.getColor(R.color.text_secondary)); menu.setPadding(dp(context, 8), dp(context, 8), dp(context, 8), dp(context, 8));
+            menu.setClickable(true); menu.setFocusable(true); menu.setBackgroundResource(R.drawable.bg_list_item_ripple);
             row.addView(menu, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
             menu.setOnClickListener(v -> menuListener.onClick(row));
         }
