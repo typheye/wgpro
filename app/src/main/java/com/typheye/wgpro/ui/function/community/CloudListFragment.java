@@ -85,6 +85,13 @@ public class CloudListFragment extends Fragment {
         return fragment;
     }
 
+    public static CloudListFragment newHistoryPage(String type) {
+        CloudListFragment fragment = newInstance(MODE_HISTORY);
+        Bundle args = fragment.getArguments();
+        if (args != null) args.putString("history_type", type);
+        return fragment;
+    }
+
     public static CloudListFragment newContactInstance(String mode, int expectedCount) {
         CloudListFragment fragment = newInstance(mode);
         fragment.requireArguments().putInt("expected_count", expectedCount);
@@ -96,6 +103,7 @@ public class CloudListFragment extends Fragment {
                                                   @Nullable Bundle stateBundle) {
         View root = inflater.inflate(R.layout.fragment_cloud_list, container, false);
         mode = getArguments() == null ? MODE_ACTIVITY : getArguments().getString("mode", MODE_ACTIVITY);
+        if (getArguments() != null) historyType = getArguments().getString("history_type", "dynamic");
         account = new tAccUtils(requireContext().getApplicationContext());
         refresh = root.findViewById(R.id.cloud_refresh);
         refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
@@ -103,13 +111,6 @@ public class CloudListFragment extends Fragment {
         state = root.findViewById(R.id.cloud_state);
         stateText = state.findViewById(R.id.stream_empty_title);
         stateDescription = state.findViewById(R.id.stream_empty_description);
-        if (MODE_HISTORY.equals(mode)) setupHistoryFilters(root);
-        if (MODE_HISTORY.equals(mode) && requireActivity() instanceof BaseSectionActivity) {
-            androidx.appcompat.widget.Toolbar toolbar = ((BaseSectionActivity) requireActivity()).sectionToolbar();
-            android.view.MenuItem menu = toolbar.getMenu().add("历史选项").setIcon(R.drawable.ic_more_vertical_vector);
-            menu.setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_ALWAYS);
-            menu.setOnMenuItemClickListener(item -> { showHistoryMenu(); return true; });
-        }
         refresh.setOnRefreshListener(this::load);
         load();
         return root;
@@ -234,6 +235,8 @@ public class CloudListFragment extends Fragment {
             }
         });
     }
+
+    void reloadFromHistoryAction() { load(); }
 
     private void loadInbox(long started, int generation, Map<String, String> page) {
         JSONArray[] results = {null, null};
@@ -713,6 +716,9 @@ public class CloudListFragment extends Fragment {
         });
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
         params.bottomMargin = dp(12); card.setLayoutParams(params);
+        if (MODE_HISTORY.equals(mode)) {
+            card.setOnLongClickListener(v -> { showHistoryItemActions(item, card); return true; });
+        }
         return card;
     }
 
