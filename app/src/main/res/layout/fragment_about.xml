@@ -8,6 +8,7 @@
         android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="28dp" android:paddingEnd="16dp" android:paddingBottom="32dp">
 
         <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/about_app_icon"
             android:layout_width="92dp" android:layout_height="92dp" android:contentDescription="腕管Pro 应用图标"
             android:elevation="4dp" android:src="@mipmap/ic_launcher" app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.WGPro.AppIcon" />
         <TextView style="@style/TextAppearance.Material3.HeadlineMedium" android:layout_width="wrap_content" android:layout_height="wrap_content"

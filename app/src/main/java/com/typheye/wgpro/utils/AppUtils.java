@@ -29,6 +29,7 @@ import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.google.zxing.client.android.BuildConfig;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
+import com.typheye.wgpro.debug.TestHandler;
 
 import org.json.JSONObject;
 
@@ -43,6 +44,7 @@ public class AppUtils {
     private static final int CURRENT_OOBE_VERSION = 2;
     // 在类中添加 OkHttp 客户端（建议在初始化时创建单例）
     private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
+            .addInterceptor(TestHandler.networkLogger())
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(15, TimeUnit.SECONDS)
             .writeTimeout(15, TimeUnit.SECONDS)

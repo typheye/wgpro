@@ -20,6 +20,7 @@ import androidx.security.crypto.MasterKey;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.data.CloudCacheDatabase;
+import com.typheye.wgpro.debug.TestHandler;
 
 import okhttp3.*;
 import org.json.JSONException;
@@ -92,6 +93,7 @@ public class tAccUtils {
     private static final Object SECURE_PREFS_LOCK = new Object();
     private static volatile SharedPreferences securePreferences;
     private static final OkHttpClient SHARED_CLIENT = new OkHttpClient.Builder()
+            .addInterceptor(TestHandler.networkLogger())
             .connectTimeout(15, TimeUnit.SECONDS)
             .readTimeout(30, TimeUnit.SECONDS)
             .writeTimeout(30, TimeUnit.SECONDS)
@@ -108,7 +110,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -727,7 +729,8 @@ public class tAccUtils {
             }
 
             @Override public void onError(int statusCode, @NonNull String message) {
-                if (statusCode != 401) {
+                boolean transientFailure = statusCode == 0 || statusCode >= 500;
+                if (transientFailure) {
                     try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
                         String payload = cache.get(cacheKey);
                         if (payload != null) {
@@ -741,10 +744,18 @@ public class tAccUtils {
         });
     }
 
+    /** Network-only read for mutable session inventories where stale cache is misleading. */
+    public void getV2JsonFresh(@NonNull String action, @NonNull Map<String, String> query,
+                               boolean authenticationRequired, @NonNull JsonCallback callback) {
+        executeV2Json(action, query, null, authenticationRequired, null, callback);
+    }
+
     private String buildCloudCacheKey(String action, Map<String, String> query,
                                       boolean authenticationRequired) {
         StringBuilder key = new StringBuilder(action);
-        if (authenticationRequired) key.append("|uid=").append(getUid());
+        // Public read endpoints become personalized when a V2 session is attached
+        // (is_liked/is_favorited). Never share those cached responses across users.
+        if (authenticationRequired || isV2Session()) key.append("|uid=").append(getUid());
         java.util.TreeMap<String, String> sorted = new java.util.TreeMap<>(query);
         for (Map.Entry<String, String> entry : sorted.entrySet()) {
             key.append('|').append(entry.getKey()).append('=').append(entry.getValue());
@@ -770,6 +781,12 @@ public class tAccUtils {
     }
 
     public void getPublicJsonUrl(@NonNull String url, @NonNull JsonCallback callback) {
+        long startedAt = android.os.SystemClock.elapsedRealtime();
+        if (TestHandler.consumeOffline(context)) {
+            TestHandler.recordApi(context, "GET", "public_json", 0, "simulated offline");
+            callback.onError(0, "模拟断网");
+            return;
+        }
         String cacheKey = "url|" + url;
         Request request;
         try {
@@ -780,6 +797,8 @@ public class tAccUtils {
         }
         client.newCall(request).enqueue(new Callback() {
             @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                TestHandler.recordApi(context, "GET", "public_json", 0,
+                        elapsedMessage(startedAt, error.getMessage()));
                 if (!deliverCachedJson(cacheKey, callback)) {
                     callback.onError(0, "网络请求失败: " + error.getMessage());
                 }
@@ -789,6 +808,8 @@ public class tAccUtils {
                 try (ResponseBody body = response.body()) {
                     JSONObject json = new JSONObject(body == null ? "" : body.string());
                     int code = json.optInt("code", response.code());
+                    TestHandler.recordApi(context, "GET", "public_json", code,
+                            elapsedMessage(startedAt, json.optString("msg", "")));
                     if (response.isSuccessful() && (code == 200 || !json.has("code"))) {
                         try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
                             cache.put(cacheKey, json.toString());
@@ -799,6 +820,8 @@ public class tAccUtils {
                         callback.onError(code, json.optString("msg", "请求失败: " + response.code()));
                     }
                 } catch (Exception error) {
+                    TestHandler.recordApi(context, "GET", "public_json", response.code(),
+                            elapsedMessage(startedAt, "parse: " + error.getMessage()));
                     if (!deliverCachedJson(cacheKey, callback)) {
                         callback.onError(response.code(), "响应解析失败: " + error.getMessage());
                     }
@@ -822,6 +845,27 @@ public class tAccUtils {
                                @Nullable Map<String, String> fields,
                                boolean authenticationRequired, @Nullable String idempotencyKey,
                                JsonCallback callback) {
+        executeV2Json(action, query, fields, authenticationRequired, idempotencyKey,
+                callback, true);
+    }
+
+    private void executeV2Json(String action, Map<String, String> query,
+                               @Nullable Map<String, String> fields,
+                               boolean authenticationRequired, @Nullable String idempotencyKey,
+                               JsonCallback callback, boolean attachOptionalSession) {
+        long startedAt = android.os.SystemClock.elapsedRealtime();
+        if (TestHandler.consumeOffline(context)) {
+            TestHandler.recordApi(context, fields == null ? "GET" : "POST", action, 0,
+                    "simulated offline");
+            callback.onError(0, "模拟断网");
+            return;
+        }
+        if (authenticationRequired && TestHandler.consumeLoggedOut(context)) {
+            TestHandler.recordApi(context, fields == null ? "GET" : "POST", action, 401,
+                    "simulated logged out");
+            callback.onError(401, "模拟未登录");
+            return;
+        }
         try {
             HttpUrl.Builder url = HttpUrl.get(BASE_URL).newBuilder()
                     .setQueryParameter("type", action);
@@ -837,7 +881,7 @@ public class tAccUtils {
                 url.setQueryParameter(KEY_UID, uid);
                 request.header("Authorization", "Bearer " + sessionToken)
                         .header("X-Typheye-Session-Id", sessionId);
-            } else if (isV2Session()) {
+            } else if (attachOptionalSession && isV2Session()) {
                 String uid = getUid();
                 String sessionId = getSessionId();
                 String sessionToken = getSessionToken();
@@ -863,6 +907,8 @@ public class tAccUtils {
             }
             client.newCall(request.build()).enqueue(new Callback() {
                 @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    TestHandler.recordApi(context, fields == null ? "GET" : "POST", action, 0,
+                            elapsedMessage(startedAt, error.getMessage()));
                     callback.onError(0, "网络请求失败: " + error.getMessage());
                 }
 
@@ -871,15 +917,25 @@ public class tAccUtils {
                         String raw = body == null ? "" : body.string();
                         JSONObject json = raw.isEmpty() ? new JSONObject() : new JSONObject(raw);
                         int code = json.optInt("code", response.code());
+                        TestHandler.recordApi(context, fields == null ? "GET" : "POST", action,
+                                code, elapsedMessage(startedAt, json.optString("msg", "")));
                         if (response.code() == 401 || code == 401) {
-                            logout();
-                            callback.onError(401, json.optString("msg", "会话已失效"));
+                            if (!authenticationRequired && attachOptionalSession) {
+                                executeV2Json(action, query, fields, false, idempotencyKey,
+                                        callback, false);
+                            } else {
+                                if (authenticationRequired) logout();
+                                callback.onError(401, json.optString("msg", "会话已失效"));
+                            }
                         } else if (!response.isSuccessful() || code != 200) {
                             callback.onError(code, json.optString("msg", "请求失败: " + response.code()));
                         } else {
                             callback.onSuccess(json);
                         }
                     } catch (Exception error) {
+                        TestHandler.recordApi(context, fields == null ? "GET" : "POST", action,
+                                response.code(), elapsedMessage(startedAt,
+                                        "parse: " + error.getMessage()));
                         callback.onError(response.code(), "响应解析失败: " + error.getMessage());
                     }
                 }
@@ -889,13 +945,18 @@ public class tAccUtils {
         }
     }
 
+    private String elapsedMessage(long startedAt, String message) {
+        long elapsed = android.os.SystemClock.elapsedRealtime() - startedAt;
+        return elapsed + "ms" + (message == null || message.isEmpty() ? "" : " " + message);
+    }
+
 
     // 新增：确认登录请求
     public void goConfirmLoginRequest(String requestId, @NonNull final SetCallback callback) {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -974,7 +1035,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -1095,7 +1156,7 @@ public class tAccUtils {
             return;
         }
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             callback.onError("网络不可用");
             return;
         }
@@ -1164,7 +1225,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -1244,7 +1305,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -1407,7 +1468,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -1624,22 +1685,15 @@ public class tAccUtils {
         }
     }
 
-    private boolean isNetworkAvailable() {
+    private boolean isNetworkUnavailable() {
         if (context == null) return true;
         try {
             ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = cm.getActiveNetworkInfo();
 
-            // 网络信息为空 -> 无网络
-            if (networkInfo == null) {
-                return true;
-            }
-
-            // API 21+ 使用 isConnectedOrConnecting() (更安全，包含正在连接状态)
-            // API <21 仍使用 isConnected() (兼容旧版)
-            return !networkInfo.isConnectedOrConnecting();
+            return networkInfo == null || !networkInfo.isConnectedOrConnecting();
         } catch (Exception e) {
-            return true; // 发生异常时默认认为无网络
+            return true;
         }
     }
     // 新增：设置回调接口
@@ -1655,7 +1709,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 网络检查在主线程
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");
@@ -1717,7 +1771,7 @@ public class tAccUtils {
         hideProgressDialog();
 
         // 1. 快速网络检测
-        if (isNetworkAvailable()) {
+        if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
                 Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
                 callback.onError("网络不可用");

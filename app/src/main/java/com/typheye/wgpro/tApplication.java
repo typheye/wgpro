@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
 import com.typheye.wgpro.debug.CrashHandler;
+import com.typheye.wgpro.debug.TestHandler;
 
 import java.io.File;
 
@@ -27,6 +28,7 @@ public class tApplication extends Application {
                 ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 : darkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         initCrashHandler();
+        TestHandler.install(this);
 
         // 确保日志目录存在
         ensureLogDirectory();

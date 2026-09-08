@@ -158,8 +158,8 @@ public class CloudListFragment extends Fragment {
             case MODE_MY_RESOURCES: action = "my_resources2"; break;
             case MODE_NOTIFICATIONS: action = "notifications2"; break;
             case MODE_CONVERSATIONS: action = "conversations2"; break;
-            case MODE_FOLLOWING: action = "contacts2"; query.put("relation", "following"); break;
-            case MODE_FOLLOWERS: action = "contacts2"; query.put("relation", "followers"); break;
+            case MODE_FOLLOWING: action = "contacts2"; query.put("kind", "following"); break;
+            case MODE_FOLLOWERS: action = "contacts2"; query.put("kind", "followers"); break;
             case MODE_USER_RESOURCES: action = "resources2"; auth = false; break;
             default:
                 action = "dynamics2";
@@ -333,8 +333,14 @@ public class CloudListFragment extends Fragment {
                 @Override public void onSuccess(@NonNull JSONObject json) {
                     JSONObject info = json.optJSONObject("info");
                     boolean unavailable = info == null || info.optBoolean("deleted", false)
+                            || info.optBoolean("is_deleted", false)
+                            || info.optBoolean("removed", false)
+                            || info.optBoolean("is_removed", false)
                             || "deleted".equalsIgnoreCase(info.optString("status"))
-                            || "offline".equalsIgnoreCase(info.optString("status"));
+                            || "offline".equalsIgnoreCase(info.optString("status"))
+                            || "deleted".equalsIgnoreCase(info.optString("visibility"))
+                            || "removed".equalsIgnoreCase(info.optString("visibility"))
+                            || "offline".equalsIgnoreCase(info.optString("visibility"));
                     if (info != null && !unavailable) try {
                         copyIdentity(target, info);
                         if (MODE_HISTORY.equals(mode)) info.put("_history_id", target.optString("id", ""));

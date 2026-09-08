@@ -184,6 +184,10 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void toggleLike() {
+        if (dynamicId == null || !dynamicId.trim().matches("\\d+")) {
+            showError("操作失败", "动态标识无效，请刷新后重试");
+            return;
+        }
         Map<String, String> fields = new LinkedHashMap<>(); fields.put("dynamic_id", dynamicId);
         fields.put("action", liked ? "unlike" : "like"); likeButton.setEnabled(false);
         account.postV2Json("dynamic_reaction2", fields, new tAccUtils.JsonCallback() {
@@ -196,6 +200,10 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void toggleFavorite() {
+        if (dynamicId == null || !dynamicId.trim().matches("\\d+")) {
+            showError("操作失败", "动态标识无效，请刷新后重试");
+            return;
+        }
         Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "dynamic");
         fields.put("target_key", dynamicId); fields.put("action", favorited ? "remove" : "add");
         favoriteButton.setEnabled(false); boolean before = favorited;

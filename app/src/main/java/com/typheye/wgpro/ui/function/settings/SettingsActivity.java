@@ -35,8 +35,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
+import com.typheye.wgpro.ui.function.debug.TestActivity;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
+import com.typheye.wgpro.debug.TestHandler;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -194,6 +196,12 @@ public class SettingsActivity extends AppCompatActivity {
             view.findViewById(R.id.row_clear_cache).setOnClickListener(v -> showClearCacheSheet());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());
+            View debugRow = view.findViewById(R.id.row_debug);
+            View debugDivider = view.findViewById(R.id.divider_debug);
+            boolean debugEnabled = TestHandler.isEnabled(requireContext());
+            debugRow.setVisibility(debugEnabled ? View.VISIBLE : View.GONE);
+            debugDivider.setVisibility(debugEnabled ? View.VISIBLE : View.GONE);
+            debugRow.setOnClickListener(v -> startActivity(new Intent(requireContext(), TestActivity.class)));
             view.findViewById(R.id.row_policies).setOnClickListener(v -> openWeb("https://www.typheye.cn/policies/"));
             view.findViewById(R.id.row_license).setOnClickListener(v -> openWeb("https://www.typheye.cn/licenses/gpl-3.0.html"));
             View logoutRow = view.findViewById(R.id.row_logout);
@@ -217,6 +225,11 @@ public class SettingsActivity extends AppCompatActivity {
         public void onResume() {
             super.onResume();
             if (accUtils != null) updateLogoutVisibility();
+            View debugRow = getView() == null ? null : getView().findViewById(R.id.row_debug);
+            View debugDivider = getView() == null ? null : getView().findViewById(R.id.divider_debug);
+            boolean enabled = TestHandler.isEnabled(requireContext());
+            if (debugRow != null) debugRow.setVisibility(enabled ? View.VISIBLE : View.GONE);
+            if (debugDivider != null) debugDivider.setVisibility(enabled ? View.VISIBLE : View.GONE);
         }
 
         private void updateLogoutVisibility() {
@@ -513,6 +526,9 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public static class AboutFragment extends Fragment {
+        private int developerTapCount;
+        private long lastDeveloperTapAt;
+
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
@@ -532,8 +548,32 @@ public class SettingsActivity extends AppCompatActivity {
             ((android.widget.TextView) view.findViewById(R.id.about_version_code)).setText(String.valueOf(versionCode));
             ((android.widget.TextView) view.findViewById(R.id.about_android)).setText(
                     String.valueOf(requireContext().getApplicationInfo().targetSdkVersion));
+            view.findViewById(R.id.about_app_icon).setOnClickListener(v -> onDeveloperTap());
             view.findViewById(R.id.about_share).setOnClickListener(v -> shareApp());
             return view;
+        }
+
+        private void onDeveloperTap() {
+            long now = android.os.SystemClock.uptimeMillis();
+            if (now - lastDeveloperTapAt > 2_000L) developerTapCount = 0;
+            lastDeveloperTapAt = now;
+            developerTapCount++;
+            int remaining = 7 - developerTapCount;
+            if (remaining <= 0) {
+                developerTapCount = 0;
+                showDeveloperConfirm();
+            }
+        }
+
+        private void showDeveloperConfirm() {
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("开启开发模式？")
+                    .setMessage("开启后可在设置的高级组中进入调试，并记录 API 调用与诊断信息。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("开启", (dialog, which) -> {
+                        TestHandler.setEnabled(requireContext(), true);
+                        requireActivity().getSupportFragmentManager().popBackStack();
+                    }).show();
         }
 
         private void openWeb(String url) {

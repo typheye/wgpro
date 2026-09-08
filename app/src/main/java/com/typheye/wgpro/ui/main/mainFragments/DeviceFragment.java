@@ -174,7 +174,7 @@ public class DeviceFragment extends Fragment {
             }
             for (int index = 0; index < cloudSessions.length(); index++) {
                 JSONObject session = cloudSessions.optJSONObject(index);
-                if (session != null) {
+                if (session != null && isVisibleCloudSession(session)) {
                     hasOther = true;
                     addSessionCard(session, newOther);
                 }
@@ -213,7 +213,7 @@ public class DeviceFragment extends Fragment {
         Map<String, String> query = new LinkedHashMap<>();
         query.put("page", "1");
         query.put("size", "20");
-        account.getV2Json("sessions2", query, true, new tAccUtils.JsonCallback() {
+        account.getV2JsonFresh("sessions2", query, true, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 JSONArray result = json.optJSONArray("items");
                 mainHandler.post(() -> {
@@ -263,6 +263,19 @@ public class DeviceFragment extends Fragment {
         more.setVisibility(View.VISIBLE);
         more.setOnClickListener(v -> showSessionMenu(session));
         target.addView(card);
+    }
+
+    private boolean isVisibleCloudSession(JSONObject session) {
+        String type = session.optString("session_type", "");
+        String id = session.optString("id", "");
+        // A Web-login placeholder linked to a native source is not a separately
+        // logged-in device. The server normally removes it; keep the client robust
+        // against older deployments which still return both rows.
+        return !("web".equalsIgnoreCase(type)
+                && (!session.optString("source_session_id", "").isEmpty()
+                || !session.optString("parent_session_id", "").isEmpty()
+                || session.optBoolean("is_placeholder")
+                || id.startsWith("placeholder:")));
     }
 
     private void showSessionDetail(JSONObject session) {
@@ -336,9 +349,17 @@ public class DeviceFragment extends Fragment {
                 .setTitle("修改设备备注").setView(content).setNegativeButton("取消", null)
                 .setPositiveButton("保存", null).create();
         dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            String id = session.optString("session_id", "");
+            String id = session.optString("session_id", "").trim();
             String value = input.getText() == null ? "" : input.getText().toString().trim();
-            Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_session_id", id); fields.put("remark", value);
+            if (!session.optBoolean("is_current") && !id.matches("(?i)[0-9a-f]{32}")) {
+                layout.setError("云端未返回可用的会话标识，请刷新后重试");
+                return;
+            }
+            Map<String, String> fields = new LinkedHashMap<>();
+            // The current session may omit session_id; the API then targets the
+            // authenticated session. Never submit an empty target value.
+            if (id.matches("(?i)[0-9a-f]{32}")) fields.put("target_session_id", id);
+            fields.put("remark", value);
             new tAccUtils(requireContext()).postV2Json("session_remark2", fields, new tAccUtils.JsonCallback() {
                 @Override public void onSuccess(@NonNull JSONObject json) { mainHandler.post(() -> {
                     try { session.put("remark", value); } catch (Exception ignored1) { }
@@ -352,7 +373,8 @@ public class DeviceFragment extends Fragment {
     }
 
     private void confirmRevokeSession(JSONObject session) {
-        String id = session.optString("id", "");
+        String id = session.optString("id",
+                session.optString("session_record_id", session.optString("record_id", ""))).trim();
         if (id.isEmpty()) return;
         boolean current = session.optBoolean("is_current");
         new WGProAlertDialogBuilder(requireContext())

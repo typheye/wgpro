@@ -162,7 +162,11 @@ public class ChatActivity extends BaseSectionActivity {
 
         private void send() {
             String body = input.getText() == null ? "" : input.getText().toString().trim();
-            if (body.isEmpty() || peerUid.isEmpty()) return;
+            peerUid = peerUid == null ? "" : peerUid.trim();
+            if (body.isEmpty() || peerUid.isEmpty() || !peerUid.matches("\\d+")) {
+                showDialog("消息对象无效，请返回后重新打开聊天");
+                return;
+            }
             Map<String, String> fields = new LinkedHashMap<>(); fields.put("recipient_uid", peerUid);
             fields.put("content", body); fields.put("message_type", "text"); fields.put("metadata", "{}");
             account.postV2Json("message_send2", fields, new tAccUtils.JsonCallback() {

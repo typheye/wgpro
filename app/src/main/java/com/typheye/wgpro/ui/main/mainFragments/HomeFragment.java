@@ -256,7 +256,9 @@ public class HomeFragment extends Fragment {
         final long started = android.os.SystemClock.uptimeMillis();
         Map<String, String> query = pageQuery();
         query.put("feed", "public");
-        account.getV2Json("dynamics2", query, false, new tAccUtils.JsonCallback() {
+        // Public feed is readable without a session; attach one only when available
+        // so expired optional credentials cannot turn the page into a 401 error.
+        account.getV2JsonFresh("dynamics2", query, false, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 completeAtLeast(started, () -> {
                     JSONArray list = items(json, "items", "dynamics", "data");

@@ -233,7 +233,7 @@ public class UserDetailActivity extends AppCompatActivity {
         followButton.setStrokeWidth(following ? dp(1) : 0);
         int messageButtonColor = Color.argb(0x40, 0xFF, 0xFF, 0xFF);
         followButton.setStrokeColor(ColorStateList.valueOf(messageButtonColor));
-        followButton.setTextColor(following ? getColor(R.color.brand_primary) : Color.WHITE);
+        followButton.setTextColor(Color.WHITE);
         followButton.setBackgroundTintList(ColorStateList.valueOf(
                 following ? Color.TRANSPARENT : messageButtonColor));
         followButton.setEnabled(!following || canUnfollow || "10001".equals(targetUid));

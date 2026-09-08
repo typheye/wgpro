@@ -33,6 +33,12 @@ public class AddDeviceActivity extends AppCompatActivity {
     private long scanStartedAt;
     private String discoveredNodeId;
     private String discoveredNodeName;
+    private final Runnable scanTimeout = () -> {
+        if (!activeScan || !resumed || isFinishing() || isDestroyed()) return;
+        activeScan = false;
+        scanInFlight = false;
+        showEmptyResult();
+    };
 
     @Override
     protected void onCreate(Bundle state) {
@@ -50,6 +56,7 @@ public class AddDeviceActivity extends AppCompatActivity {
 
     private void startScan() {
         mainHandler.removeCallbacks(scanTick);
+        mainHandler.removeCallbacks(scanTimeout);
         activeScan = true;
         scanStartedAt = System.currentTimeMillis();
         findViewById(R.id.add_device_progress).setVisibility(View.VISIBLE);
@@ -57,6 +64,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         findViewById(R.id.add_device_found_card).setVisibility(View.GONE);
         findViewById(R.id.add_device_empty).setVisibility(View.GONE);
         ((TextView) findViewById(R.id.add_device_scan_title)).setText("正在扫描附近设备");
+        mainHandler.postDelayed(scanTimeout, ACTIVE_SCAN_TIMEOUT_MS);
         queryConnection();
     }
 
@@ -97,6 +105,7 @@ public class AddDeviceActivity extends AppCompatActivity {
             return;
         }
         if (node != null) {
+            mainHandler.removeCallbacks(scanTimeout);
             showConnectedNode(node);
             activeScan = false;
             scheduleNextProbe();
@@ -107,6 +116,7 @@ public class AddDeviceActivity extends AppCompatActivity {
             return;
         }
         activeScan = false;
+        mainHandler.removeCallbacks(scanTimeout);
         showEmptyResult();
         scheduleNextProbe();
     }
@@ -180,6 +190,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     protected void onPause() {
         resumed = false;
         mainHandler.removeCallbacks(scanTick);
+        mainHandler.removeCallbacks(scanTimeout);
         super.onPause();
     }
 
