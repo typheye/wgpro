@@ -567,8 +567,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         private void showDeveloperConfirm() {
             new WGProAlertDialogBuilder(requireContext())
-                    .setTitle("开启开发模式？")
-                    .setMessage("开启后可在设置的高级组中进入调试，并记录 API 调用与诊断信息。")
+                    .setTitle("启用开发模式")
+                    .setMessage("启用后可在设置的高级组中进入调试，并记录 API 调用与诊断信息。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("开启", (dialog, which) -> {
                         TestHandler.setEnabled(requireContext(), true);
