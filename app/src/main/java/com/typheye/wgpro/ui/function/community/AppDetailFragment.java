@@ -45,6 +45,15 @@ public final class AppDetailFragment extends Fragment {
         JSONObject app; try { app = new JSONObject(requireArguments().getString("json", "{}")); }
         catch (Exception ignored) { app = new JSONObject(); }
         final boolean[] hidden = {false};
+        String historyKey = app.optString("id", app.optString("package", ""));
+        if (!historyKey.isEmpty() && new tAccUtils(requireContext()).isLogin() && requireContext().getSharedPreferences("history_preferences", android.content.Context.MODE_PRIVATE).getBoolean("enabled", true)) {
+            java.util.Map<String, String> fields = new java.util.LinkedHashMap<>();
+            fields.put("target_type", "app"); fields.put("target_key", historyKey);
+            new tAccUtils(requireContext()).postV2Json("history_record2", fields, new tAccUtils.JsonCallback() {
+                @Override public void onSuccess(@NonNull JSONObject ignored) { }
+                @Override public void onError(int code, @NonNull String message) { }
+            });
+        }
         long started = android.os.SystemClock.uptimeMillis();
         Runnable hide = () -> {
             long wait = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - started));

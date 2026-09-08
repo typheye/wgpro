@@ -22,7 +22,7 @@ import com.xiaomi.xms.wearable.node.NodeApi;
 
 public class AddDeviceActivity extends AppCompatActivity {
     private static final long SCAN_DURATION_MS = 400L;
-    private static final long ACTIVE_SCAN_TIMEOUT_MS = 8_000L;
+    private static final long ACTIVE_SCAN_TIMEOUT_MS = 10_000L;
     private static final long SCAN_POLL_INTERVAL_MS = 1_500L;
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final Runnable scanTick = this::queryConnection;
@@ -69,7 +69,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     }
 
     private void queryConnection() {
-        if (!resumed || scanInFlight || nodeApi == null) return;
+        if (!resumed || !activeScan || scanInFlight || nodeApi == null) return;
         if (Settings.Global.getInt(getContentResolver(), Settings.Global.BLUETOOTH_ON, 0) == 0) {
             handleScanResult(null);
             return;
@@ -91,14 +91,14 @@ public class AddDeviceActivity extends AppCompatActivity {
                         activeScan = false;
                         showEmptyResult();
                     }
-                    scheduleNextProbe();
+                    if (activeScan) mainHandler.postDelayed(scanTick, SCAN_POLL_INTERVAL_MS);
                 });
             }
         });
     }
 
     private void handleScanResult(Node node) {
-        if (!resumed || isFinishing() || isDestroyed()) return;
+        if (!resumed || !activeScan || isFinishing() || isDestroyed()) return;
         long elapsed = System.currentTimeMillis() - scanStartedAt;
         if (activeScan && elapsed < SCAN_DURATION_MS) {
             mainHandler.postDelayed(() -> handleScanResult(node), SCAN_DURATION_MS - elapsed);
@@ -108,7 +108,6 @@ public class AddDeviceActivity extends AppCompatActivity {
             mainHandler.removeCallbacks(scanTimeout);
             showConnectedNode(node);
             activeScan = false;
-            scheduleNextProbe();
             return;
         }
         if (activeScan && elapsed < ACTIVE_SCAN_TIMEOUT_MS) {
@@ -118,7 +117,6 @@ public class AddDeviceActivity extends AppCompatActivity {
         activeScan = false;
         mainHandler.removeCallbacks(scanTimeout);
         showEmptyResult();
-        scheduleNextProbe();
     }
 
     private void showConnectedNode(Node node) {
@@ -172,11 +170,6 @@ public class AddDeviceActivity extends AppCompatActivity {
         findViewById(R.id.add_device_found_card).setVisibility(View.GONE);
         findViewById(R.id.add_device_empty).setVisibility(View.VISIBLE);
         ((TextView) findViewById(R.id.add_device_scan_title)).setText("扫描完成");
-    }
-
-    private void scheduleNextProbe() {
-        mainHandler.removeCallbacks(scanTick);
-        if (resumed) mainHandler.postDelayed(scanTick, SCAN_POLL_INTERVAL_MS);
     }
 
     @Override

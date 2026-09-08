@@ -79,6 +79,15 @@ public final class TestHandler {
     @NonNull public static Interceptor networkLogger() {
         return chain -> {
             Request request = chain.request();
+            Context activeContext = applicationContext;
+            if (activeContext != null && isOfflineSimulationEnabled(activeContext)) {
+                recordApi(activeContext, request.method(), request.url().host(), 0, "调试模式已阻止联网");
+                throw new java.io.IOException("调试模式：网络已断开");
+            }
+            if (activeContext != null && isLoggedOutSimulationEnabled(activeContext)) {
+                request = request.newBuilder().removeHeader("Authorization")
+                        .removeHeader("Cookie").removeHeader("X-Typheye-Session-Id").build();
+            }
             long startedAt = SystemClock.elapsedRealtime();
             try {
                 Response response = chain.proceed(request);
@@ -145,11 +154,31 @@ public final class TestHandler {
     }
 
     public static synchronized boolean consumeOffline(@NonNull Context context) {
-        return isEnabled(context) && simulateOffline && (simulateOffline = false);
+        return isEnabled(context) && simulateOffline;
     }
 
     public static synchronized boolean consumeLoggedOut(@NonNull Context context) {
-        return isEnabled(context) && simulateLoggedOut && (simulateLoggedOut = false);
+        return isEnabled(context) && simulateLoggedOut;
+    }
+
+    public static boolean isOfflineSimulationEnabled(@NonNull Context context) {
+        return isEnabled(context) && simulateOffline;
+    }
+
+    public static boolean isLoggedOutSimulationEnabled(@NonNull Context context) {
+        return isEnabled(context) && simulateLoggedOut;
+    }
+
+    public static synchronized void setOfflineSimulation(@NonNull Context context, boolean enabled) {
+        if (!isEnabled(context)) return;
+        simulateOffline = enabled;
+        record(context, "SIM", enabled ? "真实断网模拟已开启" : "真实断网模拟已关闭");
+    }
+
+    public static synchronized void setLoggedOutSimulation(@NonNull Context context, boolean enabled) {
+        if (!isEnabled(context)) return;
+        simulateLoggedOut = enabled;
+        record(context, "SIM", enabled ? "未登录模拟已开启" : "未登录模拟已关闭");
     }
 
     @NonNull public static String memorySummary() {

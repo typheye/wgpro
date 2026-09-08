@@ -54,6 +54,7 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="false" />
+        <activity android:name=".ui.function.community.ResourceDetailActivity" android:screenOrientation="portrait" android:exported="false" />
         <activity
             android:name=".ui.function.ScanQRActivity"
             android:screenOrientation="portrait"

@@ -40,7 +40,7 @@
                     <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/detail_follow"
                         style="@style/Widget.Material3.Button" android:layout_width="112dp"
-                        android:layout_height="48dp" android:backgroundTint="#40FFFFFF"
+                        android:layout_height="48dp" android:backgroundTint="@android:color/transparent"
                         android:insetTop="0dp" android:insetBottom="0dp" android:text="关注"
                         android:textColor="@color/white" android:visibility="gone"
                         app:cornerRadius="24dp" app:strokeWidth="0dp" />

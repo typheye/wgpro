@@ -20,6 +20,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+import androidx.core.widget.NestedScrollView;
 
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
@@ -53,6 +54,8 @@ public class DeviceFragment extends Fragment {
     private boolean cloudSessionsLoading;
     private boolean wearableLoaded;
     private boolean otherLoaded;
+    private String wearableSignature = "";
+    private String otherSignature = "";
     private SwipeRefreshLayout wearableRefresh;
     private SwipeRefreshLayout otherRefresh;
 
@@ -77,8 +80,13 @@ public class DeviceFragment extends Fragment {
         int accent = requireContext().getColor(R.color.brand_primary);
         wearableRefresh.setColorSchemeColors(accent);
         otherRefresh.setColorSchemeColors(accent);
+        wearableRefresh.setEnabled(true);
+        otherRefresh.setEnabled(true);
+        NestedScrollView wearableScroll = root.findViewById(R.id.device_wearable_scroll);
+        NestedScrollView otherScroll = root.findViewById(R.id.device_other_scroll);
+        wearableRefresh.setOnChildScrollUpCallback((layout, child) -> wearableScroll.getScrollY() > 0);
+        otherRefresh.setOnChildScrollUpCallback((layout, child) -> otherScroll.getScrollY() > 0);
         wearableRefresh.setOnRefreshListener(() -> {
-            wearableLoaded = false;
             refresh();
             mainHandler.postDelayed(() -> {
                 if (!isAdded()) return;
@@ -88,7 +96,6 @@ public class DeviceFragment extends Fragment {
             }, 400L);
         });
         otherRefresh.setOnRefreshListener(() -> {
-            otherLoaded = false;
             refresh();
             cloudSessionsLoading = false;
             loadCloudSessions();
@@ -164,24 +171,44 @@ public class DeviceFragment extends Fragment {
             newWearable.setOrientation(LinearLayout.VERTICAL); newOther.setOrientation(LinearLayout.VERTICAL);
             boolean hasWearable = false;
             boolean hasOther = false;
+            StringBuilder wearableKey = new StringBuilder();
+            StringBuilder otherKey = new StringBuilder();
             while (wearableCursor.moveToNext()) {
                 hasWearable = true;
+                wearableKey.append(wearableCursor.getString(wearableCursor.getColumnIndexOrThrow("id"))).append('|')
+                        .append(wearableCursor.getString(wearableCursor.getColumnIndexOrThrow("note"))).append('|')
+                        .append(wearableCursor.getInt(wearableCursor.getColumnIndexOrThrow("connected"))).append(';');
                 addCard(wearableCursor, newWearable);
             }
             while (otherCursor.moveToNext()) {
                 hasOther = true;
+                otherKey.append(otherCursor.getString(otherCursor.getColumnIndexOrThrow("id"))).append('|')
+                        .append(otherCursor.getString(otherCursor.getColumnIndexOrThrow("note"))).append('|')
+                        .append(otherCursor.getInt(otherCursor.getColumnIndexOrThrow("connected"))).append(';');
                 addCard(otherCursor, newOther);
             }
             for (int index = 0; index < cloudSessions.length(); index++) {
                 JSONObject session = cloudSessions.optJSONObject(index);
                 if (session != null && isVisibleCloudSession(session)) {
                     hasOther = true;
+                    otherKey.append(session.optString("id", session.optString("session_id"))).append('|')
+                            .append(session.optString("remark")).append('|')
+                            .append(session.optBoolean("is_current")).append(';');
                     addSessionCard(session, newOther);
                 }
             }
-            wearable.removeAllViews(); other.removeAllViews();
-            while (newWearable.getChildCount() > 0) { View child = newWearable.getChildAt(0); newWearable.removeView(child); wearable.addView(child); }
-            while (newOther.getChildCount() > 0) { View child = newOther.getChildAt(0); newOther.removeView(child); other.addView(child); }
+            String nextWearable = wearableKey.toString();
+            String nextOther = otherKey.toString();
+            if (!nextWearable.equals(wearableSignature)) {
+                wearable.removeAllViews();
+                while (newWearable.getChildCount() > 0) { View child = newWearable.getChildAt(0); newWearable.removeView(child); wearable.addView(child); }
+                wearableSignature = nextWearable;
+            }
+            if (!nextOther.equals(otherSignature)) {
+                other.removeAllViews();
+                while (newOther.getChildCount() > 0) { View child = newOther.getChildAt(0); newOther.removeView(child); other.addView(child); }
+                otherSignature = nextOther;
+            }
             wearableEmpty.setVisibility(wearableLoaded && !hasWearable ? View.VISIBLE : View.GONE);
             otherEmpty.setVisibility(otherLoaded && !hasOther ? View.VISIBLE : View.GONE);
             UIParams params = MainActivity.current_params;

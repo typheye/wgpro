@@ -324,8 +324,10 @@ public class HomeFragment extends Fragment {
                     JSONArray list = items(json, "items", "resources", "data");
                     resources.removeAllViews();
                     resources.addView(ResourceMasonryFactory.create(requireContext(), list, item -> {
-                        String url = item.optString("detail_url", item.optString("url", ""));
-                        if (!url.isEmpty()) openUrl(url); else showJsonDetail("资源详情", item);
+                        startActivity(new Intent(requireContext(),
+                                com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
+                                .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
+                                        item.toString()));
                     }), new LinearLayout.LayoutParams(-1, -2));
                     showStatus(resourcesStatus, list.length() == 0, "还没有用户分享资源");
                     resourcesRefresh.setRefreshing(false);
@@ -368,7 +370,7 @@ public class HomeFragment extends Fragment {
         labels.addView(sub, top(dp(5)));
         String meta = app
                 ? item.optString("version_name", item.optString("package", ""))
-                : String.format(Locale.getDefault(), "%d 次下载  ·  %d 次收藏",
+                : String.format(Locale.getDefault(), "%d 次下载  ·  %d 次星标",
                 item.optInt("download_count"), item.optInt("collection_count"));
         if (!meta.isEmpty()) labels.addView(text(meta, 12, false, R.color.text_secondary), top(dp(6)));
         LinearLayout.LayoutParams labelParams = new LinearLayout.LayoutParams(0, -2, 1);
@@ -376,8 +378,11 @@ public class HomeFragment extends Fragment {
         row.addView(labels, labelParams);
         card.addView(row);
         card.setOnClickListener(v -> {
-            String url = item.optString("detail_url", item.optString("url", ""));
-            if (!url.isEmpty()) openUrl(url); else showJsonDetail(app ? "应用详情" : "资源详情", item);
+            if (app) showJsonDetail("应用详情", item);
+            else startActivity(new Intent(requireContext(),
+                    com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
+                    .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
+                            item.toString()));
         });
         parent.addView(card);
     }

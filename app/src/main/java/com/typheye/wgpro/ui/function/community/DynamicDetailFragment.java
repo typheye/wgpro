@@ -92,6 +92,14 @@ public final class DynamicDetailFragment extends Fragment {
 
     private void bind(View root, @Nullable JSONObject info) {
         if (info == null) return;
+        if (account.isLogin() && requireContext().getSharedPreferences("history_preferences", android.content.Context.MODE_PRIVATE).getBoolean("enabled", true)) {
+            Map<String, String> history = new LinkedHashMap<>();
+            history.put("target_type", "dynamic"); history.put("target_key", dynamicId);
+            account.postV2Json("history_record2", history, new tAccUtils.JsonCallback() {
+                @Override public void onSuccess(@NonNull JSONObject ignored) { }
+                @Override public void onError(int code, @NonNull String message) { }
+            });
+        }
         String nick = info.optString("nick", "Typheye 用户");
         ((DynamicDetailActivity) requireActivity()).bindAuthor(info);
         ((TextView) root.findViewById(R.id.dynamic_detail_content)).setText(info.optString("content"));

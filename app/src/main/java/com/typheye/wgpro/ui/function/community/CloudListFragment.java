@@ -103,26 +103,71 @@ public class CloudListFragment extends Fragment {
         state = root.findViewById(R.id.cloud_state);
         stateText = state.findViewById(R.id.stream_empty_title);
         stateDescription = state.findViewById(R.id.stream_empty_description);
-        if (MODE_HISTORY.equals(mode)) addHistoryFilters();
+        if (MODE_HISTORY.equals(mode)) setupHistoryFilters(root);
+        if (MODE_HISTORY.equals(mode) && requireActivity() instanceof BaseSectionActivity) {
+            androidx.appcompat.widget.Toolbar toolbar = ((BaseSectionActivity) requireActivity()).sectionToolbar();
+            android.view.MenuItem menu = toolbar.getMenu().add("历史选项").setIcon(R.drawable.ic_more_vertical_vector);
+            menu.setShowAsAction(android.view.MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.setOnMenuItemClickListener(item -> { showHistoryMenu(); return true; });
+        }
         refresh.setOnRefreshListener(this::load);
         load();
         return root;
     }
 
-    private void addHistoryFilters() {
-        MaterialButtonToggleGroup group = new MaterialButtonToggleGroup(requireContext());
-        group.setSingleSelection(true); group.setSelectionRequired(true);
-        String[] labels = {"动态", "应用", "资源"};
+    private void setupHistoryFilters(View root) {
+        root.findViewById(R.id.history_segments_card).setVisibility(View.VISIBLE);
+        MaterialButtonToggleGroup group = root.findViewById(R.id.history_segments);
+        int[] ids = {R.id.history_segment_dynamic, R.id.history_segment_app, R.id.history_segment_resource};
         String[] modes = {"dynamic", "app", "resource"};
-        for (int i = 0; i < labels.length; i++) {
-            MaterialButton button = new MaterialButton(requireContext());
-            button.setText(labels[i]); button.setId(View.generateViewId());
-            group.addView(button, new MaterialButtonToggleGroup.LayoutParams(0, dp(42), 1f));
-            final int index = i; button.setOnClickListener(v -> { historyType = modes[index]; load(); });
-            if (modes[i].equals(historyType)) button.setChecked(true);
-        }
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, dp(48));
-        params.bottomMargin = dp(10); list.addView(group, 0, params);
+        group.addOnButtonCheckedListener((buttons, checkedId, checked) -> {
+            if (!checked) return;
+            for (int i = 0; i < ids.length; i++) if (ids[i] == checkedId && !modes[i].equals(historyType)) {
+                historyType = modes[i]; load(); break;
+            }
+        });
+        final float[] downX = {0f};
+        View scroll = root.findViewById(R.id.cloud_scroll);
+        scroll.setOnTouchListener((view, event) -> {
+            if (event.getActionMasked() == android.view.MotionEvent.ACTION_DOWN) downX[0] = event.getX();
+            if (event.getActionMasked() == android.view.MotionEvent.ACTION_UP) {
+                float delta = event.getX() - downX[0];
+                int current = "dynamic".equals(historyType) ? 0 : "app".equals(historyType) ? 1 : 2;
+                if (Math.abs(delta) > dp(72)) {
+                    int next = Math.max(0, Math.min(2, current + (delta < 0 ? 1 : -1)));
+                    if (next != current) group.check(ids[next]);
+                }
+            }
+            return false;
+        });
+    }
+
+    private void showHistoryMenu() {
+        boolean enabled = requireContext().getSharedPreferences("history_preferences", 0).getBoolean("enabled", true);
+        new WGProAlertDialogBuilder(requireContext()).setTitle("浏览历史")
+                .setItems(new CharSequence[]{"清空所有历史", enabled ? "不再记录历史" : "开启记录历史"}, (dialog, which) -> {
+                    if (which == 0) confirmClearHistory();
+                    else confirmToggleHistory(enabled);
+                }).show();
+    }
+
+    private void confirmToggleHistory(boolean enabled) {
+        String title = enabled ? "不再记录历史？" : "开启记录历史？";
+        String message = enabled ? "关闭后，打开动态、应用和资源详情时不会再上传浏览记录。" : "开启后，打开详情页会继续记录浏览历史。";
+        new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
+                .setNegativeButton("取消", null).setPositiveButton("确认", (d, w) ->
+                        requireContext().getSharedPreferences("history_preferences", 0).edit().putBoolean("enabled", !enabled).apply()).show();
+    }
+
+    private void confirmClearHistory() {
+        new WGProAlertDialogBuilder(requireContext()).setTitle("清空所有历史？").setMessage("这会删除动态、应用和资源的全部浏览记录。")
+                .setNegativeButton("取消", null).setPositiveButton("清空", (d, w) -> {
+                    account.postV2Json("history_clear2", new LinkedHashMap<>(), new tAccUtils.JsonCallback() {
+                        public void onSuccess(JSONObject j) { requireActivity().runOnUiThread(this::reloadAfterHistoryAction); }
+                        public void onError(int c, String m) { }
+                        private void reloadAfterHistoryAction() { load(); }
+                    });
+                }).show();
     }
 
     private void load() {
@@ -275,17 +320,10 @@ public class CloudListFragment extends Fragment {
 
     private void render(JSONArray items) {
         list.removeAllViews();
-        if (MODE_HISTORY.equals(mode)) addHistoryFilters();
         if (isResourceTargetList() || MODE_MY_RESOURCES.equals(mode) || MODE_USER_RESOURCES.equals(mode)) {
             View masonry = ResourceMasonryFactory.create(requireContext(), items, item -> {
-                String url = item.optString("detail_url", item.optString("url", ""));
-                if (!url.isEmpty()) {
-                    startActivity(new Intent(requireContext(), WebActivity.class).putExtra("URL", url));
-                } else {
-                    new WGProAlertDialogBuilder(requireContext()).setTitle(item.optString("title", "资源详情"))
-                            .setMessage(item.optString("description", item.optString("summary", "暂无介绍")))
-                            .setNegativeButton("关闭", null).show();
-                }
+                startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
+                        .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
             });
             if (items.length() > 0) list.addView(masonry, new LinearLayout.LayoutParams(-1, -2));
             if (items.length() == 0) {
@@ -368,17 +406,29 @@ public class CloudListFragment extends Fragment {
         markInvalid(target);
         String uid = target.optString("uid", target.optString("target_uid", ""));
         String nick = target.optString("nick", "");
-        if (uid.isEmpty() || (!nick.isEmpty() && !"用户".equals(nick))) {
+        if (uid.isEmpty()) {
+            try { target.put("nick", "用户已注销"); target.put("avatar_url", ""); } catch (Exception ignored) { }
+            finishHydration(targets, pending, started, generation);
+            return;
+        }
+        if (!nick.isEmpty() && !"用户".equals(nick)) {
             finishHydration(targets, pending, started, generation);
             return;
         }
         account.getV2Json("user_profile2", java.util.Collections.singletonMap("target_uid", uid),
                 false, new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
-                        normalizeUnavailableIdentity(json.optJSONObject("info"), target);
+                        JSONObject profile = json.optJSONObject("info");
+                        normalizeUnavailableIdentity(profile, target);
+                        if (profile == null || target.optString("nick", "").isEmpty()
+                                || "用户".equals(target.optString("nick"))) {
+                            try { target.put("nick", "用户已注销"); target.put("avatar_url", ""); }
+                            catch (Exception ignored) { }
+                        }
                         finishHydration(targets, pending, started, generation);
                     }
                     @Override public void onError(int code, @NonNull String message) {
+                        try { target.put("nick", "用户已注销"); target.put("avatar_url", ""); } catch (Exception ignored) { }
                         finishHydration(targets, pending, started, generation);
                     }
                 });
@@ -489,8 +539,11 @@ public class CloudListFragment extends Fragment {
             return DynamicCardFactory.createUnavailable(requireContext(), item, v -> removeUnavailable(item, v));
         }
         if (isDynamicTargetList() && !item.optBoolean("_invalid", false)) return createDynamicRow(item);
-        if ((isResourceTargetList() || isAppTargetList()) && !item.optBoolean("_invalid", false))
-            return createCatalogRow(item, isAppTargetList());
+        if ((isResourceTargetList() || isAppTargetList()) && !item.optBoolean("_invalid", false)) {
+            View catalog = createCatalogRow(item, isAppTargetList());
+            if (MODE_HISTORY.equals(mode)) catalog.setOnLongClickListener(v -> { showHistoryItemActions(item, catalog); return true; });
+            return catalog;
+        }
         if (MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode)
                 || MODE_CONVERSATIONS.equals(mode) || isConversation(item)) {
             return createContactRow(item);
@@ -533,7 +586,27 @@ public class CloudListFragment extends Fragment {
                     .setTitle(itemTitle(item)).setMessage(detail.isEmpty() ? "暂无更多信息" : detail)
                     .setNegativeButton("关闭", null).show();
         });
+        if (MODE_HISTORY.equals(mode)) card.setOnLongClickListener(v -> { showHistoryItemActions(item, card); return true; });
         return card;
+    }
+
+    private void showHistoryItemActions(JSONObject item, View card) {
+        new WGProAlertDialogBuilder(requireContext()).setTitle("历史记录")
+                .setItems(new CharSequence[]{"删除记录", "查看标识"}, (d, which) -> {
+                    if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")
+                            .setNegativeButton("取消", null).setPositiveButton("删除", (x, y) -> deleteHistory(item, card)).show();
+                    else new WGProAlertDialogBuilder(requireContext()).setTitle("记录标识")
+                            .setMessage("类型：" + historyType + "\n数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("target_uid", "--")))
+                            .setNegativeButton("关闭", null).show();
+                }).show();
+    }
+
+    private void deleteHistory(JSONObject item, View card) {
+        Map<String, String> fields = new LinkedHashMap<>(); fields.put("history_id", item.optString("_history_id", item.optString("id", "")));
+        account.postV2Json("history_delete2", fields, new tAccUtils.JsonCallback() {
+            public void onSuccess(JSONObject json) { requireActivity().runOnUiThread(() -> card.setVisibility(View.GONE)); }
+            public void onError(int code, String message) { }
+        });
     }
 
     private void removeUnavailable(JSONObject item, View card) {
@@ -595,9 +668,8 @@ public class CloudListFragment extends Fragment {
         card.setOnClickListener(v -> {
             if (app) startActivity(new Intent(requireContext(), AppDetailActivity.class)
                     .putExtra(AppDetailActivity.EXTRA_APP_JSON, item.toString()));
-            else new WGProAlertDialogBuilder(requireContext()).setTitle(name)
-                    .setMessage(item.optString("description", item.optString("summary", "暂无介绍")))
-                    .setNegativeButton("关闭", null).show();
+            else startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
+                    .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
         });
         return card;
     }
@@ -806,7 +878,9 @@ public class CloudListFragment extends Fragment {
 
     private String emptyText() {
         if (MODE_HISTORY.equals(mode)) return "还没有浏览记录";
-        if (mode.startsWith("collection_")) return "这里还没有收藏";
+        if (MODE_COLLECTION_DYNAMIC.equals(mode)) return "这里还没有收藏";
+        if (MODE_COLLECTION_APP.equals(mode)) return "还没有星标应用";
+        if (MODE_COLLECTION_RESOURCE.equals(mode)) return "还没有星标资源";
         if (MODE_MY_RESOURCES.equals(mode)) return "还没有发布资源";
         if (MODE_NOTIFICATIONS.equals(mode)) return "暂时没有通知或私信";
         if (MODE_CONVERSATIONS.equals(mode)) return "还没有私信";
@@ -819,7 +893,9 @@ public class CloudListFragment extends Fragment {
 
     private String emptyDescription() {
         if (MODE_HISTORY.equals(mode)) return "浏览过的内容会保存在这里。";
-        if (mode.startsWith("collection_")) return "收藏内容后，可在这里快速找到。";
+        if (MODE_COLLECTION_DYNAMIC.equals(mode)) return "收藏动态后，可在这里快速找到。";
+        if (MODE_COLLECTION_APP.equals(mode)) return "星标应用后，可在这里快速找到。";
+        if (MODE_COLLECTION_RESOURCE.equals(mode)) return "星标资源后，可在这里快速找到。";
         if (MODE_FOLLOWING.equals(mode)) return "关注感兴趣的用户后会显示在这里。";
         if (MODE_FOLLOWERS.equals(mode)) return "有用户关注你后会显示在这里。";
         if (MODE_NOTIFICATIONS.equals(mode)) return "新的互动和系统消息会显示在这里。";

@@ -554,6 +554,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private void onDeveloperTap() {
+            if (TestHandler.isEnabled(requireContext())) return;
             long now = android.os.SystemClock.uptimeMillis();
             if (now - lastDeveloperTapAt > 2_000L) developerTapCount = 0;
             lastDeveloperTapAt = now;

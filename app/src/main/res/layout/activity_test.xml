@@ -85,22 +85,22 @@
             <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="模拟" android:textColor="@color/brand_primary" />
             <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <LinearLayout android:id="@+id/test_offline" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    <LinearLayout android:id="@+id/test_offline" android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@null" />
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                             <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟断网" android:textColor="@color/text_primary" />
                             <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让下一次网络请求返回连接失败" android:textColor="@color/text_secondary" />
                         </LinearLayout>
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
+                        <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/test_offline_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="模拟断网" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                     </LinearLayout>
                     <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
-                    <LinearLayout android:id="@+id/test_logged_out" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    <LinearLayout android:id="@+id/test_logged_out" android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@null" />
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                             <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟未登录" android:textColor="@color/text_primary" />
                             <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让下一次鉴权请求返回未登录状态" android:textColor="@color/text_secondary" />
                         </LinearLayout>
-                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
+                        <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/test_logged_out_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="模拟未登录" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

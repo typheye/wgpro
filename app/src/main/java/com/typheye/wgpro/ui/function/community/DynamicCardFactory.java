@@ -150,7 +150,10 @@ public final class DynamicCardFactory {
         header.addView(avatarBox, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
         LinearLayout identity = new LinearLayout(context); identity.setOrientation(LinearLayout.VERTICAL);
         identity.addView(text(context, item.optString("nick", "用户"), 15, true, R.color.text_primary));
-        identity.addView(text(context, "发布于 " + relativeTime(item.optString("created_at", "")), 12, false, R.color.text_secondary));
+        String unavailableUid = item.optString("uid", item.optString("target_uid", ""));
+        String published = "发布于 " + relativeTime(item.optString("created_at", ""));
+        identity.addView(text(context, unavailableUid.trim().isEmpty() ? published
+                : "UID " + unavailableUid + "  ·  " + published, 12, false, R.color.text_secondary));
         LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
         identityParams.setMarginStart(dp(context, 10)); header.addView(identity, identityParams);
         ImageView removeIcon = new ImageView(context); removeIcon.setImageResource(R.drawable.ic_delete_vector);

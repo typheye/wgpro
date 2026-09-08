@@ -36,10 +36,12 @@ public final class TestActivity extends AppCompatActivity {
             TestHandler.recordOperation(this, "查看日志信息");
             showResult("日志信息", TestHandler.logs());
         });
-        findViewById(R.id.test_offline).setOnClickListener(v -> confirmSimulation("模拟断网",
-                "下一次网络请求将返回模拟断网结果，是否执行？", () -> TestHandler.armOffline(this)));
-        findViewById(R.id.test_logged_out).setOnClickListener(v -> confirmSimulation("模拟未登录",
-                "下一次需要登录的请求将返回未登录结果，是否执行？", () -> TestHandler.armLoggedOut(this)));
+        MaterialSwitch offline = findViewById(R.id.test_offline_switch);
+        MaterialSwitch loggedOut = findViewById(R.id.test_logged_out_switch);
+        offline.setChecked(TestHandler.isOfflineSimulationEnabled(this));
+        loggedOut.setChecked(TestHandler.isLoggedOutSimulationEnabled(this));
+        offline.setOnCheckedChangeListener((button, checked) -> TestHandler.setOfflineSimulation(this, checked));
+        loggedOut.setOnCheckedChangeListener((button, checked) -> TestHandler.setLoggedOutSimulation(this, checked));
         findViewById(R.id.test_probe).setOnClickListener(v -> {
             TestHandler.recordOperation(this, "探测云端 API");
             TestHandler.probeApis(this, summary -> runOnUiThread(() -> {
@@ -47,13 +49,6 @@ public final class TestActivity extends AppCompatActivity {
             }));
         });
         update();
-    }
-
-    private void confirmSimulation(String title, String message, Runnable action) {
-        TestHandler.recordOperation(this, "请求" + title);
-        new WGProAlertDialogBuilder(this).setTitle(title).setMessage(message)
-                .setNegativeButton("取消", null)
-                .setPositiveButton("执行", (dialog, which) -> { action.run(); update(); }).show();
     }
 
     private void showResult(String title, String message) {
@@ -64,5 +59,7 @@ public final class TestActivity extends AppCompatActivity {
 
     private void update() {
         enabled.setChecked(TestHandler.isEnabled(this));
+        ((MaterialSwitch) findViewById(R.id.test_offline_switch)).setChecked(TestHandler.isOfflineSimulationEnabled(this));
+        ((MaterialSwitch) findViewById(R.id.test_logged_out_switch)).setChecked(TestHandler.isLoggedOutSimulationEnabled(this));
     }
 }

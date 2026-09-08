@@ -347,6 +347,7 @@ public class tAccUtils {
     }
 
     public boolean isLogin() {
+        if (TestHandler.isLoggedOutSimulationEnabled(context)) return false;
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String uid = prefs.getString(PREFS_UID, "");
         if (uid.isEmpty()) return false;
@@ -881,7 +882,8 @@ public class tAccUtils {
                 url.setQueryParameter(KEY_UID, uid);
                 request.header("Authorization", "Bearer " + sessionToken)
                         .header("X-Typheye-Session-Id", sessionId);
-            } else if (attachOptionalSession && isV2Session()) {
+            } else if (attachOptionalSession && !TestHandler.isLoggedOutSimulationEnabled(context)
+                    && isV2Session()) {
                 String uid = getUid();
                 String sessionId = getSessionId();
                 String sessionToken = getSessionToken();

@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cloud_refresh" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@color/surface_page">
-    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
-        <androidx.core.widget.NestedScrollView android:layout_width="match_parent"
+    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical">
+        <com.google.android.material.card.MaterialCardView android:id="@+id/history_segments_card"
+            android:layout_width="match_parent" android:layout_height="52dp"
+            android:layout_marginStart="16dp" android:layout_marginTop="10dp"
+            android:layout_marginEnd="16dp" android:layout_marginBottom="6dp"
+            android:visibility="gone" app:cardBackgroundColor="@color/surface_primary"
+            app:cardCornerRadius="8dp" app:cardElevation="0dp" app:contentPadding="0dp" app:strokeWidth="0dp">
+            <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/history_segments"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                app:checkedButton="@id/history_segment_dynamic" app:selectionRequired="true" app:singleSelection="true">
+                <com.google.android.material.button.MaterialButton android:id="@+id/history_segment_dynamic" style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="动态" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/history_segment_app" style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="应用" />
+                <com.google.android.material.button.MaterialButton android:id="@+id/history_segment_resource" style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="资源" />
+            </com.google.android.material.button.MaterialButtonToggleGroup>
+        </com.google.android.material.card.MaterialCardView>
+        <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <androidx.core.widget.NestedScrollView android:id="@+id/cloud_scroll" android:layout_width="match_parent"
             android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true">
             <LinearLayout android:id="@+id/cloud_list" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:orientation="vertical"
@@ -13,5 +29,6 @@
             android:layout_gravity="top" android:paddingStart="16dp" android:paddingEnd="16dp">
             <include android:id="@+id/cloud_state" layout="@layout/view_stream_empty" />
         </FrameLayout>
-    </FrameLayout>
+        </FrameLayout>
+    </LinearLayout>
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

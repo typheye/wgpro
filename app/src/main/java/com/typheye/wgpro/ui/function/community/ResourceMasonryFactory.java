@@ -64,7 +64,7 @@ public final class ResourceMasonryFactory {
         TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(2);
         titleView.setEllipsize(android.text.TextUtils.TruncateAt.END); labels.addView(titleView);
         String type = item.optString("category", item.optString("type_name", "资源"));
-        TextView meta = text(context, type + " · " + item.optInt("collection_count", 0) + " 收藏", 12, false, R.color.text_secondary);
+        TextView meta = text(context, type + " · " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
         LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(-1, -2); mp.topMargin = dp(context, 5); labels.addView(meta, mp);
         body.addView(labels); card.addView(body); card.setOnClickListener(v -> listener.onClick(item));
         LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, -2); cp.bottomMargin = dp(context, 10); card.setLayoutParams(cp);
