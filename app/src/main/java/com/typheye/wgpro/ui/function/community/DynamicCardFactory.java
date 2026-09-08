@@ -60,6 +60,8 @@ public final class DynamicCardFactory {
         int pad = dp(context, 14);
         MaterialCardView card = new MaterialCardView(context);
         card.setCardBackgroundColor(context.getColor(R.color.surface_primary));
+        card.setClickable(true); card.setFocusable(true);
+        card.setRippleColor(android.content.res.ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(context, 8));
         card.setClickable(click != null); card.setFocusable(click != null);
         card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
@@ -156,7 +158,7 @@ public final class DynamicCardFactory {
                 : "UID " + unavailableUid + "  ·  " + published, 12, false, R.color.text_secondary));
         LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
         identityParams.setMarginStart(dp(context, 10)); header.addView(identity, identityParams);
-        ImageView removeIcon = new ImageView(context); removeIcon.setImageResource(R.drawable.ic_delete_vector);
+        ImageView removeIcon = new ImageView(context); removeIcon.setImageResource(R.drawable.ic_more_vertical_vector);
         removeIcon.setColorFilter(context.getColor(R.color.text_secondary)); removeIcon.setPadding(dp(context, 8), dp(context, 8), dp(context, 8), dp(context, 8));
         header.addView(removeIcon, new LinearLayout.LayoutParams(dp(context, 38), dp(context, 38)));
         body.addView(header);
@@ -165,6 +167,8 @@ public final class DynamicCardFactory {
         body.addView(unavailable, unavailableParams); card.addView(body);
         bindAvatar(context, item.optString("uid", ""), item.optString("avatar_url", ""), avatar, initial);
         removeIcon.setOnClickListener(v -> { if (remove != null) remove.onClick(card); });
+        card.setOnClickListener(v -> new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(context)
+                .setTitle("动态已失效").setMessage("该动态已不可见").setNegativeButton("关闭", null).show());
         return card;
     }
 

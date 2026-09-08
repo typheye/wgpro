@@ -325,9 +325,11 @@ public class CloudListFragment extends Fragment {
         list.removeAllViews();
         if (isResourceTargetList() || MODE_MY_RESOURCES.equals(mode) || MODE_USER_RESOURCES.equals(mode)) {
             View masonry = ResourceMasonryFactory.create(requireContext(), items, item -> {
-                startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
+                if (item.optBoolean("_invalid", false)) {
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("资源已失效").setMessage("资源已不可见").setNegativeButton("关闭", null).show();
+                } else startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
                         .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
-            });
+            }, (item, anchor) -> showCatalogActions(item, false, anchor));
             if (items.length() > 0) list.addView(masonry, new LinearLayout.LayoutParams(-1, -2));
             if (items.length() == 0) {
                 stateText.setText(emptyText()); stateDescription.setText(emptyDescription());
@@ -541,6 +543,8 @@ public class CloudListFragment extends Fragment {
         if (isDynamicTargetList() && item.optBoolean("_invalid", false)) {
             return DynamicCardFactory.createUnavailable(requireContext(), item, v -> removeUnavailable(item, v));
         }
+        if (isAppTargetList() && item.optBoolean("_invalid", false)) return createInvalidApp(item);
+        if (isResourceTargetList() && item.optBoolean("_invalid", false)) return createInvalidResource(item);
         if (isDynamicTargetList() && !item.optBoolean("_invalid", false)) return createDynamicRow(item);
         if ((isResourceTargetList() || isAppTargetList()) && !item.optBoolean("_invalid", false)) {
             View catalog = createCatalogRow(item, isAppTargetList());
@@ -615,10 +619,16 @@ public class CloudListFragment extends Fragment {
     private void removeUnavailable(JSONObject item, View card) {
         String key = item.optString("target_key", item.optString("id", ""));
         if (key.isEmpty()) return;
-        new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除该动态？")
+        new WGProAlertDialogBuilder(requireContext()).setTitle("动态操作").setItems(new String[]{"移除", "元数据"}, (d, which) -> {
+            if (which == 1) {
+                new WGProAlertDialogBuilder(requireContext()).setTitle("动态元数据")
+                        .setMessage("数据编号：" + key + "\n发布者 UID：" + item.optString("uid", item.optString("target_uid", "--")) + "\n发布时间：" + item.optString("created_at", "--"))
+                        .setNegativeButton("关闭", null).show();
+                return;
+            }
+            new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除该动态？")
                 .setMessage("移除后不会再显示在当前列表。")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("移除", (dialog, which) -> {
+                .setNegativeButton("取消", null).setPositiveButton("移除", (dialog, which2) -> {
                     Map<String, String> fields = new LinkedHashMap<>();
                     if (MODE_HISTORY.equals(mode)) {
                         fields.put("history_id", item.optString("_history_id", item.optString("id", key)));
@@ -634,10 +644,11 @@ public class CloudListFragment extends Fragment {
                         });
                     }
                 }).show();
+        }).show();
     }
 
     private View createCatalogRow(JSONObject item, boolean app) {
-        if (app) return AppListItemFactory.create(requireContext(), item);
+        if (app) return AppListItemFactory.create(requireContext(), item, v -> showCatalogActions(item, true, v));
         MaterialCardView card = new MaterialCardView(requireContext());
         card.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(8));
@@ -666,6 +677,10 @@ public class CloudListFragment extends Fragment {
         labels.addView(detail, detailParams);
         LinearLayout.LayoutParams labelParams = new LinearLayout.LayoutParams(0, -2, 1f); labelParams.setMarginStart(dp(14));
         body.addView(labels, labelParams); card.addView(body);
+        ImageView menu = new ImageView(requireContext()); menu.setImageResource(R.drawable.ic_more_vertical_vector);
+        menu.setColorFilter(requireContext().getColor(R.color.text_secondary)); menu.setPadding(dp(6), dp(6), dp(2), dp(6));
+        body.addView(menu, new LinearLayout.LayoutParams(dp(34), dp(34)));
+        menu.setOnClickListener(v -> showCatalogActions(item, false, v));
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2); cardParams.bottomMargin = dp(12);
         card.setLayoutParams(cardParams);
         card.setOnClickListener(v -> {
@@ -675,6 +690,41 @@ public class CloudListFragment extends Fragment {
                     .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
         });
         return card;
+    }
+
+    private View createInvalidApp(JSONObject item) {
+        JSONObject copy = item;
+        try { copy.put("name", "未知应用"); copy.put("summary", "应用已不可见"); copy.put("version_name", "--"); } catch (Exception ignored) { }
+        View v = AppListItemFactory.create(requireContext(), copy, x -> showCatalogActions(copy, true, x));
+        v.setOnClickListener(x -> new WGProAlertDialogBuilder(requireContext()).setTitle("应用已失效").setMessage("应用已不可见").setNegativeButton("关闭", null).show());
+        return v;
+    }
+
+    private View createInvalidResource(JSONObject item) {
+        JSONArray one = new JSONArray(); try { item.put("_invalid", true); one.put(item); } catch (Exception ignored) { }
+        View v = ResourceMasonryFactory.create(requireContext(), one, x -> new WGProAlertDialogBuilder(requireContext()).setTitle("资源已失效").setMessage("资源已不可见").setNegativeButton("关闭", null).show(), (x,a) -> showCatalogActions(x, false, a));
+        return v;
+    }
+
+    private void showCatalogActions(JSONObject item, boolean app, View anchor) {
+        java.util.ArrayList<String> actions = new java.util.ArrayList<>();
+        actions.add(app ? "应用操作" : "资源操作");
+        actions.add("查看标识");
+        if (MODE_HISTORY.equals(mode)) actions.add("删除记录");
+        new WGProAlertDialogBuilder(requireContext()).setTitle(app ? "应用操作" : "资源操作")
+                .setItems(actions.toArray(new String[0]), (d, which) -> {
+                    if (which == 0) {
+                        new WGProAlertDialogBuilder(requireContext()).setTitle(actions.get(0)).setMessage("打开详情、查看或执行相关操作")
+                                .setNegativeButton("关闭", null).show();
+                    } else if (which == 1) {
+                        new WGProAlertDialogBuilder(requireContext()).setTitle("记录标识")
+                                .setMessage("类型：" + (app ? "应用" : "资源") + "\n数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("publisher_uid", "--")))
+                                .setNegativeButton("关闭", null).show();
+                    } else {
+                        new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")
+                                .setNegativeButton("取消", null).setPositiveButton("删除", (x,y) -> deleteHistory(item, anchor)).show();
+                    }
+                }).show();
     }
 
     private View createSystemMessageRow(JSONObject item) {

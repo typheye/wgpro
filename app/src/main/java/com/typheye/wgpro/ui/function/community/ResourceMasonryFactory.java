@@ -27,9 +27,13 @@ import okhttp3.Response;
 /** Shared two-column resource stream. */
 public final class ResourceMasonryFactory {
     public interface OnResourceClick { void onClick(@NonNull JSONObject item); }
+    public interface OnResourceMenu { void onMenu(@NonNull JSONObject item, @NonNull View anchor); }
     private ResourceMasonryFactory() { }
 
     public static View create(@NonNull Context context, @NonNull JSONArray items, @NonNull OnResourceClick listener) {
+        return create(context, items, listener, null);
+    }
+    public static View create(@NonNull Context context, @NonNull JSONArray items, @NonNull OnResourceClick listener, OnResourceMenu menuListener) {
         LinearLayout columns = new LinearLayout(context); columns.setOrientation(LinearLayout.HORIZONTAL);
         LinearLayout left = column(context), right = column(context);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, -2, 1f); lp.setMarginEnd(dp(context, 5));
@@ -40,31 +44,37 @@ public final class ResourceMasonryFactory {
             JSONObject item = items.optJSONObject(i); if (item == null) continue;
             int weight = 170 + Math.min(54, item.optString("title", "").length() * 5);
             LinearLayout target = leftWeight <= rightWeight ? left : right;
-            target.addView(card(context, item, listener));
+            target.addView(card(context, item, listener, menuListener));
             if (target == left) leftWeight += weight; else rightWeight += weight;
         }
         return columns;
     }
 
-    private static MaterialCardView card(Context context, JSONObject item, OnResourceClick listener) {
+    private static MaterialCardView card(Context context, JSONObject item, OnResourceClick listener, OnResourceMenu menuListener) {
         MaterialCardView card = new MaterialCardView(context);
         card.setCardBackgroundColor(context.getColor(R.color.surface_primary)); card.setCardElevation(0);
         card.setStrokeWidth(0); card.setRadius(dp(context, 8)); card.setClickable(true); card.setFocusable(true);
         card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
-        LinearLayout body = column(context); String title = item.optString("title", "未命名资源");
+        LinearLayout body = column(context); boolean invalid = item.optBoolean("_invalid", false);
+        String title = invalid ? "未知资源" : item.optString("title", "未命名资源");
         FrameLayout coverBox = new FrameLayout(context);
-        TextView fallback = text(context, coverText(title), 19, true, R.color.brand_primary);
+        TextView fallback = text(context, invalid ? "" : coverText(title), 19, true, R.color.brand_primary);
         fallback.setGravity(Gravity.CENTER); fallback.setBackground(coloredCover(context, title));
         coverBox.addView(fallback, new FrameLayout.LayoutParams(-1, -1));
         ImageView cover = new ImageView(context); cover.setScaleType(ImageView.ScaleType.CENTER_CROP); cover.setVisibility(View.GONE);
         coverBox.addView(cover, new FrameLayout.LayoutParams(-1, -1));
         body.addView(coverBox, new LinearLayout.LayoutParams(-1, dp(context, 104 + Math.abs(title.hashCode() % 36))));
-        loadCover(context, item.optString("cover_url", item.optString("image_url", "")), cover, fallback);
+        if (!invalid) loadCover(context, item.optString("cover_url", item.optString("image_url", "")), cover, fallback);
         LinearLayout labels = column(context); labels.setPadding(dp(context, 10), dp(context, 9), dp(context, 10), dp(context, 10));
-        TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(2);
-        titleView.setEllipsize(android.text.TextUtils.TruncateAt.END); labels.addView(titleView);
+        LinearLayout titleLine = new LinearLayout(context); titleLine.setGravity(Gravity.CENTER_VERTICAL);
+        TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(2); titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        titleLine.addView(titleView, new LinearLayout.LayoutParams(0, -2, 1f));
+        if (menuListener != null) { ImageView menu = new ImageView(context); menu.setImageResource(R.drawable.ic_more_vertical_vector); menu.setColorFilter(context.getColor(R.color.text_secondary)); menu.setPadding(dp(context, 6), dp(context, 6), dp(context, 2), dp(context, 6)); titleLine.addView(menu, new LinearLayout.LayoutParams(dp(context, 32), dp(context, 32))); menu.setOnClickListener(v -> menuListener.onMenu(item, v)); }
+        labels.addView(titleLine);
+        TextView description = text(context, invalid ? "资源已不可见" : item.optString("description", ""), 13, false, R.color.text_secondary);
+        description.setMaxLines(2); LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
         String type = item.optString("category", item.optString("type_name", "资源"));
-        TextView meta = text(context, type + " · " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
+        TextView meta = text(context, item.optInt("download_count", 0) + " 下载 | " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
         LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(-1, -2); mp.topMargin = dp(context, 5); labels.addView(meta, mp);
         body.addView(labels); card.addView(body); card.setOnClickListener(v -> listener.onClick(item));
         LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, -2); cp.bottomMargin = dp(context, 10); card.setLayoutParams(cp);

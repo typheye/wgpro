@@ -29,6 +29,10 @@ public final class AppListItemFactory {
     private AppListItemFactory() { }
 
     public static View create(@NonNull Context context, @NonNull JSONObject item) {
+        return create(context, item, null);
+    }
+
+    public static View create(@NonNull Context context, @NonNull JSONObject item, View.OnClickListener menuListener) {
         LinearLayout row = new LinearLayout(context);
         row.setGravity(Gravity.CENTER_VERTICAL);
         row.setPadding(dp(context, 4), dp(context, 12), dp(context, 4), dp(context, 12));
@@ -59,6 +63,12 @@ public final class AppListItemFactory {
         }
         LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, -2, 1f);
         labelsParams.setMarginStart(dp(context, 16)); row.addView(labels, labelsParams);
+        if (menuListener != null) {
+            ImageView menu = new ImageView(context); menu.setImageResource(R.drawable.ic_more_vertical_vector);
+            menu.setColorFilter(context.getColor(R.color.text_secondary)); menu.setPadding(dp(context, 8), dp(context, 8), dp(context, 8), dp(context, 8));
+            row.addView(menu, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
+            menu.setOnClickListener(v -> menuListener.onClick(row));
+        }
         row.setOnClickListener(v -> context.startActivity(new Intent(context, AppDetailActivity.class)
                 .putExtra(AppDetailActivity.EXTRA_APP_JSON, item.toString())));
         return row;
