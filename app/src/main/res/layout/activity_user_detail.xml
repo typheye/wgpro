@@ -39,11 +39,11 @@
                     </FrameLayout>
                     <Space android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="1" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/detail_follow"
-                        style="@style/Widget.Material3.Button.OutlinedButton" android:layout_width="112dp"
+                        style="@style/Widget.Material3.Button" android:layout_width="112dp"
                         android:layout_height="48dp" android:backgroundTint="#40FFFFFF"
                         android:insetTop="0dp" android:insetBottom="0dp" android:text="关注"
                         android:textColor="@color/white" android:visibility="gone"
-                        app:cornerRadius="24dp" app:strokeColor="#CCFFFFFF" app:strokeWidth="1dp" />
+                        app:cornerRadius="24dp" app:strokeWidth="0dp" />
                     <com.google.android.material.button.MaterialButton android:id="@+id/detail_message"
                         style="@style/Widget.Material3.Button.TextButton" android:layout_width="48dp"
                         android:layout_height="48dp" android:layout_marginStart="10dp"
@@ -51,7 +51,7 @@
                         android:insetTop="0dp" android:insetBottom="0dp" android:padding="0dp"
                         android:visibility="gone" app:cornerRadius="24dp"
                         app:icon="@drawable/ic_message_vector" app:iconGravity="textStart"
-                        app:iconPadding="0dp" app:iconTint="@color/white" />
+                        app:iconPadding="0dp" app:iconTint="@color/white" app:strokeWidth="0dp" />
                 </LinearLayout>
                 <TextView android:id="@+id/detail_nick" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="16dp"

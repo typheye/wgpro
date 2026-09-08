@@ -132,6 +132,39 @@ public final class DynamicCardFactory {
         return card;
     }
 
+    public static View createUnavailable(Context context, JSONObject item, @Nullable View.OnClickListener remove) {
+        MaterialCardView card = new MaterialCardView(context);
+        card.setCardBackgroundColor(context.getColor(R.color.surface_primary));
+        card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(context, 8));
+        LinearLayout body = new LinearLayout(context); body.setOrientation(LinearLayout.VERTICAL);
+        body.setPadding(dp(context, 14), dp(context, 14), dp(context, 14), dp(context, 12));
+        LinearLayout header = new LinearLayout(context); header.setGravity(Gravity.CENTER_VERTICAL);
+        FrameLayout avatarBox = new FrameLayout(context);
+        TextView initial = text(context, first(item.optString("nick", "用")), 16, true, R.color.brand_on_soft);
+        initial.setGravity(Gravity.CENTER); initial.setBackground(circle(context.getColor(R.color.brand_soft)));
+        avatarBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
+        ShapeableImageView avatar = new ShapeableImageView(context); avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
+        avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel().toBuilder()
+                .setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
+        avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
+        header.addView(avatarBox, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
+        LinearLayout identity = new LinearLayout(context); identity.setOrientation(LinearLayout.VERTICAL);
+        identity.addView(text(context, item.optString("nick", "用户"), 15, true, R.color.text_primary));
+        identity.addView(text(context, "发布于 " + relativeTime(item.optString("created_at", "")), 12, false, R.color.text_secondary));
+        LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
+        identityParams.setMarginStart(dp(context, 10)); header.addView(identity, identityParams);
+        ImageView removeIcon = new ImageView(context); removeIcon.setImageResource(R.drawable.ic_delete_vector);
+        removeIcon.setColorFilter(context.getColor(R.color.text_secondary)); removeIcon.setPadding(dp(context, 8), dp(context, 8), dp(context, 8), dp(context, 8));
+        header.addView(removeIcon, new LinearLayout.LayoutParams(dp(context, 38), dp(context, 38)));
+        body.addView(header);
+        TextView unavailable = text(context, "动态已不可见", 15, false, R.color.text_secondary);
+        LinearLayout.LayoutParams unavailableParams = new LinearLayout.LayoutParams(-1, -2); unavailableParams.topMargin = dp(context, 12);
+        body.addView(unavailable, unavailableParams); card.addView(body);
+        bindAvatar(context, item.optString("uid", ""), item.optString("avatar_url", ""), avatar, initial);
+        removeIcon.setOnClickListener(v -> { if (remove != null) remove.onClick(card); });
+        return card;
+    }
+
     private static ActionView action(Context context, int iconRes, int count) {
         LinearLayout action = new LinearLayout(context); action.setGravity(Gravity.CENTER);
         action.setClickable(true); action.setFocusable(true);
@@ -303,9 +336,10 @@ public final class DynamicCardFactory {
         if (cache != null && cache.isFile()) {
             Bitmap bitmap = BitmapFactory.decodeFile(cache.getAbsolutePath());
             if (bitmap != null) { target.setImageBitmap(bitmap); target.setVisibility(View.VISIBLE);
-                if (placeholder != null) placeholder.setVisibility(View.GONE); return; }
+                if (placeholder != null) placeholder.setVisibility(View.GONE); }
         }
         if (url == null || url.isEmpty()) return;
+        if (url.startsWith("/")) url = "https://service.typheye.cn" + url;
         Request request; try { request = new Request.Builder().url(url).build(); } catch (Exception ignored) { return; }
         new tAccUtils(context.getApplicationContext()).getClient().newCall(request).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException error) { }

@@ -10,6 +10,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.ColorStateList;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -145,7 +146,16 @@ public class UserDetailActivity extends AppCompatActivity {
         MaterialButton messageButton = findViewById(R.id.detail_message);
         followButton.setVisibility(isSelf ? View.GONE : View.VISIBLE);
         messageButton.setVisibility(isSelf ? View.GONE : View.VISIBLE);
-        followButton.setOnClickListener(v -> changeFollowState());
+        followButton.setOnClickListener(v -> {
+            if (following) {
+                new WGProAlertDialogBuilder(this).setTitle("取消关注")
+                        .setMessage("确定要取消关注该用户吗？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("取消关注", (dialog, which) -> changeFollowState()).show();
+            } else {
+                changeFollowState();
+            }
+        });
         messageButton.setOnClickListener(v -> startActivity(new Intent(this,
                 com.typheye.wgpro.ui.function.community.ChatActivity.class)
                 .putExtra(com.typheye.wgpro.ui.function.community.ChatActivity.EXTRA_PEER_UID, targetUid)
@@ -182,6 +192,8 @@ public class UserDetailActivity extends AppCompatActivity {
                             String initial = name.isEmpty() ? "U" : name.substring(0, 1).toUpperCase();
                             avatarText.setText(initial); collapsedAvatarText.setText(initial);
                             following = info.optBoolean("is_following", false);
+                            if ("10001".equals(targetUid) && getSharedPreferences("local_follow_state", MODE_PRIVATE)
+                                    .getBoolean("unfollow_10001", false)) following = false;
                             canUnfollow = info.optBoolean("can_unfollow", true);
                             updateFollowButton();
                             expandedIdentity.setVisibility(View.VISIBLE);
@@ -218,7 +230,13 @@ public class UserDetailActivity extends AppCompatActivity {
     private void updateFollowButton() {
         if (followButton == null || isSelf) return;
         followButton.setText(following ? "已关注" : "关注");
-        followButton.setEnabled(!following || canUnfollow);
+        followButton.setStrokeWidth(following ? dp(1) : 0);
+        int messageButtonColor = Color.argb(0x40, 0xFF, 0xFF, 0xFF);
+        followButton.setStrokeColor(ColorStateList.valueOf(messageButtonColor));
+        followButton.setTextColor(following ? getColor(R.color.brand_primary) : Color.WHITE);
+        followButton.setBackgroundTintList(ColorStateList.valueOf(
+                following ? Color.TRANSPARENT : messageButtonColor));
+        followButton.setEnabled(!following || canUnfollow || "10001".equals(targetUid));
     }
 
     private void changeFollowState() {
@@ -237,12 +255,26 @@ public class UserDetailActivity extends AppCompatActivity {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 runOnUiThread(() -> {
                     following = json.optBoolean("following", !following);
+                    if ("10001".equals(targetUid)) getSharedPreferences("local_follow_state", MODE_PRIVATE)
+                            .edit().putBoolean("unfollow_10001", !following).apply();
                     canUnfollow = json.optBoolean("can_unfollow", true);
                     updateFollowButton();
                 });
             }
             @Override public void onError(int code, @NonNull String message) {
                 runOnUiThread(() -> {
+                    if ("10001".equals(targetUid) && following) {
+                        // The service intentionally rejects unfollowing the official account.
+                        // Keep the client-side choice available without claiming the server changed.
+                        following = false;
+                        canUnfollow = true;
+                        getSharedPreferences("local_follow_state", MODE_PRIVATE).edit()
+                                .putBoolean("unfollow_10001", true).apply();
+                        updateFollowButton();
+                        android.widget.Toast.makeText(UserDetailActivity.this,
+                                "已在本地隐藏关注状态", android.widget.Toast.LENGTH_SHORT).show();
+                        return;
+                    }
                     updateFollowButton();
                     new WGProAlertDialogBuilder(UserDetailActivity.this).setTitle("操作失败")
                             .setMessage(message).setNegativeButton("关闭", null).show();
@@ -253,6 +285,7 @@ public class UserDetailActivity extends AppCompatActivity {
 
     private void loadRemoteAvatar(String url, ImageView avatar, ImageView collapsedAvatar,
                                   TextView avatarText, TextView collapsedAvatarText) {
+        if (url.startsWith("/")) url = "https://service.typheye.cn" + url;
         Request request;
         try { request = new Request.Builder().url(url).build(); }
         catch (IllegalArgumentException ignored) { return; }

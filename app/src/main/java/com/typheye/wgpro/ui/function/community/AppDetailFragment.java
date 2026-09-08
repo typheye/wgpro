@@ -44,12 +44,17 @@ public final class AppDetailFragment extends Fragment {
         host.showContentLoading();
         JSONObject app; try { app = new JSONObject(requireArguments().getString("json", "{}")); }
         catch (Exception ignored) { app = new JSONObject(); }
-        bind(root, app);
-        root.post(host::hideContentLoading);
+        final boolean[] hidden = {false};
+        long started = android.os.SystemClock.uptimeMillis();
+        Runnable hide = () -> {
+            long wait = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - started));
+            root.postDelayed(() -> { if (!hidden[0] && isAdded()) { hidden[0] = true; host.hideContentLoading(); } }, wait);
+        };
+        bind(root, app, hide);
         return root;
     }
 
-    private void bind(View root, JSONObject app) {
+    private void bind(View root, JSONObject app, @Nullable Runnable loaded) {
         String name = app.optString("name", "未命名应用");
         ((TextView) root.findViewById(R.id.app_detail_initial)).setText(first(name));
         ((TextView) root.findViewById(R.id.app_detail_name)).setText(name);
@@ -65,7 +70,9 @@ public final class AppDetailFragment extends Fragment {
         ImageView icon = root.findViewById(R.id.app_detail_icon);
         if (!iconUrl.isEmpty()) load(iconUrl, icon, () -> {
             icon.setVisibility(View.VISIBLE); root.findViewById(R.id.app_detail_initial).setVisibility(View.GONE);
+            if (loaded != null) loaded.run();
         });
+        else if (loaded != null) root.postDelayed(loaded, 300L);
         MaterialButton install = root.findViewById(R.id.app_detail_install);
         String downloadUrl = app.optString("download_url", app.optString("detail_url", ""));
         install.setEnabled(!downloadUrl.isEmpty());
@@ -87,12 +94,17 @@ public final class AppDetailFragment extends Fragment {
     private void load(String url, ImageView target, @Nullable Runnable done) {
         Request request; try { request = new Request.Builder().url(url).build(); } catch (Exception ignored) { return; }
         new tAccUtils(requireContext().getApplicationContext()).getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException error) { }
+            @Override public void onFailure(Call call, IOException error) {
+                if (done != null) target.post(done);
+            }
             @Override public void onResponse(Call call, Response response) {
                 try (Response body = response) {
-                    if (!body.isSuccessful() || body.body() == null) return;
+                    if (!body.isSuccessful() || body.body() == null) { if (done != null) target.post(done); return; }
                     Bitmap bitmap = BitmapFactory.decodeStream(body.body().byteStream());
-                    if (bitmap != null) target.post(() -> { target.setImageBitmap(bitmap); if (done != null) done.run(); });
+                    target.post(() -> {
+                        if (bitmap != null) target.setImageBitmap(bitmap);
+                        if (done != null) done.run();
+                    });
                 }
             }
         });

@@ -157,25 +157,31 @@ public class DeviceFragment extends Fragment {
         try (DeviceDatabase db = new DeviceDatabase(requireContext());
              Cursor wearableCursor = db.all("xiaomi");
              Cursor otherCursor = db.allExcept("xiaomi")) {
-            wearable.removeAllViews();
-            other.removeAllViews();
+            // Keep the previous rows during refresh; replacing them only after data is available
+            // prevents the visible list from flashing empty.
+            LinearLayout newWearable = new LinearLayout(requireContext());
+            LinearLayout newOther = new LinearLayout(requireContext());
+            newWearable.setOrientation(LinearLayout.VERTICAL); newOther.setOrientation(LinearLayout.VERTICAL);
             boolean hasWearable = false;
             boolean hasOther = false;
             while (wearableCursor.moveToNext()) {
                 hasWearable = true;
-                addCard(wearableCursor, wearable);
+                addCard(wearableCursor, newWearable);
             }
             while (otherCursor.moveToNext()) {
                 hasOther = true;
-                addCard(otherCursor, other);
+                addCard(otherCursor, newOther);
             }
             for (int index = 0; index < cloudSessions.length(); index++) {
                 JSONObject session = cloudSessions.optJSONObject(index);
                 if (session != null) {
                     hasOther = true;
-                    addSessionCard(session);
+                    addSessionCard(session, newOther);
                 }
             }
+            wearable.removeAllViews(); other.removeAllViews();
+            while (newWearable.getChildCount() > 0) { View child = newWearable.getChildAt(0); newWearable.removeView(child); wearable.addView(child); }
+            while (newOther.getChildCount() > 0) { View child = newOther.getChildAt(0); newOther.removeView(child); other.addView(child); }
             wearableEmpty.setVisibility(wearableLoaded && !hasWearable ? View.VISIBLE : View.GONE);
             otherEmpty.setVisibility(otherLoaded && !hasOther ? View.VISIBLE : View.GONE);
             UIParams params = MainActivity.current_params;
@@ -233,16 +239,16 @@ public class DeviceFragment extends Fragment {
         });
     }
 
-    private void addSessionCard(JSONObject session) {
-        View card = getLayoutInflater().inflate(R.layout.item_device, other, false);
+    private void addSessionCard(JSONObject session, LinearLayout target) {
+        View card = getLayoutInflater().inflate(R.layout.item_device, target, false);
         String remark = session.optString("remark", "").trim();
         String device = session.optString("device", "未知设备").trim();
         String displayName = remark.isEmpty() ? device : remark;
         boolean current = session.optBoolean("is_current");
         String platform = session.optString("platform", "");
         String version = session.optString("client_version", "");
-        String secondary = platform.isEmpty() ? "Typheye 登录设备" : platform;
-        if (!version.isEmpty()) secondary += "  ·  " + version;
+        String platformLabel = platformLabel(platform);
+        String secondary = platformLabel + (version.isEmpty() ? "" : " | " + version);
         ((TextView) card.findViewById(R.id.text_device_initial)).setText(firstCharacter(displayName));
         ((TextView) card.findViewById(R.id.text_device_model)).setText(displayName);
         ((TextView) card.findViewById(R.id.text_device_version)).setText(secondary);
@@ -254,24 +260,47 @@ public class DeviceFragment extends Fragment {
                 .setText(lastSeen.isEmpty() ? "在线状态未知" : "活跃于 " + relativeCloudTime(lastSeen));
         card.setOnClickListener(v -> showSessionDetail(session));
         View more = card.findViewById(R.id.button_device_more);
-        more.setVisibility(session.optBoolean("can_revoke", false) ? View.VISIBLE : View.GONE);
-        more.setOnClickListener(v -> confirmRevokeSession(session));
-        other.addView(card);
+        more.setVisibility(View.VISIBLE);
+        more.setOnClickListener(v -> showSessionMenu(session));
+        target.addView(card);
     }
 
     private void showSessionDetail(JSONObject session) {
+        View content = getLayoutInflater().inflate(R.layout.sheet_device_detail, null, false);
+        String remark = session.optString("remark", "").trim();
+        String device = session.optString("device", "未知设备").trim();
+        String name = remark.isEmpty() ? device : remark;
+        boolean current = session.optBoolean("is_current");
+        String platform = platformLabel(session.optString("platform"));
+        ((TextView) content.findViewById(R.id.sheet_device_initial)).setText(firstCharacter(name));
+        ((TextView) content.findViewById(R.id.sheet_device_name)).setText(name);
+        ((TextView) content.findViewById(R.id.sheet_device_status_version))
+                .setText((current ? "当前设备" : "已登录") + " | " + platform);
+        content.findViewById(R.id.sheet_device_actions).setVisibility(View.VISIBLE);
+        ((TextView) content.findViewById(R.id.sheet_device_action_primary_label)).setText("查看详细信息");
+        ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label)).setText("前往账户管理");
         StringBuilder detail = new StringBuilder();
         appendDetail(detail, "设备", session.optString("device"));
-        appendDetail(detail, "平台", session.optString("platform"));
+        appendDetail(detail, "平台", platformLabel(session.optString("platform")));
         appendDetail(detail, "客户端版本", session.optString("client_version"));
         appendDetail(detail, "位置", session.optString("location"));
         appendDetail(detail, "IP", session.optString("ip"));
         appendDetail(detail, "创建时间", session.optString("created_at"));
         appendDetail(detail, "最后活跃", session.optString("last_seen_at"));
-        new WGProAlertDialogBuilder(requireContext())
-                .setTitle(session.optBoolean("is_current") ? "当前登录设备" : "登录设备详情")
-                .setMessage(detail.length() == 0 ? "暂无更多设备信息" : detail.toString())
-                .setNegativeButton("关闭", null).show();
+        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
+                .setTitle("设备详情").setView(content).setNegativeButton("关闭", null).create();
+        content.findViewById(R.id.sheet_device_transfer).setOnClickListener(v -> {
+            dialog.dismissForReplacement();
+            new WGProAlertDialogBuilder(requireContext()).setTitle("详细信息")
+                    .setMessage(detail.length() == 0 ? "暂无更多设备信息" : detail.toString())
+                    .setNegativeButton("关闭", null).show();
+        });
+        content.findViewById(R.id.sheet_device_logs).setOnClickListener(v -> {
+            dialog.dismiss();
+            startActivity(new Intent(requireContext(), WebActivity.class)
+                    .putExtra("URL", "https://account.typheye.cn/?tab=security"));
+        });
+        dialog.show();
     }
 
     private static void appendDetail(StringBuilder target, String label, String value) {
@@ -280,13 +309,55 @@ public class DeviceFragment extends Fragment {
         target.append(label).append("：").append(value.trim());
     }
 
+    private static String platformLabel(String value) {
+        String platform = value == null ? "" : value.trim();
+        if ("android".equals(platform)) return "Android客户端";
+        if ("Android".equals(platform)) return "Android客户端内置浏览器";
+        if ("Windows".equals(platform) || "windows".equals(platform)) return "Windows平台";
+        if ("web".equalsIgnoreCase(platform) || "browser".equalsIgnoreCase(platform)) return "内置浏览器";
+        return platform.isEmpty() ? "Typheye客户端" : platform;
+    }
+
+    private void showSessionMenu(JSONObject session) {
+        new WGProAlertDialogBuilder(requireContext()).setTitle("设备管理")
+                .setItems(new CharSequence[]{"修改备注", "退出登录"}, (dialog, which) -> {
+                    if (which == 0) showSessionNoteDialog(session);
+                    else confirmRevokeSession(session);
+                }).show();
+    }
+
+    private void showSessionNoteDialog(JSONObject session) {
+        View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null, false);
+        TextInputLayout layout = content.findViewById(R.id.textInputLayout);
+        TextInputEditText input = content.findViewById(R.id.editText);
+        layout.setHint("设备备注"); input.setText(session.optString("remark", ""));
+        input.setSelection(input.length()); input.setSingleLine(true);
+        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
+                .setTitle("修改设备备注").setView(content).setNegativeButton("取消", null)
+                .setPositiveButton("保存", null).create();
+        dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
+            String id = session.optString("session_id", "");
+            String value = input.getText() == null ? "" : input.getText().toString().trim();
+            Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_session_id", id); fields.put("remark", value);
+            new tAccUtils(requireContext()).postV2Json("session_remark2", fields, new tAccUtils.JsonCallback() {
+                @Override public void onSuccess(@NonNull JSONObject json) { mainHandler.post(() -> {
+                    try { session.put("remark", value); } catch (Exception ignored1) { }
+                    dialog.dismiss(); refresh();
+                }); }
+                @Override public void onError(int code, @NonNull String message) { mainHandler.post(() ->
+                        layout.setError(message)); }
+            });
+        }));
+        dialog.show();
+    }
+
     private void confirmRevokeSession(JSONObject session) {
         String id = session.optString("id", "");
         if (id.isEmpty()) return;
         boolean current = session.optBoolean("is_current");
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle(current ? "退出当前设备？" : "移除登录设备？")
-                .setMessage(current ? "当前 Typheye 账户会立即退出登录。" : "该设备需要重新验证后才能访问账户。")
+                .setTitle("确认退出登录？")
+                .setMessage(current ? "当前 Typheye 账户会立即退出登录。" : "该设备上的登录状态将立即失效。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton(current ? "退出" : "移除", (dialog, which) -> revokeSession(id, current))
                 .show();

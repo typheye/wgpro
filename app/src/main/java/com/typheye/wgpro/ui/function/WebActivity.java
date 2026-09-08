@@ -59,6 +59,7 @@ public class WebActivity extends AppCompatActivity {
     private OnBackPressedCallback webBackCallback;
     private boolean grantRequestForwarded;
     private boolean webLoginExchangePending;
+    private boolean reusedWebSession;
     private String webLoginTargetUrl;
 
     private String FLAG;
@@ -148,7 +149,7 @@ public class WebActivity extends AppCompatActivity {
 
                     // HTTP/HTTPS 链接 - 直接在WebView加载
                     if (currentUrl.startsWith("http://") || currentUrl.startsWith("https://")) {
-                        view.loadUrl(currentUrl);
+                        loadWebPage(currentUrl);
                         return true;
                     }
 
@@ -177,9 +178,16 @@ public class WebActivity extends AppCompatActivity {
                                 "网页登录状态同步失败，请稍后重试", Toast.LENGTH_LONG).show();
                     }
                     if (target != null && !target.equals(url)) {
-                        view.loadUrl(target);
+                        loadWebPage(target);
                         return;
                     }
+                }
+                if (reusedWebSession && isWebLoginPage(url)) {
+                    reusedWebSession = false;
+                    tAccUtils accountUtils = new tAccUtils(WebActivity.this);
+                    accountUtils.clearWebSessionMarkerForReauth();
+                    startV2WebLogin(accountUtils, webLoginTargetUrl == null ? url : webLoginTargetUrl);
+                    return;
                 }
                 updateBackCallback();
                 String title = view.getTitle();
@@ -315,7 +323,9 @@ public class WebActivity extends AppCompatActivity {
         if (accUtils.isLogin()) {
             if (accUtils.isV2Session()) {
                 if (accUtils.hasWebViewSessionCookie()) {
-                    webView.loadUrl(url);
+                    reusedWebSession = true;
+                    webLoginTargetUrl = url;
+                    loadWebPage(url);
                 } else {
                     accUtils.setWebViewCookies(() -> runOnUiThread(() -> {
                         if (!isFinishing() && !isDestroyed()) startV2WebLogin(accUtils, url);
@@ -323,12 +333,25 @@ public class WebActivity extends AppCompatActivity {
                 }
             } else {
                 accUtils.setWebViewCookies(() -> {
-                    if (!isFinishing() && !isDestroyed()) webView.loadUrl(url);
+                    if (!isFinishing() && !isDestroyed()) loadWebPage(url);
                 });
             }
         } else {
-            webView.loadUrl(url);
+            loadWebPage(url);
         }
+    }
+
+    private void loadWebPage(@NonNull String url) {
+        java.util.Map<String, String> headers = new java.util.HashMap<>();
+        headers.put("X-Typheye-Client-WebView", "1");
+        headers.put("X-Typheye-Client", "webview");
+        webView.loadUrl(url, headers);
+    }
+
+    private boolean isWebLoginPage(String url) {
+        if (url == null) return false;
+        String value = url.toLowerCase(java.util.Locale.ROOT);
+        return value.contains("/auth") || value.contains("/login") || value.contains("login=1");
     }
 
     private void startV2WebLogin(tAccUtils accUtils, String targetUrl) {
@@ -364,7 +387,7 @@ public class WebActivity extends AppCompatActivity {
                     webLoginExchangePending = false;
                     webLoginTargetUrl = null;
                     Toast.makeText(WebActivity.this, message, Toast.LENGTH_LONG).show();
-                    webView.loadUrl(targetUrl);
+                    loadWebPage(targetUrl);
                 });
             }
         });

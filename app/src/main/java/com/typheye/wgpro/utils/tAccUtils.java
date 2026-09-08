@@ -727,7 +727,7 @@ public class tAccUtils {
             }
 
             @Override public void onError(int statusCode, @NonNull String message) {
-                if (statusCode == 0 || statusCode >= 500) {
+                if (statusCode != 401) {
                     try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
                         String payload = cache.get(cacheKey);
                         if (payload != null) {
@@ -750,6 +750,17 @@ public class tAccUtils {
             key.append('|').append(entry.getKey()).append('=').append(entry.getValue());
         }
         return key.toString();
+    }
+
+    @Nullable public JSONObject getCachedV2Json(@NonNull String action,
+                                                 @NonNull Map<String, String> query,
+                                                 boolean authenticationRequired) {
+        try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+            String payload = cache.get(buildCloudCacheKey(action, query, authenticationRequired));
+            return payload == null ? null : new JSONObject(payload);
+        } catch (Exception ignored) {
+            return null;
+        }
     }
 
     public void postV2Json(@NonNull String action, @NonNull Map<String, String> fields,
@@ -1978,6 +1989,11 @@ public class tAccUtils {
         return securePrefs != null && !sessionId.isEmpty() && securePrefs.edit()
                 .putString(PREFS_WEB_SESSION_SOURCE_ID, sessionId)
                 .commit();
+    }
+
+    public void clearWebSessionMarkerForReauth() {
+        SharedPreferences securePrefs = getSecurePreferences();
+        if (securePrefs != null) securePrefs.edit().remove(PREFS_WEB_SESSION_SOURCE_ID).apply();
     }
 
     private void clearWebViewCookies() {

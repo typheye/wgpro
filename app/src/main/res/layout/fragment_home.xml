@@ -15,7 +15,7 @@
             app:selectionRequired="true" app:singleSelection="true">
             <com.google.android.material.button.MaterialButton android:id="@+id/home_segment_community"
                 style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
-                android:layout_height="match_parent" android:layout_weight="1" android:text="社区" />
+                android:layout_height="match_parent" android:layout_weight="1" android:text="动态" />
             <com.google.android.material.button.MaterialButton android:id="@+id/home_segment_apps"
                 style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
                 android:layout_height="match_parent" android:layout_weight="1" android:text="应用" />

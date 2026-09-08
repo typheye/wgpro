@@ -17,6 +17,7 @@ import java.util.Map;
 public final class AppDetailActivity extends BaseSectionActivity {
     public static final String EXTRA_APP_JSON = "app_json";
     private JSONObject appInfo = new JSONObject();
+    private boolean starred;
     @Override protected String screenTitle() { return ""; }
     @Override protected boolean loadingCoversAppBar() { return true; }
     @Override protected Fragment createContent() {
@@ -25,6 +26,9 @@ public final class AppDetailActivity extends BaseSectionActivity {
     @Override protected void onCreate(@Nullable Bundle state) {
         try { appInfo = new JSONObject(getIntent().getStringExtra(EXTRA_APP_JSON)); }
         catch (Exception ignored) { appInfo = new JSONObject(); }
+        String appKey = appInfo.optString("id", appInfo.optString("package", ""));
+        starred = appInfo.optBoolean("is_collected", false)
+                || getSharedPreferences("app_stars", MODE_PRIVATE).getBoolean(appKey, false);
         super.onCreate(state);
         int background = getColor(R.color.surface_page);
         getWindow().setStatusBarColor(background);
@@ -51,11 +55,12 @@ public final class AppDetailActivity extends BaseSectionActivity {
         tAccUtils account = new tAccUtils(getApplicationContext());
         boolean self = appInfo.optBoolean("is_self") || (!account.getUid().isEmpty()
                 && account.getUid().equals(appInfo.optString("uid", appInfo.optString("author_uid"))));
-        CharSequence[] actions = self ? new CharSequence[]{"删除", "分享"}
-                : new CharSequence[]{"举报", "分享"};
+        CharSequence[] actions = self ? new CharSequence[]{"删除", "分享", starred ? "移除星标" : "加入星标"}
+                : new CharSequence[]{"举报", "分享", starred ? "移除星标" : "加入星标"};
         new WGProAlertDialogBuilder(this).setTitle("应用操作").setItems(actions, (dialog, which) -> {
             String action = actions[which].toString();
             if ("分享".equals(action)) { shareApp(); return; }
+            if (action.contains("星标")) { toggleStar(); return; }
             if ("举报".equals(action)) { reportApp(account); return; }
             deleteApp(account);
         }).show();
@@ -73,6 +78,24 @@ public final class AppDetailActivity extends BaseSectionActivity {
         fields.put("target_key", appInfo.optString("id", appInfo.optString("package")));
         fields.put("reason_code", "other"); fields.put("description", "通过 Android 客户端举报");
         postAction(account, "report_create2", fields, false);
+    }
+
+    private void toggleStar() {
+        String key = appInfo.optString("id", appInfo.optString("package", ""));
+        Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "app");
+        fields.put("target_key", key); fields.put("action", starred ? "remove" : "add");
+        tAccUtils account = new tAccUtils(getApplicationContext());
+        account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(JSONObject json) {
+                starred = json.optBoolean("collected", !starred);
+                getSharedPreferences("app_stars", MODE_PRIVATE).edit().putBoolean(key, starred).apply();
+                runOnUiThread(() -> android.widget.Toast.makeText(AppDetailActivity.this,
+                        starred ? "已加入星标" : "已移除星标", android.widget.Toast.LENGTH_SHORT).show());
+            }
+            @Override public void onError(int code, String message) { runOnUiThread(() ->
+                    new WGProAlertDialogBuilder(AppDetailActivity.this).setTitle("操作失败")
+                            .setMessage(message).setNegativeButton("关闭", null).show()); }
+        });
     }
 
     private void deleteApp(tAccUtils account) {

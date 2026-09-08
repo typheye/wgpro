@@ -32,7 +32,9 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.function.community.AppDetailActivity;
+import com.typheye.wgpro.ui.function.community.AppListItemFactory;
 import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
+import com.typheye.wgpro.ui.function.community.ResourceMasonryFactory;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.utils.tAccUtils;
 
@@ -266,7 +268,9 @@ public class HomeFragment extends Fragment {
             }
             @Override public void onError(int code, @NonNull String message) {
                 completeAtLeast(started, () -> {
-                    showStatus(communityStatus, true, readableError(code, message));
+                    communityStatus.setVisibility(View.GONE);
+                    android.widget.Toast.makeText(requireContext(), "动态加载失败，请稍后重试",
+                            android.widget.Toast.LENGTH_SHORT).show();
                     communityRefresh.setRefreshing(false);
                 });
             }
@@ -301,7 +305,9 @@ public class HomeFragment extends Fragment {
                     }
                     @Override public void onError(int code, @NonNull String message) {
                         completeAtLeast(started, () -> {
-                            showStatus(appsStatus, true, readableError(code, message));
+                            appsStatus.setVisibility(View.GONE);
+                            android.widget.Toast.makeText(requireContext(), "应用加载失败，请稍后重试",
+                                    android.widget.Toast.LENGTH_SHORT).show();
                             appsRefresh.setRefreshing(false);
                         });
                     }
@@ -315,15 +321,19 @@ public class HomeFragment extends Fragment {
                 completeAtLeast(started, () -> {
                     JSONArray list = items(json, "items", "resources", "data");
                     resources.removeAllViews();
-                    for (int i = 0; i < list.length(); i++) addCatalogCard(resources,
-                            list.optJSONObject(i), false);
+                    resources.addView(ResourceMasonryFactory.create(requireContext(), list, item -> {
+                        String url = item.optString("detail_url", item.optString("url", ""));
+                        if (!url.isEmpty()) openUrl(url); else showJsonDetail("资源详情", item);
+                    }), new LinearLayout.LayoutParams(-1, -2));
                     showStatus(resourcesStatus, list.length() == 0, "还没有用户分享资源");
                     resourcesRefresh.setRefreshing(false);
                 });
             }
             @Override public void onError(int code, @NonNull String message) {
                 completeAtLeast(started, () -> {
-                    showStatus(resourcesStatus, true, readableError(code, message));
+                    resourcesStatus.setVisibility(View.GONE);
+                    android.widget.Toast.makeText(requireContext(), "资源加载失败，请稍后重试",
+                            android.widget.Toast.LENGTH_SHORT).show();
                     resourcesRefresh.setRefreshing(false);
                 });
             }
@@ -333,7 +343,7 @@ public class HomeFragment extends Fragment {
     private void addCatalogCard(LinearLayout parent, @Nullable JSONObject item, boolean app) {
         if (item == null) return;
         if (app) {
-            addAppRow(parent, item);
+            parent.addView(AppListItemFactory.create(requireContext(), item));
             return;
         }
         MaterialCardView card = card();
