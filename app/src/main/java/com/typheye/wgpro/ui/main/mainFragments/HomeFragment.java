@@ -68,6 +68,7 @@ public class HomeFragment extends Fragment {
     private tAccUtils account;
     private SwipeRefreshLayout communityRefresh;
     private SwipeRefreshLayout appsRefresh;
+    private boolean loadedOnce;
     private SwipeRefreshLayout resourcesRefresh;
 
     @Nullable
@@ -142,11 +143,17 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadAll() {
+        loadedOnce = true;
         loadBanners();
         loadAnnouncement();
         loadDynamics();
         loadApps();
         loadResources();
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        if (loadedOnce && account != null && getView() != null) loadAll();
     }
 
     public void refreshContent() {
@@ -271,8 +278,7 @@ public class HomeFragment extends Fragment {
             @Override public void onError(int code, @NonNull String message) {
                 completeAtLeast(started, () -> {
                     communityStatus.setVisibility(View.GONE);
-                    android.widget.Toast.makeText(requireContext(), "动态加载失败，请稍后重试",
-                            android.widget.Toast.LENGTH_SHORT).show();
+                    showLoadError("动态加载失败", message);
                     communityRefresh.setRefreshing(false);
                 });
             }
@@ -308,8 +314,7 @@ public class HomeFragment extends Fragment {
                     @Override public void onError(int code, @NonNull String message) {
                         completeAtLeast(started, () -> {
                             appsStatus.setVisibility(View.GONE);
-                            android.widget.Toast.makeText(requireContext(), "应用加载失败，请稍后重试",
-                                    android.widget.Toast.LENGTH_SHORT).show();
+                            showLoadError("应用加载失败", message);
                             appsRefresh.setRefreshing(false);
                         });
                     }
@@ -328,7 +333,7 @@ public class HomeFragment extends Fragment {
                                 com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
                                 .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
                                         item.toString()));
-                    }), new LinearLayout.LayoutParams(-1, -2));
+                    }, (item, anchor) -> showCatalogActions(item, false)), new LinearLayout.LayoutParams(-1, -2));
                     showStatus(resourcesStatus, list.length() == 0, "还没有用户分享资源");
                     resourcesRefresh.setRefreshing(false);
                 });
@@ -336,8 +341,7 @@ public class HomeFragment extends Fragment {
             @Override public void onError(int code, @NonNull String message) {
                 completeAtLeast(started, () -> {
                     resourcesStatus.setVisibility(View.GONE);
-                    android.widget.Toast.makeText(requireContext(), "资源加载失败，请稍后重试",
-                            android.widget.Toast.LENGTH_SHORT).show();
+                    showLoadError("资源加载失败", message);
                     resourcesRefresh.setRefreshing(false);
                 });
             }
@@ -347,7 +351,7 @@ public class HomeFragment extends Fragment {
     private void addCatalogCard(LinearLayout parent, @Nullable JSONObject item, boolean app) {
         if (item == null) return;
         if (app) {
-            parent.addView(AppListItemFactory.create(requireContext(), item));
+            parent.addView(AppListItemFactory.create(requireContext(), item, v -> showCatalogActions(item, true)));
             return;
         }
         MaterialCardView card = card();
@@ -385,6 +389,35 @@ public class HomeFragment extends Fragment {
                             item.toString()));
         });
         parent.addView(card);
+    }
+
+    private void showLoadError(String title, String message) {
+        if (!isAdded()) return;
+        new WGProAlertDialogBuilder(requireContext()).setTitle(title)
+                .setMessage(message == null || message.isEmpty() ? "请稍后重试" : message)
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private void showCatalogActions(JSONObject item, boolean app) {
+        String owner = item.optString("uid", item.optString("author_uid", item.optString("publisher_uid", "")));
+        boolean mine = !owner.isEmpty() && owner.equals(account.getUid());
+        String[] actions = mine ? new String[]{"删除", "分享"} : new String[]{"举报", "分享"};
+        new WGProAlertDialogBuilder(requireContext()).setTitle(app ? "应用操作" : "资源操作").setItems(actions, (d,w) -> {
+            if ("分享".equals(actions[w])) { Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, (app ? "应用：" : "资源：") + item.optString(app ? "name" : "title", "未知")); startActivity(Intent.createChooser(share, "分享")); return; }
+            Map<String,String> fields = new LinkedHashMap<>();
+            if (mine) { fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id")); runCatalogAction(app ? "app_delete2" : "resource_delete2", fields, "确认删除？", "删除后无法恢复。", "已删除"); }
+            else { fields.put("target_type", app ? "app" : "resource"); fields.put("target_key", item.optString(app ? "package" : "id")); fields.put("reason_code", "other"); fields.put("description", "通过 Android 客户端举报"); runCatalogAction("report_create2", fields, "确认举报？", "确认提交举报吗？", "举报已提交"); }
+        }).show();
+    }
+
+    private void runCatalogAction(String action, Map<String,String> fields, String title, String message, String success) {
+        new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message).setNegativeButton("取消", null).setPositiveButton("确认", (d,w) -> {
+            long started = android.os.SystemClock.uptimeMillis();
+            account.postV2Json(action, fields, new tAccUtils.JsonCallback() {
+                public void onSuccess(JSONObject json) { mainHandler.postDelayed(() -> { if (!isAdded()) return; new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage(success).setNegativeButton("关闭", null).show(); loadAll(); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
+                public void onError(int code,String msg) { mainHandler.postDelayed(() -> showLoadError("操作失败", msg), Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
+            });
+        }).show();
     }
 
     private void addAppRow(LinearLayout parent, JSONObject item) {

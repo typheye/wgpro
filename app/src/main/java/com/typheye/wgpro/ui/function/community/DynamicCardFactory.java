@@ -325,11 +325,13 @@ public final class DynamicCardFactory {
 
     private static void postFeedback(Context context, tAccUtils account, String action,
                                      Map<String, String> fields, String success) {
+        long started = android.os.SystemClock.uptimeMillis();
         account.postV2Json(action, fields, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(JSONObject json) { new android.os.Handler(context.getMainLooper())
-                    .post(() -> android.widget.Toast.makeText(context, success, android.widget.Toast.LENGTH_SHORT).show()); }
+                    .postDelayed(() -> new WGProAlertDialogBuilder(context).setTitle("操作成功").setMessage(success)
+                            .setNegativeButton("关闭", null).show(), Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
             @Override public void onError(int code, String message) { new android.os.Handler(context.getMainLooper())
-                    .post(() -> error(context, message)); }
+                    .postDelayed(() -> error(context, message), Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
         });
     }
 
