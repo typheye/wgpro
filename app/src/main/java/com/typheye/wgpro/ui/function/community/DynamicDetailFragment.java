@@ -28,6 +28,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
+import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -145,6 +146,8 @@ public final class DynamicDetailFragment extends Fragment {
                 .setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         row.addView(avatarBox, new LinearLayout.LayoutParams(dp(36), dp(36)));
+        BadgeFactory.bind(requireContext(), item, avatarBox,
+                requireContext().getColor(R.color.surface_page));
         DynamicCardFactory.bindAvatar(requireContext(), item.optString("uid"), item.optString("avatar_url"), avatar, initial);
 
         LinearLayout right = new LinearLayout(requireContext()); right.setOrientation(LinearLayout.VERTICAL);
@@ -211,7 +214,7 @@ public final class DynamicDetailFragment extends Fragment {
         boolean canDelete = mine || dynamicOwner;
         java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
         menu.add("评论详情");
-        menu.add("举报");
+        if (!mine) menu.add("举报");
         if (canDelete) menu.add("撤回");
         CharSequence[] actions = menu.toArray(new CharSequence[0]);
         new WGProAlertDialogBuilder(requireContext())

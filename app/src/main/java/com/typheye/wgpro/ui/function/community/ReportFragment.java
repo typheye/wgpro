@@ -17,8 +17,10 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.radiobutton.MaterialRadioButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.utils.tAccUtils;
 
@@ -48,7 +50,10 @@ public class ReportFragment extends Fragment {
 
     private final List<MaterialRadioButton> reasonButtons = new ArrayList<>();
     private LinearLayout reasonContainer;
-    private TextInputEditText description;
+    private TextView extraDescriptionValue;
+    private TextView extraContactValue;
+    private String descriptionValue = "";
+    private String contactValue = "";
     private MaterialButton submit;
     private tAccUtils account;
     private int selectedReason = -1;
@@ -64,7 +69,12 @@ public class ReportFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_report, container, false);
         account = new tAccUtils(requireContext().getApplicationContext());
         reasonContainer = root.findViewById(R.id.report_reasons);
-        description = root.findViewById(R.id.report_description);
+        extraDescriptionValue = root.findViewById(R.id.report_extra_description_value);
+        extraContactValue = root.findViewById(R.id.report_extra_contact_value);
+        root.findViewById(R.id.report_extra_description_row)
+                .setOnClickListener(v -> showExtraEditor(false));
+        root.findViewById(R.id.report_extra_contact_row)
+                .setOnClickListener(v -> showExtraEditor(true));
         submit = root.findViewById(R.id.report_submit);
         ((TextView) root.findViewById(R.id.report_target_label)).setText(targetLabel());
         ((TextView) root.findViewById(R.id.report_target)).setText(targetSummary());
@@ -89,15 +99,19 @@ public class ReportFragment extends Fragment {
             row.setOrientation(LinearLayout.HORIZONTAL);
             row.setGravity(Gravity.CENTER_VERTICAL);
             row.setMinimumHeight(dp(72));
-            row.setPadding(dp(16), dp(10), dp(16), dp(10));
+            row.setPadding(dp(24), dp(10), dp(16), dp(10));
             row.setBackgroundResource(R.drawable.bg_list_item_ripple);
 
             MaterialRadioButton radio = new MaterialRadioButton(requireContext());
             radio.setClickable(false);
             radio.setFocusable(false);
+            radio.setMinWidth(0);
+            radio.setMinHeight(0);
+            radio.setPadding(0, 0, 0, 0);
+            radio.setGravity(Gravity.CENTER);
             radio.setButtonTintList(AppCompatResources.getColorStateList(
                     requireContext(), R.color.report_radio_colors));
-            row.addView(radio, new LinearLayout.LayoutParams(dp(24), dp(24)));
+            row.addView(radio, new LinearLayout.LayoutParams(dp(32), dp(32)));
 
             LinearLayout labels = new LinearLayout(requireContext());
             labels.setOrientation(LinearLayout.VERTICAL);
@@ -127,7 +141,7 @@ public class ReportFragment extends Fragment {
                 View divider = new View(requireContext());
                 divider.setBackgroundColor(color(R.color.outline_soft));
                 LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(-1, dp(1));
-                dividerParams.setMarginStart(dp(52));
+                dividerParams.setMarginStart(dp(64));
                 reasonContainer.addView(divider, dividerParams);
             }
             reasonButtons.add(radio);
@@ -140,22 +154,69 @@ public class ReportFragment extends Fragment {
         }
     }
 
+    private void showExtraEditor(boolean contact) {
+        View content = LayoutInflater.from(requireContext())
+                .inflate(R.layout.dialog_edittext, null, false);
+        TextInputLayout layout = content.findViewById(R.id.textInputLayout);
+        TextInputEditText input = content.findViewById(R.id.editText);
+        layout.setHint(contact ? "联系方式" : "补充说明");
+        input.setText(contact ? contactValue : descriptionValue);
+        input.setSelection(input.length());
+        input.setSingleLine(contact);
+        input.setMaxLines(contact ? 1 : 5);
+        input.setInputType(contact
+                ? android.text.InputType.TYPE_CLASS_TEXT
+                | android.text.InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+                : android.text.InputType.TYPE_CLASS_TEXT
+                | android.text.InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
+                .setTitle(contact ? "填写联系方式" : "填写补充说明")
+                .setView(content).setNegativeButton("取消", null)
+                .setPositiveButton("保存", null).create();
+        dialog.setOnShowListener(ignored ->
+                dialog.getButton(android.content.DialogInterface.BUTTON_POSITIVE)
+                        .setOnClickListener(v -> {
+                            String value = input.getText() == null ? ""
+                                    : input.getText().toString().trim();
+                            if (contact) {
+                                contactValue = value;
+                                extraContactValue.setText(value.isEmpty() ? "未填写" : value);
+                                extraContactValue.setTextColor(color(value.isEmpty()
+                                        ? R.color.text_tertiary : R.color.text_primary));
+                            } else {
+                                descriptionValue = value;
+                                extraDescriptionValue.setText(value.isEmpty() ? "未填写" : value);
+                                extraDescriptionValue.setTextColor(color(value.isEmpty()
+                                        ? R.color.text_tertiary : R.color.text_primary));
+                            }
+                            dialog.dismiss();
+                        }));
+        dialog.show();
+    }
+
     private void submit() {
         String key = targetKey();
         if (key == null || key.trim().isEmpty()) {
             showResult("无法举报", "举报对象标识无效，请返回后重试。", false);
             return;
         }
+        if ("user".equals(targetType()) && key.trim().equals(account.getUid())) {
+            showResult("不能举报自己", "不能举报自己的账号。", true);
+            return;
+        }
         if (selectedReason < 0 || selectedReason >= REASON_CODES.length) {
             showResult("请选择举报原因", "请先选择一条举报原因。", false);
             return;
         }
-        String detail = description.getText() == null ? "" : description.getText().toString().trim();
+        String detail = descriptionValue == null ? "" : descriptionValue.trim();
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put("target_type", targetType());
         fields.put("target_key", key.trim());
         fields.put("reason_code", REASON_CODES[selectedReason]);
         if (!detail.isEmpty()) fields.put("description", detail);
+        if (contactValue != null && !contactValue.trim().isEmpty()) {
+            fields.put("contact", contactValue.trim());
+        }
         WGProProgressRunner.run(this, "提交中", "正在提交举报...", completion ->
                 account.postV2Json("report_create2", fields, new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {

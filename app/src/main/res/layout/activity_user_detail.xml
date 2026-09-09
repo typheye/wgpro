@@ -35,7 +35,8 @@
                 <LinearLayout android:id="@+id/detail_avatar_container"
                     android:layout_width="match_parent" android:layout_height="104dp"
                     android:gravity="center_vertical" android:orientation="horizontal">
-                    <FrameLayout android:layout_width="104dp" android:layout_height="104dp">
+                    <FrameLayout android:id="@+id/detail_avatar_box"
+                        android:layout_width="104dp" android:layout_height="104dp">
                         <TextView android:id="@+id/detail_avatar_text" android:layout_width="match_parent"
                             android:layout_height="match_parent" android:background="@drawable/bg_avatar_placeholder_circle"
                             android:gravity="center" android:textColor="@color/brand_on_soft"
@@ -70,6 +71,18 @@
                 <TextView android:id="@+id/detail_uid" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="4dp"
                     android:textColor="#D9FFFFFF" android:textSize="14sp" />
+                <LinearLayout android:id="@+id/detail_badge_row"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp" android:gravity="center_vertical"
+                    android:orientation="horizontal" android:visibility="gone">
+                    <LinearLayout android:id="@+id/detail_badge_icons"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:gravity="center_vertical" android:orientation="horizontal" />
+                    <TextView android:id="@+id/detail_badge_text"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp" android:textColor="#F2FFFFFF"
+                        android:textSize="14sp" />
+                </LinearLayout>
                 <TextView android:id="@+id/detail_bio" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="9dp"
                     android:ellipsize="end" android:maxLines="3"
@@ -85,7 +98,8 @@
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical" android:alpha="0" android:visibility="invisible"
                     android:gravity="center_vertical" android:orientation="horizontal">
-                    <FrameLayout android:layout_width="32dp" android:layout_height="32dp">
+                    <FrameLayout android:id="@+id/detail_collapsed_avatar_box"
+                        android:layout_width="32dp" android:layout_height="32dp">
                         <TextView android:id="@+id/detail_collapsed_avatar_text"
                             android:layout_width="match_parent" android:layout_height="match_parent"
                             android:background="@drawable/bg_avatar_placeholder_circle" android:gravity="center"

@@ -18,6 +18,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
+import com.typheye.wgpro.ui.widget.BadgeFactory;
 import org.json.JSONObject;
 
 public final class DynamicDetailActivity extends BaseSectionActivity {
@@ -49,6 +50,7 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
                 .toBuilder().setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new android.widget.FrameLayout.LayoutParams(-1, -1));
         title.addView(avatarBox, new LinearLayout.LayoutParams(dp(36), dp(36)));
+        BadgeFactory.bind(this, info, avatarBox, getColor(R.color.surface_primary));
         TextView name = new TextView(this); name.setText(nick); name.setTextSize(18);
         name.setTextColor(getColor(R.color.text_primary)); name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         LinearLayout.LayoutParams np = new LinearLayout.LayoutParams(-2, -2); np.setMarginStart(dp(10));

@@ -29,6 +29,7 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -829,6 +830,8 @@ public class CloudListFragment extends Fragment {
                 .setAllCornerSizes(new com.google.android.material.shape.RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         body.addView(avatarBox, avatarParams);
+        BadgeFactory.bind(requireContext(), item, avatarBox,
+                requireContext().getColor(R.color.surface_page));
 
         LinearLayout labels = new LinearLayout(requireContext()); labels.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, -2, 1f);

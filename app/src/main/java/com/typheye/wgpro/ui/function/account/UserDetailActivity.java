@@ -43,6 +43,7 @@ import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
+import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.ImageCache;
@@ -208,6 +209,17 @@ public class UserDetailActivity extends AppCompatActivity {
                             if (isFinishing() || isDestroyed()) return;
                             if (info == null) { showProfileError("未找到该用户"); return; }
                             profileInfo = info;
+                            BadgeFactory.bind(UserDetailActivity.this, info,
+                                    findViewById(R.id.detail_collapsed_avatar_box),
+                                    Color.BLACK);
+                            BadgeFactory.bindProfileRow(UserDetailActivity.this, info,
+                                    findViewById(R.id.detail_badge_icons),
+                                    findViewById(R.id.detail_badge_text),
+                                    findViewById(R.id.detail_badge_row),
+                                    BadgeFactory.badgeColor(info));
+                            findViewById(R.id.detail_uid).setVisibility(
+                                    info.optString("badge_type", "").trim().isEmpty()
+                                            ? View.VISIBLE : View.GONE);
                             profileContentReady = true;
                             profileAssetsPending = 0;
                             String backgroundUrl = info.optString("background_url", "");

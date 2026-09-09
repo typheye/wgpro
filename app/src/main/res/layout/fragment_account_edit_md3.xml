@@ -52,7 +52,8 @@
                         app:cardCornerRadius="28dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="0dp">
-                        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <FrameLayout android:id="@+id/account_edit_avatar_box"
+                            android:layout_width="match_parent" android:layout_height="match_parent">
                             <TextView
                                 android:id="@+id/account_avatar_text"
                                 android:layout_width="match_parent"

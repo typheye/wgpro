@@ -23,6 +23,7 @@ import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 
@@ -81,6 +82,7 @@ public final class DynamicCardFactory {
                 .toBuilder().setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         header.addView(avatarBox, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
+        BadgeFactory.bind(context, item, avatarBox);
 
         LinearLayout identity = new LinearLayout(context); identity.setOrientation(LinearLayout.VERTICAL);
         identity.addView(text(context, item.optString("nick", "Typheye 用户"), 15, true, R.color.text_primary));
@@ -151,6 +153,7 @@ public final class DynamicCardFactory {
                 .setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         header.addView(avatarBox, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
+        BadgeFactory.bind(context, item, avatarBox);
         LinearLayout identity = new LinearLayout(context); identity.setOrientation(LinearLayout.VERTICAL);
         identity.addView(text(context, item.optString("nick", "用户"), 15, true, R.color.text_primary));
         String unavailableUid = item.optString("uid", item.optString("target_uid", ""));

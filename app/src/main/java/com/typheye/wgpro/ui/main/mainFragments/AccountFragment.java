@@ -21,6 +21,7 @@ import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
 import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
 import com.typheye.wgpro.R;
@@ -350,6 +351,8 @@ public class AccountFragment extends Fragment {
                             if (!isAdded() || getView() == null || !accUtils.isLogin()) return;
                             JSONObject info = json.optJSONObject("info");
                             if (info == null) return;
+                            BadgeFactory.bind(requireContext(), info,
+                                    getView().findViewById(R.id.account_avatar_box));
                             activityCount.setText(String.valueOf(info.optInt("dynamic_count", 0)));
                             followingCount.setText(String.valueOf(info.optInt("following_count", 0)));
                             followersCount.setText(String.valueOf(info.optInt("follower_count", 0)));

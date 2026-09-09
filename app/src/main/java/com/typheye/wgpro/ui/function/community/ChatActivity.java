@@ -1,5 +1,6 @@
 package com.typheye.wgpro.ui.function.community;
 
+import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.Typeface;
@@ -72,16 +73,19 @@ public class ChatActivity extends BaseSectionActivity {
 
     private void showChatMenu() {
         String peerUid = getIntent().getStringExtra(EXTRA_PEER_UID);
-        String peerName = getIntent().getStringExtra(EXTRA_PEER_NAME);
         new WGProAlertDialogBuilder(this)
-                .setTitle(peerName == null || peerName.trim().isEmpty() ? "聊天操作" : peerName.trim())
-                .setItems(new CharSequence[]{"主页", "举报"}, (dialog, which) -> {
+                .setTitle("更多")
+                .setItems(new CharSequence[]{"主页", "清空聊天记录"}, (dialog, which) -> {
                     if (which == 0) openPeerProfile(peerUid);
-                    else if (peerUid != null && peerUid.trim().matches("\\d+")) {
-                        ReportActivity.open(this, "user", peerUid.trim(),
-                                peerName == null ? "" : peerName.trim());
-                    }
+                    else clearChatHistory();
                 }).show();
+    }
+
+    private void clearChatHistory() {
+        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.section_container);
+        if (fragment instanceof ChatFragment) {
+            ((ChatFragment) fragment).showClearHistoryConfirm();
+        }
     }
 
     private void openPeerProfile(String peerUid) {
@@ -99,6 +103,7 @@ public class ChatActivity extends BaseSectionActivity {
         private AppCompatEditText input;
         private NestedScrollView scroll;
         private boolean loadedOnce;
+        private long latestMessageId;
 
         static ChatFragment newInstance(String peerUid) {
             ChatFragment fragment = new ChatFragment(); Bundle args = new Bundle();
@@ -155,19 +160,72 @@ public class ChatActivity extends BaseSectionActivity {
             if (!isAdded()) return;
             finishInitialLoading(); refresh.setRefreshing(false); messages.removeAllViews();
             if (items == null || items.length() == 0) { messages.addView(emptyState("还没有消息", "打个招呼，开始聊天。")); return; }
+            long cleared = clearedMessageId();
+            long maxId = 0L;
             long previousTime = 0L;
+            int added = 0;
             for (int i = items.length() - 1; i >= 0; i--) {
                 JSONObject item = items.optJSONObject(i);
                 if (item == null) continue;
+                long id = parseId(item.optString("id", "0"));
+                if (id > maxId) maxId = id;
+                if (id <= cleared) continue;
                 long currentTime = parseTime(item.optString("created_at", ""));
                 if (previousTime == 0L || currentTime - previousTime >= 5 * 60_000L) {
                     messages.addView(timeLabel(item.optString("created_at", "")));
                 }
                 messages.addView(bubble(item));
                 previousTime = currentTime;
+                added++;
+            }
+            latestMessageId = maxId;
+            if (added == 0) {
+                messages.addView(emptyState(cleared > 0 ? "聊天记录已清空" : "还没有消息",
+                        cleared > 0 ? "新消息会继续显示在这里。" : "打个招呼，开始聊天。"));
             }
             markRead();
             scrollToBottom();
+        }
+
+        public void showClearHistoryConfirm() {
+            if (!isAdded()) return;
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("清空聊天记录？")
+                    .setMessage("仅清除当前设备上的本地聊天记录，不会影响对方。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("清空", (dialog, which) -> {
+                        if (dialog instanceof WGProBottomSheetDialog) {
+                            ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                        }
+                        new Handler(Looper.getMainLooper()).postDelayed(
+                                this::clearLocalHistory, 40L);
+                    }).show();
+        }
+
+        private void clearLocalHistory() {
+            WGProProgressRunner.run(this, "处理中", "正在清空聊天记录...", completion -> {
+                requireContext().getSharedPreferences("chat_local", Context.MODE_PRIVATE)
+                        .edit().putLong("cleared_" + peerUid, latestMessageId).apply();
+                completion.success(new JSONObject());
+            }, new WGProProgressRunner.Callback() {
+                @Override public void success(@NonNull JSONObject json) {
+                    load();
+                    showResult("已清空", "本地聊天记录已清空。");
+                }
+
+                @Override public void error(int code, @NonNull String message) {
+                    showResult("清空失败", message);
+                }
+            });
+        }
+
+        private long clearedMessageId() {
+            return requireContext().getSharedPreferences("chat_local", Context.MODE_PRIVATE)
+                    .getLong("cleared_" + peerUid, 0L);
+        }
+
+        private long parseId(String value) {
+            try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
         }
 
         private View timeLabel(String raw) {

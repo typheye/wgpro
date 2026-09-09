@@ -42,7 +42,8 @@
                     <com.google.android.material.card.MaterialCardView android:layout_width="62dp"
                         android:layout_height="62dp" app:cardBackgroundColor="@color/brand_soft"
                         app:cardCornerRadius="31dp" app:cardElevation="0dp" app:strokeWidth="0dp">
-                        <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent">
+                        <FrameLayout android:id="@+id/account_avatar_box"
+                            android:layout_width="match_parent" android:layout_height="match_parent">
                             <TextView android:id="@+id/text_usr_icon" android:layout_width="match_parent"
                                 android:layout_height="match_parent" android:gravity="center"
                                 android:textColor="@color/brand_on_soft" android:textSize="25sp"
