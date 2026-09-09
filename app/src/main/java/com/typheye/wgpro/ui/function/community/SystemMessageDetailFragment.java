@@ -1,0 +1,356 @@
+package com.typheye.wgpro.ui.function.community;
+
+import android.content.Context;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
+import com.google.android.material.card.MaterialCardView;
+import com.typheye.wgpro.R;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProProgressRunner;
+import com.typheye.wgpro.utils.tAccUtils;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+/** 系统消息详情：卡片式消息流，不带输入框和发送按钮。 */
+public class SystemMessageDetailFragment extends Fragment {
+    private static final String PREFS = "notification_local";
+    private static final String KEY_CLEARED_ID = "system_message_cleared_id";
+
+    private final Handler main = new Handler(Looper.getMainLooper());
+    private tAccUtils account;
+    private SwipeRefreshLayout refresh;
+    private LinearLayout list;
+    private boolean loadedOnce;
+    private long latestLoadedId;
+
+    @Nullable @Override public View onCreateView(@NonNull LayoutInflater inflater,
+                                                  @Nullable ViewGroup container,
+                                                  @Nullable Bundle state) {
+        View root = inflater.inflate(R.layout.fragment_system_messages, container, false);
+        account = new tAccUtils(requireContext().getApplicationContext());
+        refresh = root.findViewById(R.id.system_message_refresh);
+        list = root.findViewById(R.id.system_message_list);
+        refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        refresh.setOnRefreshListener(this::load);
+        load();
+        return root;
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        if (loadedOnce) load();
+    }
+
+    private void load() {
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("page", "1");
+        query.put("size", "50");
+        account.getV2JsonFresh("notifications2", query, true, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray items = json.optJSONArray("items");
+                main.post(() -> render(items));
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                main.post(() -> {
+                    refresh.setRefreshing(false);
+                    if (!loadedOnce) render(new JSONArray());
+                });
+            }
+        });
+    }
+
+    private void render(@Nullable JSONArray source) {
+        if (!isAdded()) return;
+        loadedOnce = true;
+        refresh.setRefreshing(false);
+        list.removeAllViews();
+        long clearedId = requireContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .getLong(clearedKey(), 0L);
+        List<JSONObject> items = new ArrayList<>();
+        boolean hasUnread = false;
+        long maxId = latestLoadedId;
+        if (source != null) {
+            for (int i = 0; i < source.length(); i++) {
+                JSONObject item = source.optJSONObject(i);
+                if (item == null) continue;
+                long itemId = parseId(item.optString("id", "0"));
+                if (itemId > maxId) maxId = itemId;
+                if (itemId <= clearedId) continue;
+                if (!item.optBoolean("is_read", false)) hasUnread = true;
+                items.add(item);
+            }
+        }
+        latestLoadedId = maxId;
+        Collections.reverse(items);
+        String previousDate = "";
+        for (JSONObject item : items) {
+            String date = dateLabel(item.optString("created_at", ""));
+            if (!date.equals(previousDate)) {
+                list.addView(dateHeader(date));
+                previousDate = date;
+            }
+            list.addView(messageCard(item));
+        }
+        if (items.isEmpty()) list.addView(emptyState());
+        if (hasUnread) markAllRead();
+    }
+
+    private View dateHeader(String text) {
+        TextView view = new TextView(requireContext());
+        view.setText(text);
+        view.setTextSize(12);
+        view.setTextColor(requireContext().getColor(R.color.text_tertiary));
+        view.setGravity(Gravity.CENTER);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
+        params.topMargin = dp(12);
+        params.bottomMargin = dp(8);
+        view.setLayoutParams(params);
+        return view;
+    }
+
+    private View messageCard(JSONObject item) {
+        MaterialCardView card = new MaterialCardView(requireContext());
+        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
+        card.setRadius(dp(16));
+        card.setCardElevation(0f);
+        card.setStrokeWidth(0);
+        card.setClickable(true);
+        card.setFocusable(true);
+        card.setRippleColor(android.content.res.ColorStateList.valueOf(
+                requireContext().getColor(R.color.brand_soft)));
+
+        LinearLayout body = new LinearLayout(requireContext());
+        body.setOrientation(LinearLayout.VERTICAL);
+        body.setPadding(dp(16), dp(16), dp(16), dp(16));
+
+        String title = item.optString("title", "系统消息").trim();
+        if (!title.isEmpty()) {
+            TextView titleView = new TextView(requireContext());
+            titleView.setText(title);
+            titleView.setTextSize(17);
+            titleView.setTextColor(requireContext().getColor(R.color.text_primary));
+            titleView.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+            body.addView(titleView);
+        }
+
+        String content = item.optString("content", "").trim();
+        if (!content.isEmpty()) {
+            TextView contentView = new TextView(requireContext());
+            contentView.setText(content);
+            contentView.setTextSize(15);
+            contentView.setTextColor(requireContext().getColor(R.color.text_primary));
+            contentView.setLineSpacing(0f, 1.12f);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
+            params.topMargin = dp(8);
+            body.addView(contentView, params);
+        }
+
+        TextView time = new TextView(requireContext());
+        time.setText(item.optString("created_at", ""));
+        time.setTextSize(12);
+        time.setTextColor(requireContext().getColor(R.color.text_tertiary));
+        LinearLayout.LayoutParams timeParams = new LinearLayout.LayoutParams(-1, -2);
+        timeParams.topMargin = dp(12);
+        body.addView(time, timeParams);
+        card.addView(body);
+
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2);
+        cardParams.bottomMargin = dp(4);
+        card.setLayoutParams(cardParams);
+        card.setOnLongClickListener(v -> {
+            showMessageMenu(item, card);
+            return true;
+        });
+        return card;
+    }
+
+    private View emptyState() {
+        LinearLayout root = new LinearLayout(requireContext());
+        root.setOrientation(LinearLayout.VERTICAL);
+        root.setGravity(Gravity.CENTER);
+        root.setPadding(0, dp(120), 0, dp(40));
+        TextView title = new TextView(requireContext());
+        title.setText("暂无系统消息");
+        title.setTextSize(17);
+        title.setTextColor(requireContext().getColor(R.color.text_primary));
+        title.setGravity(Gravity.CENTER);
+        TextView description = new TextView(requireContext());
+        description.setText("系统通知和举报处理结果会显示在这里。");
+        description.setTextSize(14);
+        description.setTextColor(requireContext().getColor(R.color.text_secondary));
+        description.setGravity(Gravity.CENTER);
+        description.setPadding(0, dp(8), 0, 0);
+        root.addView(title);
+        root.addView(description);
+        return root;
+    }
+
+    private void showMessageMenu(JSONObject item, View card) {
+        if (!isAdded()) return;
+        new WGProAlertDialogBuilder(requireContext()).setTitle("消息操作")
+                .setItems(new CharSequence[]{"消息详情", "删除"}, (dialog, which) -> {
+                    if (which == 0) showMessageDetail(item);
+                    else confirmDelete(item, card);
+                }).show();
+    }
+
+    private void showMessageDetail(JSONObject item) {
+        StringBuilder detail = new StringBuilder();
+        detail.append("标题：").append(item.optString("title", "系统消息")).append('\n');
+        detail.append("时间：").append(item.optString("created_at", "未知")).append('\n');
+        detail.append("消息 ID：").append(item.optString("id", "未知")).append('\n');
+        detail.append("内容：").append(item.optString("content", ""));
+        new WGProAlertDialogBuilder(requireContext()).setTitle("消息详情")
+                .setMessage(detail.toString())
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private void confirmDelete(JSONObject item, View card) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("删除系统消息？")
+                .setMessage("删除后该消息只会从当前账户的通知记录中移除。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("删除", (dialog, which) -> {
+                    if (dialog instanceof com.typheye.wgpro.ui.widget.WGProBottomSheetDialog) {
+                        ((com.typheye.wgpro.ui.widget.WGProBottomSheetDialog) dialog)
+                                .dismissForReplacement();
+                    }
+                    new Handler(Looper.getMainLooper()).postDelayed(
+                            () -> deleteMessage(item, card), 40L);
+                }).show();
+    }
+
+    private void deleteMessage(JSONObject item, View card) {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("notification_id", item.optString("id", ""));
+        fields.put("action", "delete");
+        WGProProgressRunner.run(this, "删除中", "正在删除系统消息...", completion ->
+                account.postV2Json("notification_state2", fields, new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        completion.success(json);
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) {
+                        completion.error(code, message);
+                    }
+                }), new WGProProgressRunner.Callback() {
+            @Override public void success(@NonNull JSONObject json) {
+                card.setVisibility(View.GONE);
+                showResult("已删除", "该消息已从当前账户的通知记录中移除。");
+            }
+
+            @Override public void error(int code, @NonNull String message) {
+                showResult("删除失败", message);
+            }
+        });
+    }
+
+    public void showMoreMenu() {
+        if (!isAdded()) return;
+        View content = LayoutInflater.from(requireContext())
+                .inflate(R.layout.sheet_system_message_more, null, false);
+        com.typheye.wgpro.ui.widget.WGProBottomSheetDialog dialog =
+                new WGProAlertDialogBuilder(requireContext()).setTitle("更多")
+                        .setView(content).setNegativeButton("关闭", null).create();
+        content.findViewById(R.id.system_message_clear_row).setOnClickListener(v -> {
+            dialog.dismissForReplacement();
+            confirmClearLocal();
+        });
+        content.findViewById(R.id.system_message_about_row).setOnClickListener(v -> {
+            dialog.dismissForReplacement();
+            showAbout();
+        });
+        dialog.show();
+    }
+
+    private void confirmClearLocal() {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("清空系统消息记录？")
+                .setMessage("仅清除当前设备上的系统消息显示记录，不会删除云端通知。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("清空", (dialog, which) -> {
+                    if (dialog instanceof com.typheye.wgpro.ui.widget.WGProBottomSheetDialog) {
+                        ((com.typheye.wgpro.ui.widget.WGProBottomSheetDialog) dialog)
+                                .dismissForReplacement();
+                    }
+                    new Handler(Looper.getMainLooper()).postDelayed(this::clearLocal, 40L);
+                }).show();
+    }
+
+    private void clearLocal() {
+        requireContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .edit().putLong(clearedKey(), latestLoadedId).apply();
+        list.removeAllViews();
+        list.addView(emptyState());
+        showResult("已清空", "当前设备上的系统消息记录已清空。");
+    }
+
+    private void showAbout() {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("关于“系统消息”")
+                .setMessage("系统消息用于接收举报受理与处理结果、平台通知等官方信息。"
+                        + "举报消息会显示独立标题，处理进度和结果也会持续同步到这里。")
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private void markAllRead() {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("action", "read_all");
+        account.postV2Json("notification_state2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) { }
+            @Override public void onError(int code, @NonNull String message) { }
+        });
+    }
+
+    private void showResult(String title, String message) {
+        if (!isAdded()) return;
+        new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private long parseId(String value) {
+        try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
+    }
+
+    private String clearedKey() {
+        return KEY_CLEARED_ID + "_" + account.getUid();
+    }
+
+    private String dateLabel(String value) {
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).parse(value);
+            return new SimpleDateFormat("yyyy年M月d日 HH:mm", Locale.getDefault()).format(date);
+        } catch (Exception ignored) {
+            return value;
+        }
+    }
+
+    private int dp(int value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
+    }
+}

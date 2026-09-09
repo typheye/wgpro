@@ -301,23 +301,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void refreshInboxBadge() {
         if (inboxBadgeInFlight) return;
-        tAccUtils account = new tAccUtils(this);
-        if (!account.isLogin()) {
-            updateNotificationBadge(0);
-            return;
-        }
         inboxBadgeInFlight = true;
-        account.getV2JsonFresh("inbox_unread_count2",
-                new java.util.LinkedHashMap<>(), true, new tAccUtils.JsonCallback() {
-                    @Override public void onSuccess(@NonNull org.json.JSONObject json) {
-                        inboxBadgeInFlight = false;
-                        updateNotificationBadge(json.optInt("unread_count", 0));
-                    }
-
-                    @Override public void onError(int code, @NonNull String message) {
-                        inboxBadgeInFlight = false;
-                    }
-                });
+        com.typheye.wgpro.utils.InboxNotificationHelper.poll(this, count -> {
+            inboxBadgeInFlight = false;
+            updateNotificationBadge(count);
+        });
     }
 
     private void updateNotificationBadge(int count) {
@@ -326,7 +314,7 @@ public class MainActivity extends AppCompatActivity {
         if (inboxUnreadCount <= 0) {
             notificationBadge.setVisible(false);
         } else {
-            notificationBadge.setNumber(inboxUnreadCount);
+            notificationBadge.clearNumber();
             notificationBadge.setVisible(true);
         }
     }

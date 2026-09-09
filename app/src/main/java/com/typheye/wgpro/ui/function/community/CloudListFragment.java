@@ -605,7 +605,7 @@ public class CloudListFragment extends Fragment {
                 return;
             }
             if ("system_messages".equals(item.optString("_kind"))) {
-                showSystemMessages(item);
+                openSystemMessages(item);
                 return;
             }
             if (MODE_NOTIFICATIONS.equals(mode) && !item.optBoolean("is_read", false)) {
@@ -812,6 +812,14 @@ public class CloudListFragment extends Fragment {
                 .setNegativeButton("关闭", null).show();
     }
 
+    private void openSystemMessages(JSONObject systemItem) {
+        if (requireActivity() instanceof NotificationActivity) {
+            ((NotificationActivity) requireActivity()).openSystemMessages();
+        } else {
+            showSystemMessages(systemItem);
+        }
+    }
+
     private View createSectionHeader(String title) {
         TextView header = label(title, 18, true, R.color.text_primary);
         header.setPadding(dp(4), dp(12), dp(4), dp(10));
@@ -882,7 +890,7 @@ public class CloudListFragment extends Fragment {
         loadContactAvatar(uid, avatarUrl, avatar, initial);
         row.setOnClickListener(v -> {
             if ("system_messages".equals(item.optString("_kind"))) {
-                showSystemMessages(item);
+                openSystemMessages(item);
                 return;
             }
             if (uid.isEmpty()) return;
