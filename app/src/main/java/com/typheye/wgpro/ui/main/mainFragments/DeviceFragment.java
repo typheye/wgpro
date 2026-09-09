@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -376,33 +377,98 @@ public class DeviceFragment extends Fragment {
         View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null, false);
         TextInputLayout layout = content.findViewById(R.id.textInputLayout);
         TextInputEditText input = content.findViewById(R.id.editText);
-        layout.setHint("设备备注"); input.setText(session.optString("remark", ""));
-        input.setSelection(input.length()); input.setSingleLine(true);
+        layout.setHint("设备备注");
+        layout.setCounterEnabled(true);
+        layout.setCounterMaxLength(40);
+        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
+        String initialRemark = session.optString("remark", "");
+        if ("null".equals(initialRemark)) initialRemark = "";
+        input.setText(initialRemark);
+        input.setSelection(input.length());
+        input.setSingleLine(true);
         WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
                 .setTitle("修改设备备注").setView(content).setNegativeButton("取消", null)
                 .setPositiveButton("保存", null).create();
+        final boolean[] submitted = {false};
         dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            String id = session.optString("session_id", "").trim();
+            if (submitted[0]) return;
             String value = input.getText() == null ? "" : input.getText().toString().trim();
-            if (!session.optBoolean("is_current") && !id.matches("(?i)[0-9a-f]{32}")) {
+            boolean current = session.optBoolean("is_current", false);
+            String sessionId = session.optString("session_id", "").trim();
+            String recordId = session.optString("id", "").trim();
+            boolean web = recordId.startsWith("web:")
+                    || "web".equalsIgnoreCase(session.optString("session_type", ""));
+            if (web) {
+                if (!recordId.matches("(?i)web:\\d+")) {
+                    layout.setError("云端未返回可用的会话标识，请刷新后重试");
+                    return;
+                }
+            } else if (!current && !sessionId.matches("(?i)[0-9a-f]{32}")) {
                 layout.setError("云端未返回可用的会话标识，请刷新后重试");
                 return;
             }
-            Map<String, String> fields = new LinkedHashMap<>();
-            // The current session may omit session_id; the API then targets the
-            // authenticated session. Never submit an empty target value.
-            if (id.matches("(?i)[0-9a-f]{32}")) fields.put("target_session_id", id);
-            fields.put("remark", value);
-            new tAccUtils(requireContext()).postV2Json("session_remark2", fields, new tAccUtils.JsonCallback() {
-                @Override public void onSuccess(@NonNull JSONObject json) { mainHandler.post(() -> {
-                    try { session.put("remark", value); } catch (Exception ignored1) { }
-                    dialog.dismiss(); refresh();
-                }); }
-                @Override public void onError(int code, @NonNull String message) { mainHandler.post(() ->
-                        layout.setError(message)); }
-            });
+            submitted[0] = true;
+            dialog.dismissForReplacement();
+            mainHandler.postDelayed(() -> saveSessionRemark(session, value, current, sessionId,
+                    web, recordId), 40L);
         }));
         dialog.show();
+    }
+
+    private void saveSessionRemark(JSONObject session, String remark, boolean current,
+                                   String sessionId, boolean web, String recordId) {
+        if (!isAdded()) return;
+        View progressView = View.inflate(requireContext(), R.layout.progress_dialog, null);
+        ((TextView) progressView.findViewById(android.R.id.message)).setText("正在保存备注...");
+        WGProBottomSheetDialog progress = new WGProAlertDialogBuilder(requireContext())
+                .setTitle("保存中").setView(progressView).setCancelable(false).create();
+        progress.show();
+        long started = android.os.SystemClock.uptimeMillis();
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("remark", remark);
+        if (web) {
+            // Web Session 没有 V2 session_id，使用 sessions2 返回的记录 ID。
+            fields.put("target_record_id", recordId);
+        } else if (!current) {
+            // 文档规定：省略 target_session_id 时修改当前请求头对应的 V2 会话。
+            fields.put("target_session_id", sessionId);
+        }
+        new tAccUtils(requireContext()).postV2Json("session_remark2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                mainHandler.postDelayed(() -> {
+                    if (!isAdded()) return;
+                    progress.dismissForReplacement();
+                    String saved = applySessionRemarkResult(session, json, remark);
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("备注已更新")
+                            .setMessage(saved.isEmpty() ? "已恢复为自动设备名称。" : "设备备注已保存。")
+                            .setNegativeButton("关闭", null).show();
+                    loadCloudSessions();
+                }, Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - started)));
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                mainHandler.postDelayed(() -> {
+                    if (!isAdded()) return;
+                    progress.dismissForReplacement();
+                    new WGProAlertDialogBuilder(requireContext()).setTitle("保存失败")
+                            .setMessage(message == null || message.trim().isEmpty() ? "请稍后重试" : message)
+                            .setNegativeButton("关闭", null).show();
+                }, Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - started)));
+            }
+        });
+    }
+
+    private String applySessionRemarkResult(JSONObject session, JSONObject json, String fallback) {
+        String remark = json.isNull("remark") ? fallback : json.optString("remark", fallback);
+        String serverSessionId = json.isNull("session_id") ? "" : json.optString("session_id", "");
+        String serverRecordId = json.isNull("record_id") ? "" : json.optString("record_id", "");
+        try {
+            session.put("remark", remark);
+            if (!serverSessionId.isEmpty()) session.put("session_id", serverSessionId);
+            if (!serverRecordId.isEmpty()) session.put("id", serverRecordId);
+        } catch (Exception ignored) { }
+        refresh();
+        return remark;
     }
 
     private void confirmRevokeSession(JSONObject session) {

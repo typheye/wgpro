@@ -63,7 +63,7 @@ public final class WGProAlertDialogBuilder {
 
     public WGProBottomSheetDialog create() {
         boolean progressContent = containsProgressIndicator(customView);
-        if (progressContent && negativeText == null) negativeText = "取消";
+        if (progressContent && negativeText == null && cancelable) negativeText = "取消";
         WGProBottomSheetDialog dialog = new WGProBottomSheetDialog(context);
         dialog.setCancelable(cancelable);
         dialog.setCanceledOnTouchOutside(cancelable);
