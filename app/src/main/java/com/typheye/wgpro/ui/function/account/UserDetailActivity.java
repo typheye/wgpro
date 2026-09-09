@@ -209,9 +209,9 @@ public class UserDetailActivity extends AppCompatActivity {
                             if (isFinishing() || isDestroyed()) return;
                             if (info == null) { showProfileError("未找到该用户"); return; }
                             profileInfo = info;
-                            BadgeFactory.bind(UserDetailActivity.this, info,
-                                    findViewById(R.id.detail_collapsed_avatar_box),
-                                    Color.BLACK);
+                            BadgeFactory.bindTransparentRing(UserDetailActivity.this, info,
+                                    findViewById(R.id.detail_collapsed_avatar_box));
+                            applyCollapsedAvatarCutout(collapsedAvatar);
                             BadgeFactory.bindProfileRow(UserDetailActivity.this, info,
                                     findViewById(R.id.detail_badge_icons),
                                     findViewById(R.id.detail_badge_text),
@@ -368,12 +368,26 @@ public class UserDetailActivity extends AppCompatActivity {
                 avatar.setImageBitmap(bitmap);
                 avatar.setVisibility(View.VISIBLE);
                 avatarText.setVisibility(View.GONE);
-                collapsedAvatar.setImageBitmap(bitmap);
+                int collapsedSize = collapsedAvatar.getWidth() > 0
+                        ? collapsedAvatar.getWidth() : dp(32);
+                Bitmap collapsedBitmap = BadgeFactory.collapsedAvatar(
+                        UserDetailActivity.this, bitmap, profileInfo, collapsedSize);
+                collapsedAvatar.setImageBitmap(collapsedBitmap == null ? bitmap : collapsedBitmap);
                 collapsedAvatar.setVisibility(View.VISIBLE);
                 collapsedAvatarText.setVisibility(View.GONE);
             }
             onComplete.run();
         });
+    }
+
+    private void applyCollapsedAvatarCutout(ImageView collapsedAvatar) {
+        if (collapsedAvatar == null || profileInfo == null) return;
+        Drawable drawable = collapsedAvatar.getDrawable();
+        if (!(drawable instanceof BitmapDrawable)) return;
+        Bitmap source = ((BitmapDrawable) drawable).getBitmap();
+        int size = collapsedAvatar.getWidth() > 0 ? collapsedAvatar.getWidth() : dp(32);
+        Bitmap cutout = BadgeFactory.collapsedAvatar(this, source, profileInfo, size);
+        if (cutout != null && cutout != source) collapsedAvatar.setImageBitmap(cutout);
     }
 
     private void setupProfileSheet() {
@@ -717,7 +731,12 @@ public class UserDetailActivity extends AppCompatActivity {
         background.setVisibility(View.VISIBLE);
         dim.setVisibility(View.VISIBLE);
         resizeProfileBackground(appBar.getHeight() > 0 ? appBar.getHeight() : dp(410));
-        ImageCache.load(this, url.trim(), background, onComplete);
+        ImageCache.loadBitmap(this, url.trim(), bitmap -> {
+            if (bitmap != null && !isFinishing() && !isDestroyed()) {
+                background.setImageBitmap(bitmap);
+            }
+            onComplete.run();
+        });
     }
 
     private void resizeProfileBackground(int headerHeight) {

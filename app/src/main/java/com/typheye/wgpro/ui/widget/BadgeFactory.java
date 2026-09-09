@@ -1,6 +1,13 @@
 package com.typheye.wgpro.ui.widget;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
@@ -59,6 +66,48 @@ public final class BadgeFactory {
         }
     }
 
+    /**
+     * 折叠态用户主页专用：徽标不绘制实线轮廓，头像下方与徽标边缘之间
+     * 通过 bitmap 挖空透出背景图，避免黑色轮廓压在头像上。
+     */
+    public static void bindTransparentRing(Context context, JSONObject item, FrameLayout avatarBox) {
+        bind(context, item, avatarBox, 0);
+    }
+
+    /**
+     * 为折叠态头像生成带透明徽标隔离环的方形 bitmap。
+     * 返回原图表示当前用户没有认证徽标。
+     */
+    public static Bitmap collapsedAvatar(Context context, Bitmap source, JSONObject item,
+                                         int viewSizePx) {
+        if (context == null || source == null || item == null || type(item) == 0) return source;
+        int size = viewSizePx > 0 ? viewSizePx : dp(context, 32);
+        Bitmap square = Bitmap.createBitmap(size, size, Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(square);
+
+        float scale = Math.max(size / (float) source.getWidth(),
+                size / (float) source.getHeight());
+        int cropWidth = Math.min(source.getWidth(), Math.round(size / scale));
+        int cropHeight = Math.min(source.getHeight(), Math.round(size / scale));
+        int left = Math.max(0, (source.getWidth() - cropWidth) / 2);
+        int top = Math.max(0, (source.getHeight() - cropHeight) / 2);
+        Rect src = new Rect(left, top, left + cropWidth, top + cropHeight);
+        RectF dst = new RectF(0f, 0f, size, size);
+        Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.FILTER_BITMAP_FLAG);
+        canvas.drawBitmap(source, src, dst, paint);
+
+        int badgeSize = Math.max(dp(context, 12), Math.round(size / 3f));
+        int inset = dp(context, 1);
+        int stroke = Math.max(dp(context, 1), Math.round(badgeSize * 0.1f));
+        float centerX = size - inset - badgeSize / 2f;
+        float centerY = size - inset - badgeSize / 2f;
+        Paint clear = new Paint(Paint.ANTI_ALIAS_FLAG);
+        clear.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.CLEAR));
+        canvas.drawCircle(centerX, centerY, badgeSize / 2f + stroke, clear);
+        clear.setXfermode(null);
+        return square;
+    }
+
     public static void bindProfileRow(Context context, JSONObject item,
                                       LinearLayout icons, TextView text, View row,
                                       int ringColor) {
@@ -111,7 +160,9 @@ public final class BadgeFactory {
         GradientDrawable background = new GradientDrawable();
         background.setShape(GradientDrawable.OVAL);
         background.setColor(colorFor(type));
-        background.setStroke(Math.max(dp(context, 1), Math.round(size * 0.1f)), ringColor);
+        if (ringColor != 0) {
+            background.setStroke(Math.max(dp(context, 1), Math.round(size * 0.1f)), ringColor);
+        }
         badge.setBackground(background);
 
         ImageView icon = new ImageView(context);

@@ -49,8 +49,11 @@ public final class ImageCache {
     public static void load(@NonNull Context context, @Nullable String url,
                             @NonNull ImageView target, @Nullable Runnable onComplete) {
         loadBitmap(context, url, bitmap -> {
-            if (bitmap != null) target.post(() -> target.setImageBitmap(bitmap));
-            if (onComplete != null) onComplete.run();
+            if (bitmap == null) return;
+            target.post(() -> {
+                target.setImageBitmap(bitmap);
+                if (onComplete != null) onComplete.run();
+            });
         });
     }
 
