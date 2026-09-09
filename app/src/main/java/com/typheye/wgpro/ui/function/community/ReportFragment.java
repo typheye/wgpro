@@ -50,8 +50,6 @@ public class ReportFragment extends Fragment {
 
     private final List<MaterialRadioButton> reasonButtons = new ArrayList<>();
     private LinearLayout reasonContainer;
-    private TextView extraDescriptionValue;
-    private TextView extraContactValue;
     private String descriptionValue = "";
     private String contactValue = "";
     private MaterialButton submit;
@@ -69,8 +67,6 @@ public class ReportFragment extends Fragment {
         View root = inflater.inflate(R.layout.fragment_report, container, false);
         account = new tAccUtils(requireContext().getApplicationContext());
         reasonContainer = root.findViewById(R.id.report_reasons);
-        extraDescriptionValue = root.findViewById(R.id.report_extra_description_value);
-        extraContactValue = root.findViewById(R.id.report_extra_contact_value);
         root.findViewById(R.id.report_extra_description_row)
                 .setOnClickListener(v -> showExtraEditor(false));
         root.findViewById(R.id.report_extra_contact_row)
@@ -180,14 +176,8 @@ public class ReportFragment extends Fragment {
                                     : input.getText().toString().trim();
                             if (contact) {
                                 contactValue = value;
-                                extraContactValue.setText(value.isEmpty() ? "未填写" : value);
-                                extraContactValue.setTextColor(color(value.isEmpty()
-                                        ? R.color.text_tertiary : R.color.text_primary));
                             } else {
                                 descriptionValue = value;
-                                extraDescriptionValue.setText(value.isEmpty() ? "未填写" : value);
-                                extraDescriptionValue.setTextColor(color(value.isEmpty()
-                                        ? R.color.text_tertiary : R.color.text_primary));
                             }
                             dialog.dismiss();
                         }));

@@ -137,16 +137,11 @@
                                 android:textColor="@color/text_secondary"
                                 android:textSize="13sp" />
                         </LinearLayout>
-                        <TextView
-                            android:id="@+id/report_extra_description_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxWidth="120dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="未填写"
-                            android:textColor="@color/text_tertiary"
-                            android:textSize="13sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_chevron_right_vector" />
                     </LinearLayout>
 
                     <View
@@ -186,16 +181,11 @@
                                 android:textColor="@color/text_secondary"
                                 android:textSize="13sp" />
                         </LinearLayout>
-                        <TextView
-                            android:id="@+id/report_extra_contact_value"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:maxWidth="120dp"
-                            android:ellipsize="end"
-                            android:maxLines="1"
-                            android:text="未填写"
-                            android:textColor="@color/text_tertiary"
-                            android:textSize="13sp" />
+                        <ImageView
+                            android:layout_width="24dp"
+                            android:layout_height="24dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_chevron_right_vector" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

@@ -763,7 +763,7 @@ public class CloudListFragment extends Fragment {
 
     private View createSystemMessageRow(JSONObject item) {
         JSONObject contact = new JSONObject();
-        try { contact.put("nick", "系统"); contact.put("last_message", item.optString("content", "暂无消息"));
+        try { contact.put("nick", "系统消息"); contact.put("last_message", item.optString("content", "暂无消息"));
             contact.put("_kind", "system_messages");
             contact.put("_system_items", item.optJSONArray("_system_items"));
         } catch (Exception ignored) { }

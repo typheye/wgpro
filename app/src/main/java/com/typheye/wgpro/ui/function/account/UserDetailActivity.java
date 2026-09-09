@@ -623,12 +623,16 @@ public class UserDetailActivity extends AppCompatActivity {
         appendInfo(info, "简介", profileInfo.optString("shuo",
                 profileInfo.optString("bio", "")));
         appendInfo(info, "角色", profileInfo.optString("role_name", ""));
-        String verification = profileInfo.optString("verification_label", "").trim();
-        if (verification.isEmpty()
-                && !"none".equalsIgnoreCase(profileInfo.optString("verification_status", "none"))) {
-            verification = "已认证";
+        String badgeType = profileInfo.optString("badge_type", "").trim();
+        if (!badgeType.isEmpty()) {
+            String verification = profileInfo.optString("verification_description", "").trim();
+            if (verification.isEmpty()) {
+                if ("developer".equalsIgnoreCase(badgeType)) verification = "开发者认证";
+                else if ("creator".equalsIgnoreCase(badgeType)) verification = "创作者认证";
+                else if ("honor".equalsIgnoreCase(badgeType)) verification = "荣誉认证";
+            }
+            appendInfo(info, "认证", verification);
         }
-        appendInfo(info, "认证", verification);
         appendInfo(info, "创作者",
                 profileInfo.optBoolean("creator_enabled", false) ? "已开启" : "未开启");
         appendInfo(info, "动态", String.valueOf(Math.max(0, profileInfo.optInt("dynamic_count", 0))));
