@@ -87,13 +87,8 @@ public class DeviceFragment extends Fragment {
         wearableRefresh.setOnChildScrollUpCallback((layout, child) -> wearableScroll.getScrollY() > 0);
         otherRefresh.setOnChildScrollUpCallback((layout, child) -> otherScroll.getScrollY() > 0);
         wearableRefresh.setOnRefreshListener(() -> {
-            refresh();
-            mainHandler.postDelayed(() -> {
-                if (!isAdded()) return;
-                wearableLoaded = true;
-                refresh();
-                wearableRefresh.setRefreshing(false);
-            }, 400L);
+            wearableLoaded = true;
+            refreshWearable();
         });
         otherRefresh.setOnRefreshListener(() -> {
             refresh();
@@ -105,8 +100,7 @@ public class DeviceFragment extends Fragment {
         mainHandler.postDelayed(() -> {
             if (!isAdded()) return;
             wearableLoaded = true;
-            refresh();
-            wearableRefresh.setRefreshing(false);
+            refreshWearable();
         }, 400L);
         View dismissDetected = root.findViewById(R.id.button_dismiss_detected);
         detected.setOnClickListener(v ->
@@ -158,6 +152,18 @@ public class DeviceFragment extends Fragment {
         loadCloudSessions();
     }
     public void updateUI(UIParams ignored) { refresh(); }
+
+    private void refreshWearable() {
+        try {
+            refresh();
+        } catch (Throwable ignored) {
+            // XMS SDK 或数据库异常不能让下拉刷新的指示器一直挂起。
+        }
+        mainHandler.postDelayed(() -> {
+            if (!isAdded()) return;
+            if (wearableRefresh != null) wearableRefresh.setRefreshing(false);
+        }, 250L);
+    }
 
     private void refresh() {
         if (!isAdded() || wearable == null || other == null) return;
@@ -440,6 +446,7 @@ public class DeviceFragment extends Fragment {
     private void addCard(Cursor cursor, LinearLayout parent) {
         String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
         String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+        String type = cursor.getString(cursor.getColumnIndexOrThrow("type"));
         String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
         boolean connected = cursor.getInt(cursor.getColumnIndexOrThrow("connected")) != 0;
         View card = getLayoutInflater().inflate(R.layout.item_device, parent, false);
@@ -448,8 +455,11 @@ public class DeviceFragment extends Fragment {
                 .setText(firstCharacter(displayName));
         ((TextView) card.findViewById(R.id.text_device_model))
                 .setText(displayName);
+        String version = cursor.getString(cursor.getColumnIndexOrThrow("version"));
+        String versionLabel = "xiaomi".equals(type) ? "小米运动健康"
+                : (version == null ? "" : version);
         ((TextView) card.findViewById(R.id.text_device_version))
-                .setText(cursor.getString(cursor.getColumnIndexOrThrow("version")));
+                .setText(versionLabel);
         TextView status = card.findViewById(R.id.text_device_status);
         status.setText(connected ? "已连接" : "已断开");
         status.setBackgroundResource(connected ? R.drawable.bg_device_status_connected
@@ -505,7 +515,9 @@ public class DeviceFragment extends Fragment {
                     .setText(firstCharacter(note == null || note.trim().isEmpty() ? model : note));
             ((TextView) content.findViewById(R.id.sheet_device_name))
                     .setText(note == null || note.trim().isEmpty() ? model : note.trim());
-            String systemVersion = version == null || version.trim().isEmpty() ? "系统版本未知" : version.trim();
+            String systemVersion = "xiaomi".equals(type)
+                    ? "小米运动健康"
+                    : (version == null || version.trim().isEmpty() ? "系统版本未知" : version.trim());
             ((TextView) content.findViewById(R.id.sheet_device_status_version))
                     .setText((connected ? "已连接" : "已断开") + "  |  " + systemVersion);
             View actions = content.findViewById(R.id.sheet_device_actions);

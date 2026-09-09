@@ -42,7 +42,12 @@ import com.typheye.wgpro.utils.tAccUtils;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -64,6 +69,10 @@ public class HomeFragment extends Fragment {
             scheduleBannerAdvance();
         }
     };
+    private BannerAdapter bannerAdapter;
+    private String bannerSignature;
+    private int bannerRequestSeq;
+    private LinearLayout bannerIndicator;
     private View announcement;
     private TextView announcementText;
     private LinearLayout feed;
@@ -123,10 +132,22 @@ public class HomeFragment extends Fragment {
     private void bindContent(View root) {
         bannerHost = root.findViewById(R.id.community_banner_host);
         bannerPager = root.findViewById(R.id.community_banner_pager);
+        bannerIndicator = root.findViewById(R.id.community_banner_indicator);
+        // 滑动过程保留卡片的圆角，不被 Pager/RecyclerView 裁成直角。
+        bannerPager.setClipChildren(false);
+        bannerPager.setClipToPadding(false);
+        if (bannerPager.getChildCount() > 0) {
+            ViewGroup bannerRecycler = (ViewGroup) bannerPager.getChildAt(0);
+            bannerRecycler.setClipChildren(false);
+            bannerRecycler.setClipToPadding(false);
+        }
         bannerPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override public void onPageScrollStateChanged(int state) {
                 mainHandler.removeCallbacks(advanceBanner);
                 if (state == ViewPager2.SCROLL_STATE_IDLE) scheduleBannerAdvance();
+            }
+            @Override public void onPageSelected(int position) {
+                renderBannerIndicator(position);
             }
         });
         announcement = root.findViewById(R.id.community_announcement);
@@ -175,19 +196,47 @@ public class HomeFragment extends Fragment {
 
     private void loadBanners() {
         final long started = android.os.SystemClock.uptimeMillis();
+        final int requestId = ++bannerRequestSeq;
         account.getV2Json("home_banners2", empty(), false, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 completeAtLeast(started, () -> {
+                    if (!isAdded() || getView() == null || requestId != bannerRequestSeq) return;
                     JSONArray items = items(json, "items", "banners", "data");
+                    String signature = bannerSignature(items);
+                    if (bannerAdapter != null
+                            && bannerHost.getVisibility() == View.VISIBLE
+                            && signature.equals(bannerSignature)) {
+                        // 服务端内容没有变化：保留当前页与已加载图片，不再重建适配器，避免闪白。
+                        scheduleBannerAdvance();
+                        return;
+                    }
                     java.util.ArrayList<View> pages = new java.util.ArrayList<>();
                     for (int i = 0; i < items.length(); i++) { View card = createBanner(items.optJSONObject(i)); if (card != null) pages.add(card); }
-                    bannerPager.setAdapter(new LocalPageAdapter(pages));
                     bannerHost.setVisibility(items.length() == 0 ? View.GONE : View.VISIBLE);
+                    if (bannerAdapter == null) {
+                        bannerAdapter = new BannerAdapter();
+                        bannerPager.setAdapter(bannerAdapter);
+                    }
+                    int previousItem = bannerPager.getCurrentItem();
+                    bannerAdapter.submit(pages);
+                    if (!pages.isEmpty() && previousItem >= pages.size()) {
+                        bannerPager.setCurrentItem(pages.size() - 1, false);
+                    }
+                    renderBannerIndicator(bannerPager.getCurrentItem());
+                    bannerSignature = signature;
                     scheduleBannerAdvance();
                 });
             }
             @Override public void onError(int code, @NonNull String message) {
-                completeAtLeast(started, () -> bannerHost.setVisibility(View.GONE));
+                completeAtLeast(started, () -> {
+                    if (!isAdded() || getView() == null || requestId != bannerRequestSeq) return;
+                    // 刷新失败时保留已经展示的轮播，避免已有内容被清成空白。
+                    if (bannerAdapter == null || bannerAdapter.getItemCount() == 0) {
+                        bannerHost.setVisibility(View.GONE);
+                    } else {
+                        bannerHost.setVisibility(View.VISIBLE);
+                    }
+                });
             }
         });
     }
@@ -195,28 +244,38 @@ public class HomeFragment extends Fragment {
     private View createBanner(@Nullable JSONObject item) {
         if (item == null) return null;
         MaterialCardView card = card();
-        card.setRadius(dp(8));
-        int[] placeholders = {R.color.media_blue, R.color.media_green, R.color.media_coral, R.color.media_amber};
-        card.setCardBackgroundColor(requireContext().getColor(placeholders[Math.abs(item.optString("title", "").hashCode() % placeholders.length)]));
-        card.setLayoutParams(new ViewGroup.LayoutParams(-1, dp(154)));
-        LinearLayout content = column(dp(18));
+        card.setRadius(0);
+        int[] placeholders = {R.color.banner_blue, R.color.banner_green,
+                R.color.banner_coral, R.color.banner_amber};
+        card.setCardBackgroundColor(requireContext().getColor(
+                placeholders[Math.abs(item.optString("title", "").hashCode() % placeholders.length)]));
+        card.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+        LinearLayout content = column(0);
         content.setGravity(Gravity.BOTTOM);
+        content.setPadding(dp(16), dp(16), dp(76), dp(15));
         String imageUrl = item.optString("image_url", "");
         if (!imageUrl.isEmpty()) {
             ImageView image = new ImageView(requireContext());
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             card.addView(image, new MaterialCardView.LayoutParams(-1, -1));
-            loadImage(imageUrl, image);
+            loadBannerImage(imageUrl, image);
         }
         View shade = new View(requireContext());
         shade.setBackground(new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
                 new int[]{0xC2000000, 0x52000000, 0x00000000}));
         card.addView(shade, new MaterialCardView.LayoutParams(-1, -1));
-        TextView tag = text(targetLabel(item.optString("target_type")), 12, false, R.color.white);
-        TextView title = text(item.optString("title", "Typheye"), 20, true, R.color.white);
+        TextView tag = text(targetLabel(item.optString("target_type")), 11, true, R.color.white);
+        GradientDrawable chip = new GradientDrawable();
+        chip.setColor(Color.argb(76, 0, 0, 0));
+        chip.setCornerRadius(dp(7));
+        tag.setBackground(chip);
+        tag.setPadding(dp(9), dp(4), dp(9), dp(4));
+        LinearLayout.LayoutParams tagParams = new LinearLayout.LayoutParams(-2, -2);
+        content.addView(tag, tagParams);
+        TextView title = text(item.optString("title", "Typheye"), 18, true, R.color.white);
         title.setMaxLines(2);
-        content.addView(tag);
-        content.addView(title, top(dp(6)));
+        title.setLineSpacing(0f, 1.08f);
+        content.addView(title, top(dp(8)));
         card.addView(content, new MaterialCardView.LayoutParams(-1, -1));
         card.setOnClickListener(v -> openTarget(item));
         return card;
@@ -227,10 +286,91 @@ public class HomeFragment extends Fragment {
         if (isResumed()) mainHandler.postDelayed(advanceBanner, 5000L);
     }
 
+    private void renderBannerIndicator(int position) {
+        if (bannerIndicator == null) return;
+        bannerIndicator.removeAllViews();
+        int count = bannerAdapter == null ? 0 : bannerAdapter.getItemCount();
+        if (count <= 1) {
+            bannerIndicator.setVisibility(View.GONE);
+            return;
+        }
+        bannerIndicator.setVisibility(View.VISIBLE);
+        if (position < 0 || position >= count) position = 0;
+        for (int i = 0; i < count; i++) {
+            View dot = new View(requireContext());
+            GradientDrawable dotShape = new GradientDrawable();
+            dotShape.setShape(GradientDrawable.OVAL);
+            dotShape.setColor(i == position
+                    ? Color.WHITE
+                    : Color.argb(88, 255, 255, 255));
+            dot.setBackground(dotShape);
+            int dotSize = dp(6);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dotSize, dotSize);
+            if (i > 0) params.setMarginStart(dp(6));
+            bannerIndicator.addView(dot, params);
+        }
+    }
+
     @Override public void onPause() { mainHandler.removeCallbacks(advanceBanner); super.onPause(); }
 
     private void loadImage(String url, ImageView target) {
         loadImage(url, target, null);
+    }
+
+    private void loadBannerImage(String url, ImageView target) {
+        if (url == null || url.isEmpty()) return;
+        File cached = bannerImageFile(url);
+        if (cached.isFile()) {
+            Bitmap bitmap = BitmapFactory.decodeFile(cached.getAbsolutePath());
+            if (bitmap != null) target.setImageBitmap(bitmap);
+        }
+        Request request;
+        try {
+            request = new Request.Builder().url(url).build();
+        } catch (IllegalArgumentException ignored) {
+            return;
+        }
+        account.getClient().newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) { }
+            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                try (Response body = response) {
+                    if (!body.isSuccessful() || body.body() == null) return;
+                    byte[] bytes = body.body().bytes();
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                    if (bitmap == null) return;
+                    saveBannerImage(cached, bytes);
+                    onUi(() -> target.setImageBitmap(bitmap));
+                } catch (IOException ignored) { }
+            }
+        });
+    }
+
+    private File bannerImageFile(String url) {
+        File dir = new File(requireContext().getCacheDir(), "banner_images");
+        return new File(dir, sha256Hex(url) + ".img");
+    }
+
+    private void saveBannerImage(File file, byte[] bytes) {
+        File dir = file.getParentFile();
+        if (dir != null && !dir.isDirectory() && !dir.mkdirs()) return;
+        try (FileOutputStream out = new FileOutputStream(file)) {
+            out.write(bytes);
+        } catch (IOException ignored) { }
+    }
+
+    private static String sha256Hex(String value) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
+            StringBuilder sb = new StringBuilder(bytes.length * 2);
+            for (byte b : bytes) {
+                sb.append(Character.forDigit((b >> 4) & 0xF, 16));
+                sb.append(Character.forDigit(b & 0xF, 16));
+            }
+            return sb.toString();
+        } catch (NoSuchAlgorithmException ignored) {
+            return Integer.toHexString(value.hashCode());
+        }
     }
 
     private void loadImage(String url, ImageView target, @Nullable Runnable loaded) {
@@ -581,6 +721,23 @@ public class HomeFragment extends Fragment {
         return new JSONArray();
     }
 
+    private static String bannerSignature(JSONArray items) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.optJSONObject(i);
+            if (item == null) continue;
+            sb.append(item.optString("id", "")).append('\u0001')
+                    .append(item.optString("title", "")).append('\u0001')
+                    .append(item.optString("image_url", "")).append('\u0001')
+                    .append(item.optString("target_type", "")).append('\u0001')
+                    .append(item.optString("target_value", "")).append('\u0001')
+                    .append(item.optString("description", "")).append('\u0001')
+                    .append(item.optString("content", "")).append('\u0001')
+                    .append(item.optString("summary", "")).append('\n');
+        }
+        return sb.toString();
+    }
+
     private static Map<String, String> empty() {
         return new LinkedHashMap<>();
     }
@@ -611,6 +768,35 @@ public class HomeFragment extends Fragment {
 
     private int color(int id) { return requireContext().getColor(id); }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
+
+    private static final class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Holder> {
+        private final List<View> pages = new java.util.ArrayList<>();
+
+        void submit(List<View> newPages) {
+            pages.clear();
+            pages.addAll(newPages);
+            notifyDataSetChanged();
+        }
+
+        @Override public int getItemCount() { return pages.size(); }
+        @NonNull @Override public Holder onCreateViewHolder(@NonNull ViewGroup parent, int type) {
+            FrameLayout frame = new FrameLayout(parent.getContext());
+            frame.setLayoutParams(new ViewGroup.LayoutParams(-1, -1));
+            frame.setClipChildren(false);
+            frame.setClipToPadding(false);
+            return new Holder(frame);
+        }
+        @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
+            View page = pages.get(position);
+            if (page.getParent() instanceof ViewGroup) ((ViewGroup) page.getParent()).removeView(page);
+            holder.frame.removeAllViews();
+            holder.frame.addView(page, new FrameLayout.LayoutParams(-1, -1));
+        }
+        static final class Holder extends RecyclerView.ViewHolder {
+            final FrameLayout frame;
+            Holder(FrameLayout frame) { super(frame); this.frame = frame; }
+        }
+    }
 
     private static final class LocalPageAdapter extends RecyclerView.Adapter<LocalPageAdapter.Holder> {
         private final List<View> pages;

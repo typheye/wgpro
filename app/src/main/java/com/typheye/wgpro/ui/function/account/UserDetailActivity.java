@@ -191,7 +191,7 @@ public class UserDetailActivity extends AppCompatActivity {
                         runOnUiThread(() -> {
                             profileRequestActive = false;
                             if (isFinishing() || isDestroyed()) return;
-                            if (info == null) { finishProfileLoading(); showProfileError("未找到该用户"); return; }
+                            if (info == null) { showProfileError("未找到该用户"); return; }
                             String name = info.optString("nick", "用户");
                             String bio = info.optString("bio", "").trim();
                             ((TextView) findViewById(R.id.detail_nick)).setText(name);
@@ -218,7 +218,7 @@ public class UserDetailActivity extends AppCompatActivity {
                     @Override public void onError(int code, @NonNull String message) {
                         runOnUiThread(() -> {
                             profileRequestActive = false;
-                            if (!profileLoaded) { finishProfileLoading(); showProfileError(message); }
+                            if (!profileLoaded) { showProfileError(message); }
                         });
                     }
                 });
@@ -228,6 +228,7 @@ public class UserDetailActivity extends AppCompatActivity {
         if (isFinishing() || isDestroyed()) return;
         new WGProAlertDialogBuilder(this).setTitle("无法加载用户主页")
                 .setMessage(message == null || message.trim().isEmpty() ? "用户不存在或暂无可加载数据" : message)
+                .setCancelable(false)
                 .setNegativeButton("关闭", (d,w) -> finish()).show();
     }
 

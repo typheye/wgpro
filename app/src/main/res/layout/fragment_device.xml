@@ -40,6 +40,7 @@
                     <com.google.android.material.card.MaterialCardView android:id="@+id/card_detected_device"
                         style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                        android:layout_marginBottom="12dp"
                         android:clickable="true" android:visibility="gone">
                         <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                             android:gravity="center_vertical" android:padding="16dp">

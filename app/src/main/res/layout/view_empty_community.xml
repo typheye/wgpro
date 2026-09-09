@@ -1,22 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/community_refresh" android:layout_width="match_parent" android:layout_height="match_parent">
 <androidx.core.widget.NestedScrollView
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/surface_page" android:clipToPadding="false">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical" android:paddingBottom="28dp">
-        <com.typheye.wgpro.ui.widget.NestedScrollableHost
-            android:id="@+id/community_banner_host" android:layout_width="match_parent"
-            android:layout_height="174dp" android:paddingStart="16dp" android:paddingEnd="16dp">
-            <androidx.viewpager2.widget.ViewPager2 android:id="@+id/community_banner_pager"
-                android:layout_width="match_parent" android:layout_height="154dp"
-                android:layout_gravity="center_vertical" />
-        </com.typheye.wgpro.ui.widget.NestedScrollableHost>
+        <LinearLayout android:id="@+id/community_banner_host"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="vertical" android:paddingStart="16dp" android:paddingEnd="16dp"
+            android:clipChildren="false" android:clipToPadding="false">
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/community_banner_mask"
+                android:layout_width="match_parent" android:layout_height="148dp"
+                android:clipToOutline="true" app:cardBackgroundColor="@color/surface_primary"
+                app:cardCornerRadius="8dp" app:cardElevation="0dp"
+                app:contentPadding="0dp" app:strokeWidth="0dp">
+                <com.typheye.wgpro.ui.widget.NestedScrollableHost
+                    android:layout_width="match_parent" android:layout_height="match_parent"
+                    android:clipChildren="false" android:clipToPadding="false">
+                    <androidx.viewpager2.widget.ViewPager2 android:id="@+id/community_banner_pager"
+                        android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:clipChildren="false" android:clipToPadding="false" />
+                </com.typheye.wgpro.ui.widget.NestedScrollableHost>
+                <LinearLayout android:id="@+id/community_banner_indicator"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:layout_gravity="bottom|end" android:orientation="horizontal"
+                    android:gravity="center" android:paddingEnd="14dp" android:paddingBottom="12dp" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
         <com.google.android.material.card.MaterialCardView android:id="@+id/community_announcement"
             style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_marginStart="16dp"
-            android:layout_marginTop="6dp" android:layout_marginEnd="16dp"
+            android:layout_marginTop="16dp" android:layout_marginEnd="16dp"
             android:visibility="gone">
             <TextView android:id="@+id/community_announcement_text" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:padding="16dp"

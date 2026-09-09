@@ -3,12 +3,14 @@ package com.typheye.wgpro.ui.function.debug;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import android.widget.EditText;
 import android.text.InputType;
 import android.content.Intent;
+import android.view.View;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 
 import com.google.android.material.materialswitch.MaterialSwitch;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.debug.TestHandler;
 import com.typheye.wgpro.utils.AppUtils;
@@ -53,8 +55,13 @@ public final class TestActivity extends AppCompatActivity {
             }));
         });
         findViewById(R.id.test_open_user).setOnClickListener(v -> {
-            EditText input = new EditText(this); input.setHint("用户 UID"); input.setSingleLine(true); input.setInputType(InputType.TYPE_CLASS_NUMBER);
-            new WGProAlertDialogBuilder(this).setTitle("打开用户主页").setView(input)
+            View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null, false);
+            TextInputLayout inputLayout = content.findViewById(R.id.textInputLayout);
+            TextInputEditText input = content.findViewById(R.id.editText);
+            inputLayout.setHint("用户 UID");
+            input.setSingleLine(true);
+            input.setInputType(InputType.TYPE_CLASS_NUMBER);
+            new WGProAlertDialogBuilder(this).setTitle("打开用户主页").setView(content)
                     .setNegativeButton("取消", null).setPositiveButton("打开", (d,w) -> {
                         String uid = input.getText() == null ? "" : input.getText().toString().trim();
                         if (!uid.isEmpty()) startActivity(new Intent(this, UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));

@@ -149,7 +149,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         initial.setText(deviceName.substring(0, 1).toUpperCase());
         title.setText(deviceName);
         ((TextView) findViewById(R.id.add_device_subtitle))
-                .setText("UnKnown Version  ·  可添加");
+                .setText("小米运动健康  ·  可添加");
         empty.setVisibility(View.GONE);
         foundCard.setVisibility(View.VISIBLE);
         foundCard.setOnClickListener(v -> {
