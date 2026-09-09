@@ -34,6 +34,7 @@ import com.typheye.wgpro.ui.function.device.AddDeviceActivity;
 import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -418,12 +419,6 @@ public class DeviceFragment extends Fragment {
     private void saveSessionRemark(JSONObject session, String remark, boolean current,
                                    String sessionId, boolean web, String recordId) {
         if (!isAdded()) return;
-        View progressView = View.inflate(requireContext(), R.layout.progress_dialog, null);
-        ((TextView) progressView.findViewById(android.R.id.message)).setText("正在保存备注...");
-        WGProBottomSheetDialog progress = new WGProAlertDialogBuilder(requireContext())
-                .setTitle("保存中").setView(progressView).setCancelable(false).create();
-        progress.show();
-        long started = android.os.SystemClock.uptimeMillis();
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put("remark", remark);
         if (web) {
@@ -433,27 +428,29 @@ public class DeviceFragment extends Fragment {
             // 文档规定：省略 target_session_id 时修改当前请求头对应的 V2 会话。
             fields.put("target_session_id", sessionId);
         }
-        new tAccUtils(requireContext()).postV2Json("session_remark2", fields, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(@NonNull JSONObject json) {
-                mainHandler.postDelayed(() -> {
-                    if (!isAdded()) return;
-                    progress.dismissForReplacement();
-                    String saved = applySessionRemarkResult(session, json, remark);
-                    new WGProAlertDialogBuilder(requireContext()).setTitle("备注已更新")
-                            .setMessage(saved.isEmpty() ? "已恢复为自动设备名称。" : "设备备注已保存。")
-                            .setNegativeButton("关闭", null).show();
-                    loadCloudSessions();
-                }, Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - started)));
+        WGProProgressRunner.run(this, "保存中", "正在保存备注...", completion ->
+                new tAccUtils(requireContext()).postV2Json("session_remark2", fields,
+                        new tAccUtils.JsonCallback() {
+                            @Override public void onSuccess(@NonNull JSONObject json) {
+                                completion.success(json);
+                            }
+
+                            @Override public void onError(int code, @NonNull String message) {
+                                completion.error(code, message);
+                            }
+                        }), new WGProProgressRunner.Callback() {
+            @Override public void success(@NonNull JSONObject json) {
+                String saved = applySessionRemarkResult(session, json, remark);
+                new WGProAlertDialogBuilder(requireContext()).setTitle("备注已更新")
+                        .setMessage(saved.isEmpty() ? "已恢复为自动设备名称。" : "设备备注已保存。")
+                        .setNegativeButton("关闭", null).show();
+                loadCloudSessions();
             }
 
-            @Override public void onError(int code, @NonNull String message) {
-                mainHandler.postDelayed(() -> {
-                    if (!isAdded()) return;
-                    progress.dismissForReplacement();
-                    new WGProAlertDialogBuilder(requireContext()).setTitle("保存失败")
-                            .setMessage(message == null || message.trim().isEmpty() ? "请稍后重试" : message)
-                            .setNegativeButton("关闭", null).show();
-                }, Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - started)));
+            @Override public void error(int code, @NonNull String message) {
+                new WGProAlertDialogBuilder(requireContext()).setTitle("保存失败")
+                        .setMessage(message == null || message.trim().isEmpty() ? "请稍后重试" : message)
+                        .setNegativeButton("关闭", null).show();
             }
         });
     }

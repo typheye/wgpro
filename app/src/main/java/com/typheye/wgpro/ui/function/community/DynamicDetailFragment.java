@@ -3,6 +3,8 @@ package com.typheye.wgpro.ui.function.community;
 import android.content.res.ColorStateList;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,8 @@ import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -44,6 +48,7 @@ public final class DynamicDetailFragment extends Fragment {
     private MaterialButton likeButton, favoriteButton;
     private boolean loadedOnce, liked, favorited;
     private int likeCount, favoriteCount, pending, generation;
+    private String dynamicOwnerUid = "";
 
     public static DynamicDetailFragment newInstance(String id) {
         DynamicDetailFragment fragment = new DynamicDetailFragment(); Bundle args = new Bundle();
@@ -101,6 +106,7 @@ public final class DynamicDetailFragment extends Fragment {
             });
         }
         String nick = info.optString("nick", "Typheye 用户");
+        dynamicOwnerUid = info.optString("uid", "");
         ((DynamicDetailActivity) requireActivity()).bindAuthor(info);
         ((TextView) root.findViewById(R.id.dynamic_detail_content)).setText(info.optString("content"));
         ((TextView) root.findViewById(R.id.dynamic_detail_tail)).setText("发布于 "
@@ -161,6 +167,11 @@ public final class DynamicDetailFragment extends Fragment {
         right.addView(bubble, bubbleParams);
         LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(0, -2, 1f); rightParams.setMarginStart(dp(10));
         row.addView(right, rightParams);
+        row.setLongClickable(true);
+        row.setOnLongClickListener(v -> {
+            showCommentMenu(item);
+            return true;
+        });
         String uid = item.optString("uid", "");
         View.OnClickListener openUser = v -> { if (!uid.isEmpty()) startActivity(new android.content.Intent(
                 requireContext(), com.typheye.wgpro.ui.function.account.UserDetailActivity.class)
@@ -189,6 +200,80 @@ public final class DynamicDetailFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) { onUi(() -> load(root)); }
             @Override public void onError(int code, @NonNull String message) { onUi(() -> showError("评论失败", message)); }
         });
+    }
+
+    private void showCommentMenu(JSONObject item) {
+        if (!isAdded()) return;
+        boolean mine = item.optBoolean("is_self")
+                || account.getUid().equals(item.optString("uid"));
+        boolean dynamicOwner = !dynamicOwnerUid.isEmpty()
+                && dynamicOwnerUid.equals(account.getUid());
+        boolean canDelete = mine || dynamicOwner;
+        CharSequence[] actions = canDelete
+                ? new CharSequence[]{"评论详情", "撤回"}
+                : new CharSequence[]{"评论详情"};
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("评论操作").setItems(actions, (dialog, which) -> {
+                    if (which == 0) showCommentDetail(item);
+                    else confirmDeleteComment(item);
+                }).show();
+    }
+
+    private void showCommentDetail(JSONObject item) {
+        StringBuilder detail = new StringBuilder();
+        detail.append("评论者：").append(item.optString("nick", "用户")).append('\n');
+        detail.append("评论时间：").append(item.optString("created_at", "未知")).append('\n');
+        detail.append("评论 ID：").append(item.optString("id", "未知")).append('\n');
+        detail.append("内容：").append(item.optString("content", ""));
+        new WGProAlertDialogBuilder(requireContext()).setTitle("评论详情")
+                .setMessage(detail.toString())
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private void confirmDeleteComment(JSONObject item) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("撤回评论？")
+                .setMessage("撤回后评论将不再显示，且无法恢复。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("撤回", (dialog, which) -> {
+                    if (dialog instanceof WGProBottomSheetDialog) {
+                        ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                    }
+                    new Handler(Looper.getMainLooper()).postDelayed(
+                            () -> deleteComment(item), 40L);
+                }).show();
+    }
+
+    private void deleteComment(JSONObject item) {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("comment_id", item.optString("id", ""));
+        WGProProgressRunner.run(this, "撤回中", "正在撤回评论...", completion ->
+                account.postV2Json("dynamic_comment_delete2", fields, new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        completion.success(json);
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) {
+                        completion.error(code, message);
+                    }
+                }), new WGProProgressRunner.Callback() {
+            @Override public void success(@NonNull JSONObject json) {
+                View root = getView();
+                if (root != null) load(root);
+                showResult("已撤回", "评论已撤回");
+            }
+
+            @Override public void error(int code, @NonNull String message) {
+                showResult("撤回失败", message);
+            }
+        });
+    }
+
+    private void showResult(String title, String message) {
+        if (!isAdded()) return;
+        new WGProAlertDialogBuilder(requireContext()).setTitle(title)
+                .setMessage(message == null || message.trim().isEmpty() ? "操作完成" : message)
+                .setNegativeButton("关闭", null).show();
     }
 
     private void toggleLike() {

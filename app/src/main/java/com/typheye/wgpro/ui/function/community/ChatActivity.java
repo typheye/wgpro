@@ -1,12 +1,15 @@
 package com.typheye.wgpro.ui.function.community;
 
 import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -14,6 +17,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.fragment.app.Fragment;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -24,7 +28,10 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -42,6 +49,91 @@ public class ChatActivity extends BaseSectionActivity {
     }
     @Override protected Fragment createContent() {
         return ChatFragment.newInstance(getIntent().getStringExtra(EXTRA_PEER_UID));
+    }
+
+    @Override public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.chat_toolbar_menu, menu);
+        MenuItem more = menu.findItem(R.id.action_chat_more);
+        if (more != null && more.getIcon() != null) {
+            Drawable icon = DrawableCompat.wrap(more.getIcon()).mutate();
+            DrawableCompat.setTint(icon, getColor(R.color.text_primary));
+            more.setIcon(icon);
+        }
+        return true;
+    }
+
+    @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_chat_more) {
+            showChatMenu();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void showChatMenu() {
+        String peerUid = getIntent().getStringExtra(EXTRA_PEER_UID);
+        String peerName = getIntent().getStringExtra(EXTRA_PEER_NAME);
+        new WGProAlertDialogBuilder(this)
+                .setTitle(peerName == null || peerName.trim().isEmpty() ? "聊天操作" : peerName.trim())
+                .setItems(new CharSequence[]{"主页", "举报"}, (dialog, which) -> {
+                    if (which == 0) openPeerProfile(peerUid);
+                    else confirmReportUser(peerUid);
+                }).show();
+    }
+
+    private void openPeerProfile(String peerUid) {
+        if (peerUid == null || peerUid.trim().isEmpty()) return;
+        startActivity(new android.content.Intent(this, UserDetailActivity.class)
+                .putExtra(UserDetailActivity.EXTRA_TARGET_UID, peerUid.trim()));
+    }
+
+    private void confirmReportUser(String peerUid) {
+        if (peerUid == null || !peerUid.trim().matches("\\d+")) return;
+        String target = peerUid.trim();
+        new WGProAlertDialogBuilder(this)
+                .setTitle("举报用户？")
+                .setMessage("确认举报该用户？")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("举报", (dialog, which) -> {
+                    if (dialog instanceof WGProBottomSheetDialog) {
+                        ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                    }
+                    new Handler(Looper.getMainLooper()).postDelayed(
+                            () -> reportUser(target), 40L);
+                }).show();
+    }
+
+    private void reportUser(String peerUid) {
+        WGProProgressRunner.run(this, "提交中", "正在提交举报...", completion -> {
+            Map<String, String> fields = new LinkedHashMap<>();
+            fields.put("target_type", "user");
+            fields.put("target_key", peerUid);
+            fields.put("reason_code", "other");
+            fields.put("description", "通过 Android 客户端举报");
+            new tAccUtils(this).postV2Json("report_create2", fields,
+                    new tAccUtils.JsonCallback() {
+                        @Override public void onSuccess(@NonNull JSONObject json) {
+                            completion.success(json);
+                        }
+
+                        @Override public void onError(int code, @NonNull String message) {
+                            completion.error(code, message);
+                        }
+                    });
+        }, new WGProProgressRunner.Callback() {
+            @Override public void success(@NonNull JSONObject json) {
+                new WGProAlertDialogBuilder(ChatActivity.this).setTitle("举报已提交")
+                        .setMessage("感谢反馈，我们会尽快处理。")
+                        .setNegativeButton("关闭", null).show();
+            }
+
+            @Override public void error(int code, @NonNull String message) {
+                new WGProAlertDialogBuilder(ChatActivity.this).setTitle("举报失败")
+                        .setMessage(message == null || message.trim().isEmpty()
+                                ? "请稍后重试" : message)
+                        .setNegativeButton("关闭", null).show();
+            }
+        });
     }
 
     public static final class ChatFragment extends Fragment {
@@ -150,6 +242,22 @@ public class ChatActivity extends BaseSectionActivity {
 
         private View bubble(JSONObject item) {
             boolean mine = account.getUid().equals(item.optString("sender_uid"));
+            boolean recalled = isRecalled(item);
+            if (recalled) {
+                TextView state = stateText("消息已撤回");
+                state.setTextSize(13);
+                state.setTextColor(requireContext().getColor(R.color.text_tertiary));
+                state.setGravity(Gravity.CENTER);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
+                params.topMargin = dp(6);
+                params.bottomMargin = dp(10);
+                state.setLayoutParams(params);
+                state.setOnLongClickListener(v -> {
+                    showMessageMenu(item);
+                    return true;
+                });
+                return state;
+            }
             MaterialCardView card = new MaterialCardView(requireContext()); card.setRadius(dp(18));
             card.setStrokeWidth(0); card.setCardElevation(0);
             card.setCardBackgroundColor(requireContext().getColor(mine ? R.color.brand_soft : R.color.surface_primary));
@@ -157,7 +265,122 @@ public class ChatActivity extends BaseSectionActivity {
             text.setPadding(dp(14), dp(10), dp(14), dp(10)); card.addView(text);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-2, -2); p.gravity = mine ? Gravity.END : Gravity.START;
             p.bottomMargin = dp(8); p.setMarginStart(mine ? dp(54) : 0); p.setMarginEnd(mine ? 0 : dp(54)); card.setLayoutParams(p);
+            card.setLongClickable(true);
+            card.setOnLongClickListener(v -> {
+                showMessageMenu(item);
+                return true;
+            });
             return card;
+        }
+
+        private void showMessageMenu(JSONObject item) {
+            if (!isAdded()) return;
+            boolean mine = account.getUid().equals(item.optString("sender_uid"));
+            boolean recalled = isRecalled(item);
+            boolean canRecall = mine && !recalled
+                    && withinRecallWindow(item.optString("created_at", ""));
+            CharSequence[] actions = canRecall
+                    ? new CharSequence[]{"消息详情", "撤回"}
+                    : new CharSequence[]{"消息详情"};
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("消息操作").setItems(actions, (dialog, which) -> {
+                        if (which == 0) showMessageDetail(item);
+                        else confirmRecallMessage(item);
+                    }).show();
+        }
+
+        private void showMessageDetail(JSONObject item) {
+            boolean mine = account.getUid().equals(item.optString("sender_uid"));
+            boolean recalled = isRecalled(item);
+            StringBuilder detail = new StringBuilder();
+            detail.append("发送者：")
+                    .append(mine ? "我" : item.optString("sender_nick", "对方"))
+                    .append('\n');
+            detail.append("发送时间：")
+                    .append(item.optString("created_at", "未知")).append('\n');
+            detail.append("消息类型：")
+                    .append(messageTypeLabel(item.optString("message_type", "text")))
+                    .append('\n');
+            detail.append("状态：")
+                    .append(recalled ? "已撤回"
+                            : (mine ? (item.optBoolean("is_read") ? "已读" : "未读") : "已送达"))
+                    .append('\n');
+            detail.append("消息 ID：").append(item.optString("id", "未知")).append('\n');
+            detail.append("内容：")
+                    .append(recalled ? "该消息已撤回" : item.optString("content", ""));
+            new WGProAlertDialogBuilder(requireContext()).setTitle("消息详情")
+                    .setMessage(detail.toString())
+                    .setNegativeButton("关闭", null).show();
+        }
+
+        private void confirmRecallMessage(JSONObject item) {
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("撤回消息？")
+                    .setMessage("撤回后双方都将看到“消息已撤回”，且无法恢复。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("撤回", (dialog, which) -> {
+                        if (dialog instanceof WGProBottomSheetDialog) {
+                            ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                        }
+                        new Handler(Looper.getMainLooper()).postDelayed(
+                                () -> recallMessage(item), 40L);
+                    }).show();
+        }
+
+        private void recallMessage(JSONObject item) {
+            Map<String, String> fields = new LinkedHashMap<>();
+            fields.put("message_id", item.optString("id", ""));
+            fields.put("action", "recall");
+            WGProProgressRunner.run(this, "撤回中", "正在撤回...", completion ->
+                    account.postV2Json("message_state2", fields, new tAccUtils.JsonCallback() {
+                        @Override public void onSuccess(@NonNull JSONObject json) {
+                            completion.success(json);
+                        }
+
+                        @Override public void onError(int code, @NonNull String message) {
+                            completion.error(code, message);
+                        }
+                    }), new WGProProgressRunner.Callback() {
+                @Override public void success(@NonNull JSONObject json) {
+                    try {
+                        item.put("recalled", true);
+                        item.put("recalled_at", json.optString("recalled_at", ""));
+                        item.put("content", "");
+                    } catch (Exception ignored) { }
+                    load();
+                    showResult("已撤回", "消息已撤回");
+                }
+
+                @Override public void error(int code, @NonNull String message) {
+                    showResult("撤回失败", message);
+                }
+            });
+        }
+
+        private boolean withinRecallWindow(String createdAt) {
+            long time = parseTime(createdAt);
+            return time > 0L && System.currentTimeMillis() - time <= 2 * 60_000L;
+        }
+
+        private boolean isRecalled(JSONObject item) {
+            return item.optBoolean("recalled")
+                    || (!item.isNull("recalled_at")
+                    && !item.optString("recalled_at", "").isEmpty());
+        }
+
+        private String messageTypeLabel(String type) {
+            if ("text".equalsIgnoreCase(type)) return "文本";
+            if ("image".equalsIgnoreCase(type)) return "图片";
+            if ("video".equalsIgnoreCase(type)) return "视频";
+            if ("file".equalsIgnoreCase(type)) return "文件";
+            return type == null || type.trim().isEmpty() ? "消息" : type;
+        }
+
+        private void showResult(String title, String message) {
+            if (!isAdded()) return;
+            new WGProAlertDialogBuilder(requireContext()).setTitle(title)
+                    .setMessage(message == null || message.trim().isEmpty() ? "操作完成" : message)
+                    .setNegativeButton("关闭", null).show();
         }
 
         private void send() {
