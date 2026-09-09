@@ -30,6 +30,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.BadgeFactory;
+import com.typheye.wgpro.ui.widget.UnreadBadgeFactory;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -116,6 +117,11 @@ public class CloudListFragment extends Fragment {
         refresh.setOnRefreshListener(this::load);
         load();
         return root;
+    }
+
+    @Override public void onResume() {
+        super.onResume();
+        if (loadedOnce) load();
     }
 
     private void setupHistoryFilters(View root) {
@@ -242,35 +248,40 @@ public class CloudListFragment extends Fragment {
 
     private void loadInbox(long started, int generation, Map<String, String> page) {
         JSONArray[] results = {null, null};
+        int[] unreadCounts = {0, 0};
         String[] failure = {null};
         java.util.concurrent.atomic.AtomicInteger pending = new java.util.concurrent.atomic.AtomicInteger(2);
-        tAccUtils.JsonCallback notifications = inboxCallback(0, results, failure, pending, started, generation);
-        tAccUtils.JsonCallback conversations = inboxCallback(1, results, failure, pending, started, generation);
+        tAccUtils.JsonCallback notifications = inboxCallback(0, results, unreadCounts, failure, pending, started, generation);
+        tAccUtils.JsonCallback conversations = inboxCallback(1, results, unreadCounts, failure, pending, started, generation);
         account.getV2Json("notifications2", new LinkedHashMap<>(page), true, notifications);
         account.getV2Json("conversations2", new LinkedHashMap<>(page), true, conversations);
     }
 
-    private tAccUtils.JsonCallback inboxCallback(int index, JSONArray[] results, String[] failure,
+    private tAccUtils.JsonCallback inboxCallback(int index, JSONArray[] results, int[] unreadCounts,
+                                                  String[] failure,
                                                   java.util.concurrent.atomic.AtomicInteger pending,
                                                   long started, int generation) {
         return new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 results[index] = json.optJSONArray("items");
-                finishInboxIfReady(results, failure, pending, started, generation);
+                unreadCounts[index] = index == 0
+                        ? json.optInt("unread_count", 0)
+                        : json.optInt("unread_total", 0);
+                finishInboxIfReady(results, unreadCounts, failure, pending, started, generation);
             }
             @Override public void onError(int code, @NonNull String message) {
                 failure[0] = message; results[index] = new JSONArray();
-                finishInboxIfReady(results, failure, pending, started, generation);
+                finishInboxIfReady(results, unreadCounts, failure, pending, started, generation);
             }
         };
     }
 
-    private void finishInboxIfReady(JSONArray[] results, String[] failure,
+    private void finishInboxIfReady(JSONArray[] results, int[] unreadCounts, String[] failure,
                                     java.util.concurrent.atomic.AtomicInteger pending,
                                     long started, int generation) {
         if (pending.decrementAndGet() != 0) return;
         JSONArray combined = new JSONArray();
-        appendSystemMessage(combined, results[0]);
+        appendSystemMessage(combined, results[0], unreadCounts[0]);
         appendInboxItems(combined, results[1]);
         if (combined.length() == 0 && failure[0] != null) {
             completeAfter(started, generation, () -> showState(failure[0]));
@@ -279,14 +290,23 @@ public class CloudListFragment extends Fragment {
         }
     }
 
-    private void appendSystemMessage(JSONArray target, @Nullable JSONArray source) {
+    private void appendSystemMessage(JSONArray target, @Nullable JSONArray source, int unreadTotal) {
         JSONObject item = new JSONObject();
         try {
             item.put("_kind", "system_messages");
             item.put("title", "系统消息");
             JSONObject first = source == null || source.length() == 0 ? null : source.optJSONObject(0);
+            int unreadCount = Math.max(0, unreadTotal);
+            if (source != null) {
+                for (int i = 0; i < source.length(); i++) {
+                    JSONObject message = source.optJSONObject(i);
+                    if (unreadCount == 0 && message != null
+                            && !message.optBoolean("is_read", false)) unreadCount++;
+                }
+            }
             item.put("content", first == null ? "暂无消息" : first.optString("content", "暂无消息"));
             item.put("message_count", source == null ? 0 : source.length());
+            item.put("unread_count", unreadCount);
             item.put("_system_items", source == null ? new JSONArray() : source);
         } catch (Exception ignored) { }
         target.put(item);
@@ -585,7 +605,7 @@ public class CloudListFragment extends Fragment {
                 return;
             }
             if ("system_messages".equals(item.optString("_kind"))) {
-                showSystemMessages(item.optJSONArray("_system_items"));
+                showSystemMessages(item);
                 return;
             }
             if (MODE_NOTIFICATIONS.equals(mode) && !item.optBoolean("is_read", false)) {
@@ -765,18 +785,28 @@ public class CloudListFragment extends Fragment {
         JSONObject contact = new JSONObject();
         try { contact.put("nick", "系统消息"); contact.put("last_message", item.optString("content", "暂无消息"));
             contact.put("_kind", "system_messages");
+            contact.put("unread_count", item.optInt("unread_count", 0));
             contact.put("_system_items", item.optJSONArray("_system_items"));
         } catch (Exception ignored) { }
         return createContactRow(contact);
     }
 
-    private void showSystemMessages(@Nullable JSONArray messages) {
+    private void showSystemMessages(JSONObject systemItem) {
+        JSONArray messages = systemItem.optJSONArray("_system_items");
         StringBuilder text = new StringBuilder();
+        boolean hasUnread = false;
         if (messages != null) for (int i = 0; i < messages.length(); i++) {
             JSONObject item = messages.optJSONObject(i); if (item == null) continue;
+            if (!item.optBoolean("is_read", false)) hasUnread = true;
+            String title = item.optString("title", "").trim();
             String content = item.optString("content", item.optString("title", ""));
-            if (!content.isEmpty()) { if (text.length() > 0) text.append("\n\n"); text.append(content); }
+            if (!content.isEmpty()) {
+                if (text.length() > 0) text.append("\n\n");
+                if (!title.isEmpty() && !title.equals(content)) text.append(title).append('\n');
+                text.append(content);
+            }
         }
+        if (hasUnread) markAllNotificationsRead();
         new WGProAlertDialogBuilder(requireContext()).setTitle("系统消息")
                 .setMessage(text.length() == 0 ? "暂无消息" : text.toString())
                 .setNegativeButton("关闭", null).show();
@@ -832,6 +862,7 @@ public class CloudListFragment extends Fragment {
         body.addView(avatarBox, avatarParams);
         BadgeFactory.bind(requireContext(), item, avatarBox,
                 requireContext().getColor(R.color.surface_page));
+        UnreadBadgeFactory.bind(requireContext(), avatarBox, item.optInt("unread_count", 0));
 
         LinearLayout labels = new LinearLayout(requireContext()); labels.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, -2, 1f);
@@ -851,7 +882,7 @@ public class CloudListFragment extends Fragment {
         loadContactAvatar(uid, avatarUrl, avatar, initial);
         row.setOnClickListener(v -> {
             if ("system_messages".equals(item.optString("_kind"))) {
-                showSystemMessages(item.optJSONArray("_system_items"));
+                showSystemMessages(item);
                 return;
             }
             if (uid.isEmpty()) return;
@@ -912,6 +943,20 @@ public class CloudListFragment extends Fragment {
         fields.put("notification_id", id); fields.put("action", "read");
         account.postV2Json("notification_state2", fields, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) { }
+            @Override public void onError(int code, @NonNull String message) { }
+        });
+    }
+
+    private void markAllNotificationsRead() {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("action", "read_all");
+        account.postV2Json("notification_state2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                main.post(() -> {
+                    if (isAdded() && getView() != null) load();
+                });
+            }
+
             @Override public void onError(int code, @NonNull String message) { }
         });
     }

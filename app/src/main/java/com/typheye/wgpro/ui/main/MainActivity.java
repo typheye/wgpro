@@ -25,6 +25,8 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.badge.BadgeDrawable;
+import com.google.android.material.badge.BadgeUtils;
 import com.typheye.wgpro.core.xms.InterconnectLogic;
 import com.typheye.wgpro.core.xms.XmsConnectionProbe;
 import com.typheye.wgpro.R;
@@ -77,11 +79,15 @@ public class MainActivity extends AppCompatActivity {
     private int consecutiveDisconnectedProbes;
     private String pendingGrantRequestId;
     private boolean grantFlowActive;
+    private boolean inboxBadgeInFlight;
+    private int inboxUnreadCount;
+    private BadgeDrawable notificationBadge;
     private final Handler accountPollHandler = new Handler(Looper.getMainLooper());
     private final Handler wearablePollHandler = new Handler(Looper.getMainLooper());
     private final Runnable accountPoll = new Runnable() {
         @Override public void run() {
             if (!accountPollInFlight && !grantFlowActive) getAccUtils();
+            refreshInboxBadge();
             accountPollHandler.postDelayed(this, ACCOUNT_POLL_INTERVAL_MS);
         }
     };
@@ -191,6 +197,7 @@ public class MainActivity extends AppCompatActivity {
         }
         accountPollHandler.removeCallbacks(accountPoll);
         accountPollHandler.post(accountPoll);
+        refreshInboxBadge();
         wearablePollHandler.removeCallbacks(wearablePoll);
         wearablePollHandler.post(wearablePoll);
         consumePendingGrantRequest();
@@ -290,6 +297,38 @@ public class MainActivity extends AppCompatActivity {
             accountFragment = target;
             if (target != null && target.isAdded()) target.refreshAccountUi(refreshAvatar);
         });
+    }
+
+    private void refreshInboxBadge() {
+        if (inboxBadgeInFlight) return;
+        tAccUtils account = new tAccUtils(this);
+        if (!account.isLogin()) {
+            updateNotificationBadge(0);
+            return;
+        }
+        inboxBadgeInFlight = true;
+        account.getV2JsonFresh("inbox_unread_count2",
+                new java.util.LinkedHashMap<>(), true, new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull org.json.JSONObject json) {
+                        inboxBadgeInFlight = false;
+                        updateNotificationBadge(json.optInt("unread_count", 0));
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) {
+                        inboxBadgeInFlight = false;
+                    }
+                });
+    }
+
+    private void updateNotificationBadge(int count) {
+        inboxUnreadCount = Math.max(0, count);
+        if (notificationBadge == null) return;
+        if (inboxUnreadCount <= 0) {
+            notificationBadge.setVisible(false);
+        } else {
+            notificationBadge.setNumber(inboxUnreadCount);
+            notificationBadge.setVisible(true);
+        }
     }
 
     private void sendNotification() {
@@ -463,6 +502,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
+        if (notificationBadge != null) {
+            BadgeUtils.detachBadgeDrawable(notificationBadge, toolbar, R.id.action_notifications);
+        }
+        notificationBadge = BadgeDrawable.create(this);
+        notificationBadge.setBackgroundColor(getColor(R.color.status_danger));
+        notificationBadge.setBadgeTextColor(getColor(R.color.white));
+        notificationBadge.setMaxCharacterCount(3);
+        notificationBadge.setVisible(false);
+        BadgeUtils.attachBadgeDrawable(notificationBadge, toolbar, R.id.action_notifications);
+        updateNotificationBadge(inboxUnreadCount);
         return true;
     }
 
