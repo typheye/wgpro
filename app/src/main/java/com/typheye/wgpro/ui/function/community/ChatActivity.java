@@ -33,6 +33,7 @@ import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
+import com.typheye.wgpro.utils.InboxNotificationHelper;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -44,11 +45,17 @@ import java.util.Map;
 public class ChatActivity extends BaseSectionActivity {
     public static final String EXTRA_PEER_UID = "peer_uid";
     public static final String EXTRA_PEER_NAME = "peer_name";
+    public static final String EXTRA_MODE = "mode";
+    public static final String MODE_SYSTEM_MESSAGES = "system_messages";
     @Override protected String screenTitle() {
+        if (MODE_SYSTEM_MESSAGES.equals(getIntent().getStringExtra(EXTRA_MODE))) return "系统消息";
         String name = getIntent().getStringExtra(EXTRA_PEER_NAME);
         return name == null || name.trim().isEmpty() ? "私信" : name;
     }
     @Override protected Fragment createContent() {
+        if (MODE_SYSTEM_MESSAGES.equals(getIntent().getStringExtra(EXTRA_MODE))) {
+            return new SystemMessageDetailFragment();
+        }
         return ChatFragment.newInstance(getIntent().getStringExtra(EXTRA_PEER_UID));
     }
 
@@ -72,6 +79,11 @@ public class ChatActivity extends BaseSectionActivity {
     }
 
     private void showChatMenu() {
+        Fragment current = getSupportFragmentManager().findFragmentById(R.id.section_container);
+        if (current instanceof SystemMessageDetailFragment) {
+            ((SystemMessageDetailFragment) current).showMoreMenu();
+            return;
+        }
         String peerUid = getIntent().getStringExtra(EXTRA_PEER_UID);
         new WGProAlertDialogBuilder(this)
                 .setTitle("更多")
@@ -116,6 +128,9 @@ public class ChatActivity extends BaseSectionActivity {
             View root = inflater.inflate(R.layout.fragment_chat, container, false);
             peerUid = getArguments() == null ? "" : getArguments().getString("peer_uid", "");
             account = new tAccUtils(requireContext().getApplicationContext());
+            if (!peerUid.isEmpty()) {
+                InboxNotificationHelper.cancelPrivateNotifications(requireContext(), peerUid);
+            }
             messages = root.findViewById(R.id.chat_messages); refresh = root.findViewById(R.id.chat_refresh);
             scroll = root.findViewById(R.id.chat_scroll);
             input = root.findViewById(R.id.chat_input);

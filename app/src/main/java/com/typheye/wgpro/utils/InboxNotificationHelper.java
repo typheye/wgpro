@@ -14,7 +14,6 @@ import androidx.core.app.NotificationCompat;
 
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.community.ChatActivity;
-import com.typheye.wgpro.ui.function.community.NotificationActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,6 +29,8 @@ public final class InboxNotificationHelper {
     private static final String KEY_INITIALIZED = "initialized";
     private static final String KEY_LAST_NOTIFICATION_ID = "last_notification_id";
     private static final String KEY_LAST_MESSAGE_ID = "last_message_id";
+    private static final String KEY_SYSTEM_NOTIFICATION_IDS = "system_notification_ids";
+    private static final String KEY_PRIVATE_NOTIFICATION_IDS = "private_notification_ids";
 
     private InboxNotificationHelper() { }
 
@@ -161,13 +162,16 @@ public final class InboxNotificationHelper {
     private static void postSystemMessage(Context context, JSONObject item) {
         String title = item.optString("title", "系统消息");
         String content = item.optString("content", "");
-        Intent intent = new Intent(context, NotificationActivity.class)
-                .putExtra(NotificationActivity.EXTRA_OPEN_SYSTEM_MESSAGES, true)
+        Intent intent = new Intent(context, ChatActivity.class)
+                .putExtra(ChatActivity.EXTRA_MODE, ChatActivity.MODE_SYSTEM_MESSAGES)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        post(context, (int) (2_000_000L + item.optLong("id", 0L) % 100_000_000L),
-                title, content, intent, NotificationCompat.CATEGORY_MESSAGE);
+        int notificationId = (int) (2_000_000L + item.optLong("id", 0L) % 100_000_000L);
+        post(context, notificationId, title, content, intent,
+                NotificationCompat.CATEGORY_MESSAGE);
+        rememberNotification(context, KEY_SYSTEM_NOTIFICATION_IDS,
+                String.valueOf(notificationId));
     }
 
     private static void postPrivateMessage(Context context, JSONObject item) {
@@ -181,8 +185,11 @@ public final class InboxNotificationHelper {
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        post(context, (int) (3_000_000L + item.optLong("id", 0L) % 100_000_000L),
-                peerName, content, intent, NotificationCompat.CATEGORY_MESSAGE);
+        int notificationId = (int) (3_000_000L + item.optLong("id", 0L) % 100_000_000L);
+        post(context, notificationId, peerName, content, intent,
+                NotificationCompat.CATEGORY_MESSAGE);
+        rememberNotification(context, KEY_PRIVATE_NOTIFICATION_IDS,
+                peerUid + ":" + notificationId);
     }
 
     private static void post(Context context, int id, String title, String content,
@@ -214,6 +221,55 @@ public final class InboxNotificationHelper {
         channel.setShowBadge(true);
         channel.setLockscreenVisibility(android.app.Notification.VISIBILITY_PUBLIC);
         manager.createNotificationChannel(channel);
+    }
+
+    private static void rememberNotification(Context context, String key, String value) {
+        tAccUtils account = new tAccUtils(context.getApplicationContext());
+        String uid = account.getUid();
+        if (uid == null || uid.isEmpty()) return;
+        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        java.util.Set<String> values = new java.util.HashSet<>(
+                prefs.getStringSet(key + "_" + uid, java.util.Collections.emptySet()));
+        values.add(value);
+        prefs.edit().putStringSet(key + "_" + uid, values).apply();
+    }
+
+    public static void cancelSystemNotifications(@NonNull Context context) {
+        cancelNotifications(context, KEY_SYSTEM_NOTIFICATION_IDS, null);
+    }
+
+    public static void cancelPrivateNotifications(@NonNull Context context,
+                                                  @NonNull String peerUid) {
+        cancelNotifications(context, KEY_PRIVATE_NOTIFICATION_IDS, peerUid);
+    }
+
+    private static void cancelNotifications(Context context, String key,
+                                            @Nullable String peerUid) {
+        tAccUtils account = new tAccUtils(context.getApplicationContext());
+        String uid = account.getUid();
+        if (uid == null || uid.isEmpty()) return;
+        SharedPreferences prefs = context.getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        java.util.Set<String> values = new java.util.HashSet<>(
+                prefs.getStringSet(key + "_" + uid, java.util.Collections.emptySet()));
+        if (values.isEmpty()) return;
+        NotificationManager manager = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+        java.util.Iterator<String> iterator = values.iterator();
+        while (iterator.hasNext()) {
+            String value = iterator.next();
+            if (peerUid != null) {
+                String prefix = peerUid + ":";
+                if (!value.startsWith(prefix)) continue;
+                try { manager.cancel(Integer.parseInt(value.substring(prefix.length()))); }
+                catch (Exception ignored) { }
+                iterator.remove();
+            } else {
+                try { manager.cancel(Integer.parseInt(value)); }
+                catch (Exception ignored) { }
+                iterator.remove();
+            }
+        }
+        prefs.edit().putStringSet(key + "_" + uid, values).apply();
     }
 
     public static boolean isDoNotDisturb(@NonNull Context context) {

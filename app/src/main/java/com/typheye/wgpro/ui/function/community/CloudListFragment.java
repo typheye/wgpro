@@ -27,6 +27,7 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.data.MessageDatabase;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.BadgeFactory;
@@ -73,6 +74,7 @@ public class CloudListFragment extends Fragment {
     private String mode;
     private String historyType = "dynamic";
     private tAccUtils account;
+    private MessageDatabase messageDb;
     private int requestGeneration;
     private boolean skipNextResumeReload;
     private JSONArray renderedItems;
@@ -110,6 +112,7 @@ public class CloudListFragment extends Fragment {
         mode = getArguments() == null ? MODE_ACTIVITY : getArguments().getString("mode", MODE_ACTIVITY);
         if (getArguments() != null) historyType = getArguments().getString("history_type", "dynamic");
         account = new tAccUtils(requireContext().getApplicationContext());
+        messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.cloud_refresh);
         refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
         list = root.findViewById(R.id.cloud_list);
@@ -133,6 +136,7 @@ public class CloudListFragment extends Fragment {
 
     public void markSystemMessagesReadLocally() {
         if (renderedItems == null) return;
+        setUnreadOverride("system", false);
         for (int i = 0; i < renderedItems.length(); i++) {
             JSONObject item = renderedItems.optJSONObject(i);
             if (item == null || !"system_messages".equals(item.optString("_kind"))) continue;
@@ -159,6 +163,154 @@ public class CloudListFragment extends Fragment {
 
                     @Override public void onError(int code, @NonNull String message) { }
                 });
+    }
+
+    public void clearMessageList() {
+        clearAllUnreadOverrides();
+        render(new JSONArray());
+        java.util.concurrent.atomic.AtomicInteger pending =
+                new java.util.concurrent.atomic.AtomicInteger(2);
+        tAccUtils.JsonCallback finish = new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                if (pending.decrementAndGet() == 0) main.post(() -> {
+                    if (isAdded() && getView() != null) load();
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                if (pending.decrementAndGet() == 0) main.post(() -> {
+                    if (isAdded() && getView() != null) load();
+                });
+            }
+        };
+        account.postV2Json("conversations_clear2", new LinkedHashMap<>(), finish);
+        account.postV2Json("notifications_clear2", new LinkedHashMap<>(), finish);
+    }
+
+    private void showNotificationItemActions(JSONObject item) {
+        boolean unread = item.optInt("unread_count", 0) > 0;
+        String readLabel = unread ? "标为已读" : "标为未读";
+        new WGProAlertDialogBuilder(requireContext()).setTitle("消息操作")
+                .setItems(new CharSequence[]{"移除", readLabel}, (dialog, which) -> {
+                    if (which == 0) confirmRemoveNotificationItem(item);
+                    else confirmMarkNotificationItem(item, unread);
+                }).show();
+    }
+
+    private void confirmRemoveNotificationItem(JSONObject item) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("移除消息？")
+                .setMessage("移除后该会话将从当前账户的通知列表中删除。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("移除", (dialog, which) -> removeNotificationItem(item))
+                .show();
+    }
+
+    private void removeNotificationItem(JSONObject item) {
+        if ("system_messages".equals(item.optString("_kind"))) {
+            setUnreadOverride("system", false);
+            messageDb.setSystemClearedBefore(account.getUid(), latestSystemId());
+            removeRenderedSystemMessages();
+            account.postV2Json("notifications_clear2", new LinkedHashMap<>(),
+                    new tAccUtils.JsonCallback() {
+                        @Override public void onSuccess(@NonNull JSONObject json) { load(); }
+                        @Override public void onError(int code, @NonNull String message) { }
+                    });
+            return;
+        }
+        String peerUid = item.optString("peer_uid", "");
+        if (peerUid.isEmpty()) return;
+        setUnreadOverride("conversation_" + peerUid, false);
+        messageDb.setConversationRemoved(account.getUid(), peerUid, true);
+        removeRenderedConversation(peerUid);
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("peer_uid", peerUid);
+        account.postV2Json("conversation_remove2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) { load(); }
+            @Override public void onError(int code, @NonNull String message) { }
+        });
+    }
+
+    private long latestSystemId() {
+        if (renderedItems == null) return 0L;
+        long latest = 0L;
+        for (int i = 0; i < renderedItems.length(); i++) {
+            JSONObject item = renderedItems.optJSONObject(i);
+            if (item == null || !"system_messages".equals(item.optString("_kind"))) continue;
+            JSONArray messages = item.optJSONArray("_system_items");
+            if (messages == null) continue;
+            for (int j = 0; j < messages.length(); j++) {
+                JSONObject message = messages.optJSONObject(j);
+                if (message != null) latest = Math.max(latest,
+                        parseLong(message.optString("id", "0")));
+            }
+        }
+        return latest;
+    }
+
+    private void removeRenderedSystemMessages() {
+        if (renderedItems == null) return;
+        JSONArray next = new JSONArray();
+        for (int i = 0; i < renderedItems.length(); i++) {
+            JSONObject item = renderedItems.optJSONObject(i);
+            if (item == null || "system_messages".equals(item.optString("_kind"))) continue;
+            next.put(item);
+        }
+        render(next);
+    }
+
+    private void removeRenderedConversation(String peerUid) {
+        if (renderedItems == null) return;
+        JSONArray next = new JSONArray();
+        for (int i = 0; i < renderedItems.length(); i++) {
+            JSONObject item = renderedItems.optJSONObject(i);
+            if (item == null) continue;
+            if ("conversation".equals(item.optString("_kind"))
+                    && peerUid.equals(item.optString("peer_uid"))) continue;
+            next.put(item);
+        }
+        render(next);
+    }
+
+    private void confirmMarkNotificationItem(JSONObject item, boolean currentlyUnread) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle(currentlyUnread ? "标为已读？" : "标为未读？")
+                .setMessage(currentlyUnread
+                        ? "标记后该消息将不再显示未读徽标。"
+                        : "标记后该消息将显示数字 1 的未读徽标。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("确认", (dialog, which) -> {
+                    String overrideKey = "system_messages".equals(item.optString("_kind"))
+                            ? "system" : "conversation_" + item.optString("peer_uid", "");
+                    if (currentlyUnread) {
+                        setUnreadOverride(overrideKey, false);
+                        if ("system_messages".equals(item.optString("_kind"))) {
+                            Map<String, String> fields = new LinkedHashMap<>();
+                            fields.put("action", "read_all");
+                            account.postV2Json("notification_state2", fields,
+                                    new tAccUtils.JsonCallback() {
+                                        @Override public void onSuccess(@NonNull JSONObject json) { }
+                                        @Override public void onError(int code, @NonNull String message) { }
+                                    });
+                        } else {
+                            String peerUid = item.optString("peer_uid", "");
+                            if (!peerUid.isEmpty()) {
+                                Map<String, String> fields = new LinkedHashMap<>();
+                                fields.put("peer_uid", peerUid);
+                                account.postV2Json("conversation_read2", fields,
+                                        new tAccUtils.JsonCallback() {
+                                            @Override public void onSuccess(@NonNull JSONObject json) { }
+                                            @Override public void onError(int code, @NonNull String message) { }
+                                        });
+                            }
+                        }
+                    } else {
+                        setUnreadOverride(overrideKey, true);
+                    }
+                    try { item.put("unread_count", currentlyUnread ? 0 : 1); }
+                    catch (Exception ignored) { }
+                    if (renderedItems != null) render(renderedItems);
+                }).show();
     }
 
     private void setupHistoryFilters(View root) {
@@ -328,23 +480,39 @@ public class CloudListFragment extends Fragment {
     }
 
     private void appendSystemMessage(JSONArray target, @Nullable JSONArray source, int unreadTotal) {
+        if (source == null || source.length() == 0) return;
         JSONObject item = new JSONObject();
         try {
+            long clearedId = systemClearedId();
+            JSONArray visible = new JSONArray();
+            for (int i = 0; i < source.length(); i++) {
+                JSONObject message = source.optJSONObject(i);
+                if (message == null) continue;
+                if (parseLong(message.optString("id", "0")) > clearedId) visible.put(message);
+            }
+            if (visible.length() == 0) {
+                item.put("_kind", "system_messages");
+                item.put("title", "系统消息");
+                item.put("content", "暂无消息");
+                item.put("message_count", 0);
+                item.put("unread_count", 0);
+                item.put("_system_items", new JSONArray());
+                target.put(item);
+                return;
+            }
             item.put("_kind", "system_messages");
             item.put("title", "系统消息");
-            JSONObject first = source == null || source.length() == 0 ? null : source.optJSONObject(0);
-            int unreadCount = Math.max(0, unreadTotal);
-            if (source != null) {
-                for (int i = 0; i < source.length(); i++) {
-                    JSONObject message = source.optJSONObject(i);
-                    if (unreadCount == 0 && message != null
-                            && !message.optBoolean("is_read", false)) unreadCount++;
-                }
+            JSONObject first = visible.optJSONObject(0);
+            int unreadCount = 0;
+            for (int i = 0; i < visible.length(); i++) {
+                JSONObject message = visible.optJSONObject(i);
+                if (message != null && !message.optBoolean("is_read", false)) unreadCount++;
             }
+            if (hasUnreadOverride("system")) unreadCount = 1;
             item.put("content", first == null ? "暂无消息" : first.optString("content", "暂无消息"));
-            item.put("message_count", source == null ? 0 : source.length());
+            item.put("message_count", visible.length());
             item.put("unread_count", unreadCount);
-            item.put("_system_items", source == null ? new JSONArray() : source);
+            item.put("_system_items", visible);
         } catch (Exception ignored) { }
         target.put(item);
     }
@@ -353,7 +521,17 @@ public class CloudListFragment extends Fragment {
         if (source == null) return;
         for (int i = 0; i < source.length(); i++) {
             JSONObject item = source.optJSONObject(i); if (item == null) continue;
-            try { item.put("_kind", "conversation"); } catch (Exception ignored) { }
+            try {
+                item.put("_kind", "conversation");
+                String peerUid = item.optString("peer_uid", "");
+                if (!peerUid.isEmpty()
+                        && messageDb.isConversationRemoved(account.getUid(), peerUid)) {
+                    continue;
+                }
+                if (!peerUid.isEmpty() && hasUnreadOverride("conversation_" + peerUid)) {
+                    item.put("unread_count", 1);
+                }
+            } catch (Exception ignored) { }
             target.put(item);
         }
     }
@@ -851,11 +1029,10 @@ public class CloudListFragment extends Fragment {
     }
 
     private void openSystemMessages(JSONObject systemItem) {
-        if (requireActivity() instanceof NotificationActivity) {
-            ((NotificationActivity) requireActivity()).openSystemMessages();
-        } else {
-            showSystemMessages(systemItem);
-        }
+        markSystemMessagesReadLocally();
+        skipNextResumeReload();
+        startActivity(new Intent(requireContext(), ChatActivity.class)
+                .putExtra(ChatActivity.EXTRA_MODE, ChatActivity.MODE_SYSTEM_MESSAGES));
     }
 
     private View createSectionHeader(String title) {
@@ -933,6 +1110,7 @@ public class CloudListFragment extends Fragment {
             }
             if (uid.isEmpty()) return;
             if (MODE_CONVERSATIONS.equals(mode) || isConversation(item)) {
+                setUnreadOverride("conversation_" + uid, false);
                 startActivity(new Intent(requireContext(), ChatActivity.class)
                         .putExtra(ChatActivity.EXTRA_PEER_UID, uid)
                         .putExtra(ChatActivity.EXTRA_PEER_NAME, contactName(item)));
@@ -941,6 +1119,12 @@ public class CloudListFragment extends Fragment {
                         .putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
             }
         });
+        if (MODE_NOTIFICATIONS.equals(mode)) {
+            row.setOnLongClickListener(v -> {
+                showNotificationItemActions(item);
+                return true;
+            });
+        }
         return row;
     }
 
@@ -953,6 +1137,9 @@ public class CloudListFragment extends Fragment {
     private String contactBio(JSONObject item) {
         String bio = item.optString("last_message",
                 item.optString("bio", item.optString("shuo", ""))).trim();
+        if (bio.isEmpty() && (MODE_NOTIFICATIONS.equals(mode) || isConversation(item))) {
+            return "暂无消息";
+        }
         return bio.isEmpty() ? "这个人还没有简介呢~" : bio;
     }
 
@@ -981,6 +1168,34 @@ public class CloudListFragment extends Fragment {
             icon.setVisibility(View.VISIBLE);
             placeholder.setVisibility(View.GONE);
         });
+    }
+
+    private long systemClearedId() {
+        return messageDb.getSystemClearedBefore(account.getUid());
+    }
+
+    private boolean hasUnreadOverride(String key) {
+        if ("system".equals(key)) return messageDb.isSystemUnreadOverride(account.getUid());
+        String peerUid = key.startsWith("conversation_") ? key.substring(13) : "";
+        return !peerUid.isEmpty()
+                && messageDb.isConversationUnreadOverride(account.getUid(), peerUid);
+    }
+
+    private void setUnreadOverride(String key, boolean enabled) {
+        if ("system".equals(key)) {
+            messageDb.setSystemUnreadOverride(account.getUid(), enabled);
+        } else if (key.startsWith("conversation_")) {
+            messageDb.setConversationUnreadOverride(account.getUid(),
+                    key.substring(13), enabled);
+        }
+    }
+
+    private long parseLong(String value) {
+        try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
+    }
+
+    private void clearAllUnreadOverrides() {
+        messageDb.clearAll(account.getUid());
     }
 
     private void markNotificationRead(String id) {
@@ -1042,7 +1257,7 @@ public class CloudListFragment extends Fragment {
         if (MODE_COLLECTION_APP.equals(mode)) return "还没有星标应用";
         if (MODE_COLLECTION_RESOURCE.equals(mode)) return "还没有星标资源";
         if (MODE_MY_RESOURCES.equals(mode)) return "还没有发布资源";
-        if (MODE_NOTIFICATIONS.equals(mode)) return "暂时没有通知或私信";
+        if (MODE_NOTIFICATIONS.equals(mode)) return "暂无消息";
         if (MODE_CONVERSATIONS.equals(mode)) return "还没有私信";
         if (MODE_FOLLOWING.equals(mode)) return "还没有关注任何人";
         if (MODE_FOLLOWERS.equals(mode)) return "还没有粉丝";
@@ -1058,7 +1273,7 @@ public class CloudListFragment extends Fragment {
         if (MODE_COLLECTION_RESOURCE.equals(mode)) return "星标资源后，可在这里快速找到。";
         if (MODE_FOLLOWING.equals(mode)) return "关注感兴趣的用户后会显示在这里。";
         if (MODE_FOLLOWERS.equals(mode)) return "有用户关注你后会显示在这里。";
-        if (MODE_NOTIFICATIONS.equals(mode)) return "新的互动和系统消息会显示在这里。";
+        if (MODE_NOTIFICATIONS.equals(mode)) return "新的系统消息和私信会显示在这里。";
         if (MODE_CONVERSATIONS.equals(mode)) return "与其他用户的私信会显示在这里。";
         if (MODE_USER_APPS.equals(mode)) return "发布的应用会显示在这里。";
         if (MODE_USER_RESOURCES.equals(mode) || MODE_MY_RESOURCES.equals(mode)) return "发布的资源会显示在这里。";

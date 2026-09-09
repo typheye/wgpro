@@ -21,9 +21,11 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.data.MessageDatabase;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
+import com.typheye.wgpro.utils.InboxNotificationHelper;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -40,11 +42,9 @@ import java.util.Map;
 
 /** 系统消息详情：卡片式消息流，不带输入框和发送按钮。 */
 public class SystemMessageDetailFragment extends Fragment {
-    private static final String PREFS = "notification_local";
-    private static final String KEY_CLEARED_ID = "system_message_cleared_id";
-
     private final Handler main = new Handler(Looper.getMainLooper());
     private tAccUtils account;
+    private MessageDatabase messageDb;
     private SwipeRefreshLayout refresh;
     private LinearLayout list;
     private boolean loadedOnce;
@@ -55,10 +55,15 @@ public class SystemMessageDetailFragment extends Fragment {
                                                   @Nullable Bundle state) {
         View root = inflater.inflate(R.layout.fragment_system_messages, container, false);
         account = new tAccUtils(requireContext().getApplicationContext());
+        messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.system_message_refresh);
         list = root.findViewById(R.id.system_message_list);
+        InboxNotificationHelper.cancelSystemNotifications(requireContext());
         refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
         refresh.setOnRefreshListener(this::load);
+        if (!loadedOnce && requireActivity() instanceof BaseSectionActivity) {
+            ((BaseSectionActivity) requireActivity()).showContentLoading();
+        }
         load();
         return root;
     }
@@ -89,11 +94,9 @@ public class SystemMessageDetailFragment extends Fragment {
 
     private void render(@Nullable JSONArray source) {
         if (!isAdded()) return;
-        loadedOnce = true;
         refresh.setRefreshing(false);
         list.removeAllViews();
-        long clearedId = requireContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-                .getLong(clearedKey(), 0L);
+        long clearedId = messageDb.getSystemClearedBefore(account.getUid());
         List<JSONObject> items = new ArrayList<>();
         boolean hasUnread = false;
         long maxId = latestLoadedId;
@@ -121,6 +124,15 @@ public class SystemMessageDetailFragment extends Fragment {
         }
         if (items.isEmpty()) list.addView(emptyState());
         if (hasUnread) markAllRead();
+        finishInitialLoading();
+    }
+
+    private void finishInitialLoading() {
+        if (loadedOnce) return;
+        loadedOnce = true;
+        if (isAdded() && requireActivity() instanceof BaseSectionActivity) {
+            ((BaseSectionActivity) requireActivity()).hideContentLoading();
+        }
     }
 
     private View dateHeader(String text) {
@@ -200,13 +212,19 @@ public class SystemMessageDetailFragment extends Fragment {
         String url = "https://service.typheye.cn/site/report/index.php?id="
                 + Uri.encode(reportId) + "&status=" + Uri.encode(status);
 
+        View divider = new View(requireContext());
+        divider.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
+        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(-1, dp(1));
+        dividerParams.topMargin = dp(14);
+        body.addView(divider, dividerParams);
+
         LinearLayout row = new LinearLayout(requireContext());
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
-        row.setPadding(0, dp(12), 0, 0);
+        row.setMinimumHeight(dp(48));
+        row.setPadding(0, dp(4), 0, 0);
         row.setClickable(true);
         row.setFocusable(true);
-        row.setBackgroundResource(R.drawable.bg_list_item_ripple);
         TextView action = new TextView(requireContext());
         action.setText(label);
         action.setTextSize(15);
@@ -224,24 +242,13 @@ public class SystemMessageDetailFragment extends Fragment {
     }
 
     private View emptyState() {
-        LinearLayout root = new LinearLayout(requireContext());
-        root.setOrientation(LinearLayout.VERTICAL);
-        root.setGravity(Gravity.CENTER);
-        root.setPadding(0, dp(120), 0, dp(40));
-        TextView title = new TextView(requireContext());
-        title.setText("暂无系统消息");
-        title.setTextSize(17);
-        title.setTextColor(requireContext().getColor(R.color.text_primary));
-        title.setGravity(Gravity.CENTER);
-        TextView description = new TextView(requireContext());
-        description.setText("系统通知和举报处理结果会显示在这里。");
-        description.setTextSize(14);
-        description.setTextColor(requireContext().getColor(R.color.text_secondary));
-        description.setGravity(Gravity.CENTER);
-        description.setPadding(0, dp(8), 0, 0);
-        root.addView(title);
-        root.addView(description);
-        return root;
+        View state = LayoutInflater.from(requireContext())
+                .inflate(R.layout.view_stream_empty, list, false);
+        state.setVisibility(View.VISIBLE);
+        ((TextView) state.findViewById(R.id.stream_empty_title)).setText("暂无系统消息");
+        ((TextView) state.findViewById(R.id.stream_empty_description))
+                .setText("系统通知和举报处理结果会显示在这里。");
+        return state;
     }
 
     private void showMessageMenu(JSONObject item, View card) {
@@ -328,8 +335,8 @@ public class SystemMessageDetailFragment extends Fragment {
     }
 
     private void clearLocal() {
-        requireContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-                .edit().putLong(clearedKey(), latestLoadedId).apply();
+        messageDb.setSystemClearedBefore(account.getUid(), latestLoadedId);
+        messageDb.setSystemUnreadOverride(account.getUid(), false);
         list.removeAllViews();
         list.addView(emptyState());
         showResult("已清空", "当前设备上的系统消息记录已清空。");
@@ -344,6 +351,7 @@ public class SystemMessageDetailFragment extends Fragment {
     }
 
     private void markAllRead() {
+        messageDb.setSystemUnreadOverride(account.getUid(), false);
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put("action", "read_all");
         account.postV2Json("notification_state2", fields, new tAccUtils.JsonCallback() {
@@ -360,10 +368,6 @@ public class SystemMessageDetailFragment extends Fragment {
 
     private long parseId(String value) {
         try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
-    }
-
-    private String clearedKey() {
-        return KEY_CLEARED_ID + "_" + account.getUid();
     }
 
     private String dateLabel(String value) {
