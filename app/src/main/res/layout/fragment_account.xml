@@ -39,20 +39,25 @@
                 app:rippleColor="@color/profile_card_pressed" app:strokeWidth="0dp">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:gravity="center_vertical" android:orientation="horizontal" android:padding="18dp">
-                    <com.google.android.material.card.MaterialCardView android:layout_width="62dp"
-                        android:layout_height="62dp" app:cardBackgroundColor="@color/brand_soft"
-                        app:cardCornerRadius="31dp" app:cardElevation="0dp" app:strokeWidth="0dp">
-                        <FrameLayout android:id="@+id/account_avatar_box"
-                            android:layout_width="match_parent" android:layout_height="match_parent">
-                            <TextView android:id="@+id/text_usr_icon" android:layout_width="match_parent"
-                                android:layout_height="match_parent" android:gravity="center"
-                                android:textColor="@color/brand_on_soft" android:textSize="25sp"
-                                android:textStyle="bold" />
-                            <ImageView android:id="@+id/image_usr_icon" android:layout_width="match_parent"
-                                android:layout_height="match_parent" android:contentDescription="账户头像"
-                                android:scaleType="centerCrop" />
-                        </FrameLayout>
-                    </com.google.android.material.card.MaterialCardView>
+                    <FrameLayout android:id="@+id/account_avatar_outer"
+                        android:layout_width="62dp" android:layout_height="62dp"
+                        android:clipChildren="false" android:clipToPadding="false">
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="match_parent" android:layout_height="match_parent"
+                            app:cardBackgroundColor="@color/brand_soft"
+                            app:cardCornerRadius="31dp" app:cardElevation="0dp" app:strokeWidth="0dp">
+                            <FrameLayout android:id="@+id/account_avatar_box"
+                                android:layout_width="match_parent" android:layout_height="match_parent">
+                                <TextView android:id="@+id/text_usr_icon" android:layout_width="match_parent"
+                                    android:layout_height="match_parent" android:gravity="center"
+                                    android:textColor="@color/brand_on_soft" android:textSize="25sp"
+                                    android:textStyle="bold" />
+                                <ImageView android:id="@+id/image_usr_icon" android:layout_width="match_parent"
+                                    android:layout_height="match_parent" android:contentDescription="账户头像"
+                                    android:scaleType="centerCrop" />
+                            </FrameLayout>
+                        </com.google.android.material.card.MaterialCardView>
+                    </FrameLayout>
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_marginStart="15dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView android:id="@+id/text_usr_nick" android:layout_width="match_parent"

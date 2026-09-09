@@ -352,7 +352,8 @@ public class AccountFragment extends Fragment {
                             JSONObject info = json.optJSONObject("info");
                             if (info == null) return;
                             BadgeFactory.bind(requireContext(), info,
-                                    getView().findViewById(R.id.account_avatar_box));
+                                    getView().findViewById(R.id.account_avatar_outer),
+                                    requireContext().getColor(R.color.surface_page));
                             activityCount.setText(String.valueOf(info.optInt("dynamic_count", 0)));
                             followingCount.setText(String.valueOf(info.optInt("following_count", 0)));
                             followersCount.setText(String.valueOf(info.optInt("follower_count", 0)));
