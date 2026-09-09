@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -144,8 +145,6 @@ public class UserDetailActivity extends AppCompatActivity {
         String displayName = nick == null || nick.trim().isEmpty() ? "用户" : nick.trim();
         ((TextView) findViewById(R.id.detail_nick)).setText(displayName);
         ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(displayName);
-        ((TextView) findViewById(R.id.detail_uid)).setText(uid == null || uid.isEmpty()
-                ? "UID --" : "UID " + uid);
         ((TextView) findViewById(R.id.detail_bio)).setText(bio == null || bio.trim().isEmpty()
                 ? "这个人还没有简介呢~" : bio.trim());
         String avatarInitial = displayName.substring(0, 1).toUpperCase();
@@ -220,14 +219,7 @@ public class UserDetailActivity extends AppCompatActivity {
                             BadgeFactory.bindTransparentRing(UserDetailActivity.this, info,
                                     findViewById(R.id.detail_collapsed_avatar_box));
                             applyCollapsedAvatarCutout(collapsedAvatar);
-                            BadgeFactory.bindProfileRow(UserDetailActivity.this, info,
-                                    findViewById(R.id.detail_badge_icons),
-                                    findViewById(R.id.detail_badge_text),
-                                    findViewById(R.id.detail_badge_row),
-                                    BadgeFactory.badgeColor(info));
-                            findViewById(R.id.detail_uid).setVisibility(
-                                    info.optString("badge_type", "").trim().isEmpty()
-                                            ? View.VISIBLE : View.GONE);
+                            bindProfileIdentity(info);
                             profileContentReady = true;
                             profileAssetsPending = 0;
                             String backgroundUrl = info.optString("background_url", "");
@@ -239,8 +231,6 @@ public class UserDetailActivity extends AppCompatActivity {
                                     info.optString("bio", "")).trim();
                             ((TextView) findViewById(R.id.detail_nick)).setText(name);
                             ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(name);
-                            ((TextView) findViewById(R.id.detail_uid)).setText(
-                                    "UID " + info.optString("uid", targetUid));
                             ((TextView) findViewById(R.id.detail_bio)).setText(bio.isEmpty()
                                     ? "这个人还没有简介呢~" : bio);
                             String initial = name.isEmpty() ? "U" : name.substring(0, 1).toUpperCase();
@@ -319,6 +309,24 @@ public class UserDetailActivity extends AppCompatActivity {
         detailLikesCount.setText(String.valueOf(Math.max(0, info.optInt("received_like_count", 0))));
         detailFollowingCount.setText(String.valueOf(Math.max(0, info.optInt("following_count", 0))));
         detailFollowersCount.setText(String.valueOf(Math.max(0, info.optInt("follower_count", 0))));
+    }
+
+    private void bindProfileIdentity(@NonNull JSONObject info) {
+        LinearLayout row = findViewById(R.id.detail_badge_row);
+        LinearLayout icons = findViewById(R.id.detail_badge_icons);
+        TextView text = findViewById(R.id.detail_badge_text);
+        if (row == null || icons == null || text == null) return;
+        if (!info.optString("badge_type", "").trim().isEmpty()) {
+            BadgeFactory.bindProfileRow(this, info, icons, text, row, BadgeFactory.badgeColor(info));
+            return;
+        }
+        icons.removeAllViews();
+        ImageView icon = new ImageView(this);
+        icon.setImageResource(R.drawable.ic_person_vector);
+        icon.setImageTintList(ColorStateList.valueOf(Color.WHITE));
+        icons.addView(icon, new LinearLayout.LayoutParams(dp(18), dp(18)));
+        text.setText("UID | " + info.optString("uid", targetUid));
+        row.setVisibility(View.VISIBLE);
     }
 
     private void onProfileAssetLoaded() {
@@ -792,7 +800,6 @@ public class UserDetailActivity extends AppCompatActivity {
         WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
         int top = insets == null ? 0
                 : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-        if (isInMultiWindowMode()) top = Math.max(top, dp(32));
         int height = headerHeight + top;
         ViewGroup.LayoutParams bgParams = background.getLayoutParams();
         bgParams.height = height;

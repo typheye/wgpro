@@ -68,16 +68,14 @@
                     android:layout_height="wrap_content" android:layout_marginTop="16dp"
                     android:ellipsize="end" android:maxLines="1"
                     android:textColor="@color/white" android:textSize="30sp" android:textStyle="bold" />
-                <TextView android:id="@+id/detail_uid" android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" android:layout_marginTop="8dp"
-                    android:background="@drawable/bg_profile_uid_chip"
-                    android:paddingStart="10dp" android:paddingTop="6dp"
-                    android:paddingEnd="12dp" android:paddingBottom="6dp"
-                    android:textColor="#F2FFFFFF" android:textSize="13sp" />
                 <LinearLayout android:id="@+id/detail_badge_row"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"
-                    android:layout_marginTop="9dp" android:gravity="center_vertical"
-                    android:orientation="horizontal" android:visibility="gone">
+                    android:layout_marginTop="8dp"
+                    android:background="@drawable/bg_profile_uid_chip"
+                    android:gravity="center_vertical" android:orientation="horizontal"
+                    android:paddingStart="10dp" android:paddingTop="4dp"
+                    android:paddingEnd="12dp" android:paddingBottom="4dp"
+                    android:visibility="gone">
                     <LinearLayout android:id="@+id/detail_badge_icons"
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:gravity="center_vertical" android:orientation="horizontal" />
@@ -87,7 +85,7 @@
                         android:textSize="14sp" />
                 </LinearLayout>
                 <TextView android:id="@+id/detail_bio" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="9dp"
+                    android:layout_height="wrap_content" android:layout_marginTop="6dp"
                     android:ellipsize="end" android:maxLines="3"
                     android:textColor="#F2FFFFFF" android:textSize="16sp" />
                 <LinearLayout android:id="@+id/detail_stats_row"
