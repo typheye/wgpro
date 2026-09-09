@@ -119,7 +119,12 @@ public class CloudListFragment extends Fragment {
         state = root.findViewById(R.id.cloud_state);
         stateText = state.findViewById(R.id.stream_empty_title);
         stateDescription = state.findViewById(R.id.stream_empty_description);
-        refresh.setOnRefreshListener(this::load);
+        refresh.setOnRefreshListener(() -> {
+            load();
+            if (requireActivity() instanceof UserDetailActivity) {
+                ((UserDetailActivity) requireActivity()).refreshProfileFromTabs();
+            }
+        });
         load();
         return root;
     }
@@ -1185,11 +1190,10 @@ public class CloudListFragment extends Fragment {
         LinearLayout.LayoutParams bioParams = new LinearLayout.LayoutParams(-1, -2); bioParams.topMargin = dp(3);
         labels.addView(bio, bioParams); body.addView(labels, labelsParams); row.addView(body);
 
-        String resolvedUid = (MODE_CONVERSATIONS.equals(mode) || isConversation(item)) ? item.optString("peer_uid", "")
-                : item.optString("uid", item.optString("target_uid", ""));
-        String avatarUrl = item.optString("avatar_url", item.optString("peer_avatar_url",
-                item.optString("actor_avatar_url", "")));
-        if (resolvedUid.isEmpty()) resolvedUid = item.optString("actor_uid", "");
+        String resolvedUid = (MODE_CONVERSATIONS.equals(mode) || isConversation(item))
+                ? item.optString("peer_uid", "")
+                : item.optString("uid", item.optString("actor_uid", ""));
+        String avatarUrl = contactAvatarUrl(item, resolvedUid);
         final String uid = resolvedUid;
         loadContactAvatar(uid, avatarUrl, avatar, initial);
         row.setOnClickListener(v -> {
@@ -1237,12 +1241,24 @@ public class CloudListFragment extends Fragment {
         return name.isEmpty() ? "用" : name.substring(0, 1).toUpperCase();
     }
 
+    private String contactAvatarUrl(JSONObject item, String uid) {
+        String url = item.optString("avatar_url", item.optString("actor_avatar_url", "")).trim();
+        if (url.contains("/api.php?type=get_avatar2") && !uid.isEmpty()) {
+            return "https://service.typheye.cn/src/pericon/" + uid;
+        }
+        return url;
+    }
+
     private void loadContactAvatar(String uid, String url, ShapeableImageView avatar, TextView initial) {
         if (uid.isEmpty()) return;
         File cached = new File(requireContext().getFilesDir(), "avatar_" + uid + ".jpg");
         if (cached.isFile()) {
             Bitmap bitmap = BitmapFactory.decodeFile(cached.getAbsolutePath());
-            if (bitmap != null) { avatar.setImageBitmap(bitmap); avatar.setVisibility(View.VISIBLE); initial.setVisibility(View.GONE); }
+            if (bitmap != null) {
+                avatar.setImageBitmap(bitmap);
+                avatar.setVisibility(View.VISIBLE);
+                initial.setVisibility(View.GONE);
+            }
         }
         Bitmap memory = ImageCache.getMemory(url);
         if (memory != null) {

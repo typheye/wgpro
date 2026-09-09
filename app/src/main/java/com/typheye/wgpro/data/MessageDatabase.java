@@ -54,16 +54,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 + "PRIMARY KEY(uid,notification_id))");
     }
 
-    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 2) {
-            db.execSQL("ALTER TABLE conversation_state ADD COLUMN "
-                    + "cleared_before_id INTEGER NOT NULL DEFAULT 0");
-        }
-        if (oldVersion < 3) {
-            db.execSQL("ALTER TABLE system_state ADD COLUMN "
-                    + "removed INTEGER NOT NULL DEFAULT 0");
-        }
-    }
+    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
 
     public long getSystemClearedBefore(String uid) {
         return queryLong("SELECT cleared_before_id FROM system_state WHERE uid=?",

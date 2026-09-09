@@ -1,6 +1,5 @@
 package com.typheye.wgpro.ui.function.community;
 
-import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.graphics.Typeface;
@@ -240,19 +239,7 @@ public class ChatActivity extends BaseSectionActivity {
         }
 
         private long clearedMessageId() {
-            long cleared = messageDb.getConversationClearedBefore(account.getUid(), peerUid);
-            android.content.SharedPreferences legacy = requireContext()
-                    .getSharedPreferences("chat_local", Context.MODE_PRIVATE);
-            String key = "cleared_" + peerUid;
-            long legacyCleared = legacy.getLong(key, 0L);
-            if (legacyCleared > cleared) {
-                cleared = legacyCleared;
-                messageDb.setConversationClearedBefore(account.getUid(), peerUid, cleared);
-                messageDb.upsertConversationPreview(account.getUid(), peerUid,
-                        cleared, "", "");
-            }
-            if (legacyCleared > 0L) legacy.edit().remove(key).apply();
-            return cleared;
+            return messageDb.getConversationClearedBefore(account.getUid(), peerUid);
         }
 
         private long parseId(String value) {

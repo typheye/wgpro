@@ -38,8 +38,8 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
@@ -92,6 +92,9 @@ public class UserDetailActivity extends AppCompatActivity {
     private boolean profileLoadingFinished;
     private int profileAssetsPending;
     private JSONObject profileInfo;
+    private TextView detailLikesCount;
+    private TextView detailFollowingCount;
+    private TextView detailFollowersCount;
     private ActivityResultLauncher<String> backgroundPicker;
     private final Runnable settledWindowLayout = () -> {
         if (detailRoot != null && detailRoot.isAttachedToWindow()) {
@@ -110,6 +113,9 @@ public class UserDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_detail);
         profileLoadingStarted = android.os.SystemClock.uptimeMillis();
         account = new tAccUtils(this);
+        detailLikesCount = findViewById(R.id.detail_likes_count);
+        detailFollowingCount = findViewById(R.id.detail_following_count);
+        detailFollowersCount = findViewById(R.id.detail_followers_count);
         backgroundPicker = registerForActivityResult(
                 new ActivityResultContracts.GetContent(),
                 uri -> { if (uri != null) uploadBackground(uri); });
@@ -138,7 +144,8 @@ public class UserDetailActivity extends AppCompatActivity {
         String displayName = nick == null || nick.trim().isEmpty() ? "用户" : nick.trim();
         ((TextView) findViewById(R.id.detail_nick)).setText(displayName);
         ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(displayName);
-        ((TextView) findViewById(R.id.detail_uid)).setText(uid == null || uid.isEmpty() ? "UID 未知" : "UID " + uid);
+        ((TextView) findViewById(R.id.detail_uid)).setText(uid == null || uid.isEmpty()
+                ? "UID --" : "UID " + uid);
         ((TextView) findViewById(R.id.detail_bio)).setText(bio == null || bio.trim().isEmpty()
                 ? "这个人还没有简介呢~" : bio.trim());
         String avatarInitial = displayName.substring(0, 1).toUpperCase();
@@ -209,6 +216,7 @@ public class UserDetailActivity extends AppCompatActivity {
                             if (isFinishing() || isDestroyed()) return;
                             if (info == null) { showProfileError("未找到该用户"); return; }
                             profileInfo = info;
+                            bindProfileStats(info);
                             BadgeFactory.bindTransparentRing(UserDetailActivity.this, info,
                                     findViewById(R.id.detail_collapsed_avatar_box));
                             applyCollapsedAvatarCutout(collapsedAvatar);
@@ -231,7 +239,8 @@ public class UserDetailActivity extends AppCompatActivity {
                                     info.optString("bio", "")).trim();
                             ((TextView) findViewById(R.id.detail_nick)).setText(name);
                             ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(name);
-                            ((TextView) findViewById(R.id.detail_uid)).setText("UID " + info.optString("uid", targetUid));
+                            ((TextView) findViewById(R.id.detail_uid)).setText(
+                                    "UID " + info.optString("uid", targetUid));
                             ((TextView) findViewById(R.id.detail_bio)).setText(bio.isEmpty()
                                     ? "这个人还没有简介呢~" : bio);
                             String initial = name.isEmpty() ? "U" : name.substring(0, 1).toUpperCase();
@@ -294,6 +303,22 @@ public class UserDetailActivity extends AppCompatActivity {
         ImageView collapsed = findViewById(R.id.detail_collapsed_avatar);
         loadPublicProfile(avatar, collapsed, findViewById(R.id.detail_avatar_text),
                 findViewById(R.id.detail_collapsed_avatar_text));
+    }
+
+    public void refreshProfileFromTabs() {
+        if (isFinishing() || isDestroyed() || profileRequestActive) return;
+        ImageView avatar = findViewById(R.id.detail_avatar);
+        ImageView collapsed = findViewById(R.id.detail_collapsed_avatar);
+        loadPublicProfile(avatar, collapsed, findViewById(R.id.detail_avatar_text),
+                findViewById(R.id.detail_collapsed_avatar_text));
+    }
+
+    private void bindProfileStats(@NonNull JSONObject info) {
+        if (detailLikesCount == null || detailFollowingCount == null
+                || detailFollowersCount == null) return;
+        detailLikesCount.setText(String.valueOf(Math.max(0, info.optInt("received_like_count", 0))));
+        detailFollowingCount.setText(String.valueOf(Math.max(0, info.optInt("following_count", 0))));
+        detailFollowersCount.setText(String.valueOf(Math.max(0, info.optInt("follower_count", 0))));
     }
 
     private void onProfileAssetLoaded() {
@@ -767,6 +792,7 @@ public class UserDetailActivity extends AppCompatActivity {
         WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
         int top = insets == null ? 0
                 : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+        if (isInMultiWindowMode()) top = Math.max(top, dp(32));
         int height = headerHeight + top;
         ViewGroup.LayoutParams bgParams = background.getLayoutParams();
         bgParams.height = height;
