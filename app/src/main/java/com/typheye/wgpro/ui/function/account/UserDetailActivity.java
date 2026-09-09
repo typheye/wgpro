@@ -81,6 +81,8 @@ public class UserDetailActivity extends AppCompatActivity {
     private ViewTreeObserver.OnPreDrawListener pendingProfileLayout;
     private int lastRootWidth = -1;
     private int lastRootHeight = -1;
+    /** Collapsed drawer baseline captured from the first normal full-screen layout. */
+    private int fullScreenCollapsedTop = -1;
     private String targetUid;
     private boolean isSelf;
     private boolean following;
@@ -242,6 +244,10 @@ public class UserDetailActivity extends AppCompatActivity {
                             updateFollowButton();
                             expandedIdentity.setVisibility(View.VISIBLE);
                             collapsedIdentity.setVisibility(View.VISIBLE);
+                            // The identity block was invisible during the initial
+                            // measure. Recalculate once its real height is known so
+                            // the stored full-screen baseline is meaningful.
+                            detailRoot.post(() -> scheduleProfileLayout(false));
                             String avatarUrl = info.optString("avatar_url", "");
                             if (!avatarUrl.isEmpty()) {
                                 profileAssetsPending++;
@@ -325,7 +331,7 @@ public class UserDetailActivity extends AppCompatActivity {
         icon.setImageResource(R.drawable.ic_person_vector);
         icon.setImageTintList(ColorStateList.valueOf(Color.WHITE));
         icons.addView(icon, new LinearLayout.LayoutParams(dp(18), dp(18)));
-        text.setText("UID | " + info.optString("uid", targetUid));
+        text.setText("UID " + info.optString("uid", targetUid));
         row.setVisibility(View.VISIBLE);
     }
 
@@ -515,7 +521,18 @@ public class UserDetailActivity extends AppCompatActivity {
                 // its measured content determine the rest of the hero on every screen size.
                 expandedIdentity.setY(toolbarBottom);
                 int identityBottom = toolbarBottom + expandedIdentity.getMeasuredHeight();
-                int collapsedTop = identityBottom - dp(8);
+                // Keep the sheet just below the identity block.  The previous overlap
+                // pulled the default drawer too far upward in compact/freeform windows.
+                int collapsedTop = identityBottom + dp(16);
+                boolean freeform = isInMultiWindowMode();
+                if (!freeform && fullScreenCollapsedTop > 0) {
+                    // Re-entering full-screen after freeform must return to the same
+                    // visual baseline as a freshly opened profile.
+                    collapsedTop = fullScreenCollapsedTop;
+                } else if (!freeform && expandedIdentity.getVisibility() == View.VISIBLE
+                        && expandedIdentity.getMeasuredHeight() > 0) {
+                    fullScreenCollapsedTop = collapsedTop;
+                }
 
                 // Keep two 24dp sheet-corner radii of the dimmed header behind the sheet.
                 // The sheet position stays content-driven; only its backdrop extends.
@@ -798,17 +815,30 @@ public class UserDetailActivity extends AppCompatActivity {
         View dim = findViewById(R.id.detail_background_dim);
         if (background == null || dim == null) return;
         WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
-        int top = insets == null ? 0
+        int insetTop = insets == null ? 0
                 : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-        int height = headerHeight + top;
+        // MIUI freeform windows can report a zero status-bar inset while still
+        // reserving a caption/status area above the app content.  Extend the
+        // bitmap by the platform status-bar size (and a slightly larger caption
+        // allowance in multi-window mode) so custom backgrounds reach the top.
+        int resourceTop = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId != 0) resourceTop = getResources().getDimensionPixelSize(resourceId);
+        boolean freeform = isInMultiWindowMode();
+        int windowTop = freeform ? dp(32) : resourceTop;
+        int top = Math.max(insetTop, windowTop);
+        // The freeform caption can sit above the content origin even when insets
+        // report zero. Move the bitmap itself upward so it covers that strip.
+        int extraOffset = freeform ? dp(24) : 0;
+        int height = headerHeight + top + extraOffset;
         ViewGroup.LayoutParams bgParams = background.getLayoutParams();
         bgParams.height = height;
         background.setLayoutParams(bgParams);
-        background.setTranslationY(-top);
+        background.setTranslationY(-(top + extraOffset));
         ViewGroup.LayoutParams dimParams = dim.getLayoutParams();
         dimParams.height = height;
         dim.setLayoutParams(dimParams);
-        dim.setTranslationY(-top);
+        dim.setTranslationY(-(top + extraOffset));
     }
 
     private void showResult(String title, String message) {
