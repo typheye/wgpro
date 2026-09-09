@@ -77,19 +77,58 @@ public class SystemMessageDetailFragment extends Fragment {
         Map<String, String> query = new LinkedHashMap<>();
         query.put("page", "1");
         query.put("size", "50");
-        account.getV2JsonFresh("notifications2", query, true, new tAccUtils.JsonCallback() {
+        account.getV2Json("notifications2", query, true, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 JSONArray items = json.optJSONArray("items");
-                main.post(() -> render(items));
+                cacheSystemMessages(items);
+                main.post(() -> render(cachedSystemJson()));
             }
 
             @Override public void onError(int code, @NonNull String message) {
                 main.post(() -> {
                     refresh.setRefreshing(false);
-                    if (!loadedOnce) render(new JSONArray());
+                    render(cachedSystemJson());
                 });
             }
         });
+    }
+
+    private void cacheSystemMessages(@Nullable JSONArray source) {
+        List<MessageDatabase.SystemMessage> cache = new ArrayList<>();
+        if (source != null) {
+            for (int i = 0; i < source.length(); i++) {
+                JSONObject item = source.optJSONObject(i);
+                if (item == null) continue;
+                MessageDatabase.SystemMessage message = new MessageDatabase.SystemMessage();
+                message.id = parseId(item.optString("id", "0"));
+                message.title = item.optString("title", "");
+                message.content = item.optString("content", "");
+                JSONObject metadata = item.optJSONObject("metadata");
+                message.metadata = metadata == null ? "{}" : metadata.toString();
+                message.createdAt = item.optString("created_at", "");
+                message.isRead = item.optBoolean("is_read", false);
+                cache.add(message);
+            }
+        }
+        messageDb.replaceSystemMessages(account.getUid(), cache);
+    }
+
+    private JSONArray cachedSystemJson() {
+        JSONArray result = new JSONArray();
+        for (MessageDatabase.SystemMessage message : messageDb.getSystemMessages(account.getUid())) {
+            JSONObject item = new JSONObject();
+            try {
+                item.put("id", message.id);
+                item.put("title", message.title);
+                item.put("content", message.content);
+                try { item.put("metadata", new JSONObject(message.metadata)); }
+                catch (Exception ignored) { item.put("metadata", new JSONObject()); }
+                item.put("created_at", message.createdAt);
+                item.put("is_read", message.isRead);
+            } catch (Exception ignored) { }
+            result.put(item);
+        }
+        return result;
     }
 
     private void render(@Nullable JSONArray source) {
@@ -301,6 +340,8 @@ public class SystemMessageDetailFragment extends Fragment {
                     }
                 }), new WGProProgressRunner.Callback() {
             @Override public void success(@NonNull JSONObject json) {
+                messageDb.deleteSystemMessage(account.getUid(),
+                        parseId(item.optString("id", "0")));
                 load();
                 showResult("已删除", "该消息已从当前账户的通知记录中移除。");
             }

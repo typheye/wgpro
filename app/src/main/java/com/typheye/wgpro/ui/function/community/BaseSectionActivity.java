@@ -1,5 +1,6 @@
 package com.typheye.wgpro.ui.function.community;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
@@ -40,6 +41,15 @@ abstract class BaseSectionActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
         if (state == null) getSupportFragmentManager().beginTransaction()
+                .replace(R.id.section_container, createContent()).commit();
+    }
+
+    @Override protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent == null) return;
+        setIntent(intent);
+        sectionToolbar().setTitle(screenTitle());
+        getSupportFragmentManager().beginTransaction()
                 .replace(R.id.section_container, createContent()).commit();
     }
 

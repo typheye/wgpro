@@ -79,6 +79,14 @@ public final class ImageCache {
         });
     }
 
+    @Nullable
+    public static Bitmap getMemory(@Nullable String url) {
+        String source = normalize(url);
+        if (source.isEmpty()) return null;
+        Bitmap bitmap = MEMORY.get(source);
+        return bitmap == null || bitmap.isRecycled() ? null : bitmap;
+    }
+
     public static void clear(@NonNull Context context) {
         MEMORY.evictAll();
         File dir = cacheDir(context);

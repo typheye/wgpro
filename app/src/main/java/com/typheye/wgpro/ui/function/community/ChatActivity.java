@@ -29,6 +29,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.data.MessageDatabase;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
@@ -110,6 +111,7 @@ public class ChatActivity extends BaseSectionActivity {
         private final Handler main = new Handler(Looper.getMainLooper());
         private String peerUid;
         private tAccUtils account;
+        private MessageDatabase messageDb;
         private LinearLayout messages;
         private SwipeRefreshLayout refresh;
         private AppCompatEditText input;
@@ -128,6 +130,7 @@ public class ChatActivity extends BaseSectionActivity {
             View root = inflater.inflate(R.layout.fragment_chat, container, false);
             peerUid = getArguments() == null ? "" : getArguments().getString("peer_uid", "");
             account = new tAccUtils(requireContext().getApplicationContext());
+            messageDb = new MessageDatabase(requireContext());
             if (!peerUid.isEmpty()) {
                 InboxNotificationHelper.cancelPrivateNotifications(requireContext(), peerUid);
             }
@@ -219,8 +222,10 @@ public class ChatActivity extends BaseSectionActivity {
 
         private void clearLocalHistory() {
             WGProProgressRunner.run(this, "处理中", "正在清空聊天记录...", completion -> {
-                requireContext().getSharedPreferences("chat_local", Context.MODE_PRIVATE)
-                        .edit().putLong("cleared_" + peerUid, latestMessageId).apply();
+                long clearedBefore = Math.max(latestMessageId, clearedMessageId());
+                messageDb.setConversationClearedBefore(account.getUid(), peerUid, clearedBefore);
+                messageDb.upsertConversationPreview(account.getUid(), peerUid,
+                        clearedBefore, "", "");
                 completion.success(new JSONObject());
             }, new WGProProgressRunner.Callback() {
                 @Override public void success(@NonNull JSONObject json) {
@@ -235,8 +240,19 @@ public class ChatActivity extends BaseSectionActivity {
         }
 
         private long clearedMessageId() {
-            return requireContext().getSharedPreferences("chat_local", Context.MODE_PRIVATE)
-                    .getLong("cleared_" + peerUid, 0L);
+            long cleared = messageDb.getConversationClearedBefore(account.getUid(), peerUid);
+            android.content.SharedPreferences legacy = requireContext()
+                    .getSharedPreferences("chat_local", Context.MODE_PRIVATE);
+            String key = "cleared_" + peerUid;
+            long legacyCleared = legacy.getLong(key, 0L);
+            if (legacyCleared > cleared) {
+                cleared = legacyCleared;
+                messageDb.setConversationClearedBefore(account.getUid(), peerUid, cleared);
+                messageDb.upsertConversationPreview(account.getUid(), peerUid,
+                        cleared, "", "");
+            }
+            if (legacyCleared > 0L) legacy.edit().remove(key).apply();
+            return cleared;
         }
 
         private long parseId(String value) {
@@ -463,7 +479,20 @@ public class ChatActivity extends BaseSectionActivity {
             Map<String, String> fields = new LinkedHashMap<>(); fields.put("recipient_uid", peerUid);
             fields.put("content", body); fields.put("message_type", "text"); fields.put("metadata", "{}");
             account.postV2Json("message_send2", fields, new tAccUtils.JsonCallback() {
-                @Override public void onSuccess(@NonNull JSONObject json) { main.post(() -> { if (!isAdded()) return; input.setText(""); load(); }); }
+                @Override public void onSuccess(@NonNull JSONObject json) {
+                    main.post(() -> {
+                        if (!isAdded()) return;
+                        long messageId = parseId(json.optString("message_id", "0"));
+                        if (messageId > 0L) {
+                            messageDb.setConversationRemoved(account.getUid(), peerUid, false);
+                            messageDb.setConversationUnreadOverride(account.getUid(), peerUid, false);
+                            messageDb.upsertConversationPreview(account.getUid(), peerUid,
+                                    messageId, body, json.optString("created_at", ""));
+                        }
+                        input.setText("");
+                        load();
+                    });
+                }
                 @Override public void onError(int code, @NonNull String message) { main.post(() -> showDialog(message)); }
             });
         }

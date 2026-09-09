@@ -279,6 +279,23 @@ public class UserDetailActivity extends AppCompatActivity {
         }
     }
 
+    @Override protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent == null) return;
+        String requestedUid = intent.getStringExtra(EXTRA_TARGET_UID);
+        String nextUid = requestedUid == null || requestedUid.trim().isEmpty()
+                ? account.getUid() : requestedUid.trim();
+        setIntent(intent);
+        if (!nextUid.equals(targetUid)) {
+            recreate();
+            return;
+        }
+        ImageView avatar = findViewById(R.id.detail_avatar);
+        ImageView collapsed = findViewById(R.id.detail_collapsed_avatar);
+        loadPublicProfile(avatar, collapsed, findViewById(R.id.detail_avatar_text),
+                findViewById(R.id.detail_collapsed_avatar_text));
+    }
+
     private void onProfileAssetLoaded() {
         if (profileAssetsPending > 0) profileAssetsPending--;
         maybeFinishProfileLoading();
