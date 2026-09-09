@@ -33,7 +33,6 @@ import android.widget.TextView;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
-import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -177,27 +176,6 @@ public class AccMangerActivity extends AppCompatActivity {
             updateNick();
             updateShuo();
             updateAvatar();
-            loadBadge();
-        }
-
-        private void loadBadge() {
-            String uid = accUtils.getUid();
-            if (uid == null || uid.isEmpty()) return;
-            accUtils.getV2Json("user_profile2",
-                    java.util.Collections.singletonMap("target_uid", uid), true,
-                    new tAccUtils.JsonCallback() {
-                        @Override public void onSuccess(@NonNull org.json.JSONObject json) {
-                            mainHandler.post(() -> {
-                                if (!isAdded() || getView() == null) return;
-                                org.json.JSONObject info = json.optJSONObject("info");
-                                if (info == null) return;
-                                BadgeFactory.bind(requireContext(), info,
-                                        getView().findViewById(R.id.account_edit_avatar_box));
-                            });
-                        }
-
-                        @Override public void onError(int code, @NonNull String message) { }
-                    });
         }
 
         private void updateNick() {
