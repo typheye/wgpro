@@ -66,7 +66,7 @@ public final class AppDetailActivity extends BaseSectionActivity {
             if (dialog instanceof WGProBottomSheetDialog) ((WGProBottomSheetDialog) dialog).dismissForReplacement();
             sectionToolbar().postDelayed(() -> {
                 if (action.contains("星标")) { toggleStar(); return; }
-                if ("举报".equals(action)) { reportApp(account); return; }
+                if ("举报".equals(action)) { reportApp(); return; }
                 deleteApp(account);
             }, 40L);
         }).show();
@@ -79,11 +79,10 @@ public final class AppDetailActivity extends BaseSectionActivity {
         startActivity(Intent.createChooser(send, "分享应用"));
     }
 
-    private void reportApp(tAccUtils account) {
-        Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "app");
-        fields.put("target_key", appInfo.optString("id", appInfo.optString("package")));
-        fields.put("reason_code", "other"); fields.put("description", "通过 Android 客户端举报");
-        postAction(account, "report_create2", fields, false);
+    private void reportApp() {
+        ReportActivity.open(this, "app",
+                appInfo.optString("id", appInfo.optString("package")),
+                appInfo.optString("name", "应用"));
     }
 
     private void toggleStar() {

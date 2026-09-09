@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONObject;
@@ -77,18 +78,9 @@ public final class AppListItemFactory {
 
     private static void loadIcon(Context context, String url, ImageView image, View fallback) {
         if (url == null || url.trim().isEmpty()) return;
-        if (url.startsWith("/")) url = "https://res.typheye.cn" + url;
-        Request request; try { request = new Request.Builder().url(url).build(); }
-        catch (IllegalArgumentException ignored) { return; }
-        new tAccUtils(context.getApplicationContext()).getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException e) { }
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
-                try (Response body = response) {
-                    if (!body.isSuccessful() || body.body() == null) return;
-                    Bitmap bitmap = BitmapFactory.decodeStream(body.body().byteStream()); if (bitmap == null) return;
-                    image.post(() -> { image.setImageBitmap(bitmap); image.setVisibility(View.VISIBLE); fallback.setVisibility(View.GONE); });
-                }
-            }
+        ImageCache.load(context, url, image, () -> {
+            image.setVisibility(View.VISIBLE);
+            fallback.setVisibility(View.GONE);
         });
     }
     private static TextView text(Context c, String value, int size, boolean bold, int color) {

@@ -34,9 +34,11 @@ import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.function.community.AppDetailActivity;
 import com.typheye.wgpro.ui.function.community.AppListItemFactory;
 import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
+import com.typheye.wgpro.ui.function.community.ReportActivity;
 import com.typheye.wgpro.ui.function.community.ResourceMasonryFactory;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -258,7 +260,7 @@ public class HomeFragment extends Fragment {
             ImageView image = new ImageView(requireContext());
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             card.addView(image, new MaterialCardView.LayoutParams(-1, -1));
-            loadBannerImage(imageUrl, image);
+            ImageCache.load(requireContext(), imageUrl, image, null);
         }
         View shade = new View(requireContext());
         shade.setBackground(new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
@@ -315,62 +317,6 @@ public class HomeFragment extends Fragment {
 
     private void loadImage(String url, ImageView target) {
         loadImage(url, target, null);
-    }
-
-    private void loadBannerImage(String url, ImageView target) {
-        if (url == null || url.isEmpty()) return;
-        File cached = bannerImageFile(url);
-        if (cached.isFile()) {
-            Bitmap bitmap = BitmapFactory.decodeFile(cached.getAbsolutePath());
-            if (bitmap != null) target.setImageBitmap(bitmap);
-        }
-        Request request;
-        try {
-            request = new Request.Builder().url(url).build();
-        } catch (IllegalArgumentException ignored) {
-            return;
-        }
-        account.getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) { }
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
-                try (Response body = response) {
-                    if (!body.isSuccessful() || body.body() == null) return;
-                    byte[] bytes = body.body().bytes();
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    if (bitmap == null) return;
-                    saveBannerImage(cached, bytes);
-                    onUi(() -> target.setImageBitmap(bitmap));
-                } catch (IOException ignored) { }
-            }
-        });
-    }
-
-    private File bannerImageFile(String url) {
-        File dir = new File(requireContext().getCacheDir(), "banner_images");
-        return new File(dir, sha256Hex(url) + ".img");
-    }
-
-    private void saveBannerImage(File file, byte[] bytes) {
-        File dir = file.getParentFile();
-        if (dir != null && !dir.isDirectory() && !dir.mkdirs()) return;
-        try (FileOutputStream out = new FileOutputStream(file)) {
-            out.write(bytes);
-        } catch (IOException ignored) { }
-    }
-
-    private static String sha256Hex(String value) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] bytes = digest.digest(value.getBytes(StandardCharsets.UTF_8));
-            StringBuilder sb = new StringBuilder(bytes.length * 2);
-            for (byte b : bytes) {
-                sb.append(Character.forDigit((b >> 4) & 0xF, 16));
-                sb.append(Character.forDigit(b & 0xF, 16));
-            }
-            return sb.toString();
-        } catch (NoSuchAlgorithmException ignored) {
-            return Integer.toHexString(value.hashCode());
-        }
     }
 
     private void loadImage(String url, ImageView target, @Nullable Runnable loaded) {
@@ -567,7 +513,11 @@ public class HomeFragment extends Fragment {
             if ("分享".equals(actions[w])) { Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, (app ? "应用：" : "资源：") + item.optString(app ? "name" : "title", "未知")); startActivity(Intent.createChooser(share, "分享")); return; }
             Map<String,String> fields = new LinkedHashMap<>();
             if (mine) { fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id")); runCatalogAction(app ? "app_delete2" : "resource_delete2", fields, "确认删除？", "删除后无法恢复。", "已删除"); }
-            else { fields.put("target_type", app ? "app" : "resource"); fields.put("target_key", item.optString(app ? "package" : "id")); fields.put("reason_code", "other"); fields.put("description", "通过 Android 客户端举报"); runCatalogAction("report_create2", fields, "确认举报？", "确认提交举报吗？", "举报已提交"); }
+            else {
+                ReportActivity.open(requireContext(), app ? "app" : "resource",
+                        item.optString(app ? "package" : "id"),
+                        item.optString(app ? "name" : "title", app ? "应用" : "资源"));
+            }
         }).show();
     }
 

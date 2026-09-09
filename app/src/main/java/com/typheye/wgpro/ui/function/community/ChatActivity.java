@@ -77,7 +77,10 @@ public class ChatActivity extends BaseSectionActivity {
                 .setTitle(peerName == null || peerName.trim().isEmpty() ? "聊天操作" : peerName.trim())
                 .setItems(new CharSequence[]{"主页", "举报"}, (dialog, which) -> {
                     if (which == 0) openPeerProfile(peerUid);
-                    else confirmReportUser(peerUid);
+                    else if (peerUid != null && peerUid.trim().matches("\\d+")) {
+                        ReportActivity.open(this, "user", peerUid.trim(),
+                                peerName == null ? "" : peerName.trim());
+                    }
                 }).show();
     }
 
@@ -85,55 +88,6 @@ public class ChatActivity extends BaseSectionActivity {
         if (peerUid == null || peerUid.trim().isEmpty()) return;
         startActivity(new android.content.Intent(this, UserDetailActivity.class)
                 .putExtra(UserDetailActivity.EXTRA_TARGET_UID, peerUid.trim()));
-    }
-
-    private void confirmReportUser(String peerUid) {
-        if (peerUid == null || !peerUid.trim().matches("\\d+")) return;
-        String target = peerUid.trim();
-        new WGProAlertDialogBuilder(this)
-                .setTitle("举报用户？")
-                .setMessage("确认举报该用户？")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("举报", (dialog, which) -> {
-                    if (dialog instanceof WGProBottomSheetDialog) {
-                        ((WGProBottomSheetDialog) dialog).dismissForReplacement();
-                    }
-                    new Handler(Looper.getMainLooper()).postDelayed(
-                            () -> reportUser(target), 40L);
-                }).show();
-    }
-
-    private void reportUser(String peerUid) {
-        WGProProgressRunner.run(this, "提交中", "正在提交举报...", completion -> {
-            Map<String, String> fields = new LinkedHashMap<>();
-            fields.put("target_type", "user");
-            fields.put("target_key", peerUid);
-            fields.put("reason_code", "other");
-            fields.put("description", "通过 Android 客户端举报");
-            new tAccUtils(this).postV2Json("report_create2", fields,
-                    new tAccUtils.JsonCallback() {
-                        @Override public void onSuccess(@NonNull JSONObject json) {
-                            completion.success(json);
-                        }
-
-                        @Override public void onError(int code, @NonNull String message) {
-                            completion.error(code, message);
-                        }
-                    });
-        }, new WGProProgressRunner.Callback() {
-            @Override public void success(@NonNull JSONObject json) {
-                new WGProAlertDialogBuilder(ChatActivity.this).setTitle("举报已提交")
-                        .setMessage("感谢反馈，我们会尽快处理。")
-                        .setNegativeButton("关闭", null).show();
-            }
-
-            @Override public void error(int code, @NonNull String message) {
-                new WGProAlertDialogBuilder(ChatActivity.this).setTitle("举报失败")
-                        .setMessage(message == null || message.trim().isEmpty()
-                                ? "请稍后重试" : message)
-                        .setNegativeButton("关闭", null).show();
-            }
-        });
     }
 
     public static final class ChatFragment extends Fragment {
@@ -279,12 +233,16 @@ public class ChatActivity extends BaseSectionActivity {
             boolean recalled = isRecalled(item);
             boolean canRecall = mine && !recalled
                     && withinRecallWindow(item.optString("created_at", ""));
-            CharSequence[] actions = canRecall
-                    ? new CharSequence[]{"消息详情", "撤回"}
-                    : new CharSequence[]{"消息详情"};
+            java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
+            menu.add("消息详情");
+            menu.add("删除");
+            if (canRecall) menu.add("撤回");
+            CharSequence[] actions = menu.toArray(new CharSequence[0]);
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("消息操作").setItems(actions, (dialog, which) -> {
-                        if (which == 0) showMessageDetail(item);
+                        String action = actions[which].toString();
+                        if ("消息详情".equals(action)) showMessageDetail(item);
+                        else if ("删除".equals(action)) confirmDeleteMessage(item);
                         else confirmRecallMessage(item);
                     }).show();
         }
@@ -311,6 +269,45 @@ public class ChatActivity extends BaseSectionActivity {
             new WGProAlertDialogBuilder(requireContext()).setTitle("消息详情")
                     .setMessage(detail.toString())
                     .setNegativeButton("关闭", null).show();
+        }
+
+        private void confirmDeleteMessage(JSONObject item) {
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("删除消息？")
+                    .setMessage("删除后该消息只会从当前账户的聊天记录中移除，不影响对方。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("删除", (dialog, which) -> {
+                        if (dialog instanceof WGProBottomSheetDialog) {
+                            ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                        }
+                        new Handler(Looper.getMainLooper()).postDelayed(
+                                () -> deleteMessage(item), 40L);
+                    }).show();
+        }
+
+        private void deleteMessage(JSONObject item) {
+            Map<String, String> fields = new LinkedHashMap<>();
+            fields.put("message_id", item.optString("id", ""));
+            fields.put("action", "delete");
+            WGProProgressRunner.run(this, "删除中", "正在删除消息...", completion ->
+                    account.postV2Json("message_state2", fields, new tAccUtils.JsonCallback() {
+                        @Override public void onSuccess(@NonNull JSONObject json) {
+                            completion.success(json);
+                        }
+
+                        @Override public void onError(int code, @NonNull String message) {
+                            completion.error(code, message);
+                        }
+                    }), new WGProProgressRunner.Callback() {
+                @Override public void success(@NonNull JSONObject json) {
+                    load();
+                    showResult("已删除", "该消息已从当前账户的聊天记录中移除。");
+                }
+
+                @Override public void error(int code, @NonNull String message) {
+                    showResult("删除失败", message);
+                }
+            });
         }
 
         private void confirmRecallMessage(JSONObject item) {

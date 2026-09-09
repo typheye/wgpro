@@ -209,14 +209,27 @@ public final class DynamicDetailFragment extends Fragment {
         boolean dynamicOwner = !dynamicOwnerUid.isEmpty()
                 && dynamicOwnerUid.equals(account.getUid());
         boolean canDelete = mine || dynamicOwner;
-        CharSequence[] actions = canDelete
-                ? new CharSequence[]{"评论详情", "撤回"}
-                : new CharSequence[]{"评论详情"};
+        java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
+        menu.add("评论详情");
+        menu.add("举报");
+        if (canDelete) menu.add("撤回");
+        CharSequence[] actions = menu.toArray(new CharSequence[0]);
         new WGProAlertDialogBuilder(requireContext())
                 .setTitle("评论操作").setItems(actions, (dialog, which) -> {
-                    if (which == 0) showCommentDetail(item);
+                    String action = actions[which].toString();
+                    if ("评论详情".equals(action)) showCommentDetail(item);
+                    else if ("举报".equals(action)) reportComment(item);
                     else confirmDeleteComment(item);
                 }).show();
+    }
+
+    private void reportComment(JSONObject item) {
+        String id = item.optString("id", "");
+        if (id.isEmpty()) return;
+        String summary = item.optString("content", "").trim();
+        if (summary.isEmpty()) summary = "评论 #" + id;
+        if (summary.length() > 40) summary = summary.substring(0, 40) + "…";
+        ReportActivity.open(requireContext(), "comment", id, summary);
     }
 
     private void showCommentDetail(JSONObject item) {

@@ -30,6 +30,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
+import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -753,13 +754,10 @@ public class CloudListFragment extends Fragment {
     }
 
     private void reportCatalog(JSONObject item, boolean app) {
-        Map<String,String> fields = new LinkedHashMap<>(); fields.put("target_type", app ? "app" : "resource");
-        fields.put("target_key", item.optString(app ? "package" : "id", item.optString("target_key", "")));
-        fields.put("reason_code", "other"); fields.put("description", "通过 Android 客户端举报");
-        account.postV2Json("report_create2", fields, new tAccUtils.JsonCallback() {
-            public void onSuccess(JSONObject json) { new WGProAlertDialogBuilder(requireContext()).setTitle("举报已提交").setMessage("感谢你的反馈").setNegativeButton("关闭", null).show(); }
-            public void onError(int code, String msg) { new WGProAlertDialogBuilder(requireContext()).setTitle("举报失败").setMessage(msg).setNegativeButton("关闭", null).show(); }
-        });
+        String key = item.optString(app ? "package" : "id",
+                item.optString("target_key", ""));
+        String title = item.optString(app ? "name" : "title", app ? "应用" : "资源");
+        ReportActivity.open(requireContext(), app ? "app" : "resource", key, title);
     }
 
     private View createSystemMessageRow(JSONObject item) {
@@ -891,40 +889,17 @@ public class CloudListFragment extends Fragment {
             if (bitmap != null) { avatar.setImageBitmap(bitmap); avatar.setVisibility(View.VISIBLE); initial.setVisibility(View.GONE); }
         }
         if (url.isEmpty()) return;
-        if (url.startsWith("/")) url = "https://service.typheye.cn" + url;
-        Request request;
-        try { request = new Request.Builder().url(url).build(); } catch (Exception ignored) { return; }
-        account.getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) { }
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
-                try (Response result = response) {
-                    if (!result.isSuccessful() || result.body() == null) return;
-                    byte[] bytes = result.body().bytes();
-                    try (FileOutputStream output = new FileOutputStream(cached)) { output.write(bytes); }
-                    Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    main.post(() -> { if (isAdded() && bitmap != null) { avatar.setImageBitmap(bitmap);
-                        avatar.setVisibility(View.VISIBLE); initial.setVisibility(View.GONE); } });
-                } catch (Exception ignored) { }
-            }
+        ImageCache.load(requireContext(), url, avatar, () -> {
+            avatar.setVisibility(View.VISIBLE);
+            initial.setVisibility(View.GONE);
         });
     }
 
     private void loadCatalogIcon(String url, ImageView icon, View placeholder) {
         if (url == null || url.trim().isEmpty()) return;
-        if (url.startsWith("/")) url = "https://res.typheye.cn" + url;
-        final String source = url;
-        Request request;
-        try { request = new Request.Builder().url(source).build(); } catch (Exception ignored) { return; }
-        account.getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException error) { }
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
-                try (Response body = response) {
-                    if (!body.isSuccessful() || body.body() == null) return;
-                    Bitmap bitmap = BitmapFactory.decodeStream(body.body().byteStream());
-                    if (bitmap == null) return;
-                    main.post(() -> { if (isAdded()) { icon.setImageBitmap(bitmap); icon.setVisibility(View.VISIBLE); placeholder.setVisibility(View.GONE); } });
-                } catch (Exception ignored) { }
-            }
+        ImageCache.load(requireContext(), url, icon, () -> {
+            icon.setVisibility(View.VISIBLE);
+            placeholder.setVisibility(View.GONE);
         });
     }
 

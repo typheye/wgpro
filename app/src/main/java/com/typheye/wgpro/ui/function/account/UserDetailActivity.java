@@ -7,6 +7,7 @@ import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -22,6 +23,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.DrawableCompat;
@@ -39,10 +42,14 @@ import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.typheye.wgpro.ui.function.community.CloudListFragment;
+import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
+import com.typheye.wgpro.ui.function.community.ReportActivity;
 
 import java.io.File;
 import java.util.Arrays;
@@ -80,6 +87,11 @@ public class UserDetailActivity extends AppCompatActivity {
     private long profileLoadingStarted;
     private boolean profileLoaded;
     private boolean profileRequestActive;
+    private boolean profileContentReady;
+    private boolean profileLoadingFinished;
+    private int profileAssetsPending;
+    private JSONObject profileInfo;
+    private ActivityResultLauncher<String> backgroundPicker;
     private final Runnable settledWindowLayout = () -> {
         if (detailRoot != null && detailRoot.isAttachedToWindow()) {
             scheduleProfileLayout(true);
@@ -97,6 +109,9 @@ public class UserDetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_detail);
         profileLoadingStarted = android.os.SystemClock.uptimeMillis();
         account = new tAccUtils(this);
+        backgroundPicker = registerForActivityResult(
+                new ActivityResultContracts.GetContent(),
+                uri -> { if (uri != null) uploadBackground(uri); });
         String requestedUid = getIntent().getStringExtra(EXTRA_TARGET_UID);
         targetUid = requestedUid == null || requestedUid.trim().isEmpty()
                 ? account.getUid() : requestedUid.trim();
@@ -192,8 +207,16 @@ public class UserDetailActivity extends AppCompatActivity {
                             profileRequestActive = false;
                             if (isFinishing() || isDestroyed()) return;
                             if (info == null) { showProfileError("未找到该用户"); return; }
+                            profileInfo = info;
+                            profileContentReady = true;
+                            profileAssetsPending = 0;
+                            String backgroundUrl = info.optString("background_url", "");
+                            if (!backgroundUrl.isEmpty()) profileAssetsPending++;
+                            showProfileBackground(backgroundUrl,
+                                    UserDetailActivity.this::onProfileAssetLoaded);
                             String name = info.optString("nick", "用户");
-                            String bio = info.optString("bio", "").trim();
+                            String bio = info.optString("shuo",
+                                    info.optString("bio", "")).trim();
                             ((TextView) findViewById(R.id.detail_nick)).setText(name);
                             ((TextView) findViewById(R.id.detail_collapsed_nick)).setText(name);
                             ((TextView) findViewById(R.id.detail_uid)).setText("UID " + info.optString("uid", targetUid));
@@ -209,9 +232,13 @@ public class UserDetailActivity extends AppCompatActivity {
                             expandedIdentity.setVisibility(View.VISIBLE);
                             collapsedIdentity.setVisibility(View.VISIBLE);
                             String avatarUrl = info.optString("avatar_url", "");
-                            if (!avatarUrl.isEmpty()) loadRemoteAvatar(avatarUrl, avatar, collapsedAvatar,
-                                    avatarText, collapsedAvatarText);
-                            finishProfileLoading();
+                            if (!avatarUrl.isEmpty()) {
+                                profileAssetsPending++;
+                                loadRemoteAvatar(avatarUrl, avatar, collapsedAvatar,
+                                        avatarText, collapsedAvatarText,
+                                        UserDetailActivity.this::onProfileAssetLoaded);
+                            }
+                            maybeFinishProfileLoading();
                             profileLoaded = true;
                         });
                     }
@@ -240,7 +267,18 @@ public class UserDetailActivity extends AppCompatActivity {
         }
     }
 
+    private void onProfileAssetLoaded() {
+        if (profileAssetsPending > 0) profileAssetsPending--;
+        maybeFinishProfileLoading();
+    }
+
+    private void maybeFinishProfileLoading() {
+        if (profileContentReady && profileAssetsPending <= 0) finishProfileLoading();
+    }
+
     private void finishProfileLoading() {
+        if (profileLoadingFinished) return;
+        profileLoadingFinished = true;
         long delay = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - profileLoadingStarted));
         findViewById(R.id.detail_loading_overlay).postDelayed(() -> {
             if (isFinishing() || isDestroyed()) return;
@@ -311,26 +349,18 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void loadRemoteAvatar(String url, ImageView avatar, ImageView collapsedAvatar,
-                                  TextView avatarText, TextView collapsedAvatarText) {
-        if (url.startsWith("/")) url = "https://service.typheye.cn" + url;
-        Request request;
-        try { request = new Request.Builder().url(url).build(); }
-        catch (IllegalArgumentException ignored) { return; }
-        account.getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(@NonNull Call call, @NonNull IOException e) { }
-            @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
-                try (Response body = response) {
-                    if (!body.isSuccessful() || body.body() == null) return;
-                    Bitmap bitmap = BitmapFactory.decodeStream(body.body().byteStream());
-                    if (bitmap == null) return;
-                    runOnUiThread(() -> {
-                        if (isFinishing() || isDestroyed()) return;
-                        avatar.setImageBitmap(bitmap); avatar.setVisibility(View.VISIBLE); avatarText.setVisibility(View.GONE);
-                        collapsedAvatar.setImageBitmap(bitmap); collapsedAvatar.setVisibility(View.VISIBLE);
-                        collapsedAvatarText.setVisibility(View.GONE);
-                    });
-                }
+                                  TextView avatarText, TextView collapsedAvatarText,
+                                  @NonNull Runnable onComplete) {
+        ImageCache.loadBitmap(this, url, bitmap -> {
+            if (bitmap != null && !isFinishing() && !isDestroyed()) {
+                avatar.setImageBitmap(bitmap);
+                avatar.setVisibility(View.VISIBLE);
+                avatarText.setVisibility(View.GONE);
+                collapsedAvatar.setImageBitmap(bitmap);
+                collapsedAvatar.setVisibility(View.VISIBLE);
+                collapsedAvatarText.setVisibility(View.GONE);
             }
+            onComplete.run();
         });
     }
 
@@ -419,6 +449,7 @@ public class UserDetailActivity extends AppCompatActivity {
                     headerParams.height = requiredHeaderHeight;
                     appBar.setLayoutParams(headerParams);
                 }
+                resizeProfileBackground(requiredHeaderHeight);
 
                 // Keep a shallow overlap for the floating rounded edge. CollapsingToolbarLayout
                 // also offsets inset-aware children, so a larger overlap can cover the last
@@ -525,36 +556,180 @@ public class UserDetailActivity extends AppCompatActivity {
             return true;
         }
         if (item.getItemId() == R.id.action_profile_more) {
-            if (!isSelf) {
+            String nick = ((TextView) findViewById(R.id.detail_nick)).getText().toString();
+            if (isSelf) {
                 new WGProAlertDialogBuilder(this).setTitle("更多操作")
-                        .setItems(new String[]{"分享主页", "举报用户"}, (dialog, which) -> {
-                            if (which == 0) shareProfile();
-                            else new WGProAlertDialogBuilder(this).setTitle("举报用户")
-                                    .setMessage("请选择具体内容后再发起举报。")
-                                    .setNegativeButton("关闭", null).show();
-                        }).show();
-                return true;
+                        .setItems(new String[]{"编辑资料", "更换背景图", "更多信息"},
+                                (dialog, which) -> {
+                                    if (which == 0) {
+                                        startActivity(new Intent(this, AccMangerActivity.class)
+                                                .putExtra("TARGET_FRAGMENT", "edit"));
+                                    } else if (which == 1) {
+                                        showBackgroundSheet();
+                                    } else {
+                                        showMoreInfo();
+                                    }
+                                }).show();
+            } else {
+                new WGProAlertDialogBuilder(this).setTitle("更多操作")
+                        .setItems(new String[]{"举报该用户", "更多信息"},
+                                (dialog, which) -> {
+                                    if (which == 0) {
+                                        ReportActivity.open(this, "user", targetUid, nick);
+                                    } else {
+                                        showMoreInfo();
+                                    }
+                                }).show();
             }
-            new WGProAlertDialogBuilder(this)
-                    .setTitle("更多操作")
-                    .setItems(new String[]{"编辑资料", "分享主页"}, (dialog, which) -> {
-                        if (which == 0) {
-                            startActivity(new Intent(this, AccMangerActivity.class)
-                                    .putExtra("TARGET_FRAGMENT", "edit"));
-                        } else {
-                            shareProfile();
-                        }
-                    }).show();
             return true;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    private void shareProfile() {
-        Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
-                .putExtra(Intent.EXTRA_TEXT, "Typheye 用户 "
-                        + ((TextView) findViewById(R.id.detail_nick)).getText() + "  UID " + targetUid);
-        startActivity(Intent.createChooser(share, "分享主页"));
+    private void showMoreInfo() {
+        if (profileInfo == null) {
+            showResult("更多信息", "资料还在加载中，请稍后重试。");
+            return;
+        }
+        StringBuilder info = new StringBuilder();
+        appendInfo(info, "UID", profileInfo.optString("uid", targetUid));
+        appendInfo(info, "昵称", profileInfo.optString("nick", ""));
+        appendInfo(info, "简介", profileInfo.optString("shuo",
+                profileInfo.optString("bio", "")));
+        appendInfo(info, "角色", profileInfo.optString("role_name", ""));
+        String verification = profileInfo.optString("verification_label", "").trim();
+        if (verification.isEmpty()
+                && !"none".equalsIgnoreCase(profileInfo.optString("verification_status", "none"))) {
+            verification = "已认证";
+        }
+        appendInfo(info, "认证", verification);
+        appendInfo(info, "创作者",
+                profileInfo.optBoolean("creator_enabled", false) ? "已开启" : "未开启");
+        appendInfo(info, "动态", String.valueOf(Math.max(0, profileInfo.optInt("dynamic_count", 0))));
+        appendInfo(info, "关注", String.valueOf(Math.max(0, profileInfo.optInt("following_count", 0))));
+        appendInfo(info, "粉丝", String.valueOf(Math.max(0, profileInfo.optInt("follower_count", 0))));
+        appendInfo(info, "背景图",
+                profileInfo.optString("background_url", "").isEmpty() ? "未设置" : "已设置");
+        new WGProAlertDialogBuilder(this).setTitle("更多信息")
+                .setMessage(info.length() == 0 ? "暂无更多公开信息。" : info.toString())
+                .setNegativeButton("关闭", null).show();
+    }
+
+    private static void appendInfo(StringBuilder target, String label, String value) {
+        if (value == null || value.trim().isEmpty()) return;
+        if (target.length() > 0) target.append('\n');
+        target.append(label).append("：").append(value.trim());
+    }
+
+    private void showBackgroundSheet() {
+        new WGProAlertDialogBuilder(this).setTitle("更换背景图")
+                .setItems(new String[]{"从相册选择", "移除当前背景"}, (dialog, which) -> {
+                    if (which == 0) backgroundPicker.launch("image/*");
+                    else confirmRemoveBackground();
+                }).show();
+    }
+
+    private void confirmRemoveBackground() {
+        new WGProAlertDialogBuilder(this).setTitle("移除背景图？")
+                .setMessage("移除后将恢复默认背景。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("移除", (dialog, which) -> removeBackground())
+                .show();
+    }
+
+    private void uploadBackground(Uri uri) {
+        WGProProgressRunner.run(this, "上传中", "正在上传背景图...", completion ->
+                account.uploadUserBackground(uri, new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        completion.success(json);
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) {
+                        completion.error(code, message);
+                    }
+                }), new WGProProgressRunner.Callback() {
+            @Override public void success(@NonNull JSONObject json) {
+                String url = json.optString("url", "");
+                try {
+                    if (profileInfo != null) profileInfo.put("background_url", url);
+                } catch (Exception ignored) { }
+                showProfileBackground(url, () -> { });
+                showResult("背景已更新", "新的背景图已生效。");
+            }
+
+            @Override public void error(int code, @NonNull String message) {
+                showResult("上传失败", message);
+            }
+        });
+    }
+
+    private void removeBackground() {
+        WGProProgressRunner.run(this, "处理中", "正在移除背景图...", completion ->
+                account.postV2Json("user_background_delete2", new LinkedHashMap<>(),
+                        new tAccUtils.JsonCallback() {
+                            @Override public void onSuccess(@NonNull JSONObject json) {
+                                completion.success(json);
+                            }
+
+                            @Override public void onError(int code, @NonNull String message) {
+                                completion.error(code, message);
+                            }
+                        }), new WGProProgressRunner.Callback() {
+            @Override public void success(@NonNull JSONObject json) {
+                try {
+                    if (profileInfo != null) profileInfo.put("background_url", "");
+                } catch (Exception ignored) { }
+                showProfileBackground("", () -> { });
+                showResult("已移除", "背景图已移除。");
+            }
+
+            @Override public void error(int code, @NonNull String message) {
+                showResult("移除失败", message);
+            }
+        });
+    }
+
+    private void showProfileBackground(String url, @NonNull Runnable onComplete) {
+        ImageView background = findViewById(R.id.detail_background);
+        View dim = findViewById(R.id.detail_background_dim);
+        if (background == null || dim == null) {
+            onComplete.run();
+            return;
+        }
+        if (url == null || url.trim().isEmpty()) {
+            background.setVisibility(View.GONE);
+            dim.setVisibility(View.GONE);
+            onComplete.run();
+            return;
+        }
+        background.setVisibility(View.VISIBLE);
+        dim.setVisibility(View.VISIBLE);
+        resizeProfileBackground(appBar.getHeight() > 0 ? appBar.getHeight() : dp(410));
+        ImageCache.load(this, url.trim(), background, onComplete);
+    }
+
+    private void resizeProfileBackground(int headerHeight) {
+        ImageView background = findViewById(R.id.detail_background);
+        View dim = findViewById(R.id.detail_background_dim);
+        if (background == null || dim == null) return;
+        WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
+        int top = insets == null ? 0
+                : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
+        int height = headerHeight + top;
+        ViewGroup.LayoutParams bgParams = background.getLayoutParams();
+        bgParams.height = height;
+        background.setLayoutParams(bgParams);
+        background.setTranslationY(-top);
+        ViewGroup.LayoutParams dimParams = dim.getLayoutParams();
+        dimParams.height = height;
+        dim.setLayoutParams(dimParams);
+        dim.setTranslationY(-top);
+    }
+
+    private void showResult(String title, String message) {
+        new WGProAlertDialogBuilder(this).setTitle(title)
+                .setMessage(message == null || message.trim().isEmpty() ? "操作完成" : message)
+                .setNegativeButton("关闭", null).show();
     }
 
     private void applyAdaptiveChromeColors() {

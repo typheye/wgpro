@@ -23,6 +23,7 @@ import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -277,12 +278,31 @@ public final class DynamicCardFactory {
     }
 
     public static void showActions(Context context, JSONObject item, View card) {
+        showActions(context, item, card, null, null);
+    }
+
+    public static void showActions(Context context, JSONObject item, View card,
+                                   @Nullable CharSequence prependLabel,
+                                   @Nullable Runnable prependAction) {
         tAccUtils account = new tAccUtils(context.getApplicationContext());
         boolean self = item.optBoolean("is_self") || account.getUid().equals(item.optString("uid"));
-        CharSequence[] actions = self ? new CharSequence[]{"删除", "分享"}
-                : new CharSequence[]{"屏蔽", "举报", "分享"};
+        java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
+        if (prependLabel != null) menu.add(prependLabel);
+        if (self) {
+            menu.add("删除");
+            menu.add("分享");
+        } else {
+            menu.add("屏蔽");
+            menu.add("举报");
+            menu.add("分享");
+        }
+        CharSequence[] actions = menu.toArray(new CharSequence[0]);
         new WGProAlertDialogBuilder(context).setTitle("动态操作").setItems(actions, (dialog, which) -> {
             String action = actions[which].toString();
+            if (prependLabel != null && prependLabel.toString().equals(action)) {
+                if (prependAction != null) prependAction.run();
+                return;
+            }
             if ("分享".equals(action)) { share(context, account, item); return; }
             if ("删除".equals(action)) { confirmDelete(context, account, item, card); return; }
             if ("屏蔽".equals(action)) {
@@ -290,10 +310,8 @@ public final class DynamicCardFactory {
                 fields.put("action", "block"); postFeedback(context, account, "block_action2", fields, "已屏蔽该用户");
                 return;
             }
-            Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "dynamic");
-            fields.put("target_key", item.optString("id")); fields.put("reason_code", "spam");
-            fields.put("description", "通过 Android 客户端举报");
-            postFeedback(context, account, "report_create2", fields, "举报已提交");
+            ReportActivity.open(context, "dynamic", item.optString("id"),
+                    item.optString("content", item.optString("nick", "动态")));
         }).show();
     }
 
@@ -348,21 +366,9 @@ public final class DynamicCardFactory {
                 if (placeholder != null) placeholder.setVisibility(View.GONE); }
         }
         if (url == null || url.isEmpty()) return;
-        if (url.startsWith("/")) url = "https://service.typheye.cn" + url;
-        Request request; try { request = new Request.Builder().url(url).build(); } catch (Exception ignored) { return; }
-        new tAccUtils(context.getApplicationContext()).getClient().newCall(request).enqueue(new Callback() {
-            @Override public void onFailure(Call call, IOException error) { }
-            @Override public void onResponse(Call call, Response response) {
-                try (Response body = response) {
-                    if (!body.isSuccessful() || body.body() == null) return;
-                    byte[] bytes = body.body().bytes(); Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                    if (bitmap == null) return;
-                    if (cache != null) try (FileOutputStream out = new FileOutputStream(cache)) { out.write(bytes); }
-                    catch (IOException ignored) { }
-                    target.post(() -> { target.setImageBitmap(bitmap); target.setVisibility(View.VISIBLE);
-                        if (placeholder != null) placeholder.setVisibility(View.GONE); });
-                } catch (IOException ignored) { }
-            }
+        ImageCache.load(context, url, target, () -> {
+            target.setVisibility(View.VISIBLE);
+            if (placeholder != null) placeholder.setVisibility(View.GONE);
         });
     }
 

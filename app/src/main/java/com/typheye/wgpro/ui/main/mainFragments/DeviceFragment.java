@@ -282,8 +282,7 @@ public class DeviceFragment extends Fragment {
         boolean current = session.optBoolean("is_current");
         String platform = session.optString("platform", "");
         String version = session.optString("client_version", "");
-        String platformLabel = platformLabel(platform);
-        String secondary = platformLabel + (version.isEmpty() ? "" : " | " + version);
+        String secondary = platform + (version.isEmpty() ? "" : " | " + version);
         ((TextView) card.findViewById(R.id.text_device_initial)).setText(firstCharacter(displayName));
         ((TextView) card.findViewById(R.id.text_device_model)).setText(displayName);
         ((TextView) card.findViewById(R.id.text_device_version)).setText(secondary);
@@ -319,7 +318,7 @@ public class DeviceFragment extends Fragment {
         String device = session.optString("device", "未知设备").trim();
         String name = remark.isEmpty() ? device : remark;
         boolean current = session.optBoolean("is_current");
-        String platform = platformLabel(session.optString("platform"));
+        String platform = session.optString("platform", "");
         ((TextView) content.findViewById(R.id.sheet_device_initial)).setText(firstCharacter(name));
         ((TextView) content.findViewById(R.id.sheet_device_name)).setText(name);
         ((TextView) content.findViewById(R.id.sheet_device_status_version))
@@ -329,7 +328,7 @@ public class DeviceFragment extends Fragment {
         ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label)).setText("前往账户管理");
         StringBuilder detail = new StringBuilder();
         appendDetail(detail, "设备", session.optString("device"));
-        appendDetail(detail, "平台", platformLabel(session.optString("platform")));
+        appendDetail(detail, "平台", session.optString("platform"));
         appendDetail(detail, "客户端版本", session.optString("client_version"));
         appendDetail(detail, "位置", session.optString("location"));
         appendDetail(detail, "IP", session.optString("ip"));
@@ -355,15 +354,6 @@ public class DeviceFragment extends Fragment {
         if (value == null || value.trim().isEmpty()) return;
         if (target.length() > 0) target.append('\n');
         target.append(label).append("：").append(value.trim());
-    }
-
-    private static String platformLabel(String value) {
-        String platform = value == null ? "" : value.trim();
-        if ("android".equals(platform)) return "Android客户端";
-        if ("Android".equals(platform)) return "Android客户端内置浏览器";
-        if ("Windows".equals(platform) || "windows".equals(platform)) return "Windows平台";
-        if ("web".equalsIgnoreCase(platform) || "browser".equalsIgnoreCase(platform)) return "内置浏览器";
-        return platform.isEmpty() ? "Typheye客户端" : platform;
     }
 
     private void showSessionMenu(JSONObject session) {
@@ -491,6 +481,7 @@ public class DeviceFragment extends Fragment {
                 mainHandler.post(() -> {
                     if (!isAdded()) return;
                     cloudSessions = new JSONArray();
+                    if (otherRefresh != null) otherRefresh.setRefreshing(true);
                     refresh();
                     loadCloudSessions();
                 });
@@ -534,7 +525,8 @@ public class DeviceFragment extends Fragment {
         ((TextView) card.findViewById(R.id.text_device_since))
                 .setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
         card.setOnClickListener(v -> showDeviceDetail(id));
-        card.findViewById(R.id.button_device_more).setOnClickListener(v -> showMenu(id, note));
+        card.findViewById(R.id.button_device_more).setOnClickListener(v ->
+                showMenu(id, note, "xiaomi".equals(type) ? wearableRefresh : otherRefresh));
         parent.addView(card);
     }
 
@@ -605,7 +597,7 @@ public class DeviceFragment extends Fragment {
         }
     }
 
-    private void showMenu(String id, String currentNote) {
+    private void showMenu(String id, String currentNote, SwipeRefreshLayout refreshLayout) {
         new WGProAlertDialogBuilder(requireContext())
                 .setTitle("设备管理")
                 .setItems(new CharSequence[]{"修改备注", "移除设备"}, (menuDialog, selected) -> {
@@ -621,9 +613,23 @@ public class DeviceFragment extends Fragment {
                                 try (DeviceDatabase db = new DeviceDatabase(requireContext())) {
                                     db.remove(id);
                                 }
-                                refresh();
+                                refreshWithSpinner(refreshLayout);
                             }).show();
                 }).show();
+    }
+
+    private void refreshWithSpinner(@Nullable SwipeRefreshLayout layout) {
+        if (layout == null) {
+            refresh();
+            return;
+        }
+        layout.setRefreshing(true);
+        try {
+            refresh();
+        } catch (Throwable ignored) { }
+        mainHandler.postDelayed(() -> {
+            if (isAdded()) layout.setRefreshing(false);
+        }, 250L);
     }
 
     private void showNoteDialog(String id, String currentNote) {

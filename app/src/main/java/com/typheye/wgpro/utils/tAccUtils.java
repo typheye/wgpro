@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.Uri;
 import android.os.Handler;
 import android.os.Looper;
 import android.os.Build;
@@ -29,6 +30,8 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
@@ -1581,6 +1584,112 @@ public class tAccUtils {
         } catch (Exception error) {
             hideProgressDialog();
             callback.onError("参数编码错误: " + error.getMessage());
+        }
+    }
+
+    public void uploadUserBackground(@NonNull Uri uri, @NonNull final JsonCallback callback) {
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (!isV2Session() || uid == null || uid.isEmpty()
+                || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            callback.onError(401, "请先登录 Typheye 账户");
+            return;
+        }
+        try {
+            InputStream input = context.getContentResolver().openInputStream(uri);
+            if (input == null) {
+                callback.onError(422, "无法读取所选图片");
+                return;
+            }
+            byte[] bytes = readBytes(input);
+            if (bytes.length == 0) {
+                callback.onError(422, "无法读取所选图片");
+                return;
+            }
+            if (bytes.length > 10L * 1024L * 1024L) {
+                callback.onError(422, "背景图不能超过 10 MB");
+                return;
+            }
+            String mime = context.getContentResolver().getType(uri);
+            if (mime == null || mime.trim().isEmpty()) mime = "image/jpeg";
+            RequestBody fileBody = RequestBody.create(bytes, MediaType.parse(mime));
+            RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("background", "background.jpg", fileBody).build();
+            Request request = authenticatedRequest(v2Url("user_background_upload2", uid),
+                    sessionId, sessionToken).post(body).build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    callback.onError(0, "上传失败: " + error.getMessage());
+                }
+
+                @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    try (ResponseBody responseBody = response.body()) {
+                        JSONObject json = new JSONObject(responseBody == null ? "" : responseBody.string());
+                        int code = json.optInt("code", response.code());
+                        if (response.code() == 401 || code == 401) {
+                            logout();
+                            callback.onError(401, json.optString("msg", "会话已失效"));
+                        } else if (response.isSuccessful() && code == 200) {
+                            callback.onSuccess(json);
+                        } else {
+                            callback.onError(code, json.optString("msg", "上传失败: " + response.code()));
+                        }
+                    } catch (Exception error) {
+                        callback.onError(response.code(), "解析响应失败: " + error.getMessage());
+                    }
+                }
+            });
+        } catch (Exception error) {
+            callback.onError(0, "读取图片失败: " + error.getMessage());
+        }
+    }
+
+    public void deleteAvatar(@NonNull final JsonCallback callback) {
+        String uid = getUid();
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (!isV2Session() || uid == null || uid.isEmpty()
+                || sessionId.isEmpty() || sessionToken.isEmpty()) {
+            callback.onError(401, "请先登录 Typheye 账户");
+            return;
+        }
+        try {
+            Request request = authenticatedRequest(v2Url("account_avatar_delete2", uid),
+                    sessionId, sessionToken).post(new FormBody.Builder().build()).build();
+            client.newCall(request).enqueue(new Callback() {
+                @Override public void onFailure(@NonNull Call call, @NonNull IOException error) {
+                    callback.onError(0, "删除失败: " + error.getMessage());
+                }
+
+                @Override public void onResponse(@NonNull Call call, @NonNull Response response) {
+                    try (ResponseBody responseBody = response.body()) {
+                        JSONObject json = new JSONObject(responseBody == null ? "" : responseBody.string());
+                        int code = json.optInt("code", response.code());
+                        if (response.code() == 401 || code == 401) {
+                            logout();
+                            callback.onError(401, json.optString("msg", "会话已失效"));
+                        } else if (response.isSuccessful() && code == 200) {
+                            callback.onSuccess(json);
+                        } else {
+                            callback.onError(code, json.optString("msg", "删除失败: " + response.code()));
+                        }
+                    } catch (Exception error) {
+                        callback.onError(response.code(), "解析响应失败: " + error.getMessage());
+                    }
+                }
+            });
+        } catch (Exception error) {
+            callback.onError(0, "删除失败: " + error.getMessage());
+        }
+    }
+
+    private static byte[] readBytes(InputStream input) throws IOException {
+        try (InputStream source = input; ByteArrayOutputStream output = new ByteArrayOutputStream()) {
+            byte[] buffer = new byte[8192];
+            int count;
+            while ((count = source.read(buffer)) != -1) output.write(buffer, 0, count);
+            return output.toByteArray();
         }
     }
 

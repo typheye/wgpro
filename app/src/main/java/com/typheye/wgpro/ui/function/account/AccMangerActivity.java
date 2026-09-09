@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -126,7 +127,7 @@ public class AccMangerActivity extends AppCompatActivity {
             nicknameView = view.findViewById(R.id.account_nickname);
             bioView = view.findViewById(R.id.account_bio);
 
-            View.OnClickListener avatarClick = v -> openImagePicker();
+            View.OnClickListener avatarClick = v -> showAvatarSheet();
             view.findViewById(R.id.row_avatar).setOnClickListener(avatarClick);
             view.findViewById(R.id.row_nickname).setOnClickListener(v ->
                     showEditDialog("修改昵称", "昵称", accUtils.getNick(), false));
@@ -230,6 +231,48 @@ public class AccMangerActivity extends AppCompatActivity {
             @SuppressLint("IntentReset") Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
             intent.setType("image/*");
             activityResultLauncher.launch(intent);
+        }
+
+        private void showAvatarSheet() {
+            new WGProAlertDialogBuilder(requireContext()).setTitle("更换头像")
+                    .setItems(new String[]{"从相册选择", "移除当前头像"}, (dialog, which) -> {
+                        if (which == 0) openImagePicker();
+                        else confirmRemoveAvatar();
+                    }).show();
+        }
+
+        private void confirmRemoveAvatar() {
+            new WGProAlertDialogBuilder(requireContext()).setTitle("移除当前头像？")
+                    .setMessage("移除后将恢复为昵称首字文字头像。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("移除", (dialog, which) -> removeAvatar())
+                    .show();
+        }
+
+        private void removeAvatar() {
+            WGProProgressRunner.run(this, "处理中", "正在移除头像...", completion ->
+                    accUtils.deleteAvatar(new tAccUtils.JsonCallback() {
+                        @Override public void onSuccess(@NonNull org.json.JSONObject json) {
+                            completion.success(json);
+                        }
+
+                        @Override public void onError(int code, @NonNull String message) {
+                            completion.error(code, message);
+                        }
+                    }), new WGProProgressRunner.Callback() {
+                @Override public void success(@NonNull org.json.JSONObject json) {
+                    String uid = accUtils.getUid();
+                    if (uid != null && !uid.isEmpty()) {
+                        new File(requireContext().getFilesDir(), "avatar_" + uid + ".jpg").delete();
+                    }
+                    showTextAvatar();
+                    showSuccessToast("头像已移除");
+                }
+
+                @Override public void error(int code, @NonNull String message) {
+                    showErrorToast(message);
+                }
+            });
         }
 
         private void registerActivityResultLauncher() {

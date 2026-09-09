@@ -29,6 +29,7 @@ import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.function.community.AccountListActivity;
 import com.typheye.wgpro.ui.function.community.CloudListFragment;
 import com.typheye.wgpro.ui.function.community.ContactActivity;
+import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import java.io.File;
@@ -488,43 +489,15 @@ public class AccountFragment extends Fragment {
 
     // 保存头像到缓存
     private void downloadAvatar(String uid, String url) {
-        Request request = new Request.Builder()
-                .url(url)
-                .header("User-Agent", "Mozilla/5.0 (Linux; Android 13; Pixel 7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Mobile Safari/537.36")
-                .build();
-
-        accUtils.getClient().newCall(request).enqueue(new Callback() {
-            @Override
-            public void onFailure(@NonNull Call call, @NonNull IOException e) {
-                // 下载失败，保持当前头像
-                new Handler(Looper.getMainLooper()).post(() -> {
-                    // 不做任何操作
-                });
-            }
-
-            @Override
-            public void onResponse(@NonNull Call call, @NonNull Response response) {
-                if (response.isSuccessful()) {
-                    try {
-                        byte[] bytes = response.body().bytes();
-                        Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-                        if (bitmap != null && !bitmap.isRecycled()) {
-                            // 保存到缓存
-                            tAccUtils.saveAvatarToCache(appContext, uid, bitmap);
-
-                            new Handler(Looper.getMainLooper()).post(() -> {
-                                if (!isAdded() || getView() == null) return;
-                                // 直接更新头像（不会闪烁，因为已有头像显示）
-                                account_image_usr_icon.setImageBitmap(bitmap);
-                                account_image_usr_icon.setVisibility(View.VISIBLE);
-                                account_text_usr_icon.setVisibility(View.GONE);
-                            });
-                        }
-                    } catch (Exception e) {
-                        // 下载失败，保持当前头像
-                    }
-                }
-            }
+        ImageCache.loadBitmap(appContext, url, bitmap -> {
+            if (bitmap == null || bitmap.isRecycled()) return;
+            tAccUtils.saveAvatarToCache(appContext, uid, bitmap);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                if (!isAdded() || getView() == null) return;
+                account_image_usr_icon.setImageBitmap(bitmap);
+                account_image_usr_icon.setVisibility(View.VISIBLE);
+                account_text_usr_icon.setVisibility(View.GONE);
+            });
         });
     }
 

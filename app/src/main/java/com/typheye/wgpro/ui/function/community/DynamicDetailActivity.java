@@ -1,5 +1,6 @@
 package com.typheye.wgpro.ui.function.community;
 
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
@@ -16,6 +17,7 @@ import com.google.android.material.card.MaterialCardView;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.shape.RelativeCornerSize;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import org.json.JSONObject;
 
 public final class DynamicDetailActivity extends BaseSectionActivity {
@@ -63,7 +65,12 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
 
     @Override public boolean onOptionsItemSelected(MenuItem item) {
         if ("更多".contentEquals(item.getTitle()) && dynamicInfo != null) {
-            DynamicCardFactory.showActions(this, dynamicInfo, findViewById(R.id.section_container));
+            String uid = dynamicInfo.optString("uid", "");
+            DynamicCardFactory.showActions(this, dynamicInfo,
+                    findViewById(R.id.section_container), "主页", () -> {
+                        if (!uid.isEmpty()) startActivity(new Intent(this, UserDetailActivity.class)
+                                .putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
+                    });
             return true;
         }
         return super.onOptionsItemSelected(item);
