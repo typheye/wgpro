@@ -1,7 +1,9 @@
 package com.typheye.wgpro.ui.function.community;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -19,6 +21,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -170,13 +173,7 @@ public class SystemMessageDetailFragment extends Fragment {
             body.addView(contentView, params);
         }
 
-        TextView time = new TextView(requireContext());
-        time.setText(item.optString("created_at", ""));
-        time.setTextSize(12);
-        time.setTextColor(requireContext().getColor(R.color.text_tertiary));
-        LinearLayout.LayoutParams timeParams = new LinearLayout.LayoutParams(-1, -2);
-        timeParams.topMargin = dp(12);
-        body.addView(time, timeParams);
+        addActionRow(body, item);
         card.addView(body);
 
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2);
@@ -187,6 +184,43 @@ public class SystemMessageDetailFragment extends Fragment {
             return true;
         });
         return card;
+    }
+
+    private void addActionRow(LinearLayout body, JSONObject item) {
+        if (!"report".equals(item.optString("target_type", ""))) return;
+        JSONObject metadata = item.optJSONObject("metadata");
+        String reportId = metadata == null ? "" : metadata.optString("report_id", "");
+        if (reportId.isEmpty()) reportId = item.optString("target_key", "");
+        if (reportId.isEmpty()) return;
+        String status = metadata == null ? "" : metadata.optString("status", "");
+        String label;
+        if ("resolved".equalsIgnoreCase(status)) label = "查看举报结果";
+        else if ("rejected".equalsIgnoreCase(status)) label = "查看驳回原因";
+        else label = "查看处理进度";
+        String url = "https://service.typheye.cn/site/report/index.php?id="
+                + Uri.encode(reportId) + "&status=" + Uri.encode(status);
+
+        LinearLayout row = new LinearLayout(requireContext());
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(12), 0, 0);
+        row.setClickable(true);
+        row.setFocusable(true);
+        row.setBackgroundResource(R.drawable.bg_list_item_ripple);
+        TextView action = new TextView(requireContext());
+        action.setText(label);
+        action.setTextSize(15);
+        action.setTextColor(requireContext().getColor(R.color.brand_primary));
+        action.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        row.addView(action, new LinearLayout.LayoutParams(0, -2, 1f));
+        android.widget.ImageView arrow = new android.widget.ImageView(requireContext());
+        arrow.setImageResource(R.drawable.ic_chevron_right_vector);
+        arrow.setImageTintList(android.content.res.ColorStateList.valueOf(
+                requireContext().getColor(R.color.text_tertiary)));
+        row.addView(arrow, new LinearLayout.LayoutParams(dp(22), dp(22)));
+        row.setOnClickListener(v -> startActivity(new Intent(requireContext(), WebActivity.class)
+                .putExtra("URL", url)));
+        body.addView(row, new LinearLayout.LayoutParams(-1, -2));
     }
 
     private View emptyState() {
@@ -260,7 +294,7 @@ public class SystemMessageDetailFragment extends Fragment {
                     }
                 }), new WGProProgressRunner.Callback() {
             @Override public void success(@NonNull JSONObject json) {
-                card.setVisibility(View.GONE);
+                load();
                 showResult("已删除", "该消息已从当前账户的通知记录中移除。");
             }
 
@@ -272,20 +306,11 @@ public class SystemMessageDetailFragment extends Fragment {
 
     public void showMoreMenu() {
         if (!isAdded()) return;
-        View content = LayoutInflater.from(requireContext())
-                .inflate(R.layout.sheet_system_message_more, null, false);
-        com.typheye.wgpro.ui.widget.WGProBottomSheetDialog dialog =
-                new WGProAlertDialogBuilder(requireContext()).setTitle("更多")
-                        .setView(content).setNegativeButton("关闭", null).create();
-        content.findViewById(R.id.system_message_clear_row).setOnClickListener(v -> {
-            dialog.dismissForReplacement();
-            confirmClearLocal();
-        });
-        content.findViewById(R.id.system_message_about_row).setOnClickListener(v -> {
-            dialog.dismissForReplacement();
-            showAbout();
-        });
-        dialog.show();
+        new WGProAlertDialogBuilder(requireContext()).setTitle("更多")
+                .setItems(new CharSequence[]{"清空记录", "关于“系统消息”"}, (dialog, which) -> {
+                    if (which == 0) confirmClearLocal();
+                    else showAbout();
+                }).show();
     }
 
     private void confirmClearLocal() {

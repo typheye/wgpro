@@ -61,6 +61,7 @@ public final class InboxNotificationHelper {
         final int[] unreadCount = {0};
         final boolean[] notificationOk = {false};
         final boolean[] messageOk = {false};
+        final boolean[] doNotDisturb = {isDoNotDisturb(app)};
         final AtomicInteger pending = new AtomicInteger(3);
 
         Runnable finish = () -> {
@@ -72,7 +73,8 @@ public final class InboxNotificationHelper {
                 editor.putBoolean(KEY_INITIALIZED + accountSuffix, true);
             }
             editor.apply();
-            if (callback != null) callback.onUnreadCount(unreadCount[0]);
+            if (callback != null) callback.onUnreadCount(
+                    doNotDisturb[0] ? 0 : unreadCount[0]);
         };
 
         account.getV2JsonFresh("inbox_unread_count2", new LinkedHashMap<>(),
@@ -104,7 +106,8 @@ public final class InboxNotificationHelper {
                                 if (item == null) continue;
                                 long id = item.optLong("id", 0L);
                                 if (id > maxId) maxId = id;
-                                if (initialized[0] && id > lastNotificationId[0]) {
+                                if (initialized[0] && !doNotDisturb[0]
+                                        && id > lastNotificationId[0]) {
                                     postSystemMessage(app, item);
                                 }
                             }
@@ -138,7 +141,8 @@ public final class InboxNotificationHelper {
                                 if (id > maxId) maxId = id;
                                 boolean incoming = selfUid.equals(item.optString("recipient_uid"))
                                         && !selfUid.equals(item.optString("sender_uid"));
-                                if (initialized[0] && incoming && id > lastMessageId[0]) {
+                                if (initialized[0] && !doNotDisturb[0]
+                                        && incoming && id > lastMessageId[0]) {
                                     postPrivateMessage(app, item);
                                 }
                             }
@@ -210,5 +214,21 @@ public final class InboxNotificationHelper {
         channel.setShowBadge(true);
         channel.setLockscreenVisibility(android.app.Notification.VISIBILITY_PUBLIC);
         manager.createNotificationChannel(channel);
+    }
+
+    public static boolean isDoNotDisturb(@NonNull Context context) {
+        tAccUtils account = new tAccUtils(context.getApplicationContext());
+        String uid = account.getUid();
+        if (uid == null || uid.isEmpty()) return false;
+        return context.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .getBoolean("do_not_disturb_" + uid, false);
+    }
+
+    public static void setDoNotDisturb(@NonNull Context context, boolean enabled) {
+        tAccUtils account = new tAccUtils(context.getApplicationContext());
+        String uid = account.getUid();
+        if (uid == null || uid.isEmpty()) return;
+        context.getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit()
+                .putBoolean("do_not_disturb_" + uid, enabled).apply();
     }
 }

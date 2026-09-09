@@ -74,6 +74,8 @@ public class CloudListFragment extends Fragment {
     private String historyType = "dynamic";
     private tAccUtils account;
     private int requestGeneration;
+    private boolean skipNextResumeReload;
+    private JSONArray renderedItems;
 
     public static CloudListFragment newInstance(String mode) {
         return newInstance(mode, null);
@@ -121,7 +123,42 @@ public class CloudListFragment extends Fragment {
 
     @Override public void onResume() {
         super.onResume();
-        if (loadedOnce) load();
+        if (loadedOnce && !skipNextResumeReload) load();
+        skipNextResumeReload = false;
+    }
+
+    public void skipNextResumeReload() {
+        skipNextResumeReload = true;
+    }
+
+    public void markSystemMessagesReadLocally() {
+        if (renderedItems == null) return;
+        for (int i = 0; i < renderedItems.length(); i++) {
+            JSONObject item = renderedItems.optJSONObject(i);
+            if (item == null || !"system_messages".equals(item.optString("_kind"))) continue;
+            try {
+                item.put("unread_count", 0);
+                JSONArray messages = item.optJSONArray("_system_items");
+                if (messages != null) for (int j = 0; j < messages.length(); j++) {
+                    JSONObject message = messages.optJSONObject(j);
+                    if (message != null) message.put("is_read", true);
+                }
+            } catch (Exception ignored) { }
+        }
+        render(renderedItems);
+    }
+
+    public void clearConversations() {
+        account.postV2Json("conversations_clear2", new LinkedHashMap<>(),
+                new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        main.post(() -> {
+                            if (isAdded() && getView() != null) load();
+                        });
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) { }
+                });
     }
 
     private void setupHistoryFilters(View root) {
@@ -344,6 +381,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private void render(JSONArray items) {
+        renderedItems = items;
         list.removeAllViews();
         if (isResourceTargetList() || MODE_MY_RESOURCES.equals(mode) || MODE_USER_RESOURCES.equals(mode)) {
             View masonry = ResourceMasonryFactory.create(requireContext(), items, item -> {
