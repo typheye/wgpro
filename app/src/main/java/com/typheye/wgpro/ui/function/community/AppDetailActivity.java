@@ -4,11 +4,14 @@ import android.os.Bundle;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.fragment.app.Fragment;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.utils.tAccUtils;
 import org.json.JSONObject;
 import java.util.LinkedHashMap;
@@ -60,9 +63,12 @@ public final class AppDetailActivity extends BaseSectionActivity {
         new WGProAlertDialogBuilder(this).setTitle("应用操作").setItems(actions, (dialog, which) -> {
             String action = actions[which].toString();
             if ("分享".equals(action)) { shareApp(); return; }
-            if (action.contains("星标")) { toggleStar(); return; }
-            if ("举报".equals(action)) { reportApp(account); return; }
-            deleteApp(account);
+            if (dialog instanceof WGProBottomSheetDialog) ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+            sectionToolbar().postDelayed(() -> {
+                if (action.contains("星标")) { toggleStar(); return; }
+                if ("举报".equals(action)) { reportApp(account); return; }
+                deleteApp(account);
+            }, 40L);
         }).show();
     }
 
@@ -85,16 +91,14 @@ public final class AppDetailActivity extends BaseSectionActivity {
         Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "app");
         fields.put("target_key", key); fields.put("action", starred ? "remove" : "add");
         tAccUtils account = new tAccUtils(getApplicationContext());
+        WGProBottomSheetDialog progress = showProgress("正在更新星标..."); long started = android.os.SystemClock.uptimeMillis();
         account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(JSONObject json) {
                 starred = json.optBoolean("collected", !starred);
                 getSharedPreferences("app_stars", MODE_PRIVATE).edit().putBoolean(key, starred).apply();
-                runOnUiThread(() -> android.widget.Toast.makeText(AppDetailActivity.this,
-                        starred ? "已加入星标" : "已移除星标", android.widget.Toast.LENGTH_SHORT).show());
+                finishProgress(progress, started, true, starred ? "已加入星标" : "已移除星标", false);
             }
-            @Override public void onError(int code, String message) { runOnUiThread(() ->
-                    new WGProAlertDialogBuilder(AppDetailActivity.this).setTitle("操作失败")
-                            .setMessage(message).setNegativeButton("关闭", null).show()); }
+            @Override public void onError(int code, String message) { finishProgress(progress, started, false, message, false); }
         });
     }
 
@@ -105,14 +109,20 @@ public final class AppDetailActivity extends BaseSectionActivity {
     }
 
     private void postAction(tAccUtils account, String action, Map<String, String> fields, boolean finishOnSuccess) {
+        WGProBottomSheetDialog progress = showProgress("正在处理..."); long started = android.os.SystemClock.uptimeMillis();
         account.postV2Json(action, fields, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(JSONObject json) { runOnUiThread(() -> {
-                android.widget.Toast.makeText(AppDetailActivity.this, json.optString("msg", "操作成功"),
-                        android.widget.Toast.LENGTH_SHORT).show(); if (finishOnSuccess) finish();
-            }); }
-            @Override public void onError(int code, String message) { runOnUiThread(() ->
-                    new WGProAlertDialogBuilder(AppDetailActivity.this).setTitle("操作失败")
-                            .setMessage(message).setNegativeButton("关闭", null).show()); }
+            @Override public void onSuccess(JSONObject json) { finishProgress(progress, started, true, json.optString("msg", "操作成功"), finishOnSuccess); }
+            @Override public void onError(int code, String message) { finishProgress(progress, started, false, message, false); }
         });
+    }
+
+    private WGProBottomSheetDialog showProgress(String message) {
+        View view = View.inflate(this, R.layout.progress_dialog, null); ((TextView) view.findViewById(android.R.id.message)).setText(message);
+        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(this).setTitle("处理中").setView(view).setCancelable(false).create(); dialog.show(); return dialog;
+    }
+    private void finishProgress(WGProBottomSheetDialog progress, long started, boolean success, String message, boolean close) {
+        runOnUiThread(() -> sectionToolbar().postDelayed(() -> { if (isFinishing()) return; progress.dismissForReplacement();
+            new WGProAlertDialogBuilder(this).setTitle(success ? "操作成功" : "操作失败").setMessage(message).setNegativeButton("关闭", (d,w) -> { if (close) finish(); }).show();
+        }, Math.max(0, 300L - (android.os.SystemClock.uptimeMillis() - started))));
     }
 }

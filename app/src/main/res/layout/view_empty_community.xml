@@ -6,14 +6,13 @@
     android:background="@color/surface_page" android:clipToPadding="false">
     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
         android:orientation="vertical" android:paddingBottom="28dp">
-        <HorizontalScrollView android:id="@+id/community_banner_scroll"
-            android:layout_width="match_parent" android:layout_height="154dp"
-            android:clipToPadding="false" android:paddingStart="16dp"
-            android:paddingEnd="16dp" android:scrollbars="none">
-            <LinearLayout android:id="@+id/community_banners" android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:gravity="center_vertical"
-                android:orientation="horizontal" />
-        </HorizontalScrollView>
+        <com.typheye.wgpro.ui.widget.NestedScrollableHost
+            android:id="@+id/community_banner_host" android:layout_width="match_parent"
+            android:layout_height="174dp" android:paddingStart="16dp" android:paddingEnd="16dp">
+            <androidx.viewpager2.widget.ViewPager2 android:id="@+id/community_banner_pager"
+                android:layout_width="match_parent" android:layout_height="154dp"
+                android:layout_gravity="center_vertical" />
+        </com.typheye.wgpro.ui.widget.NestedScrollableHost>
         <com.google.android.material.card.MaterialCardView android:id="@+id/community_announcement"
             style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:layout_marginStart="16dp"

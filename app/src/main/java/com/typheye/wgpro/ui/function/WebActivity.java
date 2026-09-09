@@ -32,7 +32,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.preference.PreferenceManager;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.core.xms.JSKit;
@@ -53,7 +52,7 @@ public class WebActivity extends AppCompatActivity {
     private static final String WEB_LOGIN_AUTH_URL = "https://account.typheye.cn/auth";
 
     private WebView webView;
-    private LinearProgressIndicator loadProgress;
+    private android.widget.ProgressBar loadProgress;
     private ValueCallback<Uri[]> mFilePathCallback; // 保存文件选择回调
     private ActivityResultLauncher<Intent> fileChooserLauncher; // 文件选择器启动器
     private OnBackPressedCallback webBackCallback;
@@ -221,7 +220,7 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
-                loadProgress.setProgressCompat(newProgress, newProgress > 0);
+                loadProgress.setProgress(newProgress, false);
                 loadProgress.setVisibility(newProgress >= 100 ? View.GONE : View.VISIBLE);
                 if (newProgress == 100) {
                     // 加载完成，设置标题

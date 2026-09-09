@@ -29,16 +29,15 @@
                 app:titleTextColor="@color/text_u1"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"
                 app:navigationIcon="@drawable/ic_back_vector" />
-            <com.google.android.material.progressindicator.LinearProgressIndicator
+            <ProgressBar
                 android:id="@+id/web_load_progress"
+                style="?android:attr/progressBarStyleHorizontal"
                 android:layout_width="match_parent"
                 android:layout_height="3dp"
                 android:layout_gravity="bottom"
                 android:max="100"
                 android:visibility="gone"
-                app:indicatorColor="@color/brand_primary"
-                app:trackColor="@android:color/transparent"
-                app:trackThickness="3dp" />
+                android:progressDrawable="@drawable/progress_web_horizontal" />
         </FrameLayout>
 
     </com.google.android.material.appbar.AppBarLayout>

@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.tAccUtils;
+import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import org.json.JSONObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -59,15 +61,19 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             star.setText(starred ? "移除星标" : "加入星标"); star.setEnabled(account.isLogin());
             star.setOnClickListener(v -> toggleStar(root, starred));
         }
-        private void toggleStar(View root, boolean before) { Map<String,String> f = new LinkedHashMap<>(); f.put("target_type", "resource"); f.put("target_key", resource.optString("id")); f.put("action", before ? "remove" : "add"); account.postV2Json("collection_action2", f, new tAccUtils.JsonCallback() { public void onSuccess(JSONObject j) { requireActivity().runOnUiThread(() -> { try { resource.put("is_collected", j.optBoolean("collected", !before)); } catch (Exception ignored) {} bind(root, resource); }); } public void onError(int c, String m) {} }); }
+        private void toggleStar(View root, boolean before) { Map<String,String> f = new LinkedHashMap<>(); f.put("target_type", "resource"); f.put("target_key", resource.optString("id")); f.put("action", before ? "remove" : "add"); WGProBottomSheetDialog progress=progress("正在更新星标..."); long started=android.os.SystemClock.uptimeMillis(); account.postV2Json("collection_action2", f, new tAccUtils.JsonCallback() { public void onSuccess(JSONObject j) { requireActivity().runOnUiThread(() -> root.postDelayed(() -> { progress.dismissForReplacement(); try { resource.put("is_collected", j.optBoolean("collected", !before)); } catch (Exception ignored) {} bind(root, resource); feedback("操作成功", resource.optBoolean("is_collected") ? "已加入星标" : "已移除星标"); }, delay(started))); } public void onError(int c, String m) { requireActivity().runOnUiThread(() -> root.postDelayed(() -> { progress.dismissForReplacement(); feedback("操作失败", m); }, delay(started))); } }); }
         private void download() {
             if (!account.isLogin()) { openDownload(resource.optString("file_url")); return; }
             Map<String,String> f = new LinkedHashMap<>(); f.put("resource_id", resource.optString("id"));
+            WGProBottomSheetDialog progress=progress("正在准备下载..."); long started=android.os.SystemClock.uptimeMillis();
             account.postV2Json("resource_download2", f, new tAccUtils.JsonCallback() {
-                public void onSuccess(JSONObject j) { requireActivity().runOnUiThread(() -> openDownload(j.optString("download_url", resource.optString("file_url")))); }
-                public void onError(int c, String m) { requireActivity().runOnUiThread(() -> openDownload(resource.optString("file_url"))); }
+                public void onSuccess(JSONObject j) { requireActivity().runOnUiThread(() -> requireView().postDelayed(() -> { progress.dismissForReplacement(); String url=j.optString("download_url", resource.optString("file_url")); new WGProAlertDialogBuilder(requireContext()).setTitle("下载已准备").setMessage("点击继续打开下载页面").setNegativeButton("继续",(d,w)->openDownload(url)).show(); }, delay(started))); }
+                public void onError(int c, String m) { requireActivity().runOnUiThread(() -> requireView().postDelayed(() -> { progress.dismissForReplacement(); feedback("下载失败", m); }, delay(started))); }
             });
         }
+        private WGProBottomSheetDialog progress(String message) { View v=View.inflate(requireContext(),R.layout.progress_dialog,null); ((TextView)v.findViewById(android.R.id.message)).setText(message); WGProBottomSheetDialog d=new WGProAlertDialogBuilder(requireContext()).setTitle("处理中").setView(v).setCancelable(false).create(); d.show(); return d; }
+        private long delay(long started) { return Math.max(0,300L-(android.os.SystemClock.uptimeMillis()-started)); }
+        private void feedback(String title,String message) { new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message==null||message.isEmpty()?"请稍后重试":message).setNegativeButton("关闭",null).show(); }
         private void openDownload(String url) { if (!url.isEmpty()) startActivity(new Intent(requireContext(), com.typheye.wgpro.ui.function.WebActivity.class).putExtra("URL", url)); }
     }
 }

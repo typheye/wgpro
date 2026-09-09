@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -14,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,6 +36,7 @@ import com.typheye.wgpro.ui.function.community.AppListItemFactory;
 import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
 import com.typheye.wgpro.ui.function.community.ResourceMasonryFactory;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.utils.tAccUtils;
 
 import org.json.JSONArray;
@@ -55,8 +56,14 @@ import okhttp3.Response;
 
 public class HomeFragment extends Fragment {
     private final Handler mainHandler = new Handler(Looper.getMainLooper());
-    private LinearLayout banners;
-    private HorizontalScrollView bannerScroll;
+    private View bannerHost;
+    private ViewPager2 bannerPager;
+    private final Runnable advanceBanner = () -> {
+        if (bannerPager != null && bannerPager.getAdapter() != null && bannerPager.getAdapter().getItemCount() > 1) {
+            bannerPager.setCurrentItem((bannerPager.getCurrentItem() + 1) % bannerPager.getAdapter().getItemCount(), true);
+            scheduleBannerAdvance();
+        }
+    };
     private View announcement;
     private TextView announcementText;
     private LinearLayout feed;
@@ -114,8 +121,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void bindContent(View root) {
-        bannerScroll = root.findViewById(R.id.community_banner_scroll);
-        banners = root.findViewById(R.id.community_banners);
+        bannerHost = root.findViewById(R.id.community_banner_host);
+        bannerPager = root.findViewById(R.id.community_banner_pager);
+        bannerPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageScrollStateChanged(int state) {
+                mainHandler.removeCallbacks(advanceBanner);
+                if (state == ViewPager2.SCROLL_STATE_IDLE) scheduleBannerAdvance();
+            }
+        });
         announcement = root.findViewById(R.id.community_announcement);
         announcementText = root.findViewById(R.id.community_announcement_text);
         feed = root.findViewById(R.id.community_feed);
@@ -166,24 +179,26 @@ public class HomeFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 completeAtLeast(started, () -> {
                     JSONArray items = items(json, "items", "banners", "data");
-                    banners.removeAllViews();
-                    for (int i = 0; i < items.length(); i++) addBanner(items.optJSONObject(i));
-                    bannerScroll.setVisibility(items.length() == 0 ? View.GONE : View.VISIBLE);
+                    java.util.ArrayList<View> pages = new java.util.ArrayList<>();
+                    for (int i = 0; i < items.length(); i++) { View card = createBanner(items.optJSONObject(i)); if (card != null) pages.add(card); }
+                    bannerPager.setAdapter(new LocalPageAdapter(pages));
+                    bannerHost.setVisibility(items.length() == 0 ? View.GONE : View.VISIBLE);
+                    scheduleBannerAdvance();
                 });
             }
             @Override public void onError(int code, @NonNull String message) {
-                completeAtLeast(started, () -> bannerScroll.setVisibility(View.GONE));
+                completeAtLeast(started, () -> bannerHost.setVisibility(View.GONE));
             }
         });
     }
 
-    private void addBanner(@Nullable JSONObject item) {
-        if (item == null) return;
+    private View createBanner(@Nullable JSONObject item) {
+        if (item == null) return null;
         MaterialCardView card = card();
         card.setRadius(dp(8));
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(dp(280), dp(132));
-        params.setMarginEnd(dp(12));
-        card.setLayoutParams(params);
+        int[] placeholders = {R.color.media_blue, R.color.media_green, R.color.media_coral, R.color.media_amber};
+        card.setCardBackgroundColor(requireContext().getColor(placeholders[Math.abs(item.optString("title", "").hashCode() % placeholders.length)]));
+        card.setLayoutParams(new ViewGroup.LayoutParams(-1, dp(154)));
         LinearLayout content = column(dp(18));
         content.setGravity(Gravity.BOTTOM);
         String imageUrl = item.optString("image_url", "");
@@ -191,22 +206,28 @@ public class HomeFragment extends Fragment {
             ImageView image = new ImageView(requireContext());
             image.setScaleType(ImageView.ScaleType.CENTER_CROP);
             card.addView(image, new MaterialCardView.LayoutParams(-1, -1));
-            View shade = new View(requireContext());
-            shade.setBackgroundColor(Color.argb(92, 0, 0, 0));
-            card.addView(shade, new MaterialCardView.LayoutParams(-1, -1));
             loadImage(imageUrl, image);
         }
-        TextView tag = text(targetLabel(item.optString("target_type")), 12, false,
-                imageUrl.isEmpty() ? R.color.brand_primary : R.color.white);
-        TextView title = text(item.optString("title", "Typheye"), 20, true,
-                imageUrl.isEmpty() ? R.color.text_primary : R.color.white);
+        View shade = new View(requireContext());
+        shade.setBackground(new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
+                new int[]{0xC2000000, 0x52000000, 0x00000000}));
+        card.addView(shade, new MaterialCardView.LayoutParams(-1, -1));
+        TextView tag = text(targetLabel(item.optString("target_type")), 12, false, R.color.white);
+        TextView title = text(item.optString("title", "Typheye"), 20, true, R.color.white);
         title.setMaxLines(2);
         content.addView(tag);
         content.addView(title, top(dp(6)));
         card.addView(content, new MaterialCardView.LayoutParams(-1, -1));
         card.setOnClickListener(v -> openTarget(item));
-        banners.addView(card);
+        return card;
     }
+
+    private void scheduleBannerAdvance() {
+        mainHandler.removeCallbacks(advanceBanner);
+        if (isResumed()) mainHandler.postDelayed(advanceBanner, 5000L);
+    }
+
+    @Override public void onPause() { mainHandler.removeCallbacks(advanceBanner); super.onPause(); }
 
     private void loadImage(String url, ImageView target) {
         loadImage(url, target, null);
@@ -412,12 +433,22 @@ public class HomeFragment extends Fragment {
 
     private void runCatalogAction(String action, Map<String,String> fields, String title, String message, String success) {
         new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message).setNegativeButton("取消", null).setPositiveButton("确认", (d,w) -> {
+            if (d instanceof WGProBottomSheetDialog) ((WGProBottomSheetDialog) d).dismissForReplacement();
+            mainHandler.postDelayed(() -> startCatalogOperation(action, fields, success), 40L);
+        }).show();
+    }
+
+    private void startCatalogOperation(String action, Map<String,String> fields, String success) {
+            View progressView = View.inflate(requireContext(), R.layout.progress_dialog, null);
+            ((TextView) progressView.findViewById(android.R.id.message)).setText("正在处理...");
+            WGProBottomSheetDialog progress = new WGProAlertDialogBuilder(requireContext()).setTitle("处理中")
+                    .setView(progressView).setCancelable(false).create();
+            progress.show();
             long started = android.os.SystemClock.uptimeMillis();
             account.postV2Json(action, fields, new tAccUtils.JsonCallback() {
-                public void onSuccess(JSONObject json) { mainHandler.postDelayed(() -> { if (!isAdded()) return; new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage(success).setNegativeButton("关闭", null).show(); loadAll(); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
-                public void onError(int code,String msg) { mainHandler.postDelayed(() -> showLoadError("操作失败", msg), Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
+                public void onSuccess(JSONObject json) { mainHandler.postDelayed(() -> { if (!isAdded()) return; progress.dismissForReplacement(); new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage(success).setNegativeButton("关闭", null).show(); loadAll(); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
+                public void onError(int code,String msg) { mainHandler.postDelayed(() -> { progress.dismissForReplacement(); showLoadError("操作失败", msg); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
             });
-        }).show();
     }
 
     private void addAppRow(LinearLayout parent, JSONObject item) {

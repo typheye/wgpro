@@ -38,6 +38,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
+import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -153,7 +154,10 @@ public class UserDetailActivity extends AppCompatActivity {
                 new WGProAlertDialogBuilder(this).setTitle("取消关注")
                         .setMessage("确定要取消关注该用户吗？")
                         .setNegativeButton("取消", null)
-                        .setPositiveButton("取消关注", (dialog, which) -> changeFollowState()).show();
+                        .setPositiveButton("取消关注", (dialog, which) -> {
+                            if (dialog instanceof WGProBottomSheetDialog) ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                            followButton.postDelayed(this::changeFollowState, 40L);
+                        }).show();
             } else {
                 changeFollowState();
             }
@@ -270,25 +274,37 @@ public class UserDetailActivity extends AppCompatActivity {
             return;
         }
         followButton.setEnabled(false);
+        final boolean wasFollowing = following;
+        View progressView = View.inflate(this, R.layout.progress_dialog, null);
+        ((TextView) progressView.findViewById(android.R.id.message)).setText(wasFollowing ? "正在取消关注..." : "正在关注...");
+        WGProBottomSheetDialog progress = new WGProAlertDialogBuilder(this).setTitle("处理中")
+                .setView(progressView).setCancelable(false).create();
+        progress.show();
+        long started = android.os.SystemClock.uptimeMillis();
         Map<String, String> fields = new LinkedHashMap<>();
         fields.put("target_uid", targetUid);
         fields.put("action", following ? "unfollow" : "follow");
         account.postV2Json("follow_action2", fields, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
-                runOnUiThread(() -> {
+                runOnUiThread(() -> new android.os.Handler(getMainLooper()).postDelayed(() -> {
+                    progress.dismissForReplacement();
                     following = json.optBoolean("following", !following);
                     if ("10000".equals(targetUid)) getSharedPreferences("local_follow_state", MODE_PRIVATE)
                             .edit().putBoolean("unfollow_10000", !following).apply();
                     canUnfollow = json.optBoolean("can_unfollow", true);
                     updateFollowButton();
-                });
+                    new WGProAlertDialogBuilder(UserDetailActivity.this).setTitle("操作成功")
+                            .setMessage(following ? "已关注该用户" : "已取消关注")
+                            .setNegativeButton("关闭", null).show();
+                }, Math.max(0, 300L - (android.os.SystemClock.uptimeMillis() - started))));
             }
             @Override public void onError(int code, @NonNull String message) {
-                runOnUiThread(() -> {
+                runOnUiThread(() -> new android.os.Handler(getMainLooper()).postDelayed(() -> {
+                    progress.dismissForReplacement();
                     updateFollowButton();
                     new WGProAlertDialogBuilder(UserDetailActivity.this).setTitle("操作失败")
                             .setMessage(message).setNegativeButton("关闭", null).show();
-                });
+                }, Math.max(0, 300L - (android.os.SystemClock.uptimeMillis() - started))));
             }
         });
     }

@@ -7,6 +7,7 @@
     <color name="surface_page">#FFF6F7F9</color>
     <color name="surface_primary">#FFFFFFFF</color>
     <color name="surface_secondary">#FFF0F2F5</color>
+    <color name="web_progress_track">#FFD7DAE2</color>
     <color name="surface_elevated">#FFFFFFFF</color>
     <color name="profile_detail_sheet">@color/surface_page</color>
     <color name="profile_detail_segments">@color/surface_secondary</color>

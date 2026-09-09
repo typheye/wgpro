@@ -74,7 +74,7 @@ public final class ResourceMasonryFactory {
         TextView description = text(context, invalid ? "资源已不可见" : item.optString("description", ""), 13, false, R.color.text_secondary);
         description.setMaxLines(2); LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
         String type = item.optString("category", item.optString("type_name", "资源"));
-        TextView meta = text(context, item.optInt("download_count", 0) + " 下载 | " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
+        TextView meta = text(context, item.optInt("download_count", 0) + " 下载 • " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
         LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(-1, -2); mp.topMargin = dp(context, 5); labels.addView(meta, mp);
         body.addView(labels); card.addView(body); card.setOnClickListener(v -> listener.onClick(item));
         LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, -2); cp.bottomMargin = dp(context, 10); card.setLayoutParams(cp);
