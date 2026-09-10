@@ -276,6 +276,9 @@ public class MainActivity extends AppCompatActivity {
         setIntent(intent);
         acceptGrantIntent(intent);
         maybeOpenLoginFromIntent();
+        // 关键：应用已在前台时不会再走 onResume，这里必须立即消费扫码授权请求，
+        // 否则扫码后"没有任何反应"（授权弹窗永远不出现）。
+        consumePendingGrantRequest();
     }
 
     /** 其它页面点「去登录」后回到这里：切到「我的」并弹出登录面板。 */

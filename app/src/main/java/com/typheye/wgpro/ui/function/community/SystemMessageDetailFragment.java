@@ -23,10 +23,14 @@ import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.data.MessageDatabase;
 import com.typheye.wgpro.ui.function.WebActivity;
+import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProProgressRunner;
 import com.typheye.wgpro.utils.InboxNotificationHelper;
 import com.typheye.wgpro.utils.tAccUtils;
+
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -130,6 +134,7 @@ public class SystemMessageDetailFragment extends Fragment {
                 message.metadata = metadata == null ? "{}" : metadata.toString();
                 message.targetType = item.optString("target_type", "");
                 message.targetKey = item.optString("target_key", "");
+                message.notificationType = item.optString("notification_type", "");
                 message.createdAt = item.optString("created_at", "");
                 message.isRead = item.optBoolean("is_read", false);
                 cache.add(message);
@@ -148,6 +153,7 @@ public class SystemMessageDetailFragment extends Fragment {
                 item.put("content", message.content);
                 item.put("target_type", message.targetType);
                 item.put("target_key", message.targetKey);
+                item.put("notification_type", message.notificationType);
                 try { item.put("metadata", new JSONObject(message.metadata)); }
                 catch (Exception ignored) { item.put("metadata", new JSONObject()); }
                 item.put("created_at", message.createdAt);
@@ -210,6 +216,12 @@ public class SystemMessageDetailFragment extends Fragment {
         }
     }
 
+    /** 旧数据里的"（编号 #21）"不再显示在通知卡片标题上，编号在举报详情页里可见。 */
+    private static String cleanTitle(String title) {
+        if (title == null || title.isEmpty()) return "";
+        return title.replaceAll("[（(]\\s*编号\\s*#?\\s*[0-9]+\\s*[)）]\\s*$", "").trim();
+    }
+
     private View dateHeader(String text) {
         TextView view = new TextView(requireContext());
         view.setText(text);
@@ -238,7 +250,7 @@ public class SystemMessageDetailFragment extends Fragment {
         body.setOrientation(LinearLayout.VERTICAL);
         body.setPadding(dp(16), dp(16), dp(16), dp(16));
 
-        String title = item.optString("title", "系统消息").trim();
+        String title = cleanTitle(item.optString("title", "系统消息").trim());
         if (!title.isEmpty()) {
             TextView titleView = new TextView(requireContext());
             titleView.setText(title);
@@ -274,26 +286,10 @@ public class SystemMessageDetailFragment extends Fragment {
     }
 
     private void addActionRow(LinearLayout body, JSONObject item) {
-        if (!"report".equals(item.optString("target_type", ""))) return;
-        JSONObject metadata = item.optJSONObject("metadata");
-        String reportId = metadata == null ? "" : metadata.optString("report_id", "");
-        if (reportId.isEmpty()) reportId = item.optString("target_key", "");
-        if (reportId.isEmpty()) return;
-        String status = metadata == null ? "" : metadata.optString("status", "");
-        String label;
-        String hint;
-        if ("resolved".equalsIgnoreCase(status)) {
-            label = "查看举报结果";
-            hint = "举报已处理完成";
-        } else if ("rejected".equalsIgnoreCase(status)) {
-            label = "查看驳回原因";
-            hint = "举报未通过";
-        } else {
-            label = "查看处理进度";
-            hint = "正在核查中";
-        }
-        String url = "https://service.typheye.cn/site/report/index.php?id="
-                + Uri.encode(reportId) + "&status=" + Uri.encode(status);
+        final ActionInfo resolved = resolveAction(item);
+        if (resolved == null) return;
+        String label = resolved.label;
+        String hint = resolved.hint;
 
         // 圆角动作条：主标题 + 状态说明 + 箭头，整行带水波纹点击反馈
         LinearLayout row = new LinearLayout(requireContext());
@@ -307,12 +303,12 @@ public class SystemMessageDetailFragment extends Fragment {
 
         LinearLayout texts = new LinearLayout(requireContext());
         texts.setOrientation(LinearLayout.VERTICAL);
-        TextView action = new TextView(requireContext());
-        action.setText(label);
-        action.setTextSize(15);
-        action.setTextColor(requireContext().getColor(R.color.brand_primary));
-        action.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        texts.addView(action);
+        TextView actionLabel = new TextView(requireContext());
+        actionLabel.setText(label);
+        actionLabel.setTextSize(15);
+        actionLabel.setTextColor(requireContext().getColor(R.color.brand_primary));
+        actionLabel.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        texts.addView(actionLabel);
         TextView sub = new TextView(requireContext());
         sub.setText(hint);
         sub.setTextSize(12);
@@ -327,11 +323,128 @@ public class SystemMessageDetailFragment extends Fragment {
         arrow.setImageTintList(android.content.res.ColorStateList.valueOf(
                 requireContext().getColor(R.color.text_tertiary)));
         row.addView(arrow, new LinearLayout.LayoutParams(dp(18), dp(18)));
-        row.setOnClickListener(v -> startActivity(new Intent(requireContext(), WebActivity.class)
-                .putExtra("URL", url)));
+        row.setOnClickListener(v -> resolved.run());
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2);
         rowParams.topMargin = dp(16);
         body.addView(row, rowParams);
+    }
+
+    /** 动作行的描述：不同通知类型跳转到不同页面。 */
+    private final class ActionInfo {
+        final String label;
+        final String hint;
+        final Runnable action;
+
+        ActionInfo(String label, String hint, Runnable action) {
+            this.label = label;
+            this.hint = hint;
+            this.action = action;
+        }
+
+        void run() {
+            if (!isAdded()) return;
+            action.run();
+        }
+    }
+
+    /**
+     * 按通知类型解析动作：
+     *  - report          → 举报处理页（网页）
+     *  - dynamic         → 动态详情（收到评论/点赞等）
+     *  - user + follow   → 粉丝列表
+     *  - user            → 用户主页
+     *  - message         → 对应私信会话
+     *  - resource        → 资源详情（先拉取详情再打开）
+     */
+    private ActionInfo resolveAction(JSONObject item) {
+        String targetType = item.optString("target_type", "");
+        String targetKey = item.optString("target_key", "").trim();
+        String notificationType = item.optString("notification_type", "");
+        JSONObject metadata = item.optJSONObject("metadata");
+
+        if ("report".equals(targetType)) {
+            String reportId = metadata == null ? "" : metadata.optString("report_id", "");
+            if (reportId.isEmpty()) reportId = targetKey;
+            if (reportId.isEmpty()) return null;
+            String status = metadata == null ? "" : metadata.optString("status", "");
+            String label;
+            String hint;
+            if ("resolved".equalsIgnoreCase(status)) {
+                label = "查看举报结果";
+                hint = "举报已处理完成";
+            } else if ("rejected".equalsIgnoreCase(status)) {
+                label = "查看驳回原因";
+                hint = "举报未通过";
+            } else {
+                label = "查看处理进度";
+                hint = "正在核查中";
+            }
+            String url = "https://service.typheye.cn/site/report/index.php?id="
+                    + Uri.encode(reportId) + "&status=" + Uri.encode(status);
+            return new ActionInfo(label, hint, () -> startActivity(
+                    new Intent(requireContext(), WebActivity.class).putExtra("URL", url)));
+        }
+
+        if ("dynamic".equals(targetType)) {
+            if (targetKey.isEmpty()) return null;
+            String hint = "comment".equals(notificationType) ? "查看相关评论" : "打开动态详情";
+            return new ActionInfo("查看动态", hint, () -> startActivity(
+                    new Intent(requireContext(), DynamicDetailActivity.class)
+                            .putExtra(DynamicDetailActivity.EXTRA_DYNAMIC_ID, targetKey)));
+        }
+
+        if ("user".equals(targetType)) {
+            if (targetKey.isEmpty()) return null;
+            if ("follow".equals(notificationType)) {
+                return new ActionInfo("查看粉丝列表", "看看是谁关注了你", () -> startActivity(
+                        new Intent(requireContext(), AccountListActivity.class)
+                                .putExtra(AccountListActivity.EXTRA_MODE,
+                                        CloudListFragment.MODE_FOLLOWERS)
+                                .putExtra(AccountListActivity.EXTRA_TITLE, "粉丝")));
+            }
+            return new ActionInfo("查看用户主页", "打开对方的主页", () -> startActivity(
+                    new Intent(requireContext(), UserDetailActivity.class)
+                            .putExtra(UserDetailActivity.EXTRA_TARGET_UID, targetKey)));
+        }
+
+        if ("message".equals(targetType)) {
+            String peerUid = item.optString("actor_uid", "").trim();
+            if (peerUid.isEmpty() || "0".equals(peerUid)) return null;
+            String peerName = item.optString("actor_nick", "用户");
+            return new ActionInfo("查看消息", "打开与对方的会话", () -> startActivity(
+                    new Intent(requireContext(), ChatActivity.class)
+                            .putExtra(ChatActivity.EXTRA_PEER_UID, peerUid)
+                            .putExtra(ChatActivity.EXTRA_PEER_NAME, peerName)));
+        }
+
+        if ("resource".equals(targetType)) {
+            if (targetKey.isEmpty()) return null;
+            return new ActionInfo("查看资源", "打开资源详情", () -> openResourceDetail(targetKey));
+        }
+
+        return null;
+    }
+
+    /** 资源通知只带 id，先取详情再打开详情页。 */
+    private void openResourceDetail(String resourceId) {
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("resource_id", resourceId);
+        account.getV2Json("resource_detail2", query, false, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONObject info = json.optJSONObject("info");
+                main.post(() -> {
+                    if (!isAdded() || info == null) return;
+                    startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
+                            .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, info.toString()));
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                main.post(() -> {
+                    if (isAdded()) showResult("无法打开资源", message);
+                });
+            }
+        });
     }
 
     private View emptyState() {

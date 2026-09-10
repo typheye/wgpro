@@ -86,17 +86,18 @@ public class WebActivity extends AppCompatActivity {
             return;
         }
 
-        // 修复点1：根据request_id构造业务URL（关键修改）
+        // 从 intent:// 唤起时 request_id 直接以 extra 传入：直接交给主界面处理授权，
+        // 不再多走一次网页跳转（旧实现会再打开一次 app_request_login 页面，链路更长更易失败）
         String requestId = getIntent().getStringExtra("request_id");
+        if (requestId != null && !requestId.trim().isEmpty()) {
+            forwardGrantRequest(requestId.trim());
+            return;
+        }
         String url;
-        if (requestId != null && !requestId.isEmpty()) {
-            url = "https://service.typheye.cn/api.php?type=app_request_login&request_id=" + requestId;
-        } else {
-            // 从Intent获取URL
-            url = getIntent().getStringExtra("URL");
-            if (url == null || url.isEmpty()) {
-                url = "file:///android_asset/wait.html";
-            }
+        // 从Intent获取URL
+        url = getIntent().getStringExtra("URL");
+        if (url == null || url.isEmpty()) {
+            url = "file:///android_asset/wait.html";
         }
 
         if (Objects.equals(FLAG, "XMS_WEARABLE"))
@@ -489,18 +490,27 @@ public class WebActivity extends AppCompatActivity {
                 return true;
             }
             if (grantRequestForwarded) return true;
-            grantRequestForwarded = true;
-            Intent grantIntent = new Intent(this, MainActivity.class);
-            grantIntent.putExtra(MainActivity.EXTRA_LOGIN_GRANT_REQUEST_ID, requestId.trim());
-            grantIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-            startActivity(grantIntent);
-            finish();
+            forwardGrantRequest(requestId.trim());
             return true;
         } catch (Exception e) {
             Log.e("WebActivity", "Unable to parse grant URI", e);
             Toast.makeText(this, "无法识别登录授权请求", Toast.LENGTH_SHORT).show();
             return rawUri.startsWith("intent:") || rawUri.startsWith("wgproGrant:");
         }
+    }
+
+    /** 把扫码授权请求交给主界面处理（MainActivity 会弹出授权底部弹窗）。 */
+    private void forwardGrantRequest(String requestId) {
+        if (grantRequestForwarded) {
+            finish();
+            return;
+        }
+        grantRequestForwarded = true;
+        Intent grantIntent = new Intent(this, MainActivity.class);
+        grantIntent.putExtra(MainActivity.EXTRA_LOGIN_GRANT_REQUEST_ID, requestId);
+        grantIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(grantIntent);
+        finish();
     }
 
     private void showExternalAppConfirmDialog(String url) {

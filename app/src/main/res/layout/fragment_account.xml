@@ -62,9 +62,11 @@
                         android:layout_marginStart="15dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView android:id="@+id/text_usr_nick" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:textColor="@color/text_primary"
+                            android:ellipsize="end" android:maxLines="1"
                             android:textSize="19sp" android:textStyle="bold" />
                         <TextView android:id="@+id/text_usr_uid" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                            android:ellipsize="end" android:maxLines="1"
                             android:textColor="@color/text_secondary" android:textSize="12sp" />
                         <TextView android:id="@+id/text_usr_shuo" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="5dp"

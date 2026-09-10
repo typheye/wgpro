@@ -72,7 +72,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="18dp"
                 android:paddingEnd="14dp">
-                <TextView
+                <TextView android:ellipsize="end" android:maxLines="1"
                     android:id="@+id/sheet_device_action_primary_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 android:orientation="horizontal"
                 android:paddingStart="18dp"
                 android:paddingEnd="14dp">
-                <TextView
+                <TextView android:ellipsize="end" android:maxLines="1"
                     android:id="@+id/sheet_device_action_secondary_label"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"

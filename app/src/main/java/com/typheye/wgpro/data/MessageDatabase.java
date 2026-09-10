@@ -12,7 +12,7 @@ import java.util.List;
 /** 通知中心本地状态库：只保存设备侧清空、移除、已读/未读覆盖，不存云端消息正文。 */
 public final class MessageDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME = "message_local.db";
-    private static final int DB_VERSION = 4;
+    private static final int DB_VERSION = 5;
 
     public MessageDatabase(Context context) {
         super(context.getApplicationContext(), DB_NAME, null, DB_VERSION);
@@ -49,6 +49,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 + "metadata TEXT NOT NULL DEFAULT '{}',"
                 + "target_type TEXT NOT NULL DEFAULT '',"
                 + "target_key TEXT NOT NULL DEFAULT '',"
+                + "notification_type TEXT NOT NULL DEFAULT '',"
                 + "created_at TEXT NOT NULL DEFAULT '',"
                 + "is_read INTEGER NOT NULL DEFAULT 0,"
                 + "deleted INTEGER NOT NULL DEFAULT 0,"
@@ -58,10 +59,11 @@ public final class MessageDatabase extends SQLiteOpenHelper {
 
     /**
      * 开发阶段直接重建缓存表：系统消息缓存是服务端数据的副本，可以随时重新拉取。
-     * （4：新增 target_type / target_key，报告类系统消息的动作行依赖它们。）
+     * （4：新增 target_type / target_key；5：新增 notification_type——动作行需要它区分
+     *   "关注"与"评论"等同为 user/dynamic 类型的不同跳转。）
      */
     @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 4) {
+        if (oldVersion < 5) {
             db.execSQL("DROP TABLE IF EXISTS system_messages");
             db.execSQL("CREATE TABLE system_messages("
                     + "uid TEXT NOT NULL,"
@@ -71,6 +73,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                     + "metadata TEXT NOT NULL DEFAULT '{}',"
                     + "target_type TEXT NOT NULL DEFAULT '',"
                     + "target_key TEXT NOT NULL DEFAULT '',"
+                    + "notification_type TEXT NOT NULL DEFAULT '',"
                     + "created_at TEXT NOT NULL DEFAULT '',"
                     + "is_read INTEGER NOT NULL DEFAULT 0,"
                     + "deleted INTEGER NOT NULL DEFAULT 0,"
@@ -228,6 +231,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 values.put("metadata", message.metadata);
                 values.put("target_type", message.targetType);
                 values.put("target_key", message.targetKey);
+                values.put("notification_type", message.notificationType);
                 values.put("created_at", message.createdAt);
                 values.put("is_read", message.isRead ? 1 : 0);
                 values.put("deleted", 0);
@@ -245,7 +249,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
         List<SystemMessage> messages = new ArrayList<>();
         try (Cursor cursor = getReadableDatabase().rawQuery(
                 "SELECT notification_id,title,content,metadata,created_at,is_read,"
-                        + "target_type,target_key "
+                        + "target_type,target_key,notification_type "
                         + "FROM system_messages WHERE uid=? AND deleted=0 "
                         + "ORDER BY notification_id DESC",
                 new String[]{uid})) {
@@ -259,6 +263,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 message.isRead = cursor.getInt(5) != 0;
                 message.targetType = cursor.getString(6);
                 message.targetKey = cursor.getString(7);
+                message.notificationType = cursor.getString(8);
                 messages.add(message);
             }
         }
@@ -306,6 +311,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
         public String metadata = "{}";
         public String targetType = "";
         public String targetKey = "";
+        public String notificationType = "";
         public String createdAt = "";
         public boolean isRead;
     }

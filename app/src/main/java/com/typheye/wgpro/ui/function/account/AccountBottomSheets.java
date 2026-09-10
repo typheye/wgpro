@@ -124,7 +124,13 @@ public final class AccountBottomSheets {
         boolean[] listening = {true};
         Runnable[] poll = new Runnable[1];
         poll[0] = () -> {
-            if (!listening[0] || !dialog.isShowing()) return;
+            if (!listening[0]) return;
+            // 弹窗可能还没真正显示完（底部弹窗有防重复/排队逻辑），此时不能直接放弃轮询，
+            // 否则二维码会永远停在"等待扫码"，另一端批准了也毫无反应。
+            if (!dialog.isShowing()) {
+                handler.postDelayed(poll[0], 300L);
+                return;
+            }
             if (System.currentTimeMillis() >= expiresAt) {
                 listening[0] = false;
                 dialog.dismissForReplacement();

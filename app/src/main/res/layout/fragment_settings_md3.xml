@@ -145,7 +145,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView android:id="@+id/label_account" style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="账户" android:textColor="@color/brand_primary" />
+        <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/label_account" style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="账户" android:textColor="@color/brand_primary" />
 
         <com.google.android.material.card.MaterialCardView android:id="@+id/card_logout" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:id="@+id/row_logout" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">

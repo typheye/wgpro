@@ -28,7 +28,7 @@
                             android:textColor="@color/text_secondary" android:textSize="13sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
-                <TextView android:id="@+id/dynamic_comments_title"
+                <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/dynamic_comments_title"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="22dp" android:layout_marginBottom="10dp" android:text="评论"
                     android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
