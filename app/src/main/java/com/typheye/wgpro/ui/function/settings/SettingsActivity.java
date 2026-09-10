@@ -297,9 +297,9 @@ public class SettingsActivity extends AppCompatActivity {
             boolean alerting = com.typheye.wgpro.utils.InboxNotificationHelper
                     .isMessageChannelAlerting(requireContext());
             CharSequence[] items = {
-                    alerting ? "消息横幅与提醒（已开启）" : "消息横幅与提醒（未开启，点此开启）",
-                    "账户通知（异常退出、封号提醒）",
-                    "后台常驻通知（在系统页面里关闭即可隐藏）",
+                    alerting ? "消息横幅与提醒（已开启）" : "消息横幅与提醒（未开启）",
+                    "账户通知",
+                    "后台常驻通知",
             };
             new WGProAlertDialogBuilder(requireContext()).setTitle("通知设置")
                     .setItems(items, (dialog, which) -> {

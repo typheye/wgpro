@@ -30,7 +30,6 @@ import androidx.core.view.WindowInsetsControllerCompat;
  * the legacy half-button fallback when no navigation bar / gesture handle was detected.
  */
 public final class SystemBars {
-    private static final int LEGACY_SHEET_PANEL_BOTTOM_DP = 39;
     private static final int SHEET_BASE_BOTTOM_DP = 12;
     private static final int SHEET_BUTTON_HEIGHT_DP = 54;
 
@@ -94,7 +93,7 @@ public final class SystemBars {
         int navRight = bottomContent.getPaddingRight();
         int navBottom = bottomContent.getPaddingBottom();
         ViewCompat.setOnApplyWindowInsetsListener(bottomContent, (view, insets) -> {
-            int navigationBottom = navigationBarBottom(insets);
+            int navigationBottom = bottomInset(insets);
             int freeformBottom = isInMultiWindow(view) ? dp(view, 22) : 0;
             int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
             view.setPadding(navLeft + insets.getInsets(
@@ -188,7 +187,7 @@ public final class SystemBars {
     }
 
     public static boolean hasVisibleNavigationBar(@NonNull WindowInsetsCompat insets) {
-        return navigationBarBottom(insets) > 0
+        return bottomInset(insets) > 0
                 || insets.isVisible(WindowInsetsCompat.Type.navigationBars());
     }
 
@@ -202,13 +201,8 @@ public final class SystemBars {
      */
     public static int bottomSheetPadding(@NonNull Context context,
                                          @NonNull WindowInsetsCompat insets) {
-        if (!isEdgeToEdgeEnforced()) {
-            // Android 14 and below already had the correct legacy spacing.
-            return dp(context, LEGACY_SHEET_PANEL_BOTTOM_DP)
-                    + navigationBarBottom(insets);
-        }
-        // Android 15+: Material 3 already reserves the navigation-bar inset on the sheet.
-        // Only add the legacy half-button gap when there is no navigation bar at all.
+        // Material 3 already reserves the visible navigation-bar inset on the sheet. Only add
+        // the legacy half-button gap when no navigation bar / gesture area was detected.
         int extra = hasVisibleNavigationBar(insets)
                 ? 0
                 : dp(context, SHEET_BUTTON_HEIGHT_DP / 2);

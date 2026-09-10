@@ -69,13 +69,9 @@ public final class WGProAlertDialogBuilder {
         dialog.setCanceledOnTouchOutside(cancelable);
         dialog.setDismissWithAnimation(true);
         View content = buildContent(dialog);
-        if (SystemBars.isEdgeToEdgeEnforced()) {
-            dialog.setContentView(content, new ViewGroup.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.MATCH_PARENT));
-        } else {
-            dialog.setContentView(content);
-        }
+        dialog.setContentView(content, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
         if (progressContent) dialog.setMinimumShowDuration(300L);
         dialog.setWindowConfigurator(() -> configureWindow(dialog));
         return dialog;

@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -27,7 +28,8 @@ public final class WGProBottomSheet {
 
     public static BottomSheetDialog showMessage(Context context, String title, String message,
                                                 String positive, @Nullable View.OnClickListener listener) {
-        BottomSheetDialog dialog = new BottomSheetDialog(context);
+        BottomSheetDialog dialog = new BottomSheetDialog(
+                context, R.style.ThemeOverlay_WGPro_BottomSheetDialog);
         LinearLayout content = new LinearLayout(context);
         content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(context, 24), dp(context, 26), dp(context, 24), dp(context, 12));
@@ -63,7 +65,9 @@ public final class WGProBottomSheet {
         actionParams.gravity = Gravity.END;
         actionParams.topMargin = dp(context, 18);
         content.addView(action, actionParams);
-        dialog.setContentView(content);
+        dialog.setContentView(content, new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
         dialog.setOnShowListener(ignored -> configure(dialog, content));
         dialog.show();
         configure(dialog, content);
