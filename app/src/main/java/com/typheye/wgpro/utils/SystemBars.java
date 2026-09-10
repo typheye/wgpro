@@ -115,15 +115,15 @@ public final class SystemBars {
         ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
                     | WindowInsetsCompat.Type.displayCutout());
-            int freeformTop = isInMultiWindow(view) ? dp(view, 18) : 0;
-            int freeformBottom = isInMultiWindow(view) ? dp(view, 22) : 0;
-            int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
+            // This mirrors the original WebActivity fixScreenCutArea behaviour: no extra
+            // freeform caption allowance, otherwise compact windows get a visibly taller
+            // top bar than MainActivity.
             view.setPadding(
-                    initialLeft + systemBars.left + freeformSide,
-                    initialTop + systemBars.top + freeformTop,
-                    initialRight + systemBars.right + freeformSide,
+                    initialLeft + systemBars.left,
+                    initialTop + systemBars.top,
+                    initialRight + systemBars.right,
                     initialBottom + (includeBottom
-                            ? navigationBarBottom(insets) + freeformBottom : 0));
+                            ? navigationBarBottom(insets) : 0));
             return WindowInsetsCompat.CONSUMED;
         });
         ViewCompat.requestApplyInsets(root);
