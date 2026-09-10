@@ -4,6 +4,8 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.app.ActivityManager;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -37,6 +39,39 @@ public final class ServiceNotifications {
     static Notification build(Context context, int smallIcon, String title, String text,
                               int requestCode) {
         return build(context, smallIcon, title, text, requestCode, CHANNEL_ID);
+    }
+
+    /**
+     * 前台服务通知隐藏：服务已经在"前台服务"状态后，把自己发的那条通知取消掉。
+     *
+     * 这是国内主流做法（也是腾讯云/掘金那两篇讲的方式）：startForeground 之后再
+     * cancel 自己的通知 id，通知从通知栏消失，而服务依然处于前台服务状态。
+     * 若不生效（部分 ROM 会重新贴出通知），调用方会在 2 秒后检查并回退到正常通知。
+     */
+    public static void hideNotification(Context context, int notificationId) {
+        try {
+            NotificationManager manager =
+                    (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager != null) manager.cancel(notificationId);
+        } catch (Exception ignored) {
+        }
+    }
+
+    /** 当前服务是否仍被系统认定为前台服务。 */
+    public static boolean isServiceForeground(Context context, Class<? extends Service> serviceClass) {
+        try {
+            ActivityManager manager =
+                    (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+            if (manager == null) return true;
+            for (ActivityManager.RunningServiceInfo info : manager.getRunningServices(80)) {
+                if (info.service != null
+                        && serviceClass.getName().equals(info.service.getClassName())) {
+                    return info.foreground;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return true;   // 查询失败时不误判，保持现状
     }
 
     private static Notification build(Context context, int smallIcon, String title, String text,

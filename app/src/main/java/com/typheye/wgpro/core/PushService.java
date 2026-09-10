@@ -12,7 +12,9 @@ import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -41,9 +43,21 @@ public class PushService extends Service implements PushApi {
     public static final String ACTION_DND_CHANGED = "com.typheye.wgpro.push.DND_CHANGED";
 
     private static final int NOTIFICATION_ID = 2002;
+    /**
+     * 隐藏常驻通知：完全不进入前台服务，通知从根源上不会出现。
+     *
+     * 实测：前台服务通知无法被 cancel（系统拒绝），只能 stopForeground；
+     * 而"先进前台再退出"在服务被系统重启时会再走一遍，通知会闪一下。
+     * 因此这里干脆不进入前台服务——通知根本不会产生。
+     * 代价：服务是普通后台服务，需要系统允许后台运行（省电「无限制」+ 允许自启动），
+     * 否则会被系统回收；App 会在检测到后台连接反复中断时提示用户去设置。
+     * 这里保留开关，便于对比可靠性与"有没有通知"的取舍。
+     */
+    static final boolean HIDES_FOREGROUND_NOTIFICATION = true;
     private static final AtomicBoolean RUNNING = new AtomicBoolean(false);
 
     private final Binder binder = new LocalBinder();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private PushController controller;
     private ConnectivityManager.NetworkCallback networkCallback;
     private InboxSnapshot snapshot = InboxSnapshot.empty();
@@ -60,13 +74,15 @@ public class PushService extends Service implements PushApi {
     }
 
     public static void start(@NonNull Context context) {
+        Intent intent = new Intent(context, PushService.class).setAction(ACTION_START);
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(
-                        new Intent(context, PushService.class).setAction(ACTION_START));
+            // 隐藏模式不使用 startForegroundService（否则系统要求 5 秒内 startForeground，
+            // 就只能"先进前台再退出"，通知会闪现）
+            if (!HIDES_FOREGROUND_NOTIFICATION && !RUNNING.get()
+                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                context.startForegroundService(intent);
             } else {
-                context.startService(
-                        new Intent(context, PushService.class).setAction(ACTION_START));
+                context.startService(intent);
             }
         } catch (Exception ignored) {
         }
@@ -217,6 +233,7 @@ public class PushService extends Service implements PushApi {
     }
 
     private void startForegroundCompat() {
+        if (HIDES_FOREGROUND_NOTIFICATION) return;   // 隐藏模式：不进入前台服务，通知不会产生
         if (foreground) return;
         ServiceNotifications.ensureChannel(this);
         try {

@@ -209,7 +209,7 @@ public class ChatActivity extends BaseSectionActivity {
                 wasAtBottom = child == null
                         || previousScroll + scroll.getHeight() >= child.getHeight() - dp(48);
             }
-            finishInitialLoading(); refresh.setRefreshing(false); messages.removeAllViews();
+            refresh.setRefreshing(false); messages.removeAllViews();
             if (items == null || items.length() == 0) { messages.addView(emptyState("还没有消息", "打个招呼，开始聊天。")); return; }
             long cleared = clearedMessageId();
             long maxId = 0L;
@@ -236,11 +236,27 @@ public class ChatActivity extends BaseSectionActivity {
             }
             markRead();
             if (!silent || wasAtBottom) {
-                scrollToBottom();
+                // 先滚动到底部、再撤掉加载遮罩：用户看不到"从顶部跳到末尾"
+                scrollToBottomThen(this::finishInitialLoading);
             } else if (scroll != null) {
                 int restore = previousScroll;
                 scroll.post(() -> scroll.scrollTo(0, restore));
+                finishInitialLoading();
+            } else {
+                finishInitialLoading();
             }
+        }
+
+        /** 滚动到底部后执行收尾（例如隐藏加载遮罩），保证遮罩消失时已经在底部。 */
+        private void scrollToBottomThen(Runnable after) {
+            if (scroll == null) {
+                after.run();
+                return;
+            }
+            scroll.post(() -> {
+                scroll.fullScroll(View.FOCUS_DOWN);
+                scroll.postOnAnimation(after);
+            });
         }
 
         public void showClearHistoryConfirm() {

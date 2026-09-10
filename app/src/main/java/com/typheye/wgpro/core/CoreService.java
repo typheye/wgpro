@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.content.pm.ServiceInfo;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,6 +49,7 @@ public class CoreService extends Service implements CoreApi {
     private static final AtomicBoolean RUNNING = new AtomicBoolean(false);
 
     private final Binder binder = new LocalBinder();
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private AccountEngine accountEngine;
     private DeviceEngine deviceEngine;
     private boolean foreground;
@@ -215,6 +218,7 @@ public class CoreService extends Service implements CoreApi {
     }
 
     private void startForegroundCompat() {
+        if (PushService.HIDES_FOREGROUND_NOTIFICATION) return;  // 与 Push 保持一致：不产生常驻通知
         if (foreground) return;
         ServiceNotifications.ensureChannel(this);
         try {

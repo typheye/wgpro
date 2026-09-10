@@ -84,13 +84,13 @@ public class AppUtils {
     }
 
     public static void configureActivityTransitions(@NonNull Activity activity) {
-        activity.getWindow().setWindowAnimations(R.style.ActivityAnimation);
+        // Android 14 起系统用 SurfaceControl 合成页面转场，并支持预测式返回。
+        // 自定义窗口动画会强制走旧的动画合成路径，反而更卡；这里在 14+ 交给系统处理。
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_OPEN,
-                    R.anim.activity_open_enter, R.anim.activity_open_exit);
-            activity.overrideActivityTransition(Activity.OVERRIDE_TRANSITION_CLOSE,
-                    R.anim.activity_close_enter, R.anim.activity_close_exit);
+            return;
         }
+        // 旧版本保留轻量淡入淡出+微位移，时长压短，避免"慢半拍"的感觉
+        activity.getWindow().setWindowAnimations(R.style.ActivityAnimation);
     }
 
     public static void applyMainWindowInsets(View appBar, View bottomNavigation) {

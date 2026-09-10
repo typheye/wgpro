@@ -185,9 +185,14 @@ public class SystemMessageDetailFragment extends Fragment {
         if (hasUnread) markAllRead();
         if (scrollToNewestOnRender && scroll != null) {
             scrollToNewestOnRender = false;
-            scroll.post(() -> scroll.fullScroll(View.FOCUS_DOWN));
+            // 先滚到最新一条，再撤掉加载遮罩，避免用户看到列表跳动的过程
+            scroll.post(() -> {
+                scroll.fullScroll(View.FOCUS_DOWN);
+                scroll.postOnAnimation(this::finishInitialLoading);
+            });
+        } else {
+            finishInitialLoading();
         }
-        finishInitialLoading();
     }
 
     private void finishInitialLoading() {
