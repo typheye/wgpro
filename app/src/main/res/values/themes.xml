@@ -13,8 +13,12 @@
         <item name="colorOutline">@color/outline_soft</item>
         <item name="android:windowBackground">@color/surface_page</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:navigationBarColor">@color/surface_primary</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
+        <item name="android:enforceStatusBarContrast">false</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
         <item name="android:windowLightStatusBar">true</item>
+        <item name="android:windowLightNavigationBar">true</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:letterSpacing">0</item>
         <item name="android:colorControlHighlight">@color/brand_soft</item>
@@ -115,8 +119,11 @@
         <item name="paddingRightSystemWindowInsets">false</item>
         <item name="android:colorBackground">@color/surface_elevated</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
-        <item name="android:navigationBarColor">@color/surface_elevated</item>
-        <item name="android:navigationBarDividerColor">@color/surface_elevated</item>
+        <!-- 导航栏保持真正透明，让弹窗自身的表面透到手势小横条区域 -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarDividerColor">@android:color/transparent</item>
+        <item name="android:enforceStatusBarContrast">false</item>
         <item name="android:enforceNavigationBarContrast">false</item>
         <item name="android:windowLightNavigationBar">true</item>
         <item name="colorSurface">@color/surface_elevated</item>

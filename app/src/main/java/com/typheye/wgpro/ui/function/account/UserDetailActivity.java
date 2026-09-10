@@ -31,7 +31,6 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -110,9 +109,8 @@ public class UserDetailActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
-        getWindow().setStatusBarColor(Color.TRANSPARENT);
-        new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
-                .setAppearanceLightStatusBars(false);
+        // 头图是深色背景，状态栏用浅色图标。
+        SystemBars.setLightSystemBars(getWindow(), false);
         setContentView(R.layout.activity_user_detail);
         // 顶部由沉浸式头图自行处理，安装全应用适配时不再兜底；底部保留系统导航栏高度，
         // 卡片背景继续铺满到屏幕底边（含手势小横条区域）。
@@ -864,8 +862,7 @@ public class UserDetailActivity extends AppCompatActivity {
                 DrawableCompat.setTint(more.getIcon().mutate(), chromeColor);
             }
         }
-        new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
-                .setAppearanceLightStatusBars(false);
+        SystemBars.setLightSystemBars(getWindow(), false);
     }
 
     private static final class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.Holder> {

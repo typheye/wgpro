@@ -12,7 +12,6 @@ import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -74,15 +73,10 @@ public final class WGProBottomSheet {
     private static void configure(BottomSheetDialog dialog, View content) {
         Window window = dialog.getWindow();
         if (window == null) return;
-        WindowCompat.setDecorFitsSystemWindows(window, false);
-        // Match the sheet surface behind the gesture handle; transparent bars are
-        // rendered black by some Android 15/16 window managers.
-        window.setNavigationBarColor(content.getContext().getColor(R.color.surface_elevated));
-        window.getDecorView().setBackgroundColor(content.getContext().getColor(R.color.surface_elevated));
-        if (android.os.Build.VERSION.SDK_INT >= 29) window.setNavigationBarContrastEnforced(false);
-        window.getDecorView().setSystemUiVisibility(window.getDecorView().getSystemUiVisibility()
-                | View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        window.setNavigationBarDividerColor(Color.TRANSPARENT);
+        // 与所有 Activity 使用同一套窗口规则：内容贴到系统栏，导航栏/状态栏真正透明，
+        // 手势小横条区域由弹窗自身表面透出来，而不是靠“刷成同色”伪装沉浸。
+        SystemBars.configureWindow(window, content.getContext());
+        window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
         window.setDimAmount(0.68f);
         ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
             int bottom = SystemBars.bottomSheetPadding(v.getContext(), insets);

@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.WindowCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.widget.NestedScrollView;
@@ -222,13 +221,10 @@ public final class WGProAlertDialogBuilder {
     private void configureWindow(BottomSheetDialog dialog) {
         Window window = dialog.getWindow();
         if (window == null) return;
-        int surface = context.getColor(R.color.surface_elevated);
-        WindowCompat.setDecorFitsSystemWindows(window, false);
-        window.setNavigationBarColor(surface);
-        window.setNavigationBarDividerColor(surface);
+        // 与所有 Activity 使用同一套窗口规则：系统栏真正透明，导航栏区域由弹窗表面透出。
+        SystemBars.configureWindow(window, context);
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        if (android.os.Build.VERSION.SDK_INT >= 29) window.setNavigationBarContrastEnforced(false);
         window.setDimAmount(0.68f);
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (sheet != null) {

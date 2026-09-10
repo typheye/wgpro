@@ -34,7 +34,6 @@ public final class AppDetailActivity extends BaseSectionActivity {
                 || getSharedPreferences("app_stars", MODE_PRIVATE).getBoolean(appKey, false);
         super.onCreate(state);
         int background = getColor(R.color.surface_page);
-        getWindow().setStatusBarColor(background);
         findViewById(R.id.section_app_bar).setBackgroundColor(background);
         sectionToolbar().setBackgroundColor(background);
         boolean light = (getResources().getConfiguration().uiMode

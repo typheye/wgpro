@@ -36,13 +36,7 @@ public class OobeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
-        int oobeSurface = getColor(R.color.surface_page);
-        getWindow().setStatusBarColor(oobeSurface);
-        getWindow().setNavigationBarColor(oobeSurface);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            getWindow().setStatusBarContrastEnforced(false);
-            getWindow().setNavigationBarContrastEnforced(false);
-        }
+        // 系统栏统一由 SystemBars 透明化；OOBE 页面自身是纯色背景，因此视觉上仍是纯色系统栏。
         setContentView(R.layout.activity_oobe);
         AppUtils.fixScreenCutArea(findViewById(R.id.container));
 

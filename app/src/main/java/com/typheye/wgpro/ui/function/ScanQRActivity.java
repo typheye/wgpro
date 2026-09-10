@@ -44,6 +44,7 @@ public class ScanQRActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        com.typheye.wgpro.utils.AppUtils.useScreenCutArea(getWindow(), this);
         com.typheye.wgpro.utils.AppUtils.configureActivityTransitions(this);
 
         // ✅ 检查是否处于分屏/小窗模式
@@ -54,6 +55,8 @@ public class ScanQRActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_scanqr);
+        // 扫码页是全屏相机取景，内容自己铺满整屏：显式声明不参与系统栏兜底内边距。
+        com.typheye.wgpro.utils.SystemBars.markImmersive(findViewById(R.id.scanqr_root));
 
         // 全屏设置（API 30+）
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {

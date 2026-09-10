@@ -73,9 +73,14 @@ public final class SystemBars {
     // ------------------------------------------------------------------
 
     /**
-     * 安装全应用自动适配。所有 Activity 窗口自动进入 edge-to-edge；
-     * 页面若已自行调用 {@link #applyScreenInsets} / {@link #applyAppBarInsets}，
-     * 则只做窗口层适配，不重复叠加内边距。
+     * 安装全应用自动适配。
+     *
+     * <p>不再逐个 Activity 改写窗口代码：这里在 {@code onCreate} 与每次
+     * {@code onStart} 都强制走一遍窗口层适配，所以 Manifest 里的每一个 Activity
+     * （包括第三方扫码页）都会被覆盖——{@code setDecorFitsSystemWindows(false)}、
+     * 系统栏透明、关闭对比度强制。页面若已自行调用
+     * {@link #applyScreenInsets} / {@link #applyAppBarInsets} / {@link #applyTopInsets}，
+     * 兜底逻辑不会再叠加内边距。
      */
     public static void install(@NonNull Application application) {
         application.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
@@ -86,6 +91,8 @@ public final class SystemBars {
 
             @Override
             public void onActivityStarted(@NonNull Activity activity) {
+                // 页面可能在 onCreate / onResume 里改过系统栏，这里每次回到前台都强制复位。
+                enableEdgeToEdge(activity);
                 applyFallbackInsets(activity);
             }
 
@@ -121,6 +128,9 @@ public final class SystemBars {
 
     /** 让窗口进入 edge-to-edge（幂等）。 */
     public static void configureWindow(@NonNull Window window, @NonNull Context context) {
+        // 1. 一次性改写 WindowManager.LayoutParams：允许内容进入挖孔/刘海，
+        //    要求窗口自己绘制系统栏背景，并清掉旧的半透明标志。
+        //    背景彻底交给内容（真正的透明），而不是给系统栏刷一个同色底。
         WindowManager.LayoutParams attributes = window.getAttributes();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             attributes.layoutInDisplayCutoutMode =
@@ -129,12 +139,17 @@ public final class SystemBars {
             attributes.layoutInDisplayCutoutMode =
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         }
+        attributes.flags |= WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS;
+        attributes.flags &= ~(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
+                | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         window.setAttributes(attributes);
 
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS
-                | WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+        // 2. 内容延伸到系统栏区域（FitsSystemWindows = false）。
         WindowCompat.setDecorFitsSystemWindows(window, false);
+
+        // 3. 系统栏颜色只能通过 Window 的公开接口写回 LayoutParams。
+        //    Android 15+ 上这两个方法已经是 no-op（强制 edge-to-edge，系统栏本就透明），
+        //    低于 15 的版本由它们真正把状态栏/导航栏设成 ARGB 0x00000000。
         window.setStatusBarColor(Color.TRANSPARENT);
         window.setNavigationBarColor(Color.TRANSPARENT);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
@@ -144,8 +159,7 @@ public final class SystemBars {
             window.setStatusBarContrastEnforced(false);
             window.setNavigationBarContrastEnforced(false);
         }
-        boolean first = CONFIGURED_WINDOWS.add(window);
-        if (first) {
+        if (CONFIGURED_WINDOWS.add(window)) {
             boolean light = isLightMode(context);
             WindowInsetsControllerCompat controller =
                     WindowCompat.getInsetsController(window, window.getDecorView());
