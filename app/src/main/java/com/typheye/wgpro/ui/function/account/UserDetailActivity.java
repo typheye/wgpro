@@ -48,6 +48,7 @@ import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.ImageCache;
+import com.typheye.wgpro.utils.SystemBars;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.typheye.wgpro.ui.function.community.CloudListFragment;
 import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
@@ -113,6 +114,10 @@ public class UserDetailActivity extends AppCompatActivity {
         new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
                 .setAppearanceLightStatusBars(false);
         setContentView(R.layout.activity_user_detail);
+        // 顶部由沉浸式头图自行处理，安装全应用适配时不再兜底；底部保留系统导航栏高度，
+        // 卡片背景继续铺满到屏幕底边（含手势小横条区域）。
+        SystemBars.markImmersive(findViewById(R.id.detail_root));
+        SystemBars.reserveBottomInset(findViewById(R.id.detail_sheet_content));
         profileLoadingStarted = android.os.SystemClock.uptimeMillis();
         account = new tAccUtils(this);
         detailLikesCount = findViewById(R.id.detail_likes_count);

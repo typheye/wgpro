@@ -69,9 +69,7 @@ public final class WGProAlertDialogBuilder {
         dialog.setCanceledOnTouchOutside(cancelable);
         dialog.setDismissWithAnimation(true);
         View content = buildContent(dialog);
-        dialog.setContentView(content, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        dialog.setContentView(content);
         if (progressContent) dialog.setMinimumShowDuration(300L);
         dialog.setWindowConfigurator(() -> configureWindow(dialog));
         return dialog;
@@ -234,7 +232,7 @@ public final class WGProAlertDialogBuilder {
         window.setDimAmount(0.68f);
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (sheet != null) {
-            sheet.setFitsSystemWindows(false);
+            SystemBars.ownSheetInsets(sheet);
             BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
             behavior.setSkipCollapsed(true);
             behavior.setDraggable(cancelable);

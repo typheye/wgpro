@@ -67,11 +67,16 @@ public class AppUtils {
     }
 
     public static void applyMainWindowInsets(View appBar, View bottomNavigation) {
-        SystemBars.applyWindowInsets(appBar, bottomNavigation);
+        SystemBars.applyAppBarInsets(appBar, bottomNavigation);
     }
 
     public static void fixScreenCutArea(View view) {
-        SystemBars.applyRootInsets(view, false);
+        SystemBars.applyTopInsets(view);
+    }
+
+    /** 整页 edge-to-edge 适配：内容躲开系统栏，系统栏区域使用页面背景。 */
+    public static void applyScreenInsets(View view) {
+        SystemBars.applyScreenInsets(view);
     }
 
     public static void appInit(Context context){

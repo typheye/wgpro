@@ -32,6 +32,8 @@ public class tApplication extends Application {
                 : darkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         initCrashHandler();
         TestHandler.install(this);
+        // 全应用 edge-to-edge / 系统栏统一适配（含底部导航小横条）
+        com.typheye.wgpro.utils.SystemBars.install(this);
         trackForegroundState();
 
         // 确保日志目录存在

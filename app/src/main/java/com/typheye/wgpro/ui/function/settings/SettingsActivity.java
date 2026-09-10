@@ -58,15 +58,11 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_settings);
-        boolean edgeToEdge = SystemBars.isEdgeToEdgeEnforced();
-        if (edgeToEdge) {
-            SystemBars.applyRootInsets(findViewById(R.id.container),
-                    findViewById(R.id.settings), true,
-                    getColor(R.color.surface_primary),
-                    getColor(R.color.surface_page));
-        } else {
-            SystemBars.applyRootInsets(findViewById(R.id.container), true);
-        }
+        // 顶部系统栏区域使用应用栏底色，底部避开系统导航栏/手势小横条。
+        SystemBars.applyScreenInsets(findViewById(R.id.container),
+                findViewById(R.id.settings),
+                getColor(R.color.surface_primary),
+                getColor(R.color.surface_page));
 
         toolbar = findViewById(R.id.toolbar);
 

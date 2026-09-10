@@ -99,10 +99,20 @@
     <style name="Widget.WGPro.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
         <item name="android:elevation">0dp</item>
         <item name="backgroundTint">@color/surface_elevated</item>
+        <!-- 底部导航栏占位由 SystemBars 统一处理，避免 Material 再叠加一份产生多余间距 -->
+        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="paddingTopSystemWindowInsets">false</item>
+        <item name="paddingLeftSystemWindowInsets">false</item>
+        <item name="paddingRightSystemWindowInsets">false</item>
     </style>
     <style name="ThemeOverlay.WGPro.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="enableEdgeToEdge">true</item>
         <item name="bottomSheetStyle">@style/Widget.WGPro.BottomSheet.Modal</item>
+        <!-- 系统栏内边距统一由 SystemBars 计算，这里关闭 Material 的自动叠加 -->
+        <item name="paddingBottomSystemWindowInsets">false</item>
+        <item name="paddingTopSystemWindowInsets">false</item>
+        <item name="paddingLeftSystemWindowInsets">false</item>
+        <item name="paddingRightSystemWindowInsets">false</item>
         <item name="android:colorBackground">@color/surface_elevated</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@color/surface_elevated</item>

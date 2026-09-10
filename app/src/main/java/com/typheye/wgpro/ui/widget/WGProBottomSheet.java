@@ -6,7 +6,6 @@ import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -65,9 +64,7 @@ public final class WGProBottomSheet {
         actionParams.gravity = Gravity.END;
         actionParams.topMargin = dp(context, 18);
         content.addView(action, actionParams);
-        dialog.setContentView(content, new ViewGroup.LayoutParams(
-                ViewGroup.LayoutParams.MATCH_PARENT,
-                ViewGroup.LayoutParams.MATCH_PARENT));
+        dialog.setContentView(content);
         dialog.setOnShowListener(ignored -> configure(dialog, content));
         dialog.show();
         configure(dialog, content);
@@ -95,8 +92,8 @@ public final class WGProBottomSheet {
         ViewCompat.requestApplyInsets(content);
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (sheet != null) {
-            sheet.setFitsSystemWindows(false);
             sheet.setBackgroundColor(Color.TRANSPARENT);
+            SystemBars.ownSheetInsets(sheet);
             BottomSheetBehavior<?> behavior = BottomSheetBehavior.from(sheet);
             behavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             behavior.setSkipCollapsed(true);
