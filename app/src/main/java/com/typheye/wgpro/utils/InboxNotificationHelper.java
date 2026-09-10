@@ -292,6 +292,11 @@ public final class InboxNotificationHelper {
     }
 
     private static void postSystemMessage(Context context, JSONObject item) {
+        // 用户正在系统消息页：不再打扰
+        if (com.typheye.wgpro.core.state.AppState.get().isSystemMessagesVisible()) {
+            cancelSystemNotifications(context);
+            return;
+        }
         String title = item.optString("title", "系统消息");
         String content = item.optString("content", "");
         Intent intent = new Intent(context, ChatActivity.class)
@@ -301,7 +306,8 @@ public final class InboxNotificationHelper {
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         int notificationId = (int) (2_000_000L + item.optLong("id", 0L) % 100_000_000L);
         post(context, notificationId, title, content, intent,
-                NotificationCompat.CATEGORY_MESSAGE);
+                NotificationCompat.CATEGORY_MESSAGE,
+                NotificationAvatar.appIcon(context), false);
         rememberNotification(context, KEY_SYSTEM_NOTIFICATION_IDS,
                 String.valueOf(notificationId));
     }
@@ -309,6 +315,11 @@ public final class InboxNotificationHelper {
     private static void postPrivateMessage(Context context, JSONObject item) {
         String peerUid = item.optString("sender_uid", "");
         if (peerUid.isEmpty()) return;
+        // 用户正在和这个人聊天：不打扰，同时清掉该会话已有通知
+        if (com.typheye.wgpro.core.state.AppState.get().isChatOpenFor(peerUid)) {
+            cancelPrivateNotifications(context, peerUid);
+            return;
+        }
         String peerName = item.optString("sender_nick", "用户");
         String content = item.optString("content", "");
         Intent intent = new Intent(context, ChatActivity.class)
@@ -318,18 +329,39 @@ public final class InboxNotificationHelper {
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         int notificationId = (int) (3_000_000L + item.optLong("id", 0L) % 100_000_000L);
+        // 主图标先用昵称首字，真实头像异步加载完成后原地更新同一条通知
         post(context, notificationId, peerName, content, intent,
-                NotificationCompat.CATEGORY_MESSAGE);
+                NotificationCompat.CATEGORY_MESSAGE,
+                NotificationAvatar.textAvatar(peerName), false);
         rememberNotification(context, KEY_PRIVATE_NOTIFICATION_IDS,
                 peerUid + ":" + notificationId);
+
+        String avatarUrl = item.optString("sender_avatar_url", "");
+        if (avatarUrl.isEmpty()) avatarUrl = NotificationAvatar.avatarUrlFor(peerUid);
+        final String url = avatarUrl;
+        if (!url.isEmpty()) {
+            ImageCache.loadBitmap(context, url, bitmap -> {
+                if (bitmap == null) return;
+                post(context, notificationId, peerName, content, intent,
+                        NotificationCompat.CATEGORY_MESSAGE, bitmap, true);
+            });
+        }
     }
 
     private static void post(Context context, int id, String title, String content,
                              Intent intent, String category) {
+        post(context, id, title, content, intent, category, null, false);
+    }
+
+    private static void post(Context context, int id, String title, String content,
+                             Intent intent, String category,
+                             @androidx.annotation.Nullable android.graphics.Bitmap largeIcon,
+                             boolean silentUpdate) {
         PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context,
                 com.typheye.wgpro.core.NotificationChannels.MESSAGES)
+                // 副图标：腕管 Logo（状态栏小图标）
                 .setSmallIcon(R.drawable.ic_notifications_vector)
                 .setContentTitle(title == null || title.trim().isEmpty() ? "Typheye账户" : title)
                 .setContentText(content)
@@ -346,6 +378,9 @@ public final class InboxNotificationHelper {
                 .setContentIntent(pendingIntent)
                 .setTicker(title)
                 .setAutoCancel(true);
+        // 主图标：发送者头像（文字头像或自定义头像）
+        if (largeIcon != null) builder.setLargeIcon(largeIcon);
+        if (silentUpdate) builder.setOnlyAlertOnce(true);
         NotificationManager manager = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
         if (manager != null) manager.notify(id, builder.build());

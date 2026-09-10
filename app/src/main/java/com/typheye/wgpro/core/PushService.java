@@ -1,27 +1,17 @@
 package com.typheye.wgpro.core;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ServiceInfo;
 import android.net.ConnectivityManager;
 import android.net.Network;
 import android.os.Binder;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.ServiceCompat;
 
-import com.typheye.wgpro.R;
 import com.typheye.wgpro.core.push.PushController;
 import com.typheye.wgpro.core.state.AppState;
 import com.typheye.wgpro.core.state.InboxSnapshot;
@@ -42,26 +32,12 @@ public class PushService extends Service implements PushApi {
     public static final String ACTION_REFRESH = "com.typheye.wgpro.push.REFRESH";
     public static final String ACTION_DND_CHANGED = "com.typheye.wgpro.push.DND_CHANGED";
 
-    private static final int NOTIFICATION_ID = 2002;
-    /**
-     * 隐藏常驻通知：完全不进入前台服务，通知从根源上不会出现。
-     *
-     * 实测：前台服务通知无法被 cancel（系统拒绝），只能 stopForeground；
-     * 而"先进前台再退出"在服务被系统重启时会再走一遍，通知会闪一下。
-     * 因此这里干脆不进入前台服务——通知根本不会产生。
-     * 代价：服务是普通后台服务，需要系统允许后台运行（省电「无限制」+ 允许自启动），
-     * 否则会被系统回收；App 会在检测到后台连接反复中断时提示用户去设置。
-     * 这里保留开关，便于对比可靠性与"有没有通知"的取舍。
-     */
-    static final boolean HIDES_FOREGROUND_NOTIFICATION = true;
     private static final AtomicBoolean RUNNING = new AtomicBoolean(false);
 
     private final Binder binder = new LocalBinder();
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private PushController controller;
     private ConnectivityManager.NetworkCallback networkCallback;
     private InboxSnapshot snapshot = InboxSnapshot.empty();
-    private boolean foreground;
 
     public final class LocalBinder extends Binder {
         public PushApi api() {
@@ -76,14 +52,9 @@ public class PushService extends Service implements PushApi {
     public static void start(@NonNull Context context) {
         Intent intent = new Intent(context, PushService.class).setAction(ACTION_START);
         try {
-            // 隐藏模式不使用 startForegroundService（否则系统要求 5 秒内 startForeground，
-            // 就只能"先进前台再退出"，通知会闪现）
-            if (!HIDES_FOREGROUND_NOTIFICATION && !RUNNING.get()
-                    && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                context.startForegroundService(intent);
-            } else {
-                context.startService(intent);
-            }
+            // 不使用前台服务：前台服务通知无法取消（系统拒绝 cancel），
+            // 而"先进前台再退出"会在服务重启时让通知闪现，因此直接以普通后台服务运行。
+            context.startService(intent);
         } catch (Exception ignored) {
         }
     }
@@ -147,7 +118,6 @@ public class PushService extends Service implements PushApi {
             AppState.get().publishInbox(snapshot);
             return START_STICKY;
         }
-        startForegroundCompat();
         if (controller != null) {
             if (ACTION_REFRESH.equals(action)) {
                 controller.refreshNow();
@@ -168,7 +138,6 @@ public class PushService extends Service implements PushApi {
         RUNNING.set(false);
         if (controller != null) controller.stop();
         unregisterNetworkCallback();
-        stopForegroundCompat();
     }
 
     /* ------------------------------------------------------------ PushApi */
@@ -230,43 +199,6 @@ public class PushService extends Service implements PushApi {
         } catch (Exception ignored) {
         }
         networkCallback = null;
-    }
-
-    private void startForegroundCompat() {
-        if (HIDES_FOREGROUND_NOTIFICATION) return;   // 隐藏模式：不进入前台服务，通知不会产生
-        if (foreground) return;
-        ServiceNotifications.ensureChannel(this);
-        try {
-            startForegroundWith(ServiceNotifications.build(this,
-                    R.drawable.ic_notifications_vector,
-                    "Typheye 正在同步消息",
-                    "保持在线以便及时收到通知与私信",
-                    1));
-            foreground = true;
-        } catch (Exception error) {
-            AppState.get().addLog("PushService 前台化失败：" + error.getMessage());
-        }
-    }
-
-    private void startForegroundWith(Notification notification) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
-        } else {
-            startForeground(NOTIFICATION_ID, notification);
-        }
-    }
-
-    private void stopForegroundCompat() {
-        if (!foreground) return;
-        foreground = false;
-        try {
-            ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE);
-        } catch (Exception ignored) {
-        }
     }
 
     @Nullable

@@ -166,6 +166,18 @@ public class ChatActivity extends BaseSectionActivity {
             observeRealtime();
         }
 
+        @Override public void onResume() {
+            super.onResume();
+            // 用户正在看这个会话：期间不再为它弹 Android 通知
+            com.typheye.wgpro.core.state.AppState.get().setActiveChatPeer(peerUid);
+            if (loadedOnce) load(true);
+        }
+
+        @Override public void onPause() {
+            com.typheye.wgpro.core.state.AppState.get().setActiveChatPeer("");
+            super.onPause();
+        }
+
         private void load() {
             load(false);
         }

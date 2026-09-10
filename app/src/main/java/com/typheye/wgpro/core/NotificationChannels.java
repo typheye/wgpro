@@ -25,14 +25,15 @@ import android.os.Build;
 public final class NotificationChannels {
     public static final String MESSAGES = "message_channel_v2";
     public static final String ACCOUNT = "account_channel_v2";
-    public static final String SERVICE = "service_status";
 
     /** 早期版本用过的渠道 id，启动时清理，避免通知设置页面出现重复条目。 */
     private static final String[] LEGACY_IDS = {
             "message_channel", "service_status_channel", "account_channel",
             // 实验渠道：系统不允许把渠道设为 IMPORTANCE_NONE，MIUI 会强制提升为 LOW，
             // 反而比 MIN 更显眼，因此废弃并删除。
-            "service_status_hidden"};
+            "service_status_hidden",
+            // 已不再使用前台服务（改为普通后台服务），"后台运行状态"渠道一并删除
+            "service_status"};
 
     private NotificationChannels() {
     }
@@ -48,9 +49,6 @@ public final class NotificationChannels {
         ensure(manager, ACCOUNT, "Typheye账户", "账户异常、封号等与账户相关的通知",
                 NotificationManager.IMPORTANCE_HIGH, true, new long[]{0, 220, 140, 220},
                 true, Notification.VISIBILITY_PRIVATE);
-        ensure(manager, SERVICE, "后台运行状态", "保持设备连接与消息同步时显示，可在系统通知设置中关闭",
-                NotificationManager.IMPORTANCE_MIN, false, null,
-                false, Notification.VISIBILITY_SECRET);
 
         for (String legacyId : LEGACY_IDS) {
             if (manager.getNotificationChannel(legacyId) != null) {

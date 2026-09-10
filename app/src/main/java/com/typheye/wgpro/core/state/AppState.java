@@ -26,6 +26,10 @@ public final class AppState {
     private final MutableLiveData<InboxSnapshot> inbox =
             new MutableLiveData<>(InboxSnapshot.empty());
     private final MutableLiveData<PushEvent> pushEvents = new MutableLiveData<>();
+    private final java.util.concurrent.atomic.AtomicReference<String> activeChatPeer =
+            new java.util.concurrent.atomic.AtomicReference<>("");
+    private final java.util.concurrent.atomic.AtomicBoolean systemMessagesVisible =
+            new java.util.concurrent.atomic.AtomicBoolean(false);
 
     private AppState() {
         log.addAll("wgpro-android Tool V3", "https://github.com/typheye/wgpro");
@@ -88,6 +92,25 @@ public final class AppState {
 
     public void publishPushEvent(@NonNull String type, @NonNull String peerUid, long id) {
         pushEvents.postValue(new PushEvent(type, peerUid, id));
+    }
+
+    /** 当前正在查看的私信对端（没有则为空）：用于"用户正在看这个会话就不发通知"。 */
+    public void setActiveChatPeer(String peerUid) {
+        activeChatPeer.set(peerUid == null ? "" : peerUid.trim());
+    }
+
+    public boolean isChatOpenFor(String peerUid) {
+        if (peerUid == null || peerUid.isEmpty()) return false;
+        return peerUid.equals(activeChatPeer.get());
+    }
+
+    /** 当前是否停留在系统消息详情页。 */
+    public void setSystemMessagesVisible(boolean visible) {
+        systemMessagesVisible.set(visible);
+    }
+
+    public boolean isSystemMessagesVisible() {
+        return systemMessagesVisible.get();
     }
 
     /** 一条实时事件。type: message / notification。 */

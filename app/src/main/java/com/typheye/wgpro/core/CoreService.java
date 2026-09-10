@@ -7,17 +7,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ServiceInfo;
 import android.os.Binder;
 import android.os.Build;
-import android.os.Handler;
 import android.os.IBinder;
-import android.os.Looper;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
-import androidx.core.app.ServiceCompat;
 
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.core.state.AccountSnapshot;
@@ -44,15 +40,12 @@ public class CoreService extends Service implements CoreApi {
     public static final String EXTRA_NODE_ID = "node_id";
     public static final String EXTRA_NODE_NAME = "node_name";
 
-    private static final int NOTIFICATION_ID = 2001;
     private static final long CONFIG_INTERVAL_MS = 60 * 60 * 1000L;
     private static final AtomicBoolean RUNNING = new AtomicBoolean(false);
 
     private final Binder binder = new LocalBinder();
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private AccountEngine accountEngine;
     private DeviceEngine deviceEngine;
-    private boolean foreground;
     private long lastConfigAt;
 
     public final class LocalBinder extends Binder {
@@ -111,13 +104,11 @@ public class CoreService extends Service implements CoreApi {
                 AppState.get().addLog("会话已失效，已清除本地登录状态");
                 notifyAccountAbnormal();
                 PushService.stop(CoreService.this);
-                updateForegroundState();
             }
 
             @Override
             public void onAccountChanged(AccountSnapshot snapshot, boolean avatarChanged) {
                 AppState.get().publishAccount(snapshot);
-                updateForegroundState();
             }
         });
         accountEngine.snapshot(false);
@@ -147,7 +138,6 @@ public class CoreService extends Service implements CoreApi {
             // 既没登录也没设备：保留服务以便随时被唤醒，但不做任何事
             AppState.get().addLog("CoreService 待机");
         }
-        updateForegroundState();
         return START_STICKY;
     }
 
@@ -161,7 +151,6 @@ public class CoreService extends Service implements CoreApi {
         RUNNING.set(false);
         if (accountEngine != null) accountEngine.stop();
         if (deviceEngine != null) deviceEngine.stop();
-        stopForegroundCompat();
     }
 
     /* ------------------------------------------------------------ CoreApi */
@@ -204,55 +193,8 @@ public class CoreService extends Service implements CoreApi {
         new Thread(() -> AppUtils.loadServerConfig(getApplicationContext())).start();
     }
 
-    /* ------------------------------------------------------------ 前台策略 */
-
-    private void updateForegroundState() {
-        boolean needForeground = !(accountEngine != null && accountEngine.isLoggedIn())
-                && deviceEngine != null && deviceEngine.isConnected()
-                && !PushService.isRunning();
-        if (needForeground) {
-            startForegroundCompat();
-        } else if (foreground) {
-            stopForegroundCompat();
-        }
-    }
-
-    private void startForegroundCompat() {
-        if (PushService.HIDES_FOREGROUND_NOTIFICATION) return;  // 与 Push 保持一致：不产生常驻通知
-        if (foreground) return;
-        ServiceNotifications.ensureChannel(this);
-        try {
-            startForegroundWith(ServiceNotifications.build(this,
-                    R.drawable.ic_watch_vector,
-                    "设备连接已保持",
-                    "正在与穿戴设备保持连接",
-                    0));
-            foreground = true;
-        } catch (Exception error) {
-            AppState.get().addLog("CoreService 前台化失败：" + error.getMessage());
-        }
-    }
-
-    private void startForegroundWith(Notification notification) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
-                    ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE);
-        } else {
-            startForeground(NOTIFICATION_ID, notification);
-        }
-    }
-
-    private void stopForegroundCompat() {
-        if (!foreground) return;
-        foreground = false;
-        try {
-            ServiceCompat.stopForeground(this, ServiceCompat.STOP_FOREGROUND_REMOVE);
-        } catch (Exception ignored) {
-        }
-    }
-
     private void notifyAccountAbnormal() {
-        ServiceNotifications.ensureChannel(this);
+        NotificationChannels.ensureAll(this);
         Intent intent = new Intent(this, MainActivity.class)
                 .setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP
                         | Intent.FLAG_ACTIVITY_NEW_TASK);

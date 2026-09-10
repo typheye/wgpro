@@ -13,9 +13,6 @@
     <uses-permission android:name="android.permission.FLASHLIGHT" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE"
         tools:ignore="ForegroundServicesPolicy" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
     <!-- 穿戴设备（小米 XMS / 蓝牙）：Android 14+ 的 connectedDevice 前台服务必须持有其中之一 -->
     <uses-permission android:name="android.permission.BLUETOOTH" android:maxSdkVersion="30" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" android:maxSdkVersion="30" />
@@ -151,18 +148,12 @@
         <!-- 核心事务：账户会话、设备/XMS 状态 -->
         <service
             android:name=".core.CoreService"
-            android:exported="false"
-            android:foregroundServiceType="connectedDevice" />
+            android:exported="false" />
 
         <!-- 通知推送：通知中心、私信、未读、实时通道 -->
         <service
             android:name=".core.PushService"
-            android:exported="false"
-            android:foregroundServiceType="dataSync|specialUse">
-            <property
-                android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE"
-                android:value="realtime_message_sync" />
-        </service>
+            android:exported="false" />
     </application>
 
 </manifest>

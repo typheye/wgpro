@@ -86,7 +86,14 @@ public class SystemMessageDetailFragment extends Fragment {
 
     @Override public void onResume() {
         super.onResume();
+        // 用户正在看系统消息页：期间不再为系统消息弹 Android 通知
+        com.typheye.wgpro.core.state.AppState.get().setSystemMessagesVisible(true);
         if (loadedOnce) load();
+    }
+
+    @Override public void onPause() {
+        com.typheye.wgpro.core.state.AppState.get().setSystemMessagesVisible(false);
+        super.onPause();
     }
 
     private void load() {
@@ -274,39 +281,57 @@ public class SystemMessageDetailFragment extends Fragment {
         if (reportId.isEmpty()) return;
         String status = metadata == null ? "" : metadata.optString("status", "");
         String label;
-        if ("resolved".equalsIgnoreCase(status)) label = "查看举报结果";
-        else if ("rejected".equalsIgnoreCase(status)) label = "查看驳回原因";
-        else label = "查看处理进度";
+        String hint;
+        if ("resolved".equalsIgnoreCase(status)) {
+            label = "查看举报结果";
+            hint = "举报已处理完成";
+        } else if ("rejected".equalsIgnoreCase(status)) {
+            label = "查看驳回原因";
+            hint = "举报未通过";
+        } else {
+            label = "查看处理进度";
+            hint = "正在核查中";
+        }
         String url = "https://service.typheye.cn/site/report/index.php?id="
                 + Uri.encode(reportId) + "&status=" + Uri.encode(status);
 
-        View divider = new View(requireContext());
-        divider.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
-        LinearLayout.LayoutParams dividerParams = new LinearLayout.LayoutParams(-1, dp(1));
-        dividerParams.topMargin = dp(14);
-        body.addView(divider, dividerParams);
-
+        // 圆角动作条：主标题 + 状态说明 + 箭头，整行带水波纹点击反馈
         LinearLayout row = new LinearLayout(requireContext());
         row.setOrientation(LinearLayout.HORIZONTAL);
         row.setGravity(Gravity.CENTER_VERTICAL);
-        row.setMinimumHeight(dp(48));
-        row.setPadding(0, dp(4), 0, 0);
+        row.setMinimumHeight(dp(56));
+        row.setPadding(dp(16), dp(8), dp(12), dp(8));
+        row.setBackgroundResource(R.drawable.bg_system_action);
         row.setClickable(true);
         row.setFocusable(true);
+
+        LinearLayout texts = new LinearLayout(requireContext());
+        texts.setOrientation(LinearLayout.VERTICAL);
         TextView action = new TextView(requireContext());
         action.setText(label);
         action.setTextSize(15);
         action.setTextColor(requireContext().getColor(R.color.brand_primary));
         action.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
-        row.addView(action, new LinearLayout.LayoutParams(0, -2, 1f));
+        texts.addView(action);
+        TextView sub = new TextView(requireContext());
+        sub.setText(hint);
+        sub.setTextSize(12);
+        sub.setTextColor(requireContext().getColor(R.color.text_secondary));
+        LinearLayout.LayoutParams subParams = new LinearLayout.LayoutParams(-2, -2);
+        subParams.topMargin = dp(2);
+        texts.addView(sub, subParams);
+        row.addView(texts, new LinearLayout.LayoutParams(0, -2, 1f));
+
         android.widget.ImageView arrow = new android.widget.ImageView(requireContext());
         arrow.setImageResource(R.drawable.ic_chevron_right_vector);
         arrow.setImageTintList(android.content.res.ColorStateList.valueOf(
                 requireContext().getColor(R.color.text_tertiary)));
-        row.addView(arrow, new LinearLayout.LayoutParams(dp(22), dp(22)));
+        row.addView(arrow, new LinearLayout.LayoutParams(dp(18), dp(18)));
         row.setOnClickListener(v -> startActivity(new Intent(requireContext(), WebActivity.class)
                 .putExtra("URL", url)));
-        body.addView(row, new LinearLayout.LayoutParams(-1, -2));
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2);
+        rowParams.topMargin = dp(16);
+        body.addView(row, rowParams);
     }
 
     private View emptyState() {
