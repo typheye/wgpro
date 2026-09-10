@@ -21,6 +21,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -108,6 +109,13 @@ public class UserDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
+        // 分屏（高度被挤压的分配模式）下抽屉式资料页无法正确布局，直接提示并退出；
+        // 小窗（freeform）布局完整，不受影响。
+        if (isInSplitScreenWindow()) {
+            Toast.makeText(this, "请在全屏或小窗模式下打开用户主页", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         AppUtils.useScreenCutArea(getWindow(), this);
         // 头图是深色背景，状态栏用浅色图标。
         SystemBars.setLightSystemBars(getWindow(), false);
@@ -573,7 +581,38 @@ public class UserDetailActivity extends AppCompatActivity {
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode,
                                          @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
+        // 页面已经打开时再进入分屏同样会破坏抽屉布局，直接退出并提示。
+        if (isInSplitScreenWindow()) {
+            Toast.makeText(this, "请在全屏或小窗模式下打开用户主页", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         refreshWindowGeometry();
+    }
+
+    /**
+     * 是否是分屏（贴边分配）模式。
+     *
+     * <p>SDK 没有公开的 windowingMode 查询接口（{@code WindowConfiguration} 是 @hide），
+     * 所以用窗口几何判断：分屏窗口会占满屏幕的整宽（上下分屏）或整高（左右分屏），
+     * 而 MIUI 小窗是悬浮窗、四周始终留有空隙，不会被误判。
+     */
+    private boolean isInSplitScreenWindow() {
+        if (!isInMultiWindowMode()) return false;
+        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R) {
+            // 旧版本没有窗口几何接口，用可用高度兜底。
+            return getResources().getConfiguration().screenHeightDp < 480;
+        }
+        android.view.WindowManager windowManager = getWindowManager();
+        android.graphics.Rect window =
+                windowManager.getCurrentWindowMetrics().getBounds();
+        android.graphics.Rect screen =
+                windowManager.getMaximumWindowMetrics().getBounds();
+        int tolerance = dp(8);
+        boolean spansWidth = window.width() >= screen.width() - tolerance;
+        boolean spansHeight = window.height() >= screen.height() - tolerance;
+        return (spansWidth && window.height() < screen.height() - tolerance)
+                || (spansHeight && window.width() < screen.width() - tolerance);
     }
 
     private void refreshWindowGeometry() {

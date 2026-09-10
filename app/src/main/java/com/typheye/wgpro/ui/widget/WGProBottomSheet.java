@@ -79,7 +79,7 @@ public final class WGProBottomSheet {
         window.getDecorView().setBackgroundColor(Color.TRANSPARENT);
         window.setDimAmount(0.68f);
         ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
-            int bottom = SystemBars.bottomSheetPadding(v.getContext(), insets);
+            int bottom = SystemBars.bottomSheetPadding(v, insets);
             v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
             return insets;
         });

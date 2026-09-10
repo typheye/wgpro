@@ -423,7 +423,7 @@ public class CloudListFragment extends Fragment {
         String action;
         boolean auth = true;
         if (MODE_USER_APPS.equals(mode)) {
-            completeAfter(started, generation, () -> render(new JSONArray()));
+            loadUserApps(started, generation);
             return;
         }
         if ((MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode))
@@ -451,6 +451,9 @@ public class CloudListFragment extends Fragment {
                 String targetUid = getArguments() == null ? account.getUid()
                         : getArguments().getString("target_uid", account.getUid());
                 query.put("target_uid", targetUid);
+                // 动态是公开内容：未登录也能浏览；已登录时会自动带上查看者身份
+                // （is_liked / is_collected 等个性化字段依然可用）。
+                auth = false;
                 break;
         }
         account.getV2Json(action, query, auth, new tAccUtils.JsonCallback() {
@@ -636,6 +639,47 @@ public class CloudListFragment extends Fragment {
         for (int i = 0; i < source.length(); i++) {
             JSONObject item = source.optJSONObject(i);
             if (item != null && uid.equals(item.optString("uid"))) result.put(item);
+        }
+        return result;
+    }
+
+    /**
+     * 用户主页「应用」标签：读取公开应用目录并按作者 uid 过滤，
+     * 走公开接口，因此未登录状态下同样可以加载。
+     */
+    private void loadUserApps(long started, int generation) {
+        String targetUid = getArguments() == null ? ""
+                : getArguments().getString("target_uid", "");
+        account.getPublicJsonUrl("https://res.typheye.cn/api.php?type=app&page=1&size=50",
+                new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        JSONArray list = json.optJSONArray("info");
+                        if (list == null) list = json.optJSONArray("items");
+                        if (list == null) list = json.optJSONArray("apps");
+                        if (list == null) list = json.optJSONArray("data");
+                        JSONArray filtered = filterByAuthorUid(
+                                list == null ? new JSONArray() : list, targetUid);
+                        completeAfter(started, generation, () -> render(filtered));
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) {
+                        completeAfter(started, generation, () -> {
+                            state.setVisibility(View.GONE);
+                            android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
+                                    android.widget.Toast.LENGTH_SHORT).show();
+                        });
+                    }
+                });
+    }
+
+    private JSONArray filterByAuthorUid(JSONArray source, String uid) {
+        JSONArray result = new JSONArray();
+        if (uid == null || uid.isEmpty()) return result;
+        for (int i = 0; i < source.length(); i++) {
+            JSONObject item = source.optJSONObject(i);
+            if (item == null) continue;
+            if (uid.equals(item.optString("uid"))
+                    || uid.equals(item.optString("author_uid"))) result.put(item);
         }
         return result;
     }
@@ -873,6 +917,10 @@ public class CloudListFragment extends Fragment {
 
     private View createCard(JSONObject item) {
         if (MODE_ACTIVITY.equals(mode)) return createDynamicRow(item);
+        // 用户主页的「应用」标签使用与应用目录一致的应用卡片。
+        if (MODE_USER_APPS.equals(mode) && !item.optBoolean("_invalid", false)) {
+            return createCatalogRow(item, true);
+        }
         if (isDynamicTargetList() && item.optBoolean("_invalid", false)) {
             return DynamicCardFactory.createUnavailable(requireContext(), item, v -> removeUnavailable(item, v));
         }

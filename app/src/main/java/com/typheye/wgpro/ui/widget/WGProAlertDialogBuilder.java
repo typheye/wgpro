@@ -45,7 +45,14 @@ public final class WGProAlertDialogBuilder {
     private LinearLayout fixedActions;
     private View fixedTitle;
 
-    public WGProAlertDialogBuilder(@NonNull Context context) { this.context = context; }
+    public WGProAlertDialogBuilder(@NonNull Context context) {
+        // Dialog 与 MaterialButton 都要求 MaterialComponents 主题：拿到 ApplicationContext
+        // 之类的非 UI 主题上下文时补一层主题包装，避免 ThemeEnforcement 直接抛异常。
+        this.context = context instanceof android.app.Activity
+                ? context
+                : new androidx.appcompat.view.ContextThemeWrapper(
+                        context, R.style.Theme_WGProAndroid);
+    }
     public WGProAlertDialogBuilder setTitle(CharSequence v) { title = v; return this; }
     public WGProAlertDialogBuilder setTitle(int v) { return setTitle(context.getText(v)); }
     public WGProAlertDialogBuilder setMessage(CharSequence v) { message = v; return this; }
@@ -86,7 +93,7 @@ public final class WGProAlertDialogBuilder {
         panel.setPadding(dp(24), dp(26), dp(24), dp(12));
         panel.setBackground(sheetSurfaceDrawable());
         ViewCompat.setOnApplyWindowInsetsListener(panel, (view, insets) -> {
-            int bottom = SystemBars.bottomSheetPadding(context, insets);
+            int bottom = SystemBars.bottomSheetPadding(view, insets);
             view.setPadding(dp(24), dp(26), dp(24), bottom);
             return insets;
         });

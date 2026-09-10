@@ -629,13 +629,19 @@ public class tAccUtils {
                         boolean valid = sessionState == 0;
                         if (sessionState == 1) {
                             clearLocalLoginData();
-                            new Handler(Looper.getMainLooper()).post(() ->
-                    new WGProAlertDialogBuilder(context)
-                                            .setTitle("登录已失效")
-                                            .setCancelable(false)
-                                            .setMessage("当前设备的登录会话已失效，请重新登录")
-                                            .setPositiveButton("确定", null)
-                                            .show());
+                            new Handler(Looper.getMainLooper()).post(() -> {
+                                // 必须用前台 Activity：后台轮询用的是 ApplicationContext，
+                                // 既没有窗口令牌，也没有 MaterialComponents 主题。
+                                android.app.Activity activity =
+                                        com.typheye.wgpro.utils.SystemBars.currentActivity();
+                                if (activity == null) return;
+                                new WGProAlertDialogBuilder(activity)
+                                        .setTitle("登录已失效")
+                                        .setCancelable(false)
+                                        .setMessage("当前设备的登录会话已失效，请重新登录")
+                                        .setPositiveButton("确定", null)
+                                        .show();
+                            });
                         }
                         callback.onSuccess(new UserDataUpdateResult(valid,
                                 info.optInt("v1") == 1, info.optInt("v2") == 1, info.optInt("v3") == 1));

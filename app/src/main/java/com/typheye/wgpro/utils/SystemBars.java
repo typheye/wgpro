@@ -55,10 +55,19 @@ public final class SystemBars {
     private static final int SHEET_BASE_BOTTOM_DP = 12;
     /** 底部按钮高度，用于计算“没有导航栏”时的补偿间距。 */
     private static final int SHEET_BUTTON_HEIGHT_DP = 54;
-    /** 多窗口（自由窗）额外补偿，避免小窗贴边。 */
-    private static final int FREEFORM_TOP_DP = 18;
+    /**
+     * 多窗口（小窗/分屏）几何配额。
+     *
+     * <p>小窗可以停在屏幕任意位置，MIUI 只在窗口真的贴到屏幕边缘时才上报对应的系统栏高度，
+     * 所以这一层必须"取上限"而不是"叠加"：叠加会让应用栏在贴顶时被撑高、在居中时被压扁。
+     *
+     * <p>{@link #FREEFORM_TOP_DP} 对应小窗自带的标题条高度，
+     * {@link #FREEFORM_BOTTOM_DP} 对应小窗底部把手，都是与 {@code UserDetailActivity}
+     * 上已验证的小窗参数一致的唯一来源。
+     */
+    private static final int FREEFORM_TOP_DP = 32;
+    private static final int FREEFORM_BOTTOM_DP = 24;
     private static final int FREEFORM_SIDE_DP = 8;
-    private static final int FREEFORM_BOTTOM_DP = 22;
 
     /** 已经由本类完成 window 层适配的窗口。 */
     private static final Set<Window> CONFIGURED_WINDOWS =
@@ -72,6 +81,9 @@ public final class SystemBars {
     /** 已经由 {@link #reserveBottomInsetForScroll} 处理过的滚动视图。 */
     private static final Set<View> SCROLL_INSET_APPLIED =
             Collections.newSetFromMap(new WeakHashMap<View, Boolean>());
+    /** 当前处于前台的 Activity（用于在后台回调里安全地弹出 UI）。 */
+    private static final java.util.concurrent.atomic.AtomicReference<Activity> RESUMED_ACTIVITY =
+            new java.util.concurrent.atomic.AtomicReference<>();
     private SystemBars() {
     }
 
@@ -105,10 +117,12 @@ public final class SystemBars {
 
             @Override
             public void onActivityResumed(@NonNull Activity activity) {
+                RESUMED_ACTIVITY.set(activity);
             }
 
             @Override
             public void onActivityPaused(@NonNull Activity activity) {
+                RESUMED_ACTIVITY.compareAndSet(activity, null);
             }
 
             @Override
@@ -122,6 +136,7 @@ public final class SystemBars {
 
             @Override
             public void onActivityDestroyed(@NonNull Activity activity) {
+                RESUMED_ACTIVITY.compareAndSet(activity, null);
                 HANDLED_ACTIVITIES.remove(activity);
                 FALLBACK_ACTIVITIES.remove(activity);
             }
@@ -206,7 +221,7 @@ public final class SystemBars {
         final int initialBottom = root.getPaddingBottom();
         ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
             Insets bars = systemBarInsets(insets);
-            view.setPadding(initialLeft + bars.left, initialTop + bars.top,
+            view.setPadding(initialLeft + bars.left, initialTop + topInset(view, insets),
                     initialRight + bars.right, initialBottom);
             return insets;
         });
@@ -231,8 +246,8 @@ public final class SystemBars {
         final int initialRight = view.getPaddingRight();
         final int initialBottom = view.getPaddingBottom();
         ViewCompat.setOnApplyWindowInsetsListener(view, (target, insets) -> {
-            int bottom = systemBarInsets(insets).bottom;
-            target.setPadding(initialLeft, initialTop, initialRight, initialBottom + bottom);
+            target.setPadding(initialLeft, initialTop, initialRight,
+                    initialBottom + bottomInsetForView(target, insets));
             return insets;
         });
         ViewCompat.requestApplyInsets(view);
@@ -273,7 +288,7 @@ public final class SystemBars {
         scrollable.setClipToPadding(false);
         ViewCompat.setOnApplyWindowInsetsListener(scrollable, (view, insets) -> {
             view.setPadding(initialLeft, initialTop, initialRight,
-                    initialBottom + systemBarInsets(insets).bottom);
+                    initialBottom + bottomInsetForView(view, insets));
             return insets;
         });
         ViewCompat.requestApplyInsets(scrollable);
@@ -342,11 +357,12 @@ public final class SystemBars {
         ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
             Insets bars = systemBarInsets(insets);
             if (chrome != null) {
-                chrome.setTopHeight(bars.top);
+                chrome.setTopHeight(topInset(view, insets));
             }
-            view.setPadding(initialLeft + bars.left, initialTop + bars.top,
+            view.setPadding(initialLeft + bars.left, initialTop + topInset(view, insets),
                     initialRight + bars.right,
-                    includeBottom ? initialBottom + bars.bottom : initialBottom);
+                    includeBottom ? initialBottom + bottomInsetForView(view, insets)
+                            : initialBottom);
             // 继续向下传递，子 View（聊天输入框等）仍需要 ime / systemBars。
             return insets;
         });
@@ -368,10 +384,9 @@ public final class SystemBars {
             Insets top = insets.getInsets(WindowInsetsCompat.Type.statusBars()
                     | WindowInsetsCompat.Type.displayCutout());
             boolean freeform = isInMultiWindow(view);
-            int extraTop = freeform ? dp(view, FREEFORM_TOP_DP) : 0;
             int extraSide = freeform ? dp(view, FREEFORM_SIDE_DP) : 0;
             view.setPadding(appBarLeft + top.left + extraSide,
-                    appBarTop + top.top + extraTop,
+                    appBarTop + topInset(view, insets),
                     appBarRight + top.right + extraSide,
                     appBarBottom);
             return insets;
@@ -390,12 +405,11 @@ public final class SystemBars {
         ViewCompat.setOnApplyWindowInsetsListener(bottomArea, (view, insets) -> {
             Insets bars = systemBarInsets(insets);
             boolean freeform = isInMultiWindow(view);
-            int extraBottom = freeform ? dp(view, FREEFORM_BOTTOM_DP) : 0;
             int extraSide = freeform ? dp(view, FREEFORM_SIDE_DP) : 0;
             view.setPadding(bottomLeft + bars.left + extraSide,
                     bottomTop,
                     bottomRight + bars.right + extraSide,
-                    bottomBottom + bars.bottom + extraBottom);
+                    bottomBottom + bottomInsetForView(view, insets));
             return insets;
         });
         ViewCompat.requestApplyInsets(appBar);
@@ -433,12 +447,12 @@ public final class SystemBars {
         ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
             Insets bars = systemBarInsets(insets);
             if (chrome != null) {
-                chrome.setTopHeight(bars.top);
+                chrome.setTopHeight(topInset(view, insets));
             }
-            view.setPadding(initialLeft + bars.left, initialTop + bars.top,
+            view.setPadding(initialLeft + bars.left, initialTop + topInset(view, insets),
                     initialRight + bars.right, initialBottom);
             bottomContent.setPadding(contentLeft, contentTop,
-                    contentRight, contentBottom + bars.bottom);
+                    contentRight, contentBottom + bottomInsetForView(bottomContent, insets));
             return WindowInsetsCompat.CONSUMED;
         });
         ViewCompat.requestApplyInsets(root);
@@ -452,6 +466,34 @@ public final class SystemBars {
     public static Insets systemBarInsets(@NonNull WindowInsetsCompat insets) {
         return insets.getInsets(WindowInsetsCompat.Type.systemBars()
                 | WindowInsetsCompat.Type.displayCutout());
+    }
+
+    /**
+     * 顶部安全高度：状态栏 / 挖孔高度，小窗里取"状态栏高度 vs 小窗标题条配额"的较大值。
+     *
+     * <p>小窗停在屏幕中间时 MIUI 上报 0，停在顶部时才上报状态栏高度；
+     * 用取上限的方式计算，两种位置得到同一个结果，应用栏高度不再随小窗位置漂移。
+     */
+    public static int topInset(@NonNull View view, @NonNull WindowInsetsCompat insets) {
+        Insets bars = insets.getInsets(WindowInsetsCompat.Type.statusBars()
+                | WindowInsetsCompat.Type.displayCutout());
+        int top = bars.top;
+        if (isInMultiWindow(view)) {
+            top = Math.max(top, dp(view, FREEFORM_TOP_DP));
+        }
+        return top;
+    }
+
+    /**
+     * 底部安全高度：导航栏（手势小横条/三键）高度，小窗里取"导航栏高度 vs 小窗底部把手配额"
+     * 的较大值，同样不叠加，避免底栏在小窗里多出一截。
+     */
+    public static int bottomInsetForView(@NonNull View view, @NonNull WindowInsetsCompat insets) {
+        int bottom = systemBarInsets(insets).bottom;
+        if (isInMultiWindow(view)) {
+            bottom = Math.max(bottom, dp(view, FREEFORM_BOTTOM_DP));
+        }
+        return bottom;
     }
 
     /** 底部系统栏占位：导航栏（手势条/三键）与键盘取较大者。 */
@@ -471,38 +513,6 @@ public final class SystemBars {
         return Math.max(navigation, tappable);
     }
 
-    /**
-     * 通过系统接口判断底部导航栏（手势条或三键栏）是否已经开启。
-     *
-     * <p>优先使用 {@link WindowInsetsCompat}（WindowInsets.Type.navigationBars / tappableElement）
-     * 的实时上报；如果窗口尚未收到 insets，则回退到系统资源
-     * {@code android:dimen/navigation_bar_height}。
-     */
-    public static boolean hasVisibleNavigationBar(@Nullable Context context,
-                                                  @Nullable WindowInsetsCompat insets) {
-        if (insets != null) {
-            boolean visible = insets.isVisible(WindowInsetsCompat.Type.navigationBars())
-                    || insets.isVisible(WindowInsetsCompat.Type.tappableElement());
-            if (!visible) {
-                return false;
-            }
-            if (navigationBarBottom(insets) > 0) {
-                return true;
-            }
-        }
-        return context != null && platformNavigationBarHeight(context) > 0;
-    }
-
-    /**
-     * 读取系统 {@code navigation_bar_height} 尺寸资源，用于在 insets 尚未上报时判断
-     * 导航栏是否存在。没有任何导航栏的设备上该资源为 0。
-     */
-    public static int platformNavigationBarHeight(@NonNull Context context) {
-        int id = context.getResources().getIdentifier(
-                "navigation_bar_height", "dimen", "android");
-        return id > 0 ? context.getResources().getDimensionPixelSize(id) : 0;
-    }
-
     // ------------------------------------------------------------------
     // 4. 底部弹窗
     // ------------------------------------------------------------------
@@ -511,14 +521,25 @@ public final class SystemBars {
      * 底部弹窗的底部内边距。
      *
      * <p>导航栏（含手势小横条）已开启时，系统 inset 本身就是视觉留白，只保留基础留白；
-     * 没有导航栏时才额外补上原来“半个底部按钮高度”的间距。
+     * 全屏且系统导航栏高度为 0（导航条被隐藏 / 设备没有导航条）时，
+     * 额外补上"半个底部按钮高度"的间距，避免按钮贴死屏幕底边。
+     *
+     * <p>小窗里导航栏与键盘都可能上报 0，但窗口底部仍有 MIUI 自己的把手，
+     * 因此这里同样要用 {@link #bottomInsetForView} 的取上限口径，
+     * 否则弹窗按钮会直接贴到小窗的把手和圆角上；小窗里不再叠加这半个按钮高度。
      */
-    public static int bottomSheetPadding(@NonNull Context context,
+    public static int bottomSheetPadding(@NonNull View anchor,
                                          @NonNull WindowInsetsCompat insets) {
-        int extra = hasVisibleNavigationBar(context, insets)
-                ? 0
-                : dp(context, SHEET_BUTTON_HEIGHT_DP / 2);
-        return dp(context, SHEET_BASE_BOTTOM_DP) + bottomInset(insets) + extra;
+        Context context = anchor.getContext();
+        // 只用"实时上报的导航栏高度"判断是否隐藏：isVisible 在导航条被隐藏时仍可能为 true，
+        // 而 navigation_bar_height 资源即使导航条隐藏也依然是 56px，两者都不能作为依据。
+        boolean fullscreen = !isInMultiWindow(anchor);
+        int extra = fullscreen && navigationBarBottom(insets) <= 0
+                ? dp(context, SHEET_BUTTON_HEIGHT_DP / 2)
+                : 0;
+        int ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+        int bottom = Math.max(bottomInsetForView(anchor, insets), ime);
+        return dp(context, SHEET_BASE_BOTTOM_DP) + bottom + extra;
     }
 
     /**
@@ -567,6 +588,21 @@ public final class SystemBars {
             context = base;
         }
         return context instanceof Activity ? (Activity) context : null;
+    }
+
+    /**
+     * 当前处于前台的 Activity，没有则返回 {@code null}。
+     *
+     * <p>后台回调（网络、服务、轮询）里要弹 BottomSheet 时必须用它，
+     * 直接用 ApplicationContext 会因为没有窗口令牌和 Material 主题而崩溃。
+     */
+    @Nullable
+    public static Activity currentActivity() {
+        Activity activity = RESUMED_ACTIVITY.get();
+        if (activity == null || activity.isFinishing() || activity.isDestroyed()) {
+            return null;
+        }
+        return activity;
     }
 
     private static void markHandled(@NonNull View view) {

@@ -218,7 +218,9 @@ public class DeviceFragment extends Fragment {
                 otherSignature = nextOther;
             }
             wearableEmpty.setVisibility(wearableLoaded && !hasWearable ? View.VISIBLE : View.GONE);
-            otherEmpty.setVisibility(otherLoaded && !hasOther ? View.VISIBLE : View.GONE);
+            // 云端会话还在加载时不要切到空状态，否则会出现"空提示 ↔ 卡片"的闪现。
+            otherEmpty.setVisibility(otherLoaded && !cloudSessionsLoading && !hasOther
+                    ? View.VISIBLE : View.GONE);
             UIParams params = MainActivity.current_params;
             boolean found = params != null && params.connected && params.connected_device_id != null
                     && !params.connected_device_id.isEmpty() && !db.exists(params.connected_device_id);
@@ -228,6 +230,24 @@ public class DeviceFragment extends Fragment {
             found = found && !params.connected_device_id.equals(dismissedId);
             detected.setVisibility(found ? View.VISIBLE : View.GONE);
         }
+    }
+
+    /**
+     * 本地摘掉一条已撤销的云端会话，保留其余缓存。
+     * 撤销后直接清空整个 {@code cloudSessions} 会让列表先变空提示、再被服务端数据填回来，
+     * 表现为"空提示 / 设备卡片"来回闪现。
+     */
+    private void removeCloudSessionLocally(String recordId) {
+        if (recordId == null || recordId.isEmpty()) return;
+        JSONArray next = new JSONArray();
+        for (int i = 0; i < cloudSessions.length(); i++) {
+            JSONObject session = cloudSessions.optJSONObject(i);
+            if (session == null) continue;
+            String id = session.optString("id",
+                    session.optString("session_record_id", session.optString("record_id", "")));
+            if (!recordId.equals(id)) next.put(session);
+        }
+        cloudSessions = next;
     }
 
     private void loadCloudSessions() {
@@ -480,7 +500,8 @@ public class DeviceFragment extends Fragment {
                 if (current || json.optBoolean("revoked_current")) account.logout();
                 mainHandler.post(() -> {
                     if (!isAdded()) return;
-                    cloudSessions = new JSONArray();
+                    // 只摘掉这一条会话：整表清空会让"空提示 ↔ 设备卡片"来回闪现。
+                    removeCloudSessionLocally(id);
                     if (otherRefresh != null) otherRefresh.setRefreshing(true);
                     refresh();
                     loadCloudSessions();
