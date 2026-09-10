@@ -45,7 +45,10 @@ public class AddDeviceActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_add_device);
-        AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout),
+        // 底部安全区交给内容区自己的滚动视图，内容可延伸到导航条区域。
+        com.typheye.wgpro.utils.SystemBars.applyAppBarInsets(
+                findViewById(R.id.app_bar_layout), null);
+        com.typheye.wgpro.utils.SystemBars.reserveBottomInsetForScroll(
                 findViewById(R.id.add_device_content));
         Toolbar toolbar = findViewById(R.id.add_device_toolbar);
         nodeApi = Wearable.getNodeApi(getApplicationContext());

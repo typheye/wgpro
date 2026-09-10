@@ -52,6 +52,14 @@ public class ChatActivity extends BaseSectionActivity {
         String name = getIntent().getStringExtra(EXTRA_PEER_NAME);
         return name == null || name.trim().isEmpty() ? "私信" : name;
     }
+
+    /**
+     * 私信页底部是固定输入栏，必须整体位于系统导航栏上方；
+     * 系统消息页没有固定底栏，走滚动视图预留，内容可以延伸到导航条区域。
+     */
+    @Override protected boolean hasPinnedBottomBar() {
+        return !MODE_SYSTEM_MESSAGES.equals(getIntent().getStringExtra(EXTRA_MODE));
+    }
     @Override protected Fragment createContent() {
         if (MODE_SYSTEM_MESSAGES.equals(getIntent().getStringExtra(EXTRA_MODE))) {
             return new SystemMessageDetailFragment();

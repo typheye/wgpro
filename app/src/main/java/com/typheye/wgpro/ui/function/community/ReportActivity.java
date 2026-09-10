@@ -20,6 +20,9 @@ public final class ReportActivity extends BaseSectionActivity {
 
     @Override protected String screenTitle() { return "举报"; }
 
+    /** 举报页底部是固定的提交按钮。 */
+    @Override protected boolean hasPinnedBottomBar() { return true; }
+
     @Override protected Fragment createContent() {
         String type = getIntent().getStringExtra(EXTRA_TARGET_TYPE);
         ReportFragment fragment;

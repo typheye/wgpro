@@ -26,6 +26,9 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
     private View authorView;
     private JSONObject dynamicInfo;
     @Override protected String screenTitle() { return ""; }
+
+    /** 动态详情页底部是固定在屏幕底部的评论输入栏。 */
+    @Override protected boolean hasPinnedBottomBar() { return true; }
     @Override protected Fragment createContent() {
         return DynamicDetailFragment.newInstance(getIntent().getStringExtra(EXTRA_DYNAMIC_ID));
     }

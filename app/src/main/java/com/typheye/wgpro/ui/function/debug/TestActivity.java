@@ -14,6 +14,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.debug.TestHandler;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.SystemBars;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 
 public final class TestActivity extends AppCompatActivity {
@@ -23,7 +24,9 @@ public final class TestActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_test);
-        AppUtils.applyMainWindowInsets(findViewById(R.id.test_app_bar), findViewById(R.id.test_content));
+        // 内容区自己预留底部导航栏高度，滚动内容可以延伸到导航条区域。
+        SystemBars.applyAppBarInsets(findViewById(R.id.test_app_bar), null);
+        SystemBars.reserveBottomInsetForScroll(findViewById(R.id.test_content));
         Toolbar toolbar = findViewById(R.id.test_toolbar);
         toolbar.setNavigationIcon(com.typheye.wgpro.R.drawable.ic_back_vector);
         toolbar.setNavigationOnClickListener(v -> finish());

@@ -16,6 +16,7 @@ import androidx.fragment.app.Fragment;
 
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.SystemBars;
 
 abstract class BaseSectionActivity extends AppCompatActivity {
     private View appBar;
@@ -35,7 +36,16 @@ abstract class BaseSectionActivity extends AppCompatActivity {
             params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
             loadingOverlay.setLayoutParams(params);
         }
-        AppUtils.applyMainWindowInsets(appBar, content);
+        if (hasPinnedBottomBar()) {
+            // 底部有固定控件（输入栏/提交按钮）：整个容器让开系统栏，固定控件始终在导航条上方。
+            AppUtils.applyMainWindowInsets(appBar, content);
+        } else {
+            // 纯滚动页：容器不带底部内边距，改由页面自己的滚动视图预留，
+            // 这样内容能画到导航条下面，末尾又不会被小横条永久遮住。
+            SystemBars.applyAppBarInsets(appBar, null);
+            AppUtils.applyScrollBottomInsets(getSupportFragmentManager(),
+                    R.id.section_container);
+        }
         Toolbar toolbar = findViewById(R.id.section_toolbar);
         toolbar.setTitle(screenTitle());
         setSupportActionBar(toolbar);
@@ -55,6 +65,8 @@ abstract class BaseSectionActivity extends AppCompatActivity {
 
     protected abstract String screenTitle();
     protected abstract Fragment createContent();
+    /** 底部是否有必须固定在屏幕底部的控件（聊天输入栏、提交按钮等）。 */
+    protected boolean hasPinnedBottomBar() { return false; }
     protected Toolbar sectionToolbar() { return findViewById(R.id.section_toolbar); }
     protected boolean loadingCoversAppBar() { return false; }
 

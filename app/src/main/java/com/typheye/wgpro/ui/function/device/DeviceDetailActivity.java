@@ -15,8 +15,11 @@ public class DeviceDetailActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_device_detail);
-        AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout),
-                findViewById(R.id.device_detail_container));
+        // 详情内容自己预留底部导航栏高度，内容可延伸到导航条区域。
+        com.typheye.wgpro.utils.SystemBars.applyAppBarInsets(
+                findViewById(R.id.app_bar_layout), null);
+        AppUtils.applyScrollBottomInsets(getSupportFragmentManager(),
+                R.id.device_detail_container);
         Toolbar toolbar = findViewById(R.id.device_detail_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());

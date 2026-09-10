@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ScrollView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -25,6 +26,9 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import java.util.Collections;
 import java.util.Set;
@@ -65,6 +69,9 @@ public final class SystemBars {
     /** 已经兜底处理过 insets 的 Activity。 */
     private static final Set<Activity> FALLBACK_ACTIVITIES =
             Collections.newSetFromMap(new WeakHashMap<Activity, Boolean>());
+    /** 已经由 {@link #reserveBottomInsetForScroll} 处理过的滚动视图。 */
+    private static final Set<View> SCROLL_INSET_APPLIED =
+            Collections.newSetFromMap(new WeakHashMap<View, Boolean>());
     private SystemBars() {
     }
 
@@ -232,6 +239,73 @@ public final class SystemBars {
     }
 
     /**
+     * 让页面里"真正滚动的那一层"预留底部系统栏高度，而不是给外层容器加内边距。
+     *
+     * <p>给外层容器加内边距会把可视区整体缩短，滚动内容会在导航栏上沿被硬切断，
+     * 导航栏区域只剩页面底色；把内边距加在滚动视图上并关闭
+     * {@code clipToPadding}，内容就能画到手势小横条下面，同时列表末尾仍可完整滚出。
+     *
+     * @return 找到并处理了滚动视图返回 true；没有滚动视图时退回整页内边距并返回 false。
+     */
+    public static boolean reserveBottomInsetForScroll(@NonNull View pageRoot) {
+        markHandled(pageRoot);
+        View scrollable = findScrollableHost(pageRoot);
+        if (scrollable == null) {
+            reserveBottomInset(pageRoot);
+            return false;
+        }
+        if (!(scrollable instanceof ViewGroup)) {
+            reserveBottomInset(pageRoot);
+            return false;
+        }
+        applyScrollBottomInset((ViewGroup) scrollable);
+        return true;
+    }
+
+    private static void applyScrollBottomInset(@NonNull final ViewGroup scrollable) {
+        if (!SCROLL_INSET_APPLIED.add(scrollable)) {
+            return;
+        }
+        final int initialLeft = scrollable.getPaddingLeft();
+        final int initialTop = scrollable.getPaddingTop();
+        final int initialRight = scrollable.getPaddingRight();
+        final int initialBottom = scrollable.getPaddingBottom();
+        scrollable.setClipToPadding(false);
+        ViewCompat.setOnApplyWindowInsetsListener(scrollable, (view, insets) -> {
+            view.setPadding(initialLeft, initialTop, initialRight,
+                    initialBottom + systemBarInsets(insets).bottom);
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(scrollable);
+    }
+
+    /** 深度优先找出页面里第一个可滚动容器（会穿过 SwipeRefreshLayout 之类的包装层）。 */
+    @Nullable
+    private static View findScrollableHost(@NonNull View view) {
+        if (isScrollableHost(view)) {
+            return view;
+        }
+        if (!(view instanceof ViewGroup)) {
+            return null;
+        }
+        ViewGroup group = (ViewGroup) view;
+        for (int i = 0; i < group.getChildCount(); i++) {
+            View found = findScrollableHost(group.getChildAt(i));
+            if (found != null) {
+                return found;
+            }
+        }
+        return null;
+    }
+
+    private static boolean isScrollableHost(@NonNull View view) {
+        return view instanceof NestedScrollView
+                || view instanceof ScrollView
+                || view instanceof RecyclerView
+                || view instanceof ViewPager2;
+    }
+
+    /**
      * 整页统一适配（双色 chrome）。顶部系统栏区域使用 {@code appBarColor}，
      * 底部系统栏区域使用 {@code pageColor}，使沉浸式页面在两处都保持正确底色。
      */
@@ -241,6 +315,20 @@ public final class SystemBars {
 
     private static void uncheckedApplyScreenInsets(@NonNull View root, int appBarColor,
                                                    int pageColor) {
+        uncheckedApplyTopAndSideInsets(root, appBarColor, pageColor, true);
+    }
+
+    /**
+     * 顶部 / 左右系统栏内边距 + 双色 chrome 背景，底部不加任何内边距。
+     * 供"底部安全区交给滚动视图"的页面使用。
+     */
+    private static void uncheckedApplyTopAndSideInsets(@NonNull View root, int appBarColor,
+                                                       int pageColor) {
+        uncheckedApplyTopAndSideInsets(root, appBarColor, pageColor, false);
+    }
+
+    private static void uncheckedApplyTopAndSideInsets(@NonNull View root, int appBarColor,
+                                                       int pageColor, boolean includeBottom) {
         markHandled(root);
         final int initialLeft = root.getPaddingLeft();
         final int initialTop = root.getPaddingTop();
@@ -257,7 +345,8 @@ public final class SystemBars {
                 chrome.setTopHeight(bars.top);
             }
             view.setPadding(initialLeft + bars.left, initialTop + bars.top,
-                    initialRight + bars.right, initialBottom + bars.bottom);
+                    initialRight + bars.right,
+                    includeBottom ? initialBottom + bars.bottom : initialBottom);
             // 继续向下传递，子 View（聊天输入框等）仍需要 ime / systemBars。
             return insets;
         });
@@ -268,9 +357,8 @@ public final class SystemBars {
      * 顶部应用栏 + 底部区域的经典适配。顶部叠加 statusBars 与 displayCutout，
      * 底部叠加 navigationBars；多窗口时补偿自由窗的额外空间。
      */
-    public static void applyAppBarInsets(@NonNull View appBar, @NonNull View bottomArea) {
+    public static void applyAppBarInsets(@NonNull View appBar, @Nullable View bottomArea) {
         markHandled(appBar);
-        markHandled(bottomArea);
 
         final int appBarLeft = appBar.getPaddingLeft();
         final int appBarTop = appBar.getPaddingTop();
@@ -289,6 +377,12 @@ public final class SystemBars {
             return insets;
         });
 
+        // bottomArea 为 null 表示底部安全区交给页面内部的滚动视图处理。
+        if (bottomArea == null) {
+            ViewCompat.requestApplyInsets(appBar);
+            return;
+        }
+        markHandled(bottomArea);
         final int bottomLeft = bottomArea.getPaddingLeft();
         final int bottomTop = bottomArea.getPaddingTop();
         final int bottomRight = bottomArea.getPaddingRight();
@@ -318,7 +412,8 @@ public final class SystemBars {
     public static void applyScreenInsets(@NonNull View root, @Nullable View bottomContent,
                                          int appBarColor, int pageColor) {
         if (bottomContent == null) {
-            applyScreenInsets(root, appBarColor, pageColor);
+            // 底部安全区由页面内部的滚动视图自行预留，这里只处理顶部与左右。
+            uncheckedApplyTopAndSideInsets(root, appBarColor, pageColor);
             return;
         }
         markHandled(root);

@@ -79,6 +79,33 @@ public class AppUtils {
         SystemBars.applyScreenInsets(view);
     }
 
+    /**
+     * 让页面里的滚动内容自己预留底部系统导航栏高度（内容可以延伸到导航条区域，
+     * 末尾仍能完整滚出），而不是给外层容器加内边距导致内容在导航栏上沿被切断。
+     *
+     * <p>同时覆盖两种情况：新创建的 Fragment 视图，以及 Activity 重建后
+     * 由 FragmentManager 直接恢复、不会再回调 onFragmentViewCreated 的 Fragment 视图。
+     */
+    public static void applyScrollBottomInsets(
+            @NonNull androidx.fragment.app.FragmentManager fragmentManager,
+            @androidx.annotation.IdRes int containerId) {
+        fragmentManager.registerFragmentLifecycleCallbacks(
+                new androidx.fragment.app.FragmentManager.FragmentLifecycleCallbacks() {
+                    @Override
+                    public void onFragmentViewCreated(
+                            @NonNull androidx.fragment.app.FragmentManager fm,
+                            @NonNull androidx.fragment.app.Fragment fragment,
+                            @NonNull View view, android.os.Bundle state) {
+                        SystemBars.reserveBottomInsetForScroll(view);
+                    }
+                }, false);
+        androidx.fragment.app.Fragment existing =
+                fragmentManager.findFragmentById(containerId);
+        if (existing != null && existing.getView() != null) {
+            SystemBars.reserveBottomInsetForScroll(existing.getView());
+        }
+    }
+
     public static void appInit(Context context){
         SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
         prefs.edit()

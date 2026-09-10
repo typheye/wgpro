@@ -58,11 +58,12 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_settings);
-        // 顶部系统栏区域使用应用栏底色，底部避开系统导航栏/手势小横条。
-        SystemBars.applyScreenInsets(findViewById(R.id.container),
-                findViewById(R.id.settings),
+        // 顶部系统栏区域使用应用栏底色；底部安全区交给页面里的滚动视图预留，
+        // 让列表内容能画到导航条下面，末尾又不会被手势小横条永久遮住。
+        SystemBars.applyScreenInsets(findViewById(R.id.container), null,
                 getColor(R.color.surface_primary),
                 getColor(R.color.surface_page));
+        AppUtils.applyScrollBottomInsets(getSupportFragmentManager(), R.id.settings);
 
         toolbar = findViewById(R.id.toolbar);
 
