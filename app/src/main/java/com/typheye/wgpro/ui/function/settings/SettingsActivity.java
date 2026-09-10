@@ -37,6 +37,7 @@ import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.debug.TestActivity;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.SystemBars;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.typheye.wgpro.debug.TestHandler;
 
@@ -57,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_settings);
-        AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout), findViewById(R.id.settings));
+        SystemBars.applyRootInsets(findViewById(R.id.container), true);
 
         toolbar = findViewById(R.id.toolbar);
 
@@ -113,8 +114,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        ViewCompat.requestApplyInsets(findViewById(R.id.app_bar_layout));
-        ViewCompat.requestApplyInsets(findViewById(R.id.settings));
+        ViewCompat.requestApplyInsets(findViewById(R.id.container));
     }
 
     private void openAboutPage() {

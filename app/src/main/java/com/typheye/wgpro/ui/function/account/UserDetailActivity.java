@@ -110,7 +110,6 @@ public class UserDetailActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         getWindow().setStatusBarColor(Color.TRANSPARENT);
-        getWindow().setNavigationBarColor(getColor(R.color.surface_page));
         new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView())
                 .setAppearanceLightStatusBars(false);
         setContentView(R.layout.activity_user_detail);

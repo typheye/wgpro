@@ -17,12 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.core.view.WindowInsetsControllerCompat;
-import androidx.core.view.WindowCompat;
 import androidx.preference.PreferenceManager;
 
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
@@ -58,29 +53,7 @@ public class AppUtils {
         if (context instanceof Activity) {
             configureActivityTransitions((Activity) context);
         }
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
-            // 允许内容延伸到挖孔区域（关键）
-            window.getAttributes().layoutInDisplayCutoutMode =
-                    WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
-        }
-
-        WindowCompat.setDecorFitsSystemWindows(window, false);
-        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-        int chromeColor = ContextCompat.getColor(context, R.color.surface_primary);
-        window.setStatusBarColor(chromeColor);
-        window.setNavigationBarColor(android.graphics.Color.TRANSPARENT);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            window.setStatusBarContrastEnforced(false);
-            window.setNavigationBarContrastEnforced(false);
-        }
-
-        boolean isLightMode = isLightMode(context);
-        WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(
-                window, window.getDecorView());
-        controller.setAppearanceLightStatusBars(isLightMode);
-        controller.setAppearanceLightNavigationBars(isLightMode);
-
+        SystemBars.configureWindow(window, context);
     }
 
     public static void configureActivityTransitions(@NonNull Activity activity) {
@@ -94,83 +67,11 @@ public class AppUtils {
     }
 
     public static void applyMainWindowInsets(View appBar, View bottomNavigation) {
-        int appBarLeft = appBar.getPaddingLeft();
-        int appBarTop = appBar.getPaddingTop();
-        int appBarRight = appBar.getPaddingRight();
-        int appBarBottom = appBar.getPaddingBottom();
-        ViewCompat.setOnApplyWindowInsetsListener(appBar, (view, insets) -> {
-            Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars()
-                    | WindowInsetsCompat.Type.displayCutout());
-            int freeform = isInMultiWindow(view) ? dp(view, 18) : 0;
-            int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
-            view.setPadding(appBarLeft + statusBars.left + freeformSide,
-                    appBarTop + statusBars.top + freeform,
-                    appBarRight + statusBars.right + freeformSide, appBarBottom);
-            return insets;
-        });
-
-        int navLeft = bottomNavigation.getPaddingLeft();
-        int navTop = bottomNavigation.getPaddingTop();
-        int navRight = bottomNavigation.getPaddingRight();
-        int navBottom = bottomNavigation.getPaddingBottom();
-        ViewCompat.setOnApplyWindowInsetsListener(bottomNavigation, (view, insets) -> {
-            Insets navigationBars = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
-            int freeformBottom = isInMultiWindow(view) ? dp(view, 22) : 0;
-            int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
-            view.setPadding(navLeft + navigationBars.left + freeformSide, navTop,
-                    navRight + navigationBars.right + freeformSide,
-                    navBottom + navigationBars.bottom + freeformBottom);
-            return insets;
-        });
-        ViewCompat.requestApplyInsets(appBar);
-        ViewCompat.requestApplyInsets(bottomNavigation);
-    }
-
-    private static boolean isInMultiWindow(View view) {
-        Context context = view.getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) return ((Activity) context).isInMultiWindowMode();
-            Context base = ((ContextWrapper) context).getBaseContext();
-            if (base == context) break;
-            context = base;
-        }
-        return false;
-    }
-
-    private static int dp(View view, int value) {
-        return Math.round(value * view.getResources().getDisplayMetrics().density);
+        SystemBars.applyWindowInsets(appBar, bottomNavigation);
     }
 
     public static void fixScreenCutArea(View view) {
-        try {
-            int initialLeft = view.getPaddingLeft();
-            int initialTop = view.getPaddingTop();
-            int initialRight = view.getPaddingRight();
-            int initialBottom = view.getPaddingBottom();
-            ViewCompat.setOnApplyWindowInsetsListener(view, (v, insets) -> {
-                Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-                v.setPadding(
-                        initialLeft + systemBars.left,
-                        initialTop + systemBars.top,
-                        initialRight + systemBars.right,
-                        initialBottom);
-                return WindowInsetsCompat.CONSUMED;
-            });
-            ViewCompat.requestApplyInsets(view);
-        } catch (Exception ignored) {
-            // 异常捕获保留（虽然通常不需要）
-        }
-    }
-
-    /**
-     * 判断当前是否为浅色模式（即非深色模式）
-     * @param context Context
-     * @return true 表示浅色模式，false 表示深色模式
-     */
-    private static boolean isLightMode(Context context) {
-        int nightModeFlags = context.getResources().getConfiguration().uiMode
-                & Configuration.UI_MODE_NIGHT_MASK;
-        return nightModeFlags != Configuration.UI_MODE_NIGHT_YES;
+        SystemBars.applyRootInsets(view, false);
     }
 
     public static void appInit(Context context){

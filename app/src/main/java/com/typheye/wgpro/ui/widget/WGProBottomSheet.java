@@ -19,6 +19,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.utils.SystemBars;
 
 /** A full-width, bottom-aligned MD3 surface used for transient app actions. */
 public final class WGProBottomSheet {
@@ -83,8 +84,8 @@ public final class WGProBottomSheet {
         window.setNavigationBarDividerColor(Color.TRANSPARENT);
         window.setDimAmount(0.68f);
         ViewCompat.setOnApplyWindowInsetsListener(content, (v, insets) -> {
-            int bottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
-            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom + dp(v.getContext(), 12));
+            int bottom = SystemBars.bottomSheetPadding(v.getContext(), insets);
+            v.setPadding(v.getPaddingLeft(), v.getPaddingTop(), v.getPaddingRight(), bottom);
             return insets;
         });
         ViewCompat.requestApplyInsets(content);

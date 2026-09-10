@@ -30,10 +30,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.utils.SystemBars;
 
 /** Alert-like API backed by a real custom Material bottom sheet. */
 public final class WGProAlertDialogBuilder {
-    private static final int PANEL_BOTTOM_PADDING_DP = 39;
     private final Context context;
     private CharSequence title, message, positiveText, negativeText, neutralText;
     private DialogInterface.OnClickListener positiveListener, negativeListener, neutralListener, itemListener;
@@ -83,16 +83,15 @@ public final class WGProAlertDialogBuilder {
 
     private View buildContent(WGProBottomSheetDialog dialog) {
         panel = new FixedSectionsLayout(context);
-        panel.setPadding(dp(24), dp(26), dp(24), dp(PANEL_BOTTOM_PADDING_DP));
+        panel.setPadding(dp(24), dp(26), dp(24), dp(12));
         GradientDrawable background = new GradientDrawable();
         background.setColor(context.getColor(R.color.surface_elevated));
         float radius = dp(28);
         background.setCornerRadii(new float[]{radius, radius, radius, radius, 0, 0, 0, 0});
         panel.setBackground(background);
         ViewCompat.setOnApplyWindowInsetsListener(panel, (view, insets) -> {
-            int navigationBottom = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
-            view.setPadding(dp(24), dp(26), dp(24),
-                    dp(PANEL_BOTTOM_PADDING_DP) + navigationBottom);
+            int bottom = SystemBars.bottomSheetPadding(context, insets);
+            view.setPadding(dp(24), dp(26), dp(24), bottom);
             return insets;
         });
         if (title != null && title.length() > 0) {
