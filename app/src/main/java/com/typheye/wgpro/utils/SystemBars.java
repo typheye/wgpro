@@ -19,12 +19,12 @@ import androidx.core.view.WindowInsetsControllerCompat;
 /**
  * Single place for all system-bar / edge-to-edge adaptation.
  *
- * <p>Android 15 (API 35) and above enforce edge-to-edge. The two bottom-sheet rules are also
- * centralized here: when a navigation bar / gesture handle is present, use its real inset;
- * otherwise add the legacy half-button gap so the actions stay comfortably away from the
- * screen edge.
+ * <p>Android 15 (API 35) and above enforce edge-to-edge. Bottom-sheet spacing is also centralized
+ * here: Material 3 already applies the visible navigation-bar inset to the sheet, so we only add
+ * the legacy half-button fallback when no navigation bar / gesture handle was detected.
  */
 public final class SystemBars {
+    private static final int LEGACY_SHEET_PANEL_BOTTOM_DP = 39;
     private static final int SHEET_BASE_BOTTOM_DP = 12;
     private static final int SHEET_BUTTON_HEIGHT_DP = 54;
 
@@ -151,15 +151,26 @@ public final class SystemBars {
     }
 
     /**
-     * Bottom padding for the custom alert sheets. If a navigation bar / gesture handle exists,
-     * add its real inset; otherwise add the legacy half-button gap.
+     * Bottom padding for the custom alert sheets.
+     *
+     * <p>Material 3's modal bottom-sheet style already applies
+     * {@code paddingBottomSystemWindowInsets=true} to the sheet itself. Adding the navigation-bar
+     * inset a second time here is what produced the extra gap on Android 14/15/16/17. Only the
+     * no-navigation-bar fallback is added here.
      */
     public static int bottomSheetPadding(@NonNull Context context,
                                          @NonNull WindowInsetsCompat insets) {
+        if (!isEdgeToEdgeEnforced()) {
+            // Android 14 and below already had the correct legacy spacing.
+            return dp(context, LEGACY_SHEET_PANEL_BOTTOM_DP)
+                    + navigationBarBottom(insets);
+        }
+        // Android 15+: Material 3 already reserves the navigation-bar inset on the sheet.
+        // Only add the legacy half-button gap when there is no navigation bar at all.
         int extra = hasVisibleNavigationBar(insets)
-                ? navigationBarBottom(insets)
+                ? 0
                 : dp(context, SHEET_BUTTON_HEIGHT_DP / 2);
-        return dp(context, SHEET_BASE_BOTTOM_DP) + Math.max(0, extra);
+        return dp(context, SHEET_BASE_BOTTOM_DP) + extra;
     }
 
     public static boolean isInMultiWindow(@NonNull View view) {

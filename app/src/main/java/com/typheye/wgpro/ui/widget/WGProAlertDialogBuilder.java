@@ -15,6 +15,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ import com.typheye.wgpro.utils.SystemBars;
 
 /** Alert-like API backed by a real custom Material bottom sheet. */
 public final class WGProAlertDialogBuilder {
+    private static final String NAV_FILLER_TAG = "wgpro_sheet_nav_filler";
     private final Context context;
     private CharSequence title, message, positiveText, negativeText, neutralText;
     private DialogInterface.OnClickListener positiveListener, negativeListener, neutralListener, itemListener;
@@ -68,7 +70,14 @@ public final class WGProAlertDialogBuilder {
         dialog.setCancelable(cancelable);
         dialog.setCanceledOnTouchOutside(cancelable);
         dialog.setDismissWithAnimation(true);
-        dialog.setContentView(buildContent(dialog));
+        View content = buildContent(dialog);
+        if (SystemBars.isEdgeToEdgeEnforced()) {
+            dialog.setContentView(content, new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.MATCH_PARENT));
+        } else {
+            dialog.setContentView(content);
+        }
         if (progressContent) dialog.setMinimumShowDuration(300L);
         dialog.setWindowConfigurator(() -> configureWindow(dialog));
         return dialog;
@@ -84,11 +93,7 @@ public final class WGProAlertDialogBuilder {
     private View buildContent(WGProBottomSheetDialog dialog) {
         panel = new FixedSectionsLayout(context);
         panel.setPadding(dp(24), dp(26), dp(24), dp(12));
-        GradientDrawable background = new GradientDrawable();
-        background.setColor(context.getColor(R.color.surface_elevated));
-        float radius = dp(28);
-        background.setCornerRadii(new float[]{radius, radius, radius, radius, 0, 0, 0, 0});
-        panel.setBackground(background);
+        panel.setBackground(sheetSurfaceDrawable());
         ViewCompat.setOnApplyWindowInsetsListener(panel, (view, insets) -> {
             int bottom = SystemBars.bottomSheetPadding(context, insets);
             view.setPadding(dp(24), dp(26), dp(24), bottom);
@@ -233,10 +238,12 @@ public final class WGProAlertDialogBuilder {
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (android.os.Build.VERSION.SDK_INT >= 29) window.setNavigationBarContrastEnforced(false);
         window.setDimAmount(0.68f);
+        if (SystemBars.isEdgeToEdgeEnforced()) {
+            installNavigationBarFiller(window, surface);
+        }
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (sheet != null) {
             sheet.setFitsSystemWindows(false);
-            sheet.setBackgroundColor(Color.TRANSPARENT);
             BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
             behavior.setSkipCollapsed(true);
             behavior.setDraggable(cancelable);
@@ -245,6 +252,44 @@ public final class WGProAlertDialogBuilder {
             sheet.post(() -> constrainSheetHeight(window, sheet, behavior));
             ViewCompat.requestApplyInsets(sheet);
         }
+    }
+
+    /**
+     * On Android 15+ gesture navigation the nav-bar color API is ignored. Draw an explicit
+     * surface-colored view over the bottom inset so the dialog background continues behind the
+     * gesture handle instead of exposing the dimmed page beneath.
+     */
+    private void installNavigationBarFiller(Window window, int surface) {
+        if (!(window.getDecorView() instanceof ViewGroup)) return;
+        ViewGroup decor = (ViewGroup) window.getDecorView();
+        View filler = decor.findViewWithTag(NAV_FILLER_TAG);
+        if (filler == null) {
+            filler = new View(context);
+            filler.setTag(NAV_FILLER_TAG);
+            filler.setBackgroundColor(surface);
+            decor.addView(filler, new FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, 0, Gravity.BOTTOM));
+        }
+        final View navigationFiller = filler;
+        ViewCompat.setOnApplyWindowInsetsListener(decor, (view, insets) -> {
+            FrameLayout.LayoutParams params =
+                    (FrameLayout.LayoutParams) navigationFiller.getLayoutParams();
+            int height = SystemBars.navigationBarBottom(insets);
+            if (params.height != height) {
+                params.height = height;
+                navigationFiller.setLayoutParams(params);
+            }
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(decor);
+    }
+
+    private GradientDrawable sheetSurfaceDrawable() {
+        GradientDrawable background = new GradientDrawable();
+        background.setColor(context.getColor(R.color.surface_elevated));
+        float radius = dp(28);
+        background.setCornerRadii(new float[]{radius, radius, radius, radius, 0, 0, 0, 0});
+        return background;
     }
 
     private void constrainSheetHeight(Window window, View sheet,
@@ -313,7 +358,10 @@ public final class WGProAlertDialogBuilder {
                         MeasureSpec.makeMeasureSpec(middleLimit, MeasureSpec.AT_MOST));
                 middleHeight = middleView.getMeasuredHeight();
             }
-            setMeasuredDimension(width, Math.min(heightLimit, fixedHeight + middleHeight));
+            int measuredHeight = MeasureSpec.getMode(heightMeasureSpec) == MeasureSpec.EXACTLY
+                    ? MeasureSpec.getSize(heightMeasureSpec)
+                    : Math.min(heightLimit, fixedHeight + middleHeight);
+            setMeasuredDimension(width, measuredHeight);
         }
 
         private int measureFixed(View view, int width, int heightLimit) {

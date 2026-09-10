@@ -58,7 +58,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_settings);
-        SystemBars.applyRootInsets(findViewById(R.id.container), true);
+        boolean edgeToEdge = SystemBars.isEdgeToEdgeEnforced();
+        if (edgeToEdge) {
+            findViewById(R.id.container).setBackgroundColor(getColor(R.color.surface_primary));
+        }
+        // WebActivity-style: edge-to-edge pages consume the insets at the root and let the
+        // page surface continue behind the navigation bar. Android 14 keeps the old
+        // bottom-padded behaviour.
+        SystemBars.applyRootInsets(findViewById(R.id.container), !edgeToEdge);
 
         toolbar = findViewById(R.id.toolbar);
 
