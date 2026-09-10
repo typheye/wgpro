@@ -5,9 +5,12 @@
     </style>
     <style name="ThemeOverlay.WGPro.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="enableEdgeToEdge">true</item>
+        <item name="bottomSheetStyle">@style/Widget.WGPro.BottomSheet.Modal</item>
         <item name="android:colorBackground">@color/surface_elevated</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@color/surface_elevated</item>
         <item name="android:navigationBarDividerColor">@color/surface_elevated</item>
+        <item name="android:enforceNavigationBarContrast">false</item>
         <item name="android:windowLightNavigationBar">false</item>
         <item name="colorSurface">@color/surface_elevated</item>
         <item name="colorSurfaceContainerLow">@color/surface_elevated</item>

@@ -15,7 +15,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -35,7 +34,6 @@ import com.typheye.wgpro.utils.SystemBars;
 
 /** Alert-like API backed by a real custom Material bottom sheet. */
 public final class WGProAlertDialogBuilder {
-    private static final String NAV_FILLER_TAG = "wgpro_sheet_nav_filler";
     private final Context context;
     private CharSequence title, message, positiveText, negativeText, neutralText;
     private DialogInterface.OnClickListener positiveListener, negativeListener, neutralListener, itemListener;
@@ -238,9 +236,6 @@ public final class WGProAlertDialogBuilder {
                 | WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         if (android.os.Build.VERSION.SDK_INT >= 29) window.setNavigationBarContrastEnforced(false);
         window.setDimAmount(0.68f);
-        if (SystemBars.isEdgeToEdgeEnforced()) {
-            installNavigationBarFiller(window, surface);
-        }
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (sheet != null) {
             sheet.setFitsSystemWindows(false);
@@ -252,36 +247,6 @@ public final class WGProAlertDialogBuilder {
             sheet.post(() -> constrainSheetHeight(window, sheet, behavior));
             ViewCompat.requestApplyInsets(sheet);
         }
-    }
-
-    /**
-     * On Android 15+ gesture navigation the nav-bar color API is ignored. Draw an explicit
-     * surface-colored view over the bottom inset so the dialog background continues behind the
-     * gesture handle instead of exposing the dimmed page beneath.
-     */
-    private void installNavigationBarFiller(Window window, int surface) {
-        if (!(window.getDecorView() instanceof ViewGroup)) return;
-        ViewGroup decor = (ViewGroup) window.getDecorView();
-        View filler = decor.findViewWithTag(NAV_FILLER_TAG);
-        if (filler == null) {
-            filler = new View(context);
-            filler.setTag(NAV_FILLER_TAG);
-            filler.setBackgroundColor(surface);
-            decor.addView(filler, new FrameLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT, 0, Gravity.BOTTOM));
-        }
-        final View navigationFiller = filler;
-        ViewCompat.setOnApplyWindowInsetsListener(decor, (view, insets) -> {
-            FrameLayout.LayoutParams params =
-                    (FrameLayout.LayoutParams) navigationFiller.getLayoutParams();
-            int height = SystemBars.navigationBarBottom(insets);
-            if (params.height != height) {
-                params.height = height;
-                navigationFiller.setLayoutParams(params);
-            }
-            return insets;
-        });
-        ViewCompat.requestApplyInsets(decor);
     }
 
     private GradientDrawable sheetSurfaceDrawable() {

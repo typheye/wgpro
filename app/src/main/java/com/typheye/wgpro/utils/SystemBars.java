@@ -4,12 +4,18 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Configuration;
+import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.Paint;
+import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowCompat;
@@ -74,10 +80,10 @@ public final class SystemBars {
         ViewCompat.setOnApplyWindowInsetsListener(appBar, (view, insets) -> {
             Insets statusBars = insets.getInsets(WindowInsetsCompat.Type.statusBars()
                     | WindowInsetsCompat.Type.displayCutout());
-            int freeform = isInMultiWindow(view) ? dp(view, 18) : 0;
+            int freeformTop = isInMultiWindow(view) ? dp(view, 18) : 0;
             int freeformSide = isInMultiWindow(view) ? dp(view, 8) : 0;
             view.setPadding(appBarLeft + statusBars.left + freeformSide,
-                    appBarTop + statusBars.top + freeform,
+                    appBarTop + statusBars.top + freeformTop,
                     appBarRight + statusBars.right + freeformSide,
                     appBarBottom);
             return insets;
@@ -108,25 +114,61 @@ public final class SystemBars {
      * works on both Android 14 and Android 16/17, and can be reused by ordinary scrolling pages.
      */
     public static void applyRootInsets(@NonNull View root, boolean includeBottom) {
+        applyRootInsets(root, null, includeBottom);
+    }
+
+    /**
+     * Root-insets variant that can reserve the bottom inset on a child content view. Some
+     * CoordinatorLayout children ignore the parent padding, so applying the bottom reserve to
+     * both the chrome root and the scrolling content keeps content above the gesture area.
+     */
+    public static void applyRootInsets(@NonNull View root, @Nullable View bottomContent,
+                                       boolean reserveBottom) {
+        applyRootInsets(root, bottomContent, reserveBottom, 0, 0);
+    }
+
+    /**
+     * Root insets with a two-tone chrome background: the status-bar strip uses the app-bar
+     * color and the navigation-bar strip uses the page color.
+     */
+    public static void applyRootInsets(@NonNull View root, @Nullable View bottomContent,
+                                       boolean reserveBottom, int chromeColor, int pageColor) {
         int initialLeft = root.getPaddingLeft();
         int initialTop = root.getPaddingTop();
         int initialRight = root.getPaddingRight();
         int initialBottom = root.getPaddingBottom();
+        int contentLeft = bottomContent == null ? 0 : bottomContent.getPaddingLeft();
+        int contentTop = bottomContent == null ? 0 : bottomContent.getPaddingTop();
+        int contentRight = bottomContent == null ? 0 : bottomContent.getPaddingRight();
+        int contentBottom = bottomContent == null ? 0 : bottomContent.getPaddingBottom();
+        ChromeBackgroundDrawable chromeBackground = chromeColor == 0 && pageColor == 0
+                ? null : new ChromeBackgroundDrawable(chromeColor, pageColor);
+        if (chromeBackground != null) {
+            root.setBackground(chromeBackground);
+        }
         ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars()
                     | WindowInsetsCompat.Type.displayCutout());
-            // This mirrors the original WebActivity fixScreenCutArea behaviour: no extra
-            // freeform caption allowance, otherwise compact windows get a visibly taller
-            // top bar than MainActivity.
-            view.setPadding(
-                    initialLeft + systemBars.left,
+            int bottom = reserveBottom ? bottomInset(insets) : 0;
+            if (chromeBackground != null) {
+                chromeBackground.setTopHeight(systemBars.top);
+            }
+            view.setPadding(initialLeft + systemBars.left,
                     initialTop + systemBars.top,
                     initialRight + systemBars.right,
-                    initialBottom + (includeBottom
-                            ? navigationBarBottom(insets) : 0));
+                    initialBottom + (bottomContent == null ? bottom : 0));
+            if (bottomContent != null) {
+                bottomContent.setPadding(contentLeft, contentTop, contentRight,
+                        contentBottom + bottom);
+            }
             return WindowInsetsCompat.CONSUMED;
         });
         ViewCompat.requestApplyInsets(root);
+    }
+
+    public static int bottomInset(@NonNull WindowInsetsCompat insets) {
+        return Math.max(navigationBarBottom(insets),
+                insets.getInsets(WindowInsetsCompat.Type.mandatorySystemGestures()).bottom);
     }
 
     /**
@@ -200,5 +242,48 @@ public final class SystemBars {
 
     private static int dp(@NonNull Context context, int value) {
         return Math.round(value * context.getResources().getDisplayMetrics().density);
+    }
+
+    private static final class ChromeBackgroundDrawable extends Drawable {
+        private final Paint paint = new Paint();
+        private final int chromeColor;
+        private final int pageColor;
+        private int topHeight;
+
+        ChromeBackgroundDrawable(int chromeColor, int pageColor) {
+            this.chromeColor = chromeColor;
+            this.pageColor = pageColor;
+        }
+
+        void setTopHeight(int value) {
+            if (topHeight == value) return;
+            topHeight = Math.max(0, value);
+            invalidateSelf();
+        }
+
+        @Override
+        public void draw(@NonNull Canvas canvas) {
+            canvas.drawColor(pageColor);
+            if (topHeight > 0) {
+                paint.setColor(chromeColor);
+                canvas.drawRect(getBounds().left, getBounds().top,
+                        getBounds().right, getBounds().top + topHeight, paint);
+            }
+        }
+
+        @Override
+        public void setAlpha(int alpha) {
+            paint.setAlpha(alpha);
+        }
+
+        @Override
+        public void setColorFilter(@Nullable ColorFilter colorFilter) {
+            paint.setColorFilter(colorFilter);
+        }
+
+        @Override
+        public int getOpacity() {
+            return PixelFormat.OPAQUE;
+        }
     }
 }
