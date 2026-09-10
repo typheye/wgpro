@@ -17,6 +17,17 @@ import java.util.Map;
 import java.util.concurrent.*;
 
 public class InterconnectLogic {
+    /** 由 CoreService 的 DeviceEngine 注入，用于把回复发回穿戴设备。 */
+    public interface MessageSender {
+        void send(String nodeId, String payload);
+    }
+
+    private static volatile MessageSender messageSender;
+
+    public static void setMessageSender(MessageSender sender) {
+        messageSender = sender;
+    }
+
     private static final Gson gson = new Gson();
     private static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
     private static final BlockingQueue<MessageTask> messageQueue = new LinkedBlockingQueue<>();
@@ -118,7 +129,15 @@ public class InterconnectLogic {
         MainActivity.logs.add("消息送出：" + gson.toJson(result));
         Log.d("SendMsg: ", gson.toJson(result));
         Log.d("SendMsg Size: ", String.valueOf(gson.toJson(result).length()));
-        MainActivity.messageApi.sendMessage(nodeId, gson.toJson(result).getBytes());
+        MessageSender sender = messageSender;
+        if (sender != null) {
+            sender.send(nodeId, gson.toJson(result));
+            return;
+        }
+        // 兼容兜底：服务尚未就绪时退回旧的静态引用
+        if (MainActivity.messageApi != null) {
+            MainActivity.messageApi.sendMessage(nodeId, gson.toJson(result).getBytes());
+        }
     }
 
     private static Map<String, List<String>> headersToMap(Headers headers) {

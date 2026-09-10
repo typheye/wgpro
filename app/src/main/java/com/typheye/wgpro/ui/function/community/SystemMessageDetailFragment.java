@@ -105,6 +105,8 @@ public class SystemMessageDetailFragment extends Fragment {
                 message.content = item.optString("content", "");
                 JSONObject metadata = item.optJSONObject("metadata");
                 message.metadata = metadata == null ? "{}" : metadata.toString();
+                message.targetType = item.optString("target_type", "");
+                message.targetKey = item.optString("target_key", "");
                 message.createdAt = item.optString("created_at", "");
                 message.isRead = item.optBoolean("is_read", false);
                 cache.add(message);
@@ -121,6 +123,8 @@ public class SystemMessageDetailFragment extends Fragment {
                 item.put("id", message.id);
                 item.put("title", message.title);
                 item.put("content", message.content);
+                item.put("target_type", message.targetType);
+                item.put("target_key", message.targetKey);
                 try { item.put("metadata", new JSONObject(message.metadata)); }
                 catch (Exception ignored) { item.put("metadata", new JSONObject()); }
                 item.put("created_at", message.createdAt);

@@ -1,10 +1,13 @@
 package com.typheye.wgpro;
 
 import android.app.Application;
+import android.app.Activity;
+import android.os.Bundle;
 import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.PreferenceManager;
 
@@ -29,9 +32,40 @@ public class tApplication extends Application {
                 : darkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
         initCrashHandler();
         TestHandler.install(this);
+        trackForegroundState();
 
         // 确保日志目录存在
         ensureLogDirectory();
+    }
+
+    /** 跟踪整个应用的前台/后台状态（用于判断后台连接是否被系统掐断）。 */
+    private void trackForegroundState() {
+        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+            private int started;
+
+            @Override public void onActivityStarted(@NonNull Activity activity) {
+                if (++started == 1) {
+                    com.typheye.wgpro.core.AppLifecycle.setForeground(true);
+                }
+            }
+
+            @Override public void onActivityStopped(@NonNull Activity activity) {
+                if (started > 0 && --started == 0) {
+                    com.typheye.wgpro.core.AppLifecycle.setForeground(false);
+                }
+            }
+
+            @Override public void onActivityCreated(@NonNull Activity activity, Bundle state) { }
+
+            @Override public void onActivityResumed(@NonNull Activity activity) { }
+
+            @Override public void onActivityPaused(@NonNull Activity activity) { }
+
+            @Override public void onActivitySaveInstanceState(@NonNull Activity activity,
+                                                              @NonNull Bundle state) { }
+
+            @Override public void onActivityDestroyed(@NonNull Activity activity) { }
+        });
     }
 
     private void initCrashHandler() {

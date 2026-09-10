@@ -194,6 +194,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             view.findViewById(R.id.row_reset).setOnClickListener(v -> appReset());
             view.findViewById(R.id.row_clear_cache).setOnClickListener(v -> showClearCacheSheet());
+            view.findViewById(R.id.row_notification_settings)
+                    .setOnClickListener(v -> showNotificationSettingsSheet());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());
             View debugRow = view.findViewById(R.id.row_debug);
@@ -264,6 +266,60 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private void showClearCacheSheet() {
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("清除缓存")
+                    .setMessage("将清理内置浏览器缓存和应用临时文件。登录状态、设备、设置与下载内容不会受到影响。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("清除", (dialog, which) -> {
+                        if (dialog instanceof WGProBottomSheetDialog) {
+                            ((WGProBottomSheetDialog) dialog).dismissForReplacement();
+                        }
+                        mainHandler.postDelayed(this::showCacheProgress, 40L);
+                    })
+                    .show();
+        }
+
+        /**
+         * 通知设置入口。
+         *
+         * 渠道重要性与"横幅"开关由系统控制，应用只能检测并引导用户去系统页面开启；
+         * 后台运行通知同样可以在系统页面里关掉而服务继续运行。
+         */
+        private void showNotificationSettingsSheet() {
+            boolean alerting = com.typheye.wgpro.utils.InboxNotificationHelper
+                    .isMessageChannelAlerting(requireContext());
+            CharSequence[] items = {
+                    alerting ? "消息横幅与提醒（已开启）" : "消息横幅与提醒（未开启，点此开启）",
+                    "后台运行通知（可关闭以隐藏常驻通知）",
+                    "应用通知总开关",
+            };
+            new WGProAlertDialogBuilder(requireContext()).setTitle("通知设置")
+                    .setItems(items, (dialog, which) -> {
+                        try {
+                            if (which == 0) {
+                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                                        .channelSettingsIntent(requireContext(),
+                                                com.typheye.wgpro.utils.InboxNotificationHelper
+                                                        .messageChannelId()));
+                            } else if (which == 1) {
+                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                                        .channelSettingsIntent(requireContext(),
+                                                com.typheye.wgpro.core.ServiceNotifications.CHANNEL_ID));
+                            } else {
+                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                                        .appNotificationSettingsIntent(requireContext()));
+                            }
+                        } catch (Exception error) {
+                            try {
+                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                                        .appNotificationSettingsIntent(requireContext()));
+                            } catch (Exception ignored) {
+                            }
+                        }
+                    }).show();
+        }
+
+        private void legacyShowClearCacheSheet() {
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("清除缓存")
                     .setMessage("将清理内置浏览器缓存和应用临时文件。登录状态、设备、设置与下载内容不会受到影响。")

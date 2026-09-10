@@ -12,9 +12,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.core.CoreService;
 import com.typheye.wgpro.core.xms.XmsConnectionProbe;
 import com.typheye.wgpro.data.DeviceDatabase;
-import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.utils.AppUtils;
 import com.xiaomi.xms.wearable.Wearable;
 import com.xiaomi.xms.wearable.node.Node;
@@ -140,12 +140,8 @@ public class AddDeviceActivity extends AppCompatActivity {
                 ? "Xiaomi Wearable" : node.name.trim();
         discoveredNodeId = node.id;
         discoveredNodeName = deviceName;
-        MainActivity.current_params.connected = true;
-        MainActivity.current_params.connected_device_id = node.id;
-        MainActivity.current_params.connected_device_name = deviceName;
-        if (MainActivity.current_params.connected_since == 0L) {
-            MainActivity.current_params.connected_since = System.currentTimeMillis();
-        }
+        // 设备状态由 CoreService 统一持有（页面不再直接改全局状态）
+        CoreService.markDeviceCandidate(this, node.id, deviceName);
         initial.setText(deviceName.substring(0, 1).toUpperCase());
         title.setText(deviceName);
         ((TextView) findViewById(R.id.add_device_subtitle))

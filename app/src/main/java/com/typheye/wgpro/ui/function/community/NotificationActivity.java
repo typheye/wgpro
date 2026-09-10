@@ -71,6 +71,8 @@ public class NotificationActivity extends BaseSectionActivity {
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确认", (dialog, which) -> {
                     InboxNotificationHelper.setDoNotDisturb(this, enabled);
+                    // 让首页红点立即跟随免打扰状态
+                    com.typheye.wgpro.core.PushService.notifyDoNotDisturbChanged(this);
                     showResult(enabled ? "免打扰已开启" : "免打扰已关闭",
                             enabled ? "新的消息提醒已暂停。" : "新的消息提醒已恢复。");
                 }).show();

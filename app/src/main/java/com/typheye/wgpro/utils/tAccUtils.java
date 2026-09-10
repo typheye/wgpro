@@ -716,6 +716,23 @@ public class tAccUtils {
         return client;
     }
 
+    /**
+     * 为实时通道（WebSocket）准备一个已带 V2 鉴权头的请求构造器。
+     * session_token 只在请求头中出现，不会离开本类、不会进入 URL 或日志。
+     */
+    @NonNull
+    public Request.Builder realtimeRequest(@NonNull String url) {
+        Request.Builder builder = new Request.Builder().url(url).headers(clientHeaders());
+        String sessionId = getSessionId();
+        String sessionToken = getSessionToken();
+        if (sessionId != null && !sessionId.isEmpty()
+                && sessionToken != null && !sessionToken.isEmpty()) {
+            builder.header("Authorization", "Bearer " + sessionToken);
+            builder.header("X-Typheye-Session-Id", sessionId);
+        }
+        return builder;
+    }
+
     public interface JsonCallback {
         void onSuccess(@NonNull JSONObject json);
         void onError(int statusCode, @NonNull String message);
@@ -879,7 +896,7 @@ public class tAccUtils {
                 String sessionId = getSessionId();
                 String sessionToken = getSessionToken();
                 if (uid.isEmpty() || sessionId.isEmpty() || sessionToken.isEmpty()) {
-                    callback.onError(401, "请先登录 Typheye 账户");
+                    callback.onError(401, "需要登录后才能使用该功能");
                     return;
                 }
                 url.setQueryParameter(KEY_UID, uid);
