@@ -25,6 +25,7 @@ public final class AppState {
             new MutableLiveData<>(AccountSnapshot.loggedOut());
     private final MutableLiveData<InboxSnapshot> inbox =
             new MutableLiveData<>(InboxSnapshot.empty());
+    private final MutableLiveData<PushEvent> pushEvents = new MutableLiveData<>();
 
     private AppState() {
         log.addAll("wgpro-android Tool V3", "https://github.com/typheye/wgpro");
@@ -48,6 +49,11 @@ public final class AppState {
 
     public LiveData<InboxSnapshot> inbox() {
         return inbox;
+    }
+
+    /** 实时推送事件流：聊天页与系统消息页订阅它做即时刷新。 */
+    public LiveData<PushEvent> pushEvents() {
+        return pushEvents;
     }
 
     @NonNull
@@ -78,5 +84,23 @@ public final class AppState {
 
     public void publishInbox(@NonNull InboxSnapshot value) {
         inbox.postValue(value);
+    }
+
+    public void publishPushEvent(@NonNull String type, @NonNull String peerUid, long id) {
+        pushEvents.postValue(new PushEvent(type, peerUid, id));
+    }
+
+    /** 一条实时事件。type: message / notification。 */
+    public static final class PushEvent {
+        public final String type;
+        public final String peerUid;
+        public final long id;
+        public final long at = System.currentTimeMillis();
+
+        PushEvent(String type, String peerUid, long id) {
+            this.type = type == null ? "" : type;
+            this.peerUid = peerUid == null ? "" : peerUid;
+            this.id = id;
+        }
     }
 }

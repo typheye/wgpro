@@ -219,24 +219,27 @@ public class PushService extends Service implements PushApi {
     private void startForegroundCompat() {
         if (foreground) return;
         ServiceNotifications.ensureChannel(this);
-        Notification notification = ServiceNotifications.build(this,
-                R.drawable.ic_notifications_vector,
-                "Typheye 正在同步消息",
-                "保持在线以便及时收到通知与私信",
-                1);
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
-                ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
-            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
-            } else {
-                startForeground(NOTIFICATION_ID, notification);
-            }
+            startForegroundWith(ServiceNotifications.build(this,
+                    R.drawable.ic_notifications_vector,
+                    "Typheye 正在同步消息",
+                    "保持在线以便及时收到通知与私信",
+                    1));
             foreground = true;
         } catch (Exception error) {
             AppState.get().addLog("PushService 前台化失败：" + error.getMessage());
+        }
+    }
+
+    private void startForegroundWith(Notification notification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_SPECIAL_USE);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_DATA_SYNC);
+        } else {
+            startForeground(NOTIFICATION_ID, notification);
         }
     }
 

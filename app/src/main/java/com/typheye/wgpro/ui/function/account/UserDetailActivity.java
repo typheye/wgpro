@@ -375,9 +375,7 @@ public class UserDetailActivity extends AppCompatActivity {
     private void changeFollowState() {
         if (targetUid == null || targetUid.isEmpty()) return;
         if (!account.isLogin()) {
-            new WGProAlertDialogBuilder(this).setTitle("需要登录")
-                    .setMessage("登录后才能关注其他用户。")
-                    .setNegativeButton("关闭", null).show();
+            com.typheye.wgpro.ui.LoginGate.require(this, "关注用户");
             return;
         }
         followButton.setEnabled(false);

@@ -36,11 +36,16 @@ public final class ServiceNotifications {
 
     static Notification build(Context context, int smallIcon, String title, String text,
                               int requestCode) {
+        return build(context, smallIcon, title, text, requestCode, CHANNEL_ID);
+    }
+
+    private static Notification build(Context context, int smallIcon, String title, String text,
+                                      int requestCode, String channelId) {
         Intent intent = new Intent(context, MainActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, requestCode, intent,
                 PendingIntent.FLAG_IMMUTABLE | PendingIntent.FLAG_UPDATE_CURRENT);
-        return new NotificationCompat.Builder(context, CHANNEL_ID)
+        return new NotificationCompat.Builder(context, channelId)
                 .setSmallIcon(smallIcon)
                 .setContentTitle(title)
                 .setContentText(text)

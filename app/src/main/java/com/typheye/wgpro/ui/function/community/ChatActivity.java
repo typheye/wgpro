@@ -161,20 +161,54 @@ public class ChatActivity extends BaseSectionActivity {
             load(); return root;
         }
 
+        @Override public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
+            super.onViewCreated(view, state);
+            observeRealtime();
+        }
+
         private void load() {
-            if (!loadedOnce) ((BaseSectionActivity) requireActivity()).showContentLoading();
+            load(false);
+        }
+
+        /** 实时事件到达时的静默刷新：不显示加载遮罩，并尽量保持当前阅读位置。 */
+        private void load(boolean silent) {
+            if (!loadedOnce && !silent) ((BaseSectionActivity) requireActivity()).showContentLoading();
             if (peerUid.isEmpty()) { showError("缺少聊天对象"); return; }
             Map<String, String> query = page(); query.put("peer_uid", peerUid);
             account.getV2Json("messages2", query, true, new tAccUtils.JsonCallback() {
                 @Override public void onSuccess(@NonNull JSONObject json) {
-                    JSONArray items = json.optJSONArray("items"); main.post(() -> render(items));
+                    JSONArray items = json.optJSONArray("items");
+                    main.post(() -> render(items, silent));
                 }
                 @Override public void onError(int code, @NonNull String message) { main.post(() -> showError(message)); }
             });
         }
 
+        /** 订阅推送事件：与当前对端相关的私信到达时立即刷新。 */
+        private void observeRealtime() {
+            com.typheye.wgpro.core.state.AppState.get().pushEvents().observe(
+                    getViewLifecycleOwner(), event -> {
+                        if (event == null || !"message".equals(event.type)) return;
+                        if (peerUid == null || peerUid.isEmpty()) return;
+                        if (!peerUid.equals(event.peerUid)) return;
+                        load(true);
+                    });
+        }
+
         private void render(@Nullable JSONArray items) {
+            render(items, false);
+        }
+
+        private void render(@Nullable JSONArray items, boolean silent) {
             if (!isAdded()) return;
+            boolean wasAtBottom = true;
+            int previousScroll = 0;
+            if (silent && scroll != null) {
+                previousScroll = scroll.getScrollY();
+                View child = scroll.getChildAt(0);
+                wasAtBottom = child == null
+                        || previousScroll + scroll.getHeight() >= child.getHeight() - dp(48);
+            }
             finishInitialLoading(); refresh.setRefreshing(false); messages.removeAllViews();
             if (items == null || items.length() == 0) { messages.addView(emptyState("还没有消息", "打个招呼，开始聊天。")); return; }
             long cleared = clearedMessageId();
@@ -201,7 +235,12 @@ public class ChatActivity extends BaseSectionActivity {
                         cleared > 0 ? "新消息会继续显示在这里。" : "打个招呼，开始聊天。"));
             }
             markRead();
-            scrollToBottom();
+            if (!silent || wasAtBottom) {
+                scrollToBottom();
+            } else if (scroll != null) {
+                int restore = previousScroll;
+                scroll.post(() -> scroll.scrollTo(0, restore));
+            }
         }
 
         public void showClearHistoryConfirm() {

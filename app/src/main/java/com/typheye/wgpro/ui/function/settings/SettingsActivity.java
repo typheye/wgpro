@@ -290,8 +290,8 @@ public class SettingsActivity extends AppCompatActivity {
                     .isMessageChannelAlerting(requireContext());
             CharSequence[] items = {
                     alerting ? "消息横幅与提醒（已开启）" : "消息横幅与提醒（未开启，点此开启）",
-                    "后台运行通知（可关闭以隐藏常驻通知）",
-                    "应用通知总开关",
+                    "账户通知（异常退出、封号提醒）",
+                    "后台常驻通知（在系统页面里关闭即可隐藏）",
             };
             new WGProAlertDialogBuilder(requireContext()).setTitle("通知设置")
                     .setItems(items, (dialog, which) -> {
@@ -304,8 +304,10 @@ public class SettingsActivity extends AppCompatActivity {
                             } else if (which == 1) {
                                 startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
                                         .channelSettingsIntent(requireContext(),
-                                                com.typheye.wgpro.core.ServiceNotifications.CHANNEL_ID));
+                                                com.typheye.wgpro.utils.InboxNotificationHelper
+                                                        .CHANNEL_ACCOUNT));
                             } else {
+                                // MIUI 等系统的「常驻通知」总开关在这个页面里
                                 startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
                                         .appNotificationSettingsIntent(requireContext()));
                             }

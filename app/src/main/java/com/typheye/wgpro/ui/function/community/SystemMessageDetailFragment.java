@@ -47,8 +47,11 @@ public class SystemMessageDetailFragment extends Fragment {
     private MessageDatabase messageDb;
     private SwipeRefreshLayout refresh;
     private LinearLayout list;
+    private androidx.core.widget.NestedScrollView scroll;
     private boolean loadedOnce;
     private long latestLoadedId;
+    /** 首次载入与实时刷新后滚动到最新一条，避免新消息停在屏幕外。 */
+    private boolean scrollToNewestOnRender = true;
 
     @Nullable @Override public View onCreateView(@NonNull LayoutInflater inflater,
                                                   @Nullable ViewGroup container,
@@ -58,6 +61,7 @@ public class SystemMessageDetailFragment extends Fragment {
         messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.system_message_refresh);
         list = root.findViewById(R.id.system_message_list);
+        scroll = root.findViewById(R.id.system_message_scroll);
         InboxNotificationHelper.cancelSystemNotifications(requireContext());
         refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
         refresh.setOnRefreshListener(this::load);
@@ -66,6 +70,18 @@ public class SystemMessageDetailFragment extends Fragment {
         }
         load();
         return root;
+    }
+
+    @Override public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
+        super.onViewCreated(view, state);
+        // 实时事件到达时立即刷新系统消息卡片（含举报动作行）
+        com.typheye.wgpro.core.state.AppState.get().pushEvents().observe(
+                getViewLifecycleOwner(), event -> {
+                    if (event == null || !"notification".equals(event.type)) return;
+                    if (!isAdded()) return;
+                    scrollToNewestOnRender = true;
+                    load();
+                });
     }
 
     @Override public void onResume() {
@@ -167,6 +183,10 @@ public class SystemMessageDetailFragment extends Fragment {
         }
         if (items.isEmpty()) list.addView(emptyState());
         if (hasUnread) markAllRead();
+        if (scrollToNewestOnRender && scroll != null) {
+            scrollToNewestOnRender = false;
+            scroll.post(() -> scroll.fullScroll(View.FOCUS_DOWN));
+        }
         finishInitialLoading();
     }
 

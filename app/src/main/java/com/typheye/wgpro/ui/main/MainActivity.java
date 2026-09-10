@@ -64,6 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private static final long FOREGROUND_REFRESH_MIN_INTERVAL_MS = 5_000L;
 
     private Toolbar toolbar;
+    private ViewPager2 mainPager;
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
     private DeviceFragment deviceFragment;
@@ -127,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 
         toolbar = findViewById(R.id.toolbar);
         BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
-        ViewPager2 mainPager = findViewById(R.id.fragment_container);
+        mainPager = findViewById(R.id.fragment_container);
         AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout), bottomNavigation);
 
         setSupportActionBar(toolbar);
@@ -198,6 +199,7 @@ public class MainActivity extends AppCompatActivity {
         bindServices();
         startServicesIfNeeded();
         acceptGrantIntent(getIntent());
+        maybeOpenLoginFromIntent();
     }
 
     @Override
@@ -273,6 +275,27 @@ public class MainActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         setIntent(intent);
         acceptGrantIntent(intent);
+        maybeOpenLoginFromIntent();
+    }
+
+    /** 其它页面点「去登录」后回到这里：切到「我的」并弹出登录面板。 */
+    private void maybeOpenLoginFromIntent() {
+        Intent intent = getIntent();
+        if (intent == null || !intent.getBooleanExtra(
+                com.typheye.wgpro.ui.LoginGate.EXTRA_OPEN_LOGIN, false)) {
+            return;
+        }
+        intent.removeExtra(com.typheye.wgpro.ui.LoginGate.EXTRA_OPEN_LOGIN);
+        if (mainPager != null) mainPager.setCurrentItem(3, false);
+        selectedPage = R.id.nav_account;
+        invalidateOptionsMenu();
+        if (new tAccUtils(this).isLogin()) return;
+        AccountBottomSheets.showPasswordLogin(this, () -> {
+            invalidateOptionsMenu();
+            startServicesIfNeeded();
+            refreshFromServices();
+            refreshAccountFromUser();
+        });
     }
 
     private void acceptGrantIntent(Intent intent) {
@@ -312,19 +335,7 @@ public class MainActivity extends AppCompatActivity {
      * 浏览（动态/应用/资源）不需要登录。
      */
     private boolean requireLogin(String actionName) {
-        if (new tAccUtils(this).isLogin()) return true;
-        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
-                .setTitle("需要登录")
-                .setMessage(actionName + "需要先登录 Typheye 账户。")
-                .setNegativeButton("取消", null)
-                .setPositiveButton("去登录", (dialog, which) ->
-                        AccountBottomSheets.showPasswordLogin(this, () -> {
-                            invalidateOptionsMenu();
-                            startServicesIfNeeded();
-                            refreshFromServices();
-                        }))
-                .show();
-        return false;
+        return com.typheye.wgpro.ui.LoginGate.require(this, actionName);
     }
 
     private void bindServices() {

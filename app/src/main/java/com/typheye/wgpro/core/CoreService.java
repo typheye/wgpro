@@ -217,21 +217,24 @@ public class CoreService extends Service implements CoreApi {
     private void startForegroundCompat() {
         if (foreground) return;
         ServiceNotifications.ensureChannel(this);
-        Notification notification = ServiceNotifications.build(this,
-                R.drawable.ic_watch_vector,
-                "设备连接已保持",
-                "正在与穿戴设备保持连接",
-                0);
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-                ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
-                        ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE);
-            } else {
-                startForeground(NOTIFICATION_ID, notification);
-            }
+            startForegroundWith(ServiceNotifications.build(this,
+                    R.drawable.ic_watch_vector,
+                    "设备连接已保持",
+                    "正在与穿戴设备保持连接",
+                    0));
             foreground = true;
         } catch (Exception error) {
             AppState.get().addLog("CoreService 前台化失败：" + error.getMessage());
+        }
+    }
+
+    private void startForegroundWith(Notification notification) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ServiceCompat.startForeground(this, NOTIFICATION_ID, notification,
+                    ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE);
+        } else {
+            startForeground(NOTIFICATION_ID, notification);
         }
     }
 

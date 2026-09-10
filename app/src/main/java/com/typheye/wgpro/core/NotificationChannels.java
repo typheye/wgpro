@@ -29,7 +29,10 @@ public final class NotificationChannels {
 
     /** 早期版本用过的渠道 id，启动时清理，避免通知设置页面出现重复条目。 */
     private static final String[] LEGACY_IDS = {
-            "message_channel", "service_status_channel", "account_channel"};
+            "message_channel", "service_status_channel", "account_channel",
+            // 实验渠道：系统不允许把渠道设为 IMPORTANCE_NONE，MIUI 会强制提升为 LOW，
+            // 反而比 MIN 更显眼，因此废弃并删除。
+            "service_status_hidden"};
 
     private NotificationChannels() {
     }
