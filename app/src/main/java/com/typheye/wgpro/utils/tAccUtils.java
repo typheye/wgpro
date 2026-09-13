@@ -109,6 +109,8 @@ public class tAccUtils {
     private static BrowserLoginCallback browserLoginCallback;
     private static Runnable browserLoginPollTask;
     private static java.lang.ref.WeakReference<Activity> browserLoginHost;
+    /** V2 加密凭据可用性缓存；null 表示尚未校验。 */
+    private static volatile Boolean v2SessionUsable;
     private static final Object SECURE_PREFS_LOCK = new Object();
     private static volatile SharedPreferences securePreferences;
     private static final OkHttpClient SHARED_CLIENT = new OkHttpClient.Builder()
@@ -260,8 +262,10 @@ public class tAccUtils {
                     .commit()) {
                 return false;
             }
+            v2SessionUsable = true;
         } else {
             clearSecureSession();
+            v2SessionUsable = false;
         }
         SharedPreferences.Editor editor = prefs.edit();
         if (PROTOCOL_LEGACY.equals(result.protocol)) {
@@ -370,10 +374,44 @@ public class tAccUtils {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String uid = prefs.getString(PREFS_UID, "");
         if (uid.isEmpty()) return false;
-        // Keystore initialization may involve disk and binder I/O. UI state is based on
-        // the non-secret protocol marker; authenticated background requests verify V2 credentials.
-        if (isV2Session()) return true;
-        return !getCookie().isEmpty();
+        // 登录状态以“实际可用的 V2 会话凭据”为准：
+        // 旧版本遗留的 legacy cookie、或标记为 v2 但加密凭据丢失/损坏的状态都不算已登录，
+        // 否则升级后会出现“显示已登录但所有请求都失败、又无法重新登录”的假登录状态。
+        if (!isV2Session()) return false;
+        return hasUsableV2Session();
+    }
+
+    /** 读取加密会话文件校验 V2 凭据是否真实可用（结果缓存，登录/退出时刷新）。 */
+    private boolean hasUsableV2Session() {
+        Boolean cached = v2SessionUsable;
+        if (cached != null) return cached;
+        boolean usable = false;
+        try {
+            SharedPreferences secure = getSecurePreferences();
+            if (secure != null) {
+                String sessionId = secure.getString(PREFS_SESSION_ID, "");
+                String sessionToken = secure.getString(PREFS_SESSION_TOKEN, "");
+                usable = sessionId != null && sessionId.matches("[a-f0-9]{32}")
+                        && sessionToken != null && sessionToken.length() >= 32;
+            }
+        } catch (Exception error) {
+            Log.e("tAccUtils", "读取本地会话凭据失败", error);
+        }
+        v2SessionUsable = usable;
+        return usable;
+    }
+
+    /**
+     * 启动时调用：清理“标记还在、凭据已不可用”的残留登录状态，
+     * 让用户直接看到登录入口，而不是卡在假登录状态里。
+     */
+    public void reconcileLoginState() {
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        String uid = prefs.getString(PREFS_UID, "");
+        if (uid.isEmpty()) return;
+        if (!isV2Session() || !hasUsableV2Session()) {
+            clearLocalLoginData();
+        }
     }
 
     public String getNick() {
@@ -441,6 +479,7 @@ public class tAccUtils {
     private void clearSecureSession() {
         SharedPreferences prefs = getSecurePreferences();
         if (prefs != null) prefs.edit().clear().apply();
+        v2SessionUsable = false;
     }
 
     private Headers clientHeaders() {

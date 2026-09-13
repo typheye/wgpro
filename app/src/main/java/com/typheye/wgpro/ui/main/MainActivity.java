@@ -123,6 +123,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 升级/异常退出后可能残留“已登录标记 + 不可用凭据”，先清理再渲染界面。
+        new tAccUtils(this).reconcileLoginState();
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_main);
 
