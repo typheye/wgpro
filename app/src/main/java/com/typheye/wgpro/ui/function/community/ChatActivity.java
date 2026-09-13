@@ -124,7 +124,6 @@ public class ChatActivity extends BaseSectionActivity {
         private AppCompatEditText input;
         private NestedScrollView scroll;
         private boolean loadedOnce;
-        private long latestMessageId;
 
         static ChatFragment newInstance(String peerUid) {
             ChatFragment fragment = new ChatFragment(); Bundle args = new Bundle();
@@ -186,6 +185,17 @@ public class ChatActivity extends BaseSectionActivity {
             super.onPause();
         }
 
+        /**
+         * 离开页面时如果首次加载还没收尾，必须把加载遮罩收掉，
+         * 否则遮罩会留在 Activity 上，看起来像"永远加载中"。
+         */
+        @Override public void onDestroyView() {
+            if (!loadedOnce && isAdded() && requireActivity() instanceof BaseSectionActivity) {
+                finishInitialLoading();
+            }
+            super.onDestroyView();
+        }
+
         private void load() {
             load(false);
         }
@@ -230,17 +240,22 @@ public class ChatActivity extends BaseSectionActivity {
                         || previousScroll + scroll.getHeight() >= child.getHeight() - dp(48);
             }
             refresh.setRefreshing(false); messages.removeAllViews();
-            if (items == null || items.length() == 0) { messages.addView(emptyState("还没有消息", "打个招呼，开始聊天。")); return; }
-            long cleared = clearedMessageId();
-            long maxId = 0L;
+            if (items == null || items.length() == 0) {
+                // 空会话（对方还没回过消息、或按 id 过滤后没有可见消息）同样要收尾，
+                // 否则首次加载遮罩永远不会消失，整页连同输入框都点不动。
+                messages.addView(emptyState("还没有消息", "打个招呼，开始聊天。"));
+                scrollToBottomThen(this::finishInitialLoading);
+                return;
+            }
+            long clearedAt = clearedMessageAt();
+            String clearedTime = clearedTimeString(clearedAt);
             long previousTime = 0L;
             int added = 0;
             for (int i = items.length() - 1; i >= 0; i--) {
                 JSONObject item = items.optJSONObject(i);
                 if (item == null) continue;
-                long id = parseId(item.optString("id", "0"));
-                if (id > maxId) maxId = id;
-                if (id <= cleared) continue;
+                if (clearedAt > 0
+                        && item.optString("created_at", "").compareTo(clearedTime) <= 0) continue;
                 long currentTime = parseTime(item.optString("created_at", ""));
                 if (previousTime == 0L || currentTime - previousTime >= 5 * 60_000L) {
                     messages.addView(timeLabel(item.optString("created_at", "")));
@@ -249,10 +264,9 @@ public class ChatActivity extends BaseSectionActivity {
                 previousTime = currentTime;
                 added++;
             }
-            latestMessageId = maxId;
             if (added == 0) {
-                messages.addView(emptyState(cleared > 0 ? "聊天记录已清空" : "还没有消息",
-                        cleared > 0 ? "新消息会继续显示在这里。" : "打个招呼，开始聊天。"));
+                messages.addView(emptyState(clearedAt > 0 ? "聊天记录已清空" : "还没有消息",
+                        clearedAt > 0 ? "新消息会继续显示在这里。" : "打个招呼，开始聊天。"));
             }
             markRead();
             if (!silent || wasAtBottom) {
@@ -296,10 +310,9 @@ public class ChatActivity extends BaseSectionActivity {
 
         private void clearLocalHistory() {
             WGProProgressRunner.run(this, "处理中", "正在清空聊天记录...", completion -> {
-                long clearedBefore = Math.max(latestMessageId, clearedMessageId());
-                messageDb.setConversationClearedBefore(account.getUid(), peerUid, clearedBefore);
-                messageDb.upsertConversationPreview(account.getUid(), peerUid,
-                        clearedBefore, "", "");
+                long clearedAt = System.currentTimeMillis();
+                messageDb.setConversationClearedAt(account.getUid(), peerUid, clearedAt);
+                messageDb.upsertConversationPreview(account.getUid(), peerUid, "", "", "");
                 completion.success(new JSONObject());
             }, new WGProProgressRunner.Callback() {
                 @Override public void success(@NonNull JSONObject json) {
@@ -313,12 +326,13 @@ public class ChatActivity extends BaseSectionActivity {
             });
         }
 
-        private long clearedMessageId() {
-            return messageDb.getConversationClearedBefore(account.getUid(), peerUid);
+        private long clearedMessageAt() {
+            return messageDb.getConversationClearedAt(account.getUid(), peerUid);
         }
 
-        private long parseId(String value) {
-            try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
+        private String clearedTimeString(long millis) {
+            return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US)
+                    .format(new java.util.Date(millis));
         }
 
         private View timeLabel(String raw) {
@@ -544,8 +558,8 @@ public class ChatActivity extends BaseSectionActivity {
                 @Override public void onSuccess(@NonNull JSONObject json) {
                     main.post(() -> {
                         if (!isAdded()) return;
-                        long messageId = parseId(json.optString("message_id", "0"));
-                        if (messageId > 0L) {
+                        String messageId = json.optString("message_id", "");
+                        if (!messageId.isEmpty()) {
                             messageDb.setConversationRemoved(account.getUid(), peerUid, false);
                             messageDb.setConversationUnreadOverride(account.getUid(), peerUid, false);
                             messageDb.upsertConversationPreview(account.getUid(), peerUid,

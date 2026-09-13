@@ -1,6 +1,9 @@
 package com.typheye.wgpro.utils;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
@@ -93,6 +96,19 @@ public class tAccUtils {
     private static final String ACTION_UPDATE_USER_DATA = "get_user_data";
     private final Context context;
     private final OkHttpClient client;
+
+    private static final String BROWSER_LOGIN_URL = "https://account.typheye.cn/login/";
+    private static final String PREFS_BROWSER_LOGIN_REQUEST_ID = "browser_login_request_id";
+    private static final String PREFS_BROWSER_LOGIN_EXPIRES = "browser_login_expires_at";
+    private static final long BROWSER_LOGIN_POLL_INTERVAL_MS = 2000L;
+    private static final long BROWSER_LOGIN_TIMEOUT_MS = 15L * 60L * 1000L;
+    private static final Handler BROWSER_LOGIN_HANDLER = new Handler(Looper.getMainLooper());
+    private static Context browserLoginContext;
+    private static String browserLoginRequestId;
+    private static long browserLoginExpiresAt;
+    private static BrowserLoginCallback browserLoginCallback;
+    private static Runnable browserLoginPollTask;
+    private static java.lang.ref.WeakReference<Activity> browserLoginHost;
     private static final Object SECURE_PREFS_LOCK = new Object();
     private static volatile SharedPreferences securePreferences;
     private static final OkHttpClient SHARED_CLIENT = new OkHttpClient.Builder()
@@ -1986,6 +2002,172 @@ public class tAccUtils {
         } catch (Exception e) {
             hideProgressDialog();
             callback.onError("参数编码错误: " + e.getMessage());
+        }
+    }
+
+    public interface BrowserLoginCallback {
+        void onLoginSucceeded();
+
+        void onLoginFailed(String message);
+    }
+
+    /** 跳转系统浏览器完成登录：生成登录请求后由网页端批准，客户端轮询领取 V2 会话。 */
+    public static void startBrowserLogin(Activity activity, BrowserLoginCallback callback) {
+        if (activity == null) return;
+        Context appContext = activity.getApplicationContext();
+        tAccUtils account = new tAccUtils(activity);
+        if (account.isLogin()) {
+            if (callback != null) callback.onLoginSucceeded();
+            return;
+        }
+        browserLoginContext = appContext;
+        browserLoginCallback = callback;
+        account.generateLoginRequest(new GenerateRequestCallback() {
+            @Override
+            public void onSuccess(String requestId, String qrCodeUrl) {
+                openBrowserLogin(activity, requestId, callback);
+            }
+
+            @Override
+            public void onError(String message) {
+                clearBrowserLoginState();
+                if (callback != null) callback.onLoginFailed(message);
+            }
+        });
+    }
+
+    private static void openBrowserLogin(Activity activity, String requestId,
+                                         BrowserLoginCallback callback) {
+        browserLoginRequestId = requestId;
+        browserLoginCallback = callback;
+        browserLoginExpiresAt = System.currentTimeMillis() + BROWSER_LOGIN_TIMEOUT_MS;
+        browserLoginHost = null;
+        persistBrowserLoginState();
+        String url = BROWSER_LOGIN_URL + "?request_id=" + Uri.encode(requestId)
+                + "&app_confirm=1&client=1";
+        try {
+            activity.startActivity(new Intent(activity, com.typheye.wgpro.ui.function.WebActivity.class)
+                    .putExtra("URL", url)
+                    .putExtra("browser_login", true));
+        } catch (ActivityNotFoundException error) {
+            finishBrowserLogin(false, "未找到可用的浏览器");
+            return;
+        }
+        scheduleBrowserLoginPoll(800L);
+    }
+
+    /** 内置登录 WebView 打开时登记，登录成功后可自动关闭回到应用。 */
+    public static void attachBrowserLoginHost(Activity host) {
+        browserLoginHost = host == null ? null : new java.lang.ref.WeakReference<>(host);
+    }
+
+    public static void detachBrowserLoginHost(Activity host) {
+        if (browserLoginHost != null && browserLoginHost.get() == host) {
+            browserLoginHost = null;
+        }
+    }
+
+    /** 应用回到前台时调用：浏览器里批准后立即领取会话，进程被回收也能续上。 */
+    public static void resumeBrowserLoginPolling(Context context) {
+        if (context == null) return;
+        SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+        if (browserLoginRequestId == null) {
+            String savedRequest = prefs.getString(PREFS_BROWSER_LOGIN_REQUEST_ID, "");
+            long expiresAt = prefs.getLong(PREFS_BROWSER_LOGIN_EXPIRES, 0L);
+            if (!savedRequest.isEmpty() && System.currentTimeMillis() < expiresAt) {
+                browserLoginContext = context.getApplicationContext();
+                browserLoginRequestId = savedRequest;
+                browserLoginExpiresAt = expiresAt;
+            }
+        }
+        if (browserLoginRequestId != null) {
+            scheduleBrowserLoginPoll(0L);
+        }
+    }
+
+    private static void scheduleBrowserLoginPoll(long delayMs) {
+        if (browserLoginPollTask != null) {
+            BROWSER_LOGIN_HANDLER.removeCallbacks(browserLoginPollTask);
+        }
+        browserLoginPollTask = tAccUtils::pollBrowserLogin;
+        BROWSER_LOGIN_HANDLER.postDelayed(browserLoginPollTask, delayMs);
+    }
+
+    private static void pollBrowserLogin() {
+        final String requestId = browserLoginRequestId;
+        final Context appContext = browserLoginContext;
+        if (requestId == null || appContext == null) return;
+        if (System.currentTimeMillis() > browserLoginExpiresAt) {
+            finishBrowserLogin(false, "登录超时，请重新发起");
+            return;
+        }
+        new tAccUtils(appContext).checkLoginRequestStatus(requestId, new CheckStatusCallback() {
+            @Override
+            public void onSuccess(String status) {
+                if (!requestId.equals(browserLoginRequestId)) return;
+                if ("approved".equals(status)) {
+                    finishBrowserLogin(true, "");
+                } else if ("rejected".equals(status)) {
+                    finishBrowserLogin(false, "本次登录请求已被拒绝");
+                } else {
+                    scheduleBrowserLoginPoll(BROWSER_LOGIN_POLL_INTERVAL_MS);
+                }
+            }
+
+            @Override
+            public void onError(String message) {
+                if (!requestId.equals(browserLoginRequestId)) return;
+                scheduleBrowserLoginPoll(BROWSER_LOGIN_POLL_INTERVAL_MS);
+            }
+        });
+    }
+
+    private static void finishBrowserLogin(final boolean success, final String message) {
+        BROWSER_LOGIN_HANDLER.post(() -> finishBrowserLoginOnMain(success, message));
+    }
+
+    private static void finishBrowserLoginOnMain(boolean success, String message) {
+        BrowserLoginCallback callback = browserLoginCallback;
+        Context appContext = browserLoginContext;
+        Activity host = browserLoginHost == null ? null : browserLoginHost.get();
+        browserLoginHost = null;
+        clearBrowserLoginState();
+        if (success && appContext != null) {
+            com.typheye.wgpro.core.CoreService.requestRefresh(appContext);
+            Toast.makeText(appContext, "登录成功", Toast.LENGTH_SHORT).show();
+            if (host != null && !host.isFinishing() && !host.isDestroyed()) {
+                host.finish();
+            }
+        }
+        if (callback != null) {
+            if (success) callback.onLoginSucceeded();
+            else callback.onLoginFailed(message);
+        }
+    }
+
+    private static void persistBrowserLoginState() {
+        Context appContext = browserLoginContext;
+        if (appContext == null || browserLoginRequestId == null) return;
+        appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                .putString(PREFS_BROWSER_LOGIN_REQUEST_ID, browserLoginRequestId)
+                .putLong(PREFS_BROWSER_LOGIN_EXPIRES, browserLoginExpiresAt)
+                .apply();
+    }
+
+    private static void clearBrowserLoginState() {
+        if (browserLoginPollTask != null) {
+            BROWSER_LOGIN_HANDLER.removeCallbacks(browserLoginPollTask);
+        }
+        browserLoginPollTask = null;
+        browserLoginRequestId = null;
+        browserLoginExpiresAt = 0L;
+        browserLoginCallback = null;
+        Context appContext = browserLoginContext;
+        if (appContext != null) {
+            appContext.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
+                    .remove(PREFS_BROWSER_LOGIN_REQUEST_ID)
+                    .remove(PREFS_BROWSER_LOGIN_EXPIRES)
+                    .apply();
         }
     }
 

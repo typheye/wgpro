@@ -70,11 +70,11 @@ public final class InboxNotificationHelper {
         final boolean[] initialized = {
                 prefs.getBoolean(KEY_INITIALIZED + accountSuffix, false)
         };
-        final long[] lastNotificationId = {
-                prefs.getLong(KEY_LAST_NOTIFICATION_ID + accountSuffix, 0L)
+        final String[] lastNotificationId = {
+                prefString(prefs, KEY_LAST_NOTIFICATION_ID + accountSuffix, "")
         };
-        final long[] lastMessageId = {
-                prefs.getLong(KEY_LAST_MESSAGE_ID + accountSuffix, 0L)
+        final String[] lastMessageId = {
+                prefString(prefs, KEY_LAST_MESSAGE_ID + accountSuffix, "")
         };
         final int[] unreadCount = {0};
         final int[] notificationUnread = {0};
@@ -87,8 +87,8 @@ public final class InboxNotificationHelper {
         Runnable finish = () -> {
             if (pending.decrementAndGet() != 0) return;
             SharedPreferences.Editor editor = prefs.edit()
-                    .putLong(KEY_LAST_NOTIFICATION_ID + accountSuffix, lastNotificationId[0])
-                    .putLong(KEY_LAST_MESSAGE_ID + accountSuffix, lastMessageId[0]);
+                    .putString(KEY_LAST_NOTIFICATION_ID + accountSuffix, lastNotificationId[0])
+                    .putString(KEY_LAST_MESSAGE_ID + accountSuffix, lastMessageId[0]);
             if (!initialized[0] && notificationOk[0] && messageOk[0]) {
                 editor.putBoolean(KEY_INITIALIZED + accountSuffix, true);
             }
@@ -118,27 +118,25 @@ public final class InboxNotificationHelper {
         Map<String, String> notificationQuery = new LinkedHashMap<>();
         notificationQuery.put("page", "1");
         notificationQuery.put("size", "50");
-        if (lastNotificationId[0] > 0) {
-            notificationQuery.put("since_id", String.valueOf(lastNotificationId[0]));
-        }
         account.getV2JsonFresh("notifications2", notificationQuery, true,
                 new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
                         JSONArray items = json.optJSONArray("items");
-                        long maxId = lastNotificationId[0];
                         if (items != null) {
                             for (int i = 0; i < items.length(); i++) {
                                 JSONObject item = items.optJSONObject(i);
                                 if (item == null) continue;
-                                long id = item.optLong("id", 0L);
-                                if (id > maxId) maxId = id;
-                                if (initialized[0] && !doNotDisturb[0]
-                                        && id > lastNotificationId[0]) {
+                                String id = item.optString("id", "");
+                                if (id.isEmpty() || id.equals(lastNotificationId[0])) break;
+                                if (initialized[0] && !doNotDisturb[0]) {
                                     postSystemMessage(app, item);
                                 }
                             }
+                            JSONObject newest = items.length() > 0 ? items.optJSONObject(0) : null;
+                            if (newest != null) {
+                                lastNotificationId[0] = newest.optString("id", lastNotificationId[0]);
+                            }
                         }
-                        lastNotificationId[0] = maxId;
                         notificationOk[0] = true;
                         finish.run();
                     }
@@ -151,29 +149,27 @@ public final class InboxNotificationHelper {
         Map<String, String> messageQuery = new LinkedHashMap<>();
         messageQuery.put("page", "1");
         messageQuery.put("size", "50");
-        if (lastMessageId[0] > 0) {
-            messageQuery.put("since_id", String.valueOf(lastMessageId[0]));
-        }
         account.getV2JsonFresh("messages2", messageQuery, true,
                 new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
                         JSONArray items = json.optJSONArray("items");
-                        long maxId = lastMessageId[0];
                         if (items != null) {
                             for (int i = 0; i < items.length(); i++) {
                                 JSONObject item = items.optJSONObject(i);
                                 if (item == null) continue;
-                                long id = item.optLong("id", 0L);
-                                if (id > maxId) maxId = id;
+                                String id = item.optString("id", "");
+                                if (id.isEmpty() || id.equals(lastMessageId[0])) break;
                                 boolean incoming = selfUid.equals(item.optString("recipient_uid"))
                                         && !selfUid.equals(item.optString("sender_uid"));
-                                if (initialized[0] && !doNotDisturb[0]
-                                        && incoming && id > lastMessageId[0]) {
+                                if (initialized[0] && !doNotDisturb[0] && incoming) {
                                     postPrivateMessage(app, item);
                                 }
                             }
+                            JSONObject newest = items.length() > 0 ? items.optJSONObject(0) : null;
+                            if (newest != null) {
+                                lastMessageId[0] = newest.optString("id", lastMessageId[0]);
+                            }
                         }
-                        lastMessageId[0] = maxId;
                         messageOk[0] = true;
                         finish.run();
                     }
@@ -204,14 +200,14 @@ public final class InboxNotificationHelper {
         boolean doNotDisturb = isDoNotDisturb(app);
 
         if ("message.new".equals(type)) {
-            long id = data.optLong("id", 0L);
+            String id = data.optString("id", "");
             String senderUid = data.optString("peer_uid", "");
-            if (id <= 0 || senderUid.isEmpty() || senderUid.equals(selfUid)) return;
-            long lastId = prefs.getLong(KEY_LAST_MESSAGE_ID + suffix, 0L);
-            if (id > lastId) {
-                prefs.edit().putLong(KEY_LAST_MESSAGE_ID + suffix, id).apply();
+            if (id.isEmpty() || senderUid.isEmpty() || senderUid.equals(selfUid)) return;
+            String lastId = prefString(prefs, KEY_LAST_MESSAGE_ID + suffix, "");
+            if (!id.equals(lastId)) {
+                prefs.edit().putString(KEY_LAST_MESSAGE_ID + suffix, id).apply();
             }
-            if (initialized && !doNotDisturb && id > lastId) {
+            if (initialized && !doNotDisturb && !id.equals(lastId)) {
                 try {
                     JSONObject item = new JSONObject();
                     item.put("id", id);
@@ -228,13 +224,13 @@ public final class InboxNotificationHelper {
         }
 
         if ("notification.new".equals(type)) {
-            long id = data.optLong("id", 0L);
-            if (id <= 0) return;
-            long lastId = prefs.getLong(KEY_LAST_NOTIFICATION_ID + suffix, 0L);
-            if (id > lastId) {
-                prefs.edit().putLong(KEY_LAST_NOTIFICATION_ID + suffix, id).apply();
+            String id = data.optString("id", "");
+            if (id.isEmpty()) return;
+            String lastId = prefString(prefs, KEY_LAST_NOTIFICATION_ID + suffix, "");
+            if (!id.equals(lastId)) {
+                prefs.edit().putString(KEY_LAST_NOTIFICATION_ID + suffix, id).apply();
             }
-            if (initialized && !doNotDisturb && id > lastId) {
+            if (initialized && !doNotDisturb && !id.equals(lastId)) {
                 try {
                     JSONObject item = new JSONObject();
                     item.put("id", id);
@@ -291,20 +287,32 @@ public final class InboxNotificationHelper {
         return com.typheye.wgpro.core.NotificationChannels.MESSAGES;
     }
 
+    /** md5 标识无法当 Android 通知 id，这里取哈希稳定映射到整数。 */
+    /** 旧版本把这些键存成 long，读取时兼容类型变化。 */
+    private static String prefString(SharedPreferences prefs, String key, String def) {
+        try { return prefs.getString(key, def); } catch (ClassCastException e) { return def; }
+    }
+
+    private static int notificationIdFor(int base, String id) {
+        return base + (Math.abs(id == null ? 0 : id.hashCode()) % 100_000_000);
+    }
+
     private static void postSystemMessage(Context context, JSONObject item) {
         // 用户正在系统消息页：不再打扰
         if (com.typheye.wgpro.core.state.AppState.get().isSystemMessagesVisible()) {
             cancelSystemNotifications(context);
             return;
         }
-        String title = item.optString("title", "系统消息");
+        // 与站内卡片用同一套规则清洗：旧举报通知标题里的「（编号 #N）」不再出现在 Android 通知上。
+        String title = SystemMessageTitle.clean(item.optString("title", "系统消息"));
+        if (title.isEmpty()) title = "系统消息";
         String content = item.optString("content", "");
         Intent intent = new Intent(context, ChatActivity.class)
                 .putExtra(ChatActivity.EXTRA_MODE, ChatActivity.MODE_SYSTEM_MESSAGES)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        int notificationId = (int) (2_000_000L + item.optLong("id", 0L) % 100_000_000L);
+        int notificationId = notificationIdFor(2_000_000, item.optString("id", ""));
         post(context, notificationId, title, content, intent,
                 NotificationCompat.CATEGORY_MESSAGE,
                 NotificationAvatar.appIcon(context), false);
@@ -328,7 +336,7 @@ public final class InboxNotificationHelper {
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK
                         | Intent.FLAG_ACTIVITY_CLEAR_TOP
                         | Intent.FLAG_ACTIVITY_SINGLE_TOP);
-        int notificationId = (int) (3_000_000L + item.optLong("id", 0L) % 100_000_000L);
+        int notificationId = notificationIdFor(3_000_000, item.optString("id", ""));
         // 主图标先用昵称首字，真实头像异步加载完成后原地更新同一条通知
         post(context, notificationId, peerName, content, intent,
                 NotificationCompat.CATEGORY_MESSAGE,

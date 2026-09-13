@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.ValueCallback;
@@ -68,8 +69,9 @@ public class WebActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         AppUtils.useScreenCutArea(getWindow(), this);
         super.onCreate(savedInstanceState);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_web);
-        AppUtils.fixScreenCutArea(findViewById(R.id.container));
+        AppUtils.fixScreenCutAreaWithIme(findViewById(R.id.container));
 
         // 初始化组件
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -81,6 +83,10 @@ public class WebActivity extends AppCompatActivity {
         //Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
 
         FLAG = getIntent().getStringExtra("FLAG");
+
+        if (getIntent().getBooleanExtra("browser_login", false)) {
+            tAccUtils.attachBrowserLoginHost(this);
+        }
 
         if (getIntent().getData() != null && openGrantRequest(getIntent().getData().toString())) {
             return;
@@ -652,6 +658,7 @@ public class WebActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        tAccUtils.detachBrowserLoginHost(this);
         if (loadProgress != null) loadProgress.setVisibility(View.GONE);
         if (webView != null)
             webView.loadUrl("about:blank");

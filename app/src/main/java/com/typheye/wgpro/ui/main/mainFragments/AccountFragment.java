@@ -23,7 +23,6 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.BadgeFactory;
 import com.typheye.wgpro.ui.function.account.AccMangerActivity;
-import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
@@ -135,24 +134,23 @@ public class AccountFragment extends Fragment {
         return view;
     }
 
-    private void showMoreMenu() {
-        new WGProAlertDialogBuilder(requireActivity())
-                .setTitle("登录")
-                .setItems(new CharSequence[]{
-                        "通过账号密码登录",
-                        "通过其他设备扫码登录",
-                }, (dialog, which) -> {
-                    if (which == 0) {
-                        AccountBottomSheets.showPasswordLogin(requireActivity(), this::onAccountChanged);
-                    } else {
-                        AccountBottomSheets.showQrLogin(requireActivity(), this::onAccountChanged);
-                    }
-                })
-                .show();
-    }
-
     private void setupListeners(View root) {
-        account_btn_sign_in.setOnClickListener(v -> showMoreMenu());
+        account_btn_sign_in.setOnClickListener(v -> tAccUtils.startBrowserLogin(requireActivity(), new tAccUtils.BrowserLoginCallback() {
+            @Override
+            public void onLoginSucceeded() {
+                onAccountChanged();
+            }
+
+            @Override
+            public void onLoginFailed(String message) {
+                if (!isAdded()) return;
+                new WGProAlertDialogBuilder(requireContext())
+                        .setTitle("登录失败")
+                        .setMessage(message)
+                        .setPositiveButton("完成", null)
+                        .show();
+            }
+        }));
 
         account_btn_sign_up.setOnClickListener(v -> {
             Intent intent = new Intent(getActivity(), WebActivity.class);

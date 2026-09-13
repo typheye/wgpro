@@ -213,6 +213,9 @@ public class MainActivity extends AppCompatActivity {
         maybeWarnNotificationChannel();
         maybeWarnBackgroundRestriction();
         consumePendingGrantRequest();
+        tAccUtils.resumeBrowserLoginPolling(this);
+        // 服务端要求强制更新且本机版本偏低时，把用户挡在更新页（不能用软件）
+        AppUtils.ensureForceUpdateGate(this);
     }
 
     /** 后台连接反复被系统掐断时，引导用户放开省电/后台联网限制。 */
@@ -279,12 +282,23 @@ public class MainActivity extends AppCompatActivity {
         // 关键：应用已在前台时不会再走 onResume，这里必须立即消费扫码授权请求，
         // 否则扫码后"没有任何反应"（授权弹窗永远不出现）。
         consumePendingGrantRequest();
+        tAccUtils.resumeBrowserLoginPolling(this);
     }
 
     /** 其它页面点「去登录」后回到这里：切到「我的」并弹出登录面板。 */
     private void maybeOpenLoginFromIntent() {
         Intent intent = getIntent();
-        if (intent == null || !intent.getBooleanExtra(
+        if (intent == null) return;
+        // 「去登录」只切页：关闭来源页面 + 回到「我的」，不弹任何登录面板。
+        if (intent.getBooleanExtra(
+                com.typheye.wgpro.ui.LoginGate.EXTRA_SELECT_ACCOUNT_TAB, false)) {
+            intent.removeExtra(com.typheye.wgpro.ui.LoginGate.EXTRA_SELECT_ACCOUNT_TAB);
+            if (mainPager != null) mainPager.setCurrentItem(3, false);
+            selectedPage = R.id.nav_account;
+            invalidateOptionsMenu();
+            return;
+        }
+        if (!intent.getBooleanExtra(
                 com.typheye.wgpro.ui.LoginGate.EXTRA_OPEN_LOGIN, false)) {
             return;
         }
@@ -293,11 +307,18 @@ public class MainActivity extends AppCompatActivity {
         selectedPage = R.id.nav_account;
         invalidateOptionsMenu();
         if (new tAccUtils(this).isLogin()) return;
-        AccountBottomSheets.showPasswordLogin(this, () -> {
-            invalidateOptionsMenu();
-            startServicesIfNeeded();
-            refreshFromServices();
-            refreshAccountFromUser();
+        tAccUtils.startBrowserLogin(this, new tAccUtils.BrowserLoginCallback() {
+            @Override
+            public void onLoginSucceeded() {
+                invalidateOptionsMenu();
+                startServicesIfNeeded();
+                refreshFromServices();
+                refreshAccountFromUser();
+            }
+
+            @Override
+            public void onLoginFailed(String message) {
+            }
         });
     }
 
@@ -312,6 +333,12 @@ public class MainActivity extends AppCompatActivity {
 
     private void consumePendingGrantRequest() {
         if (grantFlowActive || pendingGrantRequestId == null || isFinishing() || isDestroyed()) return;
+        // 扫码授权需要当前账户；会话在扫码过程中失效时只提示，不再继续走授权流程。
+        if (!new tAccUtils(this).isLogin()) {
+            pendingGrantRequestId = null;
+            com.typheye.wgpro.ui.LoginGate.require(this, "扫码授权");
+            return;
+        }
         String requestId = pendingGrantRequestId;
         pendingGrantRequestId = null;
         grantFlowActive = true;

@@ -128,7 +128,7 @@
             android:name=".ui.function.WebActivity"
             android:screenOrientation="portrait"
             android:configChanges="screenSize|keyboardHidden|orientation"
-            android:windowSoftInputMode="stateHidden|adjustPan"
+            android:windowSoftInputMode="stateHidden|adjustResize"
             android:exported="true"
             tools:ignore="AppLinkUrlError">
             <intent-filter>
@@ -138,6 +138,14 @@
                 <data android:scheme="wgproGrant" />
             </intent-filter>
         </activity>
+        <!-- 强制更新拦截页：不给跳过，所以不进最近任务列表 -->
+        <activity
+            android:name=".ui.function.settings.UpdateRequiredActivity"
+            android:screenOrientation="portrait"
+            android:configChanges="screenSize|keyboardHidden|orientation"
+            android:launchMode="singleTop"
+            android:excludeFromRecents="true"
+            android:exported="false" />
         <activity
             android:name=".ui.oobe.OobeActivity"
             android:screenOrientation="portrait"

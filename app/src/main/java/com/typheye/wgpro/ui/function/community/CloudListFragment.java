@@ -239,7 +239,7 @@ public class CloudListFragment extends Fragment {
     private void removeNotificationItem(JSONObject item) {
         if ("system_messages".equals(item.optString("_kind"))) {
             setUnreadOverride("system", false);
-            messageDb.setSystemClearedBefore(account.getUid(), latestSystemId());
+            messageDb.setSystemClearedAt(account.getUid(), System.currentTimeMillis());
             messageDb.setSystemRemoved(account.getUid(), true);
             removeRenderedSystemMessages();
             account.postV2Json("notifications_clear2", new LinkedHashMap<>(),
@@ -260,23 +260,6 @@ public class CloudListFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) { load(); }
             @Override public void onError(int code, @NonNull String message) { }
         });
-    }
-
-    private long latestSystemId() {
-        if (renderedItems == null) return 0L;
-        long latest = 0L;
-        for (int i = 0; i < renderedItems.length(); i++) {
-            JSONObject item = renderedItems.optJSONObject(i);
-            if (item == null || !"system_messages".equals(item.optString("_kind"))) continue;
-            JSONArray messages = item.optJSONArray("_system_items");
-            if (messages == null) continue;
-            for (int j = 0; j < messages.length(); j++) {
-                JSONObject message = messages.optJSONObject(j);
-                if (message != null) latest = Math.max(latest,
-                        parseLong(message.optString("id", "0")));
-            }
-        }
-        return latest;
     }
 
     private void removeRenderedSystemMessages() {
@@ -532,7 +515,7 @@ public class CloudListFragment extends Fragment {
                 JSONObject message = source.optJSONObject(i);
                 if (message == null) continue;
                 MessageDatabase.SystemMessage item = new MessageDatabase.SystemMessage();
-                item.id = parseLong(message.optString("id", "0"));
+                item.id = message.optString("id", "");
                 item.title = message.optString("title", "");
                 item.content = message.optString("content", "");
                 JSONObject metadata = message.optJSONObject("metadata");
@@ -548,11 +531,14 @@ public class CloudListFragment extends Fragment {
         if (local.isEmpty() && !messageDb.hasSystemMessageHistory(account.getUid())) return;
         JSONObject item = new JSONObject();
         try {
-            long clearedId = systemClearedId();
+            long clearedAt = systemClearedId();
+            String clearedTime = clearedTimeString(clearedAt);
             boolean forcedUnread = hasUnreadOverride("system");
             java.util.List<MessageDatabase.SystemMessage> visible = new java.util.ArrayList<>();
             for (MessageDatabase.SystemMessage message : local) {
-                if (message.id > clearedId) visible.add(message);
+                if (clearedAt > 0 && message.createdAt != null
+                        && message.createdAt.compareTo(clearedTime) <= 0) continue;
+                visible.add(message);
             }
             if (visible.isEmpty()) {
                 item.put("_kind", "system_messages");
@@ -603,24 +589,18 @@ public class CloudListFragment extends Fragment {
                     continue;
                 }
                 if (item.has("last_message")) {
-                    long clearedBefore = peerUid.isEmpty() ? 0L
-                            : messageDb.getConversationClearedBefore(account.getUid(), peerUid);
-                    long messageId = parseLong(item.optString("last_message_id", "0"));
-                    MessageDatabase.ConversationPreview local = peerUid.isEmpty() ? null
-                            : messageDb.getConversationPreview(account.getUid(), peerUid);
-                    if (clearedBefore > 0L && messageId > 0L && messageId <= clearedBefore) {
+                    long clearedAt = peerUid.isEmpty() ? 0L
+                            : messageDb.getConversationClearedAt(account.getUid(), peerUid);
+                    String messageId = item.optString("last_message_id", "");
+                    String createdAt = item.optString("created_at", "");
+                    boolean clearedByTime = clearedAt > 0 && !createdAt.isEmpty()
+                            && createdAt.compareTo(clearedTimeString(clearedAt)) <= 0;
+                    if (clearedByTime) {
                         messageDb.upsertConversationPreview(account.getUid(), peerUid,
-                                clearedBefore, "", "");
-                    } else if (local != null && local.messageId > messageId) {
-                        // Keep the newer local summary produced immediately after sending.
-                    } else if (local != null && local.messageId == messageId
-                            && local.message.isEmpty()
-                            && !item.optString("last_message", "").isEmpty()) {
-                        // Do not restore a server summary that was locally cleared.
+                                "", "", "");
                     } else {
                         messageDb.upsertConversationPreview(account.getUid(), peerUid,
-                                messageId, item.optString("last_message", ""),
-                                item.optString("created_at", ""));
+                                messageId, item.optString("last_message", ""), createdAt);
                     }
                 }
                 MessageDatabase.ConversationPreview preview =
@@ -1078,6 +1058,8 @@ public class CloudListFragment extends Fragment {
         try { copy.put("name", "未知应用"); copy.put("summary", "应用已不可见"); copy.put("version_name", "--"); } catch (Exception ignored) { }
         View v = AppListItemFactory.create(requireContext(), copy, x -> showCatalogActions(copy, true, x));
         v.setOnClickListener(x -> new WGProAlertDialogBuilder(requireContext()).setTitle("应用已失效").setMessage("应用已不可见").setNegativeButton("关闭", null).show());
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2);
+        cardParams.bottomMargin = dp(12); v.setLayoutParams(cardParams);
         return v;
     }
 
@@ -1331,7 +1313,12 @@ public class CloudListFragment extends Fragment {
     }
 
     private long systemClearedId() {
-        return messageDb.getSystemClearedBefore(account.getUid());
+        return messageDb.getSystemClearedAt(account.getUid());
+    }
+
+    private String clearedTimeString(long millis) {
+        return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US)
+                .format(new java.util.Date(millis));
     }
 
     private boolean hasUnreadOverride(String key) {
@@ -1348,10 +1335,6 @@ public class CloudListFragment extends Fragment {
             messageDb.setConversationUnreadOverride(account.getUid(),
                     key.substring(13), enabled);
         }
-    }
-
-    private long parseLong(String value) {
-        try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
     }
 
     private void clearAllUnreadOverrides() {

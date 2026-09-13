@@ -298,10 +298,10 @@ public final class PushController {
         // 通知聊天页/系统消息页立即刷新
         if ("message.new".equals(eventType)) {
             AppState.get().publishPushEvent("message",
-                    data.optString("peer_uid", ""), data.optLong("id", 0L));
+                    data.optString("peer_uid", ""), data.optString("id", ""));
         } else if ("notification.new".equals(eventType)) {
             AppState.get().publishPushEvent("notification", "",
-                    data.optLong("id", 0L));
+                    data.optString("id", ""));
         }
         // 事件负责"立刻提醒"，缓存与计数稍后由一次 HTTP 校准收敛
         scheduleCatchUp();

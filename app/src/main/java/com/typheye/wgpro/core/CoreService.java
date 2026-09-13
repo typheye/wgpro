@@ -40,7 +40,14 @@ public class CoreService extends Service implements CoreApi {
     public static final String EXTRA_NODE_ID = "node_id";
     public static final String EXTRA_NODE_NAME = "node_name";
 
-    private static final long CONFIG_INTERVAL_MS = 60 * 60 * 1000L;
+    /**
+     * 服务端配置（公告 / 应用更新）的拉取间隔。
+     *
+     * 不设更长是因为里面还有"强制更新"：间隔太长的话，用户把应用挂在后台一直用，
+     * 新发的强制更新要等很久才会被发现。半小时一次、每次只有几百字节的 JSON，
+     * 对服务端压力很小。应用冷启动时 lastConfigAt 归零，必定立刻检查一次。
+     */
+    private static final long CONFIG_INTERVAL_MS = 30 * 60 * 1000L;
     private static final AtomicBoolean RUNNING = new AtomicBoolean(false);
 
     private final Binder binder = new LocalBinder();

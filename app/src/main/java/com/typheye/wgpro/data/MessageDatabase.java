@@ -9,41 +9,75 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 通知中心本地状态库：只保存设备侧清空、移除、已读/未读覆盖，不存云端消息正文。 */
+/**
+ * 通知中心本地状态库：只保存设备侧清空、移除、已读/未读覆盖，不存云端消息正文。
+ * 2026-09-13 起消息/通知标识改为 32 位 md5 字符串，清空语义从"清到某个自增 id"改为
+ * "清空时刻"，因此 system_state / conversation_state 记录 cleared_at 时间戳。
+ */
 public final class MessageDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME = "message_local.db";
-    private static final int DB_VERSION = 5;
+    private static final int DB_VERSION = 6;
 
     public MessageDatabase(Context context) {
         super(context.getApplicationContext(), DB_NAME, null, DB_VERSION);
     }
 
     @Override public void onCreate(SQLiteDatabase db) {
+        createSystemState(db);
+        createConversationState(db);
+        createConversationMessages(db);
+        createSystemMessages(db);
+    }
+
+    /**
+     * 开发阶段直接重建缓存表：系统消息缓存是服务端数据的副本，可以随时重新拉取。
+     * （6：notification_id / last_message_id 改 md5 字符串；清空语义改 cleared_at。）
+     */
+    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        if (oldVersion < 6) {
+            db.execSQL("DROP TABLE IF EXISTS system_messages");
+            db.execSQL("DROP TABLE IF EXISTS conversation_messages");
+            db.execSQL("DROP TABLE IF EXISTS conversation_state");
+            db.execSQL("DROP TABLE IF EXISTS system_state");
+            onCreate(db);
+        }
+    }
+
+    private void createSystemState(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE system_state("
                 + "uid TEXT NOT NULL PRIMARY KEY,"
-                + "cleared_before_id INTEGER NOT NULL DEFAULT 0,"
+                + "cleared_at INTEGER NOT NULL DEFAULT 0,"
                 + "unread_override INTEGER NOT NULL DEFAULT 0,"
                 + "removed INTEGER NOT NULL DEFAULT 0,"
                 + "updated_at INTEGER NOT NULL)");
+    }
+
+    private void createConversationState(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE conversation_state("
                 + "uid TEXT NOT NULL,"
                 + "peer_uid TEXT NOT NULL,"
                 + "unread_override INTEGER NOT NULL DEFAULT 0,"
-                + "cleared_before_id INTEGER NOT NULL DEFAULT 0,"
+                + "cleared_at INTEGER NOT NULL DEFAULT 0,"
                 + "removed INTEGER NOT NULL DEFAULT 0,"
                 + "updated_at INTEGER NOT NULL,"
                 + "PRIMARY KEY(uid,peer_uid))");
+    }
+
+    private void createConversationMessages(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE conversation_messages("
                 + "uid TEXT NOT NULL,"
                 + "peer_uid TEXT NOT NULL,"
-                + "last_message_id INTEGER NOT NULL DEFAULT 0,"
+                + "last_message_id TEXT NOT NULL DEFAULT '',"
                 + "last_message TEXT NOT NULL DEFAULT '',"
                 + "last_message_at TEXT NOT NULL DEFAULT '',"
                 + "updated_at INTEGER NOT NULL,"
                 + "PRIMARY KEY(uid,peer_uid))");
+    }
+
+    private void createSystemMessages(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE system_messages("
                 + "uid TEXT NOT NULL,"
-                + "notification_id INTEGER NOT NULL,"
+                + "notification_id TEXT NOT NULL,"
                 + "title TEXT NOT NULL DEFAULT '',"
                 + "content TEXT NOT NULL DEFAULT '',"
                 + "metadata TEXT NOT NULL DEFAULT '{}',"
@@ -57,39 +91,14 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 + "PRIMARY KEY(uid,notification_id))");
     }
 
-    /**
-     * 开发阶段直接重建缓存表：系统消息缓存是服务端数据的副本，可以随时重新拉取。
-     * （4：新增 target_type / target_key；5：新增 notification_type——动作行需要它区分
-     *   "关注"与"评论"等同为 user/dynamic 类型的不同跳转。）
-     */
-    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        if (oldVersion < 5) {
-            db.execSQL("DROP TABLE IF EXISTS system_messages");
-            db.execSQL("CREATE TABLE system_messages("
-                    + "uid TEXT NOT NULL,"
-                    + "notification_id INTEGER NOT NULL,"
-                    + "title TEXT NOT NULL DEFAULT '',"
-                    + "content TEXT NOT NULL DEFAULT '',"
-                    + "metadata TEXT NOT NULL DEFAULT '{}',"
-                    + "target_type TEXT NOT NULL DEFAULT '',"
-                    + "target_key TEXT NOT NULL DEFAULT '',"
-                    + "notification_type TEXT NOT NULL DEFAULT '',"
-                    + "created_at TEXT NOT NULL DEFAULT '',"
-                    + "is_read INTEGER NOT NULL DEFAULT 0,"
-                    + "deleted INTEGER NOT NULL DEFAULT 0,"
-                    + "updated_at INTEGER NOT NULL,"
-                    + "PRIMARY KEY(uid,notification_id))");
-        }
-    }
-
-    public long getSystemClearedBefore(String uid) {
-        return queryLong("SELECT cleared_before_id FROM system_state WHERE uid=?",
+    public long getSystemClearedAt(String uid) {
+        return queryLong("SELECT cleared_at FROM system_state WHERE uid=?",
                 new String[]{uid});
     }
 
-    public void setSystemClearedBefore(String uid, long id) {
+    public void setSystemClearedAt(String uid, long timestamp) {
         ContentValues values = new ContentValues();
-        values.put("cleared_before_id", Math.max(0L, id));
+        values.put("cleared_at", Math.max(0L, timestamp));
         upsertSystemState(uid, values);
     }
 
@@ -138,15 +147,15 @@ public final class MessageDatabase extends SQLiteOpenHelper {
         upsertConversationState(uid, peerUid, values);
     }
 
-    public long getConversationClearedBefore(String uid, String peerUid) {
-        return queryLong("SELECT cleared_before_id FROM conversation_state "
+    public long getConversationClearedAt(String uid, String peerUid) {
+        return queryLong("SELECT cleared_at FROM conversation_state "
                         + "WHERE uid=? AND peer_uid=?",
                 new String[]{uid, peerUid});
     }
 
-    public void setConversationClearedBefore(String uid, String peerUid, long id) {
+    public void setConversationClearedAt(String uid, String peerUid, long timestamp) {
         ContentValues values = new ContentValues();
-        values.put("cleared_before_id", Math.max(0L, id));
+        values.put("cleared_at", Math.max(0L, timestamp));
         upsertConversationState(uid, peerUid, values);
     }
 
@@ -182,12 +191,12 @@ public final class MessageDatabase extends SQLiteOpenHelper {
         getWritableDatabase().delete("system_messages", "uid=?", new String[]{uid});
     }
 
-    public void upsertConversationPreview(String uid, String peerUid, long messageId,
+    public void upsertConversationPreview(String uid, String peerUid, String messageId,
                                           String message, String createdAt) {
         ContentValues values = new ContentValues();
         values.put("uid", uid);
         values.put("peer_uid", peerUid);
-        values.put("last_message_id", messageId);
+        values.put("last_message_id", messageId == null ? "" : messageId);
         values.put("last_message", message == null ? "" : message);
         values.put("last_message_at", createdAt == null ? "" : createdAt);
         values.put("updated_at", System.currentTimeMillis());
@@ -202,7 +211,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 new String[]{uid, peerUid})) {
             if (!cursor.moveToFirst()) return null;
             ConversationPreview preview = new ConversationPreview();
-            preview.messageId = cursor.getLong(0);
+            preview.messageId = cursor.getString(0);
             preview.message = cursor.getString(1);
             preview.createdAt = cursor.getString(2);
             return preview;
@@ -225,7 +234,7 @@ public final class MessageDatabase extends SQLiteOpenHelper {
             for (SystemMessage message : messages) {
                 ContentValues values = new ContentValues();
                 values.put("uid", uid);
-                values.put("notification_id", message.id);
+                values.put("notification_id", message.id == null ? "" : message.id);
                 values.put("title", message.title);
                 values.put("content", message.content);
                 values.put("metadata", message.metadata);
@@ -251,11 +260,11 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 "SELECT notification_id,title,content,metadata,created_at,is_read,"
                         + "target_type,target_key,notification_type "
                         + "FROM system_messages WHERE uid=? AND deleted=0 "
-                        + "ORDER BY notification_id DESC",
+                        + "ORDER BY created_at DESC,notification_id DESC",
                 new String[]{uid})) {
             while (cursor.moveToNext()) {
                 SystemMessage message = new SystemMessage();
-                message.id = cursor.getLong(0);
+                message.id = cursor.getString(0);
                 message.title = cursor.getString(1);
                 message.content = cursor.getString(2);
                 message.metadata = cursor.getString(3);
@@ -275,20 +284,20 @@ public final class MessageDatabase extends SQLiteOpenHelper {
                 new String[]{uid}) > 0;
     }
 
-    public void markSystemMessageRead(String uid, long id, boolean read) {
+    public void markSystemMessageRead(String uid, String id, boolean read) {
         ContentValues values = new ContentValues();
         values.put("is_read", read ? 1 : 0);
         values.put("updated_at", System.currentTimeMillis());
         getWritableDatabase().update("system_messages", values,
-                "uid=? AND notification_id=?", new String[]{uid, String.valueOf(id)});
+                "uid=? AND notification_id=?", new String[]{uid, id});
     }
 
-    public void deleteSystemMessage(String uid, long id) {
+    public void deleteSystemMessage(String uid, String id) {
         ContentValues values = new ContentValues();
         values.put("deleted", 1);
         values.put("updated_at", System.currentTimeMillis());
         getWritableDatabase().update("system_messages", values,
-                "uid=? AND notification_id=?", new String[]{uid, String.valueOf(id)});
+                "uid=? AND notification_id=?", new String[]{uid, id});
     }
 
     private long queryLong(String sql, String[] args) {
@@ -299,13 +308,13 @@ public final class MessageDatabase extends SQLiteOpenHelper {
     }
 
     public static final class ConversationPreview {
-        public long messageId;
+        public String messageId = "";
         public String message = "";
         public String createdAt = "";
     }
 
     public static final class SystemMessage {
-        public long id;
+        public String id = "";
         public String title = "";
         public String content = "";
         public String metadata = "{}";

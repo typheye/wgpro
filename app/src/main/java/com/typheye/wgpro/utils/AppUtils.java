@@ -74,6 +74,11 @@ public class AppUtils {
         SystemBars.applyTopInsets(view);
     }
 
+    /** 顶部状态栏 + 输入法避让：edge-to-edge 页面需要它等效 adjustResize。 */
+    public static void fixScreenCutAreaWithIme(View view) {
+        SystemBars.applyTopAndImeInsets(view);
+    }
+
     /** 整页 edge-to-edge 适配：内容躲开系统栏，系统栏区域使用页面背景。 */
     public static void applyScreenInsets(View view) {
         SystemBars.applyScreenInsets(view);
@@ -140,9 +145,9 @@ public class AppUtils {
     }
 
     /**
-     * 检查是否启用自动检查更新
+     * 检查是否启用自动检查更新提醒
      * @param context 上下文
-     * @return true 表示启用自动检查更新
+     * @return true 表示启用
      */
     public static boolean isAutoCheckUpdate(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
@@ -163,13 +168,94 @@ public class AppUtils {
         }
     }
 
+    // ------------------------------------------------------------ 强制更新状态
+
+    private static final String PREF_FORCE_CODE = "appUpdate_forceCode";
+    private static final String PREF_FORCE_TEXT = "appUpdate_forceText";
+    private static final String PREF_FORCE_URL = "appUpdate_forceUrl";
+
+    /** 检查完更新后的回调（主线程）：参数表示"此刻是否仍处于强制更新状态"。 */
+    public interface ForceUpdateCallback {
+        void onResult(boolean forceUpdateRequired);
+    }
+
     /**
-     * 检查应用更新（真实实现）
+     * 服务端下发了强制更新、并且本机版本确实更低时为 true。
+     *
+     * 判定用的是"服务端要求的最低版本号 > 本机版本号"，所以用户装上包之后
+     * 即使没有联网、没有重新拉配置，拦截也会自动失效。
+     */
+    public static boolean isForceUpdateRequired(Context context) {
+        SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
+        long required = prefs.getLong(PREF_FORCE_CODE, 0L);
+        return required > 0L && required > getVersionCode(context);
+    }
+
+    public static String getForceUpdateMessage(Context context) {
+        return context.getSharedPreferences("app", Context.MODE_PRIVATE).getString(PREF_FORCE_TEXT, "");
+    }
+
+    public static String getForceUpdateUrl(Context context) {
+        return context.getSharedPreferences("app", Context.MODE_PRIVATE).getString(PREF_FORCE_URL, "");
+    }
+
+    private static void saveForceUpdate(Context context, long versionCode, String message, String url) {
+        context.getSharedPreferences("app", Context.MODE_PRIVATE).edit()
+                .putLong(PREF_FORCE_CODE, versionCode)
+                .putString(PREF_FORCE_TEXT, message == null ? "" : message)
+                .putString(PREF_FORCE_URL, url == null ? "" : url)
+                .apply();
+    }
+
+    private static void clearForceUpdate(Context context) {
+        context.getSharedPreferences("app", Context.MODE_PRIVATE).edit()
+                .remove(PREF_FORCE_CODE)
+                .remove(PREF_FORCE_TEXT)
+                .remove(PREF_FORCE_URL)
+                .apply();
+    }
+
+    /**
+     * 拉起"必须更新"页面。应用在后台时系统会忽略这次启动，
+     * 用户下次回到应用由 {@link #ensureForceUpdateGate(Context)} 补上。
+     */
+    public static void openUpdateRequiredPage(Context context) {
+        try {
+            context.startActivity(new Intent(context,
+                    com.typheye.wgpro.ui.function.settings.UpdateRequiredActivity.class)
+                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_CLEAR_TOP
+                            | Intent.FLAG_ACTIVITY_SINGLE_TOP));
+        } catch (Exception ignored) {
+            // 后台启动 Activity 被系统拒绝是正常情况，交给 MainActivity.onResume 兜底
+        }
+    }
+
+    /** 页面每次回到前台都调一下：处于强制更新时把用户挡在更新页。 */
+    public static void ensureForceUpdateGate(Context context) {
+        if (!isForceUpdateRequired(context)) return;
+        openUpdateRequiredPage(context);
+    }
+
+    /**
+     * 检查应用更新。
+     *
+     * 规则：
+     *   1) 不管"有更新时提醒我"开关是否打开，都会拉配置并比较版本；
+     *   2) 服务端标了强制更新（UpdateForce）且本机版本更低 → 记录状态 + 拉起不可跳过的更新页；
+     *   3) 没标强制、且开关打开 → 才弹普通的"有新版本"提示；开关关闭则完全静默。
+     *
+     * 网络失败时沿用上一次的强制更新状态，避免"拔网就能绕过更新"。
      */
     public static void loadServerConfig(Context context) {
+        loadServerConfig(context, null);
+    }
+
+    public static void loadServerConfig(Context context, ForceUpdateCallback onResult) {
         String updateUrl = "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
 
         new Thread(() -> {
+            boolean forceRequired = false;
             try {
                 String jsonData = getJsonFromUrl(updateUrl);
                 if (jsonData.isEmpty()) {
@@ -179,30 +265,73 @@ public class AppUtils {
                 JSONObject json = new JSONObject(jsonData);
                 long currentVersionCode = getVersionCode(context);
 
+                String notice = json.optString("AppNotice", "");
+                if (!notice.isEmpty()) {
+                    saveAppNotice(context, notice);
+                }
 
-                saveAppNotice(context, json.getString("AppNotice"));
+                String versionName = json.optString("UpdateVersionName", "");
+                long latestVersionCode = parseVersionCode(json.opt("UpdateVersionCode"));
+                String updateText = json.optString("UpdateText", "");
+                String downloadUrl = json.optString("UpdateUrl", "");
+                boolean force = parseBoolean(json.opt("UpdateForce"), false)
+                        || parseBoolean(json.opt("UpdateForced"), false);
 
-                String versionName = json.getString("UpdateVersionName");
-                String versionCode = json.getString("UpdateVersionCode");
-                long latestVersionCode = Integer.parseInt(versionCode);
+                boolean newer = latestVersionCode > currentVersionCode;
+                String updateContext = buildUpdateMessage(versionName, latestVersionCode, updateText);
+                Log.e("UpdateChecker", updateContext + " | force=" + force + " current=" + currentVersionCode);
 
-                String updateText = json.getString("UpdateText");
-                String downloadUrl = json.getString("UpdateUrl");
-
-                String updateContext = "Ver. " + versionName + " - (" + versionCode + ") 现已发布！\n\n更新日志：\n" + updateText;
-
-
-                if (isAutoCheckUpdate(context)) {
-                    if (latestVersionCode > currentVersionCode) {
+                if (force && newer) {
+                    saveForceUpdate(context, latestVersionCode, updateContext, downloadUrl);
+                    forceRequired = true;
+                    openUpdateRequiredPage(context);
+                } else {
+                    // 用户已经升级，或运营取消了强制更新：解除拦截
+                    clearForceUpdate(context);
+                    if (newer && isAutoCheckUpdate(context)) {
                         showUpdateDialog(context, updateContext, downloadUrl);
                     }
                 }
-                Log.e("UpdateChecker", updateContext);
             } catch (Exception e) {
-                // 实际项目中应添加日志（如 Timber 或 Log）
+                // 拿不到配置时保持原有拦截状态，断网不能当成"已是最新"
+                forceRequired = isForceUpdateRequired(context);
                 Log.e("UpdateChecker", "Update check failed", e);
             }
+            if (onResult != null) {
+                final boolean state = forceRequired;
+                new Handler(Looper.getMainLooper()).post(() -> onResult.onResult(state));
+            }
         }).start();
+    }
+
+    private static String buildUpdateMessage(String versionName, long versionCode, String updateText) {
+        StringBuilder builder = new StringBuilder();
+        builder.append("Ver. ").append(versionName).append(" (").append(versionCode).append(") 现已发布！");
+        if (updateText != null && !updateText.trim().isEmpty()) {
+            builder.append("\n\n更新日志：\n").append(updateText.trim());
+        }
+        return builder.toString();
+    }
+
+    /** 版本号可能是数字也可能是字符串，两种都要能认。 */
+    private static long parseVersionCode(Object raw) {
+        if (raw instanceof Number) return ((Number) raw).longValue();
+        if (raw == null) return 0L;
+        try {
+            return Long.parseLong(String.valueOf(raw).trim());
+        } catch (NumberFormatException e) {
+            return 0L;
+        }
+    }
+
+    /** 兼容 true / "true" / 1 / "1" / "yes" 这几种写法。 */
+    private static boolean parseBoolean(Object raw, boolean fallback) {
+        if (raw instanceof Boolean) return (Boolean) raw;
+        if (raw instanceof Number) return ((Number) raw).intValue() != 0;
+        if (raw == null) return fallback;
+        String value = String.valueOf(raw).trim().toLowerCase();
+        if (value.isEmpty()) return fallback;
+        return value.equals("true") || value.equals("1") || value.equals("yes");
     }
 
     /**

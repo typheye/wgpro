@@ -90,7 +90,7 @@ public final class AppState {
         inbox.postValue(value);
     }
 
-    public void publishPushEvent(@NonNull String type, @NonNull String peerUid, long id) {
+    public void publishPushEvent(@NonNull String type, @NonNull String peerUid, String id) {
         pushEvents.postValue(new PushEvent(type, peerUid, id));
     }
 
@@ -117,13 +117,13 @@ public final class AppState {
     public static final class PushEvent {
         public final String type;
         public final String peerUid;
-        public final long id;
+        public final String id;
         public final long at = System.currentTimeMillis();
 
-        PushEvent(String type, String peerUid, long id) {
+        PushEvent(String type, String peerUid, String id) {
             this.type = type == null ? "" : type;
             this.peerUid = peerUid == null ? "" : peerUid;
-            this.id = id;
+            this.id = id == null ? "" : id;
         }
     }
 }

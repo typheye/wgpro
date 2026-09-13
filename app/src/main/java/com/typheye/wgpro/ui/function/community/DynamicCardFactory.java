@@ -173,6 +173,8 @@ public final class DynamicCardFactory {
         removeIcon.setOnClickListener(v -> { if (remove != null) remove.onClick(card); });
         card.setOnClickListener(v -> new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(context)
                 .setTitle("动态已失效").setMessage("该动态已不可见").setNegativeButton("关闭", null).show());
+        LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2);
+        cardParams.bottomMargin = dp(context, 12); card.setLayoutParams(cardParams);
         return card;
     }
 

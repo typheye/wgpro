@@ -53,7 +53,6 @@ public class SystemMessageDetailFragment extends Fragment {
     private LinearLayout list;
     private androidx.core.widget.NestedScrollView scroll;
     private boolean loadedOnce;
-    private long latestLoadedId;
     /** 首次载入与实时刷新后滚动到最新一条，避免新消息停在屏幕外。 */
     private boolean scrollToNewestOnRender = true;
 
@@ -127,7 +126,7 @@ public class SystemMessageDetailFragment extends Fragment {
                 JSONObject item = source.optJSONObject(i);
                 if (item == null) continue;
                 MessageDatabase.SystemMessage message = new MessageDatabase.SystemMessage();
-                message.id = parseId(item.optString("id", "0"));
+                message.id = item.optString("id", "");
                 message.title = item.optString("title", "");
                 message.content = item.optString("content", "");
                 JSONObject metadata = item.optJSONObject("metadata");
@@ -168,22 +167,20 @@ public class SystemMessageDetailFragment extends Fragment {
         if (!isAdded()) return;
         refresh.setRefreshing(false);
         list.removeAllViews();
-        long clearedId = messageDb.getSystemClearedBefore(account.getUid());
+        long clearedAt = messageDb.getSystemClearedAt(account.getUid());
+        String clearedTime = clearedTimeString(clearedAt);
         List<JSONObject> items = new ArrayList<>();
         boolean hasUnread = false;
-        long maxId = latestLoadedId;
         if (source != null) {
             for (int i = 0; i < source.length(); i++) {
                 JSONObject item = source.optJSONObject(i);
                 if (item == null) continue;
-                long itemId = parseId(item.optString("id", "0"));
-                if (itemId > maxId) maxId = itemId;
-                if (itemId <= clearedId) continue;
+                if (clearedAt > 0
+                        && item.optString("created_at", "").compareTo(clearedTime) <= 0) continue;
                 if (!item.optBoolean("is_read", false)) hasUnread = true;
                 items.add(item);
             }
         }
-        latestLoadedId = maxId;
         Collections.reverse(items);
         String previousDate = "";
         for (JSONObject item : items) {
@@ -218,8 +215,7 @@ public class SystemMessageDetailFragment extends Fragment {
 
     /** 旧数据里的"（编号 #21）"不再显示在通知卡片标题上，编号在举报详情页里可见。 */
     private static String cleanTitle(String title) {
-        if (title == null || title.isEmpty()) return "";
-        return title.replaceAll("[（(]\\s*编号\\s*#?\\s*[0-9]+\\s*[)）]\\s*$", "").trim();
+        return com.typheye.wgpro.utils.SystemMessageTitle.clean(title);
     }
 
     private View dateHeader(String text) {
@@ -507,8 +503,7 @@ public class SystemMessageDetailFragment extends Fragment {
                     }
                 }), new WGProProgressRunner.Callback() {
             @Override public void success(@NonNull JSONObject json) {
-                messageDb.deleteSystemMessage(account.getUid(),
-                        parseId(item.optString("id", "0")));
+                messageDb.deleteSystemMessage(account.getUid(), item.optString("id", ""));
                 load();
                 showResult("已删除", "该消息已从当前账户的通知记录中移除。");
             }
@@ -543,7 +538,7 @@ public class SystemMessageDetailFragment extends Fragment {
     }
 
     private void clearLocal() {
-        messageDb.setSystemClearedBefore(account.getUid(), latestLoadedId);
+        messageDb.setSystemClearedAt(account.getUid(), System.currentTimeMillis());
         messageDb.setSystemUnreadOverride(account.getUid(), false);
         list.removeAllViews();
         list.addView(emptyState());
@@ -574,8 +569,9 @@ public class SystemMessageDetailFragment extends Fragment {
                 .setNegativeButton("关闭", null).show();
     }
 
-    private long parseId(String value) {
-        try { return Long.parseLong(value); } catch (Exception ignored) { return 0L; }
+    private String clearedTimeString(long millis) {
+        return new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss", java.util.Locale.US)
+                .format(new java.util.Date(millis));
     }
 
     private String dateLabel(String value) {

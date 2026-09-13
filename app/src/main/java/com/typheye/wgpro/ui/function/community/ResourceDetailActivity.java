@@ -33,7 +33,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             JSONObject seed; try { seed = new JSONObject(requireArguments().getString("json", "{}")); } catch (Exception e) { seed = new JSONObject(); }
             String id = seed.optString("id", seed.optString("resource_id", seed.optString("target_key", "")));
             bind(root, seed);
-            if (id.matches("\\d+")) {
+            if (id.matches("[a-fA-F0-9]{32}")) {
                 Map<String,String> q = new LinkedHashMap<>(); q.put("resource_id", id);
                 account.getV2Json("resource_detail2", q, false, new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) { requireActivity().runOnUiThread(() -> { bind(root, json.optJSONObject("info")); host.hideContentLoading(); }); }
@@ -54,7 +54,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             ((TextView) root.findViewById(R.id.resource_detail_meta)).setText(authorName + "  ·  "
                     + info.optInt("download_count") + " 次下载  ·  " + info.optInt("collection_count") + " 次星标");
             MaterialButton download = root.findViewById(R.id.resource_detail_download);
-            download.setEnabled(info.optString("id", "").matches("\\d+"));
+            download.setEnabled(info.optString("id", "").matches("[a-fA-F0-9]{32}"));
             download.setOnClickListener(v -> download());
             MaterialButton star = root.findViewById(R.id.resource_detail_star);
             boolean starred = info.optBoolean("is_collected");

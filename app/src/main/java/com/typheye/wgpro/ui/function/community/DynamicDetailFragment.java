@@ -293,7 +293,7 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void toggleLike() {
-        if (dynamicId == null || !dynamicId.trim().matches("\\d+")) {
+        if (dynamicId == null || !dynamicId.trim().matches("[a-fA-F0-9]{32}")) {
             showError("操作失败", "动态标识无效，请刷新后重试");
             return;
         }
@@ -309,7 +309,7 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void toggleFavorite() {
-        if (dynamicId == null || !dynamicId.trim().matches("\\d+")) {
+        if (dynamicId == null || !dynamicId.trim().matches("[a-fA-F0-9]{32}")) {
             showError("操作失败", "动态标识无效，请刷新后重试");
             return;
         }

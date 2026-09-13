@@ -349,7 +349,12 @@ public class DashboardFragment extends Fragment {
     private void runFunction(FunctionItem item) {
         switch (item.id) {
             case "transfer": openWeb("https://wgpro.typheye.cn/push"); break;
-            case "scan": startActivity(new Intent(requireContext(), ScanQRActivity.class)); break;
+            case "scan":
+                // 扫码授权必须带着当前账户去 approve，未登录先给"需要登录"提示。
+                if (com.typheye.wgpro.ui.LoginGate.require(requireActivity(), "扫码授权")) {
+                    startActivity(new Intent(requireContext(), ScanQRActivity.class));
+                }
+                break;
             case "guide": openWeb("https://wgpro.typheye.cn/docs"); break;
             case "diagnostics": showDiagnostics(); break;
             case "logs": new WGProAlertDialogBuilder(requireContext())

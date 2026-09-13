@@ -229,6 +229,25 @@ public final class SystemBars {
     }
 
     /**
+     * 顶部状态栏 + 底部输入法：键盘弹出时整体抬高内容（等效 adjustResize）。
+     * edge-to-edge 窗口不随输入法缩放，必须根据 ime insets 自行留白。
+     */
+    public static void applyTopAndImeInsets(@NonNull View root) {
+        markHandled(root);
+        final int initialLeft = root.getPaddingLeft();
+        final int initialTop = root.getPaddingTop();
+        final int initialRight = root.getPaddingRight();
+        final int initialBottom = root.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
+            Insets bars = systemBarInsets(insets);
+            view.setPadding(initialLeft + bars.left, initialTop + topInset(view, insets),
+                    initialRight + bars.right, initialBottom + bottomInset(insets));
+            return insets;
+        });
+        ViewCompat.requestApplyInsets(root);
+    }
+
+    /**
      * 声明该页面自行处理系统栏（例如沉浸式头图），安装全应用适配时不再兜底。
      */
     public static void markImmersive(@NonNull View root) {

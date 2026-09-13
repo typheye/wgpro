@@ -14,14 +14,18 @@ public final class CloudCacheDatabase extends SQLiteOpenHelper {
     private static final String DB_NAME = "cloud_cache.db";
 
     public CloudCacheDatabase(@NonNull Context context) {
-        super(context.getApplicationContext(), DB_NAME, null, 1);
+        super(context.getApplicationContext(), DB_NAME, null, 2);
     }
 
     @Override public void onCreate(SQLiteDatabase db) {
         db.execSQL("CREATE TABLE responses(cache_key TEXT PRIMARY KEY, payload TEXT NOT NULL, updated_at INTEGER NOT NULL)");
     }
 
-    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) { }
+    @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // 2：服务端标识改为 md5，旧缓存（数字 id）全部作废重建
+        db.execSQL("DROP TABLE IF EXISTS responses");
+        onCreate(db);
+    }
 
     public void put(@NonNull String key, @NonNull String payload) {
         ContentValues values = new ContentValues();
