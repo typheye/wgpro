@@ -40,7 +40,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="举报对象"
-                        android:textColor="@color/brand_primary"
+                        android:textColor="?attr/colorPrimary"
                         android:textSize="12sp"
                         android:textStyle="bold" />
                     <TextView
@@ -72,7 +72,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:clipToOutline="true"
-                app:cardBackgroundColor="@color/surface_primary"
+                app:cardBackgroundColor="@color/surface_secondary"
                 app:cardCornerRadius="18dp"
                 app:strokeWidth="0dp">
                 <LinearLayout
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:clipToOutline="true"
-                app:cardBackgroundColor="@color/surface_primary"
+                app:cardBackgroundColor="@color/surface_secondary"
                 app:cardCornerRadius="12dp"
                 app:strokeWidth="0dp">
                 <LinearLayout
@@ -204,7 +204,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:backgroundTint="@color/brand_primary"
+        app:backgroundTint="?attr/colorPrimary"
         app:cornerRadius="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

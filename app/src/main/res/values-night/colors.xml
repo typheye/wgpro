@@ -4,16 +4,19 @@
     <color name="brand_primary">#FF8EA2FF</color>
     <color name="brand_soft">#FF252D51</color>
     <color name="brand_on_soft">#FFBCC7FF</color>
-    <color name="surface_page">#FF0E1014</color>
-    <color name="surface_primary">#FF17191E</color>
-    <color name="surface_secondary">#FF202329</color>
+    <!-- 一段式配色：页面背景与应用栏/导航栏一致（OLED 纯黑） -->
+    <color name="surface_page">@color/surface_primary</color>
+    <color name="surface_primary">#FF000000</color>
+    <!-- 应用栏/导航栏毛玻璃底色（内容从下方透出） -->
+    <color name="surface_bar">#B3000000</color>
+    <color name="surface_secondary">#FF1C1C1C</color>
     <color name="web_progress_track">#FF3C4049</color>
-    <color name="surface_elevated">#FF24272E</color>
+    <color name="surface_elevated">#FF1C1C1C</color>
     <color name="profile_detail_sheet">@color/surface_page</color>
     <color name="profile_detail_segments">@color/surface_secondary</color>
     <color name="profile_card_pressed">#FF292D35</color>
     <color name="profile_button_transparent">#66FFFFFF</color>
-    <color name="profile_loading_overlay">#E60E1014</color>
+    <color name="profile_loading_overlay">#E6000000</color>
     <color name="outline_soft">#FF30343C</color>
     <color name="text_primary">#FFF2F3F5</color>
     <color name="text_secondary">#FFADB2BC</color>
@@ -23,6 +26,10 @@
     <color name="status_warning">#FFF0AE5D</color>
     <color name="status_warning_soft">#FF49331C</color>
     <color name="status_danger">#FFFF8585</color>
+    <!-- 编辑常用功能：删除区（淡红底 + 红虚线轮廓） -->
+    <color name="status_danger_soft">#17D84A4A</color>
+    <color name="status_danger_soft_active">#38D84A4A</color>
+    <color name="status_danger_muted">#FFBE7373</color>
     <color name="banner_blue">#FF3048A6</color>
     <color name="banner_green">#FF076858</color>
     <color name="banner_coral">#FF963D4D</color>

@@ -24,8 +24,9 @@ public final class TestActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_test);
-        // 内容区自己预留底部导航栏高度，滚动内容可以延伸到导航条区域。
-        SystemBars.applyAppBarInsets(findViewById(R.id.test_app_bar), null);
+        // 整页固定 chrome 背景（状态栏区域不随滚动变色），底部安全区交给滚动内容。
+        SystemBars.applyScreenInsets(findViewById(R.id.test_root), null,
+                getColor(R.color.surface_primary), getColor(R.color.surface_page));
         SystemBars.reserveBottomInsetForScroll(findViewById(R.id.test_content));
         Toolbar toolbar = findViewById(R.id.test_toolbar);
         toolbar.setNavigationIcon(com.typheye.wgpro.R.drawable.ic_back_vector);

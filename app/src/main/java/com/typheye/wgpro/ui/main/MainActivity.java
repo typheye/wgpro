@@ -12,10 +12,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.ViewCompat;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
@@ -41,6 +43,7 @@ import com.typheye.wgpro.ui.main.mainFragments.DashboardFragment;
 import com.typheye.wgpro.ui.main.mainFragments.DeviceFragment;
 import com.typheye.wgpro.ui.main.mainFragments.HomeFragment;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.BarBlurController;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.xiaomi.xms.wearable.auth.AuthApi;
 import com.xiaomi.xms.wearable.message.MessageApi;
@@ -65,10 +68,12 @@ public class MainActivity extends AppCompatActivity {
 
     private Toolbar toolbar;
     private ViewPager2 mainPager;
+    private BottomNavigationView bottomNavigation;
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
     private DeviceFragment deviceFragment;
     private AccountFragment accountFragment;
+    private BarBlurController barBlurController;
 
     /** 兼容镜像：CoreService 的 DeviceEngine 持有真实状态，并持续更新这个引用。 */
     public static UIParams current_params = new UIParams();
@@ -129,9 +134,31 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
-        BottomNavigationView bottomNavigation = findViewById(R.id.bottom_navigation);
+        bottomNavigation = findViewById(R.id.bottom_navigation);
         mainPager = findViewById(R.id.fragment_container);
         AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout), bottomNavigation);
+
+        // 内容铺满整屏：给每页滚动容器补上应用栏/导航栏高度的内边距，
+        // 初始不遮挡、滚动时内容从毛玻璃栏下方穿过
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.container),
+                (view, insets) -> {
+                    view.post(this::applyContentBarInsets);
+                    return insets;
+                });
+        bottomNavigation.post(this::applyContentBarInsets);
+
+        // 应用栏 / 导航栏毛玻璃背景（快照整个 ViewPager，稳定可渲染版本）
+        barBlurController = BarBlurController.install(this, mainPager,
+                findViewById(R.id.blur_backdrop_top),
+                findViewById(R.id.blur_backdrop_bottom));
+
+        // 布局稳定后反复校准：每页的栏高度内边距 + 毛玻璃快照
+        mainPager.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            mainPager.post(() -> {
+                applyContentBarInsets();
+                if (barBlurController != null) barBlurController.scheduleUpdate();
+            });
+        });
 
         setSupportActionBar(toolbar);
 
@@ -186,6 +213,10 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigation.setSelectedItemId(id);
                 toolbar.setTitle(new String[]{getString(R.string.app_name), "发现", "设备", "我的"}[position]);
                 invalidateOptionsMenu();
+                mainPager.post(MainActivity.this::applyContentBarInsets);
+                // 翻页动画结束后再校准一次，保证新页面的毛玻璃与内边距正确
+                mainPager.postDelayed(MainActivity.this::applyContentBarInsets, 350L);
+                if (barBlurController != null) barBlurController.scheduleUpdate();
             }
         });
 
@@ -500,12 +531,14 @@ public class MainActivity extends AppCompatActivity {
         MenuItem settings = menu.findItem(R.id.action_settings);
         MenuItem deviceAdd = menu.findItem(R.id.action_device_add);
         MenuItem dashboardEdit = menu.findItem(R.id.action_dashboard_edit);
+        MenuItem dashboardAdd = menu.findItem(R.id.action_dashboard_add);
         if (notification != null) notification.setVisible(home);
         if (compose != null) compose.setVisible(home);
         if (scan != null) scan.setVisible(account && accountLoggedIn);
         if (settings != null) settings.setVisible(account);
         if (deviceAdd != null) deviceAdd.setVisible(selectedPage == R.id.nav_device);
         if (dashboardEdit != null) dashboardEdit.setVisible(selectedPage == R.id.nav_dashboard);
+        if (dashboardAdd != null) dashboardAdd.setVisible(selectedPage == R.id.nav_dashboard);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -525,8 +558,33 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        ViewCompat.requestApplyInsets(findViewById(R.id.app_bar_layout));
-        ViewCompat.requestApplyInsets(findViewById(R.id.bottom_navigation));
+        ViewCompat.requestApplyInsets(findViewById(R.id.container));
+        mainPager.post(this::applyContentBarInsets);
+        if (barBlurController != null) barBlurController.scheduleUpdate();
+    }
+
+    /**
+     * 给四个页面补上应用栏 / 底部导航高度的内边距：
+     * 滚动页直接给滚动容器加（内容可以延伸到毛玻璃栏下方）；容器页给根视图加，
+     * 保证首屏内容不被栏遮挡。
+     */
+    private void applyContentBarInsets() {
+        int top = findViewById(R.id.app_bar_layout).getHeight();
+        int bottom = bottomNavigation.getHeight();
+        if (top == 0 || bottom == 0) return;
+        String[] tags = {"f0", "f1", "f2", "f3"};
+        for (String tag : tags) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
+            if (fragment == null || fragment.getView() == null) continue;
+            View root = fragment.getView();
+            if (root instanceof NestedScrollView) {
+                NestedScrollView scroll = (NestedScrollView) root;
+                scroll.setClipToPadding(false);
+                scroll.setPadding(scroll.getPaddingLeft(), top, scroll.getPaddingRight(), bottom);
+            } else {
+                root.setPadding(root.getPaddingLeft(), top, root.getPaddingRight(), bottom);
+            }
+        }
     }
 
     @Override
@@ -554,11 +612,15 @@ public class MainActivity extends AppCompatActivity {
             startActivity(new Intent(this, com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));
             return true;
         } else if (id == R.id.action_dashboard_edit) {
-            Fragment restored = getSupportFragmentManager().findFragmentByTag("f1");
-            DashboardFragment target = restored instanceof DashboardFragment
-                    ? (DashboardFragment) restored : dashboardFragment;
+            DashboardFragment target = dashboardTarget();
             if (target != null && target.isAdded()) {
                 target.showEditor();
+            }
+            return true;
+        } else if (id == R.id.action_dashboard_add) {
+            DashboardFragment target = dashboardTarget();
+            if (target != null && target.isAdded()) {
+                target.showAddSheet();
             }
             return true;
         }
@@ -570,5 +632,13 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /** 发现页 Fragment 在 ViewPager2 里的 tag 是 f1，Activity 重建后按 tag 找。 */
+    @Nullable
+    private DashboardFragment dashboardTarget() {
+        Fragment restored = getSupportFragmentManager().findFragmentByTag("f1");
+        if (restored instanceof DashboardFragment) return (DashboardFragment) restored;
+        return dashboardFragment;
     }
 }

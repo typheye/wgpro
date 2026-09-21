@@ -8,7 +8,7 @@
             android:layout_width="match_parent" android:layout_height="52dp"
             android:layout_marginStart="16dp" android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp" android:layout_marginBottom="6dp"
-            android:visibility="gone" app:cardBackgroundColor="@color/surface_primary"
+            android:visibility="gone" app:cardBackgroundColor="@color/surface_secondary"
             app:cardCornerRadius="8dp" app:cardElevation="0dp" app:contentPadding="0dp" app:strokeWidth="0dp">
             <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/history_segments"
                 android:layout_width="match_parent" android:layout_height="match_parent"

@@ -61,7 +61,7 @@ public final class DynamicCardFactory {
     public static View create(Context context, JSONObject item, @Nullable View.OnClickListener click) {
         int pad = dp(context, 14);
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_primary));
+        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
         card.setClickable(true); card.setFocusable(true);
         card.setRippleColor(android.content.res.ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(context, 8));
@@ -139,7 +139,7 @@ public final class DynamicCardFactory {
 
     public static View createUnavailable(Context context, JSONObject item, @Nullable View.OnClickListener remove) {
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_primary));
+        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(context, 8));
         LinearLayout body = new LinearLayout(context); body.setOrientation(LinearLayout.VERTICAL);
         body.setPadding(dp(context, 14), dp(context, 14), dp(context, 14), dp(context, 12));

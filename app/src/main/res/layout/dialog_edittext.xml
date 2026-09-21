@@ -15,7 +15,7 @@
         android:layout_height="wrap_content"
         android:hint="请输入内容"
         android:textColorHint="@color/text_secondary"
-        app:boxStrokeColor="@color/brand_primary"
+        app:boxStrokeColor="?attr/colorPrimary"
         app:hintTextColor="@color/text_secondary"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

@@ -53,7 +53,7 @@ public final class ResourceMasonryFactory {
 
     private static MaterialCardView card(Context context, JSONObject item, OnResourceClick listener, OnResourceMenu menuListener) {
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_primary)); card.setCardElevation(0);
+        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary)); card.setCardElevation(0);
         card.setStrokeWidth(0); card.setRadius(dp(context, 8)); card.setClickable(true); card.setFocusable(true);
         card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
         LinearLayout body = column(context); boolean invalid = item.optBoolean("_invalid", false);

@@ -23,6 +23,10 @@ public class tApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        // Android 12+ 跟随系统壁纸取色（莫奈）；主题属性仍保留静态色作为低版本回退。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            com.google.android.material.color.DynamicColors.applyToActivitiesIfAvailable(this);
+        }
         boolean followSystem = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean("theme_follow_system", true);
         boolean darkMode = PreferenceManager.getDefaultSharedPreferences(this)

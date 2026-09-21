@@ -15,7 +15,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/bg_app_initial_rounded"
                     android:gravity="center"
-                    android:textColor="@color/brand_primary"
+                    android:textColor="?attr/colorPrimary"
                     android:textSize="26sp"
                     android:textStyle="bold" />
                 <ImageView android:id="@+id/app_detail_icon" android:layout_width="match_parent"
@@ -29,7 +29,7 @@
                     android:textSize="25sp" android:textStyle="bold" />
                 <TextView android:id="@+id/app_detail_author" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="5dp" android:ellipsize="end" android:maxLines="1"
-                    android:textColor="@color/brand_primary" android:textSize="16sp" />
+                    android:textColor="?attr/colorPrimary" android:textSize="16sp" />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="4dp" android:text="包含应用内服务"
                     android:textColor="@color/text_secondary" android:textSize="13sp" />

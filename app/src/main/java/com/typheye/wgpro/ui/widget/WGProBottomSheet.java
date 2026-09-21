@@ -32,20 +32,29 @@ public final class WGProBottomSheet {
         content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(context, 24), dp(context, 26), dp(context, 24), dp(context, 12));
         GradientDrawable background = new GradientDrawable();
-        background.setColor(context.getColor(R.color.surface_elevated));
+        // 深色模式跟随莫奈取色：surfaceContainerHigh；浅色模式保持页面白
+        boolean night = (context.getResources().getConfiguration().uiMode
+                & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
+                == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        background.setColor(night
+                ? WGProAlertDialogBuilder.resolveThemeColor(
+                        context, "colorSurfaceContainerHigh", R.color.surface_elevated)
+                : context.getColor(R.color.surface_primary));
         background.setCornerRadii(new float[]{dp(context, 28), dp(context, 28), dp(context, 28), dp(context, 28), 0, 0, 0, 0});
         content.setBackground(background);
 
         TextView heading = new TextView(context);
         heading.setText(title);
-        heading.setTextColor(context.getColor(R.color.text_primary));
+        heading.setTextColor(WGProAlertDialogBuilder.resolveThemeColor(
+                context, "colorOnSurface", R.color.text_primary));
         heading.setTextSize(24);
         heading.setTypeface(null, android.graphics.Typeface.BOLD);
         content.addView(heading, new LinearLayout.LayoutParams(-1, -2));
 
         TextView body = new TextView(context);
         body.setText(message);
-        body.setTextColor(context.getColor(R.color.text_secondary));
+        body.setTextColor(WGProAlertDialogBuilder.resolveThemeColor(
+                context, "colorOnSurfaceVariant", R.color.text_secondary));
         body.setTextSize(16);
         body.setLineSpacing(dp(context, 3), 1f);
         LinearLayout.LayoutParams bodyParams = new LinearLayout.LayoutParams(-1, -2);
@@ -54,7 +63,8 @@ public final class WGProBottomSheet {
 
         MaterialButton action = new MaterialButton(context, null, com.google.android.material.R.attr.materialButtonOutlinedStyle);
         action.setText(positive);
-        action.setTextColor(ColorStateList.valueOf(context.getColor(R.color.brand_primary)));
+        action.setTextColor(ColorStateList.valueOf(WGProAlertDialogBuilder.resolveThemeColor(
+                context, "colorPrimary", R.color.brand_primary)));
         action.setOnClickListener(v -> {
             if (listener != null) listener.onClick(v);
             dialog.dismiss();

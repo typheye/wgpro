@@ -918,7 +918,7 @@ public class CloudListFragment extends Fragment {
         }
         if ("system_messages".equals(item.optString("_kind"))) return createSystemMessageRow(item);
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
+        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
         card.setStrokeWidth(0); card.setCardElevation(0); card.setRadius(dp(8));
         card.setClickable(true); card.setFocusable(true);
         card.setRippleColor(ColorStateList.valueOf(requireContext().getColor(R.color.brand_soft)));
@@ -1011,7 +1011,7 @@ public class CloudListFragment extends Fragment {
     private View createCatalogRow(JSONObject item, boolean app) {
         if (app) return AppListItemFactory.create(requireContext(), item, v -> showCatalogActions(item, true, v));
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
+        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(8));
         card.setClickable(true); card.setFocusable(true);
         card.setRippleColor(ColorStateList.valueOf(requireContext().getColor(R.color.brand_soft)));

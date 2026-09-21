@@ -162,7 +162,7 @@ public final class DynamicDetailFragment extends Fragment {
         right.addView(author);
         MaterialCardView bubble = new MaterialCardView(requireContext()); bubble.setRadius(dp(12));
         bubble.setCardElevation(0); bubble.setStrokeWidth(0);
-        bubble.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
+        bubble.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
         LinearLayout content = new LinearLayout(requireContext()); content.setOrientation(LinearLayout.VERTICAL);
         content.setPadding(dp(13), dp(10), dp(13), dp(9));
         content.addView(text(item.optString("content"), 15, false, R.color.text_primary)); bubble.addView(content);

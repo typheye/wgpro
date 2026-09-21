@@ -16,7 +16,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/community_banner_mask"
                 android:layout_width="match_parent" android:layout_height="148dp"
-                android:clipToOutline="true" app:cardBackgroundColor="@color/surface_primary"
+                android:clipToOutline="true" app:cardBackgroundColor="@color/surface_secondary"
                 app:cardCornerRadius="8dp" app:cardElevation="0dp"
                 app:contentPadding="0dp" app:strokeWidth="0dp">
                 <com.typheye.wgpro.ui.widget.NestedScrollableHost

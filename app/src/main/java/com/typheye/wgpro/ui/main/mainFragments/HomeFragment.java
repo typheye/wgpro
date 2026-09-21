@@ -574,7 +574,7 @@ public class HomeFragment extends Fragment {
 
     private MaterialCardView card() {
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(color(R.color.surface_primary));
+        card.setCardBackgroundColor(color(R.color.surface_secondary));
         card.setCardElevation(0);
         card.setStrokeWidth(0);
         card.setRadius(dp(8));

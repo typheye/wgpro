@@ -233,7 +233,7 @@ public class SystemMessageDetailFragment extends Fragment {
 
     private View messageCard(JSONObject item) {
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_primary));
+        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
         card.setRadius(dp(16));
         card.setCardElevation(0f);
         card.setStrokeWidth(0);

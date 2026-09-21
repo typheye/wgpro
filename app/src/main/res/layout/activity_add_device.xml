@@ -80,7 +80,7 @@
                         android:layout_width="34dp"
                         android:layout_height="34dp"
                         android:indeterminate="true"
-                        app:indicatorColor="@color/brand_primary"
+                        app:indicatorColor="?attr/colorPrimary"
                         app:trackColor="@color/brand_soft" />
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_rescan"

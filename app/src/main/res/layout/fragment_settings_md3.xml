@@ -22,7 +22,7 @@
             android:layout_marginStart="12dp"
             android:layout_marginBottom="8dp"
             android:text="通用"
-            android:textColor="@color/brand_primary" />
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.card.MaterialCardView android:id="@+id/card_predictive_back" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
@@ -63,7 +63,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="应用"
-            android:textColor="@color/brand_primary" />
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.card.MaterialCardView
             style="@style/Widget.WGPro.Card"
@@ -121,7 +121,7 @@
             android:layout_marginTop="24dp"
             android:layout_marginBottom="8dp"
             android:text="法律信息"
-            android:textColor="@color/brand_primary" />
+            android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
@@ -145,7 +145,7 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/label_account" style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="账户" android:textColor="@color/brand_primary" />
+        <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/label_account" style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="账户" android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.card.MaterialCardView android:id="@+id/card_logout" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:id="@+id/row_logout" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
@@ -158,12 +158,12 @@
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
-        <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="高级" android:textColor="@color/brand_primary" />
+        <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="高级" android:textColor="?attr/colorPrimary" />
 
         <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <LinearLayout android:id="@+id/row_notification_settings" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_notifications_vector" android:tint="@color/brand_primary" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_notifications_vector" android:tint="?attr/colorPrimary" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="通知设置" android:textColor="@color/text_primary" />
                         <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="消息横幅、后台运行通知与免打扰" android:textColor="@color/text_secondary" />
@@ -190,7 +190,7 @@
                 </LinearLayout>
                 <View android:id="@+id/divider_debug" android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" android:visibility="gone" />
                 <LinearLayout android:id="@+id/row_debug" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp" android:visibility="gone">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_bug_vector" android:tint="@color/brand_primary" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_bug_vector" android:tint="?attr/colorPrimary" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="调试" android:textColor="@color/text_primary" />
                         <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="开发模式已启用" android:textColor="@color/text_secondary" />

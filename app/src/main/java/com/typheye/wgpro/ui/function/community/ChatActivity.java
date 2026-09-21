@@ -379,7 +379,7 @@ public class ChatActivity extends BaseSectionActivity {
             }
             MaterialCardView card = new MaterialCardView(requireContext()); card.setRadius(dp(18));
             card.setStrokeWidth(0); card.setCardElevation(0);
-            card.setCardBackgroundColor(requireContext().getColor(mine ? R.color.brand_soft : R.color.surface_primary));
+            card.setCardBackgroundColor(requireContext().getColor(mine ? R.color.brand_soft : R.color.surface_secondary));
             TextView text = stateText(item.optString("content", "")); text.setTextColor(requireContext().getColor(R.color.text_primary));
             text.setPadding(dp(14), dp(10), dp(14), dp(10)); card.addView(text);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-2, -2); p.gravity = mine ? Gravity.END : Gravity.START;

@@ -98,7 +98,7 @@ public final class WGProAlertDialogBuilder {
             return insets;
         });
         if (title != null && title.length() > 0) {
-            TextView heading = text(title, 24, R.color.text_primary);
+            TextView heading = text(title, 24, "colorOnSurface", R.color.text_primary);
             heading.setTypeface(null, Typeface.BOLD);
             fixedTitle = heading;
             panel.addView(heading, new ViewGroup.LayoutParams(-1, -2));
@@ -111,7 +111,7 @@ public final class WGProAlertDialogBuilder {
         scrollingContent = new LinearLayout(context);
         scrollingContent.setOrientation(LinearLayout.VERTICAL);
         if (message != null && message.length() > 0) {
-            TextView body = text(message, 16, R.color.text_secondary);
+            TextView body = text(message, 16, "colorOnSurfaceVariant", R.color.text_secondary);
             body.setLineSpacing(dp(3), 1f);
             scrollingContent.addView(body, params(-1, -2, 0));
         }
@@ -127,7 +127,9 @@ public final class WGProAlertDialogBuilder {
             group.setStrokeWidth(0);
             group.setUseCompatPadding(false);
             group.setPreventCornerOverlap(false);
-            group.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
+            // 分组列表背景：浅色用 surface_secondary（与设置页一致）；
+            // 深色弹窗表面是莫奈容器色，分组卡用高一档容器色适配
+            group.setCardBackgroundColor(dialogCardColor());
             group.setClipToOutline(true);
 
             LinearLayout list = new LinearLayout(context);
@@ -142,13 +144,14 @@ public final class WGProAlertDialogBuilder {
                 row.setFocusable(true);
                 row.setBackground(menuRipple());
 
-                TextView label = text(items[i], 17, R.color.text_primary);
+                TextView label = text(items[i], 17, "colorOnSurface", R.color.text_primary);
                 label.setTypeface(null, Typeface.BOLD);
                 row.addView(label, new LinearLayout.LayoutParams(0, -2, 1f));
 
                 ImageView arrow = new ImageView(context);
                 arrow.setImageResource(R.drawable.ic_chevron_right_vector);
-                arrow.setImageTintList(ColorStateList.valueOf(context.getColor(R.color.text_tertiary)));
+                arrow.setImageTintList(ColorStateList.valueOf(themeColor(
+                        "colorOnSurfaceVariant", R.color.text_tertiary)));
                 arrow.setContentDescription(null);
                 row.addView(arrow, new LinearLayout.LayoutParams(dp(22), dp(22)));
 
@@ -161,7 +164,8 @@ public final class WGProAlertDialogBuilder {
 
                 if (i < items.length - 1) {
                     View divider = new View(context);
-                    divider.setBackgroundColor(context.getColor(R.color.outline_soft));
+                    divider.setBackgroundColor(themeColor(
+                            "colorOutlineVariant", R.color.outline_soft));
                     list.addView(divider, new LinearLayout.LayoutParams(-1, dp(1)));
                 }
             }
@@ -204,12 +208,17 @@ public final class WGProAlertDialogBuilder {
         button.setInsetBottom(0);
         button.setCornerRadius(dp(12));
         button.setStrokeWidth(0);
-        button.setTextColor(ColorStateList.valueOf(context.getColor(
-                primary ? R.color.white : R.color.text_primary)));
-        button.setBackgroundTintList(ColorStateList.valueOf(context.getColor(
-                primary ? R.color.brand_primary : R.color.surface_secondary)));
+        // 强调/非强调按钮都走主题色（莫奈动态取色）
+        int backgroundColor = primary
+                ? themeColor("colorPrimary", R.color.brand_primary)
+                : themeColor("colorSecondaryContainer", R.color.surface_secondary);
+        int foregroundColor = primary
+                ? themeColor("colorOnPrimary", R.color.white)
+                : themeColor("colorOnSecondaryContainer", R.color.text_primary);
+        button.setTextColor(ColorStateList.valueOf(foregroundColor));
+        button.setBackgroundTintList(ColorStateList.valueOf(backgroundColor));
         button.setRippleColor(ColorStateList.valueOf(androidx.core.graphics.ColorUtils.setAlphaComponent(
-                context.getColor(primary ? R.color.white : R.color.brand_primary), primary ? 46 : 28)));
+                foregroundColor, primary ? 46 : 28)));
         button.setOnClickListener(v -> {
             if (!dialog.tryConsumeAction()) return;
             if (listener != null) listener.onClick(dialog, which);
@@ -235,6 +244,8 @@ public final class WGProAlertDialogBuilder {
         window.setDimAmount(0.68f);
         View sheet = dialog.findViewById(com.google.android.material.R.id.design_bottom_sheet);
         if (sheet != null) {
+            // 交给自定义面板绘制表面，去掉 BottomSheet 默认底色避免圆角外露色差
+            sheet.setBackgroundColor(Color.TRANSPARENT);
             SystemBars.ownSheetInsets(sheet);
             BottomSheetBehavior<View> behavior = BottomSheetBehavior.from(sheet);
             behavior.setSkipCollapsed(true);
@@ -248,7 +259,15 @@ public final class WGProAlertDialogBuilder {
 
     private GradientDrawable sheetSurfaceDrawable() {
         GradientDrawable background = new GradientDrawable();
-        background.setColor(context.getColor(R.color.surface_elevated));
+        // 深色模式跟随莫奈取色：surfaceContainerHigh（带壁纸色调的深灰），不再是纯黑/中性灰；
+        // 浅色模式保持页面白
+        boolean night = (context.getResources().getConfiguration().uiMode
+                & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
+                == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        int color = night
+                ? resolveThemeColor(context, "colorSurfaceContainerHigh", R.color.surface_elevated)
+                : context.getColor(R.color.surface_primary);
+        background.setColor(color);
         float radius = dp(28);
         background.setCornerRadii(new float[]{radius, radius, radius, radius, 0, 0, 0, 0});
         return background;
@@ -353,12 +372,47 @@ public final class WGProAlertDialogBuilder {
         }
     }
 
-    private TextView text(CharSequence value, int size, int color) {
+    /** 优先取主题属性（莫奈动态色），属性缺失时回退到静态色。 */
+    private TextView text(CharSequence value, int size, String colorAttr, int fallbackColorRes) {
         TextView view = new TextView(context);
         view.setText(value);
         view.setTextSize(size);
-        view.setTextColor(context.getColor(color));
+        view.setTextColor(themeColor(colorAttr, fallbackColorRes));
         return view;
+    }
+
+    private int themeColor(String attrName, int fallbackColorRes) {
+        return resolveThemeColor(context, attrName, fallbackColorRes);
+    }
+
+    /** 深色模式下弹窗表面跟随莫奈取色，弹窗内分组卡用高一档的容器色适配。 */
+    private int dialogCardColor() {
+        boolean night = (context.getResources().getConfiguration().uiMode
+                & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
+                == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        if (!night) return context.getColor(R.color.surface_secondary);
+        return resolveThemeColor(context, "colorSurfaceContainerHighest",
+                R.color.surface_secondary);
+    }
+
+    /** 按属性名解析主题色（莫奈动态色），解析不到时回退静态色。 */
+    public static int resolveThemeColor(Context context, String attrName, int fallbackColorRes) {
+        try {
+            int attrId = context.getResources()
+                    .getIdentifier(attrName, "attr", context.getPackageName());
+            if (attrId != 0) {
+                android.util.TypedValue value = new android.util.TypedValue();
+                if (context.getTheme().resolveAttribute(attrId, value, true)) {
+                    if (value.resourceId != 0) return context.getColor(value.resourceId);
+                    if (value.type >= android.util.TypedValue.TYPE_FIRST_COLOR_INT
+                            && value.type <= android.util.TypedValue.TYPE_LAST_COLOR_INT) {
+                        return value.data;
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return context.getColor(fallbackColorRes);
     }
     private LinearLayout.LayoutParams params(int width, int height, int top) {
         LinearLayout.LayoutParams value = new LinearLayout.LayoutParams(width, height);
@@ -367,7 +421,7 @@ public final class WGProAlertDialogBuilder {
     }
     private RippleDrawable menuRipple() {
         int ripple = androidx.core.graphics.ColorUtils.setAlphaComponent(
-                context.getColor(R.color.brand_primary), 28);
+                themeColor("colorPrimary", R.color.brand_primary), 28);
         return new RippleDrawable(
                 ColorStateList.valueOf(ripple),
                 new ColorDrawable(Color.TRANSPARENT),
