@@ -159,7 +159,6 @@ public class DashboardFragment extends Fragment {
         WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
                 .setTitle("添加功能")
                 .setView(group)
-                .setNegativeButton("关闭", null)
                 .create();
         shown[0] = dialog;
         dialog.show();
@@ -488,7 +487,6 @@ public class DashboardFragment extends Fragment {
                     if (which == 0) addToFavorites(item);
                     else removeFromList(item);
                 })
-                .setNegativeButton("关闭", null)
                 .show();
     }
 
