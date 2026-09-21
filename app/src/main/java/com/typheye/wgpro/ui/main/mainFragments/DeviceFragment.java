@@ -23,7 +23,6 @@ import androidx.viewpager2.widget.ViewPager2;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.core.widget.NestedScrollView;
 
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.typheye.wgpro.R;
@@ -120,7 +119,6 @@ public class DeviceFragment extends Fragment {
     }
 
     private void setupPages(View root) {
-        MaterialButtonToggleGroup segments = root.findViewById(R.id.device_segments);
         ViewPager2 pager = root.findViewById(R.id.device_pager);
         FrameLayout pool = root.findViewById(R.id.device_page_pool);
         List<View> pages = Arrays.asList(root.findViewById(R.id.device_page_wearable),
@@ -128,24 +126,6 @@ public class DeviceFragment extends Fragment {
         for (View page : pages) pool.removeView(page);
         pager.setAdapter(new LocalPageAdapter(pages));
         pager.setOffscreenPageLimit(1);
-        int[] segmentIds = {R.id.device_segment_wearable, R.id.device_segment_other};
-        segments.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (!isChecked) return;
-            for (int index = 0; index < segmentIds.length; index++) {
-                if (segmentIds[index] == checkedId && pager.getCurrentItem() != index) {
-                    pager.setCurrentItem(index, true);
-                    break;
-                }
-            }
-        });
-        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                if (position >= 0 && position < segmentIds.length
-                        && segments.getCheckedButtonId() != segmentIds[position]) {
-                    segments.check(segmentIds[position]);
-                }
-            }
-        });
     }
 
     @Override public void onResume() {

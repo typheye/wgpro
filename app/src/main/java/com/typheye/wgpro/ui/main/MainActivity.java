@@ -10,6 +10,7 @@ import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,12 +21,15 @@ import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.preference.PreferenceManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.badge.BadgeDrawable;
 import com.google.android.material.badge.BadgeUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.tabs.TabLayout;
+import com.google.android.material.tabs.TabLayoutMediator;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.core.CoreApi;
 import com.typheye.wgpro.core.CoreService;
@@ -64,11 +68,17 @@ public class MainActivity extends AppCompatActivity {
 
     public static final String EXTRA_LOGIN_GRANT_REQUEST_ID = "login_grant_request_id";
     private static final String KEY_SELECTED_ITEM = "selected_bottom_nav_item";
+    private static final String[] HOME_TAB_TITLES = {"动态", "应用", "资源"};
+    private static final String[] DEVICE_TAB_TITLES = {"穿戴设备", "其他设备"};
     private static final long FOREGROUND_REFRESH_MIN_INTERVAL_MS = 5_000L;
 
     private Toolbar toolbar;
     private ViewPager2 mainPager;
     private BottomNavigationView bottomNavigation;
+    private TabLayout pageTabs;
+    private TabLayoutMediator pageTabsMediator;
+    private ViewPager2 boundTabsPager;
+    private final java.util.WeakHashMap<View, Integer> refreshOffsets = new java.util.WeakHashMap<>();
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
     private DeviceFragment deviceFragment;
@@ -134,6 +144,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        pageTabs = findViewById(R.id.page_tabs);
         bottomNavigation = findViewById(R.id.bottom_navigation);
         mainPager = findViewById(R.id.fragment_container);
         AppUtils.applyMainWindowInsets(findViewById(R.id.app_bar_layout), bottomNavigation);
@@ -155,6 +166,10 @@ public class MainActivity extends AppCompatActivity {
         // 布局稳定后反复校准：每页的栏高度内边距 + 毛玻璃快照
         mainPager.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             mainPager.post(() -> {
+                int current = mainPager.getCurrentItem();
+                if (pageTabsMediator == null && (current == 0 || current == 2)) {
+                    bindPageTabs(current);
+                }
                 applyContentBarInsets();
                 if (barBlurController != null) barBlurController.scheduleUpdate();
             });
@@ -213,12 +228,14 @@ public class MainActivity extends AppCompatActivity {
                 bottomNavigation.setSelectedItemId(id);
                 toolbar.setTitle(new String[]{getString(R.string.app_name), "发现", "设备", "我的"}[position]);
                 invalidateOptionsMenu();
+                mainPager.post(() -> bindPageTabs(position));
                 mainPager.post(MainActivity.this::applyContentBarInsets);
                 // 翻页动画结束后再校准一次，保证新页面的毛玻璃与内边距正确
                 mainPager.postDelayed(MainActivity.this::applyContentBarInsets, 350L);
                 if (barBlurController != null) barBlurController.scheduleUpdate();
             }
         });
+        mainPager.post(() -> bindPageTabs(mainPager.getCurrentItem()));
 
         rootBackCallback = new OnBackPressedCallback(true) {
             @Override
@@ -565,8 +582,8 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 给四个页面补上应用栏 / 底部导航高度的内边距：
-     * 滚动页直接给滚动容器加（内容可以延伸到毛玻璃栏下方）；容器页给根视图加，
-     * 保证首屏内容不被栏遮挡。
+     * 滚动页直接给滚动容器加；容器页（首页/设备）根视图不加，只给内部列表补上下留白，
+     * 让列表从应用栏（含标签页）和底部导航栏的毛玻璃下方穿过。
      */
     private void applyContentBarInsets() {
         int top = findViewById(R.id.app_bar_layout).getHeight();
@@ -582,9 +599,71 @@ public class MainActivity extends AppCompatActivity {
                 scroll.setClipToPadding(false);
                 scroll.setPadding(scroll.getPaddingLeft(), top, scroll.getPaddingRight(), bottom);
             } else {
-                root.setPadding(root.getPaddingLeft(), top, root.getPaddingRight(), bottom);
+                root.setPadding(root.getPaddingLeft(), 0, root.getPaddingRight(), 0);
+                applyInnerScrollInsets(root, top, bottom);
             }
         }
+    }
+
+    /** 容器页里的列表：上下留白加在滚动容器上，内容可从毛玻璃栏下方穿过。 */
+    private void applyInnerScrollInsets(View view, int top, int bottom) {
+        if (view instanceof SwipeRefreshLayout) {
+            // setProgressViewOffset 会隐藏/显示转圈视图，重复调用会触发布局循环并打断下拉手势，
+            // 所以只在应用栏高度变化时设置一次
+            Integer applied = refreshOffsets.get(view);
+            if (applied == null || applied != top) {
+                ((SwipeRefreshLayout) view).setProgressViewOffset(true, top, top + dp(64));
+                refreshOffsets.put(view, top);
+            }
+        }
+        if (view instanceof NestedScrollView) {
+            NestedScrollView scroll = (NestedScrollView) view;
+            scroll.setClipToPadding(false);
+            scroll.setPadding(scroll.getPaddingLeft(), top, scroll.getPaddingRight(), bottom);
+            return;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int index = 0; index < group.getChildCount(); index++) {
+                applyInnerScrollInsets(group.getChildAt(index), top, bottom);
+            }
+        }
+    }
+
+    /** 把当前页面的子标签挂到应用栏（首页：动态/应用/资源；设备：穿戴/其他设备）。 */
+    private void bindPageTabs(int position) {
+        ViewPager2 innerPager = null;
+        String[] titles = null;
+        if (position == 0 && homeFragment != null && homeFragment.getView() != null) {
+            innerPager = homeFragment.getView().findViewById(R.id.home_pager);
+            titles = HOME_TAB_TITLES;
+        } else if (position == 2 && deviceFragment != null && deviceFragment.getView() != null) {
+            innerPager = deviceFragment.getView().findViewById(R.id.device_pager);
+            titles = DEVICE_TAB_TITLES;
+        }
+        if (innerPager == null || titles == null || innerPager.getAdapter() == null) {
+            if (pageTabsMediator != null) {
+                pageTabsMediator.detach();
+                pageTabsMediator = null;
+                boundTabsPager = null;
+            }
+            pageTabs.setVisibility(View.GONE);
+            findViewById(R.id.app_bar_layout).post(this::applyContentBarInsets);
+            return;
+        }
+        if (pageTabsMediator != null && boundTabsPager == innerPager) return;
+        if (pageTabsMediator != null) pageTabsMediator.detach();
+        final String[] tabTitles = titles;
+        pageTabs.setVisibility(View.VISIBLE);
+        pageTabsMediator = new TabLayoutMediator(pageTabs, innerPager,
+                (tab, tabPosition) -> tab.setText(tabTitles[tabPosition]));
+        pageTabsMediator.attach();
+        boundTabsPager = innerPager;
+        pageTabs.post(this::applyContentBarInsets);
+    }
+
+    private int dp(int value) {
+        return Math.round(value * getResources().getDisplayMetrics().density);
     }
 
     @Override

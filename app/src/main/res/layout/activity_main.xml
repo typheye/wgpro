@@ -69,6 +69,22 @@
             app:title="@string/app_name"
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
             app:titleTextColor="@color/text_primary" />
+
+        <!-- 当前页面的下划线标签页（首页：动态/应用/资源；设备：穿戴/其他），随页面切换显隐 -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/page_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/bg_tab_indicator"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="?attr/colorPrimary"
+            app:tabTextAppearance="@style/TextAppearance.WGPro.Tab"
+            app:tabTextColor="?attr/colorOnSurfaceVariant" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView

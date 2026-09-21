@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.function.WebActivity;
@@ -102,7 +101,6 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupPages(View root) {
-        MaterialButtonToggleGroup segments = root.findViewById(R.id.home_segments);
         ViewPager2 pager = root.findViewById(R.id.home_pager);
         FrameLayout pool = root.findViewById(R.id.home_page_pool);
         List<View> pages = Arrays.asList(root.findViewById(R.id.page_community),
@@ -110,25 +108,6 @@ public class HomeFragment extends Fragment {
         for (View page : pages) pool.removeView(page);
         pager.setAdapter(new LocalPageAdapter(pages));
         pager.setOffscreenPageLimit(2);
-        int[] ids = {R.id.home_segment_community, R.id.home_segment_apps,
-                R.id.home_segment_resources};
-        segments.addOnButtonCheckedListener((group, checkedId, checked) -> {
-            if (!checked) return;
-            for (int i = 0; i < ids.length; i++) {
-                if (ids[i] == checkedId && pager.getCurrentItem() != i) {
-                    pager.setCurrentItem(i, true);
-                    break;
-                }
-            }
-        });
-        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                if (position >= 0 && position < ids.length
-                        && segments.getCheckedButtonId() != ids[position]) {
-                    segments.check(ids[position]);
-                }
-            }
-        });
     }
 
     private void bindContent(View root) {

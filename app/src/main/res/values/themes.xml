@@ -35,6 +35,11 @@
         <item name="android:textColor">@color/text_primary</item>
         <item name="android:letterSpacing">0</item>
     </style>
+    <style name="TextAppearance.WGPro.Tab" parent="TextAppearance.Material3.TitleSmall">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:letterSpacing">0</item>
+    </style>
     <style name="Widget.WGPro.Card" parent="Widget.Material3.CardView.Filled">
         <item name="cardCornerRadius">8dp</item>
         <item name="cardElevation">0dp</item>

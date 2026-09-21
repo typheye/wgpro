@@ -3,24 +3,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent" android:layout_height="match_parent"
     android:background="@color/surface_page" android:orientation="vertical">
-    <com.google.android.material.card.MaterialCardView
-        android:layout_width="match_parent" android:layout_height="52dp"
-        android:layout_marginStart="16dp" android:layout_marginTop="10dp"
-        android:layout_marginEnd="16dp" android:layout_marginBottom="6dp"
-        app:cardBackgroundColor="@color/surface_secondary" app:cardCornerRadius="8dp"
-        app:cardElevation="0dp" app:contentPadding="0dp" app:strokeWidth="0dp">
-        <com.google.android.material.button.MaterialButtonToggleGroup
-            android:id="@+id/device_segments" android:layout_width="match_parent"
-            android:layout_height="match_parent" app:checkedButton="@id/device_segment_wearable"
-            app:selectionRequired="true" app:singleSelection="true">
-            <com.google.android.material.button.MaterialButton android:id="@+id/device_segment_wearable"
-                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
-                android:layout_height="match_parent" android:layout_weight="1" android:text="穿戴设备" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/device_segment_other"
-                style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp"
-                android:layout_height="match_parent" android:layout_weight="1" android:text="其他设备" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-    </com.google.android.material.card.MaterialCardView>
     <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
         <com.typheye.wgpro.ui.widget.NestedScrollableHost
             android:layout_width="match_parent" android:layout_height="match_parent">
