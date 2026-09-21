@@ -229,8 +229,9 @@ public final class SystemBars {
     }
 
     /**
-     * 顶部状态栏 + 底部输入法：键盘弹出时整体抬高内容（等效 adjustResize）。
-     * edge-to-edge 窗口不随输入法缩放，必须根据 ime insets 自行留白。
+     * 顶部状态栏 + 输入法避让：键盘弹出时整体抬高内容（等效 adjustResize）。
+     * 底部只吃 ime insets，不吃导航栏高度——未弹键盘时网页内容照常延伸到透明的导航条后面，
+     * 与其他页面的沉浸效果保持一致。
      */
     public static void applyTopAndImeInsets(@NonNull View root) {
         markHandled(root);
@@ -240,8 +241,9 @@ public final class SystemBars {
         final int initialBottom = root.getPaddingBottom();
         ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
             Insets bars = systemBarInsets(insets);
+            int ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
             view.setPadding(initialLeft + bars.left, initialTop + topInset(view, insets),
-                    initialRight + bars.right, initialBottom + bottomInset(insets));
+                    initialRight + bars.right, initialBottom + ime);
             return insets;
         });
         ViewCompat.requestApplyInsets(root);
