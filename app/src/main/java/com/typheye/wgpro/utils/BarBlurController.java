@@ -7,8 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.os.Build;
-import android.os.Handler;
-import android.os.Looper;
+import android.view.Choreographer;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -20,19 +19,17 @@ import androidx.annotation.Nullable;
  * 应用栏 / 导航栏的毛玻璃背景（可直接渲染的稳定版本）。
  *
  * <p>把内容视图按 1/4 缩小软绘成快照位图，交给位于栏下方的 {@link ImageView}
- * 用 {@link RenderEffect} 高斯模糊绘制；滚动/翻页/布局变化时限频刷新。
+ * 用 {@link RenderEffect} 高斯模糊绘制；滚动/翻页/布局变化时按帧刷新（~60fps）。
  * 仅 API 31+ 启用，低版本隐藏快照层（保留半透明底色降级）。
  */
 public final class BarBlurController {
 
     private static final float SNAPSHOT_SCALE = 0.25f;
     private static final float BLUR_RADIUS_DP = 22f;
-    private static final long UPDATE_INTERVAL_MS = 120L;
 
     private final Activity activity;
     private final View snapshotSource;
     private final ImageView[] backdrops;
-    private final Handler handler = new Handler(Looper.getMainLooper());
     private final Matrix matrix = new Matrix();
 
     @Nullable
@@ -42,7 +39,13 @@ public final class BarBlurController {
     private boolean updateScheduled;
     private boolean enabled;
 
-    private final Runnable updater = this::updateNow;
+    private final Choreographer choreographer = Choreographer.getInstance();
+
+    /** 按帧回调：滚动时每帧刷新一次快照（~60fps），停下后自然停止。 */
+    private final Choreographer.FrameCallback frameCallback = frameTimeNanos -> {
+        updateScheduled = false;
+        updateNow();
+    };
 
     private final ViewTreeObserver.OnScrollChangedListener scrollListener =
             this::scheduleUpdate;
@@ -86,11 +89,11 @@ public final class BarBlurController {
         activity.getWindow().getDecorView().post(this::scheduleUpdate);
     }
 
-    /** 内容滚动/布局变化后限频刷新快照。 */
+    /** 内容滚动/布局变化后按帧刷新快照（滚动时 ~60fps，停下后自动停止）。 */
     public void scheduleUpdate() {
         if (!enabled || updateScheduled) return;
         updateScheduled = true;
-        handler.postDelayed(updater, UPDATE_INTERVAL_MS);
+        choreographer.postFrameCallback(frameCallback);
     }
 
     private void updateNow() {
