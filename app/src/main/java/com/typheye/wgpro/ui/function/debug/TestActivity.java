@@ -24,9 +24,9 @@ public final class TestActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_test);
-        // 整页固定 chrome 背景（状态栏区域不随滚动变色），底部安全区交给滚动内容。
-        SystemBars.applyScreenInsets(findViewById(R.id.test_root), null,
-                getColor(R.color.surface_primary), getColor(R.color.surface_page));
+        // 固定应用栏改毛玻璃；底部安全区交给滚动视图自己预留。
+        com.typheye.wgpro.utils.AppBarBlur.install(this,
+                findViewById(R.id.test_app_bar), findViewById(R.id.test_content));
         SystemBars.reserveBottomInsetForScroll(findViewById(R.id.test_content));
         Toolbar toolbar = findViewById(R.id.test_toolbar);
         toolbar.setNavigationIcon(com.typheye.wgpro.R.drawable.ic_back_vector);

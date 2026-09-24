@@ -26,10 +26,12 @@ public class CrashActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_crash);
-        AppUtils.fixScreenCutArea(findViewById(R.id.container));
-        // 崩溃日志是滚动内容：底部安全区交给滚动视图，日志可以延伸到导航条区域。
+        // 固定应用栏改毛玻璃，崩溃日志滚动时从应用栏下方穿过。
+        com.typheye.wgpro.utils.AppBarBlur.install(this,
+                findViewById(R.id.app_bar_layout), findViewById(R.id.crash_content));
+        // 底部安全区交给滚动视图，日志可以延伸到导航条区域。
         com.typheye.wgpro.utils.SystemBars.reserveBottomInsetForScroll(
-                findViewById(R.id.container));
+                findViewById(R.id.crash_content));
 
         tvCrashLog = findViewById(R.id.tv_crash_log);
         MaterialButton btnRestart = findViewById(R.id.btn_restart);

@@ -37,12 +37,13 @@ abstract class BaseSectionActivity extends AppCompatActivity {
             loadingOverlay.setLayoutParams(params);
         }
         if (hasPinnedBottomBar()) {
-            // 底部有固定控件（输入栏/提交按钮）：整个容器让开系统栏，固定控件始终在导航条上方。
-            AppUtils.applyMainWindowInsets(appBar, content);
+            // 底部有固定控件（输入栏/提交按钮）：内容容器让开系统栏，固定控件始终在导航条上方。
+            com.typheye.wgpro.utils.AppBarBlur.install(this, appBar, content);
+            SystemBars.reserveBottomInset(content);
         } else {
             // 纯滚动页：容器不带底部内边距，改由页面自己的滚动视图预留，
             // 这样内容能画到导航条下面，末尾又不会被小横条永久遮住。
-            SystemBars.applyAppBarInsets(appBar, null);
+            com.typheye.wgpro.utils.AppBarBlur.install(this, appBar, content);
             AppUtils.applyScrollBottomInsets(getSupportFragmentManager(),
                     R.id.section_container);
         }

@@ -53,9 +53,9 @@ public class AccMangerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_accmanager);
-        // 资料编辑内容自己预留底部导航栏高度，表单可延伸到导航条区域。
-        com.typheye.wgpro.utils.SystemBars.applyAppBarInsets(
-                findViewById(R.id.app_bar_layout), null);
+        // 固定应用栏改毛玻璃；资料编辑内容自己预留底部导航栏高度，表单可延伸到导航条区域。
+        com.typheye.wgpro.utils.AppBarBlur.install(this,
+                findViewById(R.id.app_bar_layout), findViewById(R.id.fragment_container));
         AppUtils.applyScrollBottomInsets(getSupportFragmentManager(),
                 R.id.fragment_container);
 

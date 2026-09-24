@@ -634,12 +634,18 @@ public class MainActivity extends AppCompatActivity {
     private void bindPageTabs(int position) {
         ViewPager2 innerPager = null;
         String[] titles = null;
-        if (position == 0 && homeFragment != null && homeFragment.getView() != null) {
-            innerPager = homeFragment.getView().findViewById(R.id.home_pager);
-            titles = HOME_TAB_TITLES;
-        } else if (position == 2 && deviceFragment != null && deviceFragment.getView() != null) {
-            innerPager = deviceFragment.getView().findViewById(R.id.device_pager);
-            titles = DEVICE_TAB_TITLES;
+        if (position == 0) {
+            Fragment home = fragmentAt(0);
+            if (home != null && home.getView() != null) {
+                innerPager = home.getView().findViewById(R.id.home_pager);
+                titles = HOME_TAB_TITLES;
+            }
+        } else if (position == 2) {
+            Fragment device = fragmentAt(2);
+            if (device != null && device.getView() != null) {
+                innerPager = device.getView().findViewById(R.id.device_pager);
+                titles = DEVICE_TAB_TITLES;
+            }
         }
         if (innerPager == null || titles == null || innerPager.getAdapter() == null) {
             if (pageTabsMediator != null) {
@@ -660,6 +666,20 @@ public class MainActivity extends AppCompatActivity {
         pageTabsMediator.attach();
         boundTabsPager = innerPager;
         pageTabs.post(this::applyContentBarInsets);
+    }
+
+    /**
+     * 取指定位置的主页 Fragment。Activity 重建（深浅色切换/旋转）后
+     * FragmentStateAdapter 恢复的 Fragment 不会再走 createFragment，
+     * 必须按 tag 查找，否则子标签行会一直绑不上而消失。
+     */
+    @Nullable
+    private Fragment fragmentAt(int position) {
+        Fragment restored = getSupportFragmentManager().findFragmentByTag("f" + position);
+        if (restored != null) return restored;
+        if (position == 0) return homeFragment;
+        if (position == 2) return deviceFragment;
+        return null;
     }
 
     private int dp(int value) {

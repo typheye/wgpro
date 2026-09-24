@@ -17,7 +17,7 @@
               <androidx.core.widget.NestedScrollView android:id="@+id/device_wearable_scroll" android:layout_width="match_parent"
                 android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="6dp"
+                    android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="16dp"
                     android:paddingEnd="16dp" android:paddingBottom="24dp">
                     <com.google.android.material.card.MaterialCardView android:id="@+id/card_detected_device"
                         style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
@@ -52,7 +52,7 @@
               <androidx.core.widget.NestedScrollView android:id="@+id/device_other_scroll" android:layout_width="match_parent"
                 android:layout_height="match_parent" android:clipToPadding="false" android:fillViewport="true">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="6dp"
+                    android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="16dp"
                     android:paddingEnd="16dp" android:paddingBottom="24dp">
                     <LinearLayout android:id="@+id/container_other_devices"
                         android:layout_width="match_parent" android:layout_height="wrap_content"

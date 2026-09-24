@@ -37,6 +37,7 @@ import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.debug.TestActivity;
 import com.typheye.wgpro.utils.AppUtils;
+import com.typheye.wgpro.utils.BarBlurController;
 import com.typheye.wgpro.utils.SystemBars;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.typheye.wgpro.debug.TestHandler;
@@ -58,11 +59,9 @@ public class SettingsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         AppUtils.useScreenCutArea(getWindow(),this);
         setContentView(R.layout.activity_settings);
-        // 顶部系统栏区域使用应用栏底色；底部安全区交给页面里的滚动视图预留，
-        // 让列表内容能画到导航条下面，末尾又不会被手势小横条永久遮住。
-        SystemBars.applyScreenInsets(findViewById(R.id.container), null,
-                getColor(R.color.surface_primary),
-                getColor(R.color.surface_page));
+        // 固定应用栏改毛玻璃（设置内容滚动时从应用栏下方穿过）；
+        // 底部安全区交给页面里的滚动视图预留。
+        com.typheye.wgpro.utils.AppBarBlur.install(this, findViewById(R.id.app_bar_layout), findViewById(R.id.settings));
         AppUtils.applyScrollBottomInsets(getSupportFragmentManager(), R.id.settings);
 
         toolbar = findViewById(R.id.toolbar);
@@ -169,6 +168,12 @@ public class SettingsActivity extends AppCompatActivity {
             predictiveBack.setChecked(predictiveBackAvailable
                     && preferences.getBoolean("predictive_back_enabled", false));
             autoCheck.setChecked(preferences.getBoolean("appUpdate_autoCheck", true));
+
+            MaterialSwitch blur = view.findViewById(R.id.switch_blur);
+            blur.setChecked(BarBlurController.isBlurEnabled(requireContext()));
+            blur.setOnCheckedChangeListener((button, checked) ->
+                    BarBlurController.setBlurEnabled(requireContext(), checked));
+            view.findViewById(R.id.row_blur).setOnClickListener(v -> blur.toggle());
 
             followSystem.setOnCheckedChangeListener((button, checked) -> {
                 preferences.edit().putBoolean("theme_follow_system", checked).apply();

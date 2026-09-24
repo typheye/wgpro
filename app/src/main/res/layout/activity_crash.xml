@@ -9,30 +9,12 @@
     android:background="@color/tab"
     tools:context=".ui.function.debug.CrashActivity">
 
-    <!-- AppBarLayout -->
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/app_bar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="@color/tab"
-            app:title="异常"
-            app:titleTextColor="@color/text_u1"
-            app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:navigationIcon="@null"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
-
-
+    <!-- 内容铺满整屏，滚动时从应用栏毛玻璃下方穿过 -->
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/crash_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" >
+        android:clipToPadding="false">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,7 +58,48 @@
                 android:textColor="@color/white"
                 app:cornerRadius="8dp"
                 app:backgroundTint="#E53935"/>
-
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+
+    <!-- 应用栏（毛玻璃）：快照层 + 半透明应用栏，声明在内容之后保证画在内容之上 -->
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/app_bar_host"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/app_bar_blur"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:clickable="false"
+            android:focusable="false"
+            android:scaleType="matrix"
+            android:visibility="gone"
+            app:layout_constraintTop_toTopOf="@id/app_bar_layout"
+            app:layout_constraintBottom_toBottomOf="@id/app_bar_layout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:ignore="ContentDescription" />
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/surface_bar"
+            app:elevation="0dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent"
+                app:title="异常"
+                app:titleTextColor="@color/text_u1"
+                app:titleTextAppearance="@style/ToolbarTitleAppearance"
+                app:navigationIcon="@null"/>
+        </com.google.android.material.appbar.AppBarLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
