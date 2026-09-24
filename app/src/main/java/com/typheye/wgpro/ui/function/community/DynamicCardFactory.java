@@ -59,6 +59,15 @@ public final class DynamicCardFactory {
     }
 
     public static View create(Context context, JSONObject item, @Nullable View.OnClickListener click) {
+        return create(context, item, click, null);
+    }
+
+    /**
+     * @param onChanged 操作（如删除动态）成功后的回调：宿主列表用它重新加载/重绘。
+     *                  不传时退化为把卡片隐藏（老行为，会留下空白占位）。
+     */
+    public static View create(Context context, JSONObject item, @Nullable View.OnClickListener click,
+                              @Nullable Runnable onChanged) {
         int pad = dp(context, 14);
         MaterialCardView card = new MaterialCardView(context);
         card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
@@ -99,7 +108,7 @@ public final class DynamicCardFactory {
         if (!uid.isEmpty()) avatarBox.setOnClickListener(v -> context.startActivity(new Intent(context,
                 UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid)));
         more.setClickable(true); more.setFocusable(true);
-        more.setOnClickListener(v -> showActions(context, item, card));
+        more.setOnClickListener(v -> showActions(context, item, card, null, null, onChanged));
         bindAvatar(context, uid, item.optString("avatar_url", ""), avatar, initial);
 
         String content = item.optString("content", "");
@@ -283,12 +292,19 @@ public final class DynamicCardFactory {
     }
 
     public static void showActions(Context context, JSONObject item, View card) {
-        showActions(context, item, card, null, null);
+        showActions(context, item, card, null, null, null);
     }
 
     public static void showActions(Context context, JSONObject item, View card,
                                    @Nullable CharSequence prependLabel,
                                    @Nullable Runnable prependAction) {
+        showActions(context, item, card, prependLabel, prependAction, null);
+    }
+
+    public static void showActions(Context context, JSONObject item, View card,
+                                   @Nullable CharSequence prependLabel,
+                                   @Nullable Runnable prependAction,
+                                   @Nullable Runnable onChanged) {
         tAccUtils account = new tAccUtils(context.getApplicationContext());
         boolean self = item.optBoolean("is_self") || account.getUid().equals(item.optString("uid"));
         java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
@@ -309,7 +325,7 @@ public final class DynamicCardFactory {
                 return;
             }
             if ("分享".equals(action)) { share(context, account, item); return; }
-            if ("删除".equals(action)) { confirmDelete(context, account, item, card); return; }
+            if ("删除".equals(action)) { confirmDelete(context, account, item, card, onChanged); return; }
             if ("屏蔽".equals(action)) {
                 Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_uid", item.optString("uid"));
                 fields.put("action", "block"); postFeedback(context, account, "block_action2", fields, "已屏蔽该用户");
@@ -320,7 +336,8 @@ public final class DynamicCardFactory {
         }).show();
     }
 
-    private static void confirmDelete(Context context, tAccUtils account, JSONObject item, View card) {
+    private static void confirmDelete(Context context, tAccUtils account, JSONObject item, View card,
+                                      @Nullable Runnable onChanged) {
         new WGProAlertDialogBuilder(context).setTitle("删除动态？")
                 .setMessage("删除后无法恢复。").setNegativeButton("取消", null)
                 .setPositiveButton("删除", (dialog, which) -> {
@@ -328,6 +345,7 @@ public final class DynamicCardFactory {
                     account.postV2Json("dynamic_delete2", fields, new tAccUtils.JsonCallback() {
                         @Override public void onSuccess(JSONObject json) { card.post(() -> {
                             if (context instanceof DynamicDetailActivity) ((DynamicDetailActivity) context).finish();
+                            else if (onChanged != null) onChanged.run();
                             else card.setVisibility(View.GONE);
                         }); }
                         @Override public void onError(int code, String message) { card.post(() -> error(context, message)); }

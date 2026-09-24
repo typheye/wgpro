@@ -100,6 +100,7 @@ public class UserDetailActivity extends AppCompatActivity {
     private TextView detailFollowingCount;
     private TextView detailFollowersCount;
     private ActivityResultLauncher<String> backgroundPicker;
+    private com.typheye.wgpro.utils.BarBlurController segmentsBlurController;
     private final Runnable settledWindowLayout = () -> {
         if (detailRoot != null && detailRoot.isAttachedToWindow()) {
             scheduleProfileLayout(true);
@@ -109,13 +110,6 @@ public class UserDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
-        // 分屏（高度被挤压的分配模式）下抽屉式资料页无法正确布局，直接提示并退出；
-        // 小窗（freeform）布局完整，不受影响。
-        if (isInSplitScreenWindow()) {
-            Toast.makeText(this, "请在全屏或小窗模式下打开用户主页", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
         AppUtils.useScreenCutArea(getWindow(), this);
         // 头图是深色背景，状态栏用浅色图标。
         SystemBars.setLightSystemBars(getWindow(), false);
@@ -462,8 +456,17 @@ public class UserDetailActivity extends AppCompatActivity {
         sheetBehavior = BottomSheetBehavior.from(detailSheet);
         sheetBehavior.setFitToContents(false);
         sheetBehavior.setHideable(false);
+        // 默认手势/UX：抽屉可自由拖拽展开收起；顶部小横条额外支持点击切换。
+        // 拖拽只允许从顶部条带（小横条/标签栏）开始，列表区域的触摸全部交给列表，
+        // 避免与列表滚动、下拉刷新抢手势。
         sheetBehavior.setDraggable(true);
         sheetBehavior.setShouldRemoveExpandedCorners(false);
+        if (sheetBehavior instanceof com.typheye.wgpro.ui.widget.ProfileBottomSheetBehavior) {
+            ((com.typheye.wgpro.ui.widget.ProfileBottomSheetBehavior<?>) sheetBehavior)
+                    .setDragZoneAnchor(findViewById(R.id.detail_tabs));
+        }
+        View sheetHandle = findViewById(R.id.detail_sheet_handle);
+        if (sheetHandle != null) sheetHandle.setOnClickListener(v -> toggleProfileSheetState());
         sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
             @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
                 if (newState == BottomSheetBehavior.STATE_HALF_EXPANDED) {
@@ -487,12 +490,45 @@ public class UserDetailActivity extends AppCompatActivity {
             lastRootHeight = height;
             scheduleProfileLayout(preserveState);
             if (preserveState) scheduleSettledWindowLayout();
+            applyProfilePagerInsets();
         });
+    }
+
+    /** 系统导航栏高度（拿不到时按 48dp 估算）。 */
+    private int navigationBarInset() {
+        WindowInsetsCompat insets = detailRoot == null ? null
+                : ViewCompat.getRootWindowInsets(detailRoot);
+        if (insets != null) {
+            int inset = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+            if (inset > 0) return inset;
+        }
+        return dp(48);
+    }
+
+    /** 窗口可用高度：优先用 WindowMetrics（窗口真实边界，含系统栏区域）。 */
+    private int windowHeight() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.R) {
+            try {
+                return getWindowManager().getCurrentWindowMetrics().getBounds().height();
+            } catch (Exception ignored) { }
+        }
+        android.view.Window window = getWindow();
+        View decor = window == null ? null : window.getDecorView();
+        if (decor != null && decor.getHeight() > 0) return decor.getHeight();
+        return detailRoot == null ? 0 : detailRoot.getHeight();
     }
 
     private void scheduleSettledWindowLayout() {
         detailRoot.removeCallbacks(settledWindowLayout);
         detailRoot.postDelayed(settledWindowLayout, 350L);
+    }
+
+    /** 顶部小短横条：点击折叠 / 展开（抽屉已关闭拖拽展开，避免滑列表被当成拖抽屉）。 */
+    private void toggleProfileSheetState() {
+        if (sheetBehavior == null) return;
+        sheetBehavior.setState(sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED
+                ? BottomSheetBehavior.STATE_COLLAPSED
+                : BottomSheetBehavior.STATE_EXPANDED);
     }
 
     private void scheduleProfileLayout(boolean preserveState) {
@@ -552,14 +588,27 @@ public class UserDetailActivity extends AppCompatActivity {
                 }
                 resizeProfileBackground(requiredHeaderHeight);
 
+                // 抽屉展开时容器高度 = 窗口高度 - 顶部偏移。用 match_parent 的话，
+                // 内容底部会被顶到屏幕外面，列表永远滚不到底（最后一张卡片看不全）。
+                // 高度以 WindowMetrics（窗口真实边界）为准，并额外加一段系统栏高度的余量，
+                // 保证抽屉底边一定盖过系统手势条（多出来的部分在屏幕外，不影响观感）。
+                int windowHeight = windowHeight();
+                int sheetHeight = Math.max(0, windowHeight - toolbarBottom)
+                        + navigationBarInset();
+                ViewGroup.LayoutParams sheetParams = detailSheet.getLayoutParams();
+                if (sheetHeight > 0 && sheetParams.height != sheetHeight) {
+                    sheetParams.height = sheetHeight;
+                    detailSheet.setLayoutParams(sheetParams);
+                }
+
                 // Keep a shallow overlap for the floating rounded edge. CollapsingToolbarLayout
                 // also offsets inset-aware children, so a larger overlap can cover the last
                 // bio line on devices with tall status bars. Preserve a compact selector-sized
                 // peek on short windows instead of covering the bio.
                 int minimumPeek = dp(96);
-                collapsedTop = Math.min(collapsedTop, detailRoot.getHeight() - minimumPeek);
+                collapsedTop = Math.min(collapsedTop, windowHeight - minimumPeek);
                 sheetBehavior.setPeekHeight(Math.max(minimumPeek,
-                        detailRoot.getHeight() - collapsedTop), false);
+                        windowHeight - collapsedTop), false);
                 sheetBehavior.setState(targetState);
                 detailSheet.requestLayout();
                 // Cancel this frame so the resized header and positioned sheet are the
@@ -581,12 +630,6 @@ public class UserDetailActivity extends AppCompatActivity {
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode,
                                          @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        // 页面已经打开时再进入分屏同样会破坏抽屉布局，直接退出并提示。
-        if (isInSplitScreenWindow()) {
-            Toast.makeText(this, "请在全屏或小窗模式下打开用户主页", Toast.LENGTH_SHORT).show();
-            finish();
-            return;
-        }
         refreshWindowGeometry();
     }
 
@@ -634,7 +677,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void setupProfilePages() {
-        MaterialButtonToggleGroup segments = findViewById(R.id.detail_segments);
+        com.google.android.material.tabs.TabLayout tabs = findViewById(R.id.detail_tabs);
         ViewPager2 pager = findViewById(R.id.detail_pager);
         FrameLayout pool = findViewById(R.id.detail_page_pool);
         pool.setVisibility(View.GONE);
@@ -649,28 +692,95 @@ public class UserDetailActivity extends AppCompatActivity {
             @Override public int getItemCount() { return 3; }
         });
         pager.setOffscreenPageLimit(2);
+        // 保留 ViewPager2 内部 RecyclerView 的嵌套滚动：分页里的列表滚动到底/到顶时，
+        // 未消费的滚动才能沿着链路交给抽屉（BottomSheetBehavior）决定是否跟手——
+        // 之前关掉它导致"列表和抽屉抢手势"（抽屉分不清列表还能不能滚）。
         RecyclerView pagerRecycler = (RecyclerView) pager.getChildAt(0);
-        ViewCompat.setNestedScrollingEnabled(pagerRecycler, false);
-        int[] segmentIds = {R.id.detail_segment_activity, R.id.detail_segment_favorites,
-                R.id.detail_segment_resources};
-        segments.addOnButtonCheckedListener((group, checkedId, isChecked) -> {
-            if (!isChecked) return;
-            for (int i = 0; i < segmentIds.length; i++) {
-                if (segmentIds[i] == checkedId && pager.getCurrentItem() != i) {
-                    pager.setCurrentItem(i, true);
-                    break;
-                }
-            }
-        });
+        ViewCompat.setNestedScrollingEnabled(pagerRecycler, true);
+        // 与主页/浏览历史一致的下划线标签（铺满、下划线指示器、坐在毛玻璃上）
+        String[] titles = {"主页", "应用", "资源"};
+        new com.google.android.material.tabs.TabLayoutMediator(tabs, pager,
+                (tab, position) -> tab.setText(titles[position])).attach();
         pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override public void onPageSelected(int position) {
-                if (position >= 0 && position < segmentIds.length
-                        && segments.getCheckedButtonId() != segmentIds[position]) {
-                    segments.check(segmentIds[position]);
-                }
                 findViewById(R.id.detail_sheet).requestLayout();
+                applyProfilePagerInsets();
             }
         });
+        setupProfileSegmentsBlur();
+        pager.post(this::applyProfilePagerInsets);
+    }
+
+    /** 滚动指示器的毛玻璃：pager 作为快照源，指示器那一条作为快照层（与固定栏同款）。 */
+    private void setupProfileSegmentsBlur() {
+        ImageView backdrop = findViewById(R.id.detail_segments_blur);
+        View tint = findViewById(R.id.detail_segments_tint);
+        if (tint != null) com.typheye.wgpro.utils.BarBlurController.registerBar(this, tint);
+        if (backdrop == null) return;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
+            segmentsBlurController = com.typheye.wgpro.utils.BarBlurController.install(
+                    this, findViewById(R.id.detail_pager), backdrop);
+        }
+    }
+
+    /**
+     * 内容顶部留白让开滚动指示器（内容从毛玻璃条下面穿过，模糊才有东西可糊）；
+     * 毛玻璃条的底边与指示器底边（下划线）齐平。
+     */
+    private void applyProfilePagerInsets() {
+        ViewPager2 pager = findViewById(R.id.detail_pager);
+        View tabs = findViewById(R.id.detail_tabs);
+        ImageView backdrop = findViewById(R.id.detail_segments_blur);
+        if (pager == null || tabs == null || !(pager.getChildAt(0) instanceof ViewGroup)) return;
+        int band = tabs.getBottom();
+        if (band <= 0) return;
+        for (int id : new int[]{R.id.detail_segments_blur, R.id.detail_segments_tint}) {
+            View bar = findViewById(id);
+            if (bar == null || bar.getLayoutParams() == null) continue;
+            ViewGroup.LayoutParams params = bar.getLayoutParams();
+            if (params.height != band) {
+                params.height = band;
+                bar.setLayoutParams(params);
+            }
+        }
+        ViewGroup holder = (ViewGroup) pager.getChildAt(0);
+        for (int index = 0; index < holder.getChildCount(); index++) {
+            applyProfilePageInsets(holder.getChildAt(index), band + dp(6));
+        }
+    }
+
+    private void applyProfilePageInsets(View view, int top) {
+        // 平铺（全屏）时底部完全沉浸、不留导航栏内边距；
+        // 小窗（freeform）窗口底部有 MIUI 自己的把手，必须垫高，否则列表末尾压在把手上。
+        int bottom = 0;
+        if (detailRoot != null && com.typheye.wgpro.utils.SystemBars.isInMultiWindow(detailRoot)) {
+            WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
+            if (insets != null) {
+                bottom = com.typheye.wgpro.utils.SystemBars
+                        .bottomInsetForView(detailRoot, insets);
+            }
+        }
+        applyProfilePageInsets(view, top, bottom);
+    }
+
+    private void applyProfilePageInsets(View view, int top, int bottom) {
+        if (view instanceof androidx.swiperefreshlayout.widget.SwipeRefreshLayout) {
+            com.typheye.wgpro.utils.AppBarBlur.offsetRefreshIndicator(
+                    (androidx.swiperefreshlayout.widget.SwipeRefreshLayout) view, top);
+        }
+        if (view instanceof androidx.core.widget.NestedScrollView) {
+            androidx.core.widget.NestedScrollView scroll =
+                    (androidx.core.widget.NestedScrollView) view;
+            scroll.setClipToPadding(false);
+            scroll.setPadding(scroll.getPaddingLeft(), top, scroll.getPaddingRight(), bottom);
+            return;
+        }
+        if (view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for (int index = 0; index < group.getChildCount(); index++) {
+                applyProfilePageInsets(group.getChildAt(index), top, bottom);
+            }
+        }
     }
 
     @Override

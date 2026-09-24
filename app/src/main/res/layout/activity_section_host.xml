@@ -53,25 +53,39 @@
             app:navigationIcon="@drawable/ic_back_vector"
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
             app:titleTextColor="@color/text_primary" />
+
+        <!-- 页面自己的子标签（如浏览历史：动态/应用/资源），默认隐藏，由页面挂载 -->
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/section_page_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="@android:color/transparent"
+            android:visibility="gone"
+            app:tabGravity="fill"
+            app:tabIndicator="@drawable/bg_tab_indicator"
+            app:tabIndicatorFullWidth="true"
+            app:tabIndicatorHeight="3dp"
+            app:tabMode="fixed"
+            app:tabSelectedTextColor="?attr/colorPrimary"
+            app:tabTextAppearance="@style/TextAppearance.WGPro.Tab"
+            app:tabTextColor="?attr/colorOnSurfaceVariant" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/section_loading_overlay"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/profile_loading_overlay"
+        android:background="@color/surface_primary"
         android:clickable="true"
-        android:elevation="32dp"
         android:focusable="true"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/section_app_bar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-        <com.google.android.material.progressindicator.CircularProgressIndicator
+        <com.typheye.wgpro.ui.widget.WGProLoadingView
             android:layout_width="48dp"
             android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:indeterminate="true" />
+            android:layout_gravity="center" />
     </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

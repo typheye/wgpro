@@ -46,6 +46,7 @@ import com.typheye.wgpro.ui.main.mainFragments.AccountFragment;
 import com.typheye.wgpro.ui.main.mainFragments.DashboardFragment;
 import com.typheye.wgpro.ui.main.mainFragments.DeviceFragment;
 import com.typheye.wgpro.ui.main.mainFragments.HomeFragment;
+import com.typheye.wgpro.utils.AppBarBlur;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.BarBlurController;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -78,7 +79,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout pageTabs;
     private TabLayoutMediator pageTabsMediator;
     private ViewPager2 boundTabsPager;
-    private final java.util.WeakHashMap<View, Integer> refreshOffsets = new java.util.WeakHashMap<>();
     private HomeFragment homeFragment;
     private DashboardFragment dashboardFragment;
     private DeviceFragment deviceFragment;
@@ -162,6 +162,10 @@ public class MainActivity extends AppCompatActivity {
         barBlurController = BarBlurController.install(this, mainPager,
                 findViewById(R.id.blur_backdrop_top),
                 findViewById(R.id.blur_backdrop_bottom));
+
+        // 应用栏 / 底部导航栏登记：模糊关闭时改成与页面一致的不透明底色
+        BarBlurController.registerBar(this, findViewById(R.id.app_bar_layout));
+        BarBlurController.registerBar(this, bottomNavigation);
 
         // 布局稳定后反复校准：每页的栏高度内边距 + 毛玻璃快照
         mainPager.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
@@ -608,13 +612,8 @@ public class MainActivity extends AppCompatActivity {
     /** 容器页里的列表：上下留白加在滚动容器上，内容可从毛玻璃栏下方穿过。 */
     private void applyInnerScrollInsets(View view, int top, int bottom) {
         if (view instanceof SwipeRefreshLayout) {
-            // setProgressViewOffset 会隐藏/显示转圈视图，重复调用会触发布局循环并打断下拉手势，
-            // 所以只在应用栏高度变化时设置一次
-            Integer applied = refreshOffsets.get(view);
-            if (applied == null || applied != top) {
-                ((SwipeRefreshLayout) view).setProgressViewOffset(true, top, top + dp(64));
-                refreshOffsets.put(view, top);
-            }
+            // 指示器压到应用栏下方，否则下拉时转圈图标被应用栏盖住、看起来像没触发
+            AppBarBlur.offsetRefreshIndicator((SwipeRefreshLayout) view, top);
         }
         if (view instanceof NestedScrollView) {
             NestedScrollView scroll = (NestedScrollView) view;

@@ -33,9 +33,8 @@ public final class AppDetailActivity extends BaseSectionActivity {
         starred = appInfo.optBoolean("is_collected", false)
                 || getSharedPreferences("app_stars", MODE_PRIVATE).getBoolean(appKey, false);
         super.onCreate(state);
-        int background = getColor(R.color.surface_page);
-        findViewById(R.id.section_app_bar).setBackgroundColor(background);
-        sectionToolbar().setBackgroundColor(background);
+        // 应用栏交给 AppBarBlur（半透明 surface_bar + 毛玻璃快照层）统一处理，
+        // 这里不要再用不透明底色覆盖，否则毛玻璃会被盖住（应用详情页的应用栏高斯模糊异常）。
         boolean light = (getResources().getConfiguration().uiMode
                 & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
                 != android.content.res.Configuration.UI_MODE_NIGHT_YES;

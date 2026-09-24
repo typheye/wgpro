@@ -5,6 +5,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
+import android.graphics.Rect;
 import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.os.Build;
@@ -17,18 +18,26 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.preference.PreferenceManager;
 
+import com.typheye.wgpro.R;
+
 import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 应用栏 / 导航栏的毛玻璃背景（可直接渲染的稳定版本）。
+ * 应用栏 / 导航栏 / 底栏的毛玻璃背景（可直接渲染的稳定版本）。
  *
  * <p>把内容视图按 1/4 缩小软绘成快照位图，交给位于栏下方的 {@link ImageView}
  * 用 {@link RenderEffect} 高斯模糊绘制；滚动/翻页/布局变化时按帧刷新（~60fps）。
  * 仅 API 31+ 启用，低版本隐藏快照层（保留半透明底色降级）。
  *
+ * <p>同一页面建议只用一个控制器：{@link #addBackdrop} 追加底栏快照层、
+ * {@link #rebindSource} 把快照源换成页面滚动内容（避免把底栏自身画进快照），
+ * 与 MainActivity 顶栏+底栏共用一份快照的做法一致。
+ *
  * <p>设置页「启用高斯模糊」开关通过 {@link #isBlurEnabled}/{@link #setBlurEnabled}
- * 持久化并实时作用于所有存活的毛玻璃层。
+ * 持久化并实时作用于所有存活的毛玻璃层与已登记的栏（{@link #registerBar}）。
  */
 public final class BarBlurController {
 
@@ -42,18 +51,29 @@ public final class BarBlurController {
     private static final CopyOnWriteArrayList<WeakReference<BarBlurController>> LIVE =
             new CopyOnWriteArrayList<>();
 
+    /** 登记的应用栏 / 导航栏：模糊关闭时改成与页面一致的不透明底色。 */
+    private static final CopyOnWriteArrayList<WeakReference<View>> BARS =
+            new CopyOnWriteArrayList<>();
+
     private final Activity activity;
-    private final View snapshotSource;
-    private final ImageView[] backdrops;
+    private final List<ImageView> backdrops = new ArrayList<>();
     private final Matrix matrix = new Matrix();
+    private View snapshotSource;
 
     @Nullable
     private Bitmap snapshot;
     @Nullable
     private Canvas snapshotCanvas;
+    @Nullable
+    private RenderEffect blurEffect;
     private boolean updateScheduled;
     private boolean attached;
     private boolean prefEnabled = true;
+    private int blurRadiusPx;
+    private long lastDrawNanos;
+
+    /** 高频屏（120Hz）上没必要每帧软绘整页：给快照刷新设一个 ~80fps 的上限。 */
+    private static final long MIN_DRAW_INTERVAL_NANOS = 12_500_000L;
 
     private final Choreographer choreographer = Choreographer.getInstance();
 
@@ -66,11 +86,12 @@ public final class BarBlurController {
     private final ViewTreeObserver.OnScrollChangedListener scrollListener =
             this::scheduleUpdate;
 
-    private BarBlurController(@NonNull Activity activity, @NonNull View snapshotSource,
-                              @NonNull ImageView... backdrops) {
+    private final View.OnLayoutChangeListener layoutListener =
+            (v, l, t, r, b, ol, ot, or, ob) -> scheduleUpdate();
+
+    private BarBlurController(@NonNull Activity activity, @NonNull View snapshotSource) {
         this.activity = activity;
         this.snapshotSource = snapshotSource;
-        this.backdrops = backdrops;
     }
 
     /**
@@ -80,10 +101,42 @@ public final class BarBlurController {
     public static BarBlurController install(@NonNull Activity activity,
                                             @NonNull View snapshotSource,
                                             @NonNull ImageView... backdrops) {
-        BarBlurController controller =
-                new BarBlurController(activity, snapshotSource, backdrops);
+        BarBlurController controller = new BarBlurController(activity, snapshotSource);
+        for (ImageView backdrop : backdrops) {
+            if (backdrop != null) controller.backdrops.add(backdrop);
+        }
         controller.attach();
         return controller;
+    }
+
+    /** 追加一个快照层（与已有层共用同一份快照，供页面底栏使用）。 */
+    public void addBackdrop(@NonNull ImageView backdrop) {
+        if (backdrops.contains(backdrop)) return;
+        backdrops.add(backdrop);
+        if (!attached || blurEffect == null) return;
+        backdrop.setRenderEffect(blurEffect);
+        backdrop.setVisibility(prefEnabled ? View.VISIBLE : View.GONE);
+        scheduleUpdate();
+    }
+
+    /** 切换快照源（例如从页面容器换成滚动内容，避免把底栏快照层画进快照里）。 */
+    public void rebindSource(@NonNull View source) {
+        if (source == snapshotSource) return;
+        if (attached) {
+            snapshotSource.getViewTreeObserver().removeOnScrollChangedListener(scrollListener);
+            snapshotSource.removeOnLayoutChangeListener(layoutListener);
+        }
+        snapshotSource = source;
+        if (snapshot != null) {
+            snapshot.recycle();
+            snapshot = null;
+            snapshotCanvas = null;
+        }
+        if (attached) {
+            source.getViewTreeObserver().addOnScrollChangedListener(scrollListener);
+            source.addOnLayoutChangeListener(layoutListener);
+            scheduleUpdate();
+        }
     }
 
     /** 高斯模糊开关是否开启（默认开）。 */
@@ -104,6 +157,33 @@ public final class BarBlurController {
                 controller.setEnabled(enabled);
             }
         }
+        for (WeakReference<View> reference : BARS) {
+            View bar = reference.get();
+            if (bar == null) {
+                BARS.remove(reference);
+            } else {
+                applyBarBackground(context, bar);
+            }
+        }
+    }
+
+    /**
+     * 登记应用栏 / 导航栏：开启模糊时半透明（surface_bar），
+     * 关闭模糊时用与 App 背景一致的不透明底色（surface_primary），而不是半透明。
+     */
+    public static void registerBar(@NonNull Context context, @NonNull View bar) {
+        for (WeakReference<View> reference : BARS) {
+            if (reference.get() == null) BARS.remove(reference);
+        }
+        BARS.add(new WeakReference<>(bar));
+        applyBarBackground(context, bar);
+    }
+
+    private static void applyBarBackground(@NonNull Context context, @NonNull View bar) {
+        int color = context.getColor(isBlurEnabled(context)
+                ? R.color.surface_bar : R.color.surface_primary);
+        bar.setBackgroundColor(color);
+        bar.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
     }
 
     private void attach() {
@@ -113,17 +193,18 @@ public final class BarBlurController {
             return;
         }
         float radius = BLUR_RADIUS_DP * activity.getResources().getDisplayMetrics().density;
-        RenderEffect effect = RenderEffect.createBlurEffect(radius, radius,
+        blurRadiusPx = Math.round(radius);
+        blurEffect = RenderEffect.createBlurEffect(radius, radius,
                 Shader.TileMode.CLAMP);
         prefEnabled = isBlurEnabled(activity);
         for (ImageView backdrop : backdrops) {
-            backdrop.setRenderEffect(effect);
+            backdrop.setRenderEffect(blurEffect);
             backdrop.setVisibility(prefEnabled ? View.VISIBLE : View.GONE);
         }
         attached = true;
         LIVE.add(new WeakReference<>(this));
         snapshotSource.getViewTreeObserver().addOnScrollChangedListener(scrollListener);
-        snapshotSource.addOnLayoutChangeListener((v, l, t, r, b, ol, ot, or, ob) -> scheduleUpdate());
+        snapshotSource.addOnLayoutChangeListener(layoutListener);
         activity.getWindow().getDecorView().post(this::scheduleUpdate);
     }
 
@@ -147,6 +228,14 @@ public final class BarBlurController {
     private void updateNow() {
         updateScheduled = false;
         if (!attached || !prefEnabled) return;
+        long now = System.nanoTime();
+        if (now - lastDrawNanos < MIN_DRAW_INTERVAL_NANOS) {
+            // 排到下一帧再试：既限流又保证停手时最终状态一定会绘制
+            updateScheduled = true;
+            choreographer.postFrameCallback(frameCallback);
+            return;
+        }
+        lastDrawNanos = now;
         int width = snapshotSource.getWidth();
         int height = snapshotSource.getHeight();
         if (width <= 0 || height <= 0) return;
@@ -163,18 +252,41 @@ public final class BarBlurController {
             }
         }
 
-        snapshotCanvas.save();
-        snapshotCanvas.scale(SNAPSHOT_SCALE, SNAPSHOT_SCALE);
-        try {
-            snapshotSource.draw(snapshotCanvas);
-        } catch (Exception ignored) {
-            // 个别子视图（如 WebView）在软绘下可能异常，忽略即可
-        }
-        snapshotCanvas.restore();
+        // 每帧先擦干净画布再重绘。快照源可能没有不透明背景（如私信/动态详情页的滚动内容，
+        // 背景在 Fragment 根视图上），不擦除的话历史帧会一层层叠加，滚动后留下拖影/残影。
+        snapshot.eraseColor(0);
 
         int[] sourceLocation = new int[2];
         int[] backdropLocation = new int[2];
         snapshotSource.getLocationInWindow(sourceLocation);
+
+        // 只软绘各快照层覆盖的那几条 + 模糊半径：每帧绘制整页是列表滚动卡顿的主因。
+        snapshotCanvas.save();
+        snapshotCanvas.scale(SNAPSHOT_SCALE, SNAPSHOT_SCALE);
+        Rect clip = null;
+        for (ImageView backdrop : backdrops) {
+            backdrop.getLocationInWindow(backdropLocation);
+            int left = backdropLocation[0] - sourceLocation[0];
+            int top = backdropLocation[1] - sourceLocation[1];
+            int right = left + backdrop.getWidth();
+            int bottom = top + backdrop.getHeight();
+            Rect band = new Rect(left - blurRadiusPx, top - blurRadiusPx,
+                    right + blurRadiusPx, bottom + blurRadiusPx);
+            if (clip == null) {
+                clip = band;
+            } else {
+                clip.union(band);
+            }
+        }
+        if (clip != null) snapshotCanvas.clipRect(clip);
+        try {
+            snapshotSource.draw(snapshotCanvas);
+        } catch (Exception exception) {
+            // 个别子视图（如 WebView）在软绘下可能异常，忽略即可
+            android.util.Log.w("WGProBlur", "snapshot draw failed", exception);
+        }
+        snapshotCanvas.restore();
+
         for (ImageView backdrop : backdrops) {
             backdrop.getLocationInWindow(backdropLocation);
             // 位图是 1/4 尺寸：先放大回原尺寸，再平移，让工具栏所在区域对齐

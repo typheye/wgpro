@@ -29,6 +29,9 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
 
     /** 动态详情页底部是固定在屏幕底部的评论输入栏。 */
     @Override protected boolean hasPinnedBottomBar() { return true; }
+
+    /** 底栏自带导航栏内边距（沉浸式），容器不再让开系统栏。 */
+    @Override protected boolean bottomBarOwnsNavigationInset() { return true; }
     @Override protected Fragment createContent() {
         return DynamicDetailFragment.newInstance(getIntent().getStringExtra(EXTRA_DYNAMIC_ID));
     }

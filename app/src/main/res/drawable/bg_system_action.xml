@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 系统消息卡片底部动作行：圆角色块 + 水波纹反馈 -->
+<!-- 系统消息卡片底部动作行：圆角色块 + 水波纹反馈（用品牌浅色与卡片底色区分开） -->
 <ripple xmlns:android="http://schemas.android.com/apk/res/android"
     android:color="@color/brand_soft">
     <item>
         <shape android:shape="rectangle">
-            <solid android:color="@color/surface_secondary" />
+            <solid android:color="@color/brand_soft" />
             <corners android:radius="12dp" />
         </shape>
     </item>

@@ -157,49 +157,38 @@
         app:behavior_draggable="true" app:behavior_fitToContents="false"
         app:behavior_hideable="false" app:behavior_peekHeight="180dp"
         app:layout_behavior="com.typheye.wgpro.ui.widget.ProfileBottomSheetBehavior">
-        <LinearLayout android:id="@+id/detail_sheet_content"
+        <FrameLayout android:id="@+id/detail_sheet_content"
             android:layout_width="match_parent" android:layout_height="match_parent"
-            android:background="@android:color/transparent"
-            android:orientation="vertical" android:paddingTop="24dp">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent" android:layout_height="44dp"
-                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-                app:cardBackgroundColor="@color/profile_detail_segments" app:cardCornerRadius="22dp"
-                app:cardElevation="0dp" app:strokeWidth="0dp">
-                <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/detail_segments"
-                    android:layout_width="match_parent" android:layout_height="match_parent"
-                    app:checkedButton="@id/detail_segment_activity" app:selectionRequired="true"
-                    app:singleSelection="true">
-                    <com.google.android.material.button.MaterialButton android:id="@+id/detail_segment_activity"
-                        style="@style/Widget.Material3.Button.TextButton" android:layout_width="0dp"
-                        android:layout_height="match_parent" android:layout_weight="1" android:text="主页"
-                        android:insetLeft="0dp" android:insetTop="0dp"
-                        android:insetRight="0dp" android:insetBottom="0dp"
-                        android:textSize="16sp" android:textStyle="bold"
-                        android:textColor="@color/profile_segment_text" app:backgroundTint="@color/profile_segment_background"
-                        app:cornerRadius="20dp" app:strokeWidth="0dp" />
-                    <com.google.android.material.button.MaterialButton android:id="@+id/detail_segment_favorites"
-                        style="@style/Widget.Material3.Button.TextButton" android:layout_width="0dp"
-                        android:layout_height="match_parent" android:layout_weight="1" android:text="应用"
-                        android:insetLeft="0dp" android:insetTop="0dp"
-                        android:insetRight="0dp" android:insetBottom="0dp"
-                        android:textSize="16sp" android:textStyle="bold"
-                        android:textColor="@color/profile_segment_text" app:backgroundTint="@color/profile_segment_background"
-                        app:cornerRadius="20dp" app:strokeWidth="0dp" />
-                    <com.google.android.material.button.MaterialButton android:id="@+id/detail_segment_resources"
-                        style="@style/Widget.Material3.Button.TextButton" android:layout_width="0dp"
-                        android:layout_height="match_parent" android:layout_weight="1" android:text="资源"
-                        android:insetLeft="0dp" android:insetTop="0dp"
-                        android:insetRight="0dp" android:insetBottom="0dp"
-                        android:textSize="16sp" android:textStyle="bold"
-                        android:textColor="@color/profile_segment_text" app:backgroundTint="@color/profile_segment_background"
-                        app:cornerRadius="20dp" app:strokeWidth="0dp" />
-                </com.google.android.material.button.MaterialButtonToggleGroup>
-            </com.google.android.material.card.MaterialCardView>
-            <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
-                <androidx.viewpager2.widget.ViewPager2 android:id="@+id/detail_pager"
-                    android:layout_width="match_parent" android:layout_height="match_parent" />
-                <FrameLayout android:id="@+id/detail_page_pool" android:layout_width="match_parent"
+            android:background="@android:color/transparent">
+            <androidx.viewpager2.widget.ViewPager2 android:id="@+id/detail_pager"
+                android:layout_width="match_parent" android:layout_height="match_parent" />
+            <!-- 滚动指示器的毛玻璃快照层 + 半透明底（与应用栏同款观感） -->
+            <ImageView android:id="@+id/detail_segments_blur"
+                android:layout_width="match_parent" android:layout_height="82dp"
+                android:layout_gravity="top"
+                android:clickable="false" android:focusable="false"
+                android:scaleType="matrix" android:visibility="gone" />
+            <View android:id="@+id/detail_segments_tint"
+                android:layout_width="match_parent" android:layout_height="82dp"
+                android:layout_gravity="top" android:background="@color/surface_bar"
+                android:clickable="false" android:focusable="false" />
+            <!-- 顶部小短横条：点击折叠 / 展开（条上下各 8dp，条长 54dp、高 4dp） -->
+            <View android:id="@+id/detail_sheet_handle"
+                android:layout_width="160dp" android:layout_height="20dp"
+                android:layout_gravity="top|center_horizontal"
+                android:background="@drawable/bg_sheet_handle"
+                android:clickable="true" android:focusable="true" />
+            <!-- 与主页一致的下划线标签：铺满、下划线指示器，坐在毛玻璃上（1x 高度） -->
+            <com.google.android.material.tabs.TabLayout android:id="@+id/detail_tabs"
+                android:layout_width="match_parent" android:layout_height="46dp"
+                android:layout_gravity="top" android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                app:tabGravity="fill" app:tabIndicator="@drawable/bg_tab_indicator"
+                app:tabIndicatorFullWidth="true" app:tabIndicatorHeight="3dp"
+                app:tabMode="fixed" app:tabSelectedTextColor="?attr/colorPrimary"
+                app:tabTextAppearance="@style/TextAppearance.WGPro.Tab"
+                app:tabTextColor="?attr/colorOnSurfaceVariant" />
+            <FrameLayout android:id="@+id/detail_page_pool" android:layout_width="match_parent"
                     android:layout_height="match_parent" android:visibility="gone">
                     <androidx.core.widget.NestedScrollView android:id="@+id/detail_page_activity"
                         android:layout_width="match_parent" android:layout_height="match_parent"
@@ -229,14 +218,12 @@
                         </LinearLayout>
                     </androidx.core.widget.NestedScrollView>
                 </FrameLayout>
-            </FrameLayout>
-        </LinearLayout>
+        </FrameLayout>
     </com.google.android.material.card.MaterialCardView>
     <FrameLayout android:id="@+id/detail_loading_overlay" android:layout_width="match_parent"
         android:layout_height="match_parent" android:background="@color/profile_loading_overlay"
         android:clickable="true" android:elevation="32dp" android:focusable="true">
-        <com.google.android.material.progressindicator.CircularProgressIndicator
-            android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="center"
-            android:indeterminate="true" />
+        <com.typheye.wgpro.ui.widget.WGProLoadingView
+            android:layout_width="48dp" android:layout_height="48dp" android:layout_gravity="center" />
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

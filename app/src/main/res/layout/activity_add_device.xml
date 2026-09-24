@@ -58,13 +58,12 @@
                             android:textColor="@color/text_secondary"
                             android:textSize="13sp" />
                     </LinearLayout>
-                    <com.google.android.material.progressindicator.CircularProgressIndicator
+                    <com.typheye.wgpro.ui.widget.WGProLoadingView
                         android:id="@+id/add_device_progress"
                         android:layout_width="34dp"
                         android:layout_height="34dp"
-                        android:indeterminate="true"
-                        app:indicatorColor="?attr/colorPrimary"
-                        app:trackColor="@color/brand_soft" />
+                        app:loadingColor="?attr/colorPrimary"
+                        app:loadingTrackColor="@color/brand_soft" />
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_rescan"
                         style="@style/Widget.WGPro.Button.Text"

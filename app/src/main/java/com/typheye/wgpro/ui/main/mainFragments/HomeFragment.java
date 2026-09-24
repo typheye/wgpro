@@ -376,7 +376,7 @@ public class HomeFragment extends Fragment {
         View card = DynamicCardFactory.create(requireContext(), item, v -> startActivity(new Intent(requireContext(),
                 com.typheye.wgpro.ui.function.community.DynamicDetailActivity.class)
                 .putExtra(com.typheye.wgpro.ui.function.community.DynamicDetailActivity.EXTRA_DYNAMIC_ID,
-                        item.optString("id", ""))));
+                        item.optString("id", ""))), this::loadDynamics);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
         params.topMargin = dp(10);
         card.setLayoutParams(params);

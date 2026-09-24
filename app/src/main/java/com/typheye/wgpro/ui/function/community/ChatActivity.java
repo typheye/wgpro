@@ -60,6 +60,11 @@ public class ChatActivity extends BaseSectionActivity {
     @Override protected boolean hasPinnedBottomBar() {
         return !MODE_SYSTEM_MESSAGES.equals(getIntent().getStringExtra(EXTRA_MODE));
     }
+
+    /** 输入栏自带导航栏内边距（沉浸式），容器不再让开系统栏。 */
+    @Override protected boolean bottomBarOwnsNavigationInset() {
+        return hasPinnedBottomBar();
+    }
     @Override protected Fragment createContent() {
         if (MODE_SYSTEM_MESSAGES.equals(getIntent().getStringExtra(EXTRA_MODE))) {
             return new SystemMessageDetailFragment();
@@ -152,16 +157,39 @@ public class ChatActivity extends BaseSectionActivity {
                 @Override public void afterTextChanged(android.text.Editable s) { }
             });
             View composer = root.findViewById(R.id.chat_composer);
+            android.widget.ImageView chatBlur = root.findViewById(R.id.chat_bottom_blur);
+            com.typheye.wgpro.utils.BarBlurController.registerBar(requireContext(), composer);
+            // 与页面容器共用同一个毛玻璃控制器：快照源换成消息滚动区（不含输入栏），
+            // 再追加输入栏快照层——一份快照驱动顶栏+底栏，与 MainActivity 一致。
+            com.typheye.wgpro.utils.BarBlurController controller =
+                    ((BaseSectionActivity) requireActivity()).blurController();
+            if (controller != null) {
+                controller.rebindSource(refresh);
+                controller.addBackdrop(chatBlur);
+            } else {
+                com.typheye.wgpro.utils.BarBlurController.install(requireActivity(), refresh, chatBlur);
+            }
             int baseBottom = composer.getPaddingBottom();
             ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
-                Insets ime = insets.getInsets(WindowInsetsCompat.Type.ime());
-                Insets nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+                int ime = insets.getInsets(WindowInsetsCompat.Type.ime()).bottom;
+                // 输入栏自己吃导航栏/键盘/小窗把手的内边距（沉浸 + 小窗不重合）
+                int bottom = Math.max(com.typheye.wgpro.utils.SystemBars
+                        .bottomInsetForView(view, insets), ime);
                 composer.setPadding(composer.getPaddingLeft(), composer.getPaddingTop(),
-                        composer.getPaddingRight(), baseBottom + Math.max(0, ime.bottom - nav.bottom));
+                        composer.getPaddingRight(), baseBottom + bottom);
                 if (insets.isVisible(WindowInsetsCompat.Type.ime())) scrollToBottom();
                 return insets;
             });
             ViewCompat.requestApplyInsets(root);
+            // 消息列表底部留出输入栏高度，最后一条消息也能滚到输入栏上方（内容从毛玻璃下穿过）
+            root.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+                int barHeight = composer.getHeight();
+                if (barHeight > 0 && scroll.getPaddingBottom() != barHeight) {
+                    scroll.setClipToPadding(false);
+                    scroll.setPadding(scroll.getPaddingLeft(), scroll.getPaddingTop(),
+                            scroll.getPaddingRight(), barHeight);
+                }
+            });
             refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
             refresh.setOnRefreshListener(this::load);
             root.findViewById(R.id.chat_send).setOnClickListener(v -> send());

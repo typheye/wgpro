@@ -21,6 +21,8 @@
     <color name="text_primary">#FF17191E</color>
     <color name="text_secondary">#FF69707D</color>
     <color name="text_tertiary">#FF9399A4</color>
+    <!-- 抽屉拖拽小横条：半透明，避免看起来像一块不透明的亮色块 -->
+    <color name="sheet_handle">#33000000</color>
     <color name="status_success">#FF0B8F71</color>
     <color name="status_success_soft">#FFDDF5EE</color>
     <color name="status_warning">#FFB86B16</color>

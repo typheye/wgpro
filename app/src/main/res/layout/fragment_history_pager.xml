@@ -1,11 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@color/surface_page">
-    <com.google.android.material.card.MaterialCardView android:layout_width="match_parent" android:layout_height="52dp" android:layout_marginStart="16dp" android:layout_marginTop="10dp" android:layout_marginEnd="16dp" android:layout_marginBottom="6dp" style="@style/Widget.WGPro.Card">
-        <com.google.android.material.button.MaterialButtonToggleGroup android:id="@+id/history_segments" android:layout_width="match_parent" android:layout_height="match_parent" app:singleSelection="true" app:selectionRequired="true">
-            <com.google.android.material.button.MaterialButton android:id="@+id/history_segment_dynamic" style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="动态" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/history_segment_app" style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="应用" />
-            <com.google.android.material.button.MaterialButton android:id="@+id/history_segment_resource" style="@style/Widget.WGPro.SegmentButton" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:text="资源" />
-        </com.google.android.material.button.MaterialButtonToggleGroup>
-    </com.google.android.material.card.MaterialCardView>
-    <androidx.viewpager2.widget.ViewPager2 android:id="@+id/history_pager" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" />
-</LinearLayout>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_page">
+    <!-- 子标签（动态/应用/资源）挂在二级页应用栏里（section_page_tabs），与应用栏共用毛玻璃 -->
+    <androidx.viewpager2.widget.ViewPager2 android:id="@+id/history_pager"
+        android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>

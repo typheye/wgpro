@@ -119,6 +119,22 @@ public class CloudListFragment extends Fragment {
         state = root.findViewById(R.id.cloud_state);
         stateText = state.findViewById(R.id.stream_empty_title);
         stateDescription = state.findViewById(R.id.stream_empty_description);
+        // 空状态是盖在列表上方的覆盖层（不在滚动视图里），要跟着滚动容器的上下留白一起移动，
+        // 否则会被应用栏/子标签盖住，看起来像"页面错位/空白"。
+        // 注意：这里不再给自己的滚动视图补导航栏底部留白——二级页由宿主 Activity 统一处理，
+        // 用户主页的抽屉里补了会让底部露出一条纯色（在深色模式下就是一条黑边）。
+        final View stateContainer = (View) state.getParent();
+        final androidx.core.widget.NestedScrollView listScroll =
+                root.findViewById(R.id.cloud_scroll);
+        root.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int scrollTop = listScroll.getPaddingTop();
+            int scrollBottom = listScroll.getPaddingBottom();
+            if (stateContainer.getPaddingTop() != scrollTop
+                    || stateContainer.getPaddingBottom() != scrollBottom) {
+                stateContainer.setPadding(stateContainer.getPaddingLeft(), scrollTop,
+                        stateContainer.getPaddingRight(), scrollBottom);
+            }
+        });
         refresh.setOnRefreshListener(() -> {
             load();
             if (requireActivity() instanceof UserDetailActivity) {
@@ -972,9 +988,41 @@ public class CloudListFragment extends Fragment {
     private void deleteHistory(JSONObject item, View card) {
         Map<String, String> fields = new LinkedHashMap<>(); fields.put("history_id", item.optString("_history_id", item.optString("id", "")));
         account.postV2Json("history_delete2", fields, new tAccUtils.JsonCallback() {
-            public void onSuccess(JSONObject json) { requireActivity().runOnUiThread(() -> card.setVisibility(View.GONE)); }
-            public void onError(int code, String message) { }
+            public void onSuccess(JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
+            public void onError(int code, String message) { main.post(() -> toast("删除失败，请稍后重试")); }
         });
+    }
+
+    /**
+     * 操作成功后的统一收尾：先在本地把这条移出列表并重绘（界面立刻响应、不留空位），
+     * 再静默走一次和下拉刷新完全相同的加载，保证列表与服务端一致。
+     */
+    private void removeLocallyAndReload(JSONObject item) {
+        if (renderedItems != null) {
+            JSONArray next = new JSONArray();
+            for (int i = 0; i < renderedItems.length(); i++) {
+                JSONObject candidate = renderedItems.optJSONObject(i);
+                if (candidate == null || sameItem(candidate, item)) continue;
+                next.put(candidate);
+            }
+            render(next);
+        }
+        load();
+    }
+
+    private boolean sameItem(JSONObject a, JSONObject b) {
+        return sameValue(a, b, "_history_id") || sameValue(a, b, "target_key")
+                || sameValue(a, b, "id");
+    }
+
+    private boolean sameValue(JSONObject a, JSONObject b, String key) {
+        String value = a.optString(key, "");
+        return !value.isEmpty() && value.equals(b.optString(key, ""));
+    }
+
+    private void toast(String message) {
+        if (isAdded()) android.widget.Toast.makeText(requireContext(), message,
+                android.widget.Toast.LENGTH_SHORT).show();
     }
 
     private void removeUnavailable(JSONObject item, View card) {
@@ -994,14 +1042,14 @@ public class CloudListFragment extends Fragment {
                     if (MODE_HISTORY.equals(mode)) {
                         fields.put("history_id", item.optString("_history_id", item.optString("id", key)));
                         account.postV2Json("history_delete2", fields, new tAccUtils.JsonCallback() {
-                            @Override public void onSuccess(@NonNull JSONObject json) { card.setVisibility(View.GONE); }
-                            @Override public void onError(int code, @NonNull String message) { }
+                            @Override public void onSuccess(@NonNull JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
+                            @Override public void onError(int code, @NonNull String message) { main.post(() -> toast("移除失败，请稍后重试")); }
                         });
                     } else {
                         fields.put("target_type", "dynamic"); fields.put("target_key", key); fields.put("action", "remove");
                         account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
-                            @Override public void onSuccess(@NonNull JSONObject json) { card.setVisibility(View.GONE); }
-                            @Override public void onError(int code, @NonNull String message) { }
+                            @Override public void onSuccess(@NonNull JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
+                            @Override public void onError(int code, @NonNull String message) { main.post(() -> toast("移除失败，请稍后重试")); }
                         });
                     }
                 }).show();
@@ -1109,8 +1157,11 @@ public class CloudListFragment extends Fragment {
                     Map<String,String> fields = new LinkedHashMap<>();
                     fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id", item.optString("target_key", "")));
                     account.postV2Json(app ? "app_delete2" : "resource_delete2", fields, new tAccUtils.JsonCallback() {
-                        public void onSuccess(JSONObject json) { new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage("已删除").setNegativeButton("关闭", null).show(); }
-                        public void onError(int code, String msg) { new WGProAlertDialogBuilder(requireContext()).setTitle("操作失败").setMessage(msg).setNegativeButton("关闭", null).show(); }
+                        public void onSuccess(JSONObject json) { main.post(() -> {
+                            toast("已删除");
+                            removeLocallyAndReload(item);
+                        }); }
+                        public void onError(int code, String msg) { main.post(() -> toast("删除失败：" + msg)); }
                     });
                 }).show();
     }
@@ -1174,7 +1225,7 @@ public class CloudListFragment extends Fragment {
         View card = DynamicCardFactory.create(requireContext(), item, v -> {
             if (!id.isEmpty()) startActivity(new Intent(requireContext(), DynamicDetailActivity.class)
                     .putExtra(DynamicDetailActivity.EXTRA_DYNAMIC_ID, id));
-        });
+        }, () -> removeLocallyAndReload(item));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
         params.bottomMargin = dp(12); card.setLayoutParams(params);
         if (MODE_HISTORY.equals(mode)) {

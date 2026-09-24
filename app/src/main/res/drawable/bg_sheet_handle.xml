@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 抽屉顶部的小短横条：点击折叠 / 展开（54dp × 4dp，条上下各留 8dp） -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="top|center_horizontal" android:top="8dp">
+        <shape android:shape="rectangle">
+            <size android:width="54dp" android:height="4dp" />
+            <corners android:radius="2dp" />
+            <solid android:color="@color/sheet_handle" />
+        </shape>
+    </item>
+</layer-list>

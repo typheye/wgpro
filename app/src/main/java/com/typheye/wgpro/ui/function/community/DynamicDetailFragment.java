@@ -64,6 +64,39 @@ public final class DynamicDetailFragment extends Fragment {
         refresh = root.findViewById(R.id.dynamic_refresh); comments = root.findViewById(R.id.comment_list);
         empty = root.findViewById(R.id.comment_empty); likeButton = root.findViewById(R.id.dynamic_like_action);
         favoriteButton = root.findViewById(R.id.dynamic_favorite_action);
+        View actions = root.findViewById(R.id.dynamic_actions);
+        android.widget.ImageView bottomBlur = root.findViewById(R.id.dynamic_bottom_blur);
+        com.typheye.wgpro.utils.BarBlurController.registerBar(requireContext(), actions);
+        // 与页面容器共用同一个毛玻璃控制器：快照源换成内容滚动区（不含底栏），
+        // 再追加底栏快照层——一份快照驱动顶栏+底栏，与 MainActivity 一致。
+        com.typheye.wgpro.utils.BarBlurController controller =
+                ((BaseSectionActivity) requireActivity()).blurController();
+        if (controller != null) {
+            controller.rebindSource(refresh);
+            controller.addBackdrop(bottomBlur);
+        } else {
+            com.typheye.wgpro.utils.BarBlurController.install(requireActivity(), refresh, bottomBlur);
+        }
+        int actionsBaseBottom = actions.getPaddingBottom();
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
+            // 底栏自己吃导航栏/小窗把手内边距（沉浸 + 小窗不重合）
+            int inset = com.typheye.wgpro.utils.SystemBars.bottomInsetForView(view, insets);
+            actions.setPadding(actions.getPaddingLeft(), actions.getPaddingTop(),
+                    actions.getPaddingRight(), actionsBaseBottom + inset);
+            return insets;
+        });
+        androidx.core.view.ViewCompat.requestApplyInsets(root);
+        // 内容底部留出底栏高度，末尾内容也能滚到底栏上方（内容从毛玻璃下穿过）
+        final androidx.core.widget.NestedScrollView detailScroll =
+                root.findViewById(R.id.dynamic_scroll);
+        root.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int barHeight = actions.getHeight();
+            if (barHeight > 0 && detailScroll.getPaddingBottom() != barHeight) {
+                detailScroll.setClipToPadding(false);
+                detailScroll.setPadding(detailScroll.getPaddingLeft(), detailScroll.getPaddingTop(),
+                        detailScroll.getPaddingRight(), barHeight);
+            }
+        });
         ((TextView) empty.findViewById(R.id.stream_empty_title)).setText("还没有评论");
         ((TextView) empty.findViewById(R.id.stream_empty_description)).setText("说点什么，开启讨论。");
         refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
