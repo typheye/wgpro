@@ -84,6 +84,9 @@ public class UserDetailActivity extends AppCompatActivity {
     private int lastRootHeight = -1;
     /** Collapsed drawer baseline captured from the first normal full-screen layout. */
     private int fullScreenCollapsedTop = -1;
+    /** 保存/恢复抽屉展开态（主题切换、多窗口重建、进程恢复）。 */
+    private static final String STATE_SHEET_EXPANDED = "profile_sheet_expanded";
+    private boolean pendingExpandSheet = false;
     private String targetUid;
     private boolean isSelf;
     private boolean following;
@@ -110,6 +113,7 @@ public class UserDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
+        if (state != null) pendingExpandSheet = state.getBoolean(STATE_SHEET_EXPANDED, false);
         AppUtils.useScreenCutArea(getWindow(), this);
         // 头图是深色背景，状态栏用浅色图标。
         SystemBars.setLightSystemBars(getWindow(), false);
@@ -248,10 +252,13 @@ public class UserDetailActivity extends AppCompatActivity {
                             updateFollowButton();
                             expandedIdentity.setVisibility(View.VISIBLE);
                             collapsedIdentity.setVisibility(View.VISIBLE);
-                            // The identity block was invisible during the initial
-                            // measure. Recalculate once its real height is known so
-                            // the stored full-screen baseline is meaningful.
-                            detailRoot.post(() -> scheduleProfileLayout(false));
+                            // The identity block was invisible during the initial measure, so
+                            // recalculate once its real height is known. preserveState=true keeps
+                            // the drawer's current expanded/collapsed state on silent refreshes
+                            // (onResume / onNewIntent / 下拉刷新) instead of snapping it shut.
+                            // On the very first load the drawer is still collapsed, so the
+                            // full-screen baseline is captured exactly as before.
+                            detailRoot.post(() -> scheduleProfileLayout(true));
                             String avatarUrl = info.optString("avatar_url", "");
                             if (!avatarUrl.isEmpty()) {
                                 profileAssetsPending++;
@@ -538,9 +545,11 @@ public class UserDetailActivity extends AppCompatActivity {
             scheduleSettledWindowLayout();
             return;
         }
-        int targetState = preserveState && currentState == BottomSheetBehavior.STATE_EXPANDED
+        int targetState = pendingExpandSheet
                 ? BottomSheetBehavior.STATE_EXPANDED
-                : BottomSheetBehavior.STATE_COLLAPSED;
+                : (preserveState && currentState == BottomSheetBehavior.STATE_EXPANDED
+                        ? BottomSheetBehavior.STATE_EXPANDED
+                        : BottomSheetBehavior.STATE_COLLAPSED);
         ViewTreeObserver observer = detailRoot.getViewTreeObserver();
         if (pendingProfileLayout != null && observer.isAlive()) {
             observer.removeOnPreDrawListener(pendingProfileLayout);
@@ -610,6 +619,7 @@ public class UserDetailActivity extends AppCompatActivity {
                 sheetBehavior.setPeekHeight(Math.max(minimumPeek,
                         windowHeight - collapsedTop), false);
                 sheetBehavior.setState(targetState);
+                pendingExpandSheet = false;
                 detailSheet.requestLayout();
                 // Cancel this frame so the resized header and positioned sheet are the
                 // first version ever submitted to the display compositor.
@@ -664,6 +674,13 @@ public class UserDetailActivity extends AppCompatActivity {
         detailRoot.requestLayout();
         scheduleProfileLayout(true);
         scheduleSettledWindowLayout();
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putBoolean(STATE_SHEET_EXPANDED,
+                sheetBehavior != null && sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED);
     }
 
     @Override

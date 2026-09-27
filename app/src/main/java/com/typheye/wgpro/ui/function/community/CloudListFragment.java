@@ -759,7 +759,7 @@ public class CloudListFragment extends Fragment {
                             || "offline".equalsIgnoreCase(info.optString("visibility"));
                     if (info != null && !unavailable) try {
                         copyIdentity(target, info);
-                        if (MODE_HISTORY.equals(mode)) info.put("_history_id", target.optString("id", ""));
+                        preserveHistoryId(target, info);
                         targets.put(index, info);
                     } catch (Exception ignored) { }
                     else {
@@ -830,6 +830,19 @@ public class CloudListFragment extends Fragment {
         } catch (Exception ignored) { }
     }
 
+    /**
+     * 浏览历史把服务端记录 id（{@code BROWSE_HISTORY.id}）放在历史项自身的 {@code id} 上；
+     * 合并动态/应用/资源详情后会替换整个对象，必须先把它搬到 {@code _history_id}，
+     * 否则单条删除会拿到内容 id（应用包名/资源哈希/动态 id），删不掉服务端记录。
+     */
+    private void preserveHistoryId(JSONObject source, JSONObject target) {
+        if (!MODE_HISTORY.equals(mode)) return;
+        String historyId = source.optString("id", "").trim();
+        if (!historyId.isEmpty()) {
+            try { target.put("_history_id", historyId); } catch (Exception ignored) { }
+        }
+    }
+
     private void normalizeUnavailableIdentity(@Nullable JSONObject source, JSONObject target) {
         if (source == null) return;
         JSONObject nested = source.optJSONObject("target");
@@ -868,14 +881,14 @@ public class CloudListFragment extends Fragment {
             final int index = i; JSONObject target = targets.optJSONObject(i);
             if (target == null) { finishHydration(targets, pending, started, generation); continue; }
             JSONObject embedded = target.optJSONObject("target");
-            if (embedded != null) { try { targets.put(index, embedded); } catch (Exception ignored) { }
+            if (embedded != null) { preserveHistoryId(target, embedded); try { targets.put(index, embedded); } catch (Exception ignored) { }
                 finishHydration(targets, pending, started, generation); continue; }
             String id = target.optString("target_key", target.optString("id", ""));
             Map<String, String> query = new LinkedHashMap<>(); query.put(idField, id);
             account.getV2Json(action, query, auth, new tAccUtils.JsonCallback() {
                 @Override public void onSuccess(@NonNull JSONObject json) {
                     JSONObject info = json.optJSONObject("info");
-                    if (info != null) try { targets.put(index, info); } catch (Exception ignored) { }
+                    if (info != null) try { preserveHistoryId(target, info); targets.put(index, info); } catch (Exception ignored) { }
                     else markInvalid(target);
                     finishHydration(targets, pending, started, generation);
                 }
@@ -893,14 +906,14 @@ public class CloudListFragment extends Fragment {
             final int index = i; JSONObject target = targets.optJSONObject(i);
             if (target == null) { finishHydration(targets, pending, started, generation); continue; }
             JSONObject embedded = target.optJSONObject("target");
-            if (embedded != null) { try { targets.put(index, embedded); } catch (Exception ignored) { }
+            if (embedded != null) { preserveHistoryId(target, embedded); try { targets.put(index, embedded); } catch (Exception ignored) { }
                 finishHydration(targets, pending, started, generation); continue; }
             String key = target.optString("target_key", "");
             String url = "https://res.typheye.cn/api.php?type=app_detail&package=" + Uri.encode(key);
             account.getPublicJsonUrl(url, new tAccUtils.JsonCallback() {
                 @Override public void onSuccess(@NonNull JSONObject json) {
                     JSONObject info = json.optJSONObject("info");
-                    if (info != null) try { targets.put(index, info); } catch (Exception ignored) { }
+                    if (info != null) try { preserveHistoryId(target, info); targets.put(index, info); } catch (Exception ignored) { }
                     else markInvalid(target);
                     finishHydration(targets, pending, started, generation);
                 }
@@ -986,10 +999,32 @@ public class CloudListFragment extends Fragment {
     }
 
     private void deleteHistory(JSONObject item, View card) {
-        Map<String, String> fields = new LinkedHashMap<>(); fields.put("history_id", item.optString("_history_id", item.optString("id", "")));
+        Map<String, String> fields = new LinkedHashMap<>();
+        String historyId = item.optString("_history_id", "").trim();
+        if (historyId.isEmpty()) {
+            // 失效内容没有合并详情，历史记录 id 仍留在历史项自己的 id 字段（纯数字）。
+            String rawId = item.optString("id", "").trim();
+            if (rawId.matches("\\d+")) historyId = rawId;
+        }
+        if (!historyId.isEmpty()) fields.put("history_id", historyId);
+        String targetType = item.optString("target_type", "").trim();
+        if (targetType.isEmpty() && MODE_HISTORY.equals(mode)) targetType = historyType;
+        String targetKey = item.optString("target_key", "").trim();
+        if (!targetType.isEmpty() && !targetKey.isEmpty()) {
+            // 兜底：即使历史记录 id 缺失，也能按 类型 + 内容标识 精确删除。
+            fields.put("target_type", targetType);
+            fields.put("target_key", targetKey);
+        }
+        if (fields.isEmpty()) {
+            toast("该记录缺少标识，暂时无法删除");
+            return;
+        }
         account.postV2Json("history_delete2", fields, new tAccUtils.JsonCallback() {
             public void onSuccess(JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
-            public void onError(int code, String message) { main.post(() -> toast("删除失败，请稍后重试")); }
+            public void onError(int code, String message) {
+                main.post(() -> toast(message == null || message.trim().isEmpty()
+                        ? "删除失败，请稍后重试" : message));
+            }
         });
     }
 
@@ -1038,20 +1073,13 @@ public class CloudListFragment extends Fragment {
             new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除该动态？")
                 .setMessage("移除后不会再显示在当前列表。")
                 .setNegativeButton("取消", null).setPositiveButton("移除", (dialog, which2) -> {
+                    if (MODE_HISTORY.equals(mode)) { deleteHistory(item, card); return; }
                     Map<String, String> fields = new LinkedHashMap<>();
-                    if (MODE_HISTORY.equals(mode)) {
-                        fields.put("history_id", item.optString("_history_id", item.optString("id", key)));
-                        account.postV2Json("history_delete2", fields, new tAccUtils.JsonCallback() {
-                            @Override public void onSuccess(@NonNull JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
-                            @Override public void onError(int code, @NonNull String message) { main.post(() -> toast("移除失败，请稍后重试")); }
-                        });
-                    } else {
-                        fields.put("target_type", "dynamic"); fields.put("target_key", key); fields.put("action", "remove");
-                        account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
-                            @Override public void onSuccess(@NonNull JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
-                            @Override public void onError(int code, @NonNull String message) { main.post(() -> toast("移除失败，请稍后重试")); }
-                        });
-                    }
+                    fields.put("target_type", "dynamic"); fields.put("target_key", key); fields.put("action", "remove");
+                    account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
+                        @Override public void onSuccess(@NonNull JSONObject json) { main.post(() -> removeLocallyAndReload(item)); }
+                        @Override public void onError(int code, @NonNull String message) { main.post(() -> toast("移除失败，请稍后重试")); }
+                    });
                 }).show();
         }).show();
     }

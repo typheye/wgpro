@@ -33,12 +33,14 @@ public class AccountListActivity extends BaseSectionActivity {
 
     public static final class HistoryPagerFragment extends Fragment {
         private static final String[] TITLES = {"动态", "应用", "资源"};
+        private static final String[] TYPES = {"dynamic", "app", "resource"};
         private com.google.android.material.tabs.TabLayoutMediator tabsMediator;
+        private ViewPager2 pager;
 
         @Override public android.view.View onCreateView(android.view.LayoutInflater inflater, android.view.ViewGroup parent, Bundle state) {
             android.view.View root = inflater.inflate(com.typheye.wgpro.R.layout.fragment_history_pager, parent, false);
-            ViewPager2 pager = root.findViewById(com.typheye.wgpro.R.id.history_pager);
-            String[] types = {"dynamic", "app", "resource"};
+            pager = root.findViewById(com.typheye.wgpro.R.id.history_pager);
+            String[] types = TYPES;
             pager.setAdapter(new androidx.viewpager2.adapter.FragmentStateAdapter(this) {
                 public int getItemCount() { return 3; }
                 public Fragment createFragment(int p) { return CloudListFragment.newHistoryPage(types[p]); }
@@ -62,6 +64,7 @@ public class AccountListActivity extends BaseSectionActivity {
                 tabsMediator.detach();
                 tabsMediator = null;
             }
+            pager = null;
             com.google.android.material.tabs.TabLayout tabs =
                     ((BaseSectionActivity) requireActivity()).pageTabs();
             if (tabs != null) {
@@ -71,6 +74,59 @@ public class AccountListActivity extends BaseSectionActivity {
             super.onDestroyView();
         }
 
-        void showMenu(){boolean enabled=requireContext().getSharedPreferences("history_preferences",0).getBoolean("enabled",true);new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext()).setTitle("浏览历史").setItems(new CharSequence[]{"清空所有历史",enabled?"不再记录历史":"开启记录历史"},(d,w)->{if(w==0)new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext()).setTitle("清空所有历史？").setMessage("将删除全部浏览记录。").setNegativeButton("取消",null).setPositiveButton("清空",(x,y)->new com.typheye.wgpro.utils.tAccUtils(requireContext()).postV2Json("history_clear2",new java.util.LinkedHashMap<>(),new com.typheye.wgpro.utils.tAccUtils.JsonCallback(){public void onSuccess(org.json.JSONObject j){requireActivity().runOnUiThread(()->{for(Fragment f:getChildFragmentManager().getFragments())if(f instanceof CloudListFragment)((CloudListFragment)f).reloadFromHistoryAction();});} public void onError(int c,String m){}})).show();else new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext()).setTitle(enabled?"不再记录历史？":"开启记录历史？").setMessage("确认更改浏览历史记录设置？").setNegativeButton("取消",null).setPositiveButton("确认",(x,y)->requireContext().getSharedPreferences("history_preferences",0).edit().putBoolean("enabled",!enabled).apply()).show();}).show();}
+        private void reloadAll() {
+            requireActivity().runOnUiThread(() -> {
+                for (Fragment f : getChildFragmentManager().getFragments())
+                    if (f instanceof CloudListFragment) ((CloudListFragment) f).reloadFromHistoryAction();
+            });
+        }
+
+        private void confirmClear(String type, String title, String message) {
+            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                    .setTitle(title).setMessage(message)
+                    .setNegativeButton("取消", null).setPositiveButton("清空", (x, y) ->
+                            new com.typheye.wgpro.utils.tAccUtils(requireContext()).postV2Json("history_clear2",
+                                    fieldsFor(type), new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
+                                        public void onSuccess(org.json.JSONObject j) { reloadAll(); }
+                                        public void onError(int c, String m) {
+                                            requireActivity().runOnUiThread(() ->
+                                                    new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                                                            .setTitle("清空失败")
+                                                            .setMessage(m == null || m.trim().isEmpty() ? "请稍后重试" : m)
+                                                            .setNegativeButton("关闭", null).show());
+                                        }
+                                    }))
+                    .show();
+        }
+
+        private java.util.Map<String, String> fieldsFor(String type) {
+            java.util.Map<String, String> fields = new java.util.LinkedHashMap<>();
+            if (type != null) fields.put("target_type", type);
+            return fields;
+        }
+
+        void showMenu() {
+            boolean enabled = requireContext().getSharedPreferences("history_preferences", 0).getBoolean("enabled", true);
+            int position = pager == null ? 0 : Math.max(0, Math.min(TYPES.length - 1, pager.getCurrentItem()));
+            String typeLabel = TITLES[position];
+            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext()).setTitle("浏览历史")
+                    .setItems(new CharSequence[]{"清空" + typeLabel + "记录", "清空所有历史",
+                            enabled ? "不再记录历史" : "开启记录历史"}, (d, w) -> {
+                        if (w == 0) {
+                            confirmClear(TYPES[position], "清空" + typeLabel + "记录？", "将删除全部" + typeLabel + "浏览记录。");
+                        } else if (w == 1) {
+                            confirmClear(null, "清空所有历史？", "将删除动态、应用和资源的全部浏览记录。");
+                        } else {
+                            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                                    .setTitle(enabled ? "不再记录历史？" : "开启记录历史？")
+                                    .setMessage("确认更改浏览历史记录设置？")
+                                    .setNegativeButton("取消", null)
+                                    .setPositiveButton("确认", (x, y) -> requireContext()
+                                            .getSharedPreferences("history_preferences", 0).edit()
+                                            .putBoolean("enabled", !enabled).apply())
+                                    .show();
+                        }
+                    }).show();
+        }
     }
 }

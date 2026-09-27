@@ -21,6 +21,8 @@
         <item name="android:windowLightNavigationBar">true</item>
         <item name="android:fontFamily">sans-serif</item>
         <item name="android:letterSpacing">0</item>
+        <!-- 关闭过度滚动/拉伸辉光（Android 10 拉到顶/底的椭圆阴影） -->
+        <item name="android:overScrollMode">never</item>
         <item name="android:colorControlHighlight">@color/brand_soft</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.WGPro.AlertDialog</item>
     </style>
@@ -105,6 +107,7 @@
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
         <item name="android:windowAnimationStyle">@style/WGPro.DialogAnimation</item>
+        <item name="android:overScrollMode">never</item>
     </style>
     <style name="Widget.WGPro.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
         <item name="android:elevation">0dp</item>
@@ -134,6 +137,7 @@
         <item name="android:windowLightNavigationBar">true</item>
         <item name="colorSurface">@color/surface_elevated</item>
         <item name="colorSurfaceContainerLow">@color/surface_elevated</item>
+        <item name="android:overScrollMode">never</item>
     </style>
     <style name="WGPro.DialogAnimation" parent="@android:style/Animation.Dialog">
         <item name="android:windowEnterAnimation">@anim/activity_open_enter</item>

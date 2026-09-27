@@ -119,8 +119,8 @@ public class AccountFragment extends Fragment {
         setGroupRowTitle(view, R.id.account_identity, "社区身份");
         accountIdentityValue = view.findViewById(R.id.account_identity)
                 .findViewById(R.id.account_row_value);
-        accountIdentityValue.setText("普通用户");
-        accountIdentityValue.setVisibility(View.VISIBLE);
+        accountIdentityValue.setText("");
+        accountIdentityValue.setVisibility(View.GONE);
         activityCount = view.findViewById(R.id.account_activity_count);
         followingCount = view.findViewById(R.id.account_following_count);
         followersCount = view.findViewById(R.id.account_followers_count);
@@ -329,7 +329,8 @@ public class AccountFragment extends Fragment {
                             followingCount.setText(String.valueOf(info.optInt("following_count", 0)));
                             followersCount.setText(String.valueOf(info.optInt("follower_count", 0)));
                             String role = info.optString("role_name", "").trim();
-                            accountIdentityValue.setText(role.isEmpty() ? "普通用户" : role);
+                            accountIdentityValue.setText(role);
+                            accountIdentityValue.setVisibility(role.isEmpty() ? View.GONE : View.VISIBLE);
                         });
                     }
 

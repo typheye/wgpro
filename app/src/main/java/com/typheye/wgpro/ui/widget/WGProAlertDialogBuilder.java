@@ -429,7 +429,7 @@ public final class WGProAlertDialogBuilder {
     }
     private boolean containsProgressIndicator(View view) {
         if (view == null) return false;
-        if (view instanceof ProgressBar) return true;
+        if (view instanceof ProgressBar || view instanceof WGProLoadingView) return true;
         if (!(view instanceof ViewGroup)) return false;
         ViewGroup group = (ViewGroup) view;
         for (int i = 0; i < group.getChildCount(); i++) {
