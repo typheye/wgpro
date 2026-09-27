@@ -78,7 +78,7 @@ public final class AppDetailActivity extends BaseSectionActivity {
     }
 
     private void reportApp() {
-        ReportActivity.open(this, "app",
+        CommunityWeb.openReport(this, "app",
                 appInfo.optString("id", appInfo.optString("package")),
                 appInfo.optString("name", "应用"));
     }

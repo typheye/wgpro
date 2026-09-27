@@ -265,7 +265,7 @@ public final class DynamicDetailFragment extends Fragment {
         String summary = item.optString("content", "").trim();
         if (summary.isEmpty()) summary = "评论 #" + id;
         if (summary.length() > 40) summary = summary.substring(0, 40) + "…";
-        ReportActivity.open(requireContext(), "comment", id, summary);
+        CommunityWeb.openReport(requireContext(), "comment", id, summary);
     }
 
     private void showCommentDetail(JSONObject item) {

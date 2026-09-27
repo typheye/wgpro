@@ -33,7 +33,7 @@ import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.function.community.AppDetailActivity;
 import com.typheye.wgpro.ui.function.community.AppListItemFactory;
 import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
-import com.typheye.wgpro.ui.function.community.ReportActivity;
+import com.typheye.wgpro.ui.function.community.CommunityWeb;
 import com.typheye.wgpro.ui.function.community.ResourceMasonryFactory;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
@@ -493,7 +493,7 @@ public class HomeFragment extends Fragment {
             Map<String,String> fields = new LinkedHashMap<>();
             if (mine) { fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id")); runCatalogAction(app ? "app_delete2" : "resource_delete2", fields, "确认删除？", "删除后无法恢复。", "已删除"); }
             else {
-                ReportActivity.open(requireContext(), app ? "app" : "resource",
+                CommunityWeb.openReport(requireContext(), app ? "app" : "resource",
                         item.optString(app ? "package" : "id"),
                         item.optString(app ? "name" : "title", app ? "应用" : "资源"));
             }

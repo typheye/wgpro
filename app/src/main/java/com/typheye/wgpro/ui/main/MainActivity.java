@@ -697,13 +697,11 @@ public class MainActivity extends AppCompatActivity {
             if (!requireLogin("发布内容")) return true;
             new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
                     .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, (dialog, which) -> {
-                        Intent intent = new Intent(this,
-                                com.typheye.wgpro.ui.function.community.ComposerActivity.class);
-                        intent.putExtra(com.typheye.wgpro.ui.function.community.ComposerActivity.EXTRA_MODE,
-                                which == 0
-                                        ? com.typheye.wgpro.ui.function.community.ComposerActivity.MODE_DYNAMIC
-                                        : com.typheye.wgpro.ui.function.community.ComposerActivity.MODE_RESOURCE);
-                        startActivity(intent);
+                        if (which == 0) {
+                            com.typheye.wgpro.ui.function.community.CommunityWeb.openDynamic(this);
+                        } else {
+                            com.typheye.wgpro.ui.function.community.CommunityWeb.openResource(this);
+                        }
                     }).show();
             return true;
         } else if (id == R.id.action_device_add) {

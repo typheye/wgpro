@@ -28,6 +28,7 @@ import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.account.UserDetailActivity;
 import com.typheye.wgpro.ui.function.community.AccountListActivity;
 import com.typheye.wgpro.ui.function.community.CloudListFragment;
+import com.typheye.wgpro.ui.function.community.CommunityWeb;
 import com.typheye.wgpro.ui.function.community.ContactActivity;
 import com.typheye.wgpro.utils.ImageCache;
 import com.typheye.wgpro.utils.tAccUtils;
@@ -170,11 +171,8 @@ public class AccountFragment extends Fragment {
             startActivity(intent);
         });
 
-        root.findViewById(R.id.account_identity).setOnClickListener(v -> new WGProAlertDialogBuilder(requireContext())
-                .setTitle("社区身份")
-                .setMessage(accountIdentityValue.getText())
-                .setPositiveButton("完成", null)
-                .show());
+        root.findViewById(R.id.account_identity).setOnClickListener(v ->
+                CommunityWeb.openIdentity(requireContext()));
         root.findViewById(R.id.account_activity).setOnClickListener(v ->
                 openAccountList("我的动态", CloudListFragment.MODE_ACTIVITY));
         root.findViewById(R.id.account_following).setOnClickListener(v ->
@@ -185,7 +183,8 @@ public class AccountFragment extends Fragment {
         root.findViewById(R.id.account_favorites).setOnClickListener(v -> openAccountList("我的收藏", CloudListFragment.MODE_COLLECTION_DYNAMIC));
         root.findViewById(R.id.account_starred_apps).setOnClickListener(v -> openAccountList("星标应用", CloudListFragment.MODE_COLLECTION_APP));
         root.findViewById(R.id.account_resources).setOnClickListener(v -> openAccountList("星标资源", CloudListFragment.MODE_COLLECTION_RESOURCE));
-        root.findViewById(R.id.account_creator_center).setOnClickListener(v -> showCreatorStats());
+        root.findViewById(R.id.account_creator_center).setOnClickListener(v ->
+                CommunityWeb.openCreatorCenter(requireContext()));
     }
 
     private void setGroupRowTitle(View root, int rowId, String title) {
@@ -263,32 +262,6 @@ public class AccountFragment extends Fragment {
             if (!time.isEmpty()) result.append("\n").append(time);
         }
         return result.length() == 0 ? "这里暂时还没有内容。" : result.toString();
-    }
-
-    private void showCreatorStats() {
-        accUtils.getV2Json("creator_stats2", Collections.emptyMap(), true, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(@NonNull JSONObject json) {
-                mainHandler.post(() -> {
-                    if (!isAdded()) return;
-                    JSONObject info = json.optJSONObject("info");
-                    if (info == null) info = new JSONObject();
-                    String message = "动态  " + info.optInt("dynamic_count")
-                            + "\n资源  " + info.optInt("resource_count")
-                            + "\n审核中  " + info.optInt("pending_count")
-                            + "\n未通过  " + info.optInt("rejected_count");
-                    new WGProAlertDialogBuilder(requireContext()).setTitle("创作中心")
-                            .setMessage(message).setNegativeButton("关闭", null).show();
-                });
-            }
-
-            @Override public void onError(int code, @NonNull String message) {
-                mainHandler.post(() -> {
-                    if (!isAdded()) return;
-                    new WGProAlertDialogBuilder(requireContext()).setTitle("加载失败")
-                            .setMessage(message).setNegativeButton("关闭", null).show();
-                });
-            }
-        });
     }
 
     @SuppressLint("SetTextI18n")

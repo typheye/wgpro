@@ -52,7 +52,7 @@ import com.typheye.wgpro.utils.SystemBars;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.typheye.wgpro.ui.function.community.CloudListFragment;
 import com.typheye.wgpro.ui.function.community.DynamicCardFactory;
-import com.typheye.wgpro.ui.function.community.ReportActivity;
+import com.typheye.wgpro.ui.function.community.CommunityWeb;
 
 import java.io.File;
 import java.util.Arrays;
@@ -817,7 +817,7 @@ public class UserDetailActivity extends AppCompatActivity {
                         .setItems(new String[]{"举报该用户", "更多信息"},
                                 (dialog, which) -> {
                                     if (which == 0) {
-                                        ReportActivity.open(this, "user", targetUid, nick);
+                                        CommunityWeb.openReport(this, "user", targetUid, nick);
                                     } else {
                                         showMoreInfo();
                                     }

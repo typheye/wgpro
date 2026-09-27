@@ -1170,7 +1170,7 @@ public class CloudListFragment extends Fragment {
         String key = item.optString(app ? "package" : "id",
                 item.optString("target_key", ""));
         String title = item.optString(app ? "name" : "title", app ? "应用" : "资源");
-        ReportActivity.open(requireContext(), app ? "app" : "resource", key, title);
+        CommunityWeb.openReport(requireContext(), app ? "app" : "resource", key, title);
     }
 
     private View createSystemMessageRow(JSONObject item) {

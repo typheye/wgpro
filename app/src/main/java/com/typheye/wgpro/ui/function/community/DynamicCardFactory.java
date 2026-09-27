@@ -167,8 +167,7 @@ public final class DynamicCardFactory {
         identity.addView(text(context, item.optString("nick", "用户"), 15, true, R.color.text_primary));
         String unavailableUid = item.optString("uid", item.optString("target_uid", ""));
         String published = "发布于 " + relativeTime(item.optString("created_at", ""));
-        identity.addView(text(context, unavailableUid.trim().isEmpty() ? published
-                : "UID " + unavailableUid + "  ·  " + published, 12, false, R.color.text_secondary));
+        identity.addView(text(context, published, 12, false, R.color.text_secondary));
         LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
         identityParams.setMarginStart(dp(context, 10)); header.addView(identity, identityParams);
         ImageView removeIcon = new ImageView(context); removeIcon.setImageResource(R.drawable.ic_more_vertical_vector);
@@ -331,7 +330,7 @@ public final class DynamicCardFactory {
                 fields.put("action", "block"); postFeedback(context, account, "block_action2", fields, "已屏蔽该用户");
                 return;
             }
-            ReportActivity.open(context, "dynamic", item.optString("id"),
+            CommunityWeb.openReport(context, "dynamic", item.optString("id"),
                     item.optString("content", item.optString("nick", "动态")));
         }).show();
     }
