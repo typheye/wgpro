@@ -78,6 +78,8 @@ public class CloudListFragment extends Fragment {
     private int requestGeneration;
     private boolean skipNextResumeReload;
     private JSONArray renderedItems;
+    /** 上次渲染的数据签名：相同就不重建视图，避免刷新时图片闪动。 */
+    private String lastRenderSignature;
 
     public static CloudListFragment newInstance(String mode) {
         return newInstance(mode, null);
@@ -109,6 +111,8 @@ public class CloudListFragment extends Fragment {
                                                   @Nullable ViewGroup container,
                                                   @Nullable Bundle stateBundle) {
         View root = inflater.inflate(R.layout.fragment_cloud_list, container, false);
+        // 视图重建后必须重新渲染（签名要清空，否则会被当成“数据没变”而跳过）
+        lastRenderSignature = null;
         mode = getArguments() == null ? MODE_ACTIVITY : getArguments().getString("mode", MODE_ACTIVITY);
         if (getArguments() != null) historyType = getArguments().getString("history_type", "dynamic");
         account = new tAccUtils(requireContext().getApplicationContext());
@@ -694,6 +698,12 @@ public class CloudListFragment extends Fragment {
     }
 
     private void render(JSONArray items) {
+        String signature = listSignature(items);
+        if (signature.equals(lastRenderSignature)) {
+            // 数据没变：保留现有视图，避免重建时图片先空白再补上（闪动）
+            return;
+        }
+        lastRenderSignature = signature;
         renderedItems = items;
         list.removeAllViews();
         if (isResourceTargetList() || MODE_MY_RESOURCES.equals(mode) || MODE_USER_RESOURCES.equals(mode)) {
@@ -702,7 +712,10 @@ public class CloudListFragment extends Fragment {
                     new WGProAlertDialogBuilder(requireContext()).setTitle("资源已失效").setMessage("资源已不可见").setNegativeButton("关闭", null).show();
                 } else startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
                         .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
-            }, (item, anchor) -> showCatalogActions(item, false, anchor));
+            }, (item, anchor) -> {
+                if (MODE_HISTORY.equals(mode)) showHistoryItemActions(item, anchor);
+                else showCatalogActions(item, false, anchor);
+            });
             if (items.length() > 0) list.addView(masonry, new LinearLayout.LayoutParams(-1, -2));
             if (items.length() == 0) {
                 stateText.setText(emptyText()); stateDescription.setText(emptyDescription());
@@ -717,6 +730,30 @@ public class CloudListFragment extends Fragment {
         }
         if (list.getChildCount() == 0) showState(emptyText());
         else state.setVisibility(View.GONE);
+    }
+
+    /** 列表数据签名：用于判断刷新后是否真的需要重建视图。 */
+    private String listSignature(JSONArray items) {
+        if (items == null) return "";
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.optJSONObject(i);
+            if (item == null) continue;
+            sb.append(item.optString("id", "")).append('\u0001')
+                    .append(item.optString("target_key", "")).append('\u0001')
+                    .append(item.optString("target_type", "")).append('\u0001')
+                    .append(item.optString("content", "")).append('\u0001')
+                    .append(item.optString("title", "")).append('\u0001')
+                    .append(item.optString("name", "")).append('\u0001')
+                    .append(item.optString("status", "")).append('\u0001')
+                    .append(item.optString("like_count", "")).append('\u0001')
+                    .append(item.optString("comment_count", "")).append('\u0001')
+                    .append(item.optString("collection_count", "")).append('\u0001')
+                    .append(item.optString("is_liked", "")).append('\u0001')
+                    .append(item.optString("is_favorited", "")).append('\u0001')
+                    .append(item.optString("unread_count", "")).append('\n');
+        }
+        return sb.toString();
     }
 
     private boolean isDynamicTargetList() {
@@ -837,10 +874,20 @@ public class CloudListFragment extends Fragment {
      */
     private void preserveHistoryId(JSONObject source, JSONObject target) {
         if (!MODE_HISTORY.equals(mode)) return;
-        String historyId = source.optString("id", "").trim();
-        if (!historyId.isEmpty()) {
-            try { target.put("_history_id", historyId); } catch (Exception ignored) { }
-        }
+        try {
+            String historyId = source.optString("id", "").trim();
+            if (!historyId.isEmpty()) target.put("_history_id", historyId);
+            // 详情对象里没有 target_type/target_key，一并带上做兜底：
+            // 即使历史记录 id 丢失，服务端也能按 类型 + 内容标识 精确删除。
+            String targetType = source.optString("target_type", "").trim();
+            if (!targetType.isEmpty() && target.optString("target_type", "").trim().isEmpty()) {
+                target.put("target_type", targetType);
+            }
+            String targetKey = source.optString("target_key", "").trim();
+            if (!targetKey.isEmpty() && target.optString("target_key", "").trim().isEmpty()) {
+                target.put("target_key", targetKey);
+            }
+        } catch (Exception ignored) { }
     }
 
     private void normalizeUnavailableIdentity(@Nullable JSONObject source, JSONObject target) {
@@ -1085,7 +1132,10 @@ public class CloudListFragment extends Fragment {
     }
 
     private View createCatalogRow(JSONObject item, boolean app) {
-        if (app) return AppListItemFactory.create(requireContext(), item, v -> showCatalogActions(item, true, v));
+        if (app) return AppListItemFactory.create(requireContext(), item, v -> {
+            if (MODE_HISTORY.equals(mode)) showHistoryItemActions(item, v);
+            else showCatalogActions(item, true, v);
+        });
         MaterialCardView card = new MaterialCardView(requireContext());
         card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(8));
@@ -1250,10 +1300,12 @@ public class CloudListFragment extends Fragment {
 
     private View createDynamicRow(JSONObject item) {
         String id = item.optString("id", "");
+        android.view.View.OnClickListener more = MODE_HISTORY.equals(mode)
+                ? v -> showHistoryItemActions(item, v) : null;
         View card = DynamicCardFactory.create(requireContext(), item, v -> {
             if (!id.isEmpty()) startActivity(new Intent(requireContext(), DynamicDetailActivity.class)
                     .putExtra(DynamicDetailActivity.EXTRA_DYNAMIC_ID, id));
-        }, () -> removeLocallyAndReload(item));
+        }, () -> removeLocallyAndReload(item), more);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
         params.bottomMargin = dp(12); card.setLayoutParams(params);
         if (MODE_HISTORY.equals(mode)) {

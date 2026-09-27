@@ -34,11 +34,17 @@ public final class ImageCache {
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
     private static final ExecutorService EXECUTOR = Executors.newFixedThreadPool(4);
     private static final LruCache<String, Bitmap> MEMORY =
-            new LruCache<String, Bitmap>(8 * 1024) {
+            new LruCache<String, Bitmap>(memoryCacheKb()) {
                 @Override protected int sizeOf(@NonNull String key, @NonNull Bitmap value) {
                     return Math.max(1, value.getByteCount() / 1024);
                 }
             };
+
+    /** 内存缓存：最大堆的 1/4，限制在 24–64MB（列表图片较多，太小会频繁重新解码导致刷新闪图）。 */
+    private static int memoryCacheKb() {
+        long maxKb = Runtime.getRuntime().maxMemory() / 1024L;
+        return (int) Math.max(24L * 1024L, Math.min(64L * 1024L, maxKb / 4L));
+    }
 
     public interface BitmapCallback {
         void onBitmap(@Nullable Bitmap bitmap);
@@ -48,6 +54,21 @@ public final class ImageCache {
 
     public static void load(@NonNull Context context, @Nullable String url,
                             @NonNull ImageView target, @Nullable Runnable onComplete) {
+        final String source = normalize(url);
+        // 内存命中：在同一帧内同步显示。否则列表刷新/重建时，图片会先空一帧再补上（闪一下）。
+        Bitmap cached = source.isEmpty() ? null : MEMORY.get(source);
+        if (cached != null && !cached.isRecycled()) {
+            if (Looper.myLooper() == Looper.getMainLooper()) {
+                target.setImageBitmap(cached);
+                if (onComplete != null) onComplete.run();
+            } else {
+                target.post(() -> {
+                    target.setImageBitmap(cached);
+                    if (onComplete != null) onComplete.run();
+                });
+            }
+            return;
+        }
         loadBitmap(context, url, bitmap -> {
             if (bitmap == null) return;
             target.post(() -> {

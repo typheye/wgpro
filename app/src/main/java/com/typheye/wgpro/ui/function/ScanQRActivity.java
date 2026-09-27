@@ -61,20 +61,18 @@ public class ScanQRActivity extends AppCompatActivity {
         // 全屏设置（API 30+）
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
             WindowInsetsControllerCompat controller = new WindowInsetsControllerCompat(getWindow(), getWindow().getDecorView());
-            controller.hide(WindowInsetsCompat.Type.statusBars() | WindowInsetsCompat.Type.navigationBars());
+            // 只隐藏状态栏；底部导航栏/导航条保持透明、悬浮（符合应用规范）
+            controller.hide(WindowInsetsCompat.Type.statusBars());
             controller.setSystemBarsBehavior(WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
             getWindow().setDecorFitsSystemWindows(false);
             getWindow().getAttributes().layoutInDisplayCutoutMode =
                     WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES;
         } else {
-            // 旧版本兼容
+            // 旧版本兼容：只全屏隐藏状态栏，导航栏保持可见
             getWindow().getDecorView().setSystemUiVisibility(
                     View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                             | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                             | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
             );
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 getWindow().getAttributes().layoutInDisplayCutoutMode =

@@ -74,7 +74,9 @@ public final class AppDetailFragment extends Fragment {
         ((TextView) root.findViewById(R.id.app_detail_downloads)).setText(formatDownloads(app.optInt("downloads")));
         ((TextView) root.findViewById(R.id.app_detail_age)).setText(blank(app.optString("age_rating"), "全年龄"));
         String description = app.optString("description", app.optString("summary", "暂无应用介绍。"));
-        ((TextView) root.findViewById(R.id.app_detail_description)).setText(description);
+        TextView descriptionView = root.findViewById(R.id.app_detail_description);
+        descriptionView.setText(description);
+        com.typheye.wgpro.utils.AppUtils.longPressToCopy(descriptionView);
         String iconUrl = app.optString("icon_url", "");
         ImageView icon = root.findViewById(R.id.app_detail_icon);
         if (!iconUrl.isEmpty()) load(iconUrl, icon, () -> {
@@ -91,12 +93,22 @@ public final class AppDetailFragment extends Fragment {
         JSONArray urls = app.optJSONArray("screenshots");
         if (urls == null || urls.length() == 0) {
             root.findViewById(R.id.app_detail_screenshot_scroll).setVisibility(View.GONE);
-        } else for (int i = 0; i < urls.length(); i++) {
-            String url = urls.optString(i); if (url.isEmpty()) continue;
-            ImageView shot = new ImageView(requireContext()); shot.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            shot.setBackgroundResource(R.drawable.bg_app_screenshot); shot.setClipToOutline(true);
-            LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(178), dp(316)); p.setMarginEnd(dp(12));
-            screenshots.addView(shot, p); load(url, shot, null);
+        } else {
+            final java.util.ArrayList<String> shotUrls = new java.util.ArrayList<>();
+            for (int i = 0; i < urls.length(); i++) {
+                String url = urls.optString(i);
+                if (url != null && !url.trim().isEmpty()) shotUrls.add(url.trim());
+            }
+            for (int i = 0; i < shotUrls.size(); i++) {
+                final int index = i;
+                ImageView shot = new ImageView(requireContext()); shot.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                shot.setBackgroundResource(R.drawable.bg_app_screenshot); shot.setClipToOutline(true);
+                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(178), dp(316)); p.setMarginEnd(dp(12));
+                shot.setClickable(true);
+                shot.setOnClickListener(v -> com.typheye.wgpro.ui.function.PreviewActivity
+                        .open(requireContext(), shotUrls, index));
+                screenshots.addView(shot, p); load(shotUrls.get(i), shot, null);
+            }
         }
     }
 

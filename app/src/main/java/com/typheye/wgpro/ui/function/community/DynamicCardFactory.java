@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.google.android.material.card.MaterialCardView;
@@ -58,8 +59,25 @@ public final class DynamicCardFactory {
         loadImage(context, url, target, null, null);
     }
 
+    /** 动态附带的图片列表（优先原图，其次缩略图），用于点击预览。 */
+    @NonNull
+    public static java.util.List<String> mediaUrls(@Nullable JSONObject item) {
+        java.util.ArrayList<String> urls = new java.util.ArrayList<>();
+        if (item == null) return urls;
+        JSONArray media = item.optJSONArray("media");
+        if (media == null) return urls;
+        for (int i = 0; i < media.length(); i++) {
+            JSONObject one = media.optJSONObject(i);
+            if (one == null) continue;
+            String url = one.optString("original_url", "").trim();
+            if (url.isEmpty()) url = one.optString("thumbnail_url", "").trim();
+            if (!url.isEmpty()) urls.add(url);
+        }
+        return urls;
+    }
+
     public static View create(Context context, JSONObject item, @Nullable View.OnClickListener click) {
-        return create(context, item, click, null);
+        return create(context, item, click, null, null);
     }
 
     /**
@@ -68,6 +86,15 @@ public final class DynamicCardFactory {
      */
     public static View create(Context context, JSONObject item, @Nullable View.OnClickListener click,
                               @Nullable Runnable onChanged) {
+        return create(context, item, click, onChanged, null);
+    }
+
+    /**
+     * @param moreAction 右上角「更多」的替代动作。浏览历史这类场景用它打开“删除记录”菜单，
+     *                   而不是内容的删除/举报菜单（历史记录与内容本身是两回事）。
+     */
+    public static View create(Context context, JSONObject item, @Nullable View.OnClickListener click,
+                              @Nullable Runnable onChanged, @Nullable View.OnClickListener moreAction) {
         int pad = dp(context, 14);
         MaterialCardView card = new MaterialCardView(context);
         card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
@@ -94,7 +121,10 @@ public final class DynamicCardFactory {
         BadgeFactory.bind(context, item, avatarBox);
 
         LinearLayout identity = new LinearLayout(context); identity.setOrientation(LinearLayout.VERTICAL);
-        identity.addView(text(context, item.optString("nick", "Typheye 用户"), 15, true, R.color.text_primary));
+        TextView nickView = text(context, item.optString("nick", "Typheye 用户"), 15, true, R.color.text_primary);
+        nickView.setSingleLine(true);
+        nickView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        identity.addView(nickView);
         identity.addView(text(context, "发布于 " + relativeTime(item.optString("created_at", "")),
                 12, false, R.color.text_secondary));
         LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
@@ -108,13 +138,19 @@ public final class DynamicCardFactory {
         if (!uid.isEmpty()) avatarBox.setOnClickListener(v -> context.startActivity(new Intent(context,
                 UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid)));
         more.setClickable(true); more.setFocusable(true);
-        more.setOnClickListener(v -> showActions(context, item, card, null, null, onChanged));
+        more.setOnClickListener(v -> {
+            if (moreAction != null) moreAction.onClick(v);
+            else showActions(context, item, card, null, null, onChanged);
+        });
         bindAvatar(context, uid, item.optString("avatar_url", ""), avatar, initial);
 
         String content = item.optString("content", "");
         if (!content.isEmpty()) {
             TextView value = text(context, content, 16, false, R.color.text_primary);
-            value.setLineSpacing(0f, 1.12f); value.setMaxLines(12);
+            value.setLineSpacing(0f, 1.12f);
+            value.setMaxLines(3);
+            value.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            com.typheye.wgpro.utils.AppUtils.longPressToCopy(value);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2); p.topMargin = dp(context, 10);
             body.addView(value, p);
         }
@@ -126,6 +162,7 @@ public final class DynamicCardFactory {
             p.topMargin = dp(context, 12); body.addView(image, p);
             loadImage(context, firstMedia.optString("thumbnail_url", firstMedia.optString("original_url", "")),
                     image, null, null);
+            // 不单独给图片设置点击：点卡片任意位置（含图片）都进入动态详情页
         }
 
         LinearLayout actions = new LinearLayout(context); actions.setGravity(Gravity.CENTER_VERTICAL);

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 图片预览：无应用栏。单击退出、长按弹菜单，由 ZoomableImageView 的手势回调触发。 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/preview_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/preview_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#000000" />
+
+    <!-- 未缓存图片的加载遮罩：与用户信息页同款（全屏遮罩 + 加载动画） -->
+    <FrameLayout
+        android:id="@+id/preview_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/profile_loading_overlay"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone">
+
+        <com.typheye.wgpro.ui.widget.WGProLoadingView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
+</FrameLayout>

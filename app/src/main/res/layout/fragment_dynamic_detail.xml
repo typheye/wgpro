@@ -22,10 +22,9 @@
                         <TextView android:id="@+id/dynamic_detail_content" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:lineSpacingMultiplier="1.15"
                             android:textColor="@color/text_primary" android:textSize="17sp" />
-                        <ImageView android:id="@+id/dynamic_detail_media" android:layout_width="match_parent"
-                            android:layout_height="210dp" android:layout_marginTop="14dp"
-                            android:background="@drawable/bg_app_screenshot" android:clipToOutline="true"
-                            android:scaleType="centerCrop" android:visibility="gone" />
+                        <LinearLayout android:id="@+id/dynamic_detail_media_grid" android:layout_width="match_parent"
+                            android:layout_height="wrap_content" android:layout_marginTop="14dp"
+                            android:orientation="vertical" android:visibility="gone" />
                         <TextView android:id="@+id/dynamic_detail_tail" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="16dp"
                             android:textColor="@color/text_secondary" android:textSize="13sp" />

@@ -153,4 +153,11 @@
         <item name="android:activityCloseEnterAnimation">@anim/fade_in</item>
         <item name="android:activityCloseExitAnimation">@anim/fade_out</item>
     </style>
+    <!-- 图片预览：放大进入 / 缩小退出（不是位移） -->
+    <style name="PreviewActivityAnimation" parent="@android:style/Animation.Activity">
+        <item name="android:activityOpenEnterAnimation">@anim/preview_zoom_in</item>
+        <item name="android:activityOpenExitAnimation">@anim/preview_hold</item>
+        <item name="android:activityCloseEnterAnimation">@anim/preview_hold</item>
+        <item name="android:activityCloseExitAnimation">@anim/preview_zoom_out</item>
+    </style>
 </resources>

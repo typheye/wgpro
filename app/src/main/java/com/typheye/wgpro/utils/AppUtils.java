@@ -359,6 +359,30 @@ public class AppUtils {
         context.startActivity(intent);
     }
 
+    /**
+     * 长按整段复制到剪贴板。
+     *
+     * <p>用它取代 {@code android:textIsSelectable}：后者长按会进入文本选择模式，
+     * 触发焦点变化与滚动定位，导致页面元素抖动/重排。</p>
+     */
+    public static void longPressToCopy(@NonNull android.widget.TextView view) {
+        if (view == null) return;
+        view.setOnLongClickListener(v -> {
+            CharSequence text = view.getText();
+            String value = text == null ? "" : text.toString().trim();
+            if (value.isEmpty()) return false;
+            android.content.ClipboardManager clipboard =
+                    (android.content.ClipboardManager) view.getContext()
+                            .getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(android.content.ClipData.newPlainText("text", value));
+                android.widget.Toast.makeText(view.getContext(), "已复制",
+                        android.widget.Toast.LENGTH_SHORT).show();
+            }
+            return true;
+        });
+    }
+
     private static void showUpdateDialog(Context context, String updateContext, String downloadUrl) {
         new Thread(() -> new Handler(Looper.getMainLooper()).post(() -> new WGProAlertDialogBuilder(context)
                 .setTitle("有新版本")

@@ -260,6 +260,13 @@ public class UserDetailActivity extends AppCompatActivity {
                             // full-screen baseline is captured exactly as before.
                             detailRoot.post(() -> scheduleProfileLayout(true));
                             String avatarUrl = info.optString("avatar_url", "");
+                            avatar.setClickable(!avatarUrl.isEmpty());
+                            avatar.setOnClickListener(v -> {
+                                if (!avatarUrl.isEmpty()) {
+                                    com.typheye.wgpro.ui.function.PreviewActivity
+                                            .open(UserDetailActivity.this, avatarUrl);
+                                }
+                            });
                             if (!avatarUrl.isEmpty()) {
                                 profileAssetsPending++;
                                 loadRemoteAvatar(avatarUrl, avatar, collapsedAvatar,
@@ -501,7 +508,10 @@ public class UserDetailActivity extends AppCompatActivity {
         });
     }
 
-    /** 系统导航栏高度（拿不到时按 48dp 估算）。 */
+    /**
+     * 系统导航栏真实高度：没有导航条时返回 0（**不要**用 48dp 之类的估算值）。
+     * 只有真实存在导航条时才让抽屉底部外扩去盖住它，否则会多出屏幕外的可滚动区域。
+     */
     private int navigationBarInset() {
         WindowInsetsCompat insets = detailRoot == null ? null
                 : ViewCompat.getRootWindowInsets(detailRoot);
@@ -509,7 +519,7 @@ public class UserDetailActivity extends AppCompatActivity {
             int inset = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
             if (inset > 0) return inset;
         }
-        return dp(48);
+        return 0;
     }
 
     /** 窗口可用高度：优先用 WindowMetrics（窗口真实边界，含系统栏区域）。 */
@@ -597,10 +607,10 @@ public class UserDetailActivity extends AppCompatActivity {
                 }
                 resizeProfileBackground(requiredHeaderHeight);
 
-                // 抽屉展开时容器高度 = 窗口高度 - 顶部偏移。用 match_parent 的话，
-                // 内容底部会被顶到屏幕外面，列表永远滚不到底（最后一张卡片看不全）。
-                // 高度以 WindowMetrics（窗口真实边界）为准，并额外加一段系统栏高度的余量，
-                // 保证抽屉底边一定盖过系统手势条（多出来的部分在屏幕外，不影响观感）。
+                // 抽屉展开时容器高度 = 窗口高度 - 顶部偏移。
+                // 高度以 WindowMetrics（窗口真实边界）为准，底部只按**真实**导航条高度外扩；
+                // 没有导航条时不能按估算值外扩——那会多出一块屏幕外的可滚动区域，
+                // 表现就是“最后一张卡片滚不到底”。底部安全区交给页面滚动容器的 padding。
                 int windowHeight = windowHeight();
                 int sheetHeight = Math.max(0, windowHeight - toolbarBottom)
                         + navigationBarInset();
@@ -767,15 +777,20 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void applyProfilePageInsets(View view, int top) {
-        // 平铺（全屏）时底部完全沉浸、不留导航栏内边距；
-        // 小窗（freeform）窗口底部有 MIUI 自己的把手，必须垫高，否则列表末尾压在把手上。
+        // 平铺（全屏）时底部完全沉浸；小窗（freeform）窗口底部有 MIUI 自己的把手，必须垫高。
+        // 设备没有系统导航条时，列表末尾会紧贴屏幕底边（抽屉底边就在窗口底边），需要补一段。
         int bottom = 0;
+        WindowInsetsCompat insets = detailRoot == null ? null : ViewCompat.getRootWindowInsets(detailRoot);
         if (detailRoot != null && com.typheye.wgpro.utils.SystemBars.isInMultiWindow(detailRoot)) {
-            WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
             if (insets != null) {
                 bottom = com.typheye.wgpro.utils.SystemBars
                         .bottomInsetForView(detailRoot, insets);
             }
+        }
+        int navigation = insets == null ? 0
+                : insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+        if (bottom <= 0 && navigation <= 0) {
+            bottom = dp(24);
         }
         applyProfilePageInsets(view, top, bottom);
     }

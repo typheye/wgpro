@@ -72,6 +72,9 @@ public class HomeFragment extends Fragment {
     };
     private BannerAdapter bannerAdapter;
     private String bannerSignature;
+    private String dynamicsSignature;
+    private String appsSignature;
+    private String resourcesSignature;
     private int bannerRequestSeq;
     private LinearLayout bannerIndicator;
     private View announcement;
@@ -93,6 +96,10 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home, container, false);
+        // 视图重建后清空签名，强制重新渲染
+        dynamicsSignature = null;
+        appsSignature = null;
+        resourcesSignature = null;
         bindContent(root);
         setupPages(root);
         account = new tAccUtils(requireContext());
@@ -355,8 +362,13 @@ public class HomeFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 completeAtLeast(started, () -> {
                     JSONArray list = items(json, "items", "dynamics", "data");
-                    feed.removeAllViews();
-                    for (int i = 0; i < list.length(); i++) addDynamic(list.optJSONObject(i));
+                    String signature = listSignature(list, "id", "content", "like_count",
+                            "comment_count", "forward_count", "collection_count", "is_liked", "is_favorited");
+                    if (!signature.equals(dynamicsSignature)) {
+                        dynamicsSignature = signature;
+                        feed.removeAllViews();
+                        for (int i = 0; i < list.length(); i++) addDynamic(list.optJSONObject(i));
+                    }
                     showStatus(communityStatus, list.length() == 0, "社区里还没有动态");
                     communityRefresh.setRefreshing(false);
                 });
@@ -390,9 +402,13 @@ public class HomeFragment extends Fragment {
                     @Override public void onSuccess(@NonNull JSONObject json) {
                         completeAtLeast(started, () -> {
                             JSONArray list = items(json, "items", "apps", "data", "info");
-                            apps.removeAllViews();
-                            for (int i = 0; i < list.length(); i++) addCatalogCard(apps,
-                                    list.optJSONObject(i), true);
+                            String signature = listSignature(list, "package", "id", "name", "summary", "version_name");
+                            if (!signature.equals(appsSignature)) {
+                                appsSignature = signature;
+                                apps.removeAllViews();
+                                for (int i = 0; i < list.length(); i++) addCatalogCard(apps,
+                                        list.optJSONObject(i), true);
+                            }
                             showStatus(appsStatus, list.length() == 0, "应用目录暂时为空");
                             appsRefresh.setRefreshing(false);
                         });
@@ -413,13 +429,18 @@ public class HomeFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 completeAtLeast(started, () -> {
                     JSONArray list = items(json, "items", "resources", "data");
-                    resources.removeAllViews();
-                    resources.addView(ResourceMasonryFactory.create(requireContext(), list, item -> {
-                        startActivity(new Intent(requireContext(),
-                                com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
-                                .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
-                                        item.toString()));
-                    }, (item, anchor) -> showCatalogActions(item, false)), new LinearLayout.LayoutParams(-1, -2));
+                    String signature = listSignature(list, "id", "title", "summary",
+                            "description", "collection_count", "is_collected", "status");
+                    if (!signature.equals(resourcesSignature)) {
+                        resourcesSignature = signature;
+                        resources.removeAllViews();
+                        resources.addView(ResourceMasonryFactory.create(requireContext(), list, item -> {
+                            startActivity(new Intent(requireContext(),
+                                    com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
+                                    .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
+                                            item.toString()));
+                        }, (item, anchor) -> showCatalogActions(item, false)), new LinearLayout.LayoutParams(-1, -2));
+                    }
                     showStatus(resourcesStatus, list.length() == 0, "还没有用户分享资源");
                     resourcesRefresh.setRefreshing(false);
                 });
@@ -663,6 +684,19 @@ public class HomeFragment extends Fragment {
                     .append(item.optString("description", "")).append('\u0001')
                     .append(item.optString("content", "")).append('\u0001')
                     .append(item.optString("summary", "")).append('\n');
+        }
+        return sb.toString();
+    }
+
+    /** 列表数据签名：相同就不重建列表，避免刷新时图片闪动。 */
+    private static String listSignature(JSONArray items, String... keys) {
+        StringBuilder sb = new StringBuilder();
+        if (items == null) return "";
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.optJSONObject(i);
+            if (item == null) continue;
+            for (String key : keys) sb.append(item.optString(key, "")).append('\u0001');
+            sb.append('\n');
         }
         return sb.toString();
     }

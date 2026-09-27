@@ -142,20 +142,63 @@ public final class DynamicDetailFragment extends Fragment {
         String nick = info.optString("nick", "Typheye 用户");
         dynamicOwnerUid = info.optString("uid", "");
         ((DynamicDetailActivity) requireActivity()).bindAuthor(info);
-        ((TextView) root.findViewById(R.id.dynamic_detail_content)).setText(info.optString("content"));
+        TextView detailContent = root.findViewById(R.id.dynamic_detail_content);
+        detailContent.setText(info.optString("content"));
+        com.typheye.wgpro.utils.AppUtils.longPressToCopy(detailContent);
         ((TextView) root.findViewById(R.id.dynamic_detail_tail)).setText("发布于 "
                 + relativeTime(info.optString("created_at")));
         ((TextView) root.findViewById(R.id.dynamic_comments_title)).setText("评论（"
                 + Math.max(0, info.optInt("comment_count")) + "）");
-        JSONArray media = info.optJSONArray("media"); JSONObject first = media == null ? null : media.optJSONObject(0);
-        ImageView image = root.findViewById(R.id.dynamic_detail_media);
-        if (first == null) image.setVisibility(View.GONE); else {
-            image.setVisibility(View.VISIBLE); DynamicCardFactory.bindImage(requireContext(),
-                    first.optString("thumbnail_url", first.optString("original_url")), image);
-        }
+        LinearLayout mediaGrid = root.findViewById(R.id.dynamic_detail_media_grid);
+        renderMediaGrid(mediaGrid, DynamicCardFactory.mediaUrls(info));
         liked = info.optBoolean("is_liked"); favorited = info.optBoolean("is_favorited");
         likeCount = info.optInt("like_count"); favoriteCount = info.optInt("collection_count");
         updateActions();
+    }
+
+    /** 动态详情附图：按数量排成 1 / 2 / 3 列宫格，而不是把图片堆在一起。点击任意一张进入预览。 */
+    private void renderMediaGrid(LinearLayout grid, java.util.List<String> urls) {
+        if (grid == null) return;
+        grid.removeAllViews();
+        if (urls == null || urls.isEmpty()) {
+            grid.setVisibility(View.GONE);
+            return;
+        }
+        grid.setVisibility(View.VISIBLE);
+        int count = urls.size();
+        int columns = count == 1 ? 1 : (count == 2 ? 2 : 3);
+        int gap = dp(4);
+        int contentWidth = getResources().getDisplayMetrics().widthPixels - dp(16) * 2 - dp(18) * 2;
+        int cellWidth = Math.max(dp(60), (contentWidth - gap * (columns - 1)) / columns);
+        int cellHeight = columns == 1 ? Math.min(cellWidth, dp(260)) : cellWidth;
+        for (int start = 0; start < count; start += columns) {
+            LinearLayout row = new LinearLayout(requireContext());
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            for (int column = 0; column < columns; column++) {
+                int index = start + column;
+                View cell;
+                if (index < count) {
+                    ImageView image = new ImageView(requireContext());
+                    image.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    image.setBackgroundResource(R.drawable.bg_app_screenshot);
+                    image.setClipToOutline(true);
+                    DynamicCardFactory.bindImage(requireContext(), urls.get(index), image);
+                    final int position = index;
+                    image.setClickable(true);
+                    image.setOnClickListener(v ->
+                            com.typheye.wgpro.ui.function.PreviewActivity.open(requireContext(), urls, position));
+                    cell = image;
+                } else {
+                    cell = new View(requireContext());
+                }
+                LinearLayout.LayoutParams cellParams = new LinearLayout.LayoutParams(cellWidth, cellHeight);
+                if (column > 0) cellParams.setMarginStart(gap);
+                row.addView(cell, cellParams);
+            }
+            LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2);
+            if (start > 0) rowParams.topMargin = gap;
+            grid.addView(row, rowParams);
+        }
     }
 
     private void renderComments(@Nullable JSONArray items) {
@@ -247,6 +290,7 @@ public final class DynamicDetailFragment extends Fragment {
         boolean canDelete = mine || dynamicOwner;
         java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
         menu.add("评论详情");
+        menu.add("复制");
         if (!mine) menu.add("举报");
         if (canDelete) menu.add("撤回");
         CharSequence[] actions = menu.toArray(new CharSequence[0]);
@@ -254,9 +298,21 @@ public final class DynamicDetailFragment extends Fragment {
                 .setTitle("评论操作").setItems(actions, (dialog, which) -> {
                     String action = actions[which].toString();
                     if ("评论详情".equals(action)) showCommentDetail(item);
+                    else if ("复制".equals(action)) copyText(item.optString("content", ""));
                     else if ("举报".equals(action)) reportComment(item);
                     else confirmDeleteComment(item);
                 }).show();
+    }
+
+    /** 复制文本到剪贴板。 */
+    private void copyText(String text) {
+        if (text == null || text.trim().isEmpty()) return;
+        android.content.ClipboardManager clipboard =
+                (android.content.ClipboardManager) requireContext()
+                        .getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+        if (clipboard == null) return;
+        clipboard.setPrimaryClip(android.content.ClipData.newPlainText("text", text));
+        android.widget.Toast.makeText(requireContext(), "已复制", android.widget.Toast.LENGTH_SHORT).show();
     }
 
     private void reportComment(JSONObject item) {

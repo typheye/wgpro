@@ -65,15 +65,17 @@ public final class ResourceMasonryFactory {
         ImageView cover = new ImageView(context); cover.setScaleType(ImageView.ScaleType.CENTER_CROP); cover.setVisibility(View.GONE);
         coverBox.addView(cover, new FrameLayout.LayoutParams(-1, -1));
         body.addView(coverBox, new LinearLayout.LayoutParams(-1, dp(context, 104 + Math.abs(title.hashCode() % 36))));
-        if (!invalid) loadCover(context, item.optString("cover_url", item.optString("image_url", "")), cover, fallback);
+        String coverUrl = item.optString("cover_url", item.optString("image_url", "")).trim();
+        if (!invalid) loadCover(context, coverUrl, cover, fallback);
+        // 不单独给封面设置点击：点卡片任意位置（含封面）都进入资源详情页
         LinearLayout labels = column(context); labels.setPadding(dp(context, 10), dp(context, 9), dp(context, 10), dp(context, 10));
         LinearLayout titleLine = new LinearLayout(context); titleLine.setGravity(Gravity.CENTER_VERTICAL);
-        TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(2); titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(1); titleView.setSingleLine(true); titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
         titleLine.addView(titleView, new LinearLayout.LayoutParams(0, -2, 1f));
         if (menuListener != null) { ImageView menu = new ImageView(context); menu.setImageResource(R.drawable.ic_more_vertical_vector); menu.setColorFilter(context.getColor(R.color.text_secondary)); menu.setPadding(dp(context, 6), dp(context, 6), dp(context, 2), dp(context, 6)); menu.setClickable(true); menu.setFocusable(true); menu.setBackgroundResource(R.drawable.bg_list_item_ripple); titleLine.addView(menu, new LinearLayout.LayoutParams(dp(context, 32), dp(context, 32))); menu.setOnClickListener(v -> menuListener.onMenu(item, v)); }
         labels.addView(titleLine);
         TextView description = text(context, invalid ? "资源已不可见" : item.optString("description", ""), 13, false, R.color.text_secondary);
-        description.setMaxLines(2); LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
+        description.setMaxLines(3); description.setEllipsize(android.text.TextUtils.TruncateAt.END); LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
         String type = item.optString("category", item.optString("type_name", "资源"));
         TextView meta = text(context, item.optInt("download_count", 0) + " 下载 • " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
         LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(-1, -2); mp.topMargin = dp(context, 5); labels.addView(meta, mp);

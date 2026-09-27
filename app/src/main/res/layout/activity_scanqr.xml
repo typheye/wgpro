@@ -23,8 +23,8 @@
         android:layout_marginTop="56dp"
         android:layout_marginStart="16dp"
         android:contentDescription="返回"
-        app:tint="@android:color/white"
-        app:backgroundTint="@color/tab_accent"
+        app:tint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:rippleColor="?attr/colorOnSecondaryContainer"
         app:srcCompat="@drawable/ic_arrow_back_white_24dp" />
 
@@ -36,8 +36,8 @@
         android:layout_gravity="bottom|end"
         android:layout_margin="16dp"
         android:contentDescription="手电筒"
-        app:tint="@android:color/white"
-        app:backgroundTint="@color/tab_accent"
+        app:tint="?attr/colorOnPrimary"
+        app:backgroundTint="?attr/colorPrimary"
         app:rippleColor="?attr/colorOnSecondaryContainer"
         app:srcCompat="@drawable/ic_flash_off_white_24dp" />
 

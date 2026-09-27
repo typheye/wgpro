@@ -180,7 +180,11 @@ public final class BarBlurController {
     }
 
     private static void applyBarBackground(@NonNull Context context, @NonNull View bar) {
-        int color = context.getColor(isBlurEnabled(context)
+        // 只有在“模糊可用”时才用半透明底色（API 31+ 且有快照层做毛玻璃）；
+        // 低版本无法渲染 RenderEffect，半透明会直接透出背后的内容（图片尤其明显），
+        // 此时按关闭模糊处理，用与页面一致的不透明主题底色。
+        boolean frosted = isBlurEnabled(context) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+        int color = context.getColor(frosted
                 ? R.color.surface_bar : R.color.surface_primary);
         bar.setBackgroundColor(color);
         bar.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));

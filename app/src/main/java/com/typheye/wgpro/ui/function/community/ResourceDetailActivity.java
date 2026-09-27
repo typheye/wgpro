@@ -46,9 +46,15 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private void bind(View root, JSONObject info) {
             if (info == null) return;
             resource = info;
-            ((TextView) root.findViewById(R.id.resource_detail_title)).setText(info.optString("title", "未命名资源"));
-            ((TextView) root.findViewById(R.id.resource_detail_summary)).setText(info.optString("summary", "暂无摘要"));
-            ((TextView) root.findViewById(R.id.resource_detail_description)).setText(info.optString("description", "暂无详细介绍"));
+            TextView titleView = root.findViewById(R.id.resource_detail_title);
+            TextView summaryView = root.findViewById(R.id.resource_detail_summary);
+            TextView descriptionView = root.findViewById(R.id.resource_detail_description);
+            titleView.setText(info.optString("title", "未命名资源"));
+            summaryView.setText(info.optString("summary", "暂无摘要"));
+            descriptionView.setText(info.optString("description", "暂无详细介绍"));
+            com.typheye.wgpro.utils.AppUtils.longPressToCopy(titleView);
+            com.typheye.wgpro.utils.AppUtils.longPressToCopy(summaryView);
+            com.typheye.wgpro.utils.AppUtils.longPressToCopy(descriptionView);
             JSONObject author = info.optJSONObject("author");
             String authorName = author == null ? "UID " + info.optString("uid", "--") : author.optString("nick", "用户");
             ((TextView) root.findViewById(R.id.resource_detail_meta)).setText(authorName + "  ·  "

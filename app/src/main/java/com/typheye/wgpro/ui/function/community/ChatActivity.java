@@ -428,6 +428,7 @@ public class ChatActivity extends BaseSectionActivity {
                     && withinRecallWindow(item.optString("created_at", ""));
             java.util.ArrayList<CharSequence> menu = new java.util.ArrayList<>();
             menu.add("消息详情");
+            menu.add("复制");
             menu.add("删除");
             if (canRecall) menu.add("撤回");
             CharSequence[] actions = menu.toArray(new CharSequence[0]);
@@ -435,9 +436,21 @@ public class ChatActivity extends BaseSectionActivity {
                     .setTitle("消息操作").setItems(actions, (dialog, which) -> {
                         String action = actions[which].toString();
                         if ("消息详情".equals(action)) showMessageDetail(item);
+                        else if ("复制".equals(action)) copyText(item.optString("content", ""));
                         else if ("删除".equals(action)) confirmDeleteMessage(item);
                         else confirmRecallMessage(item);
                     }).show();
+        }
+
+        /** 复制消息文本到剪贴板。 */
+        private void copyText(String text) {
+            if (text == null || text.trim().isEmpty()) return;
+            android.content.ClipboardManager clipboard =
+                    (android.content.ClipboardManager) requireContext()
+                            .getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+            if (clipboard == null) return;
+            clipboard.setPrimaryClip(android.content.ClipData.newPlainText("text", text));
+            android.widget.Toast.makeText(requireContext(), "已复制", android.widget.Toast.LENGTH_SHORT).show();
         }
 
         private void showMessageDetail(JSONObject item) {
