@@ -45,10 +45,9 @@ public class AddDeviceActivity extends AppCompatActivity {
         super.onCreate(state);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_add_device);
-        // 固定应用栏改毛玻璃；底部安全区交给内容区自己的滚动视图。
-        com.typheye.wgpro.utils.AppBarBlur.install(this,
-                findViewById(R.id.app_bar_layout), findViewById(R.id.add_device_content));
-        com.typheye.wgpro.utils.SystemBars.reserveBottomInsetForScroll(
+        // 固定应用栏改毛玻璃：快照源用不滚动的容器，滚动在内部 NestedScrollView 上。
+        com.typheye.wgpro.utils.AppBarBlur.installWithScrollContent(this,
+                findViewById(R.id.app_bar_layout), findViewById(R.id.add_device_content_host),
                 findViewById(R.id.add_device_content));
         Toolbar toolbar = findViewById(R.id.add_device_toolbar);
         nodeApi = Wearable.getNodeApi(getApplicationContext());

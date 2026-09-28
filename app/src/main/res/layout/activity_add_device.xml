@@ -7,12 +7,17 @@
     android:layout_height="match_parent"
     android:background="@color/surface_page">
 
-    <!-- 内容铺满整屏，滚动时从应用栏毛玻璃下方穿过 -->
+    <!-- 内容容器（不滚动，作为毛玻璃快照源）+ 内部滚动视图 -->
+    <FrameLayout
+        android:id="@+id/add_device_content_host"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/surface_page">
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/add_device_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/surface_page"
         android:clipToPadding="false"
         android:fillViewport="true">
         <LinearLayout
@@ -163,6 +168,7 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
 
     <!-- 应用栏（毛玻璃）：快照层 + 半透明应用栏，声明在内容之后保证画在内容之上 -->
     <androidx.constraintlayout.widget.ConstraintLayout

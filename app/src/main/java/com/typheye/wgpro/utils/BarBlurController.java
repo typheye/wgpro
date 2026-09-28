@@ -128,6 +128,11 @@ public final class BarBlurController {
         }
         snapshotSource = source;
         if (snapshot != null) {
+            // 先解除各快照层对旧位图的引用，再回收；否则 ImageView 仍持有已回收的
+            // BitmapDrawable，下一帧绘制就会抛 "Canvas: trying to use a recycled bitmap"。
+            for (ImageView backdrop : backdrops) {
+                backdrop.setImageDrawable(null);
+            }
             snapshot.recycle();
             snapshot = null;
             snapshotCanvas = null;

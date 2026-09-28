@@ -8,6 +8,13 @@
     android:layout_height="match_parent"
     android:background="@color/surface_page">
 
+    <!-- 内容容器（不滚动，作为毛玻璃快照源；结构同 SettingsActivity）+ 内部滚动视图 -->
+    <FrameLayout
+        android:id="@+id/test_content_host"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/surface_page">
+
     <!-- 内容铺满整屏，滚动时从应用栏毛玻璃下方穿过 -->
     <androidx.core.widget.NestedScrollView
         android:id="@+id/test_content"
@@ -127,8 +134,40 @@
                         android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
+            <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="界面" android:textColor="?attr/colorPrimary" />
+            <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                    <LinearLayout android:id="@+id/test_launch_activities" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@null" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="启动 Activity" android:textColor="@color/text_primary" />
+                            <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="列出应用里所有 Activity，逐个以最小传参启动" android:textColor="@color/text_secondary" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
+                    <LinearLayout android:id="@+id/test_launch_sheets" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@null" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="启动底部弹窗" android:textColor="@color/text_primary" />
+                            <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="演示应用里各种形态的底部弹窗" android:textColor="@color/text_secondary" />
+                        </LinearLayout>
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
+                    </LinearLayout>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    </FrameLayout>
+
+    <!-- 界面调试：Activity / 底部弹窗列表，覆盖在调试主页之上（应用栏仍是毛玻璃） -->
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/test_fragment_host"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/surface_page"
+        android:visibility="gone" />
 
     <!-- 应用栏（毛玻璃）：快照层 + 半透明应用栏，声明在内容之后保证画在内容之上 -->
     <androidx.constraintlayout.widget.ConstraintLayout

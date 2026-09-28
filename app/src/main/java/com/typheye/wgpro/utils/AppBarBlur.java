@@ -7,6 +7,7 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.ViewCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -92,6 +93,45 @@ public final class AppBarBlur {
             return BarBlurController.install(activity, content);
         }
         return BarBlurController.install(activity, content, backdrop);
+    }
+
+    /**
+     * 内容结构是「不滚动容器 + 内部滚动视图」（与 {@code SettingsActivity} 一致）时的装配。
+     *
+     * <p><b>快照源必须是那个不滚动的容器，不能是滚动视图本身</b>：{@code View.drawBackground()}
+     * 在视图自身滚动时会按 {@code scrollY} 平移背景，滚动后快照顶部会变成透明，毛玻璃就消失了
+     * （表现：内容穿到应用栏下面但一点不糊）。容器自身滚动恒为 0，背景与子内容都能正确画进快照。
+     *
+     * <p>顶部留白（应用栏高度）与底部留白（系统栏）由同一个 insets 回调加在内部滚动视图上，互不覆盖。
+     *
+     * @param snapshotContainer 不滚动的内容容器（快照源，需有不透明背景）
+     * @param scrollContent     容器内部真正滚动的视图
+     */
+    @NonNull
+    public static BarBlurController installWithScrollContent(@NonNull Activity activity,
+                                                             @NonNull View appBar,
+                                                             @NonNull View snapshotContainer,
+                                                             @NonNull View scrollContent) {
+        BarBlurController controller = install(activity, appBar, snapshotContainer);
+        if (scrollContent instanceof ViewGroup) {
+            ((ViewGroup) scrollContent).setClipToPadding(false);
+        }
+        final int initialLeft = scrollContent.getPaddingLeft();
+        final int initialRight = scrollContent.getPaddingRight();
+        final int initialBottom = scrollContent.getPaddingBottom();
+        ViewCompat.setOnApplyWindowInsetsListener(scrollContent, (view, insets) -> {
+            int top = appBar.getHeight();
+            int bottom = initialBottom + SystemBars.bottomInsetForView(view, insets);
+            if (view.getPaddingTop() != top || view.getPaddingBottom() != bottom) {
+                view.setPadding(initialLeft, top, initialRight, bottom);
+            }
+            return insets;
+        });
+        // 应用栏高度确定后重新派发一次，保证顶部留白正确。
+        scrollContent.getViewTreeObserver().addOnGlobalLayoutListener(
+                () -> ViewCompat.requestApplyInsets(scrollContent));
+        ViewCompat.requestApplyInsets(scrollContent);
+        return controller;
     }
 
     /**

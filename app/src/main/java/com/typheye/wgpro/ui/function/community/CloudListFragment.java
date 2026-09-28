@@ -81,6 +81,13 @@ public class CloudListFragment extends Fragment {
     /** 上次渲染的数据签名：相同就不重建视图，避免刷新时图片闪动。 */
     private String lastRenderSignature;
 
+    /** 关注/粉丝列表：滚动到底自动加载下一页（服务端分页，默认 20/页、上限 50）。 */
+    private androidx.core.widget.NestedScrollView listScroll;
+    private boolean pagedMode;
+    private int pagedPage = 1;
+    private boolean pagedHasMore;
+    private boolean pagedLoading;
+
     public static CloudListFragment newInstance(String mode) {
         return newInstance(mode, null);
     }
@@ -115,6 +122,7 @@ public class CloudListFragment extends Fragment {
         lastRenderSignature = null;
         mode = getArguments() == null ? MODE_ACTIVITY : getArguments().getString("mode", MODE_ACTIVITY);
         if (getArguments() != null) historyType = getArguments().getString("history_type", "dynamic");
+        pagedMode = MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode);
         account = new tAccUtils(requireContext().getApplicationContext());
         messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.cloud_refresh);
@@ -128,8 +136,17 @@ public class CloudListFragment extends Fragment {
         // 注意：这里不再给自己的滚动视图补导航栏底部留白——二级页由宿主 Activity 统一处理，
         // 用户主页的抽屉里补了会让底部露出一条纯色（在深色模式下就是一条黑边）。
         final View stateContainer = (View) state.getParent();
-        final androidx.core.widget.NestedScrollView listScroll =
-                root.findViewById(R.id.cloud_scroll);
+        listScroll = root.findViewById(R.id.cloud_scroll);
+        listScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
+            if (!pagedMode || !pagedHasMore || pagedLoading) return;
+            View content = listScroll.getChildAt(0);
+            if (content == null) return;
+            int remaining = content.getHeight() - (listScroll.getScrollY() + listScroll.getHeight());
+            if (remaining < dp(160)) {
+                loadContactsPage(pagedPage + 1, true,
+                        android.os.SystemClock.uptimeMillis(), requestGeneration);
+            }
+        });
         root.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
             int scrollTop = listScroll.getPaddingTop();
             int scrollBottom = listScroll.getPaddingBottom();
@@ -413,6 +430,56 @@ public class CloudListFragment extends Fragment {
                 }).show();
     }
 
+    /**
+     * 关注 / 粉丝分页加载。服务端 {@code contacts2} 每页最多 50 条（默认 20），
+     * 这里按 20/页 请求，滚动到底再取下一页并追加。
+     */
+    private void loadContactsPage(final int page, final boolean append, long started, int generation) {
+        if (append) {
+            pagedLoading = true;
+        } else {
+            pagedPage = 1;
+            pagedHasMore = true;
+            pagedLoading = false;
+        }
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("page", String.valueOf(page));
+        query.put("size", "20");
+        query.put("kind", MODE_FOLLOWING.equals(mode) ? "following" : "followers");
+        account.getV2Json("contacts2", query, true, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray items = json.optJSONArray("items");
+                JSONArray pageItems = items == null ? new JSONArray() : items;
+                int size = Math.max(1, json.optInt("size", 20));
+                int total = json.optInt("total", pageItems.length());
+                pagedPage = Math.max(1, json.optInt("page", page));
+                pagedHasMore = pageItems.length() > 0 && pagedPage * size < total;
+                pagedLoading = false;
+                if (append && renderedItems != null) {
+                    JSONArray merged = new JSONArray();
+                    for (int i = 0; i < renderedItems.length(); i++) merged.put(renderedItems.opt(i));
+                    for (int i = 0; i < pageItems.length(); i++) merged.put(pageItems.opt(i));
+                    completeAfter(started, generation, () -> render(merged));
+                } else {
+                    completeAfter(started, generation, () -> render(pageItems));
+                }
+            }
+            @Override public void onError(int code, @NonNull String message) {
+                pagedLoading = false;
+                if (append) {
+                    // 加载下一页失败：保留已加载内容，仅恢复底部提示（可再次上拉重试）。
+                    render(renderedItems == null ? new JSONArray() : renderedItems);
+                    return;
+                }
+                completeAfter(started, generation, () -> {
+                    state.setVisibility(View.GONE);
+                    android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
+                            android.widget.Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
     private void load() {
         final int generation = ++requestGeneration;
         final long started = android.os.SystemClock.uptimeMillis();
@@ -429,9 +496,12 @@ public class CloudListFragment extends Fragment {
             loadUserApps(started, generation);
             return;
         }
-        if ((MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode))
-                && getArguments() != null && getArguments().getInt("expected_count", -1) == 0) {
-            completeAfter(started, generation, () -> render(new JSONArray()));
+        if (pagedMode) {
+            if (getArguments() != null && getArguments().getInt("expected_count", -1) == 0) {
+                completeAfter(started, generation, () -> render(new JSONArray()));
+                return;
+            }
+            loadContactsPage(1, false, started, generation);
             return;
         }
         if (MODE_NOTIFICATIONS.equals(mode)) {
@@ -727,6 +797,15 @@ public class CloudListFragment extends Fragment {
             JSONObject item = items.optJSONObject(i);
             if (item != null) list.addView(item.has("_section")
                     ? createSectionHeader(item.optString("_section")) : createCard(item));
+        }
+        if (pagedMode && items.length() > 0 && (pagedLoading || !pagedHasMore)) {
+            TextView footer = new TextView(requireContext());
+            footer.setGravity(android.view.Gravity.CENTER);
+            footer.setPadding(0, dp(12), 0, dp(16));
+            footer.setTextSize(13f);
+            footer.setTextColor(requireContext().getColor(R.color.text_secondary));
+            footer.setText(pagedLoading ? "正在加载…" : "没有更多了");
+            list.addView(footer, new LinearLayout.LayoutParams(-1, -2));
         }
         if (list.getChildCount() == 0) showState(emptyText());
         else state.setVisibility(View.GONE);
