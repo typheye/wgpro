@@ -50,6 +50,30 @@ public final class ImageCache {
         void onBitmap(@Nullable Bitmap bitmap);
     }
 
+    /** 采样解码版：按 {@code targetPx} 解码后回调（用于 RecyclerView 复用行，调用方可校验是否已复用）。 */
+    public static void loadBitmapSized(@NonNull Context context, @Nullable String url, int targetPx,
+                                       @NonNull BitmapCallback callback) {
+        final String source = normalize(url);
+        if (source.isEmpty()) {
+            MAIN.post(() -> callback.onBitmap(null));
+            return;
+        }
+        final String key = source + "@" + targetPx;
+        Bitmap cached = MEMORY.get(key);
+        if (cached != null && !cached.isRecycled()) {
+            MAIN.post(() -> callback.onBitmap(cached));
+            return;
+        }
+        final Context appContext = context.getApplicationContext();
+        EXECUTOR.execute(() -> {
+            Bitmap bitmap = readDiskScaled(appContext, source, targetPx);
+            if (bitmap == null) bitmap = downloadScaled(appContext, source, targetPx);
+            if (bitmap != null) MEMORY.put(key, bitmap);
+            final Bitmap result = bitmap;
+            MAIN.post(() -> callback.onBitmap(result));
+        });
+    }
+
     private ImageCache() { }
 
     public static void load(@NonNull Context context, @Nullable String url,
@@ -106,6 +130,113 @@ public final class ImageCache {
         if (source.isEmpty()) return null;
         Bitmap bitmap = MEMORY.get(source);
         return bitmap == null || bitmap.isRecycled() ? null : bitmap;
+    }
+
+    /**
+     * 列表里的小图（头像等）：按 {@code targetPx} 采样解码（RGB_565）后再缓存。
+     *
+     * <p>普通 {@link #load} 是按原图解码的；列表里成百上千个条目各自持有位图时，
+     * 原图解码会撑爆内存（真机实测 2000 个粉丝 → 1.4GB）。采样后单张只有几十 KB。
+     * 缓存键带尺寸后缀，不会影响别处按原图加载的同一 URL。
+     */
+    public static void loadSized(@NonNull Context context, @Nullable String url,
+                                 @NonNull ImageView target, int targetPx,
+                                 @Nullable Runnable onComplete) {
+        final String source = normalize(url);
+        if (source.isEmpty()) return;
+        final String key = source + "@" + targetPx;
+        Bitmap cached = MEMORY.get(key);
+        if (cached != null && !cached.isRecycled()) {
+            target.setImageBitmap(cached);
+            if (onComplete != null) onComplete.run();
+            return;
+        }
+        final Context appContext = context.getApplicationContext();
+        EXECUTOR.execute(() -> {
+            Bitmap bitmap = readDiskScaled(appContext, source, targetPx);
+            if (bitmap == null) bitmap = downloadScaled(appContext, source, targetPx);
+            if (bitmap != null) MEMORY.put(key, bitmap);
+            final Bitmap result = bitmap;
+            MAIN.post(() -> {
+                if (result == null || result.isRecycled()) return;
+                target.setImageBitmap(result);
+                if (onComplete != null) onComplete.run();
+            });
+        });
+    }
+
+    @Nullable
+    private static Bitmap readDiskScaled(Context context, String url, int targetPx) {
+        File file = cacheFile(context, url);
+        if (!file.isFile()) return null;
+        Bitmap bitmap = decodeScaledFile(file.getAbsolutePath(), targetPx);
+        if (bitmap == null) {
+            //noinspection ResultOfMethodCallIgnored
+            file.delete();
+        }
+        return bitmap;
+    }
+
+    @Nullable
+    private static Bitmap downloadScaled(Context context, String url, int targetPx) {
+        Request request;
+        try {
+            request = new Request.Builder().url(url).build();
+        } catch (IllegalArgumentException ignored) {
+            return null;
+        }
+        try (Response response = new tAccUtils(context).getClient()
+                .newCall(request).execute()) {
+            if (!response.isSuccessful() || response.body() == null) return null;
+            byte[] bytes = response.body().bytes();
+            Bitmap bitmap = decodeScaledBytes(bytes, targetPx);
+            if (bitmap == null) return null;
+            saveDisk(context, url, bytes);
+            return bitmap;
+        } catch (IOException ignored) {
+            return null;
+        }
+    }
+
+    @Nullable
+    public static Bitmap decodeScaledFile(String path, int targetPx) {
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, bounds);
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = sampleSize(bounds.outWidth, bounds.outHeight, targetPx);
+        options.inScaled = true;
+        options.inDensity = Math.max(1,
+                Math.min(bounds.outWidth, bounds.outHeight) / options.inSampleSize);
+        options.inTargetDensity = targetPx;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        return BitmapFactory.decodeFile(path, options);
+    }
+
+    @Nullable
+    private static Bitmap decodeScaledBytes(byte[] bytes, int targetPx) {
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeByteArray(bytes, 0, bytes.length, bounds);
+        if (bounds.outWidth <= 0 || bounds.outHeight <= 0) return null;
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inSampleSize = sampleSize(bounds.outWidth, bounds.outHeight, targetPx);
+        options.inScaled = true;
+        options.inDensity = Math.max(1,
+                Math.min(bounds.outWidth, bounds.outHeight) / options.inSampleSize);
+        options.inTargetDensity = targetPx;
+        options.inPreferredConfig = Bitmap.Config.RGB_565;
+        return BitmapFactory.decodeByteArray(bytes, 0, bytes.length, options);
+    }
+
+    /** 取 2 的幂采样率，使解码后最短边不小于 targetPx。 */
+    private static int sampleSize(int width, int height, int targetPx) {
+        if (targetPx <= 0) return 1;
+        int shortest = Math.min(width, height);
+        int sample = 1;
+        while (shortest / (sample * 2) >= targetPx) sample *= 2;
+        return sample;
     }
 
     public static void clear(@NonNull Context context) {

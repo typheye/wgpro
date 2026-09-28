@@ -618,7 +618,16 @@ public class MainActivity extends AppCompatActivity {
         if (view instanceof NestedScrollView) {
             NestedScrollView scroll = (NestedScrollView) view;
             scroll.setClipToPadding(false);
-            scroll.setPadding(scroll.getPaddingLeft(), top, scroll.getPaddingRight(), bottom);
+            AppBarBlur.padScrollableBottom(scroll, bottom);
+            AppBarBlur.padScrollableTop(scroll, top);
+            return;
+        }
+        if (view instanceof androidx.recyclerview.widget.RecyclerView) {
+            androidx.recyclerview.widget.RecyclerView recycler =
+                    (androidx.recyclerview.widget.RecyclerView) view;
+            recycler.setClipToPadding(false);
+            AppBarBlur.padScrollableBottom(recycler, bottom);
+            AppBarBlur.padScrollableTop(recycler, top);
             return;
         }
         if (view instanceof ViewGroup) {

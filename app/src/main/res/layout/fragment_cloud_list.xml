@@ -25,6 +25,18 @@
                 android:layout_height="wrap_content" android:orientation="vertical"
                 android:padding="16dp" />
         </androidx.core.widget.NestedScrollView>
+        <!-- 关注/粉丝这类可能上千条的长列表：用 RecyclerView 复用视图（双向窗口），避免 View 数量无限增长 -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/cloud_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/surface_page"
+            android:clipToPadding="false"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="28dp"
+            android:visibility="gone" />
         <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_gravity="top" android:paddingStart="16dp" android:paddingEnd="16dp">
             <include android:id="@+id/cloud_state" layout="@layout/view_stream_empty" />

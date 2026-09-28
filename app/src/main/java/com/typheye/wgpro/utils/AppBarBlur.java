@@ -36,6 +36,43 @@ public final class AppBarBlur {
     /** 已设置过的下拉刷新指示器位置（键为控件本身）：重复设置会重置指示器、打断下拉手势。 */
     private static final WeakHashMap<View, Integer> REFRESH_OFFSETS = new WeakHashMap<>();
 
+    /** 各滚动视图**原始**的顶部内边距：补应用栏留白时要叠加，不能覆盖（否则列表会贴顶、没 gap）。 */
+    private static final WeakHashMap<View, Integer> BASE_TOP_PADDING = new WeakHashMap<>();
+    /** 原始底部内边距：同理，补导航栏/底部留白也要叠加。 */
+    private static final WeakHashMap<View, Integer> BASE_BOTTOM_PADDING = new WeakHashMap<>();
+
+    /**
+     * 给滚动视图补「应用栏高度」的顶部留白，**保留原有 padding 叠加**。
+     *
+     * <p>注意不能直接 `setPadding(..., top, ...)`：很多列表自己带了顶部 12–16dp 的视觉留白
+     * （以前在内容层里，现在移到 RecyclerView 上），覆盖掉就会贴到应用栏下面、没有 gap。
+     */
+    public static void padScrollableTop(@NonNull View view, int top) {
+        Integer base = BASE_TOP_PADDING.get(view);
+        if (base == null) {
+            base = view.getPaddingTop();
+            BASE_TOP_PADDING.put(view, base);
+        }
+        int desired = base + Math.max(0, top);
+        if (view.getPaddingTop() == desired) return;
+        view.setPadding(view.getPaddingLeft(), desired, view.getPaddingRight(), view.getPaddingBottom());
+    }
+
+    /**
+     * 给滚动视图补「底部安全区」留白，同样**保留原有 padding 叠加**。
+     * （RecyclerView 的 XML 上常有 28dp 底部留白，直接覆盖会让最后一张卡片贴住屏幕底边。）
+     */
+    public static void padScrollableBottom(@NonNull View view, int bottom) {
+        Integer base = BASE_BOTTOM_PADDING.get(view);
+        if (base == null) {
+            base = view.getPaddingBottom();
+            BASE_BOTTOM_PADDING.put(view, base);
+        }
+        int desired = base + Math.max(0, bottom);
+        if (view.getPaddingBottom() == desired) return;
+        view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(), desired);
+    }
+
     /**
      * 单个下拉刷新控件：把转圈指示器的位置压到应用栏下方。
      *
@@ -142,6 +179,9 @@ public final class AppBarBlur {
      * 内容顶到应用栏下面（看起来就是"页面错位"）。
      */
     private static boolean padFirstScrollable(View view, int top) {
+        // 隐藏的滚动视图不用补留白（例如关注/粉丝页同时存在 NestedScrollView 与 RecyclerView，
+        // 只给当前可见的那个补）。
+        if (view.getVisibility() != View.VISIBLE) return false;
         if (view instanceof androidx.viewpager2.widget.ViewPager2) {
             androidx.viewpager2.widget.ViewPager2 pager =
                     (androidx.viewpager2.widget.ViewPager2) view;
@@ -160,15 +200,13 @@ public final class AppBarBlur {
         if (view instanceof NestedScrollView) {
             NestedScrollView scroll = (NestedScrollView) view;
             scroll.setClipToPadding(false);
-            scroll.setPadding(scroll.getPaddingLeft(), top,
-                    scroll.getPaddingRight(), scroll.getPaddingBottom());
+            padScrollableTop(scroll, top);
             return true;
         }
         if (view instanceof RecyclerView) {
             RecyclerView recycler = (RecyclerView) view;
             recycler.setClipToPadding(false);
-            recycler.setPadding(recycler.getPaddingLeft(), top,
-                    recycler.getPaddingRight(), recycler.getPaddingBottom());
+            padScrollableTop(recycler, top);
             return true;
         }
         if (view instanceof ViewGroup) {

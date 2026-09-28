@@ -804,7 +804,16 @@ public class UserDetailActivity extends AppCompatActivity {
             androidx.core.widget.NestedScrollView scroll =
                     (androidx.core.widget.NestedScrollView) view;
             scroll.setClipToPadding(false);
-            scroll.setPadding(scroll.getPaddingLeft(), top, scroll.getPaddingRight(), bottom);
+            com.typheye.wgpro.utils.AppBarBlur.padScrollableBottom(scroll, bottom);
+            com.typheye.wgpro.utils.AppBarBlur.padScrollableTop(scroll, top);
+            return;
+        }
+        if (view instanceof androidx.recyclerview.widget.RecyclerView) {
+            androidx.recyclerview.widget.RecyclerView recycler =
+                    (androidx.recyclerview.widget.RecyclerView) view;
+            recycler.setClipToPadding(false);
+            com.typheye.wgpro.utils.AppBarBlur.padScrollableBottom(recycler, bottom);
+            com.typheye.wgpro.utils.AppBarBlur.padScrollableTop(recycler, top);
             return;
         }
         if (view instanceof ViewGroup) {

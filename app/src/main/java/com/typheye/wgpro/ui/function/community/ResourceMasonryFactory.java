@@ -51,7 +51,8 @@ public final class ResourceMasonryFactory {
         return columns;
     }
 
-    private static MaterialCardView card(Context context, JSONObject item, OnResourceClick listener, OnResourceMenu menuListener) {
+    /** 单张资源卡（RecyclerView 复用/瀑布流逐项使用）。 */
+    public static MaterialCardView card(Context context, JSONObject item, OnResourceClick listener, OnResourceMenu menuListener) {
         MaterialCardView card = new MaterialCardView(context);
         card.setCardBackgroundColor(context.getColor(R.color.surface_secondary)); card.setCardElevation(0);
         card.setStrokeWidth(0); card.setRadius(dp(context, 8)); card.setClickable(true); card.setFocusable(true);

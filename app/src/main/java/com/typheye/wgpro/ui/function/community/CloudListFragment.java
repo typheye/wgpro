@@ -20,6 +20,7 @@ import android.graphics.BitmapFactory;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.card.MaterialCardView;
@@ -87,6 +88,9 @@ public class CloudListFragment extends Fragment {
     private int pagedPage = 1;
     private boolean pagedHasMore;
     private boolean pagedLoading;
+    /** 所有列表都用 RecyclerView 复用视图（双向窗口），避免任意列表变长后 View 数量无限增长。 */
+    private androidx.recyclerview.widget.RecyclerView contactRecycler;
+    private CloudAdapter contactAdapter;
 
     public static CloudListFragment newInstance(String mode) {
         return newInstance(mode, null);
@@ -137,19 +141,37 @@ public class CloudListFragment extends Fragment {
         // 用户主页的抽屉里补了会让底部露出一条纯色（在深色模式下就是一条黑边）。
         final View stateContainer = (View) state.getParent();
         listScroll = root.findViewById(R.id.cloud_scroll);
-        listScroll.getViewTreeObserver().addOnScrollChangedListener(() -> {
-            if (!pagedMode || !pagedHasMore || pagedLoading) return;
-            View content = listScroll.getChildAt(0);
-            if (content == null) return;
-            int remaining = content.getHeight() - (listScroll.getScrollY() + listScroll.getHeight());
-            if (remaining < dp(160)) {
-                loadContactsPage(pagedPage + 1, true,
-                        android.os.SystemClock.uptimeMillis(), requestGeneration);
+        contactRecycler = root.findViewById(R.id.cloud_recycler);
+        // 所有列表统一走 RecyclerView（视图复用 = 双向窗口：下滑加载新行、回收滑出屏幕的旧行，上滑自动重建），
+        // 视图数量只与可见行数相关，任意列表变长都不会把内存撑爆。
+        listScroll.setVisibility(View.GONE);
+        contactRecycler.setVisibility(View.VISIBLE);
+        contactAdapter = new CloudAdapter();
+        boolean masonry = isResourceTargetList() || MODE_MY_RESOURCES.equals(mode)
+                || MODE_USER_RESOURCES.equals(mode);
+        contactRecycler.setLayoutManager(masonry
+                ? new androidx.recyclerview.widget.StaggeredGridLayoutManager(
+                        2, androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL)
+                : new androidx.recyclerview.widget.LinearLayoutManager(requireContext()));
+        contactRecycler.setAdapter(contactAdapter);
+        contactRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override public void onScrolled(@NonNull RecyclerView view, int dx, int dy) {
+                if (!pagedMode || !pagedHasMore || pagedLoading || contactAdapter == null) return;
+                RecyclerView.LayoutManager manager = view.getLayoutManager();
+                if (!(manager instanceof androidx.recyclerview.widget.LinearLayoutManager)) return;
+                if (((androidx.recyclerview.widget.LinearLayoutManager) manager)
+                        .findLastVisibleItemPosition() >= contactAdapter.size() - 4) {
+                    loadContactsPage(pagedPage + 1, true,
+                            android.os.SystemClock.uptimeMillis(), requestGeneration);
+                }
             }
         });
         root.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
-            int scrollTop = listScroll.getPaddingTop();
-            int scrollBottom = listScroll.getPaddingBottom();
+            // 空状态覆盖层要跟着「当前可见内容」的上下留白走（现在是 RecyclerView）
+            View active = contactRecycler != null && contactRecycler.getVisibility() == View.VISIBLE
+                    ? contactRecycler : listScroll;
+            int scrollTop = active.getPaddingTop();
+            int scrollBottom = active.getPaddingBottom();
             if (stateContainer.getPaddingTop() != scrollTop
                     || stateContainer.getPaddingBottom() != scrollBottom) {
                 stateContainer.setPadding(stateContainer.getPaddingLeft(), scrollTop,
@@ -432,11 +454,12 @@ public class CloudListFragment extends Fragment {
 
     /**
      * 关注 / 粉丝分页加载。服务端 {@code contacts2} 每页最多 50 条（默认 20），
-     * 这里按 20/页 请求，滚动到底再取下一页并追加。
+     * 这里按 20/页 请求；结果交给 RecyclerView 适配器（自带视图复用）。
      */
     private void loadContactsPage(final int page, final boolean append, long started, int generation) {
         if (append) {
             pagedLoading = true;
+            notifyContactFooter();
         } else {
             pagedPage = 1;
             pagedHasMore = true;
@@ -455,20 +478,13 @@ public class CloudListFragment extends Fragment {
                 pagedPage = Math.max(1, json.optInt("page", page));
                 pagedHasMore = pageItems.length() > 0 && pagedPage * size < total;
                 pagedLoading = false;
-                if (append && renderedItems != null) {
-                    JSONArray merged = new JSONArray();
-                    for (int i = 0; i < renderedItems.length(); i++) merged.put(renderedItems.opt(i));
-                    for (int i = 0; i < pageItems.length(); i++) merged.put(pageItems.opt(i));
-                    completeAfter(started, generation, () -> render(merged));
-                } else {
-                    completeAfter(started, generation, () -> render(pageItems));
-                }
+                completeAfter(started, generation, () -> applyContactsPage(pageItems, append));
             }
             @Override public void onError(int code, @NonNull String message) {
                 pagedLoading = false;
                 if (append) {
-                    // 加载下一页失败：保留已加载内容，仅恢复底部提示（可再次上拉重试）。
-                    render(renderedItems == null ? new JSONArray() : renderedItems);
+                    // 加载下一页失败：保留已加载内容，只刷新底部提示（可再次上滑重试）。
+                    notifyContactFooter();
                     return;
                 }
                 completeAfter(started, generation, () -> {
@@ -478,6 +494,31 @@ public class CloudListFragment extends Fragment {
                 });
             }
         });
+    }
+
+    /** 把一页结果交给 RecyclerView 适配器（首屏重建、翻页只追加/复用）。 */
+    private void applyContactsPage(@NonNull JSONArray pageItems, boolean append) {
+        if (contactAdapter == null) return;
+        java.util.List<JSONObject> rows = new java.util.ArrayList<>(pageItems.length());
+        for (int i = 0; i < pageItems.length(); i++) {
+            JSONObject item = pageItems.optJSONObject(i);
+            if (item != null) rows.add(item);
+        }
+        if (append) {
+            contactAdapter.addItems(rows);
+        } else {
+            contactAdapter.setItems(rows);
+            contactRecycler.scrollToPosition(0);
+        }
+        notifyContactFooter();
+        if (contactAdapter.size() == 0) showState(emptyText());
+        else state.setVisibility(View.GONE);
+    }
+
+    private void notifyContactFooter() {
+        if (contactAdapter != null && contactAdapter.getItemCount() > 0) {
+            contactAdapter.notifyItemChanged(contactAdapter.getItemCount() - 1);
+        }
     }
 
     private void load() {
@@ -775,40 +816,18 @@ public class CloudListFragment extends Fragment {
         }
         lastRenderSignature = signature;
         renderedItems = items;
-        list.removeAllViews();
-        if (isResourceTargetList() || MODE_MY_RESOURCES.equals(mode) || MODE_USER_RESOURCES.equals(mode)) {
-            View masonry = ResourceMasonryFactory.create(requireContext(), items, item -> {
-                if (item.optBoolean("_invalid", false)) {
-                    new WGProAlertDialogBuilder(requireContext()).setTitle("资源已失效").setMessage("资源已不可见").setNegativeButton("关闭", null).show();
-                } else startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
-                        .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
-            }, (item, anchor) -> {
-                if (MODE_HISTORY.equals(mode)) showHistoryItemActions(item, anchor);
-                else showCatalogActions(item, false, anchor);
-            });
-            if (items.length() > 0) list.addView(masonry, new LinearLayout.LayoutParams(-1, -2));
-            if (items.length() == 0) {
-                stateText.setText(emptyText()); stateDescription.setText(emptyDescription());
-                state.setVisibility(View.VISIBLE);
-            } else state.setVisibility(View.GONE);
-            return;
+        if (contactAdapter != null) {
+            java.util.List<JSONObject> rows = new java.util.ArrayList<>(items.length());
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.optJSONObject(i);
+                if (item != null) rows.add(item);
+            }
+            contactAdapter.setItems(rows);
         }
-        for (int i = 0; i < items.length(); i++) {
-            JSONObject item = items.optJSONObject(i);
-            if (item != null) list.addView(item.has("_section")
-                    ? createSectionHeader(item.optString("_section")) : createCard(item));
-        }
-        if (pagedMode && items.length() > 0 && (pagedLoading || !pagedHasMore)) {
-            TextView footer = new TextView(requireContext());
-            footer.setGravity(android.view.Gravity.CENTER);
-            footer.setPadding(0, dp(12), 0, dp(16));
-            footer.setTextSize(13f);
-            footer.setTextColor(requireContext().getColor(R.color.text_secondary));
-            footer.setText(pagedLoading ? "正在加载…" : "没有更多了");
-            list.addView(footer, new LinearLayout.LayoutParams(-1, -2));
-        }
-        if (list.getChildCount() == 0) showState(emptyText());
-        else state.setVisibility(View.GONE);
+        if (items.length() == 0) {
+            stateText.setText(emptyText()); stateDescription.setText(emptyDescription());
+            state.setVisibility(View.VISIBLE);
+        } else state.setVisibility(View.GONE);
     }
 
     /** 列表数据签名：用于判断刷新后是否真的需要重建视图。 */
@@ -1489,26 +1508,194 @@ public class CloudListFragment extends Fragment {
         return url;
     }
 
+    /** 通用列表适配器：所有模式都走 RecyclerView 复用视图，避免任意列表变长后 View/内存无限增长。
+     *  关注/粉丝用真正复用的联系人行；其它模式用「容器 + 逐项构建」的行（视图数量只与可见行数相关）。 */
+    private final class CloudAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+        private static final int TYPE_CONTACT = 0;
+        private static final int TYPE_ROW = 1;
+        private static final int TYPE_FOOTER = 2;
+        private final java.util.List<JSONObject> items = new java.util.ArrayList<>();
+
+        int size() { return items.size(); }
+
+        void setItems(java.util.List<JSONObject> next) {
+            items.clear();
+            items.addAll(next);
+            notifyDataSetChanged();
+        }
+
+        void addItems(java.util.List<JSONObject> more) {
+            if (more.isEmpty()) return;
+            int from = items.size();
+            items.addAll(more);
+            notifyItemRangeInserted(from, more.size());
+        }
+
+        @Override public int getItemCount() { return items.size() + (pagedMode ? 1 : 0); }
+
+        @Override public int getItemViewType(int position) {
+            if (position >= items.size()) return TYPE_FOOTER;
+            return pagedMode ? TYPE_CONTACT : TYPE_ROW;
+        }
+
+        @NonNull @Override public RecyclerView.ViewHolder onCreateViewHolder(
+                @NonNull ViewGroup parent, int viewType) {
+            if (viewType == TYPE_FOOTER) {
+                TextView footer = new TextView(parent.getContext());
+                footer.setGravity(android.view.Gravity.CENTER);
+                footer.setPadding(0, dp(12), 0, dp(16));
+                footer.setTextSize(13f);
+                footer.setTextColor(parent.getContext().getColor(R.color.text_secondary));
+                footer.setLayoutParams(new RecyclerView.LayoutParams(-1, -2));
+                return new RecyclerView.ViewHolder(footer) { };
+            }
+            if (viewType == TYPE_CONTACT) {
+                View row = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.item_contact_row, parent, false);
+                return new ContactHolder(row);
+            }
+            FrameLayout container = new FrameLayout(parent.getContext());
+            container.setLayoutParams(new RecyclerView.LayoutParams(-1, -2));
+            return new RecyclerView.ViewHolder(container) { };
+        }
+
+        @Override public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+            if (holder instanceof ContactHolder) {
+                bindContactRow((ContactHolder) holder, items.get(position));
+                return;
+            }
+            if (getItemViewType(position) == TYPE_FOOTER) {
+                TextView footer = (TextView) holder.itemView;
+                boolean show = !items.isEmpty() && (pagedLoading || !pagedHasMore);
+                footer.setVisibility(show ? View.VISIBLE : View.GONE);
+                footer.setText(pagedLoading ? "正在加载…" : "没有更多了");
+                return;
+            }
+            FrameLayout container = (FrameLayout) holder.itemView;
+            container.removeAllViews();
+            View row = buildListItemView(items.get(position));
+            if (row != null) {
+                // 保留卡片自己的外边距（原来的卡片是加在带 margin 的 LayoutParams 上的，
+                // 直接 addView(row, new LayoutParams(-1,-2)) 会把上下边距全部丢掉 → 卡片贴在一起）
+                FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(-1, -2);
+                if (row.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams margins = (ViewGroup.MarginLayoutParams) row.getLayoutParams();
+                    params.setMargins(margins.leftMargin, margins.topMargin,
+                            margins.rightMargin, margins.bottomMargin);
+                }
+                if (isMasonryMode()) params.setMargins(dp(5), params.topMargin, dp(5), params.bottomMargin);
+                container.addView(row, params);
+            }
+        }
+    }
+
+    /** 逐项构建列表行（沿用原有的卡片工厂，保证观感不变）。 */
+    @Nullable private View buildListItemView(@NonNull JSONObject item) {
+        if (isMasonryMode()) {
+            return ResourceMasonryFactory.card(requireContext(), item, resourceClickListener(),
+                    resourceMenuListener());
+        }
+        if (item.has("_section")) return createSectionHeader(item.optString("_section"));
+        return createCard(item);
+    }
+
+    /** 是否走两列瀑布流（资源类列表）。 */
+    private boolean isMasonryMode() {
+        return isResourceTargetList() || MODE_MY_RESOURCES.equals(mode)
+                || MODE_USER_RESOURCES.equals(mode);
+    }
+
+    private ResourceMasonryFactory.OnResourceClick resourceClickListener() {
+        return item -> {
+            if (item.optBoolean("_invalid", false)) {
+                new WGProAlertDialogBuilder(requireContext()).setTitle("资源已失效")
+                        .setMessage("资源已不可见").setNegativeButton("关闭", null).show();
+            } else {
+                startActivity(new Intent(requireContext(), ResourceDetailActivity.class)
+                        .putExtra(ResourceDetailActivity.EXTRA_RESOURCE_JSON, item.toString()));
+            }
+        };
+    }
+
+    private ResourceMasonryFactory.OnResourceMenu resourceMenuListener() {
+        return (item, anchor) -> {
+            if (MODE_HISTORY.equals(mode)) showHistoryItemActions(item, anchor);
+            else showCatalogActions(item, false, anchor);
+        };
+    }
+
+    private final class ContactHolder extends RecyclerView.ViewHolder {
+        final MaterialCardView card;
+        final FrameLayout avatarBox;
+        final TextView initial;
+        final ShapeableImageView avatar;
+        final TextView name;
+        final TextView bio;
+
+        ContactHolder(@NonNull View view) {
+            super(view);
+            card = (MaterialCardView) view;
+            avatarBox = view.findViewById(R.id.contact_avatar_box);
+            initial = view.findViewById(R.id.contact_initial);
+            avatar = view.findViewById(R.id.contact_avatar);
+            name = view.findViewById(R.id.contact_name);
+            bio = view.findViewById(R.id.contact_bio);
+            avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel().toBuilder()
+                    .setAllCornerSizes(new com.google.android.material.shape.RelativeCornerSize(0.5f))
+                    .build());
+        }
+    }
+
+    /** 绑定一行（复用场景：每次都要重置头像/徽标，避免残留上一行的内容）。 */
+    private void bindContactRow(@NonNull ContactHolder holder, @NonNull JSONObject item) {
+        holder.name.setText(contactName(item));
+        String desc = contactBio(item);
+        if (desc == null || desc.isEmpty()) {
+            holder.bio.setVisibility(View.GONE);
+        } else {
+            holder.bio.setText(desc);
+            holder.bio.setVisibility(View.VISIBLE);
+        }
+        holder.initial.setText(contactInitial(item));
+        holder.initial.setVisibility(View.VISIBLE);
+        holder.avatar.setImageDrawable(null);
+        holder.avatar.setVisibility(View.GONE);
+        BadgeFactory.bind(requireContext(), item, holder.avatarBox,
+                requireContext().getColor(R.color.surface_page));
+        UnreadBadgeFactory.bind(requireContext(), holder.avatarBox, item.optInt("unread_count", 0));
+        final String resolvedUid = (MODE_CONVERSATIONS.equals(mode) || isConversation(item))
+                ? item.optString("peer_uid", "")
+                : item.optString("uid", item.optString("actor_uid", ""));
+        loadContactAvatar(resolvedUid, contactAvatarUrl(item, resolvedUid),
+                holder.avatar, holder.initial);
+        holder.card.setOnClickListener(v -> {
+            if (resolvedUid.isEmpty()) return;
+            startActivity(new Intent(requireContext(), UserDetailActivity.class)
+                    .putExtra(UserDetailActivity.EXTRA_TARGET_UID, resolvedUid));
+        });
+    }
+
     private void loadContactAvatar(String uid, String url, ShapeableImageView avatar, TextView initial) {
         if (uid.isEmpty()) return;
+        // 列表里可能同时存在上千行：头像必须按显示尺寸采样解码，否则每行一张原图会把内存撑爆
+        // （真机实测 2000 个粉丝 → 1.4GB）。RecyclerView 复用行时还要校验 uid，避免旧图落到新行上。
+        final int targetPx = dp(56);
+        avatar.setTag(uid);
         File cached = new File(requireContext().getFilesDir(), "avatar_" + uid + ".jpg");
         if (cached.isFile()) {
-            Bitmap bitmap = BitmapFactory.decodeFile(cached.getAbsolutePath());
+            Bitmap bitmap = ImageCache.decodeScaledFile(cached.getAbsolutePath(), targetPx);
             if (bitmap != null) {
                 avatar.setImageBitmap(bitmap);
                 avatar.setVisibility(View.VISIBLE);
                 initial.setVisibility(View.GONE);
+                return;
             }
         }
-        Bitmap memory = ImageCache.getMemory(url);
-        if (memory != null) {
-            avatar.setImageBitmap(memory);
-            avatar.setVisibility(View.VISIBLE);
-            initial.setVisibility(View.GONE);
-            return;
-        }
         if (url.isEmpty()) return;
-        ImageCache.load(requireContext(), url, avatar, () -> {
+        ImageCache.loadBitmapSized(requireContext(), url, targetPx, bitmap -> {
+            if (!isAdded() || bitmap == null || bitmap.isRecycled()) return;
+            if (!uid.equals(avatar.getTag())) return;   // 该行已被复用到别的用户
+            avatar.setImageBitmap(bitmap);
             avatar.setVisibility(View.VISIBLE);
             initial.setVisibility(View.GONE);
         });
@@ -1596,7 +1783,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private void showState(String value) {
-        if (list.getChildCount() > 0) {
+        if (contactAdapter != null ? contactAdapter.size() > 0 : list.getChildCount() > 0) {
             state.setVisibility(View.GONE);
             return;
         }
