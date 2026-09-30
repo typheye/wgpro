@@ -622,6 +622,23 @@ public class MainActivity extends AppCompatActivity {
             AppBarBlur.padScrollableTop(scroll, top);
             return;
         }
+        if (view instanceof androidx.viewpager2.widget.ViewPager2) {
+            // ViewPager2 是 RecyclerView 的子类，但它自己**不是**内容滚动容器：
+            // 给它加 padding 会把内部整页往下挤，内容永远穿不到应用栏/导航栏后面，
+            // 快照里栏覆盖的区域只剩纯色背景 —— 表现就是"毛玻璃消失了"。
+            // 要补的是「每一页里面的第一个滚动容器」，与 AppBarBlur.padFirstScrollable 一致。
+            androidx.viewpager2.widget.ViewPager2 pager =
+                    (androidx.viewpager2.widget.ViewPager2) view;
+            for (int index = 0; index < pager.getChildCount(); index++) {
+                View child = pager.getChildAt(index);
+                if (!(child instanceof ViewGroup)) continue;
+                ViewGroup holder = (ViewGroup) child;   // ViewPager2 的内部 RecyclerView
+                for (int page = 0; page < holder.getChildCount(); page++) {
+                    applyInnerScrollInsets(holder.getChildAt(page), top, bottom);
+                }
+            }
+            return;
+        }
         if (view instanceof androidx.recyclerview.widget.RecyclerView) {
             androidx.recyclerview.widget.RecyclerView recycler =
                     (androidx.recyclerview.widget.RecyclerView) view;

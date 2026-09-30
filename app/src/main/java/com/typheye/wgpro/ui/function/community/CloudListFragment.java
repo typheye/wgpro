@@ -64,6 +64,9 @@ public class CloudListFragment extends Fragment {
     public static final String MODE_USER_RESOURCES = "user_resources";
     public static final String MODE_CONVERSATIONS = "conversations";
     private static final long MIN_LOADING_MS = 300L;
+    /** 应用目录（静态 JSON）：一次拉取后按包名匹配，替代逐条 app_detail；目录几乎不变，给 10 分钟 TTL。 */
+    private static final String APP_CATALOG_URL = "https://res.typheye.cn/api.php?type=app&page=1&size=50";
+    private static final long APP_CATALOG_TTL_MS = 10 * 60_000L;
 
     private final Handler main = new Handler(Looper.getMainLooper());
     private SwipeRefreshLayout refresh;
@@ -761,7 +764,7 @@ public class CloudListFragment extends Fragment {
     private void loadUserApps(long started, int generation) {
         String targetUid = getArguments() == null ? ""
                 : getArguments().getString("target_uid", "");
-        account.getPublicJsonUrl("https://res.typheye.cn/api.php?type=app&page=1&size=50",
+        account.getPublicJsonUrlCached(APP_CATALOG_URL, APP_CATALOG_TTL_MS,
                 new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
                         JSONArray list = json.optJSONArray("info");
@@ -876,6 +879,15 @@ public class CloudListFragment extends Fragment {
             final int index = i;
             JSONObject target = targets.optJSONObject(i);
             if (target == null) { finishHydration(targets, pending, started, generation); continue; }
+            // 服务器已经在列表里内联了正文（history2/collections2）：直接用，省掉逐条详情请求。
+            JSONObject embedded = target.optJSONObject("target");
+            if (embedded != null) {
+                copyIdentity(target, embedded);
+                preserveHistoryId(target, embedded);
+                try { targets.put(index, embedded); } catch (Exception ignored) { }
+                finishHydration(targets, pending, started, generation);
+                continue;
+            }
             normalizeUnavailableIdentity(target, target);
             String id = target.optString("target_key", target.optString("id", ""));
             if (id.isEmpty()) { markInvalid(target); finishHydration(targets, pending, started, generation); continue; }
@@ -1044,26 +1056,98 @@ public class CloudListFragment extends Fragment {
         }
     }
 
+    /**
+     * 应用目标：应用目录只有一份，先整体拉一次（10 分钟 TTL，通常直接命中本地缓存），
+     * 再按包名把每条历史/收藏目标匹配上，替代原来「每条目标一次 app_detail」的 N+1。
+     * 服务器内联了 target 的（如果以后加了）直接使用；目录里找不到的退回逐条详情。
+     */
     private void hydrateAppTargets(JSONArray targets, long started, int generation) {
         if (targets.length() == 0) { completeAfter(started, generation, () -> render(targets)); return; }
-        java.util.concurrent.atomic.AtomicInteger pending = new java.util.concurrent.atomic.AtomicInteger(targets.length());
+        java.util.List<Integer> missing = new java.util.ArrayList<>();
         for (int i = 0; i < targets.length(); i++) {
-            final int index = i; JSONObject target = targets.optJSONObject(i);
-            if (target == null) { finishHydration(targets, pending, started, generation); continue; }
+            JSONObject target = targets.optJSONObject(i);
+            if (target == null) continue;
             JSONObject embedded = target.optJSONObject("target");
-            if (embedded != null) { preserveHistoryId(target, embedded); try { targets.put(index, embedded); } catch (Exception ignored) { }
-                finishHydration(targets, pending, started, generation); continue; }
-            String key = target.optString("target_key", "");
-            String url = "https://res.typheye.cn/api.php?type=app_detail&package=" + Uri.encode(key);
+            if (embedded != null) {
+                preserveHistoryId(target, embedded);
+                try { targets.put(i, embedded); } catch (Exception ignored) { }
+            } else {
+                missing.add(i);
+            }
+        }
+        if (missing.isEmpty()) { completeAfter(started, generation, () -> render(targets)); return; }
+        account.getPublicJsonUrlCached(APP_CATALOG_URL, APP_CATALOG_TTL_MS, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray list = json.optJSONArray("info");
+                if (list == null) list = json.optJSONArray("items");
+                if (list == null) list = json.optJSONArray("apps");
+                if (list == null) list = json.optJSONArray("data");
+                java.util.Map<String, JSONObject> byKey = new java.util.HashMap<>();
+                if (list != null) {
+                    for (int i = 0; i < list.length(); i++) {
+                        JSONObject app = list.optJSONObject(i);
+                        if (app == null) continue;
+                        String key = app.optString("package", app.optString("id", ""));
+                        if (!key.isEmpty()) byKey.put(key, app);
+                    }
+                }
+                java.util.List<Integer> unresolved = new java.util.ArrayList<>();
+                for (int index : missing) {
+                    JSONObject target = targets.optJSONObject(index);
+                    if (target == null) continue;
+                    JSONObject app = byKey.get(target.optString("target_key", ""));
+                    if (app == null) { unresolved.add(index); continue; }
+                    try {
+                        // 目录里的对象可能被多条目标共用，复制一份再写入历史字段。
+                        JSONObject copy = new JSONObject(app.toString());
+                        preserveHistoryId(target, copy);
+                        targets.put(index, copy);
+                    } catch (Exception ignored) { markInvalid(target); }
+                }
+                if (unresolved.isEmpty()) { completeAfter(started, generation, () -> render(targets)); return; }
+                hydrateAppTargetsIndividually(targets, unresolved, started, generation);
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                for (int index : missing) {
+                    JSONObject target = targets.optJSONObject(index);
+                    if (target != null) markInvalid(target);
+                }
+                completeAfter(started, generation, () -> render(targets));
+            }
+        });
+    }
+
+    /** 目录里没匹配到的少数目标：退回逐条 app_detail，保证长尾也正确。 */
+    private void hydrateAppTargetsIndividually(JSONArray targets, java.util.List<Integer> indexes,
+                                               long started, int generation) {
+        final java.util.concurrent.atomic.AtomicInteger left =
+                new java.util.concurrent.atomic.AtomicInteger(indexes.size());
+        for (final int index : indexes) {
+            JSONObject target = targets.optJSONObject(index);
+            if (target == null) {
+                if (left.decrementAndGet() == 0) completeAfter(started, generation, () -> render(targets));
+                continue;
+            }
+            String url = "https://res.typheye.cn/api.php?type=app_detail&package="
+                    + Uri.encode(target.optString("target_key", ""));
             account.getPublicJsonUrl(url, new tAccUtils.JsonCallback() {
                 @Override public void onSuccess(@NonNull JSONObject json) {
                     JSONObject info = json.optJSONObject("info");
-                    if (info != null) try { preserveHistoryId(target, info); targets.put(index, info); } catch (Exception ignored) { }
-                    else markInvalid(target);
-                    finishHydration(targets, pending, started, generation);
+                    JSONObject current = targets.optJSONObject(index);
+                    if (info != null && current != null) {
+                        try { preserveHistoryId(current, info); targets.put(index, info); }
+                        catch (Exception ignored) { }
+                    } else if (current != null) {
+                        markInvalid(current);
+                    }
+                    if (left.decrementAndGet() == 0) completeAfter(started, generation, () -> render(targets));
                 }
+
                 @Override public void onError(int code, @NonNull String message) {
-                    markInvalid(target); finishHydration(targets, pending, started, generation);
+                    JSONObject current = targets.optJSONObject(index);
+                    if (current != null) markInvalid(current);
+                    if (left.decrementAndGet() == 0) completeAfter(started, generation, () -> render(targets));
                 }
             });
         }

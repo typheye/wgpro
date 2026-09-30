@@ -91,6 +91,24 @@ public class HomeFragment extends Fragment {
     private boolean loadedOnce;
     private SwipeRefreshLayout resourcesRefresh;
 
+    /** 当前可见页（0 社区 / 1 应用 / 2 资源）：懒加载只拉用户真正看到的那一页。 */
+    private int visiblePage;
+    private boolean communityLoading;
+    private boolean appsLoading;
+    private boolean resourcesLoading;
+    /** home2 在旧服务器上不存在时，退回三个独立接口只退一次。 */
+    private boolean communityLegacyFallback;
+    private long communityLoadedAt;
+    private long appsLoadedAt;
+    private long resourcesLoadedAt;
+    /** 社区页 60 秒内回到首页不重复请求；应用/资源目录变化慢，给 5 分钟。 */
+    private static final long COMMUNITY_TTL_MS = 60_000L;
+    private static final long CATALOG_TTL_MS = 5 * 60_000L;
+    /** 回到前台时，距上次加载不足这个时间就不刷新。 */
+    private static final long RESUME_STALE_MS = 30_000L;
+    /** 应用目录是静态 JSON（res.typheye.cn），单独放在这里便于缓存优先读取。 */
+    private static final String APPS_URL = "https://res.typheye.cn/api.php?type=app&page=1&size=20";
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -103,7 +121,8 @@ public class HomeFragment extends Fragment {
         bindContent(root);
         setupPages(root);
         account = new tAccUtils(requireContext());
-        loadAll();
+        // 只加载用户真正看到的第一页（社区）；应用/资源等切到那一页再拉。
+        loadCommunity(false);
         return root;
     }
 
@@ -115,6 +134,15 @@ public class HomeFragment extends Fragment {
         for (View page : pages) pool.removeView(page);
         pager.setAdapter(new LocalPageAdapter(pages));
         pager.setOffscreenPageLimit(2);
+        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override public void onPageSelected(int position) {
+                visiblePage = position;
+                // 懒加载：某一页第一次被看到时才去拉数据，没看过的页一个请求都不发。
+                if (position == 1 && appsLoadedAt == 0L && !appsLoading) loadApps(false);
+                else if (position == 2 && resourcesLoadedAt == 0L && !resourcesLoading) loadResources(false);
+                else if (position == 0 && communityLoadedAt == 0L && !communityLoading) loadCommunity(false);
+            }
+        });
     }
 
     private void bindContent(View root) {
@@ -154,79 +182,186 @@ public class HomeFragment extends Fragment {
         communityRefresh.setColorSchemeColors(accent);
         appsRefresh.setColorSchemeColors(accent);
         resourcesRefresh.setColorSchemeColors(accent);
-        communityRefresh.setOnRefreshListener(() -> {
-            loadBanners(); loadAnnouncement(); loadDynamics();
-        });
-        appsRefresh.setOnRefreshListener(this::loadApps);
-        resourcesRefresh.setOnRefreshListener(this::loadResources);
-        communityRefresh.post(() -> communityRefresh.setRefreshing(true));
-        appsRefresh.post(() -> appsRefresh.setRefreshing(true));
-        resourcesRefresh.post(() -> resourcesRefresh.setRefreshing(true));
+        communityRefresh.setOnRefreshListener(() -> loadCommunity(true));
+        appsRefresh.setOnRefreshListener(() -> loadApps(true));
+        resourcesRefresh.setOnRefreshListener(() -> loadResources(true));
     }
 
-    private void loadAll() {
-        loadedOnce = true;
-        loadBanners();
-        loadAnnouncement();
-        loadDynamics();
-        loadApps();
-        loadResources();
+    /** 首页三个 tab 的懒加载入口：force=true 表示用户主动下拉刷新（必须走网络）。 */
+    private void loadVisiblePage(boolean force) {
+        if (visiblePage == 1) loadApps(force);
+        else if (visiblePage == 2) loadResources(force);
+        else loadCommunity(force);
     }
 
     @Override public void onResume() {
         super.onResume();
-        if (loadedOnce && account != null && getView() != null) loadAll();
+        // 首次进入由 onCreateView 负责拉起当前页。
+        if (!loadedOnce || account == null || getView() == null) return;
+        // 只刷新当前可见页；距上次加载不足 30 秒连请求都不发（下拉刷新永远强刷）。
+        long loadedAt = visiblePage == 1 ? appsLoadedAt
+                : visiblePage == 2 ? resourcesLoadedAt : communityLoadedAt;
+        if (android.os.SystemClock.uptimeMillis() - loadedAt >= RESUME_STALE_MS) {
+            loadVisiblePage(false);
+        }
     }
 
     public void refreshContent() {
-        if (account != null && isAdded()) loadAll();
+        if (account != null && isAdded()) loadVisiblePage(false);
     }
 
-    private void loadBanners() {
+    /**
+     * 社区页：一次 {@code home2} 聚合请求取回轮播 + 公告 + 动态流。
+     *
+     * <p>原来这里是 3 个并发请求（home_banners2 / announcements2 / dynamics2）。
+     * 在高延迟链路上「少一次往返」比「每个请求快一点」更值钱，因此服务端提供了聚合接口。
+     * 若服务器较旧（没有 home2），会自动退回三个老接口，且只退一次。</p>
+     */
+    private void loadCommunity(boolean force) {
+        if (communityLoading) return;
+        communityLoading = true;
+        loadedOnce = true;
         final long started = android.os.SystemClock.uptimeMillis();
         final int requestId = ++bannerRequestSeq;
+        communityRefresh.setRefreshing(true);
+        account.getV2JsonCached("home2", communityQuery(), false,
+                force ? 0L : COMMUNITY_TTL_MS, new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        completeAtLeast(started, () -> {
+                            communityLoading = false;
+                            communityLoadedAt = android.os.SystemClock.uptimeMillis();
+                            if (requestId != bannerRequestSeq) return;
+                            renderBanners(items(json, "banners"));
+                            renderAnnouncement(json.optJSONObject("announcement"));
+                            renderDynamics(items(json, "items", "dynamics", "data"));
+                            communityRefresh.setRefreshing(false);
+                        });
+                    }
+
+                    @Override public void onError(int code, @NonNull String message) {
+                        communityLoading = false;
+                        communityLoadedAt = android.os.SystemClock.uptimeMillis();
+                        if (!communityLegacyFallback) {
+                            // 老服务器不认识 home2：退回三个独立接口，保证首页依然可用。
+                            communityLegacyFallback = true;
+                            loadCommunityLegacy(started, requestId);
+                            return;
+                        }
+                        completeAtLeast(started, () -> {
+                            communityRefresh.setRefreshing(false);
+                            if (requestId != bannerRequestSeq) return;
+                            showLoadError("动态加载失败", readableError(code, message));
+                        });
+                    }
+                });
+    }
+
+    private static Map<String, String> communityQuery() {
+        Map<String, String> query = pageQuery();
+        query.put("feed", "public");
+        return query;
+    }
+
+    /** 兼容旧服务器的社区页兜底：轮播 / 公告 / 动态 各请求一次，全部返回后收起菊花。 */
+    private void loadCommunityLegacy(long started, int requestId) {
+        final java.util.concurrent.atomic.AtomicInteger pending =
+                new java.util.concurrent.atomic.AtomicInteger(3);
+        Runnable settle = () -> completeAtLeast(started, () -> {
+            if (requestId != bannerRequestSeq) return;
+            communityRefresh.setRefreshing(false);
+        });
         account.getV2Json("home_banners2", empty(), false, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray banners = items(json, "items", "banners", "data");
                 completeAtLeast(started, () -> {
-                    if (!isAdded() || getView() == null || requestId != bannerRequestSeq) return;
-                    JSONArray items = items(json, "items", "banners", "data");
-                    String signature = bannerSignature(items);
-                    if (bannerAdapter != null
-                            && bannerHost.getVisibility() == View.VISIBLE
-                            && signature.equals(bannerSignature)) {
-                        // 服务端内容没有变化：保留当前页与已加载图片，不再重建适配器，避免闪白。
-                        scheduleBannerAdvance();
-                        return;
-                    }
-                    java.util.ArrayList<View> pages = new java.util.ArrayList<>();
-                    for (int i = 0; i < items.length(); i++) { View card = createBanner(items.optJSONObject(i)); if (card != null) pages.add(card); }
-                    bannerHost.setVisibility(items.length() == 0 ? View.GONE : View.VISIBLE);
-                    if (bannerAdapter == null) {
-                        bannerAdapter = new BannerAdapter();
-                        bannerPager.setAdapter(bannerAdapter);
-                    }
-                    int previousItem = bannerPager.getCurrentItem();
-                    bannerAdapter.submit(pages);
-                    if (!pages.isEmpty() && previousItem >= pages.size()) {
-                        bannerPager.setCurrentItem(pages.size() - 1, false);
-                    }
-                    renderBannerIndicator(bannerPager.getCurrentItem());
-                    bannerSignature = signature;
-                    scheduleBannerAdvance();
+                    if (requestId == bannerRequestSeq) renderBanners(banners);
                 });
+                if (pending.decrementAndGet() == 0) settle.run();
             }
+
             @Override public void onError(int code, @NonNull String message) {
-                completeAtLeast(started, () -> {
-                    if (!isAdded() || getView() == null || requestId != bannerRequestSeq) return;
-                    // 刷新失败时保留已经展示的轮播，避免已有内容被清成空白。
-                    if (bannerAdapter == null || bannerAdapter.getItemCount() == 0) {
-                        bannerHost.setVisibility(View.GONE);
-                    } else {
-                        bannerHost.setVisibility(View.VISIBLE);
-                    }
-                });
+                if (pending.decrementAndGet() == 0) settle.run();
             }
         });
+        Map<String, String> one = new LinkedHashMap<>();
+        one.put("page", "1");
+        one.put("size", "1");
+        account.getV2Json("announcements2", one, false, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONObject first = items(json, "items", "announcements", "data").optJSONObject(0);
+                completeAtLeast(started, () -> {
+                    if (requestId == bannerRequestSeq) renderAnnouncement(first);
+                });
+                if (pending.decrementAndGet() == 0) settle.run();
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                if (pending.decrementAndGet() == 0) settle.run();
+            }
+        });
+        account.getV2JsonFresh("dynamics2", communityQuery(), false, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray list = items(json, "items", "dynamics", "data");
+                completeAtLeast(started, () -> {
+                    if (requestId == bannerRequestSeq) renderDynamics(list);
+                });
+                if (pending.decrementAndGet() == 0) settle.run();
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                if (pending.decrementAndGet() == 0) settle.run();
+            }
+        });
+    }
+
+    private void renderBanners(@NonNull JSONArray items) {
+        String signature = bannerSignature(items);
+        if (bannerAdapter != null
+                && bannerHost.getVisibility() == View.VISIBLE
+                && signature.equals(bannerSignature)) {
+            // 服务端内容没有变化：保留当前页与已加载图片，不再重建适配器，避免闪白。
+            scheduleBannerAdvance();
+            return;
+        }
+        java.util.ArrayList<View> pages = new java.util.ArrayList<>();
+        for (int i = 0; i < items.length(); i++) {
+            View card = createBanner(items.optJSONObject(i));
+            if (card != null) pages.add(card);
+        }
+        bannerHost.setVisibility(items.length() == 0 ? View.GONE : View.VISIBLE);
+        if (bannerAdapter == null) {
+            bannerAdapter = new BannerAdapter();
+            bannerPager.setAdapter(bannerAdapter);
+        }
+        int previousItem = bannerPager.getCurrentItem();
+        bannerAdapter.submit(pages);
+        if (!pages.isEmpty() && previousItem >= pages.size()) {
+            bannerPager.setCurrentItem(pages.size() - 1, false);
+        }
+        renderBannerIndicator(bannerPager.getCurrentItem());
+        bannerSignature = signature;
+        scheduleBannerAdvance();
+    }
+
+    private void renderAnnouncement(@Nullable JSONObject first) {
+        if (first == null || first.length() == 0) {
+            announcement.setVisibility(View.GONE);
+            return;
+        }
+        announcementText.setText("公告  " + first.optString("title", first.optString("content")));
+        announcement.setVisibility(View.VISIBLE);
+        announcement.setOnClickListener(v -> showJsonDetail("公告", first));
+    }
+
+    private void renderDynamics(@NonNull JSONArray list) {
+        String signature = listSignature(list, "id", "content", "like_count",
+                "comment_count", "forward_count", "collection_count", "is_liked", "is_favorited");
+        if (!signature.equals(dynamicsSignature)) {
+            dynamicsSignature = signature;
+            feed.removeAllViews();
+            for (int i = 0; i < list.length(); i++) addDynamic(list.optJSONObject(i));
+        }
+        showStatus(communityStatus, list.length() == 0, "社区里还没有动态");
     }
 
     private View createBanner(@Nullable JSONObject item) {
@@ -327,107 +462,70 @@ public class HomeFragment extends Fragment {
         });
     }
 
-    private void loadAnnouncement() {
-        final long started = android.os.SystemClock.uptimeMillis();
-        Map<String, String> query = new LinkedHashMap<>();
-        query.put("page", "1");
-        query.put("size", "1");
-        account.getV2Json("announcements2", query, false, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(@NonNull JSONObject json) {
-                completeAtLeast(started, () -> {
-                    JSONArray list = items(json, "items", "announcements", "data");
-                    JSONObject first = list.optJSONObject(0);
-                    if (first == null) {
-                        announcement.setVisibility(View.GONE);
-                        return;
-                    }
-                    announcementText.setText("公告  " + first.optString("title", first.optString("content")));
-                    announcement.setVisibility(View.VISIBLE);
-                    announcement.setOnClickListener(v -> showJsonDetail("公告", first));
-                });
-            }
-            @Override public void onError(int code, @NonNull String message) {
-                completeAtLeast(started, () -> announcement.setVisibility(View.GONE));
-            }
-        });
-    }
-
-    private void loadDynamics() {
-        final long started = android.os.SystemClock.uptimeMillis();
-        Map<String, String> query = pageQuery();
-        query.put("feed", "public");
-        // Public feed is readable without a session; attach one only when available
-        // so expired optional credentials cannot turn the page into a 401 error.
-        account.getV2JsonFresh("dynamics2", query, false, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(@NonNull JSONObject json) {
-                completeAtLeast(started, () -> {
-                    JSONArray list = items(json, "items", "dynamics", "data");
-                    String signature = listSignature(list, "id", "content", "like_count",
-                            "comment_count", "forward_count", "collection_count", "is_liked", "is_favorited");
-                    if (!signature.equals(dynamicsSignature)) {
-                        dynamicsSignature = signature;
-                        feed.removeAllViews();
-                        for (int i = 0; i < list.length(); i++) addDynamic(list.optJSONObject(i));
-                    }
-                    showStatus(communityStatus, list.length() == 0, "社区里还没有动态");
-                    communityRefresh.setRefreshing(false);
-                });
-            }
-            @Override public void onError(int code, @NonNull String message) {
-                completeAtLeast(started, () -> {
-                    communityStatus.setVisibility(View.GONE);
-                    showLoadError("动态加载失败", message);
-                    communityRefresh.setRefreshing(false);
-                });
-            }
-        });
-    }
-
     private void addDynamic(@Nullable JSONObject item) {
         if (item == null) return;
         View card = DynamicCardFactory.create(requireContext(), item, v -> startActivity(new Intent(requireContext(),
                 com.typheye.wgpro.ui.function.community.DynamicDetailActivity.class)
                 .putExtra(com.typheye.wgpro.ui.function.community.DynamicDetailActivity.EXTRA_DYNAMIC_ID,
-                        item.optString("id", ""))), this::loadDynamics);
+                        item.optString("id", ""))), () -> loadCommunity(true));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
         params.topMargin = dp(10);
         card.setLayoutParams(params);
         feed.addView(card);
     }
 
-    private void loadApps() {
+    /** 应用目录：切到该 tab 时才加载；目录变化慢，TTL 内直接用本地缓存、不发请求。 */
+    private void loadApps(boolean force) {
+        if (appsLoading) return;
+        appsLoading = true;
+        appsRefresh.setRefreshing(true);
         final long started = android.os.SystemClock.uptimeMillis();
-        account.getPublicJsonUrl("https://res.typheye.cn/api.php?type=app&page=1&size=20",
-                new tAccUtils.JsonCallback() {
-                    @Override public void onSuccess(@NonNull JSONObject json) {
-                        completeAtLeast(started, () -> {
-                            JSONArray list = items(json, "items", "apps", "data", "info");
-                            String signature = listSignature(list, "package", "id", "name", "summary", "version_name");
-                            if (!signature.equals(appsSignature)) {
-                                appsSignature = signature;
-                                apps.removeAllViews();
-                                for (int i = 0; i < list.length(); i++) addCatalogCard(apps,
-                                        list.optJSONObject(i), true);
-                            }
-                            showStatus(appsStatus, list.length() == 0, "应用目录暂时为空");
-                            appsRefresh.setRefreshing(false);
-                        });
-                    }
-                    @Override public void onError(int code, @NonNull String message) {
-                        completeAtLeast(started, () -> {
-                            appsStatus.setVisibility(View.GONE);
-                            showLoadError("应用加载失败", message);
-                            appsRefresh.setRefreshing(false);
-                        });
-                    }
-                });
-    }
-
-    private void loadResources() {
-        final long started = android.os.SystemClock.uptimeMillis();
-        account.getV2Json("resources2", pageQuery(), false, new tAccUtils.JsonCallback() {
+        tAccUtils.JsonCallback callback = new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 completeAtLeast(started, () -> {
+                    appsLoading = false;
+                    appsLoadedAt = android.os.SystemClock.uptimeMillis();
+                    JSONArray list = items(json, "items", "apps", "data", "info");
+                    String signature = listSignature(list, "package", "id", "name", "summary", "version_name");
+                    if (!signature.equals(appsSignature)) {
+                        appsSignature = signature;
+                        apps.removeAllViews();
+                        for (int i = 0; i < list.length(); i++) addCatalogCard(apps,
+                                list.optJSONObject(i), true);
+                    }
+                    showStatus(appsStatus, list.length() == 0, "应用目录暂时为空");
+                    appsRefresh.setRefreshing(false);
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                appsLoading = false;
+                appsLoadedAt = android.os.SystemClock.uptimeMillis();
+                completeAtLeast(started, () -> {
+                    appsStatus.setVisibility(View.GONE);
+                    showLoadError("应用加载失败", message);
+                    appsRefresh.setRefreshing(false);
+                });
+            }
+        };
+        if (force) {
+            account.getPublicJsonUrl(APPS_URL, callback);
+        } else {
+            account.getPublicJsonUrlCached(APPS_URL, CATALOG_TTL_MS, callback);
+        }
+    }
+
+    /** 资源列表：同上，懒加载 + TTL 缓存优先。 */
+    private void loadResources(boolean force) {
+        if (resourcesLoading) return;
+        resourcesLoading = true;
+        resourcesRefresh.setRefreshing(true);
+        final long started = android.os.SystemClock.uptimeMillis();
+        tAccUtils.JsonCallback callback = new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                completeAtLeast(started, () -> {
+                    resourcesLoading = false;
+                    resourcesLoadedAt = android.os.SystemClock.uptimeMillis();
                     JSONArray list = items(json, "items", "resources", "data");
                     String signature = listSignature(list, "id", "title", "summary",
                             "description", "collection_count", "is_collected", "status");
@@ -445,14 +543,19 @@ public class HomeFragment extends Fragment {
                     resourcesRefresh.setRefreshing(false);
                 });
             }
+
             @Override public void onError(int code, @NonNull String message) {
+                resourcesLoading = false;
+                resourcesLoadedAt = android.os.SystemClock.uptimeMillis();
                 completeAtLeast(started, () -> {
                     resourcesStatus.setVisibility(View.GONE);
                     showLoadError("资源加载失败", message);
                     resourcesRefresh.setRefreshing(false);
                 });
             }
-        });
+        };
+        account.getV2JsonCached("resources2", pageQuery(), false,
+                force ? 0L : CATALOG_TTL_MS, callback);
     }
 
     private void addCatalogCard(LinearLayout parent, @Nullable JSONObject item, boolean app) {
@@ -536,7 +639,7 @@ public class HomeFragment extends Fragment {
             progress.show();
             long started = android.os.SystemClock.uptimeMillis();
             account.postV2Json(action, fields, new tAccUtils.JsonCallback() {
-                public void onSuccess(JSONObject json) { mainHandler.postDelayed(() -> { if (!isAdded()) return; progress.dismissForReplacement(); new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage(success).setNegativeButton("关闭", null).show(); loadAll(); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
+                public void onSuccess(JSONObject json) { mainHandler.postDelayed(() -> { if (!isAdded()) return; progress.dismissForReplacement(); new WGProAlertDialogBuilder(requireContext()).setTitle("操作成功").setMessage(success).setNegativeButton("关闭", null).show(); if ("app_delete2".equals(action)) loadApps(true); else loadResources(true); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
                 public void onError(int code,String msg) { mainHandler.postDelayed(() -> { progress.dismissForReplacement(); showLoadError("操作失败", msg); }, Math.max(0, 300 - (android.os.SystemClock.uptimeMillis() - started))); }
             });
     }

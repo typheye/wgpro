@@ -832,6 +832,29 @@ public class tAccUtils {
         executeV2Json(action, query, null, authenticationRequired, null, callback);
     }
 
+    /**
+     * 缓存优先读取：本地缓存还在 {@code ttlMs} 内时直接回调、**不发请求**；
+     * 过期或没有缓存才走网络（网络失败仍回退到旧缓存）。
+     *
+     * <p>用于变化很慢的数据（首页聚合、应用目录、资源列表等）。高延迟链路上
+     * 「不发请求」比「发得快」更重要：省掉的就是一整个 RTT。</p>
+     */
+    public void getV2JsonCached(@NonNull String action, @NonNull Map<String, String> query,
+                                boolean authenticationRequired, long ttlMs,
+                                @NonNull JsonCallback callback) {
+        String cacheKey = buildCloudCacheKey(action, query, authenticationRequired);
+        if (ttlMs > 0L) {
+            try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+                String payload = cache.getFresh(cacheKey, ttlMs);
+                if (payload != null) {
+                    callback.onSuccess(new JSONObject(payload));
+                    return;
+                }
+            } catch (Exception ignored) { }
+        }
+        getV2Json(action, query, authenticationRequired, callback);
+    }
+
     private String buildCloudCacheKey(String action, Map<String, String> query,
                                       boolean authenticationRequired) {
         StringBuilder key = new StringBuilder(action);
@@ -921,6 +944,26 @@ public class tAccUtils {
         } catch (Exception ignored) {
             return false;
         }
+    }
+
+    /**
+     * 缓存优先版本的 {@link #getPublicJsonUrl}：缓存未过期就直接回调、不发请求。
+     *
+     * <p>应用目录这类静态数据基本不变，用 TTL 挡掉重复往返。</p>
+     */
+    public void getPublicJsonUrlCached(@NonNull String url, long ttlMs,
+                                       @NonNull JsonCallback callback) {
+        String cacheKey = "url|" + url;
+        if (ttlMs > 0L) {
+            try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+                String payload = cache.getFresh(cacheKey, ttlMs);
+                if (payload != null) {
+                    callback.onSuccess(new JSONObject(payload));
+                    return;
+                }
+            } catch (Exception ignored) { }
+        }
+        getPublicJsonUrl(url, callback);
     }
 
     private void executeV2Json(String action, Map<String, String> query,

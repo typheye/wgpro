@@ -43,4 +43,22 @@ public final class CloudCacheDatabase extends SQLiteOpenHelper {
             return cursor.moveToFirst() ? cursor.getString(0) : null;
         }
     }
+
+    /**
+     * 仅当这条缓存还在 {@code ttlMs} 内才返回。
+     *
+     * <p>用于「缓存优先」读取：变化很慢的数据（轮播、公告、应用目录、资源列表）
+     * 在有效期内直接用本地内容渲染，一次网络往返都不发；过期后照常走网络，
+     * 网络失败时仍由 {@link #get(String)} 兜底。</p>
+     */
+    @Nullable public String getFresh(@NonNull String key, long ttlMs) {
+        if (ttlMs <= 0L) return null;
+        try (Cursor cursor = getReadableDatabase().query("responses",
+                new String[]{"payload", "updated_at"}, "cache_key=?", new String[]{key},
+                null, null, null, "1")) {
+            if (!cursor.moveToFirst()) return null;
+            long age = System.currentTimeMillis() - cursor.getLong(1);
+            return age >= 0L && age <= ttlMs ? cursor.getString(0) : null;
+        }
+    }
 }
