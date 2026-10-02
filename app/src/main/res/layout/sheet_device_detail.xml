@@ -55,7 +55,7 @@
         android:clipToOutline="true"
         android:visibility="gone"
         app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
-        app:cardCornerRadius="16dp"
+        app:cardCornerRadius="18dp"
         app:strokeWidth="0dp">
         <LinearLayout
             android:layout_width="match_parent"
@@ -90,8 +90,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginStart="18dp"
-                android:background="@color/outline_soft" />
+                android:background="?attr/colorOutlineVariant" />
             <LinearLayout
                 android:id="@+id/sheet_device_logs"
                 android:layout_width="match_parent"
