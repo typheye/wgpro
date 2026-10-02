@@ -36,7 +36,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AppUtils {
-    private static final int CURRENT_OOBE_VERSION = 2;
+    private static final int CURRENT_OOBE_VERSION = 3;
+
+    /** 服务端应用配置（公告 / 新版本信息）地址。 */
+    private static final String UPDATE_CONFIG_URL =
+            "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
     // 在类中添加 OkHttp 客户端（建议在初始化时创建单例）
     private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .addInterceptor(TestHandler.networkLogger())
@@ -82,6 +86,20 @@ public class AppUtils {
     /** 整页 edge-to-edge 适配：内容躲开系统栏，系统栏区域使用页面背景。 */
     public static void applyScreenInsets(View view) {
         SystemBars.applyScreenInsets(view);
+    }
+
+    /**
+     * 页面内 Fragment 切换的统一动效：淡入 + 轻微缩放，返回时反向。
+     *
+     * <p>设置页的「关于应用」与调试页（TestActivity）里的列表页共用同一套，
+     * 避免两处动画不一致。Android 14+ 的窗口转场不影响 FragmentTransaction 动画。
+     */
+    public static androidx.fragment.app.FragmentTransaction applyFragmentTransition(
+            @NonNull androidx.fragment.app.FragmentTransaction transaction) {
+        transaction.setReorderingAllowed(true)
+                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit,
+                        R.animator.fragment_pop_enter, R.animator.fragment_pop_exit);
+        return transaction;
     }
 
     /**
@@ -252,7 +270,7 @@ public class AppUtils {
     }
 
     public static void loadServerConfig(Context context, ForceUpdateCallback onResult) {
-        String updateUrl = "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
+        String updateUrl = UPDATE_CONFIG_URL;
 
         new Thread(() -> {
             boolean forceRequired = false;
@@ -301,6 +319,56 @@ public class AppUtils {
                 final boolean state = forceRequired;
                 new Handler(Looper.getMainLooper()).post(() -> onResult.onResult(state));
             }
+        }).start();
+    }
+
+    /** 仅用于「关于应用」卡片的状态查询：不弹任何对话框。 */
+    public interface UpdateStatusCallback {
+        /**
+         * @param hasUpdate  服务端版本是否高于本机
+         * @param latestName 服务端版本名（可能为空）
+         * @param latestCode 服务端版本号
+         * @param url        更新地址（可能为空）
+         * @param error      失败信息；成功时为 null
+         */
+        void onResult(boolean hasUpdate, String latestName, long latestCode,
+                      String url, String error);
+    }
+
+    /**
+     * 查询是否有新版本，供「关于应用」的更新状态卡片使用。
+     *
+     * <p>与 {@link #loadServerConfig} 的区别：这里不写公告、不记录强制更新状态、
+     * 不弹任何对话框，只把比较结果回调给页面。
+     */
+    public static void checkUpdateStatus(Context context, UpdateStatusCallback callback) {
+        new Thread(() -> {
+            boolean hasUpdate = false;
+            String latestName = "";
+            long latestCode = 0L;
+            String url = "";
+            String error = null;
+            try {
+                String jsonData = getJsonFromUrl(UPDATE_CONFIG_URL);
+                if (jsonData.isEmpty()) {
+                    throw new IOException("Empty response from server");
+                }
+                JSONObject json = new JSONObject(jsonData);
+                latestName = json.optString("UpdateVersionName", "");
+                latestCode = parseVersionCode(json.opt("UpdateVersionCode"));
+                url = json.optString("UpdateUrl", "");
+                hasUpdate = latestCode > getVersionCode(context);
+            } catch (Exception e) {
+                error = e.getMessage() == null ? "无法连接更新服务" : e.getMessage();
+            }
+            final boolean resultHasUpdate = hasUpdate;
+            final String resultName = latestName;
+            final long resultCode = latestCode;
+            final String resultUrl = url;
+            final String resultError = error;
+            new Handler(Looper.getMainLooper()).post(() ->
+                    callback.onResult(resultHasUpdate, resultName, resultCode,
+                            resultUrl, resultError));
         }).start();
     }
 

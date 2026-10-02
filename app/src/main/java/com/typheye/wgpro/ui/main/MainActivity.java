@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
     /** 兼容镜像：CoreService 的 DeviceEngine 持有真实状态，并持续更新这个引用。 */
     public static UIParams current_params = new UIParams();
-    /** 兼容镜像：真正的环形日志在 AppState 中（线程安全）。 */
-    public static List<String> logs = AppState.get().log();
+    /** 兼容镜像：真正的环形日志在 AppState 中（线程安全），这里指向设备通信日志。 */
+    public static List<String> logs = AppState.get().deviceLog();
     /** 兼容镜像：由 CoreService 的 DeviceEngine 写入。 */
     public static NodeApi nodeApi = null;
     public static AuthApi authApi = null;
@@ -427,7 +427,7 @@ public class MainActivity extends AppCompatActivity {
             bindService(new Intent(this, CoreService.class), coreConnection, Context.BIND_AUTO_CREATE);
             bindService(new Intent(this, PushService.class), pushConnection, Context.BIND_AUTO_CREATE);
         } catch (Exception error) {
-            AppState.get().addLog("绑定服务失败：" + error.getMessage());
+            AppState.get().addAccountLog("绑定服务失败：" + error.getMessage());
         }
     }
 

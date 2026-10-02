@@ -54,7 +54,7 @@
         android:layout_marginTop="20dp"
         android:clipToOutline="true"
         android:visibility="gone"
-        app:cardBackgroundColor="@color/surface_secondary"
+        app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
         app:cardCornerRadius="16dp"
         app:strokeWidth="0dp">
         <LinearLayout

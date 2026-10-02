@@ -302,13 +302,13 @@ public final class SystemBars {
         if (!SCROLL_INSET_APPLIED.add(scrollable)) {
             return;
         }
-        final int initialLeft = scrollable.getPaddingLeft();
-        final int initialTop = scrollable.getPaddingTop();
-        final int initialRight = scrollable.getPaddingRight();
         final int initialBottom = scrollable.getPaddingBottom();
         scrollable.setClipToPadding(false);
         ViewCompat.setOnApplyWindowInsetsListener(scrollable, (view, insets) -> {
-            view.setPadding(initialLeft, initialTop, initialRight,
+            // 顶部/左右可能已被「应用栏毛玻璃」逻辑补过内边距，这里必须读**当前值**、只改底部。
+            // 否则每次系统栏重新派发（MIUI 会派发多次）都会把顶部留白冲掉，
+            // 再由 AppBarBlur 的全局布局监听补回来 → 内容上下跳 = 页面闪动。
+            view.setPadding(view.getPaddingLeft(), view.getPaddingTop(), view.getPaddingRight(),
                     initialBottom + bottomInsetForView(view, insets));
             return insets;
         });

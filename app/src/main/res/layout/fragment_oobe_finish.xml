@@ -17,7 +17,7 @@
             android:layout_width="104dp"
             android:layout_height="104dp"
             android:contentDescription="腕管Pro"
-            android:src="@mipmap/ic_launcher" />
+            android:src="@drawable/ic_launcher_rounded" />
         <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_marginTop="28dp" android:gravity="center"
             android:text="准备就绪" android:textColor="@color/text_primary"

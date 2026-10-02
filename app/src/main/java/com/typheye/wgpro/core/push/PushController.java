@@ -312,7 +312,7 @@ public final class PushController {
         @Override
         public void onOpen(@NonNull WebSocket webSocket, @NonNull Response response) {
             Log.d(TAG, "ws onOpen code=" + response.code());
-            AppState.get().addLog("WebSocket 握手完成");
+            AppState.get().addPushLog("WebSocket 握手完成");
         }
 
         @Override
@@ -321,7 +321,7 @@ public final class PushController {
             try {
                 handleMessage(text);
             } catch (Exception error) {
-                AppState.get().addLog("处理实时事件失败：" + error.getMessage());
+                AppState.get().addPushLog("处理实时事件失败：" + error.getMessage());
             }
         }
 
@@ -342,7 +342,7 @@ public final class PushController {
                 return;
             }
             if (code == 4409) {
-                AppState.get().addLog("该会话已在其他地方建立连接，稍后重连");
+                AppState.get().addPushLog("该会话已在其他地方建立连接，稍后重连");
                 handler.postDelayed(PushController.this::openSocketIfPossible, 30_000L);
                 return;
             }

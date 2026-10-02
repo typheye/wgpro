@@ -53,6 +53,9 @@ public final class DebugActivityListFragment extends DebugListFragment {
         launch(rows, "ContactActivity（联系人）", "粉丝列表", new Intent(requireContext(), ContactActivity.class)
                 .putExtra(ContactActivity.EXTRA_MODE, CloudListFragment.MODE_FOLLOWERS)
                 .putExtra(ContactActivity.EXTRA_EXPECTED_COUNT, -1));
+        launch(rows, "ContactActivity（已屏蔽）", "已屏蔽的用户（需登录）", new Intent(requireContext(), ContactActivity.class)
+                .putExtra(ContactActivity.EXTRA_MODE, CloudListFragment.MODE_BLOCKED)
+                .putExtra(ContactActivity.EXTRA_EXPECTED_COUNT, -1));
         launch(rows, "ChatActivity（私信）", "peer_uid=10000（官方）", new Intent(requireContext(), ChatActivity.class)
                 .putExtra(ChatActivity.EXTRA_PEER_UID, "10000")
                 .putExtra(ChatActivity.EXTRA_PEER_NAME, "Typheye 助手"));

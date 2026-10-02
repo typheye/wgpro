@@ -108,7 +108,7 @@ public class CoreService extends Service implements CoreApi {
         accountEngine = new AccountEngine(this, new AccountEngine.Listener() {
             @Override
             public void onSessionRevoked() {
-                AppState.get().addLog("会话已失效，已清除本地登录状态");
+                AppState.get().addAccountLog("会话已失效，已清除本地登录状态");
                 notifyAccountAbnormal();
                 PushService.stop(CoreService.this);
             }
@@ -143,7 +143,7 @@ public class CoreService extends Service implements CoreApi {
         }
         if (!accountEngine.isLoggedIn() && !deviceEngine.isConnected()) {
             // 既没登录也没设备：保留服务以便随时被唤醒，但不做任何事
-            AppState.get().addLog("CoreService 待机");
+            AppState.get().addAccountLog("CoreService 待机");
         }
         return START_STICKY;
     }

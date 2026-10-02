@@ -51,7 +51,7 @@ public class OobePoliciesFragment extends Fragment {
         if (requireActivity() instanceof OobeActivity) {
             OobeActivity hostActivity = (OobeActivity) requireActivity();
 
-            hostActivity.switchFragment(isForward ? "finish" : "welcome");
+            hostActivity.switchFragment(isForward ? "finish" : "whatsnew");
         }
     }
 

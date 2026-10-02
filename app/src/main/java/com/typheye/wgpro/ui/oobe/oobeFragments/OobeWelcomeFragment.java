@@ -27,7 +27,7 @@ public class OobeWelcomeFragment extends Fragment {
         View exit = view.findViewById(R.id.btn_back);
         forward.setOnClickListener(v -> {
             if (requireActivity() instanceof OobeActivity) {
-                ((OobeActivity) requireActivity()).switchFragment("policies");
+                ((OobeActivity) requireActivity()).switchFragment("whatsnew");
             }
         });
         exit.setOnClickListener(v -> exitApp());

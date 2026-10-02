@@ -559,12 +559,34 @@ public class DashboardFragment extends Fragment {
                 break;
             case "guide": openWeb("https://wgpro.typheye.cn/docs"); break;
             case "diagnostics": showDiagnostics(); break;
-            case "logs": new WGProAlertDialogBuilder(requireContext())
-                    .setTitle("运行日志").setMessage(String.join("\n", MainActivity.logs))
-                    .setPositiveButton("完成", null).show(); break;
+            case "logs": showRunLogs(); break;
             case "beta": openWeb("https://www.typheye.cn/?p=beta"); break;
             default: break;
         }
+    }
+
+    /**
+     * 「运行日志」：默认只看设备通信日志（XMS），实时通道日志单独入口，
+     * 避免 WebSocket 的握手/重连信息混进设备日志里。
+     */
+    private void showRunLogs() {
+        com.typheye.wgpro.core.state.AppState state =
+                com.typheye.wgpro.core.state.AppState.get();
+        String deviceLog = String.join("\n", state.deviceLog());
+        String pushLog = String.join("\n", state.pushLog());
+        WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(requireContext())
+                .setTitle("运行日志")
+                .setMessage(deviceLog.trim().isEmpty() ? "暂无设备通信日志" : deviceLog)
+                .setNegativeButton("关闭", null);
+        if (!pushLog.trim().isEmpty()) {
+            builder.setNeutralButton("实时通道", (dialog, which) ->
+                    new WGProAlertDialogBuilder(requireContext())
+                            .setTitle("实时通道日志")
+                            .setMessage(pushLog)
+                            .setNegativeButton("关闭", null)
+                            .show());
+        }
+        builder.show();
     }
 
     private List<String> loadFavorites() {

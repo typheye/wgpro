@@ -30,6 +30,7 @@ public final class TestHandler {
     private static final ArrayDeque<String> EVENTS = new ArrayDeque<>();
     private static volatile boolean simulateOffline;
     private static volatile boolean simulateLoggedOut;
+    private static volatile boolean simulateUpdate;
     private static volatile Context applicationContext;
 
     private TestHandler() { }
@@ -72,6 +73,7 @@ public final class TestHandler {
         if (!enabled) {
             simulateOffline = false;
             simulateLoggedOut = false;
+            simulateUpdate = false;
             clear();
         } else record(context, "SYSTEM", "开发模式已启用");
     }
@@ -179,6 +181,16 @@ public final class TestHandler {
         if (!isEnabled(context)) return;
         simulateLoggedOut = enabled;
         record(context, "SIM", enabled ? "未登录模拟已开启" : "未登录模拟已关闭");
+    }
+
+    public static boolean isUpdateSimulationEnabled(@NonNull Context context) {
+        return isEnabled(context) && simulateUpdate;
+    }
+
+    public static synchronized void setUpdateSimulation(@NonNull Context context, boolean enabled) {
+        if (!isEnabled(context)) return;
+        simulateUpdate = enabled;
+        record(context, "SIM", enabled ? "模拟有更新已开启" : "模拟有更新已关闭");
     }
 
     @NonNull public static String memorySummary() {

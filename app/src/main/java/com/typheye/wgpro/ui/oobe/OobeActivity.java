@@ -20,6 +20,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.oobe.oobeFragments.OobeFinishFragment;
 import com.typheye.wgpro.ui.oobe.oobeFragments.OobePoliciesFragment;
 import com.typheye.wgpro.ui.oobe.oobeFragments.OobeWelcomeFragment;
+import com.typheye.wgpro.ui.oobe.oobeFragments.OobeWhatsNewFragment;
 import com.typheye.wgpro.utils.AppUtils;
 
 public class OobeActivity extends AppCompatActivity {
@@ -29,6 +30,7 @@ public class OobeActivity extends AppCompatActivity {
     Fragment fragment_oobeWelcomeFragment;
     Fragment fragment_oobeFinishFragment;
     Fragment fragment_oobePoliciesFragment;
+    Fragment fragment_oobeWhatsNewFragment;
     Fragment fragment_now;
     private OnBackPressedCallback compatibilityBackCallback;
 
@@ -43,6 +45,7 @@ public class OobeActivity extends AppCompatActivity {
         fragment_oobeWelcomeFragment = new OobeWelcomeFragment();
         fragment_oobeFinishFragment = new OobeFinishFragment();
         fragment_oobePoliciesFragment = new OobePoliciesFragment();
+        fragment_oobeWhatsNewFragment = new OobeWhatsNewFragment();
 
         // 获取传入的参数
         Intent intent = getIntent();
@@ -59,6 +62,8 @@ public class OobeActivity extends AppCompatActivity {
             Fragment restored = getSupportFragmentManager().findFragmentById(R.id.fragment_container);
             if (restored instanceof OobePoliciesFragment) {
                 fragment_oobePoliciesFragment = restored;
+            } else if (restored instanceof OobeWhatsNewFragment) {
+                fragment_oobeWhatsNewFragment = restored;
             } else if (restored instanceof OobeFinishFragment) {
                 fragment_oobeFinishFragment = restored;
             } else if (restored instanceof OobeWelcomeFragment) {
@@ -81,9 +86,11 @@ public class OobeActivity extends AppCompatActivity {
             @Override
             public void handleOnBackPressed() {
                 if (fragment_now == fragment_oobePoliciesFragment) {
-                    switchFragment("welcome");
+                    switchFragment("whatsnew");
                 } else if (fragment_now == fragment_oobeFinishFragment) {
                     switchFragment("policies");
+                } else if (fragment_now == fragment_oobeWhatsNewFragment) {
+                    switchFragment("welcome");
                 } else {
                     finish();
                 }
@@ -92,35 +99,35 @@ public class OobeActivity extends AppCompatActivity {
         getOnBackPressedDispatcher().addCallback(this, compatibilityBackCallback);
     }
 
-    public void switchFragment(String target){
-
-        // 根据参数决定加载哪个 Fragment
-        if (target != null) {
-            switch (target){
-
-                case "finish":
-                    fragment_now = fragment_oobeFinishFragment;
-                    break;
-
-                case "policies":
-                    fragment_now = fragment_oobePoliciesFragment;
-                    break;
-
-                case "welcome":
-                default:
-                    fragment_now = fragment_oobeWelcomeFragment;
-                    break;
-            }
+    public void switchFragment(String target) {
+        Fragment next = resolveFragment(target);
+        boolean forward = orderOf(next) >= orderOf(fragment_now);
+        androidx.fragment.app.FragmentTransaction transaction =
+                getSupportFragmentManager().beginTransaction();
+        transaction.setReorderingAllowed(true);
+        if (forward) {
+            transaction.setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit);
         } else {
-            fragment_now = fragment_oobeWelcomeFragment;
+            transaction.setCustomAnimations(R.animator.fragment_pop_enter, R.animator.fragment_pop_exit);
         }
+        fragment_now = next;
+        transaction.replace(R.id.fragment_container, next).commit();
+    }
 
-        // 替换 Fragment
-        getSupportFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit)
-                .replace(R.id.fragment_container, fragment_now)
-                .commit();
+    private Fragment resolveFragment(String target) {
+        if ("finish".equals(target)) return fragment_oobeFinishFragment;
+        if ("policies".equals(target)) return fragment_oobePoliciesFragment;
+        if ("whatsnew".equals(target)) return fragment_oobeWhatsNewFragment;
+        return fragment_oobeWelcomeFragment;
+    }
+
+    /** 引导步骤顺序：欢迎 → 新版变化 → 政策 → 完成。用于决定切换动画方向。 */
+    private int orderOf(Fragment fragment) {
+        if (fragment == fragment_oobeWelcomeFragment) return 0;
+        if (fragment == fragment_oobeWhatsNewFragment) return 1;
+        if (fragment == fragment_oobePoliciesFragment) return 2;
+        if (fragment == fragment_oobeFinishFragment) return 3;
+        return -1;
     }
 
     // ====== 创建通知渠道的方法 ======

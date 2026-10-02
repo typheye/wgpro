@@ -19,7 +19,22 @@ public final class AppState {
         return INSTANCE;
     }
 
-    private final ServiceLog log = new ServiceLog(500);
+    /**
+     * 日志按来源分通道存放，避免互相污染：
+     *
+     * <ul>
+     *     <li>{@link #deviceLog}：XMS 穿戴设备通信（连接、权限、收发消息、内置页面 Fetch）。
+     *         设备卡片里的「设备通信日志」只展示这一条通道。</li>
+     *     <li>{@link #pushLog}：实时通道（WebSocket 握手/断开、轮询兜底、会话踢下线）。</li>
+     *     <li>{@link #accountLog}：账户/会话状态与应用级系统事件。</li>
+     * </ul>
+     *
+     * <p>{@link #log()} 仍返回设备日志，兼容 {@code MainActivity.logs} 与内置浏览器
+     * {@code JSKit.GetLogs}（返回结构不变）。
+     */
+    private final ServiceLog deviceLog = new ServiceLog(400);
+    private final ServiceLog pushLog = new ServiceLog(400);
+    private final ServiceLog accountLog = new ServiceLog(200);
     private final MutableLiveData<UIParams> device = new MutableLiveData<>(new UIParams());
     private final MutableLiveData<AccountSnapshot> account =
             new MutableLiveData<>(AccountSnapshot.loggedOut());
@@ -32,15 +47,44 @@ public final class AppState {
             new java.util.concurrent.atomic.AtomicBoolean(false);
 
     private AppState() {
-        log.addAll("wgpro-android Tool V3", "https://github.com/typheye/wgpro");
+        deviceLog.addAll("wgpro-android Tool V3", "https://github.com/typheye/wgpro");
     }
 
+    /** 兼容入口：历史上所有日志都写在这里，现在只保留设备日志语义。 */
     public ServiceLog log() {
-        return log;
+        return deviceLog;
     }
 
+    /** XMS / 穿戴设备通信日志。 */
+    public ServiceLog deviceLog() {
+        return deviceLog;
+    }
+
+    /** 实时通道（WebSocket / 轮询）日志。 */
+    public ServiceLog pushLog() {
+        return pushLog;
+    }
+
+    /** 账户会话与应用系统日志。 */
+    public ServiceLog accountLog() {
+        return accountLog;
+    }
+
+    /** 写入设备日志（保持历史调用点语义）。 */
     public void addLog(String line) {
-        log.add(line);
+        addDeviceLog(line);
+    }
+
+    public void addDeviceLog(String line) {
+        deviceLog.add(line);
+    }
+
+    public void addPushLog(String line) {
+        pushLog.add(line);
+    }
+
+    public void addAccountLog(String line) {
+        accountLog.add(line);
     }
 
     public LiveData<UIParams> device() {

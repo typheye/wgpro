@@ -385,12 +385,12 @@ public final class WGProAlertDialogBuilder {
         return resolveThemeColor(context, attrName, fallbackColorRes);
     }
 
-    /** 深色模式下弹窗表面跟随莫奈取色，弹窗内分组卡用高一档的容器色适配。 */
+    /**
+     * 弹窗内分组卡片统一取主题的 {@code colorSurfaceContainerHighest}
+     * （深浅色同一个来源、跟随莫奈取色），与自定义 sheet 的分组卡片保持一致，
+     * 避免「同一形态的分组卡片在不同弹窗里颜色不一样」。
+     */
     private int dialogCardColor() {
-        boolean night = (context.getResources().getConfiguration().uiMode
-                & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
-                == android.content.res.Configuration.UI_MODE_NIGHT_YES;
-        if (!night) return context.getColor(R.color.surface_secondary);
         return resolveThemeColor(context, "colorSurfaceContainerHighest",
                 R.color.surface_secondary);
     }

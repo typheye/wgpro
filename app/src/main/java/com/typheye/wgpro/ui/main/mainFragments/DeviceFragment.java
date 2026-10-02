@@ -588,9 +588,11 @@ public class DeviceFragment extends Fragment {
             });
             content.findViewById(R.id.sheet_device_logs).setOnClickListener(v -> {
                 dialog.dismissForReplacement();
+                String deviceLog = String.join("\n",
+                        com.typheye.wgpro.core.state.AppState.get().deviceLog());
                 new WGProAlertDialogBuilder(requireContext())
                         .setTitle("设备通信日志")
-                        .setMessage(String.join("\n", MainActivity.logs))
+                        .setMessage(deviceLog.trim().isEmpty() ? "暂无设备通信日志" : deviceLog)
                         .setNegativeButton("关闭", null)
                         .show();
             });

@@ -68,10 +68,14 @@ public final class TestActivity extends AppCompatActivity {
         });
         MaterialSwitch offline = findViewById(R.id.test_offline_switch);
         MaterialSwitch loggedOut = findViewById(R.id.test_logged_out_switch);
+        MaterialSwitch simulatedUpdate = findViewById(R.id.test_update_switch);
         offline.setChecked(TestHandler.isOfflineSimulationEnabled(this));
         loggedOut.setChecked(TestHandler.isLoggedOutSimulationEnabled(this));
+        simulatedUpdate.setChecked(TestHandler.isUpdateSimulationEnabled(this));
         offline.setOnCheckedChangeListener((button, checked) -> TestHandler.setOfflineSimulation(this, checked));
         loggedOut.setOnCheckedChangeListener((button, checked) -> TestHandler.setLoggedOutSimulation(this, checked));
+        simulatedUpdate.setOnCheckedChangeListener((button, checked) ->
+                TestHandler.setUpdateSimulation(this, checked));
         findViewById(R.id.test_probe).setOnClickListener(v -> {
             TestHandler.recordOperation(this, "探测云端 API");
             TestHandler.probeApis(this, summary -> runOnUiThread(() -> {
@@ -106,23 +110,31 @@ public final class TestActivity extends AppCompatActivity {
         contentRoot.setVisibility(View.GONE);
         fragmentHost.setVisibility(View.VISIBLE);
         toolbar.setTitle(title);
-        getSupportFragmentManager().beginTransaction()
-                .replace(R.id.test_fragment_host, fragment).commit();
+        AppUtils.applyFragmentTransition(getSupportFragmentManager().beginTransaction())
+                .replace(R.id.test_fragment_host, fragment)
+                .commit();
         if (blurController != null) blurController.rebindSource(fragmentHost);
     }
 
-    /** 关闭列表，恢复调试主页与毛玻璃快照源。 */
+    /** 关闭列表，恢复调试主页与毛玻璃快照源；退场动画播完后再切换可见性。 */
     private void closeList() {
         if (!listShown) return;
         listShown = false;
-        if (shownFragment != null) {
-            getSupportFragmentManager().beginTransaction().remove(shownFragment).commit();
-            shownFragment = null;
-        }
-        fragmentHost.setVisibility(View.GONE);
-        contentRoot.setVisibility(View.VISIBLE);
+        Fragment removing = shownFragment;
+        shownFragment = null;
         toolbar.setTitle("调试");
-        if (blurController != null) blurController.rebindSource(contentRoot);
+        if (removing != null) {
+            AppUtils.applyFragmentTransition(getSupportFragmentManager().beginTransaction())
+                    .remove(removing)
+                    .commit();
+        }
+        // 立刻隐藏父容器会让退场动画看不到：等动画播完再切回调试主页。
+        fragmentHost.postDelayed(() -> {
+            if (listShown) return; // 期间又打开了新列表，交给 showList 处理
+            fragmentHost.setVisibility(View.GONE);
+            contentRoot.setVisibility(View.VISIBLE);
+            if (blurController != null) blurController.rebindSource(contentRoot);
+        }, 220L);
     }
 
     private void showResult(String title, String message) {
@@ -135,5 +147,6 @@ public final class TestActivity extends AppCompatActivity {
         enabled.setChecked(TestHandler.isEnabled(this));
         ((MaterialSwitch) findViewById(R.id.test_offline_switch)).setChecked(TestHandler.isOfflineSimulationEnabled(this));
         ((MaterialSwitch) findViewById(R.id.test_logged_out_switch)).setChecked(TestHandler.isLoggedOutSimulationEnabled(this));
+        ((MaterialSwitch) findViewById(R.id.test_update_switch)).setChecked(TestHandler.isUpdateSimulationEnabled(this));
     }
 }

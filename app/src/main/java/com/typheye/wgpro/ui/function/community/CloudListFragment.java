@@ -63,6 +63,8 @@ public class CloudListFragment extends Fragment {
     public static final String MODE_USER_APPS = "user_apps";
     public static final String MODE_USER_RESOURCES = "user_resources";
     public static final String MODE_CONVERSATIONS = "conversations";
+    /** 已屏蔽的用户（blocked_users2，分页）。 */
+    public static final String MODE_BLOCKED = "blocked";
     private static final long MIN_LOADING_MS = 300L;
     /** 应用目录（静态 JSON）：一次拉取后按包名匹配，替代逐条 app_detail；目录几乎不变，给 10 分钟 TTL。 */
     private static final String APP_CATALOG_URL = "https://res.typheye.cn/api.php?type=app&page=1&size=50";
@@ -129,7 +131,8 @@ public class CloudListFragment extends Fragment {
         lastRenderSignature = null;
         mode = getArguments() == null ? MODE_ACTIVITY : getArguments().getString("mode", MODE_ACTIVITY);
         if (getArguments() != null) historyType = getArguments().getString("history_type", "dynamic");
-        pagedMode = MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode);
+        pagedMode = MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode)
+                || MODE_BLOCKED.equals(mode);
         account = new tAccUtils(requireContext().getApplicationContext());
         messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.cloud_refresh);
@@ -471,8 +474,11 @@ public class CloudListFragment extends Fragment {
         Map<String, String> query = new LinkedHashMap<>();
         query.put("page", String.valueOf(page));
         query.put("size", "20");
-        query.put("kind", MODE_FOLLOWING.equals(mode) ? "following" : "followers");
-        account.getV2Json("contacts2", query, true, new tAccUtils.JsonCallback() {
+        boolean blocked = MODE_BLOCKED.equals(mode);
+        if (!blocked) {
+            query.put("kind", MODE_FOLLOWING.equals(mode) ? "following" : "followers");
+        }
+        account.getV2Json(blocked ? "blocked_users2" : "contacts2", query, true, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 JSONArray items = json.optJSONArray("items");
                 JSONArray pageItems = items == null ? new JSONArray() : items;
@@ -1533,9 +1539,7 @@ public class CloudListFragment extends Fragment {
         LinearLayout.LayoutParams bioParams = new LinearLayout.LayoutParams(-1, -2); bioParams.topMargin = dp(3);
         labels.addView(bio, bioParams); body.addView(labels, labelsParams); row.addView(body);
 
-        String resolvedUid = (MODE_CONVERSATIONS.equals(mode) || isConversation(item))
-                ? item.optString("peer_uid", "")
-                : item.optString("uid", item.optString("actor_uid", ""));
+        String resolvedUid = contactUid(item);
         String avatarUrl = contactAvatarUrl(item, resolvedUid);
         final String uid = resolvedUid;
         loadContactAvatar(uid, avatarUrl, avatar, initial);
@@ -1566,8 +1570,24 @@ public class CloudListFragment extends Fragment {
 
     private String contactName(JSONObject item) {
         String value = item.optString("remark", "").trim();
-        if (value.isEmpty()) value = item.optString("nick", item.optString("actor_nick", "用户"));
+        if (value.isEmpty()) {
+            value = item.optString("nick",
+                    item.optString("nickname", item.optString("actor_nick", "用户")));
+        }
         return value.isEmpty() ? "用户" : value;
+    }
+
+    /** 联系人/用户行的 UID：兼容不同接口的字段命名（blocked_users2 等）。 */
+    private String contactUid(@NonNull JSONObject item) {
+        if (MODE_CONVERSATIONS.equals(mode) || isConversation(item)) {
+            return item.optString("peer_uid", item.optString("uid", ""));
+        }
+        String uid = item.optString("uid", "").trim();
+        if (uid.isEmpty()) uid = item.optString("target_uid", "").trim();
+        if (uid.isEmpty()) uid = item.optString("blocked_uid", "").trim();
+        if (uid.isEmpty()) uid = item.optString("user_uid", "").trim();
+        if (uid.isEmpty()) uid = item.optString("actor_uid", "").trim();
+        return uid;
     }
 
     private String contactBio(JSONObject item) {
@@ -1613,6 +1633,14 @@ public class CloudListFragment extends Fragment {
             int from = items.size();
             items.addAll(more);
             notifyItemRangeInserted(from, more.size());
+        }
+
+        void removeItem(JSONObject target) {
+            int index = items.indexOf(target);
+            if (index < 0) return;
+            items.remove(index);
+            notifyItemRemoved(index);
+            if (index < items.size()) notifyItemRangeChanged(index, items.size() - index);
         }
 
         @Override public int getItemCount() { return items.size() + (pagedMode ? 1 : 0); }
@@ -1747,16 +1775,74 @@ public class CloudListFragment extends Fragment {
         BadgeFactory.bind(requireContext(), item, holder.avatarBox,
                 requireContext().getColor(R.color.surface_page));
         UnreadBadgeFactory.bind(requireContext(), holder.avatarBox, item.optInt("unread_count", 0));
-        final String resolvedUid = (MODE_CONVERSATIONS.equals(mode) || isConversation(item))
-                ? item.optString("peer_uid", "")
-                : item.optString("uid", item.optString("actor_uid", ""));
+        final String resolvedUid = contactUid(item);
         loadContactAvatar(resolvedUid, contactAvatarUrl(item, resolvedUid),
                 holder.avatar, holder.initial);
         holder.card.setOnClickListener(v -> {
             if (resolvedUid.isEmpty()) return;
+            if (MODE_BLOCKED.equals(mode)) {
+                showBlockedUserActions(item, resolvedUid);
+                return;
+            }
             startActivity(new Intent(requireContext(), UserDetailActivity.class)
                     .putExtra(UserDetailActivity.EXTRA_TARGET_UID, resolvedUid));
         });
+    }
+
+    /** 已屏蔽用户：分组底部弹窗，只放「用户主页 / 取消屏蔽」两项，底部不加按钮。 */
+    private void showBlockedUserActions(@NonNull JSONObject item, @NonNull String uid) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("操作")
+                .setItems(new CharSequence[]{"用户主页", "取消屏蔽"}, (dialog, which) -> {
+                    if (which == 0) {
+                        startActivity(new Intent(requireContext(), UserDetailActivity.class)
+                                .putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
+                    } else {
+                        confirmUnblockUser(item, uid);
+                    }
+                })
+                .show();
+    }
+
+    /** 「取消屏蔽」需要二次确认。 */
+    private void confirmUnblockUser(@NonNull JSONObject item, @NonNull String uid) {
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("取消屏蔽？")
+                .setMessage("取消后，" + contactName(item) + " 将恢复正常互动，可以重新发送私信。")
+                .setNegativeButton("再想想", null)
+                .setPositiveButton("取消屏蔽", (dialog, which) -> unblockUser(item, uid))
+                .show();
+    }
+
+    private void unblockUser(@NonNull JSONObject item, @NonNull String uid) {
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("target_uid", uid);
+        fields.put("action", "unblock");
+        account.postV2Json("block_action2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                main.post(() -> {
+                    if (!isAdded() || getView() == null) return;
+                    toast("已取消屏蔽");
+                    removeBlockedUser(item);
+                });
+            }
+
+            @Override public void onError(int code, @NonNull String message) {
+                main.post(() -> toast(message == null || message.trim().isEmpty()
+                        ? "操作失败，请稍后重试" : message));
+            }
+        });
+    }
+
+    /** 取消屏蔽成功后先本地移除该行，避免整页重载闪动。 */
+    private void removeBlockedUser(@NonNull JSONObject item) {
+        if (contactAdapter != null) contactAdapter.removeItem(item);
+        if (contactAdapter == null || contactAdapter.size() == 0) {
+            showState(emptyText());
+        } else {
+            state.setVisibility(View.GONE);
+        }
+        notifyContactFooter();
     }
 
     private void loadContactAvatar(String uid, String url, ShapeableImageView avatar, TextView initial) {
@@ -1885,6 +1971,7 @@ public class CloudListFragment extends Fragment {
         if (MODE_CONVERSATIONS.equals(mode)) return "还没有私信";
         if (MODE_FOLLOWING.equals(mode)) return "还没有关注任何人";
         if (MODE_FOLLOWERS.equals(mode)) return "还没有粉丝";
+        if (MODE_BLOCKED.equals(mode)) return "还没有屏蔽任何人";
         if (MODE_USER_APPS.equals(mode)) return "还没有发布应用";
         if (MODE_USER_RESOURCES.equals(mode)) return "还没有发布资源";
         return "还没有发布动态";
@@ -1897,6 +1984,7 @@ public class CloudListFragment extends Fragment {
         if (MODE_COLLECTION_RESOURCE.equals(mode)) return "星标资源后，可在这里快速找到。";
         if (MODE_FOLLOWING.equals(mode)) return "关注感兴趣的用户后会显示在这里。";
         if (MODE_FOLLOWERS.equals(mode)) return "有用户关注你后会显示在这里。";
+        if (MODE_BLOCKED.equals(mode)) return "你屏蔽的用户会显示在这里，可随时取消屏蔽。";
         if (MODE_NOTIFICATIONS.equals(mode)) return "新的系统消息和私信会显示在这里。";
         if (MODE_CONVERSATIONS.equals(mode)) return "与其他用户的私信会显示在这里。";
         if (MODE_USER_APPS.equals(mode)) return "发布的应用会显示在这里。";

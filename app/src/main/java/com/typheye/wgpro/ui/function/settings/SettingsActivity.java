@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.content.SharedPreferences;
 import android.view.LayoutInflater;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,6 +21,7 @@ import android.widget.Toast;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -35,6 +37,8 @@ import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
+import com.typheye.wgpro.ui.function.community.CloudListFragment;
+import com.typheye.wgpro.ui.function.community.ContactActivity;
 import com.typheye.wgpro.ui.function.debug.TestActivity;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.BarBlurController;
@@ -67,8 +71,10 @@ public class SettingsActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
 
         setSupportActionBar(toolbar);
-        getSupportFragmentManager().addOnBackStackChangedListener(() ->
-                toolbar.setTitle(getSupportFragmentManager().getBackStackEntryCount() > 0 ? "关于应用" : "设置"));
+        getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            toolbar.setTitle(getSupportFragmentManager().getBackStackEntryCount() > 0 ? "关于应用" : "设置");
+            invalidateOptionsMenu();
+        });
         compatibilityBackCallback = new OnBackPressedCallback(true) {
             @Override public void handleOnBackPressed() {
                 navigateBack();
@@ -85,6 +91,22 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.about_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        MenuItem share = menu.findItem(R.id.action_share_app);
+        // 分享入口只在「关于应用」页显示
+        if (share != null) {
+            share.setVisible(getSupportFragmentManager().getBackStackEntryCount() > 0);
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
@@ -92,8 +114,20 @@ public class SettingsActivity extends AppCompatActivity {
             navigateBack();
             return true;
         }
+        if (id == R.id.action_share_app) {
+            shareApp();
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void shareApp() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "腕管Pro");
+        intent.putExtra(Intent.EXTRA_TEXT, "腕管Pro\nhttps://wgpro.typheye.cn");
+        startActivity(Intent.createChooser(intent, "分享应用"));
     }
 
     @Override
@@ -122,10 +156,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     private void openAboutPage() {
-        getSupportFragmentManager().beginTransaction()
-                .setReorderingAllowed(true)
-                .setCustomAnimations(R.animator.fragment_enter, R.animator.fragment_exit,
-                        R.animator.fragment_pop_enter, R.animator.fragment_pop_exit)
+        AppUtils.applyFragmentTransition(getSupportFragmentManager().beginTransaction())
                 .replace(R.id.settings, new AboutFragment())
                 .addToBackStack("about")
                 .commit();
@@ -208,14 +239,9 @@ public class SettingsActivity extends AppCompatActivity {
                     .setOnClickListener(v -> showNotificationSettingsSheet());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());
-            View debugRow = view.findViewById(R.id.row_debug);
-            View debugDivider = view.findViewById(R.id.divider_debug);
-            boolean debugEnabled = TestHandler.isEnabled(requireContext());
-            debugRow.setVisibility(debugEnabled ? View.VISIBLE : View.GONE);
-            debugDivider.setVisibility(debugEnabled ? View.VISIBLE : View.GONE);
-            debugRow.setOnClickListener(v -> startActivity(new Intent(requireContext(), TestActivity.class)));
-            view.findViewById(R.id.row_policies).setOnClickListener(v -> openWeb("https://www.typheye.cn/policies/"));
-            view.findViewById(R.id.row_license).setOnClickListener(v -> openWeb("https://www.typheye.cn/licenses/gpl-3.0.html"));
+            view.findViewById(R.id.row_blocked_users).setOnClickListener(v ->
+                    startActivity(new Intent(requireContext(), ContactActivity.class)
+                            .putExtra(ContactActivity.EXTRA_MODE, CloudListFragment.MODE_BLOCKED)));
             View logoutRow = view.findViewById(R.id.row_logout);
             logoutRow.setOnClickListener(v -> showLogoutSheet(logoutRow));
             updateLogoutVisibility();
@@ -237,11 +263,6 @@ public class SettingsActivity extends AppCompatActivity {
         public void onResume() {
             super.onResume();
             if (accUtils != null) updateLogoutVisibility();
-            View debugRow = getView() == null ? null : getView().findViewById(R.id.row_debug);
-            View debugDivider = getView() == null ? null : getView().findViewById(R.id.divider_debug);
-            boolean enabled = TestHandler.isEnabled(requireContext());
-            if (debugRow != null) debugRow.setVisibility(enabled ? View.VISIBLE : View.GONE);
-            if (debugDivider != null) debugDivider.setVisibility(enabled ? View.VISIBLE : View.GONE);
         }
 
         private void updateLogoutVisibility() {
@@ -596,12 +617,58 @@ public class SettingsActivity extends AppCompatActivity {
     public static class AboutFragment extends Fragment {
         private int developerTapCount;
         private long lastDeveloperTapAt;
+        private TextView updateText;
+        private boolean updateAvailable;
+        private String updateUrl = "";
+        private String latestVersionName = "";
+        private String currentVersionName = "未知";
+
+        /** 开源项目：{名称, 作者/组织, 链接}（当前工程实际依赖、且叫得上名的项目）。 */
+        private static final String[][] OPEN_SOURCE = {
+                {"AndroidX（Jetpack）", "Google", "https://developer.android.com/jetpack/androidx"},
+                {"Material Components for Android", "Google", "https://github.com/material-components/material-components-android"},
+                {"OkHttp", "Square", "https://github.com/square/okhttp"},
+                {"Gson", "Google", "https://github.com/google/gson"},
+                {"ZXing", "ZXing Project", "https://github.com/zxing/zxing"},
+                {"ZXing Android Embedded", "journeyapps", "https://github.com/journeyapps/ZXing-android-embedded"},
+                {"ConstraintLayout", "AndroidX", "https://github.com/androidx/constraintlayout"},
+        };
 
         @Override
         public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.fragment_about, container, false);
-            view.setBackgroundColor(requireContext().getColor(R.color.surface_page));
+            bindVersionInfo(view);
+            updateText = view.findViewById(R.id.about_update_text);
+            view.findViewById(R.id.about_update_card).setOnClickListener(v -> onUpdateCardClick());
+            View appIcon = view.findViewById(R.id.about_app_icon);
+            appIcon.setOnClickListener(v -> onDeveloperTap());
+            // 长按应用图标直接进入调试页（是否记录诊断信息仍由调试页的开关决定）
+            appIcon.setOnLongClickListener(v -> {
+                startActivity(new Intent(requireContext(), TestActivity.class));
+                return true;
+            });
+            view.findViewById(R.id.about_row_feedback)
+                    .setOnClickListener(v -> showContactSheet());
+            view.findViewById(R.id.about_row_homepage)
+                    .setOnClickListener(v -> openWeb("https://github.com/typheye/wgpro"));
+            view.findViewById(R.id.about_row_policies)
+                    .setOnClickListener(v -> openWeb("https://www.typheye.cn/policies/"));
+            view.findViewById(R.id.about_row_license)
+                    .setOnClickListener(v -> openWeb("https://www.typheye.cn/licenses/gpl-3.0.html"));
+            buildOpenSourceList(view);
+            applyAppBarPadding(view);
+            return view;
+        }
+
+        @Override
+        public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+            super.onViewCreated(view, savedInstanceState);
+            // getView() 在 onCreateView 内还是 null，更新状态必须等视图挂载后再查。
+            refreshUpdateStatus();
+        }
+
+        private void bindVersionInfo(View view) {
             String versionName = "未知";
             long versionCode = 0;
             try {
@@ -612,13 +679,141 @@ public class SettingsActivity extends AppCompatActivity {
                         ? info.getLongVersionCode() : info.versionCode;
             } catch (PackageManager.NameNotFoundException ignored) {
             }
-            ((android.widget.TextView) view.findViewById(R.id.about_version)).setText("版本 " + versionName);
-            ((android.widget.TextView) view.findViewById(R.id.about_version_code)).setText(String.valueOf(versionCode));
-            ((android.widget.TextView) view.findViewById(R.id.about_android)).setText(
+            ((TextView) view.findViewById(R.id.about_version)).setText("版本 " + versionName);
+            currentVersionName = versionName;
+            ((TextView) view.findViewById(R.id.about_version_code)).setText(String.valueOf(versionCode));
+            ((TextView) view.findViewById(R.id.about_android)).setText(
                     String.valueOf(requireContext().getApplicationInfo().targetSdkVersion));
-            view.findViewById(R.id.about_app_icon).setOnClickListener(v -> onDeveloperTap());
-            view.findViewById(R.id.about_share).setOnClickListener(v -> shareApp());
-            return view;
+            ((TextView) view.findViewById(R.id.about_channel)).setText(appLevel(versionName));
+        }
+
+        /** 从版本名解析发布级别：Alpha / Beta / RC / Release。 */
+        private static String appLevel(String versionName) {
+            if (versionName == null) return "Release";
+            String value = versionName.toLowerCase(java.util.Locale.ROOT);
+            if (value.contains("alpha")) return "Alpha";
+            if (value.contains("beta")) return "Beta";
+            if (value.contains("rc")) return "RC";
+            return "Release";
+        }
+
+        /**
+         * 查询最新版本并刷新「更新状态」单行卡片。
+         *
+         * <p>只呈现两种结果：`已是最新版本`（主题色底）、`有新版本待更新`（浅绿底）。
+         * 检查中 / 网络失败都不显示额外文案；失败按「已是最新」处理，避免打扰。
+         */
+        private void refreshUpdateStatus() {
+            View card = getView() == null ? null : getView().findViewById(R.id.about_update_card);
+            if (updateText == null || card == null) return;
+            // XML 默认就是「已是最新版本」+ colorSecondaryContainer 底色，不隐藏卡片。
+            // 调试页「模拟有更新」开关优先级最高
+            if (TestHandler.isUpdateSimulationEnabled(requireContext())) {
+                applyUpdateState("", "");
+                return;
+            }
+            AppUtils.checkUpdateStatus(requireContext(),
+                    (hasUpdate, latestName, latestCode, url, error) -> {
+                        if (!isAdded() || updateText == null) return;
+                        if (error != null || !hasUpdate) {
+                            applyLatestState();
+                        } else {
+                            applyUpdateState(latestName, url == null ? "" : url);
+                        }
+                    });
+        }
+
+        private void applyLatestState() {
+            updateAvailable = false;
+            updateUrl = "";
+            latestVersionName = "";
+            // 用「非焦点按钮」的配色（colorSecondaryContainer），而不是主按钮的 colorPrimary
+            applyChipStyle(
+                    themeColor("colorSecondaryContainer", R.color.surface_secondary),
+                    themeColor("colorOnSecondaryContainer", R.color.text_primary),
+                    "已是最新版本");
+        }
+
+        private void applyUpdateState(String latestName, String url) {
+            updateAvailable = true;
+            updateUrl = url == null ? "" : url;
+            latestVersionName = latestName == null ? "" : latestName.trim();
+            applyChipStyle(requireContext().getColor(R.color.status_success_soft),
+                    requireContext().getColor(R.color.status_success),
+                    "有新版本待更新");
+        }
+
+        private void onUpdateCardClick() {
+            if (updateAvailable) {
+                showUpdateSheet();
+            } else {
+                showLatestSheet();
+            }
+        }
+
+        private void showLatestSheet() {
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("已是最新版本")
+                    .setMessage("当前版本 " + currentVersionName + " 已是最新，无需更新。")
+                    .setPositiveButton("知道了", null)
+                    .show();
+        }
+
+        private void showUpdateSheet() {
+            String message = latestVersionName.isEmpty()
+                    ? "检测到有新版本可用，是否前往更新？"
+                    : "最新版本 " + latestVersionName + "，是否前往更新？";
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("发现新版本")
+                    .setMessage(message)
+                    .setNegativeButton("稍后", null)
+                    .setPositiveButton("立即更新", (dialog, which) -> openWeb(
+                            updateUrl.isEmpty()
+                                    ? "https://www.typheye.cn/share/app/?uri=com.typheye.wgpro"
+                                    : updateUrl))
+                    .show();
+        }
+
+        /** 单行状态卡：只在文字/颜色真的变化时才改视图，避免检查更新回来时无意义地重排/重绘。 */
+        private void applyChipStyle(int background, int textColor, String text) {
+            View view = getView();
+            if (view == null || updateText == null) return;
+            if (!text.contentEquals(updateText.getText())) updateText.setText(text);
+            if (updateText.getCurrentTextColor() != textColor) updateText.setTextColor(textColor);
+            View card = view.findViewById(R.id.about_update_card);
+            if (card instanceof com.google.android.material.card.MaterialCardView) {
+                com.google.android.material.card.MaterialCardView material =
+                        (com.google.android.material.card.MaterialCardView) card;
+                if (material.getCardBackgroundColor().getDefaultColor() != background) {
+                    material.setCardBackgroundColor(background);
+                }
+                if (card.getVisibility() != View.VISIBLE) card.setVisibility(View.VISIBLE);
+            }
+        }
+
+        private int themeColor(String attr, int fallback) {
+            return com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder
+                    .resolveThemeColor(requireContext(), attr, fallback);
+        }
+
+        /**
+         * 关于页是独立的可滚动页，顶部留出应用栏高度，滚动时内容从毛玻璃下方穿过。
+         * 设置页的 {@code AppBarBlur} 已经会补一次，这里再幂等补一次，
+         * 保证 Fragment 刚被替换进来、父容器尚未重新布局时也不会贴到应用栏下面。
+         */
+        private void applyAppBarPadding(View root) {
+            View appBar = requireActivity().findViewById(R.id.app_bar_layout);
+            if (appBar == null) return;
+            int height = appBar.getHeight();
+            if (height > 0) {
+                // 应用栏此时已经布局完成，直接同步补留白，避免首帧先贴顶、下一帧再下移的“跳一下”。
+                com.typheye.wgpro.utils.AppBarBlur.padScrollableTop(root, height);
+                return;
+            }
+            appBar.post(() -> {
+                int h = appBar.getHeight();
+                if (h > 0) com.typheye.wgpro.utils.AppBarBlur.padScrollableTop(root, h);
+            });
         }
 
         private void onDeveloperTap() {
@@ -645,18 +840,95 @@ public class SettingsActivity extends AppCompatActivity {
                     }).show();
         }
 
+        /** 复制 QQ / QQ 群号到剪贴板（这些没有稳定的可打开链接）。 */
+        private void copyToClipboard(String label, String value) {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager)
+                    requireContext().getSystemService(android.content.Context.CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(android.content.ClipData.newPlainText(label, value));
+            }
+            Toast.makeText(requireContext(), label + " " + value + " 已复制",
+                    Toast.LENGTH_SHORT).show();
+        }
+
+        private void sendEmail() {
+            try {
+                Intent mail = new Intent(Intent.ACTION_SENDTO,
+                        android.net.Uri.parse("mailto:typheye@typheye.com"));
+                mail.putExtra(Intent.EXTRA_SUBJECT, "腕管Pro 反馈");
+                startActivity(mail);
+            } catch (Exception error) {
+                copyToClipboard("邮箱", "typheye@typheye.com");
+            }
+        }
+
+        /** 「联系与反馈」：分组弹窗列出 QQ、QQ 群、邮箱。 */
+        private void showContactSheet() {
+            CharSequence[] items = {
+                    "通过 QQ 联系我们",
+                    "通过 Email 联系我们",
+            };
+            new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("联系与反馈")
+                    .setItems(items, (dialog, which) -> {
+                        if (which == 0) copyToClipboard("QQ 号", "498978473");
+                        else sendEmail();
+                    })
+                    .show();
+        }
+
+        /** 开源项目列表：左侧超链接图标 + 名称 + By 作者/组织，点击打开链接。 */
+        private void buildOpenSourceList(View view) {
+            android.widget.LinearLayout list = view.findViewById(R.id.about_opensource_list);
+            if (list == null) return;
+            list.removeAllViews();
+            for (int i = 0; i < OPEN_SOURCE.length; i++) {
+                String[] item = OPEN_SOURCE[i];
+                addAboutListRow(list, item[0], "By " + item[1], item[2],
+                        i < OPEN_SOURCE.length - 1);
+            }
+        }
+
+        private void addAboutListRow(android.widget.LinearLayout parent, String title,
+                                     String subtitle, String url, boolean showDivider) {
+            View row = getLayoutInflater().inflate(R.layout.item_about_row, parent, false);
+            ((TextView) row.findViewById(R.id.about_row_title)).setText(title);
+            TextView sub = row.findViewById(R.id.about_row_subtitle);
+            if (subtitle == null || subtitle.isEmpty()) {
+                sub.setVisibility(View.GONE);
+            } else {
+                sub.setText(subtitle);
+            }
+            boolean clickable = url != null
+                    && (url.startsWith("http://") || url.startsWith("https://"));
+            if (clickable) {
+                row.setOnClickListener(v -> openWeb(url));
+            } else {
+                row.setClickable(false);
+                row.setFocusable(false);
+                row.findViewById(R.id.about_row_chevron).setVisibility(View.INVISIBLE);
+            }
+            parent.addView(row);
+            if (showDivider) {
+                View divider = new View(requireContext());
+                android.widget.LinearLayout.LayoutParams params =
+                        new android.widget.LinearLayout.LayoutParams(
+                                ViewGroup.LayoutParams.MATCH_PARENT, dp(1));
+                params.setMarginStart(dp(20));
+                divider.setLayoutParams(params);
+                divider.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
+                parent.addView(divider);
+            }
+        }
+
+        private int dp(int value) {
+            return Math.round(value * getResources().getDisplayMetrics().density);
+        }
+
         private void openWeb(String url) {
             Intent intent = new Intent(requireContext(), WebActivity.class);
             intent.putExtra("URL", url);
             startActivity(intent);
-        }
-
-        private void shareApp() {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
-            intent.putExtra(Intent.EXTRA_SUBJECT, "腕管Pro");
-            intent.putExtra(Intent.EXTRA_TEXT, "腕管Pro\nhttps://wgpro.typheye.cn");
-            startActivity(Intent.createChooser(intent, "分享应用"));
         }
     }
 }

@@ -92,13 +92,13 @@ public class PushService extends Service implements PushApi {
 
             @Override
             public void onSessionRevoked() {
-                AppState.get().addLog("实时通道报告会话失效");
+                AppState.get().addAccountLog("实时通道报告会话失效");
                 CoreService.requestRefresh(PushService.this);
             }
 
             @Override
             public void onLog(String line) {
-                AppState.get().addLog(line);
+                AppState.get().addPushLog(line);
             }
         });
         registerNetworkCallback();
@@ -186,7 +186,7 @@ public class PushService extends Service implements PushApi {
             };
             manager.registerDefaultNetworkCallback(networkCallback);
         } catch (Exception error) {
-            AppState.get().addLog("注册网络回调失败：" + error.getMessage());
+            AppState.get().addPushLog("注册网络回调失败：" + error.getMessage());
         }
     }
 
