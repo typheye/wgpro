@@ -51,7 +51,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
     public boolean iskg2enable = false;
     public boolean old_state_kg3 = false;
     public String old_state_set1 = "0";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -181,6 +181,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.theme_settings);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -190,15 +191,15 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/f8/set4.inf")), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (AppPaths.appPath("settings/f8/set4.inf"))), "true")) {
 
         }
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -212,66 +213,66 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.theme_settings_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.theme_settings_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.theme_settings_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.theme_settings_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-            st.xdbj(R.id.xdbj5).kjd(0);
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj5)).setVisibility(android.view.View.VISIBLE);
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(ThemeSettingsActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
-            st.xdbj(R.id.xdbj5).kjd(8);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj5)).setVisibility(android.view.View.GONE);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
-            st.xdbj(R.id.xdbj5).kjd(0);
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj5)).setVisibility(android.view.View.VISIBLE);
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
-            st.xdbj(R.id.xdbj5).kjd(8);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj5)).setVisibility(android.view.View.GONE);
 
         }
 
@@ -285,48 +286,48 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         String set4 = AppPaths.appPath("settings/f8/set4.inf");
 
-        if (zf.dy(wj.dqwb(set1), "1")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "1")) {
 
-            st.dxx(R.id.dxx2).xzzt(true);
+            ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.dxx2)).setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        } else if (zf.dy(wj.dqwb(set1), "2")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "2")) {
 
-            st.dxx(R.id.dxx3).xzzt(true);
+            ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.dxx3)).setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        } else if (zf.dy(wj.dqwb(set1), "3")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "3")) {
 
-            st.dxx(R.id.dxx4).xzzt(true);
+            ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.dxx4)).setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        } else if (zf.dy(wj.dqwb(set1), "4")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "4")) {
 
-            st.dxx(R.id.dxx5).xzzt(true);
+            ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.dxx5)).setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        } else if (zf.dy(wj.dqwb(set1), "5")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "5")) {
 
-            st.dxx(R.id.dxx6).xzzt(true);
+            ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.dxx6)).setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            st.dxx(R.id.dxx1).xzzt(true);
+            ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.dxx1)).setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
-        old_state_set1 = wj.dqwb(set1);
+        old_state_set1 = open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1));
         jz2();
 
-        i.runlibrary.app.v.kg kg3 = st.kg(R.id.kg3);
+        android.widget.CompoundButton kg3 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.kg3));
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (zf.dy(wj.dqwb(set4), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set4)), "true")) {
 
             old_state_kg3 = true;
-            kg3.xzzt(true);
+            kg3.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
-        if (zf.dy(wj.dqwb(set2), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set2)), "true")) {
 
-            kg1.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
@@ -344,32 +345,32 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "1")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "1")) {
 
-            st.wb(R.id.wb18).zf("开启软件将进入旧版主页");
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("开启软件将进入旧版主页"));
 
-        } else if (zf.dy(wj.dqwb(set1), "2")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "2")) {
 
-            st.wb(R.id.wb18).zf("开启软件将进入文件管理");
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("开启软件将进入文件管理"));
 
-        } else if (zf.dy(wj.dqwb(set1), "3")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "3")) {
 
-            st.wb(R.id.wb18).zf("开启软件将进入腕上微聊");
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("开启软件将进入腕上微聊"));
 
-        } else if (zf.dy(wj.dqwb(set1), "4")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "4")) {
 
-            st.wb(R.id.wb18).zf("开启软件将进入扩展插件");
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("开启软件将进入扩展插件"));
 
-        } else if (zf.dy(wj.dqwb(set1), "5")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1)), "5")) {
 
-            st.wb(R.id.wb18).zf("开启软件将进入X5浏览器");
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("开启软件将进入X5浏览器"));
 
         } else {
 
-            st.wb(R.id.wb18).zf("开启软件将进入新版主页");
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("开启软件将进入新版主页"));
 
         }
-        st.xdbj(R.id.xdbj2).kjd(8);
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.GONE);
 
     }
 
@@ -405,9 +406,9 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -424,7 +425,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -440,22 +441,22 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        String now = wj.dqwb(set1);
+        String now = open.cn.awg.pro.core.NativeFiles.readText(ThemeSettingsActivity.this, (String) (set1));
 
-        if (!zf.dy(now, old_state_set1)) {
+        if (!java.util.Objects.equals(now, old_state_set1)) {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String[] name = new String[]{"Msg"};
 
                             String[] value = new String[]{"应用成功 点击重启"};
-                            gj.tz(ErrorMessageActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(ThemeSettingsActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
@@ -470,21 +471,21 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ThemeSettingsActivity.this);
 
     }
 
     private void onXdbj4Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -492,9 +493,9 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -508,12 +509,12 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
             if (ic) {
 
-                wj.xrwb(set, "true");
+                open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set), (String) ("true"));
                 icon2(true);
 
             } else {
 
-                wj.xrwb(set, "false");
+                open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set), (String) ("false"));
                 icon2(false);
 
             }
@@ -524,15 +525,15 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj3Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg3);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.kg3));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -540,9 +541,9 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -554,29 +555,29 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
         if (ic != old_state_kg3) {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.zt(2000);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(2000);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String[] name = new String[]{"Msg"};
 
                             String[] value = new String[]{"应用成功 点击重启"};
-                            gj.tz(ErrorMessageActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(ThemeSettingsActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
@@ -591,15 +592,15 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
     }
 
     private void onXdbj5Click(View vw) {
-        gj.tz(DisplayMarginActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(ThemeSettingsActivity.this, (Class<?>) (DisplayMarginActivity.class));
 
     }
 
     private boolean onXdbj5LongClick(View vw) {
 
-        String te = st.wb(R.id.wb6).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
 
-        String lj = st.wb(R.id.wb7).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -607,13 +608,13 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj11Click(View vw) {
 
-        if (st.xdbj(R.id.xdbj2).kjd() == 8) {
+        if (((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj2)).getVisibility() == android.view.View.GONE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xdbj(R.id.xdbj2).kjd(0);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -621,11 +622,11 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xdbj(R.id.xdbj2).kjd(8);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -637,9 +638,9 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj11LongClick(View vw) {
 
-        String te = st.wb(R.id.wb17).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
 
-        String lj = st.wb(R.id.wb18).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThemeSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -653,7 +654,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set1, update);
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set1), (String) (update));
             jz2();
 
         }
@@ -668,7 +669,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set1, update);
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set1), (String) (update));
             jz2();
 
         }
@@ -683,7 +684,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set1, update);
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set1), (String) (update));
             jz2();
 
         }
@@ -698,7 +699,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set1, update);
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set1), (String) (update));
             jz2();
 
         }
@@ -713,7 +714,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set1, update);
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set1), (String) (update));
             jz2();
 
         }
@@ -728,7 +729,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set1, update);
+            open.cn.awg.pro.core.NativeFiles.writeText(ThemeSettingsActivity.this, (String) (set1), (String) (update));
             jz2();
 
         }
@@ -736,7 +737,7 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ThemeSettingsActivity.this);
 
     }
 
@@ -746,52 +747,52 @@ public class ThemeSettingsActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        SwitchCompat i2e1dda294f = (SwitchCompat) findViewById(ay, vw, R.id.kg3);
+        SwitchCompat i2e1dda294f = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg3);
         i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
         c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        RelativeLayout i67b461495f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj11);
+        RelativeLayout i67b461495f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj11);
         i67b461495f.setOnClickListener(xdbj11ClickListener);
         i67b461495f.setOnLongClickListener(xdbj11LongClickListener);
 
-        RadioButton i0e3cd8b2ec = (RadioButton) findViewById(ay, vw, R.id.dxx1);
+        RadioButton i0e3cd8b2ec = (RadioButton) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dxx1);
         i0e3cd8b2ec.setOnCheckedChangeListener(dxx1CheckedChangeListener);
 
-        RadioButton fb96c5d3b3 = (RadioButton) findViewById(ay, vw, R.id.dxx2);
+        RadioButton fb96c5d3b3 = (RadioButton) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dxx2);
         fb96c5d3b3.setOnCheckedChangeListener(dxx2CheckedChangeListener);
 
-        RadioButton i0628140a2a = (RadioButton) findViewById(ay, vw, R.id.dxx3);
+        RadioButton i0628140a2a = (RadioButton) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dxx3);
         i0628140a2a.setOnCheckedChangeListener(dxx3CheckedChangeListener);
 
-        RadioButton i5e048391d3 = (RadioButton) findViewById(ay, vw, R.id.dxx4);
+        RadioButton i5e048391d3 = (RadioButton) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dxx4);
         i5e048391d3.setOnCheckedChangeListener(dxx4CheckedChangeListener);
 
-        RadioButton d983960091 = (RadioButton) findViewById(ay, vw, R.id.dxx5);
+        RadioButton d983960091 = (RadioButton) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dxx5);
         d983960091.setOnCheckedChangeListener(dxx5CheckedChangeListener);
 
-        RadioButton d01948645a = (RadioButton) findViewById(ay, vw, R.id.dxx6);
+        RadioButton d01948645a = (RadioButton) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dxx6);
         d01948645a.setOnCheckedChangeListener(dxx6CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

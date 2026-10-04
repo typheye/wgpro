@@ -16,7 +16,9 @@
  */
 package open.cn.awg.pro.experimental;
 
-import android.app.Activity;
+import android.content.Intent;
+import open.cn.awg.pro.core.NativeFiles;
+import open.cn.awg.pro.ui.list.NativeListAdapter;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -38,10 +40,10 @@ import open.cn.awg.pro.R;
 public class MoreFeaturesActivity extends BaseAwgActivity {
 
     public final MoreFeaturesActivity lei = this, 类 = this;
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public NativeListAdapter spq = null;
     public String lin;
     public String CacheSize = null;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -73,14 +75,15 @@ public class MoreFeaturesActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.more_features);
-        _$_viewAutomaticSettingEvent();
+        bindViews();
         AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(Activity ay, View vw) {
+    private void applyScreenPolicy() {
 
         applyStandardScreenMode(R.id.more_features_root, R.id.xdbj1, R.id.title_bar);
 
@@ -90,10 +93,10 @@ public class MoreFeaturesActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(NativeFiles.readText(lei, set1), "true")) {
 
-            st.xxbj(R.id.xxbj1).kjd(0);
-            st.wb(R.id.wb1).kjd(8);
+            ((View) findViewById(R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((TextView) findViewById(R.id.wb1)).setVisibility(android.view.View.GONE);
 
         }
 
@@ -115,9 +118,9 @@ public class MoreFeaturesActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        View qtgd1 = findViewById(R.id.qtgd1);
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -134,7 +137,7 @@ public class MoreFeaturesActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -151,46 +154,42 @@ public class MoreFeaturesActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        finish();
 
     }
 
     private void onXdbj4Click(View vw) {
-        gj.tz(ExperimentalFeaturesActivity.class);
+        startActivity(new Intent(lei, ExperimentalFeaturesActivity.class));
 
     }
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb7).zf();
+        String te = ((TextView) findViewById(R.id.wb7)).getText().toString();
 
-        String lj = st.wb(R.id.wb8).zf();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
+        String lj = ((TextView) findViewById(R.id.wb8)).getText().toString();
+        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        finish();
 
     }
 
-    private void _$_viewAutomaticSettingEvent() {
-        _$_viewAutomaticSettingEvent(this, null);
-    }
+    private void bindViews() {
 
-    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
-
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        __layoutIsLoaded(ay, vw);
+        applyScreenPolicy();
     }
 }

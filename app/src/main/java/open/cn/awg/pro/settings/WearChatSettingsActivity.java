@@ -18,7 +18,7 @@ package open.cn.awg.pro.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -41,7 +41,7 @@ import open.cn.awg.pro.R;
 public class WearChatSettingsActivity extends BaseAwgActivity {
 
     public final WearChatSettingsActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -94,6 +94,7 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.wear_chat_settings);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -111,11 +112,11 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/f11/set1.inf");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(WearChatSettingsActivity.this, (String) (set1)), "true")) {
 
-            kg1.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
@@ -131,9 +132,9 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -150,7 +151,7 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -174,9 +175,9 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 腕上微聊")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕上微聊")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(WearChatSettingsActivity.this);
 
         }
 
@@ -188,11 +189,11 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(WearChatSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(WearChatSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -200,15 +201,15 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj2Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -216,31 +217,31 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj3Click(View vw) {
-        gj.tz(TypheyeAccountActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(WearChatSettingsActivity.this, (Class<?>) (TypheyeAccountActivity.class));
 
     }
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb1).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.wb1)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(WearChatSettingsActivity.this);
 
     }
 
@@ -250,21 +251,21 @@ public class WearChatSettingsActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

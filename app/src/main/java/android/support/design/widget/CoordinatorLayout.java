@@ -1,7 +1,0 @@
-package android.support.design.widget;
-
-public class CoordinatorLayout extends androidx.coordinatorlayout.widget.CoordinatorLayout {
-    public CoordinatorLayout(android.content.Context c) { super(c); }
-    public CoordinatorLayout(android.content.Context c, android.util.AttributeSet a) { super(c, a); }
-    public CoordinatorLayout(android.content.Context c, android.util.AttributeSet a, int d) { super(c, a, d); }
-}

@@ -18,7 +18,8 @@ package open.cn.awg.pro.plugin;
 
 import android.view.View;
 
-import i.app.iClass;
+import android.app.Activity;
+import android.content.Context;
 
 import open.cn.awg.pro.account.TypheyeServiceBridge;
 import open.cn.awg.pro.chat.WearChatRuntimeBridge;
@@ -28,7 +29,9 @@ import open.cn.awg.pro.core.DebugStateStore;
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.tools.CloudServiceActivity;
 
-public class ExtensionPluginConfigBridge extends iClass {
+public class ExtensionPluginConfigBridge {
+    private final Context context;
+    private final Activity owner;
 
     public static String titleback = "";
 
@@ -38,68 +41,71 @@ public class ExtensionPluginConfigBridge extends iClass {
 
     public static String title = "";
     public final ExtensionPluginConfigBridge lei = this, 类 = this;
-    public DebugStateStore debug = new DebugStateStore(_APPINFO);
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
+    public DebugStateStore debug;
+    public AppRuntimeBridge e1;
+    public ExtensionPluginBridge e14;
     public boolean state_login_base = false;
 
-    public ExtensionPluginConfigBridge(i.runlibrary.app.AppInfo _APPINFO) {
-        super(_APPINFO);
-
+    public ExtensionPluginConfigBridge(Context context) {
+        this.context = java.util.Objects.requireNonNull(context);
+        this.owner = context instanceof Activity ? (Activity) context : null;
+        debug = new DebugStateStore(context);
+        e1 = new AppRuntimeBridge(context);
+        e14 = new ExtensionPluginBridge(context);
     }
 
     public void jz() {
 
         String cachehd = AppPaths.appPath("data/cjlb/lbx_id");
-        id = wj.dqwb(cachehd);
+        id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
         cachehd = AppPaths.appPath("data/cjlb/lbx_title");
-        title = wj.dqwb(cachehd);
+        title = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
         titleback = "< " + title;
         titleback2 = title;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 viewshow(1);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 String cachehd = AppPaths.appPath("data/cjlb/lbx_id");
 
-                final String id = wj.dqwb(cachehd);
+                final String id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
 
                 if (e14.newG(Integer.parseInt(id))) {
 
                     try {
 
-                        if (zf.dy(id, "20000")) {
+                        if (java.util.Objects.equals(id, "20000")) {
 
                             m20000();
 
-                        } else if (zf.dy(id, "20001")) {
+                        } else if (java.util.Objects.equals(id, "20001")) {
 
                             m20001();
 
-                        } else if (zf.dy(id, "20002")) {
+                        } else if (java.util.Objects.equals(id, "20002")) {
 
                             m20002();
 
-                        } else if (zf.dy(id, "20003")) {
+                        } else if (java.util.Objects.equals(id, "20003")) {
 
                             m20003();
 
-                        } else if (zf.dy(id, "20004")) {
+                        } else if (java.util.Objects.equals(id, "20004")) {
 
                             m20004();
 
-                        } else if (zf.dy(id, "20005")) {
+                        } else if (java.util.Objects.equals(id, "20005")) {
 
                             m20005();
 
-                        } else if (zf.dy(id, "20006")) {
+                        } else if (java.util.Objects.equals(id, "20006")) {
 
                             m20006();
 
-                        } else if (zf.dy(id, "20007")) {
+                        } else if (java.util.Objects.equals(id, "20007")) {
 
                             m20007();
 
@@ -112,13 +118,13 @@ public class ExtensionPluginConfigBridge extends iClass {
                     } catch (Throwable e) {
 
                         e1.upload_error(e, "m2.jz()");
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(context);
 
                     }
 
                 } else {
 
-                    gj.gb();
+                    open.cn.awg.pro.core.NativeActions.finish(context);
 
                 }
 
@@ -129,24 +135,24 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20000() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("本地激活应用");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("本地激活应用"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
@@ -158,18 +164,18 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an2 = st.an();
-                an2.kg(-1, -2);
-                an2.zf("取消激活应用");
-                an2.sj.dj(new View.OnClickListener() {
+                android.widget.Button an2 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an2, -1, -2);
+                an2.setText(String.valueOf("取消激活应用"));
+                an2.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
                         String a = AppPaths.appPath("settings/f7/Enable2");
-                        wj.xrwb(a, "");
+                        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (a), (String) (""));
 
                         final String msg = "已执行取消激活";
                         e1.tsk("提示", msg);
@@ -177,19 +183,19 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an2);
-                an2.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an2);
+                open.cn.awg.pro.core.NativeViewValues.margins(an2, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -199,74 +205,74 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20001() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk1 = st.bjk();
-                bjk1.kg(-1, -2);
-                bjk1.tszf("请输入您的邮箱");
-                color = zf.zf(R.color.colorTextU1);
-                bjk1.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk1.tszfys(color);
-                bjk1.ztdx(13);
-                bjk1.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk1.xstyh(true);
-                xxbja.j(bjk1);
-                bjk1.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk1 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk1, -1, -2);
+                bjk1.setHint(String.valueOf("请输入您的邮箱"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk1.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk1.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk1.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk1, "8dp", "8dp", "8dp", "8dp");
+                bjk1.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk1);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.xxbj xxbjb = st.xxbj();
-                xxbjb.kg(-1, -2);
-                xxbjb.fx(0);
-                xxbjb.dqfs("center");
+                android.widget.LinearLayout xxbjb = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbjb, -1, -2);
+                xxbjb.setOrientation(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                xxbjb.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk2 = st.bjk();
-                bjk2.kg(-1, -2);
-                bjk2.tszf("请输入验证码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk2.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk2.tszfys(color);
-                bjk2.ztdx(13);
-                bjk2.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk2.xstyh(true);
-                xxbjb.j(bjk2);
+                final android.widget.EditText bjk2 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk2, -1, -2);
+                bjk2.setHint(String.valueOf("请输入验证码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk2.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk2.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk2.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk2, "8dp", "8dp", "8dp", "8dp");
+                bjk2.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbjb.addView(bjk2);
 
-                i.runlibrary.app.v.xxbj$xxbjgz bjk2_xxbjgz = (i.runlibrary.app.v.xxbj$xxbjgz) (Object) bjk2.xxbjgz();
-                bjk2_xxbjgz.bjqz(1);
+                android.widget.LinearLayout.LayoutParams bjk2_xxbjgz = ((android.widget.LinearLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.linearParams(bjk2));
+                open.cn.awg.pro.core.NativeViewValues.weight(bjk2, bjk2_xxbjgz, 1);
 
-                final i.runlibrary.app.v.an an0 = st.an();
-                an0.kg(-2, -2);
-                an0.zf("获取");
-                an0.sj.dj(new View.OnClickListener() {
+                final android.widget.Button an0 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an0, -2, -2);
+                an0.setText(String.valueOf("获取"));
+                an0.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        if (zf.dy(an0.zf(), "获取")) {
+                        if (java.util.Objects.equals(an0.getText().toString(), "获取")) {
 
-                            gj.xc(new Thread() {
+                            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                                 public void run() {
 
-                                    TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
-                                    easy.register$request$token(bjk1.zf(), an0);
+                                    TypheyeServiceBridge easy = new TypheyeServiceBridge(context);
+                                    easy.register$request$token(bjk1.getText().toString(), an0);
 
                                 }
 
                             });
 
-                        } else if (zf.dy(an0.zf(), "已发送")) {
+                        } else if (java.util.Objects.equals(an0.getText().toString(), "已发送")) {
 
                             e1.tsk("提示", "发送验证码成功,请在邮箱查收");
 
@@ -275,55 +281,55 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbjb.j(an0);
-                an0.wbj("3dp", "0dp", "0dp", "0dp");
-                xxbja.j(xxbjb);
-                xxbjb.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbjb.addView(an0);
+                open.cn.awg.pro.core.NativeViewValues.margins(an0, "3dp", "0dp", "0dp", "0dp");
+                xxbja.addView(xxbjb);
+                open.cn.awg.pro.core.NativeViewValues.margins(xxbjb, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk3 = st.bjk();
-                bjk3.kg(-1, -2);
-                bjk3.tszf("请输入您的密码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk3.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk3.tszfys(color);
-                bjk3.wblx("textpassword");
-                bjk3.ztdx(13);
-                bjk3.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk3.xstyh(true);
-                xxbja.j(bjk3);
-                bjk3.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk3 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk3, -1, -2);
+                bjk3.setHint(String.valueOf("请输入您的密码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk3.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk3.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk3.setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("textpassword"));
+                bjk3.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk3, "8dp", "8dp", "8dp", "8dp");
+                bjk3.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk3);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk3, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk4 = st.bjk();
-                bjk4.kg(-1, -2);
-                bjk4.tszf("请确认您的密码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk4.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk4.tszfys(color);
-                bjk4.wblx("textpassword");
-                bjk4.ztdx(13);
-                bjk4.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk4.xstyh(true);
-                xxbja.j(bjk4);
-                bjk4.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk4 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk4, -1, -2);
+                bjk4.setHint(String.valueOf("请确认您的密码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk4.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk4.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk4.setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("textpassword"));
+                bjk4.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk4, "8dp", "8dp", "8dp", "8dp");
+                bjk4.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk4);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk4, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("提交");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("提交"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+                                TypheyeServiceBridge easy = new TypheyeServiceBridge(context);
 
-                                if (easy.register$request(bjk1.zf(), bjk2.zf(), bjk3.zf(), bjk4.zf())) {
+                                if (easy.register$request(bjk1.getText().toString(), bjk2.getText().toString(), bjk3.getText().toString(), bjk4.getText().toString())) {
 
                                     viewshow(0);
 
@@ -336,19 +342,19 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -358,63 +364,63 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20002() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk1 = st.bjk();
-                bjk1.kg(-1, -2);
-                bjk1.tszf("请输入房间名");
-                color = zf.zf(R.color.colorTextU1);
-                bjk1.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk1.tszfys(color);
-                bjk1.ztdx(13);
-                bjk1.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk1.xstyh(true);
-                xxbja.j(bjk1);
-                bjk1.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk1 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk1, -1, -2);
+                bjk1.setHint(String.valueOf("请输入房间名"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk1.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk1.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk1.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk1, "8dp", "8dp", "8dp", "8dp");
+                bjk1.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk1);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk1, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk2 = st.bjk();
-                bjk2.kg(-1, -2);
-                bjk2.tszf("请输入房间ID");
-                bjk2.wblx("number");
-                color = zf.zf(R.color.colorTextU1);
-                bjk2.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk2.tszfys(color);
-                bjk2.ztdx(13);
-                bjk2.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk2.xstyh(true);
-                xxbja.j(bjk2);
-                bjk2.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk2 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk2, -1, -2);
+                bjk2.setHint(String.valueOf("请输入房间ID"));
+                bjk2.setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("number"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk2.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk2.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk2.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk2, "8dp", "8dp", "8dp", "8dp");
+                bjk2.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk2);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk2, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("提交");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("提交"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+                                WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(context);
 
-                                if (e10.part_buildNewRoom(bjk1.zf(), bjk2.zf())) {
+                                if (e10.part_buildNewRoom(bjk1.getText().toString(), bjk2.getText().toString())) {
 
                                     viewshow(0);
 
@@ -427,19 +433,19 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -449,76 +455,76 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20003() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk1 = st.bjk();
-                bjk1.kg(-1, -2);
-                bjk1.tszf("请输入扩展名");
-                color = zf.zf(R.color.colorTextU1);
-                bjk1.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk1.tszfys(color);
-                bjk1.ztdx(13);
-                bjk1.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk1.xstyh(true);
-                xxbja.j(bjk1);
-                bjk1.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk1 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk1, -1, -2);
+                bjk1.setHint(String.valueOf("请输入扩展名"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk1.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk1.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk1.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk1, "8dp", "8dp", "8dp", "8dp");
+                bjk1.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk1);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk1, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk2 = st.bjk();
-                bjk2.kg(-1, -2);
-                bjk2.tszf("请输入扩展ID");
-                color = zf.zf(R.color.colorTextU1);
-                bjk2.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk2.tszfys(color);
-                bjk2.ztdx(13);
-                bjk2.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk2.xstyh(true);
-                xxbja.j(bjk2);
-                bjk2.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk2 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk2, -1, -2);
+                bjk2.setHint(String.valueOf("请输入扩展ID"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk2.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk2.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk2.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk2, "8dp", "8dp", "8dp", "8dp");
+                bjk2.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk2);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk2, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk3 = st.bjk();
-                bjk3.kg(-1, -2);
-                bjk3.tszf("请输入授权码");
-                bjk3.wblx("textpassword");
-                color = zf.zf(R.color.colorTextU1);
-                bjk3.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk3.tszfys(color);
-                bjk3.ztdx(13);
-                bjk3.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk3.xstyh(true);
-                xxbja.j(bjk3);
-                bjk3.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk3 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk3, -1, -2);
+                bjk3.setHint(String.valueOf("请输入授权码"));
+                bjk3.setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("textpassword"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk3.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk3.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk3.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk3, "8dp", "8dp", "8dp", "8dp");
+                bjk3.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk3);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk3, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("提交");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("提交"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
+                                ExtensionPluginBridge e14 = new ExtensionPluginBridge(context);
 
-                                if (e14.part_buildNewPlu(bjk1.zf(), bjk2.zf(), bjk3.zf())) {
+                                if (e14.part_buildNewPlu(bjk1.getText().toString(), bjk2.getText().toString(), bjk3.getText().toString())) {
 
                                     viewshow(0);
 
@@ -531,19 +537,19 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -553,74 +559,74 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20004() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk1 = st.bjk();
-                bjk1.kg(-1, -2);
-                bjk1.tszf("请输入您的邮箱");
-                color = zf.zf(R.color.colorTextU1);
-                bjk1.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk1.tszfys(color);
-                bjk1.ztdx(13);
-                bjk1.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk1.xstyh(true);
-                xxbja.j(bjk1);
-                bjk1.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk1 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk1, -1, -2);
+                bjk1.setHint(String.valueOf("请输入您的邮箱"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk1.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk1.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk1.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk1, "8dp", "8dp", "8dp", "8dp");
+                bjk1.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk1);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.xxbj xxbjb = st.xxbj();
-                xxbjb.kg(-1, -2);
-                xxbjb.fx(0);
-                xxbjb.dqfs("center");
+                android.widget.LinearLayout xxbjb = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbjb, -1, -2);
+                xxbjb.setOrientation(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                xxbjb.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk2 = st.bjk();
-                bjk2.kg(-1, -2);
-                bjk2.tszf("请输入验证码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk2.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk2.tszfys(color);
-                bjk2.ztdx(13);
-                bjk2.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk2.xstyh(true);
-                xxbjb.j(bjk2);
+                final android.widget.EditText bjk2 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk2, -1, -2);
+                bjk2.setHint(String.valueOf("请输入验证码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk2.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk2.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk2.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk2, "8dp", "8dp", "8dp", "8dp");
+                bjk2.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbjb.addView(bjk2);
 
-                i.runlibrary.app.v.xxbj$xxbjgz bjk2_xxbjgz = (i.runlibrary.app.v.xxbj$xxbjgz) (Object) bjk2.xxbjgz();
-                bjk2_xxbjgz.bjqz(1);
+                android.widget.LinearLayout.LayoutParams bjk2_xxbjgz = ((android.widget.LinearLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.linearParams(bjk2));
+                open.cn.awg.pro.core.NativeViewValues.weight(bjk2, bjk2_xxbjgz, 1);
 
-                final i.runlibrary.app.v.an an0 = st.an();
-                an0.kg(-2, -2);
-                an0.zf("获取");
-                an0.sj.dj(new View.OnClickListener() {
+                final android.widget.Button an0 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an0, -2, -2);
+                an0.setText(String.valueOf("获取"));
+                an0.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        if (zf.dy(an0.zf(), "获取")) {
+                        if (java.util.Objects.equals(an0.getText().toString(), "获取")) {
 
-                            gj.xc(new Thread() {
+                            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                                 public void run() {
 
-                                    TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
-                                    easy.register$request$token(bjk1.zf(), an0);
+                                    TypheyeServiceBridge easy = new TypheyeServiceBridge(context);
+                                    easy.register$request$token(bjk1.getText().toString(), an0);
 
                                 }
 
                             });
 
-                        } else if (zf.dy(an0.zf(), "已发送")) {
+                        } else if (java.util.Objects.equals(an0.getText().toString(), "已发送")) {
 
                             e1.tsk("提示", "发送验证码成功,请在邮箱查收");
 
@@ -629,55 +635,55 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbjb.j(an0);
-                an0.wbj("3dp", "0dp", "0dp", "0dp");
-                xxbja.j(xxbjb);
-                xxbjb.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbjb.addView(an0);
+                open.cn.awg.pro.core.NativeViewValues.margins(an0, "3dp", "0dp", "0dp", "0dp");
+                xxbja.addView(xxbjb);
+                open.cn.awg.pro.core.NativeViewValues.margins(xxbjb, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk3 = st.bjk();
-                bjk3.kg(-1, -2);
-                bjk3.tszf("请输入新密码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk3.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk3.tszfys(color);
-                bjk3.wblx("textpassword");
-                bjk3.ztdx(13);
-                bjk3.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk3.xstyh(true);
-                xxbja.j(bjk3);
-                bjk3.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk3 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk3, -1, -2);
+                bjk3.setHint(String.valueOf("请输入新密码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk3.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk3.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk3.setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("textpassword"));
+                bjk3.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk3, "8dp", "8dp", "8dp", "8dp");
+                bjk3.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk3);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk3, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.bjk bjk4 = st.bjk();
-                bjk4.kg(-1, -2);
-                bjk4.tszf("请确认新密码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk4.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk4.tszfys(color);
-                bjk4.wblx("textpassword");
-                bjk4.ztdx(13);
-                bjk4.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk4.xstyh(true);
-                xxbja.j(bjk4);
-                bjk4.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk4 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk4, -1, -2);
+                bjk4.setHint(String.valueOf("请确认新密码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk4.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk4.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk4.setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("textpassword"));
+                bjk4.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk4, "8dp", "8dp", "8dp", "8dp");
+                bjk4.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk4);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk4, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("提交");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("提交"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
 
-                                TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+                                TypheyeServiceBridge easy = new TypheyeServiceBridge(context);
 
-                                if (easy.findpwd(bjk1.zf(), bjk2.zf(), bjk3.zf(), bjk4.zf())) {
+                                if (easy.findpwd(bjk1.getText().toString(), bjk2.getText().toString(), bjk3.getText().toString(), bjk4.getText().toString())) {
 
                                     viewshow(0);
 
@@ -690,19 +696,19 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -712,97 +718,97 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20005() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.wb wb0 = st.wb();
-                wb0.kg(-1, -2);
-                wb0.nbj("8dp", "8dp", "8dp", "8dp");
-                wb0.zf("发送诊断数据，有助于我们更好的为您解决问题，提升更新质量。\n您是否同意腕管Pro发送以下诊断数据？");
-                wb0.szzx("bold");
-                wb0.ztdx(13);
-                color = zf.zf(R.color.colorTextU1);
-                wb0.zfys(color);
-                xxbja.j(wb0);
-                wb0.wbj("3dp", "3dp", "3dp", "0dp");
+                android.widget.TextView wb0 = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wb0, -1, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wb0, "8dp", "8dp", "8dp", "8dp");
+                wb0.setText(String.valueOf("发送诊断数据，有助于我们更好的为您解决问题，提升更新质量。\n您是否同意腕管Pro发送以下诊断数据？"));
+                wb0.setTypeface(wb0.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wb0.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                wb0.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wb0);
+                open.cn.awg.pro.core.NativeViewValues.margins(wb0, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.dx dx1 = st.dx();
-                dx1.kg(-1, -2);
-                dx1.nbj("8dp", "8dp", "8dp", "8dp");
-                dx1.zf("允许发送腕管Pro于运行期间产生的日志数据\n*将用于提升用户体验");
-                dx1.bj(R.drawable.dxxbj);
-                xxbja.j(dx1);
-                dx1.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.CheckBox dx1 = new android.widget.CheckBox(context);
+                open.cn.awg.pro.core.NativeViewValues.size(dx1, -1, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(dx1, "8dp", "8dp", "8dp", "8dp");
+                dx1.setText(String.valueOf("允许发送腕管Pro于运行期间产生的日志数据\n*将用于提升用户体验"));
+                open.cn.awg.pro.core.NativeViewValues.background(dx1, R.drawable.dxxbj);
+                xxbja.addView(dx1);
+                open.cn.awg.pro.core.NativeViewValues.margins(dx1, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.dx dx2 = st.dx();
-                dx2.kg(-1, -2);
-                dx2.nbj("8dp", "8dp", "8dp", "8dp");
-                dx2.zf("允许发送位置信息服务运行期间产生的定位数据\n*将用于提高定位服务精确度");
-                dx2.bj(R.drawable.dxxbj);
-                xxbja.j(dx2);
-                dx2.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.CheckBox dx2 = new android.widget.CheckBox(context);
+                open.cn.awg.pro.core.NativeViewValues.size(dx2, -1, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(dx2, "8dp", "8dp", "8dp", "8dp");
+                dx2.setText(String.valueOf("允许发送位置信息服务运行期间产生的定位数据\n*将用于提高定位服务精确度"));
+                open.cn.awg.pro.core.NativeViewValues.background(dx2, R.drawable.dxxbj);
+                xxbja.addView(dx2);
+                open.cn.awg.pro.core.NativeViewValues.margins(dx2, "3dp", "3dp", "3dp", "0dp");
 
-                final i.runlibrary.app.v.dx dx3 = st.dx();
-                dx3.kg(-1, -2);
-                dx3.nbj("8dp", "8dp", "8dp", "8dp");
-                dx3.zf("允许发送用户部分隐私数据(包括但不限定于IP地址、IMEI及GPS定位信息等)\n*将用于改善用户体验");
-                dx3.bj(R.drawable.dxxbj);
-                xxbja.j(dx3);
-                dx3.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.CheckBox dx3 = new android.widget.CheckBox(context);
+                open.cn.awg.pro.core.NativeViewValues.size(dx3, -1, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(dx3, "8dp", "8dp", "8dp", "8dp");
+                dx3.setText(String.valueOf("允许发送用户部分隐私数据(包括但不限定于IP地址、IMEI及GPS定位信息等)\n*将用于改善用户体验"));
+                open.cn.awg.pro.core.NativeViewValues.background(dx3, R.drawable.dxxbj);
+                xxbja.addView(dx3);
+                open.cn.awg.pro.core.NativeViewValues.margins(dx3, "3dp", "3dp", "3dp", "0dp");
 
                 if (!debug.isShowed()) {
 
-                    dx1.xzzt(true);
-                    dx2.xzzt(true);
-                    dx3.xzzt(false);
+                    dx1.setChecked(java.lang.Boolean.TRUE.equals(true));
+                    dx2.setChecked(java.lang.Boolean.TRUE.equals(true));
+                    dx3.setChecked(java.lang.Boolean.TRUE.equals(false));
 
                 } else {
 
                     if (debug.getDebugState("1")) {
 
-                        dx1.xzzt(true);
+                        dx1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
                     }
 
                     if (debug.getDebugState("2")) {
 
-                        dx2.xzzt(true);
+                        dx2.setChecked(java.lang.Boolean.TRUE.equals(true));
 
                     }
 
                     if (debug.getDebugState("3")) {
 
-                        dx3.xzzt(true);
+                        dx3.setChecked(java.lang.Boolean.TRUE.equals(true));
 
                     }
 
                 }
 
-                i.runlibrary.app.v.an an0 = st.an();
-                an0.kg(-1, -2);
-                an0.zf("同意发送已选诊断数据");
-                an0.sj.dj(new View.OnClickListener() {
+                android.widget.Button an0 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an0, -1, -2);
+                an0.setText(String.valueOf("同意发送已选诊断数据"));
+                an0.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
                         String allowed = "";
 
-                        boolean dx_1 = dx1.xzzt();
+                        boolean dx_1 = dx1.isChecked();
 
-                        boolean dx_2 = dx2.xzzt();
+                        boolean dx_2 = dx2.isChecked();
 
-                        boolean dx_3 = dx3.xzzt();
+                        boolean dx_3 = dx3.isChecked();
 
                         if (dx_1 || dx_2 || dx_3) {
 
@@ -855,18 +861,18 @@ public class ExtensionPluginConfigBridge extends iClass {
                         }
                         debug.showed();
                         e1.tsk("提示", "已允许发送以下诊断数据：" + allowed);
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(context);
 
                     }
 
                 });
-                xxbja.j(an0);
-                an0.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an0);
+                open.cn.awg.pro.core.NativeViewValues.margins(an0, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("拒绝发送所有诊断数据");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("拒绝发送所有诊断数据"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
@@ -875,24 +881,24 @@ public class ExtensionPluginConfigBridge extends iClass {
                         debug.setDebugState("3", false);
                         debug.showed();
                         e1.tsk("提示", "已拒绝发送所有诊断数据");
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(context);
 
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -902,46 +908,46 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20006() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.wb wb0 = st.wb();
-                wb0.kg(-1, -2);
-                wb0.nbj("8dp", "8dp", "8dp", "8dp");
-                wb0.zf("腕管Pro - 配置工具\n快捷备份/恢复应用配置\n\n*重要说明\n1.使用此功能需要登录腕管Pro账户；\n2.同一备份文件仅限在登录同账户下的腕管Pro使用；\n3.若设备存储存在多个备份文件，将导入最新的备份文件完成备份恢复。");
-                wb0.szzx("bold");
-                wb0.ztdx(13);
-                color = zf.zf(R.color.colorTextU1);
-                wb0.zfys(color);
-                xxbja.j(wb0);
-                wb0.wbj("3dp", "3dp", "3dp", "0dp");
+                android.widget.TextView wb0 = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wb0, -1, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wb0, "8dp", "8dp", "8dp", "8dp");
+                wb0.setText(String.valueOf("腕管Pro - 配置工具\n快捷备份/恢复应用配置\n\n*重要说明\n1.使用此功能需要登录腕管Pro账户；\n2.同一备份文件仅限在登录同账户下的腕管Pro使用；\n3.若设备存储存在多个备份文件，将导入最新的备份文件完成备份恢复。"));
+                wb0.setTypeface(wb0.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wb0.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                wb0.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wb0);
+                open.cn.awg.pro.core.NativeViewValues.margins(wb0, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an0 = st.an();
-                an0.kg(-1, -2);
-                an0.zf("导出备份设置");
-                an0.sj.dj(new View.OnClickListener() {
+                android.widget.Button an0 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an0, -1, -2);
+                an0.setText(String.valueOf("导出备份设置"));
+                an0.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
-                                gj.zt(500);
+                                open.cn.awg.pro.core.NativeActions.sleep(500);
 
-                                AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+                                AppRuntimeBridge e1 = new AppRuntimeBridge(context);
                                 e1.app_backup();
                                 viewshow(0);
 
@@ -952,24 +958,24 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an0);
-                an0.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an0);
+                open.cn.awg.pro.core.NativeViewValues.margins(an0, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("导入备份设置");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("导入备份设置"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
                                 viewshow(1);
-                                gj.zt(500);
+                                open.cn.awg.pro.core.NativeActions.sleep(500);
 
-                                AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+                                AppRuntimeBridge e1 = new AppRuntimeBridge(context);
 
                                 if (!e1.app_gorecovery()) {
 
@@ -984,35 +990,35 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an2 = st.an();
-                an2.kg(-1, -2);
-                an2.zf("使用云备份");
-                an2.sj.dj(new View.OnClickListener() {
+                android.widget.Button an2 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an2, -1, -2);
+                an2.setText(String.valueOf("使用云备份"));
+                an2.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        gj.tz(CloudServiceActivity.class);
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (CloudServiceActivity.class));
+                        open.cn.awg.pro.core.NativeActions.finish(context);
 
                     }
 
                 });
-                xxbja.j(an2);
-                an2.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an2);
+                open.cn.awg.pro.core.NativeViewValues.margins(an2, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -1022,37 +1028,37 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void m20007() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                final i.runlibrary.app.v.bjk bjk1 = st.bjk();
-                bjk1.kg(-1, -2);
-                bjk1.tszf("请输入授权码");
-                color = zf.zf(R.color.colorTextU1);
-                bjk1.zfys(color);
-                color = zf.zf(R.color.colorTextU2);
-                bjk1.tszfys(color);
-                bjk1.ztdx(13);
-                bjk1.nbj("8dp", "8dp", "8dp", "8dp");
-                bjk1.xstyh(true);
-                xxbja.j(bjk1);
-                bjk1.wbj("3dp", "3dp", "3dp", "0dp");
+                final android.widget.EditText bjk1 = new android.widget.EditText(context);
+                open.cn.awg.pro.core.NativeViewValues.size(bjk1, -1, -2);
+                bjk1.setHint(String.valueOf("请输入授权码"));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                bjk1.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                bjk1.setHintTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                bjk1.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                open.cn.awg.pro.core.NativeViewValues.padding(bjk1, "8dp", "8dp", "8dp", "8dp");
+                bjk1.setSingleLine(java.lang.Boolean.TRUE.equals(true));
+                xxbja.addView(bjk1);
+                open.cn.awg.pro.core.NativeViewValues.margins(bjk1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-1, -2);
-                an1.zf("登录");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -1, -2);
+                an1.setText(String.valueOf("登录"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
@@ -1064,8 +1070,8 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                             state_login_base = true;
 
-                            final String code2 = bjk1.zf();
-                            gj.xc(new Thread() {
+                            final String code2 = bjk1.getText().toString();
+                            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                                 public void run() {
 
@@ -1075,9 +1081,9 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                                     String hqto = authurl + "/?path=info&code=" + code2;
 
-                                    String back = wl.hq(hqto, null, "utf-8", null, true, null, 5000, 5000, null);
+                                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(hqto), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(5000, -1), open.cn.awg.pro.core.TextValues.intValue(5000, -1), (String) (null)).bodyForHttp200();
 
-                                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                     } else {
 
@@ -1085,7 +1091,7 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                                     }
 
-                                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                         final String msg = "请求异常，请检查网络连接";
                                         e1.tsk("提示", msg);
@@ -1093,18 +1099,18 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                                     } else {
 
-                                        if (zf.dy(code, "200")) {
+                                        if (java.util.Objects.equals(code, "200")) {
 
                                             String mcu = e1.readJson(back, "data");
                                             mcu = e1.readJson(mcu, "netease_cookie");
                                             mcu = mcu + ";";
-                                            wj.xrwb(cookiepath, mcu);
+                                            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (cookiepath), (String) (mcu));
 
                                             final String msg = "登录成功";
                                             e1.tsk("提示", msg);
-                                            gj.gb();
+                                            open.cn.awg.pro.core.NativeActions.finish(context);
 
-                                        } else if (zf.dy(code, "400")) {
+                                        } else if (java.util.Objects.equals(code, "400")) {
 
                                             final String msg = e1.readJson(back, "message");
                                             e1.tsk("提示", msg);
@@ -1135,19 +1141,19 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                an1.wbj("3dp", "3dp", "3dp", "0dp");
+                xxbja.addView(an1);
+                open.cn.awg.pro.core.NativeViewValues.margins(an1, "3dp", "3dp", "3dp", "0dp");
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj("3dp", -2, "3dp", -2);
-                wba.zf("");
-                wba.szzx("bold");
-                wba.ztdx(9);
-                color = zf.zf(R.color.colorTextU2);
-                wba.zfys(color);
-                xxbja.j(wba);
-                root.j(xxbja);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, "3dp", -2, "3dp", -2);
+                wba.setText(String.valueOf(""));
+                wba.setTypeface(wba.getTypeface(), open.cn.awg.pro.core.NativeViewValues.textStyle("bold"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(9, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
+                root.addView(xxbja);
 
             }
 
@@ -1157,48 +1163,48 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void csh() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.tx tx1 = st.tx();
-                tx1.kg(-2, -2);
-                tx1.nbj(0, 20, 0, 0);
-                tx1.tx(R.mipmap.i);
-                xxbja.j(tx1);
+                android.widget.ImageView tx1 = new android.widget.ImageView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(tx1, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(tx1, 0, 20, 0, 0);
+                open.cn.awg.pro.core.NativeViewValues.image(tx1, R.mipmap.i);
+                xxbja.addView(tx1);
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj(20, 20, 20, 10);
-                wba.zf(title);
-                wba.ztdx(16);
-                color = zf.zf(R.color.colorTextU1);
-                wba.zfys(color);
-                xxbja.j(wba);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, 20, 20, 20, 10);
+                wba.setText(String.valueOf(title));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(16, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
 
-                i.runlibrary.app.v.wb wbb = st.wb();
-                wbb.kg(-2, -2);
-                wbb.nbj(20, 10, 20, 20);
-                wbb.zf("扩展插件ID: " + id);
-                wbb.ztdx(13);
-                color = zf.zf(R.color.colorTextU2);
-                wbb.zfys(color);
-                xxbja.j(wbb);
+                android.widget.TextView wbb = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wbb, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wbb, 20, 10, 20, 20);
+                wbb.setText(String.valueOf("扩展插件ID: " + id));
+                wbb.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU2);
+                wbb.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wbb);
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-2, -2);
-                an1.zf("打开指令框");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -2, -2);
+                an1.setText(String.valueOf("打开指令框"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
@@ -1207,8 +1213,8 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
-                root.j(xxbja);
+                xxbja.addView(an1);
+                root.addView(xxbja);
 
             }
 
@@ -1218,39 +1224,39 @@ public class ExtensionPluginConfigBridge extends iClass {
     }
 
     public void csh_e() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String color = "";
 
-                final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
-                root.scqb();
+                final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
+                root.removeAllViews();
 
-                i.runlibrary.app.v.xxbj xxbja = st.xxbj();
-                xxbja.kg(-1, -2);
-                xxbja.fx(1);
-                xxbja.dqfs("center");
+                android.widget.LinearLayout xxbja = new android.widget.LinearLayout(context);
+                open.cn.awg.pro.core.NativeViewValues.size(xxbja, -1, -2);
+                xxbja.setOrientation(open.cn.awg.pro.core.TextValues.intValue(1, -1));
+                xxbja.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.tx tx1 = st.tx();
-                tx1.kg(-2, -2);
-                tx1.nbj(0, 20, 0, 0);
-                tx1.tx(R.mipmap.i);
-                xxbja.j(tx1);
+                android.widget.ImageView tx1 = new android.widget.ImageView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(tx1, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(tx1, 0, 20, 0, 0);
+                open.cn.awg.pro.core.NativeViewValues.image(tx1, R.mipmap.i);
+                xxbja.addView(tx1);
 
-                i.runlibrary.app.v.wb wba = st.wb();
-                wba.kg(-2, -2);
-                wba.nbj(20, 20, 20, 20);
-                wba.zf("欢迎使用AwgRunable");
-                wba.ztdx(16);
-                color = zf.zf(R.color.colorTextU1);
-                wba.zfys(color);
-                xxbja.j(wba);
+                android.widget.TextView wba = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wba, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wba, 20, 20, 20, 20);
+                wba.setText(String.valueOf("欢迎使用AwgRunable"));
+                wba.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(16, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                wba.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wba);
 
-                i.runlibrary.app.v.an an0 = st.an();
-                an0.kg(-2, -2);
-                an0.zf("查看帮助文档");
-                an0.sj.dj(new View.OnClickListener() {
+                android.widget.Button an0 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an0, -2, -2);
+                an0.setText(String.valueOf("查看帮助文档"));
+                an0.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
@@ -1259,21 +1265,21 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an0);
+                xxbja.addView(an0);
 
-                i.runlibrary.app.v.wb wbb = st.wb();
-                wbb.kg(-2, -2);
-                wbb.nbj(20, 10, 20, 20);
-                wbb.zf("示例控件");
-                wbb.ztdx(13);
-                color = zf.zf(R.color.colorTextTrue);
-                wbb.zfys(color);
-                xxbja.j(wbb);
+                android.widget.TextView wbb = new android.widget.TextView(context);
+                open.cn.awg.pro.core.NativeViewValues.size(wbb, -2, -2);
+                open.cn.awg.pro.core.NativeViewValues.padding(wbb, 20, 10, 20, 20);
+                wbb.setText(String.valueOf("示例控件"));
+                wbb.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextTrue);
+                wbb.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                xxbja.addView(wbb);
 
-                i.runlibrary.app.v.an an1 = st.an();
-                an1.kg(-2, -2);
-                an1.zf("打开指令框");
-                an1.sj.dj(new View.OnClickListener() {
+                android.widget.Button an1 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an1, -2, -2);
+                an1.setText(String.valueOf("打开指令框"));
+                an1.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
@@ -1282,22 +1288,22 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an1);
+                xxbja.addView(an1);
 
-                i.runlibrary.app.v.an an2 = st.an();
-                an2.kg(-2, -2);
-                an2.zf("显隐标题栏");
-                an2.sj.dj(new View.OnClickListener() {
+                android.widget.Button an2 = new android.widget.Button(context);
+                open.cn.awg.pro.core.NativeViewValues.size(an2, -2, -2);
+                an2.setText(String.valueOf("显隐标题栏"));
+                an2.setOnClickListener(new View.OnClickListener() {
 
                     public void onClick(View _vw) {
 
-                        if (st.wb(R.id.title_bar).kjd() == 0) {
+                        if (((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).getVisibility() == android.view.View.VISIBLE) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.title_bar).kjd(8);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.GONE);
 
                                 }
 
@@ -1305,11 +1311,11 @@ public class ExtensionPluginConfigBridge extends iClass {
 
                         } else {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.title_bar).kjd(0);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
 
                                 }
 
@@ -1320,8 +1326,8 @@ public class ExtensionPluginConfigBridge extends iClass {
                     }
 
                 });
-                xxbja.j(an2);
-                root.j(xxbja);
+                xxbja.addView(an2);
+                root.addView(xxbja);
 
             }
 
@@ -1334,50 +1340,50 @@ public class ExtensionPluginConfigBridge extends iClass {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xdbj root = st.xdbj(R.id.plugin_runtime_view);
+        final android.widget.RelativeLayout root = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.plugin_runtime_view));
 
-        final i.runlibrary.app.v.xxbj load = st.xxbj(R.id.xxbj3);
+        final android.widget.LinearLayout load = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3));
 
-        final i.runlibrary.app.v.xxbj add = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout add = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4));
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.bjk cmd = st.bjk(R.id.bjk1);
+        final android.widget.EditText cmd = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1));
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-        gj.jmxc(new Runnable() {
+        final androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.qtgd1));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    root.kjd(0);
-                    load.kjd(8);
-                    add.kjd(8);
-                    tab.zf(titleback);
-                    tab.kjd(0);
-                    cmd.zf("");
+                    root.setVisibility(android.view.View.VISIBLE);
+                    load.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
+                    tab.setText(String.valueOf(titleback));
+                    tab.setVisibility(android.view.View.VISIBLE);
+                    cmd.setText(String.valueOf(""));
 
                 } else if (i == 1) {
 
-                    root.kjd(8);
-                    load.kjd(0);
-                    add.kjd(8);
-                    tab.zf(titleback2);
-                    tab.kjd(0);
-                    cmd.zf("");
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.VISIBLE);
+                    add.setVisibility(android.view.View.GONE);
+                    tab.setText(String.valueOf(titleback2));
+                    tab.setVisibility(android.view.View.VISIBLE);
+                    cmd.setText(String.valueOf(""));
 
                 } else if (i == 2) {
 
-                    root.kjd(8);
-                    load.kjd(8);
-                    add.kjd(0);
-                    tab.zf("指令框");
-                    tab.kjd(0);
-                    cmd.zf("");
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.VISIBLE);
+                    tab.setText(String.valueOf("指令框"));
+                    tab.setVisibility(android.view.View.VISIBLE);
+                    cmd.setText(String.valueOf(""));
 
                 }
-                qtgd1.v.requestFocus();
+                qtgd1.requestFocus();
 
             }
 
@@ -1387,26 +1393,26 @@ public class ExtensionPluginConfigBridge extends iClass {
 
     public void cmd() {
 
-        String c = st.bjk(R.id.bjk1).zf();
-        c = zf.qctwkg(c);
+        String c = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+        c = open.cn.awg.pro.core.TextValues.trim(c);
 
-        if (zf.dy(c, "")) {
+        if (java.util.Objects.equals(c, "")) {
 
             e1.tsk("提示", "指令不能为空");
 
         } else {
 
-            if (zf.dy(c, "exit")) {
+            if (java.util.Objects.equals(c, "exit")) {
 
                 viewshow(0);
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(context);
 
-            } else if (zf.dy(c, "help")) {
+            } else if (java.util.Objects.equals(c, "help")) {
 
                 viewshow(1);
                 csh_e();
 
-            } else if (zf.dy(c, "run")) {
+            } else if (java.util.Objects.equals(c, "run")) {
 
                 jz();
 

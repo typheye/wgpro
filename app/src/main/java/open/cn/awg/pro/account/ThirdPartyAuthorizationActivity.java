@@ -47,8 +47,8 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     public boolean isExit = false;
     public Drawable dbe;
     public String android_id;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TypheyeServiceBridge easy;
     private final View.OnClickListener tx6ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -80,6 +80,8 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        easy = new TypheyeServiceBridge(this);
         setContentView(R.layout.third_party_authorization);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -94,7 +96,7 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     }
 
     public void jz() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -105,10 +107,10 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
                     android_id = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
                     String urls = AppPaths.appPath("settings/f10/set2.inf");
-                    urls = wj.dqwb(urls);
+                    urls = open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (urls));
                     urls = e1.urlUnlockString(urls);
 
-                    if (zf.cjw(urls, "/")) {
+                    if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                     } else {
 
@@ -120,19 +122,19 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                     String post_ = "req=openawg_get&token=" + android_id;
 
-                    String[] post = zf.fg(post_, "&", false);
+                    String[] post = open.cn.awg.pro.core.TextValues.split(post_, "&", false);
 
                     if (e1.yz()) {
 
-                        String st2 = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String st2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (zf.dy(st2, null)) {
+                        if (java.util.Objects.equals(st2, null)) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb3).zf("网络异常");
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("网络异常"));
 
                                 }
 
@@ -145,20 +147,20 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                                 String code = e1.readJson(st2, "code");
 
-                                if (zf.dy(code, "0")) {
+                                if (java.util.Objects.equals(code, "0")) {
 
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.wb(R.id.wb3).zf("未经授权的请求");
+                                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("未经授权的请求"));
 
                                         }
 
                                     });
                                     show(1);
 
-                                } else if (zf.dy(code, "200")) {
+                                } else if (java.util.Objects.equals(code, "200")) {
 
                                     String ap = e1.readJson(st2, "ap");
 
@@ -166,38 +168,38 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                                     String imgurl = urls + "open/icon/" + ap + ".png";
                                     dbe = new BitmapDrawable(lei.getResources(), com.demo.e4.getURLimage(imgurl));
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.tx(R.id.tx5).tx(dbe);
-                                            st.wb(R.id.wb16).zf(an);
+                                            open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.tx5)), dbe);
+                                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb16)).setText(String.valueOf(an));
 
                                         }
 
                                     });
                                     zh();
 
-                                } else if (zf.dy(code, "20")) {
+                                } else if (java.util.Objects.equals(code, "20")) {
 
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.wb(R.id.wb3).zf("应用未获得授权");
+                                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("应用未获得授权"));
 
                                         }
 
                                     });
                                     show(1);
 
-                                } else if (zf.dy(code, "10")) {
+                                } else if (java.util.Objects.equals(code, "10")) {
 
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.wb(R.id.wb3).zf("请求超时");
+                                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("请求超时"));
 
                                         }
 
@@ -206,11 +208,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                                 } else {
 
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.wb(R.id.wb3).zf("未经授权的请求");
+                                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("未经授权的请求"));
 
                                         }
 
@@ -221,11 +223,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                             } catch (Throwable __$_e__) {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("未经授权的请求");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("未经授权的请求"));
 
                                     }
 
@@ -238,11 +240,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb3).zf("应用验证未通过");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("应用验证未通过"));
 
                             }
 
@@ -260,7 +262,7 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     }
 
     public void sq_true() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -271,10 +273,10 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
                 String set2 = AppPaths.appPath("settings/n1/set2.inf");
 
                 String urls = AppPaths.appPath("settings/f10/set2.inf");
-                urls = wj.dqwb(urls);
+                urls = open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (urls));
                 urls = e1.urlUnlockString(urls);
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -284,21 +286,21 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                 String url = urls + "api.php";
 
-                String post_ = "req=openawg_ctrl&token=" + android_id + "&state=true&uid=" + wj.dqwb(a) + "&uname=" + wj.dqwb(set2);
+                String post_ = "req=openawg_ctrl&token=" + android_id + "&state=true&uid=" + open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (a)) + "&uname=" + open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (set2));
 
-                String[] post = zf.fg(post_, "&", false);
+                String[] post = open.cn.awg.pro.core.TextValues.split(post_, "&", false);
 
                 if (e1.yz()) {
 
-                    String st2 = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                    String st2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(st2, null)) {
+                    if (java.util.Objects.equals(st2, null)) {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb3).zf("网络异常");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("网络异常"));
 
                             }
 
@@ -311,26 +313,26 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                             String code = e1.readJson(st2, "code");
 
-                            if (zf.dy(code, "200")) {
+                            if (java.util.Objects.equals(code, "200")) {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("已成功授权");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("已成功授权"));
 
                                     }
 
                                 });
                                 show(1);
 
-                            } else if (zf.dy(code, "10")) {
+                            } else if (java.util.Objects.equals(code, "10")) {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("请求超时");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("请求超时"));
 
                                     }
 
@@ -339,11 +341,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                             } else {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("授权失败");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("授权失败"));
 
                                     }
 
@@ -354,11 +356,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                         } catch (Throwable __$_e__) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb3).zf("授权失败");
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("授权失败"));
 
                                 }
 
@@ -378,7 +380,7 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     }
 
     public void sq_false() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -389,10 +391,10 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
                 String set2 = AppPaths.appPath("settings/n1/set2.inf");
 
                 String urls = AppPaths.appPath("settings/f10/set2.inf");
-                urls = wj.dqwb(urls);
+                urls = open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (urls));
                 urls = e1.urlUnlockString(urls);
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -404,19 +406,19 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                 String post_ = "req=openawg_ctrl&token=" + android_id + "&state=false";
 
-                String[] post = zf.fg(post_, "&", false);
+                String[] post = open.cn.awg.pro.core.TextValues.split(post_, "&", false);
 
                 if (e1.yz()) {
 
-                    String st2 = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                    String st2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(st2, null)) {
+                    if (java.util.Objects.equals(st2, null)) {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb3).zf("网络异常");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("网络异常"));
 
                             }
 
@@ -429,26 +431,26 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                             String code = e1.readJson(st2, "code");
 
-                            if (zf.dy(code, "200")) {
+                            if (java.util.Objects.equals(code, "200")) {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("已拒绝授权");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("已拒绝授权"));
 
                                     }
 
                                 });
                                 show(1);
 
-                            } else if (zf.dy(code, "10")) {
+                            } else if (java.util.Objects.equals(code, "10")) {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("请求超时");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("请求超时"));
 
                                     }
 
@@ -457,11 +459,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                             } else {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.wb3).zf("授权失败");
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("授权失败"));
 
                                     }
 
@@ -472,11 +474,11 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                         } catch (Throwable __$_e__) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb3).zf("授权失败");
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("授权失败"));
 
                                 }
 
@@ -499,32 +501,32 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout xxbj1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout xxbj4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
-        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(R.id.xxbj5);
-        gj.jmxc(new Runnable() {
+        final android.widget.LinearLayout xxbj5 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.xxbj5));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    xxbj1.kjd(0);
-                    xxbj4.kjd(8);
-                    xxbj5.kjd(8);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 1) {
 
-                    xxbj1.kjd(8);
-                    xxbj4.kjd(0);
-                    xxbj5.kjd(8);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 2) {
 
-                    xxbj1.kjd(8);
-                    xxbj4.kjd(8);
-                    xxbj5.kjd(0);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -535,7 +537,7 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     }
 
     public void zh() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -557,44 +559,44 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
                 String set4 = AppPaths.appPath("settings/n1/set4.inf");
 
-                if (!wj.cz(a) || !wj.cz(b)) {
+                if (!open.cn.awg.pro.core.NativeFiles.exists(ThirdPartyAuthorizationActivity.this, (String) (a)) || !open.cn.awg.pro.core.NativeFiles.exists(ThirdPartyAuthorizationActivity.this, (String) (b))) {
 
-                    st.wb(R.id.wb10).zf("未登录");
-                    st.wb(R.id.wb11).zf("");
-                    st.wb(R.id.wb6).zf("");
-                    st.wb(R.id.wb6).kjd(8);
-                    st.wb(R.id.wb11).kjd(8);
-                    st.tx(R.id.tx4).kjd(0);
-                    st.tx(R.id.tx7).kjd(8);
-                    st.wb(R.id.wb3).zf("请先登录您的账户后再操作");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("未登录"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb6)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.tx4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.tx7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("请先登录您的账户后再操作"));
                     show(1);
 
                 } else {
 
-                    te1 = wj.dqwb(set2);
-                    st.wb(R.id.wb10).zf(te1);
-                    st.wb(R.id.wb11).zf("UID:" + wj.dqwb(a));
-                    st.wb(R.id.wb6).zf("正");
-                    st.wb(R.id.wb6).kjd(8);
-                    st.wb(R.id.wb11).kjd(0);
-                    st.tx(R.id.tx4).kjd(0);
+                    te1 = open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (set2));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(te1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("UID:" + open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (a))));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb6)).setText(String.valueOf("正"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.tx4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
-                    if (!zf.dy(easy.getPerIcon(wj.dqwb(a)), "null")) {
+                    if (!java.util.Objects.equals(easy.getPerIcon(open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (a))), "null")) {
 
-                        st.tx(R.id.tx7).tx(easy.getPerIconPath(wj.dqwb(a)));
-                        st.tx(R.id.tx7).kjd(0);
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.tx7)), easy.getPerIconPath(open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (a))));
+                        ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.tx7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                     }
 
                     String set1 = AppPaths.appPath("settings/n1/set1.inf");
 
-                    if (zf.dy(wj.dqwb(set1), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ThirdPartyAuthorizationActivity.this, (String) (set1)), "true")) {
 
                         show(0);
 
                     } else {
 
-                        st.wb(R.id.wb3).zf("此账户不允许授权至第三方应用");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("此账户不允许授权至第三方应用"));
                         show(1);
 
                     }
@@ -616,9 +618,9 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     public void onStart() {
         super.onStart();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ThirdPartyAuthorizationActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -635,7 +637,7 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -677,21 +679,21 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ThirdPartyAuthorizationActivity.this);
 
     }
 
     private void onTx6Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 final String ca = AppPaths.appPath("cache/req/exit");
-                wj.xrwb(ca, "true");
+                open.cn.awg.pro.core.NativeFiles.writeText(ThirdPartyAuthorizationActivity.this, (String) (ca), (String) ("true"));
                 isExit = true;
                 show(2);
-                gj.zt(500);
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.finish(ThirdPartyAuthorizationActivity.this);
 
             }
 
@@ -705,24 +707,24 @@ public class ThirdPartyAuthorizationActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
 
-        ImageView i3621e3f4a1 = (ImageView) findViewById(ay, vw, R.id.tx7);
+        ImageView i3621e3f4a1 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx7);
 
-        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        LinearLayout i3f6c9f386b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj8);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
         __layoutIsLoaded(ay, vw);

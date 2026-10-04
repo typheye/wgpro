@@ -40,7 +40,7 @@ import open.cn.awg.pro.R;
 public class StoreSearchActivity extends BaseAwgActivity {
 
     public final StoreSearchActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -65,6 +65,7 @@ public class StoreSearchActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.store_search);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -73,11 +74,11 @@ public class StoreSearchActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(StoreSearchActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(StoreSearchActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -91,69 +92,69 @@ public class StoreSearchActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(StoreSearchActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(StoreSearchActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.store_search_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.store_search_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.store_search_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.store_search_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(StoreSearchActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(StoreSearchActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
         String[] sz = new String[]{"查找应用", "查找视频", "查找歌曲"};
-        xlcd1.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, sz);
 
     }
 
@@ -167,9 +168,9 @@ public class StoreSearchActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -186,7 +187,7 @@ public class StoreSearchActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -221,12 +222,12 @@ public class StoreSearchActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -238,35 +239,35 @@ public class StoreSearchActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(StoreSearchActivity.this);
 
     }
 
     private void onTx3Click(View vw) {
 
-        i.runlibrary.app.v.bjk bjk1 = st.bjk(R.id.bjk1);
+        android.widget.EditText bjk1 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.bjk1));
 
-        String code = zf.qctwkg(bjk1.zf());
+        String code = open.cn.awg.pro.core.TextValues.trim(bjk1.getText().toString());
 
-        if (zf.dy(code, "")) {
+        if (java.util.Objects.equals(code, "")) {
 
             e1.tsk("提示", "搜索内容不能为空");
 
         } else {
 
-            i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+            android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(StoreSearchActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
             String vfg = "";
 
-            if (xlcd1.dqzsxmxh() == 0) {
+            if (xlcd1.getLastVisiblePosition() == 0) {
 
                 vfg = "app";
 
-            } else if (xlcd1.dqzsxmxh() == 1) {
+            } else if (xlcd1.getLastVisiblePosition() == 1) {
 
                 vfg = "video";
 
-            } else if (xlcd1.dqzsxmxh() == 2) {
+            } else if (xlcd1.getLastVisiblePosition() == 2) {
 
                 vfg = "music";
 
@@ -275,11 +276,11 @@ public class StoreSearchActivity extends BaseAwgActivity {
             final String[] iyu = new String[]{"type", "code"};
 
             final String[] val = new String[]{vfg, code};
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(StoreListActivity.class, iyu, val);
+                    open.cn.awg.pro.core.NativeActions.launch(StoreSearchActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
 
                 }
 
@@ -295,15 +296,15 @@ public class StoreSearchActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
         __layoutIsLoaded(ay, vw);

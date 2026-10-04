@@ -24,7 +24,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.IBinder;
 
-import i.runlibrary.app.AppInfo;
 
 import java.io.File;
 
@@ -35,9 +34,9 @@ import open.cn.awg.pro.R;
 
 public class AwgCoreService extends Service {
 
-    private AppInfo myu_;
+    private Context runtimeContext;
     private Context context;
-    // Marker file used by legacy iApp scripts to decide whether the core runtime should be re-created.
+    // Marker file used by background tasks to decide whether the core runtime should be re-created.
     private final String runPath = AppPaths.appPath("data/AwgCoreService.r");
 
     private NotificationManager notificationManager;
@@ -59,9 +58,9 @@ public class AwgCoreService extends Service {
         context = AwgProApplication.getContext();
     }
 
-    public void myu(AppInfo myu, Context too) {
-        CoreRuntimeBootstrap aa = new CoreRuntimeBootstrap(myu);
-        myu_ = myu;
+    public void myu(Context too) {
+        CoreRuntimeBootstrap aa = new CoreRuntimeBootstrap(too);
+        runtimeContext = too;
     }
 
     private Notification getNotification() {
@@ -117,9 +116,9 @@ public class AwgCoreService extends Service {
             File mfile = new File(runPath);
             while (flag) {
                 try {
-                    // If the runtime marker disappears, rebuild the iApp entry object.
+                    // If the runtime marker disappears, rebuild the native core entry object.
                     if (!mfile.exists()) {
-                        myu(myu_, context);
+                        myu(runtimeContext == null ? context : runtimeContext);
                     }
                     //间隔
                     Thread.sleep(5000);

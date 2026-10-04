@@ -17,7 +17,6 @@
 package open.cn.awg.pro.store;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -54,7 +53,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
     public String cp_id = "";
     public String oback = "";
     public String nopay_why2 = "";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public boolean zfxh = true;
     public boolean zfqx = false;
     public boolean st_zf0 = false;
@@ -171,13 +170,14 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.product_purchase);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        cp_name = sj.hqtz("name");
-        cp_jg = Double.parseDouble(sj.hqtz("jg"));
-        cp_text = sj.hqtz("text");
-        cp_id = sj.hqtz("id");
+        cp_name = ProductPurchaseActivity.this.getIntent().getStringExtra(String.valueOf("name"));
+        cp_jg = Double.parseDouble(ProductPurchaseActivity.this.getIntent().getStringExtra(String.valueOf("jg")));
+        cp_text = ProductPurchaseActivity.this.getIntent().getStringExtra(String.valueOf("text"));
+        cp_id = ProductPurchaseActivity.this.getIntent().getStringExtra(String.valueOf("id"));
         zt(0);
         payconf();
         show(0);
@@ -186,11 +186,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -204,62 +204,62 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.product_purchase_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.product_purchase_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.product_purchase_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.product_purchase_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(ProductPurchaseActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
@@ -269,16 +269,16 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(true);
-                    st.wb(R.id.title_bar).zf("< 产品购买");
-                    st.xxbj(R.id.xxbj1).kjd(0);
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(8);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(ProductPurchaseActivity.this, !(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -286,16 +286,16 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(true);
-                    st.wb(R.id.title_bar).zf("产品购买");
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(0);
-                    st.xxbj(R.id.xxbj5).kjd(8);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(ProductPurchaseActivity.this, !(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -303,16 +303,16 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(false);
-                    st.wb(R.id.title_bar).zf("产品购买");
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(0);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(ProductPurchaseActivity.this, !(false));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -324,26 +324,26 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public void payconf() {
 
-        final i.runlibrary.app.v.xdbj xdbj7 = st.xdbj(R.id.xdbj7);
+        final android.widget.RelativeLayout xdbj7 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj7));
 
-        final i.runlibrary.app.v.xdbj xdbj8 = st.xdbj(R.id.xdbj8);
+        final android.widget.RelativeLayout xdbj8 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj8));
 
-        final i.runlibrary.app.v.wb wb18 = st.wb(R.id.wb18);
+        final android.widget.TextView wb18 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb18));
 
         if (!st_payconf) {
 
             st_payconf = true;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            xdbj7.kjd(8);
-                            xdbj8.kjd(8);
-                            wb18.kjd(0);
+                            xdbj7.setVisibility(android.view.View.GONE);
+                            xdbj8.setVisibility(android.view.View.GONE);
+                            wb18.setVisibility(android.view.View.VISIBLE);
 
                         }
 
@@ -353,22 +353,22 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                     if (e1.yz()) {
 
-                        if (zf.dy(cp_name, "") || zf.dy(cp_text, "")) {
+                        if (java.util.Objects.equals(cp_name, "") || java.util.Objects.equals(cp_text, "")) {
 
                             payconf$error("");
 
                         } else if (cp_jg == 0) {
 
-                            gj.zt(1500);
+                            open.cn.awg.pro.core.NativeActions.sleep(1500);
                             show(0);
                             zt(1);
                             e1.zfwc(cp_id);
 
                         } else {
 
-                            String back = wl.hq(url2 + "/app/open.cn.awg.pro/pay_config_v3.json", null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url2 + "/app/open.cn.awg.pro/pay_config_v3.json"), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                            if (zf.dy(back, "") || zf.dy(back, null)) {
+                            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                 payconf$error("");
 
@@ -380,15 +380,15 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                     String nopay_why = e1.readJson(back, "nopay_why");
 
-                                    if (zf.dy(can_pay, "1")) {
+                                    if (java.util.Objects.equals(can_pay, "1")) {
 
-                                        gj.jmxc(new Runnable() {
+                                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                             public void run() {
 
-                                                xdbj8.kjd(8);
-                                                xdbj7.kjd(0);
-                                                wb18.kjd(8);
+                                                xdbj8.setVisibility(android.view.View.GONE);
+                                                xdbj7.setVisibility(android.view.View.VISIBLE);
+                                                wb18.setVisibility(android.view.View.GONE);
 
                                             }
 
@@ -433,11 +433,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
     public void payconf$error(Object t) {
         st_payconf = false;
 
-        final i.runlibrary.app.v.wb wb18 = st.wb(R.id.wb18);
+        final android.widget.TextView wb18 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb18));
 
-        final i.runlibrary.app.v.xdbj xdbj8 = st.xdbj(R.id.xdbj8);
+        final android.widget.RelativeLayout xdbj8 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj8));
 
-        if (zf.dy(t, "")) {
+        if (java.util.Objects.equals(t, "")) {
 
             nopay_why2 = "获取支付方式失败\n网络异常，请稍后重试";
 
@@ -446,12 +446,12 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             nopay_why2 = String.valueOf(t);
 
         }
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                wb18.kjd(8);
-                xdbj8.kjd(0);
+                wb18.setVisibility(android.view.View.GONE);
+                xdbj8.setVisibility(android.view.View.VISIBLE);
 
             }
 
@@ -468,16 +468,16 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
         final Object j3 = c;
 
         final Object j4 = d;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 String urls = "";
 
                 final String set2 = AppPaths.appPath("settings/f11/set2.inf");
-                urls = e1.urlUnlockString(wj.dqwb(set2));
+                urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (set2)));
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -485,11 +485,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                 }
 
-                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                String ljf = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
                 String idget = urls + "class/api.php?type=release" + ljf + "id=600";
 
-                if (zf.dy(j1, "") || zf.dy(j2, "") || zf.dy(j3, "") || zf.dy(j4, "")) {
+                if (java.util.Objects.equals(j1, "") || java.util.Objects.equals(j2, "") || java.util.Objects.equals(j3, "") || java.util.Objects.equals(j4, "")) {
 
                 } else {
 
@@ -507,15 +507,15 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                     String[] wlhq1 = new String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
 
-                    String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (wlhq1), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         setback = "0";
 
                     } else {
 
-                        if (zf.dy(setback, "0")) {
+                        if (java.util.Objects.equals(setback, "0")) {
 
                             setback = "0";
 
@@ -527,11 +527,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                     }
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                     } else {
 
-                        if (zf.dy(setback, "true")) {
+                        if (java.util.Objects.equals(setback, "true")) {
 
                         } else {
 
@@ -550,7 +550,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
     public void zt(int a) {
 
         final int i = a;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -558,39 +558,39 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                     String cp_jg_;
                     cp_jg_ = com.demo.e4.doubleToString(cp_jg);
-                    st.wb(R.id.wb10).zf("¥" + cp_jg_);
-                    st.wb(R.id.wb11).zf("待支付");
-                    st.wb(R.id.wb11).kjd(0);
-                    st.tx(R.id.tx4).tx(R.mipmap.a27);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("¥" + cp_jg_));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("待支付"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.tx4)), R.mipmap.a27);
 
-                    String color = zf.zf(R.color.colorAccent);
-                    st.kp(R.id.kp4).kpbjys(color);
-                    st.xdbj(R.id.xdbj6).kjd(8);
-                    st.xxbj(R.id.xxbj7).kjd(0);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorAccent);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.kp4)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj6)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.VISIBLE);
 
                 } else if (i == 1) {
 
-                    st.wb(R.id.wb10).zf("支付成功");
-                    st.wb(R.id.wb11).zf("");
-                    st.wb(R.id.wb11).kjd(8);
-                    st.tx(R.id.tx4).tx(R.mipmap.a28);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("支付成功"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.GONE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.tx4)), R.mipmap.a28);
 
-                    String color = zf.zf(R.color.colorTextTrue);
-                    st.kp(R.id.kp4).kpbjys(color);
-                    st.xdbj(R.id.xdbj6).kjd(8);
-                    st.xxbj(R.id.xxbj7).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextTrue);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.kp4)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj6)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
 
                 } else if (i == 2) {
 
-                    st.wb(R.id.wb10).zf("支付失败");
-                    st.wb(R.id.wb11).zf("");
-                    st.wb(R.id.wb11).kjd(8);
-                    st.tx(R.id.tx4).tx(R.mipmap.a29);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("支付失败"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.GONE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.tx4)), R.mipmap.a29);
 
-                    String color = zf.zf(R.color.colorTextFalse);
-                    st.kp(R.id.kp4).kpbjys(color);
-                    st.xdbj(R.id.xdbj6).kjd(0);
-                    st.xxbj(R.id.xxbj7).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextFalse);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.kp4)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj6)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -607,18 +607,18 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             st_zf0 = true;
 
             final String type = "default";
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     show(1);
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
 
                     String set2 = AppPaths.appPath("settings/f7/Enable");
 
                     if (e1.yz()) {
 
-                        if (zf.dy(cp_name, "") || cp_jg == 0 || zf.dy(cp_text, "")) {
+                        if (java.util.Objects.equals(cp_name, "") || cp_jg == 0 || java.util.Objects.equals(cp_text, "")) {
 
                             oback = "支付失败:参数错误";
                             e1.tsk("提示", oback);
@@ -627,9 +627,9 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                         } else {
 
-                            String back = wl.hq(url2 + "/app/open.cn.awg.pro/pay_config_v3.json", null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url2 + "/app/open.cn.awg.pro/pay_config_v3.json"), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                            if (zf.dy(back, "") || zf.dy(back, null)) {
+                            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                 oback = "支付失败:连接服务器超时";
                                 e1.tsk("提示", oback);
@@ -642,19 +642,19 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                     String pid = "awg";
 
-                                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                                    String ljf = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
                                     String cp_jg_;
                                     cp_jg_ = com.demo.e4.doubleToString(cp_jg);
 
-                                    final String otn = "D" + xt.sj(4) + IappCompat.zh(sj.zh()).zstring(zf.sjs(10000000, 99999999));
+                                    final String otn = "D" + open.cn.awg.pro.core.NativeDevice.formatDate(4) + open.cn.awg.pro.core.TextValues.string(open.cn.awg.pro.core.TextValues.randomInclusive(10000000, 99999999));
 
                                     String lock = "money=" + cp_jg_ + "&name=" + cp_name + "&id=" + cp_id + "&out_trade_no=" + otn + "&pid=" + pid + "&type=" + type;
 
-                                    String get = "/api/v3/?" + lock + "&sign=" + sj.md5(lock);
-                                    back = wl.hq(url + get, null, "utf-8", null, true, null, 20000, 20000, null);
+                                    String get = "/api/v3/?" + lock + "&sign=" + open.cn.awg.pro.core.TextValues.md5(lock);
+                                    back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + get), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                         oback = "支付失败:连接服务器超时";
                                         e1.tsk("提示", oback);
@@ -665,19 +665,19 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                         String ce = e1.readJson(back, "code");
 
-                                        if (zf.dy(ce, "200")) {
+                                        if (java.util.Objects.equals(ce, "200")) {
 
                                             try {
 
-                                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                                                org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                                                JSONObject json = jo.json;
+                                                JSONObject json = jo;
 
-                                                Object v_id = jo.hq(json, "trade_no");
+                                                Object v_id = open.cn.awg.pro.core.JsonValues.value(json, "trade_no");
 
-                                                Object v_v = jo.hq(json, "qrcode");
+                                                Object v_v = open.cn.awg.pro.core.JsonValues.value(json, "qrcode");
 
-                                                if (!zf.dy(v_id, "") && !zf.dy(v_v, "")) {
+                                                if (!java.util.Objects.equals(v_id, "") && !java.util.Objects.equals(v_v, "")) {
 
                                                     zf0_xh(v_v, v_id, type);
 
@@ -756,7 +756,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             final Object v_id = v_id_;
 
             final Object type = type_;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
@@ -765,11 +765,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                     show(2);
                     zt(0);
                     ewm(String.valueOf(v_v));
-                    wj.xrwb(pay_cache, v_id);
+                    open.cn.awg.pro.core.NativeFiles.writeText(ProductPurchaseActivity.this, (String) (pay_cache), (String) (v_id));
 
                     while (zfxh) {
 
-                        gj.zt(3000);
+                        open.cn.awg.pro.core.NativeActions.sleep(3000);
 
                         if (zfqx) {
 
@@ -782,15 +782,15 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                         }
 
-                        String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                        String ljf = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
-                        String id = wj.dqwb(pay_cache);
+                        String id = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (pay_cache));
 
                         String send = "/api/v3/reback/?trade_no=" + id;
 
-                        String back = wl.hq(url + send, "utf-8");
+                        String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), null, (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             zfxh = false;
                             oback = "支付失败:连接服务器超时";
@@ -803,17 +803,17 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                             String ce = e1.readJson(back, "code");
 
-                            if (zf.dy(ce, "200")) {
+                            if (java.util.Objects.equals(ce, "200")) {
 
                                 try {
 
-                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                                    org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                                    JSONObject json = jo.json;
+                                    JSONObject json = jo;
 
-                                    final String v_status = IappCompat.zh(sj.zh()).zstring(jo.hq(json, "status"));
+                                    final String v_status = open.cn.awg.pro.core.TextValues.string(open.cn.awg.pro.core.JsonValues.value(json, "status"));
 
-                                    if (zf.dy(v_status, "1")) {
+                                    if (java.util.Objects.equals(v_status, "1")) {
 
                                         show(0);
                                         zt(1);
@@ -822,7 +822,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                                         e1.zfwc(cp_id);
                                         break;
 
-                                    } else if (zf.dy(v_status, "-1")) {
+                                    } else if (java.util.Objects.equals(v_status, "-1")) {
 
                                         zfxh = false;
                                         oback = "支付失败:超时支付";
@@ -830,7 +830,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                                         show(0);
                                         zt(2);
 
-                                    } else if (zf.dy(v_status, "-2")) {
+                                    } else if (java.util.Objects.equals(v_status, "-2")) {
 
                                         zfxh = false;
                                         oback = "支付失败:订单已关闭";
@@ -880,7 +880,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
     public void ewm(String url) {
 
         final String qr = url;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -890,11 +890,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                     Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                     imageView.setImageBitmap(bitmap);
 
-                    st.tx(R.id.tx3).kjd(0);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(android.view.View.VISIBLE);
 
                 } catch (Throwable e) {
 
-                    st.tx(R.id.tx3).kjd(8);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -914,9 +914,9 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -933,7 +933,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -951,17 +951,17 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public boolean onKeyDown(int kc, KeyEvent ke) {
 
-        if (kc == 4 && st.xxbj(R.id.xxbj1).kjd() == 0) {
+        if (kc == 4 && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("< 产品购买");
-                        st.xxbj(R.id.xxbj9).kjd(8);
-                        st.xxbj(R.id.xxbj1).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -969,13 +969,13 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
             } else {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("提示");
-                        st.xxbj(R.id.xxbj9).kjd(0);
-                        st.xxbj(R.id.xxbj1).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                     }
 
@@ -996,17 +996,17 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 产品购买") && st.xxbj(R.id.xxbj1).kjd() == 0) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 产品购买") && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("< 产品购买");
-                        st.xxbj(R.id.xxbj9).kjd(8);
-                        st.xxbj(R.id.xxbj1).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -1014,13 +1014,13 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
             } else {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("提示");
-                        st.xxbj(R.id.xxbj9).kjd(0);
-                        st.xxbj(R.id.xxbj1).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                     }
 
@@ -1034,11 +1034,11 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private void onXxbj8Click(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb10).zf(), "支付成功")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString(), "支付成功")) {
 
             e1.tsk("提示", "您已成功完成支付");
 
-        } else if (zf.dy(st.wb(R.id.wb10).zf(), "支付失败")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString(), "支付失败")) {
 
             e1.tsk("提示", oback);
 
@@ -1062,9 +1062,9 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1078,9 +1078,9 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb15).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
 
-        String lj = st.wb(R.id.wb16).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1093,9 +1093,9 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private boolean onXdbj7LongClick(View vw) {
 
-        String te = st.wb(R.id.wb19).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString();
 
-        String lj = st.wb(R.id.wb20).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb20)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1103,22 +1103,22 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private void onXdbj8Click(View vw) {
         e1.tsk("产品购买", nopay_why2);
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ProductPurchaseActivity.this);
 
     }
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb21).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb21)).getText().toString();
 
-        String lj = st.wb(R.id.wb22).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.wb22)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ProductPurchaseActivity.this);
 
     }
 
@@ -1129,21 +1129,21 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ProductPurchaseActivity.this);
 
     }
 
     private void onTx5Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< 产品购买");
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1151,13 +1151,13 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("提示");
-                    st.xxbj(R.id.xxbj9).kjd(0);
-                    st.xxbj(R.id.xxbj1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -1169,15 +1169,15 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private void onTx6Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< 产品购买");
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1185,20 +1185,20 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("提示");
-                    st.xxbj(R.id.xxbj9).kjd(0);
-                    st.xxbj(R.id.xxbj1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                 }
 
             });
 
         }
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ProductPurchaseActivity.this);
 
     }
 
@@ -1208,43 +1208,43 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
 
-        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        LinearLayout i3f6c9f386b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj8);
         i3f6c9f386b.setOnClickListener(xxbj8ClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
         e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
         __layoutIsLoaded(ay, vw);

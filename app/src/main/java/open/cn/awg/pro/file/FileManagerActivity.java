@@ -17,7 +17,6 @@
 package open.cn.awg.pro.file;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -46,11 +45,11 @@ import open.cn.awg.pro.ui.main.TextQrDisplayActivity;
 public class FileManagerActivity extends BaseAwgActivity {
 
     public final FileManagerActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
 
     public String titles = "";
 
-    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+    public LocalDatabaseBridge e11;
 
     public String jmroot = "";
     private final View.OnTouchListener xxbj10TouchListener = new View.OnTouchListener() {
@@ -165,6 +164,8 @@ public class FileManagerActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e11 = new LocalDatabaseBridge(this);
         setContentView(R.layout.file_manager);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -173,25 +174,25 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         String ftitle = AppPaths.appPath("cache/file/title");
 
-        if (zf.dy(wj.dqwb(ftitle), null)) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (ftitle)), null)) {
 
-            wj.xrwb(ftitle, "< 文件管理");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (ftitle), (String) ("< 文件管理"));
 
         }
-        titles = wj.dqwb(ftitle);
-        st.wb(R.id.title_bar).zf(wj.dqwb(ftitle));
+        titles = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (ftitle));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (ftitle))));
         e1.csh();
 
-        String urls = sj.hqtz("url");
+        String urls = FileManagerActivity.this.getIntent().getStringExtra(String.valueOf("url"));
 
-        String roots = sj.hqtz("root");
+        String roots = FileManagerActivity.this.getIntent().getStringExtra(String.valueOf("root"));
 
-        if (zf.dy(urls, "") || zf.dy(urls, null) || zf.dy(roots, "") || zf.dy(roots, null)) {
+        if (java.util.Objects.equals(urls, "") || java.util.Objects.equals(urls, null) || java.util.Objects.equals(roots, "") || java.util.Objects.equals(roots, null)) {
 
-            roots = wj.hqml("%");
-            urls = wj.hqml("%");
+            roots = open.cn.awg.pro.core.NativeFiles.resolvePath(FileManagerActivity.this, (String) ("%"));
+            urls = open.cn.awg.pro.core.NativeFiles.resolvePath(FileManagerActivity.this, (String) ("%"));
 
-            if (zf.cjw(roots, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(roots, "/")) {
 
             } else {
 
@@ -200,10 +201,10 @@ public class FileManagerActivity extends BaseAwgActivity {
             }
             jmroot = roots;
             e1.NewFilesLoad(urls, roots);
-            wj.xrwb(cache00, roots);
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (cache00), (String) (roots));
             GlobalRuntimeState.d1_rootpath = roots;
 
-            int sdk = IappCompat.sdk(xt.sbxx());
+            int sdk = android.os.Build.VERSION.SDK_INT;
 
             if (sdk >= 30) {
 
@@ -213,12 +214,12 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         } else {
 
-            roots = zf.qctwkg(roots);
-            roots = wj.hqml(roots);
-            urls = zf.qctwkg(urls);
-            urls = wj.hqml(urls);
+            roots = open.cn.awg.pro.core.TextValues.trim(roots);
+            roots = open.cn.awg.pro.core.NativeFiles.resolvePath(FileManagerActivity.this, (String) (roots));
+            urls = open.cn.awg.pro.core.TextValues.trim(urls);
+            urls = open.cn.awg.pro.core.NativeFiles.resolvePath(FileManagerActivity.this, (String) (urls));
 
-            if (zf.cjw(roots, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(roots, "/")) {
 
             } else {
 
@@ -233,14 +234,14 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         String set = AppPaths.appPath("settings/set3.inf");
 
-        if (zf.dy(wj.dqwb(set), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (set)), "true")) {
 
-            String te = wj.dqwb(AppPaths.appPath("data/assets/a4"));
+            String te = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (AppPaths.appPath("data/assets/a4")));
 
             String[] name = new String[]{"title", "text"};
 
             String[] value = new String[]{"新手教程", te};
-            gj.tz(TextQrDisplayActivity.class, name, value);
+            open.cn.awg.pro.core.NativeActions.launch(FileManagerActivity.this, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
         }
 
@@ -250,15 +251,15 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         final String a041 = AppPaths.appPath("cache/tab");
 
-        if (st.xxbj(R.id.xxbj3).kjd() == 8 && st.xxbj(R.id.xxbj6).kjd() == 8 && st.xxbj(R.id.xxbj7).kjd() == 8 && st.xxbj(R.id.xxbj5).kjd() == 8) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj3)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj6)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj7)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj5)).getVisibility() == android.view.View.GONE) {
 
             if (a == 1) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        wj.xrwb(a041, "false");
+                        open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (a041), (String) ("false"));
 
                     }
 
@@ -266,11 +267,11 @@ public class FileManagerActivity extends BaseAwgActivity {
 
             } else if (a == -1) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        wj.xrwb(a041, "true");
+                        open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (a041), (String) ("true"));
 
                     }
 
@@ -278,12 +279,12 @@ public class FileManagerActivity extends BaseAwgActivity {
 
             } else {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.ts1).g(0);
-                        wj.xrwb(a041, "false");
+                        open.cn.awg.pro.core.NativeViewValues.height(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.ts1)), 0);
+                        open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (a041), (String) ("false"));
 
                     }
 
@@ -300,7 +301,7 @@ public class FileManagerActivity extends BaseAwgActivity {
         applyStandardScreenMode(R.id.file_manager_root, R.id.xdbj2, R.id.title_bar);
 
         final String a041 = AppPaths.appPath("cache/tab");
-        wj.xrwb(a041, "true");
+        open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (a041), (String) ("true"));
 
     }
 
@@ -308,11 +309,11 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            String url = st.wb(R.id.zywblj).zf();
+            String url = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.zywblj)).getText().toString();
 
-            if (zf.dy(url, jmroot)) {
+            if (java.util.Objects.equals(url, jmroot)) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(FileManagerActivity.this);
 
             } else {
 
@@ -334,11 +335,11 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         String cache_es = AppPaths.appPath("cache/es");
 
-        if (wj.cz(cache_c) && wj.cz(cache_es)) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(FileManagerActivity.this, (String) (cache_c)) && open.cn.awg.pro.core.NativeFiles.exists(FileManagerActivity.this, (String) (cache_es))) {
 
-            e1.sx(wj.dqwb(cache_c), wj.dqwb(cache_es));
-            wj.sc(cache_c);
-            wj.sc(cache_es);
+            e1.sx(open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (cache_c)), open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (cache_es)));
+            open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (cache_c), false);
+            open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (cache_es), false);
 
         }
 
@@ -358,20 +359,20 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         String set4 = AppPaths.appPath("settings/d1/set4.inf");
 
-        if (zf.dy(wj.dqwb(set4), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (set4)), "false")) {
 
-            wj.sc(cache1);
-            wj.sc(cache2);
-            wj.sc(cache3);
-            wj.sc(cache00);
+            open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (cache1), false);
+            open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (cache2), false);
+            open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (cache3), false);
+            open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (cache00), false);
 
         }
 
         String ftitle = AppPaths.appPath("cache/file/title");
-        wj.sc(ftitle);
+        open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (ftitle), false);
 
         String choose = AppPaths.appPath("cache/file/choose");
-        wj.sc(choose);
+        open.cn.awg.pro.core.NativeFiles.delete(FileManagerActivity.this, (String) (choose), false);
 
     }
 
@@ -385,12 +386,12 @@ public class FileManagerActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(R.id.v7lb1);
-        v7lb1.v.requestFocus();
+        androidx.recyclerview.widget.RecyclerView v7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+        v7lb1.requestFocus();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -419,13 +420,13 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         String r = titles;
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 文件管理") || zf.dy(st.wb(R.id.title_bar).zf(), r)) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 文件管理") || java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), r)) {
 
-            String url = st.wb(R.id.zywblj).zf();
+            String url = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.zywblj)).getText().toString();
 
-            if (zf.dy(url, jmroot)) {
+            if (java.util.Objects.equals(url, jmroot)) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(FileManagerActivity.this);
 
             } else {
 
@@ -445,9 +446,9 @@ public class FileManagerActivity extends BaseAwgActivity {
 
     private void onV7lb1ScrollStateChanged(RecyclerView vw, int ns) {
 
-        int lwz = st.v7lb(R.id.v7lb1).zhkjxm();
+        int lwz = open.cn.awg.pro.core.NativeViewValues.lastVisible(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.v7lb1)));
 
-        String cpath = st.wb(R.id.zywblj).zf();
+        String cpath = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.zywblj)).getText().toString();
 
         if (ns == RecyclerView.SCROLL_STATE_IDLE) {
 
@@ -505,12 +506,12 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -530,7 +531,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         try {
 
-            String bzf = st.bjk(R.id.bjk1).zf();
+            String bzf = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
 
             String cache3 = AppPaths.appPath("cache/3");
 
@@ -540,31 +541,31 @@ public class FileManagerActivity extends BaseAwgActivity {
 
             String cachec3 = AppPaths.appPath("cache/c3");
 
-            String wa = wj.dqwb(cache3);
+            String wa = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (cache3));
 
-            String wb = wj.dqwb(cachec1);
+            String wb = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (cachec1));
 
-            String wc = wj.dqwb(cachec2);
+            String wc = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (cachec2));
 
-            String wd = wj.dqwb(cachec3);
+            String wd = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (cachec3));
 
-            AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+            AppRuntimeBridge e1 = new AppRuntimeBridge(FileManagerActivity.this);
 
             String[] aa;
-            bzf = zf.qctwkg(bzf);
+            bzf = open.cn.awg.pro.core.TextValues.trim(bzf);
 
-            if (zf.dy(bzf, "") || zf.dy(bzf, null)) {
+            if (java.util.Objects.equals(bzf, "") || java.util.Objects.equals(bzf, null)) {
 
                 final String z = "编辑框不能为空";
-                gj.ts(z);
+                open.cn.awg.pro.core.NativeActions.toast(FileManagerActivity.this, z);
 
             } else {
 
                 String we = wd + bzf;
 
-                if (zf.dy(wa, "重命名")) {
+                if (java.util.Objects.equals(wa, "重命名")) {
 
-                    if (zf.dy(wc, we)) {
+                    if (java.util.Objects.equals(wc, we)) {
 
                         final String z = "重命名失败\n文件(夹)已存在";
                         e1.tsk("提示", z);
@@ -585,7 +586,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
                         String pb7 = "/storage/emulated/0/Android/obb";
 
-                        if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb7))) {
+                        if (open.cn.awg.pro.core.TextValues.startsWith(we, pb1) || open.cn.awg.pro.core.TextValues.startsWith(we, pb2) || open.cn.awg.pro.core.TextValues.startsWith(we, pb3) || open.cn.awg.pro.core.TextValues.startsWith(we, pb4) || open.cn.awg.pro.core.TextValues.startsWith(we, pb5) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(we, pb6)) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(we, pb7))) {
 
                             e1.tsk("提示", "非法操作");
 
@@ -594,12 +595,12 @@ public class FileManagerActivity extends BaseAwgActivity {
                             String m = "mv \"" + wc + "\" \"" + we + "\"";
                             aa = com.demo.e3.cmd(lei, m, false);
 
-                            if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
+                            if (java.util.Objects.equals(aa[0], "") && !java.util.Objects.equals(aa[1], "")) {
 
                                 final String z = "重命名失败\n" + aa[1];
                                 e1.tsk("提示", z);
 
-                            } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
+                            } else if (!java.util.Objects.equals(aa[0], "") && java.util.Objects.equals(aa[1], "")) {
 
                                 final String z = "重命名成功";
                                 e1.tsk("提示", z);
@@ -618,7 +619,7 @@ public class FileManagerActivity extends BaseAwgActivity {
                     }
                     e1.cdx(0, null, null, null);
 
-                } else if (zf.dy(wa, "新建目录")) {
+                } else if (java.util.Objects.equals(wa, "新建目录")) {
 
                     String pb1 = AppPaths.appPath("settings");
 
@@ -634,7 +635,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
                     String pb7 = "/storage/emulated/0/Android/obb";
 
-                    if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb7))) {
+                    if (open.cn.awg.pro.core.TextValues.startsWith(we, pb1) || open.cn.awg.pro.core.TextValues.startsWith(we, pb2) || open.cn.awg.pro.core.TextValues.startsWith(we, pb3) || open.cn.awg.pro.core.TextValues.startsWith(we, pb4) || open.cn.awg.pro.core.TextValues.startsWith(we, pb5) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(we, pb6)) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(we, pb7))) {
 
                         e1.tsk("提示", "非法操作");
 
@@ -643,12 +644,12 @@ public class FileManagerActivity extends BaseAwgActivity {
                         String m = "mkdir \"" + we + "\"";
                         aa = com.demo.e3.cmd(lei, m, false);
 
-                        if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
+                        if (java.util.Objects.equals(aa[0], "") && !java.util.Objects.equals(aa[1], "")) {
 
                             final String z = "新建目录失败\n" + aa[1];
                             e1.tsk("提示", z);
 
-                        } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
+                        } else if (!java.util.Objects.equals(aa[0], "") && java.util.Objects.equals(aa[1], "")) {
 
                             final String z = "新建目录成功";
                             e1.tsk("提示", z);
@@ -665,7 +666,7 @@ public class FileManagerActivity extends BaseAwgActivity {
                     }
                     e1.cdx(0, null, null, null);
 
-                } else if (zf.dy(wa, "新建文件")) {
+                } else if (java.util.Objects.equals(wa, "新建文件")) {
 
                     String pb1 = AppPaths.appPath("settings");
 
@@ -681,7 +682,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
                     String pb7 = "/storage/emulated/0/Android/obb";
 
-                    if (zf.ckt(we, pb1) || zf.ckt(we, pb2) || zf.ckt(we, pb3) || zf.ckt(we, pb4) || zf.ckt(we, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(we, pb7))) {
+                    if (open.cn.awg.pro.core.TextValues.startsWith(we, pb1) || open.cn.awg.pro.core.TextValues.startsWith(we, pb2) || open.cn.awg.pro.core.TextValues.startsWith(we, pb3) || open.cn.awg.pro.core.TextValues.startsWith(we, pb4) || open.cn.awg.pro.core.TextValues.startsWith(we, pb5) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(we, pb6)) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(we, pb7))) {
 
                         e1.tsk("提示", "非法操作");
 
@@ -690,12 +691,12 @@ public class FileManagerActivity extends BaseAwgActivity {
                         String m = "touch \"" + we + "\"";
                         aa = com.demo.e3.cmd(lei, m, false);
 
-                        if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
+                        if (java.util.Objects.equals(aa[0], "") && !java.util.Objects.equals(aa[1], "")) {
 
                             final String z = "新建文件失败\n" + aa[1];
                             e1.tsk("提示", z);
 
-                        } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
+                        } else if (!java.util.Objects.equals(aa[0], "") && java.util.Objects.equals(aa[1], "")) {
 
                             final String z = "新建文件成功";
                             e1.tsk("提示", z);
@@ -721,7 +722,7 @@ public class FileManagerActivity extends BaseAwgActivity {
         } catch (Throwable e) {
 
             e1.upload_error(e, "e1.NewFilesLoad(s,s)");
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(FileManagerActivity.this);
 
         }
 
@@ -734,28 +735,28 @@ public class FileManagerActivity extends BaseAwgActivity {
 
     private void onTx3Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj10).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj10)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj10).kjd(8);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.xxbj(R.id.xxbj10).kjd(0);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.VISIBLE);
 
         }
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(FileManagerActivity.this);
 
     }
 
     private void onTx4Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj10).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj10)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj10).kjd(8);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.xxbj(R.id.xxbj10).kjd(0);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.VISIBLE);
 
         }
 
@@ -772,54 +773,54 @@ public class FileManagerActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
         d26d5d7080.setOnLongClickListener(titleBarLongClickListener);
 
-        RecyclerView f085d7c0f8 = (RecyclerView) findViewById(ay, vw, R.id.v7lb1);
+        RecyclerView f085d7c0f8 = (RecyclerView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.v7lb1);
         f085d7c0f8.addOnScrollListener(v7lb1ScrollListener);
 
-        LinearLayout dc0a1b897b = (LinearLayout) findViewById(ay, vw, R.id.xxbj2);
+        LinearLayout dc0a1b897b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj2);
         dc0a1b897b.setOnTouchListener(xxbj2TouchListener);
 
-        LinearLayout efa568dfe6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj3);
+        LinearLayout efa568dfe6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj3);
         efa568dfe6.setOnTouchListener(xxbj3TouchListener);
 
-        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        LinearLayout i6c4a6b953f = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj6);
         i6c4a6b953f.setOnTouchListener(xxbj6TouchListener);
 
-        LinearLayout i84f04cd47e = (LinearLayout) findViewById(ay, vw, R.id.xxbj7);
+        LinearLayout i84f04cd47e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj7);
         i84f04cd47e.setOnTouchListener(xxbj7TouchListener);
 
-        LinearLayout bd584e50cd = (LinearLayout) findViewById(ay, vw, R.id.xxbj5);
+        LinearLayout bd584e50cd = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj5);
         bd584e50cd.setOnTouchListener(xxbj5TouchListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        LinearLayout i9926c2f556 = (LinearLayout) findViewById(ay, vw, R.id.xxbj9);
+        LinearLayout i9926c2f556 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj9);
         i9926c2f556.setOnTouchListener(xxbj9TouchListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
         i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        LinearLayout i464e6cc6fb = (LinearLayout) findViewById(ay, vw, R.id.xxbj10);
+        LinearLayout i464e6cc6fb = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj10);
         i464e6cc6fb.setOnTouchListener(xxbj10TouchListener);
 
-        TextView d0ffa028ae = (TextView) findViewById(ay, vw, R.id.bt);
+        TextView d0ffa028ae = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bt);
 
-        TextView i203811ac10 = (TextView) findViewById(ay, vw, R.id.zywblj);
+        TextView i203811ac10 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.zywblj);
 
-        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        LinearLayout e1433e26d6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj1);
 
         __layoutIsLoaded(ay, vw);
     }

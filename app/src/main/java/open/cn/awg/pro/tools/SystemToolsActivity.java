@@ -17,7 +17,6 @@
 package open.cn.awg.pro.tools;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -42,7 +41,7 @@ import open.cn.awg.pro.R;
 public class SystemToolsActivity extends BaseAwgActivity {
 
     public final SystemToolsActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx5ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -88,6 +87,7 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.system_tools);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -96,11 +96,11 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SystemToolsActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SystemToolsActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -114,30 +114,30 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(SystemToolsActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(SystemToolsActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
         applyFullscreenWindow();
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
+            int uih = open.cn.awg.pro.core.DisplayValues.pxToDp(SystemToolsActivity.this, open.cn.awg.pro.core.DisplayValues.systemBarHeight(SystemToolsActivity.this, "status_bar_height"));
             uih = uih + 40;
 
-            i.runlibrary.app.v.kp kp1 = st.kp(R.id.kp1);
-            kp1.wbj(0, uih + "dp", 0, "5dp");
+            androidx.cardview.widget.CardView kp1 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.kp1));
+            open.cn.awg.pro.core.NativeViewValues.margins(kp1, 0, uih + "dp", 0, "5dp");
 
         }
 
@@ -159,9 +159,9 @@ public class SystemToolsActivity extends BaseAwgActivity {
         super.onStart();
         applyFullscreenWindow();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -178,7 +178,7 @@ public class SystemToolsActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -210,15 +210,15 @@ public class SystemToolsActivity extends BaseAwgActivity {
     }
 
     private void onXdbj4Click(View vw) {
-        gj.tz(LogCleanupActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SystemToolsActivity.this, (Class<?>) (LogCleanupActivity.class));
 
     }
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb5).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
 
-        String lj = st.wb(R.id.wb7).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -230,11 +230,11 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
             try {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        xt.dkyy("com.android.settings", "com.android.settings.Settings");
+                        new open.cn.awg.pro.core.NativeDevice(SystemToolsActivity.this).launchComponent(SystemToolsActivity.this, "com.android.settings", "com.android.settings.Settings");
 
                     }
 
@@ -244,11 +244,11 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
                 try {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            xt.dkyy("com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.MainSettingsActivity");
+                            new open.cn.awg.pro.core.NativeDevice(SystemToolsActivity.this).launchComponent(SystemToolsActivity.this, "com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.MainSettingsActivity");
 
                         }
 
@@ -256,11 +256,11 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
                 } catch (Throwable e3) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            xt.dkyy("com.google.android.apps.wearable.settings");
+                            new open.cn.awg.pro.core.NativeDevice(SystemToolsActivity.this).launchPackage("com.google.android.apps.wearable.settings");
 
                         }
 
@@ -280,16 +280,16 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemToolsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx5Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(SystemToolsActivity.this);
 
     }
 
@@ -299,20 +299,20 @@ public class SystemToolsActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        LinearLayout dc0a1b897b = (LinearLayout) findViewById(ay, vw, R.id.xxbj2);
+        LinearLayout dc0a1b897b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj2);
         dc0a1b897b.setOnClickListener(xxbj2ClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
         __layoutIsLoaded(ay, vw);

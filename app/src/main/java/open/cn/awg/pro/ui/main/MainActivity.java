@@ -19,7 +19,6 @@ package open.cn.awg.pro.ui.main;
 
 
 import android.annotation.SuppressLint;
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.app.job.JobInfo;
 import android.app.job.JobScheduler;
@@ -29,8 +28,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.GridLayoutManager;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -68,8 +67,6 @@ import open.cn.awg.pro.service.BootJobService;
 import open.cn.awg.pro.store.StoreDetailActivity;
 import open.cn.awg.pro.store.StoreListActivity;
 import open.cn.awg.pro.store.StoreSearchActivity;
-import open.cn.awg.pro.ui.list.LegacyMenuItemActivity;
-import open.cn.awg.pro.ui.list.MainMenuItemActivity;
 import open.cn.awg.pro.update.UpdatePromptActivity;
 
 @SuppressLint("StaticFieldLeak")
@@ -77,11 +74,11 @@ public class MainActivity extends BaseAwgActivity {
 
     public static Context context;
     public final MainActivity lei = this, 类 = this;
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
-    public CoreRuntimeBootstrap e13 = new CoreRuntimeBootstrap(_APPINFO);
-    public DebugStateStore debug = new DebugStateStore(_APPINFO);
+    public open.cn.awg.pro.ui.list.NativeListAdapter spq = null;
+    public AppRuntimeBridge e1;
+    public LocalDatabaseBridge e11;
+    public CoreRuntimeBootstrap e13;
+    public DebugStateStore debug;
     public int vercode = 0;
     public boolean isNotMainOnce = true;
     public boolean isShow = true;
@@ -103,7 +100,7 @@ public class MainActivity extends BaseAwgActivity {
     public String src_url = "";
     public int supertip_mode = 0;
     public String android_id;
-    public TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+    public TypheyeServiceBridge easy;
     private final View.OnClickListener wbMainKjfsGbcdClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -415,6 +412,11 @@ public class MainActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        debug = new DebugStateStore(MainActivity.this);
+        e1 = new AppRuntimeBridge(this);
+        e11 = new LocalDatabaseBridge(this);
+        e13 = new CoreRuntimeBootstrap(this);
+        easy = new TypheyeServiceBridge(this);
         setContentView(R.layout.main_activity);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -432,13 +434,13 @@ public class MainActivity extends BaseAwgActivity {
                 return;
             }
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     csh0();
-                    gj.zt(500);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -449,7 +451,7 @@ public class MainActivity extends BaseAwgActivity {
 
                             String bb = String.valueOf(vercode);
 
-                            if (!zf.dy(wj.dqwb(set0), bb) || !wj.cz(set0)) {
+                            if (!java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set0)), bb) || !open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set0))) {
 
                                 set();
 
@@ -459,30 +461,30 @@ public class MainActivity extends BaseAwgActivity {
 
                             }
 
-                            if (isShow && wj.cz(AppPaths.appPath("settings/a4.inf"))) {
+                            if (isShow && open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (AppPaths.appPath("settings/a4.inf")))) {
 
-                                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
+                                
 
-                                i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(1, 0);
-                                jbtm.cxsc(500);
-                                st.xdbj(R.id.xdbj2).kjd(8);
-                                st.xdbj(R.id.xdbj2).dh(jbtm);
+                                android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(1, -1), open.cn.awg.pro.core.TextValues.floatValue(0, -1));
+                                jbtm.setDuration(500);
+                                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.GONE);
+                                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).startAnimation(jbtm);
                                 loaded = true;
 
                                 final String a2 = AppPaths.appPath("settings/a3.inf");
 
-                                String a = wj.dqwb(a2);
+                                String a = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a2));
 
-                                if (zf.dy(a, "4")) {
+                                if (java.util.Objects.equals(a, "4")) {
 
                                     if (loaded) {
 
-                                        String clr = zf.zf(R.color.colorTab);
+                                        String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
                                         setStatusBarColor(clr);
 
                                     } else {
 
-                                        String clr = zf.zf(R.color.colorTabBackground);
+                                        String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTabBackground);
                                         setStatusBarColor(clr);
 
                                     }
@@ -490,7 +492,7 @@ public class MainActivity extends BaseAwgActivity {
                                 }
 
                                 String set67 = AppPaths.appPath("settings/set7.inf");
-                                src_url = wj.dqwb(set67);
+                                src_url = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set67));
                                 zyqd();
 
                                 if (!debug.isShowed()) {
@@ -499,7 +501,7 @@ public class MainActivity extends BaseAwgActivity {
 
                                 }
 
-                                if (wj.cz(AppPaths.appPath("settings/a4.inf"))) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (AppPaths.appPath("settings/a4.inf")))) {
 
                                     if (e1.islogin()) {
 
@@ -509,7 +511,7 @@ public class MainActivity extends BaseAwgActivity {
 
                                     String set11 = AppPaths.appPath("settings/f9/set1.inf");
 
-                                    if (zf.dy(wj.dqwb(set11), "true")) {
+                                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set11)), "true")) {
 
                                         int a11;
 
@@ -523,7 +525,7 @@ public class MainActivity extends BaseAwgActivity {
                                         }
 
                                     }
-                                    wj.sc(AppPaths.appPath("data/ltlb/showing"));
+                                    open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), false);
 
                                     try {
 
@@ -561,11 +563,11 @@ public class MainActivity extends BaseAwgActivity {
 
         if (e1.getNowUserId() == 0) {
 
-            i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+            
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-                if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+                if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -581,105 +583,105 @@ public class MainActivity extends BaseAwgActivity {
 
             String a = "";
 
-            if (wj.cz(a2)) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a2))) {
 
-                a = wj.dqwb(a2);
+                a = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a2));
 
             }
 
-            if (zf.dy(a, "4")) {
+            if (java.util.Objects.equals(a, "4")) {
 
-                st.xdbj(R.id.main_activity_root).shxtck(true);
+                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.main_activity_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
                 if (loaded) {
 
-                    String clr = zf.zf(R.color.colorTab);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
                     setStatusBarColor(clr);
 
                 } else {
 
-                    String clr = zf.zf(R.color.colorTabBackground);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTabBackground);
                     setStatusBarColor(clr);
 
                 }
 
             } else {
 
-                st.xdbj(R.id.main_activity_root).shxtck(false);
+                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.main_activity_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
             }
 
             int uu = 0;
 
-            if (wj.cz(AppPaths.appPath("settings/f17/set1.inf"))) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf")))) {
 
-                uu = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+                uu = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
             }
 
             final int u = uu;
 
-            if (zf.dy(a, "1")) {
+            if (java.util.Objects.equals(a, "1")) {
 
-                st.xdbj(R.id.xdbj4).wbj(u, 10, u, 10);
+                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), u, 10, u, 10);
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "15dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.wb wtab2 = st.wb(R.id.Title2);
-                wtab2.nbj(0, "15dp", 0, "3dp");
-                wtab2.dqfs("center");
+                android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab2, 0, "15dp", 0, "3dp");
+                wtab2.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = IappCompat.v7lbAdapter(lb, MainMenuItemActivity.class, R.layout.main_menu_item, new IappCompat.V7lbViewBinder() {
+                androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+                spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(MainActivity.this, lb, R.layout.main_menu_item, new open.cn.awg.pro.ui.list.MainMenuRowBinder(MainActivity.this), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-                    public void bind(Object ua, int pn, View vw) {
+                    public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                        
 
-                        int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                        int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                         if (f == 0) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         } else if (f == 1) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center_vertical|left");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center_vertical|left"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         } else if (f == -1) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center_vertical|right");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center_vertical|right"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         } else if (f == -2) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center");
-                            xxbj.kjd(8);
-                            xxbj.xydj(false);
-                            xxbj.xyca(false);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                            xxbj.setVisibility(android.view.View.GONE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(false));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(false));
 
                         } else {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         }
 
@@ -690,162 +692,162 @@ public class MainActivity extends BaseAwgActivity {
                 int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
                 Object[] jk = new Object[]{R.mipmap.a39, "系统工具", "10", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a29, "关闭菜单", "31", "", -1};
                 jk = new Object[]{R.mipmap.a20, "文件管理", "1", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a37, "腕上微聊", "9", "", 1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a40, "X5浏览器", "11", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a48, "扩展插件", "20", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a43, "更多功能", "13", "", 1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a10, "应用设置", "8", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a46, "返回桌面", "14", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a23, "退出应用", "3", "", 1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{"", "", "", "", -2};
-                spq.j(kj, jk);
-                spq.j(kj, jk);
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
+                spq.addRow(kj, jk);
+                spq.addRow(kj, jk);
 
-                i.runlibrary.app.v.v7lb lbx = st.v7lb(R.id.v7lb1);
+                androidx.recyclerview.widget.RecyclerView lbx = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
                 GridLayoutManager mLayoutManager = new GridLayoutManager(lei, 3);
-                lbx.st.setLayoutManager(mLayoutManager);
-                spq.sx();
+                lbx.setLayoutManager(mLayoutManager);
+                spq.refreshRows();
 
-            } else if (zf.dy(a, "2")) {
+            } else if (java.util.Objects.equals(a, "2")) {
 
                 String a001 = AppPaths.appPath("settings/dpi.inf");
 
-                if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a001)), "true")) {
 
-                    i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                    wtab.nbj(0, "3dp", 0, "3dp");
-                    wtab.dqfs("center");
+                    android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                    open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                    wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                    i.runlibrary.app.v.wb wtab2 = st.wb(R.id.Title2);
-                    wtab2.nbj(0, "3dp", 0, "3dp");
-                    wtab2.dqfs("center");
+                    android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
+                    open.cn.awg.pro.core.NativeViewValues.padding(wtab2, 0, "3dp", 0, "3dp");
+                    wtab2.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 } else {
 
-                    i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                    wtab.nbj(0, "9dp", 0, "9dp");
-                    wtab.dqfs("center");
+                    android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                    open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                    wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                    i.runlibrary.app.v.wb wtab2 = st.wb(R.id.Title2);
-                    wtab2.nbj(0, "9dp", 0, "9dp");
-                    wtab2.dqfs("center");
+                    android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
+                    open.cn.awg.pro.core.NativeViewValues.padding(wtab2, 0, "9dp", 0, "9dp");
+                    wtab2.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 }
-                st.xdbj(R.id.xdbj4).wbj(10, 10, 10, 10);
+                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), 10, 10, 10, 10);
 
-                i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = IappCompat.v7lbAdapter(lb, MainMenuItemActivity.class, R.layout.main_menu_item);
+                androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+                spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(MainActivity.this, lb, R.layout.main_menu_item, new open.cn.awg.pro.ui.list.MainMenuRowBinder(MainActivity.this));
 
                 int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb2, R.id.wb3};
 
                 Object[] jk = new Object[]{R.mipmap.a39, "系统工具", "10", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a29, "关闭菜单", "31", ""};
                 jk = new Object[]{R.mipmap.a20, "文件管理", "1", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a37, "腕上微聊", "9", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a40, "X5浏览器", "11", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a48, "扩展插件", "20", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a43, "更多功能", "13", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a10, "应用设置", "8", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a46, "返回桌面", "14", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a23, "退出应用", "3", ""};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
 
-                i.runlibrary.app.v.v7lb lbx = st.v7lb(R.id.v7lb1);
+                androidx.recyclerview.widget.RecyclerView lbx = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
-                if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a001)), "true")) {
 
                     GridLayoutManager mLayoutManager = new GridLayoutManager(lei, 2);
-                    lbx.st.setLayoutManager(mLayoutManager);
+                    lbx.setLayoutManager(mLayoutManager);
 
                 } else {
 
                     GridLayoutManager mLayoutManager = new GridLayoutManager(lei, 3);
-                    lbx.st.setLayoutManager(mLayoutManager);
+                    lbx.setLayoutManager(mLayoutManager);
 
                 }
-                spq.sx();
+                spq.refreshRows();
 
-            } else if (zf.dy(a, "3")) {
+            } else if (java.util.Objects.equals(a, "3")) {
 
-                st.xdbj(R.id.xdbj4).wbj(u, 10, u, 10);
+                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), u, 10, u, 10);
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "15dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.wb wtab2 = st.wb(R.id.Title2);
-                wtab2.nbj(0, "15dp", 0, "3dp");
-                wtab2.dqfs("center");
+                android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab2, 0, "15dp", 0, "3dp");
+                wtab2.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = IappCompat.v7lbAdapter(lb, MainMenuItemActivity.class, R.layout.main_menu_item, new IappCompat.V7lbViewBinder() {
+                androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+                spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(MainActivity.this, lb, R.layout.main_menu_item, new open.cn.awg.pro.ui.list.MainMenuRowBinder(MainActivity.this), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-                    public void bind(Object ua, int pn, View vw) {
+                    public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                        
 
-                        int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                        int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                         if (f == 0) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         } else if (f == 1) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center_vertical|left");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center_vertical|left"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         } else if (f == -1) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center_vertical|right");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center_vertical|right"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         } else if (f == -2) {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center");
-                            xxbj.kjd(8);
-                            xxbj.xydj(false);
-                            xxbj.xyca(false);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                            xxbj.setVisibility(android.view.View.GONE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(false));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(false));
 
                         } else {
 
-                            i.runlibrary.app.v.xxbj xxbj = st.xxbj(vw, R.id.xxbj2);
-                            xxbj.dqfs("center");
-                            xxbj.kjd(0);
-                            xxbj.xydj(true);
-                            xxbj.xyca(true);
+                            android.widget.LinearLayout xxbj = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj2));
+                            xxbj.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                            xxbj.setVisibility(android.view.View.VISIBLE);
+                            xxbj.setClickable(java.lang.Boolean.TRUE.equals(true));
+                            xxbj.setLongClickable(java.lang.Boolean.TRUE.equals(true));
 
                         }
 
@@ -856,61 +858,61 @@ public class MainActivity extends BaseAwgActivity {
                 int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
                 Object[] jk = new Object[]{R.mipmap.a39, "系统工具", "10", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a29, "关闭菜单", "31", "", -1};
                 jk = new Object[]{R.mipmap.a20, "文件管理", "1", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a37, "腕上微聊", "9", "", 1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a40, "X5浏览器", "11", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a48, "扩展插件", "20", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a43, "更多功能", "13", "", 1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a10, "应用设置", "8", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a46, "返回桌面", "14", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a23, "退出应用", "3", "", 1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{"", "", "", "", -2};
-                spq.j(kj, jk);
-                spq.j(kj, jk);
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
+                spq.addRow(kj, jk);
+                spq.addRow(kj, jk);
 
-                i.runlibrary.app.v.v7lb lbx = st.v7lb(R.id.v7lb1);
+                androidx.recyclerview.widget.RecyclerView lbx = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
                 GridLayoutManager mLayoutManager = new GridLayoutManager(lei, 3);
-                lbx.st.setLayoutManager(mLayoutManager);
-                spq.sx();
+                lbx.setLayoutManager(mLayoutManager);
+                spq.refreshRows();
 
-            } else if (zf.dy(a, "4")) {
+            } else if (java.util.Objects.equals(a, "4")) {
 
-                st.xdbj(R.id.xdbj4).wbj(10, 10, 10, 10);
+                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), 10, 10, 10, 10);
 
-                i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-                spq = IappCompat.v7lbAdapter(lb, LegacyMenuItemActivity.class, R.layout.legacy_menu_item, new IappCompat.V7lbViewBinder() {
+                androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+                spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(MainActivity.this, lb, R.layout.legacy_menu_item, new open.cn.awg.pro.ui.list.LegacyMenuRowBinder(MainActivity.this), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-                    public void bind(Object ua, int pn, View vw) {
+                    public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                        i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                        
 
-                        int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                        int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
-                        final i.runlibrary.app.v.xdbj xdbj1 = st.xdbj(vw, R.id.xdbj1);
+                        final android.widget.RelativeLayout xdbj1 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1));
 
-                        final i.runlibrary.app.v.wb wb3 = st.wb(vw, R.id.wb3);
+                        final android.widget.TextView wb3 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3));
 
                         if (f == 0) {
 
-                            xdbj1.kjd(0);
-                            wb3.kjd(8);
+                            xdbj1.setVisibility(android.view.View.VISIBLE);
+                            wb3.setVisibility(android.view.View.GONE);
 
                         } else {
 
-                            xdbj1.kjd(8);
-                            wb3.kjd(0);
+                            xdbj1.setVisibility(android.view.View.GONE);
+                            wb3.setVisibility(android.view.View.VISIBLE);
 
                         }
 
@@ -921,25 +923,25 @@ public class MainActivity extends BaseAwgActivity {
                 int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
                 Object[] jk = new Object[]{R.mipmap.a39, "系统工具", "27", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a29, "关闭菜单", "31", "", 0};
                 jk = new Object[]{R.mipmap.a20, "文件管理", "6", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a37, "腕上微聊", "7", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a40, "X5浏览器", "10", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a48, "扩展插件", "20", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a43, "更多功能", "13", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a10, "应用设置", "2", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a46, "返回桌面", "14", "", 0};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{R.mipmap.a23, "退出应用", "12", "", 0};
-                spq.j(kj, jk);
-                spq.sx();
+                spq.addRow(kj, jk);
+                spq.refreshRows();
 
             }
 
@@ -949,24 +951,24 @@ public class MainActivity extends BaseAwgActivity {
 
     public boolean onKeyDown(int kc, KeyEvent ke) {
 
-        if (kc == 4 && st.xdbj(R.id.xdbj10).kjd() == 8 && st.xdbj(R.id.xdbj2).kjd() == 8 && st.xdbj(R.id.TCxdbj).kjd() == 8) {
+        if (kc == 4 && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj10)).getVisibility() == android.view.View.GONE && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).getVisibility() == android.view.View.GONE && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).getVisibility() == android.view.View.GONE) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "腕管Pro")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "腕管Pro")) {
 
                 show(1);
 
-            } else if (zf.dy(st.wb(R.id.title_bar).zf(), " 腕管Pro ")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), " 腕管Pro ")) {
 
-                i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
+                
 
-                final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(0, 1);
-                jbtm.cxsc(300);
-                gj.jmxc(new Runnable() {
+                final android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(0, -1), open.cn.awg.pro.core.TextValues.floatValue(1, -1));
+                jbtm.setDuration(300);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xdbj(R.id.TCxdbj).kjd(0);
-                        st.xdbj(R.id.TCxdbj).dh(jbtm);
+                        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).startAnimation(jbtm);
 
                     }
 
@@ -984,23 +986,23 @@ public class MainActivity extends BaseAwgActivity {
         String sec_updater = AppPaths.appPath("data/sec/updater");
 
         String sec_license = AppPaths.appPath("data/sec/license");
-        wj.xrwb(sec_license, "1");
-        wj.sc(sec_updater);
+        open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (sec_license), (String) ("1"));
+        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (sec_updater), false);
 
     }
 
     public void n3_jz() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 android_id = Settings.System.getString(getContentResolver(), Settings.Secure.ANDROID_ID);
 
                 String urls = AppPaths.appPath("settings/f10/set2.inf");
-                urls = wj.dqwb(urls);
+                urls = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (urls));
                 urls = e1.urlUnlockString(urls);
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -1012,13 +1014,13 @@ public class MainActivity extends BaseAwgActivity {
 
                 String post_ = "req=openawg_get&token=" + android_id;
 
-                String[] post = zf.fg(post_, "&", false);
+                String[] post = open.cn.awg.pro.core.TextValues.split(post_, "&", false);
 
                 if (e1.yz()) {
 
-                    String st2 = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                    String st2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(st2, null)) {
+                    if (java.util.Objects.equals(st2, null)) {
 
                     } else {
 
@@ -1026,16 +1028,16 @@ public class MainActivity extends BaseAwgActivity {
 
                             String code = e1.readJson(st2, "code");
 
-                            if (zf.dy(code, "0")) {
+                            if (java.util.Objects.equals(code, "0")) {
 
                             } else {
 
                                 isHasReq = true;
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        gj.tz(ThirdPartyAuthorizationActivity.class);
+                                        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (ThirdPartyAuthorizationActivity.class));
 
                                     }
 
@@ -1064,64 +1066,64 @@ public class MainActivity extends BaseAwgActivity {
 
         final String t = t_;
         isShow = false;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (supertip_mode == 0) {
 
-                    st.kp(R.id.kp5).kjd(0);
-                    st.tx(R.id.tx16).tx(R.mipmap.a17);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.kp5)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx16)), R.mipmap.a17);
 
                 } else if (supertip_mode == 1) {
 
-                    st.kp(R.id.kp5).kjd(0);
-                    st.tx(R.id.tx16).tx(R.mipmap.a17);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.kp5)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx16)), R.mipmap.a17);
 
                 } else if (supertip_mode == 2) {
 
-                    st.kp(R.id.kp5).kjd(0);
-                    st.tx(R.id.tx16).tx(R.mipmap.a28);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.kp5)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx16)), R.mipmap.a28);
 
                 } else if (supertip_mode == 3) {
 
-                    st.kp(R.id.kp5).kjd(0);
-                    st.tx(R.id.tx16).tx(R.mipmap.a62);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.kp5)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx16)), R.mipmap.a62);
 
                 } else if (supertip_mode == 4) {
 
-                    st.kp(R.id.kp5).kjd(0);
-                    st.tx(R.id.tx16).tx(R.mipmap.a17);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.kp5)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx16)), R.mipmap.a17);
 
                 } else {
 
-                    st.kp(R.id.kp5).kjd(8);
-                    st.tx(R.id.tx16).tx(R.mipmap.a28);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.kp5)).setVisibility(android.view.View.GONE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx16)), R.mipmap.a28);
 
                 }
 
             }
 
         });
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.wb17).zf("");
-                st.wb(R.id.wb17).kjd(8);
-                st.wb(R.id.wb3).zf(t);
-                st.xdbj(R.id.xdbj10).kjd(0);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf(""));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setVisibility(android.view.View.GONE);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf(t));
+                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj10)).setVisibility(android.view.View.VISIBLE);
 
             }
 
         });
 
-        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
+        
 
-        i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(1, 0);
-        jbtm.cxsc(500);
-        st.xdbj(R.id.xdbj2).kjd(8);
-        st.xdbj(R.id.xdbj2).dh(jbtm);
+        android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(1, -1), open.cn.awg.pro.core.TextValues.floatValue(0, -1));
+        jbtm.setDuration(500);
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.GONE);
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).startAnimation(jbtm);
 
     }
 
@@ -1129,12 +1131,12 @@ public class MainActivity extends BaseAwgActivity {
 
         if (supertip_mode == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb17).zf("等待联网验证腕管Pro，从V4.0.0版本开始，此过程是必须的\n您可以尝试在设备联网后重启腕管Pro");
-                    st.wb(R.id.wb17).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("等待联网验证腕管Pro，从V4.0.0版本开始，此过程是必须的\n您可以尝试在设备联网后重启腕管Pro"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1142,12 +1144,12 @@ public class MainActivity extends BaseAwgActivity {
 
         } else if (supertip_mode == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb17).zf("您正在使用非官方发行的腕管Pro，可能存在未知风险\n请前往官方网站（https://awg.typheye.cn）下载安装腕管Pro");
-                    st.wb(R.id.wb17).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("您正在使用非官方发行的腕管Pro，可能存在未知风险\n请前往官方网站（https://awg.typheye.cn）下载安装腕管Pro"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1155,11 +1157,11 @@ public class MainActivity extends BaseAwgActivity {
 
         } else if (supertip_mode == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(OnboardingSetupActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (OnboardingSetupActivity.class));
 
                 }
 
@@ -1167,11 +1169,11 @@ public class MainActivity extends BaseAwgActivity {
 
         } else if (supertip_mode == 3) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(UpdatePromptActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (UpdatePromptActivity.class));
 
                 }
 
@@ -1179,12 +1181,12 @@ public class MainActivity extends BaseAwgActivity {
 
         } else if (supertip_mode == 4) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb17).zf("您可能并未获得应用许可，该版本不适用于您的设备\n如您已获得应用许可，可以尝试退出应用并联网重新进入应用");
-                    st.wb(R.id.wb17).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("您可能并未获得应用许可，该版本不适用于您的设备\n如您已获得应用许可，可以尝试退出应用并联网重新进入应用"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1198,57 +1200,57 @@ public class MainActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "1")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "1")) {
 
             show(1);
 
-        } else if (zf.dy(wj.dqwb(set1), "2")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "2")) {
 
             show(1);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(FileRootPickerActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (FileRootPickerActivity.class));
 
                 }
 
             });
 
-        } else if (zf.dy(wj.dqwb(set1), "3")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "3")) {
 
             show(1);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(WearChatActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (WearChatActivity.class));
 
                 }
 
             });
 
-        } else if (zf.dy(wj.dqwb(set1), "4")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "4")) {
 
             show(1);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(ExtensionPluginActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (ExtensionPluginActivity.class));
 
                 }
 
             });
 
-        } else if (zf.dy(wj.dqwb(set1), "5")) {
+        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "5")) {
 
             show(1);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(X5BrowserActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (X5BrowserActivity.class));
 
                 }
 
@@ -1267,22 +1269,22 @@ public class MainActivity extends BaseAwgActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.xxbj xxbj9 = st.xxbj(R.id.xxbj9);
+        final android.widget.LinearLayout xxbj9 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xxbj9));
 
-        final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
-        gj.jmxc(new Runnable() {
+        final android.widget.TextView wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb2));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    xxbj9.kjd(0);
-                    wb2.kjd(8);
+                    xxbj9.setVisibility(android.view.View.VISIBLE);
+                    wb2.setVisibility(android.view.View.GONE);
 
                 } else if (i == 1) {
 
-                    xxbj9.kjd(8);
-                    wb2.kjd(0);
+                    xxbj9.setVisibility(android.view.View.GONE);
+                    wb2.setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1306,60 +1308,60 @@ public class MainActivity extends BaseAwgActivity {
 
             state_homeshow = true;
 
-            final i.runlibrary.app.v.xdbj xdbj20 = st.xdbj(R.id.xdbj20);
+            final android.widget.RelativeLayout xdbj20 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj20));
 
-            final i.runlibrary.app.v.tx tx11 = st.tx(R.id.tx11);
+            final android.widget.ImageView tx11 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx11));
 
-            final i.runlibrary.app.v.wb wb29 = st.wb(R.id.wb29);
+            final android.widget.TextView wb29 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb29));
 
-            final i.runlibrary.app.v.tx tx18 = st.tx(R.id.tx18);
+            final android.widget.ImageView tx18 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx18));
 
-            final i.runlibrary.app.v.wb wb52 = st.wb(R.id.wb52);
+            final android.widget.TextView wb52 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb52));
 
-            final i.runlibrary.app.v.wb wb54 = st.wb(R.id.wb54);
+            final android.widget.TextView wb54 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb54));
 
-            final i.runlibrary.app.v.tx tx6 = st.tx(R.id.tx6);
+            final android.widget.ImageView tx6 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx6));
 
-            final i.runlibrary.app.v.wb wb14 = st.wb(R.id.wb14);
+            final android.widget.TextView wb14 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb14));
 
-            final i.runlibrary.app.v.wb wb16 = st.wb(R.id.wb16);
+            final android.widget.TextView wb16 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb16));
 
-            final i.runlibrary.app.v.tx tx9 = st.tx(R.id.tx9);
+            final android.widget.ImageView tx9 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx9));
 
-            final i.runlibrary.app.v.wb wb23 = st.wb(R.id.wb23);
+            final android.widget.TextView wb23 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb23));
 
-            final i.runlibrary.app.v.wb wb25 = st.wb(R.id.wb25);
+            final android.widget.TextView wb25 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb25));
 
-            final i.runlibrary.app.v.tx tx10 = st.tx(R.id.tx10);
+            final android.widget.ImageView tx10 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx10));
 
-            final i.runlibrary.app.v.wb wb26 = st.wb(R.id.wb26);
+            final android.widget.TextView wb26 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb26));
 
-            final i.runlibrary.app.v.wb wb28 = st.wb(R.id.wb28);
+            final android.widget.TextView wb28 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb28));
 
-            final i.runlibrary.app.v.wb wb31 = st.wb(R.id.wb31);
+            final android.widget.TextView wb31 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb31));
 
-            final i.runlibrary.app.v.wb wb33 = st.wb(R.id.wb33);
+            final android.widget.TextView wb33 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb33));
 
-            final i.runlibrary.app.v.wb wb34 = st.wb(R.id.wb34);
+            final android.widget.TextView wb34 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb34));
 
-            final i.runlibrary.app.v.wb wb36 = st.wb(R.id.wb36);
+            final android.widget.TextView wb36 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb36));
 
-            final i.runlibrary.app.v.wb wb37 = st.wb(R.id.wb37);
+            final android.widget.TextView wb37 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb37));
 
-            final i.runlibrary.app.v.wb wb39 = st.wb(R.id.wb39);
+            final android.widget.TextView wb39 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb39));
 
-            final i.runlibrary.app.v.wb wb42 = st.wb(R.id.wb42);
+            final android.widget.TextView wb42 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb42));
 
-            final i.runlibrary.app.v.wb wb44 = st.wb(R.id.wb44);
+            final android.widget.TextView wb44 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb44));
 
-            final i.runlibrary.app.v.wb wb45 = st.wb(R.id.wb45);
+            final android.widget.TextView wb45 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb45));
 
-            final i.runlibrary.app.v.wb wb47 = st.wb(R.id.wb47);
+            final android.widget.TextView wb47 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb47));
 
-            final i.runlibrary.app.v.wb wb48 = st.wb(R.id.wb48);
+            final android.widget.TextView wb48 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb48));
 
-            final i.runlibrary.app.v.wb wb50 = st.wb(R.id.wb50);
-            gj.xc(new Thread() {
+            final android.widget.TextView wb50 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb50));
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
@@ -1368,7 +1370,7 @@ public class MainActivity extends BaseAwgActivity {
                         show(2);
 
                     }
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
 
                     boolean canshow = false;
 
@@ -1385,10 +1387,10 @@ public class MainActivity extends BaseAwgActivity {
                     final String img_yytj_item3_path = AppPaths.appPath("data/homeshow/src/img/yytj_item3");
 
                     String urls = AppPaths.appPath("settings/f10/set2.inf");
-                    urls = wj.dqwb(urls);
+                    urls = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (urls));
                     urls = e1.urlUnlockString(urls);
 
-                    if (zf.cjw(urls, "/")) {
+                    if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                     } else {
 
@@ -1400,11 +1402,11 @@ public class MainActivity extends BaseAwgActivity {
 
                     if (e1.yz()) {
 
-                        String st2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                        String st2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (zf.dy(st2, null)) {
+                        if (java.util.Objects.equals(st2, null)) {
 
-                            if (wj.cz(nopa2)) {
+                            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa2))) {
 
                                 canshow = true;
 
@@ -1414,26 +1416,26 @@ public class MainActivity extends BaseAwgActivity {
 
                             String f1 = e1.readJson(st2, "code");
 
-                            if (zf.dy(f1, "200")) {
+                            if (java.util.Objects.equals(f1, "200")) {
 
-                                if (wj.cz(nopa2)) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa2))) {
 
-                                    String md5a = sj.md5(wj.dqwb(nopa2));
+                                    String md5a = open.cn.awg.pro.core.TextValues.md5(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa2)));
 
-                                    String md5b = sj.md5(st2);
+                                    String md5b = open.cn.awg.pro.core.TextValues.md5(st2);
 
-                                    if (!zf.dy(md5a, md5b)) {
+                                    if (!java.util.Objects.equals(md5a, md5b)) {
 
-                                        wj.sc(img_lbl1_path);
-                                        wj.sc(img_ad1_path);
-                                        wj.sc(img_yytj_item1_path);
-                                        wj.sc(img_yytj_item2_path);
-                                        wj.sc(img_yytj_item3_path);
+                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_lbl1_path), false);
+                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_ad1_path), false);
+                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_yytj_item1_path), false);
+                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_yytj_item2_path), false);
+                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_yytj_item3_path), false);
 
                                     }
 
                                 }
-                                wj.xrwb(nopa2, st2);
+                                open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (nopa2), (String) (st2));
                                 canshow = true;
 
                             }
@@ -1444,7 +1446,7 @@ public class MainActivity extends BaseAwgActivity {
 
                     if (canshow) {
 
-                        final String st5 = wj.dqwb(nopa2);
+                        final String st5 = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa2));
                         div_lbl1_url = e1.readJson(st5, "div_lbl1_url");
                         div_ad1_url = e1.readJson(st5, "div_ad1_url");
                         div_yytj_item1_url = e1.readJson(st5, "div_yytj_item1_url");
@@ -1509,11 +1511,11 @@ public class MainActivity extends BaseAwgActivity {
 
                         String downfilepath = img_lbl1_path;
 
-                        if (!wj.cz(downfilepath)) {
+                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                wj.sc(downfilepath);
+                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
 
                             }
 
@@ -1521,11 +1523,11 @@ public class MainActivity extends BaseAwgActivity {
                         downfile = div_ad1_img_url;
                         downfilepath = img_ad1_path;
 
-                        if (!wj.cz(downfilepath)) {
+                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                wj.sc(downfilepath);
+                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
 
                             }
 
@@ -1533,11 +1535,11 @@ public class MainActivity extends BaseAwgActivity {
                         downfile = getAppIconUrl(div_yytj_item1_url);
                         downfilepath = img_yytj_item1_path;
 
-                        if (!wj.cz(downfilepath)) {
+                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                wj.sc(downfilepath);
+                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
 
                             }
 
@@ -1545,11 +1547,11 @@ public class MainActivity extends BaseAwgActivity {
                         downfile = getAppIconUrl(div_yytj_item2_url);
                         downfilepath = img_yytj_item2_path;
 
-                        if (!wj.cz(downfilepath)) {
+                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                wj.sc(downfilepath);
+                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
 
                             }
 
@@ -1557,99 +1559,99 @@ public class MainActivity extends BaseAwgActivity {
                         downfile = getAppIconUrl(div_yytj_item3_url);
                         downfilepath = img_yytj_item3_path;
 
-                        if (!wj.cz(downfilepath)) {
+                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
 
                             if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                wj.sc(downfilepath);
+                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
 
                             }
 
                         }
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                if (zf.dy(ad_state, "true") && !e1.isJh()) {
+                                if (java.util.Objects.equals(ad_state, "true") && !e1.isJh()) {
 
-                                    xdbj20.kjd(0);
-
-                                } else {
-
-                                    xdbj20.kjd(8);
-
-                                }
-
-                                if (wj.cz(img_lbl1_path)) {
-
-                                    tx11.tx(img_lbl1_path);
+                                    xdbj20.setVisibility(android.view.View.VISIBLE);
 
                                 } else {
 
-                                    tx11.tx(R.mipmap.load_photo);
+                                    xdbj20.setVisibility(android.view.View.GONE);
 
                                 }
-                                wb29.zf(div_lbl1_text);
 
-                                if (wj.cz(img_ad1_path)) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_lbl1_path))) {
 
-                                    tx18.tx(img_ad1_path);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx11, img_lbl1_path);
 
                                 } else {
 
-                                    tx18.tx(R.mipmap.b11);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx11, R.mipmap.load_photo);
 
                                 }
-                                wb52.zf(div_ad1_text);
-                                wb54.zf(div_ad1_subtext);
+                                wb29.setText(String.valueOf(div_lbl1_text));
 
-                                if (wj.cz(img_yytj_item1_path)) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_ad1_path))) {
 
-                                    tx6.tx(img_yytj_item1_path);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx18, img_ad1_path);
 
                                 } else {
 
-                                    tx6.tx(R.mipmap.appicon);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx18, R.mipmap.b11);
 
                                 }
-                                wb14.zf(div_yytj_item1_text);
-                                wb16.zf(div_yytj_item1_subtext);
+                                wb52.setText(String.valueOf(div_ad1_text));
+                                wb54.setText(String.valueOf(div_ad1_subtext));
 
-                                if (wj.cz(img_yytj_item2_path)) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_yytj_item1_path))) {
 
-                                    tx9.tx(img_yytj_item2_path);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx6, img_yytj_item1_path);
 
                                 } else {
 
-                                    tx9.tx(R.mipmap.appicon);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx6, R.mipmap.appicon);
 
                                 }
-                                wb23.zf(div_yytj_item2_text);
-                                wb25.zf(div_yytj_item2_subtext);
+                                wb14.setText(String.valueOf(div_yytj_item1_text));
+                                wb16.setText(String.valueOf(div_yytj_item1_subtext));
 
-                                if (wj.cz(img_yytj_item3_path)) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_yytj_item2_path))) {
 
-                                    tx10.tx(img_yytj_item3_path);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx9, img_yytj_item2_path);
 
                                 } else {
 
-                                    tx10.tx(R.mipmap.appicon);
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx9, R.mipmap.appicon);
 
                                 }
-                                wb26.zf(div_yytj_item3_text);
-                                wb28.zf(div_yytj_item3_subtext);
-                                wb31.zf(div_jcsp_item1_text);
-                                wb33.zf(div_jcsp_item1_subtext);
-                                wb34.zf(div_jcsp_item2_text);
-                                wb36.zf(div_jcsp_item2_subtext);
-                                wb37.zf(div_jcsp_item3_text);
-                                wb39.zf(div_jcsp_item3_subtext);
-                                wb42.zf(div_rmyy_item1_text);
-                                wb44.zf(div_rmyy_item1_subtext);
-                                wb45.zf(div_rmyy_item2_text);
-                                wb47.zf(div_rmyy_item2_subtext);
-                                wb48.zf(div_rmyy_item3_text);
-                                wb50.zf(div_rmyy_item3_subtext);
+                                wb23.setText(String.valueOf(div_yytj_item2_text));
+                                wb25.setText(String.valueOf(div_yytj_item2_subtext));
+
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_yytj_item3_path))) {
+
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx10, img_yytj_item3_path);
+
+                                } else {
+
+                                    open.cn.awg.pro.core.NativeViewValues.image(tx10, R.mipmap.appicon);
+
+                                }
+                                wb26.setText(String.valueOf(div_yytj_item3_text));
+                                wb28.setText(String.valueOf(div_yytj_item3_subtext));
+                                wb31.setText(String.valueOf(div_jcsp_item1_text));
+                                wb33.setText(String.valueOf(div_jcsp_item1_subtext));
+                                wb34.setText(String.valueOf(div_jcsp_item2_text));
+                                wb36.setText(String.valueOf(div_jcsp_item2_subtext));
+                                wb37.setText(String.valueOf(div_jcsp_item3_text));
+                                wb39.setText(String.valueOf(div_jcsp_item3_subtext));
+                                wb42.setText(String.valueOf(div_rmyy_item1_text));
+                                wb44.setText(String.valueOf(div_rmyy_item1_subtext));
+                                wb45.setText(String.valueOf(div_rmyy_item2_text));
+                                wb47.setText(String.valueOf(div_rmyy_item2_subtext));
+                                wb48.setText(String.valueOf(div_rmyy_item3_text));
+                                wb50.setText(String.valueOf(div_rmyy_item3_subtext));
 
                             }
 
@@ -1692,7 +1694,7 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     public String getAppIconUrl(Object id) {
-        id = zf.qc(id, "awg://uri/app/", null);
+        id = open.cn.awg.pro.core.TextValues.slice(id, "awg://uri/app/", null);
         return src_url + "/app/" + id + "/app-image/icon.png";
 
     }
@@ -1710,7 +1712,7 @@ public class MainActivity extends BaseAwgActivity {
         boolean e = true;
 
         String f = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN";
-        return wl.xz(a, b, true, c, "utf-8", d, e, f);
+        return open.cn.awg.pro.core.NativeHttp.download(MainActivity.this, String.valueOf(a), (String) (b), java.lang.Boolean.TRUE.equals(true), (String[]) (c), (String) ("utf-8"), (String) (d), java.lang.Boolean.TRUE.equals(e), (String) (f), 0, 0, null);
 
     }
 
@@ -1720,38 +1722,38 @@ public class MainActivity extends BaseAwgActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.xdbj xdbj1 = st.xdbj(R.id.xdbj1);
+        final android.widget.RelativeLayout xdbj1 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj1));
 
-        final i.runlibrary.app.v.xdbj xdbj5 = st.xdbj(R.id.xdbj5);
+        final android.widget.RelativeLayout xdbj5 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj5));
 
-        final i.runlibrary.app.v.xdbj xdbj6 = st.xdbj(R.id.xdbj6);
+        final android.widget.RelativeLayout xdbj6 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj6));
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        final androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        final i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(R.id.v7lb1);
+        final androidx.recyclerview.widget.RecyclerView v7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
         final String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
+        
 
-        final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(0, 1);
-        jbtm.cxsc(300);
-        gj.jmxc(new Runnable() {
+        final android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(0, -1), open.cn.awg.pro.core.TextValues.floatValue(1, -1));
+        jbtm.setDuration(300);
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    qtgd1.v.requestFocus();
-                    tab.zf(zf.zf(R.string.app_name));
-                    xdbj1.kjd(8);
-                    xdbj5.kjd(0);
-                    xdbj6.kjd(8);
-                    xdbj5.dh(jbtm);
+                    qtgd1.requestFocus();
+                    tab.setText(String.valueOf(open.cn.awg.pro.app.AwgProApplication.getContext().getString(R.string.app_name)));
+                    xdbj1.setVisibility(android.view.View.GONE);
+                    xdbj5.setVisibility(android.view.View.VISIBLE);
+                    xdbj6.setVisibility(android.view.View.GONE);
+                    xdbj5.startAnimation(jbtm);
 
-                    if (isNotMainOnce && !zf.dy(wj.dqwb(set1), "0")) {
+                    if (isNotMainOnce && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "0")) {
 
                         show(2);
                         isNotMainOnce = false;
@@ -1763,28 +1765,28 @@ public class MainActivity extends BaseAwgActivity {
 
                     }
 
-                    if (zf.dy(wj.dqwb(set65), "false") || !wj.cz(set65)) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set65)), "false") || !open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set65))) {
 
-                        st.wb(R.id.wb9).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb9)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
                 } else if (i == 1) {
 
-                    v7lb1.v.requestFocus();
-                    tab.zf(" 腕管Pro ");
-                    xdbj1.kjd(0);
-                    xdbj5.kjd(8);
-                    xdbj6.kjd(8);
-                    xdbj1.dh(jbtm);
+                    v7lb1.requestFocus();
+                    tab.setText(String.valueOf(" 腕管Pro "));
+                    xdbj1.setVisibility(android.view.View.VISIBLE);
+                    xdbj5.setVisibility(android.view.View.GONE);
+                    xdbj6.setVisibility(android.view.View.GONE);
+                    xdbj1.startAnimation(jbtm);
 
                 } else if (i == 2) {
 
-                    tab.zf("  腕管Pro  ");
-                    xdbj1.kjd(8);
-                    xdbj5.kjd(8);
-                    xdbj6.kjd(0);
-                    xdbj6.dh(jbtm);
+                    tab.setText(String.valueOf("  腕管Pro  "));
+                    xdbj1.setVisibility(android.view.View.GONE);
+                    xdbj5.setVisibility(android.view.View.GONE);
+                    xdbj6.setVisibility(android.view.View.VISIBLE);
+                    xdbj6.startAnimation(jbtm);
 
                 }
 
@@ -1826,18 +1828,18 @@ public class MainActivity extends BaseAwgActivity {
 
         if (e1.isJh()) {
 
-            st.wb(R.id.wb11).kjd(8);
-            st.wb(R.id.wb13).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb13)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.wb(R.id.wb11).kjd(0);
-            st.wb(R.id.wb13).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb13)).setVisibility(android.view.View.VISIBLE);
 
         }
 
         final String def = "欢迎使用腕管Pro，这是一款优秀的应用。您可以前往腕管Pro官网：https://www.typheye.cn/awg，提出建议或意见。如果您有任何问题，可以联系开发者台风眼(QQ498978473)，或者通过邮箱(498978473@qq.com)联系我们！";
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -1847,9 +1849,9 @@ public class MainActivity extends BaseAwgActivity {
 
                 String nr = "";
 
-                if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
 
-                    nr = wj.dqwb(nopa);
+                    nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
 
                 } else {
 
@@ -1858,21 +1860,21 @@ public class MainActivity extends BaseAwgActivity {
                 }
 
                 final String nr1 = nr;
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.notice_wb).zf(nr1);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr1));
 
                     }
 
                 });
 
                 String urls = AppPaths.appPath("settings/f10/set2.inf");
-                urls = wj.dqwb(urls);
+                urls = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (urls));
                 urls = e1.urlUnlockString(urls);
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -1882,26 +1884,26 @@ public class MainActivity extends BaseAwgActivity {
 
                 String url = urls + "notice.json";
 
-                final String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                final String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                if (zf.dy(st5, null)) {
+                if (java.util.Objects.equals(st5, null)) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String nr = "";
 
-                            if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
+                            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
 
-                                nr = wj.dqwb(nopa);
+                                nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
 
                             } else {
 
                                 nr = def;
 
                             }
-                            st.wb(R.id.notice_wb).zf(nr);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr));
 
                         }
 
@@ -1911,24 +1913,24 @@ public class MainActivity extends BaseAwgActivity {
 
                     String f1 = e1.readJson(st5, "Showing");
 
-                    if (zf.dy(f1, "0")) {
+                    if (java.util.Objects.equals(f1, "0")) {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
                                 String nr = "";
 
-                                if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
+                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
 
-                                    nr = wj.dqwb(nopa);
+                                    nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
 
                                 } else {
 
                                     nr = def;
 
                                 }
-                                st.wb(R.id.notice_wb).zf(nr);
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr));
 
                             }
 
@@ -1936,24 +1938,24 @@ public class MainActivity extends BaseAwgActivity {
 
                     } else {
 
-                        if (zf.dy(f1, "")) {
+                        if (java.util.Objects.equals(f1, "")) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
                                     String nr = "";
 
-                                    if (wj.cz(nopa) && !zf.dy(wj.dqwb(nopa), "")) {
+                                    if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
 
-                                        nr = wj.dqwb(nopa);
+                                        nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
 
                                     } else {
 
                                         nr = def;
 
                                     }
-                                    st.wb(R.id.notice_wb).zf(nr);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr));
 
                                 }
 
@@ -1962,13 +1964,13 @@ public class MainActivity extends BaseAwgActivity {
                         } else {
 
                             final String nr2 = f1;
-                            wj.xrwb(nopa, nr2);
-                            wj.xrwb(nopa2, st5);
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (nopa), (String) (nr2));
+                            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (nopa2), (String) (st5));
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.notice_wb).zf(nr2);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr2));
 
                                 }
 
@@ -1993,7 +1995,7 @@ public class MainActivity extends BaseAwgActivity {
         final String sec_isunlock = AppPaths.appPath("data/sec/unlock");
 
         final String sec_license = AppPaths.appPath("data/sec/license");
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -2003,23 +2005,23 @@ public class MainActivity extends BaseAwgActivity {
 
         });
 
-        if (!wj.cz(sec_isunlock)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (sec_isunlock))) {
 
-            gj.zt(2500);
+            open.cn.awg.pro.core.NativeActions.sleep(2500);
 
         }
 
-        if (wj.cz(sec_isunlock)) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (sec_isunlock))) {
 
-            if (zf.dy(wj.dqwb(sec_isunlock), "false")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (sec_isunlock)), "false")) {
 
                 supertip("应用验证未通过", 1);
 
             } else {
 
-                if (wj.cz(sec_license)) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (sec_license))) {
 
-                    if (wj.cz(sec_updater)) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (sec_updater))) {
 
                         supertip("应用需要更新", 3);
 
@@ -2097,153 +2099,153 @@ public class MainActivity extends BaseAwgActivity {
 
         String asset_e3 = AppPaths.appPath("data/assets/e3");
 
-        if (!wj.cz(asset_a0)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a0))) {
 
-            wj.xrwb(asset_a0, "0");
-
-        }
-
-        if (!wj.cz(asset_a2)) {
-
-            wj.xrwb(asset_a2, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a0), (String) ("0"));
 
         }
 
-        if (!wj.cz(asset_a3)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a2))) {
 
-            wj.xrwb(asset_a3, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a4)) {
-
-            wj.xrwb(asset_a4, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a2), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a5)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a3))) {
 
-            wj.xrwb(asset_a5, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a6)) {
-
-            wj.xrwb(asset_a6, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a3), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a7)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a4))) {
 
-            wj.xrwb(asset_a7, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a8)) {
-
-            wj.xrwb(asset_a8, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a4), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a9)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a5))) {
 
-            wj.xrwb(asset_a9, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a10)) {
-
-            wj.xrwb(asset_a10, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a5), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a12)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a6))) {
 
-            wj.xrwb(asset_a12, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a13)) {
-
-            wj.xrwb(asset_a13, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a6), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a14)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a7))) {
 
-            wj.xrwb(asset_a14, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a15)) {
-
-            wj.xrwb(asset_a15, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a7), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a16)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a8))) {
 
-            wj.xrwb(asset_a16, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_a17)) {
-
-            wj.xrwb(asset_a17, "&");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a8), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a18)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a9))) {
 
-            wj.xrwb(asset_a18, "{}");
-
-        }
-
-        if (!wj.cz(asset_a19)) {
-
-            wj.xrwb(asset_a19, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a9), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_a20)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a10))) {
 
-            wj.xrwb(asset_a20, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_b0)) {
-
-            wj.xrwb(asset_b0, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a10), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_b1)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a12))) {
 
-            wj.xrwb(asset_b1, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_b2)) {
-
-            wj.xrwb(asset_b2, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a12), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_b3)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a13))) {
 
-            wj.xrwb(asset_b3, "加载失败,未找到该资源!");
-
-        }
-
-        if (!wj.cz(asset_c1)) {
-
-            wj.xrwb(asset_c1, "echo \"加载失败,未找到该资源!\"");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a13), (String) ("加载失败,未找到该资源!"));
 
         }
 
-        if (!wj.cz(asset_e3)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a14))) {
 
-            wj.xrwb(asset_e3, "加载失败,未找到该资源!");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a14), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a15))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a15), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a16))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a16), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a17))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a17), (String) ("&"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a18))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a18), (String) ("{}"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a19))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a19), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_a20))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_a20), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_b0))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_b0), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_b1))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_b1), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_b2))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_b2), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_b3))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_b3), (String) ("加载失败,未找到该资源!"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_c1))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_c1), (String) ("echo \"加载失败,未找到该资源!\""));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (asset_e3))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (asset_e3), (String) ("加载失败,未找到该资源!"));
 
         }
 
@@ -2385,169 +2387,169 @@ public class MainActivity extends BaseAwgActivity {
 
         String set68 = AppPaths.appPath("settings/f21/set1.inf");
 
-        if (!wj.cz(set1)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set1))) {
 
-            wj.xrwb(set1, "false");
-
-        }
-
-        if (!wj.cz(set2)) {
-
-            wj.xrwb(set2, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set1), (String) ("false"));
 
         }
 
-        if (!wj.cz(set3)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set2))) {
 
-            wj.xrwb(set3, "false");
-
-        }
-
-        if (!wj.cz(set4)) {
-
-            wj.xrwb(set4, "13");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set2), (String) ("false"));
 
         }
 
-        if (!wj.cz(set5)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set3))) {
 
-            wj.xrwb(set5, "false");
-
-        }
-
-        if (!wj.cz(set6)) {
-
-            wj.xrwb(set6, "#ffffff");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set3), (String) ("false"));
 
         }
 
-        if (!wj.cz(set7)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set4))) {
 
-            wj.xrwb(set7, "#000000");
-
-        }
-
-        if (!wj.cz(set8)) {
-
-            wj.xrwb(set8, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set4), (String) ("13"));
 
         }
 
-        if (!wj.cz(set9)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set5))) {
 
-            wj.xrwb(set9, "false");
-
-        }
-
-        if (!wj.cz(set10)) {
-
-            wj.xrwb(set10, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set5), (String) ("false"));
 
         }
 
-        if (!wj.cz(set11)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set6))) {
 
-            wj.xrwb(set11, "true");
-
-        }
-
-        if (!wj.cz(set12)) {
-
-            wj.xrwb(set12, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set6), (String) ("#ffffff"));
 
         }
 
-        if (!wj.cz(set13)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set7))) {
 
-            wj.xrwb(set13, "awg://web.url/app/open.cn.awg.pro");
-
-        }
-
-        if (!wj.cz(set14)) {
-
-            wj.xrwb(set14, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set7), (String) ("#000000"));
 
         }
 
-        if (!wj.cz(set15)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set8))) {
 
-            wj.xrwb(set15, "awg://web.url/app/open.cn.awg.pro/talking");
-
-        }
-
-        if (!wj.cz(set16)) {
-
-            wj.xrwb(set16, "腕管用户" + xt.sj(4));
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set8), (String) ("false"));
 
         }
 
-        if (!wj.cz(set17)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set9))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set9), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set10))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set10), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set11))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set11), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set12))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set12), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set13))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set13), (String) ("awg://web.url/app/open.cn.awg.pro"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set14))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set14), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set15))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set15), (String) ("awg://web.url/app/open.cn.awg.pro/talking"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set16))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set16), (String) ("腕管用户" + open.cn.awg.pro.core.NativeDevice.formatDate(4)));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set17))) {
 
             e11.setup_talklist();
 
         }
 
-        if (!wj.cz(set18)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set18))) {
 
-            wj.xrwb(set18, "true");
-
-        }
-
-        if (!wj.cz(set19)) {
-
-            wj.xrwb(set19, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set18), (String) ("true"));
 
         }
 
-        if (!wj.cz(set20)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set19))) {
 
-            wj.xrwb(set20, "awg://thirds.url/www.baidu.com");
-
-        }
-
-        if (!wj.cz(set21)) {
-
-            wj.xrwb(set21, "{\"MODE\":0,\"UA\":\"Android\"}");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set19), (String) ("false"));
 
         }
 
-        if (!wj.cz(set22)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set20))) {
 
-            wj.xrwb(set22, "true");
-
-        }
-
-        if (!wj.cz(set23)) {
-
-            wj.xrwb(set23, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set20), (String) ("awg://thirds.url/www.baidu.com"));
 
         }
 
-        if (!wj.cz(set24)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set21))) {
 
-            wj.xrwb(set24, "false");
-
-        }
-
-        if (!wj.cz(set25)) {
-
-            wj.xrwb(set25, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set21), (String) ("{\"MODE\":0,\"UA\":\"Android\"}"));
 
         }
 
-        if (!wj.cz(set26)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set22))) {
 
-            wj.xrwb(set26, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set22), (String) ("true"));
 
         }
-        wj.sc(set27);
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set23))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set23), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set24))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set24), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set25))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set25), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set26))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set26), (String) ("false"));
+
+        }
+        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (set27), false);
         e11.setup_filelist();
 
-        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
+        
 
-        int sdk = IappCompat.sdk(xt.sbxx());
+        int sdk = android.os.Build.VERSION.SDK_INT;
 
-        if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE") && sdk < 30) {
+        if (open.cn.awg.pro.core.NativeActions.hasPermission(MainActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE") && sdk < 30) {
 
             String m = "mkdir \"/sdcard/Download\"";
             com.demo.e3.cmd(lei, m, false);
@@ -2564,175 +2566,175 @@ public class MainActivity extends BaseAwgActivity {
 
         }
 
-        if (!wj.cz(set29)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set29))) {
 
-            wj.xrwb(set29, "");
-
-        }
-
-        if (!wj.cz(set30)) {
-
-            wj.xrwb(set30, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set29), (String) (""));
 
         }
 
-        if (!wj.cz(set31)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set30))) {
 
-            wj.xrwb(set31, "false");
-
-        }
-
-        if (!wj.cz(set32)) {
-
-            wj.xrwb(set32, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set30), (String) ("false"));
 
         }
 
-        if (!wj.cz(set33)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set31))) {
 
-            wj.xrwb(set33, wj.dqwb(AppPaths.appPath("data/assets/a18")));
-
-        }
-
-        if (!wj.cz(set34)) {
-
-            wj.xrwb(set34, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set31), (String) ("false"));
 
         }
 
-        if (!wj.cz(set35)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set32))) {
 
-            wj.xrwb(set35, "https://api.sayqz.com/tunefree/ncmapi");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set32), (String) ("false"));
 
         }
 
-        if (!wj.cz(set36)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set33))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set33), (String) (open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (AppPaths.appPath("data/assets/a18")))));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set34))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set34), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set35))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set35), (String) ("https://api.sayqz.com/tunefree/ncmapi"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set36))) {
 
             int a11;
             a11 = com.demo.e4.getVersionCode(lei);
 
             String fv = a11 + "00";
-            wj.xrwb(set36, fv);
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set36), (String) (fv));
 
         }
 
-        if (!wj.cz(set37)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set37))) {
 
-            wj.xrwb(set37, "false");
-
-        }
-
-        if (!wj.cz(set38)) {
-
-            wj.xrwb(set38, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set37), (String) ("false"));
 
         }
 
-        if (!wj.cz(set39)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set38))) {
 
-            wj.xrwb(set39, "default");
-
-        }
-
-        if (!wj.cz(set40)) {
-
-            wj.xrwb(set40, "20");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set38), (String) ("false"));
 
         }
 
-        if (!wj.cz(set41)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set39))) {
 
-            wj.xrwb(set41, "false");
-
-        }
-
-        if (!wj.cz(set42)) {
-
-            wj.xrwb(set42, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set39), (String) ("default"));
 
         }
 
-        if (!wj.cz(set43)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set40))) {
 
-            wj.xrwb(set43, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set40), (String) ("20"));
 
         }
 
-        if (!wj.cz(set44)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set41))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set41), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set42))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set42), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set43))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set43), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set44))) {
 
             e11.setup_talklist();
             e11.add_talklist("10001", "官方聊天室", "10001-官方聊天室");
-            wj.xrwb(set44, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set44), (String) ("true"));
 
         }
 
-        if (!wj.cz(set45)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set45))) {
 
-            wj.xrwb(set45, "3000");
-
-        }
-
-        if (!wj.cz(set46)) {
-
-            wj.xrwb(set46, "3000");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set45), (String) ("3000"));
 
         }
 
-        if (!wj.cz(set47)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set46))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set46), (String) ("3000"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set47))) {
 
             e11.setup_pluginlist();
 
         }
 
-        if (!wj.cz(set48)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set48))) {
 
-            wj.xrwb(set48, "true");
-
-        }
-
-        if (!wj.cz(set49)) {
-
-            wj.xrwb(set49, "awg://web.url/app/open.cn.awg.pro/plugin");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set48), (String) ("true"));
 
         }
 
-        if (!wj.cz(set50)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set49))) {
 
-            wj.xrwb(set50, "default");
-
-        }
-
-        if (!wj.cz(set51)) {
-
-            wj.xrwb(set51, "default");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set49), (String) ("awg://web.url/app/open.cn.awg.pro/plugin"));
 
         }
 
-        if (!wj.cz(set52)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set50))) {
 
-            wj.xrwb(set52, "true");
-
-        }
-
-        if (!wj.cz(set53)) {
-
-            wj.xrwb(set53, "default");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set50), (String) ("default"));
 
         }
 
-        if (!wj.cz(set54)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set51))) {
 
-            wj.xrwb(set54, "default");
-
-        }
-
-        if (!wj.cz(set55)) {
-
-            wj.xrwb(set55, "default");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set51), (String) ("default"));
 
         }
 
-        if (!wj.cz(set56)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set52))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set52), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set53))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set53), (String) ("default"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set54))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set54), (String) ("default"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set55))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set55), (String) ("default"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set56))) {
 
             e11.setup_pluginlist();
 
@@ -2741,82 +2743,82 @@ public class MainActivity extends BaseAwgActivity {
             String w = "扩展推荐";
 
             boolean b3 = e11.add_pluginlist(q, w, q + "-" + w);
-            wj.xrwb(set56, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set56), (String) ("true"));
 
         }
 
-        if (!wj.cz(set57)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set57))) {
 
-            wj.xrwb(set57, "https://service.typheye.cn");
-
-        }
-
-        if (!wj.cz(set58)) {
-
-            wj.xrwb(set58, "");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set57), (String) ("https://service.typheye.cn"));
 
         }
 
-        if (!wj.cz(set59)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set58))) {
 
-            wj.xrwb(set59, "awg://web.url/upload/up.php");
-
-        }
-
-        if (!wj.cz(set60)) {
-
-            wj.xrwb(set60, "");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set58), (String) (""));
 
         }
 
-        if (!wj.cz(set61)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set59))) {
 
-            wj.xrwb(set61, "true");
-
-        }
-
-        if (!wj.cz(set62)) {
-
-            wj.xrwb(set62, "");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set59), (String) ("awg://web.url/upload/up.php"));
 
         }
 
-        if (!wj.cz(set64)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set60))) {
 
-            wj.xrwb(set64, "true");
-
-        }
-
-        if (!wj.cz(set65)) {
-
-            wj.xrwb(set65, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set60), (String) (""));
 
         }
 
-        if (!wj.cz(set66)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set61))) {
 
-            wj.xrwb(set66, "false");
-
-        }
-
-        if (!wj.cz(set67)) {
-
-            wj.xrwb(set67, "https://res.typheye.cn");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set61), (String) ("true"));
 
         }
 
-        if (!wj.cz(set68)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set62))) {
 
-            wj.xrwb(set68, "0");
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set62), (String) (""));
 
         }
-        wj.xrwb(set5, "false");
-        wj.xrwb(set53, wj.dqwb(set16));
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set64))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set64), (String) ("true"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set65))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set65), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set66))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set66), (String) ("false"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set67))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set67), (String) ("https://res.typheye.cn"));
+
+        }
+
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set68))) {
+
+            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set68), (String) ("0"));
+
+        }
+        open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set5), (String) ("false"));
+        open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set53), (String) (open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set16))));
         vercode = com.demo.e4.getVersionCode(lei);
 
         String fv = String.valueOf(vercode);
-        wj.xrwb(set0, fv);
-        wj.sc(set63);
+        open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set0), (String) (fv));
+        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (set63), false);
 
         final String sec_updater = AppPaths.appPath("data/sec/updater");
 
@@ -2824,9 +2826,9 @@ public class MainActivity extends BaseAwgActivity {
 
         final String sec_license = AppPaths.appPath("data/sec/license");
 
-        if (wj.cz(sec_updater)) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (sec_updater))) {
 
-            wj.sc(sec_updater);
+            open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (sec_updater), false);
 
         }
         inj();
@@ -2846,9 +2848,9 @@ public class MainActivity extends BaseAwgActivity {
 
         final String set66 = AppPaths.appPath("settings/set6.inf");
 
-        if (!wj.cz(a0) || zf.dy(wj.dqwb(set66), "false") || !wj.cz(set66)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a0)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set66)), "false") || !open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set66))) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
@@ -2865,17 +2867,17 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     public void rjh() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (!e1.isJh()) {
 
-                    st.wb(R.id.wb3).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb3)).setVisibility(android.view.View.VISIBLE);
 
                 } else {
 
-                    st.wb(R.id.wb3).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb3)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -2892,18 +2894,18 @@ public class MainActivity extends BaseAwgActivity {
 
             final String a2 = AppPaths.appPath("settings/a3.inf");
 
-            String a = wj.dqwb(a2);
+            String a = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a2));
 
-            if (zf.dy(a, "4")) {
+            if (java.util.Objects.equals(a, "4")) {
 
                 if (loaded) {
 
-                    String clr = zf.zf(R.color.colorTab);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
                     setStatusBarColor(clr);
 
                 } else {
 
-                    String clr = zf.zf(R.color.colorTabBackground);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTabBackground);
                     setStatusBarColor(clr);
 
                 }
@@ -2915,7 +2917,7 @@ public class MainActivity extends BaseAwgActivity {
 
             final String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-            if (wj.cz(AppPaths.appPath("settings/a4.inf"))) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (AppPaths.appPath("settings/a4.inf")))) {
 
                 if (!isNotMainOnce) {
 
@@ -2930,15 +2932,15 @@ public class MainActivity extends BaseAwgActivity {
 
                 final String ca = AppPaths.appPath("cache/req/exit");
 
-                if (wj.cz(ca) && zf.dy(wj.dqwb(ca), "true")) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (ca)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (ca)), "true")) {
 
-                    wj.sc(ca);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (ca), false);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            i.runlibrary.app.v.tx tx3 = st.tx(R.id.tx3);
-                            tx3.v.performClick();
+                            android.widget.ImageView tx3 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx3));
+                            tx3.performClick();
 
                         }
 
@@ -2959,18 +2961,18 @@ public class MainActivity extends BaseAwgActivity {
 
             final String a2 = AppPaths.appPath("settings/a3.inf");
 
-            String a = wj.dqwb(a2);
+            String a = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a2));
 
-            if (zf.dy(a, "4")) {
+            if (java.util.Objects.equals(a, "4")) {
 
                 if (loaded) {
 
-                    String clr = zf.zf(R.color.colorTab);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
                     setStatusBarColor(clr);
 
                 } else {
 
-                    String clr = zf.zf(R.color.colorTabBackground);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTabBackground);
                     setStatusBarColor(clr);
 
                 }
@@ -2993,18 +2995,18 @@ public class MainActivity extends BaseAwgActivity {
 
             final String a2 = AppPaths.appPath("settings/a3.inf");
 
-            String a = wj.dqwb(a2);
+            String a = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a2));
 
-            if (zf.dy(a, "4")) {
+            if (java.util.Objects.equals(a, "4")) {
 
                 if (loaded) {
 
-                    String clr = zf.zf(R.color.colorTab);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
                     setStatusBarColor(clr);
 
                 } else {
 
-                    String clr = zf.zf(R.color.colorTabBackground);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTabBackground);
                     setStatusBarColor(clr);
 
                 }
@@ -3016,12 +3018,12 @@ public class MainActivity extends BaseAwgActivity {
 
         }
 
-        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(R.id.v7lb1);
-        v7lb1.v.requestFocus();
+        androidx.recyclerview.widget.RecyclerView v7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+        v7lb1.requestFocus();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -3038,7 +3040,7 @@ public class MainActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -3049,18 +3051,18 @@ public class MainActivity extends BaseAwgActivity {
 
             final String a2 = AppPaths.appPath("settings/a3.inf");
 
-            String a = wj.dqwb(a2);
+            String a = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a2));
 
-            if (zf.dy(a, "4")) {
+            if (java.util.Objects.equals(a, "4")) {
 
                 if (loaded) {
 
-                    String clr = zf.zf(R.color.colorTab);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
                     setStatusBarColor(clr);
 
                 } else {
 
-                    String clr = zf.zf(R.color.colorTabBackground);
+                    String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTabBackground);
                     setStatusBarColor(clr);
 
                 }
@@ -3081,7 +3083,7 @@ public class MainActivity extends BaseAwgActivity {
         if (e1.getNowUserId() == 0) {
 
             e13.N_cancel();
-            wj.sc(AppPaths.appPath("data/AwgCoreService.r"));
+            open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (AppPaths.appPath("data/AwgCoreService.r")), false);
 
         }
 
@@ -3089,11 +3091,11 @@ public class MainActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), zf.zf(R.string.app_name))) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), open.cn.awg.pro.app.AwgProApplication.getContext().getString(R.string.app_name))) {
 
             show(1);
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), " 腕管Pro ")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), " 腕管Pro ")) {
 
             show(0);
 
@@ -3102,16 +3104,16 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onXxbj5Click(View vw) {
-        gj.tz(AnnouncementActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (AnnouncementActivity.class));
 
     }
 
     private void onWb7Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xdbj(R.id.xdbj7).kjd(8);
+                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj7)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -3120,7 +3122,7 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onWb11Click(View vw) {
-        gj.tz(AppActivationActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (AppActivationActivity.class));
 
     }
 
@@ -3130,14 +3132,14 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onXdbj8Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_lbl1_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3147,7 +3149,7 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb29).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb29)).getText().toString();
         e1.tsk("详细信息", te);
         return true;
 
@@ -3159,14 +3161,14 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onXdbj20Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_ad1_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3176,23 +3178,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj20LongClick(View vw) {
 
-        String te = st.wb(R.id.wb52).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb52)).getText().toString();
 
-        String lj = st.wb(R.id.wb54).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb54)).getText().toString();
         e1.tsk("详细信息", "[推荐名称]\n" + te + "\n\n[推荐简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj9Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_yytj_item1_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3202,23 +3204,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj9LongClick(View vw) {
 
-        String te = st.wb(R.id.wb14).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
 
-        String lj = st.wb(R.id.wb16).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
         e1.tsk("详细信息", "[应用名称]\n" + te + "\n\n[应用简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj12Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_yytj_item2_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3228,23 +3230,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj12LongClick(View vw) {
 
-        String te = st.wb(R.id.wb23).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb23)).getText().toString();
 
-        String lj = st.wb(R.id.wb25).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb25)).getText().toString();
         e1.tsk("详细信息", "[应用名称]\n" + te + "\n\n[应用简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj13Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_yytj_item3_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3254,23 +3256,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj13LongClick(View vw) {
 
-        String te = st.wb(R.id.wb26).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb26)).getText().toString();
 
-        String lj = st.wb(R.id.wb28).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb28)).getText().toString();
         e1.tsk("详细信息", "[应用名称]\n" + te + "\n\n[应用简介]\n" + lj);
         return true;
 
     }
 
     private void onWb10Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"type", "search"};
 
                 String[] val = new String[]{"app", "all"};
-                gj.tz(StoreListActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3279,14 +3281,14 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onXdbj14Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_jcsp_item1_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3296,23 +3298,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj14LongClick(View vw) {
 
-        String te = st.wb(R.id.wb31).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb31)).getText().toString();
 
-        String lj = st.wb(R.id.wb33).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb33)).getText().toString();
         e1.tsk("详细信息", "[视频名称]\n" + te + "\n\n[视频简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj15Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_jcsp_item2_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3322,23 +3324,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj15LongClick(View vw) {
 
-        String te = st.wb(R.id.wb34).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb34)).getText().toString();
 
-        String lj = st.wb(R.id.wb36).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb36)).getText().toString();
         e1.tsk("详细信息", "[视频名称]\n" + te + "\n\n[视频简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj16Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_jcsp_item3_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3348,23 +3350,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj16LongClick(View vw) {
 
-        String te = st.wb(R.id.wb37).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb37)).getText().toString();
 
-        String lj = st.wb(R.id.wb39).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb39)).getText().toString();
         e1.tsk("详细信息", "[视频名称]\n" + te + "\n\n[视频简介]\n" + lj);
         return true;
 
     }
 
     private void onWb40Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"type", "search"};
 
                 String[] val = new String[]{"video", "all"};
-                gj.tz(StoreListActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3373,14 +3375,14 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onXdbj17Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_rmyy_item1_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3390,23 +3392,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj17LongClick(View vw) {
 
-        String te = st.wb(R.id.wb42).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb42)).getText().toString();
 
-        String lj = st.wb(R.id.wb44).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb44)).getText().toString();
         e1.tsk("详细信息", "[歌曲名称]\n" + te + "\n\n[歌曲作者]\n" + lj);
         return true;
 
     }
 
     private void onXdbj18Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_rmyy_item2_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3416,23 +3418,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj18LongClick(View vw) {
 
-        String te = st.wb(R.id.wb45).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb45)).getText().toString();
 
-        String lj = st.wb(R.id.wb47).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb47)).getText().toString();
         e1.tsk("详细信息", "[歌曲名称]\n" + te + "\n\n[歌曲作者]\n" + lj);
         return true;
 
     }
 
     private void onXdbj19Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"uri"};
 
                 String[] val = new String[]{div_rmyy_item3_url};
-                gj.tz(StoreDetailActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3442,23 +3444,23 @@ public class MainActivity extends BaseAwgActivity {
 
     private boolean onXdbj19LongClick(View vw) {
 
-        String te = st.wb(R.id.wb48).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb48)).getText().toString();
 
-        String lj = st.wb(R.id.wb50).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb50)).getText().toString();
         e1.tsk("详细信息", "[歌曲名称]\n" + te + "\n\n[歌曲作者]\n" + lj);
         return true;
 
     }
 
     private void onWb51Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"type", "search"};
 
                 String[] val = new String[]{"music", "all"};
-                gj.tz(StoreListActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -3467,24 +3469,24 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.tz(StoreSearchActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreSearchActivity.class));
 
     }
 
     private void onWb13Click(View vw) {
-        gj.tz(AppActivationActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (AppActivationActivity.class));
 
     }
 
     private boolean onWb9LongClick(View vw) {
 
         String set65 = AppPaths.appPath("settings/set5.inf");
-        wj.xrwb(set65, "true");
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (set65), (String) ("true"));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.wb9).kjd(8);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb9)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -3510,12 +3512,12 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onWb12Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.tx tx3 = st.tx(R.id.tx3);
-                tx3.v.performClick();
+                android.widget.ImageView tx3 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx3));
+                tx3.performClick();
 
             }
 
@@ -3524,11 +3526,11 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onWb17Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.wb17).kjd(8);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb17)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -3548,16 +3550,16 @@ public class MainActivity extends BaseAwgActivity {
 
     private void onTx2Click(View vw) {
 
-        i.runlibrary.app.gj$dh dh = (i.runlibrary.app.gj$dh) (Object) gj.dh();
+        
 
-        final i.runlibrary.app.gj$Animationx jbtm = (i.runlibrary.app.gj$Animationx) (Object) dh.jbtm(1, 0);
-        jbtm.cxsc(300);
-        gj.jmxc(new Runnable() {
+        final android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(1, -1), open.cn.awg.pro.core.TextValues.floatValue(0, -1));
+        jbtm.setDuration(300);
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xdbj(R.id.TCxdbj).kjd(8);
-                st.xdbj(R.id.TCxdbj).dh(jbtm);
+                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).setVisibility(android.view.View.GONE);
+                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).startAnimation(jbtm);
 
             }
 
@@ -3566,22 +3568,22 @@ public class MainActivity extends BaseAwgActivity {
     }
 
     private void onTx3Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                final i.runlibrary.app.v.xdbj main_v = st.xdbj(R.id.main_activity_root);
-                gj.jmxc(new Runnable() {
+                final android.widget.RelativeLayout main_v = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.main_activity_root));
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        main_v.scqb();
+                        main_v.removeAllViews();
 
                     }
 
                 });
-                gj.zt(500);
-                wj.sc(AppPaths.appPath("data/AwgCoreService.r"));
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (AppPaths.appPath("data/AwgCoreService.r")), false);
 
                 try {
 
@@ -3609,130 +3611,130 @@ public class MainActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        TextView e943ebd71e = (TextView) findViewById(ay, vw, R.id.wb4);
+        TextView e943ebd71e = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb4);
 
-        TextView i2a86c78b06 = (TextView) findViewById(ay, vw, R.id.wb5);
+        TextView i2a86c78b06 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb5);
 
-        TextView i78e3e43012 = (TextView) findViewById(ay, vw, R.id.notice_wb);
+        TextView i78e3e43012 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.notice_wb);
 
-        LinearLayout bd584e50cd = (LinearLayout) findViewById(ay, vw, R.id.xxbj5);
+        LinearLayout bd584e50cd = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj5);
         bd584e50cd.setOnClickListener(xxbj5ClickListener);
 
-        TextView b8bc22741b = (TextView) findViewById(ay, vw, R.id.wb7);
+        TextView b8bc22741b = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb7);
         b8bc22741b.setOnClickListener(wb7ClickListener);
 
-        TextView i42afe4289f = (TextView) findViewById(ay, vw, R.id.wb11);
+        TextView i42afe4289f = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb11);
         i42afe4289f.setOnClickListener(wb11ClickListener);
 
-        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb2);
         i7c3e3c6b5d.setOnClickListener(wb2ClickListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        TextView i9d626a4248 = (TextView) findViewById(ay, vw, R.id.wb56);
+        TextView i9d626a4248 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb56);
         i9d626a4248.setOnClickListener(wb56ClickListener);
 
-        RelativeLayout bab1d5f82e = (RelativeLayout) findViewById(ay, vw, R.id.xdbj20);
+        RelativeLayout bab1d5f82e = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj20);
         bab1d5f82e.setOnClickListener(xdbj20ClickListener);
         bab1d5f82e.setOnLongClickListener(xdbj20LongClickListener);
 
-        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
         i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        RelativeLayout f73b53def9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj12);
+        RelativeLayout f73b53def9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj12);
         f73b53def9.setOnClickListener(xdbj12ClickListener);
         f73b53def9.setOnLongClickListener(xdbj12LongClickListener);
 
-        RelativeLayout i62f27ff563 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj13);
+        RelativeLayout i62f27ff563 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj13);
         i62f27ff563.setOnClickListener(xdbj13ClickListener);
         i62f27ff563.setOnLongClickListener(xdbj13LongClickListener);
 
-        TextView i81652f77b6 = (TextView) findViewById(ay, vw, R.id.wb10);
+        TextView i81652f77b6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb10);
         i81652f77b6.setOnClickListener(wb10ClickListener);
 
-        RelativeLayout c4cbe9d7ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj14);
+        RelativeLayout c4cbe9d7ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj14);
         c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
         c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
 
-        RelativeLayout i6834408ef9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj15);
+        RelativeLayout i6834408ef9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj15);
         i6834408ef9.setOnClickListener(xdbj15ClickListener);
         i6834408ef9.setOnLongClickListener(xdbj15LongClickListener);
 
-        RelativeLayout c9f5a3ee67 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj16);
+        RelativeLayout c9f5a3ee67 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj16);
         c9f5a3ee67.setOnClickListener(xdbj16ClickListener);
         c9f5a3ee67.setOnLongClickListener(xdbj16LongClickListener);
 
-        TextView i3d78c07838 = (TextView) findViewById(ay, vw, R.id.wb40);
+        TextView i3d78c07838 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb40);
         i3d78c07838.setOnClickListener(wb40ClickListener);
 
-        RelativeLayout i8890b048c8 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj17);
+        RelativeLayout i8890b048c8 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj17);
         i8890b048c8.setOnClickListener(xdbj17ClickListener);
         i8890b048c8.setOnLongClickListener(xdbj17LongClickListener);
 
-        RelativeLayout i11185eacd9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj18);
+        RelativeLayout i11185eacd9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj18);
         i11185eacd9.setOnClickListener(xdbj18ClickListener);
         i11185eacd9.setOnLongClickListener(xdbj18LongClickListener);
 
-        RelativeLayout a229195608 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj19);
+        RelativeLayout a229195608 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj19);
         a229195608.setOnClickListener(xdbj19ClickListener);
         a229195608.setOnLongClickListener(xdbj19LongClickListener);
 
-        TextView i6a848b922c = (TextView) findViewById(ay, vw, R.id.wb51);
+        TextView i6a848b922c = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb51);
         i6a848b922c.setOnClickListener(wb51ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
 
-        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj1);
 
-        TextView adf370a235 = (TextView) findViewById(ay, vw, R.id.wb13);
+        TextView adf370a235 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb13);
         adf370a235.setOnClickListener(wb13ClickListener);
 
-        TextView i4ba8980add = (TextView) findViewById(ay, vw, R.id.wb9);
+        TextView i4ba8980add = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb9);
         i4ba8980add.setOnLongClickListener(wb9LongClickListener);
 
-        TextView f52e07ac8c = (TextView) findViewById(ay, vw, R.id.wb6);
+        TextView f52e07ac8c = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb6);
 
-        ImageView i7a998f9ecb = (ImageView) findViewById(ay, vw, R.id.tx15);
+        ImageView i7a998f9ecb = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx15);
         i7a998f9ecb.setOnClickListener(tx15ClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
 
-        ImageView a81b730195 = (ImageView) findViewById(ay, vw, R.id.tx16);
+        ImageView a81b730195 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx16);
         a81b730195.setOnClickListener(tx16ClickListener);
 
-        CardView i358e59a100 = (CardView) findViewById(ay, vw, R.id.kp5);
+        CardView i358e59a100 = (CardView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kp5);
 
-        RelativeLayout i5b34eede7f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj10);
+        RelativeLayout i5b34eede7f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj10);
         i5b34eede7f.setOnTouchListener(xdbj10TouchListener);
 
-        TextView i3a177cf5f1 = (TextView) findViewById(ay, vw, R.id.wb12);
+        TextView i3a177cf5f1 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb12);
         i3a177cf5f1.setOnClickListener(wb12ClickListener);
 
-        TextView i2318575919 = (TextView) findViewById(ay, vw, R.id.wb17);
+        TextView i2318575919 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb17);
         i2318575919.setOnClickListener(wb17ClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnTouchListener(xdbj2TouchListener);
 
-        RelativeLayout b0f5bad894 = (RelativeLayout) findViewById(ay, vw, R.id.TCxdbj);
+        RelativeLayout b0f5bad894 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.TCxdbj);
         b0f5bad894.setOnTouchListener(tCxdbjTouchListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        TextView i6a8b9facdf = (TextView) findViewById(ay, vw, R.id.wb_main_kjfs_gbcd);
+        TextView i6a8b9facdf = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb_main_kjfs_gbcd);
         i6a8b9facdf.setOnClickListener(wbMainKjfsGbcdClickListener);
 
         __layoutIsLoaded(ay, vw);

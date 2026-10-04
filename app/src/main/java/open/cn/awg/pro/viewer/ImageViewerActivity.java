@@ -17,7 +17,6 @@
 package open.cn.awg.pro.viewer;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
@@ -43,7 +42,7 @@ public class ImageViewerActivity extends BaseAwgActivity {
     public final ImageViewerActivity lei = this, 类 = this;
     public String url;
     public String md5;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnLongClickListener wb2LongClickListener = new View.OnLongClickListener() {
 
         public boolean onLongClick(View vw) {
@@ -61,25 +60,26 @@ public class ImageViewerActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.image_viewer);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
 
         try {
 
-            md5 = sj.hqtz("md5");
-            url = sj.hqtz("url");
+            md5 = ImageViewerActivity.this.getIntent().getStringExtra(String.valueOf("md5"));
+            url = ImageViewerActivity.this.getIntent().getStringExtra(String.valueOf("url"));
 
-            if (zf.dy(md5, "")) {
+            if (java.util.Objects.equals(md5, "")) {
 
-                if (!zf.dy(url, "")) {
+                if (!java.util.Objects.equals(url, "")) {
 
                     load();
 
                 } else {
 
                     e1.tsk("提示", "参数不全");
-                    gj.gb();
+                    open.cn.awg.pro.core.NativeActions.finish(ImageViewerActivity.this);
 
                 }
 
@@ -87,37 +87,37 @@ public class ImageViewerActivity extends BaseAwgActivity {
 
                 final String pa = AppPaths.externalFilesPath("Chat/Pictures/") + md5;
 
-                if (zf.ckt(url, "http")) {
+                if (open.cn.awg.pro.core.TextValues.startsWith(url, "http")) {
 
-                    if (wj.cz(pa) && wj.dx(pa) != 0) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(ImageViewerActivity.this, (String) (pa)) && open.cn.awg.pro.core.NativeFiles.size(ImageViewerActivity.this, (String) (pa)) != 0) {
 
                         url = pa;
                         load();
 
                     } else {
 
-                        gj.xc(new Thread() {
+                        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                             public void run() {
 
-                                int zt = wl.xz(url, pa, true, null, "utf-8", null, true, "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN");
+                                int zt = open.cn.awg.pro.core.NativeHttp.download(ImageViewerActivity.this, String.valueOf(url), (String) (pa), java.lang.Boolean.TRUE.equals(true), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), (String) ("User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN"), 0, 0, null);
 
                                 if (zt == -1) {
 
                                     e1.tsk("提示", "缓存图片失败");
-                                    gj.gb();
+                                    open.cn.awg.pro.core.NativeActions.finish(ImageViewerActivity.this);
 
                                 } else {
 
                                     final String[] name = new String[]{"url", "md5"};
 
                                     final String[] value = new String[]{url, md5};
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            gj.gb();
-                                            gj.tz(ImageViewerActivity.class, name, value);
+                                            open.cn.awg.pro.core.NativeActions.finish(ImageViewerActivity.this);
+                                            open.cn.awg.pro.core.NativeActions.launch(ImageViewerActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
                                         }
 
@@ -142,7 +142,7 @@ public class ImageViewerActivity extends BaseAwgActivity {
         } catch (Throwable e) {
 
             e1.upload_error(e, "d3.*");
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(ImageViewerActivity.this);
 
         }
 
@@ -150,11 +150,11 @@ public class ImageViewerActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -165,66 +165,66 @@ public class ImageViewerActivity extends BaseAwgActivity {
             }
 
         }
-        xt.sbxm(false);
+        open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(ImageViewerActivity.this, !(false));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
         applyFullscreenWindow();
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(ImageViewerActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
+            int uih = open.cn.awg.pro.core.DisplayValues.pxToDp(ImageViewerActivity.this, open.cn.awg.pro.core.DisplayValues.systemBarHeight(ImageViewerActivity.this, "status_bar_height"));
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, uih + "dp", 0, "9dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         }
 
         String set = AppPaths.appPath("settings/set3.inf");
 
-        if (zf.dy(wj.dqwb(set), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (set)), "true")) {
 
-            String te = wj.dqwb(AppPaths.appPath("data/assets/a6"));
+            String te = open.cn.awg.pro.core.NativeFiles.readText(ImageViewerActivity.this, (String) (AppPaths.appPath("data/assets/a6")));
 
             String[] name = new String[]{"title", "text"};
 
             String[] value = new String[]{"新手教程", te};
-            gj.tz(TextQrDisplayActivity.class, name, value);
+            open.cn.awg.pro.core.NativeActions.launch(ImageViewerActivity.this, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
         }
 
@@ -232,12 +232,12 @@ public class ImageViewerActivity extends BaseAwgActivity {
 
     public void load() {
 
-        if (wj.cz(url)) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(ImageViewerActivity.this, (String) (url))) {
 
             String[] fhValue = e1.fileinfo("%", url);
 
             String bts = fhValue[3];
-            st.xxbj(R.id.xxbj2).kjd(8);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.xxbj2)).setVisibility(android.view.View.GONE);
 
             LinearLayout xx = findViewById(R.id.xx);
             com.demo.e5 pic = new com.demo.e5(this);
@@ -248,7 +248,7 @@ public class ImageViewerActivity extends BaseAwgActivity {
         } else {
 
             e1.tsk("提示", "文件不存在");
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(ImageViewerActivity.this);
 
         }
 
@@ -294,19 +294,19 @@ public class ImageViewerActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ImageViewerActivity.this);
 
     }
 
     private boolean onWb2LongClick(View vw) {
 
-        if (st.wb(R.id.title_bar).kjd() == 0) {
+        if (((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.wb(R.id.title_bar).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ImageViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
 
         }
         return true;
@@ -319,14 +319,14 @@ public class ImageViewerActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        LinearLayout bfde3e272b = (LinearLayout) findViewById(ay, vw, R.id.xx);
+        LinearLayout bfde3e272b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xx);
 
-        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj1);
 
-        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb2);
         i7c3e3c6b5d.setOnLongClickListener(wb2LongClickListener);
 
         __layoutIsLoaded(ay, vw);

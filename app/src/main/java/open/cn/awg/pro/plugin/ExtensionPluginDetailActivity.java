@@ -41,9 +41,9 @@ import open.cn.awg.pro.R;
 public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
     public final ExtensionPluginDetailActivity lei = this, 类 = this;
-    public ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
-    public ExtensionPluginConfigBridge e14m2 = new ExtensionPluginConfigBridge(_APPINFO);
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public ExtensionPluginBridge e14;
+    public ExtensionPluginConfigBridge e14m2;
+    public AppRuntimeBridge e1;
     private final View.OnTouchListener xxbj4TouchListener = new View.OnTouchListener() {
 
         public boolean onTouch(View vw, MotionEvent me) {
@@ -89,6 +89,9 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e14 = new ExtensionPluginBridge(this);
+        e14m2 = new ExtensionPluginConfigBridge(this);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.extension_plugin_detail);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -98,11 +101,11 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ExtensionPluginDetailActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ExtensionPluginDetailActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -116,64 +119,64 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ExtensionPluginDetailActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ExtensionPluginDetailActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.extension_plugin_detail_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.extension_plugin_detail_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.extension_plugin_detail_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.extension_plugin_detail_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
-            i.runlibrary.app.v.v7lb lbx = st.v7lb(R.id.v7lb1);
+            androidx.recyclerview.widget.RecyclerView lbx = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(ExtensionPluginDetailActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ExtensionPluginDetailActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
@@ -195,9 +198,9 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -214,7 +217,7 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -234,9 +237,9 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), ExtensionPluginConfigBridge.titleback)) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), ExtensionPluginConfigBridge.titleback)) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(ExtensionPluginDetailActivity.this);
 
             } else {
 
@@ -249,9 +252,9 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), ExtensionPluginConfigBridge.titleback)) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), ExtensionPluginConfigBridge.titleback)) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(ExtensionPluginDetailActivity.this);
 
         }
 
@@ -266,12 +269,12 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginDetailActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -303,22 +306,22 @@ public class ExtensionPluginDetailActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        LinearLayout efa568dfe6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj3);
+        LinearLayout efa568dfe6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj3);
         efa568dfe6.setOnTouchListener(xxbj3TouchListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        LinearLayout i9068f5d66e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4);
+        LinearLayout i9068f5d66e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj4);
         i9068f5d66e.setOnTouchListener(xxbj4TouchListener);
 
         __layoutIsLoaded(ay, vw);

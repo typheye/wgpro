@@ -17,7 +17,6 @@
 package open.cn.awg.pro.account;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -49,7 +48,7 @@ public class AppActivationActivity extends BaseAwgActivity {
     public final AppActivationActivity lei = this, 类 = this;
     public int mode = 0;
     public boolean isJh = false;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx6ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -151,6 +150,7 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.app_activation);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -167,19 +167,19 @@ public class AppActivationActivity extends BaseAwgActivity {
     public void jz() {
 
         final String set1 = AppPaths.appPath("settings/f7/Enable2");
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                String te1 = wj.dqwb(set1);
+                String te1 = open.cn.awg.pro.core.NativeFiles.readText(AppActivationActivity.this, (String) (set1));
 
-                if (zf.dy(wj.dqwb(set1), "") || !wj.cz(set1)) {
+                if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppActivationActivity.this, (String) (set1)), "") || !open.cn.awg.pro.core.NativeFiles.exists(AppActivationActivity.this, (String) (set1))) {
 
-                    st.wb(R.id.wb5).zf("请输入15位产品ID");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf("请输入15位产品ID"));
 
                 } else {
 
-                    st.wb(R.id.wb5).zf(te1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(te1));
 
                 }
 
@@ -195,14 +195,14 @@ public class AppActivationActivity extends BaseAwgActivity {
         if (i == 0) {
 
             qh_();
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj1).kjd(0);
-                    st.xxbj(R.id.xxbj4).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -210,14 +210,14 @@ public class AppActivationActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj4).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -228,34 +228,34 @@ public class AppActivationActivity extends BaseAwgActivity {
     }
 
     public void zh() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String a = AppPaths.appPath("settings/f7/Enable2");
 
-                if (wj.cz(a) && !zf.dy(wj.dqwb(a), "")) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(AppActivationActivity.this, (String) (a)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppActivationActivity.this, (String) (a)), "")) {
 
-                    st.wb(R.id.wb10).zf("已激活");
-                    st.wb(R.id.wb11).zf("");
-                    st.wb(R.id.wb11).kjd(8);
-                    st.tx(R.id.tx4).tx(R.mipmap.a28);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("已激活"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.GONE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.tx4)), R.mipmap.a28);
 
-                    String color = zf.zf(R.color.colorTextTrue);
-                    st.kp(R.id.kp4).kpbjys(color);
-                    st.xdbj(R.id.xdbj4).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextTrue);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.kp4)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xdbj4)).setVisibility(android.view.View.GONE);
                     isJh = true;
 
                 } else {
 
-                    st.wb(R.id.wb10).zf("未激活");
-                    st.wb(R.id.wb11).zf("一些功能将无法使用");
-                    st.wb(R.id.wb11).kjd(0);
-                    st.tx(R.id.tx4).tx(R.mipmap.a29);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("未激活"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("一些功能将无法使用"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.VISIBLE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.tx4)), R.mipmap.a29);
 
-                    String color = zf.zf(R.color.colorTextFalse);
-                    st.kp(R.id.kp4).kpbjys(color);
-                    st.xdbj(R.id.xdbj4).kjd(0);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextFalse);
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.kp4)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xdbj4)).setVisibility(android.view.View.VISIBLE);
                     isJh = false;
 
                 }
@@ -271,40 +271,40 @@ public class AppActivationActivity extends BaseAwgActivity {
         String[] name = new String[]{"url", "title", "code"};
 
         Object[] value = new Object[]{url, title, "super1"};
-        gj.tz(TextViewerActivity.class, name, value);
+        open.cn.awg.pro.core.NativeActions.launch(AppActivationActivity.this, (Class<?>) (TextViewerActivity.class), (String[]) (name), (Object[]) (value));
 
     }
 
     public void qh() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String set2 = AppPaths.appPath("settings/f7/Enable2");
 
-                if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+                if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
                     String z = "";
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj4).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.VISIBLE);
 
                     if (mode == 1) {
 
-                        z = st.wb(R.id.wb5).zf();
-                        st.wb(R.id.title_bar).zf("产品ID");
-                        st.bjk(R.id.bjk1).tszf("请输入15位产品ID");
-                        st.bjk(R.id.bjk1).wblx("number");
-                        st.bjk(R.id.bjk1).xzxscd(15);
+                        z = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品ID"));
+                        ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入15位产品ID"));
+                        ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("number"));
+                        ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setFilters(new android.text.InputFilter[]{new android.text.InputFilter.LengthFilter(open.cn.awg.pro.core.TextValues.intValue(15, -1))});
 
                     }
-                    st.bjk(R.id.bjk1).zf(wj.dqwb(set2));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(AppActivationActivity.this, (String) (set2))));
 
                 } else {
 
-                    st.xxbj(R.id.xxbj1).kjd(0);
-                    st.xxbj(R.id.xxbj4).kjd(8);
-                    st.bjk(R.id.bjk1).zf("");
-                    st.wb(R.id.title_bar).zf("< 应用激活");
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
 
                 }
 
@@ -315,14 +315,14 @@ public class AppActivationActivity extends BaseAwgActivity {
     }
 
     public void qh_() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj1).kjd(0);
-                st.xxbj(R.id.xxbj4).kjd(8);
-                st.bjk(R.id.bjk1).zf("");
-                st.wb(R.id.title_bar).zf("< 应用激活");
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
 
             }
 
@@ -331,17 +331,17 @@ public class AppActivationActivity extends BaseAwgActivity {
     }
 
     public void gx() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(1);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 String set2 = AppPaths.appPath("settings/f7/Enable2");
 
-                String b = st.bjk(R.id.bjk1).zf();
-                b = zf.qctwkg(b);
+                String b = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+                b = open.cn.awg.pro.core.TextValues.trim(b);
 
                 if (mode == 1) {
 
@@ -355,10 +355,10 @@ public class AppActivationActivity extends BaseAwgActivity {
                         if (e1.yz()) {
 
                             String urls = AppPaths.appPath("settings/f10/set2.inf");
-                            urls = wj.dqwb(urls);
+                            urls = open.cn.awg.pro.core.NativeFiles.readText(AppActivationActivity.this, (String) (urls));
                             urls = e1.urlUnlockString(urls);
 
-                            if (zf.cjw(urls, "/")) {
+                            if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                             } else {
 
@@ -368,18 +368,18 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                             String url = urls + "open.php?token=" + b;
 
-                            String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                            if (zf.dy(back, "") || zf.dy(back, null)) {
+                            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                 e1.tsk("提示", "验证产品ID失败:连接服务器超时(-1)");
                                 show(0);
 
                             } else {
 
-                                if (zf.dy(back, "true")) {
+                                if (java.util.Objects.equals(back, "true")) {
 
-                                    wj.xrwb(set2, b);
+                                    open.cn.awg.pro.core.NativeFiles.writeText(AppActivationActivity.this, (String) (set2), (String) (b));
                                     show(0);
                                     jz();
 
@@ -410,18 +410,18 @@ public class AppActivationActivity extends BaseAwgActivity {
     }
 
     public void ksjh() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(1);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 String urls = AppPaths.appPath("settings/f10/set2.inf");
-                urls = wj.dqwb(urls);
+                urls = open.cn.awg.pro.core.NativeFiles.readText(AppActivationActivity.this, (String) (urls));
                 urls = e1.urlUnlockString(urls);
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -433,9 +433,9 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                 if (e1.yz()) {
 
-                    String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         e1.tsk("提示", "连接服务器超时");
                         show(0);
@@ -448,75 +448,75 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                             String money = e1.readJson(back, "Money");
 
-                            double money_ = IappCompat.zh(sj.zh(money)).zdouble(((double) (0)));
+                            double money_ = open.cn.awg.pro.core.TextValues.doubleValue(money, ((double) (0)));
 
                             String h_y = e1.readJson(back, "Act_Y");
 
-                            int h_y_ = IappCompat.zh(sj.zh(h_y)).zint(0);
+                            int h_y_ = open.cn.awg.pro.core.TextValues.intValue(h_y, 0);
 
                             String h_m = e1.readJson(back, "Act_M");
 
-                            int h_m_ = IappCompat.zh(sj.zh(h_m)).zint(0);
+                            int h_m_ = open.cn.awg.pro.core.TextValues.intValue(h_m, 0);
 
                             String h_d = e1.readJson(back, "Act_D");
 
-                            int h_d_ = IappCompat.zh(sj.zh(h_d)).zint(0);
+                            int h_d_ = open.cn.awg.pro.core.TextValues.intValue(h_d, 0);
 
                             String a3 = 日期工具.格式化日期时间(应用工具.获取应用第一次安装日期(lei, "open.cn.awg.pro"));
 
-                            String y = zf.qc(a3, 0, 4);
+                            String y = open.cn.awg.pro.core.TextValues.slice(a3, 0, 4);
 
-                            String m = zf.qc(a3, 5, 7);
+                            String m = open.cn.awg.pro.core.TextValues.slice(a3, 5, 7);
 
-                            String d = zf.qc(a3, 8, 10);
+                            String d = open.cn.awg.pro.core.TextValues.slice(a3, 8, 10);
 
-                            int y_ = IappCompat.zh(sj.zh(y)).zint(9999);
+                            int y_ = open.cn.awg.pro.core.TextValues.intValue(y, 9999);
 
-                            int m_ = IappCompat.zh(sj.zh(m)).zint(99);
+                            int m_ = open.cn.awg.pro.core.TextValues.intValue(m, 99);
 
-                            int d_ = IappCompat.zh(sj.zh(d)).zint(99);
+                            int d_ = open.cn.awg.pro.core.TextValues.intValue(d, 99);
 
                             final String[] name = new String[]{"id", "name", "jg", "text"};
 
                             final Object[] value = new Object[]{"a1", "腕管Pro-产品ID", money_, "用以激活腕管Pro的产品ID，一经售出，概不退换！"};
 
-                            if (zf.dy(oldenable, "true")) {
+                            if (java.util.Objects.equals(oldenable, "true")) {
 
                                 if (y_ <= h_y_ && m_ <= h_m_ && d_ <= h_d_) {
 
                                     e1.jh();
                                     e1.tsk("提示", "检测到您为老用户,已为您激活应用");
-                                    gj.zt(1000);
+                                    open.cn.awg.pro.core.NativeActions.sleep(1000);
                                     show(0);
 
                                 } else {
 
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            gj.tz(ProductPurchaseActivity.class, name, value);
+                                            open.cn.awg.pro.core.NativeActions.launch(AppActivationActivity.this, (Class<?>) (ProductPurchaseActivity.class), (String[]) (name), (Object[]) (value));
 
                                         }
 
                                     });
-                                    gj.zt(1000);
+                                    open.cn.awg.pro.core.NativeActions.sleep(1000);
                                     show(0);
 
                                 }
 
                             } else {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        gj.tz(ProductPurchaseActivity.class, name, value);
+                                        open.cn.awg.pro.core.NativeActions.launch(AppActivationActivity.this, (Class<?>) (ProductPurchaseActivity.class), (String[]) (name), (Object[]) (value));
 
                                     }
 
                                 });
-                                gj.zt(1000);
+                                open.cn.awg.pro.core.NativeActions.sleep(1000);
                                 show(0);
 
                             }
@@ -553,9 +553,9 @@ public class AppActivationActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -572,7 +572,7 @@ public class AppActivationActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -597,9 +597,9 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 应用激活")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 应用激活")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(AppActivationActivity.this);
 
         }
 
@@ -614,15 +614,15 @@ public class AppActivationActivity extends BaseAwgActivity {
 
         } else {
 
-            if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("< 应用激活");
-                        st.xxbj(R.id.xxbj9).kjd(8);
-                        st.xxbj(R.id.xxbj1).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -630,13 +630,13 @@ public class AppActivationActivity extends BaseAwgActivity {
 
             } else {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("提示");
-                        st.xxbj(R.id.xxbj9).kjd(0);
-                        st.xxbj(R.id.xxbj1).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                     }
 
@@ -650,14 +650,14 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private void onXdbj3Click(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb5).zf(), "请输入15位产品ID")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString(), "请输入15位产品ID")) {
 
             mode = 1;
             qh();
 
         } else {
 
-            e1.tsk("产品ID", st.wb(R.id.wb5).zf());
+            e1.tsk("产品ID", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString());
 
         }
 
@@ -665,9 +665,9 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -680,9 +680,9 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -695,16 +695,16 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb7).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
 
-        String lj = st.wb(R.id.wb8).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AppActivationActivity.this);
 
     }
 
@@ -712,12 +712,12 @@ public class AppActivationActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -740,15 +740,15 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private void onTx5Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< 应用激活");
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -756,13 +756,13 @@ public class AppActivationActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("提示");
-                    st.xxbj(R.id.xxbj9).kjd(0);
-                    st.xxbj(R.id.xxbj1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -775,18 +775,18 @@ public class AppActivationActivity extends BaseAwgActivity {
     private void onTx6Click(View vw) {
 
         String a = AppPaths.appPath("settings/f7/Enable2");
-        wj.xrwb(a, "");
+        open.cn.awg.pro.core.NativeFiles.writeText(AppActivationActivity.this, (String) (a), (String) (""));
         jz();
 
-        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< 应用激活");
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -794,13 +794,13 @@ public class AppActivationActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("提示");
-                    st.xxbj(R.id.xxbj9).kjd(0);
-                    st.xxbj(R.id.xxbj1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -816,42 +816,42 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
 
-        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        LinearLayout i3f6c9f386b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj8);
         i3f6c9f386b.setOnClickListener(xxbj8ClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
         __layoutIsLoaded(ay, vw);

@@ -17,8 +17,8 @@
 package open.cn.awg.pro.experimental;
 
 
-import open.cn.awg.pro.core.IappCompat;
-import android.app.Activity;
+import androidx.recyclerview.widget.RecyclerView;
+import open.cn.awg.pro.ui.list.NativeListAdapter;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,15 +34,15 @@ import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.ExperimentalFeatureItemActivity;
+import open.cn.awg.pro.ui.list.ExperimentalFeatureRowBinder;
 
 public class ExperimentalFeaturesActivity extends BaseAwgActivity {
 
     public final ExperimentalFeaturesActivity lei = this, 类 = this;
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public NativeListAdapter spq = null;
     public String lin;
     public String CacheSize = null;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -60,35 +60,36 @@ public class ExperimentalFeaturesActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.experimental_features);
-        _$_viewAutomaticSettingEvent();
+        bindViews();
         AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(Activity ay, View vw) {
+    private void applyScreenPolicy() {
 
         applyStandardScreenMode(R.id.experimental_features_root, R.id.xdbj1, R.id.title_bar);
 
-        i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = IappCompat.v7lbAdapter(lb, ExperimentalFeatureItemActivity.class, R.layout.experimental_feature_item);
+        RecyclerView lb = findViewById(R.id.v7lb1);
+        spq = NativeListAdapter.attach(lei, lb, R.layout.experimental_feature_item, new ExperimentalFeatureRowBinder(lei));
 
         int[] kj = new int[]{R.id.wb1, R.id.wb2, -1};
 
         String[] jk = new String[]{"", "", ""};
         jk = new String[]{"服务端调试", "设备与服务端调试工具", "l5_a1_fuwuq_d0313_y2022"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
         jk = new String[]{"Shizuku命令行", "拥有Shizuku加持的Shell", "j4"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
 
-        if (zf.dy(readDisplayMode(), "4")) {
+        if (java.util.Objects.equals(readDisplayMode(), "4")) {
 
             jk = new String[]{"指纹验证", "指纹验证测试工具", "j2"};
-            spq.j(kj, jk);
+            spq.addRow(kj, jk);
 
         }
-        spq.sx();
+        spq.refreshRows();
 
     }
 
@@ -112,9 +113,9 @@ public class ExperimentalFeaturesActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        View qtgd1 = findViewById(R.id.qtgd1);
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -131,7 +132,7 @@ public class ExperimentalFeaturesActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -148,27 +149,23 @@ public class ExperimentalFeaturesActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        finish();
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        finish();
 
     }
 
-    private void _$_viewAutomaticSettingEvent() {
-        _$_viewAutomaticSettingEvent(this, null);
-    }
+    private void bindViews() {
 
-    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
-
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        __layoutIsLoaded(ay, vw);
+        applyScreenPolicy();
     }
 }

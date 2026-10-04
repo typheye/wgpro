@@ -19,16 +19,16 @@ package open.cn.awg.pro.chat;
 
 
 import android.annotation.SuppressLint;
-import open.cn.awg.pro.core.IappCompat;
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.View;
 
 import com.kongzue.baseokhttp.HttpRequest;
 import com.kongzue.baseokhttp.listener.ResponseListener;
 import com.kongzue.baseokhttp.listener.UploadProgressListener;
 
-import i.app.iClass;
+import android.app.Activity;
+import android.content.Context;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,33 +43,30 @@ import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.data.LocalDatabaseBridge;
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.settings.WearChatSettingsActivity;
-import open.cn.awg.pro.ui.list.ChatAttachmentItemActivity;
-import open.cn.awg.pro.ui.list.ChatRoomListItemActivity;
-import open.cn.awg.pro.ui.list.WearChatMenuItemActivity;
 import open.cn.awg.pro.ui.widget.XLinearLayoutManager;
 
 @SuppressLint("StaticFieldLeak")
-public class WearChatRuntimeBridge extends iClass {
+public class WearChatRuntimeBridge {
+    private final Context context;
+    private final Activity owner;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter wllbcdspq;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter wllbcdspq;
 
-    public static i.runlibrary.app.v.v7lb wllbcdlb;
+    public static androidx.recyclerview.widget.RecyclerView wllbcdlb;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter spq2;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter spq2;
 
-    public static i.runlibrary.app.v.v7lb lb2;
+    public static androidx.recyclerview.widget.RecyclerView lb2;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter spq3;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter spq3;
 
-    public static i.runlibrary.app.v.v7lb lb3;
+    public static androidx.recyclerview.widget.RecyclerView lb3;
 
-    public static Context context;
-
-    public static LinearLayoutManager mLayoutManager;
+public static LinearLayoutManager mLayoutManager;
 
     public static String set17 = AppPaths.appPath("settings/db/talking.db");
 
-    public static i.runlibrary.app.sj$sjk sjk;
+    public static android.database.sqlite.SQLiteDatabase sjk;
 
     public static int bjkmode = 0;
 
@@ -82,22 +79,24 @@ public class WearChatRuntimeBridge extends iClass {
     public static boolean state_upload = false;
     public static boolean state_online = false;
     public final WearChatRuntimeBridge lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public LocalDatabaseBridge e11;
     public String upload_back = "";
 
-    public WearChatRuntimeBridge(i.runlibrary.app.AppInfo _APPINFO) {
-        super(_APPINFO);
-
+    public WearChatRuntimeBridge(Context context) {
+        this.context = java.util.Objects.requireNonNull(context);
+        this.owner = context instanceof Activity ? (Activity) context : null;
+        e1 = new AppRuntimeBridge(context);
+        e11 = new LocalDatabaseBridge(context);
     }
 
     public String getTabName(String room_name) {
 
         String exist = "< ";
 
-        if (zf.cd(room_name) > 5) {
+        if (open.cn.awg.pro.core.TextValues.length(room_name) > 5) {
 
-            return exist + zf.qc(room_name, 0, 5) + "..";
+            return exist + open.cn.awg.pro.core.TextValues.slice(room_name, 0, 5) + "..";
 
         }
         return exist + room_name;
@@ -105,13 +104,13 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public boolean part_buildNewRoom(Object name, Object id) {
-        gj.zt(500);
+        open.cn.awg.pro.core.NativeActions.sleep(500);
 
         final String set2 = AppPaths.appPath("settings/f11/set2.inf");
-        name = zf.qctwkg(name);
-        id = zf.qctwkg(id);
+        name = open.cn.awg.pro.core.TextValues.trim(name);
+        id = open.cn.awg.pro.core.TextValues.trim(id);
 
-        if (zf.dy(name, "") || zf.dy(id, "")) {
+        if (java.util.Objects.equals(name, "") || java.util.Objects.equals(id, "")) {
 
             e1.tsk("提示", "提交失败：请填写完整");
 
@@ -119,9 +118,9 @@ public class WearChatRuntimeBridge extends iClass {
 
             try {
 
-                String url = e1.urlUnlockString(wj.dqwb(set2));
+                String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-                if (zf.cjw(url, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                 } else {
 
@@ -133,16 +132,16 @@ public class WearChatRuntimeBridge extends iClass {
 
                 String[] pt = new String[]{"title=" + name, "id=" + id, "pass=123456"};
 
-                String st5 = wl.hq(idget, pt, "utf-8", null, true, null, 20000, 20000, null);
+                String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(idget), (String[]) (pt), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                if (zf.dy(st5, "null") || zf.dy(st5, "") || zf.dy(st5, null)) {
+                if (java.util.Objects.equals(st5, "null") || java.util.Objects.equals(st5, "") || java.util.Objects.equals(st5, null)) {
 
                     e1.tsk("提示", "提交失败：连接服务器异常");
 
                 } else {
 
-                    st5 = zf.qctwkg(st5);
-                    st5 = zf.th(st5, "<br>", "  ");
+                    st5 = open.cn.awg.pro.core.TextValues.trim(st5);
+                    st5 = open.cn.awg.pro.core.TextValues.replace(st5, "<br>", "  ");
                     e1.tsk("提示", st5);
 
                 }
@@ -160,172 +159,172 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void lts_csh() {
         csh_once = true;
-        wj.xrwb(AppPaths.appPath("data/ltlb/hdva"), "0");
-        lb3 = st.v7lb(R.id.ltsv7lb1);
+        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (AppPaths.appPath("data/ltlb/hdva")), (String) ("0"));
+        lb3 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsv7lb1));
 
-        context = AwgProApplication.getContext();
+        
         mLayoutManager = new XLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
-        lb3.st.setLayoutManager(mLayoutManager);
-        wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
-        spq3 = IappCompat.v7lbAdapter(lb3, ChatAttachmentItemActivity.class, R.layout.chat_attachment_item, new IappCompat.V7lbViewBinder() {
+        lb3.setLayoutManager(mLayoutManager);
+        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (AppPaths.appPath("data/ltlb/disTouch")), false);
+        spq3 = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, lb3, R.layout.chat_attachment_item, new open.cn.awg.pro.ui.list.ChatAttachmentRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                
 
-                final int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                final int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == -1) {
 
-                    String color0 = zf.zf(R.color.colorTextTrue2);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextTrue2);
 
-                    String color1 = zf.zf(R.color.colorBlack);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorBlack);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb2).zfys(color2);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.wb(vw, R.id.wb2).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("right");
-                    st.xxbj(vw, R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
-                    st.wb(vw, R.id.wb21).kjd(8);
-                    st.wb(vw, R.id.wb22).kjd(8);
-                    st.xxbj(vw, R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, R.id.xxbj4k).kjd(8);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("right"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjat)).setVisibility(android.view.View.GONE);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj24)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj4k)).setVisibility(android.view.View.GONE);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
-                    kp2.kjd(0);
+                    androidx.cardview.widget.CardView kp2 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp2));
+                    kp2.setVisibility(android.view.View.VISIBLE);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) (Object) kp2.xdbjgz();
-                    kp2_xdbjgz.dqfzb(false);
-                    kp2_xdbjgz.dqfyb(true);
+                    android.widget.RelativeLayout.LayoutParams kp2_xdbjgz = ((android.widget.RelativeLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.relativeParams(kp2));
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_LEFT, false);
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_RIGHT, true);
 
-                    String wb = st.wb(vw, R.id.wb2).zf();
+                    String wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).getText().toString();
 
                     int isVip = 8;
 
                     int isVip2 = 0;
 
-                    if (zf.dy(wb, "台风眼Typheye") || zf.dy(wb, "系统消息")) {
+                    if (java.util.Objects.equals(wb, "台风眼Typheye") || java.util.Objects.equals(wb, "系统消息")) {
 
                         isVip = 0;
                         isVip2 = 8;
 
                     }
-                    st.wb(vw, R.id.wb7).kjd(isVip);
-                    st.wb(vw, R.id.wb21).kjd(isVip2);
-                    st.wb(vw, R.id.wb6).zf("我");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(isVip, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(isVip2, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb6)).setText(String.valueOf("我"));
 
-                    Object luid = lbsj.lbsj(pn, -3);
-                    luid = zf.qctwkg(luid);
+                    Object luid = row.get(-3);
+                    luid = open.cn.awg.pro.core.TextValues.trim(luid);
 
-                    if (zf.dy(luid, "w0") || zf.dy(luid, "") || zf.dy(luid, null) || zf.dy(luid, "0") || zf.dy(luid, "null")) {
+                    if (java.util.Objects.equals(luid, "w0") || java.util.Objects.equals(luid, "") || java.util.Objects.equals(luid, null) || java.util.Objects.equals(luid, "0") || java.util.Objects.equals(luid, "null")) {
 
-                        st.wb(vw, R.id.wb22).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.VISIBLE);
 
                     } else {
 
-                        st.wb(vw, R.id.wb22).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
 
                     }
 
-                    if (zf.dy(st.wb(vw, R.id.wb21).zf(), "未知")) {
+                    if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).getText().toString(), "未知")) {
 
-                        st.wb(vw, R.id.wb21).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.GONE);
 
                     } else {
 
-                        st.wb(vw, R.id.wb21).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
-                    String wb2 = st.wb(vw, R.id.wb1).zf();
+                    String wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).getText().toString();
 
-                    if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
+                    if (open.cn.awg.pro.core.TextValues.contains(wb2, "[PHOTO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[P:END]")) {
 
-                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[PHOTO]", "[P:END]");
 
-                        String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[PHOTO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]图片"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b11);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[AUDIO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[A:END]")) {
 
-                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[AUDIO]", "[A:END]");
 
-                        String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[AUDIO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]音频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b9);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[VIDEO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[V:END]")) {
 
-                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[VIDEO]", "[V:END]");
 
-                        String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[VIDEO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]视频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[OTHER]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[O:END]")) {
 
-                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[OTHER]", "[O:END]");
 
-                        String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[OTHER]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]文件"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b14);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[INFOS]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[I:END]")) {
 
-                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[INFOS]", "[I:END]");
 
-                        String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf("");
-                        st.xxbj(vw, R.id.xxbj1).kjd(8);
-                        st.wb(vw, R.id.wb10).kjd(0);
-                        st.wb(vw, R.id.wb10).zf(ur);
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[INFOS]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(""));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(ur));
 
                     } else {
 
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf(wb2);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(wb2));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
                     }
 
@@ -336,459 +335,459 @@ public class WearChatRuntimeBridge extends iClass {
                     String color1 = "#00000000";
 
                     String color2 = "#00000000";
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb2).zfys(color2);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.wb(vw, R.id.wb2).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(false);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(false);
-                    st.xxbj(vw, R.id.xxbj3).kjd(0);
-                    st.wb(vw, R.id.wb21).kjd(8);
-                    st.wb(vw, R.id.wb22).kjd(8);
-                    st.xxbj(vw, R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, R.id.xxbj4k).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjat)).setVisibility(android.view.View.GONE);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj24)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj4k)).setVisibility(android.view.View.VISIBLE);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
-                    kp2.kjd(8);
+                    androidx.cardview.widget.CardView kp2 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp2));
+                    kp2.setVisibility(android.view.View.GONE);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) (Object) kp2.xdbjgz();
-                    kp2_xdbjgz.dqfzb(true);
-                    kp2_xdbjgz.dqfyb(false);
-                    st.wb(vw, R.id.wb7).kjd(8);
-                    st.wb(vw, R.id.wb6).zf("");
-                    st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                    st.wb(vw, R.id.wb8).zf("");
-                    st.wb(vw, R.id.wb9).zf("");
-                    st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                    st.wb(vw, R.id.wb1).zf("");
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.wb(vw, R.id.wb10).kjd(8);
-                    st.wb(vw, R.id.wb10).zf("");
+                    android.widget.RelativeLayout.LayoutParams kp2_xdbjgz = ((android.widget.RelativeLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.relativeParams(kp2));
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_LEFT, true);
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_RIGHT, false);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb7)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb6)).setText(String.valueOf(""));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(""));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
                 } else if (f == 1) {
 
-                    String color0 = zf.zf(R.color.colorWBK);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorWBK);
 
-                    String color1 = zf.zf(R.color.colorTextU1);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb2).zfys(color2);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.wb(vw, R.id.wb2).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
-                    st.wb(vw, R.id.wb21).kjd(0);
-                    st.wb(vw, R.id.wb22).kjd(8);
-                    st.xxbj(vw, R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, R.id.xxbj4k).kjd(0);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjat)).setVisibility(android.view.View.GONE);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj24)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj4k)).setVisibility(android.view.View.VISIBLE);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
-                    kp2.kjd(0);
+                    androidx.cardview.widget.CardView kp2 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp2));
+                    kp2.setVisibility(android.view.View.VISIBLE);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) (Object) kp2.xdbjgz();
-                    kp2_xdbjgz.dqfzb(true);
-                    kp2_xdbjgz.dqfyb(false);
+                    android.widget.RelativeLayout.LayoutParams kp2_xdbjgz = ((android.widget.RelativeLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.relativeParams(kp2));
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_LEFT, true);
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_RIGHT, false);
 
-                    String wb = st.wb(vw, R.id.wb2).zf();
+                    String wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).getText().toString();
 
                     int isVip = 8;
 
                     int isVip2 = 0;
 
-                    if (zf.dy(wb, "台风眼Typheye") || zf.dy(wb, "系统消息")) {
+                    if (java.util.Objects.equals(wb, "台风眼Typheye") || java.util.Objects.equals(wb, "系统消息")) {
 
                         isVip = 0;
                         isVip2 = 8;
 
                     }
-                    st.wb(vw, R.id.wb7).kjd(isVip);
-                    st.wb(vw, R.id.wb21).kjd(isVip2);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(isVip, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(isVip2, -1));
 
-                    Object luid = lbsj.lbsj(pn, -3);
-                    luid = zf.qctwkg(luid);
+                    Object luid = row.get(-3);
+                    luid = open.cn.awg.pro.core.TextValues.trim(luid);
 
-                    if (zf.dy(luid, "w0") || zf.dy(luid, "") || zf.dy(luid, null) || zf.dy(luid, "0") || zf.dy(luid, "null")) {
+                    if (java.util.Objects.equals(luid, "w0") || java.util.Objects.equals(luid, "") || java.util.Objects.equals(luid, null) || java.util.Objects.equals(luid, "0") || java.util.Objects.equals(luid, "null")) {
 
-                        st.wb(vw, R.id.wb22).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.VISIBLE);
 
                     } else {
 
-                        st.wb(vw, R.id.wb22).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
 
                     }
-                    wb = zf.qc(wb, 0, 1);
-                    st.wb(vw, R.id.wb6).zf(wb);
+                    wb = open.cn.awg.pro.core.TextValues.slice(wb, 0, 1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb6)).setText(String.valueOf(wb));
 
-                    if (zf.dy(st.wb(vw, R.id.wb21).zf(), "未知")) {
+                    if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).getText().toString(), "未知")) {
 
-                        st.wb(vw, R.id.wb21).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.GONE);
 
                     } else {
 
-                        st.wb(vw, R.id.wb21).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
-                    String wb2 = st.wb(vw, R.id.wb1).zf();
+                    String wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).getText().toString();
 
-                    if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
+                    if (open.cn.awg.pro.core.TextValues.contains(wb2, "[PHOTO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[P:END]")) {
 
-                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[PHOTO]", "[P:END]");
 
-                        String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[PHOTO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]图片"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b11);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[AUDIO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[A:END]")) {
 
-                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[AUDIO]", "[A:END]");
 
-                        String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[AUDIO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]音频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b9);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[VIDEO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[V:END]")) {
 
-                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[VIDEO]", "[V:END]");
 
-                        String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[VIDEO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]视频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[OTHER]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[O:END]")) {
 
-                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[OTHER]", "[O:END]");
 
-                        String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[OTHER]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]文件"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b14);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[INFOS]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[I:END]")) {
 
-                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[INFOS]", "[I:END]");
 
-                        String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf("");
-                        st.xxbj(vw, R.id.xxbj1).kjd(8);
-                        st.wb(vw, R.id.wb10).kjd(0);
-                        st.wb(vw, R.id.wb10).zf(ur);
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[INFOS]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(""));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(ur));
 
                     } else {
 
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf(wb2);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(wb2));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
                     }
 
                 } else if (f == 2) {
 
-                    String color0 = zf.zf(R.color.colorWBK);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorWBK);
 
-                    String color1 = zf.zf(R.color.colorTextU1);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb2).zfys(color2);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.wb(vw, R.id.wb2).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbjat).kjd(0);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
-                    st.wb(vw, R.id.wb21).kjd(0);
-                    st.wb(vw, R.id.wb22).kjd(8);
-                    st.xxbj(vw, R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, R.id.xxbj4k).kjd(0);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjat)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj24)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj4k)).setVisibility(android.view.View.VISIBLE);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
-                    kp2.kjd(0);
+                    androidx.cardview.widget.CardView kp2 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp2));
+                    kp2.setVisibility(android.view.View.VISIBLE);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) (Object) kp2.xdbjgz();
-                    kp2_xdbjgz.dqfzb(true);
-                    kp2_xdbjgz.dqfyb(false);
+                    android.widget.RelativeLayout.LayoutParams kp2_xdbjgz = ((android.widget.RelativeLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.relativeParams(kp2));
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_LEFT, true);
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_RIGHT, false);
 
-                    String wb = st.wb(vw, R.id.wb2).zf();
+                    String wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).getText().toString();
 
                     int isVip = 8;
 
                     int isVip2 = 0;
 
-                    if (zf.dy(wb, "台风眼Typheye") || zf.dy(wb, "系统消息")) {
+                    if (java.util.Objects.equals(wb, "台风眼Typheye") || java.util.Objects.equals(wb, "系统消息")) {
 
                         isVip = 0;
                         isVip2 = 8;
 
                     }
-                    st.wb(vw, R.id.wb7).kjd(isVip);
-                    st.wb(vw, R.id.wb21).kjd(isVip2);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(isVip, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(isVip2, -1));
 
-                    Object luid = lbsj.lbsj(pn, -3);
-                    luid = zf.qctwkg(luid);
+                    Object luid = row.get(-3);
+                    luid = open.cn.awg.pro.core.TextValues.trim(luid);
 
-                    if (zf.dy(luid, "w0") || zf.dy(luid, "") || zf.dy(luid, null) || zf.dy(luid, "0") || zf.dy(luid, "null")) {
+                    if (java.util.Objects.equals(luid, "w0") || java.util.Objects.equals(luid, "") || java.util.Objects.equals(luid, null) || java.util.Objects.equals(luid, "0") || java.util.Objects.equals(luid, "null")) {
 
-                        st.wb(vw, R.id.wb22).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.VISIBLE);
 
                     } else {
 
-                        st.wb(vw, R.id.wb22).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
 
                     }
-                    wb = zf.qc(wb, 0, 1);
-                    st.wb(vw, R.id.wb6).zf(wb);
+                    wb = open.cn.awg.pro.core.TextValues.slice(wb, 0, 1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb6)).setText(String.valueOf(wb));
 
-                    if (zf.dy(st.wb(vw, R.id.wb21).zf(), "未知")) {
+                    if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).getText().toString(), "未知")) {
 
-                        st.wb(vw, R.id.wb21).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.GONE);
 
                     } else {
 
-                        st.wb(vw, R.id.wb21).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
-                    String wb2 = st.wb(vw, R.id.wb1).zf();
+                    String wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).getText().toString();
 
-                    if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
+                    if (open.cn.awg.pro.core.TextValues.contains(wb2, "[PHOTO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[P:END]")) {
 
-                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[PHOTO]", "[P:END]");
 
-                        String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[PHOTO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]图片"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b11);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[AUDIO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[A:END]")) {
 
-                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[AUDIO]", "[A:END]");
 
-                        String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[AUDIO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]音频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b9);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[VIDEO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[V:END]")) {
 
-                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[VIDEO]", "[V:END]");
 
-                        String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[VIDEO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]视频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[OTHER]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[O:END]")) {
 
-                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[OTHER]", "[O:END]");
 
-                        String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[OTHER]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]文件"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b14);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[INFOS]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[I:END]")) {
 
-                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[INFOS]", "[I:END]");
 
-                        String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf("");
-                        st.xxbj(vw, R.id.xxbj1).kjd(8);
-                        st.wb(vw, R.id.wb10).kjd(0);
-                        st.wb(vw, R.id.wb10).zf(ur);
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[INFOS]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(""));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(ur));
 
                     } else {
 
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf(wb2);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(wb2));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
                     }
 
                 } else {
 
-                    String color0 = zf.zf(R.color.colorWBK);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorWBK);
 
-                    String color1 = zf.zf(R.color.colorTextU1);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb2).zfys(color2);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.wb(vw, R.id.wb2).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbjat).kjd(8);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xydj(true);
-                    st.xdbj(vw, R.id.chat_attachment_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
-                    st.wb(vw, R.id.wb21).kjd(8);
-                    st.wb(vw, R.id.wb22).kjd(8);
-                    st.xxbj(vw, R.id.xxbj24).kjd(8);
-                    st.xxbj(vw, R.id.xxbj4k).kjd(8);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjat)).setVisibility(android.view.View.GONE);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.chat_attachment_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb21)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb22)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj24)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj4k)).setVisibility(android.view.View.GONE);
 
-                    i.runlibrary.app.v.kp kp2 = st.kp(vw, R.id.kp2);
-                    kp2.kjd(8);
+                    androidx.cardview.widget.CardView kp2 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp2));
+                    kp2.setVisibility(android.view.View.GONE);
 
-                    i.runlibrary.app.v.xdbj$xdbjgz kp2_xdbjgz = (i.runlibrary.app.v.xdbj$xdbjgz) (Object) kp2.xdbjgz();
-                    kp2_xdbjgz.dqfzb(true);
-                    kp2_xdbjgz.dqfyb(false);
-                    st.wb(vw, R.id.wb6).zf("");
-                    st.wb(vw, R.id.wb7).kjd(8);
+                    android.widget.RelativeLayout.LayoutParams kp2_xdbjgz = ((android.widget.RelativeLayout.LayoutParams) (Object) open.cn.awg.pro.core.NativeViewValues.relativeParams(kp2));
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_LEFT, true);
+                    open.cn.awg.pro.core.NativeViewValues.relativeRule(kp2, kp2_xdbjgz, android.widget.RelativeLayout.ALIGN_PARENT_RIGHT, false);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb6)).setText(String.valueOf(""));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb7)).setVisibility(android.view.View.GONE);
 
-                    String wb2 = st.wb(vw, R.id.wb1).zf();
+                    String wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).getText().toString();
 
-                    if (zf.cz(wb2, "[PHOTO]") && zf.cz(wb2, "[P:END]")) {
+                    if (open.cn.awg.pro.core.TextValues.contains(wb2, "[PHOTO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[P:END]")) {
 
-                        String ur = zf.qc(wb2, "[PHOTO]", "[P:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[PHOTO]", "[P:END]");
 
-                        String tx = zf.qc(wb2, null, "[PHOTO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]图片");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b11);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[PHOTO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]图片"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b11);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[AUDIO]") && zf.cz(wb2, "[A:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[AUDIO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[A:END]")) {
 
-                        String ur = zf.qc(wb2, "[AUDIO]", "[A:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[AUDIO]", "[A:END]");
 
-                        String tx = zf.qc(wb2, null, "[AUDIO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]音频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b9);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[AUDIO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]音频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b9);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[VIDEO]") && zf.cz(wb2, "[V:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[VIDEO]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[V:END]")) {
 
-                        String ur = zf.qc(wb2, "[VIDEO]", "[V:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[VIDEO]", "[V:END]");
 
-                        String tx = zf.qc(wb2, null, "[VIDEO]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]视频");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b8);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[VIDEO]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]视频"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[OTHER]") && zf.cz(wb2, "[O:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[OTHER]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[O:END]")) {
 
-                        String ur = zf.qc(wb2, "[OTHER]", "[O:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[OTHER]", "[O:END]");
 
-                        String tx = zf.qc(wb2, null, "[OTHER]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(0);
-                        st.wb(vw, R.id.wb8).zf("[附件]文件");
-                        st.wb(vw, R.id.wb9).zf(ur);
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.b14);
-                        st.wb(vw, R.id.wb1).zf(tx);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[OTHER]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf("[附件]文件"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(ur));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.b14);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(tx));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
-                    } else if (zf.cz(wb2, "[INFOS]") && zf.cz(wb2, "[I:END]")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(wb2, "[INFOS]") && open.cn.awg.pro.core.TextValues.contains(wb2, "[I:END]")) {
 
-                        String ur = zf.qc(wb2, "[INFOS]", "[I:END]");
+                        String ur = open.cn.awg.pro.core.TextValues.slice(wb2, "[INFOS]", "[I:END]");
 
-                        String tx = zf.qc(wb2, null, "[INFOS]");
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf("");
-                        st.xxbj(vw, R.id.xxbj1).kjd(8);
-                        st.wb(vw, R.id.wb10).kjd(0);
-                        st.wb(vw, R.id.wb10).zf(ur);
+                        String tx = open.cn.awg.pro.core.TextValues.slice(wb2, null, "[INFOS]");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(""));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(ur));
 
                     } else {
 
-                        st.xxbj(vw, R.id.xxbjfj).kjd(8);
-                        st.wb(vw, R.id.wb8).zf("");
-                        st.wb(vw, R.id.wb9).zf("");
-                        st.tx(vw, R.id.tx2).tx(R.mipmap.a);
-                        st.wb(vw, R.id.wb1).zf(wb2);
-                        st.xxbj(vw, R.id.xxbj1).kjd(0);
-                        st.wb(vw, R.id.wb10).kjd(8);
-                        st.wb(vw, R.id.wb10).zf("");
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbjfj)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb8)).setText(String.valueOf(""));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb9)).setText(String.valueOf(""));
+                        open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.tx2)), R.mipmap.a);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setText(String.valueOf(wb2));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb10)).setText(String.valueOf(""));
 
                     }
 
@@ -802,52 +801,52 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void csh() {
         e11.setup_talklist();
-        sjk = (i.runlibrary.app.sj$sjk) (Object) sj.sjk(set17);
-        wllbcdlb = st.v7lb(R.id.wllbv7lb2);
-        wllbcdspq = IappCompat.v7lbAdapter(wllbcdlb, WearChatMenuItemActivity.class, R.layout.wear_chat_menu_item, new IappCompat.V7lbViewBinder() {
+        sjk = (android.database.sqlite.SQLiteDatabase) (Object) open.cn.awg.pro.core.NativeDatabase.open(context, String.valueOf(set17));
+        wllbcdlb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wllbv7lb2));
+        wllbcdspq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, wllbcdlb, R.layout.wear_chat_menu_item, new open.cn.awg.pro.ui.list.WearChatMenuRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                
 
-                final int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                final int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == 1) {
 
-                    String color = zf.zf(R.color.colorTextFalse);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextFalse);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(android.view.View.GONE);
 
                 } else if (f == -1) {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(8);
-                    st.xxbj(vw, R.id.xxbj1).xydj(false);
-                    st.xxbj(vw, R.id.xxbj1).xyca(false);
-                    st.wb(vw, R.id.dp20).kjd(0);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(android.view.View.VISIBLE);
 
                 } else {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(android.view.View.GONE);
 
                 }
 
             }
 
         });
-        lb2 = st.v7lb(R.id.wllbv7lb1);
-        spq2 = IappCompat.v7lbAdapter(lb2, ChatRoomListItemActivity.class, R.layout.chat_room_list_item, new IappCompat.V7lbViewBinder() {
+        lb2 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wllbv7lb1));
+        spq2 = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, lb2, R.layout.chat_room_list_item, new open.cn.awg.pro.ui.list.ChatRoomRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
             }
 
@@ -859,53 +858,53 @@ public class WearChatRuntimeBridge extends iClass {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xxbj root = st.xxbj(R.id.i2xxbj1);
+        final android.widget.LinearLayout root = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.i2xxbj1));
 
-        final i.runlibrary.app.v.xxbj load = st.xxbj(R.id.ltssxxxbj3);
+        final android.widget.LinearLayout load = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltssxxxbj3));
 
-        final i.runlibrary.app.v.xxbj cd = st.xxbj(R.id.xxbjcd);
+        final android.widget.LinearLayout cd = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd));
 
-        final i.runlibrary.app.v.xxbj add = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout add = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4));
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-        gj.jmxc(new Runnable() {
+        final androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.qtgd1));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    root.kjd(0);
-                    load.kjd(8);
-                    cd.kjd(8);
-                    add.kjd(8);
-                    lb3.v.requestFocus();
+                    root.setVisibility(android.view.View.VISIBLE);
+                    load.setVisibility(android.view.View.GONE);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
+                    lb3.requestFocus();
 
                 } else if (i == 1) {
 
-                    cd.kjd(8);
-                    add.kjd(8);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
 
                 } else if (i == 2) {
 
-                    root.kjd(8);
-                    load.kjd(8);
-                    cd.kjd(0);
-                    add.kjd(8);
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.GONE);
+                    cd.setVisibility(android.view.View.VISIBLE);
+                    add.setVisibility(android.view.View.GONE);
 
                 } else if (i == 3) {
 
-                    root.kjd(8);
-                    load.kjd(8);
-                    cd.kjd(8);
-                    add.kjd(0);
-                    qtgd1.v.requestFocus();
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.GONE);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.VISIBLE);
+                    qtgd1.requestFocus();
 
                 } else if (i == 4) {
 
-                    root.kjd(8);
-                    load.kjd(0);
-                    cd.kjd(8);
-                    add.kjd(8);
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.VISIBLE);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
 
                 }
 
@@ -919,49 +918,49 @@ public class WearChatRuntimeBridge extends iClass {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xxbj root = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout root = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj load = st.xxbj(R.id.xxbj3);
+        final android.widget.LinearLayout load = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3));
 
-        final i.runlibrary.app.v.xxbj cd = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout cd = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj2));
 
-        final i.runlibrary.app.v.xxbj add = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout add = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4));
 
-        final i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-        gj.jmxc(new Runnable() {
+        final androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.qtgd1));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    root.kjd(0);
-                    load.kjd(8);
-                    cd.kjd(8);
-                    add.kjd(8);
+                    root.setVisibility(android.view.View.VISIBLE);
+                    load.setVisibility(android.view.View.GONE);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
 
                 } else if (i == 1) {
 
-                    root.kjd(8);
-                    load.kjd(0);
-                    cd.kjd(8);
-                    add.kjd(8);
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.VISIBLE);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.GONE);
 
                 } else if (i == 2) {
 
-                    root.kjd(8);
-                    load.kjd(8);
-                    cd.kjd(0);
-                    add.kjd(8);
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.GONE);
+                    cd.setVisibility(android.view.View.VISIBLE);
+                    add.setVisibility(android.view.View.GONE);
 
                 } else if (i == 3) {
 
-                    root.kjd(8);
-                    load.kjd(8);
-                    cd.kjd(8);
-                    add.kjd(0);
+                    root.setVisibility(android.view.View.GONE);
+                    load.setVisibility(android.view.View.GONE);
+                    cd.setVisibility(android.view.View.GONE);
+                    add.setVisibility(android.view.View.VISIBLE);
 
                 }
-                qtgd1.v.requestFocus();
+                qtgd1.requestFocus();
 
             }
 
@@ -974,15 +973,15 @@ public class WearChatRuntimeBridge extends iClass {
         if (!state_online) {
 
             state_online = true;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.wb24).zf("Online: Loading...");
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb24)).setText(String.valueOf("Online: Loading..."));
 
                         }
 
@@ -991,10 +990,10 @@ public class WearChatRuntimeBridge extends iClass {
                     String text = "";
 
                     String urls = AppPaths.appPath("settings/f10/set2.inf");
-                    urls = wj.dqwb(urls);
+                    urls = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (urls));
                     urls = e1.urlUnlockString(urls);
 
-                    if (zf.cjw(urls, "/")) {
+                    if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                     } else {
 
@@ -1004,10 +1003,10 @@ public class WearChatRuntimeBridge extends iClass {
 
                     String url = urls + "online.php";
 
-                    String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
-                    st5 = zf.qctwkg(st5);
+                    String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
+                    st5 = open.cn.awg.pro.core.TextValues.trim(st5);
 
-                    if (zf.dy(st5, "null") || zf.dy(st5, "") || zf.dy(st5, null)) {
+                    if (java.util.Objects.equals(st5, "null") || java.util.Objects.equals(st5, "") || java.util.Objects.equals(st5, null)) {
 
                         text = "Online: unknow";
 
@@ -1018,11 +1017,11 @@ public class WearChatRuntimeBridge extends iClass {
                     }
 
                     final String text_ = text;
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.wb24).zf(text_);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb24)).setText(String.valueOf(text_));
 
                         }
 
@@ -1041,11 +1040,11 @@ public class WearChatRuntimeBridge extends iClass {
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< 腕上微聊");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 腕上微聊"));
                     wllbview(0);
 
                 }
@@ -1054,12 +1053,12 @@ public class WearChatRuntimeBridge extends iClass {
 
         } else if (i == 4) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("添加房间");
-                    st.bjk(R.id.bjk1).zf("");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("添加房间"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
                     wllbview(3);
                     bjkmode = 1;
 
@@ -1071,13 +1070,13 @@ public class WearChatRuntimeBridge extends iClass {
 
             String cachehd1 = AppPaths.appPath("data/ltlb/lbx_title");
 
-            final String bz = wj.dqwb(cachehd1);
-            gj.jmxc(new Runnable() {
+            final String bz = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd1));
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("房间备注");
-                    st.bjk(R.id.bjk1).zf(bz);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("房间备注"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(bz));
                     wllbview(3);
                     bjkmode = 2;
 
@@ -1088,7 +1087,7 @@ public class WearChatRuntimeBridge extends iClass {
         } else {
 
             wllbview(2);
-            wllbcdspq.sc();
+            wllbcdspq.clearRows();
 
             String set64 = AppPaths.appPath("settings/i1/set1.inf");
 
@@ -1099,66 +1098,66 @@ public class WearChatRuntimeBridge extends iClass {
             if (i == 1) {
 
                 jk = new Object[]{"刷新", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"添加房间", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"新建房间", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
 
-                if (zf.dy(wj.dqwb(set64), "true")) {
+                if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set64)), "true")) {
 
                     jk = new Object[]{"关闭Online", "", "", "", "", 0};
-                    wllbcdspq.j(kj, jk);
+                    wllbcdspq.addRow(kj, jk);
 
                 } else {
 
                     jk = new Object[]{"开启Online", "", "", "", "", 0};
-                    wllbcdspq.j(kj, jk);
+                    wllbcdspq.addRow(kj, jk);
 
                 }
                 jk = new Object[]{"拒绝《公约》", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"设置", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"退出", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
 
             } else if (i == 2) {
 
                 jk = new Object[]{"房间信息", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"备注房间", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"移除房间", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"清除聊天记录", "", "", "", "", 0};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
 
             }
             jk = new Object[]{"返回", "back", "", "", "", 1};
-            wllbcdspq.j(kj, jk);
+            wllbcdspq.addRow(kj, jk);
 
             String spxx = AppPaths.appPath("settings/a3.inf");
             jk = new Object[]{"", "", "", "", "", -1};
-            wllbcdspq.j(kj, jk);
+            wllbcdspq.addRow(kj, jk);
 
-            String axc = wj.dqwb(spxx);
+            String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-            if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
+            if (java.util.Objects.equals(axc, "1") || java.util.Objects.equals(axc, "3")) {
 
                 jk = new Object[]{"", "", "", "", "", -1};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
                 jk = new Object[]{"", "", "", "", "", -1};
-                wllbcdspq.j(kj, jk);
+                wllbcdspq.addRow(kj, jk);
 
             }
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    wllbcdspq.sx();
-                    st.v7lb(R.id.wllbv7lb2).xzwz("top");
-                    st.wb(R.id.title_bar).zf("菜单");
+                    wllbcdspq.refreshRows();
+                    open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wllbv7lb2)), "top");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
 
                 }
 
@@ -1170,96 +1169,96 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void dj_wllbcd(Object a, Object b, Object c, Object d) {
 
-        if (zf.dy(a, "返回")) {
+        if (java.util.Objects.equals(a, "返回")) {
 
             wllbcd(0);
 
-        } else if (zf.dy(a, "备注房间")) {
+        } else if (java.util.Objects.equals(a, "备注房间")) {
 
             String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            String id = wj.dqwb(cachehd);
-            st.bjk(R.id.bjk1).zf("");
-            st.bjk(R.id.bjk1).tszf("请输入备注");
-            st.bjk(R.id.bjk1).wblx("text");
+            String id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入备注"));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("text"));
             wllbcd(5);
 
-        } else if (zf.dy(a, "房间信息")) {
+        } else if (java.util.Objects.equals(a, "房间信息")) {
 
             String cachehd1 = AppPaths.appPath("data/ltlb/lbx_title");
 
-            String bz = wj.dqwb(cachehd1);
+            String bz = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd1));
 
             String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            String id = wj.dqwb(cachehd);
+            String id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
 
             String cachehd3 = AppPaths.appPath("data/ltlb/lbx_info");
 
-            String info = wj.dqwb(cachehd3);
-            info = zf.th(info, id + "-", "");
+            String info = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd3));
+            info = open.cn.awg.pro.core.TextValues.replace(info, id + "-", "");
             e1.tsk("房间信息", "[房间备注]\n" + bz + "\n\n" + "[房间名称]\n" + info + "\n\n" + "[房间标识]\n" + id);
             wllbcd(0);
 
-        } else if (zf.dy(a, "刷新")) {
+        } else if (java.util.Objects.equals(a, "刷新")) {
 
             wllbcd(0);
             wllbsx();
 
-        } else if (zf.dy(a, "添加房间")) {
+        } else if (java.util.Objects.equals(a, "添加房间")) {
 
-            st.bjk(R.id.bjk1).zf("");
-            st.bjk(R.id.bjk1).tszf("请输入房间ID");
-            st.bjk(R.id.bjk1).wblx("number");
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入房间ID"));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setInputType(open.cn.awg.pro.core.NativeViewValues.inputType("number"));
             wllbcd(4);
 
-        } else if (zf.dy(a, "新建房间")) {
+        } else if (java.util.Objects.equals(a, "新建房间")) {
 
             e1.goplu("20002", "新建房间", false);
             wllbcd(0);
 
-        } else if (zf.dy(a, "设置")) {
+        } else if (java.util.Objects.equals(a, "设置")) {
 
             wllbcd(0);
-            gj.tz(WearChatSettingsActivity.class);
+            open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (WearChatSettingsActivity.class));
 
-        } else if (zf.dy(a, "关闭Online")) {
+        } else if (java.util.Objects.equals(a, "关闭Online")) {
 
             String set64 = AppPaths.appPath("settings/i1/set1.inf");
-            wj.xrwb(set64, "false");
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (set64), (String) ("false"));
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb24).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb24)).setVisibility(android.view.View.GONE);
 
                 }
 
             });
             wllbcd(0);
 
-        } else if (zf.dy(a, "开启Online")) {
+        } else if (java.util.Objects.equals(a, "开启Online")) {
 
             String set64 = AppPaths.appPath("settings/i1/set1.inf");
-            wj.xrwb(set64, "true");
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (set64), (String) ("true"));
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb24).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb24)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
             });
             wllbcd(0);
 
-        } else if (zf.dy(a, "拒绝《公约》")) {
+        } else if (java.util.Objects.equals(a, "拒绝《公约》")) {
 
             wllbcd(0);
             e1.awgwl_false();
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(context);
 
-        } else if (zf.dy(a, "移除房间")) {
+        } else if (java.util.Objects.equals(a, "移除房间")) {
 
             wllbcd(0);
 
@@ -1267,7 +1266,7 @@ public class WearChatRuntimeBridge extends iClass {
 
             String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            String id = wj.dqwb(cachehd);
+            String id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
 
             String sjhc = AppPaths.appPath("data/ltlb/chat/") + id;
 
@@ -1276,7 +1275,7 @@ public class WearChatRuntimeBridge extends iClass {
             String uss = String.valueOf(u);
 
             boolean b1 = e11.delete_talklist(uss);
-            wj.sc(sjhc);
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sjhc), false);
 
             if (b1) {
 
@@ -1291,7 +1290,7 @@ public class WearChatRuntimeBridge extends iClass {
             wllbsx();
             e1.tsk("提示", nr);
 
-        } else if (zf.dy(a, "清除聊天记录")) {
+        } else if (java.util.Objects.equals(a, "清除聊天记录")) {
 
             wllbcd(0);
 
@@ -1299,11 +1298,11 @@ public class WearChatRuntimeBridge extends iClass {
 
             String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-            String id = wj.dqwb(cachehd);
+            String id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
 
             String sjhc = AppPaths.appPath("data/ltlb/chat/") + id;
 
-            boolean b1 = (wj.sc(sjhc) > 0);
+            boolean b1 = (open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sjhc), false) > 0);
 
             if (b1) {
 
@@ -1317,10 +1316,10 @@ public class WearChatRuntimeBridge extends iClass {
             e1.tsk("提示", nr);
             wllbcd(0);
 
-        } else if (zf.dy(a, "退出")) {
+        } else if (java.util.Objects.equals(a, "退出")) {
 
             wllbcd(0);
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(context);
 
         } else {
 
@@ -1332,18 +1331,18 @@ public class WearChatRuntimeBridge extends iClass {
 
         final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-        final String code = wj.dqwb(set4);
+        final String code = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set4));
 
         final String set1 = AppPaths.appPath("settings/f11/set1.inf");
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("< 腕上微聊");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 腕上微聊"));
                         wllbview(1);
 
                     }
@@ -1354,9 +1353,9 @@ public class WearChatRuntimeBridge extends iClass {
                 final int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3};
 
                 String[] jk = new String[]{"", "", ""};
-                spq2.sc();
+                spq2.clearRows();
 
-                if (zf.cz(code, "Admin:true")) {
+                if (open.cn.awg.pro.core.TextValues.contains(code, "Admin:true")) {
 
                 } else {
 
@@ -1367,7 +1366,7 @@ public class WearChatRuntimeBridge extends iClass {
                     for (String uid : uids) {
 
                         String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
-                        wj.sc(AppPaths.appPath("data/ltlb/showing"));
+                        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (AppPaths.appPath("data/ltlb/showing")), false);
 
                         int u = e11.findid_talklist(uid);
 
@@ -1376,7 +1375,7 @@ public class WearChatRuntimeBridge extends iClass {
                             String uss = String.valueOf(u);
 
                             boolean b1 = e11.delete_talklist(uss);
-                            wj.sc(sjhc);
+                            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sjhc), false);
 
                         }
 
@@ -1388,19 +1387,19 @@ public class WearChatRuntimeBridge extends iClass {
 
                 Object sqlx = null;
 
-                i.runlibrary.app.sj$cxsj sjk15 = (i.runlibrary.app.sj$cxsj) (Object) sjk.cxsj("talklist", table, sqlx);
+                try (android.database.Cursor sjk15 = (android.database.Cursor) (Object) sjk.rawQuery("SELECT " + table + " from " + "talklist" + (sqlx == null ? "" : " WHERE " + sqlx), null)) {
+                    while (sjk15.moveToNext()) {
 
-                while (sjk15.xyh()) {
+                        jk = new String[]{sjk15.getString(open.cn.awg.pro.core.TextValues.intValue(2, -1)), sjk15.getString(open.cn.awg.pro.core.TextValues.intValue(1, -1)), sjk15.getString(open.cn.awg.pro.core.TextValues.intValue(3, -1))};
+                        spq2.addRow(kj, jk);
 
-                    jk = new String[]{sjk15.sj(2), sjk15.sj(1), sjk15.sj(3)};
-                    spq2.j(kj, jk);
-
+                    }
                 }
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        spq2.sx();
+                        spq2.refreshRows();
                         wllbview(0);
 
                     }
@@ -1421,14 +1420,14 @@ public class WearChatRuntimeBridge extends iClass {
 
         final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-        final String code = wj.dqwb(set4);
+        final String code = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set4));
 
-        String bjknr = st.bjk(R.id.bjk1).zf();
-        bjknr = zf.qctwkg(bjknr);
+        String bjknr = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+        bjknr = open.cn.awg.pro.core.TextValues.trim(bjknr);
 
         final String bjknrs = bjknr;
 
-        if (zf.dy(bjknrs, "")) {
+        if (java.util.Objects.equals(bjknrs, "")) {
 
             if (bjkmode == 2) {
 
@@ -1446,8 +1445,8 @@ public class WearChatRuntimeBridge extends iClass {
 
                 String cachehd = AppPaths.appPath("data/ltlb/lbx_id");
 
-                final String id = wj.dqwb(cachehd);
-                gj.xc(new Thread() {
+                final String id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
+                open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                     public void run() {
 
@@ -1478,7 +1477,7 @@ public class WearChatRuntimeBridge extends iClass {
 
             } else if (bjkmode == 1) {
 
-                gj.xc(new Thread() {
+                open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                     public void run() {
 
@@ -1486,17 +1485,17 @@ public class WearChatRuntimeBridge extends iClass {
 
                         String nr = "";
 
-                        i.runlibrary.app.zf$zzbds zz = (i.runlibrary.app.zf$zzbds) (Object) zf.zzbds(bjknrs, "[0-9]*$", 0);
+                        java.util.regex.Matcher zz = (java.util.regex.Matcher) (Object) open.cn.awg.pro.core.TextValues.matcher(bjknrs, "[0-9]*$", 0);
 
-                        boolean b2 = zz.sfppcg();
+                        boolean b2 = zz.matches();
 
                         if (b2) {
 
                             try {
 
-                                String url = e1.urlUnlockString(wj.dqwb(set2));
+                                String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-                                if (zf.cjw(url, "/")) {
+                                if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                                 } else {
 
@@ -1506,17 +1505,17 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 String idget = url + "chat/" + bjknrs + ".json";
 
-                                String st5 = wl.hq(idget, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(idget), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                if (zf.dy(st5, null)) {
+                                if (java.util.Objects.equals(st5, null)) {
 
                                     nr = "添加失败";
 
                                 } else {
 
-                                    if (zf.dy(bjknrs, "110") || zf.dy(bjknrs, "404") || zf.dy(bjknrs, "600") || zf.dy(bjknrs, "405")) {
+                                    if (java.util.Objects.equals(bjknrs, "110") || java.util.Objects.equals(bjknrs, "404") || java.util.Objects.equals(bjknrs, "600") || java.util.Objects.equals(bjknrs, "405")) {
 
-                                        if (zf.cz(code, "Admin:true")) {
+                                        if (open.cn.awg.pro.core.TextValues.contains(code, "Admin:true")) {
 
                                             String b4 = e1.readJson(st5, "room");
 
@@ -1525,7 +1524,7 @@ public class WearChatRuntimeBridge extends iClass {
                                             if (b3) {
 
                                                 nr = "添加成功";
-                                                wj.xrwb(ltsjhc + bjknrs, st5);
+                                                open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (ltsjhc + bjknrs), (String) (st5));
 
                                             } else {
 
@@ -1548,7 +1547,7 @@ public class WearChatRuntimeBridge extends iClass {
                                         if (b3) {
 
                                             nr = "添加成功";
-                                            wj.xrwb(ltsjhc + bjknrs, st5);
+                                            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (ltsjhc + bjknrs), (String) (st5));
 
                                         } else {
 
@@ -1591,11 +1590,11 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public void ltstobottom() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                lb3.st.scrollToPosition(spq3.zs() - 1);
+                lb3.scrollToPosition(spq3.rowCount() - 1);
 
             }
 
@@ -1604,11 +1603,11 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public void ltstotop() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                lb3.st.scrollToPosition(0);
+                lb3.scrollToPosition(0);
 
             }
 
@@ -1618,11 +1617,11 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void ltsgx() {
 
-        final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+        final String uid = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
         final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
-        if (!wj.cz(sjhc) || zf.dy(wj.dqwb(sjhc), "")) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(context, (String) (sjhc)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (sjhc)), "")) {
 
             ltsgx2();
 
@@ -1644,18 +1643,18 @@ public class WearChatRuntimeBridge extends iClass {
 
             final String userid = AppPaths.appPath("settings/account/user");
 
-            final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+            final String uid = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
             String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-            final String name = wj.dqwb(cachehd);
+            final String name = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
 
             final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf(getTabName(name));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(name)));
 
                 }
 
@@ -1663,14 +1662,14 @@ public class WearChatRuntimeBridge extends iClass {
 
             final String set3 = AppPaths.appPath("settings/f11/set3.inf");
 
-            final String namer = wj.dqwb(set3);
+            final String namer = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set3));
 
             String urls = "";
 
             final String set2 = AppPaths.appPath("settings/f11/set2.inf");
-            urls = e1.urlUnlockString(wj.dqwb(set2));
+            urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-            if (zf.cjw(urls, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
             } else {
 
@@ -1683,11 +1682,11 @@ public class WearChatRuntimeBridge extends iClass {
             final String url = idget;
 
             final String lable = "";
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -1717,21 +1716,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                     String address = "";
 
-                    String back = wj.dqwb(sjhc);
+                    String back = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (sjhc));
 
                     try {
 
                         String spxx = AppPaths.appPath("settings/a3.inf");
 
-                        String axc = wj.dqwb(spxx);
+                        String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-                        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                        org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                        JSONObject json = jo.json;
+                        JSONObject json = jo;
 
-                        JSONArray list = jo.dxlb(json, "data");
+                        JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "data");
 
-                        int i = jo.cd(list);
+                        int i = open.cn.awg.pro.core.JsonValues.length(list);
 
                         int size = 0;
 
@@ -1739,16 +1738,16 @@ public class WearChatRuntimeBridge extends iClass {
 
                         while (size < i) {
 
-                            JSONObject dx = jo.dx(list, size);
+                            JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
                             size++;
-                            data = String.valueOf(jo.hq(dx, "data"));
-                            name = String.valueOf(jo.hq(dx, "name"));
-                            date = String.valueOf(jo.hq(dx, "date"));
-                            luid = String.valueOf(jo.hq(dx, "uid"));
-                            address = String.valueOf(jo.hq(dx, "address"));
-                            address = zf.qctwkg(address);
+                            data = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, "data"));
+                            name = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, "name"));
+                            date = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, "date"));
+                            luid = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, "uid"));
+                            address = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, "address"));
+                            address = open.cn.awg.pro.core.TextValues.trim(address);
 
-                            if (zf.dy(address, "null") || zf.dy(address, "")) {
+                            if (java.util.Objects.equals(address, "null") || java.util.Objects.equals(address, "")) {
 
                                 address = "未知";
 
@@ -1760,7 +1759,7 @@ public class WearChatRuntimeBridge extends iClass {
                             jname = name;
                             jdata = data;
 
-                            if (!zf.dy(luid, "0") && wj.cz(userid) && !zf.dy(wj.dqwb(userid), "") && zf.dy(luid, wj.dqwb(userid))) {
+                            if (!java.util.Objects.equals(luid, "0") && open.cn.awg.pro.core.NativeFiles.exists(context, (String) (userid)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (userid)), "") && java.util.Objects.equals(luid, open.cn.awg.pro.core.NativeFiles.readText(context, (String) (userid)))) {
 
                                 jk = new Object[]{jdata, jname, date, address, -1, address, luid};
 
@@ -1768,18 +1767,18 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 String at = "@" + namer + " ";
 
-                                String at_ = zf.qctwkg(at);
+                                String at_ = open.cn.awg.pro.core.TextValues.trim(at);
 
-                                if (zf.cz(jdata, at)) {
+                                if (open.cn.awg.pro.core.TextValues.contains(jdata, at)) {
 
                                     String ats = "@我 ";
-                                    jdata = zf.th(jdata, at, ats);
+                                    jdata = open.cn.awg.pro.core.TextValues.replace(jdata, at, ats);
                                     jk = new Object[]{jdata, jname, date, address, 2, address, luid};
 
-                                } else if (zf.dy(jdata, at_)) {
+                                } else if (java.util.Objects.equals(jdata, at_)) {
 
                                     String ats = "@我";
-                                    jdata = zf.th(jdata, at_, ats);
+                                    jdata = open.cn.awg.pro.core.TextValues.replace(jdata, at_, ats);
                                     jk = new Object[]{jdata, jname, date, address, 2, address, luid};
 
                                 } else {
@@ -1811,7 +1810,7 @@ public class WearChatRuntimeBridge extends iClass {
                         hs.put(kj[6], "");
                         arr.add(hs);
                         arr.add(hs);
-                        spq3.list_S = arr;
+                        spq3.replaceRows(arr);
 
                     } catch (Throwable e) {
 
@@ -1819,16 +1818,16 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    if (zf.dy(back, "")) {
+                    if (java.util.Objects.equals(back, "")) {
 
                         if (!ffs) {
 
                             ltsview(0);
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.kp(R.id.kp7).kjd(0);
+                                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
                                 }
 
@@ -1855,11 +1854,11 @@ public class WearChatRuntimeBridge extends iClass {
                         if (!ffs) {
 
                             ltsview(0);
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.kp(R.id.kp7).kjd(0);
+                                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
                                 }
 
@@ -1869,11 +1868,11 @@ public class WearChatRuntimeBridge extends iClass {
 
                         try {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    spq3.sx();
+                                    spq3.refreshRows();
 
                                 }
 
@@ -1887,7 +1886,7 @@ public class WearChatRuntimeBridge extends iClass {
                         ltjmshowgb();
 
                     }
-                    wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
+                    open.cn.awg.pro.core.NativeFiles.delete(context, (String) (AppPaths.appPath("data/ltlb/disTouch")), false);
                     state_ltsgx1 = false;
 
                 }
@@ -1906,20 +1905,20 @@ public class WearChatRuntimeBridge extends iClass {
 
             state_ltsgx2 = true;
 
-            final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+            final String uid = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
             final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
             final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-            final String code = wj.dqwb(set4);
+            final String code = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set4));
 
             String urls = "";
 
             final String set2 = AppPaths.appPath("settings/f11/set2.inf");
-            urls = e1.urlUnlockString(wj.dqwb(set2));
+            urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-            if (zf.cjw(urls, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
             } else {
 
@@ -1934,18 +1933,18 @@ public class WearChatRuntimeBridge extends iClass {
             final String url = idget;
 
             final String lable = "";
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     boolean dontOff = false;
-                    wj.xrwb(AppPaths.appPath("data/ltlb/disTouch"), "0");
+                    open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (AppPaths.appPath("data/ltlb/disTouch")), (String) ("0"));
 
                     String db_ = "";
 
-                    if (wj.cz(sjhc)) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (sjhc))) {
 
-                        db_ = String.valueOf(wj.dx(sjhc));
+                        db_ = String.valueOf(open.cn.awg.pro.core.NativeFiles.size(context, (String) (sjhc)));
 
                     } else {
 
@@ -1953,22 +1952,22 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                    String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
                     String url_ = urls_ + "re.php?uid=" + uid + ljf + "token=" + db_;
 
-                    String back = wl.hq(url_, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url_), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         ltjmshow("连接服务器失败,请检查网络连接", false);
 
                     } else {
 
-                        if (zf.dy(back, "error")) {
+                        if (java.util.Objects.equals(back, "error")) {
 
                             String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
-                            wj.sc(AppPaths.appPath("data/ltlb/showing"));
+                            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (AppPaths.appPath("data/ltlb/showing")), false);
 
                             int u = e11.findid_talklist(uid);
 
@@ -1977,23 +1976,23 @@ public class WearChatRuntimeBridge extends iClass {
                                 String uss = String.valueOf(u);
 
                                 boolean b1 = e11.delete_talklist(uss);
-                                wj.sc(sjhc);
+                                open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sjhc), false);
                                 e1.tsk("提示", "该房间不存在或已被删除\n已为您移除该房间");
-                                gj.gb();
+                                open.cn.awg.pro.core.NativeActions.finish(context);
 
                             }
 
                         } else {
 
-                            if (!wj.cz(sjhc)) {
+                            if (!open.cn.awg.pro.core.NativeFiles.exists(context, (String) (sjhc))) {
 
-                                String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String back2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
+                                if (!java.util.Objects.equals(back2, "") || !java.util.Objects.equals(back2, null)) {
 
-                                    if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
+                                    if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.GONE) {
 
-                                        wj.xrwb(sjhc, back2);
+                                        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sjhc), (String) (back2));
                                         ltsgx1(false);
                                         ltjmshowgb();
                                         dontOff = true;
@@ -2009,21 +2008,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                             } else {
 
-                                String db = wj.dqwb(sjhc);
+                                String db = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (sjhc));
 
-                                if (zf.dy(back, db)) {
+                                if (java.util.Objects.equals(back, db)) {
 
                                 } else {
 
-                                    if (zf.dy(back, "true")) {
+                                    if (java.util.Objects.equals(back, "true")) {
 
-                                        String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                        String back2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                        if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
+                                        if (!java.util.Objects.equals(back2, "") || !java.util.Objects.equals(back2, null)) {
 
-                                            if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
+                                            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.GONE) {
 
-                                                wj.xrwb(sjhc, back2);
+                                                open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sjhc), (String) (back2));
                                                 ltsgx1(false);
                                                 ltjmshowgb();
                                                 dontOff = true;
@@ -2051,21 +2050,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    if (st.xxbj(R.id.i2xxbj1).kjd() == 0 && st.xxbj(R.id.xxbjcd).kjd() == 8 && !dontOff) {
+                    if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.i2xxbj1)).getVisibility() == android.view.View.VISIBLE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.GONE && !dontOff) {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
                                 ltsview(0);
-                                st.kp(R.id.kp7).kjd(0);
+                                ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
                             }
 
                         });
 
                     }
-                    wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
+                    open.cn.awg.pro.core.NativeFiles.delete(context, (String) (AppPaths.appPath("data/ltlb/disTouch")), false);
                     state_ltsgx2 = false;
 
                 }
@@ -2084,20 +2083,20 @@ public class WearChatRuntimeBridge extends iClass {
 
             state_ltsgx3 = true;
 
-            final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+            final String uid = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
             final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
             final String set4 = AppPaths.appPath("settings/f11/set4.inf");
 
-            final String code = wj.dqwb(set4);
+            final String code = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set4));
 
             String urls = "";
 
             final String set2 = AppPaths.appPath("settings/f11/set2.inf");
-            urls = e1.urlUnlockString(wj.dqwb(set2));
+            urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-            if (zf.cjw(urls, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
             } else {
 
@@ -2112,11 +2111,11 @@ public class WearChatRuntimeBridge extends iClass {
             final String url = idget;
 
             final String lable = "";
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -2124,13 +2123,13 @@ public class WearChatRuntimeBridge extends iClass {
 
                     });
                     ltsview(1);
-                    wj.xrwb(AppPaths.appPath("data/ltlb/disTouch"), "0");
+                    open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (AppPaths.appPath("data/ltlb/disTouch")), (String) ("0"));
 
                     String db_ = "";
 
-                    if (wj.cz(sjhc)) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (sjhc))) {
 
-                        db_ = String.valueOf(wj.dx(sjhc));
+                        db_ = String.valueOf(open.cn.awg.pro.core.NativeFiles.size(context, (String) (sjhc)));
 
                     } else {
 
@@ -2138,22 +2137,22 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                    String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
                     String url_ = urls_ + "re.php?uid=" + uid + ljf + "token=" + db_;
 
-                    String back = wl.hq(url_, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url_), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         ltjmshow("连接服务器失败,请检查网络连接", false);
-                        gj.zt(750);
+                        open.cn.awg.pro.core.NativeActions.sleep(750);
                         ltsview(0);
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.kp(R.id.kp7).kjd(0);
+                                ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
                             }
 
@@ -2161,22 +2160,22 @@ public class WearChatRuntimeBridge extends iClass {
 
                     } else {
 
-                        if (zf.dy(back, "error")) {
+                        if (java.util.Objects.equals(back, "error")) {
 
                             ltjmshow("刷新失败,房间不存在或已被删除", false);
                             ltsview(0);
 
                         } else {
 
-                            if (!wj.cz(sjhc)) {
+                            if (!open.cn.awg.pro.core.NativeFiles.exists(context, (String) (sjhc))) {
 
-                                String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                String back2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
+                                if (!java.util.Objects.equals(back2, "") || !java.util.Objects.equals(back2, null)) {
 
-                                    if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
+                                    if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.GONE) {
 
-                                        wj.xrwb(sjhc, back2);
+                                        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sjhc), (String) (back2));
                                         ltsgx1(false);
 
                                     }
@@ -2190,21 +2189,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                             } else {
 
-                                String db = wj.dqwb(sjhc);
+                                String db = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (sjhc));
 
-                                if (zf.dy(back, db)) {
+                                if (java.util.Objects.equals(back, db)) {
 
                                 } else {
 
-                                    if (zf.dy(back, "true")) {
+                                    if (java.util.Objects.equals(back, "true")) {
 
-                                        String back2 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                                        String back2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                        if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
+                                        if (!java.util.Objects.equals(back2, "") || !java.util.Objects.equals(back2, null)) {
 
-                                            if (st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
+                                            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.GONE) {
 
-                                                wj.xrwb(sjhc, back2);
+                                                open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sjhc), (String) (back2));
                                                 ltsgx1(false);
 
                                             }
@@ -2231,21 +2230,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                     }
 
-                    if (st.xxbj(R.id.ltssxxxbj3).kjd() == 8 && st.xxbj(R.id.xxbj4).kjd() == 8 && st.xxbj(R.id.xxbjcd).kjd() == 8) {
+                    if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltssxxxbj3)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4)).getVisibility() == android.view.View.GONE && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.GONE) {
 
                         ltsview(0);
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.kp(R.id.kp7).kjd(0);
+                                ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
                             }
 
                         });
 
                     }
-                    wj.sc(AppPaths.appPath("data/ltlb/disTouch"));
+                    open.cn.awg.pro.core.NativeFiles.delete(context, (String) (AppPaths.appPath("data/ltlb/disTouch")), false);
                     state_ltsgx3 = false;
 
                 }
@@ -2262,16 +2261,16 @@ public class WearChatRuntimeBridge extends iClass {
 
         String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-        final String name = wj.dqwb(cachehd);
+        final String name = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
 
         if (i == 0) {
 
             ltsview(0);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf(getTabName(name));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(name)));
 
                 }
 
@@ -2281,11 +2280,11 @@ public class WearChatRuntimeBridge extends iClass {
 
             if (!e1.islogin()) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.tz(TypheyeAccountActivity.class);
+                        open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TypheyeAccountActivity.class));
                         e1.tsk("提示", "发布消息需登录Typheye账户");
 
                     }
@@ -2295,24 +2294,24 @@ public class WearChatRuntimeBridge extends iClass {
             } else {
 
                 ltsview(3);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
                         String path = AppPaths.appPath("cache/chat/upload/path");
-                        wj.sc(path);
-                        st.wb(R.id.title_bar).zf("发送信息");
-                        st.bjk(R.id.bjk1).tszf("请输入信息");
-                        st.bjk(R.id.bjk1).zf("");
-                        st.an(R.id.an_upload).tszf("选择文件");
-                        st.an(R.id.an_upload).kjd(0);
-                        st.an(R.id.an_disupload).kjd(8);
-                        st.xlcd(R.id.ltsup_xlcd1).st.setEnabled(true);
-                        st.xlcd(R.id.ltsup_xlcd2).st.setEnabled(true);
-                        st.xlcd(R.id.ltsup_xlcd1).kjd(0);
-                        st.xlcd(R.id.ltsup_xlcd2).kjd(0);
-                        st.dx(R.id.dx_chat_upload).st.setEnabled(true);
-                        st.dx(R.id.dx_chat_upload).xzzt(false);
+                        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (path), false);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("发送信息"));
+                        ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入信息"));
+                        ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                        ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload)).setHint(String.valueOf("选择文件"));
+                        ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_disupload)).setVisibility(android.view.View.GONE);
+                        ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd1)).setEnabled(true);
+                        ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd2)).setEnabled(true);
+                        ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd1)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd2)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload)).setEnabled(true);
+                        ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload)).setChecked(java.lang.Boolean.TRUE.equals(false));
 
                     }
 
@@ -2328,11 +2327,11 @@ public class WearChatRuntimeBridge extends iClass {
 
         if (!e1.islogin()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(TypheyeAccountActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TypheyeAccountActivity.class));
                     e1.tsk("提示", "发布消息需登录腕管Pro账户");
 
                 }
@@ -2343,25 +2342,25 @@ public class WearChatRuntimeBridge extends iClass {
 
             final String name = "@" + nam + " ";
             ltsview(3);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
                     String path = AppPaths.appPath("cache/chat/upload/path");
-                    wj.sc(path);
-                    st.wb(R.id.title_bar).zf("发送信息");
-                    st.bjk(R.id.bjk1).tszf("请输入信息");
-                    st.bjk(R.id.bjk1).zf(name);
-                    st.bjk(R.id.bjk1).st.setSelection(name.length());
-                    st.an(R.id.an_upload).tszf("选择文件");
-                    st.an(R.id.an_upload).kjd(0);
-                    st.an(R.id.an_disupload).kjd(8);
-                    st.xlcd(R.id.ltsup_xlcd1).st.setEnabled(true);
-                    st.xlcd(R.id.ltsup_xlcd2).st.setEnabled(true);
-                    st.xlcd(R.id.ltsup_xlcd1).kjd(0);
-                    st.xlcd(R.id.ltsup_xlcd2).kjd(0);
-                    st.dx(R.id.dx_chat_upload).st.setEnabled(true);
-                    st.dx(R.id.dx_chat_upload).xzzt(false);
+                    open.cn.awg.pro.core.NativeFiles.delete(context, (String) (path), false);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("发送信息"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入信息"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(name));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setSelection(name.length());
+                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload)).setHint(String.valueOf("选择文件"));
+                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_disupload)).setVisibility(android.view.View.GONE);
+                    ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd1)).setEnabled(true);
+                    ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd2)).setEnabled(true);
+                    ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd1)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd2)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload)).setEnabled(true);
+                    ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload)).setChecked(java.lang.Boolean.TRUE.equals(false));
 
                 }
 
@@ -2379,12 +2378,12 @@ public class WearChatRuntimeBridge extends iClass {
 
             if (!e1.islogin()) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.gb();
-                        gj.tz(TypheyeAccountActivity.class);
+                        open.cn.awg.pro.core.NativeActions.finish(context);
+                        open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TypheyeAccountActivity.class));
                         e1.tsk("提示", "发布消息需登录腕管Pro账户");
                         state_post = false;
 
@@ -2394,23 +2393,23 @@ public class WearChatRuntimeBridge extends iClass {
 
             } else {
 
-                String xxs = st.bjk(R.id.bjk1).zf();
-                xxs = zf.qctwkg(xxs);
+                String xxs = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+                xxs = open.cn.awg.pro.core.TextValues.trim(xxs);
 
                 String urls = "";
 
-                String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+                String uid = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
                 final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
                 final String set3 = AppPaths.appPath("settings/f11/set3.inf");
 
                 final String set4 = AppPaths.appPath("settings/f11/set4.inf");
-                urls = e1.urlUnlockString(wj.dqwb(set2));
+                urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-                String namer = wj.dqwb(set3);
+                String namer = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set3));
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -2418,7 +2417,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                 }
 
-                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
                 String idget = urls + "class/api.php?type=release" + ljf + "id=" + uid;
 
@@ -2428,36 +2427,36 @@ public class WearChatRuntimeBridge extends iClass {
 
                 final String url = idget;
 
-                final String code = wj.dqwb(set4);
+                final String code = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set4));
 
-                final i.runlibrary.app.v.dx dx = st.dx(R.id.dx_chat_upload);
+                final android.widget.CheckBox dx = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload));
 
-                final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+                final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload));
 
                 String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-                final String title = wj.dqwb(cachehd);
-                gj.xc(new Thread() {
+                final String title = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
+                open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                     public void run() {
 
                         boolean ppp = false;
 
-                        if (zf.dy(xx, "")) {
+                        if (java.util.Objects.equals(xx, "")) {
 
                             ltsview(3);
                             e1.tsk("提示", "消息不能为空");
 
                         } else {
 
-                            if (dx.xzzt()) {
+                            if (dx.isChecked()) {
 
-                                if (zf.dy(an.tszf(), "上传中")) {
+                                if (java.util.Objects.equals(an.getHint().toString(), "上传中")) {
 
                                     e1.tsk("提示", "请耐心等待文件上传完毕");
                                     ltsview(3);
 
-                                } else if (zf.dy(an.tszf(), "选择文件") || zf.dy(an.tszf(), "已选择•开始上传")) {
+                                } else if (java.util.Objects.equals(an.getHint().toString(), "选择文件") || java.util.Objects.equals(an.getHint().toString(), "已选择•开始上传")) {
 
                                     e1.tsk("提示", "请先上传文件");
                                     ltsview(3);
@@ -2480,27 +2479,27 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 String _xx_ = xx;
 
-                                if (dx.xzzt()) {
+                                if (dx.isChecked()) {
 
-                                    if (zf.dy(an.tszf(), "上传成功")) {
+                                    if (java.util.Objects.equals(an.getHint().toString(), "上传成功")) {
 
-                                        String u_ = wj.dqwb(AppPaths.appPath("cache/chat/upload/info"));
+                                        String u_ = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("cache/chat/upload/info")));
 
-                                        String t_ = wj.dqwb(AppPaths.appPath("cache/chat/upload/type"));
+                                        String t_ = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("cache/chat/upload/type")));
 
-                                        if (zf.dy(t_, "0")) {
+                                        if (java.util.Objects.equals(t_, "0")) {
 
                                             _xx_ = _xx_ + "[PHOTO]" + u_ + "[P:END]";
 
-                                        } else if (zf.dy(t_, "1")) {
+                                        } else if (java.util.Objects.equals(t_, "1")) {
 
                                             _xx_ = _xx_ + "[AUDIO]" + u_ + "[A:END]";
 
-                                        } else if (zf.dy(t_, "2")) {
+                                        } else if (java.util.Objects.equals(t_, "2")) {
 
                                             _xx_ = _xx_ + "[VIDEO]" + u_ + "[V:END]";
 
-                                        } else if (zf.dy(t_, "3")) {
+                                        } else if (java.util.Objects.equals(t_, "3")) {
 
                                             _xx_ = _xx_ + "[OTHER]" + u_ + "[O:END]";
 
@@ -2516,13 +2515,13 @@ public class WearChatRuntimeBridge extends iClass {
 
                                 String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-                                final String name = wj.dqwb(cachehd);
-                                gj.jmxc(new Runnable() {
+                                final String name = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.wb(R.id.title_bar).zf(getTabName(name));
-                                        st.kp(R.id.kp7).kjd(0);
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(name)));
+                                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
                                     }
 
@@ -2534,15 +2533,15 @@ public class WearChatRuntimeBridge extends iClass {
 
                                     String[] wlhq1 = new String[]{"name=" + name_, "value=" + xx_, "code=" + code, "uid=" + e1.awgwl_getuid()};
 
-                                    String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (wlhq1), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                         setback = "0";
 
                                     } else {
 
-                                        if (zf.dy(setback, "0")) {
+                                        if (java.util.Objects.equals(setback, "0")) {
 
                                             setback = "0";
 
@@ -2554,17 +2553,17 @@ public class WearChatRuntimeBridge extends iClass {
 
                                     }
 
-                                    if (zf.dy(setback, "0")) {
+                                    if (java.util.Objects.equals(setback, "0")) {
 
                                         ltsview(0);
                                         ltjmshowgb();
                                         e1.tsk("提示", "发送失败(-1)");
-                                        gj.jmxc(new Runnable() {
+                                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                             public void run() {
 
-                                                st.kp(R.id.kp7).kjd(0);
-                                                st.wb(R.id.title_bar).zf(getTabName(title));
+                                                ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
+                                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(title)));
 
                                             }
 
@@ -2574,14 +2573,14 @@ public class WearChatRuntimeBridge extends iClass {
 
                                         ltsview(1);
 
-                                        if (zf.dy(setback, "true")) {
+                                        if (java.util.Objects.equals(setback, "true")) {
 
-                                            gj.jmxc(new Runnable() {
+                                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                                 public void run() {
 
-                                                    st.kp(R.id.kp7).kjd(0);
-                                                    st.wb(R.id.title_bar).zf(getTabName(title));
+                                                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
+                                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(title)));
 
                                                 }
 
@@ -2594,12 +2593,12 @@ public class WearChatRuntimeBridge extends iClass {
                                             e1.tsk("提示", "发送失败\n" + setback);
                                             ltsview(0);
                                             ltjmshowgb();
-                                            gj.jmxc(new Runnable() {
+                                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                                 public void run() {
 
-                                                    st.kp(R.id.kp7).kjd(0);
-                                                    st.wb(R.id.title_bar).zf(getTabName(title));
+                                                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
+                                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(title)));
 
                                                 }
 
@@ -2614,12 +2613,12 @@ public class WearChatRuntimeBridge extends iClass {
                                     ltsview(0);
                                     e1.tsk("提示", "发送失败(-2)");
                                     ltjmshowgb();
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.kp(R.id.kp7).kjd(0);
-                                            st.wb(R.id.title_bar).zf(getTabName(title));
+                                            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
+                                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(getTabName(title)));
 
                                         }
 
@@ -2649,32 +2648,32 @@ public class WearChatRuntimeBridge extends iClass {
         if (!state_post_jb) {
 
             state_post_jb = true;
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj3).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
             });
 
             Object xxs = c;
-            xxs = zf.qctwkg(xxs);
+            xxs = open.cn.awg.pro.core.TextValues.trim(xxs);
 
             String urls = "";
 
-            String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+            String uid = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
             final String set2 = AppPaths.appPath("settings/f11/set2.inf");
 
             final String set3 = AppPaths.appPath("settings/f11/set3.inf");
-            urls = e1.urlUnlockString(wj.dqwb(set2));
+            urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)));
 
-            String namer = wj.dqwb(set3);
+            String namer = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set3));
 
-            if (zf.cjw(urls, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
             } else {
 
@@ -2682,21 +2681,21 @@ public class WearChatRuntimeBridge extends iClass {
 
             }
 
-            String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+            String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
             String idget = urls + "class/api.php?type=release" + ljf + "id=110";
 
             String j = uid;
 
-            if (zf.dy(xxs, "")) {
+            if (java.util.Objects.equals(xxs, "")) {
 
                 e1.tsk("提示", "举报理由不能为空");
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj3).kjd(0);
-                        st.xxbj(R.id.xxbj5).kjd(8);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                     }
 
@@ -2716,7 +2715,7 @@ public class WearChatRuntimeBridge extends iClass {
                 final String name = namer;
 
                 final String url = idget;
-                gj.xc(new Thread() {
+                open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                     public void run() {
 
@@ -2726,15 +2725,15 @@ public class WearChatRuntimeBridge extends iClass {
 
                             String[] wlhq1 = new String[]{"name=" + namex, "value=" + xx, "code=baseTextUpload"};
 
-                            String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (wlhq1), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                            if (zf.dy(back, "") || zf.dy(back, null)) {
+                            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                 setback = "0";
 
                             } else {
 
-                                if (zf.dy(setback, "0")) {
+                                if (java.util.Objects.equals(setback, "0")) {
 
                                     setback = "0";
 
@@ -2746,15 +2745,15 @@ public class WearChatRuntimeBridge extends iClass {
 
                             }
 
-                            if (zf.dy(setback, "0")) {
+                            if (java.util.Objects.equals(setback, "0")) {
 
                                 e1.tsk("提示", "举报失败(-1)");
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        st.xxbj(R.id.xxbj3).kjd(0);
-                                        st.xxbj(R.id.xxbj5).kjd(8);
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(android.view.View.VISIBLE);
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                                     }
 
@@ -2762,30 +2761,30 @@ public class WearChatRuntimeBridge extends iClass {
 
                             } else {
 
-                                if (zf.dy(setback, "true")) {
+                                if (java.util.Objects.equals(setback, "true")) {
 
                                     e1.tsk("提示", "举报成功");
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.xxbj(R.id.xxbj3).kjd(0);
-                                            st.xxbj(R.id.xxbj5).kjd(8);
+                                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(android.view.View.VISIBLE);
+                                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                                         }
 
                                     });
-                                    gj.gb();
+                                    open.cn.awg.pro.core.NativeActions.finish(context);
 
                                 } else {
 
                                     e1.tsk("提示", "举报失败\n" + setback);
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            st.xxbj(R.id.xxbj3).kjd(0);
-                                            st.xxbj(R.id.xxbj5).kjd(8);
+                                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(android.view.View.VISIBLE);
+                                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                                         }
 
@@ -2798,12 +2797,12 @@ public class WearChatRuntimeBridge extends iClass {
                         } else {
 
                             e1.tsk("提示", "举报失败(-2)");
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.xxbj(R.id.xxbj3).kjd(0);
-                                    st.xxbj(R.id.xxbj5).kjd(8);
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(android.view.View.VISIBLE);
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(android.view.View.GONE);
 
                                 }
 
@@ -2832,23 +2831,23 @@ public class WearChatRuntimeBridge extends iClass {
 
         if (b) {
 
-            color = zf.zf(R.color.colorTextTrue);
+            color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextTrue);
 
         } else {
 
-            color = zf.zf(R.color.colorTextFalse);
+            color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextFalse);
 
         }
 
         final String bj = color;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb wb = st.wb(R.id.wb3);
-                wb.zf("[提示] " + bt);
-                wb.bj(bj);
-                wb.kjd(0);
+                android.widget.TextView wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3));
+                wb.setText(String.valueOf("[提示] " + bt));
+                open.cn.awg.pro.core.NativeViewValues.background(wb, bj);
+                wb.setVisibility(android.view.View.VISIBLE);
 
             }
 
@@ -2860,17 +2859,17 @@ public class WearChatRuntimeBridge extends iClass {
 
         final Object bt = a;
 
-        String color = zf.zf(R.color.colorAccent);
+        String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorAccent);
 
         final String bj = color;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb wb = st.wb(R.id.wb3);
-                wb.zf("[提示] " + bt);
-                wb.bj(bj);
-                wb.kjd(0);
+                android.widget.TextView wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3));
+                wb.setText(String.valueOf("[提示] " + bt));
+                open.cn.awg.pro.core.NativeViewValues.background(wb, bj);
+                wb.setVisibility(android.view.View.VISIBLE);
 
             }
 
@@ -2879,12 +2878,12 @@ public class WearChatRuntimeBridge extends iClass {
     }
 
     public void ltjmshowgb() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb wb = st.wb(R.id.wb3);
-                wb.kjd(8);
+                android.widget.TextView wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3));
+                wb.setVisibility(android.view.View.GONE);
 
             }
 
@@ -2902,40 +2901,40 @@ public class WearChatRuntimeBridge extends iClass {
 
             final String uu = AppPaths.appPath("settings/other/0xO5HJ7/url");
 
-            final String path_ = wj.hqml(a);
+            final String path_ = open.cn.awg.pro.core.NativeFiles.resolvePath(context, (String) (a));
 
             final String[] path = new String[]{path_};
 
-            final i.runlibrary.app.v.dx dx = st.dx(R.id.dx_chat_upload);
+            final android.widget.CheckBox dx = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload));
 
-            final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+            final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload));
 
-            final i.runlibrary.app.v.jdt jdt2 = st.jdt(R.id.jdt2);
+            final android.widget.ProgressBar jdt2 = ((android.widget.ProgressBar) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.jdt2));
 
-            final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+            final android.widget.Spinner ltsup_xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
-            final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
+            final android.widget.Spinner ltsup_xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd2));
 
-            final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
-            gj.xc(new Thread() {
+            final android.widget.Button an2 = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_disupload));
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     upload_back = "";
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            jdt2.jdz(0);
-                            jdt2.kjd(8);
-                            an2.kjd(8);
-                            an.kjd(8);
-                            an.tszf("上传中");
-                            dx.st.setEnabled(false);
-                            ltsup_xlcd1.st.setEnabled(false);
-                            ltsup_xlcd1.kjd(8);
-                            ltsup_xlcd2.st.setEnabled(false);
-                            ltsup_xlcd2.kjd(8);
+                            jdt2.setProgress(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                            jdt2.setVisibility(android.view.View.GONE);
+                            an2.setVisibility(android.view.View.GONE);
+                            an.setVisibility(android.view.View.GONE);
+                            an.setHint(String.valueOf("上传中"));
+                            dx.setEnabled(false);
+                            ltsup_xlcd1.setEnabled(false);
+                            ltsup_xlcd1.setVisibility(android.view.View.GONE);
+                            ltsup_xlcd2.setEnabled(false);
+                            ltsup_xlcd2.setVisibility(android.view.View.GONE);
 
                         }
 
@@ -2943,21 +2942,21 @@ public class WearChatRuntimeBridge extends iClass {
 
                     if (e1.yz()) {
 
-                        if (zf.dy(path_, "") || !wj.cz(path_)) {
+                        if (java.util.Objects.equals(path_, "") || !open.cn.awg.pro.core.NativeFiles.exists(context, (String) (path_))) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    jdt2.kjd(8);
-                                    an.kjd(0);
-                                    an2.kjd(8);
-                                    an.tszf("选择文件");
-                                    dx.st.setEnabled(true);
-                                    ltsup_xlcd1.st.setEnabled(true);
-                                    ltsup_xlcd1.kjd(0);
-                                    ltsup_xlcd2.st.setEnabled(true);
-                                    ltsup_xlcd2.kjd(0);
+                                    jdt2.setVisibility(android.view.View.GONE);
+                                    an.setVisibility(android.view.View.VISIBLE);
+                                    an2.setVisibility(android.view.View.GONE);
+                                    an.setHint(String.valueOf("选择文件"));
+                                    dx.setEnabled(true);
+                                    ltsup_xlcd1.setEnabled(true);
+                                    ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                                    ltsup_xlcd2.setEnabled(true);
+                                    ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
 
                                 }
 
@@ -2966,7 +2965,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                         } else {
 
-                            String urls = wj.dqwb(uu);
+                            String urls = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (uu));
                             urls = e1.urlUnlockString(urls);
 
                             final String url = urls;
@@ -2975,7 +2974,7 @@ public class WearChatRuntimeBridge extends iClass {
 
                             String[] fn_ = e1.fileinfo("/", path[0]);
 
-                            if (zf.dy(fn_[0], "true")) {
+                            if (java.util.Objects.equals(fn_[0], "true")) {
 
                                 fn__ = fn_[3];
 
@@ -2983,23 +2982,23 @@ public class WearChatRuntimeBridge extends iClass {
 
                             final String file_name = fn__;
 
-                            final long file_size = wj.dx(path[0]);
+                            final long file_size = open.cn.awg.pro.core.NativeFiles.size(context, (String) (path[0]));
 
-                            String[] p = new String[]{"name=" + fn__, "size=" + wj.dx(path[0])};
-                            gj.jmxc(new Runnable() {
+                            String[] p = new String[]{"name=" + fn__, "size=" + open.cn.awg.pro.core.NativeFiles.size(context, (String) (path[0]))};
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    an.tszf("上传中");
-                                    an.kjd(8);
-                                    an2.kjd(8);
-                                    dx.st.setEnabled(false);
-                                    ltsup_xlcd1.st.setEnabled(false);
-                                    ltsup_xlcd1.kjd(8);
-                                    ltsup_xlcd2.st.setEnabled(false);
-                                    ltsup_xlcd2.kjd(8);
-                                    jdt2.jdz(0);
-                                    jdt2.kjd(0);
+                                    an.setHint(String.valueOf("上传中"));
+                                    an.setVisibility(android.view.View.GONE);
+                                    an2.setVisibility(android.view.View.GONE);
+                                    dx.setEnabled(false);
+                                    ltsup_xlcd1.setEnabled(false);
+                                    ltsup_xlcd1.setVisibility(android.view.View.GONE);
+                                    ltsup_xlcd2.setEnabled(false);
+                                    ltsup_xlcd2.setVisibility(android.view.View.GONE);
+                                    jdt2.setProgress(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                                    jdt2.setVisibility(android.view.View.VISIBLE);
 
                                     try {
 
@@ -3007,13 +3006,13 @@ public class WearChatRuntimeBridge extends iClass {
                                         HttpRequest.build(context, url)
                                                 .addParameter("name", file_name)
                                                 .addParameter("size", file_size)
-                                                .addParameter("file", wj.wj(path_))
+                                                .addParameter("file", open.cn.awg.pro.core.NativeFiles.file(context, (String) (path_)))
                                                 .setUploadProgressListener(new UploadProgressListener() {
                                                     @Override
                                                     public void onUpload(float percentage, long current, long total, boolean done) {
 
-                                                        jdt2.sxz(total);
-                                                        jdt2.jdz(current);
+                                                        jdt2.setMax(open.cn.awg.pro.core.TextValues.intValue(total, -1));
+                                                        jdt2.setProgress(open.cn.awg.pro.core.TextValues.intValue(current, -1));
                                                     }
                                                 })
                                                 .setResponseListener(new ResponseListener() {
@@ -3026,15 +3025,15 @@ public class WearChatRuntimeBridge extends iClass {
 
                                     } catch (Throwable e) {
 
-                                        jdt2.kjd(8);
-                                        an.kjd(0);
-                                        an2.kjd(8);
-                                        an.tszf("选择文件");
-                                        dx.st.setEnabled(true);
-                                        ltsup_xlcd1.st.setEnabled(true);
-                                        ltsup_xlcd1.kjd(0);
-                                        ltsup_xlcd2.st.setEnabled(true);
-                                        ltsup_xlcd2.kjd(0);
+                                        jdt2.setVisibility(android.view.View.GONE);
+                                        an.setVisibility(android.view.View.VISIBLE);
+                                        an2.setVisibility(android.view.View.GONE);
+                                        an.setHint(String.valueOf("选择文件"));
+                                        dx.setEnabled(true);
+                                        ltsup_xlcd1.setEnabled(true);
+                                        ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                                        ltsup_xlcd2.setEnabled(true);
+                                        ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
                                         e1.tsk("提示", "上传失败(-1)");
 
                                     }
@@ -3047,19 +3046,19 @@ public class WearChatRuntimeBridge extends iClass {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                jdt2.kjd(8);
-                                an.kjd(0);
-                                an2.kjd(8);
-                                an.tszf("选择文件");
-                                dx.st.setEnabled(true);
-                                ltsup_xlcd1.st.setEnabled(true);
-                                ltsup_xlcd1.kjd(0);
-                                ltsup_xlcd2.st.setEnabled(true);
-                                ltsup_xlcd2.kjd(0);
+                                jdt2.setVisibility(android.view.View.GONE);
+                                an.setVisibility(android.view.View.VISIBLE);
+                                an2.setVisibility(android.view.View.GONE);
+                                an.setHint(String.valueOf("选择文件"));
+                                dx.setEnabled(true);
+                                ltsup_xlcd1.setEnabled(true);
+                                ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                                ltsup_xlcd2.setEnabled(true);
+                                ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
 
                             }
 
@@ -3081,58 +3080,58 @@ public class WearChatRuntimeBridge extends iClass {
 
     public void uploadResult(Exception error, Object upload_back, int type) {
 
-        final i.runlibrary.app.v.dx dx = st.dx(R.id.dx_chat_upload);
+        final android.widget.CheckBox dx = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.dx_chat_upload));
 
-        final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+        final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_upload));
 
-        final i.runlibrary.app.v.jdt jdt2 = st.jdt(R.id.jdt2);
+        final android.widget.ProgressBar jdt2 = ((android.widget.ProgressBar) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.jdt2));
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+        final android.widget.Spinner ltsup_xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
+        final android.widget.Spinner ltsup_xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.ltsup_xlcd2));
 
-        final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
+        final android.widget.Button an2 = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.an_disupload));
 
         Object back = upload_back;
 
-        if (!zf.dy(IappCompat.zh(sj.zh()).zstring(error), null)) {
+        if (!java.util.Objects.equals(open.cn.awg.pro.core.TextValues.string(error), null)) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    jdt2.kjd(8);
-                    an.tszf("选择文件");
-                    an.kjd(0);
-                    an2.kjd(8);
-                    dx.st.setEnabled(true);
-                    ltsup_xlcd1.st.setEnabled(true);
-                    ltsup_xlcd1.kjd(0);
-                    ltsup_xlcd2.st.setEnabled(true);
-                    ltsup_xlcd2.kjd(0);
+                    jdt2.setVisibility(android.view.View.GONE);
+                    an.setHint(String.valueOf("选择文件"));
+                    an.setVisibility(android.view.View.VISIBLE);
+                    an2.setVisibility(android.view.View.GONE);
+                    dx.setEnabled(true);
+                    ltsup_xlcd1.setEnabled(true);
+                    ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                    ltsup_xlcd2.setEnabled(true);
+                    ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
 
                 }
 
             });
-            e1.tsk("提示", "上传失败\n" + IappCompat.zh(sj.zh()).zstring(error));
+            e1.tsk("提示", "上传失败\n" + open.cn.awg.pro.core.TextValues.string(error));
 
         } else {
 
-            if (zf.dy(back, "") || zf.dy(back, null)) {
+            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        jdt2.kjd(8);
-                        an.kjd(0);
-                        an.tszf("选择文件");
-                        an2.kjd(8);
-                        dx.st.setEnabled(true);
-                        ltsup_xlcd1.st.setEnabled(true);
-                        ltsup_xlcd1.kjd(0);
-                        ltsup_xlcd2.st.setEnabled(true);
-                        ltsup_xlcd2.kjd(0);
+                        jdt2.setVisibility(android.view.View.GONE);
+                        an.setVisibility(android.view.View.VISIBLE);
+                        an.setHint(String.valueOf("选择文件"));
+                        an2.setVisibility(android.view.View.GONE);
+                        dx.setEnabled(true);
+                        ltsup_xlcd1.setEnabled(true);
+                        ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                        ltsup_xlcd2.setEnabled(true);
+                        ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
                         e1.tsk("提示", "上传失败\n连接服务器超时(-1)");
 
                     }
@@ -3141,34 +3140,34 @@ public class WearChatRuntimeBridge extends iClass {
 
             } else {
 
-                if (zf.cz(back, "https://") || zf.cz(back, "http://")) {
+                if (open.cn.awg.pro.core.TextValues.contains(back, "https://") || open.cn.awg.pro.core.TextValues.contains(back, "http://")) {
 
-                    if (zf.cz(back, "https://")) {
+                    if (open.cn.awg.pro.core.TextValues.contains(back, "https://")) {
 
-                        back = "https://" + zf.qc(back, "https://", null);
-                        back = zf.qctwkg(back);
+                        back = "https://" + open.cn.awg.pro.core.TextValues.slice(back, "https://", null);
+                        back = open.cn.awg.pro.core.TextValues.trim(back);
 
-                    } else if (zf.cz(back, "http://")) {
+                    } else if (open.cn.awg.pro.core.TextValues.contains(back, "http://")) {
 
-                        back = "http://" + zf.qc(back, "http://", null);
-                        back = zf.qctwkg(back);
+                        back = "http://" + open.cn.awg.pro.core.TextValues.slice(back, "http://", null);
+                        back = open.cn.awg.pro.core.TextValues.trim(back);
 
                     }
-                    wj.xrwb(AppPaths.appPath("cache/chat/upload/info"), back);
-                    wj.xrwb(AppPaths.appPath("cache/chat/upload/type"), IappCompat.zh(sj.zh()).zstring(type));
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (AppPaths.appPath("cache/chat/upload/info")), (String) (back));
+                    open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (AppPaths.appPath("cache/chat/upload/type")), (String) (open.cn.awg.pro.core.TextValues.string(type)));
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            jdt2.kjd(8);
-                            an.kjd(0);
-                            an.tszf("上传成功");
-                            an2.kjd(0);
-                            dx.st.setEnabled(false);
-                            ltsup_xlcd1.st.setEnabled(false);
-                            ltsup_xlcd1.kjd(8);
-                            ltsup_xlcd2.st.setEnabled(false);
-                            ltsup_xlcd2.kjd(8);
+                            jdt2.setVisibility(android.view.View.GONE);
+                            an.setVisibility(android.view.View.VISIBLE);
+                            an.setHint(String.valueOf("上传成功"));
+                            an2.setVisibility(android.view.View.VISIBLE);
+                            dx.setEnabled(false);
+                            ltsup_xlcd1.setEnabled(false);
+                            ltsup_xlcd1.setVisibility(android.view.View.GONE);
+                            ltsup_xlcd2.setEnabled(false);
+                            ltsup_xlcd2.setVisibility(android.view.View.GONE);
 
                         }
 
@@ -3176,19 +3175,19 @@ public class WearChatRuntimeBridge extends iClass {
 
                 } else {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            jdt2.kjd(8);
-                            an.kjd(0);
-                            an2.kjd(8);
-                            an.tszf("选择文件");
-                            dx.st.setEnabled(true);
-                            ltsup_xlcd1.st.setEnabled(true);
-                            ltsup_xlcd1.kjd(0);
-                            ltsup_xlcd2.st.setEnabled(true);
-                            ltsup_xlcd2.kjd(0);
+                            jdt2.setVisibility(android.view.View.GONE);
+                            an.setVisibility(android.view.View.VISIBLE);
+                            an2.setVisibility(android.view.View.GONE);
+                            an.setHint(String.valueOf("选择文件"));
+                            dx.setEnabled(true);
+                            ltsup_xlcd1.setEnabled(true);
+                            ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                            ltsup_xlcd2.setEnabled(true);
+                            ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
 
                         }
 
@@ -3202,4 +3201,8 @@ public class WearChatRuntimeBridge extends iClass {
         }
 
     }
+
+    public void ltspostat(Activity activity, Object target) { new WearChatRuntimeBridge(activity).ltspostat(target); }
+    public void wllbcd(Activity activity, int item) { new WearChatRuntimeBridge(activity).wllbcd(item); }
+    public void dj_wllbcd(Activity activity, Object a, Object b, Object c, Object d) { new WearChatRuntimeBridge(activity).dj_wllbcd(a, b, c, d); }
 }

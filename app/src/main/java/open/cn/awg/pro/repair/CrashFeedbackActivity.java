@@ -40,8 +40,8 @@ import open.cn.awg.pro.R;
 public class CrashFeedbackActivity extends BaseAwgActivity {
 
     public final CrashFeedbackActivity lei = this, 类 = this;
-    public WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public WearChatRuntimeBridge e10;
+    public AppRuntimeBridge e1;
     public String log = "";
     public String location = "";
     private final View.OnClickListener an2ClickListener = new View.OnClickListener() {
@@ -75,6 +75,8 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e10 = new WearChatRuntimeBridge(this);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.crash_feedback);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -92,22 +94,22 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
         final int i = a;
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(CrashFeedbackActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
-        gj.jmxc(new Runnable() {
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(CrashFeedbackActivity.this.getWindow().getDecorView(), R.id.xxbj6));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    x1.kjd(0);
-                    x2.kjd(8);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 1) {
 
-                    x1.kjd(8);
-                    x2.kjd(0);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -118,7 +120,7 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
     }
 
     public void upload() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -127,9 +129,9 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
                 String urls = "";
 
                 final String set2 = AppPaths.appPath("settings/f11/set2.inf");
-                urls = e1.urlUnlockString(wj.dqwb(set2));
+                urls = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(CrashFeedbackActivity.this, (String) (set2)));
 
-                if (zf.cjw(urls, "/")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
                 } else {
 
@@ -137,11 +139,11 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
                 }
 
-                String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                String ljf = open.cn.awg.pro.core.NativeFiles.readText(CrashFeedbackActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
                 String idget = urls + "class/api.php?type=release" + ljf + "id=404";
 
-                if (zf.dy(log, "")) {
+                if (java.util.Objects.equals(log, "")) {
 
                     e1.tsk("提示", "异常日志不能为空");
                     show(0);
@@ -158,15 +160,15 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
                     String[] wlhq1 = new String[]{"name=异常上报", "value=" + xx, "code=baseTextUpload"};
 
-                    String back = wl.hq(url, wlhq1, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (wlhq1), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         setback = "0";
 
                     } else {
 
-                        if (zf.dy(setback, "0")) {
+                        if (java.util.Objects.equals(setback, "0")) {
 
                             setback = "0";
 
@@ -178,17 +180,17 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
                     }
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                         e1.tsk("提示", "反馈失败");
                         show(0);
 
                     } else {
 
-                        if (zf.dy(setback, "true")) {
+                        if (java.util.Objects.equals(setback, "true")) {
 
                             e1.tsk("提示", "反馈成功");
-                            gj.gb();
+                            open.cn.awg.pro.core.NativeActions.finish(CrashFeedbackActivity.this);
 
                         } else {
 
@@ -209,21 +211,21 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
     public void csh() {
         show(0);
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                log = sj.hqtz("log");
-                location = sj.hqtz("location");
+                log = CrashFeedbackActivity.this.getIntent().getStringExtra(String.valueOf("log"));
+                location = CrashFeedbackActivity.this.getIntent().getStringExtra(String.valueOf("location"));
 
-                if (!zf.dy(log, null) && !zf.dy(location, null)) {
+                if (!java.util.Objects.equals(log, null) && !java.util.Objects.equals(location, null)) {
 
-                    st.wb(R.id.wb1).zf("[异常定位]\n" + location + "\n[异常日志]\n" + log);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CrashFeedbackActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("[异常定位]\n" + location + "\n[异常日志]\n" + log));
 
                 } else {
 
                     e1.tsk("提示", "日志为空,无需反馈");
-                    gj.gb();
+                    open.cn.awg.pro.core.NativeActions.finish(CrashFeedbackActivity.this);
 
                 }
 
@@ -249,9 +251,9 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(CrashFeedbackActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -268,7 +270,7 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -290,7 +292,7 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(CrashFeedbackActivity.this);
 
     }
 
@@ -305,7 +307,7 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
     }
 
     private void onAn2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(CrashFeedbackActivity.this);
 
     }
 
@@ -315,18 +317,18 @@ public class CrashFeedbackActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
         __layoutIsLoaded(ay, vw);

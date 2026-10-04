@@ -16,7 +16,7 @@
  */
 package open.cn.awg.pro.settings;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,7 +41,7 @@ public class LegalInfoActivity extends BaseAwgActivity {
     public final LegalInfoActivity lei = this, 类 = this;
     public String lin;
     public String CacheSize = null;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -101,24 +101,24 @@ public class LegalInfoActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.legal_info);
-        _$_viewAutomaticSettingEvent();
+        bindViews();
         AwgProApplication.getInstance().addActivity(lei);
 
     }
 
-    public void __layoutIsLoaded(Activity ay, View vw) {
+    private void applyScreenPolicy() {
 
         applyStandardScreenMode(R.id.legal_info_root, R.id.xdbj1, R.id.title_bar);
 
     }
 
     public void load(Object url, Object title) {
-
-        String[] name = new String[]{"url", "title", "code"};
-
-        Object[] value = new Object[]{url, title, "super1"};
-        gj.tz(TextViewerActivity.class, name, value);
+        startActivity(new Intent(lei, TextViewerActivity.class)
+                .putExtra("url", String.valueOf(url))
+                .putExtra("title", String.valueOf(title))
+                .putExtra("code", "super1"));
 
     }
 
@@ -138,9 +138,9 @@ public class LegalInfoActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        View qtgd1 = findViewById(R.id.qtgd1);
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -157,7 +157,7 @@ public class LegalInfoActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -174,7 +174,7 @@ public class LegalInfoActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        finish();
 
     }
 
@@ -185,10 +185,10 @@ public class LegalInfoActivity extends BaseAwgActivity {
 
     private boolean onXdbj14LongClick(View vw) {
 
-        String te = st.wb(R.id.wb29).zf();
+        String te = ((TextView) findViewById(R.id.wb29)).getText().toString();
 
-        String lj = st.wb(R.id.wb30).zf();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
+        String lj = ((TextView) findViewById(R.id.wb30)).getText().toString();
+        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
@@ -200,10 +200,10 @@ public class LegalInfoActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((TextView) findViewById(R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
+        String lj = ((TextView) findViewById(R.id.wb3)).getText().toString();
+        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
@@ -215,43 +215,39 @@ public class LegalInfoActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((TextView) findViewById(R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
+        String lj = ((TextView) findViewById(R.id.wb5)).getText().toString();
+        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        finish();
 
     }
 
-    private void _$_viewAutomaticSettingEvent() {
-        _$_viewAutomaticSettingEvent(this, null);
-    }
+    private void bindViews() {
 
-    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
-
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout c4cbe9d7ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj14);
+        RelativeLayout c4cbe9d7ff = (RelativeLayout) findViewById(R.id.xdbj14);
         c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
         c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        __layoutIsLoaded(ay, vw);
+        applyScreenPolicy();
     }
 }

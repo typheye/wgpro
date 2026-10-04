@@ -17,7 +17,6 @@
 package open.cn.awg.pro.store;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -45,7 +44,7 @@ import open.cn.awg.pro.viewer.ImageViewerActivity;
 public class StoreDetailActivity extends BaseAwgActivity {
 
     public final StoreDetailActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String uri = "";
     public String src_url = "";
     public String v_aurl = "";
@@ -164,10 +163,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.store_detail);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        uri = sj.hqtz("uri");
+        uri = StoreDetailActivity.this.getIntent().getStringExtra(String.valueOf("uri"));
         csh();
 
     }
@@ -181,57 +181,57 @@ public class StoreDetailActivity extends BaseAwgActivity {
     public void csh() {
 
         String set67 = AppPaths.appPath("settings/set7.inf");
-        src_url = wj.dqwb(set67);
+        src_url = open.cn.awg.pro.core.NativeFiles.readText(StoreDetailActivity.this, (String) (set67));
 
-        final i.runlibrary.app.v.tx tx1 = st.tx(R.id.tx1);
+        final android.widget.ImageView tx1 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx1));
 
-        final i.runlibrary.app.v.tx tx2 = st.tx(R.id.tx2);
+        final android.widget.ImageView tx2 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx2));
 
-        final i.runlibrary.app.v.tx tx3 = st.tx(R.id.tx3);
+        final android.widget.ImageView tx3 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx3));
 
-        final i.runlibrary.app.v.tx tx4 = st.tx(R.id.tx4);
+        final android.widget.ImageView tx4 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx4));
 
-        final i.runlibrary.app.v.tx tx10 = st.tx(R.id.tx10);
+        final android.widget.ImageView tx10 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx10));
 
-        final i.runlibrary.app.v.tx tx11 = st.tx(R.id.tx11);
+        final android.widget.ImageView tx11 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx11));
 
-        final i.runlibrary.app.v.tx tx12 = st.tx(R.id.tx12);
+        final android.widget.ImageView tx12 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx12));
 
-        final i.runlibrary.app.v.wb wb1 = st.wb(R.id.wb1);
+        final android.widget.TextView wb1 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb1));
 
-        final i.runlibrary.app.v.wb wb6 = st.wb(R.id.wb6);
+        final android.widget.TextView wb6 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb6));
 
-        final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
+        final android.widget.TextView wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb2));
 
-        final i.runlibrary.app.v.wb wb7 = st.wb(R.id.wb7);
+        final android.widget.TextView wb7 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb7));
 
-        final i.runlibrary.app.v.wb wb3 = st.wb(R.id.wb3);
+        final android.widget.TextView wb3 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb3));
 
-        final i.runlibrary.app.v.wb wb19 = st.wb(R.id.wb19);
+        final android.widget.TextView wb19 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb19));
 
-        final i.runlibrary.app.v.wb wb18 = st.wb(R.id.wb18);
+        final android.widget.TextView wb18 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb18));
 
-        final i.runlibrary.app.v.wb wb20 = st.wb(R.id.wb20);
+        final android.widget.TextView wb20 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb20));
 
-        final i.runlibrary.app.v.wb wb16 = st.wb(R.id.wb16);
+        final android.widget.TextView wb16 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb16));
 
-        final i.runlibrary.app.v.wb wb24 = st.wb(R.id.wb24);
+        final android.widget.TextView wb24 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb24));
 
-        final i.runlibrary.app.v.wb wb15 = st.wb(R.id.wb15);
+        final android.widget.TextView wb15 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb15));
 
-        final i.runlibrary.app.v.wb wb8 = st.wb(R.id.wb8);
+        final android.widget.TextView wb8 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb8));
 
-        final i.runlibrary.app.v.wb wb14 = st.wb(R.id.wb14);
+        final android.widget.TextView wb14 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb14));
 
-        final i.runlibrary.app.v.wb wb21 = st.wb(R.id.wb21);
+        final android.widget.TextView wb21 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb21));
 
-        final i.runlibrary.app.v.tx tx6 = st.tx(R.id.tx6);
-        gj.xc(new Thread() {
+        final android.widget.ImageView tx6 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.tx6));
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(4);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 boolean canshow = false;
 
@@ -239,55 +239,55 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                 String ini = "";
 
-                if (zf.ckt(uri, "awg://uri/video")) {
+                if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/video")) {
 
-                    id = zf.qc(uri, "awg://uri/video/", null);
+                    id = open.cn.awg.pro.core.TextValues.slice(uri, "awg://uri/video/", null);
                     s_id = id;
 
                     final String img_video_show_path = AppPaths.appPath("data/video/img/") + id + "/show.png";
                     ini = getIni("video", id);
 
-                    if (!zf.dy(ini, null)) {
+                    if (!java.util.Objects.equals(ini, null)) {
 
                         try {
 
-                            String[] inis = zf.fg(ini, "\n", true);
+                            String[] inis = open.cn.awg.pro.core.TextValues.split(ini, "\n", true);
 
-                            if (zf.dy(inis[0], "[CONF:V1]")) {
+                            if (java.util.Objects.equals(inis[0], "[CONF:V1]")) {
 
-                                v_title = zf.qc(inis[1], "title=", null);
-                                v_text = zf.th(zf.qc(inis[2], "text=", null), "<br>", "\n", true);
-                                v_aurl = getFullUrl("video", id, zf.qc(inis[3], "aurl=", null));
-                                v_img_show = getFullUrl("video", id, zf.qc(inis[4], "img-show=", null));
+                                v_title = open.cn.awg.pro.core.TextValues.slice(inis[1], "title=", null);
+                                v_text = open.cn.awg.pro.core.TextValues.replace(open.cn.awg.pro.core.TextValues.slice(inis[2], "text=", null), "<br>", "\n", true);
+                                v_aurl = getFullUrl("video", id, open.cn.awg.pro.core.TextValues.slice(inis[3], "aurl=", null));
+                                v_img_show = getFullUrl("video", id, open.cn.awg.pro.core.TextValues.slice(inis[4], "img-show=", null));
 
                                 String downfile = v_img_show;
 
                                 String downfilepath = img_video_show_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
                                 }
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        if (wj.cz(img_video_show_path)) {
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_video_show_path))) {
 
-                                            tx1.tx(img_video_show_path);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx1, img_video_show_path);
 
                                         } else {
 
-                                            tx1.tx(R.mipmap.b11);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx1, R.mipmap.b11);
 
                                         }
-                                        wb1.zf(v_title);
-                                        wb6.zf(v_text);
+                                        wb1.setText(String.valueOf(v_title));
+                                        wb6.setText(String.valueOf(v_text));
 
                                     }
 
@@ -304,28 +304,28 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                     }
 
-                } else if (zf.ckt(uri, "awg://uri/music")) {
+                } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/music")) {
 
-                    id = zf.qc(uri, "awg://uri/music/", null);
+                    id = open.cn.awg.pro.core.TextValues.slice(uri, "awg://uri/music/", null);
                     ini = getIni("music", id);
 
-                    if (!zf.dy(ini, null)) {
+                    if (!java.util.Objects.equals(ini, null)) {
 
                         try {
 
-                            String[] inis = zf.fg(ini, "\n", true);
+                            String[] inis = open.cn.awg.pro.core.TextValues.split(ini, "\n", true);
 
-                            if (zf.dy(inis[0], "[CONF:V1]")) {
+                            if (java.util.Objects.equals(inis[0], "[CONF:V1]")) {
 
-                                v_title = zf.qc(inis[1], "title=", null);
-                                v_text = zf.qc(inis[2], "text=", null);
-                                v_aurl = getFullUrl("music", id, zf.qc(inis[3], "aurl=", null));
-                                gj.jmxc(new Runnable() {
+                                v_title = open.cn.awg.pro.core.TextValues.slice(inis[1], "title=", null);
+                                v_text = open.cn.awg.pro.core.TextValues.slice(inis[2], "text=", null);
+                                v_aurl = getFullUrl("music", id, open.cn.awg.pro.core.TextValues.slice(inis[3], "aurl=", null));
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        wb2.zf(v_title);
-                                        wb7.zf(v_text);
+                                        wb2.setText(String.valueOf(v_title));
+                                        wb7.setText(String.valueOf(v_text));
 
                                     }
 
@@ -342,9 +342,9 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                     }
 
-                } else if (zf.ckt(uri, "awg://uri/app")) {
+                } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/app")) {
 
-                    id = zf.qc(uri, "awg://uri/app/", null);
+                    id = open.cn.awg.pro.core.TextValues.slice(uri, "awg://uri/app/", null);
                     s_id = id;
 
                     final String img_app_icon_path = AppPaths.appPath("data/app/img/") + id + "/icon.png";
@@ -360,40 +360,40 @@ public class StoreDetailActivity extends BaseAwgActivity {
                     final String img_app_show5_path = AppPaths.appPath("data/app/img/") + id + "/show5.png";
                     ini = getIni("app", id);
 
-                    if (!zf.dy(ini, null)) {
+                    if (!java.util.Objects.equals(ini, null)) {
 
                         try {
 
-                            String[] inis = zf.fg(ini, "\n", true);
+                            String[] inis = open.cn.awg.pro.core.TextValues.split(ini, "\n", true);
 
-                            if (zf.dy(inis[0], "[CONF:V1]")) {
+                            if (java.util.Objects.equals(inis[0], "[CONF:V1]")) {
 
-                                v_id = zf.qc(inis[1], "id=", null);
-                                v_title = zf.qc(inis[2], "title=", null);
-                                v_text = zf.th(zf.qc(inis[3], "text=", null), "<br>", "\n", true);
-                                v_aurl = getFullUrl("app", id, zf.qc(inis[4], "aurl=", null));
+                                v_id = open.cn.awg.pro.core.TextValues.slice(inis[1], "id=", null);
+                                v_title = open.cn.awg.pro.core.TextValues.slice(inis[2], "title=", null);
+                                v_text = open.cn.awg.pro.core.TextValues.replace(open.cn.awg.pro.core.TextValues.slice(inis[3], "text=", null), "<br>", "\n", true);
+                                v_aurl = getFullUrl("app", id, open.cn.awg.pro.core.TextValues.slice(inis[4], "aurl=", null));
 
-                                final String v_app_info_level = zf.qc(inis[5], "app-info-level=", null);
+                                final String v_app_info_level = open.cn.awg.pro.core.TextValues.slice(inis[5], "app-info-level=", null);
 
-                                final String v_app_info_language = zf.qc(inis[6], "app-info-language=", null);
+                                final String v_app_info_language = open.cn.awg.pro.core.TextValues.slice(inis[6], "app-info-language=", null);
 
-                                final String v_app_info_abi = zf.qc(inis[7], "app-info-abi=", null);
+                                final String v_app_info_abi = open.cn.awg.pro.core.TextValues.slice(inis[7], "app-info-abi=", null);
 
-                                final String v_app_info_size = zf.qc(inis[8], "app-info-size=", null);
+                                final String v_app_info_size = open.cn.awg.pro.core.TextValues.slice(inis[8], "app-info-size=", null);
 
-                                final String v_app_info_author = zf.qc(inis[9], "app-info-author=", null);
+                                final String v_app_info_author = open.cn.awg.pro.core.TextValues.slice(inis[9], "app-info-author=", null);
 
-                                final String v_app_latest_ver = zf.qc(inis[10], "app-latest-ver=", null);
+                                final String v_app_latest_ver = open.cn.awg.pro.core.TextValues.slice(inis[10], "app-latest-ver=", null);
 
-                                final String v_app_latest_code = zf.qc(inis[11], "app-latest-code=", null);
+                                final String v_app_latest_code = open.cn.awg.pro.core.TextValues.slice(inis[11], "app-latest-code=", null);
 
-                                final String v_app_latest_date = zf.qc(inis[12], "app-latest-date=", null);
+                                final String v_app_latest_date = open.cn.awg.pro.core.TextValues.slice(inis[12], "app-latest-date=", null);
 
-                                final String v_app_latest_update = zf.th(zf.qc(inis[13], "app-latest-update=", null), "<br>", "\n", true);
+                                final String v_app_latest_update = open.cn.awg.pro.core.TextValues.replace(open.cn.awg.pro.core.TextValues.slice(inis[13], "app-latest-update=", null), "<br>", "\n", true);
 
-                                final String v_app_more_limit = zf.qc(inis[14], "app-more-limit=", null);
+                                final String v_app_more_limit = open.cn.awg.pro.core.TextValues.slice(inis[14], "app-more-limit=", null);
 
-                                final String v_app_comment_show = zf.th(zf.qc(inis[15], "app-comment-show=", null), "<br>", "\n", true);
+                                final String v_app_comment_show = open.cn.awg.pro.core.TextValues.replace(open.cn.awg.pro.core.TextValues.slice(inis[15], "app-comment-show=", null), "<br>", "\n", true);
 
                                 final String xbtx = "应用最新版本为" + v_app_latest_ver + "(" + v_app_latest_code + "),于" + v_app_latest_date + "发布, 更新内容如下:\n" + v_app_latest_update;
 
@@ -403,11 +403,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                                 String downfilepath = img_app_icon_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
@@ -415,11 +415,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 downfile = getAppShowUrl(id, "1");
                                 downfilepath = img_app_show1_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
@@ -427,11 +427,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 downfile = getAppShowUrl(id, "2");
                                 downfilepath = img_app_show2_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
@@ -439,11 +439,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 downfile = getAppShowUrl(id, "3");
                                 downfilepath = img_app_show3_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
@@ -451,11 +451,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 downfile = getAppShowUrl(id, "4");
                                 downfilepath = img_app_show4_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
@@ -463,11 +463,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 downfile = getAppShowUrl(id, "5");
                                 downfilepath = img_app_show5_path;
 
-                                if (!wj.cz(downfilepath)) {
+                                if (!open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (downfilepath))) {
 
                                     if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
 
-                                        wj.sc(downfilepath);
+                                        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (downfilepath), false);
 
                                     }
 
@@ -476,8 +476,8 @@ public class StoreDetailActivity extends BaseAwgActivity {
                                 final boolean vv_yysfaz = 应用工具.应用是否安装(lei, v_id);
 
                                 final long vv_yybbh = 应用工具.获取应用版本号(lei, v_id);
-                                v_appcode = IappCompat.zh(sj.zh()).zlong(v_app_latest_code, vv_yybbh);
-                                gj.jmxc(new Runnable() {
+                                v_appcode = open.cn.awg.pro.core.TextValues.longValue(v_app_latest_code, vv_yybbh);
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -485,92 +485,92 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                                             if (v_appcode > vv_yybbh) {
 
-                                                tx6.tx(R.mipmap.a62);
+                                                open.cn.awg.pro.core.NativeViewValues.image(tx6, R.mipmap.a62);
                                                 app_state = "update";
 
                                             } else {
 
-                                                tx6.tx(R.mipmap.a61);
+                                                open.cn.awg.pro.core.NativeViewValues.image(tx6, R.mipmap.a61);
                                                 app_state = "open";
 
                                             }
 
                                         } else {
 
-                                            tx6.tx(R.mipmap.a58);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx6, R.mipmap.a58);
                                             app_state = "download";
 
                                         }
 
-                                        if (wj.cz(img_app_icon_path)) {
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_app_icon_path))) {
 
-                                            tx2.tx(img_app_icon_path);
-
-                                        } else {
-
-                                            tx2.tx(R.mipmap.appicon);
-
-                                        }
-
-                                        if (wj.cz(img_app_show1_path)) {
-
-                                            tx3.tx(img_app_show1_path);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx2, img_app_icon_path);
 
                                         } else {
 
-                                            tx3.tx(R.mipmap.b11);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx2, R.mipmap.appicon);
 
                                         }
 
-                                        if (wj.cz(img_app_show2_path)) {
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_app_show1_path))) {
 
-                                            tx4.tx(img_app_show2_path);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx3, img_app_show1_path);
 
                                         } else {
 
-                                            tx4.tx(R.mipmap.b11);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx3, R.mipmap.b11);
 
                                         }
 
-                                        if (wj.cz(img_app_show3_path)) {
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_app_show2_path))) {
 
-                                            tx10.tx(img_app_show3_path);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx4, img_app_show2_path);
 
                                         } else {
 
-                                            tx10.tx(R.mipmap.b11);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx4, R.mipmap.b11);
 
                                         }
 
-                                        if (wj.cz(img_app_show4_path)) {
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_app_show3_path))) {
 
-                                            tx11.tx(img_app_show4_path);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx10, img_app_show3_path);
 
                                         } else {
 
-                                            tx11.tx(R.mipmap.b11);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx10, R.mipmap.b11);
 
                                         }
 
-                                        if (wj.cz(img_app_show5_path)) {
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_app_show4_path))) {
 
-                                            tx12.tx(img_app_show5_path);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx11, img_app_show4_path);
 
                                         } else {
 
-                                            tx12.tx(R.mipmap.b11);
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx11, R.mipmap.b11);
 
                                         }
-                                        wb3.zf(v_title);
-                                        wb19.zf(v_app_info_size);
-                                        wb18.zf(v_app_info_language);
-                                        wb20.zf(v_app_info_abi);
-                                        wb16.zf(v_app_info_size);
-                                        wb24.zf(v_app_info_author);
-                                        wb15.zf(xbtx);
-                                        wb8.zf(v_text);
-                                        wb14.zf(gdxx);
-                                        wb21.zf(v_app_comment_show);
+
+                                        if (open.cn.awg.pro.core.NativeFiles.exists(StoreDetailActivity.this, (String) (img_app_show5_path))) {
+
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx12, img_app_show5_path);
+
+                                        } else {
+
+                                            open.cn.awg.pro.core.NativeViewValues.image(tx12, R.mipmap.b11);
+
+                                        }
+                                        wb3.setText(String.valueOf(v_title));
+                                        wb19.setText(String.valueOf(v_app_info_size));
+                                        wb18.setText(String.valueOf(v_app_info_language));
+                                        wb20.setText(String.valueOf(v_app_info_abi));
+                                        wb16.setText(String.valueOf(v_app_info_size));
+                                        wb24.setText(String.valueOf(v_app_info_author));
+                                        wb15.setText(String.valueOf(xbtx));
+                                        wb8.setText(String.valueOf(v_text));
+                                        wb14.setText(String.valueOf(gdxx));
+                                        wb21.setText(String.valueOf(v_app_comment_show));
 
                                     }
 
@@ -591,15 +591,15 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                 if (canshow) {
 
-                    if (zf.ckt(uri, "awg://uri/video")) {
+                    if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/video")) {
 
                         show(0);
 
-                    } else if (zf.ckt(uri, "awg://uri/music")) {
+                    } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/music")) {
 
                         show(1);
 
-                    } else if (zf.ckt(uri, "awg://uri/app")) {
+                    } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/app")) {
 
                         show(2);
 
@@ -607,11 +607,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                 } else {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.wb30).zf("加载失败");
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb30)).setText(String.valueOf("加载失败"));
 
                         }
 
@@ -642,13 +642,13 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String img_app_show5_path = AppPaths.appPath("data/app/img/") + id + "/show5.png";
 
         final String img_video_show_path = AppPaths.appPath("data/video/img/") + id + "/show.png";
-        wj.sc(img_app_icon_path);
-        wj.sc(img_app_show1_path);
-        wj.sc(img_app_show2_path);
-        wj.sc(img_app_show3_path);
-        wj.sc(img_app_show4_path);
-        wj.sc(img_app_show5_path);
-        wj.sc(img_video_show_path);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_app_icon_path), false);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_app_show1_path), false);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_app_show2_path), false);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_app_show3_path), false);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_app_show4_path), false);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_app_show5_path), false);
+        open.cn.awg.pro.core.NativeFiles.delete(StoreDetailActivity.this, (String) (img_video_show_path), false);
 
     }
 
@@ -657,7 +657,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
         if (e1.yz()) {
 
             String url = src_url + "/" + type + "/" + id + "/config.ini";
-            return wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+            return open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
         } else {
 
@@ -669,13 +669,13 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
     public String getFullUrl(Object type, Object id, Object file) {
 
-        if (zf.ckt(file, "./")) {
+        if (open.cn.awg.pro.core.TextValues.startsWith(file, "./")) {
 
-            return src_url + "/" + type + "/" + id + "/" + zf.qc(file, "./", null);
+            return src_url + "/" + type + "/" + id + "/" + open.cn.awg.pro.core.TextValues.slice(file, "./", null);
 
         } else {
 
-            return IappCompat.zh(sj.zh()).zstring(file);
+            return open.cn.awg.pro.core.TextValues.string(file);
 
         }
 
@@ -704,70 +704,70 @@ public class StoreDetailActivity extends BaseAwgActivity {
         boolean e = true;
 
         String f = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN";
-        return wl.xz(a, b, true, c, "utf-8", d, e, f);
+        return open.cn.awg.pro.core.NativeHttp.download(StoreDetailActivity.this, String.valueOf(a), (String) (b), java.lang.Boolean.TRUE.equals(true), (String[]) (c), (String) ("utf-8"), (String) (d), java.lang.Boolean.TRUE.equals(e), (String) (f), 0, 0, null);
 
     }
 
     public void show(int i_) {
 
         final int i = i_;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+                android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-                i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj2);
+                android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
-                i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj4);
+                android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
-                i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj5);
+                android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.xxbj5));
 
-                i.runlibrary.app.v.xxbj x4 = st.xxbj(R.id.xxbj6);
+                android.widget.LinearLayout x4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
                 if (i == 0) {
 
-                    tab.zf("< 视频详情");
-                    x1.kjd(0);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(8);
+                    tab.setText(String.valueOf("< 视频详情"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 1) {
 
-                    tab.zf("< 歌曲详情");
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    x3.kjd(8);
-                    x4.kjd(8);
+                    tab.setText(String.valueOf("< 歌曲详情"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 2) {
 
-                    tab.zf("< 应用详情");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(0);
-                    x4.kjd(8);
+                    tab.setText(String.valueOf("< 应用详情"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 4) {
 
-                    if (zf.ckt(uri, "awg://uri/video")) {
+                    if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/video")) {
 
-                        tab.zf("< 视频详情");
+                        tab.setText(String.valueOf("< 视频详情"));
 
-                    } else if (zf.ckt(uri, "awg://uri/music")) {
+                    } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/music")) {
 
-                        tab.zf("< 歌曲详情");
+                        tab.setText(String.valueOf("< 歌曲详情"));
 
-                    } else if (zf.ckt(uri, "awg://uri/app")) {
+                    } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/app")) {
 
-                        tab.zf("< 应用详情");
+                        tab.setText(String.valueOf("< 应用详情"));
 
                     }
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(0);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -793,9 +793,9 @@ public class StoreDetailActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -812,7 +812,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -830,7 +830,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(StoreDetailActivity.this);
 
     }
 
@@ -841,11 +841,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url"};
 
         final String[] value = new String[]{path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ImageViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -854,14 +854,14 @@ public class StoreDetailActivity extends BaseAwgActivity {
     }
 
     private void onXdbj9Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] name = new String[]{"url", "title"};
 
                 String[] value = new String[]{v_aurl, v_title};
-                gj.tz(VideoPlayerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (VideoPlayerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -871,23 +871,23 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
     private boolean onXdbj9LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj12Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] name = new String[]{"url", "title"};
 
                 String[] value = new String[]{v_aurl, v_title + "-" + v_text};
-                gj.tz(VideoPlayerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (VideoPlayerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -897,16 +897,16 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
     private boolean onXdbj12LongClick(View vw) {
 
-        String te = st.wb(R.id.wb9).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
 
-        String lj = st.wb(R.id.wb10).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreDetailActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx7Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(StoreDetailActivity.this);
 
     }
 
@@ -919,9 +919,9 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
     private void onTx6Click(View vw) {
 
-        if (zf.dy(app_state, "open")) {
+        if (java.util.Objects.equals(app_state, "open")) {
 
-            if (zf.dy(v_id, "open.cn.awg.pro")) {
+            if (java.util.Objects.equals(v_id, "open.cn.awg.pro")) {
 
                 e1.tsk("提示", "已经在应用内了");
 
@@ -933,14 +933,14 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
                     String[] iyu = new String[]{"url", "type", "appid"};
 
                     String[] val = new String[]{v_aurl, "app", v_id};
-                    gj.tz(AppDownloadActivity.class, iyu, val);
+                    open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (AppDownloadActivity.class), (String[]) (iyu), (Object[]) (val));
 
                 }
 
@@ -957,11 +957,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url"};
 
         final String[] value = new String[]{path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ImageViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -976,11 +976,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url"};
 
         final String[] value = new String[]{path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ImageViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -995,11 +995,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url"};
 
         final String[] value = new String[]{path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ImageViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -1014,11 +1014,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url"};
 
         final String[] value = new String[]{path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ImageViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -1033,11 +1033,11 @@ public class StoreDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url"};
 
         final String[] value = new String[]{path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ImageViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -1046,14 +1046,14 @@ public class StoreDetailActivity extends BaseAwgActivity {
     }
 
     private void onTx9Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] name = new String[]{"url", "title"};
 
                 String[] value = new String[]{v_aurl, v_title + "-" + v_text};
-                gj.tz(VideoPlayerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(StoreDetailActivity.this, (Class<?>) (VideoPlayerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -1067,47 +1067,47 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
         i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
 
-        RelativeLayout f73b53def9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj12);
+        RelativeLayout f73b53def9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj12);
         f73b53def9.setOnClickListener(xdbj12ClickListener);
         f73b53def9.setOnLongClickListener(xdbj12LongClickListener);
 
-        ImageView i3621e3f4a1 = (ImageView) findViewById(ay, vw, R.id.tx7);
+        ImageView i3621e3f4a1 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx7);
         i3621e3f4a1.setOnClickListener(tx7ClickListener);
 
-        ImageView cb1d655d23 = (ImageView) findViewById(ay, vw, R.id.tx8);
+        ImageView cb1d655d23 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx8);
         cb1d655d23.setOnClickListener(tx8ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
         i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        ImageView i3ab5c5fd62 = (ImageView) findViewById(ay, vw, R.id.tx10);
+        ImageView i3ab5c5fd62 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx10);
         i3ab5c5fd62.setOnClickListener(tx10ClickListener);
 
-        ImageView i75b44e9f85 = (ImageView) findViewById(ay, vw, R.id.tx11);
+        ImageView i75b44e9f85 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx11);
         i75b44e9f85.setOnClickListener(tx11ClickListener);
 
-        ImageView f1070075ac = (ImageView) findViewById(ay, vw, R.id.tx12);
+        ImageView f1070075ac = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx12);
         f1070075ac.setOnClickListener(tx12ClickListener);
 
-        ImageView ee0ece10ae = (ImageView) findViewById(ay, vw, R.id.tx9);
+        ImageView ee0ece10ae = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx9);
         ee0ece10ae.setOnClickListener(tx9ClickListener);
 
         __layoutIsLoaded(ay, vw);

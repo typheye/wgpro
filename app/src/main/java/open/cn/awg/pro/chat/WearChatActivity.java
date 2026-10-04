@@ -40,9 +40,9 @@ public class WearChatActivity extends BaseAwgActivity {
 
     public static String betaurl = "";
     public final WearChatActivity lei = this, 类 = this;
-    public WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+    public WearChatRuntimeBridge e10;
 
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnTouchListener xxbj4TouchListener = new View.OnTouchListener() {
 
         public boolean onTouch(View vw, MotionEvent me) {
@@ -123,6 +123,8 @@ public class WearChatActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e10 = new WearChatRuntimeBridge(this);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.wear_chat);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -142,17 +144,17 @@ public class WearChatActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/f7/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(WearChatActivity.this, (String) (set1)), "true")) {
 
         }
 
-        if (zf.dy(wj.dqwb(set64), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(WearChatActivity.this, (String) (set64)), "true")) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb24).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.wb24)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -181,9 +183,9 @@ public class WearChatActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -200,7 +202,7 @@ public class WearChatActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -218,9 +220,9 @@ public class WearChatActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 腕上微聊")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕上微聊")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(WearChatActivity.this);
 
         }
 
@@ -232,7 +234,7 @@ public class WearChatActivity extends BaseAwgActivity {
     }
 
     private void onWb24Click(View vw) {
-        e1.tsk("提示", "当前在线人数统计，以下数据来自服务器\n\n" + st.wb(R.id.wb24).zf() + "\n\n您可以通过\"刷新\"来更新此数据");
+        e1.tsk("提示", "当前在线人数统计，以下数据来自服务器\n\n" + ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.wb24)).getText().toString() + "\n\n您可以通过\"刷新\"来更新此数据");
 
     }
 
@@ -260,12 +262,12 @@ public class WearChatActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -297,37 +299,37 @@ public class WearChatActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
         ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
-        TextView dc32622ccd = (TextView) findViewById(ay, vw, R.id.wb24);
+        TextView dc32622ccd = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb24);
         dc32622ccd.setOnClickListener(wb24ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        LinearLayout e1433e26d6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj1);
         e1433e26d6.setOnTouchListener(xxbj1TouchListener);
 
-        LinearLayout efa568dfe6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj3);
+        LinearLayout efa568dfe6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj3);
         efa568dfe6.setOnTouchListener(xxbj3TouchListener);
 
-        LinearLayout dc0a1b897b = (LinearLayout) findViewById(ay, vw, R.id.xxbj2);
+        LinearLayout dc0a1b897b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj2);
         dc0a1b897b.setOnTouchListener(xxbj2TouchListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        LinearLayout i9068f5d66e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4);
+        LinearLayout i9068f5d66e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj4);
         i9068f5d66e.setOnTouchListener(xxbj4TouchListener);
 
         __layoutIsLoaded(ay, vw);

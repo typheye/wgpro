@@ -18,7 +18,7 @@ package open.cn.awg.pro.update;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -40,7 +40,7 @@ import open.cn.awg.pro.R;
 public class AppUpdateActivity extends BaseAwgActivity {
 
     public final AppUpdateActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -275,6 +275,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.app_update);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -293,11 +294,11 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/f9/set1.inf");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppUpdateActivity.this, (String) (set1)), "true")) {
 
-            kg1.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
@@ -305,15 +306,15 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     public void update() {
 
-        if (zf.dy(st.wb(R.id.wb17).zf(), "正在检查...")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString(), "正在检查...")) {
 
             e1.tsk("提示", "操作过于频繁，请稍后重试！");
 
         } else {
 
-            final String colorf = zf.zf(R.color.colorTextU2);
+            final String colorf = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextU2);
 
-            final String colort = zf.zf(R.color.colorTextTrue);
+            final String colort = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextTrue);
 
             String set36 = AppPaths.appPath("settings/fixVersion");
 
@@ -322,17 +323,17 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
             final int myappversion = a11;
 
-            final String appfixversion = zf.qctwkg(wj.dqwb(set36));
-            st.wb(R.id.wb19).zf(a11);
-            st.wb(R.id.wb24).zf(appfixversion);
+            final String appfixversion = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(AppUpdateActivity.this, (String) (set36)));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb19)).setText(String.valueOf(a11));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb24)).setText(String.valueOf(appfixversion));
 
             String set2e = AppPaths.appPath("settings/f10/set2.inf");
 
             final String set3 = AppPaths.appPath("cache/update");
-            set2e = wj.dqwb(set2e);
+            set2e = open.cn.awg.pro.core.NativeFiles.readText(AppUpdateActivity.this, (String) (set2e));
             set2e = e1.urlUnlockString(set2e);
 
-            if (zf.cjw(set2e, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(set2e, "/")) {
 
             } else {
 
@@ -342,28 +343,28 @@ public class AppUpdateActivity extends BaseAwgActivity {
             set2e = set2e + "config.json";
 
             final String url = set2e;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String e = "加载中...";
-                            st.wb(R.id.wb5).zf(e);
-                            st.wb(R.id.wb8).zf(e);
-                            st.wb(R.id.wb10).zf(e);
-                            st.wb(R.id.wb26).zf(e);
-                            st.wb(R.id.wb28).zf(e);
-                            st.wb(R.id.wb30).zf(e);
-                            st.wb(R.id.wb35).zf(e);
-                            st.wb(R.id.wb36).zf(e);
-                            st.wb(R.id.wb17).zf("正在检查...");
-                            st.wb(R.id.wb35).zfys(colorf);
-                            st.wb(R.id.wb36).zfys(colorf);
-                            st.xxbj(R.id.xxbj7).kjd(8);
-                            st.xxbj(R.id.xxbj15).kjd(8);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb28)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setText(String.valueOf(e));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("正在检查..."));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
+                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
 
                         }
 
@@ -389,9 +390,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
                         String urls2 = "";
 
-                        String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                        String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             setback = "0";
 
@@ -399,7 +400,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
                             setback = e1.htmlToText(back);
 
-                            if (zf.dy(setback, "0")) {
+                            if (java.util.Objects.equals(setback, "0")) {
 
                                 setback = "0";
 
@@ -421,26 +422,26 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
                         }
 
-                        if (zf.dy(setback, "0")) {
+                        if (java.util.Objects.equals(setback, "0")) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
                                     String e = "加载异常...";
-                                    st.wb(R.id.wb5).zf(e);
-                                    st.wb(R.id.wb8).zf(e);
-                                    st.wb(R.id.wb10).zf(e);
-                                    st.wb(R.id.wb26).zf(e);
-                                    st.wb(R.id.wb28).zf(e);
-                                    st.wb(R.id.wb30).zf(e);
-                                    st.wb(R.id.wb35).zf(e);
-                                    st.wb(R.id.wb36).zf(e);
-                                    st.wb(R.id.wb17).zf("检查应用和补丁是否有更新");
-                                    st.wb(R.id.wb35).zfys(colorf);
-                                    st.wb(R.id.wb36).zfys(colorf);
-                                    st.xxbj(R.id.xxbj7).kjd(8);
-                                    st.xxbj(R.id.xxbj15).kjd(8);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb28)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setText(String.valueOf(e));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("检查应用和补丁是否有更新"));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
 
                                 }
 
@@ -463,47 +464,47 @@ public class AppUpdateActivity extends BaseAwgActivity {
                             final String b7 = text2;
 
                             final String b8 = urls2;
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb5).zf(b1);
-                                    st.wb(R.id.wb8).zf(b2);
-                                    st.wb(R.id.wb10).zf("点击查看详情");
-                                    st.wb(R.id.wb11).zf(b3);
-                                    st.wb(R.id.wb15).zf(b4);
-                                    st.wb(R.id.wb26).zf(b5);
-                                    st.wb(R.id.wb28).zf(b6);
-                                    st.wb(R.id.wb30).zf("点击查看详情");
-                                    st.wb(R.id.wb31).zf(b7);
-                                    st.wb(R.id.wb37).zf(b8);
-                                    st.wb(R.id.wb17).zf("检查应用和补丁是否有更新");
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(b1));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(b2));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("点击查看详情"));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(b3));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb15)).setText(String.valueOf(b4));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).setText(String.valueOf(b5));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb28)).setText(String.valueOf(b6));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).setText(String.valueOf("点击查看详情"));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb31)).setText(String.valueOf(b7));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb37)).setText(String.valueOf(b8));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("检查应用和补丁是否有更新"));
 
                                     if (Double.parseDouble(appfixversion) >= b5) {
 
-                                        st.xxbj(R.id.xxbj15).kjd(8);
-                                        st.wb(R.id.wb35).zfys(colorf);
-                                        st.wb(R.id.wb35).zf("已是最新版本");
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setText(String.valueOf("已是最新版本"));
 
                                     } else {
 
-                                        st.xxbj(R.id.xxbj15).kjd(0);
-                                        st.wb(R.id.wb35).zfys(colort);
-                                        st.wb(R.id.wb35).zf("有新版本发布");
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.VISIBLE);
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colort));
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setText(String.valueOf("有新版本发布"));
 
                                     }
 
                                     if (myappversion >= b1) {
 
-                                        st.xxbj(R.id.xxbj7).kjd(8);
-                                        st.wb(R.id.wb36).zfys(colorf);
-                                        st.wb(R.id.wb36).zf("已是最新版本");
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setText(String.valueOf("已是最新版本"));
 
                                     } else {
 
-                                        st.xxbj(R.id.xxbj7).kjd(0);
-                                        st.wb(R.id.wb36).zfys(colort);
-                                        st.wb(R.id.wb36).zf("有新版本发布");
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.VISIBLE);
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colort));
+                                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setText(String.valueOf("有新版本发布"));
 
                                     }
 
@@ -515,24 +516,24 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
                                 String e = "加载异常...";
-                                st.wb(R.id.wb5).zf(e);
-                                st.wb(R.id.wb8).zf(e);
-                                st.wb(R.id.wb10).zf(e);
-                                st.wb(R.id.wb26).zf(e);
-                                st.wb(R.id.wb28).zf(e);
-                                st.wb(R.id.wb30).zf(e);
-                                st.wb(R.id.wb35).zf(e);
-                                st.wb(R.id.wb36).zf(e);
-                                st.wb(R.id.wb17).zf("检查应用和补丁是否有更新");
-                                st.wb(R.id.wb35).zfys(colorf);
-                                st.wb(R.id.wb36).zfys(colorf);
-                                st.xxbj(R.id.xxbj7).kjd(8);
-                                st.xxbj(R.id.xxbj15).kjd(8);
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb28)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).setText(String.valueOf("检查应用和补丁是否有更新"));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colorf));
+                                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
+                                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
 
                             }
 
@@ -568,9 +569,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -587,7 +588,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -604,7 +605,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AppUpdateActivity.this);
 
     }
 
@@ -615,9 +616,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj7LongClick(View vw) {
 
-        String te = st.wb(R.id.wb16).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
 
-        String lj = st.wb(R.id.wb17).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -629,11 +630,11 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(AppUpdateActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(AppUpdateActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -641,15 +642,15 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj2Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -657,9 +658,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -667,18 +668,18 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj17Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjgxbd).kjd() == 8) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxbd)).getVisibility() == android.view.View.GONE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj22).wbjsb("10dp");
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.setbjx_group);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.setbjx_group);
-                    st.xxbj(R.id.xxbjgxbd).kjd(0);
-                    st.xxbj(R.id.xxbjgxyy).kjd(8);
-                    st.wb(R.id.wb39).zf("「隐藏」");
+                    open.cn.awg.pro.core.NativeViewValues.margin(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), 1, "10dp");
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.setbjx_group);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.setbjx_group);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxbd)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxyy)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb39)).setText(String.valueOf("「隐藏」"));
 
                 }
 
@@ -686,15 +687,15 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj22).wbjsb("0dp");
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.setbjx_top);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.setbjx_bottom);
-                    st.xxbj(R.id.xxbjgxbd).kjd(8);
-                    st.wb(R.id.wb39).zf("「展开」");
+                    open.cn.awg.pro.core.NativeViewValues.margin(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), 1, "0dp");
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.setbjx_top);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.setbjx_bottom);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxbd)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb39)).setText(String.valueOf("「展开」"));
 
                 }
 
@@ -706,9 +707,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj17LongClick(View vw) {
 
-        String te = st.wb(R.id.wb22).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb22)).getText().toString();
 
-        String lj = st.wb(R.id.wb35).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -722,9 +723,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj10LongClick(View vw) {
 
-        String te = st.wb(R.id.wb23).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb23)).getText().toString();
 
-        String lj = st.wb(R.id.wb24).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb24)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -738,9 +739,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj11LongClick(View vw) {
 
-        String te = st.wb(R.id.wb25).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb25)).getText().toString();
 
-        String lj = st.wb(R.id.wb26).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -754,9 +755,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj12LongClick(View vw) {
 
-        String te = st.wb(R.id.wb27).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb27)).getText().toString();
 
-        String lj = st.wb(R.id.wb28).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb28)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -764,9 +765,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj13Click(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb30).zf(), "点击查看详情")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).getText().toString(), "点击查看详情")) {
 
-            String t = st.wb(R.id.wb31).zf();
+            String t = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb31)).getText().toString();
             e1.tsk("补丁说明", t);
 
         } else {
@@ -779,9 +780,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj13LongClick(View vw) {
 
-        String te = st.wb(R.id.wb29).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb29)).getText().toString();
 
-        String lj = st.wb(R.id.wb30).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -789,23 +790,23 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj14Click(View vw) {
 
-        String t = st.wb(R.id.wb37).zf();
+        String t = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb37)).getText().toString();
 
-        String ce = st.wb(R.id.wb26).zf();
+        String ce = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).getText().toString();
 
         String[] name = new String[]{"url", "mode", "fixcode"};
 
         String[] value = new String[]{t, "fix", ce};
-        gj.tz(AppUpdateInstallActivity.class, name, value);
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.launch(AppUpdateActivity.this, (Class<?>) (AppUpdateInstallActivity.class), (String[]) (name), (Object[]) (value));
+        open.cn.awg.pro.core.NativeActions.finish(AppUpdateActivity.this);
 
     }
 
     private boolean onXdbj14LongClick(View vw) {
 
-        String te = st.wb(R.id.wb33).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb33)).getText().toString();
 
-        String lj = st.wb(R.id.wb34).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb34)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -813,18 +814,18 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj15Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjgxyy).kjd() == 8) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxyy)).getVisibility() == android.view.View.GONE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj22).wbjsb("10dp");
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.setbjx_group);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.setbjx_group);
-                    st.xxbj(R.id.xxbjgxyy).kjd(0);
-                    st.xxbj(R.id.xxbjgxbd).kjd(8);
-                    st.wb(R.id.wb40).zf("「隐藏」");
+                    open.cn.awg.pro.core.NativeViewValues.margin(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), 1, "10dp");
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.setbjx_group);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.setbjx_group);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxyy)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxbd)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb40)).setText(String.valueOf("「隐藏」"));
 
                 }
 
@@ -832,15 +833,15 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj22).wbjsb("0dp");
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.setbjx_top);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.setbjx_bottom);
-                    st.xxbj(R.id.xxbjgxyy).kjd(8);
-                    st.wb(R.id.wb40).zf("「展开」");
+                    open.cn.awg.pro.core.NativeViewValues.margin(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), 1, "0dp");
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.setbjx_top);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.setbjx_bottom);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.xxbjgxyy)).setVisibility(android.view.View.GONE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb40)).setText(String.valueOf("「展开」"));
 
                 }
 
@@ -852,9 +853,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj15LongClick(View vw) {
 
-        String te = st.wb(R.id.w22b).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.w22b)).getText().toString();
 
-        String lj = st.wb(R.id.wb36).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -868,9 +869,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb18).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
 
-        String lj = st.wb(R.id.wb19).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -884,9 +885,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -900,9 +901,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb7).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
 
-        String lj = st.wb(R.id.wb8).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -910,9 +911,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj5Click(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb10).zf(), "点击查看详情")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString(), "点击查看详情")) {
 
-            String t = st.wb(R.id.wb11).zf();
+            String t = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString();
             e1.tsk("更新日志", t);
 
         } else {
@@ -925,9 +926,9 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private boolean onXdbj5LongClick(View vw) {
 
-        String te = st.wb(R.id.wb9).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
 
-        String lj = st.wb(R.id.wb10).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -935,21 +936,21 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj9Click(View vw) {
 
-        String t = st.wb(R.id.wb15).zf();
+        String t = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
 
         String[] name = new String[]{"url", "mode"};
 
         String[] value = new String[]{t, "update"};
-        gj.tz(AppUpdateInstallActivity.class, name, value);
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.launch(AppUpdateActivity.this, (Class<?>) (AppUpdateInstallActivity.class), (String[]) (name), (Object[]) (value));
+        open.cn.awg.pro.core.NativeActions.finish(AppUpdateActivity.this);
 
     }
 
     private boolean onXdbj9LongClick(View vw) {
 
-        String te = st.wb(R.id.wb20).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb20)).getText().toString();
 
-        String lj = st.wb(R.id.wb21).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb21)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -957,23 +958,23 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     private void onXdbj6Click(View vw) {
 
-        String t = st.wb(R.id.wb15).zf();
+        String t = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
         e1.tsk_QR("更新链接", "扫描二维码\n下载最新版腕管Pro", t);
 
     }
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb13).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
 
-        String lj = st.wb(R.id.wb14).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AppUpdateActivity.this);
 
     }
 
@@ -983,81 +984,81 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
         e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        TextView i3b389d6120 = (TextView) findViewById(ay, vw, R.id.wb22);
+        TextView i3b389d6120 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb22);
 
-        RelativeLayout i8890b048c8 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj17);
+        RelativeLayout i8890b048c8 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj17);
         i8890b048c8.setOnClickListener(xdbj17ClickListener);
         i8890b048c8.setOnLongClickListener(xdbj17LongClickListener);
 
-        TextView f0afba5bfe = (TextView) findViewById(ay, vw, R.id.wb39);
+        TextView f0afba5bfe = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb39);
 
-        RelativeLayout i5b34eede7f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj10);
+        RelativeLayout i5b34eede7f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj10);
         i5b34eede7f.setOnClickListener(xdbj10ClickListener);
         i5b34eede7f.setOnLongClickListener(xdbj10LongClickListener);
 
-        RelativeLayout i67b461495f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj11);
+        RelativeLayout i67b461495f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj11);
         i67b461495f.setOnClickListener(xdbj11ClickListener);
         i67b461495f.setOnLongClickListener(xdbj11LongClickListener);
 
-        RelativeLayout f73b53def9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj12);
+        RelativeLayout f73b53def9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj12);
         f73b53def9.setOnClickListener(xdbj12ClickListener);
         f73b53def9.setOnLongClickListener(xdbj12LongClickListener);
 
-        RelativeLayout i62f27ff563 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj13);
+        RelativeLayout i62f27ff563 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj13);
         i62f27ff563.setOnClickListener(xdbj13ClickListener);
         i62f27ff563.setOnLongClickListener(xdbj13LongClickListener);
 
-        RelativeLayout c4cbe9d7ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj14);
+        RelativeLayout c4cbe9d7ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj14);
         c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
         c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
 
-        TextView i81d18382af = (TextView) findViewById(ay, vw, R.id.w22b);
+        TextView i81d18382af = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.w22b);
 
-        RelativeLayout i6834408ef9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj15);
+        RelativeLayout i6834408ef9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj15);
         i6834408ef9.setOnClickListener(xdbj15ClickListener);
         i6834408ef9.setOnLongClickListener(xdbj15LongClickListener);
 
-        TextView i3d78c07838 = (TextView) findViewById(ay, vw, R.id.wb40);
+        TextView i3d78c07838 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb40);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
         c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
         i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

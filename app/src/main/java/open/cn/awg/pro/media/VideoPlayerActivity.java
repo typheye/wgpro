@@ -17,14 +17,13 @@
 package open.cn.awg.pro.media;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
+import androidx.core.widget.NestedScrollView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -65,7 +64,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     public float y2 = ((float) (0));
     public boolean reTabShow = false;
     public boolean isMusic = false;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String hqdz = "";
     public String url;
     public VideoView mPlayer;
@@ -349,6 +348,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.video_player);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -358,7 +358,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
         try {
 
             cu6();
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
@@ -376,33 +376,33 @@ public class VideoPlayerActivity extends BaseAwgActivity {
                         }
                     }
 
-                    hqdz = zf.qctwkg(hqdz);
+                    hqdz = open.cn.awg.pro.core.TextValues.trim(hqdz);
 
-                    if (!zf.dy(hqdz, "") && !zf.dy(hqdz, null)) {
+                    if (!java.util.Objects.equals(hqdz, "") && !java.util.Objects.equals(hqdz, null)) {
 
                         url = hqdz;
 
                     } else {
 
-                        url = sj.hqtz("url");
+                        url = VideoPlayerActivity.this.getIntent().getStringExtra(String.valueOf("url"));
 
                     }
-                    url = zf.qctwkg(url);
+                    url = open.cn.awg.pro.core.TextValues.trim(url);
 
-                    if (!zf.dy(url, null) && !zf.dy(url, "")) {
+                    if (!java.util.Objects.equals(url, null) && !java.util.Objects.equals(url, "")) {
 
-                        String bt = sj.hqtz("title");
-                        bt = zf.qctwkg(bt);
+                        String bt = VideoPlayerActivity.this.getIntent().getStringExtra(String.valueOf("title"));
+                        bt = open.cn.awg.pro.core.TextValues.trim(bt);
 
-                        if (!zf.dy(bt, null) && !zf.dy(bt, "")) {
+                        if (!java.util.Objects.equals(bt, null) && !java.util.Objects.equals(bt, "")) {
 
                         } else {
 
-                            if (zf.ckt(url, "http")) {
+                            if (open.cn.awg.pro.core.TextValues.startsWith(url, "http")) {
 
                             } else {
 
-                                AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+                                AppRuntimeBridge e1 = new AppRuntimeBridge(VideoPlayerActivity.this);
 
                                 String[] fhValue = e1.fileinfo("%", url);
 
@@ -412,13 +412,13 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                         }
 
-                        if (zf.ckt(url, "http")) {
+                        if (open.cn.awg.pro.core.TextValues.startsWith(url, "http")) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.xxbj(R.id.xxbj38).kjd(0);
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj38)).setVisibility(android.view.View.VISIBLE);
 
                                 }
 
@@ -426,19 +426,19 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                         }
 
-                        if (zf.cjw(url, ".mp3") || zf.cjw(url, ".flac") || zf.cz(url, ".mp3?") || zf.cz(url, ".flac?")) {
+                        if (open.cn.awg.pro.core.TextValues.endsWith(url, ".mp3") || open.cn.awg.pro.core.TextValues.endsWith(url, ".flac") || open.cn.awg.pro.core.TextValues.contains(url, ".mp3?") || open.cn.awg.pro.core.TextValues.contains(url, ".flac?")) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.appInfo.st(R.id.video_player_view).setVisibility(View.GONE);
+                                    VideoPlayerActivity.this.findViewById(R.id.video_player_view).setVisibility(View.GONE);
                                     isMusic = true;
-                                    st.xxbj(R.id.xxbj13).kjd(8);
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj13)).setVisibility(android.view.View.GONE);
 
-                                    if (zf.ckt(url, "http")) {
+                                    if (open.cn.awg.pro.core.TextValues.startsWith(url, "http")) {
 
-                                        st.xxbj(R.id.xxbj38).kjd(0);
+                                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj38)).setVisibility(android.view.View.VISIBLE);
 
                                     }
 
@@ -449,11 +449,11 @@ public class VideoPlayerActivity extends BaseAwgActivity {
                         }
                         mPlayer = lei.findViewById(R.id.video_player_view);
 
-                        if (zf.dy(wj.dqwb(isOpenMap), "true")) {
+                        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (isOpenMap)), "true")) {
 
-                            if (zf.dy(sj.hqtz("identity_name"), "腕上哔哩")) {
+                            if (java.util.Objects.equals(VideoPlayerActivity.this.getIntent().getStringExtra(String.valueOf("identity_name")), "腕上哔哩")) {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -469,7 +469,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                             } else {
 
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -483,7 +483,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                         } else {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
@@ -494,7 +494,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
                             });
 
                         }
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
@@ -515,7 +515,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
                     } else {
 
                         e1.tsk("提示", "文件打开失败");
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
                     }
 
@@ -526,7 +526,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
         } catch (Throwable e) {
 
             e1.upload_error(e, "g2()");
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
         }
 
@@ -534,11 +534,11 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -549,125 +549,125 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             }
 
         }
-        xt.sbxm(false);
+        open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(VideoPlayerActivity.this, !(false));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (a2));
         applyFullscreenWindow();
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xxbj(R.id.xxbj8).nbj(0, "3dp", 0, "30dp");
-            st.xxbj(R.id.xxbj11).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj18).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj16).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj25).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj32).nbj("3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)), 0, "3dp", 0, "30dp");
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj11)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj18)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj16)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj25)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj32)), "3dp", 0, "3dp", 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-            i.runlibrary.app.v.wb btab = st.wb(R.id.backt);
-            btab.nbj(0, "15dp", 0, "3dp");
-            btab.dqfs("center");
+            android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
+            open.cn.awg.pro.core.NativeViewValues.padding(btab, 0, "15dp", 0, "3dp");
+            btab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
-            i.runlibrary.app.v.v7lb lbx = st.v7lb(R.id.v7lb1);
+            androidx.recyclerview.widget.RecyclerView lbx = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(VideoPlayerActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.wb btab = st.wb(R.id.backt);
-                btab.nbj(0, "3dp", 0, "3dp");
-                btab.dqfs("center");
+                android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
+                open.cn.awg.pro.core.NativeViewValues.padding(btab, 0, "3dp", 0, "3dp");
+                btab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-                i.runlibrary.app.v.wb btab = st.wb(R.id.backt);
-                btab.nbj(0, "9dp", 0, "9dp");
-                btab.dqfs("center");
+                android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
+                open.cn.awg.pro.core.NativeViewValues.padding(btab, 0, "9dp", 0, "9dp");
+                btab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xxbj(R.id.xxbj8).nbj(0, "3dp", 0, "30dp");
-            st.xxbj(R.id.xxbj11).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj18).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj16).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj25).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj32).nbj("3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)), 0, "3dp", 0, "30dp");
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj11)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj18)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj16)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj25)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj32)), "3dp", 0, "3dp", 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xxbj(R.id.xxbj8).nbj(0, "3dp", 0, "30dp");
-            st.xxbj(R.id.xxbj11).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj18).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj16).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj25).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj32).nbj("3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)), 0, "3dp", 0, "30dp");
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj11)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj18)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj16)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj25)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj32)), "3dp", 0, "3dp", 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-            i.runlibrary.app.v.wb btab = st.wb(R.id.backt);
-            btab.nbj(0, "15dp", 0, "3dp");
-            btab.dqfs("center");
+            android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
+            open.cn.awg.pro.core.NativeViewValues.padding(btab, 0, "15dp", 0, "3dp");
+            btab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xxbj(R.id.xxbj8).nbj(0, "3dp", 0, "30dp");
-            st.xxbj(R.id.xxbj11).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj18).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj16).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj25).nbj("3dp", 0, "3dp", 0);
-            st.xxbj(R.id.xxbj32).nbj("3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)), 0, "3dp", 0, "30dp");
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj11)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj18)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj16)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj25)), "3dp", 0, "3dp", 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj32)), "3dp", 0, "3dp", 0);
 
-            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
+            int uih = open.cn.awg.pro.core.DisplayValues.pxToDp(VideoPlayerActivity.this, open.cn.awg.pro.core.DisplayValues.systemBarHeight(VideoPlayerActivity.this, "status_bar_height"));
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, uih + "dp", 0, "9dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         }
 
         String set = AppPaths.appPath("settings/set3.inf");
 
-        if (zf.dy(wj.dqwb(set), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (set)), "true")) {
 
-            String te = wj.dqwb(AppPaths.appPath("data/assets/a8"));
+            String te = open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (AppPaths.appPath("data/assets/a8")));
 
             String[] name = new String[]{"title", "text"};
 
             String[] value = new String[]{"新手教程", te};
-            gj.tz(TextQrDisplayActivity.class, name, value);
+            open.cn.awg.pro.core.NativeActions.launch(VideoPlayerActivity.this, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
         }
 
     }
 
     public void cu6() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.zt(4000);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(4000);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj42).kjd(0);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj42)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -687,13 +687,13 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         currentVolume = mAudioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
 
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.tdt yin = st.tdt(R.id.tdt3);
-                yin.sxz(maxVolume);
-                yin.jdz(currentVolume);
+                android.widget.SeekBar yin = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tdt3));
+                yin.setMax(open.cn.awg.pro.core.TextValues.intValue(maxVolume, -1));
+                yin.setProgress(open.cn.awg.pro.core.TextValues.intValue(currentVolume, -1));
 
             }
 
@@ -712,10 +712,10 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         final int outime = 4000;
 
-        final i.runlibrary.app.v.xxbj xxbj8 = st.xxbj(R.id.xxbj8);
+        final android.widget.LinearLayout xxbj8 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8));
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
-        gj.xc(new Thread() {
+        final android.widget.LinearLayout xxbj1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1));
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -723,7 +723,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                 while (play && !Thread.currentThread().isInterrupted()) {
 
-                    gj.zt(100);
+                    open.cn.awg.pro.core.NativeActions.sleep(100);
                     intime = intime + 100;
 
                     if (reTabShow) {
@@ -733,19 +733,19 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                     }
 
-                    if (xxbj8.kjd() == 0) {
+                    if (xxbj8.getVisibility() == android.view.View.VISIBLE) {
 
                         intime = 0;
 
                     } else {
 
-                        if (xxbj1.kjd() == 0 && outime - intime < 0) {
+                        if (xxbj1.getVisibility() == android.view.View.VISIBLE && outime - intime < 0) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    xxbj1.kjd(8);
+                                    xxbj1.setVisibility(android.view.View.GONE);
 
                                 }
 
@@ -767,15 +767,15 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     public void mplay() {
 
-        final i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
-        gj.xc(new Thread() {
+        final android.widget.SeekBar tdt1 = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tdt1));
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 while (play) {
 
-                    gj.zt(50);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(50);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -784,28 +784,28 @@ public class VideoPlayerActivity extends BaseAwgActivity {
                             long position = mPlayer.getCurrentPosition();
 
                             long duration = mPlayer.getDuration();
-                            tdt1.jdz(position);
-                            tdt1.sxz(duration);
+                            tdt1.setProgress(open.cn.awg.pro.core.TextValues.intValue(position, -1));
+                            tdt1.setMax(open.cn.awg.pro.core.TextValues.intValue(duration, -1));
                             jdmax = duration;
-                            st.wb(R.id.wb3).zf(timeChange(position));
-                            st.wb(R.id.wb4).zf(timeChange(duration));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf(timeChange(position)));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.wb4)).setText(String.valueOf(timeChange(duration)));
 
-                            if (!zf.dy(mPlayer, null)) {
+                            if (!java.util.Objects.equals(mPlayer, null)) {
 
                                 if (!mPlayer.isPlaying()) {
 
-                                    st.wb(R.id.wb5).zf("播放");
-                                    st.tx(R.id.tx2).tx(R.mipmap.a12);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf("播放"));
+                                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx2)), R.mipmap.a12);
 
                                 } else {
 
-                                    st.wb(R.id.wb5).zf("暂停");
-                                    st.tx(R.id.tx2).tx(R.mipmap.a11);
-                                    st.xxbj(R.id.xxbj19).kjd(8);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf("暂停"));
+                                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx2)), R.mipmap.a11);
+                                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj19)).setVisibility(android.view.View.GONE);
 
                                     if (isMusic) {
 
-                                        st.tx(R.id.tx3).kjd(0);
+                                        ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(android.view.View.VISIBLE);
 
                                     }
 
@@ -841,13 +841,13 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     public void mplaying() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 if (mPlayer.isPlaying()) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -859,7 +859,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                 } else {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -878,43 +878,43 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     public void msetspeed() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 float i = mPlayer.getSpeed();
 
-                String t = zf.zf(R.color.colorAccent);
+                String t = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorAccent);
 
                 String f = "#00000000";
 
                 if (i == 0.5) {
 
-                    st.xxbj(R.id.xxbj17).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj23).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj17)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj23)), R.drawable.dkdisbj);
 
                 } else if (i == 1.0) {
 
-                    st.xxbj(R.id.xxbj17).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj23).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj17)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj23)), R.drawable.dkdisbj);
 
                 } else if (i == 1.5) {
 
-                    st.xxbj(R.id.xxbj17).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj23).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj17)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj23)), R.drawable.dkdisbj);
 
                 } else if (i == 2.0) {
 
-                    st.xxbj(R.id.xxbj17).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj21).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj22).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj23).bj(R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj17)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj21)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj22)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj23)), R.drawable.dkenbj);
 
                 }
 
@@ -925,74 +925,74 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     public void msetScreenScaleType() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 int i = screenScaleType;
 
-                String t = zf.zf(R.color.colorAccent);
+                String t = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorAccent);
 
                 String f = "#00000000";
 
                 if (i == 1) {
 
-                    st.xxbj(R.id.xxbj26).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj27).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj28).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj29).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj30).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj37).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj26)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj27)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj28)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj29)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj30)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj37)), R.drawable.dkdisbj);
                     mPlayer.setScreenScaleType(VideoView.SCREEN_SCALE_DEFAULT);
 
                 } else if (i == 2) {
 
-                    st.xxbj(R.id.xxbj26).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj27).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj28).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj29).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj30).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj37).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj26)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj27)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj28)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj29)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj30)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj37)), R.drawable.dkdisbj);
                     mPlayer.setScreenScaleType(VideoView.SCREEN_SCALE_ORIGINAL);
 
                 } else if (i == 3) {
 
-                    st.xxbj(R.id.xxbj26).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj27).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj28).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj29).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj30).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj37).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj26)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj27)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj28)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj29)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj30)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj37)), R.drawable.dkdisbj);
                     mPlayer.setScreenScaleType(VideoView.SCREEN_SCALE_CENTER_CROP);
 
                 } else if (i == 4) {
 
-                    st.xxbj(R.id.xxbj26).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj27).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj28).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj29).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj30).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj37).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj26)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj27)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj28)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj29)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj30)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj37)), R.drawable.dkdisbj);
                     mPlayer.setScreenScaleType(VideoView.SCREEN_SCALE_MATCH_PARENT);
 
                 } else if (i == 5) {
 
-                    st.xxbj(R.id.xxbj26).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj27).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj28).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj29).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj30).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj37).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj26)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj27)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj28)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj29)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj30)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj37)), R.drawable.dkdisbj);
                     mPlayer.setScreenScaleType(VideoView.SCREEN_SCALE_4_3);
 
                 } else if (i == 6) {
 
-                    st.xxbj(R.id.xxbj26).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj27).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj28).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj29).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj30).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj37).bj(R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj26)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj27)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj28)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj29)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj30)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj37)), R.drawable.dkenbj);
                     mPlayer.setScreenScaleType(VideoView.SCREEN_SCALE_16_9);
 
                 }
@@ -1004,43 +1004,43 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     public void msetRotation() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 int mr = setRotation;
 
-                String t = zf.zf(R.color.colorAccent);
+                String t = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorAccent);
 
                 String f = "#00000000";
 
                 if (mr == 1) {
 
-                    st.xxbj(R.id.xxbj33).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj34).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj35).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj36).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj33)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj34)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj35)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj36)), R.drawable.dkdisbj);
 
                 } else if (mr == 2) {
 
-                    st.xxbj(R.id.xxbj33).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj34).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj35).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj36).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj33)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj34)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj35)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj36)), R.drawable.dkdisbj);
 
                 } else if (mr == 3) {
 
-                    st.xxbj(R.id.xxbj33).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj34).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj35).bj(R.drawable.dkenbj);
-                    st.xxbj(R.id.xxbj36).bj(R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj33)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj34)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj35)), R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj36)), R.drawable.dkdisbj);
 
                 } else if (mr == 4) {
 
-                    st.xxbj(R.id.xxbj33).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj34).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj35).bj(R.drawable.dkdisbj);
-                    st.xxbj(R.id.xxbj36).bj(R.drawable.dkenbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj33)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj34)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj35)), R.drawable.dkdisbj);
+                    open.cn.awg.pro.core.NativeViewValues.background(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj36)), R.drawable.dkenbj);
 
                 }
 
@@ -1055,7 +1055,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
         AwgProApplication.getInstance().removeActivity(lei);
         play = false;
 
-        if (!zf.dy(mPlayer, null)) {
+        if (!java.util.Objects.equals(mPlayer, null)) {
 
             mPlayer.release();
 
@@ -1068,7 +1068,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String bfset1 = AppPaths.appPath("settings/f15/set2.inf");
 
-        if (zf.dy(wj.dqwb(bfset1), "false") && !zf.dy(mPlayer, null)) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (bfset1)), "false") && !java.util.Objects.equals(mPlayer, null)) {
 
             if (mPlayer.isPlaying()) {
 
@@ -1093,7 +1093,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String bfset1 = AppPaths.appPath("settings/f15/set2.inf");
 
-        if (zf.dy(wj.dqwb(bfset1), "false") && cacheplay && !zf.dy(mPlayer, null)) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (bfset1)), "false") && cacheplay && !java.util.Objects.equals(mPlayer, null)) {
 
             mPlayer.start();
             cacheplay = false;
@@ -1108,16 +1108,16 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String bfset1 = AppPaths.appPath("settings/f15/set2.inf");
 
-        if (zf.dy(wj.dqwb(bfset1), "false") && cacheplay && !zf.dy(mPlayer, null)) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (bfset1)), "false") && cacheplay && !java.util.Objects.equals(mPlayer, null)) {
 
             mPlayer.start();
             cacheplay = false;
 
         }
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -1134,7 +1134,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -1144,7 +1144,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String bfset1 = AppPaths.appPath("settings/f15/set2.inf");
 
-        if (zf.dy(wj.dqwb(bfset1), "false") && cacheplay && !zf.dy(mPlayer, null)) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (bfset1)), "false") && cacheplay && !java.util.Objects.equals(mPlayer, null)) {
 
             mPlayer.start();
             cacheplay = false;
@@ -1158,7 +1158,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String bfset1 = AppPaths.appPath("settings/f15/set2.inf");
 
-        if (zf.dy(wj.dqwb(bfset1), "false") && !zf.dy(mPlayer, null)) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (bfset1)), "false") && !java.util.Objects.equals(mPlayer, null)) {
 
             if (mPlayer.isPlaying()) {
 
@@ -1175,11 +1175,11 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String set4 = AppPaths.appPath("settings/f15/set4.inf");
 
-        if (zf.dy(wj.dqwb(set4), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (set4)), "false")) {
 
             if (kc == 4) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
             }
 
@@ -1196,48 +1196,48 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     private void onXxbj2Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            if (st.xxbj(R.id.xxbj8).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).getVisibility() == android.view.View.VISIBLE) {
 
-                st.xxbj(R.id.xxbj8).kjd(8);
-                st.wb(R.id.backt).kjd(8);
-                st.wb(R.id.title_bar).kjd(0);
-                st.tx(R.id.tx1).tx(R.mipmap.a24);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.GONE);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
+                open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a24);
 
             } else {
 
-                st.xxbj(R.id.xxbj1).kjd(8);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
             }
 
         } else {
 
             reTabShow = true;
-            st.xxbj(R.id.xxbj1).kjd(0);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
         }
 
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
     }
 
     private void onTx1Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj8).kjd() == 8) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).getVisibility() == android.view.View.GONE) {
 
-            st.xxbj(R.id.xxbj8).kjd(0);
-            st.wb(R.id.title_bar).kjd(8);
-            st.tx(R.id.tx1).tx(R.mipmap.a25);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.GONE);
+            open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a25);
 
         } else {
 
-            st.xxbj(R.id.xxbj8).kjd(8);
-            st.wb(R.id.title_bar).kjd(0);
-            st.tx(R.id.tx1).tx(R.mipmap.a24);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
+            open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a24);
 
         }
 
@@ -1263,22 +1263,22 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         String set2 = AppPaths.appPath("settings/f15/set1.inf");
 
-        if (zf.dy(wj.dqwb(set2), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (set2)), "true")) {
 
-            if (st.wb(R.id.backt).kjd() == 8) {
+            if (((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).getVisibility() == android.view.View.GONE) {
 
-                st.xxbj(R.id.xxbj8).kjd(0);
-                st.wb(R.id.title_bar).kjd(8);
-                st.tx(R.id.tx1).tx(R.mipmap.a25);
-                st.wb(R.id.backt).kjd(0);
-                st.qtgd(R.id.qtgd1).v.requestFocus();
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.GONE);
+                open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a25);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.VISIBLE);
+                ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.qtgd1)).requestFocus();
 
             } else {
 
-                st.xxbj(R.id.xxbj8).kjd(8);
-                st.wb(R.id.backt).kjd(8);
-                st.wb(R.id.title_bar).kjd(0);
-                st.tx(R.id.tx1).tx(R.mipmap.a24);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.GONE);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
+                open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a24);
 
             }
 
@@ -1289,9 +1289,9 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     private void onTdt1StopTrackingTouch(SeekBar vw) {
 
-        final i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
+        final android.widget.SeekBar tdt1 = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tdt1));
 
-        long jds = tdt1.jdz();
+        long jds = tdt1.getProgress();
         mPlayer.seekTo(jds);
 
     }
@@ -1306,7 +1306,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     private void onTdt3ProgressChanged(SeekBar vw, int ps, boolean fu) {
 
-        int jd = st.tdt(R.id.tdt3).jdz();
+        int jd = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tdt3)).getProgress();
         msetaudio(jd);
 
     }
@@ -1412,20 +1412,20 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     private void onWb10Click(View vw) {
-        xt.jqbxr(url);
+        new open.cn.awg.pro.core.NativeDevice(VideoPlayerActivity.this).copyToClipboard(url);
         e1.tsk_QR("提示", "已复制链接至剪切板\n\n扫描二维码 快一步访问", url);
 
     }
 
     private void onWb15Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] iyu = new String[]{"url"};
 
                 String[] val = new String[]{url};
-                gj.tz(AppDownloadActivity.class, iyu, val);
+                open.cn.awg.pro.core.NativeActions.launch(VideoPlayerActivity.this, (Class<?>) (AppDownloadActivity.class), (String[]) (iyu), (Object[]) (val));
 
             }
 
@@ -1435,22 +1435,22 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     private void onWb2Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj8).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj8).kjd(8);
-            st.wb(R.id.backt).kjd(8);
-            st.wb(R.id.title_bar).kjd(0);
-            st.tx(R.id.tx1).tx(R.mipmap.a24);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
+            open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a24);
 
         }
-        st.xxbj(R.id.xxbj1).kjd(8);
-        st.xdbj(R.id.xdbj3).kjd(0);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xdbj3)).setVisibility(android.view.View.VISIBLE);
 
         String ts1 = AppPaths.appPath("settings/f15/ts/ts1.inf");
 
-        if (!wj.cz(ts1)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(VideoPlayerActivity.this, (String) (ts1))) {
 
-            wj.xrwb(ts1, "1");
+            open.cn.awg.pro.core.NativeFiles.writeText(VideoPlayerActivity.this, (String) (ts1), (String) ("1"));
             e1.tsk("提示", "长按屏幕正中间位置可退出\"锁定\"");
 
         }
@@ -1459,51 +1459,51 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     private void onWb1Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj8).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj8).kjd(8);
-            st.wb(R.id.backt).kjd(8);
-            st.wb(R.id.title_bar).kjd(0);
-            st.tx(R.id.tx1).tx(R.mipmap.a24);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
+            open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a24);
 
         }
-        gj.tz(MediaBrowserSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(VideoPlayerActivity.this, (Class<?>) (MediaBrowserSettingsActivity.class));
 
     }
 
     private void onWb33Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj1).kjd(8);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.xxbj(R.id.xxbj1).kjd(0);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
         }
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
     }
 
     private void onTx7Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj8).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj8).kjd(8);
-            st.wb(R.id.backt).kjd(8);
-            st.wb(R.id.title_bar).kjd(0);
-            st.tx(R.id.tx1).tx(R.mipmap.a24);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.VISIBLE);
+            open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a24);
 
         }
-        st.xxbj(R.id.xxbj1).kjd(8);
-        st.xdbj(R.id.xdbj3).kjd(0);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xdbj3)).setVisibility(android.view.View.VISIBLE);
 
         String ts1 = AppPaths.appPath("settings/f15/ts/ts1.inf");
 
-        if (!wj.cz(ts1)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(VideoPlayerActivity.this, (String) (ts1))) {
 
-            wj.xrwb(ts1, "1");
+            open.cn.awg.pro.core.NativeFiles.writeText(VideoPlayerActivity.this, (String) (ts1), (String) ("1"));
             e1.tsk("提示", "长按屏幕正中间位置可退出\"锁定\"");
 
         }
@@ -1511,22 +1511,22 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     private void onTx5Click(View vw) {
-        gj.tz(MediaBrowserSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(VideoPlayerActivity.this, (Class<?>) (MediaBrowserSettingsActivity.class));
 
     }
 
     private void onTx6Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.xxbj(R.id.xxbj1).kjd(8);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.xxbj(R.id.xxbj1).kjd(0);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
         }
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
     }
 
@@ -1542,13 +1542,13 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
                 String set2 = AppPaths.appPath("settings/f15/set1.inf");
 
-                if (zf.dy(wj.dqwb(set2), "false")) {
+                if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (set2)), "false")) {
 
-                    st.xxbj(R.id.xxbj8).kjd(0);
-                    st.wb(R.id.title_bar).kjd(8);
-                    st.tx(R.id.tx1).tx(R.mipmap.a25);
-                    st.wb(R.id.backt).kjd(0);
-                    st.qtgd(R.id.qtgd1).v.requestFocus();
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setVisibility(android.view.View.GONE);
+                    open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.tx1)), R.mipmap.a25);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt)).setVisibility(android.view.View.VISIBLE);
+                    ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.qtgd1)).requestFocus();
 
                 }
 
@@ -1566,7 +1566,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     private void onWb23Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(VideoPlayerActivity.this);
 
     }
 
@@ -1582,8 +1582,8 @@ public class VideoPlayerActivity extends BaseAwgActivity {
     }
 
     private boolean onWb8LongClick(View vw) {
-        st.xxbj(R.id.xxbj1).kjd(0);
-        st.xdbj(R.id.xdbj3).kjd(8);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xdbj3)).setVisibility(android.view.View.GONE);
         reTabShow = true;
         return true;
 
@@ -1595,120 +1595,120 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        VideoView b773cd988a = (VideoView) findViewById(ay, vw, R.id.video_player_view);
+        VideoView b773cd988a = (VideoView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.video_player_view);
 
-        LinearLayout dc0a1b897b = (LinearLayout) findViewById(ay, vw, R.id.xxbj2);
+        LinearLayout dc0a1b897b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj2);
         dc0a1b897b.setOnClickListener(xxbj2ClickListener);
 
-        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        LinearLayout e1433e26d6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj1);
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        LinearLayout i9926c2f556 = (LinearLayout) findViewById(ay, vw, R.id.xxbj9);
+        LinearLayout i9926c2f556 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj9);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        TextView i2a86c78b06 = (TextView) findViewById(ay, vw, R.id.wb5);
+        TextView i2a86c78b06 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb5);
         i2a86c78b06.setOnClickListener(wb5ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        LinearLayout i6c4a6b953f = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj6);
 
-        LinearLayout i464e6cc6fb = (LinearLayout) findViewById(ay, vw, R.id.xxbj10);
+        LinearLayout i464e6cc6fb = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj10);
         i464e6cc6fb.setOnClickListener(xxbj10ClickListener);
         i464e6cc6fb.setOnLongClickListener(xxbj10LongClickListener);
 
-        SeekBar d11169f9c0 = (SeekBar) findViewById(ay, vw, R.id.tdt1);
+        SeekBar d11169f9c0 = (SeekBar) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tdt1);
         d11169f9c0.setOnSeekBarChangeListener(tdt1SeekBarChangeListener);
 
-        SeekBar i7843ee147b = (SeekBar) findViewById(ay, vw, R.id.tdt3);
+        SeekBar i7843ee147b = (SeekBar) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tdt3);
         i7843ee147b.setOnSeekBarChangeListener(tdt3SeekBarChangeListener);
 
-        TextView i16d7dc6512 = (TextView) findViewById(ay, vw, R.id.wb19);
+        TextView i16d7dc6512 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb19);
         i16d7dc6512.setOnClickListener(wb19ClickListener);
 
-        TextView i91cc1b9bf5 = (TextView) findViewById(ay, vw, R.id.wb20);
+        TextView i91cc1b9bf5 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb20);
         i91cc1b9bf5.setOnClickListener(wb20ClickListener);
 
-        TextView i58d9590cdf = (TextView) findViewById(ay, vw, R.id.wb21);
+        TextView i58d9590cdf = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb21);
         i58d9590cdf.setOnClickListener(wb21ClickListener);
 
-        TextView i3b389d6120 = (TextView) findViewById(ay, vw, R.id.wb22);
+        TextView i3b389d6120 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb22);
         i3b389d6120.setOnClickListener(wb22ClickListener);
 
-        TextView dc32622ccd = (TextView) findViewById(ay, vw, R.id.wb24);
+        TextView dc32622ccd = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb24);
         dc32622ccd.setOnClickListener(wb24ClickListener);
 
-        TextView f2c0485bfc = (TextView) findViewById(ay, vw, R.id.wb31);
+        TextView f2c0485bfc = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb31);
         f2c0485bfc.setOnClickListener(wb31ClickListener);
 
-        TextView i90adf494fc = (TextView) findViewById(ay, vw, R.id.wb26);
+        TextView i90adf494fc = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb26);
         i90adf494fc.setOnClickListener(wb26ClickListener);
 
-        TextView cce8454c0e = (TextView) findViewById(ay, vw, R.id.wb27);
+        TextView cce8454c0e = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb27);
         cce8454c0e.setOnClickListener(wb27ClickListener);
 
-        TextView i0924d0fe5d = (TextView) findViewById(ay, vw, R.id.wb28);
+        TextView i0924d0fe5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb28);
         i0924d0fe5d.setOnClickListener(wb28ClickListener);
 
-        TextView i689cfe9338 = (TextView) findViewById(ay, vw, R.id.wb29);
+        TextView i689cfe9338 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb29);
         i689cfe9338.setOnClickListener(wb29ClickListener);
 
-        TextView adf370a235 = (TextView) findViewById(ay, vw, R.id.wb13);
+        TextView adf370a235 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb13);
         adf370a235.setOnClickListener(wb13ClickListener);
 
-        TextView i66be67e25d = (TextView) findViewById(ay, vw, R.id.wb14);
+        TextView i66be67e25d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb14);
         i66be67e25d.setOnClickListener(wb14ClickListener);
 
-        TextView f3906a9028 = (TextView) findViewById(ay, vw, R.id.wb16);
+        TextView f3906a9028 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb16);
         f3906a9028.setOnClickListener(wb16ClickListener);
 
-        TextView i2318575919 = (TextView) findViewById(ay, vw, R.id.wb17);
+        TextView i2318575919 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb17);
         i2318575919.setOnClickListener(wb17ClickListener);
 
-        TextView i81652f77b6 = (TextView) findViewById(ay, vw, R.id.wb10);
+        TextView i81652f77b6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb10);
         i81652f77b6.setOnClickListener(wb10ClickListener);
 
-        TextView i263afb26ad = (TextView) findViewById(ay, vw, R.id.wb15);
+        TextView i263afb26ad = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb15);
         i263afb26ad.setOnClickListener(wb15ClickListener);
 
-        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb2);
         i7c3e3c6b5d.setOnClickListener(wb2ClickListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
         ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
-        TextView f71caff030 = (TextView) findViewById(ay, vw, R.id.wb33);
+        TextView f71caff030 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb33);
         f71caff030.setOnClickListener(wb33ClickListener);
 
-        ImageView i3621e3f4a1 = (ImageView) findViewById(ay, vw, R.id.tx7);
+        ImageView i3621e3f4a1 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx7);
         i3621e3f4a1.setOnClickListener(tx7ClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        NestedScrollView a6dab51133 = (NestedScrollView) findViewById(ay, vw, R.id.qtgd1);
+        NestedScrollView a6dab51133 = (NestedScrollView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.qtgd1);
         a6dab51133.setOnTouchListener(qtgd1TouchListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
 
-        TextView i6614d6d216 = (TextView) findViewById(ay, vw, R.id.wb23);
+        TextView i6614d6d216 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb23);
         i6614d6d216.setOnClickListener(wb23ClickListener);
 
-        LinearLayout i28d59c5074 = (LinearLayout) findViewById(ay, vw, R.id.xxbj19);
+        LinearLayout i28d59c5074 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj19);
         i28d59c5074.setOnTouchListener(xxbj19TouchListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
 
-        TextView fc1598ee09 = (TextView) findViewById(ay, vw, R.id.wb8);
+        TextView fc1598ee09 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb8);
         fc1598ee09.setOnLongClickListener(wb8LongClickListener);
 
         __layoutIsLoaded(ay, vw);

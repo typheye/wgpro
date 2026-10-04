@@ -36,10 +36,10 @@ import open.cn.awg.pro.R;
 @SuppressLint("StaticFieldLeak")
 public class NetworkOptimizeActivity extends BaseAwgActivity {
 
-    public static i.runlibrary.app.v.wb cmd;
-    public static i.runlibrary.app.v.wb jzt;
+    public static android.widget.TextView cmd;
+    public static android.widget.TextView jzt;
     public final NetworkOptimizeActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnTouchListener xdbj1TouchListener = new View.OnTouchListener() {
 
         public boolean onTouch(View vw, MotionEvent me) {
@@ -50,6 +50,7 @@ public class NetworkOptimizeActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.network_optimize);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -59,9 +60,9 @@ public class NetworkOptimizeActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(NetworkOptimizeActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(NetworkOptimizeActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -102,108 +103,108 @@ public class NetworkOptimizeActivity extends BaseAwgActivity {
 
     public void csh() {
 
-        final i.runlibrary.app.v.qtgd qtgd = st.qtgd(R.id.qtgd1);
-        cmd = st.wb(R.id.wb1);
-        jzt = st.wb(R.id.wb2);
-        gj.xc(new Thread() {
+        final androidx.core.widget.NestedScrollView qtgd = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(NetworkOptimizeActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+        cmd = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(NetworkOptimizeActivity.this.getWindow().getDecorView(), R.id.wb1));
+        jzt = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(NetworkOptimizeActivity.this.getWindow().getDecorView(), R.id.wb2));
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.zf("正在准备中...\n");
-                        jzt.zf("准备中");
+                        cmd.setText(String.valueOf("正在准备中...\n"));
+                        jzt.setText(String.valueOf("准备中"));
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("准备完成,开始测试网络请求");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("测试中");
+                        cmd.append("准备完成,开始测试网络请求");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("测试中"));
 
                     }
 
                 });
 
                 String testurl = AppPaths.appPath("settings/f10/set2.inf");
-                testurl = wj.dqwb(testurl);
+                testurl = open.cn.awg.pro.core.NativeFiles.readText(NetworkOptimizeActivity.this, (String) (testurl));
                 testurl = e1.urlUnlockString(testurl);
 
-                final String st5 = wl.hq(testurl, null, "utf-8", null, true, null, 20000, 20000, null);
-                gj.jmxc(new Runnable() {
+                final String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(testurl), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("请求发送成功,返回结果:\n" + st5);
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
+                        cmd.append("请求发送成功,返回结果:\n" + st5);
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("测试完成,开始优化");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("优化中");
+                        cmd.append("测试完成,开始优化");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("优化中"));
 
                     }
 
                 });
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 int b = 0;
 
                 while (b < 100) {
 
-                    gj.zt(50);
+                    open.cn.awg.pro.core.NativeActions.sleep(50);
                     b = b + 1;
 
                     final int c = b;
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            cmd.st.append("优化进度:" + c + "%");
-                            cmd.st.append("\n");
-                            qtgd.st.fullScroll(View.FOCUS_DOWN);
+                            cmd.append("优化进度:" + c + "%");
+                            cmd.append("\n");
+                            qtgd.fullScroll(View.FOCUS_DOWN);
 
                         }
 
                     });
 
                 }
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("优化完成,结束任务");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("优化完成");
+                        cmd.append("优化完成,结束任务");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("优化完成"));
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(NetworkOptimizeActivity.this);
 
                     }
 
@@ -241,7 +242,7 @@ public class NetworkOptimizeActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj1);
         aaeebbd136.setOnTouchListener(xdbj1TouchListener);
 
         __layoutIsLoaded(ay, vw);

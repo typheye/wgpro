@@ -37,8 +37,8 @@ import open.cn.awg.pro.R;
 @SuppressLint("StaticFieldLeak")
 public class LogCleanupActivity extends BaseAwgActivity {
 
-    public static i.runlibrary.app.v.wb cmd;
-    public static i.runlibrary.app.v.wb jzt;
+    public static android.widget.TextView cmd;
+    public static android.widget.TextView jzt;
     public final LogCleanupActivity lei = this, 类 = this;
     private final View.OnTouchListener xdbj1TouchListener = new View.OnTouchListener() {
 
@@ -59,9 +59,9 @@ public class LogCleanupActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(LogCleanupActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(LogCleanupActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -102,19 +102,19 @@ public class LogCleanupActivity extends BaseAwgActivity {
 
     public void csh() {
 
-        final i.runlibrary.app.v.qtgd qtgd = st.qtgd(R.id.qtgd1);
-        cmd = st.wb(R.id.wb1);
-        jzt = st.wb(R.id.wb2);
-        gj.xc(new Thread() {
+        final androidx.core.widget.NestedScrollView qtgd = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(LogCleanupActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+        cmd = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LogCleanupActivity.this.getWindow().getDecorView(), R.id.wb1));
+        jzt = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LogCleanupActivity.this.getWindow().getDecorView(), R.id.wb2));
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.zf("开始扫描垃圾文件...\n");
-                        jzt.zf("扫描中");
+                        cmd.setText(String.valueOf("开始扫描垃圾文件...\n"));
+                        jzt.setText(String.valueOf("扫描中"));
 
                     }
 
@@ -122,79 +122,79 @@ public class LogCleanupActivity extends BaseAwgActivity {
 
                 String[] gl = new String[]{"*.log"};
 
-                File[] lb = wj.czwj("%", gl);
+                File[] lb = open.cn.awg.pro.core.NativeFiles.search(LogCleanupActivity.this, "%", gl);
 
                 for (File c : lb) {
 
-                    gj.zt(5);
+                    open.cn.awg.pro.core.NativeActions.sleep(5);
 
                     final String f = c.getAbsolutePath();
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            cmd.st.append("发现日志文件:" + f);
-                            cmd.st.append("\n");
-                            qtgd.st.fullScroll(View.FOCUS_DOWN);
+                            cmd.append("发现日志文件:" + f);
+                            cmd.append("\n");
+                            qtgd.fullScroll(View.FOCUS_DOWN);
 
                         }
 
                     });
 
                 }
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("扫描完成,开始清理");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("清理中");
+                        cmd.append("扫描完成,开始清理");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("清理中"));
 
                     }
 
                 });
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 for (File c : lb) {
 
-                    gj.zt(5);
+                    open.cn.awg.pro.core.NativeActions.sleep(5);
 
                     final String f = c.getAbsolutePath();
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            cmd.st.append("清理日志文件:" + f);
-                            wj.sc(f);
-                            cmd.st.append("\n");
-                            qtgd.st.fullScroll(View.FOCUS_DOWN);
+                            cmd.append("清理日志文件:" + f);
+                            open.cn.awg.pro.core.NativeFiles.delete(LogCleanupActivity.this, (String) (f), false);
+                            cmd.append("\n");
+                            qtgd.fullScroll(View.FOCUS_DOWN);
 
                         }
 
                     });
 
                 }
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("清理完成,结束任务");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("清理完成");
+                        cmd.append("清理完成,结束任务");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("清理完成"));
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(LogCleanupActivity.this);
 
                     }
 
@@ -232,7 +232,7 @@ public class LogCleanupActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj1);
         aaeebbd136.setOnTouchListener(xdbj1TouchListener);
 
         __layoutIsLoaded(ay, vw);

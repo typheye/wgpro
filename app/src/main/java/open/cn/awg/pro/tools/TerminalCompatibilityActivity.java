@@ -40,7 +40,7 @@ import open.cn.awg.pro.R;
 public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
     public final TerminalCompatibilityActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String p = "";
     public String q = "";
     public String x = "";
@@ -110,6 +110,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.terminal_compatibility);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -117,33 +118,33 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
         String a1 = AppPaths.appPath("settings/a3.inf");
 
         String a001 = AppPaths.appPath("settings/dpi.inf");
-        p = wj.dqwb(a1);
+        p = open.cn.awg.pro.core.NativeFiles.readText(TerminalCompatibilityActivity.this, (String) (a1));
 
-        if (wj.cz(a001) && zf.dy(wj.dqwb(a001), "true")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(TerminalCompatibilityActivity.this, (String) (a001)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TerminalCompatibilityActivity.this, (String) (a001)), "true")) {
 
             q = "true";
 
         }
 
-        if (zf.dy(p, "1")) {
+        if (java.util.Objects.equals(p, "1")) {
 
-            st.an(R.id.an1).kjd(8);
+            ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.an1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
-        } else if (zf.dy(p, "2") && zf.dy(q, "")) {
+        } else if (java.util.Objects.equals(p, "2") && java.util.Objects.equals(q, "")) {
 
-            st.an(R.id.an2).kjd(8);
+            ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.an2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
-        } else if (zf.dy(p, "2") && zf.dy(q, "true")) {
+        } else if (java.util.Objects.equals(p, "2") && java.util.Objects.equals(q, "true")) {
 
-            st.an(R.id.an2s).kjd(8);
+            ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.an2s)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
-        } else if (zf.dy(p, "3")) {
+        } else if (java.util.Objects.equals(p, "3")) {
 
-            st.an(R.id.an3).kjd(8);
+            ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.an3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
-        } else if (zf.dy(p, "4")) {
+        } else if (java.util.Objects.equals(p, "4")) {
 
-            st.an(R.id.an4).kjd(8);
+            ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.an4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
         }
 
@@ -159,37 +160,37 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout xxbj1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj xxbj2 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout xxbj2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
-        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(R.id.xxbj5);
+        final android.widget.LinearLayout xxbj5 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.xxbj5));
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
-        gj.jmxc(new Runnable() {
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    tab.zf("< 适配终端");
-                    xxbj1.kjd(0);
-                    xxbj2.kjd(8);
-                    xxbj5.kjd(8);
+                    tab.setText(String.valueOf("< 适配终端"));
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 1) {
 
-                    tab.zf("适配终端");
-                    xxbj1.kjd(8);
-                    xxbj2.kjd(0);
-                    xxbj5.kjd(8);
+                    tab.setText(String.valueOf("适配终端"));
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 2) {
 
-                    tab.zf("适配终端");
-                    xxbj1.kjd(8);
-                    xxbj2.kjd(8);
-                    xxbj5.kjd(0);
+                    tab.setText(String.valueOf("适配终端"));
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -215,9 +216,9 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -234,7 +235,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -254,9 +255,9 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< 适配终端")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 适配终端")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(TerminalCompatibilityActivity.this);
 
             }
 
@@ -267,9 +268,9 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 适配终端")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 适配终端")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(TerminalCompatibilityActivity.this);
 
         }
 
@@ -307,7 +308,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TerminalCompatibilityActivity.this);
 
     }
 
@@ -317,7 +318,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
     }
 
     private void onTx3Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -327,34 +328,34 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
                 String a001 = AppPaths.appPath("settings/dpi.inf");
 
-                if (zf.dy(p, "1")) {
+                if (java.util.Objects.equals(p, "1")) {
 
-                    wj.xrwb(a1, "1");
-                    wj.sc(a001);
+                    open.cn.awg.pro.core.NativeFiles.writeText(TerminalCompatibilityActivity.this, (String) (a1), (String) ("1"));
+                    open.cn.awg.pro.core.NativeFiles.delete(TerminalCompatibilityActivity.this, (String) (a001), false);
 
-                } else if (zf.dy(p, "2") && zf.dy(q, "")) {
+                } else if (java.util.Objects.equals(p, "2") && java.util.Objects.equals(q, "")) {
 
-                    wj.xrwb(a1, "2");
-                    wj.sc(a001);
+                    open.cn.awg.pro.core.NativeFiles.writeText(TerminalCompatibilityActivity.this, (String) (a1), (String) ("2"));
+                    open.cn.awg.pro.core.NativeFiles.delete(TerminalCompatibilityActivity.this, (String) (a001), false);
 
-                } else if (zf.dy(p, "2") && zf.dy(q, "true")) {
+                } else if (java.util.Objects.equals(p, "2") && java.util.Objects.equals(q, "true")) {
 
-                    wj.xrwb(a1, "2");
-                    wj.xrwb(a001, "true");
+                    open.cn.awg.pro.core.NativeFiles.writeText(TerminalCompatibilityActivity.this, (String) (a1), (String) ("2"));
+                    open.cn.awg.pro.core.NativeFiles.writeText(TerminalCompatibilityActivity.this, (String) (a001), (String) ("true"));
 
-                } else if (zf.dy(p, "3")) {
+                } else if (java.util.Objects.equals(p, "3")) {
 
-                    wj.xrwb(a1, "3");
-                    wj.sc(a001);
+                    open.cn.awg.pro.core.NativeFiles.writeText(TerminalCompatibilityActivity.this, (String) (a1), (String) ("3"));
+                    open.cn.awg.pro.core.NativeFiles.delete(TerminalCompatibilityActivity.this, (String) (a001), false);
 
-                } else if (zf.dy(p, "4")) {
+                } else if (java.util.Objects.equals(p, "4")) {
 
-                    wj.xrwb(a1, "4");
-                    wj.sc(a001);
+                    open.cn.awg.pro.core.NativeFiles.writeText(TerminalCompatibilityActivity.this, (String) (a1), (String) ("4"));
+                    open.cn.awg.pro.core.NativeFiles.delete(TerminalCompatibilityActivity.this, (String) (a001), false);
 
                 }
-                gj.zt(2000);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(2000);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
@@ -381,31 +382,31 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        Button i0afd0fa55f = (Button) findViewById(ay, vw, R.id.an2s);
+        Button i0afd0fa55f = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2s);
         i0afd0fa55f.setOnClickListener(an2sClickListener);
 
-        Button i8f51a35692 = (Button) findViewById(ay, vw, R.id.an3);
+        Button i8f51a35692 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an3);
         i8f51a35692.setOnClickListener(an3ClickListener);
 
-        Button i74ce6319f3 = (Button) findViewById(ay, vw, R.id.an4);
+        Button i74ce6319f3 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an4);
         i74ce6319f3.setOnClickListener(an4ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
         __layoutIsLoaded(ay, vw);

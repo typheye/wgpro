@@ -17,7 +17,6 @@
 package open.cn.awg.pro.live;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -44,7 +43,7 @@ import open.cn.awg.pro.R;
 public class LiveChannelDetailActivity extends BaseAwgActivity {
 
     public final LiveChannelDetailActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String url = "";
     public String title = "";
     public String text = "";
@@ -84,28 +83,29 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.live_channel_detail);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        title = sj.hqtz("title");
-        text = sj.hqtz("text");
-        st.wb(R.id.wb1).zf("[频道] " + title + "\n[简介] " + text);
+        title = LiveChannelDetailActivity.this.getIntent().getStringExtra(String.valueOf("title"));
+        text = LiveChannelDetailActivity.this.getIntent().getStringExtra(String.valueOf("text"));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveChannelDetailActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("[频道] " + title + "\n[简介] " + text));
 
-        String urls_ = sj.hqtz("urls");
+        String urls_ = LiveChannelDetailActivity.this.getIntent().getStringExtra(String.valueOf("urls"));
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(LiveChannelDetailActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
-        if (zf.dy(urls_, "")) {
+        if (java.util.Objects.equals(urls_, "")) {
 
-            String _url = sj.hqtz("url");
+            String _url = LiveChannelDetailActivity.this.getIntent().getStringExtra(String.valueOf("url"));
             urls = new String[]{_url};
 
             String[] show = new String[]{"[默认源] " + _url};
-            xlcd1.csh(show);
+            open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, show);
 
         } else {
 
-            urls = zf.fg(urls_, ",", false);
+            urls = open.cn.awg.pro.core.TextValues.split(urls_, ",", false);
             url = urls[0];
 
             ArrayList<String> show = new ArrayList<String>();
@@ -120,13 +120,13 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
 
                 } else {
 
-                    show.add("[备用源" + IappCompat.zh(sj.zh(i)).zstring() + "] " + j);
+                    show.add("[备用源" + open.cn.awg.pro.core.TextValues.string(i) + "] " + j);
 
                 }
                 i++;
 
             }
-            xlcd1.csh(show);
+            open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, show);
 
         }
 
@@ -154,9 +154,9 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(LiveChannelDetailActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -173,7 +173,7 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -190,7 +190,7 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(LiveChannelDetailActivity.this);
 
     }
 
@@ -208,11 +208,11 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
         final String[] name = new String[]{"url", "title"};
 
         final String[] value = new String[]{url, title};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(VideoPlayerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(LiveChannelDetailActivity.this, (Class<?>) (VideoPlayerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -221,7 +221,7 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(LiveChannelDetailActivity.this);
 
     }
 
@@ -231,16 +231,16 @@ public class LiveChannelDetailActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        Spinner i004a739c93 = (Spinner) findViewById(ay, vw, R.id.xlcd1);
+        Spinner i004a739c93 = (Spinner) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xlcd1);
         i004a739c93.setOnItemSelectedListener(xlcd1ItemSelectedListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

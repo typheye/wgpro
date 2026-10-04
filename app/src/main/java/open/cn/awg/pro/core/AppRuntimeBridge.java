@@ -25,7 +25,8 @@ import android.view.View;
 import com.file.Xor.xor;
 import com.kingqi.zwcj.应用工具;
 
-import i.app.iClass;
+import android.app.Activity;
+import android.content.Context;
 
 import java.io.File;
 import java.util.Arrays;
@@ -41,42 +42,39 @@ import open.cn.awg.pro.plugin.ExtensionPluginDetailActivity;
 import open.cn.awg.pro.R;
 import open.cn.awg.pro.repair.CrashFeedbackActivity;
 import open.cn.awg.pro.repair.ErrorMessageActivity;
-import open.cn.awg.pro.ui.list.FileListItemActivity;
-import open.cn.awg.pro.ui.list.FileOpenOptionItemActivity;
-import open.cn.awg.pro.ui.list.FileOperationInfoItemActivity;
-import open.cn.awg.pro.ui.list.FileOperationMenuItemActivity;
 import open.cn.awg.pro.ui.main.TextQrDisplayActivity;
 import open.cn.awg.pro.update.AppUpdateActivity;
 import open.cn.awg.pro.update.UpdatePromptActivity;
 
 @SuppressLint("StaticFieldLeak")
-public class AppRuntimeBridge extends iClass {
+public class AppRuntimeBridge {
+    private final Context context;
+    private final Activity owner;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter spq = null;
 
-    public static i.runlibrary.app.v.v7lb lb = null;
+    public static androidx.recyclerview.widget.RecyclerView lb = null;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter cdspq = null;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter cdspq = null;
 
-    public static i.runlibrary.app.v.v7lb cdlb = null;
+    public static androidx.recyclerview.widget.RecyclerView cdlb = null;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter sxspq = null;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter sxspq = null;
 
-    public static i.runlibrary.app.v.v7lb sxlb = null;
+    public static androidx.recyclerview.widget.RecyclerView sxlb = null;
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter dkspq = null;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter dkspq = null;
 
-    public static i.runlibrary.app.v.v7lb dklb = null;
+    public static androidx.recyclerview.widget.RecyclerView dklb = null;
 
-    public static Context context;
-
-    public static String d1_rootpaths;
+public static String d1_rootpaths;
     public final AppRuntimeBridge lei = this, 类 = this;
-    public LocalDatabaseBridge e11 = new LocalDatabaseBridge(_APPINFO);
+    public LocalDatabaseBridge e11;
 
-    public AppRuntimeBridge(i.runlibrary.app.AppInfo _APPINFO) {
-        super(_APPINFO);
-
+    public AppRuntimeBridge(Context context) {
+        this.context = java.util.Objects.requireNonNull(context);
+        this.owner = context instanceof Activity ? (Activity) context : null;
+        e11 = new LocalDatabaseBridge(context);
     }
 
     public void getlic() {
@@ -86,10 +84,10 @@ public class AppRuntimeBridge extends iClass {
         final String sec_license = AppPaths.appPath("data/sec/license");
 
         String set2e = AppPaths.appPath("settings/f10/set2.inf");
-        set2e = wj.dqwb(set2e);
+        set2e = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2e));
         set2e = urlUnlockString(set2e);
 
-        if (zf.cjw(set2e, "/")) {
+        if (open.cn.awg.pro.core.TextValues.endsWith(set2e, "/")) {
 
         } else {
 
@@ -99,7 +97,7 @@ public class AppRuntimeBridge extends iClass {
         set2e = set2e + "config_v2.json";
 
         final String url = set2e;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -109,9 +107,9 @@ public class AppRuntimeBridge extends iClass {
 
                 String allow = "";
 
-                String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                if (zf.dy(back, "") || zf.dy(back, null)) {
+                if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                     setback = "0";
 
@@ -119,7 +117,7 @@ public class AppRuntimeBridge extends iClass {
 
                     setback = htmlToText(back);
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                         setback = "0";
 
@@ -133,17 +131,17 @@ public class AppRuntimeBridge extends iClass {
 
                 }
 
-                if (zf.dy(setback, "0")) {
+                if (java.util.Objects.equals(setback, "0")) {
 
                 } else {
 
-                    if ((zf.dy(allow, "0") || zf.cz(allow, wj.dqwb(auid))) && islogin()) {
+                    if ((java.util.Objects.equals(allow, "0") || open.cn.awg.pro.core.TextValues.contains(allow, open.cn.awg.pro.core.NativeFiles.readText(context, (String) (auid)))) && islogin()) {
 
-                        wj.xrwb(sec_license, sj.md5(setback));
+                        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sec_license), (String) (open.cn.awg.pro.core.TextValues.md5(setback)));
 
                     } else {
 
-                        wj.sc(sec_license);
+                        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sec_license), false);
 
                     }
 
@@ -166,10 +164,10 @@ public class AppRuntimeBridge extends iClass {
         final String vn = vn_;
 
         String set2e = AppPaths.appPath("settings/f10/set2.inf");
-        set2e = wj.dqwb(set2e);
+        set2e = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2e));
         set2e = urlUnlockString(set2e);
 
-        if (zf.cjw(set2e, "/")) {
+        if (open.cn.awg.pro.core.TextValues.endsWith(set2e, "/")) {
 
         } else {
 
@@ -179,7 +177,7 @@ public class AppRuntimeBridge extends iClass {
         set2e = set2e + "config_v2.json";
 
         final String url = set2e;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -193,9 +191,9 @@ public class AppRuntimeBridge extends iClass {
 
                     String allow = "";
 
-                    String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         setback = "0";
 
@@ -203,7 +201,7 @@ public class AppRuntimeBridge extends iClass {
 
                         setback = htmlToText(back);
 
-                        if (zf.dy(setback, "0")) {
+                        if (java.util.Objects.equals(setback, "0")) {
 
                             setback = "0";
 
@@ -218,13 +216,13 @@ public class AppRuntimeBridge extends iClass {
 
                     }
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                     } else {
 
-                        if ((zf.dy(allow, "0") || zf.cz(allow, wj.dqwb(auid))) && islogin()) {
+                        if ((java.util.Objects.equals(allow, "0") || open.cn.awg.pro.core.TextValues.contains(allow, open.cn.awg.pro.core.NativeFiles.readText(context, (String) (auid)))) && islogin()) {
 
-                            wj.xrwb(sec_updater, setback);
+                            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sec_updater), (String) (setback));
 
                             String ek = "";
 
@@ -233,11 +231,11 @@ public class AppRuntimeBridge extends iClass {
                             if (myappversion < b1 && b1 != 9999999) {
 
                                 final String eks = ek;
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        gj.tz(UpdatePromptActivity.class);
+                                        open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (UpdatePromptActivity.class));
 
                                     }
 
@@ -247,14 +245,14 @@ public class AppRuntimeBridge extends iClass {
 
                                 int ccc = versionname.compareTo(vn);
 
-                                if (!zf.dy(versionname, vn) && ccc > 0) {
+                                if (!java.util.Objects.equals(versionname, vn) && ccc > 0) {
 
                                     final String eks = ek;
-                                    gj.jmxc(new Runnable() {
+                                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                         public void run() {
 
-                                            gj.tz(UpdatePromptActivity.class);
+                                            open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (UpdatePromptActivity.class));
 
                                         }
 
@@ -262,7 +260,7 @@ public class AppRuntimeBridge extends iClass {
 
                                 } else {
 
-                                    wj.sc(sec_updater);
+                                    open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sec_updater), false);
 
                                 }
 
@@ -270,7 +268,7 @@ public class AppRuntimeBridge extends iClass {
 
                         } else {
 
-                            wj.sc(sec_updater);
+                            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (sec_updater), false);
 
                         }
 
@@ -295,9 +293,9 @@ public class AppRuntimeBridge extends iClass {
             String tmppath = AppPaths.appPath("data/backup/tmp.awgbak");
 
             String tmp2path = AppPaths.appPath("data/backup/.nomedia");
-            a = sj.md5(wj.dqwb(a));
+            a = open.cn.awg.pro.core.TextValues.md5(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (a)));
 
-            String filename = xt.sj(4) + ".awgbak";
+            String filename = open.cn.awg.pro.core.NativeDevice.formatDate(4) + ".awgbak";
 
             String backpath = AppPaths.appPath("settings");
 
@@ -306,20 +304,20 @@ public class AppRuntimeBridge extends iClass {
             String outpath = AppPaths.externalFilesPath("backup/") + filename;
 
             String out2path = "/storage/emulated/0/Download/" + filename;
-            wj.xrwb(mkdirpath, "");
-            wj.xrwb(tmp2path, "");
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (mkdirpath), (String) (""));
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (tmp2path), (String) (""));
 
-            int i = wj.ys(backpath, tmppath);
+            int i = open.cn.awg.pro.core.NativeArchives.create(context, (String) (backpath), (String) (tmppath));
             xor.FileXor(tmppath, outpath, a);
-            wj.sc(tmppath, true);
-            wj.sc(mkdirpath, true);
-            wj.sc(tmp2path, true);
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmppath), java.lang.Boolean.TRUE.equals(true));
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (mkdirpath), java.lang.Boolean.TRUE.equals(true));
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmp2path), java.lang.Boolean.TRUE.equals(true));
 
             if (i > 0) {
 
-                if (wj.fz(outpath, out2path, true)) {
+                if (open.cn.awg.pro.core.NativeFiles.copy(context, (String) (outpath), (String) (out2path), java.lang.Boolean.TRUE.equals(true))) {
 
-                    wj.sc(outpath, true);
+                    open.cn.awg.pro.core.NativeFiles.delete(context, (String) (outpath), java.lang.Boolean.TRUE.equals(true));
                     tsk("提示", "导出备份成功\n请勿修改备份文件名，否则将无法导入！\n\n[文件路径]\n" + out2path);
 
                 } else {
@@ -336,7 +334,7 @@ public class AppRuntimeBridge extends iClass {
 
         } else {
 
-            gj.tz(TypheyeAccountActivity.class);
+            open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TypheyeAccountActivity.class));
             tsk("提示", "该操作需要登录Typheye账户");
 
         }
@@ -354,7 +352,7 @@ public class AppRuntimeBridge extends iClass {
             String tmppath = AppPaths.appPath("data/backup/tmp.awgbak");
 
             String tmp2path = AppPaths.appPath("data/backup/.nomedia");
-            a = sj.md5(wj.dqwb(a));
+            a = open.cn.awg.pro.core.TextValues.md5(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (a)));
 
             String filename = "last.awgbak.zip";
 
@@ -364,19 +362,19 @@ public class AppRuntimeBridge extends iClass {
 
             String outpath = AppPaths.appPath("data/backup/yun/") + filename;
 
-            if (wj.cz(outpath)) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (outpath))) {
 
-                wj.sc(outpath);
+                open.cn.awg.pro.core.NativeFiles.delete(context, (String) (outpath), false);
 
             }
-            wj.xrwb(mkdirpath, "");
-            wj.xrwb(tmp2path, "");
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (mkdirpath), (String) (""));
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (tmp2path), (String) (""));
 
-            int i = wj.ys(backpath, tmppath);
+            int i = open.cn.awg.pro.core.NativeArchives.create(context, (String) (backpath), (String) (tmppath));
             xor.FileXor(tmppath, outpath, a);
-            wj.sc(tmppath, true);
-            wj.sc(tmp2path, true);
-            wj.sc(mkdirpath, true);
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmppath), java.lang.Boolean.TRUE.equals(true));
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmp2path), java.lang.Boolean.TRUE.equals(true));
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (mkdirpath), java.lang.Boolean.TRUE.equals(true));
 
             if (i > 0) {
 
@@ -404,29 +402,29 @@ public class AppRuntimeBridge extends iClass {
         String tmppath = AppPaths.appPath("data/backup/tmp.awgbak");
 
         String a = AppPaths.appPath("settings/account/user");
-        a = sj.md5(wj.dqwb(a));
+        a = open.cn.awg.pro.core.TextValues.md5(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (a)));
 
         String backpath = AppPaths.appPath("settings/");
-        wj.xrwb(tmp2path, "");
-        wj.fz(path, tmppath, true);
+        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (tmp2path), (String) (""));
+        open.cn.awg.pro.core.NativeFiles.copy(context, (String) (path), (String) (tmppath), java.lang.Boolean.TRUE.equals(true));
         xor.FileXor(tmppath, tmppath + "_", a);
 
-        int i = wj.jy(tmppath + "_", backpath, true);
-        wj.sc(tmppath, true);
-        wj.sc(tmppath + "_", true);
-        wj.sc(tmp2path, true);
+        int i = open.cn.awg.pro.core.NativeArchives.extract(context, (String) (tmppath + "_"), (String) (backpath), java.lang.Boolean.TRUE.equals(true));
+        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmppath), java.lang.Boolean.TRUE.equals(true));
+        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmppath + "_"), java.lang.Boolean.TRUE.equals(true));
+        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (tmp2path), java.lang.Boolean.TRUE.equals(true));
 
         if (i > 0) {
 
-            gj.zt(1000);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.sleep(1000);
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
                     String[] name = new String[]{"Msg"};
 
                     String[] value = new String[]{"导入成功 点击重启"};
-                    gj.tz(ErrorMessageActivity.class, name, value);
+                    open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                 }
 
@@ -444,9 +442,9 @@ public class AppRuntimeBridge extends iClass {
 
     public boolean app_gorecovery() {
 
-        i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
+        
 
-        if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
+        if (open.cn.awg.pro.core.NativeActions.hasPermission(context, "android.permission.WRITE_EXTERNAL_STORAGE")) {
 
             if (islogin()) {
 
@@ -454,11 +452,11 @@ public class AppRuntimeBridge extends iClass {
 
                 String[] gl = new String[]{"*.awgbak"};
 
-                File[] lb = wj.czwj("/storage/emulated/0/", gl);
+                File[] lb = open.cn.awg.pro.core.NativeFiles.search(context, "/storage/emulated/0/", gl);
 
                 for (File c : lb) {
 
-                    if (zf.dy(lists, "")) {
+                    if (java.util.Objects.equals(lists, "")) {
 
                         lists = c.getAbsolutePath();
 
@@ -474,7 +472,7 @@ public class AppRuntimeBridge extends iClass {
 
                 String endpath = "";
 
-                String[] d = zf.fg(lists, "\n", true);
+                String[] d = open.cn.awg.pro.core.TextValues.split(lists, "\n", true);
 
                 if (d.length > 0) {
 
@@ -483,11 +481,11 @@ public class AppRuntimeBridge extends iClass {
                         String[] bb;
                         bb = fileinfo("/storage/emulated/0/", e);
 
-                        if (zf.dy(bb[0], "true")) {
+                        if (java.util.Objects.equals(bb[0], "true")) {
 
-                            String sts = zf.qc(bb[3], null, ".awgbak");
+                            String sts = open.cn.awg.pro.core.TextValues.slice(bb[3], null, ".awgbak");
 
-                            long test1 = IappCompat.zh(sj.zh()).zlong(sts, 0);
+                            long test1 = open.cn.awg.pro.core.TextValues.longValue(sts, 0);
 
                             if (test1 > test0) {
 
@@ -500,7 +498,7 @@ public class AppRuntimeBridge extends iClass {
 
                     }
 
-                    if (zf.dy(endpath, "")) {
+                    if (java.util.Objects.equals(endpath, "")) {
 
                         tsk("提示", "未在设备存储中找到备份文件");
 
@@ -518,8 +516,8 @@ public class AppRuntimeBridge extends iClass {
 
             } else {
 
-                gj.gb();
-                gj.tz(TypheyeAccountActivity.class);
+                open.cn.awg.pro.core.NativeActions.finish(context);
+                open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TypheyeAccountActivity.class));
                 tsk("提示", "该操作需要登录腕管Pro账户");
 
             }
@@ -542,24 +540,24 @@ public class AppRuntimeBridge extends iClass {
         }
 
         String cachehd = AppPaths.appPath("data/cjlb/lbx_id");
-        wj.xrwb(cachehd, pluid);
+        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (cachehd), (String) (pluid));
 
         String cachehd2 = AppPaths.appPath("data/cjlb/lbx_title");
-        wj.xrwb(cachehd2, pluname);
+        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (cachehd2), (String) (pluname));
 
-        ExtensionPluginBridge e14 = new ExtensionPluginBridge(_APPINFO);
+        ExtensionPluginBridge e14 = new ExtensionPluginBridge(context);
 
         String set1 = AppPaths.appPath("settings/f19/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set1)), "true")) {
 
             if (e14.newG(Integer.parseInt(String.valueOf(pluid)))) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.tz(ExtensionPluginDetailActivity.class);
+                        open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (ExtensionPluginDetailActivity.class));
 
                     }
 
@@ -573,11 +571,11 @@ public class AppRuntimeBridge extends iClass {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    gj.tz(ExtensionPluginDetailActivity.class);
+                    open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (ExtensionPluginDetailActivity.class));
 
                 }
 
@@ -591,9 +589,9 @@ public class AppRuntimeBridge extends iClass {
 
         String a = AppPaths.appPath("settings/account/user");
 
-        String b = wj.dqwb(a);
+        String b = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (a));
 
-        if (zf.dy(b, null) || zf.dy(b, "") || zf.dy(b, "null")) {
+        if (java.util.Objects.equals(b, null) || java.util.Objects.equals(b, "") || java.util.Objects.equals(b, "null")) {
 
             b = "0";
 
@@ -608,7 +606,7 @@ public class AppRuntimeBridge extends iClass {
 
         String b = AppPaths.appPath("settings/account/pass");
 
-        return wj.cz(a) && wj.cz(b);
+        return open.cn.awg.pro.core.NativeFiles.exists(context, (String) (a)) && open.cn.awg.pro.core.NativeFiles.exists(context, (String) (b));
 
     }
 
@@ -616,7 +614,7 @@ public class AppRuntimeBridge extends iClass {
 
         String ic = AppPaths.appPath("settings/f11/true");
 
-        return wj.cz(ic) && zf.dy(wj.dqwb(ic), "1");
+        return open.cn.awg.pro.core.NativeFiles.exists(context, (String) (ic)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (ic)), "1");
 
     }
 
@@ -624,7 +622,7 @@ public class AppRuntimeBridge extends iClass {
 
         String ic = AppPaths.appPath("settings/f11/true");
 
-        boolean f = wj.xrwb(ic, "1");
+        boolean f = open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (ic), (String) ("1"));
 
         return f;
 
@@ -633,7 +631,7 @@ public class AppRuntimeBridge extends iClass {
     public void awgwl_false() {
 
         String ic = AppPaths.appPath("settings/f11/true");
-        wj.sc(ic);
+        open.cn.awg.pro.core.NativeFiles.delete(context, (String) (ic), false);
 
     }
 
@@ -660,13 +658,13 @@ public class AppRuntimeBridge extends iClass {
 
         String a = AppPaths.appPath("settings/f7/Enable2");
 
-        if (wj.cz(a) && !zf.dy(wj.dqwb(a), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (a)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (a)), "")) {
 
             zt = true;
 
         } else {
 
-            gj.tz(AppActivationActivity.class);
+            open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (AppActivationActivity.class));
 
         }
         return zt;
@@ -676,13 +674,13 @@ public class AppRuntimeBridge extends iClass {
     public void zfsb(Object id) {
 
         final Object i = id;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.zt(1000);
+                open.cn.awg.pro.core.NativeActions.sleep(1000);
 
-                if (zf.dy(i, "a1")) {
+                if (java.util.Objects.equals(i, "a1")) {
 
                 }
 
@@ -695,18 +693,18 @@ public class AppRuntimeBridge extends iClass {
     public void zfwc(Object id) {
 
         final Object i = id;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.zt(1000);
+                open.cn.awg.pro.core.NativeActions.sleep(1000);
 
-                if (zf.dy(i, "a1")) {
+                if (java.util.Objects.equals(i, "a1")) {
 
                     jh();
                     tsk("提示", "应用激活成功");
 
-                } else if (zf.dy(i, "a0")) {
+                } else if (java.util.Objects.equals(i, "a0")) {
 
                     tsk("提示", "捐赠成功，感谢您的支持！");
 
@@ -720,20 +718,20 @@ public class AppRuntimeBridge extends iClass {
 
     public void jh() {
 
-        String a = String.valueOf(zf.sjs(1, 9));
+        String a = String.valueOf(open.cn.awg.pro.core.TextValues.randomInclusive(1, 9));
 
         int i = 14;
 
         while (i > 0) {
 
-            String b = String.valueOf(zf.sjs(0, 9));
+            String b = String.valueOf(open.cn.awg.pro.core.TextValues.randomInclusive(0, 9));
             a = a + b;
             i = i - 1;
 
         }
 
         String j = AppPaths.appPath("settings/f7/Enable2");
-        wj.xrwb(j, a);
+        open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (j), (String) (a));
 
     }
 
@@ -741,15 +739,15 @@ public class AppRuntimeBridge extends iClass {
 //        String sec_isunlock = AppPaths.appPath("data/sec/unlock");
 //        wj.xrwb(sec_isunlock, "true");
 //        return true;
-        context = AwgProApplication.getContext();
+        
 
         String sec_isunlock = AppPaths.appPath("data/sec/unlock");
 
         String urls = AppPaths.appPath("settings/f10/set2.inf");
-        urls = wj.dqwb(urls);
+        urls = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (urls));
         urls = urlUnlockString(urls);
 
-        if (zf.cjw(urls, "/")) {
+        if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
 
         } else {
 
@@ -757,7 +755,7 @@ public class AppRuntimeBridge extends iClass {
 
         }
 
-        String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+        String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
         String a2 = 应用工具.获取应用签名(context, "open.cn.awg.pro");
 
@@ -766,7 +764,7 @@ public class AppRuntimeBridge extends iClass {
         File mfile;
         mfile = new File(path);
 
-        String aa = sj.md5(mfile);
+        String aa = open.cn.awg.pro.core.TextValues.md5(mfile);
 
         int a11;
 
@@ -778,17 +776,17 @@ public class AppRuntimeBridge extends iClass {
 
         String url = urls + "x.php?token=" + a2 + ljf + "id=" + aa + ljf + "ver=" + bb + ljf + "vername=" + vn;
 
-        String st5 = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+        String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-        if (zf.dy(st5, null)) {
+        if (java.util.Objects.equals(st5, null)) {
 
             return false;
 
         } else {
 
-            wj.xrwb(sec_isunlock, st5);
+            open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (sec_isunlock), (String) (st5));
 
-            return zf.dy(st5, "true");
+            return java.util.Objects.equals(st5, "true");
 
         }
 
@@ -800,7 +798,7 @@ public class AppRuntimeBridge extends iClass {
 
         String a = AppPaths.appPath("settings/f7/Enable2");
 
-        if (wj.cz(a) && !zf.dy(wj.dqwb(a), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (a)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (a)), "")) {
 
             zt = true;
 
@@ -810,200 +808,195 @@ public class AppRuntimeBridge extends iClass {
     }
 
     public void csh() {
+        open.cn.awg.pro.core.NativeFiles.writeText(context, AppPaths.appPath("cache/hd"), "");
+        lb = owner.findViewById(R.id.v7lb1);
+        spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, lb, R.layout.file_list_item, new open.cn.awg.pro.ui.list.FileListRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-        String cachehd = AppPaths.appPath("cache/hd");
-        wj.xrwb(cachehd, "");
-        context = AwgProApplication.getContext();
-        lb = st.v7lb(R.id.v7lb1);
-        spq = IappCompat.v7lbAdapter(lb, FileListItemActivity.class, R.layout.file_list_item, new IappCompat.V7lbViewBinder() {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-            public void bind(Object ua, int pn, View vw) {
+                
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
-
-                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == -1) {
 
-                    st.xdbj(vw, R.id.xdbj1).kjd(8);
-                    st.xdbj(vw, R.id.xdbj1).xydj(false);
-                    st.xdbj(vw, R.id.xdbj1).xyca(false);
-                    st.wb(vw, R.id.dp20).kjd(0);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else {
 
-                    st.xdbj(vw, R.id.xdbj1).kjd(0);
-                    st.xdbj(vw, R.id.xdbj1).xydj(true);
-                    st.xdbj(vw, R.id.xdbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xdbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
             }
 
         });
-        cdlb = st.v7lb(R.id.v7lb2);
-        cdspq = IappCompat.v7lbAdapter(cdlb, FileOperationMenuItemActivity.class, R.layout.file_operation_menu_item, new IappCompat.V7lbViewBinder() {
+        cdlb = owner.findViewById(R.id.v7lb2);
+        cdspq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, cdlb, R.layout.file_operation_menu_item, new open.cn.awg.pro.ui.list.FileOperationMenuRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                
 
-                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == 1) {
 
-                    String color = zf.zf(R.color.colorTextFalse);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextFalse);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (f == -1) {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(8);
-                    st.xxbj(vw, R.id.xxbj1).xydj(false);
-                    st.xxbj(vw, R.id.xxbj1).xyca(false);
-                    st.wb(vw, R.id.dp20).kjd(0);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
             }
 
         });
-        sxlb = st.v7lb(R.id.v7lb3);
-        sxspq = IappCompat.v7lbAdapter(sxlb, FileOperationInfoItemActivity.class, R.layout.file_operation_info_item, new IappCompat.V7lbViewBinder() {
+        sxlb = owner.findViewById(R.id.v7lb3);
+        sxspq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, sxlb, R.layout.file_operation_info_item, new open.cn.awg.pro.ui.list.FileOperationInfoRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                
 
-                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == 1) {
 
-                    st.xxbj(vw, R.id.xxbj1).dqfs("center");
-                    st.wb(vw, R.id.wb2).kjd(8);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
-                    String color = zf.zf(R.color.colorTextFalse);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextFalse);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (f == -1) {
 
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.wb(vw, R.id.wb2).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(8);
-                    st.xxbj(vw, R.id.xxbj1).xydj(false);
-                    st.xxbj(vw, R.id.xxbj1).xyca(false);
-                    st.wb(vw, R.id.dp20).kjd(0);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else {
 
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.wb(vw, R.id.wb2).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
             }
 
         });
-        dklb = st.v7lb(R.id.v7lb4);
-        dkspq = IappCompat.v7lbAdapter(dklb, FileOpenOptionItemActivity.class, R.layout.file_open_option_item, new IappCompat.V7lbViewBinder() {
+        dklb = owner.findViewById(R.id.v7lb4);
+        dkspq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, dklb, R.layout.file_open_option_item, new open.cn.awg.pro.ui.list.FileOpenOptionRowBinder(owner), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                
 
-                int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == 1) {
 
-                    String color = zf.zf(R.color.colorTextFalse);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.wb(vw, R.id.wb1).ztdx(13);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextFalse);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (f == -1) {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.wb(vw, R.id.wb1).ztdx(13);
-                    st.xxbj(vw, R.id.xxbj1).kjd(8);
-                    st.xxbj(vw, R.id.xxbj1).xydj(false);
-                    st.xxbj(vw, R.id.xxbj1).xyca(false);
-                    st.wb(vw, R.id.dp20).kjd(0);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else if (f == 0) {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.wb(vw, R.id.wb1).ztdx(13);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (f == -2) {
 
-                    String color = zf.zf(R.color.colorTextTrue);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.wb(vw, R.id.wb1).ztdx(13);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextTrue);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else {
 
-                    String color = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color);
-                    st.wb(vw, R.id.wb1).ztdx(13);
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xxbj(vw, R.id.xxbj1).xydj(true);
-                    st.xxbj(vw, R.id.xxbj1).xyca(true);
-                    st.wb(vw, R.id.dp20).kjd(8);
+                    String color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(context, R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, (float) open.cn.awg.pro.core.TextValues.intValue(13, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.dp20)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
             }
 
         });
-        e11.setup_filelist();
-
     }
 
     public String[] fileinfo(Object root, Object url) {
 
-        String Root = wj.hqml(url);
+        String Root = open.cn.awg.pro.core.NativeFiles.resolvePath(context, (String) (url));
 
         File mfile;
 
@@ -1044,31 +1037,31 @@ public class AppRuntimeBridge extends iClass {
 
         final String set3 = AppPaths.appPath("settings/d1/set3.inf");
 
-        String root = wj.hqml(roots);
+        String root = open.cn.awg.pro.core.NativeFiles.resolvePath(context, (String) (roots));
 
         String srcs = "";
 
         try {
 
-            String FileUrl = wj.hqml(url);
+            String FileUrl = open.cn.awg.pro.core.NativeFiles.resolvePath(context, (String) (url));
 
-            if (zf.cjw(FileUrl, "/")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(FileUrl, "/")) {
             } else {
 
                 FileUrl = FileUrl + "/";
 
             }
-            spq.sc();
+            spq.clearRows();
 
             int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
             Object[] jk = new Object[]{R.mipmap.b5, "...", FileUrl, "返回上层目录", 0};
 
-            if (zf.dy(wj.dqwb(set2), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                 srcs = getMipmap("b5");
 
-                if (zf.dy(srcs, "0")) {
+                if (java.util.Objects.equals(srcs, "0")) {
 
                     jk = new Object[]{R.mipmap.b5, "...", FileUrl, "返回上层目录", 0};
 
@@ -1083,11 +1076,11 @@ public class AppRuntimeBridge extends iClass {
                 jk = new Object[]{R.mipmap.b5, "...", FileUrl, "返回上层目录", 0};
 
             }
-            spq.j(kj, jk);
+            spq.addRow(kj, jk);
 
-            String[] FileXH1 = wj.lb(url, true);
+            String[] FileXH1 = open.cn.awg.pro.core.NativeFiles.list(context, (String) (url), java.lang.Boolean.TRUE.equals(true));
 
-            if (zf.dy(wj.dqwb(set3), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set3)), "true")) {
 
                 Arrays.sort(FileXH1);
 
@@ -1099,7 +1092,7 @@ public class AppRuntimeBridge extends iClass {
 
                 String[] fhValue = fileinfo(root, c);
 
-                if (zf.dy(fhValue[0], "true")) {
+                if (java.util.Objects.equals(fhValue[0], "true")) {
 
                     urlName = fhValue[3];
 
@@ -1111,11 +1104,11 @@ public class AppRuntimeBridge extends iClass {
 
                 String Two = "目录";
 
-                if (zf.dy(wj.dqwb(set2), "true")) {
+                if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                     srcs = getMipmap("b5");
 
-                    if (zf.dy(srcs, "0")) {
+                    if (java.util.Objects.equals(srcs, "0")) {
 
                         jk = new Object[]{R.mipmap.b5, urlName, c, Two, 0};
 
@@ -1145,19 +1138,19 @@ public class AppRuntimeBridge extends iClass {
 
                 String pb7 = "/storage/emulated/0/Android/obb";
 
-                if (zf.dy(c, pb1) || zf.dy(c, pb2) || zf.dy(c, pb3) || zf.dy(c, pb4) || zf.dy(c, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.dy(c, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.dy(c, pb7))) {
+                if (java.util.Objects.equals(c, pb1) || java.util.Objects.equals(c, pb2) || java.util.Objects.equals(c, pb3) || java.util.Objects.equals(c, pb4) || java.util.Objects.equals(c, pb5) || (android.os.Build.VERSION.SDK_INT > 29 && java.util.Objects.equals(c, pb6)) || (android.os.Build.VERSION.SDK_INT > 29 && java.util.Objects.equals(c, pb7))) {
 
                 } else {
 
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
                 }
 
             }
 
-            String[] FileXH2 = wj.lb(url, false);
+            String[] FileXH2 = open.cn.awg.pro.core.NativeFiles.list(context, (String) (url), java.lang.Boolean.TRUE.equals(false));
 
-            if (zf.dy(wj.dqwb(set3), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set3)), "true")) {
 
                 Arrays.sort(FileXH2);
 
@@ -1169,7 +1162,7 @@ public class AppRuntimeBridge extends iClass {
 
                 String[] fhValue = fileinfo(root, c);
 
-                if (zf.dy(fhValue[0], "true")) {
+                if (java.util.Objects.equals(fhValue[0], "true")) {
 
                     bt = fhValue[3];
 
@@ -1179,13 +1172,13 @@ public class AppRuntimeBridge extends iClass {
 
                 }
 
-                double dx = ((double) (wj.dx(c)));
+                double dx = ((double) (open.cn.awg.pro.core.NativeFiles.size(context, (String) (c))));
 
                 double d1 = 0;
 
                 String d0;
 
-                String cc = zf.zhxx(c);
+                String cc = open.cn.awg.pro.core.TextValues.lower(c);
 
                 String wjdx = "";
 
@@ -1215,13 +1208,13 @@ public class AppRuntimeBridge extends iClass {
 
                 }
 
-                if (zf.cjw(cc, ".apk") || zf.cjw(cc, ".xapk") || zf.cjw(cc, ".apks")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".apk") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".xapk") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".apks")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b1");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b1, bt, c, wjdx, 0};
 
@@ -1236,21 +1229,21 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b1, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".png") || zf.cjw(cc, "jpg")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".png") || open.cn.awg.pro.core.TextValues.endsWith(cc, "jpg")) {
 
-                    if (zf.dy(wj.dqwb(set1), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set1)), "true")) {
 
                         jk = new Object[]{c, bt, c, wjdx, 0};
 
                     } else {
 
-                        if (zf.dy(wj.dqwb(set2), "true")) {
+                        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                             srcs = getMipmap("b11");
 
-                            if (zf.dy(srcs, "0")) {
+                            if (java.util.Objects.equals(srcs, "0")) {
 
                                 jk = new Object[]{R.mipmap.b11, bt, c, wjdx, 0};
 
@@ -1267,15 +1260,15 @@ public class AppRuntimeBridge extends iClass {
                         }
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".mp3") || zf.cjw(cc, ".flac") || zf.cjw(cc, ".ogg")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".mp3") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".flac") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".ogg")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b9");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b9, bt, c, wjdx, 0};
 
@@ -1290,15 +1283,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b9, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".mp4") || zf.cjw(cc, ".mkv") || zf.cjw(cc, ".webm") || zf.cjw(cc, ".m3u8") || zf.cjw(cc, ".avi") || zf.cjw(cc, ".mts")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".mp4") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".mkv") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".webm") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".m3u8") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".avi") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".mts")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b8");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b8, bt, c, wjdx, 0};
 
@@ -1313,15 +1306,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b8, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".txt") || zf.cjw(cc, ".xml") || zf.cjw(cc, ".java")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".txt") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".xml") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".java")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b13");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b13, bt, c, wjdx, 0};
 
@@ -1336,15 +1329,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b13, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".zip") || zf.cjw(cc, ".rar") || zf.cjw(cc, "7z")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".zip") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".rar") || open.cn.awg.pro.core.TextValues.endsWith(cc, "7z")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b16");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b16, bt, c, wjdx, 0};
 
@@ -1359,15 +1352,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b16, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".html")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".html")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b6");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b6, bt, c, wjdx, 0};
 
@@ -1382,15 +1375,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b6, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".pdf")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".pdf")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b10");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b10, bt, c, wjdx, 0};
 
@@ -1405,15 +1398,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b10, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".doc") || zf.cjw(cc, ".docx")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".doc") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".docx")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b15");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b15, bt, c, wjdx, 0};
 
@@ -1428,15 +1421,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b15, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".xls") || zf.cjw(cc, ".xlsx")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".xls") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".xlsx")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b2");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b2, bt, c, wjdx, 0};
 
@@ -1451,15 +1444,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b2, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".ppt") || zf.cjw(cc, ".pptx")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".ppt") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".pptx")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b12");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b12, bt, c, wjdx, 0};
 
@@ -1474,15 +1467,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b12, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".awgtheme")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".awgtheme")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b17");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b17, bt, c, wjdx, 0};
 
@@ -1497,15 +1490,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b17, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".awgsash")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".awgsash")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b18");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b18, bt, c, wjdx, 0};
 
@@ -1520,15 +1513,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b18, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".sh")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".sh")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b19");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b19, bt, c, wjdx, 0};
 
@@ -1543,15 +1536,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b19, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
-                } else if (zf.cjw(cc, ".awgbak")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".awgbak")) {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b20");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b20, bt, c, wjdx, 0};
 
@@ -1566,15 +1559,15 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b20, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
                 } else {
 
-                    if (zf.dy(wj.dqwb(set2), "true")) {
+                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2)), "true")) {
 
                         srcs = getMipmap("b14");
 
-                        if (zf.dy(srcs, "0")) {
+                        if (java.util.Objects.equals(srcs, "0")) {
 
                             jk = new Object[]{R.mipmap.b14, bt, c, wjdx, 0};
 
@@ -1589,33 +1582,33 @@ public class AppRuntimeBridge extends iClass {
                         jk = new Object[]{R.mipmap.b14, bt, c, wjdx, 0};
 
                     }
-                    spq.j(kj, jk);
+                    spq.addRow(kj, jk);
 
                 }
 
             }
             jk = new Object[]{"", "", "", "", -1};
-            spq.j(kj, jk);
+            spq.addRow(kj, jk);
 
-            String axc = wj.dqwb(spxx);
+            String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-            if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
+            if (java.util.Objects.equals(axc, "1") || java.util.Objects.equals(axc, "3")) {
 
                 jk = new Object[]{"", "", "", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
                 jk = new Object[]{"", "", "", "", -1};
-                spq.j(kj, jk);
+                spq.addRow(kj, jk);
 
             }
 
             final String ok = FileUrl;
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    spq.sx();
-                    lb.xzwz(e11.get_filelist(ok));
-                    st.wb(R.id.zywblj).zf(ok);
+                    spq.refreshRows();
+                    open.cn.awg.pro.core.NativeViewValues.scrollPosition(lb, e11.get_filelist(ok));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.zywblj)).setText(String.valueOf(ok));
 
                 }
 
@@ -1624,7 +1617,7 @@ public class AppRuntimeBridge extends iClass {
         } catch (Throwable e) {
 
             upload_error(e, "e1.NewFilesLoad(s,s)");
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(context);
 
         }
 
@@ -1635,11 +1628,11 @@ public class AppRuntimeBridge extends iClass {
 
         String root = d1_rootpaths;
 
-        if (zf.dy(text, "返回上层目录")) {
+        if (java.util.Objects.equals(text, "返回上层目录")) {
 
-            if (zf.dy(url, root)) {
+            if (java.util.Objects.equals(url, root)) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(context);
 
             } else {
 
@@ -1650,7 +1643,7 @@ public class AppRuntimeBridge extends iClass {
 
         } else {
 
-            if (wj.lx(url) == 2) {
+            if (open.cn.awg.pro.core.NativeFiles.type(context, (String) (url)) == 2) {
 
                 NewFilesLoad(url, root);
 
@@ -1666,79 +1659,79 @@ public class AppRuntimeBridge extends iClass {
 
                 String c = lj;
 
-                String cc = zf.zhxx(c);
+                String cc = open.cn.awg.pro.core.TextValues.lower(c);
 
-                if (zf.cjw(cc, ".png") || zf.cjw(cc, "jpg")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".png") || open.cn.awg.pro.core.TextValues.endsWith(cc, "jpg")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("b", c, 1);
 
-                } else if (zf.cjw(cc, ".txt") || zf.cjw(cc, ".xml") || zf.cjw(cc, ".java")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".txt") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".xml") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".java")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("a", c, 1);
 
-                } else if (zf.cjw(cc, ".zip") || zf.cjw(cc, ".rar") || zf.cjw(cc, "7z")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".zip") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".rar") || open.cn.awg.pro.core.TextValues.endsWith(cc, "7z")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("e", c, 1);
 
-                } else if (zf.cjw(cc, ".html")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".html")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("a", c, 1);
 
-                } else if (zf.cjw(cc, ".pdf")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".pdf")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".doc") || zf.cjw(cc, ".docx")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".doc") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".docx")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".xls") || zf.cjw(cc, ".xlsx")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".xls") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".xlsx")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".ppt") || zf.cjw(cc, ".pptx")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".ppt") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".pptx")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".apk") || zf.cjw(cc, ".xapk") || zf.cjw(cc, ".apks")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".apk") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".xapk") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".apks")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("f", c, 1);
 
-                } else if (zf.cjw(cc, ".mp3") || zf.cjw(cc, ".flac") || zf.cjw(cc, ".ogg")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".mp3") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".flac") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".ogg")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("c", c, 1);
 
-                } else if (zf.cjw(cc, ".mp4") || zf.cjw(cc, ".mkv") || zf.cjw(cc, ".webm") || zf.cjw(cc, ".m3u8") || zf.cjw(cc, ".avi") || zf.cjw(cc, ".mts")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".mp4") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".mkv") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".webm") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".m3u8") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".avi") || open.cn.awg.pro.core.TextValues.endsWith(cc, ".mts")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("d", c, 1);
 
-                } else if (zf.cjw(cc, ".awgtheme")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".awgtheme")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".awgsash")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".awgsash")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".sh")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".sh")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
 
-                } else if (zf.cjw(cc, ".awgbak")) {
+                } else if (open.cn.awg.pro.core.TextValues.endsWith(cc, ".awgbak")) {
 
                     cdx(6, bts, lj, ljs);
                     dkfs("g", c, 1);
@@ -1762,85 +1755,85 @@ public class AppRuntimeBridge extends iClass {
         final String choose2 = AppPaths.appPath("cache/file/choose2");
 
         String xx = "";
-        dkspq.sc();
+        dkspq.clearRows();
 
         int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
         Object[] jk = new Object[]{"", "", "", 0};
 
-        if (zf.dy(z, "a")) {
+        if (java.util.Objects.equals(z, "a")) {
 
             xx = "文本";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
             } else {
 
                 jk = new Object[]{"腕管Pro：文本浏览", "a1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"腕管Pro：文本编辑", "a2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
             }
 
-        } else if (zf.dy(z, "b")) {
+        } else if (java.util.Objects.equals(z, "b")) {
 
             xx = "图片";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
                 jk = new Object[]{"腕上微聊：选择附件", "h1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"PinchImageView：图片浏览", "b1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
-            } else if (wj.cz(choose2) && zf.dy(wj.dqwb(choose2), "h1")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose2)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose2)), "h1")) {
 
                 jk = new Object[]{"账户头像：选择附件", "i1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"PinchImageView：图片浏览", "b1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
             } else {
 
                 jk = new Object[]{"PinchImageView：图片浏览", "b1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
             }
 
-        } else if (zf.dy(z, "c")) {
+        } else if (java.util.Objects.equals(z, "c")) {
 
             xx = "音频";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
                 jk = new Object[]{"腕上微聊：选择附件", "h2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"DKPlayer：媒体浏览", "c2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
             } else {
 
                 jk = new Object[]{"DKPlayer：媒体浏览", "c2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"WearMusic：音频浏览", "c1", b, -2};
 
                 boolean apppd1;
@@ -1848,7 +1841,7 @@ public class AppRuntimeBridge extends iClass {
 
                 if (apppd1) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
                 jk = new Object[]{"抬腕视频：音频浏览", "c3", b, -2};
@@ -1858,33 +1851,33 @@ public class AppRuntimeBridge extends iClass {
 
                 if (apppd2) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
 
             }
 
-        } else if (zf.dy(z, "d")) {
+        } else if (java.util.Objects.equals(z, "d")) {
 
             xx = "视频";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
                 jk = new Object[]{"腕上微聊：选择附件", "h3", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"DKPlayer：媒体浏览", "d2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
             } else {
 
                 jk = new Object[]{"DKPlayer：媒体浏览", "d2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"腕上视频：视频浏览", "d3", b, -2};
 
                 boolean apppd1;
@@ -1892,7 +1885,7 @@ public class AppRuntimeBridge extends iClass {
 
                 if (apppd1) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
                 jk = new Object[]{"抬腕视频：视频浏览", "d4", b, -2};
@@ -1902,99 +1895,99 @@ public class AppRuntimeBridge extends iClass {
 
                 if (apppd2) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
 
             }
 
-        } else if (zf.dy(z, "e")) {
+        } else if (java.util.Objects.equals(z, "e")) {
 
             xx = "压缩";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
                 jk = new Object[]{"腕上微聊：选择附件", "h4", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
             } else {
 
                 jk = new Object[]{"腕管Pro：解压到当前目录", "e1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
             }
 
-        } else if (zf.dy(z, "f")) {
+        } else if (java.util.Objects.equals(z, "f")) {
 
             xx = "应用";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
             } else {
 
                 jk = new Object[]{"腕管Pro：应用安装", "f1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"系统：打包安装程序", "f2", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"系统：打包安装程序(备用)", "f3", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
             }
 
-        } else if (zf.dy(z, "g")) {
+        } else if (java.util.Objects.equals(z, "g")) {
 
             xx = "其他";
 
-            if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h1")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h1")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h2")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h2")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h3")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h3")) {
 
-            } else if (wj.cz(choose) && zf.dy(wj.dqwb(choose), "h4")) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (choose)) && java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (choose)), "h4")) {
 
             } else {
 
                 jk = new Object[]{"腕管Pro：系统打开", "g1", b, 0};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"腕管Pro：关于主题文件", "g2", b, 0};
 
-                if (zf.cjw(b, ".awgtheme")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(b, ".awgtheme")) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
                 jk = new Object[]{"腕管Pro：无障碍脚本执行", "g3", b, 0};
 
-                if (zf.cjw(b, ".awgsash")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(b, ".awgsash")) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
                 jk = new Object[]{"腕管Pro：Shell脚本执行", "g4", b, 0};
 
-                if (zf.cjw(b, ".sh")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(b, ".sh")) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
                 jk = new Object[]{"腕管Pro：关于备份文件", "g5", b, 0};
 
-                if (zf.cjw(b, ".awgbak")) {
+                if (open.cn.awg.pro.core.TextValues.endsWith(b, ".awgbak")) {
 
-                    dkspq.j(kj, jk);
+                    dkspq.addRow(kj, jk);
 
                 }
 
@@ -2005,36 +1998,36 @@ public class AppRuntimeBridge extends iClass {
         if (e == 0) {
 
             jk = new Object[]{"返回", "0", "", 1};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
 
         } else if (e == 1) {
 
             jk = new Object[]{"返回", "-1", "", 1};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
 
         }
 
         String spxx = AppPaths.appPath("settings/a3.inf");
 
-        String axc = wj.dqwb(spxx);
+        String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-        if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
+        if (java.util.Objects.equals(axc, "1") || java.util.Objects.equals(axc, "3")) {
 
             jk = new Object[]{"", "", "", -1};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"", "", "", -1};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
 
         }
 
         final String xxs = xx;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                dkspq.sx();
-                st.v7lb(R.id.v7lb4).xzwz("top");
-                st.wb(R.id.title_bar).zf(xxs);
+                dkspq.refreshRows();
+                open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.v7lb4)), "top");
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(xxs));
 
             }
 
@@ -2043,11 +2036,11 @@ public class AppRuntimeBridge extends iClass {
     }
 
     public void cdx(int i, String a, String b, String c) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj9).kjd(0);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
             }
 
@@ -2075,22 +2068,22 @@ public class AppRuntimeBridge extends iClass {
 
         if (i == 0) {
 
-            wj.sc(cache3);
-            wj.sc(cachec1);
-            wj.sc(cachec2);
-            wj.sc(cachec3);
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (cache3), false);
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (cachec1), false);
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (cachec2), false);
+            open.cn.awg.pro.core.NativeFiles.delete(context, (String) (cachec3), false);
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).kjd(0);
-                    st.wb(R.id.title_bar).zf(wj.dqwb(ftitle));
-                    st.xxbj(R.id.xxbj3).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.xxbj(R.id.xxbj7).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    lb.v.requestFocus();
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (ftitle))));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    lb.requestFocus();
 
                 }
 
@@ -2098,57 +2091,57 @@ public class AppRuntimeBridge extends iClass {
 
         } else if (i == 1 || i == 2 || i == 3) {
 
-            cdspq.sc();
+            cdspq.clearRows();
 
             int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3, R.id.wb4, R.id.wb5, -1};
 
             Object[] jk = new Object[]{"", "", "", "", "", 0};
             jk = new Object[]{"刷新", "", a, b, c, 0};
-            cdspq.j(kj, jk);
+            cdspq.addRow(kj, jk);
 
-            if (wj.cz(cache1) || wj.cz(cache2)) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (cache1)) || open.cn.awg.pro.core.NativeFiles.exists(context, (String) (cache2))) {
 
                 jk = new Object[]{"粘贴到当前目录", "", a, b, c, 0};
-                cdspq.j(kj, jk);
+                cdspq.addRow(kj, jk);
                 jk = new Object[]{"取消粘贴", "", a, b, c, 0};
-                cdspq.j(kj, jk);
+                cdspq.addRow(kj, jk);
 
             }
 
-            if (!wj.cz(cache1) && !wj.cz(cache2)) {
+            if (!open.cn.awg.pro.core.NativeFiles.exists(context, (String) (cache1)) && !open.cn.awg.pro.core.NativeFiles.exists(context, (String) (cache2))) {
 
                 jk = new Object[]{"新建目录", "", a, b, c, 0};
-                cdspq.j(kj, jk);
+                cdspq.addRow(kj, jk);
                 jk = new Object[]{"新建文件", "", a, b, c, 0};
-                cdspq.j(kj, jk);
+                cdspq.addRow(kj, jk);
 
                 if (i == 1) {
 
                     jk = new Object[]{"复制", "1", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"剪切", "1", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"删除", "1", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"重命名", "1", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"属性", "1", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
 
                 } else if (i == 2) {
 
                     jk = new Object[]{"打开方式", "0", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"复制", "2", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"剪切", "2", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"删除", "2", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"重命名", "2", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
                     jk = new Object[]{"属性", "2", a, b, c, 0};
-                    cdspq.j(kj, jk);
+                    cdspq.addRow(kj, jk);
 
                 } else if (i == 3) {
 
@@ -2156,36 +2149,36 @@ public class AppRuntimeBridge extends iClass {
 
             }
             jk = new Object[]{"返回", "back", "", "", "", 1};
-            cdspq.j(kj, jk);
+            cdspq.addRow(kj, jk);
 
             String spxx = AppPaths.appPath("settings/a3.inf");
             jk = new Object[]{"", "", "", "", "", -1};
-            cdspq.j(kj, jk);
+            cdspq.addRow(kj, jk);
 
-            String axc = wj.dqwb(spxx);
+            String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-            if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
+            if (java.util.Objects.equals(axc, "1") || java.util.Objects.equals(axc, "3")) {
 
                 jk = new Object[]{"", "", "", "", "", -1};
-                cdspq.j(kj, jk);
+                cdspq.addRow(kj, jk);
                 jk = new Object[]{"", "", "", "", "", -1};
-                cdspq.j(kj, jk);
+                cdspq.addRow(kj, jk);
 
             }
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    cdspq.sx();
-                    cdlb.v.requestFocus();
-                    st.v7lb(R.id.v7lb2).xzwz("top");
-                    st.wb(R.id.title_bar).kjd(0);
-                    st.wb(R.id.title_bar).zf("菜单");
-                    st.xxbj(R.id.xxbj3).kjd(0);
-                    st.xxbj(R.id.xxbj5).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.xxbj(R.id.xxbj7).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
+                    cdspq.refreshRows();
+                    cdlb.requestFocus();
+                    open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.v7lb2)), "top");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -2193,19 +2186,19 @@ public class AppRuntimeBridge extends iClass {
 
         } else if (i == 4) {
 
-            if (wj.cz(cache3)) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (cache3))) {
 
-                String w3 = wj.dqwb(cache3);
+                String w3 = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cache3));
 
-                if (zf.dy(w3, "重命名")) {
+                if (java.util.Objects.equals(w3, "重命名")) {
 
                     final String nr = a;
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.bjk(R.id.bjk1).zf(nr);
-                            st.bjk(R.id.bjk1).tszf("请重命名文件");
+                            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(nr));
+                            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请重命名文件"));
 
                         }
 
@@ -2213,12 +2206,12 @@ public class AppRuntimeBridge extends iClass {
 
                 } else {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.bjk(R.id.bjk1).zf("");
-                            st.bjk(R.id.bjk1).tszf("请输入目录/文件名");
+                            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入目录/文件名"));
 
                         }
 
@@ -2226,23 +2219,23 @@ public class AppRuntimeBridge extends iClass {
 
                 }
 
-                final String xs = wj.dqwb(cache3);
-                wj.xrwb(cachec1, a);
-                wj.xrwb(cachec2, b);
-                wj.xrwb(cachec3, c);
-                gj.jmxc(new Runnable() {
+                final String xs = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cache3));
+                open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (cachec1), (String) (a));
+                open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (cachec2), (String) (b));
+                open.cn.awg.pro.core.NativeFiles.writeText(context, (String) (cachec3), (String) (c));
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).kjd(0);
-                        st.wb(R.id.title_bar).zf(xs);
-                        st.bjk(R.id.bjk1).tszf(xs);
-                        st.xxbj(R.id.xxbj3).kjd(8);
-                        st.xxbj(R.id.xxbj5).kjd(0);
-                        st.xxbj(R.id.xxbj6).kjd(8);
-                        st.xxbj(R.id.xxbj7).kjd(8);
-                        st.xxbj(R.id.xxbj9).kjd(8);
-                        st.qtgd(R.id.qtgd1).v.requestFocus();
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(xs));
+                        ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf(xs));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.qtgd1)).requestFocus();
 
                     }
 
@@ -2256,60 +2249,60 @@ public class AppRuntimeBridge extends iClass {
 
         } else if (i == 5) {
 
-            sxspq.sc();
+            sxspq.clearRows();
 
             int[] kj = new int[]{R.id.wb1, R.id.wb2, -1};
 
             Object[] jk = new Object[]{"", "", 0};
             jk = new Object[]{"名称", a, 0};
-            sxspq.j(kj, jk);
+            sxspq.addRow(kj, jk);
             jk = new Object[]{"目录", c, 0};
-            sxspq.j(kj, jk);
+            sxspq.addRow(kj, jk);
 
-            if (wj.lx(b) == 1) {
+            if (open.cn.awg.pro.core.NativeFiles.type(context, (String) (b)) == 1) {
 
                 String dx = hqwjdx(b);
                 jk = new Object[]{"大小", dx, 0};
-                sxspq.j(kj, jk);
+                sxspq.addRow(kj, jk);
 
             } else {
 
-                String dxs = wj.dqwb(cache41);
+                String dxs = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cache41));
                 jk = new Object[]{"大小", dxs, 0};
-                sxspq.j(kj, jk);
+                sxspq.addRow(kj, jk);
 
             }
             jk = new Object[]{"返回", "", 1};
-            sxspq.j(kj, jk);
+            sxspq.addRow(kj, jk);
 
             String spxx = AppPaths.appPath("settings/a3.inf");
             jk = new Object[]{"", "", -1};
-            sxspq.j(kj, jk);
+            sxspq.addRow(kj, jk);
 
-            String axc = wj.dqwb(spxx);
+            String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-            if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
+            if (java.util.Objects.equals(axc, "1") || java.util.Objects.equals(axc, "3")) {
 
                 jk = new Object[]{"", "", -1};
-                sxspq.j(kj, jk);
+                sxspq.addRow(kj, jk);
                 jk = new Object[]{"", "", -1};
-                sxspq.j(kj, jk);
+                sxspq.addRow(kj, jk);
 
             }
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    sxspq.sx();
-                    sxlb.v.requestFocus();
-                    st.v7lb(R.id.v7lb3).xzwz("top");
-                    st.wb(R.id.title_bar).kjd(0);
-                    st.wb(R.id.title_bar).zf("属性");
-                    st.xxbj(R.id.xxbj3).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(0);
-                    st.xxbj(R.id.xxbj7).kjd(8);
-                    st.xxbj(R.id.xxbj9).kjd(8);
+                    sxspq.refreshRows();
+                    sxlb.requestFocus();
+                    open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.v7lb3)), "top");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("属性"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -2317,56 +2310,56 @@ public class AppRuntimeBridge extends iClass {
 
         } else if (i == 6) {
 
-            dkspq.sc();
+            dkspq.clearRows();
 
             int[] kj = new int[]{R.id.wb1, R.id.wb2, R.id.wb3, -1};
 
             Object[] jk = new Object[]{"", "", "", 0};
             jk = new Object[]{"文本", "a", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"图片", "b", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"音频", "c", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"视频", "d", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"压缩", "e", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"应用", "f", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"其他", "g", b, 2};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
             jk = new Object[]{"返回", "-1", "", 1};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
 
             String spxx = AppPaths.appPath("settings/a3.inf");
             jk = new Object[]{"", "", "", -1};
-            dkspq.j(kj, jk);
+            dkspq.addRow(kj, jk);
 
-            String axc = wj.dqwb(spxx);
+            String axc = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (spxx));
 
-            if (zf.dy(axc, "1") || zf.dy(axc, "3")) {
+            if (java.util.Objects.equals(axc, "1") || java.util.Objects.equals(axc, "3")) {
 
                 jk = new Object[]{"", "", "", -1};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
                 jk = new Object[]{"", "", "", -1};
-                dkspq.j(kj, jk);
+                dkspq.addRow(kj, jk);
 
             }
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    dkspq.sx();
-                    dklb.v.requestFocus();
-                    st.v7lb(R.id.v7lb4).xzwz("top");
-                    st.wb(R.id.title_bar).kjd(0);
-                    st.wb(R.id.title_bar).zf("打开方式");
-                    st.xxbj(R.id.xxbj3).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.xxbj(R.id.xxbj7).kjd(0);
-                    st.xxbj(R.id.xxbj9).kjd(8);
+                    dkspq.refreshRows();
+                    dklb.requestFocus();
+                    open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.v7lb4)), "top");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("打开方式"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -2388,7 +2381,7 @@ public class AppRuntimeBridge extends iClass {
 
     public String hqwjdx(Object url) {
 
-        double dx = ((double) (wj.dx(url)));
+        double dx = ((double) (open.cn.awg.pro.core.NativeFiles.size(context, (String) (url))));
 
         double d1 = 0;
 
@@ -2430,11 +2423,11 @@ public class AppRuntimeBridge extends iClass {
         final String[] name = new String[]{"title", "text"};
 
         final Object[] value = new Object[]{a, b};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(TextQrDisplayActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -2447,11 +2440,11 @@ public class AppRuntimeBridge extends iClass {
         final String[] name = new String[]{"title", "text", "QR-Code"};
 
         final Object[] value = new Object[]{a, b, c};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(TextQrDisplayActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -2464,11 +2457,11 @@ public class AppRuntimeBridge extends iClass {
         final String[] name = new String[]{"log", "location"};
 
         final Object[] value = new Object[]{a, b};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(CrashFeedbackActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (CrashFeedbackActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -2482,11 +2475,11 @@ public class AppRuntimeBridge extends iClass {
 
         try {
 
-            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(text);
+            org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(text);
 
-            JSONObject json = jo.json;
+            JSONObject json = jo;
 
-            Object sjs = jo.hq(json, value);
+            Object sjs = open.cn.awg.pro.core.JsonValues.value(json, value);
             back = sjs.toString();
 
         } catch (Throwable e) {
@@ -2508,7 +2501,7 @@ public class AppRuntimeBridge extends iClass {
 
         try {
 
-            if (wj.cz(m)) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(context, (String) (m))) {
 
                 back = m;
 
@@ -2532,7 +2525,7 @@ public class AppRuntimeBridge extends iClass {
         int back = 0;
 
         String mipmaprooturl = AppPaths.appPath("res/");
-        back = wj.jy(url, mipmaprooturl, true);
+        back = open.cn.awg.pro.core.NativeArchives.extract(context, (String) (url), (String) (mipmaprooturl), java.lang.Boolean.TRUE.equals(true));
 
         if (back == 0) {
 
@@ -2552,11 +2545,11 @@ public class AppRuntimeBridge extends iClass {
 
         String info = AppPaths.appPath("res/Manifest.json");
 
-        String text = wj.dqwb(info);
+        String text = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (info));
 
         String info1 = readJson(text, "name");
 
-        if (!zf.dy(info1, "0")) {
+        if (!java.util.Objects.equals(info1, "0")) {
 
             back[0] = info1;
 
@@ -2564,7 +2557,7 @@ public class AppRuntimeBridge extends iClass {
 
         String info2 = readJson(text, "version");
 
-        if (!zf.dy(info2, "0")) {
+        if (!java.util.Objects.equals(info2, "0")) {
 
             back[1] = info2;
 
@@ -2572,7 +2565,7 @@ public class AppRuntimeBridge extends iClass {
 
         String info3 = readJson(text, "maker");
 
-        if (!zf.dy(info3, "0")) {
+        if (!java.util.Objects.equals(info3, "0")) {
 
             back[2] = info3;
 
@@ -2580,7 +2573,7 @@ public class AppRuntimeBridge extends iClass {
 
         String info4 = readJson(text, "time");
 
-        if (!zf.dy(info4, "0")) {
+        if (!java.util.Objects.equals(info4, "0")) {
 
             back[3] = info4;
 
@@ -2588,7 +2581,7 @@ public class AppRuntimeBridge extends iClass {
 
         String info5 = readJson(text, "awg_version");
 
-        if (!zf.dy(info5, "0")) {
+        if (!java.util.Objects.equals(info5, "0")) {
 
             back[4] = info5;
 
@@ -2596,7 +2589,7 @@ public class AppRuntimeBridge extends iClass {
 
         String info6 = readJson(text, "tip");
 
-        if (!zf.dy(info6, "0")) {
+        if (!java.util.Objects.equals(info6, "0")) {
 
             back[5] = info6;
 
@@ -2608,27 +2601,27 @@ public class AppRuntimeBridge extends iClass {
     public String urlLockString(String t) {
 
         String back = "";
-        t = zf.qctwkg(t);
+        t = open.cn.awg.pro.core.TextValues.trim(t);
 
-        if (zf.ckt(t, "awg://")) {
+        if (open.cn.awg.pro.core.TextValues.startsWith(t, "awg://")) {
 
             back = t;
 
         } else {
 
-            if (zf.ckt(t, "https://service.typheye.cn/")) {
+            if (open.cn.awg.pro.core.TextValues.startsWith(t, "https://service.typheye.cn/")) {
 
-                String n = zf.qc(t, "https://service.typheye.cn/", null);
+                String n = open.cn.awg.pro.core.TextValues.slice(t, "https://service.typheye.cn/", null);
                 back = "awg://web.url/" + n;
 
-            } else if (zf.ckt(t, "https://")) {
+            } else if (open.cn.awg.pro.core.TextValues.startsWith(t, "https://")) {
 
-                t = zf.th(t, "https://", "");
+                t = open.cn.awg.pro.core.TextValues.replace(t, "https://", "");
                 back = "awg://thirds.url/" + t;
 
-            } else if (zf.ckt(t, "http://")) {
+            } else if (open.cn.awg.pro.core.TextValues.startsWith(t, "http://")) {
 
-                t = zf.th(t, "http://", "");
+                t = open.cn.awg.pro.core.TextValues.replace(t, "http://", "");
                 back = "awg://third.url/" + t;
 
             } else {
@@ -2651,21 +2644,21 @@ public class AppRuntimeBridge extends iClass {
         String http = "http://";
 
         String https = "https://";
-        t = zf.qctwkg(t);
+        t = open.cn.awg.pro.core.TextValues.trim(t);
 
-        if (zf.ckt(t, "awg://")) {
+        if (open.cn.awg.pro.core.TextValues.startsWith(t, "awg://")) {
 
-            if (zf.ckt(t, "awg://web.url/")) {
+            if (open.cn.awg.pro.core.TextValues.startsWith(t, "awg://web.url/")) {
 
-                back = zf.th(t, "awg://web.url/", url);
+                back = open.cn.awg.pro.core.TextValues.replace(t, "awg://web.url/", url);
 
-            } else if (zf.ckt(t, "awg://third.url/")) {
+            } else if (open.cn.awg.pro.core.TextValues.startsWith(t, "awg://third.url/")) {
 
-                back = zf.th(t, "awg://third.url/", http);
+                back = open.cn.awg.pro.core.TextValues.replace(t, "awg://third.url/", http);
 
-            } else if (zf.ckt(t, "awg://thirds.url/")) {
+            } else if (open.cn.awg.pro.core.TextValues.startsWith(t, "awg://thirds.url/")) {
 
-                back = zf.th(t, "awg://thirds.url/", https);
+                back = open.cn.awg.pro.core.TextValues.replace(t, "awg://thirds.url/", https);
 
             } else {
 
@@ -2685,8 +2678,8 @@ public class AppRuntimeBridge extends iClass {
     public String htmlToText(String t) {
 
         String back = "";
-        t = zf.th(t, "&quot;", "\"");
-        back = zf.th(t, "&amp;", "&");
+        t = open.cn.awg.pro.core.TextValues.replace(t, "&quot;", "\"");
+        back = open.cn.awg.pro.core.TextValues.replace(t, "&amp;", "&");
         return back;
 
     }
@@ -2695,15 +2688,15 @@ public class AppRuntimeBridge extends iClass {
 
         String set36 = AppPaths.appPath("settings/fixVersion");
 
-        final String appfixversion = zf.qctwkg(wj.dqwb(set36));
+        final String appfixversion = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set36)));
 
         final int myappversion = a11;
 
         String set2e = AppPaths.appPath("settings/f10/set2.inf");
-        set2e = wj.dqwb(set2e);
+        set2e = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2e));
         set2e = urlUnlockString(set2e);
 
-        if (zf.cjw(set2e, "/")) {
+        if (open.cn.awg.pro.core.TextValues.endsWith(set2e, "/")) {
 
         } else {
 
@@ -2713,7 +2706,7 @@ public class AppRuntimeBridge extends iClass {
         set2e = set2e + "config.json";
 
         final String url = set2e;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -2725,9 +2718,9 @@ public class AppRuntimeBridge extends iClass {
 
                     String version2 = "";
 
-                    String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         setback = "0";
 
@@ -2735,7 +2728,7 @@ public class AppRuntimeBridge extends iClass {
 
                         setback = htmlToText(back);
 
-                        if (zf.dy(setback, "0")) {
+                        if (java.util.Objects.equals(setback, "0")) {
 
                             setback = "0";
 
@@ -2749,7 +2742,7 @@ public class AppRuntimeBridge extends iClass {
 
                     }
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                     } else {
 
@@ -2771,7 +2764,7 @@ public class AppRuntimeBridge extends iClass {
 
                         } else {
 
-                            if (zf.dy(ek, "应用")) {
+                            if (java.util.Objects.equals(ek, "应用")) {
 
                                 ek = ek + "和补丁";
 
@@ -2786,11 +2779,11 @@ public class AppRuntimeBridge extends iClass {
                         if (myappversion < b1 || Double.parseDouble(appfixversion) < b2) {
 
                             final String eks = ek;
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    gj.tz(AppUpdateActivity.class);
+                                    open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (AppUpdateActivity.class));
                                     tsk("提示", eks + "有新版本了");
 
                                 }
@@ -2819,11 +2812,11 @@ public class AppRuntimeBridge extends iClass {
     public void onlineall() {
 
         String set2e = AppPaths.appPath("settings/f10/set2.inf");
-        set2e = wj.dqwb(set2e);
+        set2e = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set2e));
         set2e = urlUnlockString(set2e) + "/online.php";
 
         final String url = set2e;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -2833,9 +2826,9 @@ public class AppRuntimeBridge extends iClass {
 
                 String version2 = "";
 
-                String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                if (zf.dy(back, "") || zf.dy(back, null)) {
+                if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                 } else {
 
@@ -2851,8 +2844,24 @@ public class AppRuntimeBridge extends iClass {
 
         boolean back;
 
-        back = wj.cz(AppPaths.appPath("app_tbs/core_share/tbs.conf")) || wj.cz(AppPaths.appPath("app_tbs_64/core_share/tbs.conf"));
+        back = open.cn.awg.pro.core.NativeFiles.exists(context, (String) (AppPaths.appPath("app_tbs/core_share/tbs.conf"))) || open.cn.awg.pro.core.NativeFiles.exists(context, (String) (AppPaths.appPath("app_tbs_64/core_share/tbs.conf")));
         return back;
 
     }
+
+    public void csh(Activity activity) { new AppRuntimeBridge(activity).csh(); }
+    public void NewFilesLoad(Activity activity, Object url, Object roots) { new AppRuntimeBridge(activity).NewFilesLoad(url, roots); }
+    public void fileTouch(Activity activity, Object text, Object url) { new AppRuntimeBridge(activity).fileTouch(text, url); }
+    public void dkfs(Activity activity, Object z, Object b, int e) { new AppRuntimeBridge(activity).dkfs(z, b, e); }
+    public void cdx(Activity activity, int i, String a, String b, String c) { new AppRuntimeBridge(activity).cdx(i, a, b, c); }
+    public void sx(Activity activity, String na, String lj) { new AppRuntimeBridge(activity).sx(na, lj); }
+    public void tsk(Activity activity, Object a, Object b) { new AppRuntimeBridge(activity).tsk(a, b); }
+    public void tsk_QR(Activity activity, Object a, Object b, Object c) { new AppRuntimeBridge(activity).tsk_QR(a, b, c); }
+    public void upload_error(Activity activity, Object a, Object b) { new AppRuntimeBridge(activity).upload_error(a, b); }
+    public static void reportError(Context owner, Throwable failure, String location) {
+        java.io.StringWriter writer = new java.io.StringWriter();
+        failure.printStackTrace(new java.io.PrintWriter(writer));
+        new AppRuntimeBridge(owner).upload_error(writer.toString(), location);
+    }
+
 }

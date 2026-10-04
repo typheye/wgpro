@@ -16,7 +16,7 @@
  */
 package open.cn.awg.pro.ui.main;
 
-import android.app.Activity;
+import open.cn.awg.pro.core.TextValues;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -54,25 +54,25 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
     public void onCreate(Bundle be) {
         super.onCreate(be);
         setContentView(R.layout.text_qr_display);
-        _$_viewAutomaticSettingEvent();
+        bindViews();
         AwgProApplication.getInstance().addActivity(lei);
 
-        String nr = sj.hqtz("text");
-        st.wb(R.id.wb1).zf(nr);
+        String nr = getIntent().getStringExtra("text");
+        ((TextView) findViewById(R.id.wb1)).setText(String.valueOf(nr));
 
-        String bt = sj.hqtz("title");
-        bt = zf.qctwkg(bt);
+        String bt = getIntent().getStringExtra("title");
+        bt = open.cn.awg.pro.core.TextValues.trim(bt);
 
-        if (!zf.dy(bt, null) && !zf.dy(bt, "")) {
+        if (!java.util.Objects.equals(bt, null) && !java.util.Objects.equals(bt, "")) {
 
-            st.wb(R.id.title_bar).zf("< " + bt);
+            ((TextView) findViewById(R.id.title_bar)).setText(String.valueOf("< " + bt));
 
         }
 
-        String qr = sj.hqtz("QR-Code");
-        qr = zf.qctwkg(qr);
+        String qr = getIntent().getStringExtra("QR-Code");
+        qr = open.cn.awg.pro.core.TextValues.trim(qr);
 
-        if (!zf.dy(qr, null) && !zf.dy(qr, "")) {
+        if (!java.util.Objects.equals(qr, null) && !java.util.Objects.equals(qr, "")) {
 
             try {
 
@@ -80,11 +80,11 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
                 Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                 imageView.setImageBitmap(bitmap);
 
-                st.tx(R.id.tx1).kjd(0);
+                ((ImageView) findViewById(R.id.tx1)).setVisibility(android.view.View.VISIBLE);
 
             } catch (Throwable e) {
 
-                st.tx(R.id.tx1).kjd(8);
+                ((ImageView) findViewById(R.id.tx1)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -92,7 +92,7 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
 
     }
 
-    public void __layoutIsLoaded(Activity ay, View vw) {
+    private void applyScreenPolicy() {
 
         applyStandardScreenMode(R.id.text_qr_display_root, R.id.xdbj1, R.id.title_bar);
 
@@ -114,9 +114,9 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        View qtgd1 = findViewById(R.id.qtgd1);
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -133,7 +133,7 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -150,27 +150,23 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        finish();
 
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        finish();
 
     }
 
-    private void _$_viewAutomaticSettingEvent() {
-        _$_viewAutomaticSettingEvent(this, null);
-    }
+    private void bindViews() {
 
-    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
-
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        __layoutIsLoaded(ay, vw);
+        applyScreenPolicy();
     }
 }

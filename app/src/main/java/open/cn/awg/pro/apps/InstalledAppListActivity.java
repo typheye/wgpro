@@ -16,11 +16,12 @@
  */
 package open.cn.awg.pro.apps;
 
+import open.cn.awg.pro.core.NativeDevice.InstalledApp;
 
-import open.cn.awg.pro.core.IappCompat;
+
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -28,6 +29,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -37,16 +40,17 @@ import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.ui.list.NativeListAdapter;
+import open.cn.awg.pro.ui.list.InstalledAppRowBinder;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.InstalledAppItemActivity;
 
 public class InstalledAppListActivity extends BaseAwgActivity {
 
     public final InstalledAppListActivity lei = this, 类 = this;
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public NativeListAdapter spq = null;
     public String lin;
     public String CacheSize = null;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -85,6 +89,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.installed_app_list);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -102,12 +107,12 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj1).kjd(0);
-                    st.xxbj(R.id.xxbj2).kjd(8);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.xxbj2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -115,12 +120,12 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj2).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.xxbj2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -134,16 +139,16 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
         boolean issa = false;
 
-        i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = IappCompat.v7lbAdapter(lb, InstalledAppItemActivity.class, R.layout.installed_app_item);
+        RecyclerView list = findViewById(R.id.v7lb1);
+        spq = NativeListAdapter.attach(this, list, R.layout.installed_app_item, new InstalledAppRowBinder(this));
 
         String set1 = AppPaths.appPath("settings/l6/set1.inf");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(InstalledAppListActivity.this, (String) (set1)), "true")) {
 
-            kg1.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
             issa = true;
 
         }
@@ -151,7 +156,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
         final int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb3, -1};
 
         final boolean iss = issa;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -159,23 +164,23 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
                 try {
 
-                    i.runlibrary.app.xt$yylb[] sz = (i.runlibrary.app.xt$yylb[]) (Object) xt.yylb(iss);
+                    InstalledApp[] sz = new open.cn.awg.pro.core.NativeDevice(InstalledAppListActivity.this).installedApps(iss);
 
-                    for (i.runlibrary.app.xt$yylb app : sz) {
+                    for (InstalledApp app : sz) {
 
-                        String bbh = String.valueOf(app.bbh);
+                        String bbh = String.valueOf(app.versionCode);
 
-                        String zbt = app.bb + "[" + bbh + "]";
+                        String zbt = app.versionName + "[" + bbh + "]";
 
-                        Object[] jk = new Object[]{app.tb, app.bt, zbt, app.bm};
-                        spq.j(kj, jk);
+                        Object[] jk = new Object[]{app.icon, app.label, zbt, app.packageName};
+                        spq.addRow(kj, jk);
 
                     }
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            spq.sx();
+                            spq.refreshRows();
 
                         }
 
@@ -210,9 +215,9 @@ public class InstalledAppListActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -229,7 +234,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -246,7 +251,7 @@ public class InstalledAppListActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(InstalledAppListActivity.this);
 
     }
 
@@ -256,12 +261,12 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(InstalledAppListActivity.this, (String) (set), (String) ("true"));
             jz();
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(InstalledAppListActivity.this, (String) (set), (String) ("false"));
             jz();
 
         }
@@ -270,15 +275,15 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
     private void onXdbj2Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -286,16 +291,16 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(InstalledAppListActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(InstalledAppListActivity.this);
 
     }
 
@@ -305,17 +310,17 @@ public class InstalledAppListActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

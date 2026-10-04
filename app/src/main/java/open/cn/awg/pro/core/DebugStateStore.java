@@ -16,68 +16,43 @@
  */
 package open.cn.awg.pro.core;
 
-import i.app.iClass;
+import android.content.Context;
 
-public class DebugStateStore extends iClass {
-
-    public final DebugStateStore lei = this, 类 = this;
+public class DebugStateStore {
     public String de = AppPaths.appPath("data/debug/state/");
     public String dd = AppPaths.appPath("data/debug/showed.inf");
 
-    public DebugStateStore(i.runlibrary.app.AppInfo _APPINFO) {
-        super(_APPINFO);
+    private final Context context;
 
+    public DebugStateStore(Context context) {
+        if (context == null) {
+            throw new IllegalArgumentException("context must not be null");
+        }
+        Context applicationContext = context.getApplicationContext();
+        this.context = applicationContext == null ? context : applicationContext;
     }
 
-    public boolean getDebugState(Object i) {
-
-        String ph = de + i;
-
-        if (wj.cz(ph)) {
-
-            return zf.dy(wj.dqwb(ph), "1");
-
-        }
-        return false;
-
+    public boolean getDebugState(Object key) {
+        String path = de + key;
+        return NativeFiles.exists(context, path)
+                && java.util.Objects.equals(NativeFiles.readText(context, path), "1");
     }
 
-    public boolean setDebugState(Object i, boolean i2) {
-
-        String ph = de + i;
-
-        if (i2) {
-
-            return wj.xrwb(ph, "1");
-
-        } else {
-
-            return wj.xrwb(ph, "0");
-
-        }
-
+    public boolean setDebugState(Object key, boolean enabled) {
+        return NativeFiles.writeText(context, de + key, enabled ? "1" : "0");
     }
 
     public boolean isShowed() {
-
-        if (wj.cz(dd)) {
-
-            return zf.dy(wj.dqwb(dd), "1");
-
-        }
-        return false;
-
+        return NativeFiles.exists(context, dd)
+                && java.util.Objects.equals(NativeFiles.readText(context, dd), "1");
     }
 
     public boolean showed() {
-
-        return wj.xrwb(dd, "1");
-
+        return NativeFiles.writeText(context, dd, "1");
     }
 
     public boolean delShowed() {
-        wj.sc(dd);
+        NativeFiles.delete(context, dd, false);
         return true;
-
     }
 }

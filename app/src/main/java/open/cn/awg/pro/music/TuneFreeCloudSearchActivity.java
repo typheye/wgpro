@@ -44,8 +44,8 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
     public String ll = "";
     public int pp = 0;
     public int oo = 1;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TuneFreeMusicBridge e12;
     public String endurl = "";
     public String set35 = AppPaths.appPath("settings/other/0xO7YX2/url");
     public String api_search = "/cloudsearch";
@@ -82,12 +82,14 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e12 = new TuneFreeMusicBridge(this);
         setContentView(R.layout.tune_free_cloud_search);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
         e12.csh();
-        ll = sj.hqtz("name");
-        pp = Integer.parseInt(sj.hqtz("type"));
+        ll = TuneFreeCloudSearchActivity.this.getIntent().getStringExtra(String.valueOf("name"));
+        pp = Integer.parseInt(TuneFreeCloudSearchActivity.this.getIntent().getStringExtra(String.valueOf("type")));
         search(ll, pp, oo);
 
     }
@@ -100,18 +102,18 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
         if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    x2.kjd(0);
-                    x3.kjd(8);
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -119,12 +121,12 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    x2.kjd(8);
-                    x3.kjd(0);
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -136,42 +138,42 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
     public void search(Object l, int p, int k) {
 
-        final String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+        final String ljf = open.cn.awg.pro.core.NativeFiles.readText(TuneFreeCloudSearchActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
         final Object xx = l;
 
         final int type = p;
 
         final int kk = k;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (type == -1) {
 
-                    st.wb(R.id.title_bar).zf("< 云盘资源");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 云盘资源"));
 
                 }
 
             }
 
         });
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(1);
 
-                if (zf.dy(xx, "")) {
+                if (java.util.Objects.equals(xx, "")) {
 
                     e1.tsk("提示", "搜索不能为空");
-                    gj.gb();
+                    open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                 } else {
 
                     if (type == 0) {
 
-                        String url = zf.qctwkg(wj.dqwb(set35)) + api_search;
+                        String url = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeCloudSearchActivity.this, (String) (set35))) + api_search;
 
                         String setback = "";
 
@@ -181,9 +183,9 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                         String whq = "?keywords=" + xx + ljf + "type=" + api_search_type[type] + ljf + "limit=20" + ljf + "offset=" + ot;
 
-                        String back = wl.hq(url + whq, null, "utf-8");
+                        String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + whq), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             setback = "0";
 
@@ -193,10 +195,10 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                         }
 
-                        if (zf.dy(setback, "0")) {
+                        if (java.util.Objects.equals(setback, "0")) {
 
                             e1.tsk("提示", "加载失败,请重试");
-                            gj.gb();
+                            open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                         } else {
 
@@ -207,7 +209,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
                             } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a2_nimin_d0415_y2022_a1.search(s,int,int)");
-                                gj.gb();
+                                open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                             }
                             show(2);
@@ -218,10 +220,10 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                         String whq0 = "/cookie2.csm";
 
-                        String back0 = wl.hq(zf.qctwkg(wj.dqwb(set35)) + whq0, null, "utf-8");
-                        back0 = zf.qctwkg(back0);
+                        String back0 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeCloudSearchActivity.this, (String) (set35))) + whq0), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
+                        back0 = open.cn.awg.pro.core.TextValues.trim(back0);
 
-                        if (!zf.dy(back0, "") || !zf.dy(back0, null)) {
+                        if (!java.util.Objects.equals(back0, "") || !java.util.Objects.equals(back0, null)) {
 
                             try {
 
@@ -246,18 +248,18 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
                                 back0 = "";
 
                             }
-                            back0 = zf.qctwkg(back0);
+                            back0 = open.cn.awg.pro.core.TextValues.trim(back0);
 
-                            if (zf.dy(back0, "") || zf.dy(back0, null)) {
+                            if (java.util.Objects.equals(back0, "") || java.util.Objects.equals(back0, null)) {
 
                                 e1.tsk("提示", "加载失败,请重试(-1)");
-                                gj.gb();
+                                open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                             } else {
 
-                                String sjzx = xt.sj(4);
+                                String sjzx = open.cn.awg.pro.core.NativeDevice.formatDate(4);
 
-                                String url = zf.qctwkg(wj.dqwb(set35)) + api_search2;
+                                String url = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeCloudSearchActivity.this, (String) (set35))) + api_search2;
 
                                 String setback = "";
 
@@ -267,9 +269,9 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                                 String whq = "?limit=20" + ljf + "offset=" + ot + ljf + "timestamp=" + sjzx + ljf + "cookie=" + back0;
 
-                                String back = wl.hq(url + whq, null, "utf-8");
+                                String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + whq), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                                if (zf.dy(back, "") || zf.dy(back, null)) {
+                                if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                     setback = "0";
 
@@ -279,10 +281,10 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                                 }
 
-                                if (zf.dy(setback, "0")) {
+                                if (java.util.Objects.equals(setback, "0")) {
 
                                     e1.tsk("提示", "加载失败,请重试(-2)");
-                                    gj.gb();
+                                    open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                                 } else {
 
@@ -293,7 +295,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
                                     } catch (Throwable e) {
 
                                         e1.upload_error(e, "l5_a2_nimin_d0415_y2022_a1.search(s,int,int)");
-                                        gj.gb();
+                                        open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                                     }
                                     show(2);
@@ -305,7 +307,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
                         } else {
 
                             e1.tsk("提示", "加载失败,请重试(-3)");
-                            gj.gb();
+                            open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
                         }
 
@@ -335,9 +337,9 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -354,7 +356,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -371,7 +373,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
     }
 
@@ -379,9 +381,9 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
         try {
 
-            String p = st.wb(R.id.myswb).zf();
+            String p = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.myswb)).getText().toString();
 
-            final String max = zf.qc(p, "/", "页");
+            final String max = open.cn.awg.pro.core.TextValues.slice(p, "/", "页");
 
             if (oo == 1) {
 
@@ -393,11 +395,11 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
                 search(ll, pp, oo);
 
                 final int oog = oo;
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.wb2).zf("第" + oog + "/" + max + "页");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.wb2)).setText(String.valueOf("第" + oog + "/" + max + "页"));
 
                     }
 
@@ -417,12 +419,12 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
         try {
 
-            String p = st.wb(R.id.myswb).zf();
-            p = zf.qc(p, "/", "页");
+            String p = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.myswb)).getText().toString();
+            p = open.cn.awg.pro.core.TextValues.slice(p, "/", "页");
 
             String o = String.valueOf(oo);
 
-            if (zf.dy(o, p)) {
+            if (java.util.Objects.equals(o, p)) {
 
                 e1.tsk("提示", "已经在最后一页了");
 
@@ -434,11 +436,11 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
                 final int oog = oo;
 
                 final String pg = p;
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.wb2).zf("第" + oog + "/" + pg + "页");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.wb2)).setText(String.valueOf("第" + oog + "/" + pg + "页"));
 
                     }
 
@@ -455,7 +457,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TuneFreeCloudSearchActivity.this);
 
     }
 
@@ -465,16 +467,16 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);

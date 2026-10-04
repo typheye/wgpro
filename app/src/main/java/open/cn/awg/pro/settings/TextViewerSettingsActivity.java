@@ -17,11 +17,10 @@
 package open.cn.awg.pro.settings;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
-import android.support.v7.widget.SwitchCompat;
+import androidx.cardview.widget.CardView;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,7 +48,7 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
     public String lin = "";
     public String newcolor = "";
     public int bs = 0;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -225,6 +224,7 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.text_viewer_settings);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -234,11 +234,11 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -252,62 +252,62 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.text_viewer_settings_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.text_viewer_settings_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.text_viewer_settings_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.text_viewer_settings_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(TextViewerSettingsActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
@@ -325,45 +325,45 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         String set5 = AppPaths.appPath("settings/d2/set5.inf");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        i.runlibrary.app.v.kg kg2 = st.kg(R.id.kg2);
+        android.widget.CompoundButton kg2 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kg2));
 
-        i.runlibrary.app.v.kp kp2 = st.kp(R.id.kp2);
+        androidx.cardview.widget.CardView kp2 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kp2));
 
-        i.runlibrary.app.v.kp kp3 = st.kp(R.id.kp3);
+        androidx.cardview.widget.CardView kp3 = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kp3));
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set1)), "true")) {
 
-            kg1.xzzt(true);
-
-        }
-
-        if (zf.dy(wj.dqwb(set5), "true")) {
-
-            kg2.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
-        int i = Integer.parseInt(wj.dqwb(set2));
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set5)), "true")) {
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
-        tdt1.jdz(i);
-        st.wb(R.id.wb10).zf(i + "sp");
+            kg2.setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        String ztys = wj.dqwb(set3);
-        kp2.kpbjys(ztys);
+        }
 
-        String bjys = wj.dqwb(set4);
-        kp3.kpbjys(bjys);
-        st.wb(R.id.wb5).zf(ztys);
-        st.wb(R.id.wb7).zf(bjys);
+        int i = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set2)));
 
-        String code = sj.hqtz("code");
+        android.widget.SeekBar tdt1 = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt1));
+        tdt1.setProgress(open.cn.awg.pro.core.TextValues.intValue(i, -1));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(i + "sp"));
 
-        if (zf.dy(code, "super1")) {
+        String ztys = open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set3));
+        kp2.setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(ztys));
 
-            st.xdbj(R.id.xdbj6).kjd(8);
+        String bjys = open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set4));
+        kp3.setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(bjys));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(ztys));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).setText(String.valueOf(bjys));
+
+        String code = TextViewerSettingsActivity.this.getIntent().getStringExtra(String.valueOf("code"));
+
+        if (java.util.Objects.equals(code, "super1")) {
+
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xdbj6)).setVisibility(android.view.View.GONE);
 
         }
 
@@ -371,11 +371,11 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     public void rgbsx() {
 
-        int r = st.tdt(R.id.tdt2).jdz();
+        int r = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt2)).getProgress();
 
-        int g = st.tdt(R.id.tdt3).jdz();
+        int g = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt3)).getProgress();
 
-        int b = st.tdt(R.id.tdt4).jdz();
+        int b = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt4)).getProgress();
 
         String r1 = "";
 
@@ -407,8 +407,8 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
         String color = "#" + r1 + g1 + b1;
         newcolor = color;
 
-        i.runlibrary.app.v.kp yst = st.kp(R.id.kp4);
-        yst.kpbjys(color);
+        androidx.cardview.widget.CardView yst = ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kp4));
+        yst.setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
 
     }
 
@@ -426,9 +426,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         String set2 = AppPaths.appPath("settings/d2/set4.inf");
 
-        final String color1 = wj.dqwb(set1);
+        final String color1 = open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set1));
 
-        final String color2 = wj.dqwb(set2);
+        final String color2 = open.cn.awg.pro.core.NativeFiles.readText(TextViewerSettingsActivity.this, (String) (set2));
 
         String color = "";
 
@@ -444,11 +444,11 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         }
 
-        String r = zf.qc(color, 1, 3);
+        String r = open.cn.awg.pro.core.TextValues.slice(color, 1, 3);
 
-        String g = zf.qc(color, 3, 5);
+        String g = open.cn.awg.pro.core.TextValues.slice(color, 3, 5);
 
-        String b = zf.qc(color, 5, null);
+        String b = open.cn.awg.pro.core.TextValues.slice(color, 5, null);
         r1 = Integer.parseInt(r, 16);
         g1 = Integer.parseInt(g, 16);
         b1 = Integer.parseInt(b, 16);
@@ -458,13 +458,13 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
         final int g2 = g1;
 
         final int b2 = b1;
-        st.kp(R.id.kp4).kpbjys(color);
-        st.tdt(R.id.tdt2).jdz(r2);
-        st.tdt(R.id.tdt3).jdz(g2);
-        st.tdt(R.id.tdt4).jdz(b2);
-        st.xxbj(R.id.xxbj1).kjd(8);
-        st.xxbj(R.id.xxbj6).kjd(0);
-        st.wb(R.id.title_bar).zf("编辑颜色");
+        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kp4)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color));
+        ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt2)).setProgress(open.cn.awg.pro.core.TextValues.intValue(r2, -1));
+        ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt3)).setProgress(open.cn.awg.pro.core.TextValues.intValue(g2, -1));
+        ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt4)).setProgress(open.cn.awg.pro.core.TextValues.intValue(b2, -1));
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.VISIBLE);
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("编辑颜色"));
 
     }
 
@@ -476,17 +476,17 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         if (bs == 1) {
 
-            wj.xrwb(set1, newcolor);
+            open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set1), (String) (newcolor));
 
         } else if (bs == 2) {
 
-            wj.xrwb(set2, newcolor);
+            open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set2), (String) (newcolor));
 
         }
         jz();
-        st.xxbj(R.id.xxbj1).kjd(0);
-        st.xxbj(R.id.xxbj6).kjd(8);
-        st.wb(R.id.title_bar).zf("< 文本浏览");
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
 
     }
 
@@ -506,9 +506,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -525,7 +525,7 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -545,11 +545,11 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (st.xxbj(R.id.xxbj6).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj6)).getVisibility() == android.view.View.VISIBLE) {
 
             } else {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(TextViewerSettingsActivity.this);
 
             }
 
@@ -560,9 +560,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 文本浏览")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 文本浏览")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(TextViewerSettingsActivity.this);
 
         }
 
@@ -574,11 +574,11 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -586,15 +586,15 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj2Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -602,9 +602,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -616,11 +616,11 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -628,15 +628,15 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj6Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg2);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.kg2));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -644,9 +644,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb12).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
 
-        String lj = st.wb(R.id.wb13).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -660,9 +660,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj51LongClick(View vw) {
 
-        String te = st.wb(R.id.wb9).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
 
-        String lj = st.wb(R.id.wb10).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -672,13 +672,13 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
         String set = AppPaths.appPath("settings/d2/set2.inf");
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
+        android.widget.SeekBar tdt1 = ((android.widget.SeekBar) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.tdt1));
 
-        int i = tdt1.jdz();
-        st.wb(R.id.wb10).zf(i + "sp");
+        int i = tdt1.getProgress();
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(i + "sp"));
 
-        String sis = IappCompat.zh(sj.zh(i)).zstring();
-        wj.xrwb(set, sis);
+        String sis = open.cn.awg.pro.core.TextValues.string(i);
+        open.cn.awg.pro.core.NativeFiles.writeText(TextViewerSettingsActivity.this, (String) (set), (String) (sis));
 
     }
 
@@ -697,9 +697,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj52LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -712,16 +712,16 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj53LongClick(View vw) {
 
-        String te = st.wb(R.id.wb6).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
 
-        String lj = st.wb(R.id.wb7).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TextViewerSettingsActivity.this);
 
     }
 
@@ -765,9 +765,9 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        st.xxbj(R.id.xxbj1).kjd(0);
-        st.xxbj(R.id.xxbj6).kjd(8);
-        st.wb(R.id.title_bar).zf("< 文本浏览");
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
 
     }
 
@@ -782,58 +782,58 @@ public class TextViewerSettingsActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        SwitchCompat ab7dd47b08 = (SwitchCompat) findViewById(ay, vw, R.id.kg2);
+        SwitchCompat ab7dd47b08 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg2);
         ab7dd47b08.setOnCheckedChangeListener(kg2CheckedChangeListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        RelativeLayout i248435a9e2 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj51);
+        RelativeLayout i248435a9e2 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj51);
         i248435a9e2.setOnClickListener(xdbj51ClickListener);
         i248435a9e2.setOnLongClickListener(xdbj51LongClickListener);
 
-        SeekBar d11169f9c0 = (SeekBar) findViewById(ay, vw, R.id.tdt1);
+        SeekBar d11169f9c0 = (SeekBar) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tdt1);
         d11169f9c0.setOnSeekBarChangeListener(tdt1SeekBarChangeListener);
 
-        RelativeLayout c04397461c = (RelativeLayout) findViewById(ay, vw, R.id.xdbj52);
+        RelativeLayout c04397461c = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj52);
         c04397461c.setOnClickListener(xdbj52ClickListener);
         c04397461c.setOnLongClickListener(xdbj52LongClickListener);
 
-        CardView i4746b35274 = (CardView) findViewById(ay, vw, R.id.kp2);
+        CardView i4746b35274 = (CardView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kp2);
 
-        RelativeLayout i172cf45127 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj53);
+        RelativeLayout i172cf45127 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj53);
         i172cf45127.setOnClickListener(xdbj53ClickListener);
         i172cf45127.setOnLongClickListener(xdbj53LongClickListener);
 
-        CardView d70d738137 = (CardView) findViewById(ay, vw, R.id.kp3);
+        CardView d70d738137 = (CardView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kp3);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        SeekBar i8c36c72cce = (SeekBar) findViewById(ay, vw, R.id.tdt2);
+        SeekBar i8c36c72cce = (SeekBar) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tdt2);
         i8c36c72cce.setOnSeekBarChangeListener(tdt2SeekBarChangeListener);
 
-        SeekBar i7843ee147b = (SeekBar) findViewById(ay, vw, R.id.tdt3);
+        SeekBar i7843ee147b = (SeekBar) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tdt3);
         i7843ee147b.setOnSeekBarChangeListener(tdt3SeekBarChangeListener);
 
-        SeekBar b753c6bb90 = (SeekBar) findViewById(ay, vw, R.id.tdt4);
+        SeekBar b753c6bb90 = (SeekBar) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tdt4);
         b753c6bb90.setOnSeekBarChangeListener(tdt4SeekBarChangeListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
         __layoutIsLoaded(ay, vw);

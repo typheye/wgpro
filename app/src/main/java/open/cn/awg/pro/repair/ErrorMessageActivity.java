@@ -63,13 +63,13 @@ public class ErrorMessageActivity extends BaseAwgActivity {
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
 
-        if (wj.cz(AppPaths.appPath("settings/a4.inf"))) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(ErrorMessageActivity.this, (String) (AppPaths.appPath("settings/a4.inf")))) {
 
             show(0);
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
@@ -90,11 +90,11 @@ public class ErrorMessageActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ErrorMessageActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ErrorMessageActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -107,18 +107,18 @@ public class ErrorMessageActivity extends BaseAwgActivity {
         }
         applyFullscreenWindow();
 
-        String e = sj.hqtz("Error");
+        String e = ErrorMessageActivity.this.getIntent().getStringExtra(String.valueOf("Error"));
 
-        if (!zf.dy(e, "") || !zf.dy(e, null)) {
+        if (!java.util.Objects.equals(e, "") || !java.util.Objects.equals(e, null)) {
 
-            st.wb(R.id.wb2).zf("Error: " + e);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ErrorMessageActivity.this.getWindow().getDecorView(), R.id.wb2)).setText(String.valueOf("Error: " + e));
 
         }
-        e = sj.hqtz("Msg");
+        e = ErrorMessageActivity.this.getIntent().getStringExtra(String.valueOf("Msg"));
 
-        if (!zf.dy(e, "") || !zf.dy(e, null)) {
+        if (!java.util.Objects.equals(e, "") || !java.util.Objects.equals(e, null)) {
 
-            st.wb(R.id.wb2).zf(e);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ErrorMessageActivity.this.getWindow().getDecorView(), R.id.wb2)).setText(String.valueOf(e));
 
         }
 
@@ -128,27 +128,27 @@ public class ErrorMessageActivity extends BaseAwgActivity {
 
         final int i = i_;
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout xxbj4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ErrorMessageActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
-        gj.jmxc(new Runnable() {
+        final android.widget.LinearLayout xxbj1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ErrorMessageActivity.this.getWindow().getDecorView(), R.id.xxbj1));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    xxbj1.kjd(0);
-                    xxbj4.kjd(8);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 1) {
 
-                    xxbj1.kjd(8);
-                    xxbj4.kjd(0);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else if (i == 2) {
 
-                    xxbj1.kjd(8);
-                    xxbj4.kjd(8);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -159,16 +159,16 @@ public class ErrorMessageActivity extends BaseAwgActivity {
     }
 
     public void run() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(2);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 if (mode == 0) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -248,13 +248,13 @@ public class ErrorMessageActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb3);
         i0d2d4d9236.setOnClickListener(wb3ClickListener);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
 
-        TextView b8bc22741b = (TextView) findViewById(ay, vw, R.id.wb7);
+        TextView b8bc22741b = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb7);
         b8bc22741b.setOnClickListener(wb7ClickListener);
 
         __layoutIsLoaded(ay, vw);

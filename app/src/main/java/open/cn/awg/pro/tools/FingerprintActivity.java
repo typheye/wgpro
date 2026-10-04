@@ -39,19 +39,19 @@ public class FingerprintActivity extends BaseAwgActivity {
 
     public final FingerprintActivity lei = this, 类 = this;
     public FingerprintManager fingerprintManager;
-    public i.runlibrary.app.v.wb tv;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public android.widget.TextView tv;
+    public AppRuntimeBridge e1;
     FingerprintManager.AuthenticationCallback callback = new FingerprintManager.AuthenticationCallback() {
         @Override
         public void onAuthenticationSucceeded(FingerprintManager.AuthenticationResult result) {
 
-            tv.st.setText("验证成功");
+            tv.setText("验证成功");
         }
 
         @Override
         public void onAuthenticationError(int errorCode, CharSequence errString) {
 
-            tv.st.setText("频繁，请稍候再试");
+            tv.setText("频繁，请稍候再试");
         }
 
         @Override
@@ -62,7 +62,7 @@ public class FingerprintActivity extends BaseAwgActivity {
         @Override
         public void onAuthenticationFailed() {
 
-            tv.st.setText("没有找到匹配的指纹信息，请重试");
+            tv.setText("没有找到匹配的指纹信息，请重试");
 
         }
     };
@@ -90,10 +90,11 @@ public class FingerprintActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.fingerprint);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        tv = st.wb(R.id.wb1);
+        tv = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FingerprintActivity.this.getWindow().getDecorView(), R.id.wb1));
 
         try {
 
@@ -116,7 +117,7 @@ public class FingerprintActivity extends BaseAwgActivity {
 
     public void start() {
 
-        tv.st.setText("请将手指放在指纹模块上面");
+        tv.setText("请将手指放在指纹模块上面");
         if (fingerprintManager.isHardwareDetected() && fingerprintManager.hasEnrolledFingerprints()) {
             fingerprintManager.authenticate(null, null, 0, callback, null);
         }
@@ -139,9 +140,9 @@ public class FingerprintActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(FingerprintActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -158,7 +159,7 @@ public class FingerprintActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -175,7 +176,7 @@ public class FingerprintActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(FingerprintActivity.this);
 
     }
 
@@ -185,7 +186,7 @@ public class FingerprintActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(FingerprintActivity.this);
 
     }
 
@@ -195,13 +196,13 @@ public class FingerprintActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);

@@ -180,14 +180,8 @@
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
         </service>
-        <provider android:name="i.app.FileProvider" android:exported="false" android:authorities="open.cn.awg.pro.myFileProvider" android:grantUriPermissions="true">
+        <provider android:name="androidx.core.content.FileProvider" android:exported="false" android:authorities="open.cn.awg.pro.myFileProvider" android:grantUriPermissions="true">
             <meta-data android:name="android.support.FILE_PROVIDER_PATHS" android:resource="@xml/file_provider"/>
         </provider>
-        <!--
-        <meta-data android:name="i_app_multiDex" android:value="shi" />
-        <meta-data android:name="i_app_autoPermission" android:value="fou" />
-        <meta-data android:name="i_app_logOutput" android:value="shi" />
-        <meta-data android:name="i_app_errLogOutput" android:value="shi" />
-        -->
 </application>
 </manifest>

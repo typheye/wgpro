@@ -36,8 +36,8 @@ import open.cn.awg.pro.R;
 @SuppressLint("StaticFieldLeak")
 public class DeviceScanPlaceholderActivity extends BaseAwgActivity {
 
-    public static i.runlibrary.app.v.wb cmd;
-    public static i.runlibrary.app.v.wb jzt;
+    public static android.widget.TextView cmd;
+    public static android.widget.TextView jzt;
     public final DeviceScanPlaceholderActivity lei = this, 类 = this;
     private final View.OnTouchListener xdbj1TouchListener = new View.OnTouchListener() {
 
@@ -52,17 +52,17 @@ public class DeviceScanPlaceholderActivity extends BaseAwgActivity {
         setContentView(R.layout.device_scan_placeholder);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        cmd = st.wb(R.id.wb1);
-        jzt = st.wb(R.id.wb2);
+        cmd = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeviceScanPlaceholderActivity.this.getWindow().getDecorView(), R.id.wb1));
+        jzt = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeviceScanPlaceholderActivity.this.getWindow().getDecorView(), R.id.wb2));
         csh();
 
     }
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeviceScanPlaceholderActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeviceScanPlaceholderActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -103,55 +103,55 @@ public class DeviceScanPlaceholderActivity extends BaseAwgActivity {
 
     public void csh() {
 
-        final i.runlibrary.app.v.qtgd qtgd = st.qtgd(R.id.qtgd1);
-        gj.xc(new Thread() {
+        final androidx.core.widget.NestedScrollView qtgd = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(DeviceScanPlaceholderActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.zf("开始扫描周围设备...\n");
-                        jzt.zf("扫描中");
+                        cmd.setText(String.valueOf("开始扫描周围设备...\n"));
+                        jzt.setText(String.valueOf("扫描中"));
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("扫描结束,开始安装");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("安装中");
+                        cmd.append("扫描结束,开始安装");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("安装中"));
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        cmd.st.append("安装完成,结束任务");
-                        cmd.st.append("\n");
-                        qtgd.st.fullScroll(View.FOCUS_DOWN);
-                        jzt.zf("安装完成");
+                        cmd.append("安装完成,结束任务");
+                        cmd.append("\n");
+                        qtgd.fullScroll(View.FOCUS_DOWN);
+                        jzt.setText(String.valueOf("安装完成"));
 
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.gb();
+                        open.cn.awg.pro.core.NativeActions.finish(DeviceScanPlaceholderActivity.this);
 
-                        AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+                        AppRuntimeBridge e1 = new AppRuntimeBridge(DeviceScanPlaceholderActivity.this);
                         e1.tsk("提示", "该功能正在开发中...");
 
                     }
@@ -167,12 +167,12 @@ public class DeviceScanPlaceholderActivity extends BaseAwgActivity {
     public void print(Object text_) {
 
         final Object text = text_;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                cmd.st.append(((CharSequence) (text)));
-                cmd.st.append("\n");
+                cmd.append(((CharSequence) (text)));
+                cmd.append("\n");
 
             }
 
@@ -206,7 +206,7 @@ public class DeviceScanPlaceholderActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        RelativeLayout aaeebbd136 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj1);
+        RelativeLayout aaeebbd136 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj1);
         aaeebbd136.setOnTouchListener(xdbj1TouchListener);
 
         __layoutIsLoaded(ay, vw);

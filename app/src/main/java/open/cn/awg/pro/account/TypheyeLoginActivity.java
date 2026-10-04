@@ -17,7 +17,6 @@
 package open.cn.awg.pro.account;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -45,8 +44,8 @@ import open.cn.awg.pro.R;
 public class TypheyeLoginActivity extends BaseAwgActivity {
 
     public final TypheyeLoginActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TypheyeServiceBridge easy;
     public boolean st_go2 = false;
     public boolean st_go2_xh = false;
     public boolean go2xh = false;
@@ -104,6 +103,8 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        easy = new TypheyeServiceBridge(this);
         setContentView(R.layout.typheye_login);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -112,10 +113,10 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
         String bb = AppPaths.appPath("settings/account/passx");
 
-        if (wj.cz(aa) && !zf.dy(zf.qctwkg(wj.dqwb(aa)), "") && wj.cz(bb) && !zf.dy(zf.qctwkg(wj.dqwb(bb)), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(TypheyeLoginActivity.this, (String) (aa)) && !java.util.Objects.equals(open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (aa))), "") && open.cn.awg.pro.core.NativeFiles.exists(TypheyeLoginActivity.this, (String) (bb)) && !java.util.Objects.equals(open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (bb))), "")) {
 
-            st.bjk(R.id.bjk1).zf(wj.dqwb(aa));
-            st.bjk(R.id.bjk2).zf(wj.dqwb(bb));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (aa))));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.bjk2)).setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (bb))));
 
         }
         go2();
@@ -131,24 +132,24 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
     public void zt(int a) {
 
         final int i = a;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (i == 0) {
 
-                    st.wb(R.id.wb5).kjd(0);
-                    st.wb(R.id.wb4).zf("扫描二维码完成登录");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.wb5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.wb4)).setText(String.valueOf("扫描二维码完成登录"));
 
                 } else if (i == 1) {
 
-                    st.wb(R.id.wb5).kjd(4);
-                    st.tx(R.id.tx1).kjd(8);
-                    st.wb(R.id.wb4).zf("已扫码等待用户操作");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.wb5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(4, -1));
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.tx1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.wb4)).setText(String.valueOf("已扫码等待用户操作"));
 
                 } else if (i == 2) {
 
-                    st.wb(R.id.wb5).kjd(4);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.wb5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(4, -1));
                     show(1);
 
                 }
@@ -164,12 +165,12 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
         if (!st_go2) {
 
             st_go2 = true;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     show(1);
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
 
                     String set2 = AppPaths.appPath("settings/f7/Enable");
 
@@ -179,11 +180,11 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                         try {
 
-                            String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                            String ljf = open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
-                            String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
+                            String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (AppPaths.appPath("settings/n1/url.inf"))));
 
-                            if (zf.cjw(url, "/")) {
+                            if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                             } else {
 
@@ -193,11 +194,11 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                             String send0 = "type=generate_login_request";
 
-                            final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+                            final String send = "/api.php?" + send0 + "&token=" + open.cn.awg.pro.core.TextValues.md5(send0);
 
-                            String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
+                            String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                            if (zf.dy(back, "") || zf.dy(back, null)) {
+                            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                                 oback = "登录失败:连接服务器超时";
                                 e1.tsk("提示", oback + url + send);
@@ -207,21 +208,21 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                 String ce = e1.readJson(back, "code");
 
-                                if (zf.dy(ce, "200")) {
+                                if (java.util.Objects.equals(ce, "200")) {
 
                                     try {
 
-                                        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                                        org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                                        org.json.JSONObject json = jo.json;
+                                        org.json.JSONObject json = jo;
 
-                                        Object v_request_id = jo.hq(json, "request_id");
+                                        Object v_request_id = open.cn.awg.pro.core.JsonValues.value(json, "request_id");
 
-                                        Object v_qr_code_url = jo.hq(json, "qr_code_url");
+                                        Object v_qr_code_url = open.cn.awg.pro.core.JsonValues.value(json, "qr_code_url");
 
-                                        if (!zf.dy(v_request_id, "") && !zf.dy(v_qr_code_url, "")) {
+                                        if (!java.util.Objects.equals(v_request_id, "") && !java.util.Objects.equals(v_qr_code_url, "")) {
 
-                                            go2_xh(IappCompat.zh(sj.zh()).zstring(v_request_id), IappCompat.zh(sj.zh()).zstring(v_qr_code_url));
+                                            go2_xh(open.cn.awg.pro.core.TextValues.string(v_request_id), open.cn.awg.pro.core.TextValues.string(v_qr_code_url));
 
                                         } else {
 
@@ -287,7 +288,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
             final String v_request_id = v_request_id_;
 
             final String v_qr_code_url = v_qr_code_url_;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
@@ -332,7 +333,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                     while (go2xh) {
 
-                        gj.zt(3000);
+                        open.cn.awg.pro.core.NativeActions.sleep(3000);
 
                         if (switch_pwdlogin) {
 
@@ -352,9 +353,9 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                         }
 
-                        String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
+                        String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (AppPaths.appPath("settings/n1/url.inf"))));
 
-                        if (zf.cjw(url, "/")) {
+                        if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                         } else {
 
@@ -364,9 +365,9 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                         String send = "/api.php?type=check_login_request_status&request_id=" + v_request_id;
 
-                        String back = wl.hq(url + send, "utf-8");
+                        String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), null, (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             go2xh = false;
                             oback = "登录失败:连接服务器超时";
@@ -378,17 +379,17 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                             String ce = e1.readJson(back, "code");
 
-                            if (zf.dy(ce, "200")) {
+                            if (java.util.Objects.equals(ce, "200")) {
 
                                 try {
 
-                                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                                    org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                                    org.json.JSONObject json0 = jo.json;
+                                    org.json.JSONObject json0 = jo;
 
-                                    final String v_status = IappCompat.zh(sj.zh()).zstring(jo.hq(json0, "status"));
+                                    final String v_status = open.cn.awg.pro.core.TextValues.string(open.cn.awg.pro.core.JsonValues.value(json0, "status"));
 
-                                    if (zf.dy(v_status, "approved")) {
+                                    if (java.util.Objects.equals(v_status, "approved")) {
 
                                         go2xh = false;
                                         zt(2);
@@ -409,21 +410,21 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                                         }
 
                                         e1.tsk("提示", "登录成功");
-                                        wj.xrwb(set2, j_info_nick);
-                                        wj.xrwb(set2s, j_info_nick);
-                                        wj.xrwb(set3, j_info_shuo);
-                                        wj.xrwb(set4, j_info_cookie);
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set2), (String) (j_info_nick));
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set2s), (String) (j_info_nick));
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set3), (String) (j_info_shuo));
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set4), (String) (j_info_cookie));
 
-                                        String b = sj.md5("none");
-                                        wj.xrwb(aa, j_info_uid);
-                                        wj.xrwb(bb, b);
-                                        wj.xrwb(aax, j_info_uid);
-                                        wj.xrwb(bbx, b);
+                                        String b = open.cn.awg.pro.core.TextValues.md5("none");
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (aa), (String) (j_info_uid));
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (bb), (String) (b));
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (aax), (String) (j_info_uid));
+                                        open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (bbx), (String) (b));
                                         easy.getPericon(j_info_uid);
                                         show(0);
                                         break;
 
-                                    } else if (zf.dy(v_status, "rejected")) {
+                                    } else if (java.util.Objects.equals(v_status, "rejected")) {
 
                                         go2xh = false;
                                         oback = "登录失败:请求被拒绝";
@@ -431,11 +432,11 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                                         show(0);
                                         break;
 
-                                    } else if (zf.dy(v_status, "pending")) {
+                                    } else if (java.util.Objects.equals(v_status, "pending")) {
 
                                         zt(0);
 
-                                    } else if (zf.dy(v_status, "waiting")) {
+                                    } else if (java.util.Objects.equals(v_status, "waiting")) {
 
                                         zt(1);
 
@@ -485,7 +486,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
     public void ewm(String url) {
 
         final String qr = url;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -495,11 +496,11 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                     Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                     imageView.setImageBitmap(bitmap);
 
-                    st.tx(R.id.tx1).kjd(0);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.tx1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } catch (Throwable e) {
 
-                    st.tx(R.id.tx1).kjd(8);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.tx1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -510,12 +511,12 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
     }
 
     public void go() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(1);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 String set2 = AppPaths.appPath("settings/n1/set2.inf");
 
@@ -533,26 +534,26 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                 String bbx = AppPaths.appPath("settings/account/passx");
 
-                String a = st.bjk(R.id.bjk1).zf();
-                a = zf.qctwkg(a);
+                String a = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+                a = open.cn.awg.pro.core.TextValues.trim(a);
 
-                String b = st.bjk(R.id.bjk2).zf();
-                b = zf.qctwkg(b);
+                String b = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.bjk2)).getText().toString();
+                b = open.cn.awg.pro.core.TextValues.trim(b);
 
-                if (zf.dy(a, "") || zf.dy(b, "")) {
+                if (java.util.Objects.equals(a, "") || java.util.Objects.equals(b, "")) {
 
                     e1.tsk("提示", "账户号码或密码不能为空");
                     show(0);
 
                 } else {
 
-                    gj.zt(250);
+                    open.cn.awg.pro.core.NativeActions.sleep(250);
 
-                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                    String ljf = open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
-                    String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
+                    String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (AppPaths.appPath("settings/n1/url.inf"))));
 
-                    if (zf.cjw(url, "/")) {
+                    if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                     } else {
 
@@ -577,27 +578,27 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                     String j_info_nick = "";
 
                     String j_info_note = "";
-                    a = zf.qctwkg(a);
-                    b = zf.qctwkg(b);
+                    a = open.cn.awg.pro.core.TextValues.trim(a);
+                    b = open.cn.awg.pro.core.TextValues.trim(b);
 
-                    String salt = sj.md5(IappCompat.zh(sj.zh()).zstring(a));
-                    salt = zf.qc(salt, 0, 6);
-                    salt = sj.md5(salt);
-                    salt = zf.qc(salt, 0, 5);
-                    salt = sj.md5(salt);
-                    b = sj.md5(b) + salt;
+                    String salt = open.cn.awg.pro.core.TextValues.md5(open.cn.awg.pro.core.TextValues.string(a));
+                    salt = open.cn.awg.pro.core.TextValues.slice(salt, 0, 6);
+                    salt = open.cn.awg.pro.core.TextValues.md5(salt);
+                    salt = open.cn.awg.pro.core.TextValues.slice(salt, 0, 5);
+                    salt = open.cn.awg.pro.core.TextValues.md5(salt);
+                    b = open.cn.awg.pro.core.TextValues.md5(b) + salt;
 
-                    String sjzx = xt.sj(4);
+                    String sjzx = open.cn.awg.pro.core.NativeDevice.formatDate(4);
 
-                    String send0 = "type=login&username=" + IappCompat.zh(sj.zh()).zstring(a) + "&password=" + IappCompat.zh(sj.zh()).zstring(b) + "&time=" + sjzx;
+                    String send0 = "type=login&username=" + open.cn.awg.pro.core.TextValues.string(a) + "&password=" + open.cn.awg.pro.core.TextValues.string(b) + "&time=" + sjzx;
 
-                    final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+                    final String send = "/api.php?" + send0 + "&token=" + open.cn.awg.pro.core.TextValues.md5(send0);
 
                     if (e1.yz()) {
 
-                        final String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
+                        final String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             e1.tsk("提示", "登录失败，无法连接到服务器");
                             show(0);
@@ -622,19 +623,19 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                                 }
 
-                                if (zf.dy(j_code, "200")) {
+                                if (java.util.Objects.equals(j_code, "200")) {
 
                                     e1.tsk("提示", "登录成功");
                                     easy.getPericon(j_info_uid);
-                                    wj.xrwb(set2, j_info_nick);
-                                    wj.xrwb(set2s, j_info_nick);
-                                    wj.xrwb(set3, j_info_shuo);
-                                    wj.xrwb(set4, j_info_cookie);
-                                    wj.xrwb(aa, j_info_uid);
-                                    wj.xrwb(bb, b);
-                                    wj.xrwb(aax, j_info_uid);
-                                    wj.xrwb(bbx, b);
-                                    gj.gb();
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set2), (String) (j_info_nick));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set2s), (String) (j_info_nick));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set3), (String) (j_info_shuo));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set4), (String) (j_info_cookie));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (aa), (String) (j_info_uid));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (bb), (String) (b));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (aax), (String) (j_info_uid));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (bbx), (String) (b));
+                                    open.cn.awg.pro.core.NativeActions.finish(TypheyeLoginActivity.this);
 
                                 } else {
 
@@ -671,40 +672,40 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
         final int ii = i;
 
-        final i.runlibrary.app.v.xxbj xxbj1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout xxbj1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj xxbj2 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout xxbj2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
-        gj.jmxc(new Runnable() {
+        final android.widget.LinearLayout xxbj4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.xxbj4));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 if (ii == 0) {
 
-                    st.wb(R.id.wb5).kjd(4);
-                    xxbj2.kjd(8);
-                    xxbj4.kjd(8);
-                    xxbj1.kjd(8);
-                    gj.gb();
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.wb5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(4, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    open.cn.awg.pro.core.NativeActions.finish(TypheyeLoginActivity.this);
 
                 } else if (ii == 1) {
 
-                    xxbj1.kjd(8);
-                    xxbj2.kjd(0);
-                    xxbj4.kjd(8);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (ii == 2) {
 
-                    xxbj1.kjd(8);
-                    xxbj2.kjd(8);
-                    xxbj4.kjd(0);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else if (ii == 3) {
 
-                    xxbj1.kjd(0);
-                    xxbj2.kjd(8);
-                    xxbj4.kjd(8);
+                    xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -724,9 +725,9 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeLoginActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -743,7 +744,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -786,20 +787,20 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a8 = wj.dqwb(a2);
+        String a8 = open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (a2));
 
-        if (zf.dy(a8, "4")) {
+        if (java.util.Objects.equals(a8, "4")) {
 
             if (e1.isInstallX5()) {
 
                 final String[] name = new String[]{"url"};
 
                 final String[] value = new String[]{url};
-                gj.tz(X5BrowserActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(TypheyeLoginActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
             } else {
 
-                wl.fw(url);
+                open.cn.awg.pro.core.NativeActions.openUrl(TypheyeLoginActivity.this, url);
 
             }
 
@@ -810,7 +811,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                 final String[] name = new String[]{"url"};
 
                 final String[] value = new String[]{url};
-                gj.tz(X5BrowserActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(TypheyeLoginActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
             } else {
 
@@ -828,20 +829,20 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a8 = wj.dqwb(a2);
+        String a8 = open.cn.awg.pro.core.NativeFiles.readText(TypheyeLoginActivity.this, (String) (a2));
 
-        if (zf.dy(a8, "4")) {
+        if (java.util.Objects.equals(a8, "4")) {
 
             if (e1.isInstallX5()) {
 
                 final String[] name = new String[]{"url"};
 
                 final String[] value = new String[]{url};
-                gj.tz(X5BrowserActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(TypheyeLoginActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
             } else {
 
-                wl.fw(url);
+                open.cn.awg.pro.core.NativeActions.openUrl(TypheyeLoginActivity.this, url);
 
             }
 
@@ -852,7 +853,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                 final String[] name = new String[]{"url"};
 
                 final String[] value = new String[]{url};
-                gj.tz(X5BrowserActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(TypheyeLoginActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
             } else {
 
@@ -865,7 +866,7 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TypheyeLoginActivity.this);
 
     }
 
@@ -892,27 +893,27 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        TextView f52e07ac8c = (TextView) findViewById(ay, vw, R.id.wb6);
+        TextView f52e07ac8c = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb6);
         f52e07ac8c.setOnClickListener(wb6ClickListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
         ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
-        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb3);
         i0d2d4d9236.setOnClickListener(wb3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        TextView i2a86c78b06 = (TextView) findViewById(ay, vw, R.id.wb5);
+        TextView i2a86c78b06 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb5);
         i2a86c78b06.setOnClickListener(wb5ClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
         __layoutIsLoaded(ay, vw);

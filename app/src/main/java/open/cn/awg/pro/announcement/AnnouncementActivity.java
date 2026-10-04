@@ -17,7 +17,6 @@
 package open.cn.awg.pro.announcement;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -27,6 +26,8 @@ import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -41,9 +42,10 @@ import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.ui.list.NativeListAdapter;
+import open.cn.awg.pro.ui.list.AnnouncementRowBinder;
 import open.cn.awg.pro.music.TuneFreeMusicBridge;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.AnnouncementItemActivity;
 import open.cn.awg.pro.viewer.TextViewerActivity;
 
 public class AnnouncementActivity extends BaseAwgActivity {
@@ -51,9 +53,9 @@ public class AnnouncementActivity extends BaseAwgActivity {
     public final AnnouncementActivity lei = this, 类 = this;
     public String um = "";
     public File f;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
-    public i.runlibrary.app.v.v7lb$UserAdapter yygglbspq = null;
+    public AppRuntimeBridge e1;
+    public TuneFreeMusicBridge e12;
+    public NativeListAdapter yygglbspq = null;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -106,6 +108,8 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e12 = new TuneFreeMusicBridge(this);
         setContentView(R.layout.announcement);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -128,24 +132,24 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
         final String cache = AppPaths.appPath("data/notice/cache");
 
-        if (wj.cz(h) && !zf.dy(wj.dqwb(h), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(AnnouncementActivity.this, (String) (h)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AnnouncementActivity.this, (String) (h)), "")) {
 
-            wj.xrwb(cache, wj.dqwb(h));
+            open.cn.awg.pro.core.NativeFiles.writeText(AnnouncementActivity.this, (String) (cache), (String) (open.cn.awg.pro.core.NativeFiles.readText(AnnouncementActivity.this, (String) (h))));
 
         } else {
 
-            wj.xrwb(cache, def);
+            open.cn.awg.pro.core.NativeFiles.writeText(AnnouncementActivity.this, (String) (cache), (String) (def));
 
         }
 
         final String[] name = new String[]{"url", "title", "code"};
 
         final String[] value = new String[]{cache, "公告", "super1"};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(TextViewerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(AnnouncementActivity.this, (Class<?>) (TextViewerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -155,24 +159,24 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 应用公告");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(0);
+                    tab.setText(String.valueOf("< 应用公告"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -180,14 +184,14 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 历史公告");
-                    x1.kjd(0);
-                    x2.kjd(8);
-                    x3.kjd(8);
+                    tab.setText(String.valueOf("< 历史公告"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -195,14 +199,14 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 应用公告");
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    x3.kjd(8);
+                    tab.setText(String.valueOf("< 应用公告"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -214,18 +218,18 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     public void csh() {
 
-        i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.yyggv7lb1);
-        yygglbspq = IappCompat.v7lbAdapter(lb, AnnouncementItemActivity.class, R.layout.announcement_item);
+        RecyclerView list = findViewById(R.id.yyggv7lb1);
+        yygglbspq = NativeListAdapter.attach(this, list, R.layout.announcement_item, new AnnouncementRowBinder(this));
 
     }
 
     public void jzpd() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(2);
-                yygglbspq.sc();
+                yygglbspq.clearRows();
 
                 final String set33 = AppPaths.appPath("data/notice/json");
 
@@ -235,41 +239,41 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
                 try {
 
-                    String v = wj.dqwb(set33);
+                    String v = open.cn.awg.pro.core.NativeFiles.readText(AnnouncementActivity.this, (String) (set33));
 
-                    i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
+                    org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v);
 
-                    JSONObject json = jo.json;
+                    JSONObject json = jo;
 
-                    JSONArray list = jo.dxlb(json, "NoticeList");
+                    JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "NoticeList");
 
-                    int i = jo.cd(list);
+                    int i = open.cn.awg.pro.core.JsonValues.length(list);
 
                     int size = 0;
 
                     while (size < i) {
 
-                        JSONObject dx = jo.dx(list, size);
+                        JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
                         size++;
 
-                        Object v_title = jo.hq(dx, "title");
+                        Object v_title = open.cn.awg.pro.core.JsonValues.value(dx, "title");
 
-                        Object v_data = jo.hq(dx, "data");
+                        Object v_data = open.cn.awg.pro.core.JsonValues.value(dx, "data");
 
-                        Object v_date = jo.hq(dx, "date");
+                        Object v_date = open.cn.awg.pro.core.JsonValues.value(dx, "date");
 
-                        Object v_writer = jo.hq(dx, "writer");
+                        Object v_writer = open.cn.awg.pro.core.JsonValues.value(dx, "writer");
 
                         String erji = v_date.toString() + " | " + v_writer.toString() + " 发布";
                         jk = new String[]{v_title.toString(), erji, v_data.toString()};
-                        yygglbspq.j(kj, jk);
+                        yygglbspq.addRow(kj, jk);
 
                     }
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            yygglbspq.sx();
+                            yygglbspq.refreshRows();
                             show(1);
 
                         }
@@ -305,9 +309,9 @@ public class AnnouncementActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -324,7 +328,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -338,11 +342,11 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< 应用公告")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 应用公告")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(AnnouncementActivity.this);
 
-            } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 公告列表")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 公告列表")) {
 
                 show(0);
 
@@ -361,11 +365,11 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 应用公告")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 应用公告")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(AnnouncementActivity.this);
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 历史公告")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 历史公告")) {
 
             show(0);
 
@@ -380,9 +384,9 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb5).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
 
-        String lj = st.wb(R.id.wb6).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -395,16 +399,16 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb3).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AnnouncementActivity.this);
 
     }
 
@@ -419,21 +423,21 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

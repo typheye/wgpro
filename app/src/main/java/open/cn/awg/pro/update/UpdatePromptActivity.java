@@ -41,7 +41,7 @@ import open.cn.awg.pro.R;
 public class UpdatePromptActivity extends BaseAwgActivity {
 
     public final UpdatePromptActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
 
     public String update_url = "";
     private final View.OnClickListener an1ClickListener = new View.OnClickListener() {
@@ -117,6 +117,7 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.update_prompt);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -142,15 +143,15 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
         final String myappversionname = vn;
 
-        final String appfixversion = zf.qctwkg(wj.dqwb(set36));
+        final String appfixversion = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (set36)));
 
         String set2e = AppPaths.appPath("settings/f10/set2.inf");
 
         final String set3 = AppPaths.appPath("cache/update");
-        set2e = wj.dqwb(set2e);
+        set2e = open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (set2e));
         set2e = e1.urlUnlockString(set2e);
 
-        if (zf.cjw(set2e, "/")) {
+        if (open.cn.awg.pro.core.TextValues.endsWith(set2e, "/")) {
 
         } else {
 
@@ -160,18 +161,18 @@ public class UpdatePromptActivity extends BaseAwgActivity {
         set2e = set2e + "config_v2.json";
 
         final String url = set2e;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
                         String e = "Loading...";
-                        st.wb(R.id.wb5).zf(e);
-                        st.wb(R.id.wb8).zf(e);
-                        st.wb(R.id.wb11).zf(e);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(e));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(e));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(e));
 
                     }
 
@@ -191,9 +192,9 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
                 String allow = "";
 
-                String back = wl.hq(url, null, "utf-8", null, true, null, 20000, 20000, null);
+                String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                if (zf.dy(back, "") || zf.dy(back, null)) {
+                if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                     setback = "0";
 
@@ -201,7 +202,7 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
                     setback = e1.htmlToText(back);
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                         setback = "0";
 
@@ -219,11 +220,11 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
                 }
 
-                if (zf.dy(setback, "0")) {
+                if (java.util.Objects.equals(setback, "0")) {
 
-                    if (wj.cz(sec_updater)) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(UpdatePromptActivity.this, (String) (sec_updater))) {
 
-                        setback = wj.dqwb(sec_updater);
+                        setback = open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (sec_updater));
                         version = e1.readJson(setback, "UpdateVersion");
                         versionname = e1.readJson(setback, "UpdateVersionName");
                         time = e1.readJson(setback, "UpdateTime");
@@ -238,13 +239,13 @@ public class UpdatePromptActivity extends BaseAwgActivity {
                         final String b3 = text;
                         update_url = urls;
                         ewm(update_url);
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb5).zf(b1);
-                                st.wb(R.id.wb8).zf(b2);
-                                st.wb(R.id.wb11).zf(b3);
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(b1));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(b2));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(b3));
 
                             }
 
@@ -252,14 +253,14 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
                                 String e = "加载异常...";
-                                st.wb(R.id.wb5).zf(e);
-                                st.wb(R.id.wb8).zf(e);
-                                st.wb(R.id.wb11).zf(e);
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(e));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(e));
 
                             }
 
@@ -275,23 +276,23 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
                     final String b3 = text;
 
-                    if ((zf.dy(allow, "0") || zf.cz(allow, wj.dqwb(auid))) && e1.islogin()) {
+                    if ((java.util.Objects.equals(allow, "0") || open.cn.awg.pro.core.TextValues.contains(allow, open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (auid)))) && e1.islogin()) {
 
                         if (myappversion < b1 && b1 != 9999999) {
 
-                            wj.xrwb(sec_updater, setback);
+                            open.cn.awg.pro.core.NativeFiles.writeText(UpdatePromptActivity.this, (String) (sec_updater), (String) (setback));
 
                         } else {
 
                             int ccc = versionname.compareTo(myappversionname);
 
-                            if (!zf.dy(versionname, myappversionname) && ccc > 0) {
+                            if (!java.util.Objects.equals(versionname, myappversionname) && ccc > 0) {
 
-                                wj.xrwb(sec_updater, setback);
+                                open.cn.awg.pro.core.NativeFiles.writeText(UpdatePromptActivity.this, (String) (sec_updater), (String) (setback));
 
                             } else {
 
-                                wj.sc(sec_updater);
+                                open.cn.awg.pro.core.NativeFiles.delete(UpdatePromptActivity.this, (String) (sec_updater), false);
 
                             }
 
@@ -299,18 +300,18 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
                     } else {
 
-                        wj.sc(sec_updater);
+                        open.cn.awg.pro.core.NativeFiles.delete(UpdatePromptActivity.this, (String) (sec_updater), false);
 
                     }
                     update_url = urls;
                     ewm(update_url);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.wb5).zf(b1);
-                            st.wb(R.id.wb8).zf(b2);
-                            st.wb(R.id.wb11).zf(b3);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(b1));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(b2));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(b3));
 
                         }
 
@@ -327,7 +328,7 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     public void ewm(String url) {
 
         final String qr = url;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -337,11 +338,11 @@ public class UpdatePromptActivity extends BaseAwgActivity {
                     Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                     imageView.setImageBitmap(bitmap);
 
-                    st.tx(R.id.tx4).kjd(0);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.tx4)).setVisibility(android.view.View.VISIBLE);
 
                 } catch (Throwable e) {
 
-                    st.tx(R.id.tx4).kjd(8);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.tx4)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -353,11 +354,11 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -371,32 +372,32 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(UpdatePromptActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
         applyFullscreenWindow();
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
         }
-        st.xxbj(R.id.xxbj10).kjd(0);
-        st.xxbj(R.id.xxbj8).kjd(8);
-        st.xxbj(R.id.xxbj6).kjd(8);
-        st.xxbj(R.id.xxbj12).kjd(8);
-        st.xxbj(R.id.xxbj11).kjd(8);
-        st.xxbj(R.id.xxbj7).kjd(8);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.VISIBLE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj12)).setVisibility(android.view.View.GONE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj11)).setVisibility(android.view.View.GONE);
+        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
 
     }
 
@@ -416,9 +417,9 @@ public class UpdatePromptActivity extends BaseAwgActivity {
         super.onStart();
         applyFullscreenWindow();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -435,7 +436,7 @@ public class UpdatePromptActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -461,12 +462,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx5Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj10).kjd(8);
-                st.xxbj(R.id.xxbj8).kjd(0);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.VISIBLE);
 
             }
 
@@ -475,12 +476,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj10).kjd(0);
-                st.xxbj(R.id.xxbj8).kjd(8);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -489,12 +490,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx10Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj8).kjd(8);
-                st.xxbj(R.id.xxbj6).kjd(0);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.VISIBLE);
 
             }
 
@@ -503,12 +504,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx3Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj8).kjd(0);
-                st.xxbj(R.id.xxbj6).kjd(8);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj8)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -517,12 +518,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx16Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj6).kjd(8);
-                st.xxbj(R.id.xxbj12).kjd(0);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj12)).setVisibility(android.view.View.VISIBLE);
 
             }
 
@@ -531,28 +532,28 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx11Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj6).kjd(8);
-                        st.xxbj(R.id.xxbj12).kjd(8);
-                        st.xxbj(R.id.xxbj11).kjd(0);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj12)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj11)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
                 });
-                gj.zt(2000);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(2000);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj11).kjd(8);
-                        st.xxbj(R.id.xxbj7).kjd(0);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj11)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -565,12 +566,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx13Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj6).kjd(0);
-                st.xxbj(R.id.xxbj12).kjd(8);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj12)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -579,22 +580,22 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onTx14Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj12).kjd(8);
-                        st.xxbj(R.id.xxbj11).kjd(0);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj12)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj11)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
                 });
-                gj.zt(500);
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.finish(UpdatePromptActivity.this);
 
             }
 
@@ -604,14 +605,14 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
     private void onTx4Click(View vw) {
 
-        if (st.wb(R.id.wb16).kjd() == 0) {
+        if (((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb16)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb16).kjd(8);
-                    st.an(R.id.an1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb16)).setVisibility(android.view.View.GONE);
+                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.an1)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -619,12 +620,12 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb16).kjd(0);
-                    st.an(R.id.an1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.wb16)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.an1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -635,14 +636,14 @@ public class UpdatePromptActivity extends BaseAwgActivity {
     }
 
     private void onAn1Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.xxbj(R.id.xxbj7).kjd(8);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.xxbj7)).setVisibility(android.view.View.GONE);
 
-                i.runlibrary.app.v.tx tx14 = st.tx(R.id.tx14);
-                tx14.v.performClick();
+                android.widget.ImageView tx14 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(UpdatePromptActivity.this.getWindow().getDecorView(), R.id.tx14));
+                tx14.performClick();
 
             }
 
@@ -656,40 +657,40 @@ public class UpdatePromptActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
 
-        ImageView i3ab5c5fd62 = (ImageView) findViewById(ay, vw, R.id.tx10);
+        ImageView i3ab5c5fd62 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx10);
         i3ab5c5fd62.setOnClickListener(tx10ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView a81b730195 = (ImageView) findViewById(ay, vw, R.id.tx16);
+        ImageView a81b730195 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx16);
         a81b730195.setOnClickListener(tx16ClickListener);
 
-        ImageView i75b44e9f85 = (ImageView) findViewById(ay, vw, R.id.tx11);
+        ImageView i75b44e9f85 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx11);
         i75b44e9f85.setOnClickListener(tx11ClickListener);
 
-        ImageView i16ad18f521 = (ImageView) findViewById(ay, vw, R.id.tx13);
+        ImageView i16ad18f521 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx13);
         i16ad18f521.setOnClickListener(tx13ClickListener);
 
-        ImageView ac03b05d0f = (ImageView) findViewById(ay, vw, R.id.tx14);
+        ImageView ac03b05d0f = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx14);
         ac03b05d0f.setOnClickListener(tx14ClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
         i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
         __layoutIsLoaded(ay, vw);

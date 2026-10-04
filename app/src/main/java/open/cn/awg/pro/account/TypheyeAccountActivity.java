@@ -17,12 +17,11 @@
 package open.cn.awg.pro.account;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.SwitchCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -60,8 +59,8 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
     public boolean isAcc = false;
     public boolean state_upload = false;
     public String upload_back = "";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TypheyeServiceBridge easy = new TypheyeServiceBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TypheyeServiceBridge easy;
     public String path = AppPaths.appPath("cache/user/upload/path");
     private final View.OnClickListener tx6ClickListener = new View.OnClickListener() {
 
@@ -269,6 +268,8 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        easy = new TypheyeServiceBridge(this);
         setContentView(R.layout.typheye_account);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -280,25 +281,25 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         applyStandardScreenMode(R.id.typheye_account_root, R.id.xdbj1, R.id.title_bar);
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
         String[] sz = new String[]{"应用内置选择器", "系统默认选择器"};
-        xlcd1.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, sz);
 
     }
 
     public void jz() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String set1 = AppPaths.appPath("settings/n1/set1.inf");
 
-                i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+                android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-                if (zf.dy(wj.dqwb(set1), "true")) {
+                if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set1)), "true")) {
 
-                    kg1.xzzt(true);
+                    kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
                 }
                 zh();
@@ -327,67 +328,67 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         String set3 = AppPaths.appPath("settings/n1/set3.inf");
 
-        if (!wj.cz(a) || !wj.cz(b)) {
+        if (!open.cn.awg.pro.core.NativeFiles.exists(TypheyeAccountActivity.this, (String) (a)) || !open.cn.awg.pro.core.NativeFiles.exists(TypheyeAccountActivity.this, (String) (b))) {
 
             isAcc = false;
-            wj.sc(c);
+            open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (c), false);
             te1 = "请先登录您的账户后再操作";
-            st.wb(R.id.wb5).zf(te1);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(te1));
             te2 = "请先登录您的账户后再操作";
-            st.wb(R.id.wb8).zf(te2);
-            st.xdbj(R.id.xdbj2).kjd(8);
-            st.xdbj(R.id.xdbj5).kjd(8);
-            st.xdbj(R.id.xdbj6).kjd(8);
-            st.xdbj(R.id.xdbj8).kjd(8);
-            st.xdbj(R.id.xdbj9).kjd(8);
-            st.xdbj(R.id.xdbj10).kjd(8);
-            st.wb(R.id.wb10).zf("未登录");
-            st.wb(R.id.wb11).zf("");
-            st.wb(R.id.wb6).zf("");
-            st.wb(R.id.wb11).kjd(8);
-            st.wb(R.id.wb6).kjd(8);
-            st.tx(R.id.tx4).kjd(0);
-            st.tx(R.id.tx7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(te2));
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.GONE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj5)).setVisibility(android.view.View.GONE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj6)).setVisibility(android.view.View.GONE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj8)).setVisibility(android.view.View.GONE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj9)).setVisibility(android.view.View.GONE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj10)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf("未登录"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf(""));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb6)).setText(String.valueOf(""));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.GONE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb6)).setVisibility(android.view.View.GONE);
+            ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.tx4)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.tx7)).setVisibility(android.view.View.GONE);
 
         } else {
 
             isAcc = true;
-            wj.xrwb(c, "0");
-            te1 = wj.dqwb(set2);
-            st.wb(R.id.wb5).zf(te1);
-            te2 = wj.dqwb(set3);
+            open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (c), (String) ("0"));
+            te1 = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set2));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf(te1));
+            te2 = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set3));
 
-            if (zf.dy(zf.qctwkg(te2), "")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.TextValues.trim(te2), "")) {
 
                 te2 = "暂未设置";
 
             }
-            st.wb(R.id.wb8).zf(te2);
-            st.xdbj(R.id.xdbj2).kjd(0);
-            st.xdbj(R.id.xdbj5).kjd(0);
-            st.xdbj(R.id.xdbj6).kjd(0);
-            st.xdbj(R.id.xdbj8).kjd(0);
-            st.xdbj(R.id.xdbj9).kjd(0);
-            st.xdbj(R.id.xdbj10).kjd(0);
-            st.wb(R.id.wb10).zf(te1);
-            st.wb(R.id.wb11).zf("UID:" + wj.dqwb(a));
-            st.wb(R.id.wb6).zf("正");
-            st.wb(R.id.wb11).kjd(0);
-            st.wb(R.id.wb6).kjd(8);
-            st.tx(R.id.tx4).kjd(0);
-            easy.getPericon(wj.dqwb(a));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb8)).setText(String.valueOf(te2));
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj2)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj5)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj6)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj8)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj9)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xdbj10)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb10)).setText(String.valueOf(te1));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("UID:" + open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a))));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb6)).setText(String.valueOf("正"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb6)).setVisibility(android.view.View.GONE);
+            ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.tx4)).setVisibility(android.view.View.VISIBLE);
+            easy.getPericon(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a)));
 
-            if (!zf.dy(easy.getPerIcon(wj.dqwb(a)), "null")) {
+            if (!java.util.Objects.equals(easy.getPerIcon(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a))), "null")) {
 
-                st.tx(R.id.tx7).tx(easy.getPerIconPath(wj.dqwb(a)));
-                st.tx(R.id.tx7).kjd(0);
+                open.cn.awg.pro.core.NativeViewValues.image(((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.tx7)), easy.getPerIconPath(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a))));
+                ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.tx7)).setVisibility(android.view.View.VISIBLE);
 
             }
 
         }
-        st.wb(R.id.wb18).zf("点击更改账户头像");
-        st.wb(R.id.wb19).zf("点击更改账户昵称");
-        st.wb(R.id.wb22).zf("点击更改账户简介");
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb18)).setText(String.valueOf("点击更改账户头像"));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb19)).setText(String.valueOf("点击更改账户昵称"));
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb22)).setText(String.valueOf("点击更改账户简介"));
 
     }
 
@@ -395,37 +396,37 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         String set3 = AppPaths.appPath("settings/n1/set3.inf");
 
-        if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
             String z = "";
-            st.xxbj(R.id.xxbj1).kjd(8);
-            st.xxbj(R.id.xxbj4).kjd(0);
-            st.xxbj(R.id.xxbj15).kjd(8);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
 
             if (mode == 1) {
 
-                z = st.wb(R.id.wb5).zf();
-                st.wb(R.id.title_bar).zf("账户昵称");
-                st.bjk(R.id.bjk1).tszf("请输入昵称");
+                z = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("账户昵称"));
+                ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入昵称"));
 
             } else if (mode == 2) {
 
-                z = zf.qctwkg(wj.dqwb(set3));
-                st.wb(R.id.title_bar).zf("账户简介");
-                st.bjk(R.id.bjk1).tszf("请输入简介");
+                z = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set3)));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("账户简介"));
+                ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.bjk1)).setHint(String.valueOf("请输入简介"));
 
             } else if (mode == 3) {
 
             }
-            st.bjk(R.id.bjk1).zf(z);
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(z));
 
         } else {
 
-            st.xxbj(R.id.xxbj1).kjd(0);
-            st.xxbj(R.id.xxbj4).kjd(8);
-            st.xxbj(R.id.xxbj15).kjd(8);
-            st.bjk(R.id.bjk1).zf("");
-            st.wb(R.id.title_bar).zf("< Typheye账户");
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< Typheye账户"));
 
         }
 
@@ -443,36 +444,36 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         final String set2s = AppPaths.appPath("settings/f11/set3.inf");
 
-        String b = st.bjk(R.id.bjk1).zf();
-        b = zf.qctwkg(b);
+        String b = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+        b = open.cn.awg.pro.core.TextValues.trim(b);
 
         if (mode == 1) {
 
-            if (zf.dy(b, "")) {
+            if (java.util.Objects.equals(b, "")) {
 
                 e1.tsk("提示", "昵称不符合规范");
 
             } else {
 
                 final String nick = b;
-                gj.xc(new Thread() {
+                open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                     public void run() {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb5).zf("加载中...");
-                                st.wb(R.id.wb19).zf("加载中...");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb5)).setText(String.valueOf("加载中..."));
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb19)).setText(String.valueOf("加载中..."));
 
                             }
 
                         });
 
-                        String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
+                        String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (AppPaths.appPath("settings/n1/url.inf"))));
 
-                        if (zf.cjw(url, "/")) {
+                        if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                         } else {
 
@@ -484,19 +485,19 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                         String j_msg = "";
 
-                        String a = wj.dqwb(set4);
+                        String a = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set4));
 
-                        String uid = wj.dqwb(set5);
+                        String uid = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set5));
 
-                        String sjzx = xt.sj(4);
+                        String sjzx = open.cn.awg.pro.core.NativeDevice.formatDate(4);
 
-                        String send0 = "type=set_nick&uid=" + uid + "&cookie=" + a + "&value=" + IappCompat.zh(sj.zh()).zstring(nick) + "&time=" + sjzx;
+                        String send0 = "type=set_nick&uid=" + uid + "&cookie=" + a + "&value=" + open.cn.awg.pro.core.TextValues.string(nick) + "&time=" + sjzx;
 
-                        final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+                        final String send = "/api.php?" + send0 + "&token=" + open.cn.awg.pro.core.TextValues.md5(send0);
 
-                        final String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
+                        final String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             e1.tsk("提示", "修改失败，无法连接到服务器");
                             jz();
@@ -509,10 +510,10 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
                                 j_code = json.getString("code");
                                 j_msg = json.getString("msg");
 
-                                if (zf.dy(j_code, "200")) {
+                                if (java.util.Objects.equals(j_code, "200")) {
 
-                                    wj.xrwb(set2, nick);
-                                    wj.xrwb(set2s, nick);
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (set2), (String) (nick));
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (set2s), (String) (nick));
                                     e1.tsk("提示", "昵称设置成功");
                                     jz();
 
@@ -545,23 +546,23 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
             } else {
 
                 final String shuo = b;
-                gj.xc(new Thread() {
+                open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                     public void run() {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb22).zf("加载中...");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb22)).setText(String.valueOf("加载中..."));
 
                             }
 
                         });
 
-                        String url = e1.urlUnlockString(wj.dqwb(AppPaths.appPath("settings/n1/url.inf")));
+                        String url = e1.urlUnlockString(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (AppPaths.appPath("settings/n1/url.inf"))));
 
-                        if (zf.cjw(url, "/")) {
+                        if (open.cn.awg.pro.core.TextValues.endsWith(url, "/")) {
 
                         } else {
 
@@ -573,19 +574,19 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                         String j_msg = "";
 
-                        String a = wj.dqwb(set4);
+                        String a = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set4));
 
-                        String uid = wj.dqwb(set5);
+                        String uid = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (set5));
 
-                        String sjzx = xt.sj(4);
+                        String sjzx = open.cn.awg.pro.core.NativeDevice.formatDate(4);
 
-                        String send0 = "type=set_shuo&uid=" + uid + "&cookie=" + a + "&value=" + IappCompat.zh(sj.zh()).zstring(shuo) + "&time=" + sjzx;
+                        String send0 = "type=set_shuo&uid=" + uid + "&cookie=" + a + "&value=" + open.cn.awg.pro.core.TextValues.string(shuo) + "&time=" + sjzx;
 
-                        final String send = "/api.php?" + send0 + "&token=" + sj.md5(send0);
+                        final String send = "/api.php?" + send0 + "&token=" + open.cn.awg.pro.core.TextValues.md5(send0);
 
-                        final String back = wl.hq(url + send, null, "utf-8", null, true, null, 20000, 20000, null);
+                        final String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             e1.tsk("提示", "修改失败，无法连接到服务器");
                             jz();
@@ -598,9 +599,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
                                 j_code = json.getString("code");
                                 j_msg = json.getString("msg");
 
-                                if (zf.dy(j_code, "200")) {
+                                if (java.util.Objects.equals(j_code, "200")) {
 
-                                    wj.xrwb(set3, shuo);
+                                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (set3), (String) (shuo));
                                     e1.tsk("提示", "简介设置成功");
                                     jz();
 
@@ -628,7 +629,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else if (mode == 3) {
 
-            if (zf.dy(b, "")) {
+            if (java.util.Objects.equals(b, "")) {
 
                 e1.tsk("提示", "秘钥不符合规范");
 
@@ -652,20 +653,20 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
             final String a3 = AppPaths.appPath("settings/account/user");
 
-            final String path_ = wj.hqml(a);
+            final String path_ = open.cn.awg.pro.core.NativeFiles.resolvePath(TypheyeAccountActivity.this, (String) (a));
 
             final String[] path = new String[]{path_};
 
-            final i.runlibrary.app.v.wb wb18 = st.wb(R.id.wb18);
-            gj.xc(new Thread() {
+            final android.widget.TextView wb18 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb18));
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            wb18.zf("加载中...");
+                            wb18.setText(String.valueOf("加载中..."));
 
                         }
 
@@ -674,20 +675,20 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                     if (e1.yz()) {
 
-                        if (zf.dy(path_, "") || !wj.cz(path_)) {
+                        if (java.util.Objects.equals(path_, "") || !open.cn.awg.pro.core.NativeFiles.exists(TypheyeAccountActivity.this, (String) (path_))) {
 
                             jz();
                             e1.tsk("提示", "文件路径无效");
 
                         } else {
 
-                            final String url = "https://service.typheye.cn/src/up.php?uid=" + wj.dqwb(a3);
+                            final String url = "https://service.typheye.cn/src/up.php?uid=" + open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a3));
 
                             String fn__ = "null";
 
                             String[] fn_ = e1.fileinfo("/", path[0]);
 
-                            if (zf.dy(fn_[0], "true")) {
+                            if (java.util.Objects.equals(fn_[0], "true")) {
 
                                 fn__ = fn_[3];
 
@@ -695,8 +696,8 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                             final String file_name = fn__;
 
-                            final long file_size = wj.dx(path_);
-                            gj.jmxc(new Runnable() {
+                            final long file_size = open.cn.awg.pro.core.NativeFiles.size(TypheyeAccountActivity.this, (String) (path_));
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
@@ -706,13 +707,13 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
                                         HttpRequest.build(lei, url)
                                                 .addParameter("name", file_name)
                                                 .addParameter("size", file_size)
-                                                .addParameter("file", wj.wj(path_))
+                                                .addParameter("file", open.cn.awg.pro.core.NativeFiles.file(TypheyeAccountActivity.this, (String) (path_)))
                                                 .setUploadProgressListener(new UploadProgressListener() {
                                                     @Override
                                                     public void onUpload(float percentage, long current, long total, boolean done) {
 
                                                         long now = current / total * 100;
-                                                        wb18.zf("已上传" + IappCompat.zh(sj.zh()).zstring(now) + "%");
+                                                        wb18.setText(String.valueOf("已上传" + open.cn.awg.pro.core.TextValues.string(now) + "%"));
                                                     }
                                                 })
                                                 .setResponseListener(new ResponseListener() {
@@ -758,14 +759,14 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         Object back = upload_back;
 
-        if (!zf.dy(IappCompat.zh(sj.zh()).zstring(error), null)) {
+        if (!java.util.Objects.equals(open.cn.awg.pro.core.TextValues.string(error), null)) {
 
             jz();
-            e1.tsk("提示", "上传失败\n" + IappCompat.zh(sj.zh()).zstring(error));
+            e1.tsk("提示", "上传失败\n" + open.cn.awg.pro.core.TextValues.string(error));
 
         } else {
 
-            if (zf.dy(back, "") || zf.dy(back, null)) {
+            if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                 jz();
                 e1.tsk("提示", "上传失败\n连接服务器超时(-1)");
@@ -791,9 +792,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -810,7 +811,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -825,10 +826,10 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
             applyWindowModeFromSettings();
         jz();
 
-        if (wj.cz(path) && !zf.dy(wj.dqwb(path), "") && !zf.dy(wj.dqwb(path), "null")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(TypheyeAccountActivity.this, (String) (path)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (path)), "") && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (path)), "null")) {
 
-            upload(wj.dqwb(path));
-            wj.sc(path);
+            upload(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (path)));
+            open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (path), false);
 
         }
 
@@ -838,9 +839,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< Typheye账户")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< Typheye账户")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(TypheyeAccountActivity.this);
 
             }
 
@@ -866,9 +867,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                 }
 
-                if (!zf.dy(realPath, null)) {
+                if (!java.util.Objects.equals(realPath, null)) {
 
-                    realPath = wj.hqml(realPath);
+                    realPath = open.cn.awg.pro.core.NativeFiles.resolvePath(TypheyeAccountActivity.this, (String) (realPath));
                     upload(realPath);
 
                 }
@@ -887,9 +888,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< Typheye账户")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< Typheye账户")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(TypheyeAccountActivity.this);
 
         }
 
@@ -899,22 +900,22 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         if (!isAcc) {
 
-            gj.tz(TypheyeLoginActivity.class);
+            open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (TypheyeLoginActivity.class));
 
         } else {
 
             String a = AppPaths.appPath("settings/account/user");
 
-            if (!zf.dy(easy.getPerIcon(wj.dqwb(a)), "null")) {
+            if (!java.util.Objects.equals(easy.getPerIcon(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a))), "null")) {
 
                 final String[] name = new String[]{"url"};
 
-                final String[] value = new String[]{easy.getPerIconPath(wj.dqwb(a))};
-                gj.jmxc(new Runnable() {
+                final String[] value = new String[]{easy.getPerIconPath(open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a)))};
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.tz(ImageViewerActivity.class, name, value);
+                        open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (ImageViewerActivity.class), (String[]) (name), (Object[]) (value));
 
                     }
 
@@ -934,17 +935,17 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         if (!isAcc) {
 
-            gj.tz(TypheyeLoginActivity.class);
+            open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (TypheyeLoginActivity.class));
 
         } else {
 
-            if (zf.dy(st.wb(R.id.wb5).zf(), "加载中...")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString(), "加载中...")) {
 
                 e1.tsk("提示", "操作过于频繁，请稍后重试");
 
             } else {
 
-                e1.tsk("账户昵称", st.wb(R.id.wb10).zf());
+                e1.tsk("账户昵称", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString());
 
             }
 
@@ -953,7 +954,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
     }
 
     private void onWb11Click(View vw) {
-        e1.tsk("账户UID", st.wb(R.id.wb11).zf());
+        e1.tsk("账户UID", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString());
 
     }
 
@@ -961,7 +962,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         if (!isAcc) {
 
-            gj.tz(TypheyeLoginActivity.class);
+            open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (TypheyeLoginActivity.class));
 
         } else {
 
@@ -977,13 +978,13 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            if (zf.dy(st.wb(R.id.wb8).zf(), "加载中...")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString(), "加载中...")) {
 
                 e1.tsk("提示", "操作过于频繁，请稍后重试");
 
             } else {
 
-                e1.tsk("账户简介", st.wb(R.id.wb8).zf());
+                e1.tsk("账户简介", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString());
 
             }
 
@@ -993,9 +994,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb7).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
 
-        String lj = st.wb(R.id.wb8).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1007,11 +1008,11 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -1019,15 +1020,15 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private void onXdbj2Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -1035,9 +1036,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1051,17 +1052,17 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            if (zf.dy(st.wb(R.id.wb18).zf(), "点击更改账户头像")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString(), "点击更改账户头像")) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("账户头像");
-                        st.xxbj(R.id.xxbj1).kjd(8);
-                        st.xxbj(R.id.xxbj4).kjd(8);
-                        st.xxbj(R.id.xxbj9).kjd(8);
-                        st.xxbj(R.id.xxbj15).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("账户头像"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -1079,9 +1080,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb17).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
 
-        String lj = st.wb(R.id.wb18).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1095,7 +1096,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            if (zf.dy(st.wb(R.id.wb19).zf(), "加载中...")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString(), "加载中...")) {
 
                 e1.tsk("提示", "操作过于频繁，请稍后重试");
 
@@ -1112,9 +1113,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj9LongClick(View vw) {
 
-        String te = st.wb(R.id.wb16).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
 
-        String lj = st.wb(R.id.wb19).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1128,7 +1129,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            if (zf.dy(st.wb(R.id.wb22).zf(), "加载中...")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb22)).getText().toString(), "加载中...")) {
 
                 e1.tsk("提示", "操作过于频繁，请稍后重试");
 
@@ -1145,9 +1146,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj10LongClick(View vw) {
 
-        String te = st.wb(R.id.wb21).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb21)).getText().toString();
 
-        String lj = st.wb(R.id.wb22).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb22)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1161,15 +1162,15 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("< 我的账户");
-                        st.xxbj(R.id.xxbj9).kjd(8);
-                        st.xxbj(R.id.xxbj1).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 我的账户"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
@@ -1177,13 +1178,13 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
             } else {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.title_bar).zf("提示");
-                        st.xxbj(R.id.xxbj9).kjd(0);
-                        st.xxbj(R.id.xxbj1).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                     }
 
@@ -1197,9 +1198,9 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb14).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
 
-        String lj = st.wb(R.id.wb15).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -1217,20 +1218,20 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
             final String a2 = AppPaths.appPath("settings/a3.inf");
 
-            String a8 = wj.dqwb(a2);
+            String a8 = open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a2));
 
-            if (zf.dy(a8, "4")) {
+            if (java.util.Objects.equals(a8, "4")) {
 
                 if (e1.isInstallX5()) {
 
                     final String[] name = new String[]{"url"};
 
                     final String[] value = new String[]{url};
-                    gj.tz(X5BrowserActivity.class, name, value);
+                    open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
                 } else {
 
-                    wl.fw(url);
+                    open.cn.awg.pro.core.NativeActions.openUrl(TypheyeAccountActivity.this, url);
 
                 }
 
@@ -1241,7 +1242,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
                     final String[] name = new String[]{"url"};
 
                     final String[] value = new String[]{url};
-                    gj.tz(X5BrowserActivity.class, name, value);
+                    open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
                 } else {
 
@@ -1257,24 +1258,24 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private boolean onXdbj5LongClick(View vw) {
 
-        String te = st.wb(R.id.wb1).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb1)).getText().toString();
 
-        String lj = st.wb(R.id.wb9).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TypheyeAccountActivity.this);
 
     }
 
     private void onAn1Click(View vw) {
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
-        if (xlcd1.dqzsxmxh() == 1) {
+        if (xlcd1.getLastVisiblePosition() == 1) {
 
             try {
 
@@ -1292,31 +1293,31 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
             try {
 
-                i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
+                
 
-                if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
+                if (open.cn.awg.pro.core.NativeActions.hasPermission(TypheyeAccountActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE")) {
 
                     final String choose2 = AppPaths.appPath("cache/file/choose2");
-                    wj.sc(path);
+                    open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (path), false);
 
-                    int sdk = IappCompat.sdk(xt.sbxx());
+                    int sdk = android.os.Build.VERSION.SDK_INT;
 
                     String ftitle = AppPaths.appPath("cache/file/title");
-                    wj.xrwb(ftitle, "< 选择头像");
-                    wj.xrwb(choose2, "h1");
+                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (ftitle), (String) ("< 选择头像"));
+                    open.cn.awg.pro.core.NativeFiles.writeText(TypheyeAccountActivity.this, (String) (choose2), (String) ("h1"));
 
                     if (sdk < 30) {
 
-                        String lj = wj.hqml("%");
+                        String lj = open.cn.awg.pro.core.NativeFiles.resolvePath(TypheyeAccountActivity.this, (String) ("%"));
 
                         final String[] name = new String[]{"url", "root"};
 
                         final String[] value = new String[]{lj, lj};
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                gj.tz(FileManagerActivity.class, name, value);
+                                open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
                             }
 
@@ -1329,11 +1330,11 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
                         final String[] name = new String[]{"url", "root"};
 
                         final String[] value = new String[]{lj, lj};
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                gj.tz(FileManagerActivity.class, name, value);
+                                open.cn.awg.pro.core.NativeActions.launch(TypheyeAccountActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
                             }
 
@@ -1354,15 +1355,15 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
             }
 
         }
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.title_bar).zf("< Typheye账户");
-                st.xxbj(R.id.xxbj1).kjd(0);
-                st.xxbj(R.id.xxbj4).kjd(8);
-                st.xxbj(R.id.xxbj9).kjd(8);
-                st.xxbj(R.id.xxbj15).kjd(8);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< Typheye账户"));
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -1371,15 +1372,15 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
     }
 
     private void onAn2Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.title_bar).zf("< Typheye账户");
-                st.xxbj(R.id.xxbj1).kjd(0);
-                st.xxbj(R.id.xxbj4).kjd(8);
-                st.xxbj(R.id.xxbj9).kjd(8);
-                st.xxbj(R.id.xxbj15).kjd(8);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< Typheye账户"));
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj15)).setVisibility(android.view.View.GONE);
 
             }
 
@@ -1388,7 +1389,7 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
     }
 
     private void onTx8Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TypheyeAccountActivity.this);
 
     }
 
@@ -1409,15 +1410,15 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     private void onTx5Click(View vw) {
 
-        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< Typheye账户");
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< Typheye账户"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1425,13 +1426,13 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("提示");
-                    st.xxbj(R.id.xxbj9).kjd(0);
-                    st.xxbj(R.id.xxbj1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -1450,21 +1451,21 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
         String c = AppPaths.appPath("settings/account/userx");
 
         String d = AppPaths.appPath("settings/account/passx");
-        wj.sc(a);
-        wj.sc(b);
-        wj.sc(c);
-        wj.sc(d);
+        open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (a), false);
+        open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (b), false);
+        open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (c), false);
+        open.cn.awg.pro.core.NativeFiles.delete(TypheyeAccountActivity.this, (String) (d), false);
         jz();
 
-        if (st.xxbj(R.id.xxbj9).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("< Typheye账户");
-                    st.xxbj(R.id.xxbj9).kjd(8);
-                    st.xxbj(R.id.xxbj1).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< Typheye账户"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -1472,13 +1473,13 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("提示");
-                    st.xxbj(R.id.xxbj9).kjd(0);
-                    st.xxbj(R.id.xxbj1).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("提示"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TypheyeAccountActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -1494,88 +1495,88 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
 
-        ImageView i3621e3f4a1 = (ImageView) findViewById(ay, vw, R.id.tx7);
+        ImageView i3621e3f4a1 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx7);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
 
-        TextView f52e07ac8c = (TextView) findViewById(ay, vw, R.id.wb6);
+        TextView f52e07ac8c = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb6);
 
-        TextView i81652f77b6 = (TextView) findViewById(ay, vw, R.id.wb10);
+        TextView i81652f77b6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb10);
         i81652f77b6.setOnClickListener(wb10ClickListener);
 
-        TextView i42afe4289f = (TextView) findViewById(ay, vw, R.id.wb11);
+        TextView i42afe4289f = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb11);
         i42afe4289f.setOnClickListener(wb11ClickListener);
 
-        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        LinearLayout i3f6c9f386b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj8);
         i3f6c9f386b.setOnClickListener(xxbj8ClickListener);
 
-        TextView fc1598ee09 = (TextView) findViewById(ay, vw, R.id.wb8);
+        TextView fc1598ee09 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb8);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
         i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        RelativeLayout i5b34eede7f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj10);
+        RelativeLayout i5b34eede7f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj10);
         i5b34eede7f.setOnClickListener(xdbj10ClickListener);
         i5b34eede7f.setOnLongClickListener(xdbj10LongClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
         c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        ImageView cb1d655d23 = (ImageView) findViewById(ay, vw, R.id.tx8);
+        ImageView cb1d655d23 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx8);
         cb1d655d23.setOnClickListener(tx8ClickListener);
 
-        LinearLayout i38cf17850d = (LinearLayout) findViewById(ay, vw, R.id.xxbj15);
+        LinearLayout i38cf17850d = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj15);
         i38cf17850d.setOnTouchListener(xxbj15TouchListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        NestedScrollView a6dab51133 = (NestedScrollView) findViewById(ay, vw, R.id.qtgd1);
+        NestedScrollView a6dab51133 = (NestedScrollView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.qtgd1);
 
         __layoutIsLoaded(ay, vw);
     }

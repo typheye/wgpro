@@ -17,7 +17,6 @@
 package open.cn.awg.pro.tools;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -66,9 +65,9 @@ public class LocationActivity extends BaseAwgActivity {
     public static String v3 = "";
     public static String v4 = "";
     public final LocationActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public CoreRuntimeBootstrap e13 = new CoreRuntimeBootstrap(_APPINFO);
-    public DebugStateStore debug = new DebugStateStore(_APPINFO);
+    public AppRuntimeBridge e1;
+    public CoreRuntimeBootstrap e13;
+    public DebugStateStore debug;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -121,6 +120,9 @@ public class LocationActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        debug = new DebugStateStore(LocationActivity.this);
+        e1 = new AppRuntimeBridge(this);
+        e13 = new CoreRuntimeBootstrap(this);
         setContentView(R.layout.location);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -157,7 +159,7 @@ public class LocationActivity extends BaseAwgActivity {
             if (providerList.contains(LocationManager.GPS_PROVIDER)) {
             } else {
                 e1.tsk("提示", "获取定位信息失败,请开启GPS后重试");
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(LocationActivity.this);
                 Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                 startActivityForResult(intent, 0);
             }
@@ -216,7 +218,7 @@ public class LocationActivity extends BaseAwgActivity {
         } catch (Throwable e) {
 
             e1.upload_error(e, "j9.getZb()");
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(LocationActivity.this);
 
         }
 
@@ -228,23 +230,23 @@ public class LocationActivity extends BaseAwgActivity {
     }
 
     public void show() {
-        v1 = IappCompat.zh(sj.zh()).zstring((latitude));
-        v2 = IappCompat.zh(sj.zh()).zstring((longitude));
+        v1 = open.cn.awg.pro.core.TextValues.string((latitude));
+        v2 = open.cn.awg.pro.core.TextValues.string((longitude));
         v3 = com.demo.e4.doubleToString(altitude);
         v4 = com.demo.e4.doubleToString(speed * 3.6);
         v1 = v1 + "°";
         v2 = v2 + "°";
         v3 = v3 + "m";
         v4 = v4 + "km/h";
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.location_longitude_text).zf(v1);
-                st.wb(R.id.location_latitude_text).zf(v2);
-                st.wb(R.id.location_altitude_text).zf(v3);
-                st.wb(R.id.location_speed_text).zf(v4);
-                st.wb(R.id.location_address_text).zf(loca);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_longitude_text)).setText(String.valueOf(v1));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_latitude_text)).setText(String.valueOf(v2));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_altitude_text)).setText(String.valueOf(v3));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_speed_text)).setText(String.valueOf(v4));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_address_text)).setText(String.valueOf(loca));
 
             }
 
@@ -268,9 +270,9 @@ public class LocationActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -287,7 +289,7 @@ public class LocationActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -311,37 +313,37 @@ public class LocationActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(LocationActivity.this);
 
     }
 
     private void onXdbj3Click(View vw) {
-        e1.tsk("经度", st.wb(R.id.location_longitude_text).zf());
+        e1.tsk("经度", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_longitude_text)).getText().toString());
 
     }
 
     private void onXdbj4Click(View vw) {
-        e1.tsk("纬度", st.wb(R.id.location_latitude_text).zf());
+        e1.tsk("纬度", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_latitude_text)).getText().toString());
 
     }
 
     private void onXdbj5Click(View vw) {
-        e1.tsk("海拔", st.wb(R.id.location_altitude_text).zf());
+        e1.tsk("海拔", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_altitude_text)).getText().toString());
 
     }
 
     private void onXdbj6Click(View vw) {
-        e1.tsk("速度", st.wb(R.id.location_speed_text).zf());
+        e1.tsk("速度", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_speed_text)).getText().toString());
 
     }
 
     private void onXdbj2Click(View vw) {
-        e1.tsk("位置", st.wb(R.id.location_address_text).zf());
+        e1.tsk("位置", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LocationActivity.this.getWindow().getDecorView(), R.id.location_address_text)).getText().toString());
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(LocationActivity.this);
 
     }
 
@@ -351,25 +353,25 @@ public class LocationActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

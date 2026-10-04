@@ -18,7 +18,7 @@ package open.cn.awg.pro.download;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.CardView;
+import androidx.cardview.widget.CardView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,29 +41,30 @@ import open.cn.awg.pro.repair.ErrorMessageActivity;
 public class DownloadProgressActivity extends BaseAwgActivity {
 
     public final DownloadProgressActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public Thread down;
     private final View.OnClickListener tx1ClickListener = this::onTx1Click;
     private final View.OnClickListener tx2ClickListener = this::onTx2Click;
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.download_progress);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
 
-        String t = sj.hqtz("url");
+        String t = DownloadProgressActivity.this.getIntent().getStringExtra(String.valueOf("url"));
 
-        String p = sj.hqtz("path");
+        String p = DownloadProgressActivity.this.getIntent().getStringExtra(String.valueOf("path"));
         download(t, p);
 
     }
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -74,66 +75,66 @@ public class DownloadProgressActivity extends BaseAwgActivity {
             }
 
         }
-        xt.sbxm(false);
+        open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(DownloadProgressActivity.this, !(false));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.download_progress_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.download_progress_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.download_progress_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.download_progress_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(DownloadProgressActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
@@ -144,42 +145,42 @@ public class DownloadProgressActivity extends BaseAwgActivity {
         final String dl = lj.toString();
 
         final String paths = path.toString();
-        down = gj.xc(new Thread() {
+        down = open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.show).zf("加载中");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("加载中"));
 
                     }
 
                 });
-                gj.zt(1000);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(1000);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.show).zf("准备下载");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("准备下载"));
 
                     }
 
                 });
-                gj.zt(250);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(250);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.kp(R.id.kp2).kjd(0);
-                        st.wb(R.id.show).zf("正在下载");
+                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("正在下载"));
 
                     }
 
                 });
 
-                int dg = wl.xz(dl, paths, true, null, "utf-8", null, true, null);
+                int dg = open.cn.awg.pro.core.NativeHttp.download(DownloadProgressActivity.this, String.valueOf(dl), (String) (paths), java.lang.Boolean.TRUE.equals(true), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), (String) (null), 0, 0, null);
 
                 String bk = "";
 
@@ -202,25 +203,25 @@ public class DownloadProgressActivity extends BaseAwgActivity {
                 }
 
                 final String df = bk;
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.kp(R.id.kp2).kjd(8);
-                        st.wb(R.id.show).zf(df);
+                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf(df));
 
                     }
 
                 });
-                gj.zt(250);
+                open.cn.awg.pro.core.NativeActions.sleep(250);
 
                 if (dg == 0 || dg == 1) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.gb();
+                            open.cn.awg.pro.core.NativeActions.finish(DownloadProgressActivity.this);
 
                         }
 
@@ -229,11 +230,11 @@ public class DownloadProgressActivity extends BaseAwgActivity {
 
                 } else {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.gb();
+                            open.cn.awg.pro.core.NativeActions.finish(DownloadProgressActivity.this);
 
                         }
 
@@ -269,9 +270,9 @@ public class DownloadProgressActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -288,7 +289,7 @@ public class DownloadProgressActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -305,18 +306,18 @@ public class DownloadProgressActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
                         String[] name = new String[]{"Msg"};
 
                         String[] value = new String[]{"中断成功 点击重启"};
-                        gj.tz(ErrorMessageActivity.class, name, value);
+                        open.cn.awg.pro.core.NativeActions.launch(DownloadProgressActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                     }
 
@@ -329,7 +330,7 @@ public class DownloadProgressActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(DownloadProgressActivity.this);
 
     }
 
@@ -339,14 +340,14 @@ public class DownloadProgressActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        CardView i4746b35274 = (CardView) findViewById(ay, vw, R.id.kp2);
+        CardView i4746b35274 = (CardView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kp2);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

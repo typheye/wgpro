@@ -17,7 +17,6 @@
 package open.cn.awg.pro.chat;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -56,9 +55,9 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public static String uid = "";
     public final ChatRoomActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
 
-    public WearChatRuntimeBridge e10 = new WearChatRuntimeBridge(_APPINFO);
+    public WearChatRuntimeBridge e10;
     public boolean xhtrue = true;
     public String path = AppPaths.appPath("cache/chat/upload/path");
     public String room_name = "";
@@ -216,53 +215,55 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e10 = new WearChatRuntimeBridge(this);
         setContentView(R.layout.chat_room);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
 
         String set = AppPaths.appPath("settings/set3.inf");
 
-        if (zf.dy(wj.dqwb(set), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (set)), "true")) {
 
-            String te = wj.dqwb(AppPaths.appPath("data/assets/a13"));
+            String te = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/assets/a13")));
 
             String[] name = new String[]{"title", "text"};
 
             String[] value = new String[]{"新手教程", te};
-            gj.tz(TextQrDisplayActivity.class, name, value);
+            open.cn.awg.pro.core.NativeActions.launch(ChatRoomActivity.this, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
         }
 
         if (e1.isJh()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.dx(R.id.dx_chat_upload).kjd(0);
+                    ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.dx_chat_upload)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
             });
 
         }
-        wj.xrwb(AppPaths.appPath("data/ltlb/showing"), "true");
+        open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), (String) ("true"));
         jz();
 
     }
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/f8/set4.inf")), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f8/set4.inf"))), "true")) {
 
         }
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
-        xt.sbxm(false);
+        
+        open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(ChatRoomActivity.this, !(false));
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -276,84 +277,84 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.chat_room_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.chat_room_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xxbj(R.id.i2xxbj1).nbj(u, 0, u, 0);
-            st.xxbj(R.id.xxbj4).nbj(u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)), u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xxbj(R.id.i2xxbj1).nbj(0, 0, 0, 0);
-            st.xxbj(R.id.xxbj4).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)), 0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xxbj(R.id.i2xxbj1).nbj(u, 0, u, 0);
-            st.xxbj(R.id.xxbj4).nbj(u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)), u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
+            int uih = open.cn.awg.pro.core.DisplayValues.pxToDp(ChatRoomActivity.this, open.cn.awg.pro.core.DisplayValues.systemBarHeight(ChatRoomActivity.this, "status_bar_height"));
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, uih + "dp", 0, "9dp");
-            wtab.dqfs("center");
-            st.xxbj(R.id.i2xxbj1).nbj(0, 0, 0, 0);
-            st.xxbj(R.id.xxbj4).nbj(0, 0, 0, 0);
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)), 0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), 0, 0, 0, 0);
 
         }
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
         String[] sz = new String[]{"图像文件", "音频文件", "视频文件", "其他文件"};
-        xlcd1.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, sz);
 
-        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
+        android.widget.Spinner xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd2));
         sz = new String[]{"应用内置选择器", "系统默认选择器"};
-        xlcd2.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd2, sz);
 
     }
 
     public void jz() {
-        uid = sj.hqtz("uid");
+        uid = ChatRoomActivity.this.getIntent().getStringExtra(String.valueOf("uid"));
 
         String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
-        room_name = e10.getTabName(wj.dqwb(cachehd));
-        gj.jmxc(new Runnable() {
+        room_name = e10.getTabName(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (cachehd)));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.wb(R.id.title_bar).zf(room_name);
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
 
             }
 
@@ -366,24 +367,24 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void ltsgxxh() {
 
-        final String uid2 = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+        final String uid2 = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
         final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid2;
 
         String set2 = AppPaths.appPath("settings/f18/set1.inf");
 
-        i.runlibrary.app.sj$zh sjl = (i.runlibrary.app.sj$zh) (Object) sj.zh(wj.dqwb(set2));
+        Object sjl = (Object) open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (set2));
 
-        final long tim = sjl.zlong(3000);
-        gj.xc(new Thread() {
+        final long tim = open.cn.awg.pro.core.TextValues.longValue(sjl, 3000);
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                final String uid = wj.dqwb(AppPaths.appPath("data/ltlb/lbx_id"));
+                final String uid = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/lbx_id")));
 
                 final String sjhc = AppPaths.appPath("data/ltlb/chat/") + uid;
 
-                if (wj.cz(sjhc) && !zf.dy(wj.dqwb(sjhc), "")) {
+                if (open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (sjhc)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (sjhc)), "")) {
 
                     e10.ltsgx1(false);
 
@@ -395,31 +396,31 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
                 while (xhtrue) {
 
-                    if (wj.cz(AppPaths.appPath("data/ltlb/showing"))) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")))) {
 
-                        gj.zt(tim);
+                        open.cn.awg.pro.core.NativeActions.sleep(tim);
 
-                        if (!wj.cz(AppPaths.appPath("data/ltlb/disTouch"))) {
+                        if (!open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/disTouch")))) {
 
                             e10.ltsgx2();
 
                         }
 
-                        if (wj.cz(sjhc) && !zf.dy(zf.qctwkg(wj.dqwb(sjhc)), "")) {
+                        if (open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (sjhc)) && !java.util.Objects.equals(open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (sjhc))), "")) {
 
                             try {
 
-                                String back = wj.dqwb(sjhc);
+                                String back = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (sjhc));
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                                org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                                JSONObject json = jo.json;
+                                JSONObject json = jo;
 
-                                JSONArray list = jo.dxlb(json, "data");
+                                JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "data");
 
-                                int i = jo.cd(list);
+                                int i = open.cn.awg.pro.core.JsonValues.length(list);
 
-                                int i2 = WearChatRuntimeBridge.spq3.zs() - 2;
+                                int i2 = WearChatRuntimeBridge.spq3.rowCount() - 2;
 
                                 if (i != i2 && i != 0 && i2 != 0) {
 
@@ -447,7 +448,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         try {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
@@ -466,40 +467,40 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void onWindowFocusChanged(boolean hs) {
         super.onWindowFocusChanged(hs);
-        wj.xrwb(AppPaths.appPath("data/ltlb/showing"), "true");
+        open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), (String) ("true"));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.chat_room_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.chat_room_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
-        final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+        final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_upload));
 
-        final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
+        final android.widget.Button an2 = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_disupload));
 
-        final i.runlibrary.app.v.dx dx_chat_upload = st.dx(R.id.dx_chat_upload);
+        final android.widget.CheckBox dx_chat_upload = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.dx_chat_upload));
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+        final android.widget.Spinner ltsup_xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
+        final android.widget.Spinner ltsup_xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd2));
 
-        if (wj.cz(path) && !zf.dy(wj.dqwb(path), "") && !zf.dy(wj.dqwb(path), "null") && zf.dy(an.tszf(), "选择文件")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (path)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (path)), "") && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (path)), "null") && java.util.Objects.equals(an.getHint().toString(), "选择文件")) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    an.kjd(0);
-                    an.tszf("已选择•开始上传");
-                    ltsup_xlcd1.st.setEnabled(false);
-                    ltsup_xlcd1.kjd(8);
-                    ltsup_xlcd2.st.setEnabled(false);
-                    ltsup_xlcd2.kjd(8);
-                    dx_chat_upload.st.setEnabled(false);
-                    an2.kjd(0);
+                    an.setVisibility(android.view.View.VISIBLE);
+                    an.setHint(String.valueOf("已选择•开始上传"));
+                    ltsup_xlcd1.setEnabled(false);
+                    ltsup_xlcd1.setVisibility(android.view.View.GONE);
+                    ltsup_xlcd2.setEnabled(false);
+                    ltsup_xlcd2.setVisibility(android.view.View.GONE);
+                    dx_chat_upload.setEnabled(false);
+                    an2.setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -511,28 +512,28 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void onStop() {
         super.onStop();
-        wj.sc(AppPaths.appPath("data/ltlb/showing"));
+        open.cn.awg.pro.core.NativeFiles.delete(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), false);
 
     }
 
     public void onStart() {
         super.onStart();
-        wj.xrwb(AppPaths.appPath("data/ltlb/showing"), "true");
+        open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), (String) ("true"));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.chat_room_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.chat_room_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
-        i.runlibrary.app.v.v7lb ltsv7lb1 = st.v7lb(R.id.ltsv7lb1);
-        ltsv7lb1.v.requestFocus();
+        androidx.recyclerview.widget.RecyclerView ltsv7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsv7lb1));
+        ltsv7lb1.requestFocus();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -553,35 +554,35 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void onRestart() {
         super.onRestart();
-        wj.xrwb(AppPaths.appPath("data/ltlb/showing"), "true");
+        open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), (String) ("true"));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.chat_room_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.chat_room_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
     }
 
     public void onResume() {
         super.onResume();
-        wj.xrwb(AppPaths.appPath("data/ltlb/showing"), "true");
+        open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), (String) ("true"));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.chat_room_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.chat_room_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
     }
 
     public void onPause() {
         super.onPause();
-        wj.sc(AppPaths.appPath("data/ltlb/showing"));
+        open.cn.awg.pro.core.NativeFiles.delete(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), false);
 
     }
 
@@ -602,35 +603,35 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
                 }
 
-                if (!zf.dy(realPath, null)) {
+                if (!java.util.Objects.equals(realPath, null)) {
 
-                    realPath = wj.hqml(realPath);
-                    wj.xrwb(path, realPath);
+                    realPath = open.cn.awg.pro.core.NativeFiles.resolvePath(ChatRoomActivity.this, (String) (realPath));
+                    open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (path), (String) (realPath));
 
-                    final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+                    final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_upload));
 
-                    final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
+                    final android.widget.Button an2 = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_disupload));
 
-                    final i.runlibrary.app.v.dx dx_chat_upload = st.dx(R.id.dx_chat_upload);
+                    final android.widget.CheckBox dx_chat_upload = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.dx_chat_upload));
 
-                    final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+                    final android.widget.Spinner ltsup_xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
-                    final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
+                    final android.widget.Spinner ltsup_xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd2));
 
-                    if (zf.dy(an.tszf(), "选择文件")) {
+                    if (java.util.Objects.equals(an.getHint().toString(), "选择文件")) {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                an.kjd(0);
-                                an.tszf("已选择•开始上传");
-                                ltsup_xlcd1.st.setEnabled(false);
-                                ltsup_xlcd1.kjd(8);
-                                ltsup_xlcd2.st.setEnabled(false);
-                                ltsup_xlcd2.kjd(8);
-                                dx_chat_upload.st.setEnabled(false);
-                                an2.kjd(0);
+                                an.setVisibility(android.view.View.VISIBLE);
+                                an.setHint(String.valueOf("已选择•开始上传"));
+                                ltsup_xlcd1.setEnabled(false);
+                                ltsup_xlcd1.setVisibility(android.view.View.GONE);
+                                ltsup_xlcd2.setEnabled(false);
+                                ltsup_xlcd2.setVisibility(android.view.View.GONE);
+                                dx_chat_upload.setEnabled(false);
+                                an2.setVisibility(android.view.View.VISIBLE);
 
                             }
 
@@ -650,7 +651,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
         super.onDestroy();
         AwgProApplication.getInstance().removeActivity(lei);
         xhtrue = false;
-        wj.sc(AppPaths.appPath("data/ltlb/showing"));
+        open.cn.awg.pro.core.NativeFiles.delete(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/showing")), false);
 
     }
 
@@ -658,9 +659,9 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (st.xxbj(R.id.i2xxbj1).kjd() == 0) {
+            if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(ChatRoomActivity.this);
 
             } else {
 
@@ -675,42 +676,42 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-        final String name = wj.dqwb(cachehd);
+        final String name = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (cachehd));
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "[有新消息]")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "[有新消息]")) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+                    if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-                        st.wb(R.id.title_bar).zf("< ");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< "));
 
                     }
-                    st.v7lb(R.id.ltsv7lb1).xzwz("top");
+                    open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsv7lb1)), "top");
 
                 }
 
             });
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), room_name)) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), room_name)) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(ChatRoomActivity.this);
 
         }
 
     }
 
     private void onWb3Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                String z = st.wb(R.id.wb3).zf();
-                z = zf.qc(z, "[提示] ");
+                String z = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
+                z = open.cn.awg.pro.core.TextValues.slice(z, "[提示] ");
 
-                if (zf.dy(st.wb(R.id.wb3).zf(), "[提示] 发送成功")) {
+                if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString(), "[提示] 发送成功")) {
 
                     z = z + "\n(ps:长按提示可隐藏哦)";
 
@@ -725,7 +726,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private boolean onWb3LongClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb3).zf(), "[提示] 发送成功")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString(), "[提示] 发送成功")) {
 
             e10.ltjmshowgb();
 
@@ -740,32 +741,32 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
             if (!vw.canScrollVertically(-1)) {
 
-                wj.xrwb(AppPaths.appPath("data/ltlb/hdva"), "-1");
+                open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/hdva")), (String) ("-1"));
 
             } else if (!vw.canScrollVertically(1)) {
 
                 String cachehd = AppPaths.appPath("data/ltlb/lbx_title");
 
-                final String name = wj.dqwb(cachehd);
+                final String name = open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (cachehd));
 
-                if (st.xxbj(R.id.xxbj1).kjd() == 0) {
+                if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.title_bar).zf(room_name);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
 
                         }
 
                     });
 
                 }
-                wj.xrwb(AppPaths.appPath("data/ltlb/hdva"), "0");
+                open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/hdva")), (String) ("0"));
 
             } else {
 
-                wj.xrwb(AppPaths.appPath("data/ltlb/hdva"), "1");
+                open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (AppPaths.appPath("data/ltlb/hdva")), (String) ("1"));
 
             }
 
@@ -784,26 +785,26 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onWb1Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjcd).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).zf("< 房间详情");
-            st.xxbj(R.id.i2xxbj1).kjd(0);
-            st.xxbj(R.id.xxbjcd).kjd(8);
-            st.kp(R.id.kp7).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 房间详情"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
         } else {
 
-            st.wb(R.id.title_bar).zf("菜单");
-            st.xxbj(R.id.i2xxbj1).kjd(8);
-            st.xxbj(R.id.xxbjcd).kjd(0);
-            st.kp(R.id.kp7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.VISIBLE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
 
         }
 
     }
 
     private boolean onWb1LongClick(View vw) {
-        st.kp(R.id.kp7).kjd(8);
+        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
         e10.ltspost(1);
         return true;
 
@@ -813,12 +814,12 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -833,11 +834,11 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbjyc3).kjd(0);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjyc3)).setVisibility(android.view.View.VISIBLE);
 
                 }
 
@@ -845,11 +846,11 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xxbj(R.id.xxbjyc3).kjd(8);
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjyc3)).setVisibility(android.view.View.GONE);
 
                 }
 
@@ -861,61 +862,61 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onAnUploadClick(View vw) {
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
-        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
+        android.widget.Spinner xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd2));
 
-        final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+        final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_upload));
 
         final String choose = AppPaths.appPath("cache/file/choose");
 
-        if (zf.dy(an.tszf(), "选择文件")) {
+        if (java.util.Objects.equals(an.getHint().toString(), "选择文件")) {
 
-            wj.sc(path);
+            open.cn.awg.pro.core.NativeFiles.delete(ChatRoomActivity.this, (String) (path), false);
 
-            int sdk = IappCompat.sdk(xt.sbxx());
+            int sdk = android.os.Build.VERSION.SDK_INT;
 
             String ftitle = AppPaths.appPath("cache/file/title");
-            wj.xrwb(ftitle, "< 选择附件");
+            open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (ftitle), (String) ("< 选择附件"));
 
-            if (xlcd2.dqzsxmxh() == 0) {
+            if (xlcd2.getLastVisiblePosition() == 0) {
 
-                if (xlcd1.dqzsxmxh() == 0) {
+                if (xlcd1.getLastVisiblePosition() == 0) {
 
-                    wj.xrwb(choose, "h1");
+                    open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (choose), (String) ("h1"));
 
-                } else if (xlcd1.dqzsxmxh() == 1) {
+                } else if (xlcd1.getLastVisiblePosition() == 1) {
 
-                    wj.xrwb(choose, "h2");
+                    open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (choose), (String) ("h2"));
 
-                } else if (xlcd1.dqzsxmxh() == 2) {
+                } else if (xlcd1.getLastVisiblePosition() == 2) {
 
-                    wj.xrwb(choose, "h3");
+                    open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (choose), (String) ("h3"));
 
-                } else if (xlcd1.dqzsxmxh() == 3) {
+                } else if (xlcd1.getLastVisiblePosition() == 3) {
 
-                    wj.xrwb(choose, "h4");
+                    open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (choose), (String) ("h4"));
 
                 }
 
                 try {
 
-                    i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
+                    
 
-                    if (a.qx("android.permission.WRITE_EXTERNAL_STORAGE")) {
+                    if (open.cn.awg.pro.core.NativeActions.hasPermission(ChatRoomActivity.this, "android.permission.WRITE_EXTERNAL_STORAGE")) {
 
                         if (sdk < 30) {
 
-                            String lj = wj.hqml("%");
+                            String lj = open.cn.awg.pro.core.NativeFiles.resolvePath(ChatRoomActivity.this, (String) ("%"));
 
                             final String[] name = new String[]{"url", "root"};
 
                             final String[] value = new String[]{lj, lj};
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    gj.tz(FileManagerActivity.class, name, value);
+                                    open.cn.awg.pro.core.NativeActions.launch(ChatRoomActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
                                 }
 
@@ -928,11 +929,11 @@ public class ChatRoomActivity extends BaseAwgActivity {
                             final String[] name = new String[]{"url", "root"};
 
                             final String[] value = new String[]{lj, lj};
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    gj.tz(FileManagerActivity.class, name, value);
+                                    open.cn.awg.pro.core.NativeActions.launch(ChatRoomActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
                                 }
 
@@ -952,18 +953,18 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
                 }
 
-            } else if (xlcd2.dqzsxmxh() == 1) {
+            } else if (xlcd2.getLastVisiblePosition() == 1) {
 
                 try {
 
                     Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                    if (xlcd1.dqzsxmxh() == 0)
+                    if (xlcd1.getLastVisiblePosition() == 0)
                         intent.setType("image/*");
-                    else if (xlcd1.dqzsxmxh() == 1)
+                    else if (xlcd1.getLastVisiblePosition() == 1)
                         intent.setType("audio/*");
-                    else if (xlcd1.dqzsxmxh() == 2)
+                    else if (xlcd1.getLastVisiblePosition() == 2)
                         intent.setType("video/*");
-                    else if (xlcd1.dqzsxmxh() == 3)
+                    else if (xlcd1.getLastVisiblePosition() == 3)
                         intent.setType("*/*");
                     lei.startActivityForResult(intent, 1);
 
@@ -975,11 +976,11 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
             }
 
-        } else if (zf.dy(an.tszf(), "已选择•开始上传")) {
+        } else if (java.util.Objects.equals(an.getHint().toString(), "已选择•开始上传")) {
 
-            e10.upload(wj.dqwb(path), xlcd1.dqzsxmxh());
+            e10.upload(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (path)), xlcd1.getLastVisiblePosition());
 
-        } else if (zf.dy(an.tszf(), "上传成功")) {
+        } else if (java.util.Objects.equals(an.getHint().toString(), "上传成功")) {
 
             e1.tsk("提示", "已成功上传文件");
 
@@ -988,29 +989,29 @@ public class ChatRoomActivity extends BaseAwgActivity {
     }
 
     private void onAnDisuploadClick(View vw) {
-        wj.sc(path);
+        open.cn.awg.pro.core.NativeFiles.delete(ChatRoomActivity.this, (String) (path), false);
 
-        final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+        final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_upload));
 
-        final i.runlibrary.app.v.an an2 = st.an(R.id.an_disupload);
+        final android.widget.Button an2 = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_disupload));
 
-        final i.runlibrary.app.v.dx dx_chat_upload = st.dx(R.id.dx_chat_upload);
+        final android.widget.CheckBox dx_chat_upload = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.dx_chat_upload));
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd1 = st.xlcd(R.id.ltsup_xlcd1);
+        final android.widget.Spinner ltsup_xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd1));
 
-        final i.runlibrary.app.v.xlcd ltsup_xlcd2 = st.xlcd(R.id.ltsup_xlcd2);
-        gj.jmxc(new Runnable() {
+        final android.widget.Spinner ltsup_xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsup_xlcd2));
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                an.kjd(0);
-                an.tszf("选择文件");
-                an2.kjd(8);
-                ltsup_xlcd1.st.setEnabled(true);
-                ltsup_xlcd1.kjd(0);
-                ltsup_xlcd2.st.setEnabled(true);
-                ltsup_xlcd2.kjd(0);
-                dx_chat_upload.st.setEnabled(true);
+                an.setVisibility(android.view.View.VISIBLE);
+                an.setHint(String.valueOf("选择文件"));
+                an2.setVisibility(android.view.View.GONE);
+                ltsup_xlcd1.setEnabled(true);
+                ltsup_xlcd1.setVisibility(android.view.View.VISIBLE);
+                ltsup_xlcd2.setEnabled(true);
+                ltsup_xlcd2.setVisibility(android.view.View.VISIBLE);
+                dx_chat_upload.setEnabled(true);
 
             }
 
@@ -1020,9 +1021,9 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onTx3Click(View vw) {
 
-        final i.runlibrary.app.v.an an = st.an(R.id.an_upload);
+        final android.widget.Button an = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.an_upload));
 
-        if (zf.dy(an.tszf(), "上传中")) {
+        if (java.util.Objects.equals(an.getHint().toString(), "上传中")) {
 
             e1.tsk("提示", "请耐心等待文件上传完毕");
 
@@ -1030,7 +1031,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
             shouJp();
             e10.ltspost(0);
-            st.kp(R.id.kp7).kjd(0);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
         }
 
@@ -1049,20 +1050,20 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onTx5Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjcd).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).zf(room_name);
-            st.xxbj(R.id.i2xxbj1).kjd(0);
-            st.xxbj(R.id.xxbjcd).kjd(8);
-            st.kp(R.id.kp7).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
             e10.ltstotop();
 
         } else {
 
-            st.wb(R.id.title_bar).zf("菜单");
-            st.xxbj(R.id.i2xxbj1).kjd(8);
-            st.xxbj(R.id.xxbjcd).kjd(0);
-            st.kp(R.id.kp7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.VISIBLE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
 
         }
 
@@ -1070,18 +1071,18 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onTx6Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjcd).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).zf(room_name);
-            st.xxbj(R.id.i2xxbj1).kjd(0);
-            st.xxbj(R.id.xxbjcd).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
 
         } else {
 
-            st.wb(R.id.title_bar).zf("菜单");
-            st.xxbj(R.id.i2xxbj1).kjd(8);
-            st.xxbj(R.id.xxbjcd).kjd(0);
-            st.kp(R.id.kp7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.VISIBLE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
 
         }
         e10.ltspost(1);
@@ -1095,20 +1096,20 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onTx1Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjcd).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).zf(room_name);
-            st.xxbj(R.id.i2xxbj1).kjd(0);
-            st.xxbj(R.id.xxbjcd).kjd(8);
-            st.kp(R.id.kp7).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
             e10.ltstobottom();
 
         } else {
 
-            st.wb(R.id.title_bar).zf("菜单");
-            st.xxbj(R.id.i2xxbj1).kjd(8);
-            st.xxbj(R.id.xxbjcd).kjd(0);
-            st.kp(R.id.kp7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.VISIBLE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
 
         }
 
@@ -1116,22 +1117,22 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onTx4Click(View vw) {
 
-        if (st.xxbj(R.id.xxbjcd).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).zf(room_name);
-            st.xxbj(R.id.i2xxbj1).kjd(0);
-            st.xxbj(R.id.xxbjcd).kjd(8);
-            st.kp(R.id.kp7).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
         } else {
 
-            st.wb(R.id.title_bar).zf("菜单");
-            st.xxbj(R.id.i2xxbj1).kjd(8);
-            st.xxbj(R.id.xxbjcd).kjd(0);
-            st.kp(R.id.kp7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.VISIBLE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
 
         }
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ChatRoomActivity.this);
 
     }
 
@@ -1142,19 +1143,19 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     private void onXxbjcdClick(View vw) {
 
-        if (st.xxbj(R.id.xxbjcd).kjd() == 0) {
+        if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            st.wb(R.id.title_bar).zf(room_name);
-            st.xxbj(R.id.i2xxbj1).kjd(0);
-            st.xxbj(R.id.xxbjcd).kjd(8);
-            st.kp(R.id.kp7).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(room_name));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
 
         } else {
 
-            st.wb(R.id.title_bar).zf("菜单");
-            st.xxbj(R.id.i2xxbj1).kjd(8);
-            st.xxbj(R.id.xxbjcd).kjd(0);
-            st.kp(R.id.kp7).kjd(8);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("菜单"));
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.GONE);
+            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.VISIBLE);
+            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.GONE);
 
         }
 
@@ -1166,67 +1167,67 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb3);
         i0d2d4d9236.setOnClickListener(wb3ClickListener);
         i0d2d4d9236.setOnLongClickListener(wb3LongClickListener);
 
-        RecyclerView c2f5ccfa3a = (RecyclerView) findViewById(ay, vw, R.id.ltsv7lb1);
+        RecyclerView c2f5ccfa3a = (RecyclerView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.ltsv7lb1);
         c2f5ccfa3a.addOnScrollListener(ltsv7lb1ScrollListener);
 
-        LinearLayout e76307d04a = (LinearLayout) findViewById(ay, vw, R.id.i2xxbj1);
+        LinearLayout e76307d04a = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.i2xxbj1);
         e76307d04a.setOnTouchListener(i2xxbj1TouchListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
         ff56a8e7f6.setOnClickListener(wb1ClickListener);
         ff56a8e7f6.setOnLongClickListener(wb1LongClickListener);
 
-        TextView e943ebd71e = (TextView) findViewById(ay, vw, R.id.wb4);
+        TextView e943ebd71e = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb4);
 
-        LinearLayout i5f37bb7e71 = (LinearLayout) findViewById(ay, vw, R.id.ltssxxxbj3);
+        LinearLayout i5f37bb7e71 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.ltssxxxbj3);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        CheckBox i4b3a71b80a = (CheckBox) findViewById(ay, vw, R.id.dx_chat_upload);
+        CheckBox i4b3a71b80a = (CheckBox) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dx_chat_upload);
         i4b3a71b80a.setOnCheckedChangeListener(dxChatUploadCheckedChangeListener);
 
-        Button fb3bffd427 = (Button) findViewById(ay, vw, R.id.an_upload);
+        Button fb3bffd427 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an_upload);
         fb3bffd427.setOnClickListener(anUploadClickListener);
 
-        Button i3295d3c478 = (Button) findViewById(ay, vw, R.id.an_disupload);
+        Button i3295d3c478 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an_disupload);
         i3295d3c478.setOnClickListener(anDisuploadClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        LinearLayout i9068f5d66e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4);
+        LinearLayout i9068f5d66e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj4);
         i9068f5d66e.setOnTouchListener(xxbj4TouchListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        LinearLayout i84f04cd47e = (LinearLayout) findViewById(ay, vw, R.id.xxbj7);
+        LinearLayout i84f04cd47e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj7);
         i84f04cd47e.setOnTouchListener(xxbj7TouchListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
         i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        LinearLayout i6c4a6b953f = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj6);
         i6c4a6b953f.setOnTouchListener(xxbj6TouchListener);
 
-        LinearLayout d2a1859abe = (LinearLayout) findViewById(ay, vw, R.id.xxbjcd);
+        LinearLayout d2a1859abe = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbjcd);
         d2a1859abe.setOnClickListener(xxbjcdClickListener);
 
         __layoutIsLoaded(ay, vw);

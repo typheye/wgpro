@@ -47,14 +47,14 @@ import open.cn.awg.pro.repair.ErrorMessageActivity;
 public class ShellExecutorActivity extends BaseAwgActivity {
 
     public final ShellExecutorActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String type = "";
     public String auto = "";
     public String fixcode = "";
     private TextView textView;
     private EditText editText;
-    private i.runlibrary.app.v.dxx suDxx;
-    private i.runlibrary.app.v.dxx shDxx;
+    private android.widget.RadioButton suDxx;
+    private android.widget.RadioButton shDxx;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -100,45 +100,46 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.shell_executor);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        textView = st.wb(R.id.wb1).st;
-        editText = st.bjk(R.id.bjk1).st;
-        suDxx = st.dxx(R.id.dxx1);
-        shDxx = st.dxx(R.id.dxx2);
-        shDxx.xzzt(true);
+        textView = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb1));
+        editText = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.bjk1));
+        suDxx = ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.dxx1));
+        shDxx = ((android.widget.RadioButton) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.dxx2));
+        shDxx.setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        String shs = sj.hqtz("sh");
-        shs = zf.qctwkg(shs);
-        type = sj.hqtz("type");
-        type = zf.qctwkg(type);
+        String shs = ShellExecutorActivity.this.getIntent().getStringExtra(String.valueOf("sh"));
+        shs = open.cn.awg.pro.core.TextValues.trim(shs);
+        type = ShellExecutorActivity.this.getIntent().getStringExtra(String.valueOf("type"));
+        type = open.cn.awg.pro.core.TextValues.trim(type);
 
-        if (!zf.dy(shs, null) && !zf.dy(shs, "")) {
+        if (!java.util.Objects.equals(shs, null) && !java.util.Objects.equals(shs, "")) {
 
-            st.bjk(R.id.bjk1).zf(shs);
-            st.wb(R.id.wb2).kjd(0);
-            st.bjk(R.id.bjk1).kjd(8);
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(shs));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.bjk1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
         } else {
 
-            st.wb(R.id.wb2).kjd(8);
-            st.bjk(R.id.bjk1).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.bjk1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
         }
-        auto = sj.hqtz("auto");
-        auto = zf.qctwkg(auto);
-        fixcode = sj.hqtz("fixcode");
-        fixcode = zf.qctwkg(fixcode);
+        auto = ShellExecutorActivity.this.getIntent().getStringExtra(String.valueOf("auto"));
+        auto = open.cn.awg.pro.core.TextValues.trim(auto);
+        fixcode = ShellExecutorActivity.this.getIntent().getStringExtra(String.valueOf("fixcode"));
+        fixcode = open.cn.awg.pro.core.TextValues.trim(fixcode);
 
-        if (zf.dy(auto, "enable")) {
+        if (java.util.Objects.equals(auto, "enable")) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.an an1 = st.an(R.id.an1);
-                    an1.v.performClick();
+                    android.widget.Button an1 = ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.an1));
+                    an1.performClick();
 
                 }
 
@@ -146,22 +147,17 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
         }
 
-        String szk = sj.hqtz("szk");
+        String szk = ShellExecutorActivity.this.getIntent().getStringExtra(String.valueOf("szk"));
 
-        i.runlibrary.app.v.dx dx1 = st.dx(R.id.dx1);
+        android.widget.CheckBox dx1 = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.dx1));
 
-        if (zf.dy(szk, "true")) {
+        if (java.util.Objects.equals(szk, "true")) {
 
-            dx1.xzzt(true);
+            dx1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
-        i.app.shizuku.setCallback(new i.app.shizuku.Callback() {
-            public void ok(int o) {
-            }
-        });
-
-        int c = i.app.shizuku.init(lei);
+        open.cn.awg.pro.core.ShizukuShell.initialize(lei);
 
     }
 
@@ -173,19 +169,19 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     public void runtime(String cmd) {
 
-        i.runlibrary.app.v.dx dx1 = st.dx(R.id.dx1);
+        android.widget.CheckBox dx1 = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.dx1));
 
-        if (dx1.xzzt()) {
+        if (dx1.isChecked()) {
 
             try {
 
-                String[] lines = zf.fg(cmd, "\n", true);
+                String[] lines = open.cn.awg.pro.core.TextValues.split(cmd, "\n", true);
 
                 for (String line : lines) {
 
-                    line = zf.qctwkg(line);
+                    line = open.cn.awg.pro.core.TextValues.trim(line);
 
-                    String t = zf.qc(line, 0, 1);
+                    String t = open.cn.awg.pro.core.TextValues.slice(line, 0, 1);
 
                     String[] bltop = new String[]{"#"};
 
@@ -197,7 +193,7 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
                     for (String bl : bltop) {
 
-                        if (zf.ckt(line, bl)) {
+                        if (open.cn.awg.pro.core.TextValues.startsWith(line, bl)) {
 
                             istoppass = false;
 
@@ -207,7 +203,7 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
                     for (String bl : blin) {
 
-                        if (zf.cz(line, bl)) {
+                        if (open.cn.awg.pro.core.TextValues.contains(line, bl)) {
 
                             isinpass = false;
 
@@ -217,7 +213,7 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
                     if (istoppass && isinpass) {
 
-                        i.app.shizuku.Shell(line);
+                        open.cn.awg.pro.core.ShizukuShell.execute(line);
 
                     }
 
@@ -289,8 +285,8 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     public void locat(String l) {
 
-        final String log = zf.qctwkg(l);
-        gj.jmxc(new Runnable() {
+        final String log = open.cn.awg.pro.core.TextValues.trim(l);
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -301,32 +297,32 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
         });
 
-        if (zf.dy(log, "Finish")) {
+        if (java.util.Objects.equals(log, "Finish")) {
 
-            if (zf.dy(auto, "enable") && zf.dy(type, "fixupdate")) {
+            if (java.util.Objects.equals(auto, "enable") && java.util.Objects.equals(type, "fixupdate")) {
 
                 String set36 = AppPaths.appPath("settings/fixVersion");
-                wj.xrwb(set36, fixcode);
+                open.cn.awg.pro.core.NativeFiles.writeText(ShellExecutorActivity.this, (String) (set36), (String) (fixcode));
                 e1.tsk("提示", "执行完毕,更新成功");
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(ShellExecutorActivity.this);
 
             }
 
-        } else if (zf.dy(log, "AWG:NEED_REBOOT")) {
+        } else if (java.util.Objects.equals(log, "AWG:NEED_REBOOT")) {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.zt(2000);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(2000);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String[] name = new String[]{"Msg"};
 
                             String[] value = new String[]{"执行成功 点击重启"};
-                            gj.tz(ErrorMessageActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(ShellExecutorActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
@@ -342,7 +338,7 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     public String getCode() {
 
-        return suDxx.xzzt() ? suDxx.st.getText().toString() : shDxx.st.getText().toString();
+        return suDxx.isChecked() ? suDxx.getText().toString() : shDxx.getText().toString();
 
     }
 
@@ -362,9 +358,9 @@ public class ShellExecutorActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -381,7 +377,7 @@ public class ShellExecutorActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -398,7 +394,7 @@ public class ShellExecutorActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ShellExecutorActivity.this);
 
     }
 
@@ -406,12 +402,12 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -424,24 +420,24 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     private void onAn1Click(View vw) {
 
-        final String cmd = st.bjk(R.id.bjk1).zf();
+        final String cmd = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
 
         try {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.wb1).kjd(0);
-                            st.wb(R.id.wb2).kjd(8);
-                            st.bjk(R.id.bjk1).kjd(8);
-                            st.dxbj(R.id.dxbj1).kjd(8);
-                            st.dx(R.id.dx1).kjd(8);
-                            st.an(R.id.an1).kjd(8);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.bjk1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                            ((android.widget.RadioGroup) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.dxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                            ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.dx1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                            ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.an1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                         }
 
@@ -462,22 +458,22 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     private boolean onWb1LongClick(View vw) {
 
-        i.runlibrary.app.v.wb wb = st.wb(R.id.wb1);
+        android.widget.TextView wb = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb1));
 
-        String wb1 = wb.zf();
-        wb1 = zf.qc(wb1, "执行返回结果:\n", null);
+        String wb1 = wb.getText().toString();
+        wb1 = open.cn.awg.pro.core.TextValues.slice(wb1, "执行返回结果:\n", null);
         e1.tsk("详细信息", wb1);
         return true;
 
     }
 
     private void onAn2Click(View vw) {
-        st.wb(R.id.wb1).zf("执行返回结果:\n");
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ShellExecutorActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("执行返回结果:\n"));
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ShellExecutorActivity.this);
 
     }
 
@@ -487,22 +483,22 @@ public class ShellExecutorActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
         ff56a8e7f6.setOnLongClickListener(wb1LongClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

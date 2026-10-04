@@ -19,11 +19,10 @@ package open.cn.awg.pro.chat;
 
 
 import android.annotation.SuppressLint;
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import android.view.inputmethod.InputMethodManager;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
@@ -51,18 +50,17 @@ import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.RuntimeMessageItemActivity;
 import open.cn.awg.pro.ui.widget.XLinearLayoutManager;
 
 @SuppressLint("StaticFieldLeak")
 public class DeepSeekActivity extends BaseAwgActivity {
 
-    public static i.runlibrary.app.v.v7lb$UserAdapter spqc;
-    public static i.runlibrary.app.v.v7lb lbc;
+    public static open.cn.awg.pro.ui.list.NativeListAdapter spqc;
+    public static androidx.recyclerview.widget.RecyclerView lbc;
     public static LinearLayoutManager mLayoutManager;
     public static Context context;
     public final DeepSeekActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String namer = "User";
     public boolean isOnce = false;
     public String ml = AppPaths.appPath("data/deepseek/chat");
@@ -199,6 +197,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.deep_seek);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -208,16 +207,16 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/f8/set4.inf")), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f8/set4.inf"))), "true")) {
 
         }
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
-        xt.sbxm(false);
+        
+        open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(DeepSeekActivity.this, !(false));
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -231,71 +230,71 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.deep_seek_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.deep_seek_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xxbj(R.id.xxbj1).nbj(u, 0, u, 0);
-            st.xxbj(R.id.xxbj4).nbj(u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)), u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(DeepSeekActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xxbj(R.id.xxbj1).nbj(0, 0, 0, 0);
-            st.xxbj(R.id.xxbj4).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)), 0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xxbj(R.id.xxbj1).nbj(u, 0, u, 0);
-            st.xxbj(R.id.xxbj4).nbj(u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)), u, 0, u, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            int uih = IappCompat.zh(sj.zh()).pxzdp(pm.ztl);
+            int uih = open.cn.awg.pro.core.DisplayValues.pxToDp(DeepSeekActivity.this, open.cn.awg.pro.core.DisplayValues.systemBarHeight(DeepSeekActivity.this, "status_bar_height"));
             uih = uih + 9;
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, uih + "dp", 0, "9dp");
-            wtab.dqfs("center");
-            st.xxbj(R.id.xxbj1).nbj(0, 0, 0, 0);
-            st.xxbj(R.id.xxbj4).nbj(0, 0, 0, 0);
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)), 0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), 0, 0, 0, 0);
 
         }
 
     }
 
     public void tobottom() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                lbc.st.scrollToPosition(spqc.zs() - 1);
+                lbc.scrollToPosition(spqc.rowCount() - 1);
 
             }
 
@@ -304,11 +303,11 @@ public class DeepSeekActivity extends BaseAwgActivity {
     }
 
     public void totop() {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                lbc.st.scrollToPosition(0);
+                lbc.scrollToPosition(0);
 
             }
 
@@ -317,16 +316,16 @@ public class DeepSeekActivity extends BaseAwgActivity {
     }
 
     public void del() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(1);
-                gj.zt(500);
-                wj.sc(ml);
-                gj.zt(250);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeFiles.delete(DeepSeekActivity.this, (String) (ml), false);
+                open.cn.awg.pro.core.NativeActions.sleep(250);
                 update();
-                gj.zt(250);
+                open.cn.awg.pro.core.NativeActions.sleep(250);
                 show(0);
 
             }
@@ -339,18 +338,18 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    lbc.v.requestFocus();
-                    st.wb(R.id.title_bar).zf("< DeepSeek");
-                    st.bjk(R.id.bjk1).zf("");
-                    st.xxbj(R.id.xxbj1).kjd(0);
-                    st.xxbj(R.id.xxbj3s).kjd(8);
-                    st.xxbj(R.id.xxbj4).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.kp(R.id.kp7).kjd(0);
+                    lbc.requestFocus();
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< DeepSeek"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj3s)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -358,17 +357,17 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("DeepSeek");
-                    st.bjk(R.id.bjk1).zf("");
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj3s).kjd(0);
-                    st.xxbj(R.id.xxbj4).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.kp(R.id.kp7).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("DeepSeek"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj3s)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -376,17 +375,17 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("发送消息");
-                    st.bjk(R.id.bjk1).zf("");
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj3s).kjd(8);
-                    st.xxbj(R.id.xxbj4).kjd(0);
-                    st.xxbj(R.id.xxbj6).kjd(8);
-                    st.kp(R.id.kp7).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("发送消息"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj3s)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -394,17 +393,17 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         } else if (i == 3) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.title_bar).zf("DeepSeek");
-                    st.bjk(R.id.bjk1).zf("");
-                    st.xxbj(R.id.xxbj1).kjd(8);
-                    st.xxbj(R.id.xxbj3s).kjd(8);
-                    st.xxbj(R.id.xxbj4).kjd(8);
-                    st.xxbj(R.id.xxbj6).kjd(0);
-                    st.kp(R.id.kp7).kjd(8);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("DeepSeek"));
+                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj3s)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -415,35 +414,35 @@ public class DeepSeekActivity extends BaseAwgActivity {
     }
 
     public void csh() {
-        lbc = st.v7lb(R.id.v7lb1);
+        lbc = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.v7lb1));
 
         context = AwgProApplication.getContext();
         mLayoutManager = new XLinearLayoutManager(context, LinearLayoutManager.VERTICAL, false);
 
-        lbc.st.setLayoutManager(mLayoutManager);
-        spqc = IappCompat.v7lbAdapter(lbc, RuntimeMessageItemActivity.class, R.layout.runtime_message_item, new IappCompat.V7lbViewBinder() {
+        lbc.setLayoutManager(mLayoutManager);
+        spqc = open.cn.awg.pro.ui.list.NativeListAdapter.attach(DeepSeekActivity.this, lbc, R.layout.runtime_message_item, new open.cn.awg.pro.ui.list.RuntimeMessageRowBinder(DeepSeekActivity.this), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
 
-            public void bind(Object ua, int pn, View vw) {
+            public void bind(View vw, java.util.Map<Integer, Object> row, int pn) {
 
-                i.runlibrary.app.sj$lb lbsj = (i.runlibrary.app.sj$lb) (Object) sj.lb(vw);
+                
 
-                final int f = IappCompat.zh(sj.zh(lbsj.lbsj(pn, -1))).zint();
+                final int f = open.cn.awg.pro.core.TextValues.intValue(row.get(-1), -1);
 
                 if (f == -1) {
 
-                    String color0 = zf.zf(R.color.colorTextTrue2);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextTrue2);
 
-                    String color1 = zf.zf(R.color.colorBlack);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorBlack);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("right");
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(true);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("right"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (f == 0) {
 
@@ -452,46 +451,46 @@ public class DeepSeekActivity extends BaseAwgActivity {
                     String color1 = "#00000000";
 
                     String color2 = "#00000000";
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(false);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(false);
-                    st.xxbj(vw, R.id.xxbj3).kjd(0);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(false));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } else if (f == 1) {
 
-                    String color0 = zf.zf(R.color.colorWBK);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorWBK);
 
-                    String color1 = zf.zf(R.color.colorTextU1);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextU1);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(true);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else {
 
-                    String color0 = zf.zf(R.color.colorWBK);
+                    String color0 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorWBK);
 
-                    String color1 = zf.zf(R.color.colorTextU1);
+                    String color1 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextU1);
 
-                    String color2 = zf.zf(R.color.colorTextU1);
-                    st.wb(vw, R.id.wb1).zfys(color1);
-                    st.wb(vw, R.id.wb3).zfys(color2);
-                    st.kp(vw, R.id.kp1).kpbjys(color0);
-                    st.xxbj(vw, R.id.xxbj1).dqfs("left");
-                    st.xxbj(vw, R.id.xxbj1).kjd(0);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xydj(true);
-                    st.xdbj(vw, R.id.runtime_message_item_root).xyca(true);
-                    st.xxbj(vw, R.id.xxbj3).kjd(8);
+                    String color2 = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextU1);
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb1)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color1));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.wb3)).setTextColor(open.cn.awg.pro.core.NativeViewValues.color(color2));
+                    ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.kp1)).setCardBackgroundColor(open.cn.awg.pro.core.NativeViewValues.color(color0));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("left"));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.runtime_message_item_root)).setLongClickable(java.lang.Boolean.TRUE.equals(true));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(vw, R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -503,15 +502,15 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     public void update() {
 
-        if (wj.cz(ml) && !zf.dy(wj.dqwb(ml), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(DeepSeekActivity.this, (String) (ml)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (ml)), "")) {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     if (!isOnce) {
 
-                        gj.zt(1000);
+                        open.cn.awg.pro.core.NativeActions.sleep(1000);
 
                     }
 
@@ -523,21 +522,21 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
                     ArrayList arr = new ArrayList();
 
-                    String hcw = wj.dqwb(ml);
+                    String hcw = open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (ml));
 
-                    String[] hcw2 = zf.fg(hcw, "\n", true);
+                    String[] hcw2 = open.cn.awg.pro.core.TextValues.split(hcw, "\n", true);
 
                     for (String hcw3 : hcw2) {
 
-                        hcw3 = zf.qctwkg(hcw3);
+                        hcw3 = open.cn.awg.pro.core.TextValues.trim(hcw3);
 
                         if (hcw3.length() != 0) {
 
                             try {
 
-                                String jname = zf.qc(hcw3, 0, 1);
+                                String jname = open.cn.awg.pro.core.TextValues.slice(hcw3, 0, 1);
 
-                                if (zf.dy(jname, "Q")) {
+                                if (java.util.Objects.equals(jname, "Q")) {
 
                                     jname = "User";
 
@@ -547,13 +546,13 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
                                 }
 
-                                String jdata = zf.qc(hcw3, 22);
-                                jdata = zf.th(jdata, "<br>", "\n", true);
+                                String jdata = open.cn.awg.pro.core.TextValues.slice(hcw3, 22);
+                                jdata = open.cn.awg.pro.core.TextValues.replace(jdata, "<br>", "\n", true);
 
-                                String date = zf.qc(hcw3, 2, 21);
+                                String date = open.cn.awg.pro.core.TextValues.slice(hcw3, 2, 21);
                                 size++;
 
-                                if (zf.dy(jname, namer)) {
+                                if (java.util.Objects.equals(jname, namer)) {
 
                                     jk = new Object[]{jdata, jname, date, -1};
 
@@ -587,12 +586,12 @@ public class DeepSeekActivity extends BaseAwgActivity {
                     hs.put(kj[3], 0);
                     arr.add(hs);
                     arr.add(hs);
-                    spqc.list_S = arr;
-                    gj.jmxc(new Runnable() {
+                    spqc.replaceRows(arr);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            spqc.sx();
+                            spqc.refreshRows();
 
                         }
 
@@ -612,15 +611,15 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    spqc.sc();
+                    spqc.clearRows();
 
                     if (!isOnce) {
 
-                        gj.zt(1000);
+                        open.cn.awg.pro.core.NativeActions.sleep(1000);
                         isOnce = true;
                         show(0);
 
@@ -635,18 +634,18 @@ public class DeepSeekActivity extends BaseAwgActivity {
     }
 
     public void add(Object name, Object msg) {
-        msg = zf.qctwkg(msg);
-        msg = zf.th(msg, "\n", "<br>", true);
+        msg = open.cn.awg.pro.core.TextValues.trim(msg);
+        msg = open.cn.awg.pro.core.TextValues.replace(msg, "\n", "<br>", true);
 
-        String d = name + " " + xt.sj(0) + " " + msg;
+        String d = name + " " + open.cn.awg.pro.core.NativeDevice.formatDate(0) + " " + msg;
 
-        if (wj.cz(ml) && !zf.dy(wj.dqwb(ml), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(DeepSeekActivity.this, (String) (ml)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (ml)), "")) {
 
-            wj.xrwb(ml, wj.dqwb(ml) + "\n" + d);
+            open.cn.awg.pro.core.NativeFiles.writeText(DeepSeekActivity.this, (String) (ml), (String) (open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (ml)) + "\n" + d));
 
         } else {
 
-            wj.xrwb(ml, d);
+            open.cn.awg.pro.core.NativeFiles.writeText(DeepSeekActivity.this, (String) (ml), (String) (d));
 
         }
         update();
@@ -661,12 +660,12 @@ public class DeepSeekActivity extends BaseAwgActivity {
     }
 
     public void post() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                String a = st.bjk(R.id.bjk1).zf();
-                a = zf.qctwkg(a);
+                String a = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+                a = open.cn.awg.pro.core.TextValues.trim(a);
 
                 if (a.length() == 0) {
 
@@ -676,30 +675,30 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
                     show(1);
                     add("Q", a);
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
                     show(0);
 
-                    String bak = wl.hq("https://api.sayqz.com/chatgpt/?msg=" + a + "&sys=", "utf-8");
+                    String bak = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf("https://api.sayqz.com/chatgpt/?msg=" + a + "&sys="), null, (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                    if (!zf.dy(bak, null)) {
+                    if (!java.util.Objects.equals(bak, null)) {
 
                         try {
 
-                            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(bak);
+                            org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(bak);
 
-                            JSONObject json = jo.json;
+                            JSONObject json = jo;
 
-                            JSONArray list = jo.dxlb(json, "choices");
+                            JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "choices");
 
-                            int size = jo.cd(list);
+                            int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                             while (size > 0) {
 
                                 size = size - 1;
 
-                                JSONObject dx = jo.dx(list, size);
+                                JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
 
-                                Object msg = jo.hq(dx, "message");
+                                Object msg = open.cn.awg.pro.core.JsonValues.value(dx, "message");
                                 bak = e1.readJson(String.valueOf(msg), "content");
 
                             }
@@ -729,7 +728,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         try {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
@@ -751,10 +750,10 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.deep_seek_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.deep_seek_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
     }
@@ -764,18 +763,18 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.deep_seek_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.deep_seek_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
-        i.runlibrary.app.v.v7lb v7lb1 = st.v7lb(R.id.v7lb1);
-        v7lb1.v.requestFocus();
+        androidx.recyclerview.widget.RecyclerView v7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.v7lb1));
+        v7lb1.requestFocus();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -799,10 +798,10 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.deep_seek_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.deep_seek_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
     }
@@ -812,10 +811,10 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
-        st.xdbj(R.id.deep_seek_root).shxtck(false);
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
+        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.deep_seek_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
     }
@@ -830,9 +829,9 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< DeepSeek")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< DeepSeek")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(DeepSeekActivity.this);
 
             } else {
 
@@ -845,23 +844,23 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< DeepSeek")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< DeepSeek")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(DeepSeekActivity.this);
 
         }
 
     }
 
     private void onWb3Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                String z = st.wb(R.id.wb3).zf();
-                z = zf.qc(z, "[提示] ");
+                String z = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
+                z = open.cn.awg.pro.core.TextValues.slice(z, "[提示] ");
 
-                if (zf.dy(st.wb(R.id.wb3).zf(), "[提示] 发送成功")) {
+                if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString(), "[提示] 发送成功")) {
 
                     z = z + "\n(ps:长按提示可隐藏哦)";
 
@@ -876,7 +875,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     private boolean onWb3LongClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb3).zf(), "[提示] 发送成功")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString(), "[提示] 发送成功")) {
 
         }
         return true;
@@ -923,12 +922,12 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -1000,56 +999,56 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb3);
         i0d2d4d9236.setOnClickListener(wb3ClickListener);
         i0d2d4d9236.setOnLongClickListener(wb3LongClickListener);
 
-        RecyclerView f085d7c0f8 = (RecyclerView) findViewById(ay, vw, R.id.v7lb1);
+        RecyclerView f085d7c0f8 = (RecyclerView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.v7lb1);
         f085d7c0f8.addOnScrollListener(v7lb1ScrollListener);
 
-        LinearLayout e1433e26d6 = (LinearLayout) findViewById(ay, vw, R.id.xxbj1);
+        LinearLayout e1433e26d6 = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj1);
         e1433e26d6.setOnTouchListener(xxbj1TouchListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
         ff56a8e7f6.setOnClickListener(wb1ClickListener);
         ff56a8e7f6.setOnLongClickListener(wb1LongClickListener);
 
-        LinearLayout i469306663f = (LinearLayout) findViewById(ay, vw, R.id.xxbj3s);
+        LinearLayout i469306663f = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj3s);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        LinearLayout i9068f5d66e = (LinearLayout) findViewById(ay, vw, R.id.xxbj4);
+        LinearLayout i9068f5d66e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj4);
         i9068f5d66e.setOnTouchListener(xxbj4TouchListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
         i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        LinearLayout i84f04cd47e = (LinearLayout) findViewById(ay, vw, R.id.xxbj7);
+        LinearLayout i84f04cd47e = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj7);
         i84f04cd47e.setOnTouchListener(xxbj7TouchListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        LinearLayout i3f6c9f386b = (LinearLayout) findViewById(ay, vw, R.id.xxbj8);
+        LinearLayout i3f6c9f386b = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj8);
         i3f6c9f386b.setOnTouchListener(xxbj8TouchListener);
 
-        LinearLayout i6c4a6b953f = (LinearLayout) findViewById(ay, vw, R.id.xxbj6);
+        LinearLayout i6c4a6b953f = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj6);
         i6c4a6b953f.setOnClickListener(xxbj6ClickListener);
 
         __layoutIsLoaded(ay, vw);

@@ -48,7 +48,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
     public final ServerDebugActivity lei = this, 类 = this;
     public String um = "";
     public File f;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -172,6 +172,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.server_debug);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -183,32 +184,32 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         applyStandardScreenMode(R.id.server_debug_root, R.id.xdbj1, R.id.title_bar);
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
         String[] sz = new String[]{"GET方式", "POST提交数据方式", "POST提交JSON数据方式"};
-        xlcd1.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, sz);
 
-        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.xlcd2);
+        android.widget.Spinner xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xlcd2));
         sz = new String[]{"常规模式", "高级模式"};
-        xlcd2.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd2, sz);
 
     }
 
     public void show(int i) {
 
-        i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
         if (i == 0) {
 
-            x1.kjd(0);
-            x2.kjd(8);
+            x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+            x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
         } else if (i == 1) {
 
-            x1.kjd(8);
-            x2.kjd(0);
+            x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+            x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
         }
 
@@ -219,7 +220,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
         String[] name = new String[]{"url", "title", "code"};
 
         Object[] value = new Object[]{url, title, "super1"};
-        gj.tz(TextViewerActivity.class, name, value);
+        open.cn.awg.pro.core.NativeActions.launch(ServerDebugActivity.this, (Class<?>) (TextViewerActivity.class), (String[]) (name), (Object[]) (value));
 
     }
 
@@ -239,9 +240,9 @@ public class ServerDebugActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -258,7 +259,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -275,7 +276,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ServerDebugActivity.this);
 
     }
 
@@ -283,12 +284,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -301,18 +302,18 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
     private void onXlcd1ItemSelected(AdapterView vw, View view, int pn, long id) {
 
-        final i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout xxbj4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
-        final i.runlibrary.app.v.xxbj xxbj5 = st.xxbj(R.id.xxbj5);
+        final android.widget.LinearLayout xxbj5 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xxbj5));
 
         if (pn == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xxbj4.kjd(8);
-                    xxbj5.kjd(8);
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -320,12 +321,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         } else if (pn == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xxbj4.kjd(0);
-                    xxbj5.kjd(8);
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -333,12 +334,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         } else if (pn == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xxbj4.kjd(8);
-                    xxbj5.kjd(0);
+                    xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -356,12 +357,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -376,12 +377,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -394,15 +395,15 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
     private void onXlcd2ItemSelected(AdapterView vw, View view, int pn, long id) {
 
-        final i.runlibrary.app.v.xxbj xxbj7 = st.xxbj(R.id.xxbj7);
+        final android.widget.LinearLayout xxbj7 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xxbj7));
 
         if (pn == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xxbj7.kjd(8);
+                    xxbj7.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -410,11 +411,11 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         } else if (pn == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xxbj7.kjd(0);
+                    xxbj7.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -430,19 +431,19 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
     private void onDx1CheckedChanged(CompoundButton vw, boolean ic) {
 
-        final i.runlibrary.app.v.bjk bjks1 = st.bjk(R.id.bjks1);
+        final android.widget.EditText bjks1 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks1));
 
-        final i.runlibrary.app.v.bjk bjks2 = st.bjk(R.id.bjks2);
+        final android.widget.EditText bjks2 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks2));
 
-        final i.runlibrary.app.v.bjk bjks3 = st.bjk(R.id.bjks3);
+        final android.widget.EditText bjks3 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks3));
 
-        final i.runlibrary.app.v.bjk bjks4 = st.bjk(R.id.bjks4);
+        final android.widget.EditText bjks4 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks4));
 
-        final i.runlibrary.app.v.bjk bjks5 = st.bjk(R.id.bjks5);
+        final android.widget.EditText bjks5 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks5));
 
-        final i.runlibrary.app.v.bjk bjks6 = st.bjk(R.id.bjks6);
+        final android.widget.EditText bjks6 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks6));
 
-        final i.runlibrary.app.v.bjk bjks7 = st.bjk(R.id.bjks7);
+        final android.widget.EditText bjks7 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks7));
 
         final String va1 = "utf-8";
 
@@ -460,17 +461,17 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    bjks1.zf(va1);
-                    bjks2.zf(va2);
-                    bjks3.zf(va3);
-                    bjks4.zf(va4);
-                    bjks5.zf(va5);
-                    bjks6.zf(va6);
-                    bjks7.zf(va7);
+                    bjks1.setText(String.valueOf(va1));
+                    bjks2.setText(String.valueOf(va2));
+                    bjks3.setText(String.valueOf(va3));
+                    bjks4.setText(String.valueOf(va4));
+                    bjks5.setText(String.valueOf(va5));
+                    bjks6.setText(String.valueOf(va6));
+                    bjks7.setText(String.valueOf(va7));
 
                 }
 
@@ -478,17 +479,17 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    bjks1.zf("");
-                    bjks2.zf("");
-                    bjks3.zf("");
-                    bjks4.zf("");
-                    bjks5.zf("");
-                    bjks6.zf("");
-                    bjks7.zf("");
+                    bjks1.setText(String.valueOf(""));
+                    bjks2.setText(String.valueOf(""));
+                    bjks3.setText(String.valueOf(""));
+                    bjks4.setText(String.valueOf(""));
+                    bjks5.setText(String.valueOf(""));
+                    bjks6.setText(String.valueOf(""));
+                    bjks7.setText(String.valueOf(""));
 
                 }
 
@@ -502,12 +503,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -522,12 +523,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -542,12 +543,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -562,12 +563,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -582,12 +583,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -602,12 +603,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -622,12 +623,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -658,84 +659,84 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         String i = "";
 
-        final i.runlibrary.app.v.xlcd xl1 = st.xlcd(R.id.xlcd1);
+        final android.widget.Spinner xl1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
-        final i.runlibrary.app.v.xlcd xl2 = st.xlcd(R.id.xlcd2);
+        final android.widget.Spinner xl2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.xlcd2));
 
-        if (zf.dy(st.bjk(R.id.bjkurl).zf(), "")) {
+        if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjkurl)).getText().toString(), "")) {
 
             e1.tsk("提示", "参数:\"服务端链接\"不能为空");
 
         } else {
 
-            a = st.bjk(R.id.bjkurl).zf();
-            a = zf.qctwkg(a);
+            a = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjkurl)).getText().toString();
+            a = open.cn.awg.pro.core.TextValues.trim(a);
 
         }
 
-        if (xl1.dqzsxmxh() == 0) {
+        if (xl1.getLastVisiblePosition() == 0) {
 
             b = new String[]{""};
 
-        } else if (xl1.dqzsxmxh() == 1) {
+        } else if (xl1.getLastVisiblePosition() == 1) {
 
-            if (zf.dy(st.bjk(R.id.bjkgp1).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjkgp1)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"POST提交的数据\"不能为空");
 
             } else {
 
-                String fb = st.bjk(R.id.bjkgp1).zf();
-                fb = zf.qctwkg(fb);
-                b = zf.fg(fb, "\n", true);
+                String fb = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjkgp1)).getText().toString();
+                fb = open.cn.awg.pro.core.TextValues.trim(fb);
+                b = open.cn.awg.pro.core.TextValues.split(fb, "\n", true);
 
             }
 
-        } else if (xl1.dqzsxmxh() == 2) {
+        } else if (xl1.getLastVisiblePosition() == 2) {
 
-            if (zf.dy(st.bjk(R.id.bjkgp2).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjkgp2)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"POST提交的JSON数据\"不能为空");
 
             } else {
 
-                String fb = st.bjk(R.id.bjkgp2).zf();
-                fb = zf.qctwkg(fb);
-                b = zf.fg(fb, "\n", true);
+                String fb = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjkgp2)).getText().toString();
+                fb = open.cn.awg.pro.core.TextValues.trim(fb);
+                b = open.cn.awg.pro.core.TextValues.split(fb, "\n", true);
 
             }
 
         }
 
-        if (xl2.dqzsxmxh() == 1) {
+        if (xl2.getLastVisiblePosition() == 1) {
 
-            if (zf.dy(st.bjk(R.id.bjks1).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks1)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"编码\"不能为空");
 
             } else {
 
-                c = st.bjk(R.id.bjks1).zf();
-                c = zf.qctwkg(c);
+                c = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks1)).getText().toString();
+                c = open.cn.awg.pro.core.TextValues.trim(c);
 
             }
-            d = st.bjk(R.id.bjks2).zf();
-            d = zf.qctwkg(d);
+            d = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks2)).getText().toString();
+            d = open.cn.awg.pro.core.TextValues.trim(d);
 
-            if (zf.dy(st.bjk(R.id.bjks3).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks3)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"是否自动设置Cookie\"不能为空");
 
             } else {
 
-                String fe = st.bjk(R.id.bjks3).zf();
-                fe = zf.qctwkg(fe);
+                String fe = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks3)).getText().toString();
+                fe = open.cn.awg.pro.core.TextValues.trim(fe);
 
-                if (zf.dy(fe, "true")) {
+                if (java.util.Objects.equals(fe, "true")) {
 
                     e = true;
 
-                } else if (zf.dy(fe, "false")) {
+                } else if (java.util.Objects.equals(fe, "false")) {
 
                     e = false;
 
@@ -743,38 +744,38 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
             }
 
-            if (zf.dy(st.bjk(R.id.bjks4).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks4)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"Header头\"不能为空");
 
             } else {
 
-                f = st.bjk(R.id.bjks4).zf();
-                f = zf.qctwkg(f);
+                f = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks4)).getText().toString();
+                f = open.cn.awg.pro.core.TextValues.trim(f);
 
             }
 
-            if (zf.dy(st.bjk(R.id.bjks5).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks5)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"连接超时\"不能为空");
 
             } else {
 
-                g = Integer.parseInt(st.bjk(R.id.bjks5).zf());
+                g = Integer.parseInt(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks5)).getText().toString());
 
             }
 
-            if (zf.dy(st.bjk(R.id.bjks6).zf(), "")) {
+            if (java.util.Objects.equals(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks6)).getText().toString(), "")) {
 
                 e1.tsk("提示", "参数\"接收超时\"不能为空");
 
             } else {
 
-                h = Integer.parseInt(st.bjk(R.id.bjks6).zf());
+                h = Integer.parseInt(((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks6)).getText().toString());
 
             }
-            i = st.bjk(R.id.bjks7).zf();
-            i = zf.qctwkg(i);
+            i = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(ServerDebugActivity.this.getWindow().getDecorView(), R.id.bjks7)).getText().toString();
+            i = open.cn.awg.pro.core.TextValues.trim(i);
 
         } else {
 
@@ -787,7 +788,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
         }
 
-        if (zf.dy(a, "") || zf.dy(c, "") || zf.dy(f, "") || g == -1 || h == -1) {
+        if (java.util.Objects.equals(a, "") || java.util.Objects.equals(c, "") || java.util.Objects.equals(f, "") || g == -1 || h == -1) {
 
         } else {
 
@@ -808,12 +809,12 @@ public class ServerDebugActivity extends BaseAwgActivity {
             final int s_h = h;
 
             final String s_i = i;
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     String back = "";
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
@@ -823,18 +824,18 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
                     });
 
-                    if (xl1.dqzsxmxh() == 0) {
+                    if (xl1.getLastVisiblePosition() == 0) {
 
-                        if (xl2.dqzsxmxh() == 0) {
+                        if (xl2.getLastVisiblePosition() == 0) {
 
                             try {
 
-                                back = wl.hq(s_a, null, s_c);
+                                back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(s_a), (String[]) (null), (String) (s_c), null, false, null, 0, 0, null).bodyForHttp200();
 
                             } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -846,62 +847,16 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
                             }
 
-                        } else if (xl2.dqzsxmxh() == 1) {
+                        } else if (xl2.getLastVisiblePosition() == 1) {
 
                             try {
 
-                                back = wl.hq(s_a, null, s_c, s_d, s_e, s_f, s_g, s_h, null);
+                                back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(s_a), (String[]) (null), (String) (s_c), (String) (s_d), java.lang.Boolean.TRUE.equals(s_e), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (s_f)), open.cn.awg.pro.core.TextValues.intValue(s_g, -1), open.cn.awg.pro.core.TextValues.intValue(s_h, -1), (String) (null)).bodyForHttp200();
 
                             } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new Runnable() {
-
-                                    public void run() {
-
-                                        show(0);
-
-                                    }
-
-                                });
-
-                            }
-
-                        }
-
-                    } else if (xl1.dqzsxmxh() == 1) {
-
-                        if (xl2.dqzsxmxh() == 0) {
-
-                            try {
-
-                                back = wl.hq(s_a, s_b, s_c);
-
-                            } catch (Throwable e) {
-
-                                e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new Runnable() {
-
-                                    public void run() {
-
-                                        show(0);
-
-                                    }
-
-                                });
-
-                            }
-
-                        } else if (xl2.dqzsxmxh() == 1) {
-
-                            try {
-
-                                back = wl.hq(s_a, s_b, s_c, s_d, s_e, s_f, s_g, s_h, null);
-
-                            } catch (Throwable e) {
-
-                                e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -915,18 +870,18 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
                         }
 
-                    } else if (xl1.dqzsxmxh() == 2) {
+                    } else if (xl1.getLastVisiblePosition() == 1) {
 
-                        if (xl2.dqzsxmxh() == 0) {
+                        if (xl2.getLastVisiblePosition() == 0) {
 
                             try {
 
-                                back = wl.hqjson(s_a, s_b, s_c);
+                                back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(s_a), (String[]) (s_b), (String) (s_c), null, false, null, 0, 0, null).bodyForHttp200();
 
                             } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -938,16 +893,62 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
                             }
 
-                        } else if (xl2.dqzsxmxh() == 1) {
+                        } else if (xl2.getLastVisiblePosition() == 1) {
 
                             try {
 
-                                back = wl.hqjson(s_a, s_b, s_c, s_d, s_e, s_f, s_g, s_h, null);
+                                back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(s_a), (String[]) (s_b), (String) (s_c), (String) (s_d), java.lang.Boolean.TRUE.equals(s_e), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (s_f)), open.cn.awg.pro.core.TextValues.intValue(s_g, -1), open.cn.awg.pro.core.TextValues.intValue(s_h, -1), (String) (null)).bodyForHttp200();
 
                             } catch (Throwable e) {
 
                                 e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
+
+                                    public void run() {
+
+                                        show(0);
+
+                                    }
+
+                                });
+
+                            }
+
+                        }
+
+                    } else if (xl1.getLastVisiblePosition() == 2) {
+
+                        if (xl2.getLastVisiblePosition() == 0) {
+
+                            try {
+
+                                back = open.cn.awg.pro.core.NativeHttp.postJson(String.valueOf(s_a), String.valueOf(s_b), (String) (s_c), null, false, null, 0, 0, null).bodyForHttp200();
+
+                            } catch (Throwable e) {
+
+                                e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
+
+                                    public void run() {
+
+                                        show(0);
+
+                                    }
+
+                                });
+
+                            }
+
+                        } else if (xl2.getLastVisiblePosition() == 1) {
+
+                            try {
+
+                                back = open.cn.awg.pro.core.NativeHttp.postJson(String.valueOf(s_a), String.valueOf(s_b), (String) (s_c), (String) (s_d), java.lang.Boolean.TRUE.equals(s_e), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (s_f)), open.cn.awg.pro.core.TextValues.intValue(s_g, -1), open.cn.awg.pro.core.TextValues.intValue(s_h, -1), (String) (null)).bodyForHttp200();
+
+                            } catch (Throwable e) {
+
+                                e1.upload_error(e, "l5_a1_fuwuq_d0313_y2022.*");
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
@@ -966,14 +967,14 @@ public class ServerDebugActivity extends BaseAwgActivity {
                     final String wblj = AppPaths.appPath("cache/webbacktext");
 
                     final String nr = back;
-                    gj.sc(nr);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.log(nr);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             try {
 
-                                wj.xrwb(wblj, nr);
+                                open.cn.awg.pro.core.NativeFiles.writeText(ServerDebugActivity.this, (String) (wblj), (String) (nr));
 
                             } catch (Throwable e) {
 
@@ -996,7 +997,7 @@ public class ServerDebugActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(ServerDebugActivity.this);
 
     }
 
@@ -1006,52 +1007,52 @@ public class ServerDebugActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        EditText e45f6690d3 = (EditText) findViewById(ay, vw, R.id.bjkurl);
+        EditText e45f6690d3 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjkurl);
         e45f6690d3.setOnTouchListener(bjkurlTouchListener);
 
-        Spinner i004a739c93 = (Spinner) findViewById(ay, vw, R.id.xlcd1);
+        Spinner i004a739c93 = (Spinner) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xlcd1);
         i004a739c93.setOnItemSelectedListener(xlcd1ItemSelectedListener);
 
-        EditText i8d69eec323 = (EditText) findViewById(ay, vw, R.id.bjkgp1);
+        EditText i8d69eec323 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjkgp1);
         i8d69eec323.setOnTouchListener(bjkgp1TouchListener);
 
-        EditText i956d0f4bd8 = (EditText) findViewById(ay, vw, R.id.bjkgp2);
+        EditText i956d0f4bd8 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjkgp2);
         i956d0f4bd8.setOnTouchListener(bjkgp2TouchListener);
 
-        Spinner fef1635c8d = (Spinner) findViewById(ay, vw, R.id.xlcd2);
+        Spinner fef1635c8d = (Spinner) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xlcd2);
         fef1635c8d.setOnItemSelectedListener(xlcd2ItemSelectedListener);
 
-        CheckBox i3d918d2dcb = (CheckBox) findViewById(ay, vw, R.id.dx1);
+        CheckBox i3d918d2dcb = (CheckBox) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dx1);
         i3d918d2dcb.setOnCheckedChangeListener(dx1CheckedChangeListener);
 
-        EditText i2ce2aa6972 = (EditText) findViewById(ay, vw, R.id.bjks1);
+        EditText i2ce2aa6972 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks1);
         i2ce2aa6972.setOnTouchListener(bjks1TouchListener);
 
-        EditText b7e129881e = (EditText) findViewById(ay, vw, R.id.bjks2);
+        EditText b7e129881e = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks2);
         b7e129881e.setOnTouchListener(bjks2TouchListener);
 
-        EditText d9fcd0aec2 = (EditText) findViewById(ay, vw, R.id.bjks3);
+        EditText d9fcd0aec2 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks3);
         d9fcd0aec2.setOnTouchListener(bjks3TouchListener);
 
-        EditText fc0b80656a = (EditText) findViewById(ay, vw, R.id.bjks4);
+        EditText fc0b80656a = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks4);
         fc0b80656a.setOnTouchListener(bjks4TouchListener);
 
-        EditText i8dfdb24277 = (EditText) findViewById(ay, vw, R.id.bjks5);
+        EditText i8dfdb24277 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks5);
         i8dfdb24277.setOnTouchListener(bjks5TouchListener);
 
-        EditText i3793cc74e0 = (EditText) findViewById(ay, vw, R.id.bjks6);
+        EditText i3793cc74e0 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks6);
         i3793cc74e0.setOnTouchListener(bjks6TouchListener);
 
-        EditText i026fdb816d = (EditText) findViewById(ay, vw, R.id.bjks7);
+        EditText i026fdb816d = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjks7);
         i026fdb816d.setOnTouchListener(bjks7TouchListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

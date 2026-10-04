@@ -17,12 +17,11 @@
 package open.cn.awg.pro.settings;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.v7.widget.SwitchCompat;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -46,7 +45,7 @@ import open.cn.awg.pro.R;
 public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     public final FileManagerSettingsActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -162,6 +161,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.file_manager_settings);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -185,43 +185,43 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         String set4 = AppPaths.appPath("settings/d1/set4.inf");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        i.runlibrary.app.v.kg kg2 = st.kg(R.id.kg2);
+        android.widget.CompoundButton kg2 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg2));
 
-        i.runlibrary.app.v.kg kg3 = st.kg(R.id.kg3);
+        android.widget.CompoundButton kg3 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg3));
 
-        i.runlibrary.app.v.kg kg4 = st.kg(R.id.kg4);
+        android.widget.CompoundButton kg4 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg4));
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerSettingsActivity.this, (String) (set1)), "true")) {
 
-            kg1.xzzt(true);
-
-        }
-
-        if (zf.dy(wj.dqwb(set2), "true")) {
-
-            kg2.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
-        if (zf.dy(wj.dqwb(set3), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerSettingsActivity.this, (String) (set2)), "true")) {
 
-            kg3.xzzt(true);
-
-        }
-
-        if (zf.dy(wj.dqwb(set4), "true")) {
-
-            kg4.xzzt(true);
+            kg2.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
-        i.runlibrary.app.v.xxbj xxbj4 = st.xxbj(R.id.xxbj4);
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerSettingsActivity.this, (String) (set3)), "true")) {
 
-        i.runlibrary.app.v.wb wb12 = st.wb(R.id.wb12);
+            kg3.setChecked(java.lang.Boolean.TRUE.equals(true));
 
-        int sdk = IappCompat.sdk(xt.sbxx());
+        }
+
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerSettingsActivity.this, (String) (set4)), "true")) {
+
+            kg4.setChecked(java.lang.Boolean.TRUE.equals(true));
+
+        }
+
+        android.widget.LinearLayout xxbj4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj4));
+
+        android.widget.TextView wb12 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb12));
+
+        int sdk = android.os.Build.VERSION.SDK_INT;
 
         if (sdk >= 30) {
 
@@ -235,24 +235,24 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
                 if (o.equals(true)) {
 
-                    wb12.zf("已授权该权限");
+                    wb12.setText(String.valueOf("已授权该权限"));
 
                 } else {
 
-                    wb12.zf("未授权该权限");
+                    wb12.setText(String.valueOf("未授权该权限"));
 
                 }
 
             } catch (Throwable __$_e__) {
 
-                wb12.zf("未知权限状态");
+                wb12.setText(String.valueOf("未知权限状态"));
 
             }
-            xxbj4.kjd(0);
+            xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
         } else {
 
-            xxbj4.kjd(8);
+            xxbj4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
         }
 
@@ -275,9 +275,9 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -294,7 +294,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -311,7 +311,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(FileManagerSettingsActivity.this);
 
     }
 
@@ -321,11 +321,11 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -333,15 +333,15 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj2Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -349,9 +349,9 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb3).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -363,11 +363,11 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -375,15 +375,15 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj4Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg3);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg3));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -391,9 +391,9 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb6).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
 
-        String lj = st.wb(R.id.wb7).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -405,11 +405,11 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -417,15 +417,15 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj5Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg4);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg4));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -433,9 +433,9 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj5LongClick(View vw) {
 
-        String te = st.wb(R.id.wb8).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
 
-        String lj = st.wb(R.id.wb9).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -447,11 +447,11 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerSettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -459,15 +459,15 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private void onXdbj3Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg2);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.kg2));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -475,9 +475,9 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb4).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
 
-        String lj = st.wb(R.id.wb5).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -506,7 +506,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         } catch (Throwable e) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(FileManagerSettingsActivity.this);
             e1.upload_error(e, "f6.*");
 
         }
@@ -515,16 +515,16 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb11).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString();
 
-        String lj = st.wb(R.id.wb12).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(FileManagerSettingsActivity.this);
 
     }
 
@@ -534,42 +534,42 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        SwitchCompat i2e1dda294f = (SwitchCompat) findViewById(ay, vw, R.id.kg3);
+        SwitchCompat i2e1dda294f = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg3);
         i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        SwitchCompat c6051f0d45 = (SwitchCompat) findViewById(ay, vw, R.id.kg4);
+        SwitchCompat c6051f0d45 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg4);
         c6051f0d45.setOnCheckedChangeListener(kg4CheckedChangeListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
         c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        SwitchCompat ab7dd47b08 = (SwitchCompat) findViewById(ay, vw, R.id.kg2);
+        SwitchCompat ab7dd47b08 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg2);
         ab7dd47b08.setOnCheckedChangeListener(kg2CheckedChangeListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

@@ -54,8 +54,8 @@ public class SystemPermissionActivity extends BaseAwgActivity {
     public final SystemPermissionActivity lei = this, 类 = this;
     public String lin;
     public String ujback;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public DevicePolicyBridge carton = new DevicePolicyBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public DevicePolicyBridge carton;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -94,6 +94,8 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        carton = new DevicePolicyBridge(this);
         setContentView(R.layout.system_permission);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -102,11 +104,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -120,78 +122,78 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.system_permission_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.system_permission_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.system_permission_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.system_permission_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(SystemPermissionActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
-        i.runlibrary.app.v.dx dx1 = st.dx(R.id.dx1);
-        dx1.xzzt(true);
+        android.widget.CheckBox dx1 = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.dx1));
+        dx1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         String set = AppPaths.appPath("settings/set3.inf");
 
-        if (zf.dy(wj.dqwb(set), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (set)), "true")) {
 
-            String te = wj.dqwb(AppPaths.appPath("data/assets/a9"));
+            String te = open.cn.awg.pro.core.NativeFiles.readText(SystemPermissionActivity.this, (String) (AppPaths.appPath("data/assets/a9")));
 
             String[] name = new String[]{"title", "text"};
 
             String[] value = new String[]{"新手教程", te};
-            gj.tz(TextQrDisplayActivity.class, name, value);
+            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (TextQrDisplayActivity.class), (String[]) (name), (Object[]) (value));
 
         }
 
@@ -199,15 +201,15 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void run(boolean i) {
 
-        final i.runlibrary.app.v.wb backinfo = st.wb(R.id.backs);
+        final android.widget.TextView backinfo = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.backs));
 
-        final i.runlibrary.app.v.xxbj cmdlin = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout cmdlin = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj cmdbac = st.xxbj(R.id.xxbj2);
-        lin = st.bjk(R.id.bjk1).zf();
-        lin = zf.qctwkg(lin);
+        final android.widget.LinearLayout cmdbac = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj2));
+        lin = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
+        lin = open.cn.awg.pro.core.TextValues.trim(lin);
 
-        if (zf.dy(lin, "")) {
+        if (java.util.Objects.equals(lin, "")) {
 
             e1.tsk("提示", "命令行不能为空");
 
@@ -215,65 +217,65 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
             try {
 
-                if (zf.ckt(lin, "dkplayer load ")) {
+                if (open.cn.awg.pro.core.TextValues.startsWith(lin, "dkplayer load ")) {
 
-                    String url = zf.qc(lin, "dkplayer load ", null);
+                    String url = open.cn.awg.pro.core.TextValues.slice(lin, "dkplayer load ", null);
 
                     String[] name = new String[]{"url"};
 
                     String[] value = new String[]{url};
-                    gj.tz(VideoPlayerActivity.class, name, value);
+                    open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (VideoPlayerActivity.class), (String[]) (name), (Object[]) (value));
                     bak(true);
 
-                } else if (zf.ckt(lin, "x5web load ")) {
+                } else if (open.cn.awg.pro.core.TextValues.startsWith(lin, "x5web load ")) {
 
-                    String url = zf.qc(lin, "x5web load ", null);
+                    String url = open.cn.awg.pro.core.TextValues.slice(lin, "x5web load ", null);
 
                     final String[] name = new String[]{"url"};
 
                     final String[] value = new String[]{url};
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.tz(X5BrowserActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (X5BrowserActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
                     });
                     bak(true);
 
-                } else if (zf.ckt(lin, "paytest -p ")) {
+                } else if (open.cn.awg.pro.core.TextValues.startsWith(lin, "paytest -p ")) {
 
-                    String _money = zf.qc(lin, "paytest -p ", null);
+                    String _money = open.cn.awg.pro.core.TextValues.slice(lin, "paytest -p ", null);
 
                     final String[] name = new String[]{"id", "name", "jg", "text"};
 
                     final String[] value = new String[]{"a2", "腕管Pro-PayTest", _money, "腕管Pro：PayTest。"};
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.tz(ProductPurchaseActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (ProductPurchaseActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
                     });
                     bak(true);
 
-                } else if (zf.ckt(lin, "file2 load ")) {
+                } else if (open.cn.awg.pro.core.TextValues.startsWith(lin, "file2 load ")) {
 
-                    String url = zf.qc(lin, "file2 load ", " -rp ");
+                    String url = open.cn.awg.pro.core.TextValues.slice(lin, "file2 load ", " -rp ");
 
-                    String root = zf.qc(lin, " -rp ", null);
-                    url = zf.qctwkg(url);
-                    root = zf.qctwkg(root);
+                    String root = open.cn.awg.pro.core.TextValues.slice(lin, " -rp ", null);
+                    url = open.cn.awg.pro.core.TextValues.trim(url);
+                    root = open.cn.awg.pro.core.TextValues.trim(root);
 
                     String in = AppPaths.appPath("");
 
-                    if (zf.ckt(url, in)) {
+                    if (open.cn.awg.pro.core.TextValues.startsWith(url, in)) {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
@@ -282,7 +284,7 @@ public class SystemPermissionActivity extends BaseAwgActivity {
                                 String[] name = new String[]{"url", "root"};
 
                                 String[] value = new String[]{po, po};
-                                gj.tz(FileManagerActivity.class, name, value);
+                                open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
                             }
 
@@ -293,11 +295,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
                         final String[] name = new String[]{"url", "root"};
 
                         final String[] value = new String[]{url, root};
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                gj.tz(FileManagerActivity.class, name, value);
+                                open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
                             }
 
@@ -306,48 +308,48 @@ public class SystemPermissionActivity extends BaseAwgActivity {
                     }
                     bak(true);
 
-                } else if (zf.dy(lin, "awg open beta")) {
+                } else if (java.util.Objects.equals(lin, "awg open beta")) {
 
                     String set1 = AppPaths.appPath("settings/set1.inf");
-                    wj.xrwb(set1, "true");
+                    open.cn.awg.pro.core.NativeFiles.writeText(SystemPermissionActivity.this, (String) (set1), (String) ("true"));
                     bak_s("成功开启实验性功能", true);
 
-                } else if (zf.dy(lin, "awg close beta")) {
+                } else if (java.util.Objects.equals(lin, "awg close beta")) {
 
                     String set1 = AppPaths.appPath("settings/set1.inf");
-                    wj.xrwb(set1, "false");
+                    open.cn.awg.pro.core.NativeFiles.writeText(SystemPermissionActivity.this, (String) (set1), (String) ("false"));
                     bak_s("成功关闭实验性功能", true);
 
-                } else if (zf.dy(lin, "help")) {
+                } else if (java.util.Objects.equals(lin, "help")) {
 
                     final String[] name = new String[]{"url", "title", "code"};
 
                     final String[] value = new String[]{AppPaths.appPath("data/assets/b2"), "功能帮助", "super1"};
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.tz(TextViewerActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (TextViewerActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
                     });
                     bak(true);
 
-                } else if (zf.dy(lin, "edit end")) {
+                } else if (java.util.Objects.equals(lin, "edit end")) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.tz(TerminalCompatibilityActivity.class);
+                            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (TerminalCompatibilityActivity.class));
 
                         }
 
                     });
                     bak(true);
 
-                } else if (zf.dy(lin, "awg activate")) {
+                } else if (java.util.Objects.equals(lin, "awg activate")) {
 
                     if (e1.isJh()) {
 
@@ -360,33 +362,33 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
                     }
 
-                } else if (zf.dy(lin, "error")) {
+                } else if (java.util.Objects.equals(lin, "error")) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String[] name = new String[]{"Error"};
 
                             String[] value = new String[]{"0xffff"};
-                            gj.tz(ErrorMessageActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
                     });
                     bak(true);
 
-                } else if (zf.ckt(lin, "deviceManger ")) {
+                } else if (open.cn.awg.pro.core.TextValues.startsWith(lin, "deviceManger ")) {
 
                     cartoncmd(lin);
 
-                } else if (zf.dy(lin, "su") || zf.dy(lin, "sh") || zf.dy(lin, "shell")) {
+                } else if (java.util.Objects.equals(lin, "su") || java.util.Objects.equals(lin, "sh") || java.util.Objects.equals(lin, "shell")) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.tz(ShellExecutorActivity.class);
+                            open.cn.awg.pro.core.NativeActions.launch(SystemPermissionActivity.this, (Class<?>) (ShellExecutorActivity.class));
 
                         }
 
@@ -414,7 +416,7 @@ public class SystemPermissionActivity extends BaseAwgActivity {
         final Object url = set2e;
 
         final Object lable = lables;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -424,15 +426,15 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
                 String[] wlhq1 = new String[]{"name1=value1", "name2=value2"};
 
-                String back = wl.hq(url, wlhq1, "utf-8", "uid=123;name=123;", true, "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN", 20000, 20000, null);
+                String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (wlhq1), (String) ("utf-8"), (String) ("uid=123;name=123;"), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) ("User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept=*/*||accept-language=zh-CN")), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                if (zf.dy(back, "") || zf.dy(back, null)) {
+                if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                     setback = "0";
 
                 } else {
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                         setback = "0";
 
@@ -440,20 +442,20 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
                         try {
 
-                            i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(back);
+                            org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back);
 
-                            JSONObject json = jo.json;
+                            JSONObject json = jo;
 
-                            JSONArray list = jo.dxlb(json, "data");
+                            JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "data");
 
-                            int size = jo.cd(list);
+                            int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                             while (size > 0) {
 
                                 size = size - 1;
 
-                                JSONObject dx = jo.dx(list, size);
-                                data = String.valueOf(jo.hq(dx, lable));
+                                JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
+                                data = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, lable));
 
                             }
 
@@ -478,19 +480,19 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void cartoncmd(Object i) {
 
-        if (zf.dy(i, "deviceManger get")) {
+        if (java.util.Objects.equals(i, "deviceManger get")) {
 
             carton.gets(lei);
             bak(true);
 
-        } else if (zf.ckt(i, "deviceManger setCameraDisabled")) {
+        } else if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setCameraDisabled")) {
 
-            if (zf.dy(i, "deviceManger setCameraDisabled true")) {
+            if (java.util.Objects.equals(i, "deviceManger setCameraDisabled true")) {
 
                 carton.setCameraDisabled(lei, true);
                 bak(true);
 
-            } else if (zf.dy(i, "deviceManger setCameraDisabled false")) {
+            } else if (java.util.Objects.equals(i, "deviceManger setCameraDisabled false")) {
 
                 carton.setCameraDisabled(lei, false);
                 bak(true);
@@ -501,14 +503,14 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
             }
 
-        } else if (zf.ckt(i, "deviceManger setStatusBarDisabled")) {
+        } else if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setStatusBarDisabled")) {
 
-            if (zf.dy(i, "deviceManger setStatusBarDisabled true")) {
+            if (java.util.Objects.equals(i, "deviceManger setStatusBarDisabled true")) {
 
                 carton.setStatusBarDisabled(lei, true);
                 bak(true);
 
-            } else if (zf.dy(i, "deviceManger setStatusBarDisabled false")) {
+            } else if (java.util.Objects.equals(i, "deviceManger setStatusBarDisabled false")) {
 
                 carton.setStatusBarDisabled(lei, false);
                 bak(true);
@@ -519,35 +521,35 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
             }
 
-        } else if (zf.dy(i, "deviceManger lockNow")) {
+        } else if (java.util.Objects.equals(i, "deviceManger lockNow")) {
 
             carton.lockNow(lei);
             bak(true);
 
-        } else if (zf.dy(i, "deviceManger wipeData")) {
+        } else if (java.util.Objects.equals(i, "deviceManger wipeData")) {
 
             carton.wipeData(lei);
             bak(true);
 
-        } else if (zf.dy(i, "deviceManger reboot")) {
+        } else if (java.util.Objects.equals(i, "deviceManger reboot")) {
 
             carton.reboot(lei);
             bak(true);
 
-        } else if (zf.dy(i, "deviceManger isDOA")) {
+        } else if (java.util.Objects.equals(i, "deviceManger isDOA")) {
 
             boolean e0 = carton.isDeviceOwnerApp(lei);
 
             boolean e = e0;
             bak_s(e, true);
 
-        } else if (zf.ckt(i, "deviceManger setUninstallBlocked")) {
+        } else if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setUninstallBlocked")) {
 
-            if (zf.cjw(i, " true")) {
+            if (open.cn.awg.pro.core.TextValues.endsWith(i, " true")) {
 
-                if (zf.ckt(i, "deviceManger setUninstallBlocked \"") && zf.cjw(i, "\" true")) {
+                if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setUninstallBlocked \"") && open.cn.awg.pro.core.TextValues.endsWith(i, "\" true")) {
 
-                    String apk = zf.qc(i, "setUninstallBlocked \"", "\" true");
+                    String apk = open.cn.awg.pro.core.TextValues.slice(i, "setUninstallBlocked \"", "\" true");
                     carton.setUninstallBlocked(lei, apk, true);
                     bak(true);
 
@@ -557,11 +559,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
                 }
 
-            } else if (zf.cjw(i, "false")) {
+            } else if (open.cn.awg.pro.core.TextValues.endsWith(i, "false")) {
 
-                if (zf.ckt(i, "deviceManger setUninstallBlocked \"") && zf.cjw(i, "\" false")) {
+                if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setUninstallBlocked \"") && open.cn.awg.pro.core.TextValues.endsWith(i, "\" false")) {
 
-                    String apk = zf.qc(i, "setUninstallBlocked \"", "\" false");
+                    String apk = open.cn.awg.pro.core.TextValues.slice(i, "setUninstallBlocked \"", "\" false");
                     carton.setUninstallBlocked(lei, apk, false);
                     bak(true);
 
@@ -577,11 +579,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
             }
 
-        } else if (zf.ckt(i, "deviceManger setDeviceOwnerLockScreenInfo")) {
+        } else if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setDeviceOwnerLockScreenInfo")) {
 
-            if (zf.ckt(i, "deviceManger setDeviceOwnerLockScreenInfo \"") && zf.cjw(i, "\"")) {
+            if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setDeviceOwnerLockScreenInfo \"") && open.cn.awg.pro.core.TextValues.endsWith(i, "\"")) {
 
-                String text = zf.qc(i, "setDeviceOwnerLockScreenInfo \"", "\"");
+                String text = open.cn.awg.pro.core.TextValues.slice(i, "setDeviceOwnerLockScreenInfo \"", "\"");
                 carton.setDeviceOwnerLockScreenInfo(lei, text);
                 bak(true);
 
@@ -591,11 +593,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
             }
 
-        } else if (zf.ckt(i, "deviceManger setOrganizationName")) {
+        } else if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setOrganizationName")) {
 
-            if (zf.ckt(i, "deviceManger setOrganizationName \"") && zf.cjw(i, "\"")) {
+            if (open.cn.awg.pro.core.TextValues.startsWith(i, "deviceManger setOrganizationName \"") && open.cn.awg.pro.core.TextValues.endsWith(i, "\"")) {
 
-                String text = zf.qc(i, "setOrganizationName \"", "\"");
+                String text = open.cn.awg.pro.core.TextValues.slice(i, "setOrganizationName \"", "\"");
                 carton.setOrganizationName(lei, text);
                 bak(true);
 
@@ -615,11 +617,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void bak(boolean i) {
 
-        final i.runlibrary.app.v.wb backinfo = st.wb(R.id.backs);
+        final android.widget.TextView backinfo = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.backs));
 
-        final i.runlibrary.app.v.xxbj cmdlin = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout cmdlin = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj cmdbac = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout cmdbac = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
         String color = "";
 
@@ -628,26 +630,26 @@ public class SystemPermissionActivity extends BaseAwgActivity {
         if (i) {
 
             z = "运行成功";
-            color = zf.zf(R.color.colorTextTrue);
+            color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextTrue);
 
         } else {
 
             z = "运行失败";
-            color = zf.zf(R.color.colorTextFalse);
+            color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextFalse);
 
         }
 
         final String zs = z;
 
         final String colors = color;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                backinfo.zfys(colors);
-                backinfo.zf(zs);
-                cmdbac.kjd(0);
-                cmdlin.kjd(8);
+                backinfo.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colors));
+                backinfo.setText(String.valueOf(zs));
+                cmdbac.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                cmdlin.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
             }
 
@@ -659,33 +661,33 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
         final Object zs = z;
 
-        final i.runlibrary.app.v.wb backinfo = st.wb(R.id.backs);
+        final android.widget.TextView backinfo = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.backs));
 
-        final i.runlibrary.app.v.xxbj cmdlin = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout cmdlin = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj cmdbac = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout cmdbac = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
         String color = "";
 
         if (i) {
 
-            color = zf.zf(R.color.colorTextTrue);
+            color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextTrue);
 
         } else {
 
-            color = zf.zf(R.color.colorTextFalse);
+            color = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTextFalse);
 
         }
 
         final String colors = color;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                backinfo.zfys(colors);
-                backinfo.zf(zs);
-                cmdbac.kjd(0);
-                cmdlin.kjd(8);
+                backinfo.setTextColor(open.cn.awg.pro.core.NativeViewValues.color(colors));
+                backinfo.setText(String.valueOf(zs));
+                cmdbac.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                cmdlin.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
             }
 
@@ -703,9 +705,9 @@ public class SystemPermissionActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -722,7 +724,7 @@ public class SystemPermissionActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -757,12 +759,12 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -774,21 +776,21 @@ public class SystemPermissionActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(SystemPermissionActivity.this);
 
     }
 
     private void onTx3Click(View vw) {
 
-        i.runlibrary.app.v.dx dx1 = st.dx(R.id.dx1);
+        android.widget.CheckBox dx1 = ((android.widget.CheckBox) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.dx1));
 
-        run(!dx1.xzzt());
+        run(!dx1.isChecked());
 
     }
 
     private boolean onBacksLongClick(View vw) {
 
-        String wb1 = st.wb(R.id.backs).zf();
+        String wb1 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.backs)).getText().toString();
         e1.tsk("详细信息", wb1);
         return true;
 
@@ -796,11 +798,11 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     private void onTx1Click(View vw) {
 
-        final i.runlibrary.app.v.xxbj cmdlin = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout cmdlin = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj cmdbac = st.xxbj(R.id.xxbj2);
-        cmdbac.kjd(8);
-        cmdlin.kjd(0);
+        final android.widget.LinearLayout cmdbac = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(SystemPermissionActivity.this.getWindow().getDecorView(), R.id.xxbj2));
+        cmdbac.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+        cmdlin.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
     }
 
@@ -810,23 +812,23 @@ public class SystemPermissionActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        CheckBox i3d918d2dcb = (CheckBox) findViewById(ay, vw, R.id.dx1);
+        CheckBox i3d918d2dcb = (CheckBox) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.dx1);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        TextView i50b5d2ce90 = (TextView) findViewById(ay, vw, R.id.backs);
+        TextView i50b5d2ce90 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.backs);
         i50b5d2ce90.setOnLongClickListener(backsLongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

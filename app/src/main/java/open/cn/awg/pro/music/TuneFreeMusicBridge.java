@@ -18,72 +18,73 @@ package open.cn.awg.pro.music;
 
 
 
-import open.cn.awg.pro.core.IappCompat;
-import android.annotation.SuppressLint;
 import android.content.Context;
-import android.support.v7.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import i.app.iClass;
+import android.app.Activity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
+import open.cn.awg.pro.core.NativeDevice;
 import open.cn.awg.pro.media.VideoPlayerActivity;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.TuneFreeSongItemActivity;
 
-@SuppressLint("StaticFieldLeak")
-public class TuneFreeMusicBridge extends iClass {
+public class TuneFreeMusicBridge {
+    private final Context context;
+    private final Activity owner;
 
-    public static Context context;
-    public final TuneFreeMusicBridge lei = this, 类 = this;
-    public i.runlibrary.app.v.v7lb$UserAdapter nmyylbspq = null;
+public final TuneFreeMusicBridge lei = this, 类 = this;
+    public open.cn.awg.pro.ui.list.NativeListAdapter nmyylbspq = null;
     public String cookiepath = AppPaths.appPath("data/plugin/tunefree/cookie");
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String endurl = "";
     public String api = "/song/url";
 
-    public TuneFreeMusicBridge(i.runlibrary.app.AppInfo _APPINFO) {
-        super(_APPINFO);
-
+    public TuneFreeMusicBridge(Context context) {
+        this.context = java.util.Objects.requireNonNull(context);
+        if (!(context instanceof Activity)) {
+            throw new IllegalArgumentException("TuneFreeMusicBridge requires an Activity context");
+        }
+        this.owner = (Activity) context;
+        e1 = new AppRuntimeBridge(context);
     }
 
     public void csh() {
-        context = AwgProApplication.getContext();
+        
 
-        i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.nmyyv7lb1);
-        nmyylbspq = IappCompat.v7lbAdapter(lb, TuneFreeSongItemActivity.class, R.layout.tune_free_song_item);
+        androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.nmyyv7lb1));
+        nmyylbspq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(owner, lb, R.layout.tune_free_song_item, new open.cn.awg.pro.ui.list.TuneFreeSongRowBinder(owner));
 
         LinearLayoutManager nx = new LinearLayoutManager(context, LinearLayoutManager.VERTICAL, true);
 
-        RecyclerView v7lbdx = lb.st;
+        RecyclerView v7lbdx = lb;
         v7lbdx.setLayoutManager(nx);
 
     }
 
     public String lrcFix(String lr) {
 
-        String lrc = zf.qctwkg(lr);
+        String lrc = open.cn.awg.pro.core.TextValues.trim(lr);
 
-        String[] lrcH = zf.fg(lrc, "\n", true);
+        String[] lrcH = open.cn.awg.pro.core.TextValues.split(lrc, "\n", true);
 
         for (String x : lrcH) {
 
-            String x2 = zf.qc(x, 10, 11);
+            String x2 = open.cn.awg.pro.core.TextValues.slice(x, 10, 11);
 
-            if (zf.ckt(x, "[") && zf.dy(x2, "]")) {
+            if (open.cn.awg.pro.core.TextValues.startsWith(x, "[") && java.util.Objects.equals(x2, "]")) {
 
-                String a = zf.qc(x, 1, 10);
+                String a = open.cn.awg.pro.core.TextValues.slice(x, 1, 10);
 
-                String b = zf.qc(x, 1, 9);
+                String b = open.cn.awg.pro.core.TextValues.slice(x, 1, 9);
                 a = "[" + a + "]";
                 b = "[" + b + "]";
-                lrc = zf.th(lrc, a, b);
+                lrc = open.cn.awg.pro.core.TextValues.replace(lrc, a, b);
 
             }
 
@@ -93,7 +94,7 @@ public class TuneFreeMusicBridge extends iClass {
     }
 
     public void search_i1(Object v, int o) {
-        nmyylbspq.sc();
+        nmyylbspq.clearRows();
 
         final int oo = o;
 
@@ -101,63 +102,63 @@ public class TuneFreeMusicBridge extends iClass {
 
         String[] jk = new String[]{"", "", ""};
 
-        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
+        org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v);
 
-        JSONObject json = jo.json;
+        JSONObject json = jo;
 
-        Object v_result = jo.hq(json, "result");
+        Object v_result = open.cn.awg.pro.core.JsonValues.value(json, "result");
 
-        Object v_code = jo.hq(json, "code");
+        Object v_code = open.cn.awg.pro.core.JsonValues.value(json, "code");
 
-        if (!zf.dy(v_result, "")) {
+        if (!java.util.Objects.equals(v_result, "")) {
 
-            i.runlibrary.app.zf$json jo_z1 = (i.runlibrary.app.zf$json) (Object) zf.json(v_result);
+            org.json.JSONObject jo_z1 = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v_result);
 
-            JSONObject json_z1 = jo_z1.json;
+            JSONObject json_z1 = jo_z1;
 
-            Object v_songs = jo_z1.hq(json_z1, "songs");
+            Object v_songs = open.cn.awg.pro.core.JsonValues.value(json_z1, "songs");
 
-            Object v_songCount = jo_z1.hq(json_z1, "songCount");
+            Object v_songCount = open.cn.awg.pro.core.JsonValues.value(json_z1, "songCount");
 
-            if (!zf.dy(v_songs, "")) {
+            if (!java.util.Objects.equals(v_songs, "")) {
 
-                JSONArray list = jo_z1.dxlb(json_z1, "songs");
+                JSONArray list = open.cn.awg.pro.core.JsonValues.array(json_z1, "songs");
 
-                int size = jo_z1.cd(list);
+                int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                 while (size > 0) {
 
                     size--;
 
-                    JSONObject dx = jo_z1.dx(list, size);
+                    JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
 
-                    Object v_l_name = jo_z1.hq(dx, "name");
+                    Object v_l_name = open.cn.awg.pro.core.JsonValues.value(dx, "name");
 
-                    Object v_l_id = jo_z1.hq(dx, "id");
+                    Object v_l_id = open.cn.awg.pro.core.JsonValues.value(dx, "id");
 
-                    Object v_l_ar = jo_z1.hq(dx, "ar");
+                    Object v_l_ar = open.cn.awg.pro.core.JsonValues.value(dx, "ar");
 
-                    if (!zf.dy(v_l_ar, "")) {
+                    if (!java.util.Objects.equals(v_l_ar, "")) {
 
                         v_l_ar = "";
 
-                        i.runlibrary.app.zf$json jo_z2 = (i.runlibrary.app.zf$json) (Object) zf.json(dx);
+                        org.json.JSONObject jo_z2 = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(dx);
 
-                        JSONObject json_z2 = jo_z2.json;
+                        JSONObject json_z2 = jo_z2;
 
-                        JSONArray list2 = jo_z2.dxlb(json_z2, "ar");
+                        JSONArray list2 = open.cn.awg.pro.core.JsonValues.array(json_z2, "ar");
 
-                        int size2 = jo_z2.cd(list2);
+                        int size2 = open.cn.awg.pro.core.JsonValues.length(list2);
 
                         while (size2 > 0) {
 
                             size2 = size2 - 1;
 
-                            JSONObject dx2 = jo_z2.dx(list2, size2);
+                            JSONObject dx2 = open.cn.awg.pro.core.JsonValues.object(list2, size2);
 
-                            Object v_l2_id = jo_z2.hq(dx2, "id");
+                            Object v_l2_id = open.cn.awg.pro.core.JsonValues.value(dx2, "id");
 
-                            Object v_l2_name = jo_z2.hq(dx2, "name");
+                            Object v_l2_name = open.cn.awg.pro.core.JsonValues.value(dx2, "name");
                             v_l_ar = v_l_ar + String.valueOf(v_l2_name) + ";";
 
                         }
@@ -165,9 +166,9 @@ public class TuneFreeMusicBridge extends iClass {
                     }
 
                     String _v_l_ar = v_l_ar.toString();
-                    v_l_ar = zf.qc(v_l_ar, null, _v_l_ar.length() - 1);
+                    v_l_ar = open.cn.awg.pro.core.TextValues.slice(v_l_ar, null, _v_l_ar.length() - 1);
                     jk = new String[]{v_l_name.toString(), v_l_ar.toString(), v_l_id.toString()};
-                    nmyylbspq.j(kj, jk);
+                    nmyylbspq.addRow(kj, jk);
 
                 }
 
@@ -186,35 +187,35 @@ public class TuneFreeMusicBridge extends iClass {
             }
 
             final String nums = nums2;
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
                     int loo = Integer.parseInt(nums) / 20;
 
-                    if (zf.dy(ynums, "0")) {
+                    if (java.util.Objects.equals(ynums, "0")) {
 
-                        nmyylbspq.sc();
-                        st.wb(R.id.wb3).zf("未搜索到相关歌曲/歌手");
-                        st.wb(R.id.myswb).zf("第1/1页");
-                        st.xxbj(R.id.xxbj1).kjd(8);
-                        st.wb(R.id.wb3).kjd(0);
+                        nmyylbspq.clearRows();
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("未搜索到相关歌曲/歌手"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.myswb)).setText(String.valueOf("第1/1页"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                     } else {
 
-                        st.wb(R.id.wb3).zf("共搜索到" + nums + "首歌曲");
-                        st.wb(R.id.myswb).zf("第" + oo + "/" + loo + "页");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("共搜索到" + nums + "首歌曲"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.myswb)).setText(String.valueOf("第" + oo + "/" + loo + "页"));
 
                         if (oo == 1 && loo == 1) {
 
-                            st.xxbj(R.id.xxbj1).kjd(8);
+                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                         } else {
 
-                            st.xxbj(R.id.xxbj1).kjd(0);
+                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                         }
-                        st.wb(R.id.wb3).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                     }
 
@@ -223,11 +224,11 @@ public class TuneFreeMusicBridge extends iClass {
             });
 
         }
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                nmyylbspq.sx();
+                nmyylbspq.refreshRows();
 
             }
 
@@ -237,15 +238,15 @@ public class TuneFreeMusicBridge extends iClass {
 
     public String getMCU() {
 
-        String cookie = wj.dqwb(cookiepath);
+        String cookie = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cookiepath));
 
-        String[] cf = zf.fg(cookie, ";", false);
+        String[] cf = open.cn.awg.pro.core.TextValues.split(cookie, ";", false);
 
         String mcu = "";
 
         for (String line : cf) {
 
-            if (zf.ckt(line, "MUSIC_U")) {
+            if (open.cn.awg.pro.core.TextValues.startsWith(line, "MUSIC_U")) {
 
                 mcu = line;
 
@@ -257,7 +258,7 @@ public class TuneFreeMusicBridge extends iClass {
     }
 
     public void search_i2(Object v, int o) {
-        nmyylbspq.sc();
+        nmyylbspq.clearRows();
 
         final int oo = o;
 
@@ -265,40 +266,40 @@ public class TuneFreeMusicBridge extends iClass {
 
         String[] jk = new String[]{"", "", ""};
 
-        i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
+        org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v);
 
-        JSONObject json = jo.json;
+        JSONObject json = jo;
 
-        JSONArray list = jo.dxlb(json, "data");
+        JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "data");
 
-        Object count = jo.hq(json, "count");
+        Object count = open.cn.awg.pro.core.JsonValues.value(json, "count");
 
-        if (!zf.dy(list, "")) {
+        if (!java.util.Objects.equals(list, "")) {
 
-            int size = jo.cd(list);
+            int size = open.cn.awg.pro.core.JsonValues.length(list);
 
             while (size > 0) {
 
                 size--;
 
-                JSONObject dx = jo.dx(list, size);
+                JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
 
-                String v_l_name = jo.hq(dx, "songName").toString();
+                String v_l_name = open.cn.awg.pro.core.JsonValues.value(dx, "songName").toString();
 
-                String v_l_id = jo.hq(dx, "songId").toString();
+                String v_l_id = open.cn.awg.pro.core.JsonValues.value(dx, "songId").toString();
 
-                String v_l_ar = jo.hq(dx, "artist").toString();
+                String v_l_ar = open.cn.awg.pro.core.JsonValues.value(dx, "artist").toString();
 
-                if (zf.dy(v_l_ar, "")) {
+                if (java.util.Objects.equals(v_l_ar, "")) {
 
-                    if (zf.cz(v_l_name, " - ")) {
+                    if (open.cn.awg.pro.core.TextValues.contains(v_l_name, " - ")) {
 
-                        v_l_ar = zf.qc(v_l_name, " - ", null);
-                        v_l_ar = zf.qctwkg(v_l_ar);
-                        v_l_name = zf.qc(v_l_name, null, " - ");
-                        v_l_name = zf.qctwkg(v_l_name);
+                        v_l_ar = open.cn.awg.pro.core.TextValues.slice(v_l_name, " - ", null);
+                        v_l_ar = open.cn.awg.pro.core.TextValues.trim(v_l_ar);
+                        v_l_name = open.cn.awg.pro.core.TextValues.slice(v_l_name, null, " - ");
+                        v_l_name = open.cn.awg.pro.core.TextValues.trim(v_l_name);
 
-                        if (zf.dy(v_l_ar, "")) {
+                        if (java.util.Objects.equals(v_l_ar, "")) {
 
                             v_l_ar = "未知歌手";
 
@@ -312,7 +313,7 @@ public class TuneFreeMusicBridge extends iClass {
 
                 }
                 jk = new String[]{v_l_name, v_l_ar, v_l_id};
-                nmyylbspq.j(kj, jk);
+                nmyylbspq.addRow(kj, jk);
 
             }
 
@@ -329,35 +330,35 @@ public class TuneFreeMusicBridge extends iClass {
             }
 
             final String nums = nums2;
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
                     int loo = Integer.parseInt(nums) / 20;
 
-                    if (zf.dy(ynums, "0")) {
+                    if (java.util.Objects.equals(ynums, "0")) {
 
-                        nmyylbspq.sc();
-                        st.wb(R.id.wb3).zf("未搜索到相关歌曲/歌手");
-                        st.wb(R.id.myswb).zf("第1/1页");
-                        st.xxbj(R.id.xxbj1).kjd(8);
-                        st.wb(R.id.wb3).kjd(0);
+                        nmyylbspq.clearRows();
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("未搜索到相关歌曲/歌手"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.myswb)).setText(String.valueOf("第1/1页"));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                     } else {
 
-                        st.wb(R.id.wb3).zf("共搜索到" + nums + "首歌曲");
-                        st.wb(R.id.myswb).zf("第" + oo + "/" + loo + "页");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setText(String.valueOf("共搜索到" + nums + "首歌曲"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.myswb)).setText(String.valueOf("第" + oo + "/" + loo + "页"));
 
                         if (oo == 1 && loo == 1) {
 
-                            st.xxbj(R.id.xxbj1).kjd(8);
+                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                         } else {
 
-                            st.xxbj(R.id.xxbj1).kjd(0);
+                            ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                         }
-                        st.wb(R.id.wb3).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.wb3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                     }
 
@@ -366,11 +367,11 @@ public class TuneFreeMusicBridge extends iClass {
             });
 
         }
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                nmyylbspq.sx();
+                nmyylbspq.refreshRows();
 
             }
 
@@ -384,45 +385,45 @@ public class TuneFreeMusicBridge extends iClass {
 
         String set36 = AppPaths.appPath("settings/other/0xO7YX2/cookie");
 
-        final String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+        final String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
         final Object xx = id;
 
-        final String url = zf.qctwkg(wj.dqwb(set35)) + api;
+        final String url = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set35))) + api;
 
         final String url22 = "https://auth.sayqz.com/";
 
-        final String url_ = zf.qctwkg(wj.dqwb(set35));
+        final String url_ = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(context, (String) (set35)));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.xxbj4));
 
         final Object t = title;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        x2.kjd(0);
-                        x3.kjd(8);
+                        x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                        x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                     }
 
                 });
 
-                if (zf.dy(xx, "")) {
+                if (java.util.Objects.equals(xx, "")) {
 
-                    e1.tsk("提示", "ID不能为空");
-                    gj.jmxc(new Runnable() {
+                    e1.tsk(owner, "提示", "ID不能为空");
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            x2.kjd(8);
-                            x3.kjd(0);
+                            x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                            x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                         }
 
@@ -432,15 +433,15 @@ public class TuneFreeMusicBridge extends iClass {
 
                     String setback = "";
 
-                    String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+                    String ljf = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (AppPaths.appPath("data/assets/a17")));
 
-                    String sjzx = xt.sj(4);
+                    String sjzx = new NativeDevice(context).formatDate(4);
 
                     String whq = "?path=song/url" + ljf + "id=" + xx + ljf + "level=standard" + ljf + "cookie=" + getMCU();
 
-                    String back = wl.hq(url22 + whq, null, "utf-8", null, true, null, 20000, 20000, null);
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url22 + whq), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         setback = "0";
 
@@ -450,15 +451,15 @@ public class TuneFreeMusicBridge extends iClass {
 
                     }
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
-                        e1.tsk("提示", "加载失败,请重试(-1)");
-                        gj.jmxc(new Runnable() {
+                        e1.tsk(owner, "提示", "加载失败,请重试(-1)");
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                x2.kjd(8);
-                                x3.kjd(0);
+                                x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                                x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                             }
 
@@ -468,24 +469,24 @@ public class TuneFreeMusicBridge extends iClass {
 
                         String whq2 = "/lyric?id=" + xx;
 
-                        String back2 = wl.hq(url_ + whq2, null, "utf-8");
+                        String back2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url_ + whq2), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                        if (!zf.dy(back2, "") || !zf.dy(back2, null)) {
+                        if (!java.util.Objects.equals(back2, "") || !java.util.Objects.equals(back2, null)) {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo_l1 = (i.runlibrary.app.zf$json) (Object) zf.json(back2);
+                                org.json.JSONObject jo_l1 = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(back2);
 
-                                JSONObject json_l1 = jo_l1.json;
+                                JSONObject json_l1 = jo_l1;
 
-                                Object lrc = jo_l1.hq(json_l1, "lrc");
+                                Object lrc = open.cn.awg.pro.core.JsonValues.value(json_l1, "lrc");
 
                                 if (lrc.toString().length() > 4) {
 
-                                    i.runlibrary.app.zf$json jo_l2 = (i.runlibrary.app.zf$json) (Object) zf.json(lrc);
+                                    org.json.JSONObject jo_l2 = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(lrc);
 
-                                    JSONObject json_l2 = jo_l2.json;
-                                    back2 = String.valueOf(jo_l2.hq(json_l2, "lyric"));
+                                    JSONObject json_l2 = jo_l2;
+                                    back2 = String.valueOf(open.cn.awg.pro.core.JsonValues.value(json_l2, "lyric"));
                                     back2 = lrcFix(back2);
 
                                 } else {
@@ -508,13 +509,13 @@ public class TuneFreeMusicBridge extends iClass {
 
                         try {
 
-                            i.runlibrary.app.zf$json jo_z1 = (i.runlibrary.app.zf$json) (Object) zf.json(setback);
+                            org.json.JSONObject jo_z1 = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(setback);
 
-                            JSONObject json_z1 = jo_z1.json;
+                            JSONObject json_z1 = jo_z1;
 
-                            JSONArray list = jo_z1.dxlb(json_z1, "data");
+                            JSONArray list = open.cn.awg.pro.core.JsonValues.array(json_z1, "data");
 
-                            int size = jo_z1.cd(list);
+                            int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                             String url = "";
 
@@ -522,25 +523,25 @@ public class TuneFreeMusicBridge extends iClass {
 
                                 size = size - 1;
 
-                                JSONObject dx = jo_z1.dx(list, size);
-                                url = String.valueOf(jo_z1.hq(dx, "url"));
+                                JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
+                                url = String.valueOf(open.cn.awg.pro.core.JsonValues.value(dx, "url"));
 
                             }
 
-                            if (zf.dy(e1.urlLockString(url), "0")) {
+                            if (java.util.Objects.equals(e1.urlLockString(url), "0")) {
 
-                                e1.tsk("提示", "获取链接失败(-2)");
+                                e1.tsk(owner, "提示", "获取链接失败(-2)");
 
                             } else {
 
                                 final String[] name = new String[]{"url", "title", "lrc"};
 
                                 final Object[] value = new Object[]{url, t, back2};
-                                gj.jmxc(new Runnable() {
+                                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                     public void run() {
 
-                                        gj.tz(VideoPlayerActivity.class, name, value);
+                                        open.cn.awg.pro.core.NativeActions.launch(context, (Class<?>) (VideoPlayerActivity.class), (String[]) (name), (Object[]) (value));
 
                                     }
 
@@ -550,15 +551,15 @@ public class TuneFreeMusicBridge extends iClass {
 
                         } catch (Throwable e) {
 
-                            e1.tsk("提示", "获取链接失败(-3)");
+                            e1.tsk(owner, "提示", "获取链接失败(-3)");
 
                         }
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                x2.kjd(8);
-                                x3.kjd(0);
+                                x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                                x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                             }
 

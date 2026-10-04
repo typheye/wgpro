@@ -54,9 +54,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
     public final RemoteControlActivity lei = this, 类 = this;
     public String um = "";
     public File f;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
-    public DevicePolicyBridge carton = new DevicePolicyBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TuneFreeMusicBridge e12;
+    public DevicePolicyBridge carton;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -214,6 +214,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e12 = new TuneFreeMusicBridge(this);
+        carton = new DevicePolicyBridge(this);
         setContentView(R.layout.remote_control);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -250,24 +253,24 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 腕管远控");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(0);
+                    tab.setText(String.valueOf("< 腕管远控"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -275,14 +278,14 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 扩展权限");
-                    x1.kjd(0);
-                    x2.kjd(8);
-                    x3.kjd(8);
+                    tab.setText(String.valueOf("< 扩展权限"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -290,14 +293,14 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 腕管远控");
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    x3.kjd(8);
+                    tab.setText(String.valueOf("< 腕管远控"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -313,25 +316,25 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         String user = AppPaths.appPath("settings/account/user");
 
-        i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        i.runlibrary.app.v.wb wb4 = st.wb(R.id.wb4);
+        android.widget.TextView wb4 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb4));
 
-        i.runlibrary.app.v.wb wb9 = st.wb(R.id.wb9);
+        android.widget.TextView wb9 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb9));
 
         if (e1.islogin()) {
 
-            wb9.zf(wj.dqwb(user));
+            wb9.setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(RemoteControlActivity.this, (String) (user))));
 
         } else {
 
-            wb9.zf("未登录Typheye账户");
+            wb9.setText(String.valueOf("未登录Typheye账户"));
 
         }
 
-        if (zf.dy(wj.dqwb(set1), "true") && e1.islogin()) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(RemoteControlActivity.this, (String) (set1)), "true") && e1.islogin()) {
 
-            kg1.xzzt(true);
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
@@ -349,12 +352,12 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         if (carton.state(lei) && aa) {
 
-            wb4.zf("已授权必要权限");
+            wb4.setText(String.valueOf("已授权必要权限"));
 
         } else {
 
-            wb4.zf("存在权限未授权");
-            kg1.xzzt(false);
+            wb4.setText(String.valueOf("存在权限未授权"));
+            kg1.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -363,15 +366,15 @@ public class RemoteControlActivity extends BaseAwgActivity {
     public void jzpd() {
         show(1);
 
-        i.runlibrary.app.v.wb wb11 = st.wb(R.id.wb11);
+        android.widget.TextView wb11 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb11));
 
         if (carton.state(lei)) {
 
-            wb11.zf("此权限已授权");
+            wb11.setText(String.valueOf("此权限已授权"));
 
         } else {
 
-            wb11.zf("此权限未授权");
+            wb11.setText(String.valueOf("此权限未授权"));
 
         }
 
@@ -387,15 +390,15 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         }
 
-        i.runlibrary.app.v.wb wb21 = st.wb(R.id.wb21);
+        android.widget.TextView wb21 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb21));
 
         if (aa) {
 
-            wb21.zf("此权限已授权");
+            wb21.setText(String.valueOf("此权限已授权"));
 
         } else {
 
-            wb21.zf("此权限未授权");
+            wb21.setText(String.valueOf("此权限未授权"));
 
         }
 
@@ -405,11 +408,11 @@ public class RemoteControlActivity extends BaseAwgActivity {
         super.onWindowFocusChanged(hs);
             applyWindowModeFromSettings();
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 远程锁屏")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 远程锁屏")) {
 
             csh();
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 扩展权限")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展权限")) {
 
             jzpd();
 
@@ -427,9 +430,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -446,7 +449,7 @@ public class RemoteControlActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -460,11 +463,11 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< 腕管远控")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕管远控")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(RemoteControlActivity.this);
 
-            } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 扩展权限")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展权限")) {
 
                 show(0);
                 csh();
@@ -484,11 +487,11 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< 腕管远控")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕管远控")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(RemoteControlActivity.this);
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 扩展权限")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展权限")) {
 
             show(0);
             csh();
@@ -499,15 +502,15 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private void onXdbj4Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.kg1));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -515,9 +518,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb7).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -545,27 +548,27 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
                 if (carton.state(lei) && aa) {
 
-                    wj.xrwb(set, "true");
+                    open.cn.awg.pro.core.NativeFiles.writeText(RemoteControlActivity.this, (String) (set), (String) ("true"));
 
                 } else {
 
                     e1.tsk("提示", "存在必要权限未授权");
 
-                    i.runlibrary.app.v.kg kg1 = st.kg(R.id.kg1);
-                    kg1.xzzt(false);
+                    android.widget.CompoundButton kg1 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.kg1));
+                    kg1.setChecked(java.lang.Boolean.TRUE.equals(false));
 
                 }
 
             } else {
 
-                wj.xrwb(set, "false");
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeFiles.writeText(RemoteControlActivity.this, (String) (set), (String) ("false"));
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        i.runlibrary.app.v.kg kg = st.kg(R.id.kg1);
-                        kg.xzzt(false);
-                        gj.tz(TypheyeAccountActivity.class);
+                        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.kg1));
+                        kg.setChecked(java.lang.Boolean.TRUE.equals(false));
+                        open.cn.awg.pro.core.NativeActions.launch(RemoteControlActivity.this, (Class<?>) (TypheyeAccountActivity.class));
                         e1.tsk("提示", "该操作需要登录Typheye账户");
 
                     }
@@ -576,22 +579,22 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(RemoteControlActivity.this, (String) (set), (String) ("false"));
 
         }
 
     }
 
     private void onXdbj5Click(View vw) {
-        e1.tsk("扩展身份", st.wb(R.id.wb9).zf());
+        e1.tsk("扩展身份", ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString());
 
     }
 
     private boolean onXdbj5LongClick(View vw) {
 
-        String te = st.wb(R.id.wb8).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
 
-        String lj = st.wb(R.id.wb9).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -604,9 +607,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb3).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -619,16 +622,16 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb5).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
 
-        String lj = st.wb(R.id.wb6).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(RemoteControlActivity.this);
 
     }
 
@@ -639,9 +642,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb10).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
 
-        String lj = st.wb(R.id.wb11).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -670,7 +673,7 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
             } catch (Throwable e) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(RemoteControlActivity.this);
                 e1.upload_error(e, "j3.run()");
 
             }
@@ -683,9 +686,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj10LongClick(View vw) {
 
-        String te = st.wb(R.id.wb20).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb20)).getText().toString();
 
-        String lj = st.wb(R.id.wb21).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb21)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -698,9 +701,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb16).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
 
-        String lj = st.wb(R.id.wb17).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -713,9 +716,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj7LongClick(View vw) {
 
-        String te = st.wb(R.id.wb12).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
 
-        String lj = st.wb(R.id.wb13).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -728,9 +731,9 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private boolean onXdbj9LongClick(View vw) {
 
-        String te = st.wb(R.id.wb18).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
 
-        String lj = st.wb(R.id.wb19).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -747,52 +750,52 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        SwitchCompat i1bca89f073 = (SwitchCompat) findViewById(ay, vw, R.id.kg1);
+        SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
         c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        RelativeLayout i5b34eede7f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj10);
+        RelativeLayout i5b34eede7f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj10);
         i5b34eede7f.setOnClickListener(xdbj10ClickListener);
         i5b34eede7f.setOnLongClickListener(xdbj10LongClickListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
         e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
         i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

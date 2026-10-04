@@ -19,7 +19,7 @@ package open.cn.awg.pro.music;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
+import androidx.core.widget.NestedScrollView;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,8 +47,8 @@ public class TuneFreeActivity extends BaseAwgActivity {
     public final TuneFreeActivity lei = this, 类 = this;
     public String um = "";
     public File f;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TuneFreeMusicBridge e12;
     public boolean state_login_xh = true;
     public String cookiepath = AppPaths.appPath("data/plugin/tunefree/cookie");
     private final View.OnClickListener tx6ClickListener = new View.OnClickListener() {
@@ -187,6 +187,8 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e12 = new TuneFreeMusicBridge(this);
         setContentView(R.layout.tune_free);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -198,10 +200,10 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         applyStandardScreenMode(R.id.tune_free_root, R.id.xdbj1, R.id.title_bar);
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
         String[] sz = new String[]{"单曲"};
-        xlcd1.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, sz);
 
     }
 
@@ -213,15 +215,15 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     public void jz() {
 
-        if (wj.cz(cookiepath) && !zf.dy(wj.dqwb(cookiepath), "")) {
+        if (open.cn.awg.pro.core.NativeFiles.exists(TuneFreeActivity.this, (String) (cookiepath)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeActivity.this, (String) (cookiepath)), "")) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xdbj(R.id.xdbj4).kjd(0);
-                    st.xxbj(R.id.xxbj5).kjd(8);
-                    st.xxbj(R.id.xxbj10).kjd(0);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xdbj4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -229,13 +231,13 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.xdbj(R.id.xdbj4).kjd(8);
-                    st.xxbj(R.id.xxbj5).kjd(0);
-                    st.xxbj(R.id.xxbj10).kjd(8);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xdbj4)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj5)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj10)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -251,20 +253,20 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         final Object key = key_;
 
-        final String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+        final String ljf = open.cn.awg.pro.core.NativeFiles.readText(TuneFreeActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
         final String set35 = AppPaths.appPath("settings/other/0xO7YX2/url");
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 state_login_xh = true;
                 ewm(String.valueOf(url));
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.wb11).zf("扫描二维码完成登录");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("扫描二维码完成登录"));
 
                     }
 
@@ -273,7 +275,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                 while (state_login_xh && !Thread.currentThread().isInterrupted()) {
 
-                    gj.zt(3000);
+                    open.cn.awg.pro.core.NativeActions.sleep(3000);
 
                     if (!state_login_xh) {
 
@@ -285,13 +287,13 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                     String code = "";
 
-                    String url = zf.qctwkg(wj.dqwb(set35)) + "/login/qr/check";
+                    String url = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeActivity.this, (String) (set35))) + "/login/qr/check";
 
-                    String whq = "?key=" + key + ljf + "timestamp=" + xt.sj(4);
+                    String whq = "?key=" + key + ljf + "timestamp=" + open.cn.awg.pro.core.NativeDevice.formatDate(4);
 
-                    String back = wl.hq(url + whq, null, "utf-8");
+                    String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + whq), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                    if (zf.dy(back, "") || zf.dy(back, null)) {
+                    if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                         setback = "0";
 
@@ -310,7 +312,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                     }
 
-                    if (zf.dy(setback, "0")) {
+                    if (java.util.Objects.equals(setback, "0")) {
 
                         show(0);
                         e1.tsk("提示", "加载失败,请重试");
@@ -318,35 +320,35 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                     } else {
 
-                        if (zf.dy(code, "803")) {
+                        if (java.util.Objects.equals(code, "803")) {
 
                             String coo = e1.readJson(setback, "cookie");
-                            wj.xrwb(cookiepath, coo);
+                            open.cn.awg.pro.core.NativeFiles.writeText(TuneFreeActivity.this, (String) (cookiepath), (String) (coo));
                             show(0);
                             e1.tsk("提示", "登录成功");
                             break;
 
-                        } else if (zf.dy(code, "800")) {
+                        } else if (java.util.Objects.equals(code, "800")) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb11).zf("二维码已过期");
-                                    st.tx(R.id.tx3).kjd(8);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("二维码已过期"));
+                                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                                 }
 
                             });
 
-                        } else if (zf.dy(code, "802")) {
+                        } else if (java.util.Objects.equals(code, "802")) {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb11).zf("扫码成功 等待确认");
-                                    st.tx(R.id.tx3).kjd(8);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb11)).setText(String.valueOf("扫码成功 等待确认"));
+                                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                                 }
 
@@ -368,10 +370,10 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     public void login() {
 
-        final String ljf = wj.dqwb(AppPaths.appPath("data/assets/a17"));
+        final String ljf = open.cn.awg.pro.core.NativeFiles.readText(TuneFreeActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
 
         final String set35 = AppPaths.appPath("settings/other/0xO7YX2/url");
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -379,15 +381,15 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                 String key = "";
 
-                String url = zf.qctwkg(wj.dqwb(set35)) + "/login/qr/key?timestamp=" + xt.sj(4);
+                String url = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeActivity.this, (String) (set35))) + "/login/qr/key?timestamp=" + open.cn.awg.pro.core.NativeDevice.formatDate(4);
 
                 String setback = "";
 
                 String f = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN";
 
-                String back = wl.hq(url, null, "utf-8");
+                String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                if (zf.dy(back, "") || zf.dy(back, null)) {
+                if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                     setback = "0";
 
@@ -397,12 +399,12 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                         key = e1.readJson(back, "data");
                         key = e1.readJson(key, "unikey");
-                        url = zf.qctwkg(wj.dqwb(set35)) + "/login/qr/create";
+                        url = open.cn.awg.pro.core.TextValues.trim(open.cn.awg.pro.core.NativeFiles.readText(TuneFreeActivity.this, (String) (set35))) + "/login/qr/create";
 
-                        String whq = "?key=" + key + ljf + "timestamp=" + xt.sj(4);
-                        back = wl.hq(url + whq, null, "utf-8");
+                        String whq = "?key=" + key + ljf + "timestamp=" + open.cn.awg.pro.core.NativeDevice.formatDate(4);
+                        back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + whq), (String[]) (null), (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
-                        if (zf.dy(back, "") || zf.dy(back, null)) {
+                        if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
                             setback = "0";
 
@@ -428,7 +430,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
                 }
 
-                if (zf.dy(setback, "0")) {
+                if (java.util.Objects.equals(setback, "0")) {
 
                     show(0);
                     e1.tsk("提示", "加载失败,请重试");
@@ -447,32 +449,32 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
-        final i.runlibrary.app.v.xxbj x4 = st.xxbj(R.id.xxbj8);
+        final android.widget.LinearLayout x4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj8));
 
-        final i.runlibrary.app.v.xxbj x5 = st.xxbj(R.id.xxbj12);
+        final android.widget.LinearLayout x5 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xxbj12));
 
         if (i == 0) {
 
             jz();
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(true);
-                    tab.zf("< TuneFree");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(0);
-                    x4.kjd(8);
-                    x5.kjd(8);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(true));
+                    tab.setText(String.valueOf("< TuneFree"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -480,17 +482,17 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(true);
-                    tab.zf("< 搜索歌曲");
-                    x1.kjd(0);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(8);
-                    x5.kjd(8);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(true));
+                    tab.setText(String.valueOf("< 搜索歌曲"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -498,17 +500,17 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(true);
-                    tab.zf("TuneFree");
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    x3.kjd(8);
-                    x4.kjd(8);
-                    x5.kjd(8);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(true));
+                    tab.setText(String.valueOf("TuneFree"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -516,17 +518,17 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         } else if (i == 3) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(false);
-                    tab.zf("TuneFree");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(0);
-                    x5.kjd(8);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(false));
+                    tab.setText(String.valueOf("TuneFree"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -534,17 +536,17 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         } else if (i == 4) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    xt.sbxm(false);
-                    tab.zf("TuneFree");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(8);
-                    x5.kjd(0);
+                    open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(false));
+                    tab.setText(String.valueOf("TuneFree"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -557,7 +559,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
     public void ewm(String url) {
 
         final String qr = url;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
@@ -567,11 +569,11 @@ public class TuneFreeActivity extends BaseAwgActivity {
                     Bitmap bitmap = com.demo.e4.createQRCodeBitmap(qr, 800, 800, "UTF-8", "H", "1");
                     imageView.setImageBitmap(bitmap);
 
-                    st.tx(R.id.tx3).kjd(0);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 } catch (Throwable e) {
 
-                    st.tx(R.id.tx3).kjd(8);
+                    ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.tx3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -598,9 +600,9 @@ public class TuneFreeActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -617,7 +619,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -631,11 +633,11 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< TuneFree")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< TuneFree")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(TuneFreeActivity.this);
 
-            } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 搜索歌曲")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 搜索歌曲")) {
 
                 show(0);
 
@@ -654,11 +656,11 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< TuneFree")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< TuneFree")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(TuneFreeActivity.this);
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 搜索歌曲")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 搜索歌曲")) {
 
             show(0);
 
@@ -667,12 +669,12 @@ public class TuneFreeActivity extends BaseAwgActivity {
     }
 
     private void onXdbj4Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(2);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
                 show(4);
 
             }
@@ -683,9 +685,9 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb7).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
 
-        String lj = st.wb(R.id.wb8).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -698,9 +700,9 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb12).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
 
-        String lj = st.wb(R.id.wb13).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -713,20 +715,20 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private boolean onXdbj5LongClick(View vw) {
 
-        String te = st.wb(R.id.wb9).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
 
-        String lj = st.wb(R.id.wb10).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj2Click(View vw) {
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                st.bjk(R.id.bjk1).zf("");
+                ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
 
             }
 
@@ -737,9 +739,9 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb3).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -752,16 +754,16 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb5).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
 
-        String lj = st.wb(R.id.wb6).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(TuneFreeActivity.this);
 
     }
 
@@ -769,12 +771,12 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -787,17 +789,17 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private void onAn1Click(View vw) {
 
-        final String l = st.bjk(R.id.bjk1).zf();
+        final String l = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
 
-        final int p = st.xlcd(R.id.xlcd1).dqzsxmxh();
-        gj.jmxc(new Runnable() {
+        final int p = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.xlcd1)).getLastVisiblePosition();
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
                 String[] a1 = new String[]{"name", "type"};
 
                 Object[] a2 = new Object[]{l, p};
-                gj.tz(TuneFreeCloudSearchActivity.class, a1, a2);
+                open.cn.awg.pro.core.NativeActions.launch(TuneFreeActivity.this, (Class<?>) (TuneFreeCloudSearchActivity.class), (String[]) (a1), (Object[]) (a2));
 
             }
 
@@ -821,12 +823,12 @@ public class TuneFreeActivity extends BaseAwgActivity {
     }
 
     private void onTx5Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(2);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
                 show(0);
 
             }
@@ -836,13 +838,13 @@ public class TuneFreeActivity extends BaseAwgActivity {
     }
 
     private void onTx6Click(View vw) {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(2);
-                wj.sc(cookiepath);
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeFiles.delete(TuneFreeActivity.this, (String) (cookiepath), false);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
                 show(0);
                 e1.tsk("提示", "已退出登录");
 
@@ -858,54 +860,54 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        RelativeLayout c0d3e00d2b = (RelativeLayout) findViewById(ay, vw, R.id.xdbj5);
+        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
         c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        ImageView i11aeec1890 = (ImageView) findViewById(ay, vw, R.id.tx4);
+        ImageView i11aeec1890 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx4);
         i11aeec1890.setOnClickListener(tx4ClickListener);
 
-        ImageView i4a4248a0f2 = (ImageView) findViewById(ay, vw, R.id.tx5);
+        ImageView i4a4248a0f2 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx5);
         i4a4248a0f2.setOnClickListener(tx5ClickListener);
 
-        ImageView i6f2c7751cf = (ImageView) findViewById(ay, vw, R.id.tx6);
+        ImageView i6f2c7751cf = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx6);
         i6f2c7751cf.setOnClickListener(tx6ClickListener);
 
-        NestedScrollView a6dab51133 = (NestedScrollView) findViewById(ay, vw, R.id.qtgd1);
+        NestedScrollView a6dab51133 = (NestedScrollView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.qtgd1);
 
         __layoutIsLoaded(ay, vw);
     }

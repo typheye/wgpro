@@ -45,7 +45,7 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
     public final AccessibilityScriptActivity lei = this, 类 = this;
     public String lin;
     public String ujback;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -91,23 +91,24 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.accessibility_script);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
 
-        String cmds = sj.hqtz("cmd");
-        cmds = zf.qctwkg(cmds);
+        String cmds = AccessibilityScriptActivity.this.getIntent().getStringExtra(String.valueOf("cmd"));
+        cmds = open.cn.awg.pro.core.TextValues.trim(cmds);
 
-        if (!zf.dy(cmds, null) && !zf.dy(cmds, "")) {
+        if (!java.util.Objects.equals(cmds, null) && !java.util.Objects.equals(cmds, "")) {
 
-            st.bjk(R.id.bjk1).zf(cmds);
-            st.wb(R.id.wb1).kjd(0);
-            st.bjk(R.id.bjk1).kjd(8);
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(cmds));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
         } else {
 
-            st.wb(R.id.wb1).kjd(8);
-            st.bjk(R.id.bjk1).kjd(0);
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
         }
         SystemAccessibilityService.pns = "com.iapp.app";
@@ -125,29 +126,29 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
         String[] name = new String[]{"url", "title", "code"};
 
         Object[] value = new Object[]{url, title, "super1"};
-        gj.tz(TextViewerActivity.class, name, value);
+        open.cn.awg.pro.core.NativeActions.launch(AccessibilityScriptActivity.this, (Class<?>) (TextViewerActivity.class), (String[]) (name), (Object[]) (value));
 
     }
 
     public void run() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                final i.runlibrary.app.v.wb backinfo = st.wb(R.id.backs);
-                lin = st.bjk(R.id.bjk1).zf();
+                final android.widget.TextView backinfo = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.backs));
+                lin = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
 
-                String ii = st.bjk(R.id.bjk2).zf();
-                lin = zf.qctwkg(lin);
-                ii = zf.qctwkg(ii);
+                String ii = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk2)).getText().toString();
+                lin = open.cn.awg.pro.core.TextValues.trim(lin);
+                ii = open.cn.awg.pro.core.TextValues.trim(ii);
 
-                if (zf.dy(lin, "")) {
+                if (java.util.Objects.equals(lin, "")) {
 
                     e1.tsk("提示", "脚本命令不能为空");
 
                 } else {
 
-                    if (!zf.dy(ii, "")) {
+                    if (!java.util.Objects.equals(ii, "")) {
 
                         boolean aa;
 
@@ -172,23 +173,23 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
 
                             } catch (Throwable e) {
 
-                                gj.gb();
+                                open.cn.awg.pro.core.NativeActions.finish(AccessibilityScriptActivity.this);
                                 e1.upload_error(e, "j3.run()");
 
                             }
 
                         } else {
 
-                            gj.jmxc(new Runnable() {
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                 public void run() {
 
-                                    st.wb(R.id.wb1).kjd(8);
-                                    st.wb(R.id.wb2).kjd(0);
-                                    st.bjk(R.id.bjk1).kjd(8);
-                                    st.bjk(R.id.bjk2).kjd(8);
-                                    st.an(R.id.an1).kjd(8);
-                                    st.an(R.id.an2).kjd(8);
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.wb2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                                    ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.bjk2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.an1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                                    ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.an2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                                 }
 
@@ -209,7 +210,7 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
 
                             } catch (Throwable e) {
 
-                                gj.gb();
+                                open.cn.awg.pro.core.NativeActions.finish(AccessibilityScriptActivity.this);
                                 e1.upload_error(e, "j3.run()");
 
                             }
@@ -246,9 +247,9 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -265,7 +266,7 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -282,7 +283,7 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AccessibilityScriptActivity.this);
 
     }
 
@@ -290,12 +291,12 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -310,12 +311,12 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AccessibilityScriptActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -337,7 +338,7 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AccessibilityScriptActivity.this);
 
     }
 
@@ -347,22 +348,22 @@ public class AccessibilityScriptActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        EditText i32ee139ba1 = (EditText) findViewById(ay, vw, R.id.bjk1);
+        EditText i32ee139ba1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk1);
         i32ee139ba1.setOnTouchListener(bjk1TouchListener);
 
-        EditText i63f06183a1 = (EditText) findViewById(ay, vw, R.id.bjk2);
+        EditText i63f06183a1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk2);
         i63f06183a1.setOnTouchListener(bjk2TouchListener);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);

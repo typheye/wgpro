@@ -47,7 +47,7 @@ public class SystemAccessibilityService extends AccessibilityService {
     public static String aeText = null;
     // 可自行修改无障碍目标应用包名，可输入多个包名以逗号隔开
     public static String pns = "com.iapp.app";
-    // Queue of lightweight automation commands submitted from the iApp runtime.
+    // Queue of lightweight automation commands submitted by the native automation screen.
     private static final ArrayList<String> list = new ArrayList<String>();
     private final ArrayList<AccessibilityNodeInfo> list1 = new ArrayList<AccessibilityNodeInfo>();
     private final ArrayList<String> list2 = new ArrayList<String>();

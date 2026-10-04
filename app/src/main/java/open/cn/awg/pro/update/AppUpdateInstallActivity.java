@@ -42,7 +42,7 @@ import open.cn.awg.pro.tools.ShellExecutorActivity;
 public class AppUpdateInstallActivity extends BaseAwgActivity {
 
     public final AppUpdateInstallActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     public String mmk = "";
     public String fixcode = "";
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
@@ -62,14 +62,15 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.app_update_install);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
 
-        String t = sj.hqtz("url");
+        String t = AppUpdateInstallActivity.this.getIntent().getStringExtra(String.valueOf("url"));
 
-        String t2 = sj.hqtz("mode");
-        fixcode = sj.hqtz("fixcode");
+        String t2 = AppUpdateInstallActivity.this.getIntent().getStringExtra(String.valueOf("mode"));
+        fixcode = AppUpdateInstallActivity.this.getIntent().getStringExtra(String.valueOf("fixcode"));
         mmk = t2;
         download(t, t2);
 
@@ -77,11 +78,11 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -92,66 +93,66 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
             }
 
         }
-        xt.sbxm(false);
+        open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(AppUpdateInstallActivity.this, !(false));
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.app_update_install_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.app_update_install_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.app_update_install_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.app_update_install_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(AppUpdateInstallActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 50);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
@@ -161,32 +162,32 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        final String as1 = wj.dqwb(a2);
+        final String as1 = open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (a2));
 
         final String dl = lj.toString();
 
         final Object mm = m;
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.kp(R.id.kp1).kjd(8);
-                        st.kp(R.id.kp2).kjd(8);
-                        st.wb(R.id.show).zf("加载中");
+                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp1)).setVisibility(android.view.View.GONE);
+                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(android.view.View.GONE);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("加载中"));
 
                     }
 
                 });
-                gj.zt(1000);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(1000);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.show).zf("清理旧数据");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("清理旧数据"));
 
                         String d = AppPaths.externalFilesPath("update/");
 
@@ -199,28 +200,28 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
                     }
 
                 });
-                gj.zt(500);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(500);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.show).zf("下载更新");
-                        st.kp(R.id.kp2).kjd(0);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("下载更新"));
+                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(android.view.View.VISIBLE);
 
                     }
 
                 });
-                gj.zt(500);
+                open.cn.awg.pro.core.NativeActions.sleep(500);
 
                 String a = dl;
 
                 String bb = "";
 
-                if (zf.dy(mm, "update")) {
+                if (java.util.Objects.equals(mm, "update")) {
 
                     bb = AppPaths.externalFilesPath("update/update.apk");
 
-                } else if (zf.dy(mm, "fix")) {
+                } else if (java.util.Objects.equals(mm, "fix")) {
 
                     bb = AppPaths.appPath("fix/fix.sh");
 
@@ -228,7 +229,7 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
                 final String b = bb;
 
-                int dg = wl.xz(a, b, true, null, "utf-8", null, true, null);
+                int dg = open.cn.awg.pro.core.NativeHttp.download(AppUpdateInstallActivity.this, String.valueOf(a), (String) (b), java.lang.Boolean.TRUE.equals(true), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), (String) (null), 0, 0, null);
 
                 String bk = "";
 
@@ -251,56 +252,56 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
                 }
 
                 final String df = bk;
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.show).zf(df);
-                        st.kp(R.id.kp2).kjd(8);
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf(df));
+                        ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(android.view.View.GONE);
 
                     }
 
                 });
-                gj.zt(1000);
+                open.cn.awg.pro.core.NativeActions.sleep(1000);
 
                 if (dg == 0 || dg == 1) {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.show).zf("准备安装");
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("准备安装"));
 
                         }
 
                     });
-                    gj.zt(500);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.show).zf("等待安装");
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("等待安装"));
 
                         }
 
                     });
-                    gj.zt(500);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.kp(R.id.kp2).kjd(0);
-                            st.kp(R.id.kp1).kjd(0);
+                            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(android.view.View.VISIBLE);
+                            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp1)).setVisibility(android.view.View.VISIBLE);
 
                         }
 
                     });
 
-                    if (zf.dy(mm, "update")) {
+                    if (java.util.Objects.equals(mm, "update")) {
 
                         load();
 
-                    } else if (zf.dy(mm, "fix")) {
+                    } else if (java.util.Objects.equals(mm, "fix")) {
 
                         load2();
 
@@ -308,22 +309,22 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
                 } else {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            st.wb(R.id.show).zf("取消更新");
-                            st.kp(R.id.kp2).kjd(8);
+                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.show)).setText(String.valueOf("取消更新"));
+                            ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp2)).setVisibility(android.view.View.GONE);
 
                         }
 
                     });
-                    gj.zt(500);
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
-                            gj.gb();
+                            open.cn.awg.pro.core.NativeActions.finish(AppUpdateInstallActivity.this);
 
                         }
 
@@ -340,18 +341,18 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
     public void load() {
 
         String ftitle = AppPaths.appPath("cache/file/title");
-        wj.xrwb(ftitle, "< 更新目录");
+        open.cn.awg.pro.core.NativeFiles.writeText(AppUpdateInstallActivity.this, (String) (ftitle), (String) ("< 更新目录"));
 
         String path = AppPaths.externalFilesPath("update/");
 
         final String[] name = new String[]{"url", "root"};
 
         final String[] value = new String[]{path, path};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(FileManagerActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(AppUpdateInstallActivity.this, (Class<?>) (FileManagerActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
@@ -363,21 +364,21 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
         String bb = AppPaths.appPath("fix/fix.sh");
 
-        String nrs = wj.dqwb(bb);
+        String nrs = open.cn.awg.pro.core.NativeFiles.readText(AppUpdateInstallActivity.this, (String) (bb));
 
         final String[] name = new String[]{"sh", "auto", "fixcode", "type"};
 
         final String[] value = new String[]{nrs, "enable", fixcode, "fixupdate"};
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                gj.tz(ShellExecutorActivity.class, name, value);
+                open.cn.awg.pro.core.NativeActions.launch(AppUpdateInstallActivity.this, (Class<?>) (ShellExecutorActivity.class), (String[]) (name), (Object[]) (value));
 
             }
 
         });
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AppUpdateInstallActivity.this);
 
     }
 
@@ -406,9 +407,9 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -425,7 +426,7 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -443,25 +444,25 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
     private void onTx2Click(View vw) {
 
-        if (st.kp(R.id.kp1).kjd() == 0) {
+        if (((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateInstallActivity.this.getWindow().getDecorView(), R.id.kp1)).getVisibility() == android.view.View.VISIBLE) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(AppUpdateInstallActivity.this);
             e1.tsk("提示", "您已取消更新");
 
         } else {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                         public void run() {
 
                             String[] name = new String[]{"Msg"};
 
                             String[] value = new String[]{"中断成功 点击重启"};
-                            gj.tz(ErrorMessageActivity.class, name, value);
+                            open.cn.awg.pro.core.NativeActions.launch(AppUpdateInstallActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                         }
 
@@ -477,11 +478,11 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
     private void onTx1Click(View vw) {
 
-        if (zf.dy(mmk, "update")) {
+        if (java.util.Objects.equals(mmk, "update")) {
 
             load();
 
-        } else if (zf.dy(mmk, "fix")) {
+        } else if (java.util.Objects.equals(mmk, "fix")) {
 
             load2();
 
@@ -495,15 +496,15 @@ public class AppUpdateInstallActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
 
         __layoutIsLoaded(ay, vw);
     }

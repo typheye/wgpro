@@ -17,7 +17,6 @@
 package open.cn.awg.pro.store;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -27,6 +26,8 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import androidx.core.view.InputDeviceCompat;
 import androidx.core.view.MotionEventCompat;
@@ -41,10 +42,11 @@ import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppPaths;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
+import open.cn.awg.pro.ui.list.NativeListAdapter;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.StoreAppItemActivity;
-import open.cn.awg.pro.ui.list.StoreMusicItemActivity;
-import open.cn.awg.pro.ui.list.StoreVideoItemActivity;
+import open.cn.awg.pro.ui.list.StoreAppRowBinder;
+import open.cn.awg.pro.ui.list.StoreMusicRowBinder;
+import open.cn.awg.pro.ui.list.StoreVideoRowBinder;
 
 public class StoreListActivity extends BaseAwgActivity {
 
@@ -54,8 +56,8 @@ public class StoreListActivity extends BaseAwgActivity {
     public String ll = "";
     public String type = "";
     public String search = "";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public AppRuntimeBridge e1 = new AppRuntimeBridge(this);
+    public NativeListAdapter spq = null;
     public String src_url = "";
     public int v_totalPages = 0;
     public int v_nowPages = 0;
@@ -97,8 +99,8 @@ public class StoreListActivity extends BaseAwgActivity {
         setContentView(R.layout.store_list);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        type = sj.hqtz("type");
-        search = sj.hqtz("search");
+        type = StoreListActivity.this.getIntent().getStringExtra(String.valueOf("type"));
+        search = StoreListActivity.this.getIntent().getStringExtra(String.valueOf("search"));
         csh();
 
     }
@@ -111,20 +113,20 @@ public class StoreListActivity extends BaseAwgActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj4);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
         if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    x2.kjd(0);
-                    x3.kjd(8);
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -132,33 +134,33 @@ public class StoreListActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    x2.kjd(8);
-                    x3.kjd(0);
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
             });
 
         }
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                if (zf.dy(type, "app")) {
+                if (java.util.Objects.equals(type, "app")) {
 
-                    tab.zf("< 应用列表");
+                    tab.setText(String.valueOf("< 应用列表"));
 
-                } else if (zf.dy(type, "video")) {
+                } else if (java.util.Objects.equals(type, "video")) {
 
-                    tab.zf("< 视频列表");
+                    tab.setText(String.valueOf("< 视频列表"));
 
-                } else if (zf.dy(type, "music")) {
+                } else if (java.util.Objects.equals(type, "music")) {
 
-                    tab.zf("< 歌曲列表");
+                    tab.setText(String.valueOf("< 歌曲列表"));
 
                 }
 
@@ -171,18 +173,18 @@ public class StoreListActivity extends BaseAwgActivity {
     public void csh() {
 
         String set67 = AppPaths.appPath("settings/set7.inf");
-        src_url = wj.dqwb(set67);
+        src_url = open.cn.awg.pro.core.NativeFiles.readText(StoreListActivity.this, (String) (set67));
         show(1);
 
-        if (zf.dy(type, "app")) {
+        if (java.util.Objects.equals(type, "app")) {
 
             fun_app(0);
 
-        } else if (zf.dy(type, "video")) {
+        } else if (java.util.Objects.equals(type, "video")) {
 
             fun_video(0);
 
-        } else if (zf.dy(type, "music")) {
+        } else if (java.util.Objects.equals(type, "music")) {
 
             fun_music(0);
 
@@ -194,15 +196,15 @@ public class StoreListActivity extends BaseAwgActivity {
 
         if (v_nowPages > 1) {
 
-            if (zf.dy(type, "app")) {
+            if (java.util.Objects.equals(type, "app")) {
 
                 fun_app(-1);
 
-            } else if (zf.dy(type, "video")) {
+            } else if (java.util.Objects.equals(type, "video")) {
 
                 fun_video(-1);
 
-            } else if (zf.dy(type, "music")) {
+            } else if (java.util.Objects.equals(type, "music")) {
 
                 fun_music(-1);
 
@@ -220,15 +222,15 @@ public class StoreListActivity extends BaseAwgActivity {
 
         if (v_nowPages < v_totalPages) {
 
-            if (zf.dy(type, "app")) {
+            if (java.util.Objects.equals(type, "app")) {
 
                 fun_app(1);
 
-            } else if (zf.dy(type, "video")) {
+            } else if (java.util.Objects.equals(type, "video")) {
 
                 fun_video(1);
 
-            } else if (zf.dy(type, "music")) {
+            } else if (java.util.Objects.equals(type, "music")) {
 
                 fun_music(1);
 
@@ -250,18 +252,18 @@ public class StoreListActivity extends BaseAwgActivity {
 
             final int y = y_;
 
-            i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = IappCompat.v7lbAdapter(lb, StoreMusicItemActivity.class, R.layout.store_music_item);
+            RecyclerView list = findViewById(R.id.v7lb1);
+            spq = NativeListAdapter.attach(this, list, R.layout.store_music_item, new StoreMusicRowBinder(this));
 
             final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
-            final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
-            gj.xc(new Thread() {
+            final android.widget.TextView wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.wb2));
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     show(1);
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
 
                     boolean canshow = false;
 
@@ -274,12 +276,12 @@ public class StoreListActivity extends BaseAwgActivity {
                         if (y == 1) {
 
                             int yy = v_nowPages + 1;
-                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
+                            post[2] = "page=" + open.cn.awg.pro.core.TextValues.string(yy);
 
                         } else {
 
                             int yy = v_nowPages - 1;
-                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
+                            post[2] = "page=" + open.cn.awg.pro.core.TextValues.string(yy);
 
                         }
 
@@ -287,62 +289,62 @@ public class StoreListActivity extends BaseAwgActivity {
 
                     if (e1.yz()) {
 
-                        String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String v = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (!zf.dy(v, null)) {
+                        if (!java.util.Objects.equals(v, null)) {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
+                                org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v);
 
-                                JSONObject json = jo.json;
+                                JSONObject json = jo;
 
-                                Object v_msg = jo.hq(json, "msg");
+                                Object v_msg = open.cn.awg.pro.core.JsonValues.value(json, "msg");
 
-                                Object v_code = jo.hq(json, "code");
+                                Object v_code = open.cn.awg.pro.core.JsonValues.value(json, "code");
 
-                                if (zf.dy(v_code, 200)) {
+                                if (java.util.Objects.equals(v_code, 200)) {
 
-                                    Object v_totalItems = jo.hq(json, "totalItems");
-                                    v_totalPages = Integer.parseInt(String.valueOf(jo.hq(json, "totalPages")));
+                                    Object v_totalItems = open.cn.awg.pro.core.JsonValues.value(json, "totalItems");
+                                    v_totalPages = Integer.parseInt(String.valueOf(open.cn.awg.pro.core.JsonValues.value(json, "totalPages")));
 
-                                    Object v_nowItems = jo.hq(json, "nowItems");
-                                    v_nowPages = Integer.parseInt(String.valueOf(jo.hq(json, "nowPages")));
+                                    Object v_nowItems = open.cn.awg.pro.core.JsonValues.value(json, "nowItems");
+                                    v_nowPages = Integer.parseInt(String.valueOf(open.cn.awg.pro.core.JsonValues.value(json, "nowPages")));
 
-                                    if (zf.dy(v_totalItems, 0)) {
+                                    if (java.util.Objects.equals(v_totalItems, 0)) {
 
                                     } else {
 
-                                        JSONArray list = jo.dxlb(json, "info");
+                                        JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "info");
 
-                                        int size = jo.cd(list);
+                                        int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                                         while (size > 0) {
 
                                             size--;
 
-                                            JSONObject dx = jo.dx(list, size);
+                                            JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
 
-                                            Object v_l_title = jo.hq(dx, "title");
+                                            Object v_l_title = open.cn.awg.pro.core.JsonValues.value(dx, "title");
 
-                                            Object v_l_text = jo.hq(dx, "text");
+                                            Object v_l_text = open.cn.awg.pro.core.JsonValues.value(dx, "text");
 
-                                            Object v_l_aurl = jo.hq(dx, "aurl");
+                                            Object v_l_aurl = open.cn.awg.pro.core.JsonValues.value(dx, "aurl");
 
-                                            Object v_l_id = jo.hq(dx, "id");
+                                            Object v_l_id = open.cn.awg.pro.core.JsonValues.value(dx, "id");
 
                                             Object[] jk = new Object[]{v_l_title, v_l_text, v_l_id};
-                                            spq.j(kj, jk);
+                                            spq.addRow(kj, jk);
 
                                         }
 
-                                        final String wb2_zf = "第" + IappCompat.zh(sj.zh()).zstring(v_nowPages) + "/" + IappCompat.zh(sj.zh()).zstring(v_totalPages) + "页";
-                                        gj.jmxc(new Runnable() {
+                                        final String wb2_zf = "第" + open.cn.awg.pro.core.TextValues.string(v_nowPages) + "/" + open.cn.awg.pro.core.TextValues.string(v_totalPages) + "页";
+                                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                             public void run() {
 
-                                                wb2.zf(wb2_zf);
-                                                spq.sx();
+                                                wb2.setText(String.valueOf(wb2_zf));
+                                                spq.refreshRows();
 
                                             }
 
@@ -369,11 +371,11 @@ public class StoreListActivity extends BaseAwgActivity {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb1).zf("加载失败");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("加载失败"));
 
                             }
 
@@ -402,18 +404,18 @@ public class StoreListActivity extends BaseAwgActivity {
 
             final int y = y_;
 
-            i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = IappCompat.v7lbAdapter(lb, StoreVideoItemActivity.class, R.layout.store_video_item);
+            RecyclerView list = findViewById(R.id.v7lb1);
+            spq = NativeListAdapter.attach(this, list, R.layout.store_video_item, new StoreVideoRowBinder(this));
 
             final int[] kj = new int[]{R.id.wb1, R.id.wb3, -1};
 
-            final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
-            gj.xc(new Thread() {
+            final android.widget.TextView wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.wb2));
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     show(1);
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
 
                     boolean canshow = false;
 
@@ -426,12 +428,12 @@ public class StoreListActivity extends BaseAwgActivity {
                         if (y == 1) {
 
                             int yy = v_nowPages + 1;
-                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
+                            post[2] = "page=" + open.cn.awg.pro.core.TextValues.string(yy);
 
                         } else {
 
                             int yy = v_nowPages - 1;
-                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
+                            post[2] = "page=" + open.cn.awg.pro.core.TextValues.string(yy);
 
                         }
 
@@ -439,63 +441,63 @@ public class StoreListActivity extends BaseAwgActivity {
 
                     if (e1.yz()) {
 
-                        String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String v = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (!zf.dy(v, null)) {
+                        if (!java.util.Objects.equals(v, null)) {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
+                                org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v);
 
-                                JSONObject json = jo.json;
+                                JSONObject json = jo;
 
-                                Object v_msg = jo.hq(json, "msg");
+                                Object v_msg = open.cn.awg.pro.core.JsonValues.value(json, "msg");
 
-                                Object v_code = jo.hq(json, "code");
+                                Object v_code = open.cn.awg.pro.core.JsonValues.value(json, "code");
 
-                                if (zf.dy(v_code, 200)) {
+                                if (java.util.Objects.equals(v_code, 200)) {
 
-                                    Object v_totalItems = jo.hq(json, "totalItems");
-                                    v_totalPages = Integer.parseInt(String.valueOf(jo.hq(json, "totalPages")));
+                                    Object v_totalItems = open.cn.awg.pro.core.JsonValues.value(json, "totalItems");
+                                    v_totalPages = Integer.parseInt(String.valueOf(open.cn.awg.pro.core.JsonValues.value(json, "totalPages")));
 
-                                    Object v_nowItems = jo.hq(json, "nowItems");
-                                    v_nowPages = Integer.parseInt(String.valueOf(jo.hq(json, "nowPages")));
+                                    Object v_nowItems = open.cn.awg.pro.core.JsonValues.value(json, "nowItems");
+                                    v_nowPages = Integer.parseInt(String.valueOf(open.cn.awg.pro.core.JsonValues.value(json, "nowPages")));
 
-                                    if (zf.dy(v_totalItems, 0)) {
+                                    if (java.util.Objects.equals(v_totalItems, 0)) {
 
                                     } else {
 
-                                        JSONArray list = jo.dxlb(json, "info");
+                                        JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "info");
 
-                                        int size = jo.cd(list);
+                                        int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                                         while (size > 0) {
 
                                             size--;
 
-                                            JSONObject dx = jo.dx(list, size);
+                                            JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
 
-                                            Object v_l_title = jo.hq(dx, "title");
+                                            Object v_l_title = open.cn.awg.pro.core.JsonValues.value(dx, "title");
 
-                                            Object v_l_text = jo.hq(dx, "text");
-                                            v_l_text = zf.th(v_l_text, "<br>", " ");
+                                            Object v_l_text = open.cn.awg.pro.core.JsonValues.value(dx, "text");
+                                            v_l_text = open.cn.awg.pro.core.TextValues.replace(v_l_text, "<br>", " ");
 
-                                            Object v_l_aurl = jo.hq(dx, "aurl");
+                                            Object v_l_aurl = open.cn.awg.pro.core.JsonValues.value(dx, "aurl");
 
-                                            Object v_l_id = jo.hq(dx, "id");
+                                            Object v_l_id = open.cn.awg.pro.core.JsonValues.value(dx, "id");
 
                                             Object[] jk = new Object[]{v_l_title, v_l_text, v_l_id};
-                                            spq.j(kj, jk);
+                                            spq.addRow(kj, jk);
 
                                         }
 
-                                        final String wb2_zf = "第" + IappCompat.zh(sj.zh()).zstring(v_nowPages) + "/" + IappCompat.zh(sj.zh()).zstring(v_totalPages) + "页";
-                                        gj.jmxc(new Runnable() {
+                                        final String wb2_zf = "第" + open.cn.awg.pro.core.TextValues.string(v_nowPages) + "/" + open.cn.awg.pro.core.TextValues.string(v_totalPages) + "页";
+                                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                             public void run() {
 
-                                                wb2.zf(wb2_zf);
-                                                spq.sx();
+                                                wb2.setText(String.valueOf(wb2_zf));
+                                                spq.refreshRows();
 
                                             }
 
@@ -522,11 +524,11 @@ public class StoreListActivity extends BaseAwgActivity {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb1).zf("加载失败");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("加载失败"));
 
                             }
 
@@ -555,18 +557,18 @@ public class StoreListActivity extends BaseAwgActivity {
 
             final int y = y_;
 
-            i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-            spq = IappCompat.v7lbAdapter(lb, StoreAppItemActivity.class, R.layout.store_app_item);
+            RecyclerView list = findViewById(R.id.v7lb1);
+            spq = NativeListAdapter.attach(this, list, R.layout.store_app_item, new StoreAppRowBinder(this));
 
             final int[] kj = new int[]{R.id.tx1, R.id.wb1, R.id.wb3, -1};
 
-            final i.runlibrary.app.v.wb wb2 = st.wb(R.id.wb2);
-            gj.xc(new Thread() {
+            final android.widget.TextView wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.wb2));
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
                     show(1);
-                    gj.zt(500);
+                    open.cn.awg.pro.core.NativeActions.sleep(500);
 
                     boolean canshow = false;
 
@@ -579,12 +581,12 @@ public class StoreListActivity extends BaseAwgActivity {
                         if (y == 1) {
 
                             int yy = v_nowPages + 1;
-                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
+                            post[2] = "page=" + open.cn.awg.pro.core.TextValues.string(yy);
 
                         } else {
 
                             int yy = v_nowPages - 1;
-                            post[2] = "page=" + IappCompat.zh(sj.zh()).zstring(yy);
+                            post[2] = "page=" + open.cn.awg.pro.core.TextValues.string(yy);
 
                         }
 
@@ -592,51 +594,51 @@ public class StoreListActivity extends BaseAwgActivity {
 
                     if (e1.yz()) {
 
-                        String v = wl.hq(url, post, "utf-8", null, true, null, 20000, 20000, null);
+                        String v = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (post), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
-                        if (!zf.dy(v, null)) {
+                        if (!java.util.Objects.equals(v, null)) {
 
                             try {
 
-                                i.runlibrary.app.zf$json jo = (i.runlibrary.app.zf$json) (Object) zf.json(v);
+                                org.json.JSONObject jo = (org.json.JSONObject) (Object) open.cn.awg.pro.core.JsonValues.parseObject(v);
 
-                                JSONObject json = jo.json;
+                                JSONObject json = jo;
 
-                                Object v_msg = jo.hq(json, "msg");
+                                Object v_msg = open.cn.awg.pro.core.JsonValues.value(json, "msg");
 
-                                Object v_code = jo.hq(json, "code");
+                                Object v_code = open.cn.awg.pro.core.JsonValues.value(json, "code");
 
-                                if (zf.dy(v_code, 200)) {
+                                if (java.util.Objects.equals(v_code, 200)) {
 
-                                    Object v_totalItems = jo.hq(json, "totalItems");
-                                    v_totalPages = Integer.parseInt(String.valueOf(jo.hq(json, "totalPages")));
+                                    Object v_totalItems = open.cn.awg.pro.core.JsonValues.value(json, "totalItems");
+                                    v_totalPages = Integer.parseInt(String.valueOf(open.cn.awg.pro.core.JsonValues.value(json, "totalPages")));
 
-                                    Object v_nowItems = jo.hq(json, "nowItems");
-                                    v_nowPages = Integer.parseInt(String.valueOf(jo.hq(json, "nowPages")));
+                                    Object v_nowItems = open.cn.awg.pro.core.JsonValues.value(json, "nowItems");
+                                    v_nowPages = Integer.parseInt(String.valueOf(open.cn.awg.pro.core.JsonValues.value(json, "nowPages")));
 
-                                    if (zf.dy(v_totalItems, 0)) {
+                                    if (java.util.Objects.equals(v_totalItems, 0)) {
 
                                     } else {
 
-                                        JSONArray list = jo.dxlb(json, "info");
+                                        JSONArray list = open.cn.awg.pro.core.JsonValues.array(json, "info");
 
-                                        int size = jo.cd(list);
+                                        int size = open.cn.awg.pro.core.JsonValues.length(list);
 
                                         while (size > 0) {
 
                                             size--;
 
-                                            JSONObject dx = jo.dx(list, size);
+                                            JSONObject dx = open.cn.awg.pro.core.JsonValues.object(list, size);
 
-                                            Object v_l_appname = jo.hq(dx, "appname");
+                                            Object v_l_appname = open.cn.awg.pro.core.JsonValues.value(dx, "appname");
 
-                                            Object v_l_appsize = jo.hq(dx, "appsize");
+                                            Object v_l_appsize = open.cn.awg.pro.core.JsonValues.value(dx, "appsize");
 
-                                            Object v_l_apptext = jo.hq(dx, "apptext");
+                                            Object v_l_apptext = open.cn.awg.pro.core.JsonValues.value(dx, "apptext");
 
-                                            Object v_l_appdown = jo.hq(dx, "appdown");
+                                            Object v_l_appdown = open.cn.awg.pro.core.JsonValues.value(dx, "appdown");
 
-                                            Object v_l_appid = jo.hq(dx, "appid");
+                                            Object v_l_appid = open.cn.awg.pro.core.JsonValues.value(dx, "appid");
 
                                             String jian = v_l_appsize + " | " + v_l_apptext;
 
@@ -644,17 +646,17 @@ public class StoreListActivity extends BaseAwgActivity {
                                             dbe = new BitmapDrawable(lei.getResources(), com.demo.e4.getURLimage(img_url));
 
                                             Object[] jk = new Object[]{dbe, v_l_appname, jian, v_l_appid};
-                                            spq.j(kj, jk);
+                                            spq.addRow(kj, jk);
 
                                         }
 
-                                        final String wb2_zf = "第" + IappCompat.zh(sj.zh()).zstring(v_nowPages) + "/" + IappCompat.zh(sj.zh()).zstring(v_totalPages) + "页";
-                                        gj.jmxc(new Runnable() {
+                                        final String wb2_zf = "第" + open.cn.awg.pro.core.TextValues.string(v_nowPages) + "/" + open.cn.awg.pro.core.TextValues.string(v_totalPages) + "页";
+                                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                                             public void run() {
 
-                                                wb2.zf(wb2_zf);
-                                                spq.sx();
+                                                wb2.setText(String.valueOf(wb2_zf));
+                                                spq.refreshRows();
 
                                             }
 
@@ -681,11 +683,11 @@ public class StoreListActivity extends BaseAwgActivity {
 
                     } else {
 
-                        gj.jmxc(new Runnable() {
+                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                             public void run() {
 
-                                st.wb(R.id.wb1).zf("加载失败");
+                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("加载失败"));
 
                             }
 
@@ -722,9 +724,9 @@ public class StoreListActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(StoreListActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -741,7 +743,7 @@ public class StoreListActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -758,7 +760,7 @@ public class StoreListActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(StoreListActivity.this);
 
     }
 
@@ -773,7 +775,7 @@ public class StoreListActivity extends BaseAwgActivity {
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(StoreListActivity.this);
 
     }
 
@@ -783,18 +785,18 @@ public class StoreListActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb2);
 
-        ImageView i8217d42a17 = (ImageView) findViewById(ay, vw, R.id.tx3);
+        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
         i8217d42a17.setOnClickListener(tx3ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);

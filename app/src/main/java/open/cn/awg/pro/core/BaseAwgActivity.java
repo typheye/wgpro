@@ -16,19 +16,25 @@
  */
 package open.cn.awg.pro.core;
 
+import android.graphics.Color;
+import android.view.Gravity;
+import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
+import android.util.TypedValue;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.content.ContextCompat;
 
 import com.ypz.bangscreentools.BangScreenTools;
 
-import java.lang.reflect.Method;
-
-import i.app.iActivity;
+import java.util.Objects;
 
 import open.cn.awg.pro.R;
 
-public class BaseAwgActivity extends iActivity {
+public class BaseAwgActivity extends AppCompatActivity {
 
     protected static final String DISPLAY_MODE_FILE = AppPaths.appPath("settings/a3.inf");
     protected static final String DISPLAY_MARGIN_FILE = AppPaths.appPath("settings/f17/set1.inf");
@@ -36,9 +42,7 @@ public class BaseAwgActivity extends iActivity {
     protected static final String NIGHT_MODE_ENABLED_FILE = AppPaths.appPath("settings/set4s.inf");
     protected static final String NIGHT_MODE_VALUE_FILE = AppPaths.appPath("settings/set4.inf");
 
-    /**
-     * Applies the common watch screen policy used by most legacy pages.
-     */
+    /** Applies the common watch screen policy used by most legacy pages. */
     protected void applyStandardScreenMode(int windowRootId, int contentRootId, int titleBarId) {
         applyNightModeFromSettings();
 
@@ -50,40 +54,38 @@ public class BaseAwgActivity extends iActivity {
     }
 
     protected void applyNightModeFromSettings() {
-        if (!zf.dy(wj.dqwb(NIGHT_MODE_ENABLED_FILE), "false")) {
+        if (!Objects.equals(NativeFiles.readText(this, NIGHT_MODE_ENABLED_FILE), "false")) {
             return;
         }
 
-        if (zf.dy(wj.dqwb(NIGHT_MODE_VALUE_FILE), "true")) {
+        if (Objects.equals(NativeFiles.readText(this, NIGHT_MODE_VALUE_FILE), "true")) {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
             getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         }
     }
 
-    /**
-     * Keeps status-bar color mode and fullscreen mode consistent with display settings.
-     */
+    /** Keeps status-bar color mode and fullscreen mode consistent with display settings. */
     protected void applyStatusBarMode(int windowRootId, String displayMode) {
-        if (zf.dy(displayMode, "4")) {
-            st.xdbj(windowRootId).shxtck(true);
-
-            String color = zf.zf(R.color.colorTab);
-            setStatusBarColor(color);
+        View windowRoot = findViewById(windowRootId);
+        if (Objects.equals(displayMode, "4")) {
+            if (windowRoot != null) {
+                windowRoot.setFitsSystemWindows(true);
+            }
+            setStatusBarColor(ContextCompat.getColor(this, R.color.colorTab));
             return;
         }
 
-        st.xdbj(windowRootId).shxtck(false);
+        if (windowRoot != null) {
+            windowRoot.setFitsSystemWindows(false);
+        }
         applyFullscreenWindow();
     }
 
-    /**
-     * Re-applies window flags from lifecycle callbacks after focus/resume changes.
-     */
+    /** Re-applies window flags from lifecycle callbacks after focus/resume changes. */
     protected void applyWindowModeFromSettings() {
-        if (zf.dy(readDisplayMode(), "4")) {
-            String color = zf.zf(R.color.colorTab);
-            setStatusBarColor(color);
+        if (Objects.equals(readDisplayMode(), "4")) {
+            setStatusBarColor(ContextCompat.getColor(this, R.color.colorTab));
         } else {
             applyFullscreenWindow();
         }
@@ -96,61 +98,79 @@ public class BaseAwgActivity extends iActivity {
     }
 
     protected void setStatusBarColor(String color) {
-        try {
-            Object screen = xt.pm();
-            Method method = screen.getClass().getMethod("ztl", Object.class, Object.class);
-            method.invoke(screen, color, 0);
-        } catch (Exception ignored) {
-        }
+        setStatusBarColor(Color.parseColor(color));
     }
 
-    /**
-     * Updates content/title padding for round, square, and status-bar display modes.
-     */
+    protected void setStatusBarColor(int color) {
+        Window window = getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.getDecorView().setSystemUiVisibility(
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+        window.setStatusBarColor(color);
+    }
+
+    /** Updates content/title padding for round, square, and status-bar display modes. */
     protected void applyContentInsets(int contentRootId, int titleBarId, String displayMode, int displayMargin) {
-        if (zf.dy(displayMode, "1")) {
-            st.xdbj(contentRootId).nbj(displayMargin, 0, displayMargin, 50);
+        View contentRoot = findViewById(contentRootId);
+        if (Objects.equals(displayMode, "1")) {
+            setPadding(contentRoot, displayMargin, 0, displayMargin, 50);
             applyTallTitleBar(titleBarId);
-        } else if (zf.dy(displayMode, "2")) {
+        } else if (Objects.equals(displayMode, "2")) {
             applySquareScreenTitleBar(titleBarId);
-            st.xdbj(contentRootId).nbj(0, 0, 0, 0);
-        } else if (zf.dy(displayMode, "3")) {
-            st.xdbj(contentRootId).nbj(displayMargin, 0, displayMargin, 50);
+            setPadding(contentRoot, 0, 0, 0, 0);
+        } else if (Objects.equals(displayMode, "3")) {
+            setPadding(contentRoot, displayMargin, 0, displayMargin, 50);
             applyTallTitleBar(titleBarId);
-        } else if (zf.dy(displayMode, "4")) {
-            st.xdbj(contentRootId).nbj(0, 0, 0, 0);
+        } else if (Objects.equals(displayMode, "4")) {
+            setPadding(contentRoot, 0, 0, 0, 0);
         }
     }
 
     protected String readDisplayMode() {
-        return wj.dqwb(DISPLAY_MODE_FILE);
+        return NativeFiles.readText(this, DISPLAY_MODE_FILE);
     }
 
     protected int readDisplayMargin() {
         try {
-            return Integer.parseInt(wj.dqwb(DISPLAY_MARGIN_FILE));
-        } catch (Exception ignored) {
+            return Integer.parseInt(NativeFiles.readText(this, DISPLAY_MARGIN_FILE));
+        } catch (RuntimeException ignored) {
             return 0;
         }
     }
 
     protected boolean shouldOptimizeDpi() {
-        return wj.cz(DPI_OPTIMIZE_FILE) || zf.dy(wj.dqwb(DPI_OPTIMIZE_FILE), "true");
+        return NativeFiles.exists(this, DPI_OPTIMIZE_FILE)
+                || Objects.equals(NativeFiles.readText(this, DPI_OPTIMIZE_FILE), "true");
+    }
+
+    protected int dp(float dimension) {
+        return Math.round(TypedValue.applyDimension(
+                TypedValue.COMPLEX_UNIT_DIP, dimension, getResources().getDisplayMetrics()));
+    }
+
+    private static void setPadding(View view, int left, int top, int right, int bottom) {
+        if (view != null) {
+            view.setPadding(left, top, right, bottom);
+        }
     }
 
     private void applyTallTitleBar(int titleBarId) {
-        i.runlibrary.app.v.wb titleBar = st.wb(titleBarId);
-        titleBar.nbj(0, "15dp", 0, "3dp");
-        titleBar.dqfs("center");
+        TextView titleBar = findViewById(titleBarId);
+        if (titleBar == null) {
+            return;
+        }
+        titleBar.setPadding(0, dp(15), 0, dp(3));
+        titleBar.setGravity(Gravity.CENTER);
     }
 
     private void applySquareScreenTitleBar(int titleBarId) {
-        i.runlibrary.app.v.wb titleBar = st.wb(titleBarId);
-        if (shouldOptimizeDpi()) {
-            titleBar.nbj(0, "3dp", 0, "3dp");
-        } else {
-            titleBar.nbj(0, "9dp", 0, "9dp");
+        TextView titleBar = findViewById(titleBarId);
+        if (titleBar == null) {
+            return;
         }
-        titleBar.dqfs("center");
+        int verticalPadding = shouldOptimizeDpi() ? dp(3) : dp(9);
+        titleBar.setPadding(0, verticalPadding, 0, verticalPadding);
+        titleBar.setGravity(Gravity.CENTER);
     }
 }

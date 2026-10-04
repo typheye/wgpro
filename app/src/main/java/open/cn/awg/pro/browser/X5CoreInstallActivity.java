@@ -17,7 +17,6 @@
 package open.cn.awg.pro.browser;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -51,7 +50,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
     public String um = "";
     public String osArch;
     public File f;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -115,6 +114,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.x5_core_install);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -127,11 +127,11 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
             String path1 = "/storage/emulated/0/Download/x5install.zip";
 
-            if (wj.cz(path1)) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path1))) {
 
                 um = path1;
 
-            } else if (wj.cz(path2)) {
+            } else if (open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path2))) {
 
                 um = path2;
 
@@ -139,7 +139,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.xc(new Thread() {
+            open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {
 
@@ -154,26 +154,26 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
                     String path1 = "/storage/emulated/0/Download/x5install.zip";
 
-                    if (wj.cz(path1) || wj.cz(path2) || wj.cz(path3_32) || wj.cz(path3_64)) {
+                    if (open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path1)) || open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path2)) || open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path3_32)) || open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path3_64))) {
 
-                        if (wj.cz(path1)) {
+                        if (open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path1))) {
 
                             um = path1;
 
-                        } else if (wj.cz(path2)) {
+                        } else if (open.cn.awg.pro.core.NativeFiles.exists(X5CoreInstallActivity.this, (String) (path2))) {
 
                             um = path2;
 
                         } else {
 
-                            if (zf.cz(osArch, "64")) {
+                            if (open.cn.awg.pro.core.TextValues.contains(osArch, "64")) {
 
-                                wj.fz(path3_64, path2, true);
+                                open.cn.awg.pro.core.NativeFiles.copy(X5CoreInstallActivity.this, (String) (path3_64), (String) (path2), java.lang.Boolean.TRUE.equals(true));
                                 um = path2;
 
                             } else {
 
-                                wj.fz(path3_32, path2, true);
+                                open.cn.awg.pro.core.NativeFiles.copy(X5CoreInstallActivity.this, (String) (path3_32), (String) (path2), java.lang.Boolean.TRUE.equals(true));
                                 um = path2;
 
                             }
@@ -183,19 +183,19 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
                     } else {
 
-                        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.xlcd2);
+                        android.widget.Spinner xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xlcd2));
 
                         String[] sz1 = new String[]{"源1:X5内核32位[81.1M]", "源2:X5内核32位[81.1M]", "自定义下载源"};
 
                         String[] sz2 = new String[]{"源1:X5内核64位[92.2M]", "源2:X5内核64位[92.2M]", "自定义下载源"};
 
-                        if (zf.cz(osArch, "64")) {
+                        if (open.cn.awg.pro.core.TextValues.contains(osArch, "64")) {
 
-                            xlcd2.csh(sz2);
+                            open.cn.awg.pro.core.NativeViewValues.spinner(xlcd2, sz2);
 
                         } else {
 
-                            xlcd2.csh(sz1);
+                            open.cn.awg.pro.core.NativeViewValues.spinner(xlcd2, sz1);
 
                         }
                         show(0);
@@ -214,21 +214,21 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         applyStandardScreenMode(R.id.x5_core_install_root, R.id.xdbj1, R.id.title_bar);
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
         String[] sz = new String[]{"使用系统下载器下载", "使用软件下载器下载"};
-        xlcd1.csh(sz);
+        open.cn.awg.pro.core.NativeViewValues.spinner(xlcd1, sz);
 
     }
 
     public void c1() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 show(4);
 
-                final int y = wj.sc(um);
+                final int y = open.cn.awg.pro.core.NativeFiles.delete(X5CoreInstallActivity.this, (String) (um), false);
 
                 if (y == 1) {
 
@@ -248,7 +248,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
     }
 
     public void c2() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
@@ -265,11 +265,11 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
                     String[] aa = new String[]{"", ""};
                     aa = com.demo.e3.cmd(lei, m, false);
 
-                    if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
+                    if (java.util.Objects.equals(aa[0], "") && !java.util.Objects.equals(aa[1], "")) {
 
                         xx = xx + "[文件路径]\n" + d[i] + "\n[执行状态]\n删除失败：" + aa[1] + "\n\n";
 
-                    } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
+                    } else if (!java.util.Objects.equals(aa[0], "") && java.util.Objects.equals(aa[1], "")) {
 
                         xx = xx + "[文件路径]\n" + d[i] + "\n[执行状态]\n删除成功\n\n";
 
@@ -280,15 +280,15 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
                     }
 
                 }
-                gj.zt(2000);
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.sleep(2000);
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
                         String[] name = new String[]{"Msg"};
 
                         String[] value = new String[]{"卸载成功 点击重启"};
-                        gj.tz(ErrorMessageActivity.class, name, value);
+                        open.cn.awg.pro.core.NativeActions.launch(X5CoreInstallActivity.this, (Class<?>) (ErrorMessageActivity.class), (String[]) (name), (Object[]) (value));
 
                     }
 
@@ -303,45 +303,45 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
     public void show(int i_) {
 
         final int i = i_;
-        gj.jmxc(new Runnable() {
+        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
             public void run() {
 
-                i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj2);
+                android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
-                i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj4);
+                android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xxbj4));
 
-                i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj5);
+                android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xxbj5));
 
-                i.runlibrary.app.v.xxbj x4 = st.xxbj(R.id.xxbj6);
+                android.widget.LinearLayout x4 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
                 if (i == 0) {
 
-                    x1.kjd(0);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(8);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 1) {
 
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    x3.kjd(8);
-                    x4.kjd(8);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 2) {
 
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(0);
-                    x4.kjd(8);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 } else if (i == 4) {
 
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(8);
-                    x4.kjd(0);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x4.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -367,9 +367,9 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -386,7 +386,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -403,7 +403,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(X5CoreInstallActivity.this);
 
     }
 
@@ -411,11 +411,11 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         if (pn == 2) {
 
-            st.bjk(R.id.bjk2).kjd(0);
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.bjk2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
         } else {
 
-            st.bjk(R.id.bjk2).kjd(8);
+            ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.bjk2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
         }
 
@@ -429,12 +429,12 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         if (!vw.isFocused()) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
-                    qtgd1.v.requestFocus();
+                    androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+                    qtgd1.requestFocus();
 
                 }
 
@@ -447,12 +447,12 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
     private void onAn1Click(View vw) {
 
-        String bjk2 = st.bjk(R.id.bjk2).zf();
-        bjk2 = zf.qctwkg(bjk2);
+        String bjk2 = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.bjk2)).getText().toString();
+        bjk2 = open.cn.awg.pro.core.TextValues.trim(bjk2);
 
-        i.runlibrary.app.v.xlcd xlcd1 = st.xlcd(R.id.xlcd1);
+        android.widget.Spinner xlcd1 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xlcd1));
 
-        i.runlibrary.app.v.xlcd xlcd2 = st.xlcd(R.id.xlcd2);
+        android.widget.Spinner xlcd2 = ((android.widget.Spinner) open.cn.awg.pro.core.NativeViewValues.findView(X5CoreInstallActivity.this.getWindow().getDecorView(), R.id.xlcd2));
 
         String url = "";
 
@@ -464,7 +464,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         String add = "x5install.zip";
 
-        int sdk = IappCompat.sdk(xt.sbxx());
+        int sdk = android.os.Build.VERSION.SDK_INT;
 
         if (sdk < 30) {
 
@@ -476,17 +476,17 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         }
 
-        if (zf.cz(osArch, "64")) {
+        if (open.cn.awg.pro.core.TextValues.contains(osArch, "64")) {
 
-            if (xlcd2.dqzsxmxh() == 0) {
-
-                url = "https://service.typheye.cn/app/open.cn.awg.pro/download/x5s/x5install_64bit.zip";
-
-            } else if (xlcd2.dqzsxmxh() == 1) {
+            if (xlcd2.getLastVisiblePosition() == 0) {
 
                 url = "https://service.typheye.cn/app/open.cn.awg.pro/download/x5s/x5install_64bit.zip";
 
-            } else if (xlcd2.dqzsxmxh() == 2) {
+            } else if (xlcd2.getLastVisiblePosition() == 1) {
+
+                url = "https://service.typheye.cn/app/open.cn.awg.pro/download/x5s/x5install_64bit.zip";
+
+            } else if (xlcd2.getLastVisiblePosition() == 2) {
 
                 url = bjk2;
 
@@ -494,15 +494,15 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         } else {
 
-            if (xlcd2.dqzsxmxh() == 0) {
+            if (xlcd2.getLastVisiblePosition() == 0) {
 
                 url = "https://service.typheye.cn/app/open.cn.awg.pro/download/x5s/x5install_32bit.zip";
 
-            } else if (xlcd2.dqzsxmxh() == 1) {
+            } else if (xlcd2.getLastVisiblePosition() == 1) {
 
                 url = "https://service.typheye.cn/app/open.cn.awg.pro/download/x5s/x5install_32bit.zip";
 
-            } else if (xlcd2.dqzsxmxh() == 2) {
+            } else if (xlcd2.getLastVisiblePosition() == 2) {
 
                 url = bjk2;
 
@@ -510,31 +510,31 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
         }
 
-        if (zf.dy(e1.urlLockString(url), "0")) {
+        if (java.util.Objects.equals(e1.urlLockString(url), "0")) {
 
             e1.tsk("提示", "下载源无效");
 
         } else {
 
-            i.runlibrary.app.xt$qxgl a = (i.runlibrary.app.xt$qxgl) (Object) xt.qxgl();
+            
 
             if (true) {
 
-                if (xlcd1.dqzsxmxh() == 0) {
+                if (xlcd1.getLastVisiblePosition() == 0) {
 
-                    f = wj.wj(path);
+                    f = open.cn.awg.pro.core.NativeFiles.file(X5CoreInstallActivity.this, (String) (path));
                     gl.xz.download(url, this, 1, f);
                     e1.tsk("提示", "已在后台开始下载\n请在下载完成后重新进入本页面,进行下一步的安装");
-                    gj.gb();
+                    open.cn.awg.pro.core.NativeActions.finish(X5CoreInstallActivity.this);
 
-                } else if (xlcd1.dqzsxmxh() == 1) {
+                } else if (xlcd1.getLastVisiblePosition() == 1) {
 
                     String[] name = new String[]{"url", "path"};
 
                     String[] value = new String[]{url, path};
-                    gj.tz(DownloadProgressActivity.class, name, value);
+                    open.cn.awg.pro.core.NativeActions.launch(X5CoreInstallActivity.this, (Class<?>) (DownloadProgressActivity.class), (String[]) (name), (Object[]) (value));
                     e1.tsk("提示", "已开始下载\n请在下载完成后重新进入本页面,进行下一步的安装");
-                    gj.gb();
+                    open.cn.awg.pro.core.NativeActions.finish(X5CoreInstallActivity.this);
 
                 }
 
@@ -550,28 +550,28 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
     private void onAn3Click(View vw) {
         show(4);
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
                 String nwj = AppPaths.appPath("cache/x5/");
-                wj.jy(um, nwj, true);
+                open.cn.awg.pro.core.NativeArchives.extract(X5CoreInstallActivity.this, (String) (um), (String) (nwj), java.lang.Boolean.TRUE.equals(true));
 
-                String nrs = wj.dqwb(AppPaths.appPath("data/assets/c1"));
+                String nrs = open.cn.awg.pro.core.NativeFiles.readText(X5CoreInstallActivity.this, (String) (AppPaths.appPath("data/assets/c1")));
 
                 final String[] name = new String[]{"sh", "auto"};
 
                 final String[] value = new String[]{nrs, "enable"};
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        gj.tz(ShellExecutorActivity.class, name, value);
+                        open.cn.awg.pro.core.NativeActions.launch(X5CoreInstallActivity.this, (Class<?>) (ShellExecutorActivity.class), (String[]) (name), (Object[]) (value));
 
                     }
 
                 });
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(X5CoreInstallActivity.this);
 
             }
 
@@ -590,7 +590,7 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(X5CoreInstallActivity.this);
 
     }
 
@@ -600,30 +600,30 @@ public class X5CoreInstallActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        Spinner fef1635c8d = (Spinner) findViewById(ay, vw, R.id.xlcd2);
+        Spinner fef1635c8d = (Spinner) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xlcd2);
         fef1635c8d.setOnItemSelectedListener(xlcd2ItemSelectedListener);
 
-        EditText i63f06183a1 = (EditText) findViewById(ay, vw, R.id.bjk2);
+        EditText i63f06183a1 = (EditText) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.bjk2);
         i63f06183a1.setOnTouchListener(bjk2TouchListener);
 
-        Spinner i004a739c93 = (Spinner) findViewById(ay, vw, R.id.xlcd1);
+        Spinner i004a739c93 = (Spinner) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xlcd1);
 
-        Button i171ea34f1a = (Button) findViewById(ay, vw, R.id.an1);
+        Button i171ea34f1a = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an1);
         i171ea34f1a.setOnClickListener(an1ClickListener);
 
-        Button i8f51a35692 = (Button) findViewById(ay, vw, R.id.an3);
+        Button i8f51a35692 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an3);
         i8f51a35692.setOnClickListener(an3ClickListener);
 
-        Button i0b66a667b1 = (Button) findViewById(ay, vw, R.id.an2);
+        Button i0b66a667b1 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an2);
         i0b66a667b1.setOnClickListener(an2ClickListener);
 
-        Button i74ce6319f3 = (Button) findViewById(ay, vw, R.id.an4);
+        Button i74ce6319f3 = (Button) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.an4);
         i74ce6319f3.setOnClickListener(an4ClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

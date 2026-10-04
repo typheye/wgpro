@@ -45,8 +45,8 @@ public class AppDebugActivity extends BaseAwgActivity {
     public final AppDebugActivity lei = this, 类 = this;
     public String um = "";
     public File f;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
-    public TuneFreeMusicBridge e12 = new TuneFreeMusicBridge(_APPINFO);
+    public AppRuntimeBridge e1;
+    public TuneFreeMusicBridge e12;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -141,6 +141,8 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
+        e12 = new TuneFreeMusicBridge(this);
         setContentView(R.layout.app_debug);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -157,24 +159,24 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     public void show(int i) {
 
-        final i.runlibrary.app.v.wb tab = st.wb(R.id.title_bar);
+        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar));
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj6);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.xxbj6));
 
-        final i.runlibrary.app.v.xxbj x3 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout x3 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
         if (i == 0) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< App Debug");
-                    x1.kjd(8);
-                    x2.kjd(8);
-                    x3.kjd(0);
+                    tab.setText(String.valueOf("< App Debug"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                 }
 
@@ -182,14 +184,14 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         } else if (i == 1) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< 程序测试");
-                    x1.kjd(0);
-                    x2.kjd(8);
-                    x3.kjd(8);
+                    tab.setText(String.valueOf("< 程序测试"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -197,14 +199,14 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         } else if (i == 2) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    tab.zf("< App Debug");
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    x3.kjd(8);
+                    tab.setText(String.valueOf("< App Debug"));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -222,13 +224,13 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppDebugActivity.this, (String) (set1)), "true")) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb7).zf("已开启实验性功能");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb7)).setText(String.valueOf("已开启实验性功能"));
 
                 }
 
@@ -236,11 +238,11 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    st.wb(R.id.wb7).zf("已关闭实验性功能");
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb7)).setText(String.valueOf("已关闭实验性功能"));
 
                 }
 
@@ -267,9 +269,9 @@ public class AppDebugActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -286,7 +288,7 @@ public class AppDebugActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -300,11 +302,11 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (zf.dy(st.wb(R.id.title_bar).zf(), "< App Debug")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< App Debug")) {
 
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(AppDebugActivity.this);
 
-            } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 程序测试")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 程序测试")) {
 
                 show(0);
 
@@ -323,11 +325,11 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (zf.dy(st.wb(R.id.title_bar).zf(), "< App Debug")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< App Debug")) {
 
-            gj.gb();
+            open.cn.awg.pro.core.NativeActions.finish(AppDebugActivity.this);
 
-        } else if (zf.dy(st.wb(R.id.title_bar).zf(), "< 程序测试")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 程序测试")) {
 
             show(0);
 
@@ -342,9 +344,9 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     private boolean onXdbj2LongClick(View vw) {
 
-        String te = st.wb(R.id.wb3).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
 
-        String lj = st.wb(R.id.wb4).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -357,16 +359,16 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     private boolean onXdbj3LongClick(View vw) {
 
-        String te = st.wb(R.id.wb5).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
 
-        String lj = st.wb(R.id.wb6).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(AppDebugActivity.this);
 
     }
 
@@ -374,14 +376,14 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         String set1 = AppPaths.appPath("settings/set1.inf");
 
-        if (zf.dy(wj.dqwb(set1), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(AppDebugActivity.this, (String) (set1)), "false")) {
 
-            wj.xrwb(set1, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(AppDebugActivity.this, (String) (set1), (String) ("true"));
             e1.tsk("提示", "已开启实验性功能");
 
         } else {
 
-            wj.xrwb(set1, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(AppDebugActivity.this, (String) (set1), (String) ("false"));
             e1.tsk("提示", "已关闭实验性功能");
 
         }
@@ -391,39 +393,39 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb2).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
 
-        String lj = st.wb(R.id.wb7).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj8Click(View vw) {
-        gj.tz(SystemPermissionActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(AppDebugActivity.this, (Class<?>) (SystemPermissionActivity.class));
 
     }
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb14).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
 
-        String lj = st.wb(R.id.wb15).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj7Click(View vw) {
-        gj.tz(DeveloperTestActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(AppDebugActivity.this, (Class<?>) (DeveloperTestActivity.class));
 
     }
 
     private boolean onXdbj7LongClick(View vw) {
 
-        String te = st.wb(R.id.wb12).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
 
-        String lj = st.wb(R.id.wb13).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -440,35 +442,35 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        RelativeLayout i3167b45174 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj2);
+        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
         i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
-        RelativeLayout i20c2777fab = (RelativeLayout) findViewById(ay, vw, R.id.xdbj3);
+        RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
         i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        TextView adf370a235 = (TextView) findViewById(ay, vw, R.id.wb13);
+        TextView adf370a235 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb13);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
         e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
         __layoutIsLoaded(ay, vw);

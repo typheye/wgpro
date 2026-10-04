@@ -17,7 +17,6 @@
 package open.cn.awg.pro.file;
 
 
-import open.cn.awg.pro.core.IappCompat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.KeyEvent;
@@ -45,7 +44,7 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
     public String c = "";
     public String d = "";
     public String es = "";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -63,17 +62,18 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.delete_confirm);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
-        b = sj.hqtz("b");
-        c = sj.hqtz("c");
-        d = sj.hqtz("d");
-        es = sj.hqtz("es");
+        b = DeleteConfirmActivity.this.getIntent().getStringExtra(String.valueOf("b"));
+        c = DeleteConfirmActivity.this.getIntent().getStringExtra(String.valueOf("c"));
+        d = DeleteConfirmActivity.this.getIntent().getStringExtra(String.valueOf("d"));
+        es = DeleteConfirmActivity.this.getIntent().getStringExtra(String.valueOf("es"));
 
         String lx = "";
 
-        if (zf.dy(b, "2")) {
+        if (java.util.Objects.equals(b, "2")) {
 
             lx = "文件";
 
@@ -82,17 +82,17 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
             lx = "目录";
 
         }
-        st.wb(R.id.wb1).zf("您确定要删除“" + c + "”" + lx + "吗？");
+        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf("您确定要删除“" + c + "”" + lx + "吗？"));
 
     }
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        i.runlibrary.app.xt$pm pm = (i.runlibrary.app.xt$pm) (Object) xt.pm();
+        
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeleteConfirmActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeleteConfirmActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -106,62 +106,62 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
 
         final String a2 = AppPaths.appPath("settings/a3.inf");
 
-        String a = wj.dqwb(a2);
+        String a = open.cn.awg.pro.core.NativeFiles.readText(DeleteConfirmActivity.this, (String) (a2));
 
-        final int u = Integer.parseInt(wj.dqwb(AppPaths.appPath("settings/f17/set1.inf")));
+        final int u = Integer.parseInt(open.cn.awg.pro.core.NativeFiles.readText(DeleteConfirmActivity.this, (String) (AppPaths.appPath("settings/f17/set1.inf"))));
 
-        if (zf.dy(a, "4")) {
+        if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.delete_confirm_root).shxtck(true);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.delete_confirm_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(true));
 
-            String clr = zf.zf(R.color.colorTab);
+            String clr = open.cn.awg.pro.core.NativeViewValues.colorResourceString(open.cn.awg.pro.app.AwgProApplication.getContext(), R.color.colorTab);
             setStatusBarColor(clr);
 
         } else {
 
-            st.xdbj(R.id.delete_confirm_root).shxtck(false);
+            ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.delete_confirm_root)).setFitsSystemWindows(java.lang.Boolean.TRUE.equals(false));
         applyFullscreenWindow();
 
         }
 
-        if (zf.dy(a, "1")) {
+        if (java.util.Objects.equals(a, "1")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 60);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 60);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "2")) {
+        } else if (java.util.Objects.equals(a, "2")) {
 
             String a001 = AppPaths.appPath("settings/dpi.inf");
 
-            if (wj.cz(a001) || zf.dy(wj.dqwb(a001), "true")) {
+            if (open.cn.awg.pro.core.NativeFiles.exists(DeleteConfirmActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeleteConfirmActivity.this, (String) (a001)), "true")) {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "3dp", 0, "3dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
-                i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-                wtab.nbj(0, "9dp", 0, "9dp");
-                wtab.dqfs("center");
+                android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.title_bar));
+                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
-        } else if (zf.dy(a, "3")) {
+        } else if (java.util.Objects.equals(a, "3")) {
 
-            st.xdbj(R.id.xdbj1).nbj(u, 0, u, 60);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 60);
 
-            i.runlibrary.app.v.wb wtab = st.wb(R.id.title_bar);
-            wtab.nbj(0, "15dp", 0, "3dp");
-            wtab.dqfs("center");
+            android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.title_bar));
+            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
-        } else if (zf.dy(a, "4")) {
+        } else if (java.util.Objects.equals(a, "4")) {
 
-            st.xdbj(R.id.xdbj1).nbj(0, 0, 0, 0);
+            open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xdbj1)), 0, 0, 0, 0);
 
         }
 
@@ -172,29 +172,29 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
         String cache_c = AppPaths.appPath("cache/c");
 
         String cache_es = AppPaths.appPath("cache/es");
-        wj.xrwb(cache_c, c);
-        wj.xrwb(cache_es, es);
+        open.cn.awg.pro.core.NativeFiles.writeText(DeleteConfirmActivity.this, (String) (cache_c), (String) (c));
+        open.cn.awg.pro.core.NativeFiles.writeText(DeleteConfirmActivity.this, (String) (cache_es), (String) (es));
 
     }
 
     public void no() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj1).kjd(8);
-                        st.xxbj(R.id.xxbj3).kjd(0);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                     }
 
                 });
                 tip();
-                gj.zt(250);
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.sleep(250);
+                open.cn.awg.pro.core.NativeActions.finish(DeleteConfirmActivity.this);
 
             }
 
@@ -203,22 +203,22 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
     }
 
     public void yes() {
-        gj.xc(new Thread() {
+        open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
             public void run() {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.xxbj(R.id.xxbj1).kjd(8);
-                        st.xxbj(R.id.xxbj3).kjd(0);
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                        ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.xxbj3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
 
                     }
 
                 });
                 tip();
-                gj.zt(250);
+                open.cn.awg.pro.core.NativeActions.sleep(250);
 
                 String[] aa;
 
@@ -236,15 +236,15 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
 
                 String pb7 = "/storage/emulated/0/Android/obb";
 
-                if (zf.ckt(c, pb1) || zf.ckt(c, pb2) || zf.ckt(c, pb3) || zf.ckt(c, pb4) || zf.ckt(c, pb5) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(c, pb6)) || (IappCompat.sdk(xt.sbxx()) > 29 && zf.ckt(c, pb7))) {
+                if (open.cn.awg.pro.core.TextValues.startsWith(c, pb1) || open.cn.awg.pro.core.TextValues.startsWith(c, pb2) || open.cn.awg.pro.core.TextValues.startsWith(c, pb3) || open.cn.awg.pro.core.TextValues.startsWith(c, pb4) || open.cn.awg.pro.core.TextValues.startsWith(c, pb5) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(c, pb6)) || (android.os.Build.VERSION.SDK_INT > 29 && open.cn.awg.pro.core.TextValues.startsWith(c, pb7))) {
 
                     e1.tsk("提示", "非法操作");
 
                 } else {
 
-                    if (zf.dy(b, "2")) {
+                    if (java.util.Objects.equals(b, "2")) {
 
-                        if (wj.sc(d) == 1) {
+                        if (open.cn.awg.pro.core.NativeFiles.delete(DeleteConfirmActivity.this, (String) (d), false) == 1) {
 
                             final String z = "删除成功";
 
@@ -260,12 +260,12 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
                         String m = "rm -rf \"" + d + "\"";
                         aa = com.demo.e3.cmd(lei, m, false);
 
-                        if (zf.dy(aa[0], "") && !zf.dy(aa[1], "")) {
+                        if (java.util.Objects.equals(aa[0], "") && !java.util.Objects.equals(aa[1], "")) {
 
                             final String z = "删除失败\n" + aa[1];
                             e1.tsk("提示", z);
 
-                        } else if (!zf.dy(aa[0], "") && zf.dy(aa[1], "")) {
+                        } else if (!java.util.Objects.equals(aa[0], "") && java.util.Objects.equals(aa[1], "")) {
 
                             final String z = "删除成功";
 
@@ -278,7 +278,7 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
                     }
 
                 }
-                gj.gb();
+                open.cn.awg.pro.core.NativeActions.finish(DeleteConfirmActivity.this);
 
             }
 
@@ -302,9 +302,9 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(DeleteConfirmActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -321,7 +321,7 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -363,12 +363,12 @@ public class DeleteConfirmActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);

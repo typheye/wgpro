@@ -17,8 +17,8 @@
 package open.cn.awg.pro.tools;
 
 
-import open.cn.awg.pro.core.IappCompat;
-import android.app.Activity;
+import androidx.recyclerview.widget.RecyclerView;
+import open.cn.awg.pro.ui.list.NativeListAdapter;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
@@ -34,15 +34,15 @@ import open.cn.awg.pro.app.AwgProApplication;
 import open.cn.awg.pro.core.AppRuntimeBridge;
 import open.cn.awg.pro.core.BaseAwgActivity;
 import open.cn.awg.pro.R;
-import open.cn.awg.pro.ui.list.AppActionItemActivity;
+import open.cn.awg.pro.ui.list.AppActionRowBinder;
 
 public class WearOsToolboxActivity extends BaseAwgActivity {
 
     public final WearOsToolboxActivity lei = this, 类 = this;
-    public i.runlibrary.app.v.v7lb$UserAdapter spq = null;
+    public NativeListAdapter spq = null;
     public String lin;
     public String CacheSize = null;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -60,36 +60,37 @@ public class WearOsToolboxActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.wear_os_toolbox);
-        _$_viewAutomaticSettingEvent();
+        bindViews();
         AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(Activity ay, View vw) {
+    private void applyScreenPolicy() {
 
         applyStandardScreenMode(R.id.wear_os_toolbox_root, R.id.xdbj1, R.id.title_bar);
 
-        i.runlibrary.app.v.v7lb lb = st.v7lb(R.id.v7lb1);
-        spq = IappCompat.v7lbAdapter(lb, AppActionItemActivity.class, R.layout.app_action_item);
+        RecyclerView lb = findViewById(R.id.v7lb1);
+        spq = NativeListAdapter.attach(lei, lb, R.layout.app_action_item, new AppActionRowBinder(lei));
 
         int[] kj = new int[]{R.id.wb1, R.id.wb2, -1, -2};
 
         String[] jk = new String[]{"", "", ""};
         jk = new String[]{"开启蓝牙", "开启设备蓝牙并向周围设备显示", "com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.connectivity.bluetooth.BluetoothRequestDiscoverableActivity"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
         jk = new String[]{"eSIM状态", "查看eSIM状态", "com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.cellular.EsimProfileActivity"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
         jk = new String[]{"eSIM重置", "重置eSIM虚拟卡", "com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.cellular.ResetEsimActivity"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
         jk = new String[]{"账号", "查看设备上的账号", "com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.cellular.PhoneAccountsActivity"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
         jk = new String[]{"Wear云同步", "启用Wear云同步", "com.google.android.apps.wearable.settings", "com.google.android.clockwork.settings.CloudSyncOptInSettingsActivity"};
-        spq.j(kj, jk);
+        spq.addRow(kj, jk);
         jk = new String[]{"Google账号", "添加一个Google账号", "com.google.android.wearable.app", "com.google.android.clockwork.home.accounts.AddAccountActivity"};
-        spq.j(kj, jk);
-        spq.sx();
+        spq.addRow(kj, jk);
+        spq.refreshRows();
 
     }
 
@@ -113,9 +114,9 @@ public class WearOsToolboxActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        View qtgd1 = findViewById(R.id.qtgd1);
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -132,7 +133,7 @@ public class WearOsToolboxActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -149,27 +150,23 @@ public class WearOsToolboxActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        finish();
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        finish();
 
     }
 
-    private void _$_viewAutomaticSettingEvent() {
-        _$_viewAutomaticSettingEvent(this, null);
-    }
+    private void bindViews() {
 
-    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
-
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        __layoutIsLoaded(ay, vw);
+        applyScreenPolicy();
     }
 }

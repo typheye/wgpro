@@ -35,7 +35,7 @@ import open.cn.awg.pro.tools.SystemPermissionActivity;
 public class OnlineIdActivity extends BaseAwgActivity {
 
     public final OnlineIdActivity lei = this, 类 = this;
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -60,6 +60,7 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.online_id);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -70,9 +71,9 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(OnlineIdActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(OnlineIdActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -98,23 +99,23 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
         boolean t;
 
-        t = !zf.dy(wj.dqwb(a1), "") && wj.cz(a1);
+        t = !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(OnlineIdActivity.this, (String) (a1)), "") && open.cn.awg.pro.core.NativeFiles.exists(OnlineIdActivity.this, (String) (a1));
 
-        final i.runlibrary.app.v.xxbj x1 = st.xxbj(R.id.xxbj1);
+        final android.widget.LinearLayout x1 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(OnlineIdActivity.this.getWindow().getDecorView(), R.id.xxbj1));
 
-        final i.runlibrary.app.v.xxbj x2 = st.xxbj(R.id.xxbj2);
+        final android.widget.LinearLayout x2 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(OnlineIdActivity.this.getWindow().getDecorView(), R.id.xxbj2));
 
-        final i.runlibrary.app.v.wb t2 = st.wb(R.id.wb3);
+        final android.widget.TextView t2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(OnlineIdActivity.this.getWindow().getDecorView(), R.id.wb3));
 
         if (t) {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    x1.kjd(8);
-                    x2.kjd(0);
-                    t2.zf(wj.dqwb(a1));
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    t2.setText(String.valueOf(open.cn.awg.pro.core.NativeFiles.readText(OnlineIdActivity.this, (String) (a1))));
 
                 }
 
@@ -122,12 +123,12 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
         } else {
 
-            gj.jmxc(new Runnable() {
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
 
-                    x1.kjd(0);
-                    x2.kjd(8);
+                    x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
+                    x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
                 }
 
@@ -169,12 +170,12 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
     private void onTx1Click(View vw) {
 
-        String n = st.bjk(R.id.bjk1).zf();
+        String n = ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(OnlineIdActivity.this.getWindow().getDecorView(), R.id.bjk1)).getText().toString();
 
         final String a1 = AppPaths.appPath("settings/a5.inf");
-        n = zf.qctwkg(n);
+        n = open.cn.awg.pro.core.TextValues.trim(n);
 
-        if (zf.dy(n, "")) {
+        if (java.util.Objects.equals(n, "")) {
 
             e1.tsk("提示", "ID不能为空");
 
@@ -182,7 +183,7 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
             if (n.length() > 4) {
 
-                wj.xrwb(a1, n);
+                open.cn.awg.pro.core.NativeFiles.writeText(OnlineIdActivity.this, (String) (a1), (String) (n));
                 show();
 
             } else {
@@ -196,13 +197,13 @@ public class OnlineIdActivity extends BaseAwgActivity {
     }
 
     private boolean onWb3LongClick(View vw) {
-        gj.tz(SystemPermissionActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(OnlineIdActivity.this, (Class<?>) (SystemPermissionActivity.class));
         return true;
 
     }
 
     private void onTx2Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(OnlineIdActivity.this);
 
     }
 
@@ -212,17 +213,17 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView i7c3e3c6b5d = (TextView) findViewById(ay, vw, R.id.wb2);
+        TextView i7c3e3c6b5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb2);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
 
-        TextView i0d2d4d9236 = (TextView) findViewById(ay, vw, R.id.wb3);
+        TextView i0d2d4d9236 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb3);
         i0d2d4d9236.setOnLongClickListener(wb3LongClickListener);
 
-        ImageView i4d951cdb0e = (ImageView) findViewById(ay, vw, R.id.tx2);
+        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);
 
         __layoutIsLoaded(ay, vw);

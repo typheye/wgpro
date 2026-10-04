@@ -17,12 +17,14 @@
 package open.cn.awg.pro.settings;
 
 
-import open.cn.awg.pro.core.IappCompat;
-import android.app.Activity;
+import android.content.Intent;
+import android.widget.SeekBar;
+import open.cn.awg.pro.core.NativeFiles;
+import open.cn.awg.pro.core.TextValues;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-import android.widget.SeekBar;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatDelegate;
@@ -66,17 +68,17 @@ public class DisplayMarginActivity extends BaseAwgActivity {
     public void onCreate(Bundle be) {
         super.onCreate(be);
         setContentView(R.layout.display_margin);
-        _$_viewAutomaticSettingEvent();
+        bindViews();
         AwgProApplication.getInstance().addActivity(lei);
         jz();
 
     }
 
-    public void __layoutIsLoaded(Activity ay, View vw) {
+    private void applyScreenPolicy() {
 
-        if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4s.inf")), "false")) {
+        if (java.util.Objects.equals(NativeFiles.readText(lei, AppPaths.appPath("settings/set4s.inf")), "false")) {
 
-            if (zf.dy(wj.dqwb(AppPaths.appPath("settings/set4.inf")), "true")) {
+            if (java.util.Objects.equals(NativeFiles.readText(lei, AppPaths.appPath("settings/set4.inf")), "true")) {
 
                 getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
 
@@ -95,11 +97,11 @@ public class DisplayMarginActivity extends BaseAwgActivity {
 
         String set2 = AppPaths.appPath("settings/f17/set1.inf");
 
-        int i = Integer.parseInt(wj.dqwb(set2));
+        int i = TextValues.intValue(NativeFiles.readText(lei, set2), 0);
         old_i = i;
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
-        tdt1.jdz(i);
+        SeekBar tdt1 = ((SeekBar) findViewById(R.id.tdt1));
+        tdt1.setProgress(i);
 
     }
 
@@ -142,24 +144,27 @@ public class DisplayMarginActivity extends BaseAwgActivity {
 
         String set = AppPaths.appPath("settings/f17/set1.inf");
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
+        SeekBar tdt1 = ((SeekBar) findViewById(R.id.tdt1));
 
-        final int i = tdt1.jdz();
+        final int i = tdt1.getProgress();
 
         final int ii = i / 2;
-        gj.jmxc(new Runnable() {
+        runOnUiThread(new Runnable() {
 
             public void run() {
 
-                st.xdbj(R.id.xdbj3).wbj(i, i, i, i);
-                st.wb(R.id.wb10).zf(ii + "dp");
+                View preview = findViewById(R.id.xdbj3);
+                ViewGroup.MarginLayoutParams margins = (ViewGroup.MarginLayoutParams) preview.getLayoutParams();
+                margins.setMargins(i, i, i, i);
+                preview.setLayoutParams(margins);
+                ((TextView) findViewById(R.id.wb10)).setText(String.valueOf(ii + "dp"));
 
             }
 
         });
 
-        String sis = IappCompat.zh(sj.zh(i)).zstring();
-        wj.xrwb(set, sis);
+        String sis = open.cn.awg.pro.core.TextValues.string(i);
+        NativeFiles.writeText(lei, set, sis);
 
     }
 
@@ -173,26 +178,22 @@ public class DisplayMarginActivity extends BaseAwgActivity {
 
     private void onWb1Click(View vw) {
 
-        i.runlibrary.app.v.tdt tdt1 = st.tdt(R.id.tdt1);
+        SeekBar tdt1 = ((SeekBar) findViewById(R.id.tdt1));
 
-        if (tdt1.jdz() == old_i) {
+        if (tdt1.getProgress() == old_i) {
 
-            gj.gb();
+            finish();
 
         } else {
 
-            gj.xc(new Thread() {
+            (new Thread() {
 
                 public void run() {
 
-                    gj.jmxc(new Runnable() {
+                    runOnUiThread(new Runnable() {
 
                         public void run() {
-
-                            String[] name = new String[]{"Msg"};
-
-                            String[] value = new String[]{"应用成功 点击重启"};
-                            gj.tz(ErrorMessageActivity.class, name, value);
+                            startActivity(new Intent(lei, ErrorMessageActivity.class).putExtra("Msg", "应用成功 点击重启"));
 
                         }
 
@@ -200,24 +201,20 @@ public class DisplayMarginActivity extends BaseAwgActivity {
 
                 }
 
-            });
+            }).start();
 
         }
 
     }
 
-    private void _$_viewAutomaticSettingEvent() {
-        _$_viewAutomaticSettingEvent(this, null);
-    }
+    private void bindViews() {
 
-    public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
-
-        SeekBar d11169f9c0 = (SeekBar) findViewById(ay, vw, R.id.tdt1);
+        SeekBar d11169f9c0 = (SeekBar) findViewById(R.id.tdt1);
         d11169f9c0.setOnSeekBarChangeListener(tdt1SeekBarChangeListener);
 
-        TextView ff56a8e7f6 = (TextView) findViewById(ay, vw, R.id.wb1);
+        TextView ff56a8e7f6 = (TextView) findViewById(R.id.wb1);
         ff56a8e7f6.setOnClickListener(wb1ClickListener);
 
-        __layoutIsLoaded(ay, vw);
+        applyScreenPolicy();
     }
 }

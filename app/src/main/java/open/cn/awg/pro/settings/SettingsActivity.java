@@ -18,8 +18,8 @@ package open.cn.awg.pro.settings;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.SwitchCompat;
+import androidx.core.widget.NestedScrollView;
+import androidx.appcompat.widget.SwitchCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
@@ -47,7 +47,7 @@ public class SettingsActivity extends BaseAwgActivity {
 
     public final SettingsActivity lei = this, 类 = this;
     public String CacheSize = "";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(_APPINFO);
+    public AppRuntimeBridge e1;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -226,6 +226,7 @@ public class SettingsActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.settings);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -243,11 +244,11 @@ public class SettingsActivity extends BaseAwgActivity {
 
         String set3 = AppPaths.appPath("settings/set3.inf");
 
-        i.runlibrary.app.v.kg kg3 = st.kg(R.id.kg3);
+        android.widget.CompoundButton kg3 = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.kg3));
 
-        if (zf.dy(wj.dqwb(set3), "true")) {
+        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(SettingsActivity.this, (String) (set3)), "true")) {
 
-            kg3.xzzt(true);
+            kg3.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         }
 
@@ -255,13 +256,13 @@ public class SettingsActivity extends BaseAwgActivity {
 
             CacheSize = CacheDataManager.getTotalCacheSize(this);
 
-            if (zf.dy(CacheSize, "0.00M")) {
+            if (java.util.Objects.equals(CacheSize, "0.00M")) {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.wb28).zf("应用暂无产生缓存");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb28)).setText(String.valueOf("应用暂无产生缓存"));
 
                     }
 
@@ -269,11 +270,11 @@ public class SettingsActivity extends BaseAwgActivity {
 
             } else {
 
-                gj.jmxc(new Runnable() {
+                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                     public void run() {
 
-                        st.wb(R.id.wb28).zf("将清除" + CacheSize + "的缓存");
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb28)).setText(String.valueOf("将清除" + CacheSize + "的缓存"));
 
                     }
 
@@ -303,9 +304,9 @@ public class SettingsActivity extends BaseAwgActivity {
         super.onStart();
             applyWindowModeFromSettings();
 
-        i.runlibrary.app.v.qtgd qtgd1 = st.qtgd(R.id.qtgd1);
+        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.qtgd1));
 
-        qtgd1.v.setOnGenericMotionListener(new View.OnGenericMotionListener() {
+        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
             @Override
             public boolean onGenericMotion(View vw, MotionEvent me) {
                 if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
@@ -322,7 +323,7 @@ public class SettingsActivity extends BaseAwgActivity {
             }
         });
 
-        qtgd1.v.requestFocus();
+        qtgd1.requestFocus();
 
     }
 
@@ -339,7 +340,7 @@ public class SettingsActivity extends BaseAwgActivity {
     }
 
     private void onTitleBarClick(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(SettingsActivity.this);
 
     }
 
@@ -349,11 +350,11 @@ public class SettingsActivity extends BaseAwgActivity {
 
         if (ic) {
 
-            wj.xrwb(set, "true");
+            open.cn.awg.pro.core.NativeFiles.writeText(SettingsActivity.this, (String) (set), (String) ("true"));
 
         } else {
 
-            wj.xrwb(set, "false");
+            open.cn.awg.pro.core.NativeFiles.writeText(SettingsActivity.this, (String) (set), (String) ("false"));
 
         }
 
@@ -361,15 +362,15 @@ public class SettingsActivity extends BaseAwgActivity {
 
     private void onXdbj7Click(View vw) {
 
-        i.runlibrary.app.v.kg kg = st.kg(R.id.kg3);
+        android.widget.CompoundButton kg = ((android.widget.CompoundButton) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.kg3));
 
-        if (!kg.xzzt()) {
+        if (!kg.isChecked()) {
 
-            kg.xzzt(true);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(true));
 
         } else {
 
-            kg.xzzt(false);
+            kg.setChecked(java.lang.Boolean.TRUE.equals(false));
 
         }
 
@@ -377,144 +378,144 @@ public class SettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj7LongClick(View vw) {
 
-        String te = st.wb(R.id.wb14).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
 
-        String lj = st.wb(R.id.wb15).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj14Click(View vw) {
-        gj.tz(TypheyeAccountActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (TypheyeAccountActivity.class));
 
     }
 
     private boolean onXdbj14LongClick(View vw) {
 
-        String te = st.wb(R.id.wb35).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb35)).getText().toString();
 
-        String lj = st.wb(R.id.wb36).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb36)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj11Click(View vw) {
-        gj.tz(CloudServiceActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (CloudServiceActivity.class));
 
     }
 
     private boolean onXdbj11LongClick(View vw) {
 
-        String te = st.wb(R.id.wb22).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb22)).getText().toString();
 
-        String lj = st.wb(R.id.wb23).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb23)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj9Click(View vw) {
-        gj.tz(ThemeSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (ThemeSettingsActivity.class));
 
     }
 
     private boolean onXdbj9LongClick(View vw) {
 
-        String te = st.wb(R.id.wb18).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
 
-        String lj = st.wb(R.id.wb19).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj6Click(View vw) {
-        gj.tz(TextViewerSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (TextViewerSettingsActivity.class));
 
     }
 
     private boolean onXdbj6LongClick(View vw) {
 
-        String te = st.wb(R.id.wb12).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
 
-        String lj = st.wb(R.id.wb13).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj8Click(View vw) {
-        gj.tz(FileManagerSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (FileManagerSettingsActivity.class));
 
     }
 
     private boolean onXdbj8LongClick(View vw) {
 
-        String te = st.wb(R.id.wb16).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
 
-        String lj = st.wb(R.id.wb17).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj15Click(View vw) {
-        gj.tz(X5BrowserSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (X5BrowserSettingsActivity.class));
 
     }
 
     private boolean onXdbj15LongClick(View vw) {
 
-        String te = st.wb(R.id.wb31).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb31)).getText().toString();
 
-        String lj = st.wb(R.id.wb32).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb32)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj18Click(View vw) {
-        gj.tz(MediaBrowserSettingsActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (MediaBrowserSettingsActivity.class));
 
     }
 
     private boolean onXdbj18LongClick(View vw) {
 
-        String te = st.wb(R.id.wb37).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb37)).getText().toString();
 
-        String lj = st.wb(R.id.wb38).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb38)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj19Click(View vw) {
-        gj.tz(AboutAppActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (AboutAppActivity.class));
 
     }
 
     private boolean onXdbj19LongClick(View vw) {
 
-        String te = st.wb(R.id.wb39).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb39)).getText().toString();
 
-        String lj = st.wb(R.id.wb40).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb40)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onXdbj4Click(View vw) {
-        gj.tz(LegalInfoActivity.class);
+        open.cn.awg.pro.core.NativeActions.launch(SettingsActivity.this, (Class<?>) (LegalInfoActivity.class));
 
     }
 
     private boolean onXdbj4LongClick(View vw) {
 
-        String te = st.wb(R.id.wb7).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
 
-        String lj = st.wb(R.id.wb8).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
@@ -522,7 +523,7 @@ public class SettingsActivity extends BaseAwgActivity {
 
     private void onXdbj13Click(View vw) {
 
-        if (zf.dy(st.wb(R.id.wb28).zf(), "应用暂无产生缓存")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb28)).getText().toString(), "应用暂无产生缓存")) {
 
             e1.tsk("提示", "应用暂无产生缓存");
 
@@ -538,16 +539,16 @@ public class SettingsActivity extends BaseAwgActivity {
 
     private boolean onXdbj13LongClick(View vw) {
 
-        String te = st.wb(R.id.wb27).zf();
+        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb27)).getText().toString();
 
-        String lj = st.wb(R.id.wb28).zf();
+        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(SettingsActivity.this.getWindow().getDecorView(), R.id.wb28)).getText().toString();
         e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
         return true;
 
     }
 
     private void onTx1Click(View vw) {
-        gj.gb();
+        open.cn.awg.pro.core.NativeActions.finish(SettingsActivity.this);
 
     }
 
@@ -557,60 +558,60 @@ public class SettingsActivity extends BaseAwgActivity {
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) findViewById(ay, vw, R.id.title_bar);
+        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
         d26d5d7080.setOnClickListener(titleBarClickListener);
 
-        SwitchCompat i2e1dda294f = (SwitchCompat) findViewById(ay, vw, R.id.kg3);
+        SwitchCompat i2e1dda294f = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg3);
         i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
-        RelativeLayout e585d94488 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj7);
+        RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
         e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
-        RelativeLayout c4cbe9d7ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj14);
+        RelativeLayout c4cbe9d7ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj14);
         c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
         c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
 
-        RelativeLayout i67b461495f = (RelativeLayout) findViewById(ay, vw, R.id.xdbj11);
+        RelativeLayout i67b461495f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj11);
         i67b461495f.setOnClickListener(xdbj11ClickListener);
         i67b461495f.setOnLongClickListener(xdbj11LongClickListener);
 
-        RelativeLayout i5a93676674 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj9);
+        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
         i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
-        RelativeLayout i171cedf1eb = (RelativeLayout) findViewById(ay, vw, R.id.xdbj6);
+        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
         i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj8);
+        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
         fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
-        RelativeLayout i6834408ef9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj15);
+        RelativeLayout i6834408ef9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj15);
         i6834408ef9.setOnClickListener(xdbj15ClickListener);
         i6834408ef9.setOnLongClickListener(xdbj15LongClickListener);
 
-        RelativeLayout i11185eacd9 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj18);
+        RelativeLayout i11185eacd9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj18);
         i11185eacd9.setOnClickListener(xdbj18ClickListener);
         i11185eacd9.setOnLongClickListener(xdbj18LongClickListener);
 
-        RelativeLayout a229195608 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj19);
+        RelativeLayout a229195608 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj19);
         a229195608.setOnClickListener(xdbj19ClickListener);
         a229195608.setOnLongClickListener(xdbj19LongClickListener);
 
-        RelativeLayout i2202ede8ff = (RelativeLayout) findViewById(ay, vw, R.id.xdbj4);
+        RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
         i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
-        RelativeLayout i62f27ff563 = (RelativeLayout) findViewById(ay, vw, R.id.xdbj13);
+        RelativeLayout i62f27ff563 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj13);
         i62f27ff563.setOnClickListener(xdbj13ClickListener);
         i62f27ff563.setOnLongClickListener(xdbj13LongClickListener);
 
-        ImageView i34dc7bf20a = (ImageView) findViewById(ay, vw, R.id.tx1);
+        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);
 
-        NestedScrollView a6dab51133 = (NestedScrollView) findViewById(ay, vw, R.id.qtgd1);
+        NestedScrollView a6dab51133 = (NestedScrollView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.qtgd1);
 
         __layoutIsLoaded(ay, vw);
     }
