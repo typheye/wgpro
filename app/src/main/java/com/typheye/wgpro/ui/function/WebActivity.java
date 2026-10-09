@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
+import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -53,8 +54,6 @@ public class WebActivity extends AppCompatActivity {
     private static final String WEB_LOGIN_AUTH_URL = "https://account.typheye.cn/auth";
     /** 打开页面时只读校验网页会话的超时；超时按「存活」放行，避免弱网卡住加载。 */
     private static final long WEB_SESSION_CHECK_TIMEOUT_MS = 4000L;
-    /** 发布成功页停留多久再自动关窗，让用户看到成功提示。 */
-    private static final long PUBLISH_CLOSE_DELAY_MS = 1500L;
 
     private WebView webView;
     private android.widget.ProgressBar loadProgress;
@@ -64,7 +63,6 @@ public class WebActivity extends AppCompatActivity {
     private boolean grantRequestForwarded;
     private boolean webLoginExchangePending;
     private boolean reusedWebSession;
-    private boolean publishAutoCloseScheduled;
     private String webLoginTargetUrl;
 
     private String FLAG;
@@ -149,6 +147,9 @@ public class WebActivity extends AppCompatActivity {
         webView.getSettings().setAllowFileAccessFromFileURLs(true);
         webView.getSettings().setAllowUniversalAccessFromFileURLs(true);
 
+        // 受信任页面用原生桥通知客户端（https 页面无法通过自定义 scheme 回调 shouldOverrideUrlLoading）。
+        webView.addJavascriptInterface(new WebBridge(), "wgproNative");
+
         webView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
@@ -204,9 +205,8 @@ public class WebActivity extends AppCompatActivity {
                     startV2WebLogin(accountUtils, webLoginTargetUrl == null ? url : webLoginTargetUrl);
                     return;
                 }
-                // 发布成功页：客户端直接识别成功标志并自动关窗
-                // （不依赖服务端注入脚本，服务端那份 wgpro://close 仍然保留作为双保险）。
-                if (schedulePublishAutoCloseIfNeeded(url)) return;
+                // 发布成功页：由服务端带客户端请求头时注入 wgpro://close 触发关窗，
+                // 客户端不再为具体页面做 URL 识别适配。
                 updateBackCallback();
                 String title = view.getTitle();
                 if (title == null || title.isEmpty()) {
@@ -499,7 +499,7 @@ public class WebActivity extends AppCompatActivity {
      * 处理发布成功页的自动关窗信号（{@code wgpro://close}）。
      *
      * <p>「发布动态 / 发布资源」成功页在内置浏览器里加载时带 {@code X-Typheye-Client} 请求头，
-     * 网页据此注入跳转脚本，让客户端像登录成功那样自动关闭窗口。
+     * 服务端据此注入跳转脚本，让客户端像登录成功那样自动关闭窗口。
      * 普通浏览器打开同一页面不会带该头，因此不会触发关窗。</p>
      *
      * @return true 表示已识别为关窗信号并处理完毕
@@ -513,41 +513,42 @@ public class WebActivity extends AppCompatActivity {
         }
         Toast.makeText(this, message == null || message.trim().isEmpty() ? "已发布" : message.trim(),
                 Toast.LENGTH_SHORT).show();
+        com.typheye.wgpro.core.state.AppState.get().publishContentRefresh();
         finish();
         return true;
     }
 
     /**
-     * 客户端侧识别「发布动态 / 发布资源」成功页并安排自动关窗。
+     * 原生桥：发布成功等场景下，服务端在受信任页面里调用
+     * {@code window.wgproNative.close('动态已发布')} 通知客户端关窗。
      *
-     * <p>成功标志就是网页跳转到的 {@code ?published=1}（草稿 {@code ?draft=1} 不关）。
-     * 这样即使服务端还没部署注入脚本，或代理中转丢了自定义请求头，自动关窗依然生效。</p>
-     *
-     * @return true 表示已识别为成功页并安排了关窗
+     * <p>https 页面里 {@code location.href='wgpro://...'} 不会回调
+     * {@code shouldOverrideUrlLoading}（Chromium 直接拦截未知 scheme），所以用原生桥，
+     * 与内置 XMS 页面的 {@code androidlib} 是同类协议。</p>
      */
-    private boolean schedulePublishAutoCloseIfNeeded(String url) {
-        if (publishAutoCloseScheduled || url == null) return false;
-        Uri uri = Uri.parse(url);
-        String host = uri.getHost();
-        if (host == null || !host.equalsIgnoreCase("service.typheye.cn")) return false;
-        if (!"1".equals(uri.getQueryParameter("published"))) return false;
-        String path = uri.getPath() == null ? "" : uri.getPath();
-        String message;
-        if (path.startsWith("/site/community/dynamic/")) {
-            message = "动态已发布";
-        } else if (path.startsWith("/site/community/resource/")) {
-            message = "资源已提交审核";
-        } else {
+    private final class WebBridge {
+        @JavascriptInterface
+        public void close(final String message) {
+            runOnUiThread(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                if (!isTrustedHost(webView.getUrl())) return;
+                Toast.makeText(WebActivity.this,
+                        message == null || message.trim().isEmpty() ? "已发布" : message.trim(),
+                        Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.core.state.AppState.get().publishContentRefresh();
+                finish();
+            });
+        }
+    }
+
+    /** 原生桥只对 Typheye 域名开放，避免任意网页触发关窗。 */
+    private boolean isTrustedHost(String url) {
+        try {
+            String host = Uri.parse(url).getHost();
+            return host != null && (host.equals("typheye.cn") || host.endsWith(".typheye.cn"));
+        } catch (Exception e) {
             return false;
         }
-        publishAutoCloseScheduled = true;
-        // 停留 1.5 秒让用户看到绿色成功页，再自动关闭窗口。
-        webView.postDelayed(() -> {
-            if (isFinishing() || isDestroyed()) return;
-            Toast.makeText(WebActivity.this, message, Toast.LENGTH_SHORT).show();
-            finish();
-        }, PUBLISH_CLOSE_DELAY_MS);
-        return true;
     }
 
     private boolean openGrantRequest(String rawUri) {

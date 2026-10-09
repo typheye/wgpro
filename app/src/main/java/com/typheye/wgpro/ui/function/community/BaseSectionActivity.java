@@ -18,7 +18,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 import com.typheye.wgpro.utils.SystemBars;
 
-abstract class BaseSectionActivity extends AppCompatActivity {
+public abstract class BaseSectionActivity extends AppCompatActivity {
     private View appBar;
     private View content;
     private View loadingOverlay;

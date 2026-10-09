@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,6 +33,34 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public final class AppDetailFragment extends Fragment {
+    private com.google.android.material.card.MaterialCardView actionCard;
+    private View actionBar;
+    private View actionFill;
+    private TextView actionText;
+    private android.widget.ImageView actionBlur;
+    private JSONObject appJson = new JSONObject();
+    private String appKey = "";
+    private String downloadUrl = "";
+    private boolean downloadStarted;
+    private androidx.activity.result.ActivityResultLauncher<Intent> saveLauncher;
+    private JSONObject pendingSaveApp;
+    private String pendingSaveUrl;
+
+    @Override
+    public void onCreate(@Nullable Bundle state) {
+        super.onCreate(state);
+        saveLauncher = registerForActivityResult(
+                new androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() != android.app.Activity.RESULT_OK
+                            || result.getData() == null) return;
+                    android.net.Uri uri = result.getData().getData();
+                    if (uri == null || pendingSaveApp == null || pendingSaveUrl == null) return;
+                    startDownload(pendingSaveApp, pendingSaveUrl,
+                            com.typheye.wgpro.core.download.DownloadTask.DEST_LOCAL, uri);
+                });
+    }
+
     static AppDetailFragment newInstance(String json) {
         AppDetailFragment fragment = new AppDetailFragment(); Bundle args = new Bundle();
         args.putString("json", json == null ? "{}" : json); fragment.setArguments(args); return fragment;
@@ -63,6 +92,133 @@ public final class AppDetailFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
+        super.onViewCreated(view, state);
+        com.typheye.wgpro.core.download.DownloadManager.get().tasks()
+                .observe(getViewLifecycleOwner(), this::renderInstallState);
+    }
+
+    /** 底部「动作药丸」既是按钮也是进度条：文字随状态变化，主题色按进度填充。 */
+    private void renderInstallState(@Nullable java.util.List<com.typheye.wgpro.core.download.DownloadTask> tasks) {
+        if (actionCard == null || actionText == null || !isAdded()) return;
+        com.typheye.wgpro.core.download.DownloadTask task = null;
+        if (tasks != null) {
+            for (com.typheye.wgpro.core.download.DownloadTask t : tasks) {
+                if (t.id.equals(appKey)) { task = t; break; }
+            }
+        }
+        final com.typheye.wgpro.core.download.DownloadManager manager =
+                com.typheye.wgpro.core.download.DownloadManager.get();
+        if (task == null) {
+            actionText.setText("获取");
+            actionCard.setEnabled(!downloadUrl.isEmpty());
+            setActionFill(0);
+            actionCard.setOnClickListener(v -> showDownloadSheet(appJson, downloadUrl));
+            return;
+        }
+        final com.typheye.wgpro.core.download.DownloadTask current = task;
+        switch (task.status) {
+            case com.typheye.wgpro.core.download.DownloadTask.STATUS_RUNNING:
+                actionCard.setEnabled(true);
+                actionText.setText(task.progress() + "%");
+                setActionFill(task.progress());
+                actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
+                        com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
+                break;
+            case com.typheye.wgpro.core.download.DownloadTask.STATUS_QUEUED:
+                actionCard.setEnabled(true);
+                actionText.setText("等待中");
+                setActionFill(task.progress());
+                actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
+                        com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
+                break;
+            case com.typheye.wgpro.core.download.DownloadTask.STATUS_PAUSED:
+                actionCard.setEnabled(true);
+                actionText.setText("继续");
+                setActionFill(task.progress());
+                actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
+                        com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
+                break;
+            case com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED:
+                actionCard.setEnabled(true);
+                actionText.setText("重试");
+                setActionFill(0);
+                actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
+                        com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
+                break;
+            case com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED:
+                actionCard.setEnabled(true);
+                final boolean device = task.destination
+                        == com.typheye.wgpro.core.download.DownloadTask.DEST_DEVICE;
+                actionText.setText(device ? "安装到设备" : "打开");
+                setActionFill(0);
+                actionCard.setOnClickListener(v -> {
+                    String message = device
+                            ? "手表端安装能力接入后即可直接从手机安装到已连接的设备。"
+                            : (current.localPath == null ? "文件已保存。" : current.localPath);
+                    new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                            .setTitle(device ? "安装到设备" : "下载完成")
+                            .setMessage(message).setNegativeButton("关闭", null).show();
+                });
+                break;
+            default:
+                break;
+        }
+    }
+
+    /** 进度填充宽度 = 药丸宽度的 progress%。 */
+    private void setActionFill(int progress) {
+        actionCard.post(() -> {
+            if (actionFill == null || actionCard == null) return;
+            int width = actionCard.getWidth();
+            android.view.ViewGroup.LayoutParams params = actionFill.getLayoutParams();
+            int desired = Math.max(0, Math.round(width * progress / 100f));
+            if (params.width != desired) {
+                params.width = desired;
+                actionFill.setLayoutParams(params);
+            }
+        });
+    }
+
+    /** 底栏：贴底 + 毛玻璃，逐字对齐动态详情页（registerBar / rebindSource / addBackdrop / insets / 内容底部留白）。 */
+    private void setupActionBar(View root) {
+        actionBar = root.findViewById(R.id.app_detail_action_bar);
+        actionBlur = root.findViewById(R.id.app_detail_action_blur);
+        final View scroll = root.findViewById(R.id.app_detail_scroll);
+        com.typheye.wgpro.utils.BarBlurController.registerBar(requireContext(), actionBar);
+        // 与页面容器共用同一个毛玻璃控制器：快照源换成内容容器（不含底栏），再追加底栏快照层。
+        com.typheye.wgpro.utils.BarBlurController controller =
+                ((BaseSectionActivity) requireActivity()).blurController();
+        View source = root.findViewById(R.id.app_detail_content);
+        if (controller != null) {
+            controller.rebindSource(source);
+            controller.addBackdrop(actionBlur);
+        } else {
+            com.typheye.wgpro.utils.BarBlurController.install(requireActivity(), source, actionBlur);
+        }
+        final int baseBottom = actionBar.getPaddingBottom();
+        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
+            int inset = com.typheye.wgpro.utils.SystemBars.bottomInsetForView(view, insets);
+            actionBar.setPadding(actionBar.getPaddingLeft(), actionBar.getPaddingTop(),
+                    actionBar.getPaddingRight(), baseBottom + inset);
+            return insets;
+        });
+        androidx.core.view.ViewCompat.requestApplyInsets(root);
+        // 内容底部留出底栏高度，末尾内容也能滚到底栏上方（内容从毛玻璃下穿过）。
+        root.getViewTreeObserver().addOnGlobalLayoutListener(() -> {
+            int barHeight = actionBar.getHeight();
+            if (barHeight > 0 && scroll instanceof androidx.core.widget.NestedScrollView) {
+                androidx.core.widget.NestedScrollView sv = (androidx.core.widget.NestedScrollView) scroll;
+                if (sv.getPaddingBottom() != barHeight) {
+                    sv.setClipToPadding(false);
+                    sv.setPadding(sv.getPaddingLeft(), sv.getPaddingTop(),
+                            sv.getPaddingRight(), barHeight);
+                }
+            }
+        });
+    }
+
     private void bind(View root, JSONObject app, @Nullable Runnable loaded) {
         String name = app.optString("name", "未命名应用");
         ((TextView) root.findViewById(R.id.app_detail_initial)).setText(first(name));
@@ -84,11 +240,17 @@ public final class AppDetailFragment extends Fragment {
             if (loaded != null) loaded.run();
         });
         else if (loaded != null) root.postDelayed(loaded, 300L);
-        MaterialButton install = root.findViewById(R.id.app_detail_install);
-        String downloadUrl = app.optString("download_url", app.optString("detail_url", ""));
-        install.setEnabled(!downloadUrl.isEmpty());
-        install.setOnClickListener(v -> startActivity(new Intent(requireContext(), WebActivity.class)
-                .putExtra("URL", downloadUrl)));
+        actionCard = root.findViewById(R.id.app_detail_action);
+        actionBar = root.findViewById(R.id.app_detail_action_bar);
+        actionFill = root.findViewById(R.id.app_detail_action_fill);
+        actionText = root.findViewById(R.id.app_detail_action_text);
+        setupActionBar(root);
+        appJson = app;
+        appKey = app.optString("id", app.optString("package", ""));
+        downloadUrl = app.optString("download_url", app.optString("detail_url", ""));
+        actionCard.setEnabled(!downloadUrl.isEmpty());
+        actionText.setText("获取");
+        actionCard.setOnClickListener(v -> showDownloadSheet(appJson, downloadUrl));
         LinearLayout screenshots = root.findViewById(R.id.app_detail_screenshots);
         JSONArray urls = app.optJSONArray("screenshots");
         if (urls == null || urls.length() == 0) {
@@ -112,8 +274,118 @@ public final class AppDetailFragment extends Fragment {
         }
     }
 
-    private void load(String url, ImageView target, @Nullable Runnable done) {
-        Request request; try { request = new Request.Builder().url(url).build(); } catch (Exception ignored) { return; }
+    /** 「获取」：弹分组底部弹窗，选择安装去向后开始下载（apk 应用才显示「安装到手机」）。 */
+    private void showDownloadSheet(JSONObject app, String downloadUrl) {
+        com.typheye.wgpro.core.xms.UIParams params =
+                com.typheye.wgpro.core.state.AppState.get().deviceSnapshot();
+        boolean hasDevice = params.connected && params.connected_device_name != null
+                && !params.connected_device_name.trim().isEmpty();
+        String deviceName = hasDevice ? params.connected_device_name.trim() : "设备";
+        boolean isApk = downloadUrl.toLowerCase(java.util.Locale.ROOT).contains(".apk");
+        java.util.List<String> labels = new java.util.ArrayList<>();
+        final java.util.List<Integer> actions = new java.util.ArrayList<>();
+        if (hasDevice) { labels.add("安装到" + deviceName); actions.add(0); }
+        if (isApk) { labels.add("安装到手机"); actions.add(1); }
+        labels.add("保存到本地"); actions.add(2);
+        labels.add("在浏览器打开"); actions.add(3);
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("获取")
+                .setItems(labels.toArray(new CharSequence[0]), (dialog, which) -> {
+                    int action = actions.get(which);
+                    if (action == 3) openInBrowser(downloadUrl);
+                    else if (action == 2) launchSavePicker(app, downloadUrl);
+                    else startDownload(app, downloadUrl, action);
+                })
+                .show();
+    }
+
+    /** 「保存到本地」：拉起系统文件保存框架，让用户自己选位置，再开始下载。 */
+    private void launchSavePicker(JSONObject app, String downloadUrl) {
+        pendingSaveApp = app;
+        pendingSaveUrl = downloadUrl;
+        Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                .addCategory(Intent.CATEGORY_OPENABLE)
+                .setType("application/vnd.android.package-archive")
+                .putExtra(Intent.EXTRA_TITLE,
+                        app.optString("package", app.optString("id", "app")) + ".apk");
+        try {
+            saveLauncher.launch(intent);
+        } catch (Exception e) {
+            android.widget.Toast.makeText(requireContext(), "无法打开文件保存窗口",
+                    android.widget.Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void openInBrowser(String url) {
+        if (url == null || url.isEmpty()) return;
+        startActivity(new Intent(requireContext(), WebActivity.class).putExtra("URL", url));
+    }
+
+    private void startDownload(JSONObject app, String downloadUrl, int which) {
+        startDownload(app, downloadUrl, which, null);
+    }
+
+    private void startDownload(JSONObject app, String downloadUrl, int which,
+                               @Nullable android.net.Uri targetUri) {
+        int destination = which == 0 ? com.typheye.wgpro.core.download.DownloadTask.DEST_DEVICE
+                : which == 1 ? com.typheye.wgpro.core.download.DownloadTask.DEST_PHONE
+                : com.typheye.wgpro.core.download.DownloadTask.DEST_LOCAL;
+        String id = app.optString("id", app.optString("package", downloadUrl));
+        com.typheye.wgpro.core.download.DownloadTask task =
+                new com.typheye.wgpro.core.download.DownloadTask(
+                        id, app.optString("name", "未命名应用"), app.optString("icon_url", ""),
+                        downloadUrl, app.optString("size", ""), destination,
+                        "app", app.toString());
+        if (targetUri != null) task.targetUri = targetUri.toString();
+        com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
+        downloadStarted = true;
+        android.widget.Toast.makeText(requireContext(), "已加入下载", android.widget.Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (downloadStarted && isAdded() && !appKey.isEmpty()) {
+            downloadStarted = false;
+            refreshDownloadCount();
+        }
+    }
+
+    /** 下载后回到详情页时重新拉一次真实下载量并刷新显示。 */
+    private void refreshDownloadCount() {
+        Request request;
+        try {
+            request = new Request.Builder().url("https://res.typheye.cn/api.php?type=app&package="
+                    + android.net.Uri.encode(appKey)).build();
+        } catch (Exception ignored) {
+            return;
+        }
+        new tAccUtils(requireContext().getApplicationContext()).getClient().newCall(request).enqueue(new Callback() {
+            @Override public void onFailure(Call call, IOException error) { }
+            @Override public void onResponse(Call call, Response response) {
+                try (Response body = response) {
+                    if (!body.isSuccessful() || body.body() == null) return;
+                    JSONObject json = new JSONObject(body.body().string());
+                    JSONObject info = json.optJSONObject("info");
+                    if (info == null) return;
+                    final int downloads = info.optInt("downloads", -1);
+                    if (downloads < 0) return;
+                    View view = getView();
+                    if (view == null) return;
+                    view.post(() -> {
+                        View target = getView();
+                        if (target != null) {
+                            ((TextView) target.findViewById(R.id.app_detail_downloads))
+                                    .setText(formatDownloads(downloads));
+                        }
+                    });
+                } catch (Exception ignored) {
+                }
+            }
+        });
+    }
+
+    private void load(String url, ImageView target, @Nullable Runnable done) {        Request request; try { request = new Request.Builder().url(url).build(); } catch (Exception ignored) { return; }
         new tAccUtils(requireContext().getApplicationContext()).getClient().newCall(request).enqueue(new Callback() {
             @Override public void onFailure(Call call, IOException error) {
                 if (done != null) target.post(done);

@@ -41,6 +41,8 @@ public final class AppState {
     private final MutableLiveData<InboxSnapshot> inbox =
             new MutableLiveData<>(InboxSnapshot.empty());
     private final MutableLiveData<PushEvent> pushEvents = new MutableLiveData<>();
+    /** 内容刷新事件：发布动态/资源成功后触发，首页订阅后重新拉取。 */
+    private final MutableLiveData<Long> contentRefresh = new MutableLiveData<>();
     private final java.util.concurrent.atomic.AtomicReference<String> activeChatPeer =
             new java.util.concurrent.atomic.AtomicReference<>("");
     private final java.util.concurrent.atomic.AtomicBoolean systemMessagesVisible =
@@ -104,6 +106,11 @@ public final class AppState {
         return pushEvents;
     }
 
+    /** 内容刷新事件流：首页订阅它，发布动态/资源成功后重新拉取数据。 */
+    public LiveData<Long> contentRefresh() {
+        return contentRefresh;
+    }
+
     @NonNull
     public UIParams deviceSnapshot() {
         UIParams value = device.getValue();
@@ -136,6 +143,11 @@ public final class AppState {
 
     public void publishPushEvent(@NonNull String type, @NonNull String peerUid, String id) {
         pushEvents.postValue(new PushEvent(type, peerUid, id));
+    }
+
+    /** 通知首页等页面：内容有变化（如刚发布动态/资源），需要重新拉取。 */
+    public void publishContentRefresh() {
+        contentRefresh.postValue(System.currentTimeMillis());
     }
 
     /** 当前正在查看的私信对端（没有则为空）：用于"用户正在看这个会话就不发通知"。 */

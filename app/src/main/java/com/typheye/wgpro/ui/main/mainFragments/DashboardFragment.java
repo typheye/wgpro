@@ -60,6 +60,8 @@ public class DashboardFragment extends Fragment {
                     R.drawable.bg_function_initial_amber, R.color.banner_amber),
             new FunctionItem("feedback", "意见反馈", "遇到问题或有建议，写封邮件告诉我们",
                     R.drawable.bg_function_initial_blue, R.color.banner_blue),
+            new FunctionItem("downloads", "下载管理", "查看正在下载与已完成的记录",
+                    R.drawable.bg_function_initial_amber, R.color.banner_amber),
             new FunctionItem("beta", "内测计划", "抢先体验新功能并参与共创",
                     R.drawable.bg_function_initial_green, R.color.banner_green)
     );
@@ -574,6 +576,10 @@ public class DashboardFragment extends Fragment {
             case "website": openWeb("https://wgpro.typheye.cn/"); break;
             case "share": shareApp(); break;
             case "feedback": sendFeedbackEmail(); break;
+            case "downloads":
+                startActivity(new Intent(requireContext(),
+                        com.typheye.wgpro.ui.function.download.DownloadManagerActivity.class));
+                break;
             case "beta": openWeb("https://www.typheye.cn/?p=beta"); break;
             default: break;
         }

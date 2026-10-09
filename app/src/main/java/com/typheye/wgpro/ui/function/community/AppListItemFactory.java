@@ -56,11 +56,11 @@ public final class AppListItemFactory {
         summary.setSingleLine(true); summary.setEllipsize(android.text.TextUtils.TruncateAt.END);
         LinearLayout.LayoutParams summaryParams = new LinearLayout.LayoutParams(-1, -2);
         summaryParams.topMargin = dp(context, 5); labels.addView(summary, summaryParams);
-        String version = item.optString("version_name", "");
-        if (!version.isEmpty()) {
-            TextView versionView = text(context, "版本 " + version, 12, false, R.color.text_secondary);
-            versionView.setSingleLine(true); LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2);
-            p.topMargin = dp(context, 6); labels.addView(versionView, p);
+        String meta = metaLine(item);
+        if (!meta.isEmpty()) {
+            TextView metaView = text(context, meta, 12, false, R.color.text_secondary);
+            metaView.setSingleLine(true); LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2);
+            p.topMargin = dp(context, 6); labels.addView(metaView, p);
         }
         LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, -2, 1f);
         labelsParams.setMarginStart(dp(context, 16)); row.addView(labels, labelsParams);
@@ -83,6 +83,15 @@ public final class AppListItemFactory {
             fallback.setVisibility(View.GONE);
         });
     }
+
+    /** 第三行：下载量 | 应用大小，例如「117 下载 | 39.6M」。 */
+    private static String metaLine(JSONObject item) {
+        int downloads = item.optInt("downloads", item.optInt("download_count", 0));
+        String size = item.optString("size", "").trim();
+        if (size.isEmpty()) return downloads + " 下载";
+        return downloads + " 下载 | " + size;
+    }
+
     private static TextView text(Context c, String value, int size, boolean bold, int color) {
         TextView v = new TextView(c); v.setText(value); v.setTextSize(size); v.setTextColor(c.getColor(color));
         v.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL); return v;

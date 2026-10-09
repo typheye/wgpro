@@ -1,0 +1,391 @@
+package com.typheye.wgpro.core.download;
+
+import android.app.Notification;
+import android.app.PendingIntent;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.IBinder;
+import android.os.SystemClock;
+import android.provider.MediaStore;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.core.app.NotificationCompat;
+
+import com.typheye.wgpro.R;
+import com.typheye.wgpro.core.NotificationChannels;
+import com.typheye.wgpro.ui.function.download.DownloadManagerActivity;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.atomic.AtomicBoolean;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+
+/**
+ * 应用下载前台服务：串行处理 {@link DownloadManager} 里的排队任务。
+ *
+ * <p>Google Play 式的全生命周期：排队 / 下载中 / 暂停 / 继续（Range 断点续传）/ 取消 /
+ * 完成 / 失败；前台通知展示实时进度，点击进入下载管理页。</p>
+ */
+public final class DownloadService extends android.app.Service {
+    public static final String ACTION_KICK = "com.typheye.wgpro.download.KICK";
+    public static final String ACTION_PAUSE = "com.typheye.wgpro.download.PAUSE";
+    public static final String ACTION_RESUME = "com.typheye.wgpro.download.RESUME";
+    public static final String ACTION_CANCEL = "com.typheye.wgpro.download.CANCEL";
+    public static final String ACTION_REMOVE = "com.typheye.wgpro.download.REMOVE";
+    public static final String EXTRA_ID = "id";
+
+    private static final int NOTIFICATION_ID = 0x0D10;
+    private static final long PROGRESS_THROTTLE_MS = 300L;
+
+    private final OkHttpClient client = new OkHttpClient.Builder()
+            .connectTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .readTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .writeTimeout(30, java.util.concurrent.TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
+            .build();
+    private final ExecutorService worker = Executors.newSingleThreadExecutor();
+    private final AtomicBoolean looping = new AtomicBoolean(false);
+    private volatile okhttp3.Call currentCall;
+    private volatile String currentId;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        NotificationChannels.ensureAll(this);
+        startForeground(NOTIFICATION_ID, buildNotification("准备下载", 0, true));
+    }
+
+    @Override
+    public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        String action = intent == null ? ACTION_KICK : intent.getAction();
+        String id = intent == null ? null : intent.getStringExtra(EXTRA_ID);
+        if (action == null) action = ACTION_KICK;
+        switch (action) {
+            case ACTION_PAUSE:
+                pause(id);
+                break;
+            case ACTION_RESUME:
+                resume(id);
+                break;
+            case ACTION_CANCEL:
+            case ACTION_REMOVE:
+                cancel(id, ACTION_REMOVE.equals(action));
+                break;
+            default:
+                pump();
+                break;
+        }
+        return START_NOT_STICKY;
+    }
+
+    /** 启动/继续处理队列。 */
+    private void pump() {
+        if (!looping.compareAndSet(false, true)) return;
+        worker.execute(() -> {
+            try {
+                while (true) {
+                    DownloadTask task = nextQueued();
+                    if (task == null) break;
+                    runTask(task);
+                }
+            } finally {
+                looping.set(false);
+                // 队列空了：有活动任务则保持前台，否则结束服务。
+                if (!hasActive()) {
+                    stopForegroundCompat(true);
+                    stopSelf();
+                }
+            }
+        });
+    }
+
+    @Nullable
+    private synchronized DownloadTask nextQueued() {
+        for (DownloadTask task : DownloadManager.get().snapshot()) {
+            if (task.status == DownloadTask.STATUS_QUEUED) return task;
+        }
+        return null;
+    }
+
+    private boolean hasActive() {
+        for (DownloadTask task : DownloadManager.get().snapshot()) {
+            if (task.isActive()) return true;
+        }
+        return false;
+    }
+
+    private void runTask(DownloadTask task) {
+        currentId = task.id;
+        task.status = DownloadTask.STATUS_RUNNING;
+        DownloadManager.get().publish();
+
+        File target = targetFile(task);
+        long existing = target.exists() ? target.length() : 0L;
+        Request.Builder builder = new Request.Builder().url(task.downloadUrl);
+        if (existing > 0L) builder.addHeader("Range", "bytes=" + existing + "-");
+        try {
+            okhttp3.Call call = client.newCall(builder.build());
+            currentCall = call;
+            okhttp3.Response response = call.execute();
+            try (Response closed = response) {
+                if (closed.code() == 416) {
+                    // 已经完整下载过。
+                    finishTask(task, target);
+                    return;
+                }
+                if (!closed.isSuccessful()) {
+                    failTask(task, "HTTP " + closed.code());
+                    return;
+                }
+                long bodyLength = closed.body() == null ? -1L : closed.body().contentLength();
+                task.totalBytes = bodyLength > 0 ? existing + bodyLength : -1L;
+                task.downloadedBytes = existing;
+                try (InputStream in = closed.body() == null ? null : closed.body().byteStream();
+                     OutputStream out = new FileOutputStream(target, existing > 0L)) {
+                    if (in == null) {
+                        failTask(task, "响应为空");
+                        return;
+                    }
+                    byte[] buffer = new byte[16 * 1024];
+                    long lastNotify = 0L;
+                    int read;
+                    while ((read = in.read(buffer)) != -1) {
+                        if (task.status == DownloadTask.STATUS_PAUSED) {
+                            return; // 保留已下载部分，供继续下载
+                        }
+                        out.write(buffer, 0, read);
+                        task.downloadedBytes += read;
+                        long now = SystemClock.uptimeMillis();
+                        if (now - lastNotify >= PROGRESS_THROTTLE_MS) {
+                            lastNotify = now;
+                            DownloadManager.get().publish();
+                            updateNotification(task);
+                        }
+                    }
+                    out.flush();
+                }
+                finishTask(task, target);
+            }
+        } catch (IOException e) {
+            if (task.status == DownloadTask.STATUS_PAUSED) return;
+            // 服务器收尾时可能直接断连：内容其实已经下满，按完成处理而不是失败。
+            if (task.totalBytes > 0 && task.downloadedBytes >= task.totalBytes) {
+                finishTask(task, target);
+            } else {
+                failTask(task, e.getMessage() == null ? "下载失败" : e.getMessage());
+            }
+        } finally {
+            currentCall = null;
+            currentId = null;
+        }
+    }
+
+    private void finishTask(DownloadTask task, File target) {
+        task.status = DownloadTask.STATUS_COMPLETED;
+        task.localPath = target.getAbsolutePath();
+        if (task.totalBytes <= 0) task.downloadedBytes = Math.max(task.downloadedBytes, target.length());
+        DownloadManager.get().publish();
+        postDownloadAction(task, target);
+    }
+
+    private void failTask(DownloadTask task, String message) {
+        task.status = DownloadTask.STATUS_FAILED;
+        task.error = message;
+        DownloadManager.get().publish();
+    }
+
+    /** 下载完成后的去向处理。 */
+    private void postDownloadAction(DownloadTask task, File file) {
+        if (task.destination == DownloadTask.DEST_LOCAL) {
+            saveToPublicDownloads(task, file);
+        } else if (task.destination == DownloadTask.DEST_PHONE) {
+            installApk(task, file);
+        } else {
+            // DEST_DEVICE：手表端安装协议待接入，先把文件保留在应用目录。
+            task.error = null;
+            DownloadManager.get().publish();
+        }
+    }
+
+    /** 保存到公共 Download 目录；Android Q 及以上走 MediaStore，以下直接写外部目录。 */
+    /** 保存到用户用系统文件框架选定的位置（SAF）；没有目标 URI 时回退到公共 Download 目录。 */
+    private void saveToPublicDownloads(DownloadTask task, File file) {
+        if (task.targetUri != null && !task.targetUri.isEmpty()) {
+            try (OutputStream out = getContentResolver().openOutputStream(
+                    android.net.Uri.parse(task.targetUri));
+                 InputStream in = new java.io.FileInputStream(file)) {
+                if (out == null) throw new IOException("无法写入所选位置");
+                copy(in, out);
+                task.localPath = task.targetUri;
+                DownloadManager.get().publish();
+            } catch (Exception e) {
+                task.error = "保存到所选位置失败：" + e.getMessage();
+                DownloadManager.get().publish();
+            }
+            return;
+        }
+        String fileName = safeFileName(task) + ".apk";
+        try {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                ContentValues values = new ContentValues();
+                values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
+                values.put(MediaStore.Downloads.MIME_TYPE, "application/vnd.android.package-archive");
+                values.put(MediaStore.Downloads.IS_PENDING, 1);
+                Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
+                if (uri != null) {
+                    try (OutputStream out = getContentResolver().openOutputStream(uri);
+                         InputStream in = new java.io.FileInputStream(file)) {
+                        if (out != null && in != null) copy(in, out);
+                    }
+                    values.clear();
+                    values.put(MediaStore.Downloads.IS_PENDING, 0);
+                    getContentResolver().update(uri, values, null, null);
+                    task.localPath = uri.toString();
+                }
+            } else {
+                File dir = new File(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_DOWNLOADS), "wgpro");
+                if (!dir.exists() && !dir.mkdirs()) throw new IOException("无法创建下载目录");
+                File out = new File(dir, fileName);
+                try (InputStream in = new java.io.FileInputStream(file);
+                     OutputStream os = new FileOutputStream(out)) {
+                    copy(in, os);
+                }
+                task.localPath = out.getAbsolutePath();
+            }
+            DownloadManager.get().publish();
+        } catch (Exception e) {
+            task.error = "保存到本地失败：" + e.getMessage();
+            DownloadManager.get().publish();
+        }
+    }
+
+    private void installApk(DownloadTask task, File file) {
+        try {
+            Uri uri = androidx.core.content.FileProvider.getUriForFile(this,
+                    getPackageName() + ".fileprovider", file);
+            Intent intent = new Intent(Intent.ACTION_VIEW)
+                    .setDataAndType(uri, "application/vnd.android.package-archive")
+                    .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+        } catch (Exception e) {
+            task.error = "调起安装失败：" + e.getMessage();
+            DownloadManager.get().publish();
+        }
+    }
+
+    private void pause(String id) {
+        DownloadTask task = id == null ? null : DownloadManager.get().find(id);
+        if (task == null || task.status != DownloadTask.STATUS_RUNNING) return;
+        task.status = DownloadTask.STATUS_PAUSED;
+        DownloadManager.get().publish();
+        okhttp3.Call call = currentCall;
+        if (call != null) call.cancel();
+    }
+
+    private void resume(String id) {
+        DownloadTask task = id == null ? null : DownloadManager.get().find(id);
+        if (task == null) return;
+        task.status = DownloadTask.STATUS_QUEUED;
+        DownloadManager.get().publish();
+        pump();
+    }
+
+    private void cancel(String id, boolean remove) {
+        DownloadTask task = id == null ? null : DownloadManager.get().find(id);
+        if (task == null) return;
+        if (id.equals(currentId)) {
+            task.status = DownloadTask.STATUS_FAILED; // 让工作线程尽早退出循环
+            okhttp3.Call call = currentCall;
+            if (call != null) call.cancel();
+        }
+        if (remove) {
+            DownloadManager.get().remove(id);
+        } else {
+            task.status = DownloadTask.STATUS_FAILED;
+            task.error = "已取消";
+            DownloadManager.get().publish();
+        }
+        File target = targetFile(task);
+        if (target.exists() && !target.delete()) {
+            target.deleteOnExit();
+        }
+        if (!hasActive()) {
+            stopForegroundCompat(true);
+            stopSelf();
+        }
+    }
+
+    private File targetFile(DownloadTask task) {
+        File dir = new File(getFilesDir(), "downloads");
+        if (!dir.exists()) dir.mkdirs();
+        return new File(dir, task.id + ".apk");
+    }
+
+    private String safeFileName(DownloadTask task) {
+        String base = task.name == null ? task.id : task.name;
+        return base.replaceAll("[^A-Za-z0-9\\u4e00-\\u9fa5._-]", "_");
+    }
+
+    private void updateNotification(DownloadTask task) {
+        int progress = task.progress();
+        startForeground(NOTIFICATION_ID, buildNotification(task.name, progress, task.totalBytes <= 0));
+    }
+
+    private Notification buildNotification(String title, int progress, boolean indeterminate) {
+        Intent open = new Intent(this, DownloadManagerActivity.class)
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent content = PendingIntent.getActivity(this, 0, open,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NotificationChannels.DOWNLOADS)
+                .setSmallIcon(R.drawable.ic_download_vector)
+                .setContentTitle(title == null || title.isEmpty() ? "下载管理" : title)
+                .setContentText(indeterminate ? "正在下载…" : progress + "%")
+                .setContentIntent(content)
+                .setOngoing(true)
+                .setOnlyAlertOnce(true)
+                .setPriority(NotificationCompat.PRIORITY_LOW);
+        if (indeterminate) builder.setProgress(0, 0, true);
+        else builder.setProgress(100, progress, false);
+        return builder.build();
+    }
+
+    private void stopForegroundCompat(boolean remove) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            stopForeground(remove ? STOP_FOREGROUND_REMOVE : STOP_FOREGROUND_DETACH);
+        } else {
+            stopForeground(remove);
+        }
+    }
+
+    private static void copy(InputStream in, OutputStream out) throws IOException {
+        byte[] buffer = new byte[16 * 1024];
+        int read;
+        while ((read = in.read(buffer)) != -1) out.write(buffer, 0, read);
+    }
+
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        worker.shutdownNow();
+    }
+}

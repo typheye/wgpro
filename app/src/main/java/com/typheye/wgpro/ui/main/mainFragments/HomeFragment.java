@@ -126,6 +126,20 @@ public class HomeFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        // 发布动态/资源成功后，清掉缓存时间戳并强刷当前可见页（切到其它页也会重新请求）。
+        com.typheye.wgpro.core.state.AppState.get().contentRefresh().observe(
+                getViewLifecycleOwner(), at -> {
+                    if (at == null) return;
+                    communityLoadedAt = 0L;
+                    appsLoadedAt = 0L;
+                    resourcesLoadedAt = 0L;
+                    loadVisiblePage(true);
+                });
+    }
+
     private void setupPages(View root) {
         ViewPager2 pager = root.findViewById(R.id.home_pager);
         FrameLayout pool = root.findViewById(R.id.home_page_pool);
@@ -666,8 +680,10 @@ public class HomeFragment extends Fragment {
         String summary = item.optString("summary", item.optString("package", "应用"));
         TextView sub = text(summary, 14, false, R.color.text_secondary); sub.setMaxLines(1);
         labels.addView(sub, top(dp(5)));
-        String version = item.optString("version_name", "");
-        if (!version.isEmpty()) labels.addView(text("版本 " + version, 12, false, R.color.text_secondary), top(dp(6)));
+        int downloads = item.optInt("downloads", item.optInt("download_count", 0));
+        String appSize = item.optString("size", "").trim();
+        labels.addView(text(appSize.isEmpty() ? downloads + " 下载"
+                : downloads + " 下载 | " + appSize, 12, false, R.color.text_secondary), top(dp(6)));
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(0, -2, 1f); lp.setMarginStart(dp(16));
         row.addView(labels, lp);
         row.setOnClickListener(v -> startActivity(new Intent(requireContext(), AppDetailActivity.class)
