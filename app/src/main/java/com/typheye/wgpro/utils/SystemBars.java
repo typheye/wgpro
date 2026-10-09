@@ -287,6 +287,9 @@ public final class SystemBars {
         markHandled(pageRoot);
         View scrollable = findScrollableHost(pageRoot);
         if (scrollable == null) {
+            // 分页页（ViewPager2）的底部留白由「每一页自己的列表」补，这里不做整页兜底，
+            // 否则会给 ViewPager2 本身加内边距、与页内列表叠加成双重留白。
+            if (containsViewPager(pageRoot)) return true;
             reserveBottomInset(pageRoot);
             return false;
         }
@@ -296,6 +299,16 @@ public final class SystemBars {
         }
         applyScrollBottomInset((ViewGroup) scrollable);
         return true;
+    }
+
+    private static boolean containsViewPager(@NonNull View view) {
+        if (view instanceof androidx.viewpager2.widget.ViewPager2) return true;
+        if (!(view instanceof ViewGroup)) return false;
+        ViewGroup group = (ViewGroup) view;
+        for (int i = 0; i < group.getChildCount(); i++) {
+            if (containsViewPager(group.getChildAt(i))) return true;
+        }
+        return false;
     }
 
     private static void applyScrollBottomInset(@NonNull final ViewGroup scrollable) {
@@ -318,6 +331,10 @@ public final class SystemBars {
     /** 深度优先找出页面里第一个可滚动容器（会穿过 SwipeRefreshLayout 之类的包装层）。 */
     @Nullable
     private static View findScrollableHost(@NonNull View view) {
+        // ViewPager2 不是「内容滚动容器」：不参与底部系统栏内边距。否则会在导航栏那一条
+        // 补出页面底色、把内容顶上去（手势条区域本该透明/沉浸）。分页页照关注/粉丝页的做法：
+        // 内容铺到屏幕底、手势条悬浮在内容上。
+        if (view instanceof androidx.viewpager2.widget.ViewPager2) return null;
         if (isScrollableHost(view)) {
             return view;
         }
@@ -337,8 +354,7 @@ public final class SystemBars {
     private static boolean isScrollableHost(@NonNull View view) {
         return view instanceof NestedScrollView
                 || view instanceof ScrollView
-                || view instanceof RecyclerView
-                || view instanceof ViewPager2;
+                || view instanceof RecyclerView;
     }
 
     /**
