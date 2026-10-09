@@ -2415,6 +2415,88 @@ public class tAccUtils {
         }
     }
 
+    /**
+     * 只读校验内置浏览器的 TypheyeWebSession 是否仍然有效。
+     *
+     * <p>走 account_profile 接口（网页端 easy.php::currentLoginUid() 用的同一个），不创建任何新会话。
+     * 上一次会话未失效时调用它只会确认存活，不会顶掉现有登录状态。</p>
+     *
+     * <p>回调固定回到主线程。无 cookie / 网络失败 / 超时都按「存活」处理，
+     * 避免弱网时把页面加载卡死——真正失效的情况由网页重定向到登录页兜底。</p>
+     */
+    public void checkWebSessionAlive(long timeoutMs,
+                                     @NonNull final WebSessionAliveCallback callback) {
+        final Handler mainHandler = new Handler(Looper.getMainLooper());
+        String token = readWebSessionToken();
+        if (token == null || token.isEmpty()) {
+            mainHandler.post(() -> callback.onResult(true));
+            return;
+        }
+        Request request = new Request.Builder()
+                .url(BASE_URL + "?type=account_profile")
+                .addHeader("Authorization", "Bearer " + token)
+                .post(new FormBody.Builder().build())
+                .build();
+        OkHttpClient checkClient = client.newBuilder()
+                .connectTimeout(Math.max(1L, timeoutMs), TimeUnit.MILLISECONDS)
+                .readTimeout(Math.max(1L, timeoutMs), TimeUnit.MILLISECONDS)
+                .build();
+        checkClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                // 网络不通不代表会话失效，按存活放行，避免弱网卡住页面。
+                mainHandler.post(() -> callback.onResult(true));
+            }
+
+            @Override
+            public void onResponse(@NonNull Call call, @NonNull Response response) {
+                boolean alive = true;
+                try (Response closed = response) {
+                    if (closed.code() == 401 || closed.code() == 403) {
+                        alive = false;
+                    } else if (closed.isSuccessful()) {
+                        String body = closed.body() == null ? "" : closed.body().string();
+                        if (!body.isEmpty()) {
+                            JSONObject json = new JSONObject(body);
+                            int code = json.optInt("code", 200);
+                            // 会话有效返回 200；其余状态码一律不判定为失效，
+                            // 只有明确的未登录/会话过期才当作失效。
+                            if (code == 401 || code == 403) alive = false;
+                        }
+                    }
+                } catch (Exception ignored) {
+                }
+                final boolean result = alive;
+                mainHandler.post(() -> callback.onResult(result));
+            }
+        });
+    }
+
+    /** 从 CookieManager 里取出内置浏览器当前的 TypheyeWebSession 令牌。 */
+    @Nullable
+    private String readWebSessionToken() {
+        try {
+            String cookies = android.webkit.CookieManager.getInstance()
+                    .getCookie("https://account.typheye.cn");
+            if (cookies == null || cookies.isEmpty()) return null;
+            for (String cookie : cookies.split(";")) {
+                String item = cookie.trim();
+                if (item.startsWith("TypheyeWebSession=")) {
+                    String value = item.substring("TypheyeWebSession=".length()).trim();
+                    return value.isEmpty() ? null : value;
+                }
+            }
+        } catch (Exception e) {
+            Log.w("tAccUtils", "Unable to read WebView session token", e);
+        }
+        return null;
+    }
+
+    /** 内置浏览器会话只读校验回调：{@code alive=true} 表示会话仍有效（或无法判定，按有效处理）。 */
+    public interface WebSessionAliveCallback {
+        void onResult(boolean alive);
+    }
+
     public boolean hasWebViewSessionCookie() {
         try {
             SharedPreferences securePrefs = getSecurePreferences();

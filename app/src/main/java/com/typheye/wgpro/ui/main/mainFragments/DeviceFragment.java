@@ -325,7 +325,7 @@ public class DeviceFragment extends Fragment {
                 .setText((current ? "当前设备" : "已登录") + " | " + platform);
         content.findViewById(R.id.sheet_device_actions).setVisibility(View.VISIBLE);
         ((TextView) content.findViewById(R.id.sheet_device_action_primary_label)).setText("查看详细信息");
-        ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label)).setText("前往账户管理");
+        ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label)).setText("显示更多操作");
         StringBuilder detail = new StringBuilder();
         appendDetail(detail, "设备", session.optString("device"));
         appendDetail(detail, "平台", session.optString("platform"));
@@ -343,9 +343,8 @@ public class DeviceFragment extends Fragment {
                     .setNegativeButton("关闭", null).show();
         });
         content.findViewById(R.id.sheet_device_logs).setOnClickListener(v -> {
-            dialog.dismiss();
-            startActivity(new Intent(requireContext(), WebActivity.class)
-                    .putExtra("URL", "https://account.typheye.cn/?tab=security"));
+            dialog.dismissForReplacement();
+            showSessionMenu(session);
         });
         dialog.show();
     }
@@ -578,8 +577,15 @@ public class DeviceFragment extends Fragment {
                     .setText((connected ? "已连接" : "已断开") + "  |  " + systemVersion);
             View actions = content.findViewById(R.id.sheet_device_actions);
             actions.setVisibility("xiaomi".equals(type) ? View.VISIBLE : View.GONE);
+            // 「穿戴设备」详情页末尾增加「显示更多操作」，直接打开设备管理菜单。
+            View moreGroup = content.findViewById(R.id.sheet_device_more_group);
+            moreGroup.setVisibility("xiaomi".equals(type) ? View.VISIBLE : View.GONE);
             WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
                     .setTitle("设备详情").setView(content).setNegativeButton("关闭", null).create();
+            content.findViewById(R.id.sheet_device_more).setOnClickListener(v -> {
+                dialog.dismissForReplacement();
+                showMenu(id, note, "xiaomi".equals(type) ? wearableRefresh : otherRefresh);
+            });
             content.findViewById(R.id.sheet_device_transfer).setOnClickListener(v -> {
                 dialog.dismiss();
                 Intent intent = new Intent(requireContext(), WebActivity.class);

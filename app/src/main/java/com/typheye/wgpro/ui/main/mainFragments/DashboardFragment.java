@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
@@ -29,9 +30,7 @@ import androidx.fragment.app.Fragment;
 
 import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
-import com.typheye.wgpro.ui.function.ScanQRActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
-import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 
@@ -53,14 +52,14 @@ public class DashboardFragment extends Fragment {
     private final List<FunctionItem> functions = Arrays.asList(
             new FunctionItem("transfer", "文件传输", "发送应用、图片与资源到腕上设备",
                     R.drawable.bg_function_initial_blue, R.color.banner_blue),
-            new FunctionItem("scan", "扫码授权", "扫描登录或设备授权二维码",
-                    R.drawable.bg_function_initial_coral, R.color.banner_coral),
             new FunctionItem("guide", "使用指南", "从连接到安装，快速了解主要能力",
                     R.drawable.bg_function_initial_green, R.color.banner_green),
-            new FunctionItem("diagnostics", "连接诊断", "检查穿戴通道、设备与权限状态",
-                    R.drawable.bg_function_initial_blue, R.color.banner_blue),
-            new FunctionItem("logs", "运行日志", "查看当前会话中的关键运行记录",
+            new FunctionItem("website", "应用官网", "在浏览器里查看腕管Pro 官方网站",
+                    R.drawable.bg_function_initial_coral, R.color.banner_coral),
+            new FunctionItem("share", "分享应用", "把腕管Pro 推荐给身边的朋友",
                     R.drawable.bg_function_initial_amber, R.color.banner_amber),
+            new FunctionItem("feedback", "意见反馈", "遇到问题或有建议，写封邮件告诉我们",
+                    R.drawable.bg_function_initial_blue, R.color.banner_blue),
             new FunctionItem("beta", "内测计划", "抢先体验新功能并参与共创",
                     R.drawable.bg_function_initial_green, R.color.banner_green)
     );
@@ -69,6 +68,7 @@ public class DashboardFragment extends Fragment {
     private LinearLayout moreContainer;
     private LinearLayout moreLeft;
     private LinearLayout moreRight;
+    private View discoverEmptyView;
 
     @Nullable
     @Override
@@ -206,6 +206,25 @@ public class DashboardFragment extends Fragment {
             if (target.getChildCount() == 0) cardParams.topMargin = 0;
             card.setLayoutParams(cardParams);
             target.addView(card);
+        }
+
+        // 全部功能都被移除时，遵循全局空状态规范（view_stream_empty.xml）显示空卡片。
+        renderEmptyState(favorites.isEmpty() && moreItems.isEmpty());
+    }
+
+    /** 空状态统一使用 view_stream_empty.xml，避免出现完全空白的页面。 */
+    private void renderEmptyState(boolean empty) {
+        if (discoverEmptyView == null) {
+            ViewGroup parent = (ViewGroup) moreContainer.getParent();
+            discoverEmptyView = getLayoutInflater().inflate(R.layout.view_stream_empty, parent, false);
+            parent.addView(discoverEmptyView);
+        }
+        discoverEmptyView.setVisibility(empty ? View.VISIBLE : View.GONE);
+        if (empty) {
+            ((TextView) discoverEmptyView.findViewById(R.id.stream_empty_title))
+                    .setText("发现页还没有功能");
+            ((TextView) discoverEmptyView.findViewById(R.id.stream_empty_description))
+                    .setText("点击右上角的 + 把需要的功能添加到发现页。");
         }
     }
 
@@ -551,42 +570,40 @@ public class DashboardFragment extends Fragment {
     private void runFunction(FunctionItem item) {
         switch (item.id) {
             case "transfer": openWeb("https://wgpro.typheye.cn/push"); break;
-            case "scan":
-                // 扫码授权必须带着当前账户去 approve，未登录先给"需要登录"提示。
-                if (com.typheye.wgpro.ui.LoginGate.require(requireActivity(), "扫码授权")) {
-                    startActivity(new Intent(requireContext(), ScanQRActivity.class));
-                }
-                break;
             case "guide": openWeb("https://wgpro.typheye.cn/docs"); break;
-            case "diagnostics": showDiagnostics(); break;
-            case "logs": showRunLogs(); break;
+            case "website": openWeb("https://wgpro.typheye.cn/"); break;
+            case "share": shareApp(); break;
+            case "feedback": sendFeedbackEmail(); break;
             case "beta": openWeb("https://www.typheye.cn/?p=beta"); break;
             default: break;
         }
     }
 
-    /**
-     * 「运行日志」：默认只看设备通信日志（XMS），实时通道日志单独入口，
-     * 避免 WebSocket 的握手/重连信息混进设备日志里。
-     */
-    private void showRunLogs() {
-        com.typheye.wgpro.core.state.AppState state =
-                com.typheye.wgpro.core.state.AppState.get();
-        String deviceLog = String.join("\n", state.deviceLog());
-        String pushLog = String.join("\n", state.pushLog());
-        WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(requireContext())
-                .setTitle("运行日志")
-                .setMessage(deviceLog.trim().isEmpty() ? "暂无设备通信日志" : deviceLog)
-                .setNegativeButton("关闭", null);
-        if (!pushLog.trim().isEmpty()) {
-            builder.setNeutralButton("实时通道", (dialog, which) ->
-                    new WGProAlertDialogBuilder(requireContext())
-                            .setTitle("实时通道日志")
-                            .setMessage(pushLog)
-                            .setNegativeButton("关闭", null)
-                            .show());
+    /** 「分享应用」：与设置页里的分享保持一致。 */
+    private void shareApp() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_SUBJECT, "腕管Pro");
+        intent.putExtra(Intent.EXTRA_TEXT, "腕管Pro\nhttps://wgpro.typheye.cn");
+        startActivity(Intent.createChooser(intent, "分享应用"));
+    }
+
+    /** 「意见反馈」：拉起邮件客户端；不可用时把邮箱地址复制到剪贴板兜底。 */
+    private void sendFeedbackEmail() {
+        try {
+            Intent mail = new Intent(Intent.ACTION_SENDTO,
+                    android.net.Uri.parse("mailto:typheye@typheye.com"));
+            mail.putExtra(Intent.EXTRA_SUBJECT, "腕管Pro 反馈");
+            startActivity(mail);
+        } catch (Exception error) {
+            android.content.ClipboardManager clipboard = (android.content.ClipboardManager)
+                    requireContext().getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(ClipData.newPlainText("邮箱", "typheye@typheye.com"));
+            }
+            Toast.makeText(requireContext(), "邮箱 typheye@typheye.com 已复制",
+                    Toast.LENGTH_SHORT).show();
         }
-        builder.show();
     }
 
     private List<String> loadFavorites() {
@@ -646,17 +663,6 @@ public class DashboardFragment extends Fragment {
         Intent intent = new Intent(requireContext(), WebActivity.class);
         intent.putExtra("URL", url);
         startActivity(intent);
-    }
-
-    private void showDiagnostics() {
-        boolean connected = MainActivity.current_params.connected;
-        String device = MainActivity.current_params.connected_device_name;
-        String message = connected
-                ? "穿戴服务正常\n当前设备：" + (device == null || device.isEmpty() ? "已连接设备" : device)
-                    + "\n消息通道：可用"
-                : "暂未发现穿戴设备\n请打开小米运动健康，并检查设备管理权限。";
-        new WGProAlertDialogBuilder(requireContext())
-                .setTitle("连接诊断").setMessage(message).setPositiveButton("完成", null).show();
     }
 
     private static final class FunctionItem {

@@ -51,6 +51,10 @@ import java.util.Objects;
 public class WebActivity extends AppCompatActivity {
 
     private static final String WEB_LOGIN_AUTH_URL = "https://account.typheye.cn/auth";
+    /** 打开页面时只读校验网页会话的超时；超时按「存活」放行，避免弱网卡住加载。 */
+    private static final long WEB_SESSION_CHECK_TIMEOUT_MS = 4000L;
+    /** 发布成功页停留多久再自动关窗，让用户看到成功提示。 */
+    private static final long PUBLISH_CLOSE_DELAY_MS = 1500L;
 
     private WebView webView;
     private android.widget.ProgressBar loadProgress;
@@ -60,6 +64,7 @@ public class WebActivity extends AppCompatActivity {
     private boolean grantRequestForwarded;
     private boolean webLoginExchangePending;
     private boolean reusedWebSession;
+    private boolean publishAutoCloseScheduled;
     private String webLoginTargetUrl;
 
     private String FLAG;
@@ -151,6 +156,10 @@ public class WebActivity extends AppCompatActivity {
                     // 使用当前请求的URL
                     String currentUrl = request.getUrl().toString();
 
+                    // 发布成功页用 wgpro://close 让内置浏览器自动关闭，效果与登录成功一致。
+                    // 必须排在「打开外部应用」确认之前，否则会先弹确认框。
+                    if (handleCloseSignal(currentUrl)) return true;
+
                     if (openGrantRequest(currentUrl)) return true;
 
                     // HTTP/HTTPS 链接 - 直接在WebView加载
@@ -195,6 +204,9 @@ public class WebActivity extends AppCompatActivity {
                     startV2WebLogin(accountUtils, webLoginTargetUrl == null ? url : webLoginTargetUrl);
                     return;
                 }
+                // 发布成功页：客户端直接识别成功标志并自动关窗
+                // （不依赖服务端注入脚本，服务端那份 wgpro://close 仍然保留作为双保险）。
+                if (schedulePublishAutoCloseIfNeeded(url)) return;
                 updateBackCallback();
                 String title = view.getTitle();
                 if (title == null || title.isEmpty()) {
@@ -328,14 +340,26 @@ public class WebActivity extends AppCompatActivity {
         tAccUtils accUtils = new tAccUtils(this);
         if (accUtils.isLogin()) {
             if (accUtils.isV2Session()) {
-                if (accUtils.hasWebViewSessionCookie()) {
-                    reusedWebSession = true;
-                    webLoginTargetUrl = url;
-                    loadWebPage(url);
-                } else {
+                if (!accUtils.hasWebViewSessionCookie()) {
+                    // 本地还没有网页会话：走一次兑换，把登录态同步给内置浏览器。
                     accUtils.setWebViewCookies(() -> runOnUiThread(() -> {
                         if (!isFinishing() && !isDestroyed()) startV2WebLogin(accUtils, url);
                     }));
+                } else {
+                    // 本地已有会话：无论访问哪个页面都做一次只读校验。
+                    // 会话未失效就直接用，绝不创建新会话（否则会顶掉现有登录态）。
+                    accUtils.checkWebSessionAlive(WEB_SESSION_CHECK_TIMEOUT_MS,
+                            alive -> runOnUiThread(() -> {
+                                if (isFinishing() || isDestroyed()) return;
+                                if (alive) {
+                                    reusedWebSession = true;
+                                    webLoginTargetUrl = url;
+                                    loadWebPage(url);
+                                } else {
+                                    accUtils.clearWebSessionMarkerForReauth();
+                                    startV2WebLogin(accUtils, url);
+                                }
+                            }));
                 }
             } else {
                 accUtils.setWebViewCookies(() -> {
@@ -469,6 +493,61 @@ public class WebActivity extends AppCompatActivity {
         boolean predictiveEnabled = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean("predictive_back_enabled", false);
         webBackCallback.setEnabled(!predictiveEnabled || webView.canGoBack());
+    }
+
+    /**
+     * 处理发布成功页的自动关窗信号（{@code wgpro://close}）。
+     *
+     * <p>「发布动态 / 发布资源」成功页在内置浏览器里加载时带 {@code X-Typheye-Client} 请求头，
+     * 网页据此注入跳转脚本，让客户端像登录成功那样自动关闭窗口。
+     * 普通浏览器打开同一页面不会带该头，因此不会触发关窗。</p>
+     *
+     * @return true 表示已识别为关窗信号并处理完毕
+     */
+    private boolean handleCloseSignal(String rawUri) {
+        if (rawUri == null || !rawUri.startsWith("wgpro://close")) return false;
+        String message = null;
+        try {
+            message = Uri.parse(rawUri).getQueryParameter("msg");
+        } catch (Exception ignored) {
+        }
+        Toast.makeText(this, message == null || message.trim().isEmpty() ? "已发布" : message.trim(),
+                Toast.LENGTH_SHORT).show();
+        finish();
+        return true;
+    }
+
+    /**
+     * 客户端侧识别「发布动态 / 发布资源」成功页并安排自动关窗。
+     *
+     * <p>成功标志就是网页跳转到的 {@code ?published=1}（草稿 {@code ?draft=1} 不关）。
+     * 这样即使服务端还没部署注入脚本，或代理中转丢了自定义请求头，自动关窗依然生效。</p>
+     *
+     * @return true 表示已识别为成功页并安排了关窗
+     */
+    private boolean schedulePublishAutoCloseIfNeeded(String url) {
+        if (publishAutoCloseScheduled || url == null) return false;
+        Uri uri = Uri.parse(url);
+        String host = uri.getHost();
+        if (host == null || !host.equalsIgnoreCase("service.typheye.cn")) return false;
+        if (!"1".equals(uri.getQueryParameter("published"))) return false;
+        String path = uri.getPath() == null ? "" : uri.getPath();
+        String message;
+        if (path.startsWith("/site/community/dynamic/")) {
+            message = "动态已发布";
+        } else if (path.startsWith("/site/community/resource/")) {
+            message = "资源已提交审核";
+        } else {
+            return false;
+        }
+        publishAutoCloseScheduled = true;
+        // 停留 1.5 秒让用户看到绿色成功页，再自动关闭窗口。
+        webView.postDelayed(() -> {
+            if (isFinishing() || isDestroyed()) return;
+            Toast.makeText(WebActivity.this, message, Toast.LENGTH_SHORT).show();
+            finish();
+        }, PUBLISH_CLOSE_DELAY_MS);
+        return true;
     }
 
     private boolean openGrantRequest(String rawUri) {
