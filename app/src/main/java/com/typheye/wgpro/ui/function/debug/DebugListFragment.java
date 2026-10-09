@@ -74,8 +74,14 @@ public abstract class DebugListFragment extends Fragment {
 
     /** 列表容器铺满整屏：顶部留出应用栏高度、底部预留系统栏，滚动内容从毛玻璃下穿过。 */
     private void applyBarInsets(View root) {
+        applyBarInsets(this, root);
+    }
+
+    /** 调试页子页面共用：给 {@code debug_scroll} 补应用栏顶部留白与底部系统栏，滚动内容从毛玻璃下穿过。 */
+    static void applyBarInsets(@NonNull Fragment fragment, @NonNull View root) {
         final androidx.core.widget.NestedScrollView scroll = root.findViewById(R.id.debug_scroll);
-        final View appBar = requireActivity().findViewById(R.id.test_app_bar);
+        if (scroll == null) return;
+        final View appBar = fragment.requireActivity().findViewById(R.id.test_app_bar);
         scroll.setClipToPadding(false);
         // 上下内边距在同一个 insets 监听里处理，避免和其它底部留白逻辑互相把对方的 padding 覆盖掉。
         androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(scroll, (view, insets) -> {

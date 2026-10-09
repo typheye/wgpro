@@ -26,7 +26,7 @@ public final class TestActivity extends AppCompatActivity {
     private View contentRoot;
     private View fragmentHost;
     private BarBlurController blurController;
-    /** 「界面」分组：当前是否正在展示 Available 列表 fragment。 */
+    /** 当前是否正在展示子页面 Fragment（模拟操作等）。 */
     private boolean listShown;
     private Fragment shownFragment;
 
@@ -66,16 +66,6 @@ public final class TestActivity extends AppCompatActivity {
             TestHandler.recordOperation(this, "查看日志信息");
             showResult("日志信息", TestHandler.logs());
         });
-        MaterialSwitch offline = findViewById(R.id.test_offline_switch);
-        MaterialSwitch loggedOut = findViewById(R.id.test_logged_out_switch);
-        MaterialSwitch simulatedUpdate = findViewById(R.id.test_update_switch);
-        offline.setChecked(TestHandler.isOfflineSimulationEnabled(this));
-        loggedOut.setChecked(TestHandler.isLoggedOutSimulationEnabled(this));
-        simulatedUpdate.setChecked(TestHandler.isUpdateSimulationEnabled(this));
-        offline.setOnCheckedChangeListener((button, checked) -> TestHandler.setOfflineSimulation(this, checked));
-        loggedOut.setOnCheckedChangeListener((button, checked) -> TestHandler.setLoggedOutSimulation(this, checked));
-        simulatedUpdate.setOnCheckedChangeListener((button, checked) ->
-                TestHandler.setUpdateSimulation(this, checked));
         findViewById(R.id.test_probe).setOnClickListener(v -> {
             TestHandler.recordOperation(this, "探测云端 API");
             TestHandler.probeApis(this, summary -> runOnUiThread(() -> {
@@ -95,11 +85,9 @@ public final class TestActivity extends AppCompatActivity {
                         if (!uid.isEmpty()) startActivity(new Intent(this, UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
                     }).show();
         });
-        // 界面：启动 Activity / 启动底部弹窗（各自用一个 fragment 展示可用列表）
-        findViewById(R.id.test_launch_activities).setOnClickListener(v ->
-                showList(new DebugActivityListFragment(), "启动 Activity"));
-        findViewById(R.id.test_launch_sheets).setOnClickListener(v ->
-                showList(new DebugBottomSheetListFragment(), "启动底部弹窗"));
+        // 更多：模拟操作单独成页（Fragment 展示，切换动画与毛玻璃反馈沿用统一逻辑）
+        findViewById(R.id.test_simulate).setOnClickListener(v ->
+                showList(new DebugSimulationFragment(), "模拟操作"));
         update();
     }
 
@@ -145,8 +133,5 @@ public final class TestActivity extends AppCompatActivity {
 
     private void update() {
         enabled.setChecked(TestHandler.isEnabled(this));
-        ((MaterialSwitch) findViewById(R.id.test_offline_switch)).setChecked(TestHandler.isOfflineSimulationEnabled(this));
-        ((MaterialSwitch) findViewById(R.id.test_logged_out_switch)).setChecked(TestHandler.isLoggedOutSimulationEnabled(this));
-        ((MaterialSwitch) findViewById(R.id.test_update_switch)).setChecked(TestHandler.isUpdateSimulationEnabled(this));
     }
 }
