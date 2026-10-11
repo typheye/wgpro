@@ -114,7 +114,7 @@ public final class AppDetailFragment extends Fragment {
             actionText.setText("获取");
             actionCard.setEnabled(!downloadUrl.isEmpty());
             setActionFill(0);
-            actionCard.setOnClickListener(v -> showDownloadSheet(appJson, downloadUrl));
+            actionCard.setOnClickListener(v -> acquire());
             return;
         }
         final com.typheye.wgpro.core.download.DownloadTask current = task;
@@ -149,18 +149,9 @@ public final class AppDetailFragment extends Fragment {
                 break;
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED:
                 actionCard.setEnabled(true);
-                final boolean device = task.destination
-                        == com.typheye.wgpro.core.download.DownloadTask.DEST_DEVICE;
-                actionText.setText(device ? "安装到设备" : "打开");
+                actionText.setText("操作");
                 setActionFill(0);
-                actionCard.setOnClickListener(v -> {
-                    String message = device
-                            ? "手表端安装能力接入后即可直接从手机安装到已连接的设备。"
-                            : (current.localPath == null ? "文件已保存。" : current.localPath);
-                    new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                            .setTitle(device ? "安装到设备" : "下载完成")
-                            .setMessage(message).setNegativeButton("关闭", null).show();
-                });
+                actionCard.setOnClickListener(v -> showOperationSheet(appJson, downloadUrl, current));
                 break;
             default:
                 break;
@@ -282,7 +273,7 @@ public final class AppDetailFragment extends Fragment {
         downloadUrl = app.optString("download_url", app.optString("detail_url", ""));
         actionCard.setEnabled(!downloadUrl.isEmpty());
         actionText.setText("获取");
-        actionCard.setOnClickListener(v -> showDownloadSheet(appJson, downloadUrl));
+        actionCard.setOnClickListener(v -> acquire());
         LinearLayout screenshots = root.findViewById(R.id.app_detail_screenshots);
         JSONArray urls = app.optJSONArray("screenshots");
         if (urls == null || urls.length() == 0) {
@@ -306,30 +297,186 @@ public final class AppDetailFragment extends Fragment {
         }
     }
 
-    /** 「获取」：弹分组底部弹窗，选择安装去向后开始下载（apk 应用才显示「安装到手机」）。 */
-    private void showDownloadSheet(JSONObject app, String downloadUrl) {
+    /**
+     * 「获取」入口：先问服务端报价——
+     * 免费或已拥有 → 直接开始下载；要扣积分 → 弹「获取」弹窗，交易成功后再下载。
+     */
+    private void acquire() {
+        if (downloadUrl == null || downloadUrl.isEmpty()) return;
+        final android.content.Context context = requireContext();
+        com.typheye.wgpro.ui.widget.Points.refresh(context, null);
+        com.typheye.wgpro.utils.tPointsUtils.quote(context, "app", appKey,
+                new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                    @Override
+                    public void onSuccess(@NonNull JSONObject info) {
+                        int price = info.optInt("price", 0);
+                        boolean owned = info.optBoolean("owned", price <= 0);
+                        com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "app", appKey, price, owned);
+                        if (price <= 0 || owned) {
+                            startDownload(appJson, downloadUrl, 1);
+                        } else {
+                            showDownloadSheet(price, info.optString("stock_label", "有库存"),
+                                    info.optInt("total", 0));
+                        }
+                    }
+
+                    @Override
+                    public void onError(int status, @NonNull String message, @Nullable JSONObject info) {
+                        // 服务不可用：已知免费的条目照常放行，收费条目提示稍后再试
+                        int cachedPrice = com.typheye.wgpro.utils.tPointsUtils.cachedPrice(context, "app", appKey);
+                        boolean cachedOwned = com.typheye.wgpro.utils.tPointsUtils.cachedOwned(context, "app", appKey);
+                        if (cachedPrice == 0 || cachedOwned) {
+                            startDownload(appJson, downloadUrl, 1);
+                            return;
+                        }
+                        if (!isAdded()) return;
+                        com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                                status == 401 ? "请先登录" : "获取失败",
+                                status == 401 ? "登录后才能获取该应用。" : message + "，请稍后再试。");
+                    }
+                });
+    }
+
+    /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用余额支付 / 使用兑换代码 / 找他人代付。 */
+    private void showDownloadSheet(int price, String stockLabel, int availableTotal) {
+        final java.util.List<String> labels = new java.util.ArrayList<>();
+        labels.add("使用余额支付（" + price + " 积分）");
+        labels.add("使用兑换代码");
+        labels.add("找他人代付");
+        com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel, availableTotal,
+                labels, (dialog, which) -> {
+                    if (which == 0) {
+                        confirmAndPay(price);
+                    } else if (which == 1) {
+                        com.typheye.wgpro.ui.widget.GetSheet.showRedeem(requireContext(),
+                                points -> acquire());
+                    } else {
+                        com.typheye.wgpro.ui.widget.WGProHint.showInfo(requireContext(), "找他人代付",
+                                "把该应用的分享链接发给好友，由对方为你获取。");
+                    }
+                });
+    }
+
+    /** 二次确认 → 云端下发验证码 → 输入验证码完成交易 → 开始下载。 */
+    private void confirmAndPay(int price) {
+        final android.content.Context context = requireContext();
+        String name = appJson.optString("name", "该应用");
+        com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, () ->
+                com.typheye.wgpro.utils.tPointsUtils.verifySend(context, "app", appKey,
+                        new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                            @Override
+                            public void onSuccess(@NonNull JSONObject info) {
+                                if (!isAdded()) return;
+                                String txnNo = info.optString("txn_no", "");
+                                String debugCode = info.optString("debug_code", "");
+                                com.typheye.wgpro.ui.widget.GetSheet.showVerifyCode(
+                                        requireContext(), txnNo,
+                                        debugCode.isEmpty() ? null : debugCode,
+                                        info.optInt("expires_in", 300),
+                                        code -> completePurchase(txnNo, code));
+                            }
+
+                            @Override
+                            public void onError(int status, @NonNull String message,
+                                                @Nullable JSONObject info) {
+                                if (!isAdded()) return;
+                                showPayError(status, message);
+                            }
+                        }));
+    }
+
+    /** 凭验证码完成扣费。 */
+    private void completePurchase(String txnNo, String code) {
+        final android.content.Context context = requireContext();
+        com.typheye.wgpro.utils.tPointsUtils.purchase(context, txnNo, code, null,
+                new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                    @Override
+                    public void onSuccess(@NonNull JSONObject info) {
+                        com.typheye.wgpro.ui.widget.Points.apply(
+                                info.optInt("balance", com.typheye.wgpro.ui.widget.Points.balance),
+                                info.optInt("gift", com.typheye.wgpro.ui.widget.Points.gift));
+                        int charged = info.optInt("charged", 0);
+                        if (charged > 0) {
+                            com.typheye.wgpro.ui.widget.WGProHint.show(context,
+                                    "已扣除 " + charged + " 积分");
+                        }
+                        if (!isAdded()) return;
+                        startDownload(appJson, downloadUrl, 1);
+                    }
+
+                    @Override
+                    public void onError(int status, @NonNull String message, @Nullable JSONObject info) {
+                        if (!isAdded()) return;
+                        showPayError(status, message);
+                    }
+                });
+    }
+
+    /** 交易失败的统一提示。 */
+    private void showPayError(int status, String message) {
+        if (status == 402) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                    "积分不足", message + "，可以先兑换积分再获取。");
+        } else if (status == 409) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无库存", message);
+        } else if (status == 401) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                    "请先登录", "登录后才能获取该应用。");
+        } else {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "获取失败", message);
+        }
+    }
+
+    /** 「操作」：已下载/已安装后的动作（安装到手机 / 在浏览器打开 / 保存到本机 / 分享 / 清理该文件）。 */
+    private void showOperationSheet(JSONObject app, String downloadUrl,
+                                    com.typheye.wgpro.core.download.DownloadTask task) {
         com.typheye.wgpro.core.xms.UIParams params =
                 com.typheye.wgpro.core.state.AppState.get().deviceSnapshot();
         boolean hasDevice = params.connected && params.connected_device_name != null
                 && !params.connected_device_name.trim().isEmpty();
         String deviceName = hasDevice ? params.connected_device_name.trim() : "设备";
         boolean isVela = "velaapp".equals(app.optString("kind", ""));
-        java.util.List<String> labels = new java.util.ArrayList<>();
-        final java.util.List<Integer> actions = new java.util.ArrayList<>();
-        // XMS 连接的都是 Vela 设备：只有 vela 应用能装到设备；apk 应用没有匹配设备，不显示设备项。
-        if (isVela && hasDevice) { labels.add("安装到" + deviceName); actions.add(0); }
-        if (!isVela) { labels.add("安装到手机"); actions.add(1); }
-        labels.add("保存到本地"); actions.add(2);
-        labels.add("在浏览器打开"); actions.add(3);
-        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                .setTitle("获取")
-                .setItems(labels.toArray(new CharSequence[0]), (dialog, which) -> {
-                    int action = actions.get(which);
-                    if (action == 3) openInBrowser(downloadUrl);
-                    else if (action == 2) launchSavePicker(app, downloadUrl);
-                    else startDownload(app, downloadUrl, action);
-                })
-                .show();
+        final java.util.List<String> labels = new java.util.ArrayList<>();
+        final java.util.List<Integer> codes = new java.util.ArrayList<>();
+        if (isVela && hasDevice) { labels.add("安装到" + deviceName); codes.add(0); }
+        if (!isVela) { labels.add("安装到手机"); codes.add(1); }
+        labels.add("在浏览器打开"); codes.add(3);
+        labels.add("保存到本机"); codes.add(2);
+        labels.add("分享给好友"); codes.add(4);
+        labels.add("清理该文件"); codes.add(5);
+        com.typheye.wgpro.ui.widget.GetSheet.showActions(requireContext(), labels, (dialog, which) -> {
+            int code = codes.get(which);
+            if (code == 5) {
+                com.typheye.wgpro.core.download.DownloadManager.get().control(
+                        requireContext(), task.id, com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
+                deleteLocalFile(task);
+            } else if (code == 4) {
+                shareDownloadLink(app, downloadUrl);
+            } else if (code == 3) {
+                openInBrowser(downloadUrl);
+            } else if (code == 2) {
+                launchSavePicker(app, downloadUrl);
+            } else {
+                startDownload(app, downloadUrl, code);
+            }
+        });
+    }
+
+    /** 分享下载链接（对方点开可进详情页）。 */
+    private void shareDownloadLink(JSONObject app, String downloadUrl) {
+        String name = app.optString("name", "应用");
+        android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
+                .setType("text/plain")
+                .putExtra(android.content.Intent.EXTRA_TEXT, name + "　下载地址：" + downloadUrl);
+        startActivity(android.content.Intent.createChooser(share, "分享给好友"));
+    }
+
+    /** 清理本地文件（下载记录由 DownloadManager 一并删除）。 */
+    private void deleteLocalFile(com.typheye.wgpro.core.download.DownloadTask task) {
+        try {
+            String path = task.localPath;
+            if (path != null && !path.startsWith("content://")) new java.io.File(path).delete();
+        } catch (Exception ignored) { }
     }
 
     /** 「保存到本地」：拉起系统文件保存框架，让用户自己选位置，再开始下载。 */

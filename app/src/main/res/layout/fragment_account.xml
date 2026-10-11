@@ -73,16 +73,29 @@
                             android:ellipsize="end" android:maxLines="1" android:textColor="@color/text_secondary"
                             android:textSize="13sp" />
                     </LinearLayout>
-                    <com.google.android.material.button.MaterialButton android:id="@+id/btn_account_edit"
-                        style="@style/Widget.WGPro.Button.Tonal" android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" android:backgroundTint="@color/brand_soft"
-                        android:text="编辑" android:textColor="@color/brand_on_soft" />
+                    <!-- 积分：小矩形块（占原来「编辑」的位置；点整张资料卡仍可编辑） -->
+                    <!-- 积分：与「编辑」按钮同尺寸（44dp 高、8dp 圆角），水平排列图标 + 文字 -->
+                    <LinearLayout android:id="@+id/account_points_block"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp" android:background="@drawable/bg_points_block"
+                        android:clickable="true" android:focusable="true" android:gravity="center"
+                        android:minHeight="44dp" android:orientation="horizontal"
+                        android:paddingStart="16dp" android:paddingEnd="16dp">
+                        <ImageView android:layout_width="20dp" android:layout_height="20dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_points_vector" />
+                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                            android:layout_marginStart="6dp" android:text="积分"
+                            android:textColor="@color/brand_primary" android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
 
         <LinearLayout android:id="@+id/account_services_container" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical" android:visibility="gone">
+
             <com.google.android.material.card.MaterialCardView android:id="@+id/account_stats_card"
                 style="@style/Widget.WGPro.Card" android:layout_width="match_parent"
                 android:layout_height="80dp" android:layout_marginTop="14dp" app:cardCornerRadius="12dp">
@@ -124,6 +137,7 @@
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
 
             <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -175,6 +189,7 @@
                         android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
+
         </LinearLayout>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>

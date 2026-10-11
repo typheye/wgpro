@@ -449,6 +449,29 @@ public class tAccUtils {
         return prefs == null ? "" : prefs.getString(PREFS_SESSION_TOKEN, "");
     }
 
+    /**
+     * 供积分/支付接口（pay.typheye.cn）复用当前登录态。
+     *
+     * <p>与 {@code service} 的 V2 会话是同一套凭据：{@code X-Typheye-Session-Id} + Bearer token。
+     * 三个值（uid / sessionId / token）任一为空即视为未登录。</p>
+     */
+    public String peekSessionId() {
+        return getSessionId();
+    }
+
+    /** 见 {@link #peekSessionId()}。 */
+    public String peekSessionToken() {
+        return getSessionToken();
+    }
+
+    /** 是否具备可用的 V2 会话（能调 pay 的积分接口）。 */
+    public boolean hasUsableSession() {
+        String uid = getUid();
+        return uid != null && !uid.isEmpty()
+                && getSessionId().matches("[a-f0-9]{32}")
+                && !getSessionToken().isEmpty();
+    }
+
     private SharedPreferences getSecurePreferences() {
         SharedPreferences cached = securePreferences;
         if (cached != null) return cached;

@@ -64,7 +64,21 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
 
             Long lastDismiss = LAST_DISMISS_AT.get(owner);
             if (active != this && lastDismiss != null
-                    && android.os.SystemClock.uptimeMillis() - lastDismiss < RAPID_REOPEN_GUARD_MS) return;
+                    && android.os.SystemClock.uptimeMillis() - lastDismiss < RAPID_REOPEN_GUARD_MS) {
+                // 防抖窗口内不立刻弹（避免闪烁），但也**不能丢**——排到窗口结束后再弹。
+                // 之前这里是直接 return，导致「刚关掉一个弹窗、350ms 内又要弹下一个」的场景
+                // 新弹窗被静默吞掉（典型：确认 → 请求验证码 → 弹验证码输入框）。
+                if (!showQueued) {
+                    showQueued = true;
+                    long delay = RAPID_REOPEN_GUARD_MS
+                            - (android.os.SystemClock.uptimeMillis() - lastDismiss) + 16L;
+                    mainHandler.postDelayed(() -> {
+                        showQueued = false;
+                        show();
+                    }, Math.max(16L, delay));
+                }
+                return;
+            }
             ACTIVE.put(owner, new WeakReference<>(this));
             registered = true;
         }

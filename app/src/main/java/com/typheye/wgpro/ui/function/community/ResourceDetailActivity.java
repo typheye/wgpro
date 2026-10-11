@@ -426,7 +426,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 actionText.setText("获取");
                 actionCard.setEnabled(true);
                 setActionFill(0);
-                actionCard.setOnClickListener(v -> showDownloadSheet());
+                actionCard.setOnClickListener(v -> acquire());
                 return;
             }
             final com.typheye.wgpro.core.download.DownloadTask current = task;
@@ -456,10 +456,9 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
                     break;
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED:
-                    actionText.setText("打开");
+                    actionText.setText("操作");
                     setActionFill(0);
-                    actionCard.setOnClickListener(v -> feedback("下载完成",
-                            current.localPath == null ? "文件已保存。" : current.localPath));
+                    actionCard.setOnClickListener(v -> showOperationSheet());
                     break;
                 default:
                     break;
@@ -479,16 +478,168 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             });
         }
 
-        private void showDownloadSheet() {
-            CharSequence[] items = {
-                    "保存到本地",
-                    "在浏览器打开",
-            };
-            new WGProAlertDialogBuilder(requireContext()).setTitle("获取")
-                    .setItems(items, (dialog, which) -> {
-                        if (which == 0) launchSavePicker();
-                        else openInBrowser();
-                    }).show();
+        /**
+         * 「获取」入口：先问服务端报价——免费或已拥有 → 直接进入保存/下载；
+         * 要扣积分 → 弹「获取」弹窗，交易成功后再进入保存/下载。
+         */
+        private void acquire() {
+            final android.content.Context context = requireContext();
+            final String key = resourceId();
+            if (key == null || key.isEmpty()) { launchSavePicker(); return; }
+            com.typheye.wgpro.ui.widget.Points.refresh(context, null);
+            com.typheye.wgpro.utils.tPointsUtils.quote(context, "resource", key,
+                    new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                        @Override
+                        public void onSuccess(@NonNull org.json.JSONObject info) {
+                            int price = info.optInt("price", 0);
+                            boolean owned = info.optBoolean("owned", price <= 0);
+                            com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "resource", key, price, owned);
+                            if (price <= 0 || owned) {
+                                launchSavePicker();
+                            } else {
+                                showDownloadSheet(price, info.optString("stock_label", "有库存"),
+                                        info.optInt("total", 0));
+                            }
+                        }
+
+                        @Override
+                        public void onError(int status, @NonNull String message,
+                                            @Nullable org.json.JSONObject info) {
+                            int cachedPrice = com.typheye.wgpro.utils.tPointsUtils.cachedPrice(context, "resource", key);
+                            boolean cachedOwned = com.typheye.wgpro.utils.tPointsUtils.cachedOwned(context, "resource", key);
+                            if (cachedPrice == 0 || cachedOwned) { launchSavePicker(); return; }
+                            if (!isAdded()) return;
+                            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                                    status == 401 ? "请先登录" : "获取失败",
+                                    status == 401 ? "登录后才能获取该资源。" : message + "，请稍后再试。");
+                        }
+                    });
+        }
+
+        /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用余额支付 / 使用兑换代码 / 找他人代付。 */
+        private void showDownloadSheet(int price, String stockLabel, int availableTotal) {
+            java.util.List<String> labels = new java.util.ArrayList<>();
+            labels.add("使用余额支付（" + price + " 积分）");
+            labels.add("使用兑换代码");
+            labels.add("找他人代付");
+            com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel,
+                    availableTotal, labels, (dialog, which) -> {
+                        if (which == 0) {
+                            confirmAndPay(price);
+                        } else if (which == 1) {
+                            com.typheye.wgpro.ui.widget.GetSheet.showRedeem(requireContext(),
+                                    points -> acquire());
+                        } else {
+                            com.typheye.wgpro.ui.widget.WGProHint.showInfo(requireContext(), "找他人代付",
+                                    "把该资源的分享链接发给好友，由对方为你获取。");
+                        }
+                    });
+        }
+
+        /** 二次确认 → 云端下发验证码 → 输入验证码完成交易 → 进入保存/下载。 */
+        private void confirmAndPay(int price) {
+            final android.content.Context context = requireContext();
+            final String key = resourceId();
+            String name = resource.optString("title", resource.optString("name", "该资源"));
+            com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, () ->
+                    com.typheye.wgpro.utils.tPointsUtils.verifySend(context, "resource", key,
+                            new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                                @Override
+                                public void onSuccess(@NonNull org.json.JSONObject info) {
+                                    if (!isAdded()) return;
+                                    String txnNo = info.optString("txn_no", "");
+                                    String debugCode = info.optString("debug_code", "");
+                                    com.typheye.wgpro.ui.widget.GetSheet.showVerifyCode(
+                                            requireContext(), txnNo,
+                                            debugCode.isEmpty() ? null : debugCode,
+                                            info.optInt("expires_in", 300),
+                                            code -> completePurchase(txnNo, code));
+                                }
+
+                                @Override
+                                public void onError(int status, @NonNull String message,
+                                                    @Nullable org.json.JSONObject info) {
+                                    if (!isAdded()) return;
+                                    showPayError(status, message);
+                                }
+                            }));
+        }
+
+        /** 凭验证码完成扣费。 */
+        private void completePurchase(String txnNo, String code) {
+            final android.content.Context context = requireContext();
+            com.typheye.wgpro.utils.tPointsUtils.purchase(context, txnNo, code, null,
+                    new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                        @Override
+                        public void onSuccess(@NonNull org.json.JSONObject info) {
+                            com.typheye.wgpro.ui.widget.Points.apply(
+                                    info.optInt("balance", com.typheye.wgpro.ui.widget.Points.balance),
+                                    info.optInt("gift", com.typheye.wgpro.ui.widget.Points.gift));
+                            int charged = info.optInt("charged", 0);
+                            if (charged > 0) {
+                                com.typheye.wgpro.ui.widget.WGProHint.show(context,
+                                        "已扣除 " + charged + " 积分");
+                            }
+                            if (!isAdded()) return;
+                            launchSavePicker();
+                        }
+
+                        @Override
+                        public void onError(int status, @NonNull String message,
+                                            @Nullable org.json.JSONObject info) {
+                            if (!isAdded()) return;
+                            showPayError(status, message);
+                        }
+                    });
+        }
+
+        /** 交易失败的统一提示。 */
+        private void showPayError(int status, String message) {
+            if (status == 402) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                        "积分不足", message + "，可以先兑换积分再获取。");
+            } else if (status == 409) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无库存", message);
+            } else if (status == 401) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                        "请先登录", "登录后才能获取该资源。");
+            } else {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "获取失败", message);
+            }
+        }
+
+        /** 「操作」：已下载后的动作（保存到本机 / 在浏览器打开 / 分享给好友 / 清理该文件）。 */
+        private void showOperationSheet() {
+            java.util.List<String> labels = new java.util.ArrayList<>();
+            labels.add("保存到本机");
+            labels.add("在浏览器打开");
+            labels.add("分享给好友");
+            labels.add("清理该文件");
+            com.typheye.wgpro.ui.widget.GetSheet.showActions(requireContext(), labels, (dialog, which) -> {
+                if (which == 0) launchSavePicker();
+                else if (which == 1) openInBrowser();
+                else if (which == 2) shareDownloadLink();
+                else {
+                    String key = resourceId();
+                    com.typheye.wgpro.core.download.DownloadManager.get().control(requireContext(), key,
+                            com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
+                    try {
+                        java.io.File file = new java.io.File(requireContext().getFilesDir(),
+                                "downloads/" + suggestedFileName());
+                        if (file.exists()) file.delete();
+                    } catch (Exception ignored) { }
+                }
+            });
+        }
+
+        /** 分享下载链接。 */
+        private void shareDownloadLink() {
+            String title = resource.optString("title", "资源");
+            android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
+                    .setType("text/plain")
+                    .putExtra(android.content.Intent.EXTRA_TEXT, title + "　下载地址："
+                            + resource.optString("file_url", resource.optString("download_url", "")));
+            startActivity(android.content.Intent.createChooser(share, "分享给好友"));
         }
 
         private void launchSavePicker() {

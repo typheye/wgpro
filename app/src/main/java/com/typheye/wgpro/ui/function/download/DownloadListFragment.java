@@ -112,8 +112,9 @@ public final class DownloadListFragment extends Fragment {
         List<DownloadTask> filtered = new ArrayList<>();
         if (tasks != null) {
             for (DownloadTask task : tasks) {
-                boolean done = task.status == DownloadTask.STATUS_COMPLETED
-                        || task.status == DownloadTask.STATUS_FAILED;
+                // 失败项直接丢弃，不再保留（列表里任何 tab 都不出现）
+                if (task.status == DownloadTask.STATUS_FAILED) continue;
+                boolean done = task.status == DownloadTask.STATUS_COMPLETED;
                 if (done == showDone) filtered.add(task);
             }
         }
@@ -251,7 +252,7 @@ public final class DownloadListFragment extends Fragment {
             void bind(DownloadTask task) {
                 Context context = itemView.getContext();
                 name.setText(task.name);
-                meta.setText(statusSimple(task));
+                meta.setText(secondLine(task));
                 if (!task.name.isEmpty()) initial.setText(first(task.name));
                 boolean resource = "resource".equals(task.detailType);
                 boolean vela = !resource && task.downloadUrl != null
@@ -337,6 +338,52 @@ public final class DownloadListFragment extends Fragment {
         return card;
     }
 
+    /** 是否能定位到来源（应用/资源详情页）。 */
+    private boolean hasSourceDetail(DownloadTask task) {
+        String json = task.detailJson == null ? "" : task.detailJson.trim();
+        return json.startsWith("{") && task.detailType != null && !task.detailType.isEmpty();
+    }
+
+    /** 第二行：已完成的显示文件大小（如 0.0MB），其它状态照旧。 */
+    private String secondLine(DownloadTask task) {
+        if (task.status == DownloadTask.STATUS_COMPLETED) {
+            String byBytes = humanSize(task.totalBytes);
+            if (!byBytes.isEmpty()) return byBytes;
+            String raw = task.sizeLabel == null ? "" : task.sizeLabel.trim();
+            if (raw.matches("^[0-9.]+[Mm]$")) return raw.substring(0, raw.length() - 1) + "MB";
+            if (raw.matches("^[0-9.]+[Kk]$")) return raw.substring(0, raw.length() - 1) + "KB";
+            return raw;
+        }
+        return statusSimple(task);
+    }
+
+    /** 字节数 → 人类可读（39.6MB / 702.6KB）。 */
+    private static String humanSize(long bytes) {
+        if (bytes <= 0L) return "";
+        if (bytes < 1024L) return bytes + "B";
+        double kb = bytes / 1024.0;
+        if (kb < 1024.0) return String.format(java.util.Locale.US, "%.1fKB", kb);
+        double mb = kb / 1024.0;
+        if (mb < 1024.0) return String.format(java.util.Locale.US, "%.1fMB", mb);
+        return String.format(java.util.Locale.US, "%.1fGB", mb / 1024.0);
+    }
+
+    /** 按扩展名猜 MIME（各版本系统打开都不会因为类型不对而找不到应用）。 */
+    private static String mimeOf(String nameOrPath) {
+        String lower = nameOrPath == null ? "" : nameOrPath.toLowerCase(java.util.Locale.ROOT);
+        if (lower.endsWith(".apk")) return "application/vnd.android.package-archive";
+        if (lower.endsWith(".png")) return "image/png";
+        if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
+        if (lower.endsWith(".gif")) return "image/gif";
+        if (lower.endsWith(".webp")) return "image/webp";
+        if (lower.endsWith(".mp4")) return "video/mp4";
+        if (lower.endsWith(".mp3")) return "audio/mpeg";
+        if (lower.endsWith(".pdf")) return "application/pdf";
+        if (lower.endsWith(".txt")) return "text/plain";
+        if (lower.endsWith(".zip")) return "application/zip";
+        return "*/*";
+    }
+
     /** 第二行：只简写状态（下载中 / 已完成 …）。 */
     private String statusSimple(DownloadTask task) {
         switch (task.status) {
@@ -357,7 +404,7 @@ public final class DownloadListFragment extends Fragment {
             case DownloadTask.STATUS_PAUSED: return "继续";
             case DownloadTask.STATUS_FAILED: return "重试";
             case DownloadTask.STATUS_COMPLETED:
-                return task.destination == DownloadTask.DEST_DEVICE ? "安装" : "打开";
+                return "打开";
             default: return "";
         }
     }
@@ -374,14 +421,10 @@ public final class DownloadListFragment extends Fragment {
                 DownloadManager.get().control(context, task.id, DownloadService.ACTION_RESUME);
                 break;
             case DownloadTask.STATUS_COMPLETED:
-                if (task.destination == DownloadTask.DEST_DEVICE) {
-                    new WGProAlertDialogBuilder(context).setTitle("安装到设备")
-                            .setMessage("手表端安装能力接入后即可直接从手机安装到已连接的设备。")
-                            .setNegativeButton("知道了", null).show();
+                if (hasSourceDetail(task)) {
+                    openDetail(task);
                 } else {
-                    new WGProAlertDialogBuilder(context).setTitle("下载完成")
-                            .setMessage(task.localPath == null ? "文件已保存。" : task.localPath)
-                            .setNegativeButton("关闭", null).show();
+                    openWithOtherApp(task);
                 }
                 break;
             default:
@@ -401,7 +444,8 @@ public final class DownloadListFragment extends Fragment {
             CharSequence[] actions = new CharSequence[]{"查看详情", "取消"};
             new WGProAlertDialogBuilder(context).setTitle("操作").setItems(actions, (dialog, which) -> {
                 if (which == 0) openDetail(task);
-                else DownloadManager.get().control(context, task.id, DownloadService.ACTION_CANCEL);
+                // 取消 = 相当于从没下过：清掉下载记录与已下文件（详情页会重新显示「获取」）
+                else DownloadManager.get().control(context, task.id, DownloadService.ACTION_REMOVE);
             }).show();
         }
     }
@@ -414,9 +458,14 @@ public final class DownloadListFragment extends Fragment {
                 com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "文件不存在");
                 return;
             }
+            String label = task.localPath == null ? task.name : task.localPath;
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW)
-                    .setDataAndType(uri, "application/vnd.android.package-archive")
+                    .setDataAndType(uri, mimeOf(label))
                     .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            if (intent.resolveActivity(requireContext().getPackageManager()) == null) {
+                // 没有应用能处理这个类型（不同 ROM 差异大）：退回「任意类型」再试一次
+                intent.setDataAndType(uri, "*/*");
+            }
             startActivity(android.content.Intent.createChooser(intent, "打开方式"));
         } catch (Exception e) {
             com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "无法打开："
