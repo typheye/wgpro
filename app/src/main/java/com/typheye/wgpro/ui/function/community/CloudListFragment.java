@@ -67,7 +67,7 @@ public class CloudListFragment extends Fragment {
     public static final String MODE_BLOCKED = "blocked";
     private static final long MIN_LOADING_MS = 300L;
     /** 应用目录（静态 JSON）：一次拉取后按包名匹配，替代逐条 app_detail；目录几乎不变，给 10 分钟 TTL。 */
-    private static final String APP_CATALOG_URL = "https://res.typheye.cn/api.php?type=app&page=1&size=50";
+    private static final String APP_CATALOG_URL = "https://res.typheye.cn/api.php?type=allap&page=1&size=50";
     private static final long APP_CATALOG_TTL_MS = 10 * 60_000L;
 
     private final Handler main = new Handler(Looper.getMainLooper());
@@ -1352,10 +1352,7 @@ public class CloudListFragment extends Fragment {
         labels.addView(detail, detailParams);
         LinearLayout.LayoutParams labelParams = new LinearLayout.LayoutParams(0, -2, 1f); labelParams.setMarginStart(dp(14));
         body.addView(labels, labelParams); card.addView(body);
-        ImageView menu = new ImageView(requireContext()); menu.setImageResource(R.drawable.ic_more_vertical_vector);
-        menu.setColorFilter(requireContext().getColor(R.color.text_secondary)); menu.setPadding(dp(6), dp(6), dp(2), dp(6));
-        body.addView(menu, new LinearLayout.LayoutParams(dp(34), dp(34)));
-        menu.setOnClickListener(v -> showCatalogActions(item, false, v));
+        card.setOnLongClickListener(v -> { showCatalogActions(item, false, v); return true; });
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2); cardParams.bottomMargin = dp(12);
         card.setLayoutParams(cardParams);
         card.setOnClickListener(v -> {

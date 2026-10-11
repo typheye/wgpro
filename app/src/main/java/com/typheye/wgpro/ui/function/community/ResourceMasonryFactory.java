@@ -73,7 +73,6 @@ public final class ResourceMasonryFactory {
         LinearLayout titleLine = new LinearLayout(context); titleLine.setGravity(Gravity.CENTER_VERTICAL);
         TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(1); titleView.setSingleLine(true); titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
         titleLine.addView(titleView, new LinearLayout.LayoutParams(0, -2, 1f));
-        if (menuListener != null) { ImageView menu = new ImageView(context); menu.setImageResource(R.drawable.ic_more_vertical_vector); menu.setColorFilter(context.getColor(R.color.text_secondary)); menu.setPadding(dp(context, 6), dp(context, 6), dp(context, 2), dp(context, 6)); menu.setClickable(true); menu.setFocusable(true); menu.setBackgroundResource(R.drawable.bg_list_item_ripple); titleLine.addView(menu, new LinearLayout.LayoutParams(dp(context, 32), dp(context, 32))); menu.setOnClickListener(v -> menuListener.onMenu(item, v)); }
         labels.addView(titleLine);
         TextView description = text(context, invalid ? "资源已不可见" : item.optString("description", ""), 13, false, R.color.text_secondary);
         description.setMaxLines(3); description.setEllipsize(android.text.TextUtils.TruncateAt.END); LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
@@ -81,6 +80,7 @@ public final class ResourceMasonryFactory {
         TextView meta = text(context, item.optInt("download_count", 0) + " 下载 • " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
         LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(-1, -2); mp.topMargin = dp(context, 5); labels.addView(meta, mp);
         body.addView(labels); card.addView(body); card.setOnClickListener(v -> listener.onClick(item));
+        if (menuListener != null) card.setOnLongClickListener(v -> { menuListener.onMenu(item, v); return true; });
         LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, -2); cp.bottomMargin = dp(context, 10); card.setLayoutParams(cp);
         return card;
     }

@@ -229,12 +229,21 @@ public final class AppDetailFragment extends Fragment {
         ((TextView) root.findViewById(R.id.app_detail_size)).setText(blank(app.optString("size"), "--"));
         ((TextView) root.findViewById(R.id.app_detail_downloads)).setText(formatDownloads(app.optInt("downloads")));
         ((TextView) root.findViewById(R.id.app_detail_age)).setText(blank(app.optString("age_rating"), "全年龄"));
-        String description = app.optString("description", app.optString("summary", "暂无应用介绍。"));
+        String description = cleanBr(app.optString("description", app.optString("summary", "暂无应用介绍。")));
         TextView descriptionView = root.findViewById(R.id.app_detail_description);
         descriptionView.setText(description);
         com.typheye.wgpro.utils.AppUtils.longPressToCopy(descriptionView);
+        boolean vela = "velaapp".equals(app.optString("kind", ""));
         String iconUrl = app.optString("icon_url", "");
         ImageView icon = root.findViewById(R.id.app_detail_icon);
+        if (vela) {
+            // Vela 图标本身是圆的：放在之前的圆角卡片底（surface_secondary）上，并留一点外边距。
+            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
+            icon.setClipToOutline(true);
+            int pad = dp(6);
+            icon.setPadding(pad, pad, pad, pad);
+            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+        }
         if (!iconUrl.isEmpty()) load(iconUrl, icon, () -> {
             icon.setVisibility(View.VISIBLE); root.findViewById(R.id.app_detail_initial).setVisibility(View.GONE);
             if (loaded != null) loaded.run();
@@ -281,11 +290,12 @@ public final class AppDetailFragment extends Fragment {
         boolean hasDevice = params.connected && params.connected_device_name != null
                 && !params.connected_device_name.trim().isEmpty();
         String deviceName = hasDevice ? params.connected_device_name.trim() : "设备";
-        boolean isApk = downloadUrl.toLowerCase(java.util.Locale.ROOT).contains(".apk");
+        boolean isVela = "velaapp".equals(app.optString("kind", ""));
         java.util.List<String> labels = new java.util.ArrayList<>();
         final java.util.List<Integer> actions = new java.util.ArrayList<>();
-        if (hasDevice) { labels.add("安装到" + deviceName); actions.add(0); }
-        if (isApk) { labels.add("安装到手机"); actions.add(1); }
+        // XMS 连接的都是 Vela 设备：只有 vela 应用能装到设备；apk 应用没有匹配设备，不显示设备项。
+        if (isVela && hasDevice) { labels.add("安装到" + deviceName); actions.add(0); }
+        if (!isVela) { labels.add("安装到手机"); actions.add(1); }
         labels.add("保存到本地"); actions.add(2);
         labels.add("在浏览器打开"); actions.add(3);
         new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
@@ -405,6 +415,12 @@ public final class AppDetailFragment extends Fragment {
 
     private String first(String value) { return value.trim().isEmpty() ? "应" : value.trim().substring(0, 1); }
     private String blank(String value, String fallback) { return value == null || value.trim().isEmpty() ? fallback : value; }
-    private String formatDownloads(int value) { return value >= 10000 ? (value / 10000) + "万+" : value + "+"; }
+    private String formatDownloads(int value) { return value >= 10000 ? (value / 10000) + "万" : String.valueOf(value); }
+
+    /** 把接口文本里的 &lt;br&gt; 换成换行。 */
+    private static String cleanBr(String value) {
+        if (value == null) return "";
+        return value.replaceAll("(?i)<br\\s*/?>", "\n");
+    }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 }

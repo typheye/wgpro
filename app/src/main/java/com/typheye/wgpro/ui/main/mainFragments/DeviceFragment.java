@@ -293,9 +293,8 @@ public class DeviceFragment extends Fragment {
         ((TextView) card.findViewById(R.id.text_device_since))
                 .setText(lastSeen.isEmpty() ? "在线状态未知" : "活跃于 " + relativeCloudTime(lastSeen));
         card.setOnClickListener(v -> showSessionDetail(session));
-        View more = card.findViewById(R.id.button_device_more);
-        more.setVisibility(View.VISIBLE);
-        more.setOnClickListener(v -> showSessionMenu(session));
+        // 不再放竖点：长按卡片弹设备管理菜单。
+        card.setOnLongClickListener(v -> { showSessionMenu(session); return true; });
         target.addView(card);
     }
 
@@ -525,8 +524,11 @@ public class DeviceFragment extends Fragment {
         ((TextView) card.findViewById(R.id.text_device_since))
                 .setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
         card.setOnClickListener(v -> showDeviceDetail(id));
-        card.findViewById(R.id.button_device_more).setOnClickListener(v ->
-                showMenu(id, note, "xiaomi".equals(type) ? wearableRefresh : otherRefresh));
+        // 不再放竖点：长按卡片弹设备管理菜单。
+        card.setOnLongClickListener(v -> {
+            showMenu(id, note, "xiaomi".equals(type) ? wearableRefresh : otherRefresh);
+            return true;
+        });
         parent.addView(card);
     }
 

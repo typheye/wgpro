@@ -112,6 +112,7 @@ final class DeviceEngine implements InterconnectLogic.MessageSender {
         params.connected_device_id = nodeId;
         params.connected_device_name = nodeName == null || nodeName.isEmpty()
                 ? "未知设备" : nodeName;
+        params.connected_device_platform = "vela";
         if (params.connected_since == 0L) {
             params.connected_since = System.currentTimeMillis();
         }
@@ -154,6 +155,7 @@ final class DeviceEngine implements InterconnectLogic.MessageSender {
         params.connected = true;
         params.connected_device_name = node.name;
         params.connected_device_id = node.id;
+        params.connected_device_platform = "vela";
         if (params.connected_since == 0L) {
             params.connected_since = System.currentTimeMillis();
         }
@@ -223,6 +225,7 @@ final class DeviceEngine implements InterconnectLogic.MessageSender {
         params.connected = false;
         params.connected_device_name = "未知设备";
         params.connected_device_id = "";
+        params.connected_device_platform = "";
         params.connected_since = 0L;
         params.mifitness_connected = false;
         params.device_permission = false;

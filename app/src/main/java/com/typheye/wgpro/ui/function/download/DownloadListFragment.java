@@ -48,6 +48,7 @@ public final class DownloadListFragment extends Fragment {
     private RecyclerView list;
     private Adapter adapter;
     private View emptyView;
+    private androidx.swiperefreshlayout.widget.SwipeRefreshLayout refresh;
 
     @Nullable
     @Override
@@ -60,14 +61,22 @@ public final class DownloadListFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         showDone = requireArguments().getBoolean(ARG_DONE, false);
+        android.view.ViewGroup host = view.findViewById(R.id.download_list_host);
+        refresh = view.findViewById(R.id.download_refresh);
+        refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        refresh.setOnRefreshListener(() -> {
+            // 下载数据是本地的，下拉只是重读本地记录 + 重渲染（手感同关注/粉丝页）。
+            DownloadManager.get().reload();
+            refresh.postDelayed(() -> { if (isAdded()) refresh.setRefreshing(false); }, 400L);
+        });
         list = view.findViewById(R.id.download_list);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new Adapter();
         list.setAdapter(adapter);
         // 空状态统一复用全局占位布局（仅用于没有数据时）。
         emptyView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.view_stream_empty, (ViewGroup) view, false);
-        ((ViewGroup) view).addView(emptyView);
+                .inflate(R.layout.view_stream_empty, host, false);
+        host.addView(emptyView);
         list.getViewTreeObserver().addOnGlobalLayoutListener(this::applyAppBarTopPadding);
         applyAppBarTopPadding();
         DownloadManager.get().tasks().observe(getViewLifecycleOwner(), this::render);
@@ -79,6 +88,9 @@ public final class DownloadListFragment extends Fragment {
         android.view.View appBar = requireActivity().findViewById(R.id.section_app_bar);
         if (appBar != null && appBar.getHeight() > 0) {
             com.typheye.wgpro.utils.AppBarBlur.padScrollableTop(list, appBar.getHeight());
+            if (refresh != null) {
+                com.typheye.wgpro.utils.AppBarBlur.offsetRefreshIndicator(refresh, appBar.getHeight());
+            }
         }
         android.view.ViewGroup.LayoutParams raw = emptyView.getLayoutParams();
         if (raw instanceof android.view.ViewGroup.MarginLayoutParams) {
@@ -222,6 +234,7 @@ public final class DownloadListFragment extends Fragment {
             private final View fill;
             private final TextView pillText;
             private String iconUrl;
+            private boolean iconIsVela;
 
             Holder(@NonNull View itemView, TextView initial, ImageView icon, TextView name,
                    TextView meta, FrameLayout pill, View fill, TextView pillText) {
@@ -241,6 +254,9 @@ public final class DownloadListFragment extends Fragment {
                 meta.setText(statusSimple(task));
                 if (!task.name.isEmpty()) initial.setText(first(task.name));
                 boolean resource = "resource".equals(task.detailType);
+                boolean vela = !resource && task.downloadUrl != null
+                        && task.downloadUrl.toLowerCase(java.util.Locale.ROOT).endsWith(".rpk");
+                applyIconShape(vela);
                 if (resource) {
                     // 资源用「文字头像」，不直接用封面头图。
                     if (iconUrl == null || !"__resource__".equals(iconUrl)) {
@@ -285,6 +301,25 @@ public final class DownloadListFragment extends Fragment {
                 if (lp.width != desired) {
                     lp.width = desired;
                     fill.setLayoutParams(lp);
+                }
+            }
+
+            /** Vela 图标是圆的：放在跟随莫奈取色的圆角卡片上；普通应用图标用圆角矩形裁切。 */
+            private void applyIconShape(boolean vela) {
+                if (vela == iconIsVela) return;
+                iconIsVela = vela;
+                if (vela) {
+                    // 下载项卡片底是 surface_secondary，衬底用 surface_primary 才不会融在一起。
+                    icon.setBackgroundResource(R.drawable.bg_vela_icon_clip);
+                    icon.setClipToOutline(true);
+                    int pad = dp(3);
+                    icon.setPadding(pad, pad, pad, pad);
+                    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
+                } else {
+                    icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
+                    icon.setClipToOutline(true);
+                    icon.setPadding(0, 0, 0, 0);
+                    icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 }
             }
         }

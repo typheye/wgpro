@@ -83,7 +83,8 @@ public class WebActivity extends AppCompatActivity {
 
         // 设置工具栏
         setSupportActionBar(toolbar);
-        //Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);
+        // 标题默认置空：否则会显示 Activity 的 label（R.string.app_name）；加载完成后才填标题。
+        if (getSupportActionBar() != null) getSupportActionBar().setTitle("");
 
         FLAG = getIntent().getStringExtra("FLAG");
 

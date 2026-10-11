@@ -107,7 +107,7 @@ public class HomeFragment extends Fragment {
     /** 回到前台时，距上次加载不足这个时间就不刷新。 */
     private static final long RESUME_STALE_MS = 30_000L;
     /** 应用目录是静态 JSON（res.typheye.cn），单独放在这里便于缓存优先读取。 */
-    private static final String APPS_URL = "https://res.typheye.cn/api.php?type=app&page=1&size=20";
+    private static final String APPS_URL = "https://res.typheye.cn/api.php?type=allap&page=1&size=20";
 
     @Nullable
     @Override

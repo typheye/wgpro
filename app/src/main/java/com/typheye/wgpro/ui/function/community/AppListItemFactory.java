@@ -44,8 +44,20 @@ public final class AppListItemFactory {
         TextView initial = text(context, first(name), 22, true, R.color.brand_primary);
         initial.setGravity(Gravity.CENTER); initial.setBackgroundResource(R.drawable.bg_app_icon_clip);
         iconBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
-        ImageView icon = new ImageView(context); icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        icon.setVisibility(View.GONE); icon.setBackgroundResource(R.drawable.bg_app_icon_clip); icon.setClipToOutline(true);
+        boolean vela = "velaapp".equals(item.optString("kind", ""));
+        ImageView icon = new ImageView(context);
+        icon.setScaleType(vela ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP);
+        icon.setVisibility(View.GONE);
+        if (vela) {
+            // Vela 图标本身是圆的：放在之前的圆角卡片底（surface_secondary）上，并留一点外边距。
+            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
+            icon.setClipToOutline(true);
+            int pad = dp(context, 4);
+            icon.setPadding(pad, pad, pad, pad);
+        } else {
+            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
+            icon.setClipToOutline(true);
+        }
         iconBox.addView(icon, new FrameLayout.LayoutParams(-1, -1));
         row.addView(iconBox, new LinearLayout.LayoutParams(dp(context, 56), dp(context, 56)));
         loadIcon(context, item.optString("icon_url", ""), icon, initial);
@@ -65,11 +77,8 @@ public final class AppListItemFactory {
         LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, -2, 1f);
         labelsParams.setMarginStart(dp(context, 16)); row.addView(labels, labelsParams);
         if (menuListener != null) {
-            ImageView menu = new ImageView(context); menu.setImageResource(R.drawable.ic_more_vertical_vector);
-            menu.setColorFilter(context.getColor(R.color.text_secondary)); menu.setPadding(dp(context, 8), dp(context, 8), dp(context, 8), dp(context, 8));
-            menu.setClickable(true); menu.setFocusable(true); menu.setBackgroundResource(R.drawable.bg_list_item_ripple);
-            row.addView(menu, new LinearLayout.LayoutParams(dp(context, 40), dp(context, 40)));
-            menu.setOnClickListener(v -> menuListener.onClick(row));
+            // 不再放右上角「三个竖点」：改为长按卡片弹出操作菜单（点击卡片仍进详情）。
+            row.setOnLongClickListener(v -> { menuListener.onClick(row); return true; });
         }
         row.setOnClickListener(v -> context.startActivity(new Intent(context, AppDetailActivity.class)
                 .putExtra(AppDetailActivity.EXTRA_APP_JSON, item.toString())));
@@ -84,12 +93,15 @@ public final class AppListItemFactory {
         });
     }
 
-    /** 第三行：下载量 | 应用大小，例如「117 下载 | 39.6M」。 */
+    /** 第三行：下载量 · 应用大小（vela 应用再补一段类型）。例如「117 下载 · 39.6M · Vela 应用」。 */
     private static String metaLine(JSONObject item) {
         int downloads = item.optInt("downloads", item.optInt("download_count", 0));
         String size = item.optString("size", "").trim();
-        if (size.isEmpty()) return downloads + " 下载";
-        return downloads + " 下载 | " + size;
+        StringBuilder builder = new StringBuilder();
+        builder.append(downloads).append(" 下载");
+        if (!size.isEmpty()) builder.append(" · ").append(size);
+        if ("velaapp".equals(item.optString("kind", ""))) builder.append(" · Vela 应用");
+        return builder.toString();
     }
 
     private static TextView text(Context c, String value, int size, boolean bold, int color) {

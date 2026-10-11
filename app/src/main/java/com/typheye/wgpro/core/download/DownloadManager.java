@@ -2,6 +2,7 @@ package com.typheye.wgpro.core.download;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.annotation.NonNull;
@@ -9,26 +10,49 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 进程内下载任务状态源（单例）。
+ * 进程内下载任务状态源（单例），并做本地持久化。
  *
  * <p>由 {@link DownloadService} 写入，下载管理页/详情页订阅。所有写入都通过
- * {@code postValue} 发布快照，可从任意线程调用。</p>
+ * {@code postValue} 发布快照，可从任意线程调用；每次变更同步落盘，重启后恢复。
+ * 重启时「下载中/排队」的任务会被标成「已暂停」（不自动续传）。</p>
  */
 public final class DownloadManager {
     private static final DownloadManager INSTANCE = new DownloadManager();
+    private static final String PREFS = "download_tasks";
+    private static final String KEY_TASKS = "tasks";
 
     private final MutableLiveData<List<DownloadTask>> tasks = new MutableLiveData<>(new ArrayList<>());
     private final List<DownloadTask> list = new ArrayList<>();
+    private Context appContext;
+    private boolean initialized;
 
     private DownloadManager() {
     }
 
     public static DownloadManager get() {
         return INSTANCE;
+    }
+
+    /** 在 Application 启动时调用一次：读出本地记录。 */
+    public synchronized void init(@NonNull Context context) {
+        if (initialized) return;
+        initialized = true;
+        appContext = context.getApplicationContext();
+        load();
+        publish();
+    }
+
+    /** 重新从本地读取（下拉刷新用）。 */
+    public synchronized void reload() {
+        load();
+        publish();
     }
 
     public LiveData<List<DownloadTask>> tasks() {
@@ -53,7 +77,6 @@ public final class DownloadManager {
         synchronized (this) {
             existing = find(task.id);
             if (existing != null && existing.isActive()) {
-                // 已在下载/排队中，沿用旧任务（仅更新去向）。
                 existing.status = DownloadTask.STATUS_QUEUED;
                 publish();
                 startService(context);
@@ -118,6 +141,90 @@ public final class DownloadManager {
     }
 
     synchronized void publish() {
+        persist();
         tasks.postValue(new ArrayList<>(list));
+    }
+
+    // ---- 持久化 ----
+
+    private void load() {
+        list.clear();
+        if (appContext == null) return;
+        String raw = appContext.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .getString(KEY_TASKS, "");
+        if (raw == null || raw.isEmpty()) return;
+        try {
+            JSONArray array = new JSONArray(raw);
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject o = array.optJSONObject(i);
+                if (o == null) continue;
+                DownloadTask task = fromJson(o);
+                if (task != null && !task.id.isEmpty()) list.add(task);
+            }
+        } catch (Exception ignored) {
+        }
+    }
+
+    private void persist() {
+        if (appContext == null) return;
+        try {
+            JSONArray array = new JSONArray();
+            for (DownloadTask task : list) array.put(toJson(task));
+            SharedPreferences.Editor editor = appContext
+                    .getSharedPreferences(PREFS, Context.MODE_PRIVATE).edit();
+            editor.putString(KEY_TASKS, array.toString()).apply();
+        } catch (Exception ignored) {
+        }
+    }
+
+    private static JSONObject toJson(DownloadTask t) {
+        JSONObject o = new JSONObject();
+        try {
+            o.put("id", t.id);
+            o.put("name", t.name);
+            o.put("iconUrl", t.iconUrl);
+            o.put("downloadUrl", t.downloadUrl);
+            o.put("size", t.sizeLabel);
+            o.put("dest", t.destination);
+            o.put("detailType", t.detailType);
+            o.put("detailJson", t.detailJson);
+            o.put("status", t.status);
+            o.put("total", t.totalBytes);
+            o.put("down", t.downloadedBytes);
+            o.put("localPath", t.localPath == null ? "" : t.localPath);
+            o.put("error", t.error == null ? "" : t.error);
+            o.put("targetUri", t.targetUri == null ? "" : t.targetUri);
+        } catch (Exception ignored) {
+        }
+        return o;
+    }
+
+    @Nullable
+    private static DownloadTask fromJson(JSONObject o) {
+        try {
+            DownloadTask t = new DownloadTask(
+                    o.optString("id"), o.optString("name"), o.optString("iconUrl"),
+                    o.optString("downloadUrl"), o.optString("size"), o.optInt("dest"),
+                    o.optString("detailType"), o.optString("detailJson"));
+            t.totalBytes = o.optLong("total", -1L);
+            t.downloadedBytes = o.optLong("down", 0L);
+            int status = o.optInt("status", DownloadTask.STATUS_PAUSED);
+            // 重启后不自动续传：进行中/排队的标成「已暂停」。
+            if (status == DownloadTask.STATUS_RUNNING || status == DownloadTask.STATUS_QUEUED) {
+                status = DownloadTask.STATUS_PAUSED;
+            }
+            t.status = status;
+            t.localPath = emptyToNull(o.optString("localPath"));
+            t.error = emptyToNull(o.optString("error"));
+            t.targetUri = emptyToNull(o.optString("targetUri"));
+            return t;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    @Nullable
+    private static String emptyToNull(String value) {
+        return value == null || value.isEmpty() ? null : value;
     }
 }

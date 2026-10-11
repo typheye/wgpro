@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Vela 图标衬底（下载项卡片底是 surface_secondary，这里用 surface_primary 区分开）。 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/surface_primary" />
+    <corners android:radius="16dp" />
+</shape>

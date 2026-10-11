@@ -23,8 +23,10 @@ import org.json.JSONObject;
 
 public final class DynamicDetailActivity extends BaseSectionActivity {
     public static final String EXTRA_DYNAMIC_ID = "dynamic_id";
+    public static final String EXTRA_OPEN_COMMENT = "open_comment";
     private View authorView;
     private JSONObject dynamicInfo;
+    @Override protected boolean loadingCoversAppBar() { return true; }
     @Override protected String screenTitle() { return ""; }
 
     /** 动态详情页底部是固定在屏幕底部的评论输入栏。 */
@@ -33,7 +35,9 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
     /** 底栏自带导航栏内边距（沉浸式），容器不再让开系统栏。 */
     @Override protected boolean bottomBarOwnsNavigationInset() { return true; }
     @Override protected Fragment createContent() {
-        return DynamicDetailFragment.newInstance(getIntent().getStringExtra(EXTRA_DYNAMIC_ID));
+        return DynamicDetailFragment.newInstance(
+                getIntent().getStringExtra(EXTRA_DYNAMIC_ID),
+                getIntent().getBooleanExtra(EXTRA_OPEN_COMMENT, false));
     }
 
     void bindAuthor(JSONObject info) {

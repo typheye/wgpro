@@ -129,18 +129,20 @@ public final class DynamicCardFactory {
                 12, false, R.color.text_secondary));
         LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
         identityParams.setMarginStart(dp(context, 10)); header.addView(identity, identityParams);
-        ImageView more = new ImageView(context); more.setImageResource(R.drawable.ic_more_vertical_vector);
-        more.setColorFilter(context.getColor(R.color.text_secondary)); more.setPadding(dp(context, 10), dp(context, 10), dp(context, 2), dp(context, 10));
-        header.addView(more, new LinearLayout.LayoutParams(dp(context, 38), dp(context, 38)));
         body.addView(header);
 
         String uid = item.optString("uid", "");
-        if (!uid.isEmpty()) avatarBox.setOnClickListener(v -> context.startActivity(new Intent(context,
-                UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid)));
-        more.setClickable(true); more.setFocusable(true);
-        more.setOnClickListener(v -> {
+        if (!uid.isEmpty()) {
+            View.OnClickListener profile = v -> context.startActivity(new Intent(context,
+                    UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
+            avatarBox.setOnClickListener(profile);
+            identity.setOnClickListener(profile);
+        }
+        // 不再放右上角「三个竖点」：长按卡片弹出操作菜单。
+        card.setOnLongClickListener(v -> {
             if (moreAction != null) moreAction.onClick(v);
             else showActions(context, item, card, null, null, onChanged);
+            return true;
         });
         bindAvatar(context, uid, item.optString("avatar_url", ""), avatar, initial);
 
@@ -150,7 +152,6 @@ public final class DynamicCardFactory {
             value.setLineSpacing(0f, 1.12f);
             value.setMaxLines(3);
             value.setEllipsize(android.text.TextUtils.TruncateAt.END);
-            com.typheye.wgpro.utils.AppUtils.longPressToCopy(value);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2); p.topMargin = dp(context, 10);
             body.addView(value, p);
         }
@@ -162,7 +163,6 @@ public final class DynamicCardFactory {
             p.topMargin = dp(context, 12); body.addView(image, p);
             loadImage(context, firstMedia.optString("thumbnail_url", firstMedia.optString("original_url", "")),
                     image, null, null);
-            // 不单独给图片设置点击：点卡片任意位置（含图片）都进入动态详情页
         }
 
         LinearLayout actions = new LinearLayout(context); actions.setGravity(Gravity.CENTER_VERTICAL);
@@ -176,7 +176,7 @@ public final class DynamicCardFactory {
         setActionState(context, like, liked); setActionState(context, favorite, favorited);
         like.root.setOnClickListener(v -> toggleReaction(context, item, like));
         favorite.root.setOnClickListener(v -> toggleCollection(context, item, favorite));
-        comment.root.setOnClickListener(v -> openDetail(context, item));
+        comment.root.setOnClickListener(v -> openDetail(context, item, true));
         LinearLayout.LayoutParams actionParams = new LinearLayout.LayoutParams(-1, dp(context, 42));
         actionParams.topMargin = dp(context, 8); body.addView(actions, actionParams);
         card.addView(body);
@@ -207,15 +207,13 @@ public final class DynamicCardFactory {
         identity.addView(text(context, published, 12, false, R.color.text_secondary));
         LinearLayout.LayoutParams identityParams = new LinearLayout.LayoutParams(0, -2, 1f);
         identityParams.setMarginStart(dp(context, 10)); header.addView(identity, identityParams);
-        ImageView removeIcon = new ImageView(context); removeIcon.setImageResource(R.drawable.ic_more_vertical_vector);
-        removeIcon.setColorFilter(context.getColor(R.color.text_secondary)); removeIcon.setPadding(dp(context, 8), dp(context, 8), dp(context, 8), dp(context, 8));
-        header.addView(removeIcon, new LinearLayout.LayoutParams(dp(context, 38), dp(context, 38)));
         body.addView(header);
         TextView unavailable = text(context, "动态已不可见", 15, false, R.color.text_secondary);
         LinearLayout.LayoutParams unavailableParams = new LinearLayout.LayoutParams(-1, -2); unavailableParams.topMargin = dp(context, 12);
         body.addView(unavailable, unavailableParams); card.addView(body);
         bindAvatar(context, item.optString("uid", ""), item.optString("avatar_url", ""), avatar, initial);
-        removeIcon.setOnClickListener(v -> { if (remove != null) remove.onClick(card); });
+        // 不再放竖点：长按弹操作菜单，点击看「已失效」提示。
+        card.setOnLongClickListener(v -> { if (remove != null) remove.onClick(card); return true; });
         card.setOnClickListener(v -> new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(context)
                 .setTitle("动态已失效").setMessage("该动态已不可见").setNegativeButton("关闭", null).show());
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2);
@@ -235,8 +233,14 @@ public final class DynamicCardFactory {
     }
 
     private static void openDetail(Context context, JSONObject item) {
+        openDetail(context, item, false);
+    }
+
+    /** @param openComment 进详情页后是否主动弹出评论输入弹窗（卡片「评论」按钮用）。 */
+    private static void openDetail(Context context, JSONObject item, boolean openComment) {
         context.startActivity(new Intent(context, DynamicDetailActivity.class)
-                .putExtra(DynamicDetailActivity.EXTRA_DYNAMIC_ID, item.optString("id")));
+                .putExtra(DynamicDetailActivity.EXTRA_DYNAMIC_ID, item.optString("id"))
+                .putExtra(DynamicDetailActivity.EXTRA_OPEN_COMMENT, openComment));
     }
 
     private static void toggleReaction(Context context, JSONObject item, ActionView view) {

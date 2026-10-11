@@ -38,6 +38,8 @@ public class tApplication extends Application {
         TestHandler.install(this);
         // 全应用 edge-to-edge / 系统栏统一适配（含底部导航小横条）
         com.typheye.wgpro.utils.SystemBars.install(this);
+        // 下载任务本地持久化：启动时恢复（重启后「下载中」标为已暂停）
+        com.typheye.wgpro.core.download.DownloadManager.get().init(this);
         trackForegroundState();
 
         // 确保日志目录存在

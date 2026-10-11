@@ -23,6 +23,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
     public static final String EXTRA_RESOURCE_JSON = "resource_json";
     private ResourceDetailFragment fragment;
 
+    @Override protected boolean loadingCoversAppBar() { return true; }
     @Override protected String screenTitle() { return ""; }
 
     @Override protected Fragment createContent() {
@@ -142,7 +143,8 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             TextView descriptionView = root.findViewById(R.id.resource_detail_description);
             titleView.setText(info.optString("title", "未命名资源"));
             summaryView.setText(info.optString("summary", "暂无摘要"));
-            descriptionView.setText(info.optString("description", "暂无详细介绍"));
+            descriptionView.setText(info.optString("description", "暂无详细介绍")
+                    .replaceAll("(?i)<br\\s*/?>", "\n"));
             com.typheye.wgpro.utils.AppUtils.longPressToCopy(titleView);
             com.typheye.wgpro.utils.AppUtils.longPressToCopy(summaryView);
             com.typheye.wgpro.utils.AppUtils.longPressToCopy(descriptionView);
@@ -150,7 +152,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             String authorName = author == null ? "UID " + info.optString("uid", "--")
                     : author.optString("nick", "用户");
             ((TextView) root.findViewById(R.id.resource_detail_meta)).setText(authorName + "  ·  "
-                    + info.optInt("download_count") + " 次下载  ·  " + info.optInt("collection_count") + " 次星标");
+                    + info.optInt("download_count") + " 下载  ·  " + info.optInt("collection_count") + " 星标");
         }
 
         boolean isStarred() {

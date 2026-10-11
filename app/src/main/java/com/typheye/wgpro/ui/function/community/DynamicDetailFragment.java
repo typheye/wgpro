@@ -52,8 +52,14 @@ public final class DynamicDetailFragment extends Fragment {
     private String dynamicOwnerUid = "";
 
     public static DynamicDetailFragment newInstance(String id) {
+        return newInstance(id, false);
+    }
+
+    public static DynamicDetailFragment newInstance(String id, boolean openComment) {
         DynamicDetailFragment fragment = new DynamicDetailFragment(); Bundle args = new Bundle();
-        args.putString("dynamic_id", id == null ? "" : id); fragment.setArguments(args); return fragment;
+        args.putString("dynamic_id", id == null ? "" : id);
+        args.putBoolean("open_comment", openComment);
+        fragment.setArguments(args); return fragment;
     }
 
     @Nullable @Override public View onCreateView(@NonNull LayoutInflater inflater,
@@ -102,6 +108,10 @@ public final class DynamicDetailFragment extends Fragment {
         refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
         refresh.setOnRefreshListener(() -> load(root));
         root.findViewById(R.id.dynamic_comment_action).setOnClickListener(v -> showCommentSheet(root));
+        if (getArguments() != null && getArguments().getBoolean("open_comment", false)) {
+            // 从卡片「评论」按钮进来：进详情页的同时主动弹出评论输入弹窗。
+            root.post(() -> { if (isAdded()) showCommentSheet(root); });
+        }
         likeButton.setOnClickListener(v -> toggleLike());
         favoriteButton.setOnClickListener(v -> toggleFavorite());
         load(root); return root;
