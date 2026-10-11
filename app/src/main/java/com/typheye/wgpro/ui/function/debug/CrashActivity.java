@@ -45,7 +45,7 @@ public class CrashActivity extends AppCompatActivity {
         btnReport.setOnClickListener(v -> new WGProAlertDialogBuilder(this)
                 .setTitle("异常上报")
                 .setMessage("异常已记录，我们正在处理中")
-                .setPositiveButton("确定", (dialog, which) -> Toast.makeText(this, "异常已上报", Toast.LENGTH_SHORT).show())
+                .setPositiveButton("确定", (dialog, which) -> com.typheye.wgpro.ui.widget.WGProHint.show(this, "异常已上报"))
                 .show());
     }
 

@@ -607,8 +607,7 @@ public class DashboardFragment extends Fragment {
             if (clipboard != null) {
                 clipboard.setPrimaryClip(ClipData.newPlainText("邮箱", "typheye@typheye.com"));
             }
-            Toast.makeText(requireContext(), "邮箱 typheye@typheye.com 已复制",
-                    Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "邮箱 typheye@typheye.com 已复制");
         }
     }
 

@@ -175,7 +175,7 @@ public class WebActivity extends AppCompatActivity {
                     return true; // 拦截当前加载，等待用户确认
 
                 } catch (Exception e) {
-                    Toast.makeText(WebActivity.this, "无法处理链接: " + request.getUrl(), Toast.LENGTH_SHORT).show();
+                    com.typheye.wgpro.ui.widget.WGProHint.showError(WebActivity.this, "无法打开链接", "无法处理链接: " + request.getUrl());
                 }
                 return true;
             }
@@ -191,8 +191,7 @@ public class WebActivity extends AppCompatActivity {
                     tAccUtils accountUtils = new tAccUtils(WebActivity.this);
                     if (!accountUtils.markWebViewSessionSynchronized()
                             || !accountUtils.hasWebViewSessionCookie()) {
-                        Toast.makeText(WebActivity.this,
-                                "网页登录状态同步失败，请稍后重试", Toast.LENGTH_LONG).show();
+                        com.typheye.wgpro.ui.widget.WGProHint.showError(WebActivity.this, "登录状态异常", "网页登录状态同步失败，请稍后重试");
                     }
                     if (target != null && !target.equals(url)) {
                         loadWebPage(target);
@@ -417,7 +416,7 @@ public class WebActivity extends AppCompatActivity {
                     if (isFinishing() || isDestroyed()) return;
                     webLoginExchangePending = false;
                     webLoginTargetUrl = null;
-                    Toast.makeText(WebActivity.this, message, Toast.LENGTH_LONG).show();
+                    com.typheye.wgpro.ui.widget.WGProHint.showError(WebActivity.this, "登录失败", message);
                     loadWebPage(targetUrl);
                 });
             }
@@ -454,7 +453,6 @@ public class WebActivity extends AppCompatActivity {
             // 检查是否有应用可以处理此链接
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
-                Toast.makeText(this, "正在使用系统浏览器下载", Toast.LENGTH_SHORT).show();
             } else {
                 // 没有可处理的应用，使用默认浏览器
                 intent.setPackage("com.android.chrome"); // 尝试Chrome
@@ -467,7 +465,7 @@ public class WebActivity extends AppCompatActivity {
                 }
             }
         } catch (Exception e) {
-            Toast.makeText(this, "无法打开下载链接: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.showError(this, "无法打开链接", "无法打开下载链接: " + e.getMessage());
             Log.e("Download", "Failed to open download link", e);
         }
     }
@@ -512,8 +510,6 @@ public class WebActivity extends AppCompatActivity {
             message = Uri.parse(rawUri).getQueryParameter("msg");
         } catch (Exception ignored) {
         }
-        Toast.makeText(this, message == null || message.trim().isEmpty() ? "已发布" : message.trim(),
-                Toast.LENGTH_SHORT).show();
         com.typheye.wgpro.core.state.AppState.get().publishContentRefresh();
         finish();
         return true;
@@ -533,9 +529,6 @@ public class WebActivity extends AppCompatActivity {
             runOnUiThread(() -> {
                 if (isFinishing() || isDestroyed()) return;
                 if (!isTrustedHost(webView.getUrl())) return;
-                Toast.makeText(WebActivity.this,
-                        message == null || message.trim().isEmpty() ? "已发布" : message.trim(),
-                        Toast.LENGTH_SHORT).show();
                 com.typheye.wgpro.core.state.AppState.get().publishContentRefresh();
                 finish();
             });
@@ -573,7 +566,7 @@ public class WebActivity extends AppCompatActivity {
                 requestId = extractRequestIdFromIntentUri(rawUri);
             }
             if (requestId == null || requestId.trim().isEmpty()) {
-                Toast.makeText(this, "登录请求缺少 request_id", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.showError(this, "登录请求异常", "登录请求缺少 request_id");
                 return true;
             }
             if (grantRequestForwarded) return true;
@@ -581,7 +574,7 @@ public class WebActivity extends AppCompatActivity {
             return true;
         } catch (Exception e) {
             Log.e("WebActivity", "Unable to parse grant URI", e);
-            Toast.makeText(this, "无法识别登录授权请求", Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.showError(this, "登录请求异常", "无法识别登录授权请求");
             return rawUri.startsWith("intent:") || rawUri.startsWith("wgproGrant:");
         }
     }
@@ -609,7 +602,7 @@ public class WebActivity extends AppCompatActivity {
                         Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                         startActivity(intent);
                     } catch (ActivityNotFoundException e) {
-                        Toast.makeText(this, "未找到可打开的应用", Toast.LENGTH_SHORT).show();
+                        com.typheye.wgpro.ui.widget.WGProHint.showError(this, "无法打开链接", "未找到可打开的应用");
                     }
                 })
                 .setNegativeButton("取消", null)
@@ -727,7 +720,7 @@ public class WebActivity extends AppCompatActivity {
             ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             android.content.ClipData clip = android.content.ClipData.newPlainText("URL", url);
             clipboard.setPrimaryClip(clip);
-            Toast.makeText(this, "链接已复制到剪贴板", Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.show(this, "链接已复制到剪贴板");
         }
     }
 

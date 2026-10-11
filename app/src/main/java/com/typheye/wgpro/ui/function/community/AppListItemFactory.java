@@ -63,7 +63,8 @@ public final class AppListItemFactory {
         loadIcon(context, item.optString("icon_url", ""), icon, initial);
         LinearLayout labels = new LinearLayout(context); labels.setOrientation(LinearLayout.VERTICAL);
         TextView title = text(context, name, 17, false, R.color.text_primary);
-        title.setSingleLine(true); title.setEllipsize(android.text.TextUtils.TruncateAt.END); labels.addView(title);
+        title.setSingleLine(true); title.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        SearchHighlight.applyFromItem(context, title, name, item); labels.addView(title);
         TextView summary = text(context, item.optString("summary", item.optString("package", "应用")), 14, false, R.color.text_secondary);
         summary.setSingleLine(true); summary.setEllipsize(android.text.TextUtils.TruncateAt.END);
         LinearLayout.LayoutParams summaryParams = new LinearLayout.LayoutParams(-1, -2);

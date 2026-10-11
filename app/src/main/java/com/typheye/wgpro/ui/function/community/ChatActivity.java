@@ -450,7 +450,7 @@ public class ChatActivity extends BaseSectionActivity {
                             .getSystemService(android.content.Context.CLIPBOARD_SERVICE);
             if (clipboard == null) return;
             clipboard.setPrimaryClip(android.content.ClipData.newPlainText("text", text));
-            android.widget.Toast.makeText(requireContext(), "已复制", android.widget.Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已复制");
         }
 
         private void showMessageDetail(JSONObject item) {

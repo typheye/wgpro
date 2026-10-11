@@ -133,10 +133,9 @@ public final class DynamicCardFactory {
 
         String uid = item.optString("uid", "");
         if (!uid.isEmpty()) {
-            View.OnClickListener profile = v -> context.startActivity(new Intent(context,
-                    UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid));
-            avatarBox.setOnClickListener(profile);
-            identity.setOnClickListener(profile);
+            // 只有点头像才进用户主页；昵称/时间区域不再是热区（和卡片其它区域一样走卡片点击）
+            avatarBox.setOnClickListener(v -> context.startActivity(new Intent(context,
+                    UserDetailActivity.class).putExtra(UserDetailActivity.EXTRA_TARGET_UID, uid)));
         }
         // 不再放右上角「三个竖点」：长按卡片弹出操作菜单。
         card.setOnLongClickListener(v -> {
@@ -152,6 +151,7 @@ public final class DynamicCardFactory {
             value.setLineSpacing(0f, 1.12f);
             value.setMaxLines(3);
             value.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            SearchHighlight.applyFromItem(context, value, content, item);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-1, -2); p.topMargin = dp(context, 10);
             body.addView(value, p);
         }

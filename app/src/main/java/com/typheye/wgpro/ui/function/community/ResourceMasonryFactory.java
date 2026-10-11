@@ -72,6 +72,7 @@ public final class ResourceMasonryFactory {
         LinearLayout labels = column(context); labels.setPadding(dp(context, 10), dp(context, 9), dp(context, 10), dp(context, 10));
         LinearLayout titleLine = new LinearLayout(context); titleLine.setGravity(Gravity.CENTER_VERTICAL);
         TextView titleView = text(context, title, 15, true, R.color.text_primary); titleView.setMaxLines(1); titleView.setSingleLine(true); titleView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        SearchHighlight.applyFromItem(context, titleView, title, item);
         titleLine.addView(titleView, new LinearLayout.LayoutParams(0, -2, 1f));
         labels.addView(titleLine);
         TextView description = text(context, invalid ? "资源已不可见" : item.optString("description", ""), 13, false, R.color.text_secondary);

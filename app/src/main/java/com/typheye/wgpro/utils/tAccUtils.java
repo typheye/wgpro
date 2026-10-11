@@ -133,7 +133,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -1084,7 +1084,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -1163,7 +1163,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -1353,7 +1353,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -1433,7 +1433,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -1596,7 +1596,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -1943,7 +1943,7 @@ public class tAccUtils {
         // 网络检查在主线程
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -2005,7 +2005,7 @@ public class tAccUtils {
         // 1. 快速网络检测
         if (isNetworkUnavailable()) {
             new Handler(Looper.getMainLooper()).post(() -> {
-                Toast.makeText(context, "网络不可用，请检查网络", Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(context, "网络不可用，请检查网络");
                 callback.onError("网络不可用");
             });
             return;
@@ -2216,7 +2216,7 @@ public class tAccUtils {
         clearBrowserLoginState();
         if (success && appContext != null) {
             com.typheye.wgpro.core.CoreService.requestRefresh(appContext);
-            Toast.makeText(appContext, "登录成功", Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.show(appContext, "登录成功");
             if (host != null && !host.isFinishing() && !host.isDestroyed()) {
                 host.finish();
             }

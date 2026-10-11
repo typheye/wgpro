@@ -321,8 +321,7 @@ public final class AppDetailFragment extends Fragment {
         try {
             saveLauncher.launch(intent);
         } catch (Exception e) {
-            android.widget.Toast.makeText(requireContext(), "无法打开文件保存窗口",
-                    android.widget.Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法保存", "无法打开文件保存窗口");
         }
     }
 
@@ -349,7 +348,7 @@ public final class AppDetailFragment extends Fragment {
         if (targetUri != null) task.targetUri = targetUri.toString();
         com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
         downloadStarted = true;
-        android.widget.Toast.makeText(requireContext(), "已加入下载", android.widget.Toast.LENGTH_SHORT).show();
+        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已加入下载");
     }
 
     @Override

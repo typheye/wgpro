@@ -49,7 +49,6 @@ public class ScanQRActivity extends AppCompatActivity {
 
         // ✅ 检查是否处于分屏/小窗模式
         if (isInMultiWindowMode()) {
-            Toast.makeText(this, "扫码功能在分屏模式下不可用，请退出分屏后重试", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -131,8 +130,8 @@ public class ScanQRActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 startScanning();
             } else {
-                Toast.makeText(this, "相机权限被拒绝，无法扫码", Toast.LENGTH_LONG).show();
-                finish();
+                com.typheye.wgpro.ui.widget.WGProHint.showError(this, "相机权限被拒绝",
+                        "需要相机权限才能扫码，请到系统设置里开启后再试。", this::finish);
             }
         }
     }
@@ -184,7 +183,6 @@ public class ScanQRActivity extends AppCompatActivity {
                 .getBoolean("predictive_back_enabled", false));
         // ✅ 再次检查是否进入分屏模式（可选增强体验）
         if (isInMultiWindowMode()) {
-            Toast.makeText(this, "已退出分屏模式后才能使用扫码", Toast.LENGTH_LONG).show();
             finish();
             return;
         }
@@ -210,8 +208,8 @@ public class ScanQRActivity extends AppCompatActivity {
         super.onMultiWindowModeChanged(isInMultiWindowMode);
         // ✅ 实时响应分屏模式切换
         if (isInMultiWindowMode) {
-            Toast.makeText(this, "扫码功能在分屏模式下不可用，请退出分屏后重试", Toast.LENGTH_LONG).show();
-            finish();
+            com.typheye.wgpro.ui.widget.WGProHint.showError(this, "无法扫码",
+                    "扫码功能在分屏模式下不可用，请退出分屏后重试。", this::finish);
         }
     }
 }

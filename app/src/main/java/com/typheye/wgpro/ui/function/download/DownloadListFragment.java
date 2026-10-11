@@ -411,7 +411,7 @@ public final class DownloadListFragment extends Fragment {
         try {
             android.net.Uri uri = downloadedFileUri(task);
             if (uri == null) {
-                android.widget.Toast.makeText(requireContext(), "文件不存在", android.widget.Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "文件不存在");
                 return;
             }
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW)
@@ -419,9 +419,8 @@ public final class DownloadListFragment extends Fragment {
                     .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
             startActivity(android.content.Intent.createChooser(intent, "打开方式"));
         } catch (Exception e) {
-            android.widget.Toast.makeText(requireContext(), "无法打开："
-                    + (e.getMessage() == null ? "未知错误" : e.getMessage()),
-                    android.widget.Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "无法打开："
+                    + (e.getMessage() == null ? "未知错误" : e.getMessage()));
         }
     }
 
@@ -456,8 +455,7 @@ public final class DownloadListFragment extends Fragment {
                                 .EXTRA_APP_JSON, task.detailJson));
             }
         } catch (Exception e) {
-            android.widget.Toast.makeText(requireContext(), "无法打开详情",
-                    android.widget.Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "无法打开详情");
         }
     }
 

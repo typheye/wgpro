@@ -444,8 +444,7 @@ public class AppUtils {
                             .getSystemService(Context.CLIPBOARD_SERVICE);
             if (clipboard != null) {
                 clipboard.setPrimaryClip(android.content.ClipData.newPlainText("text", value));
-                android.widget.Toast.makeText(view.getContext(), "已复制",
-                        android.widget.Toast.LENGTH_SHORT).show();
+                com.typheye.wgpro.ui.widget.WGProHint.show(view.getContext(), "已复制");
             }
             return true;
         });

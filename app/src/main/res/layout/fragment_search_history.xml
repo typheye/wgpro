@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_page">
+
+    <!-- 整页只有一个滚动容器：应用栏的顶部留白 / 系统栏的底部留白都由它消化，
+         头部、空态、历史行都在这条流里，不会被应用栏盖住（与设置页同构）。 -->
+    <androidx.core.widget.NestedScrollView android:id="@+id/history_scroll"
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:clipToPadding="false" android:scrollbars="none">
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- 空态：房型占位（view_stream_empty 不改，只 include） -->
+            <include android:id="@+id/history_state" layout="@layout/view_stream_empty"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
+                android:layout_marginTop="4dp" />
+
+            <LinearLayout android:id="@+id/history_list"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:paddingTop="8dp" />
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

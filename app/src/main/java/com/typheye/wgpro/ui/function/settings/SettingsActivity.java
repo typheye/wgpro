@@ -255,7 +255,7 @@ public class SettingsActivity extends AppCompatActivity {
                     .setNegativeButton("取消", null)
                     .setPositiveButton("退出", (dialog, which) -> {
                 logoutRow.setEnabled(false);
-                accUtils.logoutCurrentSession(() -> mainHandler.post(() -> { if (!isAdded()) return; logoutRow.setEnabled(true); updateLogoutVisibility(); Toast.makeText(requireContext(), "已退出登录", Toast.LENGTH_SHORT).show(); }));
+                accUtils.logoutCurrentSession(() -> mainHandler.post(() -> { if (!isAdded()) return; logoutRow.setEnabled(true); updateLogoutVisibility(); com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已退出登录"); }));
             }).show();
         }
 
@@ -847,8 +847,7 @@ public class SettingsActivity extends AppCompatActivity {
             if (clipboard != null) {
                 clipboard.setPrimaryClip(android.content.ClipData.newPlainText(label, value));
             }
-            Toast.makeText(requireContext(), label + " " + value + " 已复制",
-                    Toast.LENGTH_SHORT).show();
+            com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), label + " " + value + " 已复制");
         }
 
         private void sendEmail() {

@@ -113,6 +113,6 @@ public final class DebugBottomSheetListFragment extends DebugListFragment {
     }
 
     private void toast(String message) {
-        if (isAdded()) Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show();
+        if (isAdded()) com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), message);
     }
 }

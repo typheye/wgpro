@@ -71,6 +71,8 @@ public class CloudListFragment extends Fragment {
     /** 应用目录（静态 JSON）：一次拉取后按包名匹配，替代逐条 app_detail；目录几乎不变，给 10 分钟 TTL。 */
     private static final String APP_CATALOG_URL = "https://res.typheye.cn/api.php?type=allap&page=1&size=50";
     private static final long APP_CATALOG_TTL_MS = 10 * 60_000L;
+    /** 应用搜索：res 的 allap 支持 q（名称/简介/包名），且已按相关性排序、含 vela 应用。 */
+    private static final String APP_SEARCH_URL = "https://res.typheye.cn/api.php?type=allap&q=";
 
     private final Handler main = new Handler(Looper.getMainLooper());
     private SwipeRefreshLayout refresh;
@@ -81,9 +83,13 @@ public class CloudListFragment extends Fragment {
     private boolean loadedOnce;
     private String mode;
     private String historyType = "dynamic";
-    /** 搜索页：当前标签的类型（dynamic/app/resource）与关键词。 */
+    /** 搜索页：当前标签的类型（dynamic/app/resource/user）与关键词。 */
     private String searchType = "dynamic";
     private String searchQuery = "";
+    /** 搜索结果分页（服务端每页 20）。 */
+    private int searchPage = 1;
+    private boolean searchHasMore;
+    private boolean searchLoading;
     private tAccUtils account;
     private MessageDatabase messageDb;
     private int requestGeneration;
@@ -137,12 +143,15 @@ public class CloudListFragment extends Fragment {
         return fragment;
     }
 
-    /** 关键词变化（用户在搜索页回车）：重新搜索。 */
+    /** 关键词变化（用户在搜索页提交）：重新搜索。 */
     void setSearchQuery(String query) {
         String value = query == null ? "" : query.trim();
         searchQuery = value;
         // 关键词变了必须重画（否则两次搜索都为空结果时，空态文案会停在旧的）
         lastRenderSignature = null;
+        searchPage = 1;
+        searchHasMore = false;
+        searchLoading = false;
         if (!isAdded() || getView() == null) return;
         load();
     }
@@ -191,6 +200,17 @@ public class CloudListFragment extends Fragment {
         contactRecycler.setAdapter(contactAdapter);
         contactRecycler.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override public void onScrolled(@NonNull RecyclerView view, int dx, int dy) {
+                if (MODE_SEARCH.equals(mode)) {
+                    if (!searchHasMore || searchLoading || contactAdapter == null) return;
+                    RecyclerView.LayoutManager manager = view.getLayoutManager();
+                    if (!(manager instanceof androidx.recyclerview.widget.LinearLayoutManager)) return;
+                    if (((androidx.recyclerview.widget.LinearLayoutManager) manager)
+                            .findLastVisibleItemPosition() >= contactAdapter.size() - 4) {
+                        loadSearchPage(searchPage + 1, true,
+                                android.os.SystemClock.uptimeMillis(), requestGeneration);
+                    }
+                    return;
+                }
                 if (!pagedMode || !pagedHasMore || pagedLoading || contactAdapter == null) return;
                 RecyclerView.LayoutManager manager = view.getLayoutManager();
                 if (!(manager instanceof androidx.recyclerview.widget.LinearLayoutManager)) return;
@@ -526,9 +546,7 @@ public class CloudListFragment extends Fragment {
                     return;
                 }
                 completeAfter(started, generation, () -> {
-                    state.setVisibility(View.GONE);
-                    android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
-                            android.widget.Toast.LENGTH_SHORT).show();
+                    showListFailure();
                 });
             }
         });
@@ -626,9 +644,7 @@ public class CloudListFragment extends Fragment {
             }
             @Override public void onError(int code, @NonNull String message) {
                 completeAfter(started, generation, () -> {
-                    state.setVisibility(View.GONE);
-                    android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
-                            android.widget.Toast.LENGTH_SHORT).show();
+                    showListFailure();
                 });
             }
         });
@@ -637,20 +653,24 @@ public class CloudListFragment extends Fragment {
     void reloadFromHistoryAction() { load(); }
 
     /**
-     * 搜索页：关键词为空时只显示引导态；动态/资源走服务端（dynamics2/q、resources2/q），
-     * 应用读公开应用目录后本地过滤（目录很小，一次拉取即可）。
+     * 搜索页：关键词为空时只显示引导态；动态/资源/用户走社区接口（服务端相关性排序 + 分页），
+     * 应用走 res 的 {@code allap&q=}（覆盖全部应用含 vela，服务端也有相关性排序）。
      */
     private void loadSearch(long started, int generation) {
+        loadSearchPage(1, false, started, generation);
+    }
+
+    private void loadSearchPage(int page, boolean append, long started, int generation) {
         if (searchQuery == null || searchQuery.isEmpty()) {
+            searchLoading = false;
             completeAfter(started, generation, () -> render(new JSONArray()));
             return;
         }
-        if ("app".equals(searchType)) {
-            loadSearchApps(started, generation);
-            return;
-        }
+        searchLoading = true;
+        if ("user".equals(searchType)) { loadSearchUsersPage(page, append, started, generation); return; }
+        if ("app".equals(searchType)) { loadSearchAppsPage(page, append, started, generation); return; }
         Map<String, String> query = new LinkedHashMap<>();
-        query.put("page", "1");
+        query.put("page", String.valueOf(page));
         query.put("size", "20");
         query.put("q", searchQuery);
         String action = "resource".equals(searchType) ? "resources2" : "dynamics2";
@@ -658,54 +678,115 @@ public class CloudListFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 JSONArray items = json.optJSONArray("items");
                 JSONArray result = items == null ? new JSONArray() : items;
-                completeAfter(started, generation, () -> render(result));
+                searchLoading = false;
+                searchPage = page;
+                searchHasMore = page < json.optInt("pages", page);
+                tagHighlight(result);
+                completeAfter(started, generation, () -> {
+                    if (append) appendItems(result); else render(result);
+                });
             }
             @Override public void onError(int code, @NonNull String message) {
-                completeAfter(started, generation, () -> {
-                    state.setVisibility(View.GONE);
-                    android.widget.Toast.makeText(requireContext(), "搜索失败，请稍后重试",
-                            android.widget.Toast.LENGTH_SHORT).show();
-                });
+                searchLoading = false;
+                completeAfter(started, generation, () -> showSearchFailure(append));
             }
         });
     }
 
-    private void loadSearchApps(long started, int generation) {
-        account.getPublicJsonUrlCached(APP_CATALOG_URL, APP_CATALOG_TTL_MS, new tAccUtils.JsonCallback() {
+    private void loadSearchUsersPage(int page, boolean append, long started, int generation) {
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("page", String.valueOf(page));
+        query.put("size", "20");
+        query.put("q", searchQuery);
+        account.getV2Json("search_users2", query, false, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray items = json.optJSONArray("items");
+                JSONArray result = items == null ? new JSONArray() : items;
+                searchLoading = false;
+                searchPage = page;
+                searchHasMore = page < json.optInt("pages", page);
+                tagHighlight(result);
+                completeAfter(started, generation, () -> {
+                    if (append) appendItems(result); else render(result);
+                });
+            }
+            @Override public void onError(int code, @NonNull String message) {
+                searchLoading = false;
+                completeAfter(started, generation, () -> showSearchFailure(append));
+            }
+        });
+    }
+
+    private void loadSearchAppsPage(int page, boolean append, long started, int generation) {
+        String url = APP_SEARCH_URL + android.net.Uri.encode(searchQuery)
+                + "&page=" + page + "&size=20";
+        account.getPublicJsonUrl(url, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 JSONArray list = json.optJSONArray("info");
                 if (list == null) list = json.optJSONArray("items");
                 if (list == null) list = json.optJSONArray("apps");
                 if (list == null) list = json.optJSONArray("data");
-                JSONArray filtered = filterByKeyword(list == null ? new JSONArray() : list, searchQuery);
-                completeAfter(started, generation, () -> render(filtered));
+                JSONArray result = list == null ? new JSONArray() : list;
+                searchLoading = false;
+                searchPage = page;
+                searchHasMore = page < json.optInt("totalPages", json.optInt("pages", page));
+                tagHighlight(result);
+                completeAfter(started, generation, () -> {
+                    if (append) appendItems(result); else render(result);
+                });
             }
             @Override public void onError(int code, @NonNull String message) {
-                completeAfter(started, generation, () -> {
-                    state.setVisibility(View.GONE);
-                    android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
-                            android.widget.Toast.LENGTH_SHORT).show();
-                });
+                searchLoading = false;
+                completeAfter(started, generation, () -> showSearchFailure(append));
             }
         });
     }
 
-    /** 应用目录本地过滤：匹配名称 / 包名 / 简介。 */
-    private JSONArray filterByKeyword(JSONArray source, String keyword) {
-        JSONArray result = new JSONArray();
-        String needle = keyword == null ? "" : keyword.trim().toLowerCase();
-        if (needle.isEmpty()) return result;
-        for (int i = 0; i < source.length(); i++) {
-            JSONObject item = source.optJSONObject(i);
+    /** 渲染前给每条打上当前关键词，卡片工厂据此做命中高亮。 */
+    private void tagHighlight(JSONArray items) {
+        if (searchQuery == null || searchQuery.isEmpty() || items == null) return;
+        for (int i = 0; i < items.length(); i++) {
+            JSONObject item = items.optJSONObject(i);
             if (item == null) continue;
-            String haystack = (item.optString("name", "") + " "
-                    + item.optString("title", "") + " "
-                    + item.optString("summary", "") + " "
-                    + item.optString("description", "") + " "
-                    + item.optString("package_name", item.optString("pkg", ""))).toLowerCase();
-            if (haystack.contains(needle)) result.put(item);
+            try { item.put("_highlight", searchQuery); } catch (Exception ignored) { }
         }
-        return result;
+    }
+
+    private void appendItems(JSONArray more) {
+        if (contactAdapter == null || more == null || more.length() == 0) return;
+        java.util.List<JSONObject> rows = new java.util.ArrayList<>(more.length());
+        for (int i = 0; i < more.length(); i++) {
+            JSONObject item = more.optJSONObject(i);
+            if (item != null) rows.add(item);
+        }
+        contactAdapter.addItems(rows);
+    }
+
+    /** 列表首屏加载失败：先给空态（view_stream_empty），再弹底部错误弹窗。 */
+    private void showListFailure() {
+        if (contactAdapter == null || contactAdapter.size() == 0) {
+            stateText.setText("加载失败");
+            stateDescription.setText("网络或服务暂时不可用，请稍后重试。");
+            state.setVisibility(View.VISIBLE);
+        }
+        if (isAdded()) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "加载失败",
+                    "网络或服务暂时不可用，请稍后重试。");
+        }
+    }
+
+    /** 搜索失败：首屏失败给「加载失败」空态 + 底部弹窗提示；翻页失败只弹提示，不丢已有结果。 */
+    private void showSearchFailure(boolean append) {
+        if (!append) {
+            render(new JSONArray());
+            stateText.setText("加载失败");
+            stateDescription.setText("网络或服务暂时不可用，请稍后重试。");
+            state.setVisibility(View.VISIBLE);
+        }
+        if (isAdded()) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "加载失败",
+                    "网络或服务暂时不可用，请稍后重试。");
+        }
     }
 
     private void loadInbox(long started, int generation, Map<String, String> page) {
@@ -889,9 +970,7 @@ public class CloudListFragment extends Fragment {
 
                     @Override public void onError(int code, @NonNull String message) {
                         completeAfter(started, generation, () -> {
-                            state.setVisibility(View.GONE);
-                            android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
-                                    android.widget.Toast.LENGTH_SHORT).show();
+                            showListFailure();
                         });
                     }
                 });
@@ -984,6 +1063,11 @@ public class CloudListFragment extends Fragment {
         return MODE_COLLECTION_APP.equals(mode)
                 || (MODE_HISTORY.equals(mode) && "app".equals(historyType))
                 || (MODE_SEARCH.equals(mode) && "app".equals(searchType));
+    }
+
+    /** 搜索页「用户」标签：复用关注/粉丝页的联系人行。 */
+    private boolean isSearchUserList() {
+        return MODE_SEARCH.equals(mode) && "user".equals(searchType);
     }
 
     private void hydrateDynamicTargets(JSONArray targets, long started, int generation) {
@@ -1285,7 +1369,7 @@ public class CloudListFragment extends Fragment {
             return catalog;
         }
         if (MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode)
-                || MODE_CONVERSATIONS.equals(mode) || isConversation(item)) {
+                || MODE_CONVERSATIONS.equals(mode) || isConversation(item) || isSearchUserList()) {
             return createContactRow(item);
         }
         if ("system_messages".equals(item.optString("_kind"))) return createSystemMessageRow(item);
@@ -1399,8 +1483,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private void toast(String message) {
-        if (isAdded()) android.widget.Toast.makeText(requireContext(), message,
-                android.widget.Toast.LENGTH_SHORT).show();
+        if (isAdded()) com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), message);
     }
 
     private void removeUnavailable(JSONObject item, View card) {
@@ -1494,32 +1577,83 @@ public class CloudListFragment extends Fragment {
             new WGProAlertDialogBuilder(requireContext()).setTitle(kind + "已失效")
                     .setItems(new String[]{"移除", "元数据"}, (d, which) -> {
                         if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除？").setMessage("移除后不会再显示在当前列表。")
-                                .setNegativeButton("取消", null).setPositiveButton("移除", (x,y) -> deleteHistory(item, anchor)).show();
+                                .setNegativeButton("取消", null).setPositiveButton("移除", (x,y) -> removeCatalogEntry(item, app, anchor)).show();
                         else new WGProAlertDialogBuilder(requireContext()).setTitle(kind + "元数据").setMessage("数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("target_uid", "--"))).setNegativeButton("关闭", null).show();
                     }).show();
             return;
         }
         java.util.ArrayList<String> actions = new java.util.ArrayList<>();
-        String owner = item.optString("uid", item.optString("author_uid", item.optString("publisher_uid", "")));
-        boolean mine = !owner.isEmpty() && owner.equals(account.getUid());
-        if (mine) actions.add("删除"); else actions.add("举报");
+        if (isCollectionMode()) {
+            // 星标页：最需要的是「取消星标」（原来只能举报/分享，正常条目也没法取消）
+            actions.add("取消星标");
+        } else {
+            String owner = item.optString("uid", item.optString("author_uid", item.optString("publisher_uid", "")));
+            boolean mine = !owner.isEmpty() && owner.equals(account.getUid());
+            actions.add(mine ? "删除" : "举报");
+        }
         actions.add("分享");
         if (MODE_HISTORY.equals(mode)) actions.add("删除记录");
         new WGProAlertDialogBuilder(requireContext()).setTitle(app ? "应用操作" : "资源操作")
                 .setItems(actions.toArray(new String[0]), (d, which) -> {
-                    if (which == 0) {
-                        if (mine) confirmCatalogDelete(item, app); else reportCatalog(item, app);
-                    } else if (which == 1) {
-                        if ("分享".equals(actions.get(1))) {
-                            Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
-                                    .putExtra(Intent.EXTRA_TEXT, (app ? "应用" : "资源") + "：" + item.optString(app ? "name" : "title", "未知"));
-                            startActivity(Intent.createChooser(share, "分享"));
-                        } else deleteHistory(item, anchor);
+                    String action = actions.get(which);
+                    if ("取消星标".equals(action)) {
+                        removeCatalogEntry(item, app, anchor);
+                    } else if ("删除".equals(action)) {
+                        confirmCatalogDelete(item, app);
+                    } else if ("举报".equals(action)) {
+                        reportCatalog(item, app);
+                    } else if ("分享".equals(action)) {
+                        Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
+                                .putExtra(Intent.EXTRA_TEXT, (app ? "应用" : "资源") + "：" + item.optString(app ? "name" : "title", "未知"));
+                        startActivity(Intent.createChooser(share, "分享"));
                     } else {
                         new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")
                                 .setNegativeButton("取消", null).setPositiveButton("删除", (x,y) -> deleteHistory(item, anchor)).show();
                     }
                 }).show();
+    }
+
+    /** 是否星标（收藏）类列表。 */
+    private boolean isCollectionMode() {
+        return MODE_COLLECTION_DYNAMIC.equals(mode) || MODE_COLLECTION_APP.equals(mode)
+                || MODE_COLLECTION_RESOURCE.equals(mode);
+    }
+
+    /**
+     * 目录条目的移除：浏览历史删历史记录，星标页取消星标。
+     * 之前一律走 history_delete2，星标记录不在浏览历史表里 → 删不掉还报「缺少标识」。
+     */
+    private void removeCatalogEntry(JSONObject item, boolean app, View anchor) {
+        if (MODE_HISTORY.equals(mode) || !isCollectionMode()) {
+            deleteHistory(item, anchor);
+            return;
+        }
+        String key = catalogKey(item, app);
+        if (key.isEmpty()) {
+            toast("该记录缺少标识，暂时无法移除");
+            return;
+        }
+        Map<String, String> fields = new LinkedHashMap<>();
+        fields.put("target_type", app ? "app" : "resource");
+        fields.put("target_key", key);
+        fields.put("action", "remove");
+        account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                main.post(() -> removeLocallyAndReload(item));
+            }
+            @Override public void onError(int code, @NonNull String message) {
+                main.post(() -> toast(message == null || message.trim().isEmpty()
+                        ? "移除失败，请稍后重试" : message));
+            }
+        });
+    }
+
+    /** 目录条目的内容标识：优先 target_key，退回资源 id / 应用包名。 */
+    private String catalogKey(JSONObject item, boolean app) {
+        String key = item.optString("target_key", "").trim();
+        if (!key.isEmpty()) return key;
+        if (app) return item.optString("package", item.optString("package_name", "")).trim();
+        return item.optString("id", "").trim();
     }
 
     private void confirmCatalogDelete(JSONObject item, boolean app) {
@@ -1529,7 +1663,6 @@ public class CloudListFragment extends Fragment {
                     fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id", item.optString("target_key", "")));
                     account.postV2Json(app ? "app_delete2" : "resource_delete2", fields, new tAccUtils.JsonCallback() {
                         public void onSuccess(JSONObject json) { main.post(() -> {
-                            toast("已删除");
                             removeLocallyAndReload(item);
                         }); }
                         public void onError(int code, String msg) { main.post(() -> toast("删除失败：" + msg)); }
@@ -1638,7 +1771,9 @@ public class CloudListFragment extends Fragment {
         LinearLayout labels = new LinearLayout(requireContext()); labels.setOrientation(LinearLayout.VERTICAL);
         LinearLayout.LayoutParams labelsParams = new LinearLayout.LayoutParams(0, -2, 1f);
         labelsParams.setMarginStart(dp(14));
-        labels.addView(label(contactName(item), 16, true, R.color.text_primary));
+        TextView nameView = label(contactName(item), 16, true, R.color.text_primary);
+        SearchHighlight.applyFromItem(requireContext(), nameView, contactName(item), item);
+        labels.addView(nameView);
         TextView bio = label(contactBio(item), 13, false, R.color.text_secondary);
         bio.setSingleLine(true); bio.setEllipsize(android.text.TextUtils.TruncateAt.END);
         LinearLayout.LayoutParams bioParams = new LinearLayout.LayoutParams(-1, -2); bioParams.topMargin = dp(3);
@@ -1748,7 +1883,10 @@ public class CloudListFragment extends Fragment {
             if (index < items.size()) notifyItemRangeChanged(index, items.size() - index);
         }
 
-        @Override public int getItemCount() { return items.size() + (pagedMode ? 1 : 0); }
+        @Override public int getItemCount() {
+            boolean footer = pagedMode || MODE_SEARCH.equals(mode);
+            return items.size() + (footer ? 1 : 0);
+        }
 
         @Override public int getItemViewType(int position) {
             if (position >= items.size()) return TYPE_FOOTER;
@@ -1783,9 +1921,25 @@ public class CloudListFragment extends Fragment {
             }
             if (getItemViewType(position) == TYPE_FOOTER) {
                 TextView footer = (TextView) holder.itemView;
-                boolean show = !items.isEmpty() && (pagedLoading || !pagedHasMore);
+                // 两列瀑布流里 footer 必须整行跨列，否则「没有更多了/正在加载…」会被塞进某一列
+                RecyclerView.LayoutManager manager =
+                        contactRecycler == null ? null : contactRecycler.getLayoutManager();
+                if (manager instanceof androidx.recyclerview.widget.StaggeredGridLayoutManager) {
+                    ViewGroup.LayoutParams current = footer.getLayoutParams();
+                    androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams stagger =
+                            current instanceof androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams
+                                    ? (androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams) current
+                                    : new androidx.recyclerview.widget.StaggeredGridLayoutManager.LayoutParams(-1, -2);
+                    if (!stagger.isFullSpan()) {
+                        stagger.setFullSpan(true);
+                        footer.setLayoutParams(stagger);
+                    }
+                }
+                boolean loading = pagedMode ? pagedLoading : searchLoading;
+                boolean hasMore = pagedMode ? pagedHasMore : searchHasMore;
+                boolean show = !items.isEmpty() && (loading || !hasMore);
                 footer.setVisibility(show ? View.VISIBLE : View.GONE);
-                footer.setText(pagedLoading ? "正在加载…" : "没有更多了");
+                footer.setText(loading ? "正在加载…" : "没有更多了");
                 return;
             }
             FrameLayout container = (FrameLayout) holder.itemView;
@@ -1927,7 +2081,6 @@ public class CloudListFragment extends Fragment {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 main.post(() -> {
                     if (!isAdded() || getView() == null) return;
-                    toast("已取消屏蔽");
                     removeBlockedUser(item);
                 });
             }
@@ -2067,7 +2220,13 @@ public class CloudListFragment extends Fragment {
     }
 
     private String emptyText() {
-        if (MODE_SEARCH.equals(mode)) return searchQuery.isEmpty() ? "输入关键词开始搜索" : "没有找到相关内容";
+        if (MODE_SEARCH.equals(mode)) {
+            if (searchQuery == null || searchQuery.isEmpty()) return "输入关键词开始搜索";
+            if ("user".equals(searchType)) return "没有找到相关用户";
+            if ("app".equals(searchType)) return "没有找到相关应用";
+            if ("resource".equals(searchType)) return "没有找到相关资源";
+            return "没有找到相关动态";
+        }
         if (MODE_HISTORY.equals(mode)) return "还没有浏览记录";
         if (MODE_COLLECTION_DYNAMIC.equals(mode)) return "这里还没有收藏";
         if (MODE_COLLECTION_APP.equals(mode)) return "还没有星标应用";
@@ -2084,8 +2243,8 @@ public class CloudListFragment extends Fragment {
     }
 
     private String emptyDescription() {
-        if (MODE_SEARCH.equals(mode)) return searchQuery.isEmpty()
-                ? "按关键词搜索动态、应用和资源。" : "换个关键词试试。";
+        if (MODE_SEARCH.equals(mode)) return (searchQuery == null || searchQuery.isEmpty())
+                ? "按关键词搜索动态、应用、资源和用户。" : "换个关键词试试。";
         if (MODE_HISTORY.equals(mode)) return "浏览过的内容会保存在这里。";
         if (MODE_COLLECTION_DYNAMIC.equals(mode)) return "收藏动态后，可在这里快速找到。";
         if (MODE_COLLECTION_APP.equals(mode)) return "星标应用后，可在这里快速找到。";

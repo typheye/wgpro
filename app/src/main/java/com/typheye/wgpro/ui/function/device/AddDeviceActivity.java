@@ -155,7 +155,6 @@ public class AddDeviceActivity extends AppCompatActivity {
             try (DeviceDatabase db = new DeviceDatabase(this)) {
                 db.upsert(discoveredNodeId, discoveredNodeName, "xiaomi", true);
             }
-            Toast.makeText(this, "设备已添加", Toast.LENGTH_SHORT).show();
             finish();
         });
     }

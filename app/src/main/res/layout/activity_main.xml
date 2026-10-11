@@ -87,7 +87,7 @@
                 android:maxLines="1"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="搜索动态、应用、资源"
+                android:text="搜索从这里开始"
                 android:textColor="@color/text_tertiary"
                 android:textSize="15sp"
                 android:visibility="gone" />

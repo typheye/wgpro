@@ -69,7 +69,10 @@ public final class WGProAlertDialogBuilder {
 
     public WGProBottomSheetDialog create() {
         boolean progressContent = containsProgressIndicator(customView);
-        if (progressContent && negativeText == null && cancelable) negativeText = "取消";
+        // 带自定义加载圈/进度的等待弹窗**必须**留一条「取消」出路：
+        // 这类弹窗普遍 setCancelable(false)（不想让人误触空白关掉），如果取消按钮也跟着没了，
+        // 一旦网络卡住就整个界面锁死关不掉。所以这里不再跟 cancelable 绑定。
+        if (progressContent && negativeText == null) negativeText = "取消";
         WGProBottomSheetDialog dialog = new WGProBottomSheetDialog(context);
         dialog.setCancelable(cancelable);
         dialog.setCanceledOnTouchOutside(cancelable);
