@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@color/surface_page">
+    <!-- 子标签（动态/应用/资源）挂在二级页应用栏里（section_page_tabs），与应用栏共用毛玻璃 -->
+    <androidx.viewpager2.widget.ViewPager2 android:id="@+id/search_pager"
+        android:layout_width="match_parent" android:layout_height="match_parent" />
+</FrameLayout>

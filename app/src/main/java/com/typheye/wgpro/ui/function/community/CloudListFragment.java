@@ -65,6 +65,8 @@ public class CloudListFragment extends Fragment {
     public static final String MODE_CONVERSATIONS = "conversations";
     /** 已屏蔽的用户（blocked_users2，分页）。 */
     public static final String MODE_BLOCKED = "blocked";
+    /** 搜索页标签页：动态/应用/资源，按关键词过滤（与浏览历史页同构）。 */
+    public static final String MODE_SEARCH = "search";
     private static final long MIN_LOADING_MS = 300L;
     /** 应用目录（静态 JSON）：一次拉取后按包名匹配，替代逐条 app_detail；目录几乎不变，给 10 分钟 TTL。 */
     private static final String APP_CATALOG_URL = "https://res.typheye.cn/api.php?type=allap&page=1&size=50";
@@ -79,6 +81,9 @@ public class CloudListFragment extends Fragment {
     private boolean loadedOnce;
     private String mode;
     private String historyType = "dynamic";
+    /** 搜索页：当前标签的类型（dynamic/app/resource）与关键词。 */
+    private String searchType = "dynamic";
+    private String searchQuery = "";
     private tAccUtils account;
     private MessageDatabase messageDb;
     private int requestGeneration;
@@ -123,6 +128,25 @@ public class CloudListFragment extends Fragment {
         return fragment;
     }
 
+    /** 搜索页标签页：type = dynamic / app / resource，query 为关键词（可为空）。 */
+    public static CloudListFragment newSearchPage(String type, String query) {
+        CloudListFragment fragment = newInstance(MODE_SEARCH);
+        Bundle args = fragment.requireArguments();
+        args.putString("search_type", type);
+        args.putString("search_query", query == null ? "" : query);
+        return fragment;
+    }
+
+    /** 关键词变化（用户在搜索页回车）：重新搜索。 */
+    void setSearchQuery(String query) {
+        String value = query == null ? "" : query.trim();
+        searchQuery = value;
+        // 关键词变了必须重画（否则两次搜索都为空结果时，空态文案会停在旧的）
+        lastRenderSignature = null;
+        if (!isAdded() || getView() == null) return;
+        load();
+    }
+
     @Nullable @Override public View onCreateView(@NonNull LayoutInflater inflater,
                                                   @Nullable ViewGroup container,
                                                   @Nullable Bundle stateBundle) {
@@ -131,6 +155,10 @@ public class CloudListFragment extends Fragment {
         lastRenderSignature = null;
         mode = getArguments() == null ? MODE_ACTIVITY : getArguments().getString("mode", MODE_ACTIVITY);
         if (getArguments() != null) historyType = getArguments().getString("history_type", "dynamic");
+        if (getArguments() != null) {
+            searchType = getArguments().getString("search_type", "dynamic");
+            searchQuery = getArguments().getString("search_query", "");
+        }
         pagedMode = MODE_FOLLOWING.equals(mode) || MODE_FOLLOWERS.equals(mode)
                 || MODE_BLOCKED.equals(mode);
         account = new tAccUtils(requireContext().getApplicationContext());
@@ -154,7 +182,8 @@ public class CloudListFragment extends Fragment {
         contactRecycler.setVisibility(View.VISIBLE);
         contactAdapter = new CloudAdapter();
         boolean masonry = isResourceTargetList() || MODE_MY_RESOURCES.equals(mode)
-                || MODE_USER_RESOURCES.equals(mode);
+                || MODE_USER_RESOURCES.equals(mode)
+                || (MODE_SEARCH.equals(mode) && "resource".equals(searchType));
         contactRecycler.setLayoutManager(masonry
                 ? new androidx.recyclerview.widget.StaggeredGridLayoutManager(
                         2, androidx.recyclerview.widget.StaggeredGridLayoutManager.VERTICAL)
@@ -558,6 +587,10 @@ public class CloudListFragment extends Fragment {
             loadInbox(started, generation, query);
             return;
         }
+        if (MODE_SEARCH.equals(mode)) {
+            loadSearch(started, generation);
+            return;
+        }
         switch (mode) {
             case MODE_HISTORY: action = "history2"; query.put("target_type", historyType); break;
             case MODE_COLLECTION_DYNAMIC: action = "collections2"; query.put("target_type", "dynamic"); break;
@@ -602,6 +635,78 @@ public class CloudListFragment extends Fragment {
     }
 
     void reloadFromHistoryAction() { load(); }
+
+    /**
+     * 搜索页：关键词为空时只显示引导态；动态/资源走服务端（dynamics2/q、resources2/q），
+     * 应用读公开应用目录后本地过滤（目录很小，一次拉取即可）。
+     */
+    private void loadSearch(long started, int generation) {
+        if (searchQuery == null || searchQuery.isEmpty()) {
+            completeAfter(started, generation, () -> render(new JSONArray()));
+            return;
+        }
+        if ("app".equals(searchType)) {
+            loadSearchApps(started, generation);
+            return;
+        }
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("page", "1");
+        query.put("size", "20");
+        query.put("q", searchQuery);
+        String action = "resource".equals(searchType) ? "resources2" : "dynamics2";
+        account.getV2Json(action, query, false, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray items = json.optJSONArray("items");
+                JSONArray result = items == null ? new JSONArray() : items;
+                completeAfter(started, generation, () -> render(result));
+            }
+            @Override public void onError(int code, @NonNull String message) {
+                completeAfter(started, generation, () -> {
+                    state.setVisibility(View.GONE);
+                    android.widget.Toast.makeText(requireContext(), "搜索失败，请稍后重试",
+                            android.widget.Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
+    private void loadSearchApps(long started, int generation) {
+        account.getPublicJsonUrlCached(APP_CATALOG_URL, APP_CATALOG_TTL_MS, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONArray list = json.optJSONArray("info");
+                if (list == null) list = json.optJSONArray("items");
+                if (list == null) list = json.optJSONArray("apps");
+                if (list == null) list = json.optJSONArray("data");
+                JSONArray filtered = filterByKeyword(list == null ? new JSONArray() : list, searchQuery);
+                completeAfter(started, generation, () -> render(filtered));
+            }
+            @Override public void onError(int code, @NonNull String message) {
+                completeAfter(started, generation, () -> {
+                    state.setVisibility(View.GONE);
+                    android.widget.Toast.makeText(requireContext(), "加载失败，请稍后重试",
+                            android.widget.Toast.LENGTH_SHORT).show();
+                });
+            }
+        });
+    }
+
+    /** 应用目录本地过滤：匹配名称 / 包名 / 简介。 */
+    private JSONArray filterByKeyword(JSONArray source, String keyword) {
+        JSONArray result = new JSONArray();
+        String needle = keyword == null ? "" : keyword.trim().toLowerCase();
+        if (needle.isEmpty()) return result;
+        for (int i = 0; i < source.length(); i++) {
+            JSONObject item = source.optJSONObject(i);
+            if (item == null) continue;
+            String haystack = (item.optString("name", "") + " "
+                    + item.optString("title", "") + " "
+                    + item.optString("summary", "") + " "
+                    + item.optString("description", "") + " "
+                    + item.optString("package_name", item.optString("pkg", ""))).toLowerCase();
+            if (haystack.contains(needle)) result.put(item);
+        }
+        return result;
+    }
 
     private void loadInbox(long started, int generation, Map<String, String> page) {
         JSONArray[] results = {null, null};
@@ -865,17 +970,20 @@ public class CloudListFragment extends Fragment {
 
     private boolean isDynamicTargetList() {
         return MODE_COLLECTION_DYNAMIC.equals(mode)
-                || (MODE_HISTORY.equals(mode) && "dynamic".equals(historyType));
+                || (MODE_HISTORY.equals(mode) && "dynamic".equals(historyType))
+                || (MODE_SEARCH.equals(mode) && "dynamic".equals(searchType));
     }
 
     private boolean isResourceTargetList() {
         return MODE_COLLECTION_RESOURCE.equals(mode)
-                || (MODE_HISTORY.equals(mode) && "resource".equals(historyType));
+                || (MODE_HISTORY.equals(mode) && "resource".equals(historyType))
+                || (MODE_SEARCH.equals(mode) && "resource".equals(searchType));
     }
 
     private boolean isAppTargetList() {
         return MODE_COLLECTION_APP.equals(mode)
-                || (MODE_HISTORY.equals(mode) && "app".equals(historyType));
+                || (MODE_HISTORY.equals(mode) && "app".equals(historyType))
+                || (MODE_SEARCH.equals(mode) && "app".equals(searchType));
     }
 
     private void hydrateDynamicTargets(JSONArray targets, long started, int generation) {
@@ -1959,6 +2067,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private String emptyText() {
+        if (MODE_SEARCH.equals(mode)) return searchQuery.isEmpty() ? "输入关键词开始搜索" : "没有找到相关内容";
         if (MODE_HISTORY.equals(mode)) return "还没有浏览记录";
         if (MODE_COLLECTION_DYNAMIC.equals(mode)) return "这里还没有收藏";
         if (MODE_COLLECTION_APP.equals(mode)) return "还没有星标应用";
@@ -1975,6 +2084,8 @@ public class CloudListFragment extends Fragment {
     }
 
     private String emptyDescription() {
+        if (MODE_SEARCH.equals(mode)) return searchQuery.isEmpty()
+                ? "按关键词搜索动态、应用和资源。" : "换个关键词试试。";
         if (MODE_HISTORY.equals(mode)) return "浏览过的内容会保存在这里。";
         if (MODE_COLLECTION_DYNAMIC.equals(mode)) return "收藏动态后，可在这里快速找到。";
         if (MODE_COLLECTION_APP.equals(mode)) return "星标应用后，可在这里快速找到。";

@@ -10,6 +10,8 @@
     <!-- 应用栏/导航栏毛玻璃底色（内容从下方透出） -->
     <color name="surface_bar">#B3FFFFFF</color>
     <color name="surface_secondary">#FFF0F2F5</color>
+    <!-- 搜索框描边（比 outline_soft 略深一点，让轮廓更清楚） -->
+    <color name="search_box_stroke">#FFC6CDD7</color>
     <color name="web_progress_track">#FFD7DAE2</color>
     <color name="surface_elevated">#FFFFFFFF</color>
     <color name="profile_detail_sheet">@color/surface_page</color>

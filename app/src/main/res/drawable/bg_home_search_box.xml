@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 应用栏搜索框（首页 + 搜索页共用）：底色和页面背景一致（浅色白 / 深色黑），外面一圈略深的描边 -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <solid android:color="@color/surface_page" />
+    <corners android:radius="20dp" />
+    <stroke android:width="1dp" android:color="@color/search_box_stroke" />
+</shape>

@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private static final long FOREGROUND_REFRESH_MIN_INTERVAL_MS = 5_000L;
 
     private Toolbar toolbar;
+    private View searchBox;
     private ViewPager2 mainPager;
     private BottomNavigationView bottomNavigation;
     private TabLayout pageTabs;
@@ -144,6 +145,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         toolbar = findViewById(R.id.toolbar);
+        searchBox = findViewById(R.id.main_search_box);
         pageTabs = findViewById(R.id.page_tabs);
         bottomNavigation = findViewById(R.id.bottom_navigation);
         mainPager = findViewById(R.id.fragment_container);
@@ -180,6 +182,10 @@ public class MainActivity extends AppCompatActivity {
         });
 
         setSupportActionBar(toolbar);
+        if (searchBox != null) {
+            // 首页应用栏的搜索控件：点击进入搜索页（复制浏览历史页结构：动态/应用/资源）
+            searchBox.setOnClickListener(v -> openSearch());
+        }
 
         mainPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull @Override public Fragment createFragment(int position) {
@@ -230,7 +236,7 @@ public class MainActivity extends AppCompatActivity {
                 int id = positionToNavId(position);
                 selectedPage = id;
                 bottomNavigation.setSelectedItemId(id);
-                toolbar.setTitle(new String[]{getString(R.string.app_name), "发现", "设备", "我的"}[position]);
+                applyTopBarForPage(position);
                 invalidateOptionsMenu();
                 mainPager.post(() -> bindPageTabs(position));
                 mainPager.post(MainActivity.this::applyContentBarInsets);
@@ -240,6 +246,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         mainPager.post(() -> bindPageTabs(mainPager.getCurrentItem()));
+        mainPager.post(() -> applyTopBarForPage(mainPager.getCurrentItem()));
 
         rootBackCallback = new OnBackPressedCallback(true) {
             @Override
@@ -525,6 +532,36 @@ public class MainActivity extends AppCompatActivity {
         return new int[]{R.id.nav_home, R.id.nav_dashboard, R.id.nav_device, R.id.nav_account}[position];
     }
 
+    /**
+     * 应用栏顶部：首页只显示搜索控件（隐藏「腕管Pro」标题），其它页恢复标题、隐藏搜索控件。
+     */
+    private void applyTopBarForPage(int position) {
+        boolean home = position == 0;
+        toolbar.setTitle(home ? ""
+                : new String[]{getString(R.string.app_name), "发现", "设备", "我的"}[position]);
+        if (searchBox != null) {
+            searchBox.setVisibility(home ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /** 「写一篇」：选择发布动态或资源。 */
+    private void openCompose() {
+        if (!requireLogin("发布内容")) return;
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
+                .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, (dialog, which) -> {
+                    if (which == 0) {
+                        com.typheye.wgpro.ui.function.community.CommunityWeb.openDynamic(this);
+                    } else {
+                        com.typheye.wgpro.ui.function.community.CommunityWeb.openResource(this);
+                    }
+                }).show();
+    }
+
+    private void openSearch() {
+        startActivity(new Intent(this,
+                com.typheye.wgpro.ui.function.community.SearchActivity.class));
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.toolbar_menu, menu);
@@ -720,15 +757,7 @@ public class MainActivity extends AppCompatActivity {
                     com.typheye.wgpro.ui.function.community.NotificationActivity.class));
             return true;
         } else if (id == R.id.action_compose) {
-            if (!requireLogin("发布内容")) return true;
-            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
-                    .setTitle("写一篇").setItems(new CharSequence[]{"分享动态", "发布资源"}, (dialog, which) -> {
-                        if (which == 0) {
-                            com.typheye.wgpro.ui.function.community.CommunityWeb.openDynamic(this);
-                        } else {
-                            com.typheye.wgpro.ui.function.community.CommunityWeb.openResource(this);
-                        }
-                    }).show();
+            openCompose();
             return true;
         } else if (id == R.id.action_device_add) {
             startActivity(new Intent(this, com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));

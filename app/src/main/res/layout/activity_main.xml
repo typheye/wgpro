@@ -68,7 +68,31 @@
             app:contentInsetStartWithNavigation="8dp"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:titleTextColor="@color/text_primary" />
+            app:titleTextColor="@color/text_primary">
+
+            <!-- 首页专用：占住标题位置的应用栏搜索控件（胶囊底色 + 内嵌放大镜 + 灰字）。
+                 放在 Toolbar 里当自定义子视图，测量时会用「右侧菜单左侧的剩余宽度」，
+                 所以不会被通知/写一篇图标盖住。首页右侧仍是原生菜单按钮（通知 + 写一篇），
+                 切到其它页时搜索框隐藏、恢复标题。边距全用 Toolbar 默认值。 -->
+            <TextView
+                android:id="@+id/main_search_box"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/bg_home_search_box"
+                android:drawableStart="@drawable/ic_search_vector"
+                android:drawablePadding="8dp"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="搜索动态、应用、资源"
+                android:textColor="@color/text_tertiary"
+                android:textSize="15sp"
+                android:visibility="gone" />
+
+        </androidx.appcompat.widget.Toolbar>
 
         <!-- 当前页面的下划线标签页（首页：动态/应用/资源；设备：穿戴/其他），随页面切换显隐 -->
         <com.google.android.material.tabs.TabLayout
