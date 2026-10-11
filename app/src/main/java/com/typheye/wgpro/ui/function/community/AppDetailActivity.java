@@ -93,6 +93,10 @@ public final class AppDetailActivity extends BaseSectionActivity {
             @Override public void onSuccess(JSONObject json) {
                 starred = json.optBoolean("collected", !starred);
                 getSharedPreferences("app_stars", MODE_PRIVATE).edit().putBoolean(key, starred).apply();
+                int updated = Math.max(0, appInfo.optInt("stars") + (starred ? 1 : -1));
+                try { appInfo.put("stars", updated); } catch (Exception ignored) { }
+                Fragment content = getSupportFragmentManager().findFragmentById(R.id.section_container);
+                if (content instanceof AppDetailFragment) ((AppDetailFragment) content).refreshStars(updated);
                 finishProgress(progress, started, true, starred ? "已加入星标" : "已移除星标", false);
             }
             @Override public void onError(int code, String message) { finishProgress(progress, started, false, message, false); }

@@ -24,25 +24,80 @@
             android:fillViewport="true">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:paddingStart="20dp" android:paddingEnd="20dp"
-                android:paddingTop="18dp" android:paddingBottom="8dp">
-                <TextView android:ellipsize="end" android:maxLines="2" android:id="@+id/resource_detail_title"
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:textColor="@color/text_primary" android:textSize="24sp" android:textStyle="bold" />
-                <TextView android:id="@+id/resource_detail_summary" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="8dp"
-                    android:lineSpacingMultiplier="1.15" android:textColor="@color/text_secondary" android:textSize="16sp" />
-                <TextView android:id="@+id/resource_detail_meta" android:layout_width="match_parent"
-                    android:layout_height="wrap_content" android:layout_marginTop="14dp"
-                    android:textColor="@color/text_secondary" android:textSize="13sp" />
+                android:paddingBottom="8dp">
+
+                <!-- 头部：名称 / 发布者 / 来源声明（都锁单行，超出省略） -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:paddingTop="18dp" android:paddingBottom="20dp">
+                    <TextView android:id="@+id/resource_detail_title" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="3"
+                        android:textColor="@color/text_primary"
+                        android:textSize="25sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/resource_detail_author" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="5dp"
+                        android:background="?attr/selectableItemBackground" android:ellipsize="end"
+                        android:maxLines="1" android:singleLine="true" android:textColor="?attr/colorPrimary"
+                        android:textSize="16sp" />
+                    <TextView android:id="@+id/resource_detail_statement" android:layout_width="match_parent"
+                        android:layout_height="wrap_content" android:layout_marginTop="4dp"
+                        android:ellipsize="end" android:maxLines="1" android:singleLine="true"
+                        android:textColor="@color/text_secondary" android:textSize="13sp" />
+                </LinearLayout>
+
+                <!-- 数据条：大小 / 下载 / 星标（与应用详情页同一套） -->
                 <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="18dp"
+                    android:layout_width="match_parent" android:layout_height="72dp"
+                    android:layout_marginTop="6dp"
                     app:cardBackgroundColor="@color/surface_secondary"
-                    app:cardCornerRadius="12dp" app:cardElevation="0dp" app:strokeWidth="0dp">
-                    <TextView android:id="@+id/resource_detail_description" android:layout_width="match_parent"
-                        android:layout_height="wrap_content" android:lineSpacingMultiplier="1.15"
-                        android:padding="16dp" android:textColor="@color/text_primary" android:textSize="16sp" />
+                    app:cardCornerRadius="14dp" app:cardElevation="0dp" app:strokeWidth="0dp"
+                    app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="false">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:gravity="center" android:orientation="horizontal">
+                        <LinearLayout android:id="@+id/resource_detail_cell_size" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_size" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="大小" android:textColor="@color/text_secondary"/></LinearLayout>
+                        <LinearLayout android:id="@+id/resource_detail_cell_downloads" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_downloads" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载" android:textColor="@color/text_secondary"/></LinearLayout>
+                        <LinearLayout android:id="@+id/resource_detail_cell_stars" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_stars" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="星标" android:textColor="@color/text_secondary"/></LinearLayout>
+                    </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
+
+                <!-- 封面（有才显示）：位置与应用详情页的截图区一致，点击看大图 -->
+                <FrameLayout android:id="@+id/resource_detail_cover_scroll"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp" android:visibility="gone">
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/resource_detail_cover"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:adjustViewBounds="true" android:scaleType="fitCenter" />
+                </FrameLayout>
+
+                <!-- 关于此资源 -->
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp" android:text="关于此资源" android:textColor="@color/text_primary"
+                    android:textSize="22sp" android:textStyle="bold" />
+                <TextView android:id="@+id/resource_detail_description" android:layout_width="match_parent"
+                    android:layout_height="wrap_content" android:layout_marginTop="12dp"
+                    android:lineSpacingMultiplier="1.15" android:textColor="@color/text_secondary"
+                    android:textSize="16sp" />
+
+                <!-- 附加信息（没有就不显示） -->
+                <LinearLayout android:id="@+id/resource_detail_extra_section"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:visibility="gone">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp" android:text="附加信息" android:textColor="@color/text_primary"
+                        android:textSize="22sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/resource_detail_extra"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp" android:lineSpacingMultiplier="1.15"
+                        android:textColor="@color/text_secondary" android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- 更多 -->
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp" android:text="更多" android:textColor="@color/text_primary"
+                    android:textSize="22sp" android:textStyle="bold" />
+                <LinearLayout android:id="@+id/resource_detail_info_list"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" android:orientation="vertical" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>

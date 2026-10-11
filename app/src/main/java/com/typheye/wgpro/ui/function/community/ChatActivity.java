@@ -633,6 +633,13 @@ public class ChatActivity extends BaseSectionActivity {
         }
         private View emptyState(String title, String description) {
             View state = getLayoutInflater().inflate(R.layout.view_stream_empty, messages, false);
+            // 顶部留白统一由父容器的 padding 提供（与左右一致），卡片自身不再叠加 marginTop
+            if (state.getLayoutParams() instanceof android.view.ViewGroup.MarginLayoutParams) {
+                android.view.ViewGroup.MarginLayoutParams params =
+                        (android.view.ViewGroup.MarginLayoutParams) state.getLayoutParams();
+                params.topMargin = 0;
+                state.setLayoutParams(params);
+            }
             ((TextView) state.findViewById(R.id.stream_empty_title)).setText(title);
             ((TextView) state.findViewById(R.id.stream_empty_description)).setText(description);
             state.setVisibility(View.VISIBLE);

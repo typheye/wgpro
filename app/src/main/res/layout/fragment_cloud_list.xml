@@ -33,13 +33,15 @@
             android:background="@color/surface_page"
             android:clipToPadding="false"
             android:paddingStart="16dp"
-            android:paddingTop="12dp"
+            android:paddingTop="16dp"
             android:paddingEnd="16dp"
             android:paddingBottom="28dp"
             android:visibility="gone" />
         <FrameLayout android:layout_width="match_parent" android:layout_height="wrap_content"
             android:layout_gravity="top" android:paddingStart="16dp" android:paddingEnd="16dp">
-            <include android:id="@+id/cloud_state" layout="@layout/view_stream_empty" />
+            <include android:id="@+id/cloud_state" layout="@layout/view_stream_empty"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:layout_marginTop="0dp" />
         </FrameLayout>
         </FrameLayout>
     </LinearLayout>

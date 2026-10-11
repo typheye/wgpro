@@ -219,6 +219,13 @@ public class DashboardFragment extends Fragment {
         if (discoverEmptyView == null) {
             ViewGroup parent = (ViewGroup) moreContainer.getParent();
             discoverEmptyView = getLayoutInflater().inflate(R.layout.view_stream_empty, parent, false);
+            // 顶部留白统一由父容器 padding 提供（与左右一致），卡片自身不再叠加 marginTop
+            if (discoverEmptyView.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+                ViewGroup.MarginLayoutParams params =
+                        (ViewGroup.MarginLayoutParams) discoverEmptyView.getLayoutParams();
+                params.topMargin = 0;
+                discoverEmptyView.setLayoutParams(params);
+            }
             parent.addView(discoverEmptyView);
         }
         discoverEmptyView.setVisibility(empty ? View.VISIBLE : View.GONE);

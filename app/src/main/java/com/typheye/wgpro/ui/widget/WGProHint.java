@@ -82,6 +82,12 @@ public final class WGProHint {
         showError(context, DEFAULT_ERROR_TITLE, message);
     }
 
+    /** 说明类提示：底部弹窗 + 整宽「关闭」（与 {@link #showError} 同形态，只是语义不同）。 */
+    public static void showInfo(@Nullable Context context, @Nullable CharSequence title,
+                                @Nullable CharSequence message) {
+        showError(context, title, message);
+    }
+
     public static void showError(@Nullable Context context, @Nullable CharSequence title,
                                  @Nullable CharSequence message) {
         showError(context, title, message, null);

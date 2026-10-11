@@ -222,13 +222,36 @@ public final class AppDetailFragment extends Fragment {
     private void bind(View root, JSONObject app, @Nullable Runnable loaded) {
         String name = app.optString("name", "未命名应用");
         ((TextView) root.findViewById(R.id.app_detail_initial)).setText(first(name));
-        ((TextView) root.findViewById(R.id.app_detail_name)).setText(name);
-        ((TextView) root.findViewById(R.id.app_detail_author)).setText(app.optString("author", "Typheye 应用平台"));
-        ((TextView) root.findViewById(R.id.app_detail_rating)).setText(app.optString("version_name", "--"));
-        ((TextView) root.findViewById(R.id.app_detail_rating_label)).setText("版本");
+        TextView nameView = root.findViewById(R.id.app_detail_name);
+        nameView.setText(name);
+        nameView.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                requireContext(), "应用名称", name));
+        String author = app.optString("author", "Typheye 应用平台");
+        if (author.trim().isEmpty()) author = "Typheye 应用平台";
+        TextView authorView = root.findViewById(R.id.app_detail_author);
+        authorView.setText(author);
+        final String authorName = author;
+        authorView.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                requireContext(), "开发者", "此应用由“" + authorName + "”开发并发行。"));
+        // 「包含应用内服务」这类标记由云端 config 控制（app-service-flag / app-service-note）
+        String serviceFlag = app.optString("service_flag", "").trim();
+        if (serviceFlag.isEmpty()) serviceFlag = "包含应用内服务";
+        TextView serviceView = root.findViewById(R.id.app_detail_service);
+        serviceView.setText(serviceFlag);
+        String serviceNote = app.optString("service_note", "").trim();
+        if (serviceNote.isEmpty()) {
+            serviceNote = "此应用" + serviceFlag + "，相关功能由应用自身提供，具体以应用内说明为准。";
+        }
+        final String serviceMessage = serviceNote;
+        serviceView.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                requireContext(), "服务说明", serviceMessage));
         ((TextView) root.findViewById(R.id.app_detail_size)).setText(blank(app.optString("size"), "--"));
         ((TextView) root.findViewById(R.id.app_detail_downloads)).setText(formatDownloads(app.optInt("downloads")));
-        ((TextView) root.findViewById(R.id.app_detail_age)).setText(blank(app.optString("age_rating"), "全年龄"));
+        ((TextView) root.findViewById(R.id.app_detail_stars)).setText(formatDownloads(app.optInt("stars")));
+        bindMetaClicks(root, app);
+        bindChangelog(root, app);
+        bindExtraInfo(root, app);
+        bindAppInfo(root, app);
         String description = cleanBr(app.optString("description", app.optString("summary", "暂无应用介绍。")));
         TextView descriptionView = root.findViewById(R.id.app_detail_description);
         descriptionView.setText(description);
@@ -421,5 +444,155 @@ public final class AppDetailFragment extends Fragment {
         if (value == null) return "";
         return value.replaceAll("(?i)<br\\s*/?>", "\n");
     }
+    /** 星标增删后立即刷新数据条上的星标数。 */
+    void refreshStars(int count) {
+        View view = getView();
+        if (view == null) return;
+        ((TextView) view.findViewById(R.id.app_detail_stars)).setText(formatDownloads(count));
+    }
+
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
+
+    /** 数据条四格（版本/大小/下载/评分）都可点：弹出底部说明弹窗。 */
+    private void bindMetaClicks(@NonNull View root, @NonNull JSONObject app) {
+        String version = app.optString("version_name", "").trim();
+        String versionCode = app.optString("version_code", "").trim();
+        String updated = app.optString("updated_at", "").trim();
+        StringBuilder versionText = new StringBuilder();
+        if (!version.isEmpty()) versionText.append("当前版本 ").append(version);
+        if (!versionCode.isEmpty()) {
+            if (versionText.length() > 0) versionText.append("（版本号 ").append(versionCode).append("）");
+            else versionText.append("版本号 ").append(versionCode);
+        }
+        if (!updated.isEmpty()) {
+            if (versionText.length() > 0) versionText.append("，");
+            versionText.append("更新于 ").append(updated);
+        }
+        if (versionText.length() > 0) versionText.append("。");
+        else versionText.append("暂未提供版本信息。");
+
+        String size = app.optString("size", "").trim();
+        String sizeText = size.isEmpty()
+                ? "暂未提供安装包大小。"
+                : "安装包大小约 " + size + "，实际占用空间会因系统与运行数据略有差异。";
+
+        int downloads = app.optInt("downloads");
+        String downloadText = "累计下载 " + formatDownloads(downloads)
+                + " 次，统计的是通过腕管Pro发起的下载次数。";
+
+        int stars = app.optInt("stars");
+        String starsText = "当前有 " + formatDownloads(stars) + " 位用户把此应用加入了星标"
+                + "。星标后可以在「我的 - 星标应用」里快速找到。";
+
+        tapMeta(root, R.id.app_detail_cell_size, "大小", sizeText);
+        tapMeta(root, R.id.app_detail_cell_downloads, "下载", downloadText);
+        tapMeta(root, R.id.app_detail_cell_stars, "星标", starsText);
+    }
+
+    private void tapMeta(@NonNull View root, int id, @NonNull String title, @NonNull String message) {
+        View view = root.findViewById(id);
+        if (view == null) return;
+        view.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                requireContext(), title, message));
+    }
+
+    /** 新特性 = 更新日志（changelog）；为空或是「-」这类占位时整块隐藏。 */
+    private void bindChangelog(@NonNull View root, @NonNull JSONObject app) {
+        View section = root.findViewById(R.id.app_detail_changelog_section);
+        if (section == null) return;
+        String changelog = cleanBr(app.optString("changelog", "")).trim();
+        if (isBlankChangelog(changelog)) {
+            section.setVisibility(View.GONE);
+            return;
+        }
+        section.setVisibility(View.VISIBLE);
+        TextView body = root.findViewById(R.id.app_detail_changelog);
+        body.setText(changelog);
+        com.typheye.wgpro.utils.AppUtils.longPressToCopy(body);
+    }
+
+    /** 服务端没写更新日志时会填「-」「--」「—」「无」之类的占位，这些一律当没有。 */
+    private static boolean isBlankChangelog(String value) {
+        String text = value == null ? "" : value.trim();
+        if (isPlaceholderOnly(text)) return true;
+        switch (text) {
+            case "无":
+            case "没有":
+            case "暂无":
+            case "暂无更新":
+            case "暂无更新日志":
+            case "null":
+            case "NULL":
+            case "N/A":
+            case "0":
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    /** 空、或只有连字符/波浪号这类占位符号。 */
+    private static boolean isPlaceholderOnly(String value) {
+        String text = value == null ? "" : value.trim();
+        return text.isEmpty() || text.replaceAll("[-—–－~～_\\s]", "").isEmpty();
+    }
+
+    /** 附加信息：与网站应用页一致（config 的 app-comment-show）；为空/纯占位符时整块隐藏。 */
+    private void bindExtraInfo(@NonNull View root, @NonNull JSONObject app) {
+        View section = root.findViewById(R.id.app_detail_extra_section);
+        if (section == null) return;
+        String extra = cleanBr(app.optString("extra_info", "")).trim();
+        if (isPlaceholderOnly(extra)) {
+            section.setVisibility(View.GONE);
+            return;
+        }
+        section.setVisibility(View.VISIBLE);
+        TextView body = root.findViewById(R.id.app_detail_extra);
+        body.setText(extra);
+        com.typheye.wgpro.utils.AppUtils.longPressToCopy(body);
+    }
+
+    /**
+     * 更多信息：只列界面上还没展示过的字段
+     * （开发者/版本/大小/下载量已经在头部与上面的数据条里，这里不再重复）。
+     */
+    private void bindAppInfo(@NonNull View root, @NonNull JSONObject app) {
+        LinearLayout list = root.findViewById(R.id.app_detail_info_list);
+        if (list == null) return;
+        list.removeAllViews();
+        boolean vela = "velaapp".equals(app.optString("kind", ""));
+        addInfoRow(list, "包名", app.optString("package", ""));
+        addInfoRow(list, "版本", app.optString("version_name", ""));
+        addInfoRow(list, "版本号", app.optString("version_code", ""));
+        addInfoRow(list, "更新日期", app.optString("updated_at", ""));
+        addInfoRow(list, "语言", app.optString("language", ""));
+        addInfoRow(list, "架构", app.optString("abi", ""));
+        addInfoRow(list, "分级", app.optString("age_rating", ""));
+        addInfoRow(list, "应用类型", vela ? "Xiaomi Vela 应用" : "Android 应用");
+    }
+
+    private void addInfoRow(@NonNull LinearLayout list, @NonNull String label, @Nullable String value) {
+        if (value == null || value.trim().isEmpty()) return;
+        android.content.Context context = list.getContext();
+        LinearLayout row = new LinearLayout(context);
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        row.setPadding(0, dp(7), 0, dp(7));
+
+        TextView labelView = new TextView(context);
+        labelView.setText(label);
+        labelView.setTextColor(context.getColor(R.color.text_secondary));
+        labelView.setTextSize(15f);
+        row.addView(labelView, new LinearLayout.LayoutParams(dp(84), -2));
+
+        TextView valueView = new TextView(context);
+        valueView.setText(value);
+        valueView.setTextColor(context.getColor(R.color.text_primary));
+        valueView.setTextSize(15f);
+        valueView.setSingleLine(true);
+        valueView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        row.addView(valueView, new LinearLayout.LayoutParams(0, -2, 1f));
+        com.typheye.wgpro.utils.AppUtils.longPressToCopy(valueView);
+        list.addView(row);
+    }
 }

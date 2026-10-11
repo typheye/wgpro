@@ -59,13 +59,15 @@ public final class ResourceMasonryFactory {
         card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
         LinearLayout body = column(context); boolean invalid = item.optBoolean("_invalid", false);
         String title = invalid ? "未知资源" : item.optString("title", "未命名资源");
-        FrameLayout coverBox = new FrameLayout(context);
+        // 封面严格 4:3（宽:高），用 ConstraintLayout 的 dimensionRatio 保证比例
+        androidx.constraintlayout.widget.ConstraintLayout coverBox =
+                new androidx.constraintlayout.widget.ConstraintLayout(context);
         TextView fallback = text(context, invalid ? "" : coverText(title), 19, true, R.color.brand_primary);
         fallback.setGravity(Gravity.CENTER); fallback.setBackground(coloredCover(context, title));
-        coverBox.addView(fallback, new FrameLayout.LayoutParams(-1, -1));
+        coverBox.addView(fallback, ratioParams(4f / 3f));
         ImageView cover = new ImageView(context); cover.setScaleType(ImageView.ScaleType.CENTER_CROP); cover.setVisibility(View.GONE);
-        coverBox.addView(cover, new FrameLayout.LayoutParams(-1, -1));
-        body.addView(coverBox, new LinearLayout.LayoutParams(-1, dp(context, 104 + Math.abs(title.hashCode() % 36))));
+        coverBox.addView(cover, ratioParams(4f / 3f));
+        body.addView(coverBox, new LinearLayout.LayoutParams(-1, -2));
         String coverUrl = item.optString("cover_url", item.optString("image_url", "")).trim();
         if (!invalid) loadCover(context, coverUrl, cover, fallback);
         // 不单独给封面设置点击：点卡片任意位置（含封面）都进入资源详情页
@@ -75,15 +77,43 @@ public final class ResourceMasonryFactory {
         SearchHighlight.applyFromItem(context, titleView, title, item);
         titleLine.addView(titleView, new LinearLayout.LayoutParams(0, -2, 1f));
         labels.addView(titleLine);
-        TextView description = text(context, invalid ? "资源已不可见" : item.optString("description", ""), 13, false, R.color.text_secondary);
-        description.setMaxLines(3); description.setEllipsize(android.text.TextUtils.TruncateAt.END); LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
-        String type = item.optString("category", item.optString("type_name", "资源"));
-        TextView meta = text(context, item.optInt("download_count", 0) + " 下载 • " + item.optInt("collection_count", 0) + " 星标", 12, false, R.color.text_secondary);
+        // 简介固定 2 行（高度一致，卡片才能对齐）
+        TextView description = text(context, invalid ? "资源已不可见" : item.optString("summary", item.optString("description", "")), 13, false, R.color.text_secondary);
+        description.setMaxLines(2); description.setLines(2); description.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        LinearLayout.LayoutParams descParams = new LinearLayout.LayoutParams(-1, -2); descParams.topMargin = dp(context, 4); labels.addView(description, descParams);
+        // 第三行与应用卡片一致：「x 下载 · 大小」
+        String size = humanSize(item.optLong("file_size", 0L));
+        String metaText = item.optInt("download_count", 0) + " 下载" + (size.isEmpty() ? "" : " · " + size);
+        TextView meta = text(context, metaText, 12, false, R.color.text_secondary);
+        meta.setMaxLines(1); meta.setSingleLine(true); meta.setEllipsize(android.text.TextUtils.TruncateAt.END);
         LinearLayout.LayoutParams mp = new LinearLayout.LayoutParams(-1, -2); mp.topMargin = dp(context, 5); labels.addView(meta, mp);
         body.addView(labels); card.addView(body); card.setOnClickListener(v -> listener.onClick(item));
         if (menuListener != null) card.setOnLongClickListener(v -> { menuListener.onMenu(item, v); return true; });
         LinearLayout.LayoutParams cp = new LinearLayout.LayoutParams(-1, -2); cp.bottomMargin = dp(context, 10); card.setLayoutParams(cp);
         return card;
+    }
+
+    /** 约束成「宽:高 = 4:3」的封面参数（横版 4:3）。 */
+    private static androidx.constraintlayout.widget.ConstraintLayout.LayoutParams ratioParams(float ratio) {
+        androidx.constraintlayout.widget.ConstraintLayout.LayoutParams p =
+                new androidx.constraintlayout.widget.ConstraintLayout.LayoutParams(0, 0);
+        p.dimensionRatio = "H,4:3";
+        p.topToTop = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        p.bottomToBottom = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        p.startToStart = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        p.endToEnd = androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.PARENT_ID;
+        return p;
+    }
+
+    /** 字节数 → 人类可读（702.6KB / 12.5MB）。 */
+    static String humanSize(long bytes) {
+        if (bytes <= 0L) return "";
+        if (bytes < 1024L) return bytes + "B";
+        double kb = bytes / 1024.0;
+        if (kb < 1024.0) return String.format(java.util.Locale.US, "%.1fKB", kb);
+        double mb = kb / 1024.0;
+        if (mb < 1024.0) return String.format(java.util.Locale.US, "%.1fMB", mb);
+        return String.format(java.util.Locale.US, "%.1fGB", mb / 1024.0);
     }
 
     private static GradientDrawable coloredCover(Context context, String seed) {

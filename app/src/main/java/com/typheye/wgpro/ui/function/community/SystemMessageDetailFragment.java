@@ -446,6 +446,13 @@ public class SystemMessageDetailFragment extends Fragment {
     private View emptyState() {
         View state = LayoutInflater.from(requireContext())
                 .inflate(R.layout.view_stream_empty, list, false);
+        // 顶部留白统一由父容器的 padding 提供（与左右一致），卡片自身不再叠加 marginTop
+        if (state.getLayoutParams() instanceof android.view.ViewGroup.MarginLayoutParams) {
+            android.view.ViewGroup.MarginLayoutParams params =
+                    (android.view.ViewGroup.MarginLayoutParams) state.getLayoutParams();
+            params.topMargin = 0;
+            state.setLayoutParams(params);
+        }
         state.setVisibility(View.VISIBLE);
         ((TextView) state.findViewById(R.id.stream_empty_title)).setText("暂无系统消息");
         ((TextView) state.findViewById(R.id.stream_empty_description))

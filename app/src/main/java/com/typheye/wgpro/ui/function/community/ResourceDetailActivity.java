@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -47,12 +49,11 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         if (fragment == null) return;
         boolean starred = fragment.isStarred();
         CharSequence[] actions = new CharSequence[]{
-                starred ? "移除星标" : "加入星标", "查看封面", "举报"};
+                starred ? "移除星标" : "加入星标", "举报"};
         new WGProAlertDialogBuilder(this).setTitle("资源操作").setItems(actions, (dialog, which) -> {
             if (dialog instanceof WGProBottomSheetDialog) ((WGProBottomSheetDialog) dialog).dismissForReplacement();
             sectionToolbar().postDelayed(() -> {
                 if (which == 0) fragment.toggleStar();
-                else if (which == 1) fragment.viewCover();
                 else fragment.reportResource();
             }, 40L);
         }).show();
@@ -138,21 +139,185 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private void bind(View root, JSONObject info) {
             if (info == null) return;
             resource = info;
+            String title = info.optString("title", "未命名资源");
             TextView titleView = root.findViewById(R.id.resource_detail_title);
-            TextView summaryView = root.findViewById(R.id.resource_detail_summary);
             TextView descriptionView = root.findViewById(R.id.resource_detail_description);
-            titleView.setText(info.optString("title", "未命名资源"));
-            summaryView.setText(info.optString("summary", "暂无摘要"));
+            titleView.setText(title);
+            titleView.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                    requireContext(), "资源名称", title));
             descriptionView.setText(info.optString("description", "暂无详细介绍")
                     .replaceAll("(?i)<br\\s*/?>", "\n"));
-            com.typheye.wgpro.utils.AppUtils.longPressToCopy(titleView);
-            com.typheye.wgpro.utils.AppUtils.longPressToCopy(summaryView);
             com.typheye.wgpro.utils.AppUtils.longPressToCopy(descriptionView);
+
+            // 发布者
             JSONObject author = info.optJSONObject("author");
-            String authorName = author == null ? "UID " + info.optString("uid", "--")
+            final String authorName = author == null ? "UID " + info.optString("uid", "--")
                     : author.optString("nick", "用户");
-            ((TextView) root.findViewById(R.id.resource_detail_meta)).setText(authorName + "  ·  "
-                    + info.optInt("download_count") + " 下载  ·  " + info.optInt("collection_count") + " 星标");
+            TextView authorView = root.findViewById(R.id.resource_detail_author);
+            authorView.setText(authorName);
+            authorView.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                    requireContext(), "发布者", "此资源由“" + authorName + "”发布。"));
+
+            // 来源声明（服务端给，客户端兜底）
+            String statement = info.optString("source_note", "").trim();
+            if (statement.isEmpty()) {
+                statement = info.optInt("uid", 0) == 10000 ? "资源来自互联网" : "资源由发布者创建";
+            }
+            TextView statementView = root.findViewById(R.id.resource_detail_statement);
+            statementView.setText(statement);
+            final String statementText = statement;
+            statementView.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                    requireContext(), "来源声明", statementDetail(statementText)));
+
+            // 封面：有就显示（位置参考应用详情页的截图区），点击看大图
+            String coverUrl = info.optString("cover_url", info.optString("icon_url", "")).trim();
+            View coverScroll = root.findViewById(R.id.resource_detail_cover_scroll);
+            com.google.android.material.imageview.ShapeableImageView coverView =
+                    root.findViewById(R.id.resource_detail_cover);
+            if (coverScroll != null && coverView != null) {
+                if (coverUrl.isEmpty()) {
+                    coverScroll.setVisibility(View.GONE);
+                } else {
+                    coverScroll.setVisibility(View.VISIBLE);
+                    coverView.setShapeAppearanceModel(coverView.getShapeAppearanceModel().toBuilder()
+                            .setAllCornerSizes(dp(16)).build());
+                    com.typheye.wgpro.utils.ImageCache.loadBitmap(requireContext(), coverUrl,
+                            bitmap -> {
+                                if (bitmap != null && isAdded()) coverView.setImageBitmap(bitmap);
+                            });
+                    coverView.setOnClickListener(v -> viewCover());
+                }
+            }
+
+            // 数据条：大小 / 下载 / 星标
+            String size = humanSize(info.optLong("file_size", 0L));
+            int downloads = info.optInt("download_count");
+            int stars = info.optInt("collection_count");
+            ((TextView) root.findViewById(R.id.resource_detail_size)).setText(size);
+            ((TextView) root.findViewById(R.id.resource_detail_downloads)).setText(formatCount(downloads));
+            ((TextView) root.findViewById(R.id.resource_detail_stars)).setText(formatCount(stars));
+            tapMeta(root, R.id.resource_detail_cell_size, "大小",
+                    "文件大小约 " + size + "，实际占用会因设备与解压方式略有差异。");
+            tapMeta(root, R.id.resource_detail_cell_downloads, "下载",
+                    "累计下载 " + formatCount(downloads) + " 次，统计的是通过腕管Pro发起的下载次数。");
+            tapMeta(root, R.id.resource_detail_cell_stars, "星标",
+                    "当前有 " + formatCount(stars) + " 位用户把此资源加入了星标。星标后可以在「我的 - 星标资源」里快速找到。");
+
+            bindExtraInfo(root, info);
+            bindMoreInfo(root, info);
+        }
+
+        /** 附加信息：读服务端 metadata（没有内容就整块隐藏）。 */
+        private void bindExtraInfo(View root, JSONObject info) {
+            View section = root.findViewById(R.id.resource_detail_extra_section);
+            if (section == null) return;
+            StringBuilder text = new StringBuilder();
+            JSONObject metadata = info.optJSONObject("metadata");
+            if (metadata != null) {
+                java.util.Iterator<String> keys = metadata.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    String value = metadata.optString(key, "").trim();
+                    if (value.isEmpty()) continue;
+                    if (text.length() > 0) text.append("\n");
+                    text.append(key).append("：").append(value);
+                }
+            }
+            if (text.length() == 0) {
+                section.setVisibility(View.GONE);
+                return;
+            }
+            section.setVisibility(View.VISIBLE);
+            TextView body = root.findViewById(R.id.resource_detail_extra);
+            body.setText(text.toString());
+            com.typheye.wgpro.utils.AppUtils.longPressToCopy(body);
+        }
+
+        /** 更多：界面上还没展示过的字段。 */
+        private void bindMoreInfo(View root, JSONObject info) {
+            LinearLayout list = root.findViewById(R.id.resource_detail_info_list);
+            if (list == null) return;
+            list.removeAllViews();
+            addInfoRow(list, "分类", categoryLabel(info.optString("category", "")));
+            addInfoRow(list, "文件名", info.optString("file_name", ""));
+            addInfoRow(list, "创建日期", info.optString("created_at", ""));
+            addInfoRow(list, "更新日期", info.optString("updated_at", ""));
+        }
+
+        private void addInfoRow(LinearLayout list, String label, String value) {
+            if (value == null || value.trim().isEmpty()) return;
+            android.content.Context context = list.getContext();
+            LinearLayout row = new LinearLayout(context);
+            row.setOrientation(LinearLayout.HORIZONTAL);
+            row.setGravity(android.view.Gravity.CENTER_VERTICAL);
+            row.setPadding(0, dp(7), 0, dp(7));
+            TextView labelView = new TextView(context);
+            labelView.setText(label);
+            labelView.setTextColor(context.getColor(R.color.text_secondary));
+            labelView.setTextSize(15f);
+            row.addView(labelView, new LinearLayout.LayoutParams(dp(84), -2));
+            TextView valueView = new TextView(context);
+            valueView.setText(value);
+            valueView.setTextColor(context.getColor(R.color.text_primary));
+            valueView.setTextSize(15f);
+            valueView.setSingleLine(true);
+            valueView.setEllipsize(android.text.TextUtils.TruncateAt.END);
+            row.addView(valueView, new LinearLayout.LayoutParams(0, -2, 1f));
+            com.typheye.wgpro.utils.AppUtils.longPressToCopy(valueView);
+            list.addView(row);
+        }
+
+        private void tapMeta(View root, int id, String title, String message) {
+            View view = root.findViewById(id);
+            if (view == null) return;
+            view.setOnClickListener(v -> com.typheye.wgpro.ui.widget.WGProHint.showInfo(
+                    requireContext(), title, message));
+        }
+
+        /** 字节数 → 人类可读（702.6 KB / 12.5 MB …）。 */
+        private static String humanSize(long bytes) {
+            if (bytes <= 0L) return "--";
+            if (bytes < 1024L) return bytes + " B";
+            double kb = bytes / 1024.0;
+            if (kb < 1024.0) return String.format(java.util.Locale.US, "%.1f KB", kb);
+            double mb = kb / 1024.0;
+            if (mb < 1024.0) return String.format(java.util.Locale.US, "%.1f MB", mb);
+            return String.format(java.util.Locale.US, "%.1f GB", mb / 1024.0);
+        }
+
+        private static String statementDetail(String statement) {
+            if (statement != null && statement.contains("互联网")) {
+                return "该资源由平台从互联网收集整理，版权归原作者所有；如有侵权请联系我们删除。";
+            }
+            return "该资源由发布者本人创建并发布，内容由发布者负责。";
+        }
+
+        private static String formatCount(int value) {
+            return value >= 10000 ? (value / 10000) + "万" : String.valueOf(value);
+        }
+
+        private static String categoryLabel(String category) {
+            String value = category == null ? "" : category.trim();
+            switch (value) {
+                case "app": return "应用";
+                case "video": return "视频";
+                case "music": return "音乐";
+                case "share": return "文件";
+                default: return value;
+            }
+        }
+
+        private int dp(int value) {
+            return Math.round(value * getResources().getDisplayMetrics().density);
+        }
+
+        /** 星标增删后立即刷新数据条上的星标数。 */
+        private void updateStarCount() {
+            View view = getView();
+            if (view == null) return;
+            int updated = Math.max(0, resource.optInt("collection_count") + (isStarred() ? 1 : -1));
+            try { resource.put("collection_count", updated); } catch (Exception ignored) { }
+            ((TextView) view.findViewById(R.id.resource_detail_stars)).setText(formatCount(updated));
         }
 
         boolean isStarred() {
@@ -191,6 +356,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             progress.dismissForReplacement();
                             try { resource.put("is_collected", j.optBoolean("collected", !before)); }
                             catch (Exception ignored) { }
+                            updateStarCount();
                             feedback("操作成功", resource.optBoolean("is_collected") ? "已加入星标" : "已移除星标");
                         }, delay(started));
                     });

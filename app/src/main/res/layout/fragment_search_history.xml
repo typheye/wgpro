@@ -15,8 +15,8 @@
             <!-- 空态：房型占位（view_stream_empty 不改，只 include） -->
             <include android:id="@+id/history_state" layout="@layout/view_stream_empty"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
-                android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
-                android:layout_marginTop="4dp" />
+                android:layout_marginStart="16dp" android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp" />
 
             <LinearLayout android:id="@+id/history_list"
                 android:layout_width="match_parent" android:layout_height="wrap_content"

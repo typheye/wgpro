@@ -118,7 +118,9 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void load(View root) {
-        int request = ++generation; pending = 2; empty.setVisibility(View.GONE);
+        int request = ++generation; pending = 2;
+        // 不要在这里抢先隐藏空态：评论为空时每次刷新都会「隐藏→再显示」= 闪烁
+        // （空态显隐统一交给 renderComments / 错误分支处理）
         if (!loadedOnce) ((BaseSectionActivity) requireActivity()).showContentLoading();
         if (dynamicId.isEmpty()) { finishPart(request); finishPart(request); return; }
         Map<String, String> detail = new LinkedHashMap<>(); detail.put("dynamic_id", dynamicId);
@@ -157,8 +159,8 @@ public final class DynamicDetailFragment extends Fragment {
         com.typheye.wgpro.utils.AppUtils.longPressToCopy(detailContent);
         ((TextView) root.findViewById(R.id.dynamic_detail_tail)).setText("发布于 "
                 + relativeTime(info.optString("created_at")));
-        ((TextView) root.findViewById(R.id.dynamic_comments_title)).setText("评论（"
-                + Math.max(0, info.optInt("comment_count")) + "）");
+        ((TextView) root.findViewById(R.id.dynamic_comments_title))
+                .setText("评论 " + Math.max(0, info.optInt("comment_count")));
         LinearLayout mediaGrid = root.findViewById(R.id.dynamic_detail_media_grid);
         renderMediaGrid(mediaGrid, DynamicCardFactory.mediaUrls(info));
         liked = info.optBoolean("is_liked"); favorited = info.optBoolean("is_favorited");
@@ -213,15 +215,30 @@ public final class DynamicDetailFragment extends Fragment {
 
     private void renderComments(@Nullable JSONArray items) {
         comments.removeAllViews();
+        int added = 0;
         if (items != null) for (int i = 0; i < items.length(); i++) {
-            JSONObject item = items.optJSONObject(i); if (item != null) comments.addView(comment(item));
+            JSONObject item = items.optJSONObject(i); if (item == null) continue;
+            if (added++ > 0) comments.addView(commentDivider());
+            comments.addView(comment(item));
         }
         empty.setVisibility(comments.getChildCount() == 0 ? View.VISIBLE : View.GONE);
     }
 
+    /** 评论之间的分割线：左侧让开头像宽度（36dp + 10dp），仿 B 站。 */
+    private View commentDivider() {
+        View line = new View(requireContext());
+        line.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, dp(1));
+        params.setMarginStart(dp(50));
+        params.bottomMargin = dp(2);
+        line.setLayoutParams(params);
+        return line;
+    }
+
     private View comment(JSONObject item) {
         LinearLayout row = new LinearLayout(requireContext()); row.setGravity(android.view.Gravity.TOP);
-        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2); rowParams.bottomMargin = dp(12);
+        LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2);
+        rowParams.bottomMargin = dp(10); rowParams.topMargin = dp(3);
         row.setLayoutParams(rowParams);
         FrameLayout avatarBox = new FrameLayout(requireContext());
         TextView initial = text(first(item.optString("nick", "用户")), 14, true, R.color.brand_on_soft);
@@ -231,29 +248,48 @@ public final class DynamicDetailFragment extends Fragment {
         avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel().toBuilder()
                 .setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
-        row.addView(avatarBox, new LinearLayout.LayoutParams(dp(36), dp(36)));
+        row.addView(avatarBox, new LinearLayout.LayoutParams(dp(40), dp(40)));
         BadgeFactory.bind(requireContext(), item, avatarBox,
                 requireContext().getColor(R.color.surface_page));
         DynamicCardFactory.bindAvatar(requireContext(), item.optString("uid"), item.optString("avatar_url"), avatar, initial);
 
+        // B 站式评论卡：左侧头像，右侧依次「昵称 / 评论正文 / 发布时间」（正文不再套灰底气泡）
         LinearLayout right = new LinearLayout(requireContext()); right.setOrientation(LinearLayout.VERTICAL);
-        LinearLayout author = new LinearLayout(requireContext());
-        author.setGravity(android.view.Gravity.CENTER_VERTICAL);
-        TextView authorName = text(item.optString("nick", "用户"), 14, true, R.color.text_primary);
-        author.addView(authorName, new LinearLayout.LayoutParams(0, -2, 1f));
-        TextView commentTime = text(DynamicCardFactory.relativeTime(item.optString("created_at")),
+        TextView authorName = text(item.optString("nick", "用户"), 13, true, R.color.text_secondary);
+        authorName.setPadding(0, dp(1), 0, 0);   // 清掉 text() 的 3dp 内边距，只留 1dp（顶部齐平 + 光学重心）
+        authorName.setSingleLine(true);
+        authorName.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        right.addView(authorName);
+        TextView commentBody = text(item.optString("content"), 15, false, R.color.text_primary);
+        commentBody.setLineSpacing(0f, 1.12f);
+        commentBody.setMaxLines(4);
+        commentBody.setEllipsize(android.text.TextUtils.TruncateAt.END);
+        LinearLayout.LayoutParams bodyParams = new LinearLayout.LayoutParams(-1, -2); bodyParams.topMargin = dp(5);
+        right.addView(commentBody, bodyParams);
+        // 底部一行：左「发布于 xxx」，右「展开 / 折叠」（12sp，和发布时间同号；短评论不显示）
+        LinearLayout footer = new LinearLayout(requireContext());
+        footer.setGravity(android.view.Gravity.CENTER_VERTICAL);
+        TextView commentTime = text("发布于 " + DynamicCardFactory.relativeTime(item.optString("created_at")),
                 12, false, R.color.text_secondary);
-        commentTime.setGravity(android.view.Gravity.END | android.view.Gravity.CENTER_VERTICAL);
-        author.addView(commentTime, new LinearLayout.LayoutParams(-2, -2));
-        right.addView(author);
-        MaterialCardView bubble = new MaterialCardView(requireContext()); bubble.setRadius(dp(12));
-        bubble.setCardElevation(0); bubble.setStrokeWidth(0);
-        bubble.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
-        LinearLayout content = new LinearLayout(requireContext()); content.setOrientation(LinearLayout.VERTICAL);
-        content.setPadding(dp(13), dp(10), dp(13), dp(9));
-        content.addView(text(item.optString("content"), 15, false, R.color.text_primary)); bubble.addView(content);
-        LinearLayout.LayoutParams bubbleParams = new LinearLayout.LayoutParams(-1, -2); bubbleParams.topMargin = dp(4);
-        right.addView(bubble, bubbleParams);
+        footer.addView(commentTime, new LinearLayout.LayoutParams(0, -2, 1f));
+        TextView toggle = text("展开", 12, false, R.color.brand_primary);
+        toggle.setVisibility(View.GONE);
+        footer.addView(toggle, new LinearLayout.LayoutParams(-2, -2));
+        LinearLayout.LayoutParams footerParams = new LinearLayout.LayoutParams(-1, -2); footerParams.topMargin = dp(5);
+        right.addView(footer, footerParams);
+        final boolean[] expanded = {false};
+        toggle.setOnClickListener(v -> {
+            expanded[0] = !expanded[0];
+            commentBody.setMaxLines(expanded[0] ? Integer.MAX_VALUE : 4);
+            commentBody.setEllipsize(expanded[0] ? null : android.text.TextUtils.TruncateAt.END);
+            toggle.setText(expanded[0] ? "折叠" : "展开");
+        });
+        commentBody.post(() -> {
+            android.text.Layout layout = commentBody.getLayout();
+            boolean clipped = layout != null && layout.getLineCount() > 0
+                    && layout.getEllipsisCount(layout.getLineCount() - 1) > 0;
+            toggle.setVisibility(clipped ? View.VISIBLE : View.GONE);
+        });
         LinearLayout.LayoutParams rightParams = new LinearLayout.LayoutParams(0, -2, 1f); rightParams.setMarginStart(dp(10));
         row.addView(right, rightParams);
         row.setLongClickable(true);
@@ -265,7 +301,7 @@ public final class DynamicDetailFragment extends Fragment {
         View.OnClickListener openUser = v -> { if (!uid.isEmpty()) startActivity(new android.content.Intent(
                 requireContext(), com.typheye.wgpro.ui.function.account.UserDetailActivity.class)
                 .putExtra(com.typheye.wgpro.ui.function.account.UserDetailActivity.EXTRA_TARGET_UID, uid)); };
-        avatarBox.setOnClickListener(openUser); author.setOnClickListener(openUser);
+        avatarBox.setOnClickListener(openUser); authorName.setOnClickListener(openUser);
         return row;
     }
 
@@ -426,8 +462,16 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void updateActions() {
-        likeButton.setText("赞"); favoriteButton.setText("收藏");
+        // 只显示数字（图标已经表明是赞/收藏，不再加文字）
+        likeButton.setText(count(likeCount));
+        favoriteButton.setText(count(favoriteCount));
         tint(likeButton, liked); tint(favoriteButton, favorited);
+    }
+
+    /** 数字太大时折算成「1.2万」，保证 88dp 的按钮放得下。 */
+    private static String count(int value) {
+        if (value < 10000) return String.valueOf(Math.max(0, value));
+        return (value / 10000) + "万";
     }
 
     private void tint(MaterialButton button, boolean active) {

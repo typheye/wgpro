@@ -48,31 +48,77 @@
                             android:textSize="25sp" android:textStyle="bold" />
                         <TextView android:id="@+id/app_detail_author" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="5dp" android:ellipsize="end" android:maxLines="1"
+                            android:background="?attr/selectableItemBackground"
                             android:textColor="?attr/colorPrimary" android:textSize="16sp" />
-                        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                            android:layout_marginTop="4dp" android:text="包含应用内服务"
+                        <TextView android:id="@+id/app_detail_service" android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp" android:background="?attr/selectableItemBackground"
+                            android:ellipsize="end" android:maxLines="1" android:singleLine="true"
+                            android:paddingTop="2dp" android:paddingBottom="2dp" android:text="包含应用内服务"
                             android:textColor="@color/text_secondary" android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
-                <LinearLayout android:layout_width="match_parent" android:layout_height="72dp"
-                    android:gravity="center" android:orientation="horizontal">
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_rating" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/app_detail_rating_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textColor="@color/text_secondary" android:text="版本"/></LinearLayout>
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_size" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="大小" android:textColor="@color/text_secondary"/></LinearLayout>
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_downloads" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载" android:textColor="@color/text_secondary"/></LinearLayout>
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_age" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="分级" android:textColor="@color/text_secondary"/></LinearLayout>
-                </LinearLayout>
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent" android:layout_height="72dp"
+                    android:layout_marginTop="6dp"
+                    app:cardBackgroundColor="@color/surface_secondary"
+                    app:cardCornerRadius="14dp" app:cardElevation="0dp" app:strokeWidth="0dp"
+                    app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="false">
+                    <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                        android:gravity="center" android:orientation="horizontal">
+                        <LinearLayout android:id="@+id/app_detail_cell_size" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_size" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="大小" android:textColor="@color/text_secondary"/></LinearLayout>
+                        <LinearLayout android:id="@+id/app_detail_cell_downloads" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_downloads" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载" android:textColor="@color/text_secondary"/></LinearLayout>
+                        <LinearLayout android:id="@+id/app_detail_cell_stars" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/app_detail_stars" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="星标" android:textColor="@color/text_secondary"/></LinearLayout>
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
                 <HorizontalScrollView android:id="@+id/app_detail_screenshot_scroll"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="22dp" android:clipToPadding="false" android:scrollbars="none">
                     <LinearLayout android:id="@+id/app_detail_screenshots" android:layout_width="wrap_content"
                         android:layout_height="wrap_content" android:orientation="horizontal" />
                 </HorizontalScrollView>
+
+                <!-- 新特性（应用更新日志）：放在截图下方；没有更新日志时整块隐藏 -->
+                <LinearLayout android:id="@+id/app_detail_changelog_section"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:visibility="gone">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp" android:text="新特性" android:textColor="@color/text_primary"
+                        android:textSize="22sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/app_detail_changelog"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp" android:lineSpacingMultiplier="1.15"
+                        android:textColor="@color/text_secondary" android:textSize="16sp" />
+                </LinearLayout>
+
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="28dp" android:text="关于此应用" android:textColor="@color/text_primary"
                     android:textSize="22sp" android:textStyle="bold" />
                 <TextView android:id="@+id/app_detail_description" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="12dp" android:lineSpacingMultiplier="1.15"
                     android:textColor="@color/text_secondary" android:textSize="16sp" />
+
+                <!-- 附加信息：与网站应用页一致（config 的 app-comment-show）；为空/纯占位符时整块隐藏 -->
+                <LinearLayout android:id="@+id/app_detail_extra_section"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical" android:visibility="gone">
+                    <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="28dp" android:text="附加信息" android:textColor="@color/text_primary"
+                        android:textSize="22sp" android:textStyle="bold" />
+                    <TextView android:id="@+id/app_detail_extra"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp" android:lineSpacingMultiplier="1.15"
+                        android:textColor="@color/text_secondary" android:textSize="16sp" />
+                </LinearLayout>
+
+                <!-- 更多：接口返回、界面上还没展示过的字段（行由代码按数据动态生成） -->
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="28dp" android:text="更多" android:textColor="@color/text_primary"
+                    android:textSize="22sp" android:textStyle="bold" />
+                <LinearLayout android:id="@+id/app_detail_info_list"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp" android:orientation="vertical" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
     </FrameLayout>
