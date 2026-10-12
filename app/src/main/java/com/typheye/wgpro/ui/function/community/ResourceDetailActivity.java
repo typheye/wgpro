@@ -519,7 +519,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用余额支付 / 使用兑换代码 / 找他人代付。 */
         private void showDownloadSheet(int price, String stockLabel, int availableTotal) {
             java.util.List<String> labels = new java.util.ArrayList<>();
-            labels.add("使用余额支付（" + price + " 积分）");
+            labels.add("使用余额支付");
             labels.add("使用兑换代码");
             labels.add("找他人代付");
             com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel,
