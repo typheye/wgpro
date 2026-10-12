@@ -105,7 +105,6 @@ public final class DynamicDetailFragment extends Fragment {
         });
         ((TextView) empty.findViewById(R.id.stream_empty_title)).setText("还没有评论");
         ((TextView) empty.findViewById(R.id.stream_empty_description)).setText("说点什么，开启讨论。");
-        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         refresh.setOnRefreshListener(() -> load(root));
         root.findViewById(R.id.dynamic_comment_action).setOnClickListener(v -> showCommentSheet(root));
         if (getArguments() != null && getArguments().getBoolean("open_comment", false)) {

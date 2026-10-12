@@ -66,7 +66,6 @@ public class SystemMessageDetailFragment extends Fragment {
         list = root.findViewById(R.id.system_message_list);
         scroll = root.findViewById(R.id.system_message_scroll);
         InboxNotificationHelper.cancelSystemNotifications(requireContext());
-        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         refresh.setOnRefreshListener(this::load);
         if (!loadedOnce && requireActivity() instanceof BaseSectionActivity) {
             ((BaseSectionActivity) requireActivity()).showContentLoading();

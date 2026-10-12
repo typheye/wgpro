@@ -190,7 +190,6 @@ public class ChatActivity extends BaseSectionActivity {
                             scroll.getPaddingRight(), barHeight);
                 }
             });
-            refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
             refresh.setOnRefreshListener(this::load);
             root.findViewById(R.id.chat_send).setOnClickListener(v -> send());
             load(); return root;

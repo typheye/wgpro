@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@color/surface_page">
     <!-- 快照源必须有和页面一致的不透明底色，否则毛玻璃层会透出下面的真实内容形成重影 -->
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/dynamic_refresh"
+    <com.typheye.wgpro.ui.widget.WGProRefreshLayout android:id="@+id/dynamic_refresh"
         android:layout_width="0dp" android:layout_height="0dp"
         android:background="@color/surface_page" app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,7 +41,7 @@
                     android:layout_marginTop="0dp" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    </com.typheye.wgpro.ui.widget.WGProRefreshLayout>
     <!-- 底栏毛玻璃快照层（与 MainActivity 底栏同款） -->
     <ImageView android:id="@+id/dynamic_bottom_blur"
         android:layout_width="0dp" android:layout_height="0dp"

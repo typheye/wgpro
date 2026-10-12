@@ -63,7 +63,6 @@ public final class DownloadListFragment extends Fragment {
         showDone = requireArguments().getBoolean(ARG_DONE, false);
         android.view.ViewGroup host = view.findViewById(R.id.download_list_host);
         refresh = view.findViewById(R.id.download_refresh);
-        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         refresh.setOnRefreshListener(() -> {
             // 下载数据是本地的，下拉只是重读本地记录 + 重渲染（手感同关注/粉丝页）。
             DownloadManager.get().reload();

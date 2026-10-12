@@ -21,6 +21,23 @@ public final class WGProColors {
 
     private WGProColors() { }
 
+    /**
+     * 下拉刷新（AndroidX {@code SwipeRefreshLayout}）统一配色。
+     * <p>它的圆盘底色默认<b>写死白色</b>（AndroidX 控件不读 Material 的
+     * {@code swipeRefreshLayoutProgressSpinnerBackgroundColor}），深色/莫奈下会顶着一个白圆，
+     * 所以这里显式设置：弧色 = 主题主色，圆盘 = 主题容器色。</p>
+     */
+    public static void applyRefresh(@NonNull android.view.View refresh,
+                                    @NonNull android.content.Context context) {
+        if (!(refresh instanceof androidx.swiperefreshlayout.widget.SwipeRefreshLayout)) return;
+        androidx.swiperefreshlayout.widget.SwipeRefreshLayout layout =
+                (androidx.swiperefreshlayout.widget.SwipeRefreshLayout) refresh;
+        layout.setColorSchemeColors(
+                WGProAlertDialogBuilder.resolveThemeColor(context, "colorPrimary", R.color.brand_primary));
+        layout.setProgressBackgroundColorSchemeColor(WGProAlertDialogBuilder.resolveThemeColor(
+                context, "colorSurfaceContainerHigh", R.color.surface_elevated));
+    }
+
     /** 取色：优先莫奈主题色，失败回退 {@code colorRes}。 */
     public static int of(@NonNull Context context, @ColorRes int colorRes) {
         String attr = attrFor(colorRes);

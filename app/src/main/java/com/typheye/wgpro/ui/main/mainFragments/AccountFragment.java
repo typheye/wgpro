@@ -88,7 +88,6 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         accountRefresh = view.findViewById(R.id.account_refresh);
         accountPageContent = view.findViewById(R.id.account_page_content);
-        accountRefresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         accountRefresh.setOnRefreshListener(() -> {
             if (getActivity() instanceof com.typheye.wgpro.ui.main.MainActivity) {
                 ((com.typheye.wgpro.ui.main.MainActivity) getActivity()).refreshAccountFromUser();

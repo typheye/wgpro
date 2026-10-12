@@ -11,7 +11,7 @@
         </com.typheye.wgpro.ui.widget.NestedScrollableHost>
         <FrameLayout android:id="@+id/device_page_pool" android:layout_width="match_parent"
             android:layout_height="match_parent" android:visibility="gone">
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/device_page_wearable"
+            <com.typheye.wgpro.ui.widget.WGProRefreshLayout android:id="@+id/device_page_wearable"
                 android:layout_width="match_parent" android:layout_height="match_parent"
                 android:clipToPadding="false">
               <androidx.core.widget.NestedScrollView android:id="@+id/device_wearable_scroll" android:layout_width="match_parent"
@@ -58,8 +58,8 @@
                         android:layout_height="wrap_content" android:layout_marginTop="0dp" />
                 </LinearLayout>
               </androidx.core.widget.NestedScrollView>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@+id/device_page_other"
+            </com.typheye.wgpro.ui.widget.WGProRefreshLayout>
+            <com.typheye.wgpro.ui.widget.WGProRefreshLayout android:id="@+id/device_page_other"
                 android:layout_width="match_parent" android:layout_height="match_parent"
                 android:clipToPadding="false">
               <androidx.core.widget.NestedScrollView android:id="@+id/device_other_scroll" android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                         android:layout_height="wrap_content" android:layout_marginTop="0dp" />
                 </LinearLayout>
               </androidx.core.widget.NestedScrollView>
-            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+            </com.typheye.wgpro.ui.widget.WGProRefreshLayout>
         </FrameLayout>
     </FrameLayout>
 </LinearLayout>

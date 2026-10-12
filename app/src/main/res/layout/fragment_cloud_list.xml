@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.swiperefreshlayout.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<com.typheye.wgpro.ui.widget.WGProRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cloud_refresh" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@color/surface_page">
@@ -45,4 +45,4 @@
         </FrameLayout>
         </FrameLayout>
     </LinearLayout>
-</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</com.typheye.wgpro.ui.widget.WGProRefreshLayout>

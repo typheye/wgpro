@@ -173,7 +173,6 @@ public class CloudListFragment extends Fragment {
         account = new tAccUtils(requireContext().getApplicationContext());
         messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.cloud_refresh);
-        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         list = root.findViewById(R.id.cloud_list);
         state = root.findViewById(R.id.cloud_state);
         stateText = state.findViewById(R.id.stream_empty_title);

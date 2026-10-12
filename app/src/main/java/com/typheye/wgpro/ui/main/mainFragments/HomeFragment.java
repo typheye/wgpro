@@ -192,10 +192,6 @@ public class HomeFragment extends Fragment {
         communityRefresh = root.findViewById(R.id.page_community);
         appsRefresh = root.findViewById(R.id.page_apps);
         resourcesRefresh = root.findViewById(R.id.page_resources);
-        int accent = com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary);
-        communityRefresh.setColorSchemeColors(accent);
-        appsRefresh.setColorSchemeColors(accent);
-        resourcesRefresh.setColorSchemeColors(accent);
         communityRefresh.setOnRefreshListener(() -> loadCommunity(true));
         appsRefresh.setOnRefreshListener(() -> loadApps(true));
         resourcesRefresh.setOnRefreshListener(() -> loadResources(true));
