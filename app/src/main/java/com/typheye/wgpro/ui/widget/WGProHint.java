@@ -44,12 +44,35 @@ public final class WGProHint {
         show(context, message, DEFAULT_DURATION_MS);
     }
 
+    /** 等活跃底部弹窗退场的轮询步长 / 最长等待（避免轻提示和别的弹窗叠在一起）。 */
+    private static final long SHEET_WAIT_STEP_MS = 80L;
+    private static final long SHEET_WAIT_MAX_MS = 600L;
+
     public static void show(@Nullable Context context, @Nullable CharSequence message, long durationMs) {
         if (message == null || message.length() == 0) return;
         Activity activity = activityOf(context);
         if (activity == null) return;
+        showAfterActiveSheet(activity, message, Math.max(600L, durationMs), 0L);
+    }
+
+    /**
+     * 轻提示也要守"同时只有一个底部弹窗"的规矩：当前有活跃弹窗就先等它退场
+     * （最多等 {@link #SHEET_WAIT_MAX_MS}，超时照常弹出，绝不吞提示）。
+     */
+    private static void showAfterActiveSheet(Activity activity, CharSequence message,
+                                             long durationMs, long waitedMs) {
+        WGProBottomSheetDialog active = WGProBottomSheetDialog.activeFor(activity);
+        if (active != null && waitedMs < SHEET_WAIT_MAX_MS) {
+            MAIN.postDelayed(() -> showAfterActiveSheet(activity, message, durationMs,
+                    waitedMs + SHEET_WAIT_STEP_MS), SHEET_WAIT_STEP_MS);
+            return;
+        }
+        showNow(activity, message, durationMs);
+    }
+
+    private static void showNow(Activity activity, CharSequence message, long durationMs) {
         final CharSequence text = message;
-        final long duration = Math.max(600L, durationMs);
+        final long duration = durationMs;
         MAIN.post(() -> {
             if (activity.isFinishing() || activity.isDestroyed()) return;
             BottomSheetDialog previous = CURRENT.get();
