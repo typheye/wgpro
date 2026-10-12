@@ -151,10 +151,13 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal">
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/app_detail_action"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="50dp"
+            android:layout_weight="1"
             android:clickable="true"
             android:focusable="true"
             app:cardBackgroundColor="?attr/colorSurfaceContainerHighest"
@@ -166,14 +169,43 @@
                 <View android:id="@+id/app_detail_action_fill"
                     android:layout_width="0dp" android:layout_height="match_parent"
                     android:background="@drawable/bg_download_fill" />
-                <TextView android:id="@+id/app_detail_action_text"
+                <LinearLayout
                     android:layout_width="match_parent" android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:text="获取"
-                    android:textColor="@color/text_primary"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
+                    android:gravity="center" android:orientation="horizontal">
+                    <!-- 付费条目：与文字等高的积分图标（tint 跟文字一致）+ 价格 -->
+                    <ImageView android:id="@+id/app_detail_action_icon"
+                        android:layout_width="18dp" android:layout_height="18dp"
+                        android:layout_marginEnd="5dp" android:contentDescription="@null"
+                        android:src="@drawable/ic_points_vector" android:visibility="gone" />
+                    <TextView android:id="@+id/app_detail_action_text"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="获取"
+                        android:textColor="@color/text_primary"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
             </FrameLayout>
         </com.google.android.material.card.MaterialCardView>
+        <!-- 下载完成后的「删除」：定长、淡红底（深浅自适应），与左按钮间距 = 原右边距 20dp -->
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/app_detail_action_delete"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="2dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone"
+            app:cardBackgroundColor="@color/media_coral"
+            app:cardCornerRadius="25dp"
+            app:cardElevation="0dp"
+            app:strokeWidth="0dp">
+            <TextView android:id="@+id/app_detail_action_delete_text"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:gravity="center" android:text="删除"
+                android:textColor="@color/status_danger" android:textSize="16sp"
+                android:textStyle="bold" />
+        </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

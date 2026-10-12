@@ -34,6 +34,11 @@ import okhttp3.Response;
 
 public final class AppDetailFragment extends Fragment {
     private com.google.android.material.card.MaterialCardView actionCard;
+    /** 最近一次报价（决定底部按钮显示「获取」还是「图标+价格」） */
+    private int quotedPrice = -1;
+    private boolean quotedOwned = false;
+    private android.widget.ImageView actionIcon;
+    private com.google.android.material.card.MaterialCardView actionDeleteCard;
     private View actionBar;
     private View actionFill;
     private TextView actionText;
@@ -111,12 +116,17 @@ public final class AppDetailFragment extends Fragment {
         final com.typheye.wgpro.core.download.DownloadManager manager =
                 com.typheye.wgpro.core.download.DownloadManager.get();
         if (task == null) {
-            actionText.setText("获取");
+            if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.GONE);
+            applySplitPillShape(false);
+            applyAcquireButton();
             actionCard.setEnabled(!downloadUrl.isEmpty());
             setActionFill(0);
             actionCard.setOnClickListener(v -> acquire());
+            // 报价还没拿到（或过期）时补一次，回来再刷新按钮
+            if (quotedPrice < 0) refreshQuoteForButton();
             return;
         }
+        if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.GONE);
         final com.typheye.wgpro.core.download.DownloadTask current = task;
         switch (task.status) {
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_RUNNING:
@@ -149,12 +159,112 @@ public final class AppDetailFragment extends Fragment {
                 break;
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED:
                 actionCard.setEnabled(true);
-                actionText.setText("操作");
+                if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.VISIBLE);
+                applySplitPillShape(true);
+                actionIcon.setVisibility(View.GONE);
+                actionText.setText("使用");
                 setActionFill(0);
                 actionCard.setOnClickListener(v -> showOperationSheet(appJson, downloadUrl, current));
+                actionDeleteCard.setOnClickListener(v -> confirmDeleteDownload());
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * 「使用 | 删除」并排时做成"分段胶囊"：左胶囊只留左圆角、右胶囊只留右圆角，中间只有一条缝；
+     * 其余状态恢复整颗胶囊圆角。
+     */
+    private void applySplitPillShape(boolean split) {
+        final float radius = 25f * getResources().getDisplayMetrics().density;
+        if (actionCard != null) {
+            com.google.android.material.shape.ShapeAppearanceModel model = split
+                    ? com.google.android.material.shape.ShapeAppearanceModel.builder()
+                        .setTopLeftCorner(com.google.android.material.shape.CornerFamily.ROUNDED, radius)
+                        .setBottomLeftCorner(com.google.android.material.shape.CornerFamily.ROUNDED, radius)
+                        .setTopRightCorner(com.google.android.material.shape.CornerFamily.ROUNDED, 0f)
+                        .setBottomRightCorner(com.google.android.material.shape.CornerFamily.ROUNDED, 0f)
+                        .build()
+                    : com.google.android.material.shape.ShapeAppearanceModel.builder()
+                        .setAllCorners(com.google.android.material.shape.CornerFamily.ROUNDED, radius)
+                        .build();
+            actionCard.setShapeAppearanceModel(model);
+        }
+        if (actionDeleteCard != null) {
+            actionDeleteCard.setShapeAppearanceModel(
+                    com.google.android.material.shape.ShapeAppearanceModel.builder()
+                            .setTopLeftCorner(com.google.android.material.shape.CornerFamily.ROUNDED, 0f)
+                            .setBottomLeftCorner(com.google.android.material.shape.CornerFamily.ROUNDED, 0f)
+                            .setTopRightCorner(com.google.android.material.shape.CornerFamily.ROUNDED, radius)
+                            .setBottomRightCorner(com.google.android.material.shape.CornerFamily.ROUNDED, radius)
+                            .build());
+        }
+    }
+
+    /** 付费且未拥有 → 「积分图标 + 纯数字价格」；其他情况显示「获取」。 */
+    private void applyAcquireButton() {
+        if (actionText == null) return;
+        boolean paid = quotedPrice > 0 && !quotedOwned;
+        if (paid) {
+            actionText.setText(String.valueOf(quotedPrice));
+            if (actionIcon != null) {
+                actionIcon.setVisibility(View.VISIBLE);
+                // 图标颜色与文字一致
+                actionIcon.setColorFilter(actionText.getCurrentTextColor());
+            }
+        } else {
+            actionText.setText("获取");
+            if (actionIcon != null) actionIcon.setVisibility(View.GONE);
+        }
+    }
+
+    /** 拉一次报价用于底部按钮（失败则用本地缓存兜底）。 */
+    private void refreshQuoteForButton() {
+        final android.content.Context context = requireContext();
+        com.typheye.wgpro.utils.tPointsUtils.quote(context, "app", appKey,
+                new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                    @Override
+                    public void onSuccess(@NonNull JSONObject info) {
+                        quotedPrice = info.optInt("price", 0);
+                        quotedOwned = info.optBoolean("owned", quotedPrice <= 0);
+                        com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "app", appKey,
+                                quotedPrice, quotedOwned);
+                        if (isAdded()) applyAcquireButton();
+                    }
+
+                    @Override
+                    public void onError(int status, @NonNull String message, @Nullable JSONObject info) {
+                        int cached = com.typheye.wgpro.utils.tPointsUtils.cachedPrice(context, "app", appKey);
+                        quotedPrice = Math.max(0, cached);
+                        quotedOwned = com.typheye.wgpro.utils.tPointsUtils.cachedOwned(context, "app", appKey);
+                        if (isAdded()) applyAcquireButton();
+                    }
+                });
+    }
+
+    /** 「删除」按钮：先二次确认，再清掉下载记录与本地文件。 */
+    private void confirmDeleteDownload() {
+        if (!isAdded()) return;
+        com.typheye.wgpro.ui.widget.GetSheet.showDeleteConfirm(requireContext(),
+                appJson.optString("name", "该应用"), this::deleteCurrentDownload);
+    }
+
+    /** 清掉下载记录与本地文件（原「操作」菜单里的清理该文件）。 */
+    private void deleteCurrentDownload() {
+        if (appKey == null || appKey.isEmpty()) return;
+        com.typheye.wgpro.core.download.DownloadManager.get().tasks().getValue();
+        for (com.typheye.wgpro.core.download.DownloadTask t
+                : com.typheye.wgpro.core.download.DownloadManager.get().tasks().getValue() == null
+                ? java.util.Collections.<com.typheye.wgpro.core.download.DownloadTask>emptyList()
+                : com.typheye.wgpro.core.download.DownloadManager.get().tasks().getValue()) {
+            if (t.id.equals(appKey)) {
+                com.typheye.wgpro.core.download.DownloadManager.get().control(
+                        requireContext(), t.id,
+                        com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
+                deleteLocalFile(t);
+                break;
+            }
         }
     }
 
@@ -264,6 +374,11 @@ public final class AppDetailFragment extends Fragment {
         });
         else if (loaded != null) root.postDelayed(loaded, 300L);
         actionCard = root.findViewById(R.id.app_detail_action);
+        actionIcon = root.findViewById(R.id.app_detail_action_icon);
+        actionDeleteCard = root.findViewById(R.id.app_detail_action_delete);
+        if (actionDeleteCard != null) {
+            actionDeleteCard.setOnClickListener(v -> confirmDeleteDownload());
+        }
         actionBar = root.findViewById(R.id.app_detail_action_bar);
         actionFill = root.findViewById(R.id.app_detail_action_fill);
         actionText = root.findViewById(R.id.app_detail_action_text);
@@ -312,11 +427,17 @@ public final class AppDetailFragment extends Fragment {
                         int price = info.optInt("price", 0);
                         boolean owned = info.optBoolean("owned", price <= 0);
                         com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "app", appKey, price, owned);
+                        quotedPrice = price;
+                        quotedOwned = owned;
                         if (price <= 0 || owned) {
+                            applyAcquireButton();
                             startDownload(appJson, downloadUrl, 1);
                         } else {
+                            applyAcquireButton();
                             showDownloadSheet(price, info.optString("stock_label", "有库存"),
-                                    info.optInt("total", 0));
+                                    info.optInt("total", 0), info.optString("stock_state", ""),
+                                    info.optString("sold_out_note", ""),
+                                    info.optBoolean("enough", true));
                         }
                     }
 
@@ -338,18 +459,31 @@ public final class AppDetailFragment extends Fragment {
     }
 
     /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用余额支付 / 使用兑换代码 / 找他人代付。 */
-    private void showDownloadSheet(int price, String stockLabel, int availableTotal) {
+    private void showDownloadSheet(int price, String stockLabel, int availableTotal,
+                                   String stockState, String soldOutNote, boolean enough) {
+        // 无库存：整张卡换成「售罄说明 + 加入/移除星标」
+        if ("out_of_stock".equals(stockState)) {
+            showSoldOutSheet(soldOutNote);
+            return;
+        }
         final java.util.List<String> labels = new java.util.ArrayList<>();
-        labels.add("使用余额支付");
+        final java.util.List<Integer> codes = new java.util.ArrayList<>();
+        if (enough) {   // 余额不足时不显示「使用余额支付」
+            labels.add("使用余额支付（" + price + " 积分）");
+            codes.add(0);
+        }
         labels.add("使用兑换代码");
+        codes.add(1);
         labels.add("找他人代付");
+        codes.add(2);
         com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel, availableTotal,
                 labels, (dialog, which) -> {
-                    if (which == 0) {
-                        confirmAndPay(price);
-                    } else if (which == 1) {
-                        com.typheye.wgpro.ui.widget.GetSheet.showRedeem(requireContext(),
-                                points -> acquire());
+                    int code = codes.get(which);
+                    if (code == 0) {
+                        confirmAndPay(price, "balance", "");
+                    } else if (code == 1) {
+                        com.typheye.wgpro.ui.widget.GetSheet.showRedeem(requireContext(), price,
+                                redeemCode -> confirmAndPay(price, "redeem", redeemCode));
                     } else {
                         com.typheye.wgpro.ui.widget.WGProHint.showInfo(requireContext(), "找他人代付",
                                 "把该应用的分享链接发给好友，由对方为你获取。");
@@ -357,12 +491,48 @@ public final class AppDetailFragment extends Fragment {
                 });
     }
 
+    /** 售罄：说明文字 + 加入/移除星标。 */
+    private void showSoldOutSheet(String soldOutNote) {
+        String note = soldOutNote == null || soldOutNote.isEmpty()
+                ? "该应用当前已售罄，补货后会第一时间上架。" : soldOutNote;
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("获取")
+                .setMessage(note)
+                .setItems(new CharSequence[]{"将该应用加入星标", "将该应用移出星标"},
+                        (dialog, which) -> setStarred(which == 0))
+                .setNegativeButton("关闭", null)
+                .show();
+    }
+
+    /** 星标开关（复用现有 collection_action2 接口）。 */
+    private void setStarred(boolean add) {
+        final android.content.Context context = requireContext();
+        java.util.Map<String, String> fields = new java.util.LinkedHashMap<>();
+        fields.put("target_type", "app");
+        fields.put("target_key", appKey);
+        fields.put("action", add ? "add" : "remove");
+        new com.typheye.wgpro.utils.tAccUtils(context).postV2Json("collection_action2", fields,
+                new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
+                    @Override
+                    public void onSuccess(@NonNull JSONObject json) {
+                        com.typheye.wgpro.ui.widget.WGProHint.show(context,
+                                add ? "已加入星标" : "已移出星标");
+                    }
+
+                    @Override
+                    public void onError(int statusCode, @NonNull String message) {
+                        com.typheye.wgpro.ui.widget.WGProHint.showError(context, "操作失败", message);
+                    }
+                });
+    }
+
     /** 二次确认 → 云端下发验证码 → 输入验证码完成交易 → 开始下载。 */
-    private void confirmAndPay(int price) {
+    private void confirmAndPay(int price, String payMethod, String redeemCode) {
         final android.content.Context context = requireContext();
         String name = appJson.optString("name", "该应用");
         com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, () ->
                 com.typheye.wgpro.utils.tPointsUtils.verifySend(context, "app", appKey,
+                        payMethod, redeemCode,
                         new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
                             @Override
                             public void onSuccess(@NonNull JSONObject info) {
@@ -443,14 +613,10 @@ public final class AppDetailFragment extends Fragment {
         labels.add("在浏览器打开"); codes.add(3);
         labels.add("保存到本机"); codes.add(2);
         labels.add("分享给好友"); codes.add(4);
-        labels.add("清理该文件"); codes.add(5);
-        com.typheye.wgpro.ui.widget.GetSheet.showActions(requireContext(), labels, (dialog, which) -> {
+        com.typheye.wgpro.ui.widget.GetSheet.showActions(requireContext(), "使用", labels,
+                (dialog, which) -> {
             int code = codes.get(which);
-            if (code == 5) {
-                com.typheye.wgpro.core.download.DownloadManager.get().control(
-                        requireContext(), task.id, com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
-                deleteLocalFile(task);
-            } else if (code == 4) {
+            if (code == 4) {
                 shareDownloadLink(app, downloadUrl);
             } else if (code == 3) {
                 openInBrowser(downloadUrl);

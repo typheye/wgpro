@@ -414,6 +414,8 @@ public class MainActivity extends AppCompatActivity {
     /** 兼容入口：其它页面仍在调用它触发账户刷新。 */
     public void refreshAccountFromUser() {
         if (grantFlowActive) return;
+        // 拉用户资料的同时把积分（余额/赠送）一起刷新
+        com.typheye.wgpro.ui.widget.Points.refresh(this, true, null);
         if (coreApi != null) {
             coreApi.requestAccountRefresh();
         } else {

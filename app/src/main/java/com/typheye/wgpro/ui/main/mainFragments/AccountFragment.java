@@ -432,8 +432,10 @@ public class AccountFragment extends Fragment {
     private void showPointsSheet() {
         android.content.Context context = requireContext();
 
+        // 先用本地缓存渲染（避免闪占位符），网络回来后就地刷新
+        com.typheye.wgpro.ui.widget.Points.warm(context);
+
         // 一整张绿卡：左右两列 + 中间分割线，留白/高度由 PointsCards 自己控制。
-        // 数值走 Points.display(...)：未加载显示 "-"，加载完成无数据/失败显示 0。
         PointsColumnViews balanceColumn = pointsStat(context, R.drawable.ic_points_vector,
                 com.typheye.wgpro.ui.widget.Points.display(
                         com.typheye.wgpro.ui.widget.Points.balance), "余额");
@@ -625,6 +627,8 @@ public class AccountFragment extends Fragment {
                             String role = info.optString("role_name", "").trim();
                             accountIdentityValue.setText(role);
                             accountIdentityValue.setVisibility(role.isEmpty() ? View.GONE : View.VISIBLE);
+                            // 同一网络时机把积分也拿回来
+                            com.typheye.wgpro.ui.widget.Points.refresh(requireContext(), false, null);
                         });
                     }
 
@@ -809,5 +813,9 @@ public class AccountFragment extends Fragment {
 
     private void updataUIShow() {
         updateUI();
+        // 进入「我的」标签页直接刷新一次积分（失败也有缓存兜底）
+        if (isAdded()) {
+            com.typheye.wgpro.ui.widget.Points.refresh(requireContext(), true, null);
+        }
     }
 }

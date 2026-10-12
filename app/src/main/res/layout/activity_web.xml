@@ -49,4 +49,33 @@
         android:background="@color/tab"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <!-- 网页正式开始渲染前的全屏遮罩：登录态同步/加载过程都在这里提示，别写进应用栏 -->
+    <FrameLayout
+        android:id="@+id/web_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/tab"
+        android:clickable="true"
+        android:focusable="true"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:orientation="vertical">
+            <com.typheye.wgpro.ui.widget.WGProLoadingView
+                android:layout_width="34dp"
+                android:layout_height="34dp" />
+            <TextView
+                android:id="@+id/web_loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:text="加载中…"
+                android:textColor="@color/text_secondary"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </FrameLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

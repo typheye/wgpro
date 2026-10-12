@@ -107,6 +107,21 @@ public final class GetSheet {
     }
 
     /**
+     * 删除的二次确认（下载完成后右胶囊按钮）。
+     * 删除 = 清掉下载记录 + 本地文件（已购买的不会因此重新扣费）。
+     */
+    public static void showDeleteConfirm(@NonNull Context context, @NonNull String targetName,
+                                         @NonNull ConfirmCallback callback) {
+        new WGProAlertDialogBuilder(context)
+                .setTitle("删除")
+                .setMessage("将删除「" + targetName + "」已下载的文件与下载记录。\n"
+                        + "已购买的条目不会因此重新扣费，之后可以再次获取。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("删除", (dialog, which) -> callback.onConfirmed())
+                .show();
+    }
+
+    /**
      * 交易的**二次确认**弹窗（第一步：确认要扣多少积分）。
      */
     public static void showConfirm(@NonNull Context context, @NonNull String targetName,
@@ -168,9 +183,54 @@ public final class GetSheet {
     /** 弹「操作」弹窗（已下载/已安装后的动作）。 */
     public static void showActions(@NonNull Context context, @NonNull List<String> labels,
                                    @NonNull DialogInterface.OnClickListener listener) {
+        showActions(context, "操作", labels, listener);
+    }
+
+    /** 同上，可指定标题（详情页下载完成后用「使用」）。 */
+    public static void showActions(@NonNull Context context, @NonNull String title,
+                                   @NonNull List<String> labels,
+                                   @NonNull DialogInterface.OnClickListener listener) {
         new WGProAlertDialogBuilder(context)
-                .setTitle("操作")
+                .setTitle(title)
                 .setItems(labels.toArray(new CharSequence[0]), listener)
+                .show();
+    }
+
+    /** 兑换代码回调：把用户填的兑换码交回调用方（用于"兑换码直接支付商品"）。 */
+    public interface RedeemCodeCallback {
+        void onCode(@NonNull String code);
+    }
+
+    /**
+     * 使用兑换代码支付商品：输入兑换码 → 二次确认 → 云端验证码 → 完成交易。
+     * 这里只负责收集兑换码（校验/扣费由服务端在交易时完成）。
+     */
+    public static void showRedeem(@NonNull Context context, int price,
+                                  @NonNull RedeemCodeCallback callback) {
+        View content = LayoutInflater.from(context).inflate(R.layout.dialog_edittext, null, false);
+        android.widget.EditText input = content.findViewById(R.id.editText);
+        input.setSingleLine(true);
+        input.setFilters(new android.text.InputFilter[]{
+                new android.text.InputFilter.LengthFilter(64)});
+        com.google.android.material.textfield.TextInputLayout inputLayout =
+                content.findViewById(R.id.textInputLayout);
+        if (inputLayout != null) {
+            inputLayout.setHint("兑换代码");   // hint 只设在 TextInputLayout 上
+        }
+        new WGProAlertDialogBuilder(context)
+                .setTitle("使用兑换代码")
+                .setMessage("兑换代码内的积分将用于支付本单（" + price + " 积分），"
+                        + "超出部分会存入账户余额；积分不足则无法使用该代码。")
+                .setView(content)
+                .setNegativeButton("取消", null)
+                .setPositiveButton("下一步", (dialog, which) -> {
+                    String code = input.getText() == null ? "" : input.getText().toString().trim();
+                    if (code.isEmpty()) {
+                        WGProHint.show(context, "请输入兑换代码");
+                        return;
+                    }
+                    callback.onCode(code);
+                })
                 .show();
     }
 
@@ -180,7 +240,7 @@ public final class GetSheet {
     }
 
     /**
-     * 兑换代码：输入兑换码 → 兑换 → 成功后回调（调用方可接着重试付款）。
+     * 兑换代码 → 直接充进余额（「积分」卡片里的兑换入口用）。
      * 失败（无效/已用/已过期/网络）统一用 {@link WGProHint} 提示，不关闭弹窗。
      */
     public static void showRedeem(@NonNull Context context, @Nullable RedeemCallback callback) {

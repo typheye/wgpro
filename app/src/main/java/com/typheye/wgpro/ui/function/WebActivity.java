@@ -22,6 +22,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -66,6 +67,9 @@ public class WebActivity extends AppCompatActivity {
     private String webLoginTargetUrl;
 
     private String FLAG;
+    /** 网页渲染前的全屏遮罩（登录态同步、首次加载都走它） */
+    private android.view.View loadingOverlay;
+    private TextView loadingText;
 
 
     @Override
@@ -80,6 +84,8 @@ public class WebActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         webView = findViewById(R.id.web_webview);
         loadProgress = findViewById(R.id.web_load_progress);
+        loadingOverlay = findViewById(R.id.web_loading_overlay);
+        loadingText = findViewById(R.id.web_loading_text);
 
         // 设置工具栏
         setSupportActionBar(toolbar);
@@ -183,6 +189,7 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                hideLoadingOverlay();   // 页面可以看了，收起遮罩
                 if (webLoginExchangePending) {
                     android.webkit.CookieManager.getInstance().flush();
                     String target = webLoginTargetUrl;
@@ -250,7 +257,13 @@ public class WebActivity extends AppCompatActivity {
                         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
                     }
                 } else {
-                    Objects.requireNonNull(getSupportActionBar()).setTitle("正在加载..." + newProgress + "%");
+                    // 应用栏只留一个简洁的加载标题，细节文案放到全屏遮罩里
+                    Objects.requireNonNull(getSupportActionBar()).setTitle("加载中 (" + newProgress + "%)");
+                    if (loadingText != null) loadingText.setText("加载中 (" + newProgress + "%)");
+                }
+                if (loadingOverlay != null) {
+                    loadingOverlay.setVisibility(newProgress >= 100 ? android.view.View.GONE
+                            : android.view.View.VISIBLE);
                 }
             }
 
@@ -378,6 +391,19 @@ public class WebActivity extends AppCompatActivity {
         webView.loadUrl(url, headers);
     }
 
+    /** 盖上全屏遮罩并显示一句过程文案（应用栏不放这些字）。 */
+    private void showLoadingOverlay(String message) {
+        if (loadingOverlay != null) loadingOverlay.setVisibility(android.view.View.VISIBLE);
+        if (loadingText != null && message != null && !message.isEmpty()) {
+            loadingText.setText(message);
+        }
+    }
+
+    /** 收起遮罩（页面可以渲染了）。 */
+    private void hideLoadingOverlay() {
+        if (loadingOverlay != null) loadingOverlay.setVisibility(android.view.View.GONE);
+    }
+
     private boolean isWebLoginPage(String url) {
         if (url == null) return false;
         String value = url.toLowerCase(java.util.Locale.ROOT);
@@ -385,7 +411,8 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void startV2WebLogin(tAccUtils accUtils, String targetUrl) {
-        if (getSupportActionBar() != null) getSupportActionBar().setTitle("正在同步登录...");
+        // 「同步登录状态」这类过程文案只在遮罩里出现，应用栏保持干净
+        showLoadingOverlay("正在同步登录状态…");
         final String redirectPath = "/site/user/center/";
         accUtils.createWebLoginTicket(redirectPath, new tAccUtils.WebLoginTicketCallback() {
             @Override

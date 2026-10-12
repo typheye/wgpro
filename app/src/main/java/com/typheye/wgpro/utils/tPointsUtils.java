@@ -116,13 +116,29 @@ public final class tPointsUtils {
         get(context, url, callback);
     }
 
-    /** 两步交易①：建交易 + 下发验证码。 */
+    /** 两步交易①：建交易 + 下发验证码（余额支付）。 */
     public static void verifySend(@NonNull Context context, @NonNull String targetType,
                                   @NonNull String targetKey, @NonNull JsonCallback callback) {
+        verifySend(context, targetType, targetKey, "balance", "", callback);
+    }
+
+    /**
+     * 两步交易①：建交易 + 下发验证码。
+     *
+     * @param payMethod  "balance"=余额支付；"redeem"=兑换代码支付
+     * @param redeemCode payMethod=redeem 时必填
+     */
+    public static void verifySend(@NonNull Context context, @NonNull String targetType,
+                                  @NonNull String targetKey, @NonNull String payMethod,
+                                  @Nullable String redeemCode, @NonNull JsonCallback callback) {
         HttpUrl.Builder url = baseBuilder("verify.send");
         if (url == null) { callback.onError(0, "未登录", null); return; }
         url.addQueryParameter("target_type", targetType);
         url.addQueryParameter("target_key", targetKey);
+        url.addQueryParameter("pay_method", payMethod);
+        if (redeemCode != null && !redeemCode.isEmpty()) {
+            url.addQueryParameter("redeem_code", redeemCode);
+        }
         get(context, url, callback);
     }
 

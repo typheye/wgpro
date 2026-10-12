@@ -1,6 +1,7 @@
 package com.typheye.wgpro.ui.widget;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -42,6 +43,12 @@ public final class Points {
     private static volatile long lastRefreshAt = 0L;
     private static final long REFRESH_INTERVAL_MS = 30_000L;
 
+    /** 本地缓存：进页面先用缓存渲染，网络回来再自动刷新（避免闪一下占位符）。 */
+    private static final String PREFS = "wgpro_points_cache";
+    private static final String KEY_BALANCE = "balance";
+    private static final String KEY_GIFT = "gift";
+    private static volatile boolean cacheLoaded = false;
+
     private Points() { }
 
     /**
@@ -50,6 +57,33 @@ public final class Points {
     public static String display(int value) {
         if (!loaded) return "-";
         return String.valueOf(Math.max(0, value));
+    }
+
+    /** 首次使用前把上次的余额读进内存（同步、极快）。 */
+    public static void warm(@NonNull Context context) {
+        if (cacheLoaded) return;
+        synchronized (Points.class) {
+            if (cacheLoaded) return;
+            SharedPreferences prefs = context.getApplicationContext()
+                    .getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+            int cachedBalance = prefs.getInt(KEY_BALANCE, LOADING);
+            int cachedGift = prefs.getInt(KEY_GIFT, LOADING);
+            if (cachedBalance >= 0 && cachedGift >= 0 && !loaded) {
+                balance = cachedBalance;
+                gift = cachedGift;
+                total = cachedBalance + cachedGift;
+                loaded = true;
+            }
+            cacheLoaded = true;
+        }
+    }
+
+    private static void persist(@NonNull Context context) {
+        context.getApplicationContext().getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                .edit()
+                .putInt(KEY_BALANCE, Math.max(0, balance))
+                .putInt(KEY_GIFT, Math.max(0, gift))
+                .apply();
     }
 
     /** 手上有没有可用的数字（未加载完成时界面显示 {@code -}）。 */
@@ -63,16 +97,22 @@ public final class Points {
         gift = Math.max(0, giftValue);
         total = balance + gift;
         loaded = true;
+        cacheLoaded = true;
         lastRefreshOk = true;
         lastRefreshAt = System.currentTimeMillis();
     }
 
-    /** 接口失败 / 无数据：按 0 显示（{@code -} 只留给"还没加载"）。 */
+    /**
+     * 接口失败：**保留已有/缓存数据**继续显示，只标记这次刷新失败；
+     * 只有在完全没有数据时才回落到 0。
+     */
     public static void applyFailure() {
-        balance = 0;
-        gift = 0;
-        total = 0;
-        loaded = true;
+        if (!hasData()) {
+            balance = 0;
+            gift = 0;
+            total = 0;
+            loaded = true;
+        }
         lastRefreshOk = false;
         lastRefreshAt = System.currentTimeMillis();
     }
@@ -91,6 +131,7 @@ public final class Points {
 
     /** @param force true = 忽略 30s 节流，强制拉一次 */
     public static void refresh(@NonNull Context context, boolean force, @Nullable Callback callback) {
+        warm(context);
         if (!force && loaded && System.currentTimeMillis() - lastRefreshAt < REFRESH_INTERVAL_MS) {
             if (callback != null) callback.onDone(lastRefreshOk);
             return;
@@ -99,6 +140,7 @@ public final class Points {
             @Override
             public void onSuccess(@NonNull JSONObject info) {
                 apply(info.optInt("balance", 0), info.optInt("gift", 0));
+                persist(context);
                 if (callback != null) callback.onDone(true);
             }
 
@@ -133,6 +175,7 @@ public final class Points {
     /** 退出登录时调用。 */
     public static void reset() {
         webToken = "";
+        cacheLoaded = false;
         balance = LOADING;
         gift = LOADING;
         total = LOADING;
