@@ -125,8 +125,8 @@ public class AddDeviceActivity extends AppCompatActivity {
         findViewById(R.id.add_device_progress).setVisibility(View.GONE);
         findViewById(R.id.button_rescan).setVisibility(View.VISIBLE);
         ((TextView) findViewById(R.id.add_device_scan_title)).setText("扫描完成");
-        TextView title = findViewById(R.id.add_device_title);
-        TextView initial = findViewById(R.id.add_device_initial);
+        TextView title = findViewById(R.id.device_option_title);
+        TextView initial = findViewById(R.id.device_option_avatar);
         View foundCard = findViewById(R.id.add_device_found_card);
         View empty = findViewById(R.id.add_device_empty);
         boolean exists;
@@ -146,8 +146,9 @@ public class AddDeviceActivity extends AppCompatActivity {
         CoreService.markDeviceCandidate(this, node.id, deviceName);
         initial.setText(deviceName.substring(0, 1).toUpperCase());
         title.setText(deviceName);
-        ((TextView) findViewById(R.id.add_device_subtitle))
-                .setText("小米运动健康  ·  可添加");
+        // 第二行：状态 | 设备来源（与「选择设备」卡片同一格式）
+        ((TextView) findViewById(R.id.device_option_subtitle))
+                .setText("可添加 | 小米运动健康");
         empty.setVisibility(View.GONE);
         foundCard.setVisibility(View.VISIBLE);
         foundCard.setOnClickListener(v -> {

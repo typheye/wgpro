@@ -24,11 +24,20 @@ public class tApplication extends Application {
         super.onCreate();
         instance = this;
         // Android 12+ 跟随系统壁纸取色（莫奈）；主题属性仍保留静态色作为低版本回退。
-        // 设置页可关闭「动态取色」，关闭后使用应用原生配色。
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
-                && PreferenceManager.getDefaultSharedPreferences(this)
-                        .getBoolean(PREF_DYNAMIC_COLOR, true)) {
-            com.google.android.material.color.DynamicColors.applyToActivitiesIfAvailable(this);
+        // 这里**不能**在注册时就读开关：DynamicColors 注册的是一次性的 ActivityLifecycleCallbacks，
+        // 一旦按当时的开关决定，之后改设置就必须重启进程才生效。
+        // 改为注册「前置条件」，每次创建 Activity 时重新判断，设置页改完 recreate 即刻生效。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            com.google.android.material.color.DynamicColors.applyToActivitiesIfAvailable(this,
+                    new com.google.android.material.color.DynamicColorsOptions.Builder()
+                            .setPrecondition(new com.google.android.material.color.DynamicColors.Precondition() {
+                                @Override
+                                public boolean shouldApplyDynamicColors(
+                                        android.app.Activity activity, int theme) {
+                                    return isDynamicColorEnabled(activity);
+                                }
+                            })
+                            .build());
         }
         boolean followSystem = PreferenceManager.getDefaultSharedPreferences(this)
                 .getBoolean("theme_follow_system", true);
@@ -37,6 +46,19 @@ public class tApplication extends Application {
         AppCompatDelegate.setDefaultNightMode(followSystem
                 ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 : darkMode ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+        registerActivityLifecycleCallbacks(new android.app.Application.ActivityLifecycleCallbacks() {
+            @Override public void onActivityCreated(android.app.Activity a, android.os.Bundle b) {
+                liveActivities.add(a);
+            }
+            @Override public void onActivityStarted(android.app.Activity a) { }
+            @Override public void onActivityResumed(android.app.Activity a) { }
+            @Override public void onActivityPaused(android.app.Activity a) { }
+            @Override public void onActivityStopped(android.app.Activity a) { }
+            @Override public void onActivitySaveInstanceState(android.app.Activity a, android.os.Bundle b) { }
+            @Override public void onActivityDestroyed(android.app.Activity a) {
+                liveActivities.remove(a);
+            }
+        });
         initCrashHandler();
         TestHandler.install(this);
         // 全应用 edge-to-edge / 系统栏统一适配（含底部导航小横条）
@@ -100,6 +122,28 @@ public class tApplication extends Application {
     }
     /** 「动态取色」（莫奈）开关的 SharedPreferences key，默认开启。 */
     public static final String PREF_DYNAMIC_COLOR = "theme_dynamic_color";
+
+    /** 还活着的 Activity（用于「动态取色」这类只在创建时生效的设置做全局即时重建）。 */
+    private final java.util.List<android.app.Activity> liveActivities =
+            java.util.Collections.synchronizedList(new java.util.ArrayList<android.app.Activity>());
+
+    /**
+     * 让所有还活着的界面按新设置重建一遍。
+     * <p>Java 里没有 Kotlin 那种"全局即时生效"的魔法：Material 的动态取色/主题属性能且只能在
+     * Activity 创建时应用，所以全局实时生效 = 把现有 Activity 全部 recreate 一次。</p>
+     */
+    public void recreateAllActivities() {
+        java.util.List<android.app.Activity> snapshot;
+        synchronized (liveActivities) {
+            snapshot = new java.util.ArrayList<>(liveActivities);
+        }
+        for (android.app.Activity activity : snapshot) {
+            if (activity == null || activity.isFinishing()) continue;
+            try {
+                activity.recreate();
+            } catch (Exception ignored) { }
+        }
+    }
 
     /** 系统是否支持动态取色（Android 12+）。 */
     public static boolean supportsDynamicColor() {

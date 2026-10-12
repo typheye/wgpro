@@ -133,6 +133,94 @@ public final class GetSheet {
         builder.setNegativeButton("关闭", null).show();
     }
 
+    /** 「选择设备」列表里的一台设备：名字 + 「状态 | 来源」。 */
+    public static final class DeviceOption {
+        public final String name;
+        public final String subtitle;
+
+        public DeviceOption(@NonNull String name, @NonNull String subtitle) {
+            this.name = name;
+            this.subtitle = subtitle;
+        }
+    }
+
+    /**
+     * 设备卡片：**直接复用「添加设备」页那张卡**（{@code item_device_option.xml}）——
+     * 圆形文字头像（首字，brand_soft 底 + brand_on_soft 字，深浅模式都清楚）+ 标题 + 副标题 + chevron。
+     */
+    @NonNull
+    public static View deviceCard(@NonNull Context context, @NonNull String name,
+                                 @NonNull String subtitle) {
+        View card = LayoutInflater.from(context)
+                .inflate(R.layout.item_device_option, new LinearLayout(context), false);
+        TextView avatar = card.findViewById(R.id.device_option_avatar);
+        TextView title = card.findViewById(R.id.device_option_title);
+        TextView sub = card.findViewById(R.id.device_option_subtitle);
+        String trimmed = name == null ? "" : name.trim();
+        if (avatar != null) {
+            avatar.setText(trimmed.isEmpty() ? "?" : trimmed.substring(0, 1).toUpperCase());
+        }
+        if (title != null) title.setText(name);
+        if (sub != null) sub.setText(subtitle);
+        return card;
+    }
+
+    /**
+     * 「选择设备」：底部弹窗，每台设备一张卡（与「添加设备」页同款）。
+     * <p>没有设备时显示统一空态占位（{@code view_stream_empty.xml}，弹窗内不再加顶边距）。</p>
+     *
+     * @param listener 选中回调，参数 which = 设备下标
+     */
+    public static void showDevicePicker(@NonNull Context context,
+                                        @NonNull List<DeviceOption> devices,
+                                        @NonNull DialogInterface.OnClickListener listener) {
+        if (devices.isEmpty()) {
+            // 空态：只 include 通用空态占位，不改它本身；底部弹窗已自适应留白，不再加顶边距
+            LinearLayout holder = new LinearLayout(context);
+            holder.setOrientation(LinearLayout.VERTICAL);
+            View empty = LayoutInflater.from(context)
+                    .inflate(R.layout.view_stream_empty, holder, false);
+            LinearLayout.LayoutParams emptyParams = new LinearLayout.LayoutParams(-1, -2);
+            emptyParams.topMargin = 0;
+            empty.setLayoutParams(emptyParams);
+            TextView title = empty.findViewById(R.id.stream_empty_title);
+            TextView description = empty.findViewById(R.id.stream_empty_description);
+            if (title != null) title.setText("还没有已配对的设备");
+            if (description != null) description.setText("配对设备后即可安装到手表。");
+            holder.addView(empty);
+            empty.setVisibility(View.VISIBLE);
+            new WGProAlertDialogBuilder(context)
+                    .setTitle("选择设备")
+                    .setView(holder)
+                    .setNegativeButton("关闭", null)
+                    .show();
+            return;
+        }
+        LinearLayout holder = new LinearLayout(context);
+        holder.setOrientation(LinearLayout.VERTICAL);
+        // 卡片是自己挂的点击事件（不是 builder 的 items），必须**自己先关掉弹窗**再回调，
+        // 否则弹窗不消失，后面的提示会和它叠成两个底部弹窗。
+        final WGProBottomSheetDialog[] dialogRef = new WGProBottomSheetDialog[1];
+        for (int i = 0; i < devices.size(); i++) {
+            DeviceOption option = devices.get(i);
+            View card = deviceCard(context, option.name, option.subtitle);
+            final int index = i;
+            card.setOnClickListener(v -> {
+                WGProBottomSheetDialog sheet = dialogRef[0];
+                if (sheet != null) sheet.dismissForReplacement();
+                listener.onClick(sheet, index);
+            });
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
+            if (i > 0) params.topMargin = dp(context, 10);
+            holder.addView(card, params);
+        }
+        dialogRef[0] = new WGProAlertDialogBuilder(context)
+                .setTitle("选择设备")
+                .setView(holder)
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
     /** 交易二次确认回调。 */
     public interface ConfirmCallback {
         void onConfirmed();

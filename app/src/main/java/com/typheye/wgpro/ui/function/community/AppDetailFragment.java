@@ -715,7 +715,7 @@ public final class AppDetailFragment extends Fragment {
         boolean isVela = "velaapp".equals(app.optString("kind", ""));
         final java.util.List<String> labels = new java.util.ArrayList<>();
         final java.util.List<Integer> codes = new java.util.ArrayList<>();
-        if (isVela && hasDevice) { labels.add("安装到" + deviceName); codes.add(0); }
+        if (isVela && hasDevice) { labels.add("安装到…"); codes.add(0); }
         if (!isVela) { labels.add("安装到手机"); codes.add(1); }
         labels.add("保存到本机"); codes.add(2);
         labels.add("分享应用链接"); codes.add(4);
@@ -730,10 +730,64 @@ public final class AppDetailFragment extends Fragment {
             } else if (code == 1) {
                 installDownloaded(task);
             } else {
-                // 安装到手表：走手表侧的下载/安装通道
-                startDownload(app, downloadUrl, code);
+                // 安装到… → 先选设备，再走手表侧下载/安装通道
+                showDevicePicker(app, downloadUrl, params, deviceName);
             }
         });
+    }
+
+    /**
+     * 「安装到…」：从**设备数据库**取真实设备（已删除的设备不会出现），
+     * 每行显示「可更新 / 可安装 / 未兼容 / 未连接 | 来源」，选中后才开始安装。
+     */
+    private void showDevicePicker(JSONObject app, String downloadUrl,
+                                  com.typheye.wgpro.core.xms.UIParams params, String fallbackName) {
+        final java.util.List<com.typheye.wgpro.ui.widget.GetSheet.DeviceOption> options =
+                new java.util.ArrayList<>();
+        final java.util.List<Boolean> installable = new java.util.ArrayList<>();
+        boolean velaApp = "velaapp".equals(app.optString("kind", ""));
+        try (com.typheye.wgpro.data.DeviceDatabase db =
+                     new com.typheye.wgpro.data.DeviceDatabase(requireContext());
+             android.database.Cursor cursor = db.all("xiaomi")) {
+            while (cursor.moveToNext()) {
+                String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+                String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
+                String deviceName = note == null || note.trim().isEmpty()
+                        ? (model == null ? fallbackName : model) : note.trim();
+                boolean connected = cursor.getInt(cursor.getColumnIndexOrThrow("connected")) != 0;
+                String platform = cursor.getColumnIndex("type") >= 0
+                        ? cursor.getString(cursor.getColumnIndexOrThrow("type")) : "xiaomi";
+                boolean velaDevice = platform == null || platform.isEmpty()
+                        || "xiaomi".equalsIgnoreCase(platform);
+                String state;
+                if (velaApp != velaDevice) {
+                    state = "未兼容";
+                } else if (!connected) {
+                    state = "未连接";
+                } else if (!app.optString("installed_version", "").isEmpty()
+                        && !app.optString("installed_version").equals(app.optString("version"))) {
+                    state = "可更新";
+                } else {
+                    state = "可安装";
+                }
+                options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
+                        deviceName, state + " | 小米运动健康"));
+                installable.add(connected && velaApp == velaDevice);
+            }
+        } catch (Exception ignored) { }
+
+        com.typheye.wgpro.ui.widget.GetSheet.showDevicePicker(requireContext(), options,
+                (dialog, which) -> {
+                    if (which < 0 || which >= options.size()) return;
+                    if (!installable.get(which)) {
+                        com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                                "无法安装", "该设备当前不可安装（未连接或与应用类型不兼容）");
+                        return;
+                    }
+                    startDownload(app, downloadUrl, 0);
+                    com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
+                            "已开始安装到 " + options.get(which).name);
+                });
     }
 
     /** 安装已下载的 APK（不再重新下载）。 */
@@ -861,7 +915,10 @@ public final class AppDetailFragment extends Fragment {
         if (targetUri != null) task.targetUri = targetUri.toString();
         com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
         downloadStarted = true;
-        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已加入下载");
+        String tip = destination == com.typheye.wgpro.core.download.DownloadTask.DEST_DEVICE
+                ? "已开始安装到设备" : destination == com.typheye.wgpro.core.download.DownloadTask.DEST_LOCAL
+                ? "已加入下载（保存到本机）" : "已加入下载";
+        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), tip);
     }
 
     @Override

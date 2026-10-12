@@ -215,8 +215,8 @@ public class SettingsActivity extends AppCompatActivity {
             }
             dynamicColor.setOnCheckedChangeListener((button, checked) -> {
                 preferences.edit().putBoolean(tApplication.PREF_DYNAMIC_COLOR, checked).apply();
-                // 主题取色只在 Activity 创建时生效，改完重建让当前页立即生效
-                if (isAdded() && getActivity() != null) getActivity().recreate();
+                // 动态取色只在 Activity 创建时应用：把当前所有界面重建一次即全局实时生效
+                tApplication.getInstance().recreateAllActivities();
             });
             dynamicColorRow.setOnClickListener(v -> {
                 if (dynamicColorSupported) dynamicColor.toggle();
