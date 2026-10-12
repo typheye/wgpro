@@ -24,7 +24,10 @@ public class tApplication extends Application {
         super.onCreate();
         instance = this;
         // Android 12+ 跟随系统壁纸取色（莫奈）；主题属性仍保留静态色作为低版本回退。
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        // 设置页可关闭「动态取色」，关闭后使用应用原生配色。
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S
+                && PreferenceManager.getDefaultSharedPreferences(this)
+                        .getBoolean(PREF_DYNAMIC_COLOR, true)) {
             com.google.android.material.color.DynamicColors.applyToActivitiesIfAvailable(this);
         }
         boolean followSystem = PreferenceManager.getDefaultSharedPreferences(this)
@@ -95,6 +98,21 @@ public class tApplication extends Application {
             Log.e("tApplication", "Failed to create log directory", e);
         }
     }
+    /** 「动态取色」（莫奈）开关的 SharedPreferences key，默认开启。 */
+    public static final String PREF_DYNAMIC_COLOR = "theme_dynamic_color";
+
+    /** 系统是否支持动态取色（Android 12+）。 */
+    public static boolean supportsDynamicColor() {
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
+    }
+
+    /** 当前是否启用动态取色。 */
+    public static boolean isDynamicColorEnabled(android.content.Context context) {
+        return supportsDynamicColor() && PreferenceManager
+                .getDefaultSharedPreferences(context.getApplicationContext())
+                .getBoolean(PREF_DYNAMIC_COLOR, true);
+    }
+
     public static tApplication getInstance() {
         return instance;
     }

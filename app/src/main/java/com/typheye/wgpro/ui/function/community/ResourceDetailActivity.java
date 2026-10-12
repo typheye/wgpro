@@ -66,6 +66,10 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         /** 最近一次报价（决定底部按钮显示「获取」还是「图标+价格」） */
         private int quotedPrice = -1;
         private boolean quotedOwned = false;
+        /** 云端已售罄：底部按钮直接显示「已售罄」 */
+        private boolean quotedStockOut = false;
+        /** 「保存到本机」针对已下载文件时，存着待复制的任务 */
+        private com.typheye.wgpro.core.download.DownloadTask pendingSaveTask;
         private android.widget.ImageView actionIcon;
         /** 填充区域内的反色文字层 */
         private android.widget.TextView actionTextFill;
@@ -73,8 +77,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private CharSequence lastActionText = null;
         /** 段形胶囊状态：只在真正切换时重设形状（每个进度回调都重设背景会闪） */
         private boolean lastSplitState = false;
-        /** 药丸原始底色（灰色容器色），退出「使用」状态时恢复 */
-        private int actionCardBaseColor = 0;
         private MaterialCardView actionDeleteCard;
         private View actionBar;
         private View actionFill;
@@ -91,6 +93,11 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                                 || result.getData() == null) return;
                         android.net.Uri uri = result.getData().getData();
                         if (uri == null) return;
+                        if (pendingSaveTask != null) {      // 已下载 → 复制
+                            copyToPicked(uri, pendingSaveTask);
+                            pendingSaveTask = null;
+                            return;
+                        }
                         startDownload(com.typheye.wgpro.core.download.DownloadTask.DEST_LOCAL, uri);
                     });
         }
@@ -393,9 +400,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
 
         private void setupActionBar(View root) {
             actionCard = root.findViewById(R.id.resource_detail_action);
-            if (actionCard != null) {
-                actionCardBaseColor = actionCard.getCardBackgroundColor().getDefaultColor();
-            }
             actionIcon = root.findViewById(R.id.resource_detail_action_icon);
             actionTextFill = root.findViewById(R.id.resource_detail_action_text_fill);
             if (actionTextFill != null) actionTextFill.setTextColor(fillInkColor());
@@ -576,8 +580,9 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             if (!isAdded()) return;   // 异步回调可能在 detach 后回来
                             quotedPrice = price;
                             quotedOwned = owned;
+                            quotedStockOut = "out_of_stock".equals(info.optString("stock_state", ""));
                             com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "resource", key, price, owned);
-                            if (price <= 0 || owned) {
+                            if (!quotedStockOut && (price <= 0 || owned)) {
                                 applyAcquireButton();
                                 launchSavePicker();
                             } else {
@@ -607,10 +612,9 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private void showDownloadSheet(int price, String stockLabel, int availableTotal,
                                        String stockState, String soldOutNote, boolean enough) {
             if (!isAdded()) return;
-            // 无库存：只留定价卡，不放分组卡片也不加多余文字
+            // 已售罄：同一张定价卡 + 分组（星标单项 + 分享资源链接）
             if ("out_of_stock".equals(stockState)) {
-                com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel,
-                        availableTotal, new java.util.ArrayList<>(), null);
+                showSoldOutSheet(price, stockLabel, availableTotal);
                 return;
             }
             java.util.List<String> labels = new java.util.ArrayList<>();
@@ -642,16 +646,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private void applySplitPillShape(boolean split) {
             if (split == lastSplitState && actionCard != null) return;
             lastSplitState = split;
-            // 「使用」= 主操作：底色改成莫奈色；其他状态恢复灰底
-            if (actionCard != null) {
-                if (split) {
-                    actionCard.setCardBackgroundColor(
-                            com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder.resolveThemeColor(
-                                    actionCard.getContext(), "colorPrimaryContainer", R.color.brand_soft));
-                } else if (actionCardBaseColor != 0) {
-                    actionCard.setCardBackgroundColor(actionCardBaseColor);
-                }
-            }
             final float radius = 25f * getResources().getDisplayMetrics().density;
             if (actionCard != null) {
                 com.google.android.material.shape.ShapeAppearanceModel model = split
@@ -677,9 +671,56 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             }
         }
 
+        /** 已售罄：定价卡 + 「加入/移出星标」单项 + 「分享资源链接」。 */
+        private void showSoldOutSheet(int price, String stockLabel, int availableTotal) {
+            final boolean starred = isStarred();
+            java.util.List<String> labels = new java.util.ArrayList<>();
+            final java.util.List<Integer> codes = new java.util.ArrayList<>();
+            labels.add(starred ? "将该资源移出星标" : "将该资源加入星标");
+            codes.add(0);
+            labels.add("分享资源链接");
+            codes.add(1);
+            com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel,
+                    availableTotal, labels, (dialog, which) -> {
+                        if (codes.get(which) == 0) toggleStarFromSheet(!starred);
+                        else shareDownloadLink();
+                    });
+        }
+
+        /** 售罄卡片里的星标切换（复用现成的 collection_action2 逻辑）。 */
+        private void toggleStarFromSheet(boolean add) {
+            if (!isAdded()) return;
+            final android.content.Context context = requireContext();
+            java.util.Map<String, String> f = new java.util.LinkedHashMap<>();
+            f.put("target_type", "resource");
+            f.put("target_key", resource.optString("id"));
+            f.put("action", add ? "add" : "remove");
+            new com.typheye.wgpro.utils.tAccUtils(context).postV2Json("collection_action2", f,
+                    new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
+                        @Override
+                        public void onSuccess(org.json.JSONObject j) {
+                            try { resource.put("is_collected", j.optBoolean("collected", add)); }
+                            catch (Exception ignored) { }
+                            updateStarCount();
+                            com.typheye.wgpro.ui.widget.WGProHint.show(context,
+                                    add ? "已加入星标" : "已移出星标");
+                        }
+
+                        @Override
+                        public void onError(int c, @NonNull String m) {
+                            com.typheye.wgpro.ui.widget.WGProHint.showError(context, "操作失败", m);
+                        }
+                    });
+        }
+
         /** 付费且未拥有 → 「积分图标 + 纯数字价格」。 */
         private void applyAcquireButton() {
             if (actionText == null) return;
+            if (quotedStockOut) {
+                setActionText("已售罄");
+                if (actionIcon != null) actionIcon.setVisibility(View.GONE);
+                return;
+            }
             boolean paid = quotedPrice > 0 && !quotedOwned;
             if (paid) {
                 setActionText(String.valueOf(quotedPrice));
@@ -704,6 +745,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                         public void onSuccess(@NonNull org.json.JSONObject info) {
                             quotedPrice = info.optInt("price", 0);
                             quotedOwned = info.optBoolean("owned", quotedPrice <= 0);
+                            quotedStockOut = "out_of_stock".equals(info.optString("stock_state", ""));
                             com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "resource", key,
                                     quotedPrice, quotedOwned);
                             if (isAdded()) applyAcquireButton();
@@ -805,7 +847,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
                         "积分不足", message + "，可以先兑换积分再获取。");
             } else if (status == 409) {
-                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无库存", message);
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "已售罄", message);
             } else if (status == 401) {
                 com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
                         "请先登录", "登录后才能获取该资源。");
@@ -814,28 +856,135 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             }
         }
 
-        /** 「操作」：已下载后的动作（保存到本机 / 在浏览器打开 / 分享给好友 / 清理该文件）。 */
+        /** 「使用」：已下载后的动作（保存到本机 / 用其他应用打开 / 分享资源链接）。 */
         private void showOperationSheet() {
             java.util.List<String> labels = new java.util.ArrayList<>();
             labels.add("保存到本机");
-            labels.add("在浏览器打开");
-            labels.add("分享给好友");
+            labels.add("用其他应用打开");
+            labels.add("分享资源链接");
             com.typheye.wgpro.ui.widget.GetSheet.showActions(requireContext(), "使用", labels,
                     (dialog, which) -> {
-                        if (which == 0) launchSavePicker();
-                        else if (which == 1) openInBrowser();
-                        else if (which == 2) shareDownloadLink();
+                        if (which == 0) saveExistingFile();
+                        else if (which == 1) openDownloaded();
+                        else shareDownloadLink();
                     });
         }
 
-        /** 分享下载链接。 */
+        /** 已下载文件在本地的位置（找不到返回 null）。 */
+        @Nullable
+        private java.io.File downloadFile(com.typheye.wgpro.core.download.DownloadTask task) {
+            try {
+                String path = task.localPath;
+                if (path != null && !path.isEmpty() && !path.startsWith("content://")) {
+                    java.io.File direct = new java.io.File(path);
+                    if (direct.exists()) return direct;
+                }
+                java.io.File dir = new java.io.File(requireContext().getFilesDir(), "downloads");
+                java.io.File byName = new java.io.File(dir, suggestedFileName());
+                if (byName.exists()) return byName;
+                java.io.File byId = new java.io.File(dir, task.id + ".apk");
+                if (byId.exists()) return byId;
+                java.io.File[] files = dir.listFiles();
+                if (files != null) {
+                    for (java.io.File f : files) {
+                        if (f.getName().startsWith(task.id)) return f;
+                    }
+                }
+            } catch (Exception ignored) { }
+            return null;
+        }
+
+        /** 当前资源对应的下载任务（没有则 null）。 */
+        @Nullable
+        private com.typheye.wgpro.core.download.DownloadTask currentTask() {
+            java.util.List<com.typheye.wgpro.core.download.DownloadTask> tasks =
+                    com.typheye.wgpro.core.download.DownloadManager.get().tasks().getValue();
+            if (tasks == null) return null;
+            String key = resourceId();
+            for (com.typheye.wgpro.core.download.DownloadTask t : tasks) {
+                if (t.id.equals(key)) return t;
+            }
+            return null;
+        }
+
+        /** 「保存到本机」：已下载 → 选位置后复制（不重新下载）。 */
+        private void saveExistingFile() {
+            com.typheye.wgpro.core.download.DownloadTask task = currentTask();
+            if (task == null || downloadFile(task) == null) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法保存", "本地文件不存在，请重新下载");
+                return;
+            }
+            pendingSaveTask = task;
+            Intent intent = new Intent(Intent.ACTION_CREATE_DOCUMENT)
+                    .addCategory(Intent.CATEGORY_OPENABLE)
+                    .setType("*/*")
+                    .putExtra(Intent.EXTRA_TITLE, suggestedFileName());
+            try {
+                saveLauncher.launch(intent);
+            } catch (Exception e) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法保存", "无法打开文件保存窗口");
+            }
+        }
+
+        /** 把已下载文件复制到 SAF 选定的位置。 */
+        private void copyToPicked(android.net.Uri target, com.typheye.wgpro.core.download.DownloadTask task) {
+            java.io.File source = downloadFile(task);
+            if (source == null) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "保存失败", "本地文件不存在");
+                return;
+            }
+            try (java.io.InputStream in = new java.io.FileInputStream(source);
+                 java.io.OutputStream out = requireContext().getContentResolver().openOutputStream(target)) {
+                if (out == null) throw new java.io.IOException("无法写入所选位置");
+                byte[] buffer = new byte[8192];
+                int read;
+                while ((read = in.read(buffer)) > 0) out.write(buffer, 0, read);
+                com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已保存到所选位置");
+            } catch (Exception e) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "保存失败",
+                        e.getMessage() == null ? "写入失败" : e.getMessage());
+            }
+        }
+
+        /** 「用其他应用打开」：用 FileProvider 把本地文件交给系统打开方式。 */
+        private void openDownloaded() {
+            com.typheye.wgpro.core.download.DownloadTask task = currentTask();
+            java.io.File file = task == null ? null : downloadFile(task);
+            if (file == null) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "本地文件不存在，请重新下载");
+                return;
+            }
+            try {
+                android.net.Uri uri = androidx.core.content.FileProvider.getUriForFile(requireContext(),
+                        requireContext().getPackageName() + ".fileprovider", file);
+                String mime = android.webkit.MimeTypeMap.getSingleton()
+                        .getMimeTypeFromExtension(
+                                android.webkit.MimeTypeMap.getFileExtensionFromUrl(file.getName()));
+                Intent intent = new Intent(Intent.ACTION_VIEW)
+                        .setDataAndType(uri, mime == null ? "*/*" : mime)
+                        .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                startActivity(Intent.createChooser(intent, "打开方式"));
+            } catch (Exception e) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开",
+                        e.getMessage() == null ? "没有可用的打开方式" : e.getMessage());
+            }
+        }
+
+        /** 分享资源链接（优先分享详情页地址，其次文件地址）。 */
         private void shareDownloadLink() {
             String title = resource.optString("title", "资源");
+            String link = resource.optString("share_url",
+                    resource.optString("detail_url",
+                            resource.optString("file_url", resource.optString("download_url", ""))));
             android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
                     .setType("text/plain")
-                    .putExtra(android.content.Intent.EXTRA_TEXT, title + "　下载地址："
-                            + resource.optString("file_url", resource.optString("download_url", "")));
-            startActivity(android.content.Intent.createChooser(share, "分享给好友"));
+                    .putExtra(android.content.Intent.EXTRA_TEXT,
+                            link.isEmpty() ? title : title + "　" + link);
+            try {
+                startActivity(android.content.Intent.createChooser(share, "分享给好友"));
+            } catch (Exception e) {
+                com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "分享失败", "没有可用的分享应用");
+            }
         }
 
         private void launchSavePicker() {
@@ -862,13 +1011,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 if (ext.length() <= 6) return clean + ext;
             }
             return clean;
-        }
-
-        private void openInBrowser() {
-            String url = resource.optString("file_url", resource.optString("download_url", ""));
-            if (url.isEmpty()) { feedback("打开失败", "无法获取链接"); return; }
-            startActivity(new Intent(requireContext(), com.typheye.wgpro.ui.function.WebActivity.class)
-                    .putExtra("URL", url));
         }
 
         private void startDownload(int destination) {

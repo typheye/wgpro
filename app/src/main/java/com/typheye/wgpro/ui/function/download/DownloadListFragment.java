@@ -395,14 +395,52 @@ public final class DownloadListFragment extends Fragment {
     /** 第二行：已完成的显示文件大小（如 0.0MB），其它状态照旧。 */
     private String secondLine(DownloadTask task) {
         if (task.status == DownloadTask.STATUS_COMPLETED) {
+            // 冗余设计：有大小就显示大小，拿不到大小就显示「已完成」，不留空行
             String byBytes = humanSize(task.totalBytes);
             if (!byBytes.isEmpty()) return byBytes;
             String raw = task.sizeLabel == null ? "" : task.sizeLabel.trim();
             if (raw.matches("^[0-9.]+[Mm]$")) return raw.substring(0, raw.length() - 1) + "MB";
             if (raw.matches("^[0-9.]+[Kk]$")) return raw.substring(0, raw.length() - 1) + "KB";
-            return raw;
+            if (!raw.isEmpty()) return raw;
+            String onDisk = humanSize(localFileSize(task));
+            return onDisk.isEmpty() ? "已完成" : onDisk;
         }
         return statusSimple(task);
+    }
+
+    /** 本地已下文件的字节数（拿不到返回 0）。 */
+    private long localFileSize(DownloadTask task) {
+        try {
+            java.io.File file = localFile(task);
+            return file != null && file.exists() ? file.length() : 0L;
+        } catch (Exception e) {
+            return 0L;
+        }
+    }
+
+    /** 应用私有目录里的那份文件（按 task.id / 资源名兜底查找）。 */
+    @Nullable
+    private java.io.File localFile(DownloadTask task) {
+        try {
+            java.io.File dir = new java.io.File(requireContext().getFilesDir(), "downloads");
+            String path = task.localPath;
+            if (path != null && !path.isEmpty() && !path.startsWith("content://")) {
+                java.io.File direct = new java.io.File(path);
+                if (direct.exists()) return direct;
+            }
+            java.io.File byId = new java.io.File(dir, task.id + ".apk");
+            if (byId.exists()) return byId;
+            java.io.File named = new java.io.File(dir, task.name);
+            if (named.exists()) return named;
+            // 目录里找同名/同前缀的（资源保存时用的文件名不一定等于 id）
+            java.io.File[] files = dir.listFiles();
+            if (files != null) {
+                for (java.io.File f : files) {
+                    if (f.getName().startsWith(task.id)) return f;
+                }
+            }
+        } catch (Exception ignored) { }
+        return null;
     }
 
     /** 字节数 → 人类可读（39.6MB / 702.6KB）。 */
@@ -515,6 +553,10 @@ public final class DownloadListFragment extends Fragment {
                 intent.setDataAndType(uri, "*/*");
             }
             startActivity(android.content.Intent.createChooser(intent, "打开方式"));
+        } catch (SecurityException e) {
+            // 系统 Downloads 目录的 URI 可能没有授权（UID ... does not have permission）
+            com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开",
+                    "系统下载目录里的这个文件已没有访问权限，请重新下载后再打开。");
         } catch (Exception e) {
             com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "无法打开："
                     + (e.getMessage() == null ? "未知错误" : e.getMessage()));
@@ -524,16 +566,36 @@ public final class DownloadListFragment extends Fragment {
     @Nullable
     private android.net.Uri downloadedFileUri(DownloadTask task) {
         String path = task.localPath;
-        if (path != null && path.startsWith("content://")) return android.net.Uri.parse(path);
-        java.io.File file = (path != null && !path.isEmpty())
-                ? new java.io.File(path)
-                : new java.io.File(requireContext().getFilesDir(), "downloads/" + task.id + ".apk");
-        if (!file.exists()) return null;
+        if (path != null && path.startsWith("content://")) {
+            android.net.Uri external = android.net.Uri.parse(path);
+            if (canRead(external)) return external;
+            // 系统下载目录的 URI 会因权限/记录失效读不了（SecurityException），
+            // 回退到应用私有目录里那一份；都没有就让调用方提示"文件不存在"
+            java.io.File fallback = localFile(task);
+            if (fallback == null) return null;
+            try {
+                return androidx.core.content.FileProvider.getUriForFile(requireContext(),
+                        requireContext().getPackageName() + ".fileprovider", fallback);
+            } catch (Exception e) {
+                return null;
+            }
+        }
+        java.io.File file = localFile(task);
+        if (file == null) return null;
         try {
             return androidx.core.content.FileProvider.getUriForFile(requireContext(),
                     requireContext().getPackageName() + ".fileprovider", file);
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    /** 探一下这个 content URI 现在还能不能读（不能读就换成本地文件）。 */
+    private boolean canRead(android.net.Uri uri) {
+        try (java.io.InputStream in = requireContext().getContentResolver().openInputStream(uri)) {
+            return in != null;
+        } catch (Exception e) {
+            return false;
         }
     }
 

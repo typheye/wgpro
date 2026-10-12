@@ -35,6 +35,7 @@ import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
 import com.google.android.material.materialswitch.MaterialSwitch;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.tApplication;
 import com.typheye.wgpro.ui.SplashActivity;
 import com.typheye.wgpro.ui.function.WebActivity;
 import com.typheye.wgpro.ui.function.community.CloudListFragment;
@@ -180,6 +181,8 @@ public class SettingsActivity extends AppCompatActivity {
             MaterialSwitch followSystem = view.findViewById(R.id.switch_follow_system_theme);
             MaterialSwitch darkMode = view.findViewById(R.id.switch_dark_mode);
             MaterialSwitch autoCheck = view.findViewById(R.id.switch_auto_check);
+            MaterialSwitch dynamicColor = view.findViewById(R.id.switch_dynamic_color);
+            View dynamicColorRow = view.findViewById(R.id.row_dynamic_color);
             MaterialSwitch predictiveBack = view.findViewById(R.id.switch_predictive_back);
             View darkModeRow = view.findViewById(R.id.row_dark_mode);
 
@@ -199,6 +202,25 @@ public class SettingsActivity extends AppCompatActivity {
             predictiveBack.setChecked(predictiveBackAvailable
                     && preferences.getBoolean("predictive_back_enabled", false));
             autoCheck.setChecked(preferences.getBoolean("appUpdate_autoCheck", true));
+
+            // 动态取色（莫奈）：默认开启；系统不支持（<Android 12）时置灰
+            boolean dynamicColorSupported = tApplication.supportsDynamicColor();
+            dynamicColor.setChecked(dynamicColorSupported
+                    && preferences.getBoolean(tApplication.PREF_DYNAMIC_COLOR, true));
+            dynamicColor.setEnabled(dynamicColorSupported);
+            if (!dynamicColorSupported) {
+                dynamicColorRow.setAlpha(0.55f);
+                ((TextView) view.findViewById(R.id.text_dynamic_color_summary))
+                        .setText("需要 Android 12 或更高版本");
+            }
+            dynamicColor.setOnCheckedChangeListener((button, checked) -> {
+                preferences.edit().putBoolean(tApplication.PREF_DYNAMIC_COLOR, checked).apply();
+                // 主题取色只在 Activity 创建时生效，改完重建让当前页立即生效
+                if (isAdded() && getActivity() != null) getActivity().recreate();
+            });
+            dynamicColorRow.setOnClickListener(v -> {
+                if (dynamicColorSupported) dynamicColor.toggle();
+            });
 
             MaterialSwitch blur = view.findViewById(R.id.switch_blur);
             blur.setChecked(BarBlurController.isBlurEnabled(requireContext()));

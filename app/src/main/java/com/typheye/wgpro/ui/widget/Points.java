@@ -51,11 +51,15 @@ public final class Points {
 
     private Points() { }
 
+    /** 加载中的占位符：与「动态 / 关注 / 粉丝」卡一致，用两个短横。 */
+    public static final String PLACEHOLDER = "--";
+
     /**
-     * 界面展示：加载中显示 {@code -}；加载完成后无数据/失败显示 {@code 0}。
+     * 界面展示：加载中显示 {@code --}（对齐「动态 / 关注 / 粉丝」卡的占位样式）；
+     * 加载完成后无数据/失败显示 {@code 0}。
      */
     public static String display(int value) {
-        if (!loaded) return "-";
+        if (!loaded) return PLACEHOLDER;
         return String.valueOf(Math.max(0, value));
     }
 

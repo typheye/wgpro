@@ -207,14 +207,15 @@ public final class DownloadService extends android.app.Service {
         DownloadManager.get().publish();
     }
 
-    /** 下载完成后的去向处理。 */
+    /**
+     * 下载完成后的去向处理：**一律静默**，不自动安装也不自动打开
+     * （用户从详情页「使用」自己决定安装/保存/打开）。
+     */
     private void postDownloadAction(DownloadTask task, File file) {
         if (task.destination == DownloadTask.DEST_LOCAL) {
+            // 用户主动选择的"保存到本机"：落到所选位置是这次下载的目的
             saveToPublicDownloads(task, file);
-        } else if (task.destination == DownloadTask.DEST_PHONE) {
-            installApk(task, file);
         } else {
-            // DEST_DEVICE：手表端安装协议待接入，先把文件保留在应用目录。
             task.error = null;
             DownloadManager.get().publish();
         }
@@ -273,17 +274,22 @@ public final class DownloadService extends android.app.Service {
         }
     }
 
-    private void installApk(DownloadTask task, File file) {
+    /**
+     * 拉起系统安装器安装一个已下载的 APK（「使用」卡片里的"安装到手机"走这里）。
+     *
+     * @return 是否成功拉起
+     */
+    public static boolean installFromFile(@NonNull Context context, @NonNull File file) {
         try {
-            Uri uri = androidx.core.content.FileProvider.getUriForFile(this,
-                    getPackageName() + ".fileprovider", file);
+            Uri uri = androidx.core.content.FileProvider.getUriForFile(context,
+                    context.getPackageName() + ".fileprovider", file);
             Intent intent = new Intent(Intent.ACTION_VIEW)
                     .setDataAndType(uri, "application/vnd.android.package-archive")
                     .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
+            context.startActivity(intent);
+            return true;
         } catch (Exception e) {
-            task.error = "调起安装失败：" + e.getMessage();
-            DownloadManager.get().publish();
+            return false;
         }
     }
 

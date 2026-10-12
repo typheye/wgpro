@@ -195,7 +195,9 @@ public class AccountFragment extends Fragment {
     private PointsColumnViews pointsStat(android.content.Context context, int iconRes,
                                          String value, String label) {
         TextView number = new TextView(context);
-        number.setText(value);
+        // 占位符与「动态 / 关注 / 粉丝」卡一致
+        number.setText(value == null || value.isEmpty()
+                ? com.typheye.wgpro.ui.widget.Points.PLACEHOLDER : value);
         number.setTextSize(17);
         number.setTypeface(null, android.graphics.Typeface.BOLD);
         number.setTextColor(0xFFFFFFFF);
