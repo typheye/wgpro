@@ -119,12 +119,15 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 Map<String, String> q = new LinkedHashMap<>(); q.put("resource_id", id);
                 account.getV2Json("resource_detail2", q, false, new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
+                        if (!isAdded() || getActivity() == null) return;
                         requireActivity().runOnUiThread(() -> {
+                            if (!isAdded()) return;
                             bind(root, json.optJSONObject("info"));
                             host.hideContentLoading();
                         });
                     }
                     @Override public void onError(int code, @NonNull String msg) {
+                        if (!isAdded() || getActivity() == null) return;
                         requireActivity().runOnUiThread(host::hideContentLoading);
                     }
                 });
@@ -362,9 +365,10 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             long started = android.os.SystemClock.uptimeMillis();
             account.postV2Json("collection_action2", f, new tAccUtils.JsonCallback() {
                 public void onSuccess(JSONObject j) {
+                    if (!isAdded() || getActivity() == null) return;   // 回调可能在 detach 后回来
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
-                        if (v == null) return;
+                        if (v == null || !isAdded()) return;
                         v.postDelayed(() -> {
                             progress.dismissForReplacement();
                             try { resource.put("is_collected", j.optBoolean("collected", !before)); }
@@ -375,6 +379,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     });
                 }
                 public void onError(int c, String m) {
+                    if (!isAdded() || getActivity() == null) return;
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
                         if (v == null) return;
@@ -568,6 +573,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                         public void onSuccess(@NonNull org.json.JSONObject info) {
                             int price = info.optInt("price", 0);
                             boolean owned = info.optBoolean("owned", price <= 0);
+                            if (!isAdded()) return;   // 异步回调可能在 detach 后回来
                             quotedPrice = price;
                             quotedOwned = owned;
                             com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "resource", key, price, owned);
@@ -600,8 +606,11 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用积分支付 / 使用兑换代码 / 找他人代付。 */
         private void showDownloadSheet(int price, String stockLabel, int availableTotal,
                                        String stockState, String soldOutNote, boolean enough) {
+            if (!isAdded()) return;
+            // 无库存：只留定价卡，不放分组卡片也不加多余文字
             if ("out_of_stock".equals(stockState)) {
-                showSoldOutSheet(soldOutNote);
+                com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel,
+                        availableTotal, new java.util.ArrayList<>(), null);
                 return;
             }
             java.util.List<String> labels = new java.util.ArrayList<>();
@@ -625,41 +634,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                         } else {
                             com.typheye.wgpro.ui.widget.WGProHint.showInfo(requireContext(), "找他人代付",
                                     "把该资源的分享链接发给好友，由对方为你获取。");
-                        }
-                    });
-        }
-
-        /** 售罄：说明文字 + 加入/移除星标（资源）。 */
-        private void showSoldOutSheet(String soldOutNote) {
-            String note = soldOutNote == null || soldOutNote.isEmpty()
-                    ? "该资源当前已售罄，补货后会第一时间上架。" : soldOutNote;
-            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                    .setTitle("获取")
-                    .setMessage(note)
-                    .setItems(new CharSequence[]{"将该资源加入星标", "将该资源移出星标"},
-                            (dialog, which) -> setStarred(which == 0))
-                    .setNegativeButton("关闭", null)
-                    .show();
-        }
-
-        /** 星标开关（复用现有 collection_action2 接口）。 */
-        private void setStarred(boolean add) {
-            final android.content.Context context = requireContext();
-            java.util.Map<String, String> fields = new java.util.LinkedHashMap<>();
-            fields.put("target_type", "resource");
-            fields.put("target_key", resourceId());
-            fields.put("action", add ? "add" : "remove");
-            new com.typheye.wgpro.utils.tAccUtils(context).postV2Json("collection_action2", fields,
-                    new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
-                        @Override
-                        public void onSuccess(@NonNull org.json.JSONObject json) {
-                            com.typheye.wgpro.ui.widget.WGProHint.show(context,
-                                    add ? "已加入星标" : "已移出星标");
-                        }
-
-                        @Override
-                        public void onError(int statusCode, @NonNull String message) {
-                            com.typheye.wgpro.ui.widget.WGProHint.showError(context, "操作失败", message);
                         }
                     });
         }
@@ -914,6 +888,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             long started = android.os.SystemClock.uptimeMillis();
             account.postV2Json("resource_download2", f, new tAccUtils.JsonCallback() {
                 public void onSuccess(JSONObject j) {
+                    if (!isAdded() || getActivity() == null) return;
                     final String url = j.optString("download_url", direct);
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
@@ -922,6 +897,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     });
                 }
                 public void onError(int c, String m) {
+                    if (!isAdded() || getActivity() == null) return;
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
                         if (v == null) return;

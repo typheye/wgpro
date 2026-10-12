@@ -502,6 +502,8 @@ public final class AppDetailFragment extends Fragment {
                         int price = info.optInt("price", 0);
                         boolean owned = info.optBoolean("owned", price <= 0);
                         com.typheye.wgpro.utils.tPointsUtils.cachePrice(context, "app", appKey, price, owned);
+                        // 异步回调可能在页面已 detach 后才回来，别再碰 UI
+                        if (!isAdded()) return;
                         quotedPrice = price;
                         quotedOwned = owned;
                         if (price <= 0 || owned) {
@@ -521,11 +523,11 @@ public final class AppDetailFragment extends Fragment {
                         // 服务不可用：已知免费的条目照常放行，收费条目提示稍后再试
                         int cachedPrice = com.typheye.wgpro.utils.tPointsUtils.cachedPrice(context, "app", appKey);
                         boolean cachedOwned = com.typheye.wgpro.utils.tPointsUtils.cachedOwned(context, "app", appKey);
+                        if (!isAdded()) return;
                         if (cachedPrice == 0 || cachedOwned) {
                             startDownload(appJson, downloadUrl, 1);
                             return;
                         }
-                        if (!isAdded()) return;
                         com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
                                 status == 401 ? "请先登录" : "获取失败",
                                 status == 401 ? "登录后才能获取该应用。" : message + "，请稍后再试。");
@@ -536,9 +538,11 @@ public final class AppDetailFragment extends Fragment {
     /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用积分支付 / 使用兑换代码 / 找他人代付。 */
     private void showDownloadSheet(int price, String stockLabel, int availableTotal,
                                    String stockState, String soldOutNote, boolean enough) {
-        // 无库存：整张卡换成「售罄说明 + 加入/移除星标」
+        if (!isAdded()) return;
+        // 无库存：只保留定价卡（库存那行已经写了"无库存"），不放分组卡片也不加多余文字
         if ("out_of_stock".equals(stockState)) {
-            showSoldOutSheet(soldOutNote);
+            com.typheye.wgpro.ui.widget.GetSheet.show(requireContext(), price, stockLabel,
+                    availableTotal, new java.util.ArrayList<>(), null);
             return;
         }
         final java.util.List<String> labels = new java.util.ArrayList<>();
@@ -562,41 +566,6 @@ public final class AppDetailFragment extends Fragment {
                     } else {
                         com.typheye.wgpro.ui.widget.WGProHint.showInfo(requireContext(), "找他人代付",
                                 "把该应用的分享链接发给好友，由对方为你获取。");
-                    }
-                });
-    }
-
-    /** 售罄：说明文字 + 加入/移除星标。 */
-    private void showSoldOutSheet(String soldOutNote) {
-        String note = soldOutNote == null || soldOutNote.isEmpty()
-                ? "该应用当前已售罄，补货后会第一时间上架。" : soldOutNote;
-        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                .setTitle("获取")
-                .setMessage(note)
-                .setItems(new CharSequence[]{"将该应用加入星标", "将该应用移出星标"},
-                        (dialog, which) -> setStarred(which == 0))
-                .setNegativeButton("关闭", null)
-                .show();
-    }
-
-    /** 星标开关（复用现有 collection_action2 接口）。 */
-    private void setStarred(boolean add) {
-        final android.content.Context context = requireContext();
-        java.util.Map<String, String> fields = new java.util.LinkedHashMap<>();
-        fields.put("target_type", "app");
-        fields.put("target_key", appKey);
-        fields.put("action", add ? "add" : "remove");
-        new com.typheye.wgpro.utils.tAccUtils(context).postV2Json("collection_action2", fields,
-                new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
-                    @Override
-                    public void onSuccess(@NonNull JSONObject json) {
-                        com.typheye.wgpro.ui.widget.WGProHint.show(context,
-                                add ? "已加入星标" : "已移出星标");
-                    }
-
-                    @Override
-                    public void onError(int statusCode, @NonNull String message) {
-                        com.typheye.wgpro.ui.widget.WGProHint.showError(context, "操作失败", message);
                     }
                 });
     }

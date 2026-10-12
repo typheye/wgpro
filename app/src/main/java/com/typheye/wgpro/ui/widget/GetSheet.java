@@ -123,12 +123,14 @@ public final class GetSheet {
     public static void show(@NonNull Context context, int price, @NonNull String stockLabel,
                             int availableTotal, @NonNull List<String> labels,
                             @NonNull DialogInterface.OnClickListener listener) {
-        new WGProAlertDialogBuilder(context)
+        WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(context)
                 .setTitle("获取")
-                .setView(header(context, price, stockLabel, availableTotal))
-                .setItems(labels.toArray(new CharSequence[0]), listener)
-                .setNegativeButton("关闭", null)
-                .show();
+                .setView(header(context, price, stockLabel, availableTotal));
+        // 条目为空（例如售罄：只留定价卡）时不要空的分组卡片，看着干净
+        if (!labels.isEmpty()) {
+            builder.setItems(labels.toArray(new CharSequence[0]), listener);
+        }
+        builder.setNegativeButton("关闭", null).show();
     }
 
     /** 交易二次确认回调。 */
