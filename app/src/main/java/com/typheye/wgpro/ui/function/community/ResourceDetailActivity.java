@@ -67,6 +67,14 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private int quotedPrice = -1;
         private boolean quotedOwned = false;
         private android.widget.ImageView actionIcon;
+        /** 填充区域内的反色文字层 */
+        private android.widget.TextView actionTextFill;
+        private int lastFillWidth = -1;
+        private CharSequence lastActionText = null;
+        /** 段形胶囊状态：只在真正切换时重设形状（每个进度回调都重设背景会闪） */
+        private boolean lastSplitState = false;
+        /** 药丸原始底色（灰色容器色），退出「使用」状态时恢复 */
+        private int actionCardBaseColor = 0;
         private MaterialCardView actionDeleteCard;
         private View actionBar;
         private View actionFill;
@@ -380,7 +388,12 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
 
         private void setupActionBar(View root) {
             actionCard = root.findViewById(R.id.resource_detail_action);
+            if (actionCard != null) {
+                actionCardBaseColor = actionCard.getCardBackgroundColor().getDefaultColor();
+            }
             actionIcon = root.findViewById(R.id.resource_detail_action_icon);
+            actionTextFill = root.findViewById(R.id.resource_detail_action_text_fill);
+            if (actionTextFill != null) actionTextFill.setTextColor(fillInkColor());
             actionDeleteCard = root.findViewById(R.id.resource_detail_action_delete);
             if (actionDeleteCard != null) {
                 actionDeleteCard.setOnClickListener(v -> confirmDeleteDownload());
@@ -443,28 +456,30 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 return;
             }
             if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.GONE);
+            // 进度/等待/继续/重试/使用 状态：积分图标必须消失
+            if (actionIcon != null) actionIcon.setVisibility(View.GONE);
             final com.typheye.wgpro.core.download.DownloadTask current = task;
             switch (task.status) {
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_RUNNING:
-                    actionText.setText(task.progress() + "%");
+                    setActionText(task.progress() + "%");
                     setActionFill(task.progress());
                     actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                             com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
                     break;
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_QUEUED:
-                    actionText.setText("等待中");
+                    setActionText("等待中");
                     setActionFill(task.progress());
                     actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                             com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
                     break;
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_PAUSED:
-                    actionText.setText("继续");
+                    setActionText("继续");
                     setActionFill(task.progress());
                     actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                             com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
                     break;
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED:
-                    actionText.setText("重试");
+                    setActionText("重试");
                     setActionFill(0);
                     actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                             com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
@@ -473,7 +488,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.VISIBLE);
                     applySplitPillShape(true);
                     if (actionIcon != null) actionIcon.setVisibility(View.GONE);
-                    actionText.setText("使用");
+                    setActionText("使用");
                     setActionFill(0);
                     actionCard.setOnClickListener(v -> showOperationSheet());
                     if (actionDeleteCard != null) {
@@ -485,17 +500,57 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             }
         }
 
-        private void setActionFill(int progress) {
-            actionCard.post(() -> {
-                if (actionFill == null || actionCard == null) return;
-                int width = actionCard.getWidth();
-                android.view.ViewGroup.LayoutParams params = actionFill.getLayoutParams();
-                int desired = Math.max(0, Math.round(width * progress / 100f));
-                if (params.width != desired) {
-                    params.width = desired;
-                    actionFill.setLayoutParams(params);
+
+    /** 填充区域反色文字的颜色：填充亮 → 深墨；填充深 → 白字（深浅模式都清楚）。 */
+    private int fillInkColor() {
+        int fill = com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder.resolveThemeColor(
+                requireContext(), "colorPrimary", R.color.brand_primary);
+        return androidx.core.graphics.ColorUtils.calculateLuminance(fill) > 0.5
+                ? requireContext().getColor(R.color.text_on_fill)
+                : requireContext().getColor(R.color.white);
+    }
+
+        /** 药丸文字：常规层 + 填充区域反色层同步。 */
+        private void setActionText(CharSequence text) {
+            if (text == null) text = "";
+            if (android.text.TextUtils.equals(lastActionText, text)) return;
+            lastActionText = text;
+            if (actionText != null) actionText.setText(text);
+            if (actionTextFill != null) actionTextFill.setText(text);
+        }
+
+        /** 反色层按填充宽度裁剪；填充为 0 时隐藏。 */
+        private void clipActionTextFill(int fillWidth) {
+            if (actionTextFill == null || actionCard == null) return;
+            if (fillWidth <= 0) {
+                if (actionTextFill.getVisibility() != View.INVISIBLE) {
+                    actionTextFill.setVisibility(View.INVISIBLE);
                 }
-            });
+                return;
+            }
+            if (actionTextFill.getVisibility() != View.VISIBLE) {
+                actionTextFill.setVisibility(View.VISIBLE);
+            }
+            int clipHeight = Math.max(actionTextFill.getHeight(), actionCard.getHeight());
+            actionTextFill.setClipBounds(new android.graphics.Rect(0, 0, fillWidth, clipHeight));
+        }
+
+        private void setActionFill(int progress) {
+            if (actionCard == null || actionFill == null) return;
+            int width = actionCard.getWidth();
+            if (width <= 0) {
+                actionCard.post(() -> setActionFill(progress));
+                return;
+            }
+            int desired = Math.max(0, Math.round(width * progress / 100f));
+            if (desired == lastFillWidth) return;
+            lastFillWidth = desired;
+            android.view.ViewGroup.LayoutParams params = actionFill.getLayoutParams();
+            if (params.width != desired) {
+                params.width = desired;
+                actionFill.setLayoutParams(params);
+            }
+            clipActionTextFill(desired);
         }
 
         /**
@@ -611,6 +666,18 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
 
         /** 「使用 | 删除」并排 = 分段胶囊（左只留左圆角、右只留右圆角）。 */
         private void applySplitPillShape(boolean split) {
+            if (split == lastSplitState && actionCard != null) return;
+            lastSplitState = split;
+            // 「使用」= 主操作：底色改成莫奈色；其他状态恢复灰底
+            if (actionCard != null) {
+                if (split) {
+                    actionCard.setCardBackgroundColor(
+                            com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder.resolveThemeColor(
+                                    actionCard.getContext(), "colorPrimaryContainer", R.color.brand_soft));
+                } else if (actionCardBaseColor != 0) {
+                    actionCard.setCardBackgroundColor(actionCardBaseColor);
+                }
+            }
             final float radius = 25f * getResources().getDisplayMetrics().density;
             if (actionCard != null) {
                 com.google.android.material.shape.ShapeAppearanceModel model = split
@@ -641,13 +708,13 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             if (actionText == null) return;
             boolean paid = quotedPrice > 0 && !quotedOwned;
             if (paid) {
-                actionText.setText(String.valueOf(quotedPrice));
+                setActionText(String.valueOf(quotedPrice));
                 if (actionIcon != null) {
                     actionIcon.setVisibility(View.VISIBLE);
                     actionIcon.setColorFilter(actionText.getCurrentTextColor());
                 }
             } else {
-                actionText.setText("获取");
+                setActionText("获取");
                 if (actionIcon != null) actionIcon.setVisibility(View.GONE);
             }
         }

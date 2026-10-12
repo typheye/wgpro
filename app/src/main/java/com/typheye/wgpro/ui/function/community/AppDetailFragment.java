@@ -38,6 +38,14 @@ public final class AppDetailFragment extends Fragment {
     private int quotedPrice = -1;
     private boolean quotedOwned = false;
     private android.widget.ImageView actionIcon;
+    /** 填充区域内的反色文字层（按填充宽度裁剪，保证压在深色填充上的字也清晰） */
+    private android.widget.TextView actionTextFill;
+    private int lastFillWidth = -1;
+    private CharSequence lastActionText = null;
+    /** 段形胶囊状态：只在真正切换时重设形状（每个进度回调都重设背景会闪） */
+    private boolean lastSplitState = false;
+    /** 药丸原始底色（灰色容器色），退出「使用」状态时恢复 */
+    private int actionCardBaseColor = 0;
     private com.google.android.material.card.MaterialCardView actionDeleteCard;
     private View actionBar;
     private View actionFill;
@@ -127,32 +135,34 @@ public final class AppDetailFragment extends Fragment {
             return;
         }
         if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.GONE);
+        // 进入进度/等待/继续/重试/使用 等状态：积分图标必须消失（它只跟价格数字一起出现）
+        if (actionIcon != null) actionIcon.setVisibility(View.GONE);
         final com.typheye.wgpro.core.download.DownloadTask current = task;
         switch (task.status) {
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_RUNNING:
                 actionCard.setEnabled(true);
-                actionText.setText(task.progress() + "%");
+                setActionText(task.progress() + "%");
                 setActionFill(task.progress());
                 actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                         com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
                 break;
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_QUEUED:
                 actionCard.setEnabled(true);
-                actionText.setText("等待中");
+                setActionText("等待中");
                 setActionFill(task.progress());
                 actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                         com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
                 break;
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_PAUSED:
                 actionCard.setEnabled(true);
-                actionText.setText("继续");
+                setActionText("继续");
                 setActionFill(task.progress());
                 actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                         com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
                 break;
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED:
                 actionCard.setEnabled(true);
-                actionText.setText("重试");
+                setActionText("重试");
                 setActionFill(0);
                 actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                         com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
@@ -162,7 +172,7 @@ public final class AppDetailFragment extends Fragment {
                 if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.VISIBLE);
                 applySplitPillShape(true);
                 actionIcon.setVisibility(View.GONE);
-                actionText.setText("使用");
+                setActionText("使用");
                 setActionFill(0);
                 actionCard.setOnClickListener(v -> showOperationSheet(appJson, downloadUrl, current));
                 actionDeleteCard.setOnClickListener(v -> confirmDeleteDownload());
@@ -177,6 +187,19 @@ public final class AppDetailFragment extends Fragment {
      * 其余状态恢复整颗胶囊圆角。
      */
     private void applySplitPillShape(boolean split) {
+        if (split == lastSplitState && actionCard != null
+                && actionCard.getShapeAppearanceModel() != null) return;
+        lastSplitState = split;
+        // 「使用」= 主操作：底色改成莫奈色（colorPrimaryContainer，跟随深浅/取色）；其他状态恢复灰底
+        if (actionCard != null) {
+            if (split) {
+                actionCard.setCardBackgroundColor(
+                        com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder.resolveThemeColor(
+                                actionCard.getContext(), "colorPrimaryContainer", R.color.brand_soft));
+            } else if (actionCardBaseColor != 0) {
+                actionCard.setCardBackgroundColor(actionCardBaseColor);
+            }
+        }
         final float radius = 25f * getResources().getDisplayMetrics().density;
         if (actionCard != null) {
             com.google.android.material.shape.ShapeAppearanceModel model = split
@@ -207,14 +230,14 @@ public final class AppDetailFragment extends Fragment {
         if (actionText == null) return;
         boolean paid = quotedPrice > 0 && !quotedOwned;
         if (paid) {
-            actionText.setText(String.valueOf(quotedPrice));
+            setActionText(String.valueOf(quotedPrice));
             if (actionIcon != null) {
                 actionIcon.setVisibility(View.VISIBLE);
                 // 图标颜色与文字一致
                 actionIcon.setColorFilter(actionText.getCurrentTextColor());
             }
         } else {
-            actionText.setText("获取");
+            setActionText("获取");
             if (actionIcon != null) actionIcon.setVisibility(View.GONE);
         }
     }
@@ -268,18 +291,65 @@ public final class AppDetailFragment extends Fragment {
         }
     }
 
+
+    /**
+     * 填充区域反色文字的颜色：**按对比度择优**（白 vs 深墨），深浅模式都清楚。
+     * <p>不能写死白色：夜间 colorPrimary = #8EA2FF 亮蓝，白字对比度只有 ~2.4。</p>
+     */
+    private int fillInkColor() {
+        int fill = com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder.resolveThemeColor(
+                requireContext(), "colorPrimary", R.color.brand_primary);
+        int white = requireContext().getColor(R.color.white);
+        int dark = requireContext().getColor(R.color.text_on_fill);
+        return androidx.core.graphics.ColorUtils.calculateContrast(white, fill)
+                >= androidx.core.graphics.ColorUtils.calculateContrast(dark, fill) ? white : dark;
+    }
+
+    /** 设置药丸文字：常规层与"填充区域反色层"必须完全一致。 */
+    private void setActionText(CharSequence text) {
+        if (text == null) text = "";
+        // 文字没变就不重复设置（其他下载任务的进度回调也会触发重绘，重复设置会让反色层闪一下）
+        if (android.text.TextUtils.equals(lastActionText, text)) return;
+        lastActionText = text;
+        if (actionText != null) actionText.setText(text);
+        if (actionTextFill != null) actionTextFill.setText(text);
+    }
+
+    /** 反色文字层按填充宽度裁剪；填充为 0 时整层隐藏（避免和常规层重影）。 */
+    private void clipActionTextFill(int fillWidth) {
+        if (actionTextFill == null || actionCard == null) return;
+        if (fillWidth <= 0) {
+            // 用 INVISIBLE 而不是 GONE：不进布局也不产生可见性抖动
+            if (actionTextFill.getVisibility() != View.INVISIBLE) {
+                actionTextFill.setVisibility(View.INVISIBLE);
+            }
+            return;
+        }
+        if (actionTextFill.getVisibility() != View.VISIBLE) {
+            actionTextFill.setVisibility(View.VISIBLE);
+        }
+        // 视图还没量完时高度可能是 0，用父卡片高度兜底，避免裁剪成空
+        int clipHeight = Math.max(actionTextFill.getHeight(), actionCard.getHeight());
+        actionTextFill.setClipBounds(new android.graphics.Rect(0, 0, fillWidth, clipHeight));
+    }
+
     /** 进度填充宽度 = 药丸宽度的 progress%。 */
     private void setActionFill(int progress) {
-        actionCard.post(() -> {
-            if (actionFill == null || actionCard == null) return;
-            int width = actionCard.getWidth();
-            android.view.ViewGroup.LayoutParams params = actionFill.getLayoutParams();
-            int desired = Math.max(0, Math.round(width * progress / 100f));
-            if (params.width != desired) {
-                params.width = desired;
-                actionFill.setLayoutParams(params);
-            }
-        });
+        if (actionCard == null || actionFill == null) return;
+        int width = actionCard.getWidth();
+        if (width <= 0) {                       // 还没量完，等一帧
+            actionCard.post(() -> setActionFill(progress));
+            return;
+        }
+        int desired = Math.max(0, Math.round(width * progress / 100f));
+        if (desired == lastFillWidth) return;    // 宽度没变就不动，避免反复触发裁剪/可见性切换
+        lastFillWidth = desired;
+        android.view.ViewGroup.LayoutParams params = actionFill.getLayoutParams();
+        if (params.width != desired) {
+            params.width = desired;
+            actionFill.setLayoutParams(params);
+        }
+        clipActionTextFill(desired);            // 同步裁剪，别丢到 post 里（会和文字设置错帧）
     }
 
     /** 底栏：贴底 + 毛玻璃，逐字对齐动态详情页（registerBar / rebindSource / addBackdrop / insets / 内容底部留白）。 */
@@ -374,7 +444,12 @@ public final class AppDetailFragment extends Fragment {
         });
         else if (loaded != null) root.postDelayed(loaded, 300L);
         actionCard = root.findViewById(R.id.app_detail_action);
+        if (actionCard != null) {
+            actionCardBaseColor = actionCard.getCardBackgroundColor().getDefaultColor();
+        }
         actionIcon = root.findViewById(R.id.app_detail_action_icon);
+        actionTextFill = root.findViewById(R.id.app_detail_action_text_fill);
+        if (actionTextFill != null) actionTextFill.setTextColor(fillInkColor());
         actionDeleteCard = root.findViewById(R.id.app_detail_action_delete);
         if (actionDeleteCard != null) {
             actionDeleteCard.setOnClickListener(v -> confirmDeleteDownload());
@@ -387,7 +462,7 @@ public final class AppDetailFragment extends Fragment {
         appKey = app.optString("id", app.optString("package", ""));
         downloadUrl = app.optString("download_url", app.optString("detail_url", ""));
         actionCard.setEnabled(!downloadUrl.isEmpty());
-        actionText.setText("获取");
+        setActionText("获取");
         actionCard.setOnClickListener(v -> acquire());
         LinearLayout screenshots = root.findViewById(R.id.app_detail_screenshots);
         JSONArray urls = app.optJSONArray("screenshots");

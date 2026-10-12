@@ -49,5 +49,7 @@
     <color name="text_u2">@color/text_secondary</color>
     <!-- 积分卡：与浅色模式同一个绿（#FF3FA878），这里显式写一份，
          以后要单独调深色只改这一行即可。 -->
+    <!-- 进度填充区域内的反色文字：填充是亮色时用它（深色模式下 colorPrimary 是亮蓝，白字看不清） -->
+    <color name="text_on_fill">#FF17191E</color>
     <color name="points_card_bg">#FF3FA878</color>
 </resources>

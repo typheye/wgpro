@@ -49,5 +49,7 @@
     <color name="text_u2">@color/text_secondary</color>
     <!-- 积分卡：固定色（不走莫奈主题属性）。浅/深色统一用同一个绿
          （values-night 里给的是同一个值，留一处便于以后单独微调）。 -->
+    <!-- 进度填充区域内的反色文字：填充是亮色时用它（深色模式下 colorPrimary 是亮蓝，白字看不清） -->
+    <color name="text_on_fill">#FF17191E</color>
     <color name="points_card_bg">#FF3FA878</color>
 </resources>

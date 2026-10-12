@@ -213,9 +213,23 @@ public final class DownloadListFragment extends Fragment {
             TextView pillText = text(context, "", 14, true, R.color.text_primary);
             pillText.setGravity(Gravity.CENTER);
             pill.addView(pillText, new FrameLayout.LayoutParams(-1, -1));
+            // 反色文字层：只显示在进度填充区域内（原理同详情页），49% 时左右两边都清晰
+            int pillFillColor = com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder.resolveThemeColor(
+                    context, "colorPrimary", R.color.brand_primary);
+            // 反色文字按对比度择优（夜间 colorPrimary 是亮蓝，白字看不清）
+            int inkWhite = context.getColor(R.color.white);
+            int inkDark = context.getColor(R.color.text_on_fill);
+            int pillFillInk = androidx.core.graphics.ColorUtils.calculateContrast(inkWhite, pillFillColor)
+                    >= androidx.core.graphics.ColorUtils.calculateContrast(inkDark, pillFillColor)
+                    ? inkWhite : inkDark;
+            TextView pillTextFill = text(context, "", 14, true, R.color.white);
+            pillTextFill.setTextColor(pillFillInk);
+            pillTextFill.setGravity(Gravity.CENTER);
+            pillTextFill.setVisibility(View.INVISIBLE);
+            pill.addView(pillTextFill, new FrameLayout.LayoutParams(-1, -1));
             row.addView(pill, new LinearLayout.LayoutParams(dp(PILL_WIDTH_DP), dp(PILL_HEIGHT_DP)));
 
-            return new Holder(card, initial, icon, name, meta, pill, fill, pillText);
+            return new Holder(card, initial, icon, name, meta, pill, fill, pillText, pillTextFill);
         }
 
         @Override public void onBindViewHolder(@NonNull Holder holder, int position) {
@@ -234,11 +248,15 @@ public final class DownloadListFragment extends Fragment {
             private final FrameLayout pill;
             private final View fill;
             private final TextView pillText;
+            private final TextView pillTextFill;
+            private int lastFillWidth = -1;
+            private CharSequence lastPillText = null;
             private String iconUrl;
             private boolean iconIsVela;
 
             Holder(@NonNull View itemView, TextView initial, ImageView icon, TextView name,
-                   TextView meta, FrameLayout pill, View fill, TextView pillText) {
+                   TextView meta, FrameLayout pill, View fill, TextView pillText,
+                   TextView pillTextFill) {
                 super(itemView);
                 this.initial = initial;
                 this.icon = icon;
@@ -247,6 +265,7 @@ public final class DownloadListFragment extends Fragment {
                 this.pill = pill;
                 this.fill = fill;
                 this.pillText = pillText;
+                this.pillTextFill = pillTextFill;
             }
 
             void bind(DownloadTask task) {
@@ -278,7 +297,7 @@ public final class DownloadListFragment extends Fragment {
                         });
                     }
                 }
-                pillText.setText(pillText(task));
+                setPillText(pillText(task));
                 pill.setOnClickListener(v -> onAction(task));
                 itemView.setOnLongClickListener(v -> {
                     showRowActions(task);
@@ -288,6 +307,31 @@ public final class DownloadListFragment extends Fragment {
                         || task.status == DownloadTask.STATUS_QUEUED
                         || task.status == DownloadTask.STATUS_PAUSED) ? task.progress() : 0;
                 applyFill(progress);
+            }
+
+            /** 药丸文字：常规层 + 填充区域反色层同步；没变化就不动（防闪）。 */
+            private void setPillText(CharSequence text) {
+                if (text == null) text = "";
+                if (android.text.TextUtils.equals(lastPillText, text)) return;
+                lastPillText = text;
+                pillText.setText(text);
+                pillTextFill.setText(text);
+            }
+
+            /** 反色层按填充宽度裁剪；填充为 0 时隐藏。 */
+            private void clipPillTextFill(int fillWidth) {
+                if (pillTextFill == null || pill == null) return;
+                if (fillWidth <= 0) {
+                    if (pillTextFill.getVisibility() != View.INVISIBLE) {
+                        pillTextFill.setVisibility(View.INVISIBLE);
+                    }
+                    return;
+                }
+                if (pillTextFill.getVisibility() != View.VISIBLE) {
+                    pillTextFill.setVisibility(View.VISIBLE);
+                }
+                int h = Math.max(pillTextFill.getHeight(), pill.getHeight());
+                pillTextFill.setClipBounds(new android.graphics.Rect(0, 0, fillWidth, h));
             }
 
             /** 原地更新填充宽度（不重建视图，避免下载中进度条闪烁）。 */
@@ -302,6 +346,10 @@ public final class DownloadListFragment extends Fragment {
                 if (lp.width != desired) {
                     lp.width = desired;
                     fill.setLayoutParams(lp);
+                }
+                if (lastFillWidth != desired) {
+                    lastFillWidth = desired;
+                    clipPillTextFill(desired);
                 }
             }
 
