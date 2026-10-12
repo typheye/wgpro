@@ -28,9 +28,9 @@
                 android:paddingEnd="10dp"
                 android:paddingTop="4dp"
                 android:paddingBottom="4dp"
-                android:background="@color/tab_accent_th"
+                android:background="?attr/colorPrimaryContainer"
                 android:text="强制更新"
-                android:textColor="@color/text_u1"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="12sp" />
 
             <TextView
@@ -39,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:text="需要更新后才能继续使用"
-                android:textColor="@color/text_u1"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:textColor="@color/text_u2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="14sp"
                 tools:text="当前版本 2602220 → 最新版本 2602230" />
 
@@ -58,7 +58,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:lineSpacingExtra="4dp"
-                android:textColor="@color/text_u1"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="15sp"
                 tools:text="更新日志" />
 
@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
                 android:text="这个版本包含重要的兼容性修复，更新完成后腕管Pro 会恢复正常使用。"
-                android:textColor="@color/text_u2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="13sp" />
 
         </LinearLayout>

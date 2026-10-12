@@ -45,8 +45,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟断网" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让下一次网络请求返回连接失败" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟断网" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让下一次网络请求返回连接失败" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/test_offline_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="模拟断网" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
@@ -55,7 +55,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="60dp"
-                    android:background="@color/outline_soft" />
+                    android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -74,8 +74,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟未登录" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让下一次鉴权请求返回未登录状态" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟未登录" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让下一次鉴权请求返回未登录状态" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/test_logged_out_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="模拟未登录" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
@@ -84,7 +84,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginStart="60dp"
-                    android:background="@color/outline_soft" />
+                    android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -103,8 +103,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟有更新" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让关于页显示「有新版本待更新」" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="模拟有更新" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="让关于页显示「有新版本待更新」" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/test_update_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="模拟有更新" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>

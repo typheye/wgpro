@@ -48,7 +48,7 @@
                     <com.google.android.material.card.MaterialCardView
                         android:layout_width="56dp"
                         android:layout_height="56dp"
-                        app:cardBackgroundColor="@color/brand_soft"
+                        app:cardBackgroundColor="?attr/colorPrimaryContainer"
                         app:cardCornerRadius="28dp"
                         app:cardElevation="0dp"
                         app:strokeWidth="0dp">
@@ -59,7 +59,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:gravity="center"
-                                android:textColor="@color/brand_on_soft"
+                                android:textColor="?attr/colorOnPrimaryContainer"
                                 android:textSize="24sp"
                                 android:textStyle="bold" />
                             <com.google.android.material.imageview.ShapeableImageView
@@ -79,14 +79,14 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="头像" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="选择一张新的个人头像" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="头像" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="选择一张新的个人头像" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
 
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="20dp" android:background="@color/outline_soft" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="20dp" android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:id="@+id/row_nickname"
@@ -99,13 +99,13 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="16dp">
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="昵称" android:textColor="@color/text_primary" />
-                        <TextView android:id="@+id/account_nickname" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:ellipsize="end" android:maxLines="1" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="昵称" android:textColor="?attr/colorOnSurface" />
+                        <TextView android:id="@+id/account_nickname" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:ellipsize="end" android:maxLines="1" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="20dp" android:background="@color/outline_soft" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="20dp" android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:id="@+id/row_bio"
@@ -118,8 +118,8 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="16dp">
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="简介" android:textColor="@color/text_primary" />
-                        <TextView android:id="@+id/account_bio" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:ellipsize="end" android:maxLines="2" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="简介" android:textColor="?attr/colorOnSurface" />
+                        <TextView android:id="@+id/account_bio" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:ellipsize="end" android:maxLines="2" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>

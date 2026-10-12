@@ -4,6 +4,6 @@
         <shape android:shape="rectangle"><solid android:color="@color/web_progress_track" /></shape>
     </item>
     <item android:id="@android:id/progress">
-        <clip><shape android:shape="rectangle"><solid android:color="@color/brand_primary" /></shape></clip>
+        <clip><shape android:shape="rectangle"><solid android:color="?attr/colorPrimary" /></shape></clip>
     </item>
 </layer-list>

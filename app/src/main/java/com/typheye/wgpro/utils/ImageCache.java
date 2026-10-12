@@ -313,7 +313,28 @@ public final class ImageCache {
     }
 
     private static File cacheFile(Context context, String url) {
-        return new File(cacheDir(context), sha256(url) + ".img");
+        return new File(cacheDir(context), sha256(cacheKey(url)) + ".img");
+    }
+
+    /**
+     * 磁盘缓存键。
+     * <p>res.typheye.cn 的图片是**签名 URL**（{@code media.php?p=..&e=..&u=..&s=..}），
+     * 每次请求签名都会变——直接拿整条 URL 当 key 会导致同一张图永远命中不了缓存、
+     * 每次都重新下载。这里只保留资源路径 {@code p} 作为稳定键。</p>
+     */
+    @NonNull
+    private static String cacheKey(@Nullable String url) {
+        String normalized = normalize(url);
+        if (normalized.contains("media.php?")) {
+            try {
+                android.net.Uri parsed = android.net.Uri.parse(normalized);
+                String path = parsed.getQueryParameter("p");
+                if (path != null && !path.isEmpty()) {
+                    return "https://res.typheye.cn/media.php?p=" + path;
+                }
+            } catch (Exception ignored) { }
+        }
+        return normalized;
     }
 
     private static String normalize(@Nullable String url) {

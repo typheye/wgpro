@@ -32,17 +32,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="应用发生了未处理的异常，我们已记录错误信息。"
-                android:textColor="@color/text_u1"
+                android:textColor="?attr/colorOnSurface"
                 android:layout_marginBottom="16dp"/>
 
             <TextView
                 android:id="@+id/tv_crash_log"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/tab_accent_th"
+                android:background="?attr/colorPrimaryContainer"
                 android:padding="16dp"
                 android:textSize="14sp"
-                android:textColor="@color/text_u2"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:layout_marginBottom="16dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -102,7 +102,7 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
                 app:title="异常"
-                app:titleTextColor="@color/text_u1"
+                app:titleTextColor="?attr/colorOnSurface"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"
                 app:navigationIcon="@null"/>
         </com.google.android.material.appbar.AppBarLayout>

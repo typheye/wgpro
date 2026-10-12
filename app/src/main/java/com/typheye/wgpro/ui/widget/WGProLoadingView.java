@@ -53,7 +53,7 @@ public class WGProLoadingView extends View {
 
     public WGProLoadingView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        int color = context.getColor(R.color.brand_primary);
+        int color = com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_primary);
         int trackColor = 0;
         if (attrs != null) {
             TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.WGProLoadingView,

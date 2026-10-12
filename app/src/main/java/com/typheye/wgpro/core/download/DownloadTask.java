@@ -21,7 +21,8 @@ public final class DownloadTask {
     public final String id;          // 应用包名，作为任务唯一键
     public final String name;
     public final String iconUrl;
-    public final String downloadUrl;
+    /** 下载地址：签名 URL 会过期（10 分钟），过期后由下载服务刷新，故非 final。 */
+    public String downloadUrl;
     public final String sizeLabel;   // 接口返回的原始大小字符串，如 "39.6M"
     public final int destination;
     /** 详情类型："app" / "resource"，用于长按「查看详情」。 */

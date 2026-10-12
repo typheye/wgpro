@@ -61,14 +61,14 @@ public final class SearchHistoryFragment extends Fragment {
     private View createRow(@NonNull String query) {
         com.google.android.material.card.MaterialCardView card =
                 new com.google.android.material.card.MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
         card.setStrokeWidth(0);
         card.setCardElevation(0);
         card.setRadius(dp(12));
         card.setClickable(true);
         card.setFocusable(true);
         card.setRippleColor(android.content.res.ColorStateList.valueOf(
-                requireContext().getColor(R.color.brand_soft)));
+                com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_soft)));
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, dp(52));
         cardParams.setMarginStart(dp(16));
         cardParams.setMarginEnd(dp(16));
@@ -84,13 +84,13 @@ public final class SearchHistoryFragment extends Fragment {
         text.setText(query);
         text.setSingleLine(true);
         text.setEllipsize(android.text.TextUtils.TruncateAt.END);
-        text.setTextColor(requireContext().getColor(R.color.text_primary));
+        text.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_primary));
         text.setTextSize(15f);
         row.addView(text, new LinearLayout.LayoutParams(0, -2, 1f));
 
         ImageView clear = new ImageView(requireContext());
         clear.setImageResource(R.drawable.ic_close_vector);
-        clear.setColorFilter(requireContext().getColor(R.color.text_tertiary));
+        clear.setColorFilter(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_tertiary));
         clear.setContentDescription("删除");
         clear.setBackgroundResource(R.drawable.bg_list_item_ripple);
         int pad = dp(9);

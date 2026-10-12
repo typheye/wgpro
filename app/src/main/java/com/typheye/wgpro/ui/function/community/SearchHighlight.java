@@ -42,7 +42,7 @@ final class SearchHighlight {
         String lowerSource = source.toLowerCase();
         String lowerKey = key.toLowerCase();
         SpannableString span = new SpannableString(source);
-        int color = context.getColor(R.color.brand_primary);
+        int color = com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_primary);
         boolean matched = false;
         int from = 0;
         while (from <= lowerSource.length()) {

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 详情页数据条（大小/下载/星标）的浅色圆角矩形底，用来衬托数值 -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
-    <solid android:color="@color/surface_secondary" />
+    <solid android:color="?attr/colorSurfaceContainer" />
     <corners android:radius="14dp" />
 </shape>

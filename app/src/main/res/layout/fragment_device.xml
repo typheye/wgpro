@@ -34,12 +34,12 @@
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:ellipsize="end" android:maxLines="1"
                                     android:text="检测到新的小米设备"
-                                    android:textColor="@color/text_primary"
+                                    android:textColor="?attr/colorOnSurface"
                                     android:textSize="16sp" android:textStyle="bold" />
                                 <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                                     android:layout_marginTop="2dp"
                                     android:text="点击查看并添加"
-                                    android:textColor="@color/text_secondary"
+                                    android:textColor="?attr/colorOnSurfaceVariant"
                                     android:textSize="13sp" />
                             </LinearLayout>
                             <TextView android:id="@+id/button_dismiss_detected"

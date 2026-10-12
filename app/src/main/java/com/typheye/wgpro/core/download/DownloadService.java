@@ -17,6 +17,8 @@ import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
 import com.typheye.wgpro.R;
+
+import org.json.JSONObject;
 import com.typheye.wgpro.core.NotificationChannels;
 import com.typheye.wgpro.ui.function.download.DownloadManagerActivity;
 
@@ -127,57 +129,87 @@ public final class DownloadService extends android.app.Service {
         return false;
     }
 
+    /** 下载地址过期/未带鉴权时，最多重新取一次新地址。 */
+    private static final int MAX_URL_REFRESH = 1;
+
     private void runTask(DownloadTask task) {
         currentId = task.id;
         task.status = DownloadTask.STATUS_RUNNING;
         DownloadManager.get().publish();
 
         File target = targetFile(task);
-        long existing = target.exists() ? target.length() : 0L;
-        Request.Builder builder = new Request.Builder().url(task.downloadUrl);
-        if (existing > 0L) builder.addHeader("Range", "bytes=" + existing + "-");
+        int urlRefreshes = 0;
         try {
-            okhttp3.Call call = client.newCall(builder.build());
-            currentCall = call;
-            okhttp3.Response response = call.execute();
-            try (Response closed = response) {
-                if (closed.code() == 416) {
-                    // 已经完整下载过。
+            while (true) {
+                long existing = target.exists() ? target.length() : 0L;
+                Request.Builder builder = new Request.Builder().url(task.downloadUrl);
+                if (existing > 0L) builder.addHeader("Range", "bytes=" + existing + "-");
+                okhttp3.Call call = client.newCall(builder.build());
+                currentCall = call;
+                okhttp3.Response response = call.execute();
+                try (Response closed = response) {
+                    int code = closed.code();
+                    // 410 签名过期 / 403 签名被篡改 / 402 未购（常见于 URL 没带 uid+wt）：
+                    // 重新调 res 接口取一次最新地址再试（只重试一次，已下分片保留）
+                    if ((code == 410 || code == 403 || code == 402) && urlRefreshes < MAX_URL_REFRESH) {
+                        String fresh = refreshDownloadUrl(task);
+                        if (fresh != null && !fresh.isEmpty() && !fresh.equals(task.downloadUrl)) {
+                            urlRefreshes++;
+                            task.downloadUrl = fresh;
+                            continue;
+                        }
+                    }
+                    if (code == 402) {
+                        failTask(task, "未获得该应用，请先在应用内获取后再下载");
+                        return;
+                    }
+                    if (code == 410 || code == 403) {
+                        failTask(task, "下载地址已过期，请重新下载");
+                        return;
+                    }
+                    if (code == 404) {
+                        failTask(task, "资源不存在或已下架");
+                        return;
+                    }
+                    if (code == 416) {
+                        // 已经完整下载过。
+                        finishTask(task, target);
+                        return;
+                    }
+                    if (!closed.isSuccessful()) {
+                        failTask(task, "HTTP " + code);
+                        return;
+                    }
+                    long bodyLength = closed.body() == null ? -1L : closed.body().contentLength();
+                    task.totalBytes = bodyLength > 0 ? existing + bodyLength : -1L;
+                    task.downloadedBytes = existing;
+                    try (InputStream in = closed.body() == null ? null : closed.body().byteStream();
+                         OutputStream out = new FileOutputStream(target, existing > 0L)) {
+                        if (in == null) {
+                            failTask(task, "响应为空");
+                            return;
+                        }
+                        byte[] buffer = new byte[16 * 1024];
+                        long lastNotify = 0L;
+                        int read;
+                        while ((read = in.read(buffer)) != -1) {
+                            if (task.status == DownloadTask.STATUS_PAUSED) {
+                                return; // 保留已下载部分，供继续下载
+                            }
+                            out.write(buffer, 0, read);
+                            task.downloadedBytes += read;
+                            long now = SystemClock.uptimeMillis();
+                            if (now - lastNotify >= PROGRESS_THROTTLE_MS) {
+                                lastNotify = now;
+                                DownloadManager.get().publish();
+                                updateNotification(task);
+                            }
+                        }
+                        out.flush();
+                    }
                     finishTask(task, target);
                     return;
                 }
-                if (!closed.isSuccessful()) {
-                    failTask(task, "HTTP " + closed.code());
-                    return;
-                }
-                long bodyLength = closed.body() == null ? -1L : closed.body().contentLength();
-                task.totalBytes = bodyLength > 0 ? existing + bodyLength : -1L;
-                task.downloadedBytes = existing;
-                try (InputStream in = closed.body() == null ? null : closed.body().byteStream();
-                     OutputStream out = new FileOutputStream(target, existing > 0L)) {
-                    if (in == null) {
-                        failTask(task, "响应为空");
-                        return;
-                    }
-                    byte[] buffer = new byte[16 * 1024];
-                    long lastNotify = 0L;
-                    int read;
-                    while ((read = in.read(buffer)) != -1) {
-                        if (task.status == DownloadTask.STATUS_PAUSED) {
-                            return; // 保留已下载部分，供继续下载
-                        }
-                        out.write(buffer, 0, read);
-                        task.downloadedBytes += read;
-                        long now = SystemClock.uptimeMillis();
-                        if (now - lastNotify >= PROGRESS_THROTTLE_MS) {
-                            lastNotify = now;
-                            DownloadManager.get().publish();
-                            updateNotification(task);
-                        }
-                    }
-                    out.flush();
-                }
-                finishTask(task, target);
             }
         } catch (IOException e) {
             if (task.status == DownloadTask.STATUS_PAUSED) return;
@@ -190,6 +222,36 @@ public final class DownloadService extends android.app.Service {
         } finally {
             currentCall = null;
             currentId = null;
+        }
+    }
+
+    /**
+     * 重新调 res 接口取一次最新下载地址。
+     * <p>应用类带 {@code uid+wt}（付费包体必须绑定用户，否则 402）；资源类不需要鉴权。
+     * 客户端不自己拼路径，一切以接口返回为准。</p>
+     *
+     * @return 新地址；取不到返回 null
+     */
+    @Nullable
+    private String refreshDownloadUrl(DownloadTask task) {
+        try {
+            String type = "resource".equals(task.detailType) ? "resource" : "app";
+            String api = com.typheye.wgpro.utils.tPointsUtils.resApiUrl(this, type, task.id);
+            Request request = new Request.Builder().url(api).get().build();
+            try (Response response = client.newCall(request).execute()) {
+                if (!response.isSuccessful() || response.body() == null) return null;
+                JSONObject json = new JSONObject(response.body().string());
+                JSONObject item = json.optJSONObject("info");
+                if (item == null) {
+                    org.json.JSONArray array = json.optJSONArray("info");
+                    if (array != null && array.length() > 0) item = array.optJSONObject(0);
+                }
+                if (item == null) return null;
+                String fresh = item.optString("download_url", item.optString("file_url", ""));
+                return fresh.isEmpty() ? null : fresh;
+            }
+        } catch (Exception e) {
+            return null;
         }
     }
 

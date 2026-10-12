@@ -12,7 +12,7 @@
     <style name="ThemeOverlay.WGPro.BottomSheetDialog" parent="ThemeOverlay.Material3.BottomSheetDialog">
         <item name="enableEdgeToEdge">true</item>
         <item name="bottomSheetStyle">@style/Widget.WGPro.BottomSheet.Modal</item>
-        <item name="android:colorBackground">@color/surface_elevated</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainerHigh</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>

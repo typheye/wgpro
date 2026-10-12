@@ -77,7 +77,7 @@ public class ChatActivity extends BaseSectionActivity {
         MenuItem more = menu.findItem(R.id.action_chat_more);
         if (more != null && more.getIcon() != null) {
             Drawable icon = DrawableCompat.wrap(more.getIcon()).mutate();
-            DrawableCompat.setTint(icon, getColor(R.color.text_primary));
+            DrawableCompat.setTint(icon, com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.text_primary));
             more.setIcon(icon);
         }
         return true;
@@ -190,7 +190,7 @@ public class ChatActivity extends BaseSectionActivity {
                             scroll.getPaddingRight(), barHeight);
                 }
             });
-            refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+            refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
             refresh.setOnRefreshListener(this::load);
             root.findViewById(R.id.chat_send).setOnClickListener(v -> send());
             load(); return root;
@@ -393,7 +393,7 @@ public class ChatActivity extends BaseSectionActivity {
             if (recalled) {
                 TextView state = stateText("消息已撤回");
                 state.setTextSize(13);
-                state.setTextColor(requireContext().getColor(R.color.text_tertiary));
+                state.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_tertiary));
                 state.setGravity(Gravity.CENTER);
                 LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
                 params.topMargin = dp(6);
@@ -407,8 +407,8 @@ public class ChatActivity extends BaseSectionActivity {
             }
             MaterialCardView card = new MaterialCardView(requireContext()); card.setRadius(dp(18));
             card.setStrokeWidth(0); card.setCardElevation(0);
-            card.setCardBackgroundColor(requireContext().getColor(mine ? R.color.brand_soft : R.color.surface_secondary));
-            TextView text = stateText(item.optString("content", "")); text.setTextColor(requireContext().getColor(R.color.text_primary));
+            card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), mine ? R.color.brand_soft : R.color.surface_secondary));
+            TextView text = stateText(item.optString("content", "")); text.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_primary));
             text.setPadding(dp(14), dp(10), dp(14), dp(10)); card.addView(text);
             LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(-2, -2); p.gravity = mine ? Gravity.END : Gravity.START;
             p.bottomMargin = dp(8); p.setMarginStart(mine ? dp(54) : 0); p.setMarginEnd(mine ? 0 : dp(54)); card.setLayoutParams(p);
@@ -646,7 +646,7 @@ public class ChatActivity extends BaseSectionActivity {
             return state;
         }
         private void showDialog(String value) { if (isAdded()) new WGProAlertDialogBuilder(requireContext()).setTitle("发送失败").setMessage(value).setNegativeButton("关闭", null).show(); }
-        private TextView stateText(String value) { TextView text = new TextView(requireContext()); text.setText(value); text.setTextSize(14); text.setTextColor(requireContext().getColor(R.color.text_secondary)); text.setTypeface(Typeface.DEFAULT); text.setPadding(dp(8), dp(12), dp(8), dp(12)); return text; }
+        private TextView stateText(String value) { TextView text = new TextView(requireContext()); text.setText(value); text.setTextSize(14); text.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_secondary)); text.setTypeface(Typeface.DEFAULT); text.setPadding(dp(8), dp(12), dp(8), dp(12)); return text; }
         private Map<String, String> page() { Map<String, String> q = new LinkedHashMap<>(); q.put("page", "1"); q.put("size", "50"); return q; }
         private int dp(int v) { return Math.round(v * getResources().getDisplayMetrics().density); }
     }

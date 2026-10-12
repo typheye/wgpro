@@ -18,21 +18,21 @@
             android:padding="24dp">
             <ImageView android:layout_width="64dp" android:layout_height="64dp"
                 android:background="@drawable/bg_oobe_icon_brand" android:padding="16dp"
-                android:src="@drawable/ic_policy_vector" app:tint="@color/brand_on_soft" />
+                android:src="@drawable/ic_policy_vector" app:tint="?attr/colorOnPrimaryContainer" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="26dp" android:text="隐私，应该简单明了"
-                android:textColor="@color/text_primary" android:textSize="30sp" android:textStyle="bold" />
+                android:textColor="?attr/colorOnSurface" android:textSize="30sp" android:textStyle="bold" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="腕管Pro仅在功能需要时申请权限。账户、设备和文件数据不会用于无关用途。"
-                android:textColor="@color/text_secondary" android:textSize="16sp" android:lineSpacingExtra="4dp" />
+                android:textColor="?attr/colorOnSurfaceVariant" android:textSize="16sp" android:lineSpacingExtra="4dp" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="34dp" android:text="你始终拥有选择权"
-                android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold" />
+                android:textColor="?attr/colorOnSurface" android:textSize="18sp" android:textStyle="bold" />
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="可以在系统设置中随时管理权限，也可以在应用内退出账户或清除连接信息。"
-                android:textColor="@color/text_secondary" android:textSize="15sp" android:lineSpacingExtra="3dp" />
+                android:textColor="?attr/colorOnSurfaceVariant" android:textSize="15sp" android:lineSpacingExtra="3dp" />
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_approve"
                 style="@style/Widget.WGPro.Button.Tonal"

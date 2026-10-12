@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="18dp"
                 android:text="腕管Pro"
-                android:textColor="@color/text_primary"
+                android:textColor="?attr/colorOnSurface"
                 android:textStyle="bold" />
 
             <TextView
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:textColor="@color/text_secondary" />
+                android:textColor="?attr/colorOnSurfaceVariant" />
 
             <!-- 更新状态：单行文字卡片（已是最新版本 / 有新版本待更新） -->
             <com.google.android.material.card.MaterialCardView
@@ -98,7 +98,7 @@
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
                     <TextView
                         style="@style/TextAppearance.Material3.BodySmall"
@@ -106,13 +106,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="构建版本"
-                        android:textColor="@color/text_secondary" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
                 <View
                     android:layout_width="1dp"
                     android:layout_height="44dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/outline_soft" />
+                    android:background="?attr/colorOutlineVariant" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -124,7 +124,7 @@
                         style="@style/TextAppearance.Material3.TitleMedium"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/text_primary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
                     <TextView
                         style="@style/TextAppearance.Material3.BodySmall"
@@ -132,13 +132,13 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="目标 API"
-                        android:textColor="@color/text_secondary" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
                 <View
                     android:layout_width="1dp"
                     android:layout_height="44dp"
                     android:layout_gravity="center_vertical"
-                    android:background="@color/outline_soft" />
+                    android:background="?attr/colorOutlineVariant" />
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -151,7 +151,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Release"
-                        android:textColor="@color/text_primary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textStyle="bold" />
                     <TextView
                         style="@style/TextAppearance.Material3.BodySmall"
@@ -159,7 +159,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="应用级别"
-                        android:textColor="@color/text_secondary" />
+                        android:textColor="?attr/colorOnSurfaceVariant" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -202,12 +202,12 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开发者" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="台风眼Typheye" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开发者" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="台风眼Typheye" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:id="@+id/about_row_feedback"
@@ -231,13 +231,13 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="联系与反馈" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="向我们反馈意见或建议" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="联系与反馈" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="向我们反馈意见或建议" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:id="@+id/about_row_homepage"
@@ -261,8 +261,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="项目主页" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="typheye/wgpro" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="项目主页" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="typheye/wgpro" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
@@ -310,13 +310,13 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="服务条款与隐私政策" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="了解数据与隐私处理方式" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="服务条款与隐私政策" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="了解数据与隐私处理方式" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="@color/outline_soft" />
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
                     android:id="@+id/about_row_license"
@@ -340,8 +340,8 @@
                         android:layout_marginStart="16dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开源协议" android:textColor="@color/text_primary" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="GNU General Public License v3.0" android:textColor="@color/text_secondary" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开源协议" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="GNU General Public License v3.0" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>

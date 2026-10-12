@@ -189,8 +189,8 @@ public final class BarBlurController {
         // 低版本无法渲染 RenderEffect，半透明会直接透出背后的内容（图片尤其明显），
         // 此时按关闭模糊处理，用与页面一致的不透明主题底色。
         boolean frosted = isBlurEnabled(context) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
-        int color = context.getColor(frosted
-                ? R.color.surface_bar : R.color.surface_primary);
+        // 栏位保持纯黑/纯白：模糊态用 surface_bar（半透明纯色，模糊照旧透出来），否则 surface_primary
+        int color = context.getColor(frosted ? R.color.surface_bar : R.color.surface_primary);
         bar.setBackgroundColor(color);
         bar.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
     }

@@ -937,7 +937,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 ViewGroup.LayoutParams.MATCH_PARENT, dp(1));
                 params.setMarginStart(dp(20));
                 divider.setLayoutParams(params);
-                divider.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
+                divider.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.outline_soft));
                 parent.addView(divider);
             }
         }

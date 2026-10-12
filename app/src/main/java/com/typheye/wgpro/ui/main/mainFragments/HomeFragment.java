@@ -192,7 +192,7 @@ public class HomeFragment extends Fragment {
         communityRefresh = root.findViewById(R.id.page_community);
         appsRefresh = root.findViewById(R.id.page_apps);
         resourcesRefresh = root.findViewById(R.id.page_resources);
-        int accent = requireContext().getColor(R.color.brand_primary);
+        int accent = com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary);
         communityRefresh.setColorSchemeColors(accent);
         appsRefresh.setColorSchemeColors(accent);
         resourcesRefresh.setColorSchemeColors(accent);
@@ -523,9 +523,11 @@ public class HomeFragment extends Fragment {
             }
         };
         if (force) {
-            account.getPublicJsonUrl(APPS_URL, callback);
+            account.getPublicJsonUrl(com.typheye.wgpro.utils.tPointsUtils.withResAuth(
+                    requireContext(), APPS_URL), callback);
         } else {
-            account.getPublicJsonUrlCached(APPS_URL, CATALOG_TTL_MS, callback);
+            account.getPublicJsonUrlCached(com.typheye.wgpro.utils.tPointsUtils.withResAuth(
+                    requireContext(), APPS_URL), CATALOG_TTL_MS, callback);
         }
     }
 
@@ -543,6 +545,7 @@ public class HomeFragment extends Fragment {
                     JSONArray list = items(json, "items", "resources", "data");
                     String signature = listSignature(list, "id", "title", "summary",
                             "description", "collection_count", "is_collected", "status");
+                    com.typheye.wgpro.ui.function.community.ResourceCoverResolver.fill(requireContext(), list, null);
                     if (!signature.equals(resourcesSignature)) {
                         resourcesSignature = signature;
                         resources.removeAllViews();
@@ -848,7 +851,7 @@ public class HomeFragment extends Fragment {
         return trimmed.isEmpty() ? "?" : trimmed.substring(0, 1).toUpperCase(Locale.ROOT);
     }
 
-    private int color(int id) { return requireContext().getColor(id); }
+    private int color(int id) { return com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), id); }
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 
     private static final class BannerAdapter extends RecyclerView.Adapter<BannerAdapter.Holder> {

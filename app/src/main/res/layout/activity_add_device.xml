@@ -52,7 +52,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="正在扫描附近设备"
-                            android:textColor="@color/text_primary"
+                            android:textColor="?attr/colorOnSurface"
                             android:textSize="16sp"
                             android:textStyle="bold" />
                         <TextView
@@ -60,7 +60,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:text="请保持设备处于可连接状态"
-                            android:textColor="@color/text_secondary"
+                            android:textColor="?attr/colorOnSurfaceVariant"
                             android:textSize="13sp" />
                     </LinearLayout>
                     <com.typheye.wgpro.ui.widget.WGProLoadingView
@@ -68,7 +68,7 @@
                         android:layout_width="34dp"
                         android:layout_height="34dp"
                         app:loadingColor="?attr/colorPrimary"
-                        app:loadingTrackColor="@color/brand_soft" />
+                        app:loadingTrackColor="?attr/colorPrimaryContainer" />
                     <com.google.android.material.button.MaterialButton
                         android:id="@+id/button_rescan"
                         style="@style/Widget.WGPro.Button.Text"
@@ -104,7 +104,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="暂未发现设备"
-                        android:textColor="@color/text_primary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                     <TextView
@@ -112,7 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="6dp"
                         android:text="确认设备已开启并靠近手机，然后重新扫描。"
-                        android:textColor="@color/text_secondary"
+                        android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="14sp" />
                 </LinearLayout>
             </LinearLayout>
@@ -157,7 +157,7 @@
                 app:navigationIcon="@drawable/ic_back_vector"
                 app:title="添加设备"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"
-                app:titleTextColor="@color/text_primary" />
+                app:titleTextColor="?attr/colorOnSurface" />
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

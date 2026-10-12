@@ -66,7 +66,7 @@ public class SystemMessageDetailFragment extends Fragment {
         list = root.findViewById(R.id.system_message_list);
         scroll = root.findViewById(R.id.system_message_scroll);
         InboxNotificationHelper.cancelSystemNotifications(requireContext());
-        refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         refresh.setOnRefreshListener(this::load);
         if (!loadedOnce && requireActivity() instanceof BaseSectionActivity) {
             ((BaseSectionActivity) requireActivity()).showContentLoading();
@@ -222,7 +222,7 @@ public class SystemMessageDetailFragment extends Fragment {
         TextView view = new TextView(requireContext());
         view.setText(text);
         view.setTextSize(12);
-        view.setTextColor(requireContext().getColor(R.color.text_tertiary));
+        view.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_tertiary));
         view.setGravity(Gravity.CENTER);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
         params.topMargin = dp(12);
@@ -233,14 +233,14 @@ public class SystemMessageDetailFragment extends Fragment {
 
     private View messageCard(JSONObject item) {
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
         card.setRadius(dp(16));
         card.setCardElevation(0f);
         card.setStrokeWidth(0);
         card.setClickable(true);
         card.setFocusable(true);
         card.setRippleColor(android.content.res.ColorStateList.valueOf(
-                requireContext().getColor(R.color.brand_soft)));
+                com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_soft)));
 
         LinearLayout body = new LinearLayout(requireContext());
         body.setOrientation(LinearLayout.VERTICAL);
@@ -251,7 +251,7 @@ public class SystemMessageDetailFragment extends Fragment {
             TextView titleView = new TextView(requireContext());
             titleView.setText(title);
             titleView.setTextSize(17);
-            titleView.setTextColor(requireContext().getColor(R.color.text_primary));
+            titleView.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_primary));
             titleView.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
             body.addView(titleView);
         }
@@ -261,7 +261,7 @@ public class SystemMessageDetailFragment extends Fragment {
             TextView contentView = new TextView(requireContext());
             contentView.setText(content);
             contentView.setTextSize(15);
-            contentView.setTextColor(requireContext().getColor(R.color.text_primary));
+            contentView.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_primary));
             contentView.setLineSpacing(0f, 1.12f);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, -2);
             params.topMargin = dp(8);
@@ -302,13 +302,13 @@ public class SystemMessageDetailFragment extends Fragment {
         TextView actionLabel = new TextView(requireContext());
         actionLabel.setText(label);
         actionLabel.setTextSize(15);
-        actionLabel.setTextColor(requireContext().getColor(R.color.brand_primary));
+        actionLabel.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         actionLabel.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         texts.addView(actionLabel);
         TextView sub = new TextView(requireContext());
         sub.setText(hint);
         sub.setTextSize(12);
-        sub.setTextColor(requireContext().getColor(R.color.text_secondary));
+        sub.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_secondary));
         LinearLayout.LayoutParams subParams = new LinearLayout.LayoutParams(-2, -2);
         subParams.topMargin = dp(2);
         texts.addView(sub, subParams);
@@ -317,7 +317,7 @@ public class SystemMessageDetailFragment extends Fragment {
         android.widget.ImageView arrow = new android.widget.ImageView(requireContext());
         arrow.setImageResource(R.drawable.ic_chevron_right_vector);
         arrow.setImageTintList(android.content.res.ColorStateList.valueOf(
-                requireContext().getColor(R.color.text_tertiary)));
+                com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.text_tertiary)));
         row.addView(arrow, new LinearLayout.LayoutParams(dp(18), dp(18)));
         row.setOnClickListener(v -> resolved.run());
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, -2);

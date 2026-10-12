@@ -68,7 +68,7 @@
             app:contentInsetStartWithNavigation="8dp"
             app:title="@string/app_name"
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:titleTextColor="@color/text_primary">
+            app:titleTextColor="?attr/colorOnSurface">
 
             <!-- 首页专用：占住标题位置的应用栏搜索控件（胶囊底色 + 内嵌放大镜 + 灰字）。
                  放在 Toolbar 里当自定义子视图，测量时会用「右侧菜单左侧的剩余宽度」，
@@ -88,7 +88,7 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="搜索从这里开始"
-                android:textColor="@color/text_tertiary"
+                android:textColor="?attr/colorOutline"
                 android:textSize="15sp"
                 android:visibility="gone" />
 

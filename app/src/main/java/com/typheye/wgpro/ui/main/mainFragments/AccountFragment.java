@@ -88,7 +88,7 @@ public class AccountFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_account, container, false);
         accountRefresh = view.findViewById(R.id.account_refresh);
         accountPageContent = view.findViewById(R.id.account_page_content);
-        accountRefresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        accountRefresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         accountRefresh.setOnRefreshListener(() -> {
             if (getActivity() instanceof com.typheye.wgpro.ui.main.MainActivity) {
                 ((com.typheye.wgpro.ui.main.MainActivity) getActivity()).refreshAccountFromUser();
@@ -622,7 +622,7 @@ public class AccountFragment extends Fragment {
                             if (info == null) return;
                             BadgeFactory.bind(requireContext(), info,
                                     getView().findViewById(R.id.account_avatar_outer),
-                                    requireContext().getColor(R.color.surface_page));
+                                    com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_page));
                             activityCount.setText(String.valueOf(info.optInt("dynamic_count", 0)));
                             followingCount.setText(String.valueOf(info.optInt("following_count", 0)));
                             followersCount.setText(String.valueOf(info.optInt("follower_count", 0)));

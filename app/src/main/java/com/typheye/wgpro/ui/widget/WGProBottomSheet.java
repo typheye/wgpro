@@ -39,7 +39,7 @@ public final class WGProBottomSheet {
         background.setColor(night
                 ? WGProAlertDialogBuilder.resolveThemeColor(
                         context, "colorSurfaceContainerHigh", R.color.surface_elevated)
-                : context.getColor(R.color.surface_primary));
+                : com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_primary));
         background.setCornerRadii(new float[]{dp(context, 28), dp(context, 28), dp(context, 28), dp(context, 28), 0, 0, 0, 0});
         content.setBackground(background);
 

@@ -78,7 +78,7 @@ public class DeviceFragment extends Fragment {
         detected = root.findViewById(R.id.card_detected_device);
         wearableRefresh = root.findViewById(R.id.device_page_wearable);
         otherRefresh = root.findViewById(R.id.device_page_other);
-        int accent = requireContext().getColor(R.color.brand_primary);
+        int accent = com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary);
         wearableRefresh.setColorSchemeColors(accent);
         otherRefresh.setColorSchemeColors(accent);
         wearableRefresh.setEnabled(true);

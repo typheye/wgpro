@@ -39,7 +39,7 @@
                         android:layout_width="104dp" android:layout_height="104dp">
                         <TextView android:id="@+id/detail_avatar_text" android:layout_width="match_parent"
                             android:layout_height="match_parent" android:background="@drawable/bg_avatar_placeholder_circle"
-                            android:gravity="center" android:textColor="@color/brand_on_soft"
+                            android:gravity="center" android:textColor="?attr/colorOnPrimaryContainer"
                             android:textSize="42sp" android:textStyle="bold" />
                         <com.google.android.material.imageview.ShapeableImageView android:id="@+id/detail_avatar"
                             android:layout_width="match_parent" android:layout_height="match_parent"
@@ -132,7 +132,7 @@
                         <TextView android:id="@+id/detail_collapsed_avatar_text"
                             android:layout_width="match_parent" android:layout_height="match_parent"
                             android:background="@drawable/bg_avatar_placeholder_circle" android:gravity="center"
-                            android:textColor="@color/brand_on_soft" android:textSize="14sp" android:textStyle="bold" />
+                            android:textColor="?attr/colorOnPrimaryContainer" android:textSize="14sp" android:textStyle="bold" />
                         <com.google.android.material.imageview.ShapeableImageView android:id="@+id/detail_collapsed_avatar"
                             android:layout_width="match_parent" android:layout_height="match_parent"
                             android:scaleType="centerCrop" android:visibility="gone"

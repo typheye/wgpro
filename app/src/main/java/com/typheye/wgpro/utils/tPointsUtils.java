@@ -39,6 +39,12 @@ public final class tPointsUtils {
     /** 回调统一回到主线程：调用方多是 UI 代码，避免各自再 post 一遍。 */
     private static final Handler MAIN = new Handler(Looper.getMainLooper());
 
+    /** 网页单点令牌（res 付费包体下载地址需要 uid+wt 才会签名解锁）。 */
+    private static volatile String webTokenCache = "";
+    private static volatile long webTokenAt = 0L;
+    /** 服务端令牌 30 分钟有效，客户端保守按 20 分钟缓存。 */
+    private static final long WEB_TOKEN_TTL_MS = 20L * 60L * 1000L;
+
     private tPointsUtils() { }
 
     private static void postMain(@NonNull Runnable action) {
@@ -158,7 +164,114 @@ public final class tPointsUtils {
 
     /** 网页单点令牌（积分明细 / 商城 / 福利 三个网页用）。 */
     public static void webToken(@NonNull Context context, @NonNull JsonCallback callback) {
-        getAction(context, "web_token", callback);
+        getAction(context, "web_token", new JsonCallback() {
+            @Override
+            public void onSuccess(@NonNull JSONObject info) {
+                rememberWebToken(info.optString("wt", ""));
+                callback.onSuccess(info);
+            }
+
+            @Override
+            public void onError(int status, @NonNull String message, @Nullable JSONObject info) {
+                callback.onError(status, message, info);
+            }
+        });
+    }
+
+    private static void rememberWebToken(@Nullable String token) {
+        webTokenCache = token == null ? "" : token;
+        webTokenAt = System.currentTimeMillis();
+    }
+
+    /** 本地缓存的网页令牌（可能为空/过期，仅用于拼 URL 时尽力带上）。 */
+    @NonNull
+    public static String cachedWebToken() {
+        if (System.currentTimeMillis() - webTokenAt > WEB_TOKEN_TTL_MS) return "";
+        return webTokenCache;
+    }
+
+    /**
+     * 同步取网页令牌（供下载线程用）。
+     *
+     * @return 令牌；取不到返回当前缓存（可能为空）
+     */
+    @NonNull
+    public static String webTokenBlocking(@NonNull Context context) {
+        String cached = cachedWebToken();
+        if (!cached.isEmpty()) return cached;
+        tAccUtils acc = new tAccUtils(context.getApplicationContext());
+        HttpUrl url = HttpUrl.parse(BASE_URL).newBuilder()
+                .addQueryParameter("action", "web_token")
+                .addQueryParameter("uid", acc.getUid())
+                .build();
+        Request request = new Request.Builder()
+                .url(url)
+                .header("Authorization", "Bearer " + acc.peekSessionToken())
+                .header("X-Typheye-Session-Id", acc.peekSessionId())
+                .header("X-Typheye-Platform", "android")
+                .header("Accept", "application/json")
+                .get()
+                .build();
+        for (int attempt = 0; attempt <= MAX_RETRY; attempt++) {
+            try (Response response = client().newCall(request).execute()) {
+                String body = response.body() == null ? "" : response.body().string();
+                JSONObject json = null;
+                try {
+                    json = new JSONObject(body);
+                } catch (Exception ignored) { }
+                JSONObject info = json == null ? null : json.optJSONObject("info");
+                if (response.code() == 200 && info != null) {
+                    String token = info.optString("wt", "");
+                    if (!token.isEmpty()) rememberWebToken(token);
+                    return token;
+                }
+                return webTokenCache;
+            } catch (IOException e) {
+                if (attempt >= MAX_RETRY) return webTokenCache;
+            }
+        }
+        return webTokenCache;
+    }
+
+    /**
+     * 给 res 接口 URL 补上 {@code uid}+{@code wt}。
+     * <p>付费条目的 {@code download_url} 只有带上这两个参数才会签成"绑定当前用户"的地址，
+     * 否则下载会 402（未购）；免费条目带不带都能下。</p>
+     */
+    @NonNull
+    public static String withResAuth(@NonNull Context context, @NonNull String url) {
+        if (url.isEmpty() || url.contains("uid=")) return url;
+        // 已经签好名的包体地址不要动：改参数会让签名失效（410/403）
+        if (url.contains("action=dl")) return url;
+        tAccUtils acc = new tAccUtils(context.getApplicationContext());
+        String uid = acc.getUid();
+        if (uid == null || uid.isEmpty()) return url;
+        String token = cachedWebToken();
+        if (token.isEmpty()) {
+            // 手上还没令牌：顺手异步取一次，下一次拼 URL 就能带上（取不到也不影响免费条目）
+            webToken(context, new JsonCallback() {
+                @Override public void onSuccess(@NonNull JSONObject info) { }
+                @Override public void onError(int status, @NonNull String message,
+                                              @Nullable JSONObject info) { }
+            });
+        }
+        StringBuilder sb = new StringBuilder(url);
+        sb.append(url.contains("?") ? '&' : '?').append("uid=").append(Uri.encode(uid));
+        if (!token.isEmpty()) sb.append("&wt=").append(Uri.encode(token));
+        return sb.toString();
+    }
+
+    /**
+     * res 接口地址（带鉴权）：应用类用 {@code package=}，资源类用 {@code id=}。
+     */
+    @NonNull
+    public static String resApiUrl(@NonNull Context context, @NonNull String type,
+                                   @NonNull String key) {
+        String lower = type.toLowerCase(java.util.Locale.ROOT);
+        boolean appLike = lower.startsWith("app") || lower.equals("allap") || lower.equals("velaapp");
+        String url = "https://res.typheye.cn/api.php?type=" + Uri.encode(type)
+                + (appLike ? "&package=" : "&id=") + Uri.encode(key);
+        return withResAuth(context, url);
     }
 
     /** 拼网页地址：https://pay.typheye.cn/points/<path>/?uid=..&wt=.. */

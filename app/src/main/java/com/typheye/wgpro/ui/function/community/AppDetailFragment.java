@@ -1128,13 +1128,13 @@ public final class AppDetailFragment extends Fragment {
 
         TextView labelView = new TextView(context);
         labelView.setText(label);
-        labelView.setTextColor(context.getColor(R.color.text_secondary));
+        labelView.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.text_secondary));
         labelView.setTextSize(15f);
         row.addView(labelView, new LinearLayout.LayoutParams(dp(84), -2));
 
         TextView valueView = new TextView(context);
         valueView.setText(value);
-        valueView.setTextColor(context.getColor(R.color.text_primary));
+        valueView.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.text_primary));
         valueView.setTextSize(15f);
         valueView.setSingleLine(true);
         valueView.setEllipsize(android.text.TextUtils.TruncateAt.END);

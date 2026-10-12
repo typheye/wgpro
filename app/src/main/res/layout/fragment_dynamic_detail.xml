@@ -15,25 +15,25 @@
                 android:orientation="vertical" android:paddingStart="16dp" android:paddingTop="16dp"
                 android:paddingEnd="16dp" android:paddingBottom="28dp">
                 <com.google.android.material.card.MaterialCardView android:layout_width="match_parent"
-                    android:layout_height="wrap_content" app:cardBackgroundColor="@color/surface_secondary"
+                    android:layout_height="wrap_content" app:cardBackgroundColor="?attr/colorSurfaceContainer"
                     app:cardCornerRadius="12dp" app:cardElevation="0dp" app:strokeWidth="0dp">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:orientation="vertical" android:padding="18dp">
                         <TextView android:id="@+id/dynamic_detail_content" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:lineSpacingMultiplier="1.15"
-                            android:textColor="@color/text_primary" android:textSize="17sp" />
+                            android:textColor="?attr/colorOnSurface" android:textSize="17sp" />
                         <LinearLayout android:id="@+id/dynamic_detail_media_grid" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="14dp"
                             android:orientation="vertical" android:visibility="gone" />
                         <TextView android:id="@+id/dynamic_detail_tail" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="16dp"
-                            android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            android:textColor="?attr/colorOnSurfaceVariant" android:textSize="13sp" />
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
                 <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/dynamic_comments_title"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="22dp" android:layout_marginBottom="10dp" android:text="评论"
-                    android:textColor="@color/text_primary" android:textSize="22sp" android:textStyle="bold" />
+                    android:textColor="?attr/colorOnSurface" android:textSize="22sp" android:textStyle="bold" />
                 <LinearLayout android:id="@+id/comment_list" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:orientation="vertical" />
                 <include android:id="@+id/comment_empty" layout="@layout/view_stream_empty"
@@ -62,23 +62,23 @@
             android:layout_height="50dp" android:layout_weight="1" android:gravity="start|center_vertical"
             android:paddingStart="20dp" android:paddingEnd="14dp" android:ellipsize="end"
             android:maxLines="1" android:singleLine="true"
-            android:text="写评论" android:textColor="@color/text_secondary"
-            app:backgroundTint="@color/surface_secondary" app:cornerRadius="25dp" />
+            android:text="写评论" android:textColor="?attr/colorOnSurfaceVariant"
+            app:backgroundTint="?attr/colorSurfaceContainer" app:cornerRadius="25dp" />
         <com.google.android.material.button.MaterialButton android:id="@+id/dynamic_like_action"
             style="@style/Widget.Material3.Button.TonalButton" android:layout_width="wrap_content"
             android:layout_height="50dp" android:layout_marginStart="8dp"
             android:minWidth="0dp" android:paddingStart="16dp" android:paddingEnd="16dp"
             android:ellipsize="end" android:maxLines="1" android:singleLine="true"
-            android:text="赞" android:textColor="@color/text_secondary"
-            app:backgroundTint="@color/surface_secondary" app:cornerRadius="25dp"
-            app:icon="@drawable/ic_like_vector" app:iconPadding="5dp" app:iconTint="@color/text_secondary" />
+            android:text="赞" android:textColor="?attr/colorOnSurfaceVariant"
+            app:backgroundTint="?attr/colorSurfaceContainer" app:cornerRadius="25dp"
+            app:icon="@drawable/ic_like_vector" app:iconPadding="5dp" app:iconTint="?attr/colorOnSurfaceVariant" />
         <com.google.android.material.button.MaterialButton android:id="@+id/dynamic_favorite_action"
             style="@style/Widget.Material3.Button.TonalButton" android:layout_width="wrap_content"
             android:layout_height="50dp" android:layout_marginStart="8dp"
             android:minWidth="0dp" android:paddingStart="16dp" android:paddingEnd="16dp"
             android:ellipsize="end" android:maxLines="1" android:singleLine="true"
-            android:text="收藏" android:textColor="@color/text_secondary"
-            app:backgroundTint="@color/surface_secondary" app:cornerRadius="25dp"
-            app:icon="@drawable/ic_bookmark_vector" app:iconPadding="5dp" app:iconTint="@color/text_secondary" />
+            android:text="收藏" android:textColor="?attr/colorOnSurfaceVariant"
+            app:backgroundTint="?attr/colorSurfaceContainer" app:cornerRadius="25dp"
+            app:icon="@drawable/ic_bookmark_vector" app:iconPadding="5dp" app:iconTint="?attr/colorOnSurfaceVariant" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

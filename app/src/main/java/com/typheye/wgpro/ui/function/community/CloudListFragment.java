@@ -173,7 +173,7 @@ public class CloudListFragment extends Fragment {
         account = new tAccUtils(requireContext().getApplicationContext());
         messageDb = new MessageDatabase(requireContext());
         refresh = root.findViewById(R.id.cloud_refresh);
-        refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         list = root.findViewById(R.id.cloud_list);
         state = root.findViewById(R.id.cloud_state);
         stateText = state.findViewById(R.id.stream_empty_title);
@@ -718,7 +718,8 @@ public class CloudListFragment extends Fragment {
     }
 
     private void loadSearchAppsPage(int page, boolean append, long started, int generation) {
-        String url = APP_SEARCH_URL + android.net.Uri.encode(searchQuery)
+        String url = com.typheye.wgpro.utils.tPointsUtils.withResAuth(requireContext(),
+                APP_SEARCH_URL + android.net.Uri.encode(searchQuery))
                 + "&page=" + page + "&size=20";
         account.getPublicJsonUrl(url, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
@@ -956,7 +957,8 @@ public class CloudListFragment extends Fragment {
     private void loadUserApps(long started, int generation) {
         String targetUid = getArguments() == null ? ""
                 : getArguments().getString("target_uid", "");
-        account.getPublicJsonUrlCached(APP_CATALOG_URL, APP_CATALOG_TTL_MS,
+        account.getPublicJsonUrlCached(com.typheye.wgpro.utils.tPointsUtils.withResAuth(requireContext(), APP_CATALOG_URL),
+                APP_CATALOG_TTL_MS,
                 new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
                         JSONArray list = json.optJSONArray("info");
@@ -1274,7 +1276,8 @@ public class CloudListFragment extends Fragment {
             }
         }
         if (missing.isEmpty()) { completeAfter(started, generation, () -> render(targets)); return; }
-        account.getPublicJsonUrlCached(APP_CATALOG_URL, APP_CATALOG_TTL_MS, new tAccUtils.JsonCallback() {
+        account.getPublicJsonUrlCached(com.typheye.wgpro.utils.tPointsUtils.withResAuth(requireContext(), APP_CATALOG_URL),
+                APP_CATALOG_TTL_MS, new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
                 JSONArray list = json.optJSONArray("info");
                 if (list == null) list = json.optJSONArray("items");
@@ -1327,8 +1330,9 @@ public class CloudListFragment extends Fragment {
                 if (left.decrementAndGet() == 0) completeAfter(started, generation, () -> render(targets));
                 continue;
             }
-            String url = "https://res.typheye.cn/api.php?type=app_detail&package="
-                    + Uri.encode(target.optString("target_key", ""));
+            String url = com.typheye.wgpro.utils.tPointsUtils.withResAuth(requireContext(),
+                    "https://res.typheye.cn/api.php?type=app_detail&package="
+                            + Uri.encode(target.optString("target_key", "")));
             account.getPublicJsonUrl(url, new tAccUtils.JsonCallback() {
                 @Override public void onSuccess(@NonNull JSONObject json) {
                     JSONObject info = json.optJSONObject("info");
@@ -1374,10 +1378,10 @@ public class CloudListFragment extends Fragment {
         }
         if ("system_messages".equals(item.optString("_kind"))) return createSystemMessageRow(item);
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
         card.setStrokeWidth(0); card.setCardElevation(0); card.setRadius(dp(8));
         card.setClickable(true); card.setFocusable(true);
-        card.setRippleColor(ColorStateList.valueOf(requireContext().getColor(R.color.brand_soft)));
+        card.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_soft)));
         LinearLayout.LayoutParams cardParams = new LinearLayout.LayoutParams(-1, -2);
         cardParams.bottomMargin = dp(12); card.setLayoutParams(cardParams);
         LinearLayout body = new LinearLayout(requireContext());
@@ -1516,10 +1520,10 @@ public class CloudListFragment extends Fragment {
             else showCatalogActions(item, true, v);
         });
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(8));
         card.setClickable(true); card.setFocusable(true);
-        card.setRippleColor(ColorStateList.valueOf(requireContext().getColor(R.color.brand_soft)));
+        card.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_soft)));
         LinearLayout body = new LinearLayout(requireContext()); body.setGravity(android.view.Gravity.CENTER_VERTICAL);
         body.setPadding(dp(14), dp(14), dp(14), dp(14));
         String name = item.optString(app ? "name" : "title", app ? "未命名应用" : "未命名资源");
@@ -1567,6 +1571,7 @@ public class CloudListFragment extends Fragment {
 
     private View createInvalidResource(JSONObject item) {
         JSONArray one = new JSONArray(); try { item.put("_invalid", true); one.put(item); } catch (Exception ignored) { }
+        ResourceCoverResolver.fill(requireContext(), one, null);
         View v = ResourceMasonryFactory.create(requireContext(), one, x -> new WGProAlertDialogBuilder(requireContext()).setTitle("资源已失效").setMessage("资源已不可见").setNegativeButton("关闭", null).show(), (x,a) -> showCatalogActions(x, false, a));
         return v;
     }
@@ -1745,7 +1750,7 @@ public class CloudListFragment extends Fragment {
         row.setCardBackgroundColor(android.graphics.Color.TRANSPARENT);
         row.setStrokeWidth(0); row.setCardElevation(0); row.setRadius(dp(12));
         row.setClickable(true); row.setFocusable(true);
-        row.setRippleColor(ColorStateList.valueOf(requireContext().getColor(R.color.brand_soft)));
+        row.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_soft)));
         LinearLayout.LayoutParams rowParams = new LinearLayout.LayoutParams(-1, dp(76));
         rowParams.bottomMargin = dp(4); row.setLayoutParams(rowParams);
 
@@ -1765,7 +1770,7 @@ public class CloudListFragment extends Fragment {
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         body.addView(avatarBox, avatarParams);
         BadgeFactory.bind(requireContext(), item, avatarBox,
-                requireContext().getColor(R.color.surface_page));
+                com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_page));
         UnreadBadgeFactory.bind(requireContext(), avatarBox, item.optInt("unread_count", 0));
 
         LinearLayout labels = new LinearLayout(requireContext()); labels.setOrientation(LinearLayout.VERTICAL);
@@ -1900,7 +1905,7 @@ public class CloudListFragment extends Fragment {
                 footer.setGravity(android.view.Gravity.CENTER);
                 footer.setPadding(0, dp(12), 0, dp(16));
                 footer.setTextSize(13f);
-                footer.setTextColor(parent.getContext().getColor(R.color.text_secondary));
+                footer.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(parent.getContext(), R.color.text_secondary));
                 footer.setLayoutParams(new RecyclerView.LayoutParams(-1, -2));
                 return new RecyclerView.ViewHolder(footer) { };
             }
@@ -2032,7 +2037,7 @@ public class CloudListFragment extends Fragment {
         holder.avatar.setImageDrawable(null);
         holder.avatar.setVisibility(View.GONE);
         BadgeFactory.bind(requireContext(), item, holder.avatarBox,
-                requireContext().getColor(R.color.surface_page));
+                com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_page));
         UnreadBadgeFactory.bind(requireContext(), holder.avatarBox, item.optInt("unread_count", 0));
         final String resolvedUid = contactUid(item);
         loadContactAvatar(resolvedUid, contactAvatarUrl(item, resolvedUid),
@@ -2261,7 +2266,7 @@ public class CloudListFragment extends Fragment {
 
     private TextView label(String value, int size, boolean bold, int color) {
         TextView text = new TextView(requireContext()); text.setText(value); text.setTextSize(size);
-        text.setTextColor(requireContext().getColor(color));
+        text.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), color));
         text.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL); return text;
     }
     private int dp(int v) { return Math.round(v * getResources().getDisplayMetrics().density); }

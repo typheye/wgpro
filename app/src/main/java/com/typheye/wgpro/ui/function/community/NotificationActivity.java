@@ -23,7 +23,7 @@ public class NotificationActivity extends BaseSectionActivity {
         MenuItem more = menu.findItem(R.id.action_notification_more);
         if (more != null && more.getIcon() != null) {
             Drawable icon = DrawableCompat.wrap(more.getIcon()).mutate();
-            DrawableCompat.setTint(icon, getColor(R.color.text_primary));
+            DrawableCompat.setTint(icon, com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.text_primary));
             more.setIcon(icon);
         }
         return true;

@@ -65,8 +65,8 @@ public class SearchActivity extends BaseSectionActivity {
         searchInput = new EditText(this);
         searchInput.setSingleLine(true);
         searchInput.setHint("搜索从这里开始");
-        searchInput.setHintTextColor(getColor(R.color.text_tertiary));
-        searchInput.setTextColor(getColor(R.color.text_primary));
+        searchInput.setHintTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.text_tertiary));
+        searchInput.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.text_primary));
         searchInput.setTextSize(15f);
         searchInput.setGravity(Gravity.CENTER_VERTICAL);
         searchInput.setBackgroundResource(R.drawable.bg_home_search_box);

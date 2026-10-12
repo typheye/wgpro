@@ -105,7 +105,7 @@ public final class DynamicDetailFragment extends Fragment {
         });
         ((TextView) empty.findViewById(R.id.stream_empty_title)).setText("还没有评论");
         ((TextView) empty.findViewById(R.id.stream_empty_description)).setText("说点什么，开启讨论。");
-        refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         refresh.setOnRefreshListener(() -> load(root));
         root.findViewById(R.id.dynamic_comment_action).setOnClickListener(v -> showCommentSheet(root));
         if (getArguments() != null && getArguments().getBoolean("open_comment", false)) {
@@ -227,7 +227,7 @@ public final class DynamicDetailFragment extends Fragment {
     /** 评论之间的分割线：左侧让开头像宽度（36dp + 10dp），仿 B 站。 */
     private View commentDivider() {
         View line = new View(requireContext());
-        line.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
+        line.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.outline_soft));
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(-1, dp(1));
         params.setMarginStart(dp(50));
         params.bottomMargin = dp(2);
@@ -250,7 +250,7 @@ public final class DynamicDetailFragment extends Fragment {
         avatarBox.addView(avatar, new FrameLayout.LayoutParams(-1, -1));
         row.addView(avatarBox, new LinearLayout.LayoutParams(dp(40), dp(40)));
         BadgeFactory.bind(requireContext(), item, avatarBox,
-                requireContext().getColor(R.color.surface_page));
+                com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_page));
         DynamicCardFactory.bindAvatar(requireContext(), item.optString("uid"), item.optString("avatar_url"), avatar, initial);
 
         // B 站式评论卡：左侧头像，右侧依次「昵称 / 评论正文 / 发布时间」（正文不再套灰底气泡）
@@ -475,7 +475,7 @@ public final class DynamicDetailFragment extends Fragment {
     }
 
     private void tint(MaterialButton button, boolean active) {
-        int color = requireContext().getColor(active ? R.color.brand_primary : R.color.text_secondary);
+        int color = com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), active ? R.color.brand_primary : R.color.text_secondary);
         button.setIconTint(ColorStateList.valueOf(color)); button.setTextColor(color);
     }
 
@@ -497,7 +497,7 @@ public final class DynamicDetailFragment extends Fragment {
     private void onUi(Runnable action) { if (isAdded()) requireActivity().runOnUiThread(() -> { if (isAdded()) action.run(); }); }
     private TextView text(String value, int size, boolean bold, int color) {
         TextView view = new TextView(requireContext()); view.setText(value); view.setTextSize(size);
-        view.setTextColor(requireContext().getColor(color));
+        view.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), color));
         view.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL);
         view.setPadding(0, dp(3), 0, dp(3)); return view;
     }

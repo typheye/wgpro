@@ -89,9 +89,9 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
         loadingStarted = android.os.SystemClock.uptimeMillis();
         loadingOverlay.animate().cancel(); loadingOverlay.setAlpha(1f); loadingOverlay.setVisibility(View.VISIBLE);
         // 纯色遮罩期间应用栏改用页面底色：与遮罩同色，避免「毛玻璃 + 遮罩」叠加出异常渲染
-        appBar.setBackgroundColor(getColor(R.color.surface_primary));
+        appBar.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.surface_primary));
         appBar.setBackgroundTintList(android.content.res.ColorStateList.valueOf(
-                getColor(R.color.surface_primary)));
+                com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.surface_primary)));
         // 注意：不要给整个内容容器加 RenderEffect（大面积模糊与子 View 的毛玻璃
         // RenderEffect 叠加会出现残留/错位的模糊带），只用纯色遮罩即可。
     }

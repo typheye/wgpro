@@ -23,7 +23,7 @@
         <item name="android:letterSpacing">0</item>
         <!-- 关闭过度滚动/拉伸辉光（Android 10 拉到顶/底的椭圆阴影） -->
         <item name="android:overScrollMode">never</item>
-        <item name="android:colorControlHighlight">@color/brand_soft</item>
+        <item name="android:colorControlHighlight">?attr/colorPrimaryContainer</item>
         <item name="materialAlertDialogTheme">@style/ThemeOverlay.WGPro.AlertDialog</item>
     </style>
     <style name="Theme.WGProAndroid" parent="Base.Theme.WGProAndroid" />
@@ -34,7 +34,7 @@
     </style>
     <style name="ToolbarTitleAppearance" parent="TextAppearance.Material3.HeadlineSmall">
         <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@color/text_primary</item>
+        <item name="android:textColor">?attr/colorOnSurface</item>
         <item name="android:letterSpacing">0</item>
     </style>
     <style name="TextAppearance.WGPro.Tab" parent="TextAppearance.Material3.TitleSmall">
@@ -48,7 +48,7 @@
         <item name="strokeColor">@android:color/transparent</item>
         <item name="strokeWidth">0dp</item>
         <!-- 页面与应用栏同色后，卡片用次级表面色形成层次 -->
-        <item name="cardBackgroundColor">@color/surface_secondary</item>
+        <item name="cardBackgroundColor">?attr/colorSurfaceContainer</item>
     </style>
     <style name="Widget.WGPro.Button.Primary" parent="Widget.Material3.Button">
         <item name="cornerRadius">8dp</item>
@@ -102,8 +102,8 @@
         <item name="colorSurface">@color/surface_elevated</item>
         <item name="colorSurfaceContainer">@color/surface_elevated</item>
         <item name="colorSurfaceContainerHigh">@color/surface_elevated</item>
-        <item name="android:colorBackground">@color/surface_elevated</item>
-        <item name="backgroundTint">@color/surface_elevated</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainerHigh</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <item name="android:windowMinWidthMajor">100%</item>
         <item name="android:windowMinWidthMinor">100%</item>
         <item name="android:windowAnimationStyle">@style/WGPro.DialogAnimation</item>
@@ -111,7 +111,7 @@
     </style>
     <style name="Widget.WGPro.BottomSheet.Modal" parent="Widget.Material3.BottomSheet.Modal">
         <item name="android:elevation">0dp</item>
-        <item name="backgroundTint">@color/surface_elevated</item>
+        <item name="backgroundTint">?attr/colorSurfaceContainerHigh</item>
         <!-- 底部导航栏占位由 SystemBars 统一处理，避免 Material 再叠加一份产生多余间距 -->
         <item name="paddingBottomSystemWindowInsets">false</item>
         <item name="paddingTopSystemWindowInsets">false</item>
@@ -126,7 +126,7 @@
         <item name="paddingTopSystemWindowInsets">false</item>
         <item name="paddingLeftSystemWindowInsets">false</item>
         <item name="paddingRightSystemWindowInsets">false</item>
-        <item name="android:colorBackground">@color/surface_elevated</item>
+        <item name="android:colorBackground">?attr/colorSurfaceContainerHigh</item>
         <item name="android:windowDrawsSystemBarBackgrounds">true</item>
         <!-- 导航栏保持真正透明，让弹窗自身的表面透到手势小横条区域 -->
         <item name="android:navigationBarColor">@android:color/transparent</item>

@@ -50,19 +50,19 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
         LinearLayout title = new LinearLayout(this); title.setGravity(Gravity.CENTER_VERTICAL);
         android.widget.FrameLayout avatarBox = new android.widget.FrameLayout(this);
         TextView initial = new TextView(this); initial.setText(first(nick)); initial.setGravity(Gravity.CENTER);
-        initial.setTextSize(15); initial.setTextColor(getColor(R.color.brand_on_soft));
+        initial.setTextSize(15); initial.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.brand_on_soft));
         initial.setTypeface(Typeface.DEFAULT, Typeface.BOLD); initial.setVisibility(View.VISIBLE);
         GradientDrawable background = new GradientDrawable(); background.setShape(GradientDrawable.OVAL);
-        background.setColor(getColor(R.color.brand_soft)); initial.setBackground(background);
+        background.setColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.brand_soft)); initial.setBackground(background);
         avatarBox.addView(initial, new android.widget.FrameLayout.LayoutParams(-1, -1));
         ShapeableImageView avatar = new ShapeableImageView(this); avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
         avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel()
                 .toBuilder().setAllCornerSizes(new RelativeCornerSize(0.5f)).build());
         avatarBox.addView(avatar, new android.widget.FrameLayout.LayoutParams(-1, -1));
         title.addView(avatarBox, new LinearLayout.LayoutParams(dp(36), dp(36)));
-        BadgeFactory.bind(this, info, avatarBox, getColor(R.color.surface_primary));
+        BadgeFactory.bind(this, info, avatarBox, com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.surface_primary));
         TextView name = new TextView(this); name.setText(nick); name.setTextSize(18);
-        name.setTextColor(getColor(R.color.text_primary)); name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
+        name.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.text_primary)); name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         LinearLayout.LayoutParams np = new LinearLayout.LayoutParams(-2, -2); np.setMarginStart(dp(10));
         title.addView(name, np);
         toolbar.addView(title, new androidx.appcompat.widget.Toolbar.LayoutParams(-2, -1, Gravity.START));

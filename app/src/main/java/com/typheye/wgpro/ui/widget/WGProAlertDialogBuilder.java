@@ -269,7 +269,7 @@ public final class WGProAlertDialogBuilder {
                 == android.content.res.Configuration.UI_MODE_NIGHT_YES;
         int color = night
                 ? resolveThemeColor(context, "colorSurfaceContainerHigh", R.color.surface_elevated)
-                : context.getColor(R.color.surface_primary);
+                : com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_primary);
         background.setColor(color);
         float radius = dp(28);
         background.setCornerRadii(new float[]{radius, radius, radius, radius, 0, 0, 0, 0});

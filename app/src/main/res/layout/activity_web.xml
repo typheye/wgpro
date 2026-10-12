@@ -31,7 +31,7 @@
                 android:layout_height="match_parent"
                 android:background="@color/tab"
                 app:title=""
-                app:titleTextColor="@color/text_u1"
+                app:titleTextColor="?attr/colorOnSurface"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"
                 app:navigationIcon="@drawable/ic_back_vector" />
             <ProgressBar

@@ -16,7 +16,7 @@
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/community_banner_mask"
                 android:layout_width="match_parent" android:layout_height="148dp"
-                android:clipToOutline="true" app:cardBackgroundColor="@color/surface_secondary"
+                android:clipToOutline="true" app:cardBackgroundColor="?attr/colorSurfaceContainer"
                 app:cardCornerRadius="8dp" app:cardElevation="0dp"
                 app:contentPadding="0dp" app:strokeWidth="0dp">
                 <com.typheye.wgpro.ui.widget.NestedScrollableHost
@@ -39,7 +39,7 @@
             android:visibility="gone">
             <TextView android:id="@+id/community_announcement_text" android:layout_width="match_parent"
                 android:layout_height="wrap_content" android:padding="16dp"
-                android:textColor="@color/text_primary" android:textSize="14sp" />
+                android:textColor="?attr/colorOnSurface" android:textSize="14sp" />
         </com.google.android.material.card.MaterialCardView>
         <LinearLayout android:id="@+id/community_feed" android:layout_width="match_parent"
             android:layout_height="wrap_content" android:orientation="vertical"

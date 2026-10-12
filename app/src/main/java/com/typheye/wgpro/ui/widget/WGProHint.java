@@ -171,7 +171,7 @@ public final class WGProHint {
         background.setColor(night
                 ? WGProAlertDialogBuilder.resolveThemeColor(
                         activity, "colorSurfaceContainerHigh", R.color.surface_elevated)
-                : activity.getColor(R.color.surface_primary));
+                : com.typheye.wgpro.ui.widget.WGProColors.of(activity, R.color.surface_primary));
         background.setCornerRadii(new float[]{
                 dp(activity, 28), dp(activity, 28), dp(activity, 28), dp(activity, 28), 0, 0, 0, 0});
         content.setBackground(background);

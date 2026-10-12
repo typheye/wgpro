@@ -106,7 +106,7 @@ public final class AppListItemFactory {
     }
 
     private static TextView text(Context c, String value, int size, boolean bold, int color) {
-        TextView v = new TextView(c); v.setText(value); v.setTextSize(size); v.setTextColor(c.getColor(color));
+        TextView v = new TextView(c); v.setText(value); v.setTextSize(size); v.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(c, color));
         v.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL); return v;
     }
     private static String first(String value) { String s = value == null ? "" : value.trim(); return s.isEmpty() ? "应" : s.substring(0, 1).toUpperCase(); }

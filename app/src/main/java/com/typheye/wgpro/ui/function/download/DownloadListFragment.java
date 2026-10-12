@@ -63,7 +63,7 @@ public final class DownloadListFragment extends Fragment {
         showDone = requireArguments().getBoolean(ARG_DONE, false);
         android.view.ViewGroup host = view.findViewById(R.id.download_list_host);
         refresh = view.findViewById(R.id.download_refresh);
-        refresh.setColorSchemeColors(requireContext().getColor(R.color.brand_primary));
+        refresh.setColorSchemeColors(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
         refresh.setOnRefreshListener(() -> {
             // 下载数据是本地的，下拉只是重读本地记录 + 重渲染（手感同关注/粉丝页）。
             DownloadManager.get().reload();
@@ -376,13 +376,13 @@ public final class DownloadListFragment extends Fragment {
 
     private static MaterialCardView appCard(Context context) {
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_secondary));
         card.setCardElevation(0f);
         card.setStrokeWidth(0);
         card.setRadius(Math.round(8 * context.getResources().getDisplayMetrics().density));
         card.setClickable(true);
         card.setFocusable(true);
-        card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
+        card.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_soft)));
         return card;
     }
 
@@ -627,7 +627,7 @@ public final class DownloadListFragment extends Fragment {
         TextView view = new TextView(c);
         view.setText(value);
         view.setTextSize(size);
-        view.setTextColor(c.getColor(color));
+        view.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(c, color));
         view.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL);
         return view;
     }

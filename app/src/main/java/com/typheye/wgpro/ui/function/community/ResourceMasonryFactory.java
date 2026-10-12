@@ -54,22 +54,40 @@ public final class ResourceMasonryFactory {
     /** 单张资源卡（RecyclerView 复用/瀑布流逐项使用）。 */
     public static MaterialCardView card(Context context, JSONObject item, OnResourceClick listener, OnResourceMenu menuListener) {
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary)); card.setCardElevation(0);
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_secondary)); card.setCardElevation(0);
         card.setStrokeWidth(0); card.setRadius(dp(context, 8)); card.setClickable(true); card.setFocusable(true);
-        card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
+        card.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_soft)));
         LinearLayout body = column(context); boolean invalid = item.optBoolean("_invalid", false);
         String title = invalid ? "未知资源" : item.optString("title", "未命名资源");
         // 封面严格 4:3（宽:高），用 ConstraintLayout 的 dimensionRatio 保证比例
         androidx.constraintlayout.widget.ConstraintLayout coverBox =
                 new androidx.constraintlayout.widget.ConstraintLayout(context);
-        TextView fallback = text(context, invalid ? "" : coverText(title), 19, true, R.color.brand_primary);
-        fallback.setGravity(Gravity.CENTER); fallback.setBackground(coloredCover(context, title));
+        // 封面兜底：只留色块占位，不再叠文字（信息在下方标题里已有）
+        View fallback = new View(context);
+        fallback.setBackground(coloredCover(context, title));
         coverBox.addView(fallback, ratioParams(4f / 3f));
         ImageView cover = new ImageView(context); cover.setScaleType(ImageView.ScaleType.CENTER_CROP); cover.setVisibility(View.GONE);
         coverBox.addView(cover, ratioParams(4f / 3f));
         body.addView(coverBox, new LinearLayout.LayoutParams(-1, -2));
-        String coverUrl = item.optString("cover_url", item.optString("image_url", "")).trim();
-        if (!invalid) loadCover(context, coverUrl, cover, fallback);
+        String signedCover = ResourceCoverResolver.cover(item.optString("id", ""));
+        String coverUrl = signedCover != null && !signedCover.isEmpty()
+                ? signedCover
+                : item.optString("cover_url", item.optString("image_url", "")).trim();
+        if (!invalid) {
+            loadCover(context, coverUrl, cover, fallback);
+            if (signedCover == null || signedCover.isEmpty()) {
+                // 签名封面还没到：到货后给这张卡补图（不重建列表）
+                final String itemId = item.optString("id", "");
+                final ImageView target = cover;
+                final View fallbackView = fallback;
+                ResourceCoverResolver.fill(context, null, () -> {
+                    String fresh = ResourceCoverResolver.cover(itemId);
+                    if (fresh != null && !fresh.isEmpty()) {
+                        loadCover(context, fresh, target, fallbackView);
+                    }
+                });
+            }
+        }
         // 不单独给封面设置点击：点卡片任意位置（含封面）都进入资源详情页
         LinearLayout labels = column(context); labels.setPadding(dp(context, 10), dp(context, 9), dp(context, 10), dp(context, 10));
         LinearLayout titleLine = new LinearLayout(context); titleLine.setGravity(Gravity.CENTER_VERTICAL);
@@ -128,7 +146,7 @@ public final class ResourceMasonryFactory {
         });
     }
     private static LinearLayout column(Context c) { LinearLayout v = new LinearLayout(c); v.setOrientation(LinearLayout.VERTICAL); return v; }
-    private static TextView text(Context c, String value, int size, boolean bold, int color) { TextView v = new TextView(c); v.setText(value); v.setTextSize(size); v.setTextColor(c.getColor(color)); v.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL); return v; }
+    private static TextView text(Context c, String value, int size, boolean bold, int color) { TextView v = new TextView(c); v.setText(value); v.setTextSize(size); v.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(c, color)); v.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL); return v; }
     private static String coverText(String title) { String s = title == null ? "" : title.trim(); return s.isEmpty() ? "资源" : s.substring(0, Math.min(4, s.length())); }
     private static int dp(Context c, int value) { return Math.round(value * c.getResources().getDisplayMetrics().density); }
 }

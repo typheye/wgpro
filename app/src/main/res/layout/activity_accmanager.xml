@@ -52,7 +52,7 @@
                 android:layout_height="64dp"
                 android:background="@android:color/transparent"
                 app:title="Typheye账户"
-                app:titleTextColor="@color/text_primary"
+                app:titleTextColor="?attr/colorOnSurface"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"
                 app:navigationIcon="@drawable/ic_back_vector" />
         </com.google.android.material.appbar.AppBarLayout>

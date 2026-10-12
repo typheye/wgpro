@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="另一台设备正在请求登录你的 Typheye 账户。请确认这是你本人发起的操作。"
-        android:textColor="@color/text_secondary"
+        android:textColor="?attr/colorOnSurfaceVariant"
         android:textSize="15sp"
         android:lineSpacingExtra="3dp" />
     <TextView

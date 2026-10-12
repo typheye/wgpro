@@ -52,7 +52,7 @@
             android:paddingEnd="8dp"
             app:navigationIcon="@drawable/ic_back_vector"
             app:titleTextAppearance="@style/ToolbarTitleAppearance"
-            app:titleTextColor="@color/text_primary" />
+            app:titleTextColor="?attr/colorOnSurface" />
 
         <!-- 页面自己的子标签（如浏览历史：动态/应用/资源），默认隐藏，由页面挂载 -->
         <com.google.android.material.tabs.TabLayout

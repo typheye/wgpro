@@ -97,12 +97,12 @@ public final class DynamicCardFactory {
                               @Nullable Runnable onChanged, @Nullable View.OnClickListener moreAction) {
         int pad = dp(context, 14);
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_secondary));
         card.setClickable(true); card.setFocusable(true);
-        card.setRippleColor(android.content.res.ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
+        card.setRippleColor(android.content.res.ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_soft)));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(context, 8));
         card.setClickable(click != null); card.setFocusable(click != null);
-        card.setRippleColor(ColorStateList.valueOf(context.getColor(R.color.brand_soft)));
+        card.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_soft)));
         if (click != null) card.setOnClickListener(click);
 
         LinearLayout body = new LinearLayout(context);
@@ -111,7 +111,7 @@ public final class DynamicCardFactory {
         FrameLayout avatarBox = new FrameLayout(context);
         TextView initial = text(context, first(item.optString("nick", "用")), 16, true, R.color.brand_on_soft);
         initial.setGravity(Gravity.CENTER); initial.setVisibility(View.VISIBLE);
-        initial.setBackground(circle(context.getColor(R.color.brand_soft)));
+        initial.setBackground(circle(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_soft)));
         avatarBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
         ShapeableImageView avatar = new ShapeableImageView(context); avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
         avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel()
@@ -185,14 +185,14 @@ public final class DynamicCardFactory {
 
     public static View createUnavailable(Context context, JSONObject item, @Nullable View.OnClickListener remove) {
         MaterialCardView card = new MaterialCardView(context);
-        card.setCardBackgroundColor(context.getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_secondary));
         card.setCardElevation(0); card.setStrokeWidth(0); card.setRadius(dp(context, 8));
         LinearLayout body = new LinearLayout(context); body.setOrientation(LinearLayout.VERTICAL);
         body.setPadding(dp(context, 14), dp(context, 14), dp(context, 14), dp(context, 12));
         LinearLayout header = new LinearLayout(context); header.setGravity(Gravity.CENTER_VERTICAL);
         FrameLayout avatarBox = new FrameLayout(context);
         TextView initial = text(context, first(item.optString("nick", "用")), 16, true, R.color.brand_on_soft);
-        initial.setGravity(Gravity.CENTER); initial.setBackground(circle(context.getColor(R.color.brand_soft)));
+        initial.setGravity(Gravity.CENTER); initial.setBackground(circle(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.brand_soft)));
         avatarBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
         ShapeableImageView avatar = new ShapeableImageView(context); avatar.setScaleType(ImageView.ScaleType.CENTER_CROP);
         avatar.setVisibility(View.GONE); avatar.setShapeAppearanceModel(avatar.getShapeAppearanceModel().toBuilder()
@@ -289,7 +289,7 @@ public final class DynamicCardFactory {
     }
 
     private static void setActionState(Context context, ActionView view, boolean active) {
-        int color = context.getColor(active ? R.color.brand_primary : R.color.text_secondary);
+        int color = com.typheye.wgpro.ui.widget.WGProColors.of(context, active ? R.color.brand_primary : R.color.text_secondary);
         view.icon.setColorFilter(color); view.number.setTextColor(color);
     }
 
@@ -311,7 +311,7 @@ public final class DynamicCardFactory {
 
     private static TextView text(Context context, String value, int size, boolean bold, int color) {
         TextView text = new TextView(context); text.setText(value); text.setTextSize(size);
-        text.setTextColor(context.getColor(color));
+        text.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, color));
         text.setTypeface(Typeface.DEFAULT, bold ? Typeface.BOLD : Typeface.NORMAL); return text;
     }
 

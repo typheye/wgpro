@@ -10,7 +10,7 @@
     app:cardBackgroundColor="@android:color/transparent"
     app:cardCornerRadius="12dp"
     app:cardElevation="0dp"
-    app:rippleColor="@color/brand_soft"
+    app:rippleColor="?attr/colorPrimaryContainer"
     app:strokeWidth="0dp">
 
     <LinearLayout
@@ -34,7 +34,7 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/bg_avatar_placeholder_circle"
                 android:gravity="center"
-                android:textColor="@color/brand_on_soft"
+                android:textColor="?attr/colorOnPrimaryContainer"
                 android:textSize="19sp"
                 android:textStyle="bold" />
 
@@ -59,7 +59,7 @@
                 android:id="@+id/contact_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/text_primary"
+                android:textColor="?attr/colorOnSurface"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -70,7 +70,7 @@
                 android:layout_marginTop="3dp"
                 android:ellipsize="end"
                 android:singleLine="true"
-                android:textColor="@color/text_secondary"
+                android:textColor="?attr/colorOnSurfaceVariant"
                 android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>

@@ -144,7 +144,7 @@ public class DashboardFragment extends Fragment {
             list.addView(row, new LinearLayout.LayoutParams(-1, dp(64)));
             if (index < addable.size() - 1) {
                 View divider = new View(requireContext());
-                divider.setBackgroundColor(requireContext().getColor(R.color.outline_soft));
+                divider.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.outline_soft));
                 list.addView(divider, new LinearLayout.LayoutParams(-1, dp(1)));
             }
         }
@@ -154,7 +154,7 @@ public class DashboardFragment extends Fragment {
         group.setStrokeWidth(0);
         group.setUseCompatPadding(false);
         group.setPreventCornerOverlap(false);
-        group.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
+        group.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
         group.setClipToOutline(true);
         group.addView(list, new MaterialCardView.LayoutParams(-1, -2));
 
@@ -312,12 +312,12 @@ public class DashboardFragment extends Fragment {
 
     private MaterialCardView baseCard() {
         MaterialCardView card = new MaterialCardView(requireContext());
-        card.setCardBackgroundColor(requireContext().getColor(R.color.surface_secondary));
+        card.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
         card.setCardElevation(0);
         card.setStrokeWidth(0);
         card.setClickable(true);
         card.setFocusable(true);
-        card.setRippleColor(ColorStateList.valueOf(requireContext().getColor(R.color.brand_soft)));
+        card.setRippleColor(ColorStateList.valueOf(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_soft)));
         return card;
     }
 
@@ -381,7 +381,7 @@ public class DashboardFragment extends Fragment {
                     return event.getClipDescription() != null
                             && event.getClipDescription().hasMimeType("text/plain");
                 case DragEvent.ACTION_DRAG_ENTERED:
-                    card.setStrokeColor(requireContext().getColor(R.color.brand_primary));
+                    card.setStrokeColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.brand_primary));
                     card.setStrokeWidth(dp(2));
                     return true;
                 case DragEvent.ACTION_DRAG_EXITED:
@@ -456,7 +456,7 @@ public class DashboardFragment extends Fragment {
 
     /** 深色模式下弹窗表面跟随莫奈取色，卡片用高一档的容器色才不会显得突兀。 */
     private int dialogCardColor() {
-        if (!nightMode()) return requireContext().getColor(R.color.surface_secondary);
+        if (!nightMode()) return com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary);
         return WGProAlertDialogBuilder.resolveThemeColor(requireContext(),
                 "colorSurfaceContainerHighest", R.color.surface_secondary);
     }
@@ -661,7 +661,7 @@ public class DashboardFragment extends Fragment {
         TextView view = new TextView(requireContext());
         view.setText(value);
         view.setTextSize(sp);
-        view.setTextColor(requireContext().getColor(color));
+        view.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), color));
         view.setLetterSpacing(0);
         if (bold) view.setTypeface(null, android.graphics.Typeface.BOLD);
         return view;

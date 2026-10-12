@@ -14,11 +14,11 @@
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:orientation="vertical" android:padding="20dp">
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:text="登录 Typheye" android:textColor="@color/text_primary"
+                    android:text="登录 Typheye" android:textColor="?attr/colorOnSurface"
                     android:textSize="19sp" android:textStyle="bold" />
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:layout_marginTop="6dp" android:text="同步收藏、浏览历史、资源与已绑定设备"
-                    android:textColor="@color/text_secondary" android:textSize="14sp" />
+                    android:textColor="?attr/colorOnSurfaceVariant" android:textSize="14sp" />
                 <com.google.android.material.button.MaterialButton android:id="@+id/btn_account_sign_in"
                     style="@style/Widget.WGPro.Button.Primary" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="18dp" android:text="登录" />
@@ -44,13 +44,13 @@
                         android:clipChildren="false" android:clipToPadding="false">
                         <com.google.android.material.card.MaterialCardView
                             android:layout_width="match_parent" android:layout_height="match_parent"
-                            app:cardBackgroundColor="@color/brand_soft"
+                            app:cardBackgroundColor="?attr/colorPrimaryContainer"
                             app:cardCornerRadius="31dp" app:cardElevation="0dp" app:strokeWidth="0dp">
                             <FrameLayout android:id="@+id/account_avatar_box"
                                 android:layout_width="match_parent" android:layout_height="match_parent">
                                 <TextView android:id="@+id/text_usr_icon" android:layout_width="match_parent"
                                     android:layout_height="match_parent" android:gravity="center"
-                                    android:textColor="@color/brand_on_soft" android:textSize="25sp"
+                                    android:textColor="?attr/colorOnPrimaryContainer" android:textSize="25sp"
                                     android:textStyle="bold" />
                                 <ImageView android:id="@+id/image_usr_icon" android:layout_width="match_parent"
                                     android:layout_height="match_parent" android:contentDescription="账户头像"
@@ -61,16 +61,16 @@
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
                         android:layout_marginStart="15dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView android:id="@+id/text_usr_nick" android:layout_width="match_parent"
-                            android:layout_height="wrap_content" android:textColor="@color/text_primary"
+                            android:layout_height="wrap_content" android:textColor="?attr/colorOnSurface"
                             android:ellipsize="end" android:maxLines="1"
                             android:textSize="19sp" android:textStyle="bold" />
                         <TextView android:id="@+id/text_usr_uid" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="4dp"
                             android:ellipsize="end" android:maxLines="1"
-                            android:textColor="@color/text_secondary" android:textSize="12sp" />
+                            android:textColor="?attr/colorOnSurfaceVariant" android:textSize="12sp" />
                         <TextView android:id="@+id/text_usr_shuo" android:layout_width="match_parent"
                             android:layout_height="wrap_content" android:layout_marginTop="5dp"
-                            android:ellipsize="end" android:maxLines="1" android:textColor="@color/text_secondary"
+                            android:ellipsize="end" android:maxLines="1" android:textColor="?attr/colorOnSurfaceVariant"
                             android:textSize="13sp" />
                     </LinearLayout>
                     <!-- 积分：小矩形块（占原来「编辑」的位置；点整张资料卡仍可编辑） -->
@@ -86,7 +86,7 @@
                             android:src="@drawable/ic_points_vector" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:layout_marginStart="6dp" android:text="积分"
-                            android:textColor="@color/brand_primary" android:textSize="13sp"
+                            android:textColor="?attr/colorPrimary" android:textSize="13sp"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -105,35 +105,35 @@
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:gravity="center" android:orientation="vertical">
                         <TextView android:id="@+id/account_activity_count" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="--" android:textColor="@color/text_primary"
+                            android:text="--" android:textColor="?attr/colorOnSurface"
                             android:textSize="17sp" android:textStyle="bold" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:layout_marginTop="3dp" android:text="动态"
-                            android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            android:textColor="?attr/colorOnSurfaceVariant" android:textSize="13sp" />
                     </LinearLayout>
                     <View android:layout_width="1dp" android:layout_height="36dp"
-                        android:layout_gravity="center_vertical" android:background="@color/outline_soft" />
+                        android:layout_gravity="center_vertical" android:background="?attr/colorOutlineVariant" />
                     <LinearLayout android:id="@+id/account_following" android:layout_width="0dp"
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:gravity="center" android:orientation="vertical">
                         <TextView android:id="@+id/account_following_count" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="--" android:textColor="@color/text_primary"
+                            android:text="--" android:textColor="?attr/colorOnSurface"
                             android:textSize="17sp" android:textStyle="bold" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:layout_marginTop="3dp" android:text="关注"
-                            android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            android:textColor="?attr/colorOnSurfaceVariant" android:textSize="13sp" />
                     </LinearLayout>
                     <View android:layout_width="1dp" android:layout_height="36dp"
-                        android:layout_gravity="center_vertical" android:background="@color/outline_soft" />
+                        android:layout_gravity="center_vertical" android:background="?attr/colorOutlineVariant" />
                     <LinearLayout android:id="@+id/account_followers" android:layout_width="0dp"
                         android:layout_height="match_parent" android:layout_weight="1"
                         android:gravity="center" android:orientation="vertical">
                         <TextView android:id="@+id/account_followers_count" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                            android:text="--" android:textColor="@color/text_primary"
+                            android:text="--" android:textColor="?attr/colorOnSurface"
                             android:textSize="17sp" android:textStyle="bold" />
                         <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
                             android:layout_marginTop="3dp" android:text="粉丝"
-                            android:textColor="@color/text_secondary" android:textSize="13sp" />
+                            android:textColor="?attr/colorOnSurfaceVariant" android:textSize="13sp" />
                     </LinearLayout>
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -147,15 +147,15 @@
                     <include android:id="@+id/account_history" layout="@layout/item_account_group_row"
                         android:layout_width="match_parent" android:layout_height="58dp" />
                     <View android:layout_width="match_parent" android:layout_height="1dp"
-                        android:layout_marginStart="18dp" android:background="@color/outline_soft" />
+                        android:layout_marginStart="18dp" android:background="?attr/colorOutlineVariant" />
                     <include android:id="@+id/account_favorites" layout="@layout/item_account_group_row"
                         android:layout_width="match_parent" android:layout_height="58dp" />
                     <View android:layout_width="match_parent" android:layout_height="1dp"
-                        android:layout_marginStart="18dp" android:background="@color/outline_soft" />
+                        android:layout_marginStart="18dp" android:background="?attr/colorOutlineVariant" />
                     <include android:id="@+id/account_starred_apps" layout="@layout/item_account_group_row"
                         android:layout_width="match_parent" android:layout_height="58dp" />
                     <View android:layout_width="match_parent" android:layout_height="1dp"
-                        android:layout_marginStart="18dp" android:background="@color/outline_soft" />
+                        android:layout_marginStart="18dp" android:background="?attr/colorOutlineVariant" />
                     <include android:id="@+id/account_resources" layout="@layout/item_account_group_row"
                         android:layout_width="match_parent" android:layout_height="58dp" />
                 </LinearLayout>
@@ -169,7 +169,7 @@
                     <include android:id="@+id/account_identity" layout="@layout/item_account_group_row"
                         android:layout_width="match_parent" android:layout_height="58dp" />
                     <View android:layout_width="match_parent" android:layout_height="1dp"
-                        android:layout_marginStart="18dp" android:background="@color/outline_soft" />
+                        android:layout_marginStart="18dp" android:background="?attr/colorOutlineVariant" />
                     <include android:id="@+id/account_creator_center" layout="@layout/item_account_group_row"
                         android:layout_width="match_parent" android:layout_height="58dp" />
                 </LinearLayout>
@@ -183,7 +183,7 @@
                     android:gravity="center_vertical" android:orientation="horizontal"
                     android:paddingStart="18dp" android:paddingEnd="14dp">
                     <TextView android:layout_width="0dp" android:layout_height="wrap_content"
-                        android:layout_weight="1" android:text="账户安全" android:textColor="@color/text_primary"
+                        android:layout_weight="1" android:text="账户安全" android:textColor="?attr/colorOnSurface"
                         android:textSize="15sp" android:textStyle="bold" />
                     <ImageView android:layout_width="20dp" android:layout_height="20dp"
                         android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />

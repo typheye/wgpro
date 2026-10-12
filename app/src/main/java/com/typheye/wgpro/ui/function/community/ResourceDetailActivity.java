@@ -193,7 +193,12 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     requireContext(), "来源声明", statementDetail(statementText)));
 
             // 封面：有就显示（位置参考应用详情页的截图区），点击看大图
-            String coverUrl = info.optString("cover_url", info.optString("icon_url", "")).trim();
+            // 旧直链已被 410 封禁，优先用 res 的签名封面；没有就异步解析后再补
+            final String resourceKey = info.optString("id", resourceId());
+            String coverUrl = ResourceCoverResolver.cover(resourceKey);
+            if (coverUrl == null || coverUrl.isEmpty()) {
+                coverUrl = info.optString("cover_url", info.optString("icon_url", "")).trim();
+            }
             View coverScroll = root.findViewById(R.id.resource_detail_cover_scroll);
             com.google.android.material.imageview.ShapeableImageView coverView =
                     root.findViewById(R.id.resource_detail_cover);
@@ -204,9 +209,19 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     coverScroll.setVisibility(View.VISIBLE);
                     coverView.setShapeAppearanceModel(coverView.getShapeAppearanceModel().toBuilder()
                             .setAllCornerSizes(dp(16)).build());
-                    com.typheye.wgpro.utils.ImageCache.loadBitmap(requireContext(), coverUrl,
+                    final String coverUrlFinal = coverUrl;
+                    com.typheye.wgpro.utils.ImageCache.loadBitmap(requireContext(), coverUrlFinal,
                             bitmap -> {
                                 if (bitmap != null && isAdded()) coverView.setImageBitmap(bitmap);
+                                else if (isAdded()) {
+                                    // 加载失败（多半是旧直链）：等签名地址到货后补一次
+                                    ResourceCoverResolver.fill(requireContext(), null, () -> {
+                                        String fresh = ResourceCoverResolver.cover(resourceKey);
+                                        if (fresh == null || fresh.isEmpty() || !isAdded()) return;
+                                        com.typheye.wgpro.utils.ImageCache.loadBitmap(requireContext(), fresh,
+                                                b2 -> { if (b2 != null && isAdded()) coverView.setImageBitmap(b2); });
+                                    });
+                                }
                             });
                     coverView.setOnClickListener(v -> viewCover());
                 }
@@ -276,12 +291,12 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             row.setPadding(0, dp(7), 0, dp(7));
             TextView labelView = new TextView(context);
             labelView.setText(label);
-            labelView.setTextColor(context.getColor(R.color.text_secondary));
+            labelView.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.text_secondary));
             labelView.setTextSize(15f);
             row.addView(labelView, new LinearLayout.LayoutParams(dp(84), -2));
             TextView valueView = new TextView(context);
             valueView.setText(value);
-            valueView.setTextColor(context.getColor(R.color.text_primary));
+            valueView.setTextColor(com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.text_primary));
             valueView.setTextSize(15f);
             valueView.setSingleLine(true);
             valueView.setEllipsize(android.text.TextUtils.TruncateAt.END);

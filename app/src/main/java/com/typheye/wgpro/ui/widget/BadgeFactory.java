@@ -34,7 +34,7 @@ public final class BadgeFactory {
     private BadgeFactory() { }
 
     public static void bind(Context context, JSONObject item, FrameLayout avatarBox) {
-        bind(context, item, avatarBox, context.getColor(R.color.surface_primary));
+        bind(context, item, avatarBox, com.typheye.wgpro.ui.widget.WGProColors.of(context, R.color.surface_primary));
     }
 
     public static void bind(Context context, JSONObject item, FrameLayout avatarBox,

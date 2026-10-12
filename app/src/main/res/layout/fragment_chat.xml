@@ -33,7 +33,7 @@
         app:layout_constraintStart_toStartOf="parent" app:layout_constraintEnd_toEndOf="parent">
         <com.google.android.material.card.MaterialCardView android:layout_width="0dp"
             android:layout_height="wrap_content" android:layout_weight="1" android:minHeight="52dp"
-            app:cardBackgroundColor="@color/surface_secondary" app:cardCornerRadius="26dp"
+            app:cardBackgroundColor="?attr/colorSurfaceContainer" app:cardCornerRadius="26dp"
             app:cardElevation="0dp" app:strokeWidth="0dp">
             <androidx.appcompat.widget.AppCompatEditText android:id="@+id/chat_input"
                 android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -42,7 +42,7 @@
                 android:maxHeight="132dp" android:maxLines="5" android:minHeight="52dp"
                 android:paddingStart="18dp" android:paddingTop="10dp" android:paddingEnd="18dp"
                 android:paddingBottom="10dp" android:scrollbars="none"
-                android:textColor="@color/text_primary" android:textColorHint="@color/text_tertiary"
+                android:textColor="?attr/colorOnSurface" android:textColorHint="?attr/colorOutline"
                 android:textSize="16sp" />
         </com.google.android.material.card.MaterialCardView>
         <com.google.android.material.button.MaterialButton android:id="@+id/chat_send"

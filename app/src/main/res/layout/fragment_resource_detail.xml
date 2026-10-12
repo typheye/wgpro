@@ -31,7 +31,7 @@
                     android:orientation="vertical" android:paddingTop="18dp" android:paddingBottom="20dp">
                     <TextView android:id="@+id/resource_detail_title" android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:ellipsize="end" android:maxLines="3"
-                        android:textColor="@color/text_primary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="25sp" android:textStyle="bold" />
                     <TextView android:id="@+id/resource_detail_author" android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:layout_marginTop="5dp"
@@ -41,21 +41,21 @@
                     <TextView android:id="@+id/resource_detail_statement" android:layout_width="match_parent"
                         android:layout_height="wrap_content" android:layout_marginTop="4dp"
                         android:ellipsize="end" android:maxLines="1" android:singleLine="true"
-                        android:textColor="@color/text_secondary" android:textSize="13sp" />
+                        android:textColor="?attr/colorOnSurfaceVariant" android:textSize="13sp" />
                 </LinearLayout>
 
                 <!-- 数据条：大小 / 下载 / 星标（与应用详情页同一套） -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="match_parent" android:layout_height="72dp"
                     android:layout_marginTop="6dp"
-                    app:cardBackgroundColor="@color/surface_secondary"
+                    app:cardBackgroundColor="?attr/colorSurfaceContainer"
                     app:cardCornerRadius="14dp" app:cardElevation="0dp" app:strokeWidth="0dp"
                     app:cardPreventCornerOverlap="true" app:cardUseCompatPadding="false">
                     <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent"
                         android:gravity="center" android:orientation="horizontal">
-                        <LinearLayout android:id="@+id/resource_detail_cell_size" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_size" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="大小" android:textColor="@color/text_secondary"/></LinearLayout>
-                        <LinearLayout android:id="@+id/resource_detail_cell_downloads" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_downloads" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载" android:textColor="@color/text_secondary"/></LinearLayout>
-                        <LinearLayout android:id="@+id/resource_detail_cell_stars" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_stars" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="星标" android:textColor="@color/text_secondary"/></LinearLayout>
+                        <LinearLayout android:id="@+id/resource_detail_cell_size" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_size" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="大小" android:textColor="?attr/colorOnSurfaceVariant"/></LinearLayout>
+                        <LinearLayout android:id="@+id/resource_detail_cell_downloads" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_downloads" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="下载" android:textColor="?attr/colorOnSurfaceVariant"/></LinearLayout>
+                        <LinearLayout android:id="@+id/resource_detail_cell_stars" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="?attr/selectableItemBackground" android:clickable="true" android:focusable="true" android:gravity="center" android:orientation="vertical"><TextView android:id="@+id/resource_detail_stars" style="@style/TextAppearance.Material3.TitleMedium" android:layout_width="match_parent" android:layout_height="wrap_content" android:ellipsize="end" android:gravity="center" android:maxLines="1" android:textStyle="bold"/><TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="星标" android:textColor="?attr/colorOnSurfaceVariant"/></LinearLayout>
                     </LinearLayout>
                 </com.google.android.material.card.MaterialCardView>
 
@@ -71,11 +71,11 @@
 
                 <!-- 关于此资源 -->
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp" android:text="关于此资源" android:textColor="@color/text_primary"
+                    android:layout_marginTop="28dp" android:text="关于此资源" android:textColor="?attr/colorOnSurface"
                     android:textSize="22sp" android:textStyle="bold" />
                 <TextView android:id="@+id/resource_detail_description" android:layout_width="match_parent"
                     android:layout_height="wrap_content" android:layout_marginTop="12dp"
-                    android:lineSpacingMultiplier="1.15" android:textColor="@color/text_secondary"
+                    android:lineSpacingMultiplier="1.15" android:textColor="?attr/colorOnSurfaceVariant"
                     android:textSize="16sp" />
 
                 <!-- 附加信息（没有就不显示） -->
@@ -83,17 +83,17 @@
                     android:layout_width="match_parent" android:layout_height="wrap_content"
                     android:orientation="vertical" android:visibility="gone">
                     <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                        android:layout_marginTop="28dp" android:text="附加信息" android:textColor="@color/text_primary"
+                        android:layout_marginTop="28dp" android:text="附加信息" android:textColor="?attr/colorOnSurface"
                         android:textSize="22sp" android:textStyle="bold" />
                     <TextView android:id="@+id/resource_detail_extra"
                         android:layout_width="match_parent" android:layout_height="wrap_content"
                         android:layout_marginTop="12dp" android:lineSpacingMultiplier="1.15"
-                        android:textColor="@color/text_secondary" android:textSize="16sp" />
+                        android:textColor="?attr/colorOnSurfaceVariant" android:textSize="16sp" />
                 </LinearLayout>
 
                 <!-- 更多 -->
                 <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
-                    android:layout_marginTop="28dp" android:text="更多" android:textColor="@color/text_primary"
+                    android:layout_marginTop="28dp" android:text="更多" android:textColor="?attr/colorOnSurface"
                     android:textSize="22sp" android:textStyle="bold" />
                 <LinearLayout android:id="@+id/resource_detail_info_list"
                     android:layout_width="match_parent" android:layout_height="wrap_content"
@@ -160,7 +160,7 @@
                         android:layout_width="wrap_content" android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="获取"
-                        android:textColor="@color/text_primary"
+                        android:textColor="?attr/colorOnSurface"
                         android:textSize="16sp"
                         android:textStyle="bold" />
                 </LinearLayout>
