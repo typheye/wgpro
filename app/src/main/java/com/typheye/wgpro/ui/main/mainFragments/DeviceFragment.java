@@ -576,7 +576,7 @@ public class DeviceFragment extends Fragment {
                     ? "小米运动健康"
                     : (version == null || version.trim().isEmpty() ? "系统版本未知" : version.trim());
             ((TextView) content.findViewById(R.id.sheet_device_status_version))
-                    .setText((connected ? "已连接" : "已断开") + "  |  " + systemVersion);
+                    .setText((connected ? "已连接" : "已断开") + " | " + systemVersion);
             View actions = content.findViewById(R.id.sheet_device_actions);
             actions.setVisibility("xiaomi".equals(type) ? View.VISIBLE : View.GONE);
             // 「穿戴设备」详情页末尾增加「显示更多操作」，直接打开设备管理菜单。
