@@ -70,7 +70,7 @@ public final class tPointsUtils {
         void onError(int status, @NonNull String message, @Nullable JSONObject info);
     }
 
-    /** 业务结果包一层：区分"成功"与"可预期的失败"（如余额不足）。 */
+    /** 业务结果包一层：区分"成功"与"可预期的失败"（如积分不足）。 */
     public static final class Result {
         public final boolean ok;
         public final int status;
@@ -116,7 +116,7 @@ public final class tPointsUtils {
         get(context, url, callback);
     }
 
-    /** 两步交易①：建交易 + 下发验证码（余额支付）。 */
+    /** 两步交易①：建交易 + 下发验证码（积分支付）。 */
     public static void verifySend(@NonNull Context context, @NonNull String targetType,
                                   @NonNull String targetKey, @NonNull JsonCallback callback) {
         verifySend(context, targetType, targetKey, "balance", "", callback);
@@ -125,7 +125,7 @@ public final class tPointsUtils {
     /**
      * 两步交易①：建交易 + 下发验证码。
      *
-     * @param payMethod  "balance"=余额支付；"redeem"=兑换代码支付
+     * @param payMethod  "balance"=积分支付；"redeem"=兑换代码支付
      * @param redeemCode payMethod=redeem 时必填
      */
     public static void verifySend(@NonNull Context context, @NonNull String targetType,
@@ -207,7 +207,7 @@ public final class tPointsUtils {
         return requestBlocking(context, url);
     }
 
-    /** 同步版：余额。 */
+    /** 同步版：积分。 */
     @Nullable
     public static Result balanceBlocking(@NonNull Context context) {
         HttpUrl.Builder builder = baseBuilder("balance");
@@ -348,7 +348,10 @@ public final class tPointsUtils {
 
     private static final String PREFS = "wgpro_points_cache";
 
-    /** 记一次成功的报价，供离线兜底（已知免费的条目在服务不可用时仍可下载）。 */
+    /** 价格缓存的保鲜期：超过就当作"不知道价格"，避免运营刚设价却按旧的免费缓存直接放行。 */
+    private static final long PRICE_CACHE_TTL_MS = 10 * 60 * 1000L;
+
+    /** 记一次成功的报价（带时间戳），仅用于极短时间的离线兜底与按钮先渲染。 */
     public static void cachePrice(@NonNull Context context, @NonNull String targetType,
                                   @NonNull String targetKey, int price, boolean owned) {
         SharedPreferences prefs = context.getApplicationContext()
@@ -356,19 +359,23 @@ public final class tPointsUtils {
         prefs.edit()
                 .putInt("price:" + targetType + ":" + targetKey, price)
                 .putBoolean("owned:" + targetType + ":" + targetKey, owned)
+                .putLong("at:" + targetType + ":" + targetKey, System.currentTimeMillis())
                 .apply();
     }
 
-    /** 上次已知价格；没缓存过返回 -1。 */
+    /** 上次已知价格；没缓存过或**已过期**返回 -1。 */
     public static int cachedPrice(@NonNull Context context, @NonNull String targetType,
                                  @NonNull String targetKey) {
         SharedPreferences prefs = context.getApplicationContext()
                 .getSharedPreferences(PREFS, Context.MODE_PRIVATE);
+        long at = prefs.getLong("at:" + targetType + ":" + targetKey, 0L);
+        if (at <= 0L || System.currentTimeMillis() - at > PRICE_CACHE_TTL_MS) return -1;
         return prefs.getInt("price:" + targetType + ":" + targetKey, -1);
     }
 
     public static boolean cachedOwned(@NonNull Context context, @NonNull String targetType,
                                       @NonNull String targetKey) {
+        if (cachedPrice(context, targetType, targetKey) < 0) return false;   // 缓存过期则不算已拥有
         SharedPreferences prefs = context.getApplicationContext()
                 .getSharedPreferences(PREFS, Context.MODE_PRIVATE);
         return prefs.getBoolean("owned:" + targetType + ":" + targetKey, false);

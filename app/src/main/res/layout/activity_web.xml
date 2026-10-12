@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/tab">
+
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -49,33 +54,21 @@
         android:background="@color/tab"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <!-- 网页正式开始渲染前的全屏遮罩：登录态同步/加载过程都在这里提示，别写进应用栏 -->
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <!-- 全屏遮罩：与「应用详情页」同款，但**盖住整屏（含应用栏）**；
+         用于「网页正式开始加载前」的登录态同步与其他数据加载，不跟网页进度联动。 -->
     <FrameLayout
         android:id="@+id/web_loading_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/tab"
+        android:background="@color/surface_primary"
         android:clickable="true"
         android:focusable="true"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:orientation="vertical">
-            <com.typheye.wgpro.ui.widget.WGProLoadingView
-                android:layout_width="34dp"
-                android:layout_height="34dp" />
-            <TextView
-                android:id="@+id/web_loading_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="14dp"
-                android:text="加载中…"
-                android:textColor="@color/text_secondary"
-                android:textSize="14sp" />
-        </LinearLayout>
+        android:visibility="gone">
+        <com.typheye.wgpro.ui.widget.WGProLoadingView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
     </FrameLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

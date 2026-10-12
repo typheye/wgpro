@@ -25,10 +25,40 @@ import java.util.List;
 /**
  * 详情页底部动作里的「获取 / 操作」弹窗：统一的定价头部 + 分组列表。
  *
- * <p>头部 = 莫奈圆底 + 积分图标 + 「需消耗 x 积分」 + 「余额 / 赠送」；下面是分组条目。</p>
+ * <p>头部 = 莫奈圆底 + 积分图标 + 「需消耗 x 积分」 + 「库存 | 账户可用 x 积分」；下面是分组条目。</p>
  */
 public final class GetSheet {
     private GetSheet() { }
+
+    /**
+     * 收起软键盘并清掉焦点。
+     * <p>底部弹窗里有输入框时，若在键盘还开着的时候弹下一个弹窗，新弹窗会被 IME 顶到几乎没有高度
+     * （表现就是"窗口被挤掉"）——所以换弹窗前先收键盘。</p>
+     */
+    /**
+     * 把动作推迟到"当前弹窗 dismiss 完成"之后执行。
+     *
+     * <p>{@code WGProAlertDialogBuilder} 的按钮回调是在 {@code dialog.dismiss()} **之前**调用的，
+     * 而 {@code WGProBottomSheetDialog} 同时只允许一个弹窗——在回调里直接弹下一个会被静默丢弃
+     * （历史表现：购买应用时「使用兑换代码 → 下一步」之后没有任何反应）。</p>
+     */
+    private static void afterDismiss(@NonNull Runnable action) {
+        new android.os.Handler(android.os.Looper.getMainLooper()).post(action);
+    }
+
+    private static void hideIme(@NonNull Context context, @Nullable View anchor) {
+        try {
+            if (anchor != null) {
+                android.view.inputmethod.InputMethodManager imm =
+                        (android.view.inputmethod.InputMethodManager)
+                                context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                if (imm != null) {
+                    imm.hideSoftInputFromWindow(anchor.getWindowToken(), 0);
+                }
+                anchor.clearFocus();
+            }
+        } catch (Exception ignored) { }
+    }
 
     /**
      * 头部视图：定价 + 库存与账户可用积分。
@@ -37,7 +67,7 @@ public final class GetSheet {
      *
      * @param price          本次获取需要消耗的积分（0 = 免费）
      * @param stockLabel     库存文案：有库存 / 低库存 / 无库存
-     * @param availableTotal 账户可用积分（余额 + 赠送）
+     * @param availableTotal 账户可用积分（可用 + 赠送）
      */
     @NonNull
     public static View header(@NonNull Context context, int price, @NonNull String stockLabel,
@@ -89,7 +119,7 @@ public final class GetSheet {
         return box;
     }
 
-    /** 弹「获取」弹窗：定价头部 + 分组条目（使用余额支付 / 使用兑换代码 / 找他人代付）。 */
+    /** 弹「获取」弹窗：定价头部 + 分组条目（使用积分支付 / 使用兑换代码 / 找他人代付）。 */
     public static void show(@NonNull Context context, int price, @NonNull String stockLabel,
                             int availableTotal, @NonNull List<String> labels,
                             @NonNull DialogInterface.OnClickListener listener) {
@@ -117,21 +147,29 @@ public final class GetSheet {
                 .setMessage("将删除「" + targetName + "」已下载的文件与下载记录。\n"
                         + "已购买的条目不会因此重新扣费，之后可以再次获取。")
                 .setNegativeButton("取消", null)
-                .setPositiveButton("删除", (dialog, which) -> callback.onConfirmed())
+                .setPositiveButton("删除", (dialog, which) ->
+                        afterDismiss(callback::onConfirmed))
                 .show();
     }
 
     /**
      * 交易的**二次确认**弹窗（第一步：确认要扣多少积分）。
+     *
+     * @param payMethod "balance"（积分支付，赠送优先）或 "redeem"（兑换代码支付）
      */
     public static void showConfirm(@NonNull Context context, @NonNull String targetName,
-                                   int price, @NonNull ConfirmCallback callback) {
+                                   int price, @NonNull String payMethod,
+                                   @NonNull ConfirmCallback callback) {
+        String detail = "redeem".equals(payMethod)
+                ? "将使用兑换代码内的积分支付 " + price + " 积分，剩余部分存入可用积分。"
+                : "将扣除 " + price + " 积分获取「" + targetName + "」。\n"
+                        + "扣费优先使用赠送积分，剩余部分从可用积分中扣除。";
         new WGProAlertDialogBuilder(context)
                 .setTitle("确认获取")
-                .setMessage("将扣除 " + price + " 积分获取「" + targetName + "」。\n"
-                        + "扣费优先使用赠送积分，剩余部分从余额扣除。")
+                .setMessage(detail)
                 .setNegativeButton("取消", null)
-                .setPositiveButton("确认", (dialog, which) -> callback.onConfirmed())
+                .setPositiveButton("确认", (dialog, which) ->
+                        afterDismiss(callback::onConfirmed))
                 .show();
     }
 
@@ -175,7 +213,8 @@ public final class GetSheet {
                         WGProHint.show(context, "请输入验证码");
                         return;
                     }
-                    callback.onVerified(code);
+                    hideIme(context, input);
+                    afterDismiss(() -> callback.onVerified(code));
                 })
                 .show();
     }
@@ -220,7 +259,7 @@ public final class GetSheet {
         new WGProAlertDialogBuilder(context)
                 .setTitle("使用兑换代码")
                 .setMessage("兑换代码内的积分将用于支付本单（" + price + " 积分），"
-                        + "超出部分会存入账户余额；积分不足则无法使用该代码。")
+                        + "超出部分会存入可用积分；积分不足则无法使用该代码。")
                 .setView(content)
                 .setNegativeButton("取消", null)
                 .setPositiveButton("下一步", (dialog, which) -> {
@@ -229,18 +268,19 @@ public final class GetSheet {
                         WGProHint.show(context, "请输入兑换代码");
                         return;
                     }
-                    callback.onCode(code);
+                    hideIme(context, input);
+                    afterDismiss(() -> callback.onCode(code));
                 })
                 .show();
     }
 
-    /** 兑换成功回调（积分已进余额）。 */
+    /** 兑换成功回调（积分已到账）。 */
     public interface RedeemCallback {
         void onRedeemed(int points);
     }
 
     /**
-     * 兑换代码 → 直接充进余额（「积分」卡片里的兑换入口用）。
+     * 兑换代码 → 直接充进积分（「积分」卡片里的兑换入口用）。
      * 失败（无效/已用/已过期/网络）统一用 {@link WGProHint} 提示，不关闭弹窗。
      */
     public static void showRedeem(@NonNull Context context, @Nullable RedeemCallback callback) {
@@ -257,7 +297,7 @@ public final class GetSheet {
         }
         new WGProAlertDialogBuilder(context)
                 .setTitle("兑换积分")
-                .setMessage("兑换成功后的积分进入余额，可直接用于获取应用与资源。")
+                .setMessage("兑换成功后的积分可直接用于获取应用与资源。")
                 .setView(content)
                 .setPositiveButton("兑换", (dialog, which) -> {
                     String code = input.getText() == null ? "" : input.getText().toString().trim();
@@ -265,7 +305,8 @@ public final class GetSheet {
                         WGProHint.show(context, "请输入兑换码");
                         return;
                     }
-                    tPointsUtils.redeem(context, code, new tPointsUtils.JsonCallback() {
+                    hideIme(context, input);
+                    afterDismiss(() -> tPointsUtils.redeem(context, code, new tPointsUtils.JsonCallback() {
                         @Override
                         public void onSuccess(@NonNull JSONObject info) {
                             Points.apply(info.optInt("balance", Points.balance),
@@ -280,7 +321,7 @@ public final class GetSheet {
                                             @Nullable JSONObject info) {
                             WGProHint.showError(context, "兑换失败", message);
                         }
-                    });
+                    }));
                 })
                 .setNegativeButton("关闭", null)
                 .show();

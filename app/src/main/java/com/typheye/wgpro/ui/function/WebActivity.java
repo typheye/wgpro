@@ -22,7 +22,6 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -69,7 +68,53 @@ public class WebActivity extends AppCompatActivity {
     private String FLAG;
     /** 网页渲染前的全屏遮罩（登录态同步、首次加载都走它） */
     private android.view.View loadingOverlay;
-    private TextView loadingText;
+    /** 遮罩最短显示时长：给"登录同步/数据加载"一个稳定的观感，避免一闪而过。 */
+    private static final long OVERLAY_MIN_SHOW_MS = 300L;
+    private long overlayShownAt = 0L;
+    private boolean overlayHidePending = false;
+    /** 遮罩只在 WebActivity 刚创建时出现一次；首次收起后不再出现（后续交给 WebView 自身逻辑）。 */
+    private boolean overlayConsumed = false;
+
+    /** 加载卡死自愈：进度在 {@link #STUCK_THRESHOLD} 以下**停滞**超过 {@link #STUCK_MS} 就自动重载。 */
+    private static final int STUCK_THRESHOLD = 20;
+    private static final long STUCK_MS = 1500L;
+    private static final int STUCK_MAX_RETRY = 2;
+    private final android.os.Handler stuckHandler =
+            new android.os.Handler(android.os.Looper.getMainLooper());
+    private int stuckRetryCount = 0;
+    private int currentProgress = 0;
+    private String lastLoadUrl = "";
+
+    private final Runnable stuckWatchdog = new Runnable() {
+        @Override
+        public void run() {
+            if (isFinishing() || isDestroyed()) return;
+            if (currentProgress >= STUCK_THRESHOLD) return;
+            if (loadingOverlay == null
+                    || loadingOverlay.getVisibility() != android.view.View.VISIBLE) return;
+            if (stuckRetryCount >= STUCK_MAX_RETRY) return;
+            stuckRetryCount++;
+            // 优先 reload；还没真正开始加载（about:blank）时用原始 URL 重新发起
+            String current = webView == null ? null : webView.getUrl();
+            if (current == null || current.isEmpty() || "about:blank".equals(current)) {
+                if (lastLoadUrl != null && !lastLoadUrl.isEmpty() && webView != null) {
+                    loadWebPage(lastLoadUrl);
+                }
+            } else {
+                webView.reload();
+            }
+            armStuckWatchdog();
+        }
+    };
+
+    private void armStuckWatchdog() {
+        stuckHandler.removeCallbacks(stuckWatchdog);
+        stuckHandler.postDelayed(stuckWatchdog, STUCK_MS);
+    }
+
+    private void cancelStuckWatchdog() {
+        stuckHandler.removeCallbacks(stuckWatchdog);
+    }
 
 
     @Override
@@ -85,7 +130,9 @@ public class WebActivity extends AppCompatActivity {
         webView = findViewById(R.id.web_webview);
         loadProgress = findViewById(R.id.web_load_progress);
         loadingOverlay = findViewById(R.id.web_loading_overlay);
-        loadingText = findViewById(R.id.web_loading_text);
+
+        // 网页正式开始加载之前先盖遮罩（登录同步、数据准备都在这个阶段）
+        showLoadingOverlay();
 
         // 设置工具栏
         setSupportActionBar(toolbar);
@@ -189,6 +236,8 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+                cancelStuckWatchdog();
+                stuckRetryCount = 0;
                 hideLoadingOverlay();   // 页面可以看了，收起遮罩
                 if (webLoginExchangePending) {
                     android.webkit.CookieManager.getInstance().flush();
@@ -246,6 +295,14 @@ public class WebActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(WebView view, int newProgress) {
                 super.onProgressChanged(view, newProgress);
+                currentProgress = newProgress;
+                if (newProgress >= STUCK_THRESHOLD) {
+                    cancelStuckWatchdog();      // 已经加载起来，不再自愈
+                } else if (loadingOverlay != null
+                        && loadingOverlay.getVisibility() == android.view.View.VISIBLE
+                        && stuckRetryCount < STUCK_MAX_RETRY) {
+                    armStuckWatchdog();         // 低于阈值时每次进度变化都重新计时（停滞才触发）
+                }
                 loadProgress.setProgress(newProgress, false);
                 loadProgress.setVisibility(newProgress >= 100 ? View.GONE : View.VISIBLE);
                 if (newProgress == 100) {
@@ -257,14 +314,9 @@ public class WebActivity extends AppCompatActivity {
                         Objects.requireNonNull(getSupportActionBar()).setTitle(title);
                     }
                 } else {
-                    // 应用栏只留一个简洁的加载标题，细节文案放到全屏遮罩里
                     Objects.requireNonNull(getSupportActionBar()).setTitle("加载中 (" + newProgress + "%)");
-                    if (loadingText != null) loadingText.setText("加载中 (" + newProgress + "%)");
                 }
-                if (loadingOverlay != null) {
-                    loadingOverlay.setVisibility(newProgress >= 100 ? android.view.View.GONE
-                            : android.view.View.VISIBLE);
-                }
+
             }
 
             @Override
@@ -385,23 +437,47 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void loadWebPage(@NonNull String url) {
+        lastLoadUrl = url;
+        // 遮罩只在刚创建时出现，后续加载交给 WebView 自身逻辑（细进度条 + 标题）
+        stuckRetryCount = 0;
+        currentProgress = 0;
         java.util.Map<String, String> headers = new java.util.HashMap<>();
         headers.put("X-Typheye-Client-WebView", "1");
         headers.put("X-Typheye-Client", "webview");
         webView.loadUrl(url, headers);
     }
 
-    /** 盖上全屏遮罩并显示一句过程文案（应用栏不放这些字）。 */
-    private void showLoadingOverlay(String message) {
-        if (loadingOverlay != null) loadingOverlay.setVisibility(android.view.View.VISIBLE);
-        if (loadingText != null && message != null && !message.isEmpty()) {
-            loadingText.setText(message);
+    /**
+     * 盖上全屏遮罩（与应用详情页同一套：纯色底 + 48dp 加载圈，没有文字，盖住应用栏）。
+     * <p>用途：网页**正式开始加载之前**的登录态同步、数据准备阶段。</p>
+     */
+    private void showLoadingOverlay() {
+        if (loadingOverlay == null || overlayConsumed) return;
+        if (loadingOverlay.getVisibility() != android.view.View.VISIBLE) {
+            overlayShownAt = android.os.SystemClock.uptimeMillis();
+            overlayHidePending = false;
+            loadingOverlay.setVisibility(android.view.View.VISIBLE);
         }
     }
 
-    /** 收起遮罩（页面可以渲染了）。 */
+    /** 收起遮罩；不足 {@link #OVERLAY_MIN_SHOW_MS} 时延后收，保证不会一闪而过。 */
     private void hideLoadingOverlay() {
-        if (loadingOverlay != null) loadingOverlay.setVisibility(android.view.View.GONE);
+        if (loadingOverlay == null
+                || loadingOverlay.getVisibility() != android.view.View.VISIBLE) return;
+        long remain = OVERLAY_MIN_SHOW_MS
+                - (android.os.SystemClock.uptimeMillis() - overlayShownAt);
+        if (remain > 0) {
+            if (!overlayHidePending) {
+                overlayHidePending = true;
+                loadingOverlay.postDelayed(() -> {
+                    overlayHidePending = false;
+                    hideLoadingOverlay();
+                }, remain);
+            }
+            return;
+        }
+        loadingOverlay.setVisibility(android.view.View.GONE);
+        overlayConsumed = true;   // 只在 WebActivity 刚创建时露一次面，之后不再出现
     }
 
     private boolean isWebLoginPage(String url) {
@@ -411,8 +487,8 @@ public class WebActivity extends AppCompatActivity {
     }
 
     private void startV2WebLogin(tAccUtils accUtils, String targetUrl) {
-        // 「同步登录状态」这类过程文案只在遮罩里出现，应用栏保持干净
-        showLoadingOverlay("正在同步登录状态…");
+        // 同步登录状态期间只盖遮罩，不在应用栏写任何过程文案
+        showLoadingOverlay();
         final String redirectPath = "/site/user/center/";
         accUtils.createWebLoginTicket(redirectPath, new tAccUtils.WebLoginTicketCallback() {
             @Override
@@ -759,6 +835,7 @@ public class WebActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        cancelStuckWatchdog();
         tAccUtils.detachBrowserLoginHost(this);
         if (loadProgress != null) loadProgress.setVisibility(View.GONE);
         if (webView != null)

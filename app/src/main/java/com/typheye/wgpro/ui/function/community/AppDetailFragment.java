@@ -458,7 +458,7 @@ public final class AppDetailFragment extends Fragment {
                 });
     }
 
-    /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用余额支付 / 使用兑换代码 / 找他人代付。 */
+    /** 「获取」弹窗：定价头部（库存 | 账户可用积分）+ 使用积分支付 / 使用兑换代码 / 找他人代付。 */
     private void showDownloadSheet(int price, String stockLabel, int availableTotal,
                                    String stockState, String soldOutNote, boolean enough) {
         // 无库存：整张卡换成「售罄说明 + 加入/移除星标」
@@ -468,8 +468,8 @@ public final class AppDetailFragment extends Fragment {
         }
         final java.util.List<String> labels = new java.util.ArrayList<>();
         final java.util.List<Integer> codes = new java.util.ArrayList<>();
-        if (enough) {   // 余额不足时不显示「使用余额支付」
-            labels.add("使用余额支付（" + price + " 积分）");
+        if (enough) {   // 积分不足时不显示「使用积分支付」
+            labels.add("使用积分支付");
             codes.add(0);
         }
         labels.add("使用兑换代码");
@@ -530,7 +530,7 @@ public final class AppDetailFragment extends Fragment {
     private void confirmAndPay(int price, String payMethod, String redeemCode) {
         final android.content.Context context = requireContext();
         String name = appJson.optString("name", "该应用");
-        com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, () ->
+        com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, payMethod, () ->
                 com.typheye.wgpro.utils.tPointsUtils.verifySend(context, "app", appKey,
                         payMethod, redeemCode,
                         new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {

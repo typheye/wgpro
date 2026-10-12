@@ -217,7 +217,7 @@ public class AccountFragment extends Fragment {
         return new PointsColumnViews(holder, number);
     }
 
-    /** 一列的引用：壳视图（PointsCards 当子视图用）+ 数值 TextView（余额回来后就地刷新）。 */
+    /** 一列的引用：壳视图（PointsCards 当子视图用）+ 数值 TextView（积分回来后就地刷新）。 */
     private static final class PointsColumnViews {
         final View view;
         final TextView value;
@@ -428,7 +428,7 @@ public class AccountFragment extends Fragment {
         }
     }
 
-    /** 积分卡片：底部弹窗展示（绿底标签卡「余额 ｜ 赠送」+ 「充值 / 兑换」分组）。 */
+    /** 积分卡片：底部弹窗展示（绿底标签卡「可用积分 ｜ 赠送积分」+ 明细/商城/福利入口）。 */
     private void showPointsSheet() {
         android.content.Context context = requireContext();
 
@@ -438,13 +438,13 @@ public class AccountFragment extends Fragment {
         // 一整张绿卡：左右两列 + 中间分割线，留白/高度由 PointsCards 自己控制。
         PointsColumnViews balanceColumn = pointsStat(context, R.drawable.ic_points_vector,
                 com.typheye.wgpro.ui.widget.Points.display(
-                        com.typheye.wgpro.ui.widget.Points.balance), "余额");
+                        com.typheye.wgpro.ui.widget.Points.balance), "可用积分");
         PointsColumnViews giftColumn = pointsStat(context, R.drawable.ic_gift_vector,
                 com.typheye.wgpro.ui.widget.Points.display(
-                        com.typheye.wgpro.ui.widget.Points.gift), "赠送");
+                        com.typheye.wgpro.ui.widget.Points.gift), "赠送积分");
         PointsCards stats = new PointsCards(context, balanceColumn.view, giftColumn.view);
 
-        // 每次打开都强制拉一次最新余额；回来后就地刷新两个数字（弹窗文本是静态的）
+        // 每次打开都强制拉一次最新积分；回来后就地刷新两个数字（弹窗文本是静态的）
         com.typheye.wgpro.ui.widget.Points.refresh(context, true, ok -> {
             balanceColumn.value.setText(com.typheye.wgpro.ui.widget.Points.display(
                     com.typheye.wgpro.ui.widget.Points.balance));

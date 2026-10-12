@@ -20,20 +20,20 @@ import org.json.JSONObject;
  *     <li>{@code 0}：接口回来但没数据、或请求失败。</li>
  * </ul>
  *
- * <p>名词：{@link #balance} = 余额（充值/兑换得来），{@link #gift} = 赠送（新人赠送等，
+ * <p>名词：{@link #balance} = 可用积分（兑换码/管理员发放得来），{@link #gift} = 赠送（新人赠送等，
  * 消费时**优先扣赠送**）。两者都由服务端计算，客户端只做展示缓存。</p>
  */
 public final class Points {
     /** 未加载：界面显示 {@code -}。 */
     public static final int LOADING = -1;
 
-    /** 余额（可用积分）。 */
+    /** 可用积分。 */
     public static volatile int balance = LOADING;
     /** 赠送积分。 */
     public static volatile int gift = LOADING;
     /** 是否已经拿到过接口结果（成功或失败都算）。false → 显示 {@code -}。 */
     public static volatile boolean loaded = false;
-    /** 累计合计（余额 + 赠送），由服务端返回。 */
+    /** 累计合计（可用积分 + 赠送积分），由服务端返回。 */
     public static volatile int total = LOADING;
     /** 最近一次刷新是否成功（失败时不要把旧数字当成最新的）。 */
     public static volatile boolean lastRefreshOk = false;
@@ -59,7 +59,7 @@ public final class Points {
         return String.valueOf(Math.max(0, value));
     }
 
-    /** 首次使用前把上次的余额读进内存（同步、极快）。 */
+    /** 首次使用前把上次的积分读进内存（同步、极快）。 */
     public static void warm(@NonNull Context context) {
         if (cacheLoaded) return;
         synchronized (Points.class) {
@@ -122,7 +122,7 @@ public final class Points {
     }
 
     /**
-     * 刷新余额：成功写入 {@link #balance}/{@link #gift} 并回调 true；
+     * 刷新积分：成功写入 {@link #balance}/{@link #gift} 并回调 true；
      * 失败按 {@link #applyFailure()} 处理并回调 false。
      */
     public static void refresh(@NonNull Context context, @Nullable Callback callback) {
