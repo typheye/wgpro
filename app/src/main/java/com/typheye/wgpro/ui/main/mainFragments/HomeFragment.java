@@ -632,7 +632,16 @@ public class HomeFragment extends Fragment {
         boolean mine = !owner.isEmpty() && owner.equals(account.getUid());
         String[] actions = mine ? new String[]{"删除", "分享"} : new String[]{"举报", "分享"};
         new WGProAlertDialogBuilder(requireContext()).setTitle(app ? "应用操作" : "资源操作").setItems(actions, (d,w) -> {
-            if ("分享".equals(actions[w])) { Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, (app ? "应用：" : "资源：") + item.optString(app ? "name" : "title", "未知")); startActivity(Intent.createChooser(share, "分享")); return; }
+            if ("分享".equals(actions[w])) {
+                // 分享真实分享页链接（应用 share/app、Vela 应用 share/velaapp、资源 share/res）
+                String name = item.optString(app ? "name" : "title", app ? "应用" : "资源");
+                String link = com.typheye.wgpro.utils.WGProShareLinks.itemUrl(item, !app);
+                Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
+                        .putExtra(Intent.EXTRA_TEXT,
+                                com.typheye.wgpro.utils.WGProShareLinks.shareText(name, link));
+                startActivity(Intent.createChooser(share, "分享"));
+                return;
+            }
             Map<String,String> fields = new LinkedHashMap<>();
             if (mine) { fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id")); runCatalogAction(app ? "app_delete2" : "resource_delete2", fields, "确认删除？", "删除后无法恢复。", "已删除"); }
             else {

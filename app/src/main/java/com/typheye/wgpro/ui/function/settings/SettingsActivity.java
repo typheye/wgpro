@@ -134,8 +134,7 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("predictive_back_enabled", false));
+        compatibilityBackCallback.setEnabled(true);
     }
 
     private void navigateBack() {
@@ -146,9 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
         }
     }
 
-    private void setPredictiveBackEnabled(boolean enabled) {
-        compatibilityBackCallback.setEnabled(!enabled);
-    }
+
 
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, @NonNull Configuration newConfig) {
@@ -183,24 +180,17 @@ public class SettingsActivity extends AppCompatActivity {
             MaterialSwitch autoCheck = view.findViewById(R.id.switch_auto_check);
             MaterialSwitch dynamicColor = view.findViewById(R.id.switch_dynamic_color);
             View dynamicColorRow = view.findViewById(R.id.row_dynamic_color);
-            MaterialSwitch predictiveBack = view.findViewById(R.id.switch_predictive_back);
             View darkModeRow = view.findViewById(R.id.row_dark_mode);
+            // 整块（行 + 它下面那条分割线）一起显隐：只隐藏行会留下"多一条线"
+            View darkModeBlock = view.findViewById(R.id.block_dark_mode);
 
             boolean followsSystemTheme = preferences.getBoolean("theme_follow_system", true);
             followSystem.setChecked(followsSystemTheme);
             darkMode.setChecked(preferences.getBoolean("theme_dark_mode", false));
-            darkModeRow.setVisibility(followsSystemTheme ? View.GONE : View.VISIBLE);
+            int darkVisibility = followsSystemTheme ? View.GONE : View.VISIBLE;
+            darkModeBlock.setVisibility(darkVisibility);
+            darkModeRow.setVisibility(darkVisibility);
 
-            boolean predictiveBackAvailable = Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE;
-            if (!predictiveBackAvailable) {
-                preferences.edit().putBoolean("predictive_back_enabled", false).apply();
-                view.findViewById(R.id.row_predictive_back).setAlpha(0.55f);
-                ((TextView) view.findViewById(R.id.text_predictive_back_summary))
-                        .setText("需要 Android 14 或更高版本");
-            }
-            predictiveBack.setEnabled(predictiveBackAvailable);
-            predictiveBack.setChecked(predictiveBackAvailable
-                    && preferences.getBoolean("predictive_back_enabled", false));
             autoCheck.setChecked(preferences.getBoolean("appUpdate_autoCheck", true));
 
             // 动态取色（莫奈）：默认开启；系统不支持（<Android 12）时置灰
@@ -230,6 +220,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             followSystem.setOnCheckedChangeListener((button, checked) -> {
                 preferences.edit().putBoolean("theme_follow_system", checked).apply();
+                darkModeBlock.setVisibility(checked ? View.GONE : View.VISIBLE);
                 darkModeRow.setVisibility(checked ? View.GONE : View.VISIBLE);
                 AppCompatDelegate.setDefaultNightMode(checked
                         ? AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -250,10 +241,7 @@ public class SettingsActivity extends AppCompatActivity {
             autoCheck.setOnCheckedChangeListener((button, checked) -> {
                 preferences.edit().putBoolean("appUpdate_autoCheck", checked).apply();
             });
-            predictiveBack.setOnCheckedChangeListener((button, checked) -> {
-                preferences.edit().putBoolean("predictive_back_enabled", checked).apply();
-                ((SettingsActivity) requireActivity()).setPredictiveBackEnabled(checked);
-            });
+            view.findViewById(R.id.row_auto_check).setOnClickListener(v -> autoCheck.toggle());
 
             view.findViewById(R.id.row_reset).setOnClickListener(v -> appReset());
             view.findViewById(R.id.row_clear_cache).setOnClickListener(v -> showClearCacheSheet());
@@ -261,6 +249,15 @@ public class SettingsActivity extends AppCompatActivity {
                     .setOnClickListener(v -> showNotificationSettingsSheet());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());
+            view.findViewById(R.id.row_account_security).setOnClickListener(v -> {
+                Intent security = new Intent(requireContext(),
+                        com.typheye.wgpro.ui.function.WebActivity.class);
+                security.putExtra("URL", "https://account.typheye.cn/?tab=security");
+                startActivity(security);
+            });
+            view.findViewById(R.id.row_sessions).setOnClickListener(v ->
+                    startActivity(new Intent(requireContext(), ContactActivity.class)
+                            .putExtra(ContactActivity.EXTRA_MODE, ContactActivity.MODE_SESSIONS)));
             view.findViewById(R.id.row_blocked_users).setOnClickListener(v ->
                     startActivity(new Intent(requireContext(), ContactActivity.class)
                             .putExtra(ContactActivity.EXTRA_MODE, CloudListFragment.MODE_BLOCKED)));
@@ -340,40 +337,52 @@ public class SettingsActivity extends AppCompatActivity {
          * 渠道重要性与"横幅"开关由系统控制，应用只能检测并引导用户去系统页面开启；
          * 后台运行通知同样可以在系统页面里关掉而服务继续运行。
          */
+        /**
+         * 通知设置：**只做引导**（通知开关由系统控制，这里不显示"已开启/未开启"）。
+         * 三张引导卡片分别进入对应的系统渠道页，最后一项进系统的应用通知页
+         * （MIUI 等机型的「常驻通知」总开关在那里）。
+         */
         private void showNotificationSettingsSheet() {
-            boolean alerting = com.typheye.wgpro.utils.InboxNotificationHelper
-                    .isMessageChannelAlerting(requireContext());
-            CharSequence[] items = {
-                    alerting ? "消息横幅与提醒（已开启）" : "消息横幅与提醒（未开启）",
-                    "账户通知",
-                    "后台常驻通知",
-            };
-            new WGProAlertDialogBuilder(requireContext()).setTitle("通知设置")
-                    .setItems(items, (dialog, which) -> {
-                        try {
-                            if (which == 0) {
-                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
-                                        .channelSettingsIntent(requireContext(),
-                                                com.typheye.wgpro.utils.InboxNotificationHelper
-                                                        .messageChannelId()));
-                            } else if (which == 1) {
-                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
-                                        .channelSettingsIntent(requireContext(),
-                                                com.typheye.wgpro.utils.InboxNotificationHelper
-                                                        .CHANNEL_ACCOUNT));
-                            } else {
-                                // MIUI 等系统的「常驻通知」总开关在这个页面里
-                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
-                                        .appNotificationSettingsIntent(requireContext()));
-                            }
-                        } catch (Exception error) {
-                            try {
-                                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
-                                        .appNotificationSettingsIntent(requireContext()));
-                            } catch (Exception ignored) {
-                            }
-                        }
-                    }).show();
+            View content = View.inflate(requireContext(), R.layout.sheet_notification_guide, null);
+            // 说明文字用弹窗标准 message：与其它弹窗一致的字号（16sp）、颜色
+            // （?attr/colorOnSurfaceVariant）、行距，以及与内容之间标准的 12dp 间距
+            WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
+                    .setTitle("通知设置")
+                    .setMessage("通知的开关由系统管理，点击对应项进入系统设置开启或关闭。")
+                    .setView(content)
+                    .setNegativeButton("关闭", null)
+                    .create();
+            content.findViewById(R.id.guide_message_banner).setOnClickListener(v -> {
+                dialog.dismissForReplacement();
+                openChannelSettings(com.typheye.wgpro.utils.InboxNotificationHelper.messageChannelId());
+            });
+            content.findViewById(R.id.guide_account).setOnClickListener(v -> {
+                dialog.dismissForReplacement();
+                openChannelSettings(com.typheye.wgpro.utils.InboxNotificationHelper.CHANNEL_ACCOUNT);
+            });
+            content.findViewById(R.id.guide_background).setOnClickListener(v -> {
+                dialog.dismissForReplacement();
+                try {
+                    startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                            .appNotificationSettingsIntent(requireContext()));
+                } catch (Exception ignored) {
+                }
+            });
+            dialog.show();
+        }
+
+        /** 打开某个通知渠道的系统设置；个别 ROM 不支持渠道页时退回应用通知页。 */
+        private void openChannelSettings(String channelId) {
+            try {
+                startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                        .channelSettingsIntent(requireContext(), channelId));
+            } catch (Exception error) {
+                try {
+                    startActivity(com.typheye.wgpro.utils.InboxNotificationHelper
+                            .appNotificationSettingsIntent(requireContext()));
+                } catch (Exception ignored) {
+                }
+            }
         }
 
         private void legacyShowClearCacheSheet() {

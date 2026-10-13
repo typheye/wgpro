@@ -32,7 +32,7 @@
             android:paddingBottom="28dp">
 
             <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
-                <LinearLayout android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
+                <LinearLayout android:id="@+id/row_test_enabled" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_bug_vector" android:tint="?attr/colorPrimary" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="开发模式" android:textColor="?attr/colorOnSurface" />
@@ -45,7 +45,8 @@
             <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="诊断" android:textColor="?attr/colorPrimary" />
             <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
                 <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                    <LinearLayout android:id="@+id/test_probe" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    
+                <LinearLayout android:id="@+id/test_probe" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
                         <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@null" />
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                             <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="探测云端 API" android:textColor="?attr/colorOnSurface" />

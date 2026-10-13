@@ -71,6 +71,9 @@ dependencies {
     implementation("com.journeyapps:zxing-android-embedded:3.5.0")
     implementation("com.google.zxing:core:3.5.3")
     implementation("androidx.appcompat:appcompat:1.7.1")
+    // 预见式返回（predictive back）：Fragment 需 1.6+、Activity 需 1.6+，这里显式抬版本
+    implementation("androidx.activity:activity:1.11.0")
+    implementation("androidx.fragment:fragment:1.8.9")
     implementation("com.google.android.material:material:1.13.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
     implementation("androidx.recyclerview:recyclerview:1.4.0")

@@ -51,12 +51,8 @@ public class DeviceFragment extends Fragment {
     private View wearableEmpty;
     private View otherEmpty;
     private View detected;
-    private JSONArray cloudSessions = new JSONArray();
-    private boolean cloudSessionsLoading;
     private boolean wearableLoaded;
-    private boolean otherLoaded;
     private String wearableSignature = "";
-    private String otherSignature = "";
     private SwipeRefreshLayout wearableRefresh;
     private SwipeRefreshLayout otherRefresh;
 
@@ -72,9 +68,10 @@ public class DeviceFragment extends Fragment {
         ((TextView) wearableEmpty.findViewById(R.id.stream_empty_title)).setText("还没有穿戴设备");
         ((TextView) wearableEmpty.findViewById(R.id.stream_empty_description))
                 .setText("连接小米手表或手环后，可在这里添加并集中管理。");
-        ((TextView) otherEmpty.findViewById(R.id.stream_empty_title)).setText("暂无其他设备");
+        // 「模拟设备」：会话卡片已搬到 设置 → 账户 → 已登录的会话，这里先留空位等虚拟机能力。
+        ((TextView) otherEmpty.findViewById(R.id.stream_empty_title)).setText("暂无模拟设备");
         ((TextView) otherEmpty.findViewById(R.id.stream_empty_description))
-                .setText("使用同一 Typheye 账户登录的设备会显示在这里。");
+                .setText("模拟设备功能开发中，之后可在这里创建并管理虚拟机。");
         detected = root.findViewById(R.id.card_detected_device);
         wearableRefresh = root.findViewById(R.id.device_page_wearable);
         otherRefresh = root.findViewById(R.id.device_page_other);
@@ -88,11 +85,7 @@ public class DeviceFragment extends Fragment {
             wearableLoaded = true;
             refreshWearable();
         });
-        otherRefresh.setOnRefreshListener(() -> {
-            refresh();
-            cloudSessionsLoading = false;
-            loadCloudSessions();
-        });
+        otherRefresh.setOnRefreshListener(this::refresh);
         wearableRefresh.post(() -> wearableRefresh.setRefreshing(true));
         otherRefresh.post(() -> otherRefresh.setRefreshing(true));
         mainHandler.postDelayed(() -> {
@@ -128,7 +121,6 @@ public class DeviceFragment extends Fragment {
     @Override public void onResume() {
         super.onResume();
         refresh();
-        loadCloudSessions();
     }
     public void updateUI(UIParams ignored) { refresh(); }
 
@@ -146,351 +138,52 @@ public class DeviceFragment extends Fragment {
 
     private void refresh() {
         if (!isAdded() || wearable == null || other == null) return;
+        // 穿戴设备组 = 小米穿戴设备 + 其它已配对设备（非 Xiaomi 的现在也并到这一组）
+        StringBuilder wearableKey = new StringBuilder();
+        LinearLayout newWearable = new LinearLayout(requireContext());
+        newWearable.setOrientation(LinearLayout.VERTICAL);
+        collectDevices("xiaomi", wearableKey, newWearable);
+        collectDevicesExcept("xiaomi", wearableKey, newWearable);
+        String nextWearable = wearableKey.toString();
+        if (!nextWearable.equals(wearableSignature)) {
+            wearable.removeAllViews();
+            while (newWearable.getChildCount() > 0) {
+                View child = newWearable.getChildAt(0);
+                newWearable.removeView(child);
+                wearable.addView(child);
+            }
+            wearableSignature = nextWearable;
+        }
+        // 判断"有没有卡片"必须看**已经挂到页面上**的容器：上面交换时已把暂存容器搬空，
+        // 用 newWearable.getChildCount() 会恒为 0，导致有设备时空态与列表同时显示。
+        wearableEmpty.setVisibility(wearableLoaded && wearable.getChildCount() == 0
+                ? View.VISIBLE : View.GONE);
+        // 「模拟设备」页暂时只有空态（会话卡片已搬到设置里的「已登录的会话」）
+        if (other.getChildCount() > 0) other.removeAllViews();
+        otherEmpty.setVisibility(View.VISIBLE);
+    }
+
+    /** 把某一类已配对设备追加到目标组（卡片顺序按 last_seen 倒序）。 */
+    private void collectDevices(String type, StringBuilder key, LinearLayout target) {
+        try (DeviceDatabase db = new DeviceDatabase(requireContext()); Cursor cursor = db.all(type)) {
+            appendDeviceCards(cursor, key, target);
+        }
+    }
+
+    private void collectDevicesExcept(String type, StringBuilder key, LinearLayout target) {
         try (DeviceDatabase db = new DeviceDatabase(requireContext());
-             Cursor wearableCursor = db.all("xiaomi");
-             Cursor otherCursor = db.allExcept("xiaomi")) {
-            // Keep the previous rows during refresh; replacing them only after data is available
-            // prevents the visible list from flashing empty.
-            LinearLayout newWearable = new LinearLayout(requireContext());
-            LinearLayout newOther = new LinearLayout(requireContext());
-            newWearable.setOrientation(LinearLayout.VERTICAL); newOther.setOrientation(LinearLayout.VERTICAL);
-            boolean hasWearable = false;
-            boolean hasOther = false;
-            StringBuilder wearableKey = new StringBuilder();
-            StringBuilder otherKey = new StringBuilder();
-            while (wearableCursor.moveToNext()) {
-                hasWearable = true;
-                wearableKey.append(wearableCursor.getString(wearableCursor.getColumnIndexOrThrow("id"))).append('|')
-                        .append(wearableCursor.getString(wearableCursor.getColumnIndexOrThrow("note"))).append('|')
-                        .append(wearableCursor.getInt(wearableCursor.getColumnIndexOrThrow("connected"))).append(';');
-                addCard(wearableCursor, newWearable);
-            }
-            while (otherCursor.moveToNext()) {
-                hasOther = true;
-                otherKey.append(otherCursor.getString(otherCursor.getColumnIndexOrThrow("id"))).append('|')
-                        .append(otherCursor.getString(otherCursor.getColumnIndexOrThrow("note"))).append('|')
-                        .append(otherCursor.getInt(otherCursor.getColumnIndexOrThrow("connected"))).append(';');
-                addCard(otherCursor, newOther);
-            }
-            for (int index = 0; index < cloudSessions.length(); index++) {
-                JSONObject session = cloudSessions.optJSONObject(index);
-                if (session != null && isVisibleCloudSession(session)) {
-                    hasOther = true;
-                    otherKey.append(session.optString("id", session.optString("session_id"))).append('|')
-                            .append(session.optString("remark")).append('|')
-                            .append(session.optBoolean("is_current")).append(';');
-                    addSessionCard(session, newOther);
-                }
-            }
-            String nextWearable = wearableKey.toString();
-            String nextOther = otherKey.toString();
-            if (!nextWearable.equals(wearableSignature)) {
-                wearable.removeAllViews();
-                while (newWearable.getChildCount() > 0) { View child = newWearable.getChildAt(0); newWearable.removeView(child); wearable.addView(child); }
-                wearableSignature = nextWearable;
-            }
-            if (!nextOther.equals(otherSignature)) {
-                other.removeAllViews();
-                while (newOther.getChildCount() > 0) { View child = newOther.getChildAt(0); newOther.removeView(child); other.addView(child); }
-                otherSignature = nextOther;
-            }
-            wearableEmpty.setVisibility(wearableLoaded && !hasWearable ? View.VISIBLE : View.GONE);
-            // 云端会话还在加载时不要切到空状态，否则会出现"空提示 ↔ 卡片"的闪现。
-            otherEmpty.setVisibility(otherLoaded && !cloudSessionsLoading && !hasOther
-                    ? View.VISIBLE : View.GONE);
-            UIParams params = MainActivity.current_params;
-            boolean found = params != null && params.connected && params.connected_device_id != null
-                    && !params.connected_device_id.isEmpty() && !db.exists(params.connected_device_id);
-            String dismissedId = requireContext()
-                    .getSharedPreferences("device_preferences", Context.MODE_PRIVATE)
-                    .getString("dismissed_detected_device_id", "");
-            found = found && !params.connected_device_id.equals(dismissedId);
-            detected.setVisibility(found ? View.VISIBLE : View.GONE);
+             Cursor cursor = db.allExcept(type)) {
+            appendDeviceCards(cursor, key, target);
         }
     }
 
-    /**
-     * 本地摘掉一条已撤销的云端会话，保留其余缓存。
-     * 撤销后直接清空整个 {@code cloudSessions} 会让列表先变空提示、再被服务端数据填回来，
-     * 表现为"空提示 / 设备卡片"来回闪现。
-     */
-    private void removeCloudSessionLocally(String recordId) {
-        if (recordId == null || recordId.isEmpty()) return;
-        JSONArray next = new JSONArray();
-        for (int i = 0; i < cloudSessions.length(); i++) {
-            JSONObject session = cloudSessions.optJSONObject(i);
-            if (session == null) continue;
-            String id = session.optString("id",
-                    session.optString("session_record_id", session.optString("record_id", "")));
-            if (!recordId.equals(id)) next.put(session);
+    private void appendDeviceCards(Cursor cursor, StringBuilder key, LinearLayout target) {
+        while (cursor.moveToNext()) {
+            key.append(cursor.getString(cursor.getColumnIndexOrThrow("id"))).append('|')
+                    .append(cursor.getString(cursor.getColumnIndexOrThrow("note"))).append('|')
+                    .append(cursor.getInt(cursor.getColumnIndexOrThrow("connected"))).append(';');
+            addCard(cursor, target);
         }
-        cloudSessions = next;
-    }
-
-    private void loadCloudSessions() {
-        if (cloudSessionsLoading || !isAdded()) return;
-        tAccUtils account = new tAccUtils(requireContext());
-        if (!account.isLogin()) {
-            cloudSessions = new JSONArray();
-            refresh();
-            mainHandler.postDelayed(() -> {
-                if (!isAdded()) return;
-                otherLoaded = true;
-                refresh();
-                if (otherRefresh != null) otherRefresh.setRefreshing(false);
-            }, 300L);
-            return;
-        }
-        cloudSessionsLoading = true;
-        Map<String, String> query = new LinkedHashMap<>();
-        query.put("page", "1");
-        query.put("size", "20");
-        account.getV2JsonFresh("sessions2", query, true, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(@NonNull JSONObject json) {
-                JSONArray result = json.optJSONArray("items");
-                mainHandler.post(() -> {
-                    if (!isAdded()) return;
-                    cloudSessionsLoading = false;
-                    cloudSessions = result == null ? new JSONArray() : result;
-                    otherLoaded = true;
-                    refresh();
-                    otherRefresh.setRefreshing(false);
-                });
-            }
-
-            @Override public void onError(int code, @NonNull String message) {
-                mainHandler.post(() -> {
-                    if (!isAdded()) return;
-                    cloudSessionsLoading = false;
-                    if (code == 401) cloudSessions = new JSONArray();
-                    otherLoaded = true;
-                    refresh();
-                    otherRefresh.setRefreshing(false);
-                });
-            }
-        });
-    }
-
-    private void addSessionCard(JSONObject session, LinearLayout target) {
-        View card = getLayoutInflater().inflate(R.layout.item_device, target, false);
-        String remark = session.optString("remark", "").trim();
-        String device = session.optString("device", "未知设备").trim();
-        String displayName = remark.isEmpty() ? device : remark;
-        boolean current = session.optBoolean("is_current");
-        String platform = session.optString("platform", "");
-        String version = session.optString("client_version", "");
-        String secondary = platform + (version.isEmpty() ? "" : " | " + version);
-        ((TextView) card.findViewById(R.id.text_device_initial)).setText(firstCharacter(displayName));
-        ((TextView) card.findViewById(R.id.text_device_model)).setText(displayName);
-        ((TextView) card.findViewById(R.id.text_device_version)).setText(secondary);
-        TextView status = card.findViewById(R.id.text_device_status);
-        status.setText(current ? "当前设备" : "已登录");
-        status.setBackgroundResource(R.drawable.bg_device_status_connected);
-        String lastSeen = session.optString("last_seen_at", "");
-        ((TextView) card.findViewById(R.id.text_device_since))
-                .setText(lastSeen.isEmpty() ? "在线状态未知" : "活跃于 " + relativeCloudTime(lastSeen));
-        card.setOnClickListener(v -> showSessionDetail(session));
-        // 不再放竖点：长按卡片弹设备管理菜单。
-        card.setOnLongClickListener(v -> { showSessionMenu(session); return true; });
-        target.addView(card);
-    }
-
-    private boolean isVisibleCloudSession(JSONObject session) {
-        String type = session.optString("session_type", "");
-        String id = session.optString("id", "");
-        // A Web-login placeholder linked to a native source is not a separately
-        // logged-in device. The server normally removes it; keep the client robust
-        // against older deployments which still return both rows.
-        return !("web".equalsIgnoreCase(type)
-                && (!session.optString("source_session_id", "").isEmpty()
-                || !session.optString("parent_session_id", "").isEmpty()
-                || session.optBoolean("is_placeholder")
-                || id.startsWith("placeholder:")));
-    }
-
-    private void showSessionDetail(JSONObject session) {
-        View content = getLayoutInflater().inflate(R.layout.sheet_device_detail, null, false);
-        String remark = session.optString("remark", "").trim();
-        String device = session.optString("device", "未知设备").trim();
-        String name = remark.isEmpty() ? device : remark;
-        boolean current = session.optBoolean("is_current");
-        String platform = session.optString("platform", "");
-        ((TextView) content.findViewById(R.id.sheet_device_initial)).setText(firstCharacter(name));
-        ((TextView) content.findViewById(R.id.sheet_device_name)).setText(name);
-        ((TextView) content.findViewById(R.id.sheet_device_status_version))
-                .setText((current ? "当前设备" : "已登录") + " | " + platform);
-        content.findViewById(R.id.sheet_device_actions).setVisibility(View.VISIBLE);
-        ((TextView) content.findViewById(R.id.sheet_device_action_primary_label)).setText("查看详细信息");
-        ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label)).setText("显示更多操作");
-        StringBuilder detail = new StringBuilder();
-        appendDetail(detail, "设备", session.optString("device"));
-        appendDetail(detail, "平台", session.optString("platform"));
-        appendDetail(detail, "客户端版本", session.optString("client_version"));
-        appendDetail(detail, "位置", session.optString("location"));
-        appendDetail(detail, "IP", session.optString("ip"));
-        appendDetail(detail, "创建时间", session.optString("created_at"));
-        appendDetail(detail, "最后活跃", session.optString("last_seen_at"));
-        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
-                .setTitle("设备详情").setView(content).setNegativeButton("关闭", null).create();
-        content.findViewById(R.id.sheet_device_transfer).setOnClickListener(v -> {
-            dialog.dismissForReplacement();
-            new WGProAlertDialogBuilder(requireContext()).setTitle("详细信息")
-                    .setMessage(detail.length() == 0 ? "暂无更多设备信息" : detail.toString())
-                    .setNegativeButton("关闭", null).show();
-        });
-        content.findViewById(R.id.sheet_device_logs).setOnClickListener(v -> {
-            dialog.dismissForReplacement();
-            showSessionMenu(session);
-        });
-        dialog.show();
-    }
-
-    private static void appendDetail(StringBuilder target, String label, String value) {
-        if (value == null || value.trim().isEmpty()) return;
-        if (target.length() > 0) target.append('\n');
-        target.append(label).append("：").append(value.trim());
-    }
-
-    private void showSessionMenu(JSONObject session) {
-        new WGProAlertDialogBuilder(requireContext()).setTitle("设备管理")
-                .setItems(new CharSequence[]{"修改备注", "退出登录"}, (dialog, which) -> {
-                    if (which == 0) showSessionNoteDialog(session);
-                    else confirmRevokeSession(session);
-                }).show();
-    }
-
-    private void showSessionNoteDialog(JSONObject session) {
-        View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null, false);
-        TextInputLayout layout = content.findViewById(R.id.textInputLayout);
-        TextInputEditText input = content.findViewById(R.id.editText);
-        layout.setHint("设备备注");
-        layout.setCounterEnabled(true);
-        layout.setCounterMaxLength(40);
-        input.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
-        String initialRemark = session.optString("remark", "");
-        if ("null".equals(initialRemark)) initialRemark = "";
-        input.setText(initialRemark);
-        input.setSelection(input.length());
-        input.setSingleLine(true);
-        WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
-                .setTitle("修改设备备注").setView(content).setNegativeButton("取消", null)
-                .setPositiveButton("保存", null).create();
-        final boolean[] submitted = {false};
-        dialog.setOnShowListener(ignored -> dialog.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(v -> {
-            if (submitted[0]) return;
-            String value = input.getText() == null ? "" : input.getText().toString().trim();
-            boolean current = session.optBoolean("is_current", false);
-            String sessionId = session.optString("session_id", "").trim();
-            String recordId = session.optString("id", "").trim();
-            boolean web = recordId.startsWith("web:")
-                    || "web".equalsIgnoreCase(session.optString("session_type", ""));
-            if (web) {
-                if (!recordId.matches("(?i)web:\\d+")) {
-                    layout.setError("云端未返回可用的会话标识，请刷新后重试");
-                    return;
-                }
-            } else if (!current && !sessionId.matches("(?i)[0-9a-f]{32}")) {
-                layout.setError("云端未返回可用的会话标识，请刷新后重试");
-                return;
-            }
-            submitted[0] = true;
-            dialog.dismissForReplacement();
-            mainHandler.postDelayed(() -> saveSessionRemark(session, value, current, sessionId,
-                    web, recordId), 40L);
-        }));
-        dialog.show();
-    }
-
-    private void saveSessionRemark(JSONObject session, String remark, boolean current,
-                                   String sessionId, boolean web, String recordId) {
-        if (!isAdded()) return;
-        Map<String, String> fields = new LinkedHashMap<>();
-        fields.put("remark", remark);
-        if (web) {
-            // Web Session 没有 V2 session_id，使用 sessions2 返回的记录 ID。
-            fields.put("target_record_id", recordId);
-        } else if (!current) {
-            // 文档规定：省略 target_session_id 时修改当前请求头对应的 V2 会话。
-            fields.put("target_session_id", sessionId);
-        }
-        WGProProgressRunner.run(this, "保存中", "正在保存备注...", completion ->
-                new tAccUtils(requireContext()).postV2Json("session_remark2", fields,
-                        new tAccUtils.JsonCallback() {
-                            @Override public void onSuccess(@NonNull JSONObject json) {
-                                completion.success(json);
-                            }
-
-                            @Override public void onError(int code, @NonNull String message) {
-                                completion.error(code, message);
-                            }
-                        }), new WGProProgressRunner.Callback() {
-            @Override public void success(@NonNull JSONObject json) {
-                String saved = applySessionRemarkResult(session, json, remark);
-                new WGProAlertDialogBuilder(requireContext()).setTitle("备注已更新")
-                        .setMessage(saved.isEmpty() ? "已恢复为自动设备名称。" : "设备备注已保存。")
-                        .setNegativeButton("关闭", null).show();
-                loadCloudSessions();
-            }
-
-            @Override public void error(int code, @NonNull String message) {
-                new WGProAlertDialogBuilder(requireContext()).setTitle("保存失败")
-                        .setMessage(message == null || message.trim().isEmpty() ? "请稍后重试" : message)
-                        .setNegativeButton("关闭", null).show();
-            }
-        });
-    }
-
-    private String applySessionRemarkResult(JSONObject session, JSONObject json, String fallback) {
-        String remark = json.isNull("remark") ? fallback : json.optString("remark", fallback);
-        String serverSessionId = json.isNull("session_id") ? "" : json.optString("session_id", "");
-        String serverRecordId = json.isNull("record_id") ? "" : json.optString("record_id", "");
-        try {
-            session.put("remark", remark);
-            if (!serverSessionId.isEmpty()) session.put("session_id", serverSessionId);
-            if (!serverRecordId.isEmpty()) session.put("id", serverRecordId);
-        } catch (Exception ignored) { }
-        refresh();
-        return remark;
-    }
-
-    private void confirmRevokeSession(JSONObject session) {
-        String id = session.optString("id",
-                session.optString("session_record_id", session.optString("record_id", ""))).trim();
-        if (id.isEmpty()) return;
-        boolean current = session.optBoolean("is_current");
-        new WGProAlertDialogBuilder(requireContext())
-                .setTitle("确认退出登录？")
-                .setMessage(current ? "当前 Typheye 账户会立即退出登录。" : "该设备上的登录状态将立即失效。")
-                .setNegativeButton("取消", null)
-                .setPositiveButton(current ? "退出" : "移除", (dialog, which) -> revokeSession(id, current))
-                .show();
-    }
-
-    private void revokeSession(String id, boolean current) {
-        Map<String, String> fields = new LinkedHashMap<>();
-        fields.put("session_record_id", id);
-        tAccUtils account = new tAccUtils(requireContext());
-        account.postV2Json("session_revoke2", fields, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(@NonNull JSONObject json) {
-                if (current || json.optBoolean("revoked_current")) account.logout();
-                mainHandler.post(() -> {
-                    if (!isAdded()) return;
-                    // 只摘掉这一条会话：整表清空会让"空提示 ↔ 设备卡片"来回闪现。
-                    removeCloudSessionLocally(id);
-                    if (otherRefresh != null) otherRefresh.setRefreshing(true);
-                    refresh();
-                    loadCloudSessions();
-                });
-            }
-
-            @Override public void onError(int code, @NonNull String message) {
-                mainHandler.post(() -> {
-                    if (!isAdded()) return;
-                    new WGProAlertDialogBuilder(requireContext()).setTitle("操作失败")
-                            .setMessage(message).setNegativeButton("关闭", null).show();
-                });
-            }
-        });
     }
 
     private void addCard(Cursor cursor, LinearLayout parent) {
@@ -544,16 +237,6 @@ public class DeviceFragment extends Fragment {
         if (seconds < 2592000L) return seconds / 86400 + " 天前";
         return new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
                 .format(new java.util.Date(timestamp));
-    }
-
-    private static String relativeCloudTime(String value) {
-        String normalized = value == null ? "" : value.replace('T', ' ');
-        int zone = normalized.indexOf('Z'); if (zone >= 0) normalized = normalized.substring(0, zone);
-        int decimal = normalized.indexOf('.'); if (decimal >= 0) normalized = normalized.substring(0, decimal);
-        try {
-            return relativeTime(new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
-                    java.util.Locale.getDefault()).parse(normalized).getTime());
-        } catch (Exception ignored) { return value; }
     }
 
     private void showDeviceDetail(String id) {

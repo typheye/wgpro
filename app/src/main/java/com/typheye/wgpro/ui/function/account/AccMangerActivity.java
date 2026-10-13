@@ -95,8 +95,6 @@ public class AccMangerActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("predictive_back_enabled", false));
     }
 
     @Override

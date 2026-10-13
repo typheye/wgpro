@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
     public static final String EXTRA_LOGIN_GRANT_REQUEST_ID = "login_grant_request_id";
     private static final String KEY_SELECTED_ITEM = "selected_bottom_nav_item";
     private static final String[] HOME_TAB_TITLES = {"动态", "应用", "资源"};
-    private static final String[] DEVICE_TAB_TITLES = {"穿戴设备", "其他设备"};
+    private static final String[] DEVICE_TAB_TITLES = {"穿戴设备", "模拟设备"};
     private static final long FOREGROUND_REFRESH_MIN_INTERVAL_MS = 5_000L;
 
     private Toolbar toolbar;
@@ -256,6 +256,7 @@ public class MainActivity extends AppCompatActivity {
         };
         getOnBackPressedDispatcher().addCallback(this, rootBackCallback);
 
+
         observeAppState();
         bindServices();
         startServicesIfNeeded();
@@ -266,8 +267,9 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        rootBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("predictive_back_enabled", false));
+        // 首页返回 = 回后台（不是退出应用）：始终由自己接管，
+        // 否则会退化成系统默认的 finish()，按返回直接把应用关掉。
+        rootBackCallback.setEnabled(true);
         invalidateOptionsMenu();
         startServicesIfNeeded();
         refreshFromServices();

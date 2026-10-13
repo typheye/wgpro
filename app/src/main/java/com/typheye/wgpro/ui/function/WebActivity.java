@@ -592,9 +592,8 @@ public class WebActivity extends AppCompatActivity {
 
     private void updateBackCallback() {
         if (webBackCallback == null || webView == null) return;
-        boolean predictiveEnabled = PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("predictive_back_enabled", false);
-        webBackCallback.setEnabled(!predictiveEnabled || webView.canGoBack());
+        // 网页可后退时自己处理后退，否则退出页面
+        webBackCallback.setEnabled(true);
     }
 
     /**

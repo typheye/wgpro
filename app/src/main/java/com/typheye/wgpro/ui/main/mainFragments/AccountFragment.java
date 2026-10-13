@@ -57,7 +57,6 @@ public class AccountFragment extends Fragment {
     private Button account_btn_sign_in;
     private Button account_btn_sign_up;
     private LinearLayout account_linear_logined;
-    private View account_btn_goto_help;
     private TextView account_text_usr_icon;
     private TextView account_text_usr_uid;
     private TextView account_text_usr_nick;
@@ -101,7 +100,6 @@ public class AccountFragment extends Fragment {
         account_linear_logined = view.findViewById(R.id.linear_logined);
         account_btn_sign_in = view.findViewById(R.id.btn_account_sign_in);
         account_btn_sign_up = view.findViewById(R.id.btn_account_sign_up);
-        account_btn_goto_help = view.findViewById(R.id.btn_account_goto_help);
         account_text_usr_icon = view.findViewById(R.id.text_usr_icon);
         account_text_usr_uid = view.findViewById(R.id.text_usr_uid);
         account_text_usr_nick = view.findViewById(R.id.text_usr_nick);
@@ -162,11 +160,6 @@ public class AccountFragment extends Fragment {
         // 点整张资料卡 = 进自己的用户详情页（和看别人主页一致；编辑入口在详情页里）
         root.findViewById(R.id.profile_card).setOnClickListener(v -> openUserDetail());
 
-        account_btn_goto_help.setOnClickListener(v -> {
-            Intent intent = new Intent(getActivity(), WebActivity.class);
-            intent.putExtra("URL", "https://account.typheye.cn/?tab=security");
-            startActivity(intent);
-        });
 
         root.findViewById(R.id.account_identity).setOnClickListener(v ->
                 CommunityWeb.openIdentity(requireContext()));
@@ -572,7 +565,6 @@ public class AccountFragment extends Fragment {
             account_linear_logined.setVisibility(View.VISIBLE);
             account_stats_card.setVisibility(View.VISIBLE);
             account_content.setVisibility(View.VISIBLE);
-            account_btn_goto_help.setVisibility(View.VISIBLE);
 
             String uid = accUtils.getUid();
             String nick = accUtils.getNick();
@@ -593,7 +585,6 @@ public class AccountFragment extends Fragment {
             account_linear_logined.setVisibility(View.GONE);
             account_stats_card.setVisibility(View.GONE);
             account_content.setVisibility(View.GONE);
-            account_btn_goto_help.setVisibility(View.GONE);
             viewServicesVisibility(View.GONE);
             account_text_usr_uid.setText("");
             account_text_usr_nick.setText("");

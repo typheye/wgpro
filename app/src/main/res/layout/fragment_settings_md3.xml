@@ -24,7 +24,7 @@
             android:text="通用"
             android:textColor="?attr/colorPrimary" />
 
-        <com.google.android.material.card.MaterialCardView android:id="@+id/card_predictive_back" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_general_settings" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <LinearLayout android:id="@+id/row_follow_system_theme" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_theme_vector" />
@@ -35,8 +35,23 @@
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_follow_system_theme" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="自动切换主题" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
+
+                <!-- 深色模式：整块（含分割线）跟随「自动切换主题」显隐 -->
+                <LinearLayout android:id="@+id/block_dark_mode"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    <LinearLayout android:id="@+id/row_dark_mode" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp" android:visibility="gone">
+                        <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_dark_mode_vector" />
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                            <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="深色模式" android:textColor="?attr/colorOnSurface" />
+                            <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="启用深色模式" android:textColor="?attr/colorOnSurfaceVariant" />
+                        </LinearLayout>
+                        <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_dark_mode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="深色模式" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
+                    </LinearLayout>
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
+                </LinearLayout>
                 <LinearLayout android:id="@+id/row_dynamic_color" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@null" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_dynamic_color_vector" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
                         <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="动态取色" android:textColor="?attr/colorOnSurface" />
                         <TextView android:id="@+id/text_dynamic_color_summary" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="跟随壁纸自动生成配色（A12+）" android:textColor="?attr/colorOnSurfaceVariant" />
@@ -52,23 +67,48 @@
                     </LinearLayout>
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_blur" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="启用高斯模糊" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
-                <LinearLayout android:id="@+id/row_dark_mode" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp" android:visibility="gone">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_theme_vector" android:visibility="invisible" />
+                
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/label_account" style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="账户" android:textColor="?attr/colorPrimary" />
+
+        <com.google.android.material.card.MaterialCardView android:id="@+id/card_logout" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+                <LinearLayout android:id="@+id/row_account_security" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_account_security_vector" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="深色模式" android:textColor="?attr/colorOnSurface" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="启用深色模式" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="账户安全" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="密码、登录保护与登录方式" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
-                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_dark_mode" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="深色模式" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
-                <LinearLayout android:id="@+id/row_predictive_back" android:layout_width="match_parent" android:layout_height="72dp" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_gesture_back_vector" />
+                <LinearLayout android:id="@+id/row_sessions" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_sessions_vector" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="预见式返回手势" android:textColor="?attr/colorOnSurface" />
-                        <TextView android:id="@+id/text_predictive_back_summary" style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="返回时预览即将进入的界面" android:textColor="?attr/colorOnSurfaceVariant" />
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="已登录的会话" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="查看和管理已登录的会话" android:textColor="?attr/colorOnSurfaceVariant" />
                     </LinearLayout>
-                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_predictive_back" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="启用预见式返回手势" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
+                <LinearLayout android:id="@+id/row_blocked_users" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_block_vector" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="已屏蔽的用户" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="查看并管理已屏蔽的用户" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
+                </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
+                <LinearLayout android:id="@+id/row_logout" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_logout_vector" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出登录" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="从当前设备移除 Typheye 账户" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
@@ -115,8 +155,12 @@
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
 
                 <LinearLayout
+                    android:id="@+id/row_auto_check"
                     android:layout_width="match_parent"
                     android:layout_height="72dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
                     android:gravity="center_vertical"
                     android:paddingStart="20dp"
                     android:paddingEnd="12dp">
@@ -128,8 +172,15 @@
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_auto_check" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="自动检查更新" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
 
-                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
+                
 
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="高级" android:textColor="?attr/colorPrimary" />
+
+        <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <LinearLayout android:id="@+id/row_notification_settings" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_notifications_vector" android:tint="?attr/colorPrimary" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
@@ -138,38 +189,7 @@
                     </LinearLayout>
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
                 </LinearLayout>
-
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView android:ellipsize="end" android:maxLines="1" android:id="@+id/label_account" style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="账户" android:textColor="?attr/colorPrimary" />
-
-        <com.google.android.material.card.MaterialCardView android:id="@+id/card_logout" style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
-                <LinearLayout android:id="@+id/row_blocked_users" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_block_vector" />
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="已屏蔽的用户" android:textColor="?attr/colorOnSurface" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="查看并管理已屏蔽的用户" android:textColor="?attr/colorOnSurfaceVariant" />
-                    </LinearLayout>
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
-                </LinearLayout>
                 <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
-                <LinearLayout android:id="@+id/row_logout" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_logout_vector" />
-                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
-                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="退出登录" android:textColor="?attr/colorOnSurface" />
-                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="从当前设备移除 Typheye 账户" android:textColor="?attr/colorOnSurfaceVariant" />
-                    </LinearLayout>
-                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" />
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-
-        <TextView style="@style/TextAppearance.Material3.LabelLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginStart="12dp" android:layout_marginTop="24dp" android:layout_marginBottom="8dp" android:text="高级" android:textColor="?attr/colorPrimary" />
-
-        <com.google.android.material.card.MaterialCardView style="@style/Widget.WGPro.Card" android:layout_width="match_parent" android:layout_height="wrap_content">
-            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
                 <LinearLayout android:id="@+id/row_clear_cache" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="16dp">
                     <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_clear_cache_vector" />
                     <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">

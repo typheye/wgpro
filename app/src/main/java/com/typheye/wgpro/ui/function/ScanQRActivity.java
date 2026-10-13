@@ -179,8 +179,6 @@ public class ScanQRActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        compatibilityBackCallback.setEnabled(!PreferenceManager.getDefaultSharedPreferences(this)
-                .getBoolean("predictive_back_enabled", false));
         // ✅ 再次检查是否进入分屏模式（可选增强体验）
         if (isInMultiWindowMode()) {
             finish();

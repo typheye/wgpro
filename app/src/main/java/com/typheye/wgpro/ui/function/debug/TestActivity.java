@@ -58,6 +58,8 @@ public final class TestActivity extends AppCompatActivity {
             update();
             if (!checked) finish();
         });
+        // 整行点按也能切换（与设置页各开关行一致）
+        findViewById(R.id.row_test_enabled).setOnClickListener(v -> enabled.toggle());
         findViewById(R.id.test_refresh).setOnClickListener(v -> {
             TestHandler.recordOperation(this, "查看内存信息");
             showResult("内存信息", TestHandler.memorySummary());

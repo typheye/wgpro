@@ -56,6 +56,7 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
         if (state == null) getSupportFragmentManager().beginTransaction()
                 .replace(R.id.section_container, createContent()).commit();
+
     }
 
     @Override protected void onNewIntent(Intent intent) {

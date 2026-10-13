@@ -30,6 +30,10 @@ public final class DebugSimulationFragment extends Fragment {
         MaterialSwitch offline = root.findViewById(R.id.test_offline_switch);
         MaterialSwitch loggedOut = root.findViewById(R.id.test_logged_out_switch);
         MaterialSwitch simulatedUpdate = root.findViewById(R.id.test_update_switch);
+        // 行级点击也要能切换（原来只有开关本身可点，整行既无水波纹也无响应）
+        root.findViewById(R.id.row_test_offline).setOnClickListener(v -> offline.toggle());
+        root.findViewById(R.id.row_test_logged_out).setOnClickListener(v -> loggedOut.toggle());
+        root.findViewById(R.id.row_test_update).setOnClickListener(v -> simulatedUpdate.toggle());
 
         offline.setChecked(TestHandler.isOfflineSimulationEnabled(requireContext()));
         loggedOut.setChecked(TestHandler.isLoggedOutSimulationEnabled(requireContext()));
