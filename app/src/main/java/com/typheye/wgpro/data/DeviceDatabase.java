@@ -8,6 +8,9 @@ import androidx.annotation.Nullable;
 
 public final class DeviceDatabase extends SQLiteOpenHelper {
     public static final String DB = "devices.db";
+
+    /** 虚拟设备（模拟器）在 devices 表里的 type；与真机设备共用表但严格隔离查询。 */
+    public static final String TYPE_VIRTUAL = "virtual";
     private static final int VERSION = 2;
 
     public DeviceDatabase(Context c) {
@@ -111,5 +114,12 @@ public final class DeviceDatabase extends SQLiteOpenHelper {
     public Cursor allExcept(String type) {
         return getReadableDatabase().rawQuery(
                 "SELECT * FROM devices WHERE type<>? ORDER BY last_seen DESC", new String[]{type});
+    }
+
+    /** 真机分组用：排除某类之外，还要再排除虚拟设备（虚拟设备只属于「模拟设备」页）。 */
+    public Cursor allExcept(String type, String alsoExclude) {
+        return getReadableDatabase().rawQuery(
+                "SELECT * FROM devices WHERE type<>? AND type<>? ORDER BY last_seen DESC",
+                new String[]{type, alsoExclude});
     }
 }

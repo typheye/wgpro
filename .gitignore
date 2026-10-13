@@ -35,3 +35,13 @@ google-services.json
 # Others
 /keystore
 keystore.properties
+
+# ---- third_party 大二进制（按需下载，不入库）----
+third_party/**/*.tar
+third_party/**/*.tar.gz
+third_party/**/*.zip
+third_party/**/engine/
+third_party/**/glibc/
+third_party/**/images/
+third_party/**/rootfs/
+third_party/**/*.bin

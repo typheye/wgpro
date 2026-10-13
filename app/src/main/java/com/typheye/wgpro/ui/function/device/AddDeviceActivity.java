@@ -28,6 +28,8 @@ public class AddDeviceActivity extends AppCompatActivity {
     private final Runnable scanTick = this::queryConnection;
     private NodeApi nodeApi;
     private boolean resumed;
+    /** 进入遮罩只在 Activity 创建后的第一次扫描出现，之后（下拉刷新）不再出现。 */
+    private boolean firstScan = true;
     private boolean scanInFlight;
     private boolean activeScan;
     private long scanStartedAt;
@@ -53,7 +55,10 @@ public class AddDeviceActivity extends AppCompatActivity {
         nodeApi = Wearable.getNodeApi(getApplicationContext());
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
-        findViewById(R.id.button_rescan).setOnClickListener(v -> startScan());
+        // 扫描不再用顶部状态卡：下拉刷新即重新扫描（与「创建设备」页的刷新方式一致）
+        com.typheye.wgpro.ui.widget.WGProRefreshLayout refresh =
+                findViewById(R.id.add_device_refresh);
+        refresh.setOnRefreshListener(this::startScan);
     }
 
     private void startScan() {
@@ -61,11 +66,11 @@ public class AddDeviceActivity extends AppCompatActivity {
         mainHandler.removeCallbacks(scanTimeout);
         activeScan = true;
         scanStartedAt = System.currentTimeMillis();
-        findViewById(R.id.add_device_progress).setVisibility(View.VISIBLE);
-        findViewById(R.id.button_rescan).setVisibility(View.GONE);
-        findViewById(R.id.add_device_found_card).setVisibility(View.GONE);
-        findViewById(R.id.add_device_empty).setVisibility(View.GONE);
-        ((TextView) findViewById(R.id.add_device_scan_title)).setText("正在扫描附近设备");
+        // 刷新时不动已发现的卡片，避免闪烁；空态也不隐藏（无设备时它本就该在）
+        if (firstScan) {
+            firstScan = false;
+            setScanOverlay(true);
+        }
         mainHandler.postDelayed(scanTimeout, ACTIVE_SCAN_TIMEOUT_MS);
         queryConnection();
     }
@@ -122,9 +127,7 @@ public class AddDeviceActivity extends AppCompatActivity {
     }
 
     private void showConnectedNode(Node node) {
-        findViewById(R.id.add_device_progress).setVisibility(View.GONE);
-        findViewById(R.id.button_rescan).setVisibility(View.VISIBLE);
-        ((TextView) findViewById(R.id.add_device_scan_title)).setText("扫描完成");
+        stopRefresh();
         TextView title = findViewById(R.id.device_option_title);
         TextView initial = findViewById(R.id.device_option_avatar);
         View foundCard = findViewById(R.id.add_device_found_card);
@@ -163,11 +166,27 @@ public class AddDeviceActivity extends AppCompatActivity {
     private void showEmptyResult() {
         discoveredNodeId = null;
         discoveredNodeName = null;
-        findViewById(R.id.add_device_progress).setVisibility(View.GONE);
-        findViewById(R.id.button_rescan).setVisibility(View.VISIBLE);
+        stopRefresh();
         findViewById(R.id.add_device_found_card).setVisibility(View.GONE);
         findViewById(R.id.add_device_empty).setVisibility(View.VISIBLE);
-        ((TextView) findViewById(R.id.add_device_scan_title)).setText("扫描完成");
+    }
+
+    /** 进入/退出页面级加载遮罩（扫描期间盖住页面，与创建设备页一致）。 */
+    private void setScanOverlay(boolean visible) {
+        View overlay = findViewById(R.id.add_device_loading_overlay);
+        if (overlay != null) {
+            overlay.setVisibility(visible ? View.VISIBLE : View.GONE);
+        }
+    }
+
+    /** 结束下拉刷新（扫描一轮结束就收起指示器）。 */
+    private void stopRefresh() {
+        setScanOverlay(false);
+        com.typheye.wgpro.ui.widget.WGProRefreshLayout refresh =
+                findViewById(R.id.add_device_refresh);
+        if (refresh != null) {
+            refresh.setRefreshing(false);
+        }
     }
 
     @Override

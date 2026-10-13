@@ -472,6 +472,9 @@ public class tAccUtils {
                 && !getSessionToken().isEmpty();
     }
 
+    /** 加密存储的固定主密钥别名（固定＝不会反复失效重建，避免"每次启动都掉登录"）。 */
+    private static final String SECURE_PREFS_ALIAS = "_wgpro_session_key_v2_";
+
     private SharedPreferences getSecurePreferences() {
         SharedPreferences cached = securePreferences;
         if (cached != null) return cached;
@@ -483,20 +486,39 @@ public class tAccUtils {
     }
 
     private SharedPreferences createSecurePreferences() {
+        // 1) 正常路径：**固定别名**的主密钥。必须固定，否则每次启动都会拿默认别名去撞那个
+        //    已失效的旧密钥、失败后走"自愈"删数据 —— 表现就是"每次启动都掉登录"。
         try {
-            MasterKey masterKey = new MasterKey.Builder(context)
-                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    .build();
-            return EncryptedSharedPreferences.create(
-                    context,
-                    SECURE_PREFS_NAME,
-                    masterKey,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
-        } catch (Exception e) {
-            Log.e("tAccUtils", "Secure session storage unavailable", e);
-            return null;
+            return buildSecurePreferences(SECURE_PREFS_NAME, SECURE_PREFS_ALIAS);
+        } catch (Exception first) {
+            Log.e("tAccUtils", "Secure session storage unavailable, recovering", first);
         }
+        // 2) 只有主密钥确实不可用时，才清掉一次旧文件并用同一别名重建（一次性掉登录，不会循环）
+        try {
+            context.deleteSharedPreferences(SECURE_PREFS_NAME);
+            return buildSecurePreferences(SECURE_PREFS_NAME, SECURE_PREFS_ALIAS);
+        } catch (Exception second) {
+            Log.e("tAccUtils", "Secure session storage unavailable", second);
+        }
+        // 3) 兜底：退化为普通存储，保证登录可用
+        return context.getSharedPreferences(SECURE_PREFS_NAME, Context.MODE_PRIVATE);
+    }
+
+    private SharedPreferences buildSecurePreferences(String name, String alias) throws Exception {
+        // 注意：security-crypto 1.1.0-alpha06 没有 Builder.setKeyAlias，
+        // 别名只能通过构造函数传入。
+        MasterKey.Builder builder = alias == null
+                ? new MasterKey.Builder(context)
+                : new MasterKey.Builder(context, alias);
+        MasterKey masterKey = builder
+                .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                .build();
+        return EncryptedSharedPreferences.create(
+                context,
+                name,
+                masterKey,
+                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
     }
 
     private void clearSecureSession() {

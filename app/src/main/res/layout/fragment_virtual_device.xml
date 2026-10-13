@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 虚拟设备（Vela 模拟器）页：纯全屏画面 + 底部常驻实时日志。
+     不自造应用栏；退出用系统返回键。insets 由 Fragment 代码适配（底部避开导航条）。 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/virtual_root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <ImageView
+        android:id="@+id/virtual_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="虚拟设备画面"
+        android:scaleType="fitCenter" />
+
+    <com.typheye.wgpro.ui.widget.WGProLoadingView
+        android:id="@+id/virtual_loading"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center" />
+
+    <ScrollView
+        android:id="@+id/virtual_log_scroll"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:layout_gravity="bottom"
+        android:background="#B3000000"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/virtual_log"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:textColor="#CCCCCC"
+            android:textSize="10sp"
+            android:textIsSelectable="true" />
+    </ScrollView>
+</FrameLayout>

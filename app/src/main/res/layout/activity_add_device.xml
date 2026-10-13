@@ -14,6 +14,11 @@
         android:layout_height="match_parent"
         android:background="@color/surface_page">
 
+    <com.typheye.wgpro.ui.widget.WGProRefreshLayout
+        android:id="@+id/add_device_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <androidx.core.widget.NestedScrollView
         android:id="@+id/add_device_content"
         android:layout_width="match_parent"
@@ -25,69 +30,20 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:paddingStart="16dp"
-            android:paddingTop="18dp"
+            android:paddingTop="16dp"
             android:paddingEnd="16dp"
             android:paddingBottom="32dp">
-
-            <com.google.android.material.card.MaterialCardView
-                style="@style/Widget.WGPro.Card"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="14dp">
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="72dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingStart="18dp"
-                    android:paddingEnd="10dp">
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="15dp"
-                        android:layout_weight="1"
-                        android:orientation="vertical">
-                        <TextView android:ellipsize="end" android:maxLines="1"
-                            android:id="@+id/add_device_scan_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="正在扫描附近设备"
-                            android:textColor="?attr/colorOnSurface"
-                            android:textSize="16sp"
-                            android:textStyle="bold" />
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="2dp"
-                            android:text="请保持设备处于可连接状态"
-                            android:textColor="?attr/colorOnSurfaceVariant"
-                            android:textSize="13sp" />
-                    </LinearLayout>
-                    <com.typheye.wgpro.ui.widget.WGProLoadingView
-                        android:id="@+id/add_device_progress"
-                        android:layout_width="34dp"
-                        android:layout_height="34dp"
-                        app:loadingColor="?attr/colorPrimary"
-                        app:loadingTrackColor="?attr/colorPrimaryContainer" />
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/button_rescan"
-                        style="@style/Widget.WGPro.Button.Text"
-                        android:layout_width="wrap_content"
-                        android:layout_height="44dp"
-                        android:text="重新扫描"
-                        android:visibility="gone" />
-                </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
             <LinearLayout
                 android:id="@+id/container_detected_devices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="0dp"
                 android:orientation="vertical">
                 <include
                     android:id="@+id/add_device_found_card"
                     layout="@layout/item_device_option"
+                    android:layout_marginTop="0dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
@@ -118,7 +74,22 @@
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
+    </com.typheye.wgpro.ui.widget.WGProRefreshLayout>
     </FrameLayout>
+        <!-- 进入页面的标准加载遮罩（与创建设备页/用户信息页同款）：扫描期间盖住页面 -->
+        <FrameLayout
+            android:id="@+id/add_device_loading_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/profile_loading_overlay"
+            android:clickable="true"
+            android:focusable="true">
+
+            <com.typheye.wgpro.ui.widget.WGProLoadingView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_gravity="center" />
+        </FrameLayout>
 
     <!-- 应用栏（毛玻璃）：快照层 + 半透明应用栏，声明在内容之后保证画在内容之上 -->
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -160,4 +131,5 @@
                 app:titleTextColor="?attr/colorOnSurface" />
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

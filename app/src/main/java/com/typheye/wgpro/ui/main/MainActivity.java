@@ -139,6 +139,27 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // 虚拟设备：应用进程重启后，把上次残留的「运行中」清零（引擎是应用子进程，随进程结束）
+        final com.typheye.wgpro.core.emu.VelaEmulatorManager emuManager =
+                com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
+        emuManager.init(this);
+        new Thread(() -> emuManager.resetStaleState(
+                getApplicationContext()), "virtual-reset").start();
+
+        // TODO(临时调试入口，适配完成后删除)：一键直达虚拟设备页并补齐设备记录。
+        if (getIntent() != null && getIntent().getBooleanExtra("wgpro_debug_virtual", false)) {
+            final String avd = "vela-miwear-watch-5.0";
+            try (com.typheye.wgpro.data.DeviceDatabase db =
+                         new com.typheye.wgpro.data.DeviceDatabase(this)) {
+                db.upsert("virtual:" + avd, avd, "virtual", false);
+                db.updateNote("virtual:" + avd, "我的虚拟手环");
+            } catch (Exception ignored) {
+            }
+            startActivity(new android.content.Intent(this,
+                            com.typheye.wgpro.ui.function.virtualdevice.VirtualDeviceActivity.class)
+                    .putExtra(com.typheye.wgpro.ui.function.virtualdevice.VirtualDeviceFragment.ARG_AVD, avd));
+        }
         // 升级/异常退出后可能残留“已登录标记 + 不可用凭据”，先清理再渲染界面。
         new tAccUtils(this).reconcileLoginState();
         AppUtils.useScreenCutArea(getWindow(), this);
@@ -764,7 +785,14 @@ public class MainActivity extends AppCompatActivity {
             openCompose();
             return true;
         } else if (id == R.id.action_device_add) {
-            startActivity(new Intent(this, com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));
+            // 「模拟设备」页右上角 + → 走创建设备（虚拟设备）引导；其余出口仍是添加设备页
+            com.typheye.wgpro.ui.main.mainFragments.DeviceFragment devices =
+                    com.typheye.wgpro.ui.main.mainFragments.DeviceFragment.current();
+            boolean virtualPage = devices != null && devices.isAdded() && devices.isVirtualPage();
+            // 「模拟设备」页右上角 + → 创建设备；其余出口仍是添加设备
+            startActivity(new Intent(this, virtualPage
+                    ? com.typheye.wgpro.ui.function.virtualdevice.CreateDeviceActivity.class
+                    : com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));
             return true;
         } else if (id == R.id.action_dashboard_edit) {
             DashboardFragment target = dashboardTarget();

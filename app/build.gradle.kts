@@ -50,6 +50,13 @@ android {
         }
     }
 
+    packaging {
+        // 引擎二进制要能从 nativeLibraryDir 被 exec，必须解压落地（对应 extractNativeLibs=true）
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
+
     buildTypes {
         debug {
             signingConfig = signingConfigs.getByName("debug")
@@ -81,6 +88,10 @@ dependencies {
     implementation("androidx.viewpager2:viewpager2:1.1.0")
     implementation("com.google.code.gson:gson:2.13.2")
     implementation("com.squareup.okhttp3:okhttp:5.1.0")
+    // Vela 引擎取帧/注入走 gRPC（原始字节 marshaller，不需要 protoc 生成代码）
+    implementation("io.grpc:grpc-okhttp:1.68.1")
+    implementation("io.grpc:grpc-stub:1.68.1")
+    implementation("io.grpc:grpc-api:1.68.1")
     implementation(fileTree(mapOf("dir" to "libs", "include" to listOf("*.jar", "*.aar"))))
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.9.4")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.4")

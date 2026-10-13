@@ -324,6 +324,10 @@ public final class DownloadService extends android.app.Service {
      * （用户从详情页「使用」自己决定安装/保存/打开）。
      */
     private void postDownloadAction(DownloadTask task, File file) {
+        if (task.destination == DownloadTask.DEST_APP_FILE) {
+            // 内部资源：文件已在 files/downloads，调用方自行消费
+            return;
+        }
         if (task.destination == DownloadTask.DEST_LOCAL) {
             // 用户主动选择的"保存到本机"：落到所选位置是这次下载的目的
             saveToPublicDownloads(task, file);
