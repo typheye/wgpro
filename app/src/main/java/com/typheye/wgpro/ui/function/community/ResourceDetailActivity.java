@@ -469,6 +469,17 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             }
             final com.typheye.wgpro.core.download.DownloadManager manager =
                     com.typheye.wgpro.core.download.DownloadManager.get();
+            // 失败不静默：弹失败信息弹窗（带「重试」）
+            final com.typheye.wgpro.core.download.DownloadTask failedTask = task;
+            if (failedTask != null) {
+                if (failedTask.status == com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED) {
+                    com.typheye.wgpro.ui.widget.DownloadRetryFlow.notifyFailure(requireContext(), failedTask,
+                            () -> com.typheye.wgpro.ui.widget.DownloadRetryFlow
+                                    .retry(requireContext(), failedTask, null));
+                } else {
+                    com.typheye.wgpro.ui.widget.DownloadRetryFlow.resetNotification(failedTask);
+                }
+            }
             if (task == null) {
                 if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.GONE);
                 applySplitPillShape(false);
@@ -492,7 +503,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     break;
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_QUEUED:
                     setActionText("等待中");
-                    setActionFill(task.progress());
+                    setActionFill(0);   // 排队中不显示半截进度
                     actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                             com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
                     break;
@@ -505,8 +516,9 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED:
                     setActionText("重试");
                     setActionFill(0);
-                    actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
-                            com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
+                    // 重试 = 重新测速挑最快节点再下
+                    actionCard.setOnClickListener(v -> com.typheye.wgpro.ui.widget.DownloadRetryFlow
+                            .retry(requireContext(), current, null));
                     break;
                 case com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED:
                     if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.VISIBLE);
@@ -582,6 +594,20 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
          * 要扣积分 → 弹「获取」弹窗，交易成功后再进入保存/下载。
          */
         private void acquire() {
+            // 已有任务就别重复走获取流程
+            java.util.List<com.typheye.wgpro.core.download.DownloadTask> existingTasks =
+                    com.typheye.wgpro.core.download.DownloadManager.get().tasks().getValue();
+            if (existingTasks != null) {
+                String key = resourceId();
+                for (com.typheye.wgpro.core.download.DownloadTask t : existingTasks) {
+                    if (!t.id.equals(key)) continue;
+                    if (t.status == com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED) {
+                        showOperationSheet();
+                        return;
+                    }
+                    if (t.isActive()) return;
+                }
+            }
             final android.content.Context context = requireContext();
             final String key = resourceId();
             if (key == null || key.isEmpty()) { launchSavePicker(); return; }
@@ -988,13 +1014,12 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         /** 分享资源链接（优先分享详情页地址，其次文件地址）。 */
         private void shareDownloadLink() {
             String title = resource.optString("title", "资源");
-            String link = resource.optString("share_url",
-                    resource.optString("detail_url",
-                            resource.optString("file_url", resource.optString("download_url", ""))));
+            // 统一走资源分享页；原来会回退到签名直链（绑 uid、10 分钟过期）
+            String link = com.typheye.wgpro.utils.WGProShareLinks.resourceUrl(resource);
             android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
                     .setType("text/plain")
                     .putExtra(android.content.Intent.EXTRA_TEXT,
-                            link.isEmpty() ? title : title + "　" + link);
+                            com.typheye.wgpro.utils.WGProShareLinks.shareText(title, link));
             try {
                 startActivity(android.content.Intent.createChooser(share, "分享给好友"));
             } catch (Exception e) {
@@ -1068,8 +1093,29 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             enqueue(url, destination, null);
         }
 
+        /** 拿到下载权限后：先弹「下载测速」底部弹窗（进度条 + 取消），再真正入队。 */
         private void enqueue(String url, int destination, @Nullable android.net.Uri targetUri) {
             if (url == null || url.isEmpty()) { feedback("下载失败", "无法获取下载地址"); return; }
+            if (!isAdded()) return;
+            com.typheye.wgpro.ui.widget.DownloadProbeSheet.start(requireContext(),
+                    resource.optString("title", "资源"), url,
+                    resource.optJSONArray("download_mirrors"),
+                    new com.typheye.wgpro.ui.widget.DownloadProbeSheet.Callback() {
+                        @Override
+                        public void onReady(@NonNull String chosen) {
+                            if (!isAdded()) return;
+                            enqueueNow(chosen, url, destination, targetUri);
+                        }
+
+                        @Override
+                        public void onCancelled() {
+                            // 用户取消：本次不下载（权限/已购不受影响）
+                        }
+                    });
+        }
+
+        private void enqueueNow(String url, String authoritativeUrl, int destination,
+                                @Nullable android.net.Uri targetUri) {
             com.typheye.wgpro.core.download.DownloadTask task =
                     new com.typheye.wgpro.core.download.DownloadTask(
                             resourceId(), resource.optString("title", "未命名资源"),
@@ -1077,8 +1123,8 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             url, resource.optString("size", ""), destination,
                             "resource", resource.toString());
             if (targetUri != null) task.targetUri = targetUri.toString();
+            task.fallbackUrl = authoritativeUrl;   // 镜像失败回退权威地址
             com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
-            com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已加入下载");
         }
 
         private String resourceId() {

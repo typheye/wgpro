@@ -108,6 +108,20 @@ public final class DownloadManager {
         }, "download-report").start();
     }
 
+    /**
+     * 重试前更新下载地址（例如重新测速后换成最快节点、或刷新过期的签名地址）。
+     *
+     * @param fallback 兜底地址（接口给的权威地址），可为空
+     */
+    public synchronized void updateUrls(@NonNull String id, @NonNull String url,
+                                        @Nullable String fallback) {
+        DownloadTask task = find(id);
+        if (task == null || url.isEmpty()) return;
+        task.downloadUrl = url;
+        if (fallback != null && !fallback.isEmpty()) task.fallbackUrl = fallback;
+        publish();
+    }
+
     public void startService(@NonNull Context context) {
         Intent intent = new Intent(context, DownloadService.class)
                 .setAction(DownloadService.ACTION_KICK);

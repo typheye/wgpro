@@ -549,6 +549,11 @@ public class tAccUtils {
     }
 
     private void clearLocalLoginData() {
+        // 切换账号/退出：清掉通知池的内存合并状态（持久化的 key 按账号分开，不会互相干扰）
+        try {
+            com.typheye.wgpro.core.push.NotificationPool.reset();
+        } catch (Exception ignored) {
+        }
         File filesDir = context.getFilesDir();
         File avatarFile = new File(filesDir, "avatar_" + getUid() + ".jpg");
         // ✅ 保留头像文件删除逻辑（检查删除结果）
@@ -986,7 +991,21 @@ public class tAccUtils {
                 }
             } catch (Exception ignored) { }
         }
-        getPublicJsonUrl(url, callback);
+        getPublicJsonUrl(url, new JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) { callback.onSuccess(json); }
+
+            @Override public void onError(int statusCode, @NonNull String message) {
+                // 请求失败：旧缓存也能用（详情页内容变化不频繁，比"打不开"强）
+                try (CloudCacheDatabase cache = new CloudCacheDatabase(context)) {
+                    String payload = cache.get(cacheKey);
+                    if (payload != null) {
+                        callback.onSuccess(new JSONObject(payload));
+                        return;
+                    }
+                } catch (Exception ignored) { }
+                callback.onError(statusCode, message);
+            }
+        });
     }
 
     private void executeV2Json(String action, Map<String, String> query,

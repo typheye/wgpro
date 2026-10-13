@@ -1607,8 +1607,11 @@ public class CloudListFragment extends Fragment {
                     } else if ("举报".equals(action)) {
                         reportCatalog(item, app);
                     } else if ("分享".equals(action)) {
+                        String title = item.optString(app ? "name" : "title", app ? "应用" : "资源");
+                        String link = com.typheye.wgpro.utils.WGProShareLinks.itemUrl(item, !app);
                         Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
-                                .putExtra(Intent.EXTRA_TEXT, (app ? "应用" : "资源") + "：" + item.optString(app ? "name" : "title", "未知"));
+                                .putExtra(Intent.EXTRA_TEXT,
+                                        com.typheye.wgpro.utils.WGProShareLinks.shareText(title, link));
                         startActivity(Intent.createChooser(share, "分享"));
                     } else {
                         new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")

@@ -46,18 +46,9 @@ public final class AppListItemFactory {
         iconBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
         boolean vela = "velaapp".equals(item.optString("kind", ""));
         ImageView icon = new ImageView(context);
-        icon.setScaleType(vela ? ImageView.ScaleType.FIT_CENTER : ImageView.ScaleType.CENTER_CROP);
         icon.setVisibility(View.GONE);
-        if (vela) {
-            // Vela 图标本身是圆的：放在之前的圆角卡片底（surface_secondary）上，并留一点外边距。
-            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
-            icon.setClipToOutline(true);
-            int pad = dp(context, 4);
-            icon.setPadding(pad, pad, pad, pad);
-        } else {
-            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
-            icon.setClipToOutline(true);
-        }
+        // 图标呈现规则统一：Vela 圆图标原样显示，Android 方图标套圆角裁剪
+        com.typheye.wgpro.ui.widget.WGProIconStyle.apply(icon, vela);
         iconBox.addView(icon, new FrameLayout.LayoutParams(-1, -1));
         row.addView(iconBox, new LinearLayout.LayoutParams(dp(context, 56), dp(context, 56)));
         loadIcon(context, item.optString("icon_url", ""), icon, initial);

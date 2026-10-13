@@ -111,8 +111,11 @@ public final class DownloadListFragment extends Fragment {
         List<DownloadTask> filtered = new ArrayList<>();
         if (tasks != null) {
             for (DownloadTask task : tasks) {
-                // 失败项直接丢弃，不再保留（列表里任何 tab 都不出现）
-                if (task.status == DownloadTask.STATUS_FAILED) continue;
+                // 失败项不留在列表里（列表页不弹窗打扰：失败提示只在对应的详情页给）
+                if (task.status == DownloadTask.STATUS_FAILED) {
+                    com.typheye.wgpro.ui.widget.DownloadRetryFlow.resetNotification(task);
+                    continue;
+                }
                 boolean done = task.status == DownloadTask.STATUS_COMPLETED;
                 if (done == showDone) filtered.add(task);
             }
@@ -178,10 +181,8 @@ public final class DownloadListFragment extends Fragment {
             initial.setBackgroundResource(R.drawable.bg_app_initial_rounded);
             iconBox.addView(initial, new FrameLayout.LayoutParams(-1, -1));
             ImageView icon = new ImageView(context);
-            icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
             icon.setVisibility(View.GONE);
-            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
-            icon.setClipToOutline(true);
+            com.typheye.wgpro.ui.widget.WGProIconStyle.apply(icon, false);
             iconBox.addView(icon, new FrameLayout.LayoutParams(-1, -1));
             row.addView(iconBox, new LinearLayout.LayoutParams(dp(48), dp(48)));
 
@@ -352,23 +353,11 @@ public final class DownloadListFragment extends Fragment {
                 }
             }
 
-            /** Vela 图标是圆的：放在跟随莫奈取色的圆角卡片上；普通应用图标用圆角矩形裁切。 */
+            /** 图标呈现规则统一（Vela 圆图标原样显示，Android 方图标圆角裁切）。 */
             private void applyIconShape(boolean vela) {
                 if (vela == iconIsVela) return;
                 iconIsVela = vela;
-                if (vela) {
-                    // 下载项卡片底是 surface_secondary，衬底用 surface_primary 才不会融在一起。
-                    icon.setBackgroundResource(R.drawable.bg_vela_icon_clip);
-                    icon.setClipToOutline(true);
-                    int pad = dp(3);
-                    icon.setPadding(pad, pad, pad, pad);
-                    icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-                } else {
-                    icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
-                    icon.setClipToOutline(true);
-                    icon.setPadding(0, 0, 0, 0);
-                    icon.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                }
+                com.typheye.wgpro.ui.widget.WGProIconStyle.apply(icon, vela);
             }
         }
     }
@@ -502,8 +491,11 @@ public final class DownloadListFragment extends Fragment {
                 DownloadManager.get().control(context, task.id, DownloadService.ACTION_PAUSE);
                 break;
             case DownloadTask.STATUS_PAUSED:
-            case DownloadTask.STATUS_FAILED:
                 DownloadManager.get().control(context, task.id, DownloadService.ACTION_RESUME);
+                break;
+            case DownloadTask.STATUS_FAILED:
+                // 重试 = 重新测速挑最快节点再下（旧节点可能已变慢/挂掉）
+                com.typheye.wgpro.ui.widget.DownloadRetryFlow.retry(context, task, null);
                 break;
             case DownloadTask.STATUS_COMPLETED:
                 if (hasSourceDetail(task)) {

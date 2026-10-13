@@ -321,7 +321,9 @@ public class SettingsActivity extends AppCompatActivity {
         private void showClearCacheSheet() {
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("清除缓存")
-                    .setMessage("将清理内置浏览器缓存和应用临时文件。登录状态、设备、设置与下载内容不会受到影响。")
+                    .setMessage("将清理内置浏览器缓存、应用临时文件，并清空云端接口缓存"
+                            + "（应用目录/详情、首页、资源等会重新从服务器拉取）。"
+                            + "登录状态、设备、设置与下载内容不会受到影响。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("清除", (dialog, which) -> {
                         if (dialog instanceof WGProBottomSheetDialog) {
@@ -377,7 +379,9 @@ public class SettingsActivity extends AppCompatActivity {
         private void legacyShowClearCacheSheet() {
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("清除缓存")
-                    .setMessage("将清理内置浏览器缓存和应用临时文件。登录状态、设备、设置与下载内容不会受到影响。")
+                    .setMessage("将清理内置浏览器缓存、应用临时文件，并清空云端接口缓存"
+                            + "（应用目录/详情、首页、资源等会重新从服务器拉取）。"
+                            + "登录状态、设备、设置与下载内容不会受到影响。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("清除", (dialog, which) -> {
                         if (dialog instanceof WGProBottomSheetDialog) {
@@ -416,6 +420,12 @@ public class SettingsActivity extends AppCompatActivity {
 
                 File internalCache = requireContext().getCacheDir();
                 File externalCache = requireContext().getExternalCacheDir();
+                // 云端接口缓存（应用目录/详情、首页、资源…）也要清，"清除缓存"才算真的强制刷新
+                try (com.typheye.wgpro.data.CloudCacheDatabase cloudCache =
+                             new com.typheye.wgpro.data.CloudCacheDatabase(requireContext())) {
+                    cloudCache.clear();
+                } catch (Exception ignored) {
+                }
                 task[0] = cacheExecutor.submit(() -> {
                     boolean success = clearDirectoryContents(internalCache)
                             & clearDirectoryContents(externalCache);

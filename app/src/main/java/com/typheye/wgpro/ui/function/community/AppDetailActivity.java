@@ -71,9 +71,11 @@ public final class AppDetailActivity extends BaseSectionActivity {
     }
 
     private void shareApp() {
-        String url = appInfo.optString("detail_url", appInfo.optString("url", ""));
+        String name = appInfo.optString("name", "应用");
+        String url = com.typheye.wgpro.utils.WGProShareLinks.appUrl(appInfo);
         Intent send = new Intent(Intent.ACTION_SEND).setType("text/plain")
-                .putExtra(Intent.EXTRA_TEXT, url.isEmpty() ? appInfo.optString("name") : url);
+                .putExtra(Intent.EXTRA_TEXT,
+                        com.typheye.wgpro.utils.WGProShareLinks.shareText(name, url));
         startActivity(Intent.createChooser(send, "分享应用"));
     }
 

@@ -23,6 +23,8 @@ public final class DownloadTask {
     public final String iconUrl;
     /** 下载地址：签名 URL 会过期（10 分钟），过期后由下载服务刷新，故非 final。 */
     public String downloadUrl;
+    /** 兜底地址（通常是接口给的权威 download_url）：镜像节点失败时回退到它。 */
+    public String fallbackUrl = "";
     public final String sizeLabel;   // 接口返回的原始大小字符串，如 "39.6M"
     public final int destination;
     /** 详情类型："app" / "resource"，用于长按「查看详情」。 */

@@ -27,6 +27,14 @@ public final class CloudCacheDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /** 清空全部云端接口缓存（"清除缓存 / 强制刷新"用）。 */
+    public void clear() {
+        try {
+            getWritableDatabase().delete("responses", null, null);
+        } catch (Exception ignored) {
+        }
+    }
+
     public void put(@NonNull String key, @NonNull String payload) {
         ContentValues values = new ContentValues();
         values.put("cache_key", key);

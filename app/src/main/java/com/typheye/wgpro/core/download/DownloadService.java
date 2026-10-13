@@ -101,7 +101,13 @@ public final class DownloadService extends android.app.Service {
                 while (true) {
                     DownloadTask task = nextQueued();
                     if (task == null) break;
-                    runTask(task);
+                    try {
+                        runTask(task);
+                    } catch (Throwable error) {
+                        // 任何未预期异常都不能让队列卡在"等待中"
+                        failTask(task, "下载失败：" + (error.getMessage() == null
+                                ? error.getClass().getSimpleName() : error.getMessage()));
+                    }
                 }
             } finally {
                 looping.set(false);
@@ -139,6 +145,13 @@ public final class DownloadService extends android.app.Service {
 
         File target = targetFile(task);
         int urlRefreshes = 0;
+        boolean fallbackUsed = false;
+        // 历史任务里可能存着"旧直链"（已 410）或过期签名：开下之前先换一次权威地址，
+        // 免得先失败一次再弹失败弹窗（用户看到的"莫名失败"）
+        if (isLegacyUrl(task.downloadUrl)) {
+            String fresh = refreshDownloadUrl(task);
+            if (fresh != null && !fresh.isEmpty()) task.downloadUrl = fresh;
+        }
         try {
             while (true) {
                 long existing = target.exists() ? target.length() : 0L;
@@ -158,6 +171,14 @@ public final class DownloadService extends android.app.Service {
                             task.downloadUrl = fresh;
                             continue;
                         }
+                    }
+                    // 镜像节点失败（404/其它非 2xx）：回退到接口给的权威地址，保留已下分片
+                    if (code != 416 && !closed.isSuccessful() && !fallbackUsed
+                            && task.fallbackUrl != null && !task.fallbackUrl.isEmpty()
+                            && !task.fallbackUrl.equals(task.downloadUrl)) {
+                        fallbackUsed = true;
+                        task.downloadUrl = task.fallbackUrl;
+                        continue;
                     }
                     if (code == 402) {
                         failTask(task, "未获得该应用，请先在应用内获取后再下载");
@@ -217,12 +238,20 @@ public final class DownloadService extends android.app.Service {
             if (task.totalBytes > 0 && task.downloadedBytes >= task.totalBytes) {
                 finishTask(task, target);
             } else {
-                failTask(task, e.getMessage() == null ? "下载失败" : e.getMessage());
+                failTask(task, friendlyError(e));
             }
         } finally {
             currentCall = null;
             currentId = null;
         }
+    }
+
+    /** 是否是"历史上被 410 封禁"的旧直链形态（/app-download/release/ 或裸 share 路径）。 */
+    private static boolean isLegacyUrl(@Nullable String url) {
+        if (url == null || url.isEmpty()) return false;
+        if (url.contains("media.php") || url.contains("action=dl") || url.contains("/b/")) return false;
+        return url.contains("/app-download/release/") || url.contains("/app-image/")
+                || (url.contains("res.typheye.cn/") && !url.contains("api.php"));
     }
 
     /**
@@ -253,6 +282,27 @@ public final class DownloadService extends android.app.Service {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    /** 把底层 IO 异常翻译成用户看得懂的话（避免直接显示 timeout / Connection reset）。 */
+    private static String friendlyError(@NonNull IOException e) {
+        String raw = e.getMessage() == null ? "" : e.getMessage();
+        String lower = raw.toLowerCase(java.util.Locale.ROOT);
+        if (e instanceof java.net.SocketTimeoutException || lower.contains("timeout")) {
+            return "网络超时，请检查网络后重试";
+        }
+        if (e instanceof java.net.UnknownHostException || lower.contains("unable to resolve host")) {
+            return "无法连接服务器，请检查网络";
+        }
+        if (e instanceof java.net.ConnectException || lower.contains("failed to connect")) {
+            return "连接被拒绝或网络不可达，请稍后重试";
+        }
+        if (lower.contains("connection reset") || lower.contains("broken pipe")
+                || lower.contains("unexpected end of stream")) {
+            return "连接被中断，可重试续传";
+        }
+        if (e instanceof javax.net.ssl.SSLException) return "安全连接失败，请稍后重试";
+        return raw.isEmpty() ? "下载失败，请稍后重试" : "下载失败：" + raw;
     }
 
     private void finishTask(DownloadTask task, File target) {

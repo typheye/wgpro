@@ -38,6 +38,8 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
     private long shownAtMs;
     private boolean dismissPending;
     private boolean showQueued;
+    /** 还没真正弹出来就被关掉：让排队中的 show() 失效，避免"迟到弹出后再没人关"的卡死弹窗。 */
+    private boolean cancelPendingShow;
     private android.window.OnBackInvokedCallback backCallback;
 
     WGProBottomSheetDialog(Context context) {
@@ -47,6 +49,11 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
 
     @Override
     public void show() {
+        if (cancelPendingShow) {          // 排队期间已经被关掉：这次 show 作废
+            cancelPendingShow = false;
+            showQueued = false;
+            return;
+        }
         synchronized (ACTIVE) {
             WeakReference<WGProBottomSheetDialog> reference = ACTIVE.get(owner);
             WGProBottomSheetDialog active = reference == null ? null : reference.get();
@@ -119,13 +126,22 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
         super.onStop();
     }
 
+    /** 预约关闭：还没弹出来就关掉的话，排队中的 show() 必须作废。 */
+    private void cancelQueuedShowIfNeeded() {
+        if (!isShowing() && showQueued) {
+            cancelPendingShow = true;
+        }
+    }
+
     @Override
     public void dismiss() {
+        cancelQueuedShowIfNeeded();
         requestDismiss(false);
     }
 
     @Override
     public void cancel() {
+        cancelQueuedShowIfNeeded();
         requestDismiss(true);
     }
 

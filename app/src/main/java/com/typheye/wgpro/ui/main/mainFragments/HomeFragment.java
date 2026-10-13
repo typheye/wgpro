@@ -353,11 +353,15 @@ public class HomeFragment extends Fragment {
         scheduleBannerAdvance();
     }
 
+    /** 首页已加载的公告（轮播跳公告时若拉取失败，用它兜底直接展示）。 */
+    @Nullable private JSONObject loadedAnnouncement;
+
     private void renderAnnouncement(@Nullable JSONObject first) {
         if (first == null || first.length() == 0) {
             announcement.setVisibility(View.GONE);
             return;
         }
+        loadedAnnouncement = first;
         announcementText.setText("公告  " + first.optString("title", first.optString("content")));
         announcement.setVisibility(View.VISIBLE);
         announcement.setOnClickListener(v -> showJsonDetail("公告", first));
@@ -397,13 +401,15 @@ public class HomeFragment extends Fragment {
         shade.setBackground(new GradientDrawable(GradientDrawable.Orientation.BOTTOM_TOP,
                 new int[]{0xC2000000, 0x52000000, 0x00000000}));
         card.addView(shade, new MaterialCardView.LayoutParams(-1, -1));
-        TextView tag = text(targetLabel(item.optString("target_type")), 11, true, R.color.white);
+        String label = targetLabel(item.optString("target_type", "none"));
+        TextView tag = text(label, 11, true, R.color.white);
         GradientDrawable chip = new GradientDrawable();
         chip.setColor(Color.argb(76, 0, 0, 0));
         chip.setCornerRadius(dp(7));
         tag.setBackground(chip);
         tag.setPadding(dp(9), dp(4), dp(9), dp(4));
         LinearLayout.LayoutParams tagParams = new LinearLayout.LayoutParams(-2, -2);
+        if (label.isEmpty()) tag.setVisibility(View.GONE);   // 「不跳转」不放角标
         content.addView(tag, tagParams);
         TextView title = text(item.optString("title", "Typheye"), 18, true, R.color.white);
         title.setMaxLines(2);
@@ -735,11 +741,157 @@ public class HomeFragment extends Fragment {
         return new LinearLayout.LayoutParams(0, dp(36), 1);
     }
 
+    /**
+     * 轮播图点击：与云端 console 的「跳转类型」定义保持一致
+     * （{@code none / url / dynamic / app / resource / announcement}，见 console 的 banners 页）。
+     *
+     * <p>以前这里只认 {@code url}，其它类型一律弹一个空的"暂无更多介绍"弹窗——
+     * 云端配了 app/dynamic/resource/announcement 也点不进去。</p>
+     */
     private void openTarget(JSONObject item) {
         String type = item.optString("target_type", "none");
-        String value = item.optString("target_value", "");
-        if ("url".equals(type) && !value.isEmpty()) openUrl(value);
-        else showJsonDetail(item.optString("title", "推荐内容"), item);
+        String value = item.optString("target_value", "").trim();
+        switch (type) {
+            case "url": {
+                String target = normalizeUrl(value);
+                if (target != null) openUrl(target);
+                else showJsonDetail(item.optString("title", "推荐内容"), item);
+                break;
+            }
+            case "dynamic":
+                if (!value.isEmpty()) {
+                    startActivity(new Intent(requireContext(),
+                            com.typheye.wgpro.ui.function.community.DynamicDetailActivity.class)
+                            .putExtra(com.typheye.wgpro.ui.function.community.DynamicDetailActivity
+                                    .EXTRA_DYNAMIC_ID, value));
+                }
+                break;
+            case "app":
+                openAppByPackage(value);
+                break;
+            case "resource":
+                openResourceById(value);
+                break;
+            case "announcement":
+                openAnnouncementById(value, item);
+                break;
+            case "none":
+            default:
+                // console 的「不跳转」：什么都不做（不再弹空弹窗）
+                break;
+        }
+    }
+
+    private static boolean isHttpUrl(String value) {
+        return normalizeUrl(value) != null;
+    }
+
+    /**
+     * 规范化跳转链接：console 的「跳转目标」是自由填写框，运营经常直接写
+     * {@code www.typheye.cn} 这类**不带协议**的域名——补成 https 后正常打开，
+     * 而不是默默弹一个"暂无更多介绍"。
+     */
+    @Nullable
+    private static String normalizeUrl(@Nullable String value) {
+        if (value == null) return null;
+        String trimmed = value.trim();
+        if (trimmed.isEmpty()) return null;
+        String lower = trimmed.toLowerCase(Locale.ROOT);
+        if (lower.startsWith("http://") || lower.startsWith("https://")) return trimmed;
+        // 形如 www.xxx.cn / xxx.cn/path 的裸域名：补 https
+        if (trimmed.matches("^[A-Za-z0-9][A-Za-z0-9.-]*\\.[A-Za-z]{2,}(/.*)?$")) {
+            return "https://" + trimmed;
+        }
+        return null;
+    }
+
+    /** app：按包名取详情再进应用详情页（和列表点进详情同一条路）。 */
+    private void openAppByPackage(String packageName) {
+        if (packageName.isEmpty()) return;
+        String url = com.typheye.wgpro.utils.tPointsUtils.withResAuth(requireContext(),
+                "https://res.typheye.cn/api.php?type=app&package="
+                        + android.net.Uri.encode(packageName));
+        // 10 分钟缓存 + 失败时用旧缓存兜底（见 getPublicJsonUrlCached）：网络抖动也能进详情
+        account.getPublicJsonUrlCached(url, 10L * 60L * 1000L, new tAccUtils.JsonCallback() {
+            @Override public void onSuccess(@NonNull JSONObject json) {
+                JSONObject info = json.optJSONObject("info");
+                if (!isAdded() || info == null) { failOpen(); return; }
+                openAppJson(info);
+            }
+            @Override public void onError(int code, @NonNull String message) { failOpen(); }
+        });
+    }
+
+    private void openAppJson(@NonNull JSONObject info) {
+        if (!isAdded()) return;
+        startActivity(new Intent(requireContext(),
+                com.typheye.wgpro.ui.function.community.AppDetailActivity.class)
+                .putExtra(com.typheye.wgpro.ui.function.community.AppDetailActivity
+                        .EXTRA_APP_JSON, info.toString()));
+    }
+
+    /** resource：按资源 id 取详情再进资源详情页。 */
+    private void openResourceById(String resourceId) {
+        if (resourceId.isEmpty()) return;
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("resource_id", resourceId);
+        new tAccUtils(requireContext()).getV2Json("resource_detail2", query, false,
+                new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        JSONObject info = json.optJSONObject("info");
+                        if (!isAdded() || info == null) { failOpen(); return; }
+                        startActivity(new Intent(requireContext(),
+                                com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
+                                .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity
+                                        .EXTRA_RESOURCE_JSON, info.toString()));
+                    }
+                    @Override public void onError(int code, @NonNull String message) { failOpen(); }
+                });
+    }
+
+    /** announcement：取公告详情后用底部弹窗展示（与首页公告条一致的呈现方式）。 */
+    private void openAnnouncementById(String announcementId, JSONObject banner) {
+        if (announcementId.isEmpty()) {
+            showJsonDetail(banner.optString("title", "公告"), banner);
+            return;
+        }
+        Map<String, String> query = new LinkedHashMap<>();
+        query.put("announcement_id", announcementId);
+        JSONObject cachedAnnouncement = account.getCachedV2Json("announcement_detail2", query, false);
+        if (cachedAnnouncement != null) {
+            showAnnouncement(cachedAnnouncement.optJSONObject("info"), banner);
+            return;
+        }
+        account.getV2Json("announcement_detail2", query, false,
+                new tAccUtils.JsonCallback() {
+                    @Override public void onSuccess(@NonNull JSONObject json) {
+                        showAnnouncement(json.optJSONObject("info"), banner);
+                    }
+                    @Override public void onError(int code, @NonNull String message) {
+                        // 拉取失败：首页上已经有一条公告就直接展示，别让用户点了个寂寞
+                        showAnnouncement(loadedAnnouncement, banner);
+                    }
+                });
+    }
+
+    private void showAnnouncement(@Nullable JSONObject info, JSONObject banner) {
+        if (!isAdded()) return;
+        if (info == null) { failOpen(); return; }
+        String title = info.optString("title", banner.optString("title", "公告"));
+        String body = info.optString("content", info.optString("summary", ""));
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle(title)
+                .setMessage(body.isEmpty() ? "暂无内容" : body)
+                .setNegativeButton("关闭", null)
+                .show();
+    }
+
+    private void failOpen() {
+        onUi(() -> {
+            if (isAdded()) {
+                com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "内容暂时无法打开");
+            }
+        });
     }
 
     private void openUrl(String url) {
@@ -835,11 +987,14 @@ public class HomeFragment extends Fragment {
         return message == null || message.trim().isEmpty() ? "加载失败，请稍后重试" : message;
     }
 
+    /** 角标文案：与 console 的「跳转类型」一一对应（none 不显示角标）。 */
     private String targetLabel(String type) {
         if ("app".equals(type)) return "应用推荐";
         if ("resource".equals(type)) return "资源推荐";
         if ("announcement".equals(type)) return "公告";
-        return "推荐";
+        if ("url".equals(type)) return "链接";
+        if ("dynamic".equals(type)) return "动态";
+        return "";
     }
 
     private static String first(String value) {

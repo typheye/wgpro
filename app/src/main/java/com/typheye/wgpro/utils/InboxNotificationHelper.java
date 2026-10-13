@@ -55,10 +55,19 @@ public final class InboxNotificationHelper {
                 : (total, notificationUnread, messageUnread) -> callback.onUnreadCount(total));
     }
 
+    /** 轮询单飞锁：并发轮询会各自判定"这条还没提醒过"，同一件事就会弹多次。 */
+    private static final java.util.concurrent.atomic.AtomicBoolean POLLING =
+            new java.util.concurrent.atomic.AtomicBoolean(false);
+
     public static void pollDetailed(@NonNull Context context, @Nullable DetailedCallback callback) {
         Context app = context.getApplicationContext();
         tAccUtils account = new tAccUtils(app);
         if (!account.isLogin()) {
+            if (callback != null) callback.onUnread(0, 0, 0);
+            return;
+        }
+        if (!POLLING.compareAndSet(false, true)) {
+            // 已有一次轮询在跑：直接返回（未读数会在那次轮询结束时回调给各自的观察者）
             if (callback != null) callback.onUnread(0, 0, 0);
             return;
         }
@@ -86,6 +95,7 @@ public final class InboxNotificationHelper {
 
         Runnable finish = () -> {
             if (pending.decrementAndGet() != 0) return;
+            POLLING.set(false);
             SharedPreferences.Editor editor = prefs.edit()
                     .putString(KEY_LAST_NOTIFICATION_ID + accountSuffix, lastNotificationId[0])
                     .putString(KEY_LAST_MESSAGE_ID + accountSuffix, lastMessageId[0]);
@@ -127,8 +137,12 @@ public final class InboxNotificationHelper {
                                 JSONObject item = items.optJSONObject(i);
                                 if (item == null) continue;
                                 String id = item.optString("id", "");
-                                if (id.isEmpty() || id.equals(lastNotificationId[0])) break;
-                                if (initialized[0] && !doNotDisturb[0]) {
+                                if (id.isEmpty()) continue;
+                                // 不再"遇到水位线就 break"：页内每条都交给通知池判定，
+                                // 水位线丢失/被删除时不会整页重发（池内精确去重）。
+                                if (initialized[0] && !doNotDisturb[0]
+                                        && !com.typheye.wgpro.core.push.NotificationPool
+                                                .hasPosted(app, "system:" + id)) {
                                     postSystemMessage(app, item);
                                 }
                             }
@@ -158,10 +172,12 @@ public final class InboxNotificationHelper {
                                 JSONObject item = items.optJSONObject(i);
                                 if (item == null) continue;
                                 String id = item.optString("id", "");
-                                if (id.isEmpty() || id.equals(lastMessageId[0])) break;
+                                if (id.isEmpty()) continue;
                                 boolean incoming = selfUid.equals(item.optString("recipient_uid"))
                                         && !selfUid.equals(item.optString("sender_uid"));
-                                if (initialized[0] && !doNotDisturb[0] && incoming) {
+                                if (initialized[0] && !doNotDisturb[0] && incoming
+                                        && !com.typheye.wgpro.core.push.NotificationPool
+                                                .hasPosted(app, "message:" + id)) {
                                     postPrivateMessage(app, item);
                                 }
                             }
@@ -207,7 +223,7 @@ public final class InboxNotificationHelper {
             if (!id.equals(lastId)) {
                 prefs.edit().putString(KEY_LAST_MESSAGE_ID + suffix, id).apply();
             }
-            if (initialized && !doNotDisturb && !id.equals(lastId)) {
+            if (initialized && !doNotDisturb) {
                 try {
                     JSONObject item = new JSONObject();
                     item.put("id", id);
@@ -230,12 +246,13 @@ public final class InboxNotificationHelper {
             if (!id.equals(lastId)) {
                 prefs.edit().putString(KEY_LAST_NOTIFICATION_ID + suffix, id).apply();
             }
-            if (initialized && !doNotDisturb && !id.equals(lastId)) {
+            if (initialized && !doNotDisturb) {
                 try {
                     JSONObject item = new JSONObject();
                     item.put("id", id);
                     item.put("title", data.optString("title", "系统消息"));
                     item.put("content", data.optString("content", ""));
+                    item.put("created_at", data.optString("created_at", ""));
                     postSystemMessage(app, item);
                 } catch (Exception ignored) {
                 }
@@ -298,6 +315,16 @@ public final class InboxNotificationHelper {
     }
 
     private static void postSystemMessage(Context context, JSONObject item) {
+        final String itemId = item.optString("id", "");
+        final JSONObject payload = item;
+        com.typheye.wgpro.core.push.NotificationPool.offer(context, "system:" + itemId,
+                "system:" + itemId,
+                com.typheye.wgpro.core.push.NotificationPool
+                        .parseTime(item.optString("created_at", "")),
+                alert -> deliverSystemMessage(context, payload, alert));
+    }
+
+    private static void deliverSystemMessage(Context context, JSONObject item, boolean alert) {
         // 用户正在系统消息页：不再打扰
         if (com.typheye.wgpro.core.state.AppState.get().isSystemMessagesVisible()) {
             cancelSystemNotifications(context);
@@ -315,12 +342,24 @@ public final class InboxNotificationHelper {
         int notificationId = notificationIdFor(2_000_000, item.optString("id", ""));
         post(context, notificationId, title, content, intent,
                 NotificationCompat.CATEGORY_MESSAGE,
-                NotificationAvatar.appIcon(context), false);
+                NotificationAvatar.appIcon(context), !alert);
         rememberNotification(context, KEY_SYSTEM_NOTIFICATION_IDS,
                 String.valueOf(notificationId));
     }
 
     private static void postPrivateMessage(Context context, JSONObject item) {
+        final String itemId = item.optString("id", "");
+        final String peer = item.optString("sender_uid", "");
+        final JSONObject payload = item;
+        // 同一个人的消息：30 秒内只响一次（连续多条消息不连环响），但每条仍各自入通知栏
+        com.typheye.wgpro.core.push.NotificationPool.offer(context, "message:" + itemId,
+                "peer:" + peer,
+                com.typheye.wgpro.core.push.NotificationPool
+                        .parseTime(item.optString("created_at", "")),
+                allowAlert -> deliverPrivateMessage(context, payload, allowAlert));
+    }
+
+    private static void deliverPrivateMessage(Context context, JSONObject item, boolean alert) {
         String peerUid = item.optString("sender_uid", "");
         if (peerUid.isEmpty()) return;
         // 用户正在和这个人聊天：不打扰，同时清掉该会话已有通知
@@ -340,7 +379,7 @@ public final class InboxNotificationHelper {
         // 主图标先用昵称首字，真实头像异步加载完成后原地更新同一条通知
         post(context, notificationId, peerName, content, intent,
                 NotificationCompat.CATEGORY_MESSAGE,
-                NotificationAvatar.textAvatar(peerName), false);
+                NotificationAvatar.textAvatar(peerName), !alert);
         rememberNotification(context, KEY_PRIVATE_NOTIFICATION_IDS,
                 peerUid + ":" + notificationId);
 

@@ -131,6 +131,17 @@ public final class AppDetailFragment extends Fragment {
         }
         final com.typheye.wgpro.core.download.DownloadManager manager =
                 com.typheye.wgpro.core.download.DownloadManager.get();
+        // 失败不再静默：弹失败信息弹窗（带「重试」）
+        final com.typheye.wgpro.core.download.DownloadTask failedTask = task;
+        if (failedTask != null) {
+            if (failedTask.status == com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED) {
+                com.typheye.wgpro.ui.widget.DownloadRetryFlow.notifyFailure(requireContext(), failedTask,
+                        () -> com.typheye.wgpro.ui.widget.DownloadRetryFlow
+                                .retry(requireContext(), failedTask, null));
+            } else {
+                com.typheye.wgpro.ui.widget.DownloadRetryFlow.resetNotification(failedTask);
+            }
+        }
         if (task == null) {
             if (actionDeleteCard != null) actionDeleteCard.setVisibility(View.GONE);
             applySplitPillShape(false);
@@ -157,7 +168,7 @@ public final class AppDetailFragment extends Fragment {
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_QUEUED:
                 actionCard.setEnabled(true);
                 setActionText("等待中");
-                setActionFill(task.progress());
+                setActionFill(0);   // 排队中不显示半截进度（否则像卡住）
                 actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
                         com.typheye.wgpro.core.download.DownloadService.ACTION_PAUSE));
                 break;
@@ -172,8 +183,9 @@ public final class AppDetailFragment extends Fragment {
                 actionCard.setEnabled(true);
                 setActionText("重试");
                 setActionFill(0);
-                actionCard.setOnClickListener(v -> manager.control(requireContext(), current.id,
-                        com.typheye.wgpro.core.download.DownloadService.ACTION_RESUME));
+                // 重试 = 重新测速挑最快节点再下（旧节点可能已变慢/挂掉）
+                actionCard.setOnClickListener(v -> com.typheye.wgpro.ui.widget.DownloadRetryFlow
+                        .retry(requireContext(), current, null));
                 break;
             case com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED:
                 actionCard.setEnabled(true);
@@ -238,13 +250,13 @@ public final class AppDetailFragment extends Fragment {
 
     /** 分享应用（优先用详情页分享链接）。 */
     private void shareAppLink() {
-        String link = appJson.optString("share_url",
-                appJson.optString("detail_url", appJson.optString("url", downloadUrl)));
+        // 分享页地址统一构造：绝不再回退到 10 分钟就过期的签名下载直链
         String name = appJson.optString("name", "应用");
+        String link = com.typheye.wgpro.utils.WGProShareLinks.appUrl(appJson);
         android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
                 .setType("text/plain")
                 .putExtra(android.content.Intent.EXTRA_TEXT,
-                        link == null || link.isEmpty() ? name : name + "　" + link);
+                        com.typheye.wgpro.utils.WGProShareLinks.shareText(name, link));
         try {
             startActivity(android.content.Intent.createChooser(share, "分享给好友"));
         } catch (Exception e) {
@@ -496,14 +508,8 @@ public final class AppDetailFragment extends Fragment {
         boolean vela = "velaapp".equals(app.optString("kind", ""));
         String iconUrl = app.optString("icon_url", "");
         ImageView icon = root.findViewById(R.id.app_detail_icon);
-        if (vela) {
-            // Vela 图标本身是圆的：放在之前的圆角卡片底（surface_secondary）上，并留一点外边距。
-            icon.setBackgroundResource(R.drawable.bg_app_icon_clip);
-            icon.setClipToOutline(true);
-            int pad = dp(6);
-            icon.setPadding(pad, pad, pad, pad);
-            icon.setScaleType(ImageView.ScaleType.FIT_CENTER);
-        }
+        // 图标呈现规则统一：Vela 圆图标原样显示（不套圆角矩形底、不留内边距）
+        com.typheye.wgpro.ui.widget.WGProIconStyle.apply(icon, vela);
         if (!iconUrl.isEmpty()) load(iconUrl, icon, () -> {
             icon.setVisibility(View.VISIBLE); root.findViewById(R.id.app_detail_initial).setVisibility(View.GONE);
             if (loaded != null) loaded.run();
@@ -537,24 +543,63 @@ public final class AppDetailFragment extends Fragment {
                 String url = urls.optString(i);
                 if (url != null && !url.trim().isEmpty()) shotUrls.add(url.trim());
             }
-            for (int i = 0; i < shotUrls.size(); i++) {
-                final int index = i;
-                ImageView shot = new ImageView(requireContext()); shot.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                shot.setBackgroundResource(R.drawable.bg_app_screenshot); shot.setClipToOutline(true);
-                LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(dp(178), dp(316)); p.setMarginEnd(dp(12));
-                shot.setClickable(true);
-                shot.setOnClickListener(v -> com.typheye.wgpro.ui.function.PreviewActivity
-                        .open(requireContext(), shotUrls, index));
-                screenshots.addView(shot, p); load(shotUrls.get(i), shot, null);
+            // 截图位固定 5 格：不足的用占位格补齐（各应用都是 5 张 720x1280 的规范，
+            // 只有 1 张时整排会缺一大块，看着像坏了）
+            int slots = Math.max(SCREENSHOT_SLOTS, shotUrls.size());
+            for (int i = 0; i < slots; i++) {
+                LinearLayout.LayoutParams p =
+                        new LinearLayout.LayoutParams(dp(178), dp(316));
+                p.setMarginEnd(dp(12));
+                if (i < shotUrls.size()) {
+                    final int index = i;
+                    ImageView shot = new ImageView(requireContext());
+                    shot.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                    shot.setBackgroundResource(R.drawable.bg_app_screenshot);
+                    shot.setClipToOutline(true);
+                    shot.setClickable(true);
+                    shot.setOnClickListener(v -> com.typheye.wgpro.ui.function.PreviewActivity
+                            .open(requireContext(), shotUrls, index));
+                    screenshots.addView(shot, p);
+                    load(shotUrls.get(i), shot, null);
+                } else {
+                    // 占位格：淡图片图标 + 圆角暗格，不可点
+                    ImageView placeholder = new ImageView(requireContext());
+                    placeholder.setScaleType(ImageView.ScaleType.CENTER);
+                    placeholder.setBackgroundResource(R.drawable.bg_app_screenshot);
+                    placeholder.setClipToOutline(true);
+                    placeholder.setImageResource(R.drawable.ic_image_placeholder);
+                    placeholder.setImageTintList(android.content.res.ColorStateList.valueOf(
+                            com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(),
+                                    R.color.text_secondary)));
+                    placeholder.setAlpha(0.38f);
+                    screenshots.addView(placeholder, p);
+                }
             }
         }
     }
+
+    /** 截图位固定 5 格（应用商店惯例：不足补位）。 */
+    private static final int SCREENSHOT_SLOTS = 5;
 
     /**
      * 「获取」入口：先问服务端报价——
      * 免费或已拥有 → 直接开始下载；要扣积分 → 弹「获取」弹窗，交易成功后再下载。
      */
     private void acquire() {
+        // 已经有下载任务（含已完成）就直接用，不再走一遍获取/测速流程
+        java.util.List<com.typheye.wgpro.core.download.DownloadTask> existing =
+                com.typheye.wgpro.core.download.DownloadManager.get().tasks().getValue();
+        if (existing != null) {
+            for (com.typheye.wgpro.core.download.DownloadTask t : existing) {
+                if (t.id.equals(appKey)) {
+                    if (t.status == com.typheye.wgpro.core.download.DownloadTask.STATUS_COMPLETED) {
+                        showOperationSheet(appJson, downloadUrl, t);
+                        return;
+                    }
+                    if (t.isActive()) return;   // 正在进行/排队：忽略重复获取
+                }
+            }
+        }
         if (downloadUrl == null || downloadUrl.isEmpty()) return;
         final android.content.Context context = requireContext();
         com.typheye.wgpro.ui.widget.Points.refresh(context, null);
@@ -864,12 +909,14 @@ public final class AppDetailFragment extends Fragment {
         }
     }
 
-    /** 分享下载链接（对方点开可进详情页）。 */
+    /** 分享应用（对方点开进分享页，而不是过期的签名下载直链）。 */
     private void shareDownloadLink(JSONObject app, String downloadUrl) {
         String name = app.optString("name", "应用");
+        String link = com.typheye.wgpro.utils.WGProShareLinks.appUrl(app);
         android.content.Intent share = new android.content.Intent(android.content.Intent.ACTION_SEND)
                 .setType("text/plain")
-                .putExtra(android.content.Intent.EXTRA_TEXT, name + "　下载地址：" + downloadUrl);
+                .putExtra(android.content.Intent.EXTRA_TEXT,
+                        com.typheye.wgpro.utils.WGProShareLinks.shareText(name, link));
         startActivity(android.content.Intent.createChooser(share, "分享给好友"));
     }
 
@@ -901,8 +948,31 @@ public final class AppDetailFragment extends Fragment {
         startDownload(app, downloadUrl, which, null);
     }
 
+    /**
+     * 拿到下载权限后真正开始下载：先弹「下载测速」底部弹窗（进度条 + 取消）选最快节点，
+     * 取代原来的「已加入下载」轻提示；节点不可用时回退权威地址。
+     */
     private void startDownload(JSONObject app, String downloadUrl, int which,
                                @Nullable android.net.Uri targetUri) {
+        if (!isAdded()) return;
+        com.typheye.wgpro.ui.widget.DownloadProbeSheet.start(requireContext(),
+                app.optString("name", "应用"), downloadUrl, app.optJSONArray("download_mirrors"),
+                new com.typheye.wgpro.ui.widget.DownloadProbeSheet.Callback() {
+                    @Override
+                    public void onReady(@NonNull String url) {
+                        if (!isAdded()) return;
+                        enqueueDownload(app, url, downloadUrl, which, targetUri);
+                    }
+
+                    @Override
+                    public void onCancelled() {
+                        // 用户取消测速：本次不下载（已获得的权限不受影响，可再次获取）
+                    }
+                });
+    }
+
+    private void enqueueDownload(JSONObject app, String url, String authoritativeUrl, int which,
+                                 @Nullable android.net.Uri targetUri) {
         int destination = which == 0 ? com.typheye.wgpro.core.download.DownloadTask.DEST_DEVICE
                 : which == 1 ? com.typheye.wgpro.core.download.DownloadTask.DEST_PHONE
                 : com.typheye.wgpro.core.download.DownloadTask.DEST_LOCAL;
@@ -910,15 +980,13 @@ public final class AppDetailFragment extends Fragment {
         com.typheye.wgpro.core.download.DownloadTask task =
                 new com.typheye.wgpro.core.download.DownloadTask(
                         id, app.optString("name", "未命名应用"), app.optString("icon_url", ""),
-                        downloadUrl, app.optString("size", ""), destination,
+                        url, app.optString("size", ""), destination,
                         "app", app.toString());
         if (targetUri != null) task.targetUri = targetUri.toString();
+        // 兜底：镜像节点失败时回退到这个权威地址
+        task.fallbackUrl = authoritativeUrl;
         com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
         downloadStarted = true;
-        String tip = destination == com.typheye.wgpro.core.download.DownloadTask.DEST_DEVICE
-                ? "已开始安装到设备" : destination == com.typheye.wgpro.core.download.DownloadTask.DEST_LOCAL
-                ? "已加入下载（保存到本机）" : "已加入下载";
-        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), tip);
     }
 
     @Override
