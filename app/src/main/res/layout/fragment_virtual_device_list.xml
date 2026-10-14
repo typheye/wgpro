@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 虚拟设备机型列表内容：宿主 AddDeviceActivity 的 add_device_fragment_host 内。 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+<com.typheye.wgpro.ui.widget.WGProRefreshLayout
+            android:id="@+id/virtual_list_refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/virtual_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clipToPadding="false"
+                    android:paddingStart="16dp"
+                    android:paddingTop="0dp"
+                    android:paddingEnd="16dp"
+                    android:paddingBottom="28dp"
+                    android:scrollbars="none" />
+
+                <!-- 空态：只 include 规范的 view_stream_empty（父容器已给左右 16dp，故 marginTop=0） -->
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="top"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp">
+
+                    <include
+                        android:id="@+id/virtual_list_state"
+                        layout="@layout/view_stream_empty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="0dp" />
+                </FrameLayout>
+            </FrameLayout>
+        </com.typheye.wgpro.ui.widget.WGProRefreshLayout>
+</FrameLayout>

@@ -376,8 +376,17 @@ public final class DownloadListFragment extends Fragment {
 
     /** 是否能定位到来源（应用/资源详情页）。 */
     private boolean hasSourceDetail(DownloadTask task) {
+        if (isVelaTask(task)) {
+            // 系统镜像（虚拟设备）→ 跳设备详情页
+            return true;
+        }
         String json = task.detailJson == null ? "" : task.detailJson.trim();
         return json.startsWith("{") && task.detailType != null && !task.detailType.isEmpty();
+    }
+
+    /** 是否是虚拟设备的系统镜像任务（任务 id 形如 {@code vela-<机型>}）。 */
+    private static boolean isVelaTask(@Nullable DownloadTask task) {
+        return task != null && task.id != null && task.id.startsWith("vela-");
     }
 
     /** 第二行：已完成的显示文件大小（如 0.0MB），其它状态照旧。 */
@@ -518,7 +527,8 @@ public final class DownloadListFragment extends Fragment {
                 else DownloadManager.get().control(context, task.id, DownloadService.ACTION_REMOVE);
             }).show();
         } else {
-            CharSequence[] actions = new CharSequence[]{"查看详情", "取消"};
+            CharSequence[] actions = new CharSequence[]{isVelaTask(task) ? "查看设备详情" : "查看详情",
+                    "取消"};
             new WGProAlertDialogBuilder(context).setTitle("操作").setItems(actions, (dialog, which) -> {
                 if (which == 0) openDetail(task);
                 // 取消 = 相当于从没下过：清掉下载记录与已下文件（详情页会重新显示「获取」）
@@ -593,6 +603,12 @@ public final class DownloadListFragment extends Fragment {
     /** 打开该下载项对应的应用/资源详情页。 */
     private void openDetail(DownloadTask task) {
         try {
+            if (isVelaTask(task)) {
+                // 系统镜像：直接打开该机型的「设备详情」二级页
+                com.typheye.wgpro.ui.function.device.VirtualDeviceDetailActivity.openById(
+                        requireContext(), task.id.substring("vela-".length()));
+                return;
+            }
             if ("resource".equals(task.detailType)) {
                 startActivity(new android.content.Intent(requireContext(),
                         com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)

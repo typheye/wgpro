@@ -86,7 +86,8 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
         return findViewById(R.id.section_page_tabs);
     }
 
-    void showContentLoading() {
+    /** 显示整页加载遮罩（`loadingCoversAppBar()` 为 true 时会盖住应用栏）；跨包二级页也可调用。 */
+    public void showContentLoading() {
         loadingStarted = android.os.SystemClock.uptimeMillis();
         loadingOverlay.animate().cancel(); loadingOverlay.setAlpha(1f); loadingOverlay.setVisibility(View.VISIBLE);
         // 纯色遮罩期间应用栏改用页面底色：与遮罩同色，避免「毛玻璃 + 遮罩」叠加出异常渲染
@@ -97,7 +98,8 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
         // RenderEffect 叠加会出现残留/错位的模糊带），只用纯色遮罩即可。
     }
 
-    void hideContentLoading() {
+    /** 关闭整页加载遮罩（含最短展示时间）。 */
+    public void hideContentLoading() {
         long delay = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - loadingStarted));
         loadingOverlay.postDelayed(() -> {
             if (isFinishing() || isDestroyed()) return;

@@ -64,6 +64,14 @@ public final class VelaEmulatorManager {
     }
 
     private final Map<String, Instance> instances = new ConcurrentHashMap<>();
+    /**
+     * 实例**还没创建**时先登记的监听者。
+     *
+     * <p>页面是先注册监听、之后实例才启动；若此处直接丢弃，页面就永远收不到实时日志
+     * （只有退出重进时靠回放环形缓冲才"完整"）—— 踩过。</p>
+     */
+    private final Map<String, CopyOnWriteArrayList<VelaEmulator.LineListener>> pendingListeners =
+            new ConcurrentHashMap<>();
     @Nullable
     private Context appContext;
 
@@ -121,16 +129,34 @@ public final class VelaEmulatorManager {
     }
 
     public void addLineListener(@Nullable String model, @NonNull VelaEmulator.LineListener listener) {
-        Instance instance = model == null ? null : instances.get(model);
-        if (instance != null && !instance.listeners.contains(listener)) {
-            instance.listeners.add(listener);
+        if (model == null) {
+            return;
+        }
+        Instance instance = instances.get(model);
+        if (instance != null) {
+            if (!instance.listeners.contains(listener)) {
+                instance.listeners.add(listener);
+            }
+        } else {
+            CopyOnWriteArrayList<VelaEmulator.LineListener> list =
+                    pendingListeners.computeIfAbsent(model, k -> new CopyOnWriteArrayList<>());
+            if (!list.contains(listener)) {
+                list.add(listener);
+            }
         }
     }
 
     public void removeLineListener(@Nullable String model, @NonNull VelaEmulator.LineListener listener) {
-        Instance instance = model == null ? null : instances.get(model);
+        if (model == null) {
+            return;
+        }
+        Instance instance = instances.get(model);
         if (instance != null) {
             instance.listeners.remove(listener);
+        }
+        CopyOnWriteArrayList<VelaEmulator.LineListener> list = pendingListeners.get(model);
+        if (list != null) {
+            list.remove(listener);
         }
     }
 
@@ -171,13 +197,36 @@ public final class VelaEmulatorManager {
             for (VelaEmulator.LineListener listener : instance.listeners) {
                 listener.onLine(line);
             }
+            CopyOnWriteArrayList<VelaEmulator.LineListener> waiting = pendingListeners.get(model);
+            if (waiting != null) {
+                for (VelaEmulator.LineListener listener : waiting) {
+                    listener.onLine(line);
+                }
+            }
+        });
+        // 引擎结束（正常退出/崩溃/被系统杀）→ 实时更新设备状态，模拟设备页才能看到真实状态
+        emulator.setExitListener(() -> {
+            instance.running = false;
+            if (appContext != null) {
+                setConnected(appContext, model, false);
+                if (runningCount() == 0) {
+                    VelaGuardService.stop(appContext);
+                }
+            }
+            Log.i(TAG, "引擎已结束，state 已置为已停止: " + model);
         });
         emulator.ensureAssets((name, percent) -> { });
         emulator.installExecLinks();
         emulator.authorAvd(model, emulator.imagesDir());
         emulator.start(model, port);
+        // 引擎跑起来 → 起前台服务守护（熄屏/后台不被回收）
+        VelaGuardService.start(context);
         instance.running = true;
         instances.put(model, instance);
+        CopyOnWriteArrayList<VelaEmulator.LineListener> waiting = pendingListeners.remove(model);
+        if (waiting != null) {
+            instance.listeners.addAllAbsent(waiting);
+        }
         setConnected(context, model, true);
         return instance;
     }
@@ -196,6 +245,9 @@ public final class VelaEmulatorManager {
             Log.w(TAG, "停止实例失败", error);
         }
         setConnected(context, model, false);
+        if (runningCount() == 0) {
+            VelaGuardService.stop(context);
+        }
     }
 
     public void stopAll(@NonNull Context context) {
@@ -232,7 +284,20 @@ public final class VelaEmulatorManager {
 
     private void setConnected(@NonNull Context context, @NonNull String model, boolean connected) {
         try (DeviceDatabase db = new DeviceDatabase(context)) {
-            db.updateConnection(deviceId(model), connected);
+            // 同一机型可能对应**多个**虚拟设备（镜像可重复创建）：按 model 把它们的状态一起更新
+            boolean any = false;
+            try (android.database.Cursor cursor = db.all(DeviceDatabase.TYPE_VIRTUAL)) {
+                while (cursor.moveToNext()) {
+                    String rowId = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                    if (VelaProvision.isSameModel(rowId, model)) {
+                        db.updateConnection(rowId, connected);
+                        any = true;
+                    }
+                }
+            }
+            if (!any) {
+                db.updateConnection(deviceId(model), connected);
+            }
         } catch (Exception error) {
             Log.w(TAG, "更新虚拟设备状态失败", error);
         }

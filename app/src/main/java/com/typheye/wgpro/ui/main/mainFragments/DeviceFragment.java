@@ -81,7 +81,7 @@ public class DeviceFragment extends Fragment {
         // 「模拟设备」：会话卡片已搬到 设置 → 账户 → 已登录的会话，这里先留空位等虚拟机能力。
         ((TextView) otherEmpty.findViewById(R.id.stream_empty_title)).setText("暂无模拟设备");
         ((TextView) otherEmpty.findViewById(R.id.stream_empty_description))
-                .setText("模拟设备功能开发中，之后可在这里创建并管理虚拟机。");
+                .setText("点击「+」创建的虚拟设备，可在这里集中管理。");
         detected = root.findViewById(R.id.card_detected_device);
         wearableRefresh = root.findViewById(R.id.device_page_wearable);
         otherRefresh = root.findViewById(R.id.device_page_other);
@@ -142,6 +142,8 @@ public class DeviceFragment extends Fragment {
         super.onResume();
         sCurrent = new java.lang.ref.WeakReference<>(this);
         refresh();
+        // 历史遗留设备名修正：独立于 refresh()，每进程一次，改完自己补一次刷新
+        repairLegacyVirtualNamesOnce();
     }
 
     @Override public void onPause() {
@@ -217,6 +219,85 @@ public class DeviceFragment extends Fragment {
         }
     }
 
+    /** 云端机型「设备名称」缓存（id → name），供卡片即时兜底显示。 */
+    private static java.util.Map<String, String> sCloudNames;
+    /** 历史遗留补名：**每个进程只做一次**（必须在 refresh() 之外触发，避免嵌套 refresh 卡死）。 */
+    private static boolean sLegacyNamesChecked;
+
+    /**
+     * 修历史数据：早期版本把 {@code model} 列写成了机型标识（如 vela-test），
+     * 这里用云端「设备名称」+ 4 位随机改写掉。整个过程在后台线程完成，改完**只补一次刷新**。
+     */
+    private void repairLegacyVirtualNamesOnce() {
+        if (sLegacyNamesChecked) {
+            return;
+        }
+        sLegacyNamesChecked = true;
+        final java.util.List<String[]> bad = new java.util.ArrayList<>();
+        try (DeviceDatabase db = new DeviceDatabase(requireContext());
+             Cursor cursor = db.all(com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL)) {
+            while (cursor.moveToNext()) {
+                String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+                String avd = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(id);
+                if (avd.isEmpty()) {
+                    continue;
+                }
+                if (model == null || model.trim().isEmpty() || model.trim().equals(avd)) {
+                    bad.add(new String[]{id, avd});
+                }
+            }
+        } catch (Exception error) {
+            return;
+        }
+        if (bad.isEmpty()) {
+            return;
+        }
+        final android.content.Context app = requireContext().getApplicationContext();
+        new Thread(() -> {
+            java.util.Map<String, String> names = new java.util.HashMap<>();
+            try (okhttp3.Response response = new okhttp3.OkHttpClient().newCall(
+                    new okhttp3.Request.Builder()
+                            .url("https://service.typheye.cn/api.php?type=vela_devices")
+                            .build()).execute()) {
+                if (response.body() != null) {
+                    com.google.gson.JsonObject root = com.google.gson.JsonParser
+                            .parseString(response.body().string()).getAsJsonObject();
+                    for (com.google.gson.JsonElement element : root.getAsJsonArray("devices")) {
+                        com.google.gson.JsonObject item = element.getAsJsonObject();
+                        names.put(item.get("id").getAsString(), item.get("name").getAsString());
+                    }
+                }
+            } catch (Exception error) {
+                android.util.Log.w("DeviceFragment", "拉取机型名称失败", error);
+            }
+            sCloudNames = names;
+            if (names.isEmpty()) {
+                return;
+            }
+            boolean changed = false;
+            try (DeviceDatabase db = new DeviceDatabase(app)) {
+                for (String[] row : bad) {
+                    String cloud = names.get(row[1]);
+                    if (cloud == null || cloud.trim().isEmpty()) {
+                        continue;
+                    }
+                    db.updateModel(row[0], cloud.trim() + " "
+                            + com.typheye.wgpro.core.emu.VelaProvision.randomSuffix());
+                    changed = true;
+                }
+            } catch (Exception ignored) {
+            }
+            if (changed) {
+                mainHandler.post(() -> {
+                    if (isAdded()) {
+                        refresh();
+                    }
+                });
+            }
+        }, "vela-names").start();
+    }
+
     /** 把某一类已配对设备追加到目标组（卡片顺序按 last_seen 倒序）。 */
     private void collectDevices(String type, StringBuilder key, LinearLayout target) {
         try (DeviceDatabase db = new DeviceDatabase(requireContext()); Cursor cursor = db.all(type)) {
@@ -255,7 +336,20 @@ public class DeviceFragment extends Fragment {
         String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
         boolean connected = cursor.getInt(cursor.getColumnIndexOrThrow("connected")) != 0;
         View card = getLayoutInflater().inflate(R.layout.item_device, parent, false);
-        String displayName = note == null || note.trim().isEmpty() ? model : note.trim();
+        // 虚拟设备的**机型标识只从设备 id 解析**（model 列存的是设备显示名，不一定是机型）
+        final String avd = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(id);
+        String displayName = note == null ? "" : note.trim();
+        if (displayName.isEmpty()) {
+            displayName = model == null ? "" : model.trim();
+        }
+        // 万一是历史遗留（model 列被写成了机型标识）→ 用云端「设备名称」兜底，绝不显示标识
+        if (com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type)
+                && displayName.equals(avd) && sCloudNames != null) {
+            String cloud = sCloudNames.get(avd);
+            if (cloud != null && !cloud.trim().isEmpty()) {
+                displayName = cloud.trim();
+            }
+        }
         ((TextView) card.findViewById(R.id.text_device_initial))
                 .setText(firstCharacter(displayName));
         ((TextView) card.findViewById(R.id.text_device_model))
@@ -273,7 +367,7 @@ public class DeviceFragment extends Fragment {
                 .setText(versionLabel);
         boolean virtual = com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type);
         if (virtual) {
-            connected = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(model);
+            connected = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(avd);
         }
         TextView status = card.findViewById(R.id.text_device_status);
         status.setText(virtual ? (connected ? "运行中" : "已停止") : (connected ? "已连接" : "已断开"));
@@ -287,8 +381,8 @@ public class DeviceFragment extends Fragment {
                 .setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
         card.setOnClickListener(v -> {
             if (com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type)) {
-                // 与真机一致：先弹「设备详情」，再进模拟页面
-                showVirtualDeviceDetail(id, model, note);
+                // 与真机一致：先弹「设备详情」，再进模拟页面（机型标识用解析出来的 avd）
+                showVirtualDeviceDetail(id, avd, note);
             } else {
                 showDeviceDetail(id);
             }
@@ -336,15 +430,20 @@ public class DeviceFragment extends Fragment {
         View stopRow = content.findViewById(R.id.sheet_device_logs);
         ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label))
                 .setText("停止当前实例");
-        // 「停止当前实例」仅在运行时展示，且位于「显示更多操作」上一项
+        // 「停止当前实例」仅在运行时展示，且位于「显示更多操作」上一项；
+        // 它上方那条分割线必须一起隐藏，否则会留下一条孤线。
         stopRow.setVisibility(running ? View.VISIBLE : View.GONE);
+        View stopDivider = content.findViewById(R.id.sheet_device_divider_logs);
+        if (stopDivider != null) {
+            stopDivider.setVisibility(running ? View.VISIBLE : View.GONE);
+        }
         WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
                 .setTitle("设备详情").setView(content).setNegativeButton("关闭", null).create();
         content.findViewById(R.id.sheet_device_transfer).setOnClickListener(v -> {
             dialog.dismiss();
             android.content.Intent intent = new android.content.Intent(requireContext(),
-                    com.typheye.wgpro.ui.function.virtualdevice.VirtualDeviceActivity.class);
-            intent.putExtra(com.typheye.wgpro.ui.function.virtualdevice.VirtualDeviceFragment.ARG_AVD,
+                    com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class);
+            intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD,
                     model);
             startActivity(intent);
         });

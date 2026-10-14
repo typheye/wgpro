@@ -49,9 +49,25 @@ public final class DownloadManager {
         publish();
     }
 
-    /** 重新从本地读取（下拉刷新用）。 */
+    /**
+     * 下拉刷新用：**只重发一遍当前列表**。
+     *
+     * <p>不能在这里 {@code load()}：{@code load()} 会 clear 后从持久化 JSON 重建任务，
+     * 把正在下载任务的实时状态（运行中/进度）冲成持久化时的旧值（例如"等待中"），
+     * 看起来像"下拉刷新把下载暂停了"。下载服务与 UI 同进程共用这一个单例，内存即权威。</p>
+     */
     public synchronized void reload() {
-        load();
+        publish();
+    }
+
+    /** 只从记录里移除某个任务（不碰文件），用于"删除镜像"这类操作。 */
+    public synchronized void drop(@NonNull String id) {
+        for (int i = list.size() - 1; i >= 0; i--) {
+            if (id.equals(list.get(i).id)) {
+                list.remove(i);
+            }
+        }
+        persist();
         publish();
     }
 

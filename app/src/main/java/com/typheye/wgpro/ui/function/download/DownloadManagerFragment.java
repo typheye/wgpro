@@ -57,11 +57,8 @@ public final class DownloadManagerFragment extends Fragment {
             tabsMediator.detach();
             tabsMediator = null;
         }
-        TabLayout tabs = ((BaseSectionActivity) requireActivity()).pageTabs();
-        if (tabs != null) {
-            tabs.removeAllTabs();
-            tabs.setVisibility(View.GONE);
-        }
+        // 注意：这里**不能**把标签页设为 GONE —— 通知栏点进来走 onNewIntent，会先换 Fragment，
+        // 新旧视图生命周期交错时新页刚显示的标签会被旧页隐藏掉（表现为"没有下载中/已完成标签"，概率出现）。
         pager = null;
         super.onDestroyView();
     }

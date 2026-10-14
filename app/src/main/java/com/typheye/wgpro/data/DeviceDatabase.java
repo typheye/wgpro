@@ -73,6 +73,13 @@ public final class DeviceDatabase extends SQLiteOpenHelper {
         getWritableDatabase().update("devices", v, "id=?", new String[]{id});
     }
 
+    /** 只更新 model 列（虚拟设备的 model 列存的是**设备显示名**，修历史数据用）。 */
+    public void updateModel(String id, String model) {
+        ContentValues v = new ContentValues();
+        v.put("model", model);
+        getWritableDatabase().update("devices", v, "id=?", new String[]{id});
+    }
+
     public int updateConnection(String id, boolean connected) {
         long now = System.currentTimeMillis();
         ContentValues v = new ContentValues();

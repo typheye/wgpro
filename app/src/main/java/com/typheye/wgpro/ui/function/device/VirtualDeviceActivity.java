@@ -1,4 +1,4 @@
-package com.typheye.wgpro.ui.function.virtualdevice;
+package com.typheye.wgpro.ui.function.device;
 
 import android.os.Bundle;
 
@@ -9,6 +9,7 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.utils.AppUtils;
 
 /**
  * 虚拟设备页：纯全屏承载 {@link VirtualDeviceFragment}。
@@ -20,14 +21,13 @@ public class VirtualDeviceActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        AppUtils.useScreenCutArea(getWindow(), this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_device);
-        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        WindowInsetsControllerCompat controller =
-                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
-        controller.setSystemBarsBehavior(
-                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
-        controller.hide(WindowInsetsCompat.Type.statusBars());
+        // 内容真正铺满整屏：标记沉浸，避免 SystemBars 的兜底内边距给根布局加 padding
+        // （漏掉这一步会让加载遮罩上下各留一条黑边）—— 与 PreviewActivity 同款。
+        com.typheye.wgpro.utils.SystemBars.markImmersive(findViewById(R.id.virtual_host));
+        hideStatusBar();
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.virtual_host, VirtualDeviceFragment.newInstance(
@@ -36,5 +36,15 @@ public class VirtualDeviceActivity extends AppCompatActivity {
                             "virtual")
                     .commitNow();
         }
+    }
+
+    /** 只隐藏状态栏，底部导航条保持原样（同 PreviewActivity）。 */
+    private void hideStatusBar() {
+        WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
+        WindowInsetsControllerCompat controller =
+                WindowCompat.getInsetsController(getWindow(), getWindow().getDecorView());
+        controller.setSystemBarsBehavior(
+                WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+        controller.hide(WindowInsetsCompat.Type.statusBars());
     }
 }

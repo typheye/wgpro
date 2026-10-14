@@ -782,51 +782,66 @@ public final class AppDetailFragment extends Fragment {
     }
 
     /**
-     * 「安装到…」：从**设备数据库**取真实设备（已删除的设备不会出现），
-     * 每行显示「可更新 / 可安装 / 未兼容 / 未连接 | 来源」，选中后才开始安装。
+     * 「安装到…」：从**设备数据库**取设备（已删除的不会出现），
+     * 列表同时给出**穿戴设备**与**模拟设备**：
+     *
+     * <ul>
+     *   <li>穿戴设备（type=xiaomi）：第二行「已连接 / 已断开 | 小米运动健康」</li>
+     *   <li>模拟设备（type=virtual）：第二行「运行中 / 已停止 | 虚拟设备」</li>
+     * </ul>
      */
     private void showDevicePicker(JSONObject app, String downloadUrl,
                                   com.typheye.wgpro.core.xms.UIParams params, String fallbackName) {
         final java.util.List<com.typheye.wgpro.ui.widget.GetSheet.DeviceOption> options =
                 new java.util.ArrayList<>();
-        final java.util.List<Boolean> installable = new java.util.ArrayList<>();
+        /** 每项不可安装的原因（null = 可安装）。 */
+        final java.util.List<String> blocks = new java.util.ArrayList<>();
         boolean velaApp = "velaapp".equals(app.optString("kind", ""));
         try (com.typheye.wgpro.data.DeviceDatabase db =
-                     new com.typheye.wgpro.data.DeviceDatabase(requireContext());
-             android.database.Cursor cursor = db.all("xiaomi")) {
-            while (cursor.moveToNext()) {
-                String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
-                String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
-                String deviceName = note == null || note.trim().isEmpty()
-                        ? (model == null ? fallbackName : model) : note.trim();
-                boolean connected = cursor.getInt(cursor.getColumnIndexOrThrow("connected")) != 0;
-                String platform = cursor.getColumnIndex("type") >= 0
-                        ? cursor.getString(cursor.getColumnIndexOrThrow("type")) : "xiaomi";
-                boolean velaDevice = platform == null || platform.isEmpty()
-                        || "xiaomi".equalsIgnoreCase(platform);
-                String state;
-                if (velaApp != velaDevice) {
-                    state = "未兼容";
-                } else if (!connected) {
-                    state = "未连接";
-                } else if (!app.optString("installed_version", "").isEmpty()
-                        && !app.optString("installed_version").equals(app.optString("version"))) {
-                    state = "可更新";
-                } else {
-                    state = "可安装";
+                     new com.typheye.wgpro.data.DeviceDatabase(requireContext())) {
+            // 1) 穿戴设备
+            try (android.database.Cursor cursor = db.all("xiaomi")) {
+                while (cursor.moveToNext()) {
+                    String deviceName = deviceDisplayName(cursor, fallbackName);
+                    boolean connected = cursor.getInt(
+                            cursor.getColumnIndexOrThrow("connected")) != 0;
+                    options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
+                            deviceName, (connected ? "已连接" : "已断开") + " | 小米运动健康"));
+                    // 安装到手表的能力**尚未适配**：先一律给提示，不直接开始安装
+                    blocks.add("「安装到设备」暂未适配，后续版本开放");
                 }
-                options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
-                        deviceName, state + " | 小米运动健康"));
-                installable.add(connected && velaApp == velaDevice);
             }
-        } catch (Exception ignored) { }
+            // 2) 模拟设备
+            try (android.database.Cursor cursor =
+                         db.all(com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL)) {
+                while (cursor.moveToNext()) {
+                    String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+                    String deviceName = deviceDisplayName(cursor, fallbackName);
+                    // 运行态：先用设备库的 connected（引擎启动/退出/崩溃都会实时写库），
+                    // 再用内存里的实时状态兜底（管理器 init 幂等），避免两者不同步时显示错。
+                    boolean running = cursor.getInt(
+                            cursor.getColumnIndexOrThrow("connected")) != 0;
+                    if (!running) {
+                        com.typheye.wgpro.core.emu.VelaEmulatorManager manager =
+                                com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
+                        manager.init(requireContext());
+                        running = manager.isRunning(model);
+                    }
+                    options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
+                            deviceName, (running ? "运行中" : "已停止") + " | 虚拟设备"));
+                    blocks.add("「安装到设备」暂未适配，后续版本开放");
+                }
+            }
+        } catch (Exception ignored) {
+        }
 
         com.typheye.wgpro.ui.widget.GetSheet.showDevicePicker(requireContext(), options,
                 (dialog, which) -> {
                     if (which < 0 || which >= options.size()) return;
-                    if (!installable.get(which)) {
+                    String block = which < blocks.size() ? blocks.get(which) : null;
+                    if (block != null) {
                         com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
-                                "无法安装", "该设备当前不可安装（未连接或与应用类型不兼容）");
+                                "无法安装", block);
                         return;
                     }
                     startDownload(app, downloadUrl, 0);
@@ -1209,5 +1224,18 @@ public final class AppDetailFragment extends Fragment {
         row.addView(valueView, new LinearLayout.LayoutParams(0, -2, 1f));
         com.typheye.wgpro.utils.AppUtils.longPressToCopy(valueView);
         list.addView(row);
+    }
+
+    /** 设备显示名：note（可改名备注）优先，其次 model，最后兜底名。 */
+    @NonNull
+    private static String deviceDisplayName(@NonNull android.database.Cursor cursor,
+                                           @NonNull String fallback) {
+        String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
+        if (note != null && !note.trim().isEmpty()) {
+            return note.trim();
+        }
+        int modelIndex = cursor.getColumnIndex("model");
+        String model = modelIndex >= 0 ? cursor.getString(modelIndex) : null;
+        return model == null || model.trim().isEmpty() ? fallback : model.trim();
     }
 }

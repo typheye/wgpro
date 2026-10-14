@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 操作栏整条圆角胶囊（深色页面下用轻微透明白，圆角可见） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
+    <corners android:radius="26dp" />
+    <solid android:color="#1FFFFFFF" />
+</shape>

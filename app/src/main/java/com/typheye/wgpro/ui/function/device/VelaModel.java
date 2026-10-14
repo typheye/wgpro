@@ -1,4 +1,4 @@
-package com.typheye.wgpro.ui.function.virtualdevice;
+package com.typheye.wgpro.ui.function.device;
 
 import androidx.annotation.NonNull;
 
@@ -30,6 +30,40 @@ public final class VelaModel {
 
     @SerializedName("note")
     public String note = "";
+
+    /** 详情页字段：版本 / 更新时间 / 1:1 封面 / 简介 / 多节点镜像。 */
+    @SerializedName("version")
+    public String version = "";
+
+    @SerializedName("updatedAt")
+    public String updatedAt = "";
+
+    @SerializedName("coverUrl")
+    public String coverUrl = "";
+
+    @SerializedName("description")
+    public String description = "";
+
+    /** 介绍数据（服务端已按镜像 config.ini 下发，客户端不再必须自己抓 ini）。 */
+    @SerializedName("author")
+    public String author = "";
+
+    @SerializedName("source")
+    public String source = "";
+
+    @SerializedName("downloadCount")
+    public int downloadCount;
+
+    @SerializedName("download_mirrors")
+    public java.util.List<Mirror> downloadMirrors;
+
+    /** 下载镜像节点（id 与 res.typheye.cn/api.php?action=nodes 的 nodes[].id 对应）。 */
+    public static class Mirror {
+        @SerializedName("id")
+        public String id;
+        @SerializedName("url")
+        public String url;
+    }
 
     /** 卡片副标题：机型标识 + 状态。 */
     @NonNull

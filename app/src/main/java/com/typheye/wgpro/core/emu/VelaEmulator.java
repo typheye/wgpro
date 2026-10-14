@@ -283,6 +283,8 @@ public final class VelaEmulator {
 
     /** 启动引擎（无窗口 + gRPC 取帧）。 */
     public void start(@NonNull String avdId, int grpcPort) throws Exception {
+        // 模拟器只接受 5554–5584 的**偶数**控制台端口，adb 占用其 +1。
+        int adbPort = 5560;
         stop();
         this.grpcPort = grpcPort;
         File engine = engineDir();
@@ -294,13 +296,21 @@ public final class VelaEmulator {
         cmd.add(avdId);
         cmd.add("-grpc");
         cmd.add(String.valueOf(grpcPort));
+        // 与 AIoT IDE 一样开 adb/控制台端口（5560/5561）：宿主用
+        //   adb forward tcp:5561 tcp:5561 && adb connect 127.0.0.1:5561
+        // 就能对客机下发 shell 指令。
+        cmd.add("-port");
+        cmd.add(String.valueOf(adbPort));
         cmd.add("-no-window");
         cmd.add("-gpu");
         cmd.add("swiftshader_indirect");
         cmd.add("-no-audio");
+        // 客机（NuttX/Vela）自己的日志：默认只在内核/串口里，不会进外壳 stdout。
+        // -show-kernel 把客机内核日志直接打到外壳输出，于是现有日志通道即可显示。
+        cmd.add("-show-kernel");
         cmd.add("-qemu");
         cmd.add("-smp");
-        cmd.add("4");
+        cmd.add("2");
         cmd.add("-semihosting");
         ProcessBuilder pb = new ProcessBuilder(cmd);
         pb.directory(engine);
@@ -361,6 +371,10 @@ public final class VelaEmulator {
                     android.util.Log.i("VelaEngine", "引擎退出，code=" + code);
                 } catch (Exception ignored) {
                 }
+                Runnable callback = exitListener;
+                if (callback != null) {
+                    callback.run();
+                }
             }
         }, "vela-engine-output");
         pump.setDaemon(true);
@@ -409,6 +423,13 @@ public final class VelaEmulator {
 
     @Nullable
     private LineListener lineListener;
+    @Nullable
+    private Runnable exitListener;
+
+    /** 引擎进程结束（正常退出或被系统杀掉）时回调，用于实时更新设备状态。 */
+    public void setExitListener(@Nullable Runnable listener) {
+        exitListener = listener;
+    }
 
     public void setLineListener(@Nullable LineListener listener) {
         lineListener = listener;

@@ -1,32 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 虚拟设备（Vela 模拟器）页：纯全屏画面 + 底部常驻实时日志。
-     不自造应用栏；退出用系统返回键。insets 由 Fragment 代码适配（底部避开导航条）。 -->
+<!-- 虚拟设备页：
+     顶部 = 水平操作栏（高度自适应，放不下可横滑；上边距=状态栏高度）
+     中间 = 显示容器（四层：画面 → 显示遮罩扣洞 → 叠加皮肤 → 外观皮肤），左右对齐
+     底部 = 日志（默认隐藏，操作栏按钮开关）
+     进入页面先盖应用通用的全屏加载遮罩，皮肤渲染完再关，避免闪一下。 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/virtual_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
 
-    <ImageView
-        android:id="@+id/virtual_frame"
+    <!-- 显示容器：左右等边距；顶部留白由代码按"操作栏高度"设置 -->
+    <FrameLayout
+        android:id="@+id/virtual_device_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:contentDescription="虚拟设备画面"
-        android:scaleType="fitCenter" />
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp">
 
-    <com.typheye.wgpro.ui.widget.WGProLoadingView
-        android:id="@+id/virtual_loading"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_gravity="center" />
+        <ImageView
+            android:id="@+id/virtual_frame"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="虚拟设备画面"
+            android:scaleType="fitXY" />
 
+        <com.typheye.wgpro.ui.widget.DisplayMaskView
+            android:id="@+id/virtual_display_mask"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <ImageView
+            android:id="@+id/virtual_skin_overlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="表圈叠加"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/virtual_skin_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="设备外观"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+    </FrameLayout>
+
+    <!-- 顶部水平操作栏：高度自适应，内容超出可横滑 -->
+    <HorizontalScrollView
+        android:id="@+id/virtual_actions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_virtual_actions"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="4dp"
+            android:paddingTop="6dp"
+            android:paddingEnd="4dp"
+            android:paddingBottom="6dp">
+            <ImageView android:id="@+id/key_power" style="@style/VirtualKey" android:contentDescription="电源" android:src="@drawable/ic_key_power" />
+            <ImageView android:id="@+id/key_home" style="@style/VirtualKey" android:contentDescription="主页" android:src="@drawable/ic_key_home" />
+            <ImageView android:id="@+id/key_back" style="@style/VirtualKey" android:contentDescription="返回" android:src="@drawable/ic_key_back" />
+            <ImageView android:id="@+id/key_enter" style="@style/VirtualKey" android:contentDescription="确认" android:src="@drawable/ic_key_enter" />
+            <ImageView android:id="@+id/key_vol_up" style="@style/VirtualKey" android:contentDescription="音量加" android:src="@drawable/ic_key_vol_up" />
+            <ImageView android:id="@+id/key_vol_down" style="@style/VirtualKey" android:contentDescription="音量减" android:src="@drawable/ic_key_vol_down" />
+            <ImageView android:id="@+id/key_log" style="@style/VirtualKey" android:contentDescription="日志" android:src="@drawable/ic_key_log" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!-- 日志：默认隐藏；显示时贴底、占屏幕 1/3 高、浮在画面之上 -->
     <ScrollView
         android:id="@+id/virtual_log_scroll"
         android:layout_width="match_parent"
-        android:layout_height="180dp"
+        android:layout_height="0dp"
         android:layout_gravity="bottom"
-        android:background="#B3000000"
-        android:padding="8dp">
+        android:background="#CC000000"
+        android:clipToPadding="false"
+        android:padding="8dp"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/virtual_log"
@@ -37,4 +94,21 @@
             android:textSize="10sp"
             android:textIsSelectable="true" />
     </ScrollView>
+
+    <!-- 全屏遮罩：与「WebActivity / 应用详情页」同款（盖住整屏，含系统栏）；
+         进入本页即显示，皮肤渲染完成后再关，避免刚进来闪一下。 -->
+    <FrameLayout
+        android:id="@+id/virtual_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/virtual_overlay"
+        android:clickable="true"
+        android:focusable="true"
+        android:visibility="visible">
+
+        <com.typheye.wgpro.ui.widget.WGProLoadingView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
 </FrameLayout>

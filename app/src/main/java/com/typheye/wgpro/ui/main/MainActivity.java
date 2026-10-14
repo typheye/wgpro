@@ -157,11 +157,13 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception ignored) {
             }
             startActivity(new android.content.Intent(this,
-                            com.typheye.wgpro.ui.function.virtualdevice.VirtualDeviceActivity.class)
-                    .putExtra(com.typheye.wgpro.ui.function.virtualdevice.VirtualDeviceFragment.ARG_AVD, avd));
+                            com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class)
+                    .putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD, avd));
         }
-        // 升级/异常退出后可能残留“已登录标记 + 不可用凭据”，先清理再渲染界面。
-        new tAccUtils(this).reconcileLoginState();
+        // 升级/异常退出后可能残留“已登录标记 + 不可用凭据”，清理放到后台线程：
+        // 它要读 SharedPreferences + 走 keystore，放主线程会让刚进首页明显卡顿（首帧也被拖住）。
+        final android.content.Context appContext = getApplicationContext();
+        new Thread(() -> new tAccUtils(appContext).reconcileLoginState(), "login-reconcile").start();
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_main);
 
@@ -790,9 +792,13 @@ public class MainActivity extends AppCompatActivity {
                     com.typheye.wgpro.ui.main.mainFragments.DeviceFragment.current();
             boolean virtualPage = devices != null && devices.isAdded() && devices.isVirtualPage();
             // 「模拟设备」页右上角 + → 创建设备；其余出口仍是添加设备
-            startActivity(new Intent(this, virtualPage
-                    ? com.typheye.wgpro.ui.function.virtualdevice.CreateDeviceActivity.class
-                    : com.typheye.wgpro.ui.function.device.AddDeviceActivity.class));
+            // 统一入口：同一个 AddDeviceActivity，按 mode 挂不同 Fragment
+            startActivity(new Intent(this,
+                    com.typheye.wgpro.ui.function.device.AddDeviceActivity.class)
+                    .putExtra(com.typheye.wgpro.ui.function.device.AddDeviceActivity.EXTRA_MODE,
+                            virtualPage
+                                    ? com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_VIRTUAL
+                                    : com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_WEARABLE));
             return true;
         } else if (id == R.id.action_dashboard_edit) {
             DashboardFragment target = dashboardTarget();

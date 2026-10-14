@@ -7,6 +7,8 @@
     <!-- 一段式配色：页面背景与应用栏/导航栏一致 -->
     <color name="surface_page">@color/surface_primary</color>
     <color name="surface_primary">#FFFFFFFF</color>
+    <!-- 虚拟设备页固定深色（模拟器页本身是深色，遮罩不能跟主题变白） -->
+    <color name="virtual_overlay">#FF000000</color>
     <!-- 应用栏/导航栏毛玻璃底色（内容从下方透出） -->
     <color name="surface_bar">#B3FFFFFF</color>
     <color name="surface_secondary">#FFF0F2F5</color>

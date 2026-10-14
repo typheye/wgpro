@@ -119,6 +119,11 @@ public class HomeFragment extends Fragment {
         appsSignature = null;
         resourcesSignature = null;
         bindContent(root);
+        // 首屏先显式打开下拉刷新控件：数据回来之前不要留一段纯空白，让用户知道正在获取。
+        // 必须 post：onCreateView 里视图还没布局完成，直接 setRefreshing(true) 会被 SwipeRefreshLayout 忽略。
+        communityRefresh.post(() -> {
+            if (isAdded()) communityRefresh.setRefreshing(true);
+        });
         setupPages(root);
         account = new tAccUtils(requireContext());
         // 只加载用户真正看到的第一页（社区）；应用/资源等切到那一页再拉。
@@ -233,7 +238,9 @@ public class HomeFragment extends Fragment {
         loadedOnce = true;
         final long started = android.os.SystemClock.uptimeMillis();
         final int requestId = ++bannerRequestSeq;
-        communityRefresh.setRefreshing(true);
+        communityRefresh.post(() -> {
+            if (isAdded()) communityRefresh.setRefreshing(true);
+        });
         account.getV2JsonCached("home2", communityQuery(), false,
                 force ? 0L : COMMUNITY_TTL_MS, new tAccUtils.JsonCallback() {
                     @Override public void onSuccess(@NonNull JSONObject json) {
@@ -494,7 +501,9 @@ public class HomeFragment extends Fragment {
     private void loadApps(boolean force) {
         if (appsLoading) return;
         appsLoading = true;
-        appsRefresh.setRefreshing(true);
+        appsRefresh.post(() -> {
+            if (isAdded()) appsRefresh.setRefreshing(true);
+        });
         final long started = android.os.SystemClock.uptimeMillis();
         tAccUtils.JsonCallback callback = new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
@@ -537,7 +546,9 @@ public class HomeFragment extends Fragment {
     private void loadResources(boolean force) {
         if (resourcesLoading) return;
         resourcesLoading = true;
-        resourcesRefresh.setRefreshing(true);
+        resourcesRefresh.post(() -> {
+            if (isAdded()) resourcesRefresh.setRefreshing(true);
+        });
         final long started = android.os.SystemClock.uptimeMillis();
         tAccUtils.JsonCallback callback = new tAccUtils.JsonCallback() {
             @Override public void onSuccess(@NonNull JSONObject json) {
