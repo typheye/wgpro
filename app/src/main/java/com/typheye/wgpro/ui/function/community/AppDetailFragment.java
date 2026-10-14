@@ -866,7 +866,7 @@ public final class AppDetailFragment extends Fragment {
                         com.typheye.wgpro.core.emu.VelaEmulatorManager manager =
                                 com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
                         manager.init(requireContext());
-                        running = manager.isRunning(model);
+                        running = manager.isRunning(rowId);   // 键=设备 id（同机型多台各自独立）
                     }
                     options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
                             deviceName, (running ? "运行中" : "已停止") + " | "

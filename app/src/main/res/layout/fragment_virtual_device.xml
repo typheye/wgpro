@@ -18,7 +18,9 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
 
-        <ImageView
+        <!-- 画面 + 画面区自绘提示（启动等待/熄屏唤醒都画在这里，不盖应用遮罩） -->
+        <view
+            class="com.typheye.wgpro.ui.function.device.VirtualDeviceFragment$VirtualScreenView"
             android:id="@+id/virtual_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -73,6 +75,22 @@
             <ImageView android:id="@+id/key_log" style="@style/VirtualKey" android:contentDescription="日志" android:src="@drawable/ic_key_log" />
         </LinearLayout>
     </HorizontalScrollView>
+
+    <!-- 当前设备水印：进页后贴在操作栏下沿，显示"进的是哪一台"（单实例切换时尤其需要） -->
+    <TextView
+        android:id="@+id/virtual_watermark"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:background="@drawable/bg_watermark"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:paddingStart="12dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="4dp"
+        android:textColor="#CCFFFFFF"
+        android:textSize="12sp" />
 
     <!-- 日志：默认隐藏；显示时贴底、占屏幕 1/3 高、浮在画面之上 -->
     <ScrollView

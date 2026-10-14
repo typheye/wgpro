@@ -164,6 +164,9 @@ public class MainActivity extends AppCompatActivity {
         // 它要读 SharedPreferences + 走 keystore，放主线程会让刚进首页明显卡顿（首帧也被拖住）。
         final android.content.Context appContext = getApplicationContext();
         new Thread(() -> new tAccUtils(appContext).reconcileLoginState(), "login-reconcile").start();
+
+        // 进程启动对账：清掉残留的"模拟设备运行中"常驻通知、把设备库在线状态归零
+        com.typheye.wgpro.core.emu.VelaEmulatorManager.get().init(this);
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_main);
 

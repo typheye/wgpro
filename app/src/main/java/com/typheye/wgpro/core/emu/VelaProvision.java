@@ -139,7 +139,9 @@ public final class VelaProvision {
                 callback.onResult(false, "镜像包不存在，请先下载");
                 return;
             }
-            VelaEmulator emulator = new VelaEmulator(context, modelId);
+            // 实例/目录都按**设备**独立：先算出设备 id，再往它自己的目录里解包
+            final String newDeviceId = VelaEmulatorManager.deviceId(modelId) + ":" + randomSuffix();
+            VelaEmulator emulator = new VelaEmulator(context, modelId, newDeviceId);
             // 先清掉早期版本的共享运行目录（约 1.5GB）：否则解包时两个目录并存，
             // 空间不够会**静默解包不全**（zip 里最后那个引擎二进制正好丢，表现就是 ENOENT）。
             purgeLegacySharedRuntime(context);
@@ -153,11 +155,13 @@ public final class VelaProvision {
                 return;
             }
             emulator.installExecLinks();
-            emulator.authorAvd(modelId, emulator.imagesDir());
+            // AVD 名 = **设备 id 转义**（与 VelaEmulatorManager.start 用的一致）；
+            // 用机型当 AVD 名会留下一个引擎永远找不到的"影子 AVD"（踩过）。
+            emulator.authorAvd(newDeviceId, emulator.imagesDir());
             try (DeviceDatabase db = new DeviceDatabase(context)) {
                 // **model 列存的就是设备显示名**：{云端设备名称} + 空格 + 4 位随机
                 // （机型标识只从设备 id「virtual:<机型>[:<随机>]」里解析，别再往 model 列塞标识）
-                String deviceId = VelaEmulatorManager.deviceId(modelId) + ":" + randomSuffix();
+                String deviceId = newDeviceId;
                 String name = displayName == null || displayName.trim().isEmpty()
                         ? defaultDeviceName() : displayName.trim();
                 db.upsert(deviceId, name, DeviceDatabase.TYPE_VIRTUAL, false);
@@ -222,6 +226,100 @@ public final class VelaProvision {
         }
         //noinspection ResultOfMethodCallIgnored
         target.delete();
+    }
+
+    /**
+     * 按需给某台设备准备**它自己的**运行目录：缺就地从已下载的镜像包解包（不做下载）。
+     * 返回 false 表示包不在，需要用户去详情页重新「创建」。
+     */
+    public static boolean ensureRuntime(@NonNull Context context, @NonNull String modelId,
+                                        @NonNull String deviceId) {
+        VelaEmulator device = new VelaEmulator(context, modelId, deviceId);
+        File target = device.runtimeDir();
+        if (hasRealEngine(new File(target, "engine/qemu/linux-aarch64"))) {
+            return true;
+        }
+        // 1) 机型母本目录：只读内容（引擎/系统镜像）在这里铺一次
+        VelaEmulator base = new VelaEmulator(context, modelId);
+        File baseRuntime = base.runtimeDir();
+        if (!hasRealEngine(new File(baseRuntime, "engine/qemu/linux-aarch64"))) {
+            File zip = packageFile(context, modelId);
+            if (!zip.isFile()) {
+                return false;
+            }
+            try {
+                deleteRecursively(new File(baseRuntime, "engine"));
+                unzip(zip, baseRuntime);
+            } catch (Exception error) {
+                android.util.Log.w("VelaProvision", "铺机型母本失败", error);
+                return false;
+            }
+            if (!hasRealEngine(new File(baseRuntime, "engine/qemu/linux-aarch64"))) {
+                return false;
+            }
+        }
+        // 2) 把母本**硬链接**到该设备自己的目录：秒级完成、不额外占空间，
+        //    而可写数据（AVD 里的 userdata-qemu.img 等）天然留在各自目录 → 沙盒依旧独立。
+        try {
+            linkTree(baseRuntime, target);
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "链接运行目录失败", error);
+            return false;
+        }
+        return hasRealEngine(new File(target, "engine/qemu/linux-aarch64"));
+    }
+
+    /** 递归把 src 树"链接"到 dst：优先硬链接（同分区秒级），失败则退回复制。 */
+    private static void linkTree(@NonNull File src, @NonNull File dst) throws Exception {
+        // 软链必须"照样软链"：跟进目标会无限递归（engine/emulator -> engine）→ 直接闪退
+        if (java.nio.file.Files.isSymbolicLink(src.toPath())) {
+            if (!dst.exists()) {
+                File parent = dst.getParentFile();
+                if (parent != null) {
+                    //noinspection ResultOfMethodCallIgnored
+                    parent.mkdirs();
+                }
+                java.nio.file.Files.createSymbolicLink(dst.toPath(),
+                        java.nio.file.Files.readSymbolicLink(src.toPath()));
+            }
+            return;
+        }
+        if (src.isDirectory()) {
+            //noinspection ResultOfMethodCallIgnored
+            dst.mkdirs();
+            File[] children = src.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    linkTree(child, new File(dst, child.getName()));
+                }
+            }
+            return;
+        }
+        if (dst.exists()) {
+            return;
+        }
+        File parent = dst.getParentFile();
+        if (parent != null) {
+            //noinspection ResultOfMethodCallIgnored
+            parent.mkdirs();
+        }
+        try {
+            java.nio.file.Files.createLink(dst.toPath(), src.toPath());
+        } catch (Exception hardLinkFailed) {
+            copyFile(src, dst);
+        }
+    }
+
+    /** 单文件复制（硬链接不可用时的兜底）。 */
+    private static void copyFile(@NonNull File from, @NonNull File to) throws Exception {
+        try (java.io.InputStream in = new java.io.FileInputStream(from);
+             java.io.OutputStream out = new java.io.FileOutputStream(to)) {
+            byte[] buffer = new byte[256 * 1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+        }
     }
 
     private static void unzip(@NonNull File zip, @NonNull File targetDir) throws Exception {

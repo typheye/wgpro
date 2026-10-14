@@ -59,19 +59,48 @@ public final class VelaEmulator {
     @NonNull
     private final String modelId;
 
+    /** 设备 id：运行目录按**设备**独立（同机型多台也各一套，引擎/镜像/AVD/数据全独立）。 */
+    @NonNull
+    private final String deviceId;
+
     public VelaEmulator(@NonNull Context context) {
-        this(context, "");
+        this(context, "", "");
     }
 
     public VelaEmulator(@NonNull Context context, @NonNull String modelId) {
-        this.context = context.getApplicationContext();
-        this.modelId = modelId == null ? "" : modelId.trim();
+        this(context, modelId, "");
     }
 
-    /** 私有运行目录：<files>/runtime/<机型>（每个机型一套，互不污染）。 */
+    public VelaEmulator(@NonNull Context context, @NonNull String modelId,
+                        @NonNull String deviceId) {
+        this.context = context.getApplicationContext();
+        this.modelId = modelId == null ? "" : modelId.trim();
+        this.deviceId = deviceId == null ? "" : deviceId.trim();
+    }
+
+    /**
+     * 设备 id → 引擎能接受的 **AVD 名**。
+     *
+     * <p>设备 id 形如 {@code virtual:<机型>:<4位随机>}，里面的冒号是设备库主键的语法，
+     * 但引擎对 AVD 名做了字符白名单校验：直接拿设备 id 当 AVD 名会得到
+     * {@code ERROR | virtual device name contains invalid characters} 然后立刻退出
+     * （表现为"进了模拟页但引擎一行日志都没有/秒退"）——**踩过**。
+     * 这里与运行目录名用同一套转义规则（非 {@code [A-Za-z0-9._-]} 一律换成下划线）。</p>
+     */
+    @NonNull
+    public static String avdNameOf(@Nullable String raw) {
+        String value = raw == null ? "" : raw.trim();
+        return value.replaceAll("[^A-Za-z0-9._-]", "_");
+    }
+
+    /**
+     * 私有运行目录：<files>/runtime/<设备id>（**一台设备一套完整目录**）。
+     * 设备 id 缺失（老入口/深链）时退回按机型，保证历史数据还能找到。
+     */
     @NonNull
     public File runtimeDir() {
-        String name = modelId.isEmpty() ? "_default" : modelId.replaceAll("[^A-Za-z0-9._-]", "_");
+        String raw = deviceId.isEmpty() ? modelId : deviceId;
+        String name = raw.isEmpty() ? "_default" : raw.replaceAll("[^A-Za-z0-9._-]", "_");
         return new File(new File(context.getFilesDir(), "runtime"), name);
     }
 
@@ -105,6 +134,12 @@ public final class VelaEmulator {
 
     public int grpcPort() {
         return grpcPort;
+    }
+
+    /** 本实例绑定的**设备 id**（实例键；管理器兼容入口要用它）。 */
+    @NonNull
+    public String deviceId() {
+        return deviceId;
     }
 
     @Nullable
@@ -255,16 +290,26 @@ public final class VelaEmulator {
     }
 
     public void authorAvd(@NonNull String avdId, @NonNull File imageDir) throws Exception {
-        File vvd = new File(avdHome(), avdId + ".vvd");
+        // ★ 引擎只接受字符白名单内的 AVD 名：设备 id 里的冒号必须转义，
+        //   否则引擎 "virtual device name contains invalid characters" 直接退出（踩过）。
+        final String safeId = avdNameOf(avdId);
+        // 顺手清掉"用原始设备 id 当 AVD 名"时留下的坏目录（同目录下带冒号的那份）
+        if (!safeId.equals(avdId)) {
+            deleteQuietly(new File(avdHome(), avdId + ".vvd"));
+            deleteQuietly(new File(avdHome(), avdId + ".ini"));
+        }
+        File vvd = new File(avdHome(), safeId + ".vvd");
         //noinspection ResultOfMethodCallIgnored
         vvd.mkdirs();
-        // 镜像直接指向已下载目录，不复制（省 1.1GB 与一次拷贝）；同一机型只跑一台实例，可共享。
+        // 每次启动都重写 config.ini：镜像/数据分区路径必须与当前设备目录一致，
+        // 旧配置留着会把引擎指到别的设备目录（串扰）。
+        // 镜像直接指向已下载目录，不复制（省 1.1GB 与一次拷贝）。
         File img = imageDir;
         File skinDir = new File(engineDir(), "skins/" + SKIN);
         StringBuilder cfg = new StringBuilder();
-        cfg.append("AvdId=").append(avdId).append('\n');
+        cfg.append("AvdId=").append(safeId).append('\n');
         cfg.append("abi.type=armeabi-v7a\n");
-        cfg.append("avd.ini.displayname=").append(avdId).append('\n');
+        cfg.append("avd.ini.displayname=").append(safeId).append('\n');
         cfg.append("avd.ini.encoding=UTF-8\n");
         cfg.append("hw.audioInput=yes\n");
         cfg.append("hw.battery=yes\n");
@@ -315,8 +360,8 @@ public final class VelaEmulator {
         cfg.append("hw.lcd.width=").append(LCD_W).append('\n');
         cfg.append("hw.lcd.height=").append(LCD_H).append('\n');
         write(new File(vvd, "config.ini"), cfg.toString());
-        write(new File(avdHome(), avdId + ".ini"),
-                "path=" + vvd.getAbsolutePath() + "\npath.rel=vvd/" + avdId + ".vvd\n");
+        write(new File(avdHome(), safeId + ".ini"),
+                "path=" + vvd.getAbsolutePath() + "\npath.rel=vvd/" + safeId + ".vvd\n");
         write(new File(vvd, "AVD.conf"), "battery.charge_level=100\nset.pauseAvdWhenMinimized=false\n");
         write(new File(vvd, "emulator-user.ini"), "window.x=0\nwindow.y=0\n");
     }
@@ -324,16 +369,20 @@ public final class VelaEmulator {
     /** 启动引擎（无窗口 + gRPC 取帧）。 */
     public void start(@NonNull String avdId, int grpcPort) throws Exception {
         // 模拟器只接受 5554–5584 的**偶数**控制台端口，adb 占用其 +1。
-        int adbPort = 5560;
+        // 多台同时跑时必须各占一个：否则两台都绑 5560，后启动的那台控制台/adb 通道拿不到
+        // （grpcPort 由管理器按实例序号分配：8554、8556、8558 → 5560、5562、5564）。
+        int adbPort = 5560 + Math.max(0, grpcPort - 8554);
         stop();
         this.grpcPort = grpcPort;
+        // 传进来的可能是设备 id（带冒号）→ 和 authorAvd 用同一套转义，确保找得到那个 AVD
+        final String safeId = avdNameOf(avdId);
         File engine = engineDir();
         File launcher = new File(engine, "qemu/linux-aarch64/qemu-system-armel-headless");
         List<String> cmd = new ArrayList<>();
         cmd.add(launcher.getAbsolutePath());
         cmd.add("-vela");
         cmd.add("-avd");
-        cmd.add(avdId);
+        cmd.add(safeId);
         cmd.add("-grpc");
         cmd.add(String.valueOf(grpcPort));
         // 与 AIoT IDE 一样开 adb/控制台端口（5560/5561）：宿主用
@@ -437,6 +486,23 @@ public final class VelaEmulator {
         } catch (Exception error) {
             return false;
         }
+    }
+
+    /** 递归删除，失败不抛（清历史坏目录用）。 */
+    private static void deleteQuietly(@Nullable File target) {
+        if (target == null || !target.exists()) {
+            return;
+        }
+        if (target.isDirectory()) {
+            File[] children = target.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    deleteQuietly(child);
+                }
+            }
+        }
+        //noinspection ResultOfMethodCallIgnored
+        target.delete();
     }
 
     private static void copy(@NonNull File src, @NonNull File dst) throws Exception {

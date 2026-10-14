@@ -144,9 +144,39 @@ public class DeviceFragment extends Fragment {
         refresh();
         // 历史遗留设备名修正：独立于 refresh()，每进程一次，改完自己补一次刷新
         repairLegacyVirtualNamesOnce();
+        // 实时刷新：模拟设备的运行态由引擎进程决定，页面可见时每秒对齐一次，
+        // 避免"从模拟页返回后卡片还显示已停止/运行中"的旧值问题。
+        mainHandler.removeCallbacks(statusTicker);
+        mainHandler.postDelayed(statusTicker, STATUS_TICK_MS);
+        // 运行态一变（引擎启动/停止/退出）立刻刷，不必等下一拍 ticker
+        com.typheye.wgpro.core.emu.VelaEmulatorManager.get().addStateListener(engineStateListener);
     }
 
+    /** 引擎运行态变化 → 立刻刷新卡片（回调可能在任意线程，切回主线程）。 */
+    private final com.typheye.wgpro.core.emu.VelaEmulatorManager.StateListener engineStateListener =
+            () -> mainHandler.post(() -> {
+                if (isAdded()) {
+                    refresh();
+                }
+            });
+
+    /** 每秒对齐一次设备状态。 */
+    private static final long STATUS_TICK_MS = 1000L;
+    private final Runnable statusTicker = new Runnable() {
+        @Override
+        public void run() {
+            if (!isAdded()) {
+                return;
+            }
+            refresh();
+            mainHandler.postDelayed(this, STATUS_TICK_MS);
+        }
+    };
+
     @Override public void onPause() {
+        mainHandler.removeCallbacks(statusTicker);
+        com.typheye.wgpro.core.emu.VelaEmulatorManager.get()
+                .removeStateListener(engineStateListener);
         if (sCurrent != null && sCurrent.get() == this) {
             sCurrent = null;
         }
@@ -370,7 +400,7 @@ public class DeviceFragment extends Fragment {
         }
         boolean virtual = com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type);
         if (virtual) {
-            connected = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(avd);
+            connected = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(id);
         }
         TextView status = card.findViewById(R.id.text_device_status);
         status.setText(virtual ? (connected ? "运行中" : "已停止") : (connected ? "已连接" : "已断开"));
@@ -424,7 +454,7 @@ public class DeviceFragment extends Fragment {
 
     /** 模拟设备的「设备详情」：复用同款 sheet，行文案换成模拟语义。 */
     private void showVirtualDeviceDetail(String id, String avd, String displayName, String note) {
-        boolean running = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(avd);
+        boolean running = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(id);
         View content = getLayoutInflater().inflate(R.layout.sheet_device_detail, null, false);
         // 标题显示**设备名**（note > model 列里的显示名），机型标识只用于运行态判断
         String name = note == null || note.trim().isEmpty() ? displayName : note.trim();
@@ -456,11 +486,14 @@ public class DeviceFragment extends Fragment {
                     com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class);
             intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD,
                     avd);
+            // 实例键 = 设备 id（同机型多台各自独立）
+            intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_DEVICE_ID,
+                    id);
             startActivity(intent);
         });
         stopRow.setOnClickListener(v -> {
             dialog.dismiss();
-            com.typheye.wgpro.core.emu.VelaEmulatorManager.get().stop(requireContext(), avd);
+            com.typheye.wgpro.core.emu.VelaEmulatorManager.get().stopByKey(requireContext(), id);
             com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已停止当前实例");
             refresh();
         });

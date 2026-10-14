@@ -24,7 +24,8 @@ import com.typheye.wgpro.ui.function.device.VirtualDeviceActivity;
  */
 public class VelaGuardService extends Service {
 
-    private static final int NOTIFICATION_ID = 0x56454C41;   // "VELA"
+    /** 常驻通知 id（启动对账要用它撤残留通知）。 */
+    public static final int NOTIFICATION_ID = 0x56454C41;   // "VELA"
     private static final String WAKE_TAG = "wgpro:vela-emulator";
 
     private PowerManager.WakeLock wakeLock;
@@ -32,14 +33,74 @@ public class VelaGuardService extends Service {
     /** 启动守护（幂等，重复调用只是复用已有服务）。 */
     public static final String EXTRA_NAME = "device_name";
 
-    public static void start(@Nullable Context context, @Nullable String deviceName) {
+    public static final String EXTRA_DEVICE_ID = "device_id";
+
+    /**
+     * 只用**普通常驻通知**（不启动前台服务）——
+     * 前台服务在部分机型上会因"5 秒内没 startForeground"直接被系统杀 App
+     * （ForegroundServiceDidNotStartInTimeException，踩过），稳定性优先。
+     */
+    public static void postNotification(@Nullable Context context, @Nullable String deviceName,
+                                        @Nullable String deviceId) {
+        if (context == null) {
+            return;
+        }
+        try {
+            Context app = context.getApplicationContext();
+            NotificationChannels.ensureAll(app);
+            android.app.NotificationManager manager = (android.app.NotificationManager)
+                    app.getSystemService(Context.NOTIFICATION_SERVICE);
+            if (manager == null) {
+                return;
+            }
+            Intent open = new Intent(app, VirtualDeviceActivity.class)
+                    .putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_DEVICE_ID,
+                            deviceId == null ? "" : deviceId)
+                    .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            android.app.PendingIntent content = android.app.PendingIntent.getActivity(app, 0, open,
+                    android.app.PendingIntent.FLAG_UPDATE_CURRENT
+                            | android.app.PendingIntent.FLAG_IMMUTABLE);
+            androidx.core.app.NotificationCompat.Builder builder =
+                    new androidx.core.app.NotificationCompat.Builder(app,
+                            NotificationChannels.VIRTUAL_DEVICE)
+                            .setSmallIcon(R.drawable.ic_watch_vector)
+                            .setContentTitle("模拟设备")
+                            .setContentText(deviceName == null || deviceName.trim().isEmpty()
+                                    ? "点击查看详情"
+                                    : "\"" + deviceName.trim() + "\" 运行中")
+                            .setContentIntent(content)
+                            .setOngoing(true)
+                            .setOnlyAlertOnce(true)
+                            .setPriority(androidx.core.app.NotificationCompat.PRIORITY_LOW);
+            androidx.core.app.NotificationManagerCompat.from(app)
+                    .notify(NOTIFICATION_ID, builder.build());
+        } catch (Throwable error) {
+            android.util.Log.w("VelaGuard", "发模拟设备通知失败", error);
+        }
+    }
+
+    /** 撤掉常驻通知（不再 stopService，避免与前台服务超时机制冲突）。 */
+    public static void cancelNotification(@Nullable Context context) {
+        if (context == null) {
+            return;
+        }
+        try {
+            androidx.core.app.NotificationManagerCompat.from(context.getApplicationContext())
+                    .cancel(NOTIFICATION_ID);
+        } catch (Throwable ignored) {
+        }
+    }
+
+    public static void start(@Nullable Context context, @Nullable String deviceName,
+                             @Nullable String deviceId) {
         if (context == null) {
             return;
         }
         try {
             ContextCompat.startForegroundService(context.getApplicationContext(),
                     new Intent(context.getApplicationContext(), VelaGuardService.class)
-                            .putExtra(EXTRA_NAME, deviceName == null ? "" : deviceName));
+                            .putExtra(EXTRA_NAME, deviceName == null ? "" : deviceName)
+                            .putExtra(EXTRA_DEVICE_ID, deviceId == null ? "" : deviceId));
         } catch (Exception error) {
             android.util.Log.w("VelaGuard", "启动守护失败", error);
         }
@@ -62,7 +123,7 @@ public class VelaGuardService extends Service {
     public void onCreate() {
         super.onCreate();
         NotificationChannels.ensureAll(this);
-        startForeground(NOTIFICATION_ID, buildNotification(null));
+        startForegroundSafely(null, null);
         PowerManager power = (PowerManager) getSystemService(POWER_SERVICE);
         if (power != null) {
             wakeLock = power.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKE_TAG);
@@ -74,8 +135,8 @@ public class VelaGuardService extends Service {
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
         // 通知文案带上"设备名称/备注"，用户一眼知道是哪一台在跑
-        startForeground(NOTIFICATION_ID, buildNotification(
-                intent == null ? null : intent.getStringExtra(EXTRA_NAME)));
+        startForegroundSafely(intent == null ? null : intent.getStringExtra(EXTRA_NAME),
+                intent == null ? null : intent.getStringExtra(EXTRA_DEVICE_ID));
         // 不要粘性重启：进程被杀说明引擎也没了，重启一个空守护没有意义
         return START_NOT_STICKY;
     }
@@ -95,8 +156,35 @@ public class VelaGuardService extends Service {
         return null;
     }
 
-    private Notification buildNotification(@Nullable String deviceName) {
+    /**
+     * 绝对保证 {@code startForeground()} 成功：前台服务 5 秒内没起来，系统会直接杀 App
+     * （ForegroundServiceDidNotStartInTimeException，踩过）。渠道缺失等任何异常都退到最小通知。
+     */
+    private void startForegroundSafely(@Nullable String deviceName, @Nullable String deviceId) {
+        try {
+            NotificationChannels.ensureAll(this);
+            startForeground(NOTIFICATION_ID, buildNotification(deviceName, deviceId));
+        } catch (Throwable error) {
+            android.util.Log.w("VelaGuard", "前台通知失败，退到最小通知", error);
+            try {
+                Notification fallback = new NotificationCompat.Builder(this,
+                        NotificationChannels.VIRTUAL_DEVICE)
+                        .setSmallIcon(R.drawable.ic_watch_vector)
+                        .setContentTitle("模拟设备")
+                        .setContentText("运行中")
+                        .setPriority(NotificationCompat.PRIORITY_LOW)
+                        .build();
+                startForeground(NOTIFICATION_ID, fallback);
+            } catch (Throwable ignored) {
+            }
+        }
+    }
+
+    private Notification buildNotification(@Nullable String deviceName,
+                                           @Nullable String deviceId) {
         Intent open = new Intent(this, VirtualDeviceActivity.class)
+                .putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_DEVICE_ID,
+                        deviceId == null ? "" : deviceId)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent content = PendingIntent.getActivity(this, 0, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);

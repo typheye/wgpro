@@ -32,7 +32,10 @@ public class VirtualDeviceActivity extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.virtual_host, VirtualDeviceFragment.newInstance(
                             getIntent() == null ? null
-                                    : getIntent().getStringExtra(VirtualDeviceFragment.ARG_AVD)),
+                                    : getIntent().getStringExtra(VirtualDeviceFragment.ARG_AVD),
+                            getIntent() == null ? null
+                                    : getIntent().getStringExtra(
+                                            VirtualDeviceFragment.ARG_DEVICE_ID)),
                             "virtual")
                     .commitNow();
         }
