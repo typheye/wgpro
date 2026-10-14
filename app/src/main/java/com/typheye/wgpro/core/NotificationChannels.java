@@ -25,9 +25,9 @@ import android.os.Build;
 public final class NotificationChannels {
     public static final String MESSAGES = "message_channel_v2";
     public static final String ACCOUNT = "account_channel_v2";
-    /** 应用下载进度（前台服务常驻通知），低重要性、无声音。 */
+    /** 下载管理（前台服务常驻通知）：列表下载 / 镜像下载共用，低重要性、无声音。 */
     public static final String DOWNLOADS = "download_channel_v1";
-    /** 虚拟设备守护（前台服务常驻通知），低重要性、无声音、不显示角标。 */
+    /** 模拟设备守护（前台服务常驻通知），低重要性、无声音、不显示角标。 */
     public static final String VIRTUAL_DEVICE = "virtual_device_channel_v1";
 
     /** 早期版本用过的渠道 id，启动时清理，避免通知设置页面出现重复条目。 */
@@ -53,10 +53,10 @@ public final class NotificationChannels {
         ensure(manager, ACCOUNT, "Typheye账户", "账户异常、封号等与账户相关的通知",
                 NotificationManager.IMPORTANCE_HIGH, true, new long[]{0, 220, 140, 220},
                 true, Notification.VISIBILITY_PRIVATE);
-        ensure(manager, DOWNLOADS, "应用下载", "应用下载进度与完成提醒",
+        ensure(manager, DOWNLOADS, "下载管理", "文件下载进度与完成提醒",
                 NotificationManager.IMPORTANCE_LOW, false, null,
                 false, Notification.VISIBILITY_PRIVATE);
-        ensure(manager, VIRTUAL_DEVICE, "虚拟设备", "虚拟设备运行期间的常驻通知",
+        ensure(manager, VIRTUAL_DEVICE, "模拟设备", "模拟设备运行期间的常驻通知",
                 NotificationManager.IMPORTANCE_LOW, false, null,
                 false, Notification.VISIBILITY_PRIVATE);
 

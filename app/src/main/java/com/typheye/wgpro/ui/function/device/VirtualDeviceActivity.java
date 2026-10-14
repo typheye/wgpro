@@ -12,7 +12,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.AppUtils;
 
 /**
- * 虚拟设备页：纯全屏承载 {@link VirtualDeviceFragment}。
+ * 模拟设备页：纯全屏承载 {@link VirtualDeviceFragment}。
  *
  * <p>与 {@code PreviewActivity} 一致：全屏、**隐藏状态栏**，导航条区域由 Fragment 按 insets 内缩；
  * 不使用应用栏，退出用系统返回键。引擎由 {@code VelaEmulatorManager} 持有，退出本页不会停止。</p>

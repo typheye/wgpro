@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 添加设备（统一入口）：按 EXTRA_MODE 挂不同 Fragment
        wearable → DeviceDiscoverFragment（附近设备/扫描）
-       virtual   → VirtualDeviceListFragment（虚拟设备机型列表）
+       virtual   → VirtualDeviceListFragment（模拟设备机型列表）
      应用栏毛玻璃与 insets 由本页按 _guide/gaosi-mix.md 统一适配（结构同 activity_test.xml）。 -->
 <androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"

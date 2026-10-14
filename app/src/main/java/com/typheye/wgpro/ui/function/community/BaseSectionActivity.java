@@ -59,13 +59,26 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
 
     }
 
+    /** 已在同一页面时（通知点击）不重建内容，避免"二次进入"。 */
     @Override protected void onNewIntent(Intent intent) {
+        if (isSamePage(intent)) {
+            super.onNewIntent(intent);
+            return;
+        }
         super.onNewIntent(intent);
         if (intent == null) return;
         setIntent(intent);
         sectionToolbar().setTitle(screenTitle());
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.section_container, createContent()).commit();
+    }
+
+    /** 通知/外部再次拉起时，判断是不是"已经在看这一页"。 */
+    private boolean isSamePage(Intent intent) {
+        if (intent == null || intent.getComponent() == null || getIntent() == null) {
+            return true;
+        }
+        return intent.getComponent().equals(getIntent().getComponent());
     }
 
     protected abstract String screenTitle();

@@ -469,7 +469,8 @@ public final class DownloadService extends android.app.Service {
 
     private Notification buildNotification(String title, int progress, boolean indeterminate) {
         Intent open = new Intent(this, DownloadManagerActivity.class)
-                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                // SINGLE_TOP：已经在下载管理页时点击通知**不重建、不二次进入**
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         PendingIntent content = PendingIntent.getActivity(this, 0, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, NotificationChannels.DOWNLOADS)

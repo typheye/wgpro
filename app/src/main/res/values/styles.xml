@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- 虚拟设备右侧按键条上的单个按键（半透明、不抢画面） -->
+    <!-- 模拟设备右侧按键条上的单个按键（半透明、不抢画面） -->
     <style name="VirtualKey">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>

@@ -66,7 +66,7 @@ public class SplashActivity extends AppCompatActivity {
 
     void goMain(){
         Intent intent = new Intent(SplashActivity.this, MainActivity.class);
-        // TODO(临时调试入口，适配完成后删除)：把一键直达虚拟设备的标记转发给主界面。
+        // TODO(临时调试入口，适配完成后删除)：把一键直达模拟设备的标记转发给主界面。
         if (getIntent() != null && getIntent().getBooleanExtra("wgpro_debug_virtual", false)) {
             intent.putExtra("wgpro_debug_virtual", true);
         }

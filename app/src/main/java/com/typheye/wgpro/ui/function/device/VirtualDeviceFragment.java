@@ -31,7 +31,7 @@ import java.util.ArrayDeque;
 import java.util.List;
 
 /**
- * 虚拟设备画面 + 常驻实时日志 + 触摸注入。
+ * 模拟设备画面 + 常驻实时日志 + 触摸注入。
  *
  * <p>引擎由 {@link VelaEmulatorManager} 持有：进入本页是**附着**到已有实例（没跑才启动），
  * 离开本页**不停止**引擎，仅停止取帧与日志订阅。</p>
@@ -130,7 +130,8 @@ public class VirtualDeviceFragment extends Fragment {
                 root.findViewById(R.id.virtual_display_mask);
         final ImageView overlay = root.findViewById(R.id.virtual_skin_overlay);
         final ImageView body = root.findViewById(R.id.virtual_skin_body);
-        final File dir = new File(new VelaEmulator(requireContext()).engineDir(), "skins/" + SKIN);
+        final File dir = new File(new VelaEmulator(requireContext(), avdId).engineDir(),
+                "skins/" + SKIN);
         File bodyFile = new File(dir, "background.png");
         File overlayFile = new File(dir, "foreground.png");
         if (!bodyFile.isFile() || !overlayFile.isFile()) {
@@ -291,7 +292,7 @@ public class VirtualDeviceFragment extends Fragment {
     private void confirmStopEmulator() {
         new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
                 .setTitle("结束模拟器运行")
-                .setMessage("将停止当前虚拟设备实例，已创建的资源保留。")
+                .setMessage("将停止当前模拟设备实例，已创建的资源保留。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("结束运行", (dialog, which) -> {
                     com.typheye.wgpro.core.emu.VelaEmulatorManager.get()
@@ -442,7 +443,7 @@ public class VirtualDeviceFragment extends Fragment {
         new Thread(() -> frames.streamFrames((width, height, rgba) -> {
             long now = System.currentTimeMillis();
             // 限帧：约 30fps。超出的帧直接丢弃，且**在拷贝像素之前**就返回（省掉一次 870KB 拷贝）
-            if (now - lastFrameAt < 33L) {
+            if (now - lastFrameAt < 16L) {
                 return;
             }
             lastFrameAt = now;
@@ -536,7 +537,15 @@ public class VirtualDeviceFragment extends Fragment {
         appendLog("[ui] " + text);
     }
 
+    /** 日志面板是否可见（不可见时不进缓冲、不刷 UI，省掉引擎日志带来的无谓开销）。 */
+    private boolean logVisible() {
+        return logScroll != null && logScroll.getVisibility() == View.VISIBLE;
+    }
+
     private void appendLog(@NonNull String line) {
+        if (!logVisible()) {
+            return;
+        }
         while (logLines.size() >= LOG_MAX) {
             logLines.removeFirst();
         }

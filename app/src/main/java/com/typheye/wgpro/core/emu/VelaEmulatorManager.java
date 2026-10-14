@@ -17,9 +17,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * 虚拟设备（Vela 模拟器）实例管理器。
+ * 模拟设备（Vela 模拟器）实例管理器。
  *
- * <p>引擎进程**不属于任何页面**：离开虚拟设备页后继续运行，卡片状态据此显示「运行中/已停止」。
+ * <p>引擎进程**不属于任何页面**：离开模拟设备页后继续运行，卡片状态据此显示「运行中/已停止」。
  * 页面进来时是「附着」到已有实例，不会重复启动。</p>
  *
  * <p>注意（已知取舍）：这里不做前台 Service，引擎是应用进程的子进程，
@@ -46,7 +46,7 @@ public final class VelaEmulatorManager {
         return INSTANCE;
     }
 
-    /** 一个运行中的虚拟设备实例。 */
+    /** 一个运行中的模拟设备实例。 */
     public static final class Instance {
         public final String model;
         public final VelaEmulator emulator;
@@ -165,7 +165,7 @@ public final class VelaEmulatorManager {
         try (DeviceDatabase db = new DeviceDatabase(context)) {
             db.markConnectedDevicesOffline(DeviceDatabase.TYPE_VIRTUAL);
         } catch (Exception error) {
-            Log.w(TAG, "重置虚拟设备状态失败", error);
+            Log.w(TAG, "重置模拟设备状态失败", error);
         }
     }
 
@@ -182,10 +182,10 @@ public final class VelaEmulatorManager {
             return existing;   // 已在运行：直接附着，不重复启动
         }
         if (!hasEnoughMemory(context) && runningCount() > 0) {
-            throw new IllegalStateException("可用内存不足，请先停止其它虚拟设备");
+            throw new IllegalStateException("可用内存不足，请先停止其它模拟设备");
         }
         int port = PORT_BASE + instances.size() * PORT_STEP;
-        VelaEmulator emulator = new VelaEmulator(context);
+        VelaEmulator emulator = new VelaEmulator(context, model);
         final Instance instance = new Instance(model, emulator, port);
         emulator.setLineListener(line -> {
             synchronized (instance.log) {
@@ -215,12 +215,16 @@ public final class VelaEmulatorManager {
             }
             Log.i(TAG, "引擎已结束，state 已置为已停止: " + model);
         });
+        // 运行目录按机型隔离后，早期创建的设备在新目录下没有运行时 → 给一句人话提示
+        if (!emulator.isRuntimeReady()) {
+            throw new IllegalStateException("运行目录缺失，请在设备详情页重新创建该设备");
+        }
         emulator.ensureAssets((name, percent) -> { });
         emulator.installExecLinks();
         emulator.authorAvd(model, emulator.imagesDir());
         emulator.start(model, port);
         // 引擎跑起来 → 起前台服务守护（熄屏/后台不被回收）
-        VelaGuardService.start(context);
+        VelaGuardService.start(context, deviceDisplayName(context, model));
         instance.running = true;
         instances.put(model, instance);
         CopyOnWriteArrayList<VelaEmulator.LineListener> waiting = pendingListeners.remove(model);
@@ -282,9 +286,35 @@ public final class VelaEmulatorManager {
         }
     }
 
+    /** 设备显示名：note（改名备注）优先，其次 model 列（已是"设备名称 XXXX"），最后机型标识。 */
+    @Nullable
+    private static String deviceDisplayName(@NonNull Context context, @NonNull String model) {
+        try (DeviceDatabase db = new DeviceDatabase(context);
+             android.database.Cursor cursor = db.all(DeviceDatabase.TYPE_VIRTUAL)) {
+            String fallback = null;
+            while (cursor.moveToNext()) {
+                String id = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                if (!VelaProvision.isSameModel(id, model)) {
+                    continue;
+                }
+                String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
+                if (note != null && !note.trim().isEmpty()) {
+                    return note.trim();
+                }
+                String rowModel = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+                if (rowModel != null && !rowModel.trim().isEmpty()) {
+                    fallback = rowModel.trim();
+                }
+            }
+            return fallback == null ? model : fallback;
+        } catch (Exception error) {
+            return model;
+        }
+    }
+
     private void setConnected(@NonNull Context context, @NonNull String model, boolean connected) {
         try (DeviceDatabase db = new DeviceDatabase(context)) {
-            // 同一机型可能对应**多个**虚拟设备（镜像可重复创建）：按 model 把它们的状态一起更新
+            // 同一机型可能对应**多个**模拟设备（镜像可重复创建）：按 model 把它们的状态一起更新
             boolean any = false;
             try (android.database.Cursor cursor = db.all(DeviceDatabase.TYPE_VIRTUAL)) {
                 while (cursor.moveToNext()) {
@@ -299,7 +329,7 @@ public final class VelaEmulatorManager {
                 db.updateConnection(deviceId(model), connected);
             }
         } catch (Exception error) {
-            Log.w(TAG, "更新虚拟设备状态失败", error);
+            Log.w(TAG, "更新模拟设备状态失败", error);
         }
     }
 }

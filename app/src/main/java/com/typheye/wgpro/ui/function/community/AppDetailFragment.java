@@ -787,7 +787,7 @@ public final class AppDetailFragment extends Fragment {
      *
      * <ul>
      *   <li>穿戴设备（type=xiaomi）：第二行「已连接 / 已断开 | 小米运动健康」</li>
-     *   <li>模拟设备（type=virtual）：第二行「运行中 / 已停止 | 虚拟设备」</li>
+     *   <li>模拟设备（type=virtual）：第二行「运行中 / 已停止 | 模拟设备」</li>
      * </ul>
      */
     private void showDevicePicker(JSONObject app, String downloadUrl,
@@ -828,7 +828,7 @@ public final class AppDetailFragment extends Fragment {
                         running = manager.isRunning(model);
                     }
                     options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
-                            deviceName, (running ? "运行中" : "已停止") + " | 虚拟设备"));
+                            deviceName, (running ? "运行中" : "已停止") + " | 模拟设备"));
                     blocks.add("「安装到设备」暂未适配，后续版本开放");
                 }
             }

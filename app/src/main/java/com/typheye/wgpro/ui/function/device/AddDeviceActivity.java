@@ -18,7 +18,7 @@ import com.typheye.wgpro.utils.AppUtils;
  *
  * <ul>
  *   <li>{@link #MODE_WEARABLE} → {@link DeviceDiscoverFragment}：附近设备（扫描/发现真机）</li>
- *   <li>{@link #MODE_VIRTUAL} → {@link VirtualDeviceListFragment}：虚拟设备机型列表</li>
+ *   <li>{@link #MODE_VIRTUAL} → {@link VirtualDeviceListFragment}：模拟设备机型列表</li>
  * </ul>
  *
  * <p>应用栏毛玻璃在这里统一装：{@code content} 直接给"承载 Fragment 的容器"，
@@ -43,7 +43,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.add_device_toolbar);
         setSupportActionBar(toolbar);
         toolbar.setNavigationOnClickListener(v -> finish());
-        toolbar.setTitle(virtual ? "新建设备" : "添加设备");
+        toolbar.setTitle(virtual ? "创建设备" : "添加设备");
 
         AppBarBlur.install(this, findViewById(R.id.app_bar_layout),
                 findViewById(R.id.add_device_fragment_host));

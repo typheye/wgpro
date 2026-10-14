@@ -17,7 +17,7 @@ import com.typheye.wgpro.core.NotificationChannels;
 import com.typheye.wgpro.ui.function.device.VirtualDeviceActivity;
 
 /**
- * 虚拟设备守护：引擎运行期间常驻**前台服务 + 部分唤醒锁**（Termux 同款思路），
+ * 模拟设备守护：引擎运行期间常驻**前台服务 + 部分唤醒锁**（Termux 同款思路），
  * 避免熄屏或切后台后被系统回收，让模拟器能一直跑。
  *
  * <p>只在**有实例运行**时存在：引擎起来时启动，最后一个实例结束即撤（通知随之消失）。</p>
@@ -30,13 +30,16 @@ public class VelaGuardService extends Service {
     private PowerManager.WakeLock wakeLock;
 
     /** 启动守护（幂等，重复调用只是复用已有服务）。 */
-    public static void start(@Nullable Context context) {
+    public static final String EXTRA_NAME = "device_name";
+
+    public static void start(@Nullable Context context, @Nullable String deviceName) {
         if (context == null) {
             return;
         }
         try {
             ContextCompat.startForegroundService(context.getApplicationContext(),
-                    new Intent(context.getApplicationContext(), VelaGuardService.class));
+                    new Intent(context.getApplicationContext(), VelaGuardService.class)
+                            .putExtra(EXTRA_NAME, deviceName == null ? "" : deviceName));
         } catch (Exception error) {
             android.util.Log.w("VelaGuard", "启动守护失败", error);
         }
@@ -59,7 +62,7 @@ public class VelaGuardService extends Service {
     public void onCreate() {
         super.onCreate();
         NotificationChannels.ensureAll(this);
-        startForeground(NOTIFICATION_ID, buildNotification());
+        startForeground(NOTIFICATION_ID, buildNotification(null));
         PowerManager power = (PowerManager) getSystemService(POWER_SERVICE);
         if (power != null) {
             wakeLock = power.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, WAKE_TAG);
@@ -70,6 +73,9 @@ public class VelaGuardService extends Service {
 
     @Override
     public int onStartCommand(@Nullable Intent intent, int flags, int startId) {
+        // 通知文案带上"设备名称/备注"，用户一眼知道是哪一台在跑
+        startForeground(NOTIFICATION_ID, buildNotification(
+                intent == null ? null : intent.getStringExtra(EXTRA_NAME)));
         // 不要粘性重启：进程被杀说明引擎也没了，重启一个空守护没有意义
         return START_NOT_STICKY;
     }
@@ -89,15 +95,17 @@ public class VelaGuardService extends Service {
         return null;
     }
 
-    private Notification buildNotification() {
+    private Notification buildNotification(@Nullable String deviceName) {
         Intent open = new Intent(this, VirtualDeviceActivity.class)
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent content = PendingIntent.getActivity(this, 0, open,
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new NotificationCompat.Builder(this, NotificationChannels.VIRTUAL_DEVICE)
                 .setSmallIcon(R.drawable.ic_watch_vector)
-                .setContentTitle("虚拟设备运行中")
-                .setContentText("本地模拟器运行中，点按返回")
+                .setContentTitle("模拟设备运行中")
+                .setContentText(deviceName == null || deviceName.trim().isEmpty()
+                        ? "模拟器正在运行，点按返回"
+                        : "\"" + deviceName.trim() + "\" 正在运行…")
                 .setContentIntent(content)
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)

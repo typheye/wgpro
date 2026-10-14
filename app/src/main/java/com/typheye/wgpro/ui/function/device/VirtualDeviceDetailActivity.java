@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.typheye.wgpro.ui.function.community.BaseSectionActivity;
 
 /**
- * 虚拟设备详情：与 {@code AppDetailActivity} / {@code ResourceDetailActivity} **同构**的二级页
+ * 模拟设备详情：与 {@code AppDetailActivity} / {@code ResourceDetailActivity} **同构**的二级页
  * （继承 {@link BaseSectionActivity}，宿主布局用壳的 {@code activity_section_host}）。
  *
  * <ul>

@@ -17,7 +17,7 @@ public final class DownloadTask {
     public static final int DEST_DEVICE = 0; // 安装到已连接的穿戴设备（手表端能力待接入）
     public static final int DEST_PHONE = 1;  // 安装到手机
     public static final int DEST_LOCAL = 2;  // 保存到本地 Download 目录
-    /** 只落到应用私有 files/downloads（供虚拟设备镜像等内部资源使用，不安装、不外拷）。 */
+    /** 只落到应用私有 files/downloads（供模拟设备镜像等内部资源使用，不安装、不外拷）。 */
     public static final int DEST_APP_FILE = 3;
 
     public final String id;          // 应用包名，作为任务唯一键

@@ -28,7 +28,7 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * 虚拟设备机型列表：原「创建设备」页的"查找设备"部分。
+ * 模拟设备机型列表：原「创建设备」页的"查找设备"部分。
  *
  * <p>点机型卡片 → 打开 {@link VirtualDeviceDetailActivity}（与 App/资源详情同构的二级页）。</p>
  */

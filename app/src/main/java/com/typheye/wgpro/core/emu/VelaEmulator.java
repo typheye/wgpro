@@ -55,14 +55,24 @@ public final class VelaEmulator {
     private Process process;
     private int grpcPort = 8554;
 
+    /** 机型标识：运行目录按机型隔离（不一定是 Vela 设备，所以目录名不叫 vela）。 */
+    @NonNull
+    private final String modelId;
+
     public VelaEmulator(@NonNull Context context) {
-        this.context = context.getApplicationContext();
+        this(context, "");
     }
 
-    /** 私有运行目录：<files>/vela */
+    public VelaEmulator(@NonNull Context context, @NonNull String modelId) {
+        this.context = context.getApplicationContext();
+        this.modelId = modelId == null ? "" : modelId.trim();
+    }
+
+    /** 私有运行目录：<files>/runtime/<机型>（每个机型一套，互不污染）。 */
     @NonNull
     public File runtimeDir() {
-        return new File(context.getFilesDir(), "vela");
+        String name = modelId.isEmpty() ? "_default" : modelId.replaceAll("[^A-Za-z0-9._-]", "_");
+        return new File(new File(context.getFilesDir(), "runtime"), name);
     }
 
     /** 系统镜像目录（私有目录，避免 /sdcard 的存储权限问题）。 */
@@ -194,12 +204,21 @@ public final class VelaEmulator {
             }
             if (link.isFile() && !isSymlink(link)) {
                 if (!backing.isFile()) {
-                    //noinspection ResultOfMethodCallIgnored
-                    link.renameTo(backing);
+                    // 改名失败（例如文件正被占用）必须**兜底复制**，否则真身会被下面当"多余副本"删掉，
+                    // 只剩一条软链 → 引擎 open 时 ENOENT（踩过）。
+                    if (!link.renameTo(backing)) {
+                        copyFile(link, backing);
+                        //noinspection ResultOfMethodCallIgnored
+                        link.delete();
+                    }
                 } else {
                     //noinspection ResultOfMethodCallIgnored
                     link.delete();
                 }
+            }
+            // 真身不在就别建软链：留个能看出来的"缺文件"，比断链后 ENOENT 好定位
+            if (!backing.isFile()) {
+                continue;
             }
             if (isSymlink(link)) {
                 //noinspection ResultOfMethodCallIgnored
@@ -223,6 +242,18 @@ public final class VelaEmulator {
     private static final int DENSITY = 320;
 
     /** 铺好 AVD：镜像放进 <avdHome>/<id>.vvd，并写出引擎期望的完整 config.ini / <id>.ini。 */
+    /** 文件复制（引擎真身改名失败时的兜底）。 */
+    private static void copyFile(@NonNull File from, @NonNull File to) throws Exception {
+        try (java.io.InputStream in = new java.io.FileInputStream(from);
+             java.io.OutputStream out = new java.io.FileOutputStream(to)) {
+            byte[] buffer = new byte[256 * 1024];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+        }
+    }
+
     public void authorAvd(@NonNull String avdId, @NonNull File imageDir) throws Exception {
         File vvd = new File(avdHome(), avdId + ".vvd");
         //noinspection ResultOfMethodCallIgnored
@@ -267,6 +298,15 @@ public final class VelaEmulator {
         cfg.append("runtime.network.speed=full\n");
         cfg.append("showDeviceFrame=no\n");
         cfg.append("image.sysdir.1=").append(img.getAbsolutePath()).append('\n');
+        // 数据分区：引擎启动时要 AVD 里的 userdata-qemu.img；没有初始镜像就会
+        // "Could not open ... userdata-qemu.img: No such file or directory" 而起不来。
+        // 用客机数据镜像 vela_data.bin 做初始镜像，引擎会自己拷出 userdata-qemu.img。
+        File dataImg = new File(img, "vela_data.bin");
+        if (dataImg.isFile()) {
+            cfg.append("disk.dataPartition.initPath=").append(dataImg.getAbsolutePath()).append('\n');
+            cfg.append("disk.dataPartition.path=").append(new File(vvd, "userdata-qemu.img")).append('\n');
+            cfg.append("disk.dataPartition.size=").append(dataImg.length()).append('\n');
+        }
         cfg.append("image.sysdir.2=\n");
         cfg.append("skin.dynamic=yes\n");
         cfg.append("skin.name=").append(SKIN).append('\n');

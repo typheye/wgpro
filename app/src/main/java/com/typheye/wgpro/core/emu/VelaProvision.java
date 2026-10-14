@@ -16,7 +16,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
 /**
- * 虚拟设备的"装机"流程：把已下载的镜像包解包到运行目录、铺 AVD、写设备库并起默认名。
+ * 模拟设备的"装机"流程：把已下载的镜像包解包到运行目录、铺 AVD、写设备库并起默认名。
  *
  * <p>创建设备页与设备详情页共用，避免两处各写一份。</p>
  */
@@ -139,8 +139,19 @@ public final class VelaProvision {
                 callback.onResult(false, "镜像包不存在，请先下载");
                 return;
             }
-            VelaEmulator emulator = new VelaEmulator(context);
+            VelaEmulator emulator = new VelaEmulator(context, modelId);
+            // 先清掉早期版本的共享运行目录（约 1.5GB）：否则解包时两个目录并存，
+            // 空间不够会**静默解包不全**（zip 里最后那个引擎二进制正好丢，表现就是 ENOENT）。
+            purgeLegacySharedRuntime(context);
+            // **先删 engine/**：上次装机把引擎真身改名成 *.elf、原路径留了软链，
+            // 直接解包会穿过软链写到 /data/app（只读）→ 真身永远解不出来（踩过）。
+            deleteRecursively(new File(emulator.runtimeDir(), "engine"));
             unzip(zip, emulator.runtimeDir());
+            healEngineIfIncomplete(zip, emulator.runtimeDir());
+            if (!hasRealEngine(new File(emulator.runtimeDir(), "engine/qemu/linux-aarch64"))) {
+                callback.onResult(false, "引擎解包不完整（多半是存储空间不足），请清理空间后重试");
+                return;
+            }
             emulator.installExecLinks();
             emulator.authorAvd(modelId, emulator.imagesDir());
             try (DeviceDatabase db = new DeviceDatabase(context)) {
@@ -156,6 +167,61 @@ public final class VelaProvision {
         } catch (Exception error) {
             callback.onResult(false, error.getMessage() == null ? "创建失败" : error.getMessage());
         }
+    }
+
+    /**
+     * 老版本运行时只解出过 armel 引擎；镜像包刷新后引擎目录可能**缺文件**（如 aarch64 那份），
+     * 表现为创建失败 {@code qemu-system-aarch64-headless: open failed: ENOENT}。
+     * 这里自检：缺任何一个就清掉 {@code engine/} 用同一个包重解一次（幂等）。
+     */
+    private static void healEngineIfIncomplete(@NonNull File zip, @NonNull File runtimeDir)
+            throws Exception {
+        File qemu = new File(runtimeDir, "engine/qemu/linux-aarch64");
+        if (hasRealEngine(qemu)) {
+            return;
+        }
+        deleteRecursively(new File(runtimeDir, "engine"));
+        unzip(zip, runtimeDir);
+    }
+
+    /** 清掉早期版本的共享运行目录 {@code files/vela}（已改为按机型隔离，没人再用了）。 */
+    private static void purgeLegacySharedRuntime(@NonNull Context context) {
+        File legacy = new File(context.getFilesDir(), "vela");
+        if (legacy.isDirectory()) {
+            deleteRecursively(legacy);
+        }
+    }
+
+    /**
+     * 引擎真身是否齐（**必须看 .elf 真身，软链不算**）：
+     * 装机后原路径是软链、真身在同名 {@code .elf}；只看软链会把"缺文件"误判成正常。
+     */
+    private static boolean hasRealEngine(@NonNull File qemu) {
+        // 解包后是"原始名真身"，installExecLinks 之后才改名成 *.elf 并在原路径留软链。
+        // 所以两个名字都要认，但**必须是真身**（软链不算，否则会误判"齐了"）。
+        return hasRealBinary(qemu, "qemu-system-armel-headless")
+                && hasRealBinary(qemu, "qemu-system-aarch64-headless");
+    }
+
+    /** 该二进制是否存在且**不是软链**（真身）。 */
+    private static boolean hasRealBinary(@NonNull File dir, @NonNull String name) {
+        File plain = new File(dir, name);
+        File elf = new File(dir, name + ".elf");
+        return (plain.isFile() && !java.nio.file.Files.isSymbolicLink(plain.toPath()))
+                || (elf.isFile() && !java.nio.file.Files.isSymbolicLink(elf.toPath()));
+    }
+
+    private static void deleteRecursively(@NonNull File target) {
+        if (target.isDirectory()) {
+            File[] children = target.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    deleteRecursively(child);
+                }
+            }
+        }
+        //noinspection ResultOfMethodCallIgnored
+        target.delete();
     }
 
     private static void unzip(@NonNull File zip, @NonNull File targetDir) throws Exception {

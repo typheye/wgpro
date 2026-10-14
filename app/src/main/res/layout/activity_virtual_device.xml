@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 虚拟设备页：全屏承载 VirtualDeviceFragment（insets 由 Activity 代码适配）。 -->
+<!-- 模拟设备页：全屏承载 VirtualDeviceFragment（insets 由 Activity 代码适配）。 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/virtual_host"
     android:layout_width="match_parent"

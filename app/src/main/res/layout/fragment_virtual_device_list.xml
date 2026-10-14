@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 虚拟设备机型列表内容：宿主 AddDeviceActivity 的 add_device_fragment_host 内。 -->
+<!-- 模拟设备机型列表内容：宿主 AddDeviceActivity 的 add_device_fragment_host 内。 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">

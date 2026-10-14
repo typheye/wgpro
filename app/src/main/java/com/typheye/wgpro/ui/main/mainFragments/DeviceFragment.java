@@ -81,7 +81,7 @@ public class DeviceFragment extends Fragment {
         // 「模拟设备」：会话卡片已搬到 设置 → 账户 → 已登录的会话，这里先留空位等虚拟机能力。
         ((TextView) otherEmpty.findViewById(R.id.stream_empty_title)).setText("暂无模拟设备");
         ((TextView) otherEmpty.findViewById(R.id.stream_empty_description))
-                .setText("点击「+」创建的虚拟设备，可在这里集中管理。");
+                .setText("点击「+」创建的模拟设备，可在这里集中管理。");
         detected = root.findViewById(R.id.card_detected_device);
         wearableRefresh = root.findViewById(R.id.device_page_wearable);
         otherRefresh = root.findViewById(R.id.device_page_other);
@@ -336,7 +336,7 @@ public class DeviceFragment extends Fragment {
         String note = cursor.getString(cursor.getColumnIndexOrThrow("note"));
         boolean connected = cursor.getInt(cursor.getColumnIndexOrThrow("connected")) != 0;
         View card = getLayoutInflater().inflate(R.layout.item_device, parent, false);
-        // 虚拟设备的**机型标识只从设备 id 解析**（model 列存的是设备显示名，不一定是机型）
+        // 模拟设备的**机型标识只从设备 id 解析**（model 列存的是设备显示名，不一定是机型）
         final String avd = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(id);
         String displayName = note == null ? "" : note.trim();
         if (displayName.isEmpty()) {
@@ -357,7 +357,7 @@ public class DeviceFragment extends Fragment {
         String version = cursor.getString(cursor.getColumnIndexOrThrow("version"));
         String versionLabel;
         if (com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type)) {
-            versionLabel = "模拟设备";   // 虚拟设备不显示系统版本
+            versionLabel = "模拟设备";   // 模拟设备不显示系统版本
         } else if ("xiaomi".equals(type)) {
             versionLabel = "小米运动健康";
         } else {
@@ -377,12 +377,20 @@ public class DeviceFragment extends Fragment {
         int stateIndex = cursor.getColumnIndex(stateColumn);
         long stateTime = stateIndex < 0 ? cursor.getLong(cursor.getColumnIndexOrThrow("last_seen"))
                 : cursor.getLong(stateIndex);
-        ((TextView) card.findViewById(R.id.text_device_since))
-                .setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
+        TextView sinceView = card.findViewById(R.id.text_device_since);
+        if (virtual) {
+            // 模拟设备没有"连接时间"这个概念，别显示"未知时间"
+            sinceView.setText("");
+            sinceView.setVisibility(View.GONE);
+        } else {
+            sinceView.setVisibility(View.VISIBLE);
+            sinceView.setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
+        }
+        final String sheetName = displayName;
         card.setOnClickListener(v -> {
             if (com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type)) {
                 // 与真机一致：先弹「设备详情」，再进模拟页面（机型标识用解析出来的 avd）
-                showVirtualDeviceDetail(id, avd, note);
+                showVirtualDeviceDetail(id, avd, sheetName, note);
             } else {
                 showDeviceDetail(id);
             }
@@ -412,15 +420,16 @@ public class DeviceFragment extends Fragment {
                 .format(new java.util.Date(timestamp));
     }
 
-    /** 虚拟设备的「设备详情」：复用同款 sheet，行文案换成模拟语义。 */
-    private void showVirtualDeviceDetail(String id, String model, String note) {
-        boolean running = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(model);
+    /** 模拟设备的「设备详情」：复用同款 sheet，行文案换成模拟语义。 */
+    private void showVirtualDeviceDetail(String id, String avd, String displayName, String note) {
+        boolean running = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(avd);
         View content = getLayoutInflater().inflate(R.layout.sheet_device_detail, null, false);
-        String name = note == null || note.trim().isEmpty() ? model : note.trim();
+        // 标题显示**设备名**（note > model 列里的显示名），机型标识只用于运行态判断
+        String name = note == null || note.trim().isEmpty() ? displayName : note.trim();
         ((TextView) content.findViewById(R.id.sheet_device_initial)).setText(firstCharacter(name));
         ((TextView) content.findViewById(R.id.sheet_device_name)).setText(name);
         ((TextView) content.findViewById(R.id.sheet_device_status_version))
-                .setText((running ? "运行中" : "已停止") + " | 虚拟设备");
+                .setText((running ? "运行中" : "已停止") + " | 模拟设备");
         content.findViewById(R.id.sheet_device_actions).setVisibility(View.VISIBLE);
         content.findViewById(R.id.sheet_device_more_group).setVisibility(View.VISIBLE);
         ((TextView) content.findViewById(R.id.sheet_device_action_primary_label))
@@ -444,18 +453,23 @@ public class DeviceFragment extends Fragment {
             android.content.Intent intent = new android.content.Intent(requireContext(),
                     com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class);
             intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD,
-                    model);
+                    avd);
             startActivity(intent);
         });
         stopRow.setOnClickListener(v -> {
             dialog.dismiss();
-            com.typheye.wgpro.core.emu.VelaEmulatorManager.get().stop(requireContext(), model);
+            com.typheye.wgpro.core.emu.VelaEmulatorManager.get().stop(requireContext(), avd);
             com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已停止当前实例");
             refresh();
         });
         content.findViewById(R.id.sheet_device_more).setOnClickListener(v -> {
             dialog.dismissForReplacement();
             showMenu(id, note, otherRefresh);
+        });
+        dialog.setOnDismissListener(d -> {
+            if (isAdded()) {
+                refresh();
+            }
         });
         dialog.show();
     }

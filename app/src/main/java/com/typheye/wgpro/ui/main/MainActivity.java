@@ -140,14 +140,14 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // 虚拟设备：应用进程重启后，把上次残留的「运行中」清零（引擎是应用子进程，随进程结束）
+        // 模拟设备：应用进程重启后，把上次残留的「运行中」清零（引擎是应用子进程，随进程结束）
         final com.typheye.wgpro.core.emu.VelaEmulatorManager emuManager =
                 com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
         emuManager.init(this);
         new Thread(() -> emuManager.resetStaleState(
                 getApplicationContext()), "virtual-reset").start();
 
-        // TODO(临时调试入口，适配完成后删除)：一键直达虚拟设备页并补齐设备记录。
+        // TODO(临时调试入口，适配完成后删除)：一键直达模拟设备页并补齐设备记录。
         if (getIntent() != null && getIntent().getBooleanExtra("wgpro_debug_virtual", false)) {
             final String avd = "vela-miwear-watch-5.0";
             try (com.typheye.wgpro.data.DeviceDatabase db =
@@ -787,7 +787,7 @@ public class MainActivity extends AppCompatActivity {
             openCompose();
             return true;
         } else if (id == R.id.action_device_add) {
-            // 「模拟设备」页右上角 + → 走创建设备（虚拟设备）引导；其余出口仍是添加设备页
+            // 「模拟设备」页右上角 + → 走创建设备（模拟设备）引导；其余出口仍是添加设备页
             com.typheye.wgpro.ui.main.mainFragments.DeviceFragment devices =
                     com.typheye.wgpro.ui.main.mainFragments.DeviceFragment.current();
             boolean virtualPage = devices != null && devices.isAdded() && devices.isVirtualPage();

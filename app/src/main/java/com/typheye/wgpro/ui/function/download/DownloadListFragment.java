@@ -377,14 +377,14 @@ public final class DownloadListFragment extends Fragment {
     /** 是否能定位到来源（应用/资源详情页）。 */
     private boolean hasSourceDetail(DownloadTask task) {
         if (isVelaTask(task)) {
-            // 系统镜像（虚拟设备）→ 跳设备详情页
+            // 系统镜像（模拟设备）→ 跳设备详情页
             return true;
         }
         String json = task.detailJson == null ? "" : task.detailJson.trim();
         return json.startsWith("{") && task.detailType != null && !task.detailType.isEmpty();
     }
 
-    /** 是否是虚拟设备的系统镜像任务（任务 id 形如 {@code vela-<机型>}）。 */
+    /** 是否是模拟设备的系统镜像任务（任务 id 形如 {@code vela-<机型>}）。 */
     private static boolean isVelaTask(@Nullable DownloadTask task) {
         return task != null && task.id != null && task.id.startsWith("vela-");
     }

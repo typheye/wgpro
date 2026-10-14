@@ -639,7 +639,18 @@ public class VirtualDeviceDetailFragment extends Fragment {
         }
         final String modelId = model.id;
         final android.content.Context app = requireContext().getApplicationContext();
-        shellLoading(true);
+        // 进度用**底部弹窗圆形进度**（带取消）：整页加载遮罩只允许在 Activity 创建时出现
+        View progressView = getLayoutInflater().inflate(R.layout.progress_dialog, null, false);
+        ((TextView) progressView.findViewById(android.R.id.message)).setText("正在创建模拟器…");
+        final com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[] progressRef =
+                new com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[1];
+        progressRef[0] = new WGProAlertDialogBuilder(requireContext())
+                .setTitle("正在创建")
+                .setView(progressView)
+                .setCancelable(false)
+                .setNegativeButton("取消", null)
+                .create();
+        progressRef[0].show();
         new Thread(() -> {
             final String[] failure = new String[1];
             VelaProvision.provision(app, modelId, displayName,
@@ -648,7 +659,9 @@ public class VirtualDeviceDetailFragment extends Fragment {
                 if (!isAdded()) {
                     return;
                 }
-                shellLoading(false);
+                if (progressRef[0] != null) {
+                    progressRef[0].dismiss();
+                }
                 if (failure[0] != null) {
                     WGProHint.showError(requireContext(), "创建失败：" + failure[0]);
                     return;

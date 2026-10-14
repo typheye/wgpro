@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- 虚拟设备页：
+<!-- 模拟设备页：
      顶部 = 水平操作栏（高度自适应，放不下可横滑；上边距=状态栏高度）
      中间 = 显示容器（四层：画面 → 显示遮罩扣洞 → 叠加皮肤 → 外观皮肤），左右对齐
      底部 = 日志（默认隐藏，操作栏按钮开关）
@@ -22,7 +22,7 @@
             android:id="@+id/virtual_frame"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:contentDescription="虚拟设备画面"
+            android:contentDescription="模拟设备画面"
             android:scaleType="fitXY" />
 
         <com.typheye.wgpro.ui.widget.DisplayMaskView
