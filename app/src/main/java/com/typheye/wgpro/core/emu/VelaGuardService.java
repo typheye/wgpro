@@ -102,10 +102,10 @@ public class VelaGuardService extends Service {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         return new NotificationCompat.Builder(this, NotificationChannels.VIRTUAL_DEVICE)
                 .setSmallIcon(R.drawable.ic_watch_vector)
-                .setContentTitle("模拟设备运行中")
+                .setContentTitle("模拟设备")
                 .setContentText(deviceName == null || deviceName.trim().isEmpty()
-                        ? "模拟器正在运行，点按返回"
-                        : "\"" + deviceName.trim() + "\" 正在运行…")
+                        ? "点击查看详情"
+                        : "\"" + deviceName.trim() + "\" 运行中")
                 .setContentIntent(content)
                 .setOngoing(true)
                 .setOnlyAlertOnce(true)
