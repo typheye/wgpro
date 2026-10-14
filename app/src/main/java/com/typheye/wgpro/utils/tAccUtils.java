@@ -102,12 +102,16 @@ public class tAccUtils {
     private static final String PREFS_BROWSER_LOGIN_EXPIRES = "browser_login_expires_at";
     private static final long BROWSER_LOGIN_POLL_INTERVAL_MS = 2000L;
     private static final long BROWSER_LOGIN_TIMEOUT_MS = 15L * 60L * 1000L;
+    /** 浏览器登录轮询连续失败多少次就放弃并报错（约 BROWSER_LOGIN_MAX_ERRORS × 2s）。 */
+    private static final int BROWSER_LOGIN_MAX_ERRORS = 8;
     private static final Handler BROWSER_LOGIN_HANDLER = new Handler(Looper.getMainLooper());
     private static Context browserLoginContext;
     private static String browserLoginRequestId;
     private static long browserLoginExpiresAt;
     private static BrowserLoginCallback browserLoginCallback;
     private static Runnable browserLoginPollTask;
+    /** 浏览器登录轮询的连续失败次数（用于"别静默卡死"，见 pollBrowserLogin）。 */
+    private static int browserLoginErrorStreak;
     private static java.lang.ref.WeakReference<Activity> browserLoginHost;
     /** V2 加密凭据可用性缓存；null 表示尚未校验。 */
     private static volatile Boolean v2SessionUsable;
@@ -255,11 +259,7 @@ public class tAccUtils {
     private boolean saveLoginData(LoginResult result) {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         if (PROTOCOL_V2.equals(result.protocol)) {
-            SharedPreferences securePrefs = getSecurePreferences();
-            if (securePrefs == null || !securePrefs.edit()
-                    .putString(PREFS_SESSION_ID, result.sessionId)
-                    .putString(PREFS_SESSION_TOKEN, result.sessionToken)
-                    .commit()) {
+            if (!persistSession(result.sessionId, result.sessionToken)) {
                 return false;
             }
             v2SessionUsable = true;
@@ -279,6 +279,75 @@ public class tAccUtils {
         editor.putString(PREFS_SHUO, result.shuo);
         editor.putString(PREFS_PROTOCOL, result.protocol);
         return editor.commit();
+    }
+
+    /**
+     * 保存 V2 会话（session_id + token）。
+     *
+     * <p><b>写失败必须能自愈/退化</b>：以前的写法只 commit() 一次，Keystore 主密钥损坏时
+     * commit 返回 false → {@code saveLoginData} 返回 false → 浏览器登录轮询已经拿到 approved
+     * 却报"无法安全保存登录会话" → 无限重排轮询 → 网页显示"登录成功"、App 永远卡着
+     * （2026-10-14 实锤：服务端 approved + token 已签发，客户端存不下去）。</p>
+     */
+    private boolean persistSession(String sessionId, String sessionToken) {
+        if (writeSession(getSecurePreferences(), sessionId, sessionToken)) {
+            return true;
+        }
+        Log.w("tAccUtils", "加密会话写入失败，重建凭据存储后重试");
+        resetSecurePreferences();
+        if (writeSession(getSecurePreferences(), sessionId, sessionToken)) {
+            return true;
+        }
+        Log.w("tAccUtils", "加密会话存储仍不可用，退化为普通存储");
+        SharedPreferences plain = context.getSharedPreferences(SECURE_PREFS_NAME, Context.MODE_PRIVATE);
+        if (writeSession(plain, sessionId, sessionToken)) {
+            securePreferences = plain;
+            return true;
+        }
+        Log.e("tAccUtils", "会话保存失败：所有存储路径都不可用");
+        return false;
+    }
+
+    private static boolean writeSession(SharedPreferences prefs, String sessionId, String sessionToken) {
+        if (prefs == null) {
+            return false;
+        }
+        try {
+            return prefs.edit()
+                    .putString(PREFS_SESSION_ID, sessionId)
+                    .putString(PREFS_SESSION_TOKEN, sessionToken)
+                    .commit();
+        } catch (Throwable error) {
+            Log.e("tAccUtils", "写入会话存储异常", error);
+            return false;
+        }
+    }
+
+    /**
+     * 清掉损坏的加密凭据存储（含 EncryptedSharedPreferences 的 keyset 文件），下次访问会重建。
+     * 只删 {@code <name>.xml} 不够：keyset 还在的话会继续引用那把坏掉的主密钥（踩过）。
+     */
+    private void resetSecurePreferences() {
+        synchronized (SECURE_PREFS_LOCK) {
+            securePreferences = null;
+            try {
+                context.deleteSharedPreferences(SECURE_PREFS_NAME);
+            } catch (Throwable ignored) {
+            }
+            try {
+                java.io.File dir = new java.io.File(context.getApplicationInfo().dataDir, "shared_prefs");
+                String[] leftovers = {
+                        SECURE_PREFS_NAME + ".xml",
+                        SECURE_PREFS_NAME + ".xml.keyset",
+                        SECURE_PREFS_NAME + ".keyset",
+                };
+                for (String name : leftovers) {
+                    //noinspection ResultOfMethodCallIgnored
+                    new java.io.File(dir, name).delete();
+                }
+            } catch (Throwable ignored) {
+            }
+        }
     }
 
     private void showProgressDialog(String message) {
@@ -494,8 +563,9 @@ public class tAccUtils {
             Log.e("tAccUtils", "Secure session storage unavailable, recovering", first);
         }
         // 2) 只有主密钥确实不可用时，才清掉一次旧文件并用同一别名重建（一次性掉登录，不会循环）
+        //    注意要连 keyset 一起删，否则重建还会去用那把坏钥匙。
         try {
-            context.deleteSharedPreferences(SECURE_PREFS_NAME);
+            resetSecurePreferences();
             return buildSecurePreferences(SECURE_PREFS_NAME, SECURE_PREFS_ALIAS);
         } catch (Exception second) {
             Log.e("tAccUtils", "Secure session storage unavailable", second);
@@ -2168,6 +2238,7 @@ public class tAccUtils {
         }
         browserLoginContext = appContext;
         browserLoginCallback = callback;
+        browserLoginErrorStreak = 0;
         account.generateLoginRequest(new GenerateRequestCallback() {
             @Override
             public void onSuccess(String requestId, String qrCodeUrl) {
@@ -2227,6 +2298,7 @@ public class tAccUtils {
             }
         }
         if (browserLoginRequestId != null) {
+            browserLoginErrorStreak = 0;
             scheduleBrowserLoginPoll(0L);
         }
     }
@@ -2251,6 +2323,7 @@ public class tAccUtils {
             @Override
             public void onSuccess(String status) {
                 if (!requestId.equals(browserLoginRequestId)) return;
+                browserLoginErrorStreak = 0;
                 if ("approved".equals(status)) {
                     finishBrowserLogin(true, "");
                 } else if ("rejected".equals(status)) {
@@ -2263,6 +2336,13 @@ public class tAccUtils {
             @Override
             public void onError(String message) {
                 if (!requestId.equals(browserLoginRequestId)) return;
+                // 以前这里只是静默重排 → 服务端/存储一旦持续报错，网页显示"登录成功"、
+                // App 永远转圈且毫无提示（踩过）。连续失败达到阈值就明确报错退出。
+                if (++browserLoginErrorStreak >= BROWSER_LOGIN_MAX_ERRORS) {
+                    finishBrowserLogin(false, message == null || message.isEmpty()
+                            ? "登录失败，请重试" : ("登录失败：" + message));
+                    return;
+                }
                 scheduleBrowserLoginPoll(BROWSER_LOGIN_POLL_INTERVAL_MS);
             }
         });
