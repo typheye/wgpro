@@ -39,7 +39,7 @@ import java.util.Map;
  * <ul>
  *   <li>标题：备注（没备注用设备名）</li>
  *   <li>副标题：登录方式（平台 | 客户端版本）</li>
- *   <li>角标：<b>本机</b> / <b>其他会话</b></li>
+ *   <li>角标：<b>本机</b> / <b>其他</b></li>
  *   <li>时间：登录于 xx（创建时间；缺失时退回活跃时间）</li>
  * </ul>
  * <p>交互与原来一致：点击看会话详情，长按弹「会话管理」（修改备注 / 退出登录·移除会话）。</p>
@@ -156,7 +156,7 @@ public class SessionListFragment extends Fragment {
         ((TextView) card.findViewById(R.id.text_device_version))
                 .setText(loginWay.isEmpty() ? "登录方式未知" : loginWay);
         TextView status = card.findViewById(R.id.text_device_status);
-        status.setText(current ? "本机" : "其他会话");
+        status.setText(current ? "本机" : "其他");
         status.setBackgroundResource(current ? R.drawable.bg_device_status_connected
                 : R.drawable.bg_device_status_disconnected);
         String signedInAt = session.optString("created_at", "");
@@ -206,7 +206,7 @@ public class SessionListFragment extends Fragment {
         ((TextView) content.findViewById(R.id.sheet_device_initial)).setText(firstCharacter(name));
         ((TextView) content.findViewById(R.id.sheet_device_name)).setText(name);
         ((TextView) content.findViewById(R.id.sheet_device_status_version))
-                .setText((current ? "本机" : "其他会话") + (platform.isEmpty() ? "" : " | " + platform));
+                .setText((current ? "本机" : "其他") + (platform.isEmpty() ? "" : " | " + platform));
         content.findViewById(R.id.sheet_device_actions).setVisibility(View.VISIBLE);
         ((TextView) content.findViewById(R.id.sheet_device_action_primary_label)).setText("查看详细信息");
         ((TextView) content.findViewById(R.id.sheet_device_action_secondary_label)).setText("显示更多操作");

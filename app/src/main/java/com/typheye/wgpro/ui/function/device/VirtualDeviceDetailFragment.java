@@ -610,8 +610,7 @@ public class VirtualDeviceDetailFragment extends Fragment {
         com.typheye.wgpro.ui.widget.WGProBottomSheetDialog dialog =
                 new WGProAlertDialogBuilder(requireContext())
                         .setTitle("创建设备")
-                        .setMessage("留空则使用「" + (model.name == null ? "" : model.name)
-                                + " + 4 位随机字母数字」。")
+                        .setMessage("留空则使用默认设备名称")
                         .setView(content)
                         .setNegativeButton("取消", null)
                         .setPositiveButton("创建", null)

@@ -145,24 +145,71 @@ public final class GetSheet {
     }
 
     /**
-     * 设备卡片：**直接复用「添加设备」页那张卡**（{@code item_device_option.xml}）——
-     * 圆形文字头像（首字，brand_soft 底 + brand_on_soft 字，深浅模式都清楚）+ 标题 + 副标题 + chevron。
+     * 设备卡片：统一复用**设备页那张卡**（{@code item_device.xml}）——
+     * 圆形文字头像（首字）+ 标题 + 状态胶囊 + 副标题，与设备页/创建设备页完全一致。
+     *
+     * @param subtitle 形如「已连接｜小米运动健康」：`｜` 前做状态胶囊、后面做副标题
      */
     @NonNull
     public static View deviceCard(@NonNull Context context, @NonNull String name,
                                  @NonNull String subtitle) {
         View card = LayoutInflater.from(context)
-                .inflate(R.layout.item_device_option, new LinearLayout(context), false);
-        TextView avatar = card.findViewById(R.id.device_option_avatar);
-        TextView title = card.findViewById(R.id.device_option_title);
-        TextView sub = card.findViewById(R.id.device_option_subtitle);
+                .inflate(R.layout.item_device, new LinearLayout(context), false);
         String trimmed = name == null ? "" : name.trim();
+        TextView avatar = card.findViewById(R.id.text_device_initial);
+        TextView title = card.findViewById(R.id.text_device_model);
+        TextView status = card.findViewById(R.id.text_device_status);
+        TextView sub = card.findViewById(R.id.text_device_since);
         if (avatar != null) {
             avatar.setText(trimmed.isEmpty() ? "?" : trimmed.substring(0, 1).toUpperCase());
         }
-        if (title != null) title.setText(name);
-        if (sub != null) sub.setText(subtitle);
+        if (title != null) {
+            title.setText(name);
+        }
+        String rawSub = subtitle == null ? "" : subtitle.trim();
+        String pill = "";
+        String rest = rawSub;
+        // 分隔符全角/半角都要认（调用方历史上两种都传过，只认全角会导致胶囊永远不出现）
+        int cut = -1;
+        for (int i = 0; i < rawSub.length(); i++) {
+            char ch = rawSub.charAt(i);
+            if (ch == '｜' || ch == '|' || ch == '丨') {
+                cut = i;
+                break;
+            }
+        }
+        if (cut > 0) {
+            pill = rawSub.substring(0, cut).trim();
+            rest = rawSub.substring(cut + 1).trim();
+        }
+        if (status != null) {
+            if (pill.isEmpty()) {
+                status.setVisibility(View.GONE);
+            } else {
+                status.setVisibility(View.VISIBLE);
+                status.setText(pill);
+                status.setBackgroundResource(connectedPill(pill)
+                        ? R.drawable.bg_device_status_connected
+                        : R.drawable.bg_device_status_disconnected);
+            }
+        }
+        if (sub != null) {
+            sub.setVisibility(rest.isEmpty() ? View.GONE : View.VISIBLE);
+            sub.setText(rest);
+            sub.setCompoundDrawables(null, null, null, null);
+        }
+        // 弹窗里不再用箭头；卡片自己可点
         return card;
+    }
+
+    /** 「已连接 / 可添加 / 可用」这类状态用绿色底，其余用灰色底。 */
+    private static boolean connectedPill(@NonNull String pill) {
+        if (pill.contains("断开") || pill.contains("停止") || pill.contains("离线")
+                || pill.contains("不可用")) {
+            return false;
+        }
+        return pill.contains("连接") || pill.contains("可添加") || pill.contains("可用")
+                || pill.contains("运行") || pill.contains("在线");
     }
 
     /**

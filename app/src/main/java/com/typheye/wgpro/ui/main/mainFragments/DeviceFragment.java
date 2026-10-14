@@ -363,8 +363,11 @@ public class DeviceFragment extends Fragment {
         } else {
             versionLabel = version == null ? "" : version;
         }
-        ((TextView) card.findViewById(R.id.text_device_version))
-                .setText(versionLabel);
+        TextView versionView = card.findViewById(R.id.text_device_version);
+        if (versionView != null) {
+            // 视图已隐藏（第二行不再展示），但字段仍然写下去，保持数据链路完整
+            versionView.setText(versionLabel);
+        }
         boolean virtual = com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL.equals(type);
         if (virtual) {
             connected = com.typheye.wgpro.core.emu.VelaEmulatorManager.get().isRunning(avd);
@@ -375,14 +378,13 @@ public class DeviceFragment extends Fragment {
                 : R.drawable.bg_device_status_disconnected);
         String stateColumn = connected ? "connected_at" : "disconnected_at";
         int stateIndex = cursor.getColumnIndex(stateColumn);
-        long stateTime = stateIndex < 0 ? cursor.getLong(cursor.getColumnIndexOrThrow("last_seen"))
-                : cursor.getLong(stateIndex);
+        long stateTime = stateIndex < 0 ? 0L : cursor.getLong(stateIndex);
+        if (stateTime <= 0L) {
+            // 状态列还没写过（例如模拟设备首次运行）→ 回退最后活跃时间，别显示"未知时间"
+            stateTime = cursor.getLong(cursor.getColumnIndexOrThrow("last_seen"));
+        }
         TextView sinceView = card.findViewById(R.id.text_device_since);
-        if (virtual) {
-            // 模拟设备没有"连接时间"这个概念，别显示"未知时间"
-            sinceView.setText("");
-            sinceView.setVisibility(View.GONE);
-        } else {
+        if (sinceView != null) {
             sinceView.setVisibility(View.VISIBLE);
             sinceView.setText((connected ? "连接于 " : "断开于 ") + relativeTime(stateTime));
         }

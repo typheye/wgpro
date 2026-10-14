@@ -790,6 +790,41 @@ public final class AppDetailFragment extends Fragment {
      *   <li>模拟设备（type=virtual）：第二行「运行中 / 已停止 | 模拟设备」</li>
      * </ul>
      */
+    /** 连接/断开的时刻：对应状态列为 0 时回退最后活跃时间。 */
+    private static long stateTime(@NonNull android.database.Cursor cursor, boolean connected) {
+        String column = connected ? "connected_at" : "disconnected_at";
+        int index = cursor.getColumnIndex(column);
+        long time = index < 0 ? 0L : cursor.getLong(index);
+        if (time <= 0L) {
+            int lastSeen = cursor.getColumnIndex("last_seen");
+            time = lastSeen < 0 ? 0L : cursor.getLong(lastSeen);
+        }
+        return time;
+    }
+
+    /** 相对时间文案。 */
+    @NonNull
+    private static String relativeTime(long time) {
+        if (time <= 0L) {
+            return "未知时间";
+        }
+        long diff = System.currentTimeMillis() - time;
+        if (diff < 60_000L) {
+            return "刚刚";
+        }
+        if (diff < 3_600_000L) {
+            return (diff / 60_000L) + " 分钟前";
+        }
+        if (diff < 86_400_000L) {
+            return (diff / 3_600_000L) + " 小时前";
+        }
+        if (diff < 30L * 86_400_000L) {
+            return (diff / 86_400_000L) + " 天前";
+        }
+        return new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault())
+                .format(new java.util.Date(time));
+    }
+
     private void showDevicePicker(JSONObject app, String downloadUrl,
                                   com.typheye.wgpro.core.xms.UIParams params, String fallbackName) {
         final java.util.List<com.typheye.wgpro.ui.widget.GetSheet.DeviceOption> options =
@@ -806,7 +841,9 @@ public final class AppDetailFragment extends Fragment {
                     boolean connected = cursor.getInt(
                             cursor.getColumnIndexOrThrow("connected")) != 0;
                     options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
-                            deviceName, (connected ? "已连接" : "已断开") + " | 小米运动健康"));
+                            deviceName, (connected ? "已连接" : "已断开") + " | "
+                            + (connected ? "连接于 " : "断开于 ")
+                            + relativeTime(stateTime(cursor, connected))));
                     // 安装到手表的能力**尚未适配**：先一律给提示，不直接开始安装
                     blocks.add("「安装到设备」暂未适配，后续版本开放");
                 }
@@ -815,7 +852,11 @@ public final class AppDetailFragment extends Fragment {
             try (android.database.Cursor cursor =
                          db.all(com.typheye.wgpro.data.DeviceDatabase.TYPE_VIRTUAL)) {
                 while (cursor.moveToNext()) {
-                    String model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+                    String rowId = cursor.getString(cursor.getColumnIndexOrThrow("id"));
+                    String model = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(rowId);
+                    if (model.isEmpty()) {
+                        model = cursor.getString(cursor.getColumnIndexOrThrow("model"));
+                    }
                     String deviceName = deviceDisplayName(cursor, fallbackName);
                     // 运行态：先用设备库的 connected（引擎启动/退出/崩溃都会实时写库），
                     // 再用内存里的实时状态兜底（管理器 init 幂等），避免两者不同步时显示错。
@@ -828,7 +869,9 @@ public final class AppDetailFragment extends Fragment {
                         running = manager.isRunning(model);
                     }
                     options.add(new com.typheye.wgpro.ui.widget.GetSheet.DeviceOption(
-                            deviceName, (running ? "运行中" : "已停止") + " | 模拟设备"));
+                            deviceName, (running ? "运行中" : "已停止") + " | "
+                            + (running ? "连接于 " : "断开于 ")
+                            + relativeTime(stateTime(cursor, running))));
                     blocks.add("「安装到设备」暂未适配，后续版本开放");
                 }
             }

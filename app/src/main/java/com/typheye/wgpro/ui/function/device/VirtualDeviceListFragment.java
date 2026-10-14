@@ -165,12 +165,13 @@ public class VirtualDeviceListFragment extends Fragment {
         @Override
         public ModelHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             return new ModelHolder(LayoutInflater.from(parent.getContext())
-                    .inflate(R.layout.item_vela_model, parent, false));
+                    .inflate(R.layout.item_device_option, parent, false));
         }
 
         @Override
         public void onBindViewHolder(@NonNull ModelHolder holder, int position) {
             VelaModel model = models.get(position);
+            // 第一行=设备名称，第二行=镜像文件名（标识），无其他字符
             // 第一行=设备名称，第二行=镜像文件名（标识），无其他字符
             holder.title.setText(model.name);
             holder.subtitle.setText(model.code);
@@ -195,9 +196,9 @@ public class VirtualDeviceListFragment extends Fragment {
 
         ModelHolder(@NonNull View itemView) {
             super(itemView);
-            initial = itemView.findViewById(R.id.model_initial);
-            title = itemView.findViewById(R.id.model_name);
-            subtitle = itemView.findViewById(R.id.model_code);
+            initial = itemView.findViewById(R.id.device_option_avatar);
+            title = itemView.findViewById(R.id.device_option_title);
+            subtitle = itemView.findViewById(R.id.device_option_subtitle);
         }
     }
 
