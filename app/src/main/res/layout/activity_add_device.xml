@@ -24,21 +24,6 @@
             android:layout_height="match_parent" />
     </FrameLayout>
 
-    <!-- 进入页面的标准加载遮罩（与用户信息页同款）：首次加载/扫描期间盖住内容 -->
-    <FrameLayout
-        android:id="@+id/add_device_loading_overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/profile_loading_overlay"
-        android:clickable="true"
-        android:focusable="true">
-
-        <com.typheye.wgpro.ui.widget.WGProLoadingView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center" />
-    </FrameLayout>
-
     <!-- 应用栏（毛玻璃）：快照层 + 半透明应用栏，声明在内容之后保证画在内容之上 -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/app_bar_host"
@@ -79,5 +64,21 @@
                 app:titleTextColor="?attr/colorOnSurface" />
         </com.google.android.material.appbar.AppBarLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <!-- 进入页面的标准加载遮罩：**必须声明在最后**，才能盖住应用栏（含右上角菜单）。
+         clickable/focusable 用于吞掉遮罩期间的所有点击。 -->
+    <FrameLayout
+        android:id="@+id/add_device_loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/profile_loading_overlay"
+        android:clickable="true"
+        android:focusable="true">
+
+        <com.typheye.wgpro.ui.widget.WGProLoadingView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center" />
+    </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
