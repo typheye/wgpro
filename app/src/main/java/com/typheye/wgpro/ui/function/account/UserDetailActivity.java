@@ -172,59 +172,6 @@ public class UserDetailActivity extends AppCompatActivity {
         // 状态栏展开时压在深色头图上→用浅色图标（由 applyBarChrome 在折叠时改回主题色）。
         com.typheye.wgpro.utils.SystemBars.setLightNavigationBar(getWindow(), !chromeNight);
 
-        // 不用 fitsSystemWindows：它会给容器加顶部内边距，导致"头图"（含用户自定义背景图）只从
-        // 状态栏下方开始，与容器自身背景在状态栏那条交界处形成一道缝（小窗里尤其明显），
-        // 而且 match_parent 的子视图会被顶到容器外。改成自己把状态栏高度补给头图内容与 Toolbar，
-        // 这样 detail_background 能从 y=0 铺满整块头图。
-        final android.view.View collapsingBar = findViewById(R.id.detail_collapsing_toolbar);
-        final android.view.View expandedIdentity = findViewById(R.id.detail_expanded_identity);
-        androidx.core.view.ViewCompat.setOnApplyWindowInsetsListener(appBar, (view, insets) -> {
-            int top = insets.getInsets(
-                    androidx.core.view.WindowInsetsCompat.Type.statusBars()).top;
-            // 两级兜底：个别窗口/composable 场景下直接派发给 AppBar 的 insets 里状态栏是 0。
-            if (top == 0 && detailRoot != null) {
-                androidx.core.view.WindowInsetsCompat rootInsets =
-                        androidx.core.view.ViewCompat.getRootWindowInsets(detailRoot);
-                if (rootInsets != null) {
-                    top = rootInsets.getInsets(
-                            androidx.core.view.WindowInsetsCompat.Type.statusBars()).top;
-                }
-            }
-            if (top == 0) {
-                int statusBarId = getResources()
-                        .getIdentifier("status_bar_height", "dimen", "android");
-                if (statusBarId != 0) {
-                    top = getResources().getDimensionPixelSize(statusBarId);
-                }
-            }
-            // 容器高度必须把这一个状态栏高度补上：去掉 fitsSystemWindows 后容器不再自己预留，
-            // 只给内容加 paddingTop 会把内容顶出 360dp 被裁（表现就是"布局变形"）。
-            if (collapsingBar != null) {
-                android.view.ViewGroup.LayoutParams barParams = collapsingBar.getLayoutParams();
-                int wantedHeight = dp(360) + top;
-                if (barParams.height != wantedHeight) {
-                    barParams.height = wantedHeight;
-                    collapsingBar.setLayoutParams(barParams);
-                }
-            }
-            if (expandedIdentity != null) {
-                expandedIdentity.setPadding(expandedIdentity.getPaddingLeft(), dp(56) + top,
-                        expandedIdentity.getPaddingRight(), expandedIdentity.getPaddingBottom());
-            }
-            if (toolbar != null) {
-                android.view.ViewGroup.LayoutParams lp = toolbar.getLayoutParams();
-                if (lp instanceof android.view.ViewGroup.MarginLayoutParams) {
-                    android.view.ViewGroup.MarginLayoutParams mlp =
-                            (android.view.ViewGroup.MarginLayoutParams) lp;
-                    if (mlp.topMargin != top) {
-                        mlp.topMargin = top;
-                        toolbar.setLayoutParams(mlp);
-                    }
-                }
-            }
-            return insets;
-        });
-        androidx.core.view.ViewCompat.requestApplyInsets(appBar);
 
         TextView avatarText = findViewById(R.id.detail_avatar_text);
         TextView collapsedAvatarText = findViewById(R.id.detail_collapsed_avatar_text);
@@ -606,6 +553,42 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     /**
+     * 窗口尺寸变化后"推"一次头图测量。
+     *
+     * <p>小窗切换时 {@code fitsSystemWindows} 的 insets 会重算，但 AppBarLayout / 折叠布局
+     * 有时不会重新走完整测量，结果在状态栏那一条留一道"缝"。用户实测：此时手动下拉刷新一次
+     * 就能恢复正常 —— 说明就是**测量结果陈旧**。这里用 {@code setExpanded(..., false)} 按当前
+     * 折叠状态强制重走一次测量/布局（等价于"滚一下"）。</p>
+     */
+    private void nudgeHeaderLayout() {
+        if (detailRoot == null || appBar == null) {
+            return;
+        }
+        final Runnable nudge = () -> {
+            if (isFinishing() || isDestroyed() || detailRoot == null) {
+                return;
+            }
+            View collapsing = findViewById(R.id.detail_collapsing_toolbar);
+            int range = appBar.getTotalScrollRange();
+            int offset = collapsing == null ? 0 : collapsing.getTop();
+            boolean collapsedNow = range > 0 && Math.abs(offset) > range / 2;
+            appBar.setExpanded(!collapsedNow, false);
+            // 关键：头图（自定义背景图）当初是按**旧窗口高度**算的尺寸。窗口一变，它就和容器
+            // 对不上，在状态栏那一条露出裂缝。用户实测"下拉刷新一次就恢复"——刷新正好会重算这张
+            // 图（showProfileBackground → resizeProfileBackground），这里做同样的事。
+            View background = findViewById(R.id.detail_background);
+            if (background != null && background.getVisibility() == View.VISIBLE) {
+                resizeProfileBackground(appBar.getHeight() > 0 ? appBar.getHeight() : dp(360));
+            }
+            detailRoot.requestLayout();
+        };
+        // insets / 窗口尺寸常分几帧才稳定，多补几次
+        detailRoot.post(nudge);
+        detailRoot.postDelayed(nudge, 300L);
+        detailRoot.postDelayed(nudge, 900L);
+    }
+
+    /**
      * 按 AppBar 当前偏移重算「折叠蒙层 alpha + 前景配色」。
      *
      * <p>窗口尺寸变化（进/出小窗、分屏、旋转）后 {@code onOffsetChanged} 不一定再触发，
@@ -645,9 +628,10 @@ public class UserDetailActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        // 小窗/分屏/旋转会重排 AppBar，但偏移监听不一定再触发 → 主动按当前偏移重算一次，
-        // 否则会留下陈旧的蒙层 alpha / 前景色（表现：刚进页面立刻转小窗，顶部多一条淡线）。
+        // 小窗/分屏/旋转会重排 AppBar：① 按当前偏移重算蒙层/前景；② 强制重走一次测量，
+        // 消除 insets 重算后残留的那条"缝"（下拉刷新能修好，说明就是测量陈旧）。
         reapplyChromeFromCurrentOffset();
+        nudgeHeaderLayout();
     }
 
     @Override
@@ -655,6 +639,7 @@ public class UserDetailActivity extends AppCompatActivity {
                                          @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
         reapplyChromeFromCurrentOffset();
+        nudgeHeaderLayout();
     }
 
 
