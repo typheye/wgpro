@@ -43,7 +43,6 @@ import com.typheye.wgpro.ui.function.ScanQRActivity;
 import com.typheye.wgpro.ui.function.account.AccountBottomSheets;
 import com.typheye.wgpro.ui.function.settings.SettingsActivity;
 import com.typheye.wgpro.ui.main.mainFragments.AccountFragment;
-import com.typheye.wgpro.ui.main.mainFragments.DashboardFragment;
 import com.typheye.wgpro.ui.main.mainFragments.DeviceFragment;
 import com.typheye.wgpro.ui.main.mainFragments.HomeFragment;
 import com.typheye.wgpro.utils.AppBarBlur;
@@ -81,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
     private TabLayoutMediator pageTabsMediator;
     private ViewPager2 boundTabsPager;
     private HomeFragment homeFragment;
-    private DashboardFragment dashboardFragment;
     private DeviceFragment deviceFragment;
     private AccountFragment accountFragment;
     private BarBlurController barBlurController;
@@ -216,13 +214,25 @@ public class MainActivity extends AppCompatActivity {
         mainPager.setAdapter(new FragmentStateAdapter(this) {
             @NonNull @Override public Fragment createFragment(int position) {
                 if (position == 0) return homeFragment = new HomeFragment();
-                if (position == 1) return dashboardFragment = new DashboardFragment();
-                if (position == 2) return deviceFragment = new DeviceFragment();
+                if (position == 1) return deviceFragment = new DeviceFragment();
                 return accountFragment = new AccountFragment();
             }
-            @Override public int getItemCount() { return 4; }
+            @Override public int getItemCount() { return 3; }
         });
         mainPager.setOffscreenPageLimit(1);
+
+        // 桌面快捷方式：launcher 是外部进程，只能拉起导出的 MainActivity，这里按 extra 分发
+        if (getIntent() != null) {
+            final String shortcutId = getIntent().getStringExtra(
+                    com.typheye.wgpro.ui.function.settings.DesktopShortcutActions
+                            .EXTRA_SHORTCUT_ID);
+            if (shortcutId != null) {
+                getIntent().removeExtra(com.typheye.wgpro.ui.function.settings
+                        .DesktopShortcutActions.EXTRA_SHORTCUT_ID);
+                mainPager.post(() -> com.typheye.wgpro.ui.function.settings
+                        .DesktopShortcutActions.run(this, shortcutId));
+            }
+        }
 
         if (savedInstanceState == null) {
             bottomNavigation.setSelectedItemId(R.id.nav_home);
@@ -552,14 +562,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private int navIdToPosition(int id) {
-        if (id == R.id.nav_dashboard) return 1;
-        if (id == R.id.nav_device) return 2;
-        if (id == R.id.nav_account) return 3;
+        if (id == R.id.nav_device) return 1;
+        if (id == R.id.nav_account) return 2;
         return 0;
     }
 
     private int positionToNavId(int position) {
-        return new int[]{R.id.nav_home, R.id.nav_dashboard, R.id.nav_device, R.id.nav_account}[position];
+        return new int[]{R.id.nav_home, R.id.nav_device, R.id.nav_account}[position];
     }
 
     /**
@@ -568,7 +577,7 @@ public class MainActivity extends AppCompatActivity {
     private void applyTopBarForPage(int position) {
         boolean home = position == 0;
         toolbar.setTitle(home ? ""
-                : new String[]{getString(R.string.app_name), "发现", "设备", "我的"}[position]);
+                : new String[]{getString(R.string.app_name), "设备", "账户"}[position]);
         if (searchBox != null) {
             searchBox.setVisibility(home ? View.VISIBLE : View.GONE);
         }
@@ -618,15 +627,11 @@ public class MainActivity extends AppCompatActivity {
         MenuItem scan = menu.findItem(R.id.action_scanqr);
         MenuItem settings = menu.findItem(R.id.action_settings);
         MenuItem deviceAdd = menu.findItem(R.id.action_device_add);
-        MenuItem dashboardEdit = menu.findItem(R.id.action_dashboard_edit);
-        MenuItem dashboardAdd = menu.findItem(R.id.action_dashboard_add);
         if (notification != null) notification.setVisible(home);
         if (compose != null) compose.setVisible(home);
         if (scan != null) scan.setVisible(account && accountLoggedIn);
         if (settings != null) settings.setVisible(account);
         if (deviceAdd != null) deviceAdd.setVisible(selectedPage == R.id.nav_device);
-        if (dashboardEdit != null) dashboardEdit.setVisible(selectedPage == R.id.nav_dashboard);
-        if (dashboardAdd != null) dashboardAdd.setVisible(selectedPage == R.id.nav_dashboard);
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -732,8 +737,9 @@ public class MainActivity extends AppCompatActivity {
                 innerPager = home.getView().findViewById(R.id.home_pager);
                 titles = HOME_TAB_TITLES;
             }
-        } else if (position == 2) {
-            Fragment device = fragmentAt(2);
+        } else if (position == 1) {
+            // 去掉「发现」页后设备页是 1（原来写的是 2，漏改会让设备页的子标签行绑不上而消失）
+            Fragment device = fragmentAt(1);
             if (device != null && device.getView() != null) {
                 innerPager = device.getView().findViewById(R.id.device_pager);
                 titles = DEVICE_TAB_TITLES;
@@ -770,7 +776,8 @@ public class MainActivity extends AppCompatActivity {
         Fragment restored = getSupportFragmentManager().findFragmentByTag("f" + position);
         if (restored != null) return restored;
         if (position == 0) return homeFragment;
-        if (position == 2) return deviceFragment;
+        // 去掉「发现」页后：0=首页 1=设备 2=账户（原来设备是 2，此处漏改会让设备页的子标签行绑不上而消失）
+        if (position == 1) return deviceFragment;
         return null;
     }
 
@@ -803,18 +810,6 @@ public class MainActivity extends AppCompatActivity {
                                     ? com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_VIRTUAL
                                     : com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_WEARABLE));
             return true;
-        } else if (id == R.id.action_dashboard_edit) {
-            DashboardFragment target = dashboardTarget();
-            if (target != null && target.isAdded()) {
-                target.showEditor();
-            }
-            return true;
-        } else if (id == R.id.action_dashboard_add) {
-            DashboardFragment target = dashboardTarget();
-            if (target != null && target.isAdded()) {
-                target.showAddSheet();
-            }
-            return true;
         }
         if (id == R.id.action_scanqr) {
             startActivity(new Intent(MainActivity.this, ScanQRActivity.class));
@@ -826,11 +821,4 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** 发现页 Fragment 在 ViewPager2 里的 tag 是 f1，Activity 重建后按 tag 找。 */
-    @Nullable
-    private DashboardFragment dashboardTarget() {
-        Fragment restored = getSupportFragmentManager().findFragmentByTag("f1");
-        if (restored instanceof DashboardFragment) return (DashboardFragment) restored;
-        return dashboardFragment;
-    }
 }

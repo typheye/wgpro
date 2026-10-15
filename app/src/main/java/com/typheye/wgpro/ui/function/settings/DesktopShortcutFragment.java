@@ -1,4 +1,4 @@
-package com.typheye.wgpro.ui.main.mainFragments;
+package com.typheye.wgpro.ui.function.settings;
 
 import android.content.Context;
 import android.content.ClipData;
@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.ColorRes;
 import androidx.annotation.DrawableRes;
@@ -43,11 +42,11 @@ import java.util.List;
  * 更多卡长按弹分组菜单（添加到常用 / 移除），编辑弹窗支持拖拽排序与拖入删除区移除，
  * 右上角"+"可把已移除、未在发现页显示的功能重新加回。
  */
-public class DashboardFragment extends Fragment {
-    private static final String PREFS_NAME = "discover_preferences";
+public class DesktopShortcutFragment extends Fragment {
+    private static final String PREFS_NAME = "desktop_shortcut_preferences";
     private static final String KEY_FAVORITES = "favorite_functions";
     private static final String KEY_HIDDEN = "hidden_functions";
-    private static final int MAX_FAVORITES = 6;
+    private static final int MAX_FAVORITES = 3;
 
     private final List<FunctionItem> functions = Arrays.asList(
             new FunctionItem("transfer", "文件传输", "发送应用、图片与资源到腕上设备",
@@ -76,7 +75,7 @@ public class DashboardFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_dashboard, container, false);
+        View view = inflater.inflate(R.layout.fragment_desktop_shortcut, container, false);
         favoritesGrid = view.findViewById(R.id.discover_favorites_grid);
         moreContainer = view.findViewById(R.id.discover_more_container);
         moreLeft = view.findViewById(R.id.discover_more_left);
@@ -108,13 +107,14 @@ public class DashboardFragment extends Fragment {
         renderEditorGrid(favorites);
 
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("编辑常用功能")
+                .setTitle("编辑")
                 .setView(editor)
                 .setNegativeButton("关闭", null)
                 .show();
     }
 
-    /** 右上角"+"：列出被移除、未在发现页显示的功能，点击重新显示。 */
+
+    /** 应用栏「+」：列出还没加入桌面快捷菜单的功能，点一下加进去。 */
     public void showAddSheet() {
         if (!isAdded()) return;
         List<String> hidden = loadHidden();
@@ -125,7 +125,7 @@ public class DashboardFragment extends Fragment {
         if (addable.isEmpty()) {
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("添加功能")
-                    .setMessage("所有功能都已在发现页显示。")
+                    .setMessage("被移除的功能会出现在这里，目前没有可恢复的功能。")
                     .setPositiveButton("完成", null)
                     .show();
             return;
@@ -144,7 +144,8 @@ public class DashboardFragment extends Fragment {
             list.addView(row, new LinearLayout.LayoutParams(-1, dp(64)));
             if (index < addable.size() - 1) {
                 View divider = new View(requireContext());
-                divider.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.outline_soft));
+                divider.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(
+                        requireContext(), R.color.outline_soft));
                 list.addView(divider, new LinearLayout.LayoutParams(-1, dp(1)));
             }
         }
@@ -154,7 +155,8 @@ public class DashboardFragment extends Fragment {
         group.setStrokeWidth(0);
         group.setUseCompatPadding(false);
         group.setPreventCornerOverlap(false);
-        group.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(requireContext(), R.color.surface_secondary));
+        group.setCardBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(
+                requireContext(), R.color.surface_secondary));
         group.setClipToOutline(true);
         group.addView(list, new MaterialCardView.LayoutParams(-1, -2));
 
@@ -164,6 +166,28 @@ public class DashboardFragment extends Fragment {
                 .create();
         shown[0] = dialog;
         dialog.show();
+    }
+
+    /** 「添加功能」弹窗里的一行：字母色块 + 标题。 */
+    private LinearLayout addableRow(FunctionItem item) {
+        LinearLayout row = new LinearLayout(requireContext());
+        row.setOrientation(LinearLayout.HORIZONTAL);
+        row.setGravity(Gravity.CENTER_VERTICAL);
+        row.setPadding(dp(20), 0, dp(20), 0);
+        row.setBackground(menuRipple());
+        TextView badge = text(item.title.substring(0, 1), 15, R.color.brand_primary, true);
+        GradientDrawable circle = new GradientDrawable();
+        circle.setShape(GradientDrawable.OVAL);
+        circle.setColor(ColorUtils.setAlphaComponent(com.typheye.wgpro.ui.widget.WGProColors.of(
+                requireContext(), R.color.brand_primary), 28));
+        badge.setBackground(circle);
+        badge.setGravity(Gravity.CENTER);
+        row.addView(badge, new LinearLayout.LayoutParams(dp(36), dp(36)));
+        TextView label = text(item.title, 16, R.color.text_primary, true);
+        LinearLayout.LayoutParams labelParams = new LinearLayout.LayoutParams(0, -2, 1f);
+        labelParams.leftMargin = dp(14);
+        row.addView(label, labelParams);
+        return row;
     }
 
     private void renderPage() {
@@ -231,9 +255,9 @@ public class DashboardFragment extends Fragment {
         discoverEmptyView.setVisibility(empty ? View.VISIBLE : View.GONE);
         if (empty) {
             ((TextView) discoverEmptyView.findViewById(R.id.stream_empty_title))
-                    .setText("发现页还没有功能");
+                    .setText("还没有桌面快捷菜单");
             ((TextView) discoverEmptyView.findViewById(R.id.stream_empty_description))
-                    .setText("点击右上角的 + 把需要的功能添加到发现页。");
+                    .setText("长按下面的功能卡片，把它加到桌面快捷菜单里。");
         }
     }
 
@@ -511,7 +535,8 @@ public class DashboardFragment extends Fragment {
         if (!isAdded()) return;
         new WGProAlertDialogBuilder(requireContext())
                 .setTitle(item.title)
-                .setItems(new CharSequence[]{"添加到常用", "移除"}, (dialog, which) -> {
+                // 与发现页一致：添加到桌面菜单 / 移除（移除后可在右上角「+」里加回来）
+                .setItems(new CharSequence[]{"添加到桌面菜单", "移除"}, (dialog, which) -> {
                     if (which == 0) addToFavorites(item);
                     else removeFromList(item);
                 })
@@ -534,12 +559,13 @@ public class DashboardFragment extends Fragment {
     private void showFavoritesFull() {
         if (!isAdded()) return;
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("常用功能已达上限")
-                .setMessage("最多可添加 " + MAX_FAVORITES + " 个常用功能，请先在编辑中去掉一个。")
+                .setTitle("桌面快捷菜单已达上限")
+                .setMessage("最多可添加 " + MAX_FAVORITES + " 个快捷菜单，请先在编辑中去掉一个。")
                 .setPositiveButton("完成", null)
                 .show();
     }
 
+    /** 「移除」：从页面隐藏（不是删掉），之后可以在右上角「+」里重新加回来。 */
     private void removeFromList(FunctionItem item) {
         List<String> hidden = loadHidden();
         if (!hidden.contains(item.id)) hidden.add(item.id);
@@ -547,26 +573,11 @@ public class DashboardFragment extends Fragment {
         renderPage();
     }
 
+    /** 「+」里恢复一个被移除的功能。 */
     private void restoreFunction(FunctionItem item) {
         List<String> hidden = loadHidden();
         if (hidden.remove(item.id)) saveHidden(hidden);
         renderPage();
-    }
-
-    private LinearLayout addableRow(FunctionItem item) {
-        LinearLayout row = new LinearLayout(requireContext());
-        row.setOrientation(LinearLayout.HORIZONTAL);
-        row.setGravity(Gravity.CENTER_VERTICAL);
-        row.setPadding(dp(18), 0, dp(16), 0);
-        row.setClickable(true);
-        row.setFocusable(true);
-        row.setBackground(menuRipple());
-        row.addView(createInitial(item, 36), new LinearLayout.LayoutParams(dp(36), dp(36)));
-        TextView label = text(item.title, 16, R.color.text_primary, true);
-        LinearLayout.LayoutParams labelParams = new LinearLayout.LayoutParams(0, -2, 1f);
-        labelParams.leftMargin = dp(14);
-        row.addView(label, labelParams);
-        return row;
     }
 
     private RippleDrawable menuRipple() {
@@ -577,19 +588,8 @@ public class DashboardFragment extends Fragment {
     }
 
     private void runFunction(FunctionItem item) {
-        switch (item.id) {
-            case "transfer": openWeb("https://wgpro.typheye.cn/push"); break;
-            case "guide": openWeb("https://wgpro.typheye.cn/docs"); break;
-            case "website": openWeb("https://wgpro.typheye.cn/"); break;
-            case "share": shareApp(); break;
-            case "feedback": sendFeedbackEmail(); break;
-            case "downloads":
-                startActivity(new Intent(requireContext(),
-                        com.typheye.wgpro.ui.function.download.DownloadManagerActivity.class));
-                break;
-            case "beta": openWeb("https://www.typheye.cn/?p=beta"); break;
-            default: break;
-        }
+        // 与桌面快捷方式共用同一套动作
+        DesktopShortcutActions.run(requireContext(), item.id);
     }
 
     /** 「分享应用」：与设置页里的分享保持一致。 */
@@ -633,7 +633,56 @@ public class DashboardFragment extends Fragment {
     private void saveFavorites(List<String> favorites) {
         requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).edit()
                 .putString(KEY_FAVORITES, android.text.TextUtils.join(",", favorites)).apply();
+        // 唯一收口：任何增删/排序都同步一次桌面快捷方式
+        syncShortcuts(favorites);
     }
+
+    /** 把已选中的功能同步成桌面长按图标弹出的快捷方式（最多 MAX_FAVORITES 个）。 */
+    private void syncShortcuts(List<String> favorites) {
+        if (!isAdded()) return;
+        try {
+            Context context = requireContext();
+            List<androidx.core.content.pm.ShortcutInfoCompat> shortcuts = new ArrayList<>();
+            for (String id : favorites) {
+                FunctionItem item = findItem(id);
+                if (item == null) continue;
+                shortcuts.add(new androidx.core.content.pm.ShortcutInfoCompat.Builder(
+                        context, "wgpro_" + item.id)
+                        .setShortLabel(item.title)
+                        .setLongLabel(item.title)
+                        .setIcon(androidx.core.graphics.drawable.IconCompat
+                                .createWithBitmap(shortcutIcon(item)))
+                        .setIntent(DesktopShortcutActions.shortcutIntent(context, item.id))
+                        .build());
+            }
+            androidx.core.content.pm.ShortcutManagerCompat
+                    .setDynamicShortcuts(context, shortcuts);
+        } catch (Exception ignored) {
+        }
+    }
+
+    /** 快捷方式图标：品牌色圆角块 + 功能首字（与页面里的"字母色块"同一套观感）。 */
+    private android.graphics.Bitmap shortcutIcon(FunctionItem item) {
+        int size = dp(108);
+        android.graphics.Bitmap bitmap = android.graphics.Bitmap.createBitmap(
+                size, size, android.graphics.Bitmap.Config.ARGB_8888);
+        android.graphics.Canvas canvas = new android.graphics.Canvas(bitmap);
+        android.graphics.Paint paint = new android.graphics.Paint(
+                android.graphics.Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(com.typheye.wgpro.ui.widget.WGProColors.of(
+                requireContext(), R.color.brand_primary));
+        float radius = size * 0.24f;
+        canvas.drawRoundRect(0, 0, size, size, radius, radius, paint);
+        paint.setColor(Color.WHITE);
+        paint.setTextSize(size * 0.46f);
+        paint.setTextAlign(android.graphics.Paint.Align.CENTER);
+        paint.setTypeface(android.graphics.Typeface.DEFAULT_BOLD);
+        android.graphics.Paint.FontMetrics metrics = paint.getFontMetrics();
+        float baseline = size / 2f - (metrics.ascent + metrics.descent) / 2f;
+        canvas.drawText(item.title.substring(0, 1), size / 2f, baseline, paint);
+        return bitmap;
+    }
+
 
     private List<String> loadHidden() {
         String stored = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

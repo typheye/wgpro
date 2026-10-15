@@ -67,6 +67,15 @@
                     </LinearLayout>
                     <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switch_blur" android:layout_width="wrap_content" android:layout_height="wrap_content" android:contentDescription="启用高斯模糊" app:thumbTint="@color/switch_thumb_colors" app:trackTint="@color/switch_track_colors" />
                 </LinearLayout>
+                <View android:layout_width="match_parent" android:layout_height="1dp" android:layout_marginStart="60dp" android:background="?attr/colorOutlineVariant" />
+                <LinearLayout android:id="@+id/row_desktop_shortcut" android:layout_width="match_parent" android:layout_height="72dp" android:clickable="true" android:focusable="true" android:foreground="?attr/selectableItemBackground" android:gravity="center_vertical" android:paddingStart="20dp" android:paddingEnd="12dp">
+                    <ImageView android:layout_width="24dp" android:layout_height="24dp" android:contentDescription="@null" android:src="@drawable/ic_explore_vector" />
+                    <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_marginStart="16dp" android:layout_weight="1" android:orientation="vertical">
+                        <TextView style="@style/TextAppearance.Material3.BodyLarge" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="快捷菜单" android:textColor="?attr/colorOnSurface" />
+                        <TextView style="@style/TextAppearance.Material3.BodySmall" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="2dp" android:text="设置长按桌面图标弹出的快捷方式" android:textColor="?attr/colorOnSurfaceVariant" />
+                    </LinearLayout>
+                    <ImageView android:layout_width="20dp" android:layout_height="20dp" android:contentDescription="@null" android:src="@drawable/ic_chevron_right_vector" app:tint="?attr/colorOnSurfaceVariant" />
+                </LinearLayout>
                 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

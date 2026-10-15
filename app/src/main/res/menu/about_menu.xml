@@ -2,6 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <!-- 桌面快捷菜单页右上角：编辑（排序/拖入删除）、添加功能 -->
+    <item
+        android:id="@+id/action_shortcut_edit"
+        android:title="编辑"
+        android:icon="@drawable/ic_edit_vector"
+        app:showAsAction="always" />
+    <item
+        android:id="@+id/action_shortcut_add"
+        android:title="添加功能"
+        android:icon="@drawable/ic_add_vector"
+        app:showAsAction="always" />
+
     <!-- 关于页右上角：分享应用 -->
     <item
         android:id="@+id/action_share_app"

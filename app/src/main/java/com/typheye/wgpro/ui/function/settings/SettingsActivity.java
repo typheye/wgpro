@@ -73,7 +73,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
         getSupportFragmentManager().addOnBackStackChangedListener(() -> {
-            toolbar.setTitle(getSupportFragmentManager().getBackStackEntryCount() > 0 ? "关于应用" : "设置");
+            toolbar.setTitle(currentPageTitle());
             invalidateOptionsMenu();
         });
         compatibilityBackCallback = new OnBackPressedCallback(true) {
@@ -99,12 +99,35 @@ public class SettingsActivity extends AppCompatActivity {
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
+        boolean about = "关于应用".equals(currentPageTitle());
         MenuItem share = menu.findItem(R.id.action_share_app);
         // 分享入口只在「关于应用」页显示
         if (share != null) {
-            share.setVisible(getSupportFragmentManager().getBackStackEntryCount() > 0);
+            share.setVisible(about);
         }
+        MenuItem edit = menu.findItem(R.id.action_shortcut_edit);
+        MenuItem add = menu.findItem(R.id.action_shortcut_add);
+        boolean shortcutPage = "快捷菜单".equals(currentPageTitle());
+        if (edit != null) edit.setVisible(shortcutPage);
+        if (add != null) add.setVisible(shortcutPage);
         return super.onPrepareOptionsMenu(menu);
+    }
+
+    /** 桌面快捷菜单页的两个应用栏动作：转发给它自己（编辑排序 / 添加功能）。 */
+    private boolean dispatchToShortcutPage(int itemId) {
+        if (!"快捷菜单".equals(currentPageTitle())) return false;
+        Fragment page = getSupportFragmentManager().findFragmentById(R.id.settings);
+        if (!(page instanceof DesktopShortcutFragment)) return false;
+        DesktopShortcutFragment shortcutPage = (DesktopShortcutFragment) page;
+        if (itemId == R.id.action_shortcut_edit) {
+            shortcutPage.showEditor();
+            return true;
+        }
+        if (itemId == R.id.action_shortcut_add) {
+            shortcutPage.showAddSheet();
+            return true;
+        }
+        return false;
     }
 
     @Override
@@ -113,6 +136,9 @@ public class SettingsActivity extends AppCompatActivity {
 
         if (id == android.R.id.home) {
             navigateBack();
+            return true;
+        }
+        if (dispatchToShortcutPage(id)) {
             return true;
         }
         if (id == R.id.action_share_app) {
@@ -151,6 +177,21 @@ public class SettingsActivity extends AppCompatActivity {
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode, @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
         ViewCompat.requestApplyInsets(findViewById(R.id.container));
+    }
+
+    /** 返回栈顶是哪个页面就显示哪个标题（原来写死"关于应用"，多一个子页面就会显示错）。 */
+    private String currentPageTitle() {
+        int count = getSupportFragmentManager().getBackStackEntryCount();
+        if (count == 0) return "设置";
+        String name = getSupportFragmentManager().getBackStackEntryAt(count - 1).getName();
+        return "desktop_shortcut".equals(name) ? "快捷菜单" : "关于应用";
+    }
+
+    private void openDesktopShortcutPage() {
+        AppUtils.applyFragmentTransition(getSupportFragmentManager().beginTransaction())
+                .replace(R.id.settings, new DesktopShortcutFragment())
+                .addToBackStack("desktop_shortcut")
+                .commit();
     }
 
     private void openAboutPage() {
@@ -249,6 +290,8 @@ public class SettingsActivity extends AppCompatActivity {
                     .setOnClickListener(v -> showNotificationSettingsSheet());
             view.findViewById(R.id.row_about).setOnClickListener(v ->
                     ((SettingsActivity) requireActivity()).openAboutPage());
+            view.findViewById(R.id.row_desktop_shortcut).setOnClickListener(v ->
+                    ((SettingsActivity) requireActivity()).openDesktopShortcutPage());
             view.findViewById(R.id.row_account_security).setOnClickListener(v -> {
                 Intent security = new Intent(requireContext(),
                         com.typheye.wgpro.ui.function.WebActivity.class);

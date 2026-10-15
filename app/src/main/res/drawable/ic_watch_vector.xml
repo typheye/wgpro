@@ -1,27 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 设备：与 ic_home / ic_person 同一套"单路径实心剪影"语言（表带 + 圆角表壳 + 挖空屏幕） -->
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="24"
-    android:viewportHeight="24">
-
-    <!-- Tapered upper strap and connector. -->
-    <path
-        android:fillColor="#FF000000"
-        android:pathData="M9,1.5C9,0.95 9.45,0.5 10,0.5H14C14.55,0.5 15,0.95 15,1.5L15.55,5H8.45L9,1.5Z" />
-
-    <!-- Rounded case with an explicitly cut-out display. -->
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
     <path
         android:fillColor="#FF000000"
         android:fillType="evenOdd"
-        android:pathData="M8.2,4.5H15.8C17.57,4.5 19,5.93 19,7.7V16.3C19,18.07 17.57,19.5 15.8,19.5H8.2C6.43,19.5 5,18.07 5,16.3V7.7C5,5.93 6.43,4.5 8.2,4.5ZM8.6,7.3C8.16,7.3 7.8,7.66 7.8,8.1V15.9C7.8,16.34 8.16,16.7 8.6,16.7H15.4C15.84,16.7 16.2,16.34 16.2,15.9V8.1C16.2,7.66 15.84,7.3 15.4,7.3H8.6Z" />
-
-    <!-- Small side crown. -->
-    <path
-        android:fillColor="#FF000000"
-        android:pathData="M19,9.2H19.7C20.08,9.2 20.4,9.52 20.4,9.9V12.7C20.4,13.08 20.08,13.4 19.7,13.4H19V9.2Z" />
-
-    <!-- Tapered lower strap and connector. -->
-    <path
-        android:fillColor="#FF000000"
-        android:pathData="M8.45,19H15.55L15,22.5C15,23.05 14.55,23.5 14,23.5H10C9.45,23.5 9,23.05 9,22.5L8.45,19Z" />
+        android:pathData="M9.3,2h5.4c0.5,0 0.92,0.36 0.99,0.85L16.1,5.2H7.9l0.41,-2.35C8.38,2.36 8.8,2 9.3,2zM7.7,6.3h8.6c1.6,0 2.9,1.3 2.9,2.9v6.6c0,1.6 -1.3,2.9 -2.9,2.9H7.7c-1.6,0 -2.9,-1.3 -2.9,-2.9V9.2c0,-1.6 1.3,-2.9 2.9,-2.9zM9.7,8.7c-0.55,0 -1,0.45 -1,1v5.6c0,0.55 0.45,1 1,1h4.6c0.55,0 1,-0.45 1,-1V9.7c0,-0.55 -0.45,-1 -1,-1zM9.3,18.8h5.4l0.39,2.35c0.07,0.49 -0.31,0.85 -0.99,0.85H9.3c-0.68,0 -1.06,-0.36 -0.99,-0.85z" />
 </vector>
