@@ -2,8 +2,12 @@ package com.typheye.wgpro.core.emu;
 
 import androidx.annotation.NonNull;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
@@ -111,6 +115,104 @@ public final class VelaAdbClient {
         }
     }
 
+    /**
+     * 把本地文件推到客机（adb 的 {@code sync} 服务）。
+     *
+     * <p>协议：{@code OPEN("sync:")} → {@code SEND <远端路径>,<权限>} → 若干
+     * {@code DATA <len> + 数据} → {@code DONE <mtime>} → 服务端回 {@code OKAY} 或
+     * {@code FAIL+长度+信息}（所有整数小端）。</p>
+     */
+    public static void push(@NonNull String host, int port, @NonNull File local,
+                            @NonNull String remotePath, long timeoutMs) throws Exception {
+        Exception last = null;
+        for (String candidate : HOSTS) {
+            try {
+                pushOn(candidate, port, local, remotePath, timeoutMs);
+                return;
+            } catch (Exception error) {
+                last = error;
+            }
+        }
+        throw last == null ? new IllegalStateException("无法连接客机 adbd") : last;
+    }
+
+    private static void pushOn(@NonNull String host, int port, @NonNull File local,
+                               @NonNull String remotePath, long timeoutMs) throws Exception {
+        final long budget = Math.max(4000L, timeoutMs);
+        try (Socket socket = new Socket()) {
+            socket.connect(new InetSocketAddress(host, port), 4000);
+            socket.setSoTimeout((int) Math.min(budget, 120000L));
+            OutputStream out = new BufferedOutputStream(socket.getOutputStream());
+            DataInputStream in = new DataInputStream(
+                    new BufferedInputStream(socket.getInputStream()));
+
+            send(out, A_CNXN, A_VERSION, MAX_DATA, "host::\0".getBytes(StandardCharsets.UTF_8));
+            Message reply = read(in);
+            if (reply == null || reply.command != A_CNXN) {
+                throw new IllegalStateException("客机 adbd 握手失败");
+            }
+            int localId = 1;
+            send(out, A_OPEN, localId, 0, "sync:\0".getBytes(StandardCharsets.UTF_8));
+            int remoteId = -1;
+            long deadline = System.currentTimeMillis() + budget;
+            while (System.currentTimeMillis() < deadline) {
+                Message message = read(in);
+                if (message == null) {
+                    throw new IllegalStateException("客机 adbd 断开");
+                }
+                if (message.command == A_OKAY) {
+                    remoteId = message.arg0;
+                    break;
+                }
+                if (message.command == A_CLSE) {
+                    throw new IllegalStateException("客机拒绝 sync 服务");
+                }
+            }
+            if (remoteId < 0) {
+                throw new IllegalStateException("客机 sync 服务未就绪");
+            }
+
+            byte[] spec = (remotePath + ",33188").getBytes(StandardCharsets.UTF_8);
+            writeSyncHeader(out, "SEND", spec.length);
+            out.write(spec);
+            try (InputStream file = new FileInputStream(local)) {
+                byte[] buffer = new byte[64 * 1024];
+                int read;
+                while ((read = file.read(buffer)) > 0) {
+                    writeSyncHeader(out, "DATA", read);
+                    out.write(buffer, 0, read);
+                }
+            }
+            writeSyncHeader(out, "DONE", (int) (local.lastModified() / 1000L));
+            out.flush();
+
+            byte[] status = new byte[4];
+            in.readFully(status);
+            String text = new String(status, StandardCharsets.US_ASCII);
+            if (!"OKAY".equals(text)) {
+                if ("FAIL".equals(text)) {
+                    int length = Integer.reverseBytes(in.readInt());
+                    byte[] message = new byte[Math.max(0, Math.min(length, 4096))];
+                    in.readFully(message);
+                    throw new IllegalStateException("推送失败："
+                            + new String(message, StandardCharsets.UTF_8));
+                }
+                throw new IllegalStateException("推送失败：" + text);
+            }
+            send(out, A_CLSE, localId, Math.max(remoteId, 0), new byte[0]);
+        }
+    }
+
+    /** sync 协议的 8 字节头：4 字节 ASCII 指令 + 4 字节小端整数。 */
+    private static void writeSyncHeader(@NonNull OutputStream out, @NonNull String id, int value)
+            throws Exception {
+        out.write(id.getBytes(StandardCharsets.US_ASCII));
+        out.write(value & 0xFF);
+        out.write((value >> 8) & 0xFF);
+        out.write((value >> 16) & 0xFF);
+        out.write((value >> 24) & 0xFF);
+    }
+
     // ------------------------------------------------------------------ 线协议
 
     private static final class Message {
@@ -161,6 +263,30 @@ public final class VelaAdbClient {
             message.payload = new byte[0];
         }
         return message;
+    }
+
+    /**
+     * 等客机 adbd 端口就绪。
+     *
+     * <p>引擎刚启动时还没 bind 控制台/ adb 端口，立刻连会 **ECONNREFUSED**（实测：
+     * 端口随后确实在 127.0.0.1/::1 上 LISTEN，只是慢了一拍）。这里轮询到就绪为止。</p>
+     */
+    public static boolean waitFor(int port, long timeoutMs) {
+        long deadline = System.currentTimeMillis() + Math.max(1000L, timeoutMs);
+        while (System.currentTimeMillis() < deadline) {
+            for (String host : HOSTS) {
+                if (probe(host, port)) {
+                    return true;
+                }
+            }
+            try {
+                Thread.sleep(500L);
+            } catch (InterruptedException ignored) {
+                Thread.currentThread().interrupt();
+                return false;
+            }
+        }
+        return false;
     }
 
     /** 探活：客机 adbd 是否可直连（免认证）。 */

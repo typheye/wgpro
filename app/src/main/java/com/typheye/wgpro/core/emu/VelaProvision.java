@@ -86,6 +86,71 @@ public final class VelaProvision {
         removeImage(context, modelId);
     }
 
+    /** 设备 id → 运行时目录名（与 {@link VelaEmulator#runtimeDir()} 同一套转义）。 */
+    @NonNull
+    public static String runtimeDirName(@NonNull String deviceId) {
+        if (deviceId.isEmpty()) {
+            return "_default";
+        }
+        return deviceId.replaceAll("[^A-Za-z0-9._-]", "_");
+    }
+
+    /**
+     * 清掉"设备库里已经不存在"的实例目录（孤儿）：移除失败、卸载重装、老版本切目录都会留下它们，
+     * 每个还占着 1.5G 左右。返回清掉的目录数。
+     *
+     * <p>只认设备库里的 id，**绝不误删正在用的实例**（在用的一定在库里）。</p>
+     */
+    public static int purgeOrphanRuntimes(@NonNull Context context) {
+        int removed = 0;
+        try {
+            java.util.Set<String> alive = new java.util.HashSet<>();
+            try (DeviceDatabase db = new DeviceDatabase(context);
+                 android.database.Cursor cursor = db.all(null)) {
+                if (cursor != null) {
+                    int idColumn = cursor.getColumnIndex("device_id");
+                    if (idColumn < 0) {
+                        idColumn = 0;
+                    }
+                    while (cursor.moveToNext()) {
+                        String id = cursor.getString(idColumn);
+                        if (id != null && !id.isEmpty()) {
+                            alive.add(runtimeDirName(id));
+                        }
+                    }
+                }
+            }
+            File[] children = new File(context.getFilesDir(), "runtime").listFiles();
+            if (children == null) {
+                return 0;
+            }
+            for (File child : children) {
+                if (!child.isDirectory() || alive.contains(child.getName())) {
+                    continue;
+                }
+                deleteRecursively(child);
+                removed++;
+            }
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "清理残留模拟器目录失败", error);
+        }
+        return removed;
+    }
+
+    /**
+     * 「移除设备」用：删掉该设备的**整个实例目录**（{@code files/runtime/<设备id>}，
+     * 里面含引擎、镜像、AVD 与 home）。调用前请先
+     * {@link VelaEmulatorManager#stop} 停掉引擎，否则 qemu 会继续占着文件与端口。
+     */
+    public static void purgeDevice(@NonNull Context context, @NonNull String deviceId) {
+        try {
+            VelaEmulator emulator = new VelaEmulator(context, modelIdOf(deviceId), deviceId);
+            deleteRecursively(emulator.runtimeDir());
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "清理设备实例目录失败", error);
+        }
+    }
+
     /**
      * **只删除已下载的镜像**（含下载记录），**不动已经创建的设备**。
      *
@@ -141,35 +206,170 @@ public final class VelaProvision {
             }
             // 实例/目录都按**设备**独立：先算出设备 id，再往它自己的目录里解包
             final String newDeviceId = VelaEmulatorManager.deviceId(modelId) + ":" + randomSuffix();
-            VelaEmulator emulator = new VelaEmulator(context, modelId, newDeviceId);
-            // 先清掉早期版本的共享运行目录（约 1.5GB）：否则解包时两个目录并存，
-            // 空间不够会**静默解包不全**（zip 里最后那个引擎二进制正好丢，表现就是 ENOENT）。
-            purgeLegacySharedRuntime(context);
-            // **先删 engine/**：上次装机把引擎真身改名成 *.elf、原路径留了软链，
-            // 直接解包会穿过软链写到 /data/app（只读）→ 真身永远解不出来（踩过）。
-            deleteRecursively(new File(emulator.runtimeDir(), "engine"));
-            unzip(zip, emulator.runtimeDir());
-            healEngineIfIncomplete(zip, emulator.runtimeDir());
-            if (!hasRealEngine(new File(emulator.runtimeDir(), "engine/qemu/linux-aarch64"))) {
-                callback.onResult(false, "引擎解包不完整（多半是存储空间不足），请清理空间后重试");
-                return;
-            }
-            emulator.installExecLinks();
-            // AVD 名 = **设备 id 转义**（与 VelaEmulatorManager.start 用的一致）；
-            // 用机型当 AVD 名会留下一个引擎永远找不到的"影子 AVD"（踩过）。
-            emulator.authorAvd(newDeviceId, emulator.imagesDir());
-            try (DeviceDatabase db = new DeviceDatabase(context)) {
-                // **model 列存的就是设备显示名**：{云端设备名称} + 空格 + 4 位随机
-                // （机型标识只从设备 id「virtual:<机型>[:<随机>]」里解析，别再往 model 列塞标识）
-                String deviceId = newDeviceId;
-                String name = displayName == null || displayName.trim().isEmpty()
-                        ? defaultDeviceName() : displayName.trim();
-                db.upsert(deviceId, name, DeviceDatabase.TYPE_VIRTUAL, false);
-                db.updateNote(deviceId, "");
-            }
+            VelaEmulator emulator = unpackRuntime(context, modelId, newDeviceId);
+            createDevice(context, emulator, newDeviceId, null, displayName);
             callback.onResult(true, null);
         } catch (Exception error) {
             callback.onResult(false, error.getMessage() == null ? "创建失败" : error.getMessage());
+        }
+    }
+
+    /**
+     * 只做"把镜像包铺进运行时目录"（{@code engine/} + {@code images/}），**不写设备库**。
+     *
+     * <p>拆出来的原因：铺完盘之后要弹窗让用户选"创建哪种模拟器"（皮肤），选完再落库。</p>
+     */
+    @NonNull
+    public static VelaEmulator unpackRuntime(@NonNull Context context, @NonNull String modelId,
+                                             @NonNull String deviceId) throws Exception {
+        File zip = packageFile(context, modelId);
+        if (!zip.isFile()) {
+            throw new IllegalStateException("镜像包不存在，请先下载或从本地导入");
+        }
+        VelaEmulator emulator = new VelaEmulator(context, modelId, deviceId);
+        // 先清掉早期版本的共享运行目录（约 1.5GB）：否则解包时两个目录并存，
+        // 空间不够会**静默解包不全**（zip 里最后那个引擎二进制正好丢，表现就是 ENOENT）。
+        purgeLegacySharedRuntime(context);
+        // **先删 engine/**：上次装机把引擎真身改名成 *.elf、原路径留了软链，
+        // 直接解包会穿过软链写到 /data/app（只读）→ 真身永远解不出来（踩过）。
+        deleteRecursively(new File(emulator.runtimeDir(), "engine"));
+        unzip(zip, emulator.runtimeDir());
+        extractManifest(zip, emulator.runtimeDir());
+        healEngineIfIncomplete(zip, emulator.runtimeDir());
+        if (!hasRealEngine(new File(emulator.runtimeDir(), "engine/qemu/linux-aarch64"))) {
+            throw new IllegalStateException("引擎解包不完整（多半是存储空间不足），请清理空间后重试");
+        }
+        emulator.installExecLinks();
+        return emulator;
+    }
+
+    /**
+     * 把包里的实例清单 {@code config.json}（设备代号/名称/皮肤/启动参数）单独抽到实例目录，
+     * 供创建界面与命名使用；取不到就跳过（老包仍按扫描 skins 目录走）。
+     */
+    private static void extractManifest(@NonNull File zip, @NonNull File runtimeDir) {
+        try (java.util.zip.ZipFile file = new java.util.zip.ZipFile(zip)) {
+            java.util.zip.ZipEntry entry = file.getEntry("config.json");
+            if (entry == null) {
+                return;
+            }
+            File target = new File(runtimeDir, "config.json");
+            try (java.io.InputStream in = file.getInputStream(entry);
+                 java.io.OutputStream out = new java.io.FileOutputStream(target)) {
+                byte[] buffer = new byte[1 << 16];
+                int length;
+                while ((length = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, length);
+                }
+            }
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "读取包内实例清单失败", error);
+        }
+    }
+
+    /**
+     * 读包内清单的 {@code launch} 段：{@code env} 填进 {@code env}、{@code extraArgs} 追加到 {@code args}。
+     * 占位符 {@code {runtimeDir}} / {@code {avdId}} 会被替换。没有清单或字段就什么都不做。
+     */
+    public static void manifestLaunch(@NonNull File runtimeDir, @NonNull String avdId,
+                                      @NonNull java.util.List<String> args,
+                                      @NonNull java.util.Map<String, String> env) {
+        File manifest = new File(runtimeDir, "config.json");
+        if (!manifest.isFile()) {
+            return;
+        }
+        try {
+            String json = new String(java.nio.file.Files.readAllBytes(manifest.toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            org.json.JSONObject launch = new org.json.JSONObject(json).optJSONObject("launch");
+            if (launch == null) {
+                return;
+            }
+            org.json.JSONObject envJson = launch.optJSONObject("env");
+            if (envJson != null) {
+                java.util.Iterator<String> keys = envJson.keys();
+                while (keys.hasNext()) {
+                    String key = keys.next();
+                    env.put(key, expandPlaceholders(envJson.optString(key, ""), runtimeDir, avdId));
+                }
+            }
+            org.json.JSONArray extra = launch.optJSONArray("extraArgs");
+            if (extra != null) {
+                for (int index = 0; index < extra.length(); index++) {
+                    args.add(expandPlaceholders(extra.optString(index, ""), runtimeDir, avdId));
+                }
+            }
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "读取实例启动参数失败", error);
+        }
+    }
+
+    private static String expandPlaceholders(@NonNull String value, @NonNull File runtimeDir,
+                                             @NonNull String avdId) {
+        return value.replace("{runtimeDir}", runtimeDir.getAbsolutePath())
+                .replace("{avdId}", avdId);
+    }
+
+    /**
+     * 读实例目录里的清单，返回设备条目：{@code {code, name, skin}}；没有清单时返回空表。
+     */
+    @NonNull
+    public static java.util.List<String[]> manifestDevices(@NonNull File runtimeDir) {
+        java.util.List<String[]> result = new java.util.ArrayList<>();
+        File manifest = new File(runtimeDir, "config.json");
+        if (!manifest.isFile()) {
+            return result;
+        }
+        try {
+            String json = new String(java.nio.file.Files.readAllBytes(manifest.toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            org.json.JSONObject root = new org.json.JSONObject(json);
+            org.json.JSONArray devices = root.optJSONArray("devices");
+            if (devices == null) {
+                return result;
+            }
+            for (int index = 0; index < devices.length(); index++) {
+                org.json.JSONObject device = devices.optJSONObject(index);
+                if (device == null) {
+                    continue;
+                }
+                String code = device.optString("code", "");
+                String name = device.optString("name", code);
+                String skin = device.optString("skin", code);
+                if (!skin.isEmpty()) {
+                    result.add(new String[]{code, name, skin});
+                }
+            }
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "解析实例清单失败", error);
+        }
+        return result;
+    }
+
+    /**
+     * 铺好运行时的**第二步**：按选定皮肤写 AVD 配置并写设备库。
+     *
+     * @param skinName 模拟成哪款设备（{@code engine/skins/<name>}）；为空则用默认皮肤
+     */
+    public static void createDevice(@NonNull Context context, @NonNull VelaEmulator emulator,
+                                    @NonNull String deviceId, @Nullable String skinName,
+                                    @Nullable String displayName) throws Exception {
+        if (skinName != null && !skinName.trim().isEmpty()) {
+            emulator.setSkin(skinName);
+        } else {
+            // 没指定皮肤（老入口/ensureRuntime 路径）：沿用 AVD 里已有的，别覆盖成默认
+            emulator.setSkin(emulator.skinOfAvd(deviceId));
+        }
+        // AVD 名 = **设备 id 转义**（与 VelaEmulatorManager.start 用的一致）；
+        // 用机型当 AVD 名会留下一个引擎永远找不到的"影子 AVD"（踩过）。
+        emulator.authorAvd(deviceId, emulator.imagesDir());
+        try (DeviceDatabase db = new DeviceDatabase(context)) {
+            // **model 列存的就是设备显示名**：{云端设备名称} + 空格 + 4 位随机
+            // （机型标识只从设备 id「virtual:<机型>[:<随机>]」里解析，别再往 model 列塞标识）
+            String name = displayName == null || displayName.trim().isEmpty()
+                    ? defaultDeviceName() : displayName.trim();
+            db.upsert(deviceId, name, DeviceDatabase.TYPE_VIRTUAL, false);
+            db.updateNote(deviceId, "");
         }
     }
 

@@ -617,10 +617,30 @@ public class DeviceFragment extends Fragment {
                             .setMessage("移除后可在设备重新连接时再次添加。")
                             .setNegativeButton("取消", null)
                             .setPositiveButton("移除", (confirmDialog, button) -> {
-                                try (DeviceDatabase db = new DeviceDatabase(requireContext())) {
-                                    db.remove(id);
-                                }
-                                refreshWithSpinner(refreshLayout);
+                                // 顺序很重要：先停引擎 → 再删实例目录 → 最后删记录。
+                                // 只删记录会留下运行中的 qemu（占端口/内存）和 1.5G 的
+                                // files/runtime/<设备id>（引擎+镜像+AVD），这就是"移除了还在跑"。
+                                final android.content.Context app =
+                                        requireContext().getApplicationContext();
+                                final String deviceId = id;
+                                new Thread(() -> {
+                                    try {
+                                        com.typheye.wgpro.core.emu.VelaEmulatorManager.get()
+                                                .stop(app, deviceId);
+                                    } catch (Throwable ignored) {
+                                    }
+                                    com.typheye.wgpro.core.emu.VelaProvision
+                                            .purgeDevice(app, deviceId);
+                                    try (DeviceDatabase db = new DeviceDatabase(app)) {
+                                        db.remove(deviceId);
+                                    } catch (Throwable ignored) {
+                                    }
+                                    mainHandler.post(() -> {
+                                        if (isAdded()) {
+                                            refreshWithSpinner(refreshLayout);
+                                        }
+                                    });
+                                }, "remove-device").start();
                             }).show();
                 }).show();
     }

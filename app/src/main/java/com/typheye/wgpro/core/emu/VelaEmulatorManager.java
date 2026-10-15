@@ -345,6 +345,9 @@ public final class VelaEmulatorManager {
         emulator.ensureAssets((name, percent) -> { });
         emulator.installExecLinks();
         // AVD 按**设备**：可写数据 userdata-qemu.img 落在各自 AVD → 沙盒天然隔离
+        // 每次启动都会重写 config.ini：**先把设备原有的皮肤读回来**，
+        // 否则会把用户创建时选的皮肤覆盖成默认值（表现：建的是手环，启动的却是手表）。
+        emulator.setSkin(emulator.skinOfAvd(deviceId));
         emulator.authorAvd(deviceId, emulator.imagesDir());
         emulator.start(deviceId, port);
         // 引擎跑起来 → 起前台服务守护（熄屏/后台不被回收）

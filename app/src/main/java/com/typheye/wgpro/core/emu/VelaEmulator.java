@@ -289,6 +289,180 @@ public final class VelaEmulator {
         }
     }
 
+    /** 当前设备使用的皮肤：决定"这台模拟器模拟成哪款设备"（镜像包 engine/skins/<name>）。 */
+    private String skinName = SKIN;
+
+    /** 设置皮肤；传空则保持默认（xiaomi_s4）。 */
+    public void setSkin(@Nullable String skin) {
+        if (skin != null && !skin.trim().isEmpty()) {
+            this.skinName = skin.trim();
+        }
+    }
+
+    @NonNull
+    public String skin() {
+        return skinName;
+    }
+
+    /** 镜像包里可用的皮肤：engine/skins/<name>/layout 存在才算（顺序按名字，便于稳定展示）。 */
+    @NonNull
+    public static java.util.List<String> availableSkins(@NonNull File engineDir) {
+        java.util.List<String> result = new java.util.ArrayList<>();
+        File[] children = new File(engineDir, "skins").listFiles();
+        if (children == null) {
+            return result;
+        }
+        java.util.Arrays.sort(children, (left, right) -> left.getName().compareTo(right.getName()));
+        for (File child : children) {
+            if (child.isDirectory() && new File(child, "layout").isFile()) {
+                result.add(child.getName());
+            }
+        }
+        return result;
+    }
+
+    /** 皮肤 → 展示名（未收录的直接用原名）。 */
+    @NonNull
+    public static String skinLabel(@NonNull String skin) {
+        switch (skin) {
+            case "xiaomi_s4": return "Xiaomi Watch S4";
+            case "xiaomi_s4_41": return "Xiaomi Watch S4 41mm";
+            case "xiaomi_band_10": return "Xiaomi 手环 10";
+            case "xiaomi_band_pro": return "Xiaomi 手环 Pro";
+            case "xiaomi_band": return "Xiaomi 手环";
+            case "xiaomi_watch": return "Xiaomi Watch";
+            case "redmi_watch": return "Redmi Watch";
+            case "xiaomi_sound_mini": return "Xiaomi Sound Mini";
+            default: return skin;
+        }
+    }
+
+    /**
+     * 读**本设备 AVD** 的 config.ini，取当前皮肤名（取不到就返回默认皮肤）。
+     * 皮肤是创建时按用户选择写进去的，这里以它为准，不能再用常量。
+     */
+    @NonNull
+    public String skinOfAvd(@NonNull String avdId) {
+        File config = new File(new File(avdHome(), avdNameOf(avdId) + ".vvd"), "config.ini");
+        try {
+            for (String line : java.nio.file.Files.readAllLines(config.toPath(),
+                    java.nio.charset.StandardCharsets.UTF_8)) {
+                String item = line.trim();
+                if (item.startsWith("skin.name=")) {
+                    String value = item.substring("skin.name=".length()).trim();
+                    if (!value.isEmpty()) return value;
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        // 取不到就返回空串：**不要退回默认皮肤**（那会把别的设备画成手表外壳），
+        // 由调用方按"没有皮肤"处理（只显示画面，不画外壳）。
+        return "";
+    }
+
+    /**
+     * 皮肤几何：读 {@code engine/skins/<skin>/layout}，返回
+     * {@code {canvasW, canvasH, screenW, screenH, screenX, screenY, cornerRadius}}。
+     *
+     * <p>layout 结构（实测）：
+     * <pre>
+     * parts { device { display { width 466 height 466 corner_radius 233 } } }
+     * layouts { portrait { width 601 height 973
+     *                      part2 { name device x 65 y 253 } } }
+     * </pre>
+     * 解析失败退回 xiaomi_s4 的出厂值（保证不崩、不跑偏）。</p>
+     */
+    @NonNull
+    public static int[] skinGeometry(@NonNull File skinDir) {
+        // 全 0 = 没有可用的皮肤几何：调用方据此"不画外壳"，不要给 xiaomi_s4 的出厂值兜底
+        int[] result = {0, 0, 0, 0, 0, 0, 0};
+        if (skinDir == null || !new File(skinDir, "layout").isFile()) {
+            return result;
+        }
+        try {
+            String text = new String(java.nio.file.Files.readAllBytes(
+                    new File(skinDir, "layout").toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            java.util.regex.Matcher canvas = java.util.regex.Pattern
+                    .compile("layouts[\\s\\S]*?portrait[\\s\\S]*?width\\s+(\\d+)"
+                            + "[\\s\\S]*?height\\s+(\\d+)").matcher(text);
+            if (canvas.find()) {
+                result[0] = Integer.parseInt(canvas.group(1));
+                result[1] = Integer.parseInt(canvas.group(2));
+            }
+            java.util.regex.Matcher display = java.util.regex.Pattern
+                    .compile("display[\\s\\S]*?width\\s+(\\d+)[\\s\\S]*?height\\s+(\\d+)"
+                            + "[\\s\\S]*?corner_radius\\s+(\\d+)").matcher(text);
+            if (display.find()) {
+                result[2] = Integer.parseInt(display.group(1));
+                result[3] = Integer.parseInt(display.group(2));
+                result[6] = Integer.parseInt(display.group(3));
+            }
+            java.util.regex.Matcher part = java.util.regex.Pattern
+                    .compile("name\\s+device\\s+x\\s+(-?\\d+)\\s+y\\s+(-?\\d+)").matcher(text);
+            if (part.find()) {
+                result[4] = Integer.parseInt(part.group(1));
+                result[5] = Integer.parseInt(part.group(2));
+            }
+        } catch (Exception ignored) {
+        }
+        return result;
+    }
+
+    /**
+     * 皮肤属性：{@code {density, shape, flavor}}（读 layout 的 props 段）。
+     *
+     * <p>手环的 layout 是 {@code props { shape pill-shaped density 320 flavor band }}，
+     * 手表是 {@code shape circle … flavor watch} —— 原来这两项写死成 circle/watch，
+     * 建手环也会按手表渲染。</p>
+     */
+    @NonNull
+    public static String[] skinProps(@NonNull File skinDir) {
+        String[] result = {String.valueOf(DENSITY), LCD_SHAPE, FLAVOR};
+        if (skinDir == null) {
+            return result;
+        }
+        try {
+            String text = new String(java.nio.file.Files.readAllBytes(
+                    new File(skinDir, "layout").toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            java.util.regex.Matcher props = java.util.regex.Pattern.compile(
+                    "props\\s*\\{[\\s\\S]*?shape\\s+(\\S+)[\\s\\S]*?"
+                            + "density\\s+(\\d+)[\\s\\S]*?flavor\\s+(\\S+)").matcher(text);
+            if (props.find()) {
+                result[1] = props.group(1);
+                result[0] = props.group(2);
+                result[2] = props.group(3);
+            }
+        } catch (Exception ignored) {
+        }
+        return result;
+    }
+
+    /** 读皮肤 layout 的屏幕尺寸（protobuf 文本：display { width N height N }）。 */
+    private int[] skinDisplay(@Nullable File skinDir) {
+        int[] fallback = {LCD_W, LCD_H};
+        if (skinDir == null) {
+            return fallback;
+        }
+        try {
+            String text = new String(java.nio.file.Files.readAllBytes(
+                    new File(skinDir, "layout").toPath()),
+                    java.nio.charset.StandardCharsets.UTF_8);
+            java.util.regex.Matcher matcher = java.util.regex.Pattern
+                    .compile("width\\s+(\\d+)[\\s\\S]*?height\\s+(\\d+)").matcher(text);
+            if (matcher.find()) {
+                int width = Integer.parseInt(matcher.group(1));
+                int height = Integer.parseInt(matcher.group(2));
+                if (width > 0 && height > 0) {
+                    return new int[]{width, height};
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return fallback;
+    }
+
     public void authorAvd(@NonNull String avdId, @NonNull File imageDir) throws Exception {
         // ★ 引擎只接受字符白名单内的 AVD 名：设备 id 里的冒号必须转义，
         //   否则引擎 "virtual device name contains invalid characters" 直接退出（踩过）。
@@ -305,7 +479,9 @@ public final class VelaEmulator {
         // 旧配置留着会把引擎指到别的设备目录（串扰）。
         // 镜像直接指向已下载目录，不复制（省 1.1GB 与一次拷贝）。
         File img = imageDir;
-        File skinDir = new File(engineDir(), "skins/" + SKIN);
+        File skinDir = new File(engineDir(), "skins/" + skinName);
+        int[] display = skinDisplay(skinDir);
+        String[] skinProps = skinProps(skinDir);
         StringBuilder cfg = new StringBuilder();
         cfg.append("AvdId=").append(safeId).append('\n');
         cfg.append("abi.type=armeabi-v7a\n");
@@ -323,9 +499,10 @@ public final class VelaEmulator {
         cfg.append("hw.gpu.mode=host\n");
         cfg.append("hw.initialOrientation=Portrait\n");
         cfg.append("hw.keyboard=yes\n");
-        cfg.append("hw.lcd.density=").append(DENSITY).append('\n');
-        cfg.append("hw.lcd.shape=").append(LCD_SHAPE).append('\n');
-        cfg.append("hw.device.flavor=").append(FLAVOR).append('\n');
+        // 密度/形状/品类都按**该皮肤**的 props 写（手环 pill-shaped/band，手表 circle/watch）
+        cfg.append("hw.lcd.density=").append(skinProps[0]).append('\n');
+        cfg.append("hw.lcd.shape=").append(skinProps[1]).append('\n');
+        cfg.append("hw.device.flavor=").append(skinProps[2]).append('\n');
         cfg.append("hw.mainKeys=no\n");
         cfg.append("hw.ramSize=2048\n");
         cfg.append("hw.sdCard=no\n");
@@ -354,11 +531,11 @@ public final class VelaEmulator {
         }
         cfg.append("image.sysdir.2=\n");
         cfg.append("skin.dynamic=yes\n");
-        cfg.append("skin.name=").append(SKIN).append('\n');
+        cfg.append("skin.name=").append(skinName).append('\n');
         cfg.append("skin.path=").append(skinDir.getAbsolutePath()).append('\n');
         cfg.append("ide.image.type=miwear\n");
-        cfg.append("hw.lcd.width=").append(LCD_W).append('\n');
-        cfg.append("hw.lcd.height=").append(LCD_H).append('\n');
+        cfg.append("hw.lcd.width=").append(display[0]).append('\n');
+        cfg.append("hw.lcd.height=").append(display[1]).append('\n');
         write(new File(vvd, "config.ini"), cfg.toString());
         write(new File(avdHome(), safeId + ".ini"),
                 "path=" + vvd.getAbsolutePath() + "\npath.rel=vvd/" + safeId + ".vvd\n");
@@ -401,6 +578,12 @@ public final class VelaEmulator {
         cmd.add("-smp");
         cmd.add("2");
         cmd.add("-semihosting");
+        /* 包内实例清单（config.json 的 launch 段）可以补/覆盖启动参数与环境变量：
+         * 不同设备类型（表/环/音箱）的启动差异都写在包里，App 不再写死。没有清单就按上面的默认值。 */
+        java.util.List<String> extraArgs = new java.util.ArrayList<>();
+        java.util.Map<String, String> extraEnv = new java.util.HashMap<>();
+        VelaProvision.manifestLaunch(runtimeDir(), safeId, extraArgs, extraEnv);
+        cmd.addAll(extraArgs);
         ProcessBuilder pb = new ProcessBuilder(cmd);
         pb.directory(engine);
         pb.redirectErrorStream(true);
@@ -438,6 +621,7 @@ public final class VelaEmulator {
             e.put("LD_PRELOAD", xstub.getAbsolutePath());
         }
         e.put("LC_ALL", "C");
+        e.putAll(extraEnv);
         process = pb.start();
         final Process started = process;
         /* 必须持续消费引擎的 stdout/stderr：否则管道写满会把引擎阻塞住（踩过），

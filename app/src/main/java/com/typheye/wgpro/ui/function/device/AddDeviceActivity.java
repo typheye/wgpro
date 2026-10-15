@@ -152,10 +152,21 @@ public class AddDeviceActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.action_import_image) {
-            importLauncher.launch("*/*");
+            confirmLocalImport();
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    /** 导入前先确认：底部弹窗（大标题 + 说明 + 整宽按钮，且必须留「取消」）。 */
+    private void confirmLocalImport() {
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
+                .setTitle("从本地导入镜像")
+                .setMessage("选一个本地的 vela 镜像包（.zip），导入后用它创建一台模拟设备。\n\n"
+                        + "注意：包要先放到手机存储里；解包需要几分钟，请保证存储空间充足。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("选择文件", (dialog, which) -> importLauncher.launch("*/*"))
+                .show();
     }
 
     /** 「从本地导入」的目标机型：机型列表里当前第一个。 */
@@ -193,6 +204,8 @@ public class AddDeviceActivity extends AppCompatActivity {
         importDialog.show();
         new Thread(() -> {
             String failure = null;
+            String deviceId = null;
+            com.typheye.wgpro.core.emu.VelaEmulator unpacked = null;
             try {
                 java.io.File zip = com.typheye.wgpro.core.emu.VelaProvision
                         .packageFile(this, model.id);
@@ -205,28 +218,105 @@ public class AddDeviceActivity extends AppCompatActivity {
                     int read;
                     while ((read = in.read(buffer)) > 0) out.write(buffer, 0, read);
                 }
-                final String[] error = new String[1];
-                com.typheye.wgpro.core.emu.VelaProvision.provision(this, model.id, null,
-                        (success, message) -> error[0] = success ? null : message);
-                failure = error[0];
+                // 解压（engine/ + images/），**不建库** —— 建哪种设备由用户选
+                deviceId = com.typheye.wgpro.core.emu.VelaEmulatorManager.deviceId(model.id)
+                        + ":" + com.typheye.wgpro.core.emu.VelaProvision.randomSuffix();
+                unpacked = com.typheye.wgpro.core.emu.VelaProvision
+                        .unpackRuntime(this, model.id, deviceId);
             } catch (Throwable error) {
                 failure = error.getMessage() == null ? "导入失败" : error.getMessage();
             }
             final String result = failure;
+            final String newDeviceId = deviceId;
+            final com.typheye.wgpro.core.emu.VelaEmulator emulator = unpacked;
             runOnUiThread(() -> {
                 if (importDialog != null) {
                     importDialog.dismiss();
                     importDialog = null;
                 }
                 if (result != null) {
-                    com.typheye.wgpro.ui.widget.WGProHint
-                            .showError(this, "导入失败：" + result);
+                    com.typheye.wgpro.ui.widget.WGProHint.showError(this, "导入失败：" + result);
+                    return;
+                }
+                // 解压完成 → 弹「创建哪种模拟器」（包内皮肤按 手表/手环/音箱 分组）
+                askDeviceType(newDeviceId, emulator);
+            });
+        }, "vela-import").start();
+    }
+
+    /** 解压完成后的"创建哪种模拟器"选择：列包内 engine/skins 的皮肤。 */
+    private void askDeviceType(@NonNull final String deviceId,
+                               @NonNull final com.typheye.wgpro.core.emu.VelaEmulator emulator) {
+        // 设备清单以包内 config.json 为准（代号/名称/皮肤），老包没有清单时退回扫 skins 目录
+        java.util.List<String[]> manifest = com.typheye.wgpro.core.emu.VelaProvision
+                .manifestDevices(emulator.runtimeDir());
+        final java.util.List<String> skins = new java.util.ArrayList<>();
+        final java.util.List<String> names = new java.util.ArrayList<>();
+        CharSequence[] labels;
+        if (!manifest.isEmpty()) {
+            for (String[] device : manifest) {
+                skins.add(device[2]);
+                names.add(device[1]);
+            }
+        } else {
+            for (String skin : com.typheye.wgpro.core.emu.VelaEmulator
+                    .availableSkins(emulator.engineDir())) {
+                skins.add(skin);
+                names.add(com.typheye.wgpro.core.emu.VelaEmulator.skinLabel(skin));
+            }
+        }
+        if (skins.isEmpty()) {
+            skins.add(emulator.skin());
+            names.add(com.typheye.wgpro.core.emu.VelaEmulator.skinLabel(emulator.skin()));
+        }
+        labels = names.toArray(new CharSequence[0]);
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
+                .setTitle("创建哪种模拟器")
+                .setItems(labels, (dialog, which) -> createWithSkin(deviceId, emulator,
+                        skins.get(which), names.get(which)))
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    /** 按选定皮肤写 AVD + 落库；完成后回到设备页。 */
+    private void createWithSkin(@NonNull final String deviceId,
+                                @NonNull final com.typheye.wgpro.core.emu.VelaEmulator emulator,
+                                @NonNull final String skin, @NonNull final String deviceName) {
+        View progressView = getLayoutInflater().inflate(R.layout.progress_dialog, null, false);
+        ((TextView) progressView.findViewById(android.R.id.message)).setText("正在创建模拟器…");
+        final com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[] ref =
+                new com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[1];
+        ref[0] = new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
+                .setTitle("正在创建")
+                .setView(progressView)
+                .setCancelable(false)
+                .setNegativeButton("取消", null)
+                .create();
+        ref[0].show();
+        new Thread(() -> {
+            String failure = null;
+            try {
+                // 显示名用清单里的设备名（如 "Xiaomi 手环 10 Pro"），不再用"设备名称 XXXX"
+                com.typheye.wgpro.core.emu.VelaProvision
+                        .createDevice(this, emulator, deviceId, skin,
+                                deviceName + " " + com.typheye.wgpro.core.emu.VelaProvision
+                                        .randomSuffix());
+            } catch (Throwable error) {
+                failure = error.getMessage() == null ? "创建失败" : error.getMessage();
+            }
+            final String result = failure;
+            runOnUiThread(() -> {
+                if (ref[0] != null) {
+                    ref[0].dismiss();
+                }
+                if (result != null) {
+                    com.typheye.wgpro.ui.widget.WGProHint.showError(this, "创建失败：" + result);
                     return;
                 }
                 com.typheye.wgpro.ui.widget.WGProHint.show(this, "导入完成，已创建模拟设备");
                 setResult(RESULT_OK);
                 finish();
             });
-        }, "vela-import").start();
+        }, "vela-create").start();
     }
 }

@@ -479,6 +479,9 @@ public class SettingsActivity extends AppCompatActivity {
                 } catch (Exception ignored) {
                 }
                 task[0] = cacheExecutor.submit(() -> {
+                    // 顺带清掉残留的模拟器实例目录（每个 ~1.5G）：只删设备库里已不存在的
+                    final int orphans = com.typheye.wgpro.core.emu.VelaProvision
+                            .purgeOrphanRuntimes(requireContext());
                     boolean success = clearDirectoryContents(internalCache)
                             & clearDirectoryContents(externalCache);
                     mainHandler.post(() -> {
@@ -488,6 +491,7 @@ public class SettingsActivity extends AppCompatActivity {
                                 .setTitle(success ? "缓存已清除" : "清理未完全完成")
                                 .setMessage(success
                                         ? "浏览器缓存和应用临时文件已清理。"
+                                            + (orphans > 0 ? "\n已清理 " + orphans + " 个残留的模拟器目录。" : "")
                                         : "部分正在使用的临时文件无法删除，可稍后重试。")
                                 .setPositiveButton("完成", null)
                                 .show();

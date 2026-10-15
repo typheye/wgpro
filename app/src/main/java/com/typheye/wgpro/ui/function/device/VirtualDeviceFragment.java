@@ -51,16 +51,20 @@ public class VirtualDeviceFragment extends Fragment {
     public static final String ARG_AVD = "avd_id";
 
     private static final int LOG_MAX = 300;
-    /** 皮肤档位与 layout（来源：引擎自带 skins/xiaomi_s4/layout）。 */
-    private static final String SKIN = "xiaomi_s4";
-    private static final int SKIN_CANVAS_W = 601;
-    private static final int SKIN_CANVAS_H = 973;
-    private static final int SKIN_SCREEN_W = 466;
-    private static final int SKIN_SCREEN_H = 466;
-    private static final int SKIN_SCREEN_X = 65;
-    private static final int SKIN_SCREEN_Y = 253;
+    /**
+     * 皮肤档位与几何：**按设备**读回来（创建时写入 AVD 的 skin.name + 该皮肤的 layout），
+     * 不再写死 xiaomi_s4 —— 否则换皮肤后外壳/分辨率都不跟着变。
+     * 默认值为 xiaomi_s4 出厂值，仅作解析失败时的兜底。
+     */
+    private String skinName = "xiaomi_s4";
+    private int skinCanvasW = 601;
+    private int skinCanvasH = 973;
+    private int skinScreenW = 466;
+    private int skinScreenH = 466;
+    private int skinScreenX = 65;
+    private int skinScreenY = 253;
     /** 屏幕圆角 / 屏幕边长（xiaomi_s4 = 233/466 = 圆形）。 */
-    private static final float SKIN_RADIUS_RATIO = 233f / 466f;
+    private float skinRadiusRatio = 233f / 466f;
     /** 引擎控制台端口 5560（见 VelaEmulator），adb 占其 +1。 */
     private static final int ADB_PORT = 5561;
 
@@ -222,19 +226,34 @@ public class VirtualDeviceFragment extends Fragment {
                 root.findViewById(R.id.virtual_display_mask);
         final ImageView overlay = root.findViewById(R.id.virtual_skin_overlay);
         final ImageView body = root.findViewById(R.id.virtual_skin_body);
-        final File dir = new File(new VelaEmulator(requireContext(), avdId, deviceKey).engineDir(),
-                "skins/" + SKIN);
+        final VelaEmulator skinSource = new VelaEmulator(requireContext(), avdId, deviceKey);
+        // 必须用**设备 id**（deviceKey）去读：avdId 是机型级常量，按它找不到设备自己的 AVD，
+        // 会退回默认皮肤 xiaomi_s4 —— 这就是"换哪款都还是那块圆表"的原因。
+        skinName = skinSource.skinOfAvd(deviceKey);
+        final File dir = new File(skinSource.engineDir(), "skins/" + skinName);
         File bodyFile = new File(dir, "background.png");
         File overlayFile = new File(dir, "foreground.png");
-        if (!bodyFile.isFile() || !overlayFile.isFile()) {
-            // 没有皮肤资源：只显示画面（显示遮罩仍按形状生效）；
-            // 进入遮罩不在这里关 —— 它由"首帧到达"决定（见 hideEntryOverlayWhenReady）。
+        if (skinName.isEmpty() || VelaEmulator.skinGeometry(dir)[0] <= 0
+                || !bodyFile.isFile() || !overlayFile.isFile()) {
+            // 皮肤取不到 / 几何解析不出来 / 图缺失：**不画外壳、也不退回默认皮肤**，
+            // 只显示画面本身（宁可是"无外壳裸屏"，也不要把别的设备画成手表）。
+            body.setVisibility(View.GONE);
+            overlay.setVisibility(View.GONE);
             return;
         }
         body.setImageBitmap(android.graphics.BitmapFactory.decodeFile(bodyFile.getAbsolutePath()));
         overlay.setImageBitmap(android.graphics.BitmapFactory.decodeFile(overlayFile.getAbsolutePath()));
         body.setVisibility(View.VISIBLE);
         overlay.setVisibility(View.VISIBLE);
+        // 几何按该皮肤的 layout 算：{canvasW, canvasH, screenW, screenH, screenX, screenY, radius}
+        final int[] geometry = VelaEmulator.skinGeometry(dir);
+        skinCanvasW = geometry[0];
+        skinCanvasH = geometry[1];
+        skinScreenW = geometry[2];
+        skinScreenH = geometry[3];
+        skinScreenX = geometry[4];
+        skinScreenY = geometry[5];
+        skinRadiusRatio = skinScreenW > 0 ? geometry[6] / (float) skinScreenW : 0.5f;
         deviceView.post(() -> {
             int viewW = deviceView.getWidth();
             int viewH = deviceView.getHeight();
@@ -242,22 +261,22 @@ public class VirtualDeviceFragment extends Fragment {
                 return;
             }
             // 画布按 fitCenter 铺进容器
-            float scale = Math.min(viewW / (float) SKIN_CANVAS_W, viewH / (float) SKIN_CANVAS_H);
-            int canvasW = Math.round(SKIN_CANVAS_W * scale);
-            int canvasH = Math.round(SKIN_CANVAS_H * scale);
+            float scale = Math.min(viewW / (float) skinCanvasW, viewH / (float) skinCanvasH);
+            int canvasW = Math.round(skinCanvasW * scale);
+            int canvasH = Math.round(skinCanvasH * scale);
             int originX = (viewW - canvasW) / 2;
             int originY = (viewH - canvasH) / 2;
             // 屏幕矩形（画面 / 显示遮罩洞 / 叠加皮肤 三者完全一致）
-            int frameW = Math.round(SKIN_SCREEN_W * scale);
-            int frameH = Math.round(SKIN_SCREEN_H * scale);
-            int left = originX + Math.round(SKIN_SCREEN_X * scale);
-            int top = originY + Math.round(SKIN_SCREEN_Y * scale);
+            int frameW = Math.round(skinScreenW * scale);
+            int frameH = Math.round(skinScreenH * scale);
+            int left = originX + Math.round(skinScreenX * scale);
+            int top = originY + Math.round(skinScreenY * scale);
             layoutChild(frameView, left, top, frameW, frameH);
             layoutChild(overlay, left, top, frameW, frameH);
             layoutChild(body, originX, originY, canvasW, canvasH);
             if (mask != null) {
                 mask.setHole(new android.graphics.RectF(left, top, left + frameW, top + frameH),
-                        SKIN_RADIUS_RATIO);
+                        skinRadiusRatio);
             }
         });
     }

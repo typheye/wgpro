@@ -21,6 +21,7 @@ import com.google.gson.Gson;
 import com.typheye.wgpro.R;
 import com.typheye.wgpro.core.download.DownloadManager;
 import com.typheye.wgpro.core.download.DownloadTask;
+import com.typheye.wgpro.core.emu.VelaEmulator;
 import com.typheye.wgpro.core.emu.VelaProvision;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProColors;
@@ -651,9 +652,20 @@ public class VirtualDeviceDetailFragment extends Fragment {
                 .create();
         progressRef[0].show();
         new Thread(() -> {
-            final String[] failure = new String[1];
-            VelaProvision.provision(app, modelId, displayName,
-                    (success, error) -> failure[0] = success ? null : error);
+            String failure = null;
+            String deviceId = null;
+            VelaEmulator unpacked = null;
+            try {
+                deviceId = com.typheye.wgpro.core.emu.VelaEmulatorManager.deviceId(modelId)
+                        + ":" + VelaProvision.randomSuffix();
+                // 第一步只解压（engine/ + images/），**不建库** —— 建哪种设备由用户选
+                unpacked = VelaProvision.unpackRuntime(app, modelId, deviceId);
+            } catch (Exception error) {
+                failure = error.getMessage() == null ? "创建失败" : error.getMessage();
+            }
+            final String unpackFailure = failure;
+            final String newDeviceId = deviceId;
+            final VelaEmulator emulator = unpacked;
             ui.post(() -> {
                 if (!isAdded()) {
                     return;
@@ -661,8 +673,85 @@ public class VirtualDeviceDetailFragment extends Fragment {
                 if (progressRef[0] != null) {
                     progressRef[0].dismiss();
                 }
-                if (failure[0] != null) {
-                    WGProHint.showError(requireContext(), "创建失败：" + failure[0]);
+                if (unpackFailure != null) {
+                    WGProHint.showError(requireContext(), "创建失败：" + unpackFailure);
+                    return;
+                }
+                // 解压完成 → 让用户选"创建哪种模拟器"（包内皮肤按 手表/手环/音箱 分组）
+                askDeviceType(newDeviceId, emulator, displayName);
+            });
+        }, "vd-provision").start();
+    }
+
+    /** 解压完成后询问"创建哪种模拟器"：列包内 engine/skins 的皮肤，按系列分组展示。 */
+    private void askDeviceType(@NonNull String deviceId, @NonNull VelaEmulator emulator,
+                               @Nullable String displayName) {
+        // 设备清单以包内 config.json 为准（代号/名称/皮肤），老包退回扫 skins 目录
+        java.util.List<String[]> manifest = VelaProvision.manifestDevices(emulator.runtimeDir());
+        final java.util.List<String> skins = new ArrayList<>();
+        final java.util.List<String> names = new ArrayList<>();
+        if (!manifest.isEmpty()) {
+            for (String[] device : manifest) {
+                skins.add(device[2]);
+                names.add(device[1]);
+            }
+        } else {
+            for (String skin : VelaEmulator.availableSkins(emulator.engineDir())) {
+                skins.add(skin);
+                names.add(VelaEmulator.skinLabel(skin));
+            }
+        }
+        if (skins.isEmpty()) {
+            skins.add(emulator.skin());
+            names.add(VelaEmulator.skinLabel(emulator.skin()));
+        }
+        CharSequence[] labels = names.toArray(new CharSequence[0]);
+        final String preferredName = displayName;
+        new WGProAlertDialogBuilder(requireContext())
+                .setTitle("创建哪种模拟器")
+                .setItems(labels, (dialog, which) -> createWithSkin(deviceId, emulator,
+                        skins.get(which), preferredName, names.get(which)))
+                .setNegativeButton("取消", null)
+                .show();
+    }
+
+    /** 按选定皮肤写 AVD + 落库（同一份镜像可分别建出多款设备）。 */
+    private void createWithSkin(@NonNull String deviceId, @NonNull VelaEmulator emulator,
+                                @NonNull String skin, @Nullable String displayName,
+                                @NonNull String deviceName) {
+        final android.content.Context app = requireContext().getApplicationContext();
+        View progressView = getLayoutInflater().inflate(R.layout.progress_dialog, null, false);
+        ((TextView) progressView.findViewById(android.R.id.message)).setText("正在创建模拟器…");
+        final com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[] ref =
+                new com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[1];
+        ref[0] = new WGProAlertDialogBuilder(requireContext())
+                .setTitle("正在创建")
+                .setView(progressView)
+                .setCancelable(false)
+                .setNegativeButton("取消", null)
+                .create();
+        ref[0].show();
+        new Thread(() -> {
+            String failure = null;
+            try {
+                // 显示名优先用调用方给的，其次用清单里的设备名（不再落到"设备名称 XXXX"）
+                String name = displayName == null || displayName.trim().isEmpty()
+                        ? deviceName + " " + VelaProvision.randomSuffix()
+                        : displayName;
+                VelaProvision.createDevice(app, emulator, deviceId, skin, name);
+            } catch (Exception error) {
+                failure = error.getMessage() == null ? "创建失败" : error.getMessage();
+            }
+            final String result = failure;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                if (ref[0] != null) {
+                    ref[0].dismiss();
+                }
+                if (result != null) {
+                    WGProHint.showError(requireContext(), "创建失败：" + result);
                     return;
                 }
                 refreshAction();
@@ -677,7 +766,7 @@ public class VirtualDeviceDetailFragment extends Fragment {
                         })
                         .show();
             });
-        }, "vd-provision").start();
+        }, "vd-create").start();
     }
 
     /** 分割胶囊：主按钮只留左侧圆角，删除按钮贴上去（与资源详情页同款）。 */

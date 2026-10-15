@@ -354,7 +354,9 @@ public final class DownloadService extends android.app.Service {
             }
             return;
         }
-        String fileName = safeFileName(task) + ".apk";
+        // 「保存到本地」用下载地址里的 **sha256 命名、无后缀**（服务器就是哈希寻址）；
+        // 没有哈希才退回"原名 + 真实扩展名"。
+        String fileName = localFileName(task);
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ContentValues values = new ContentValues();
@@ -454,7 +456,59 @@ public final class DownloadService extends android.app.Service {
     private File targetFile(DownloadTask task) {
         File dir = new File(getFilesDir(), "downloads");
         if (!dir.exists()) dir.mkdirs();
-        return new File(dir, task.id + ".apk");
+        return new File(dir, task.id + "." + extensionOf(task));
+    }
+
+    /** 保存到本地用的文件名：sha256（无后缀）优先。 */
+    private String localFileName(DownloadTask task) {
+        String hash = sha256Of(task);
+        if (!hash.isEmpty()) {
+            return hash;
+        }
+        return resolveFileName(task);
+    }
+
+    /** 从下载地址里取 64 位 sha256（服务器为 /b/<sha256> 这种哈希寻址）。 */
+    private String sha256Of(DownloadTask task) {
+        String url = task.downloadUrl == null ? "" : task.downloadUrl;
+        java.util.regex.Matcher matcher = java.util.regex.Pattern
+                .compile("([0-9a-fA-F]{64})").matcher(url);
+        return matcher.find() ? matcher.group(1).toLowerCase(java.util.Locale.ROOT) : "";
+    }
+
+    /**
+     * 文件名 = 基础名 + **真实扩展名**。
+     *
+     * <p>原来一律拼 {@code .apk}：镜像 zip、图片、字体等也被存成 apk，系统还会当安装包处理。</p>
+     */
+    private String resolveFileName(DownloadTask task) {
+        String extension = extensionOf(task);
+        String base = safeFileName(task);
+        return extension.isEmpty() ? base : base + "." + extension;
+    }
+
+    /** 取扩展名：先看下载地址（去 query）的尾段，再退回按目的地判断（手机安装包=apk，其余=bin）。 */
+    private String extensionOf(DownloadTask task) {
+        for (String url : new String[]{task.downloadUrl, task.fallbackUrl}) {
+            if (url == null) {
+                continue;
+            }
+            String path = url;
+            int query = path.indexOf('?');
+            if (query >= 0) {
+                path = path.substring(0, query);
+            }
+            int slash = path.lastIndexOf('/');
+            String last = slash >= 0 ? path.substring(slash + 1) : path;
+            int dot = last.lastIndexOf('.');
+            if (dot > 0 && dot < last.length() - 1) {
+                String extension = last.substring(dot + 1).toLowerCase(java.util.Locale.ROOT);
+                if (extension.matches("[a-z0-9]{1,5}")) {
+                    return extension;
+                }
+            }
+        }
+        return task.destination == DownloadTask.DEST_PHONE ? "apk" : "bin";
     }
 
     private String safeFileName(DownloadTask task) {

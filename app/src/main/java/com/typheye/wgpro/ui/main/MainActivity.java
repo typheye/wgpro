@@ -223,6 +223,23 @@ public class MainActivity extends AppCompatActivity {
         });
         mainPager.setOffscreenPageLimit(1);
 
+        // 调试入口（**仅 debug 构建**）：adb shell am start ... --es vela_adb_test <设备id> → 自检客机 adb 通道
+        // （宿主 adb forward 只能打 127.0.0.1，而引擎监听在 ::1，宿主测不了，只能让 App 自己测）
+        boolean debuggable = (getApplicationInfo().flags
+                & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        if (debuggable && getIntent() != null) {
+            final String testDevice = getIntent().getStringExtra("vela_adb_test");
+            if (testDevice != null) {
+                getIntent().removeExtra("vela_adb_test");
+                runVelaAdbTest(testDevice);
+            }
+            final String createModel = getIntent().getStringExtra("vela_create");
+            if (createModel != null) {
+                getIntent().removeExtra("vela_create");
+                runVelaCreate(createModel);
+            }
+        }
+
         // 桌面快捷方式：launcher 是外部进程，只能拉起导出的 MainActivity，这里按 extra 分发
         if (getIntent() != null) {
             final String shortcutId = getIntent().getStringExtra(
@@ -586,6 +603,73 @@ public class MainActivity extends AppCompatActivity {
         if (searchBox != null) {
             searchBox.setVisibility(home ? View.VISIBLE : View.GONE);
         }
+    }
+
+    /** 调试用：adb 触发"解压 + 按皮肤建一台模拟设备"，结果落 logcat(VelaCreateTest)。 */
+    private void runVelaCreate(@NonNull final String modelId) {
+        new Thread(() -> {
+            try {
+                android.util.Log.i("VelaCreateTest", "model=" + modelId);
+                final String deviceId = com.typheye.wgpro.core.emu.VelaEmulatorManager
+                        .deviceId(modelId) + ":" + com.typheye.wgpro.core.emu.VelaProvision
+                        .randomSuffix();
+                com.typheye.wgpro.core.emu.VelaEmulator emulator =
+                        com.typheye.wgpro.core.emu.VelaProvision
+                                .unpackRuntime(this, modelId, deviceId);
+                android.util.Log.i("VelaCreateTest", "解压完成 deviceId=" + deviceId + " skins="
+                        + com.typheye.wgpro.core.emu.VelaEmulator
+                                .availableSkins(emulator.engineDir()));
+                java.util.List<String[]> manifest = com.typheye.wgpro.core.emu.VelaProvision
+                        .manifestDevices(emulator.runtimeDir());
+                android.util.Log.i("VelaCreateTest", "清单设备数=" + manifest.size()
+                        + (manifest.isEmpty() ? "" : " 首个=" + manifest.get(0)[1]));
+                String skin = manifest.isEmpty() ? "xiaomi_s4" : manifest.get(0)[2];
+                com.typheye.wgpro.core.emu.VelaProvision.createDevice(this, emulator, deviceId,
+                        skin, "调试设备 " + deviceId);
+                android.util.Log.i("VelaCreateTest", "创建完成 deviceId=" + deviceId
+                        + " skin=" + skin);
+            } catch (Throwable error) {
+                android.util.Log.i("VelaCreateTest", "异常: " + error);
+            }
+        }, "vela-create-test").start();
+    }
+
+    /**
+     * 调试用：从 adb 触发客机 adb 通道自检，结果打到 logcat 的 {@code VelaAdbTest}。
+     *
+     * <p>宿主 adb forward 只能打到 127.0.0.1，而 vela 引擎监听的是 {@code ::1}（127.0.0.1
+     * 会立刻被关闭），所以只能在 App 内用自带的 Java adb 客户端测。逐条把结果打出来，
+     * 便于确定客机固件认哪条安装命令。</p>
+     */
+    private void runVelaAdbTest(@NonNull final String deviceId) {
+        new Thread(() -> {
+            final String model = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(deviceId);
+            try {
+                com.typheye.wgpro.core.emu.VelaEmulatorManager manager =
+                        com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
+                manager.init(this);
+                com.typheye.wgpro.core.emu.VelaEmulatorManager.Instance instance =
+                        manager.start(this, model);
+                // 5560+ 是控制台，adb = 控制台 + 1
+                final int adbPort = 5560 + Math.max(0, instance.port - 8554) + 1;
+                android.util.Log.i("VelaAdbTest", "device=" + deviceId + " model=" + model
+                        + " grpc=" + instance.port + " adb=" + adbPort);
+                android.util.Log.i("VelaAdbTest", "portReady="
+                        + com.typheye.wgpro.core.emu.VelaAdbClient.waitFor(adbPort, 30000L));
+                for (String command : new String[]{"echo GUEST_OK", "uname -a", "ls /",
+                        "install", "install 2>&1", "vela", "app", "pm", "ps"}) {
+                    try {
+                        String output = com.typheye.wgpro.core.emu.VelaAdbClient
+                                .shell("::1", adbPort, command, 8000L);
+                        android.util.Log.i("VelaAdbTest", "$ " + command + "\n" + output);
+                    } catch (Throwable error) {
+                        android.util.Log.i("VelaAdbTest", "$ " + command + " -> 失败: " + error);
+                    }
+                }
+            } catch (Throwable error) {
+                android.util.Log.i("VelaAdbTest", "异常: " + error);
+            }
+        }, "vela-adb-test").start();
     }
 
     /** 设备页标题：「共 X 台」（没有设备就是「共 0 台」）。 */
