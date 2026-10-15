@@ -534,7 +534,8 @@ public class DesktopShortcutFragment extends Fragment {
     private void showCardActions(FunctionItem item) {
         if (!isAdded()) return;
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle(item.title)
+                // 标题固定「操作」，不显示功能名
+                .setTitle("操作")
                 // 与发现页一致：添加到桌面菜单 / 移除（移除后可在右上角「+」里加回来）
                 .setItems(new CharSequence[]{"添加到桌面菜单", "移除"}, (dialog, which) -> {
                     if (which == 0) addToFavorites(item);
@@ -559,8 +560,8 @@ public class DesktopShortcutFragment extends Fragment {
     private void showFavoritesFull() {
         if (!isAdded()) return;
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("桌面快捷菜单已达上限")
-                .setMessage("最多可添加 " + MAX_FAVORITES + " 个快捷菜单，请先在编辑中去掉一个。")
+                .setTitle("操作失败")
+                .setMessage("桌面快捷菜单已达上限，最多可添加 " + MAX_FAVORITES + " 个快捷菜单，请先在编辑中去掉一个。")
                 .setPositiveButton("完成", null)
                 .show();
     }
