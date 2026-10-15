@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- 创建设备页右上角：从本地导入镜像包（仅"创建设备"模式显示） -->
+    <item
+        android:id="@+id/action_import_image"
+        android:title="从本地导入"
+        android:icon="@drawable/ic_import_vector"
+        app:showAsAction="always" />
+</menu>

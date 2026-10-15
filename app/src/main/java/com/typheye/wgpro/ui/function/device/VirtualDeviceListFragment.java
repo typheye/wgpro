@@ -41,6 +41,18 @@ public class VirtualDeviceListFragment extends Fragment {
     private final Handler ui = new Handler(Looper.getMainLooper());
     private final List<VelaModel> models = new ArrayList<>();
 
+    /** 供「从本地导入」取当前机型（列表加载完才有值）。 */
+    @NonNull
+    public List<VelaModel> loadedModels() {
+        return models;
+    }
+
+    /** 遮罩到点自动收起后由宿主调用：等价于一次下拉刷新，重新拉机型列表。 */
+    public void reloadModels() {
+        if (!isAdded()) return;
+        fetchModels();
+    }
+
     private RecyclerView listView;
     private WGProRefreshLayout refreshLayout;
     private View emptyView;

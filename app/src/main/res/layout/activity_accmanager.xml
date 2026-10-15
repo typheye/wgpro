@@ -51,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
                 android:background="@android:color/transparent"
+                android:paddingEnd="8dp"
                 app:title="Typheye账户"
                 app:titleTextColor="?attr/colorOnSurface"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"

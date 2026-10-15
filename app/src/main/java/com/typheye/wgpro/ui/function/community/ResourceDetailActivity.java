@@ -25,7 +25,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
     public static final String EXTRA_RESOURCE_JSON = "resource_json";
     private ResourceDetailFragment fragment;
 
-    @Override protected boolean loadingCoversAppBar() { return true; }
     @Override protected String screenTitle() { return ""; }
 
     @Override protected Fragment createContent() {

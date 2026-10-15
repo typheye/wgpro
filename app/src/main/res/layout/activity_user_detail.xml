@@ -133,7 +133,7 @@
 
             <androidx.appcompat.widget.Toolbar android:id="@+id/toolbar"
                 android:layout_width="match_parent" android:layout_height="64dp" android:minHeight="64dp"
-                android:background="@android:color/transparent" app:layout_collapseMode="pin"
+                android:background="@android:color/transparent" android:paddingEnd="8dp" app:layout_collapseMode="pin"
                 app:navigationIcon="@drawable/ic_back_vector">
                 <LinearLayout android:id="@+id/detail_collapsed_identity"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"

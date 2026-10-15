@@ -89,7 +89,8 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
     /** 固定底栏是否自己消化系统导航栏内边距（沉浸式：底栏背景延伸到导航条后面）。 */
     protected boolean bottomBarOwnsNavigationInset() { return false; }
     protected Toolbar sectionToolbar() { return findViewById(R.id.section_toolbar); }
-    protected boolean loadingCoversAppBar() { return false; }
+    /** 整页加载遮罩默认就盖住应用栏（要只盖内容区的页面可重写为 false）。 */
+    protected boolean loadingCoversAppBar() { return true; }
 
     /** 页面容器上的毛玻璃控制器（固定底栏可追加自己的快照层，共用同一份快照）。 */
     public com.typheye.wgpro.utils.BarBlurController blurController() { return blurController; }

@@ -101,6 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 android:background="@android:color/transparent"
+                android:paddingEnd="8dp"
                 app:title="异常"
                 app:titleTextColor="?attr/colorOnSurface"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"

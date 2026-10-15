@@ -22,7 +22,6 @@ public final class AppDetailActivity extends BaseSectionActivity {
     private JSONObject appInfo = new JSONObject();
     private boolean starred;
     @Override protected String screenTitle() { return ""; }
-    @Override protected boolean loadingCoversAppBar() { return true; }
     @Override protected Fragment createContent() {
         return AppDetailFragment.newInstance(getIntent().getStringExtra(EXTRA_APP_JSON));
     }

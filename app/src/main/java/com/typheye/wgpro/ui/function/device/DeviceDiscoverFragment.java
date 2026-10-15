@@ -93,6 +93,12 @@ public class DeviceDiscoverFragment extends Fragment {
         super.onDestroyView();
     }
 
+    /** 遮罩到点自动收起后由宿主调用：重新开始一次扫描（等价于下拉刷新）。 */
+    public void restartScan() {
+        if (!isAdded()) return;
+        startScan();
+    }
+
     private void startScan() {
         mainHandler.removeCallbacks(scanTick);
         mainHandler.removeCallbacks(scanTimeout);

@@ -30,6 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@color/tab"
+                android:paddingEnd="8dp"
                 app:title=""
                 app:titleTextColor="?attr/colorOnSurface"
                 app:titleTextAppearance="@style/ToolbarTitleAppearance"

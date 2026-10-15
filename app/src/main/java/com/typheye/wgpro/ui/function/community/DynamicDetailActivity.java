@@ -26,7 +26,6 @@ public final class DynamicDetailActivity extends BaseSectionActivity {
     public static final String EXTRA_OPEN_COMMENT = "open_comment";
     private View authorView;
     private JSONObject dynamicInfo;
-    @Override protected boolean loadingCoversAppBar() { return true; }
     @Override protected String screenTitle() { return ""; }
 
     /** 动态详情页底部是固定在屏幕底部的评论输入栏。 */

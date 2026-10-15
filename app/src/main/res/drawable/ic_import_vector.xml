@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 从本地导入：文件夹 + 向外的箭头（箭头顶到文件夹右缘，用 evenOdd 抠空） -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp" android:height="24dp"
+    android:viewportWidth="24" android:viewportHeight="24">
+    <path
+        android:fillColor="?attr/colorOnSurface"
+        android:fillType="evenOdd"
+        android:pathData="M3,6.4c0,-1.16 0.94,-2.1 2.1,-2.1h4.1c0.56,0 1.1,0.22 1.49,0.62l1.28,1.28h7.93c1.16,0 2.1,0.94 2.1,2.1v8.5c0,1.16 -0.94,2.1 -2.1,2.1H5.1c-1.16,0 -2.1,-0.94 -2.1,-2.1zM10.5,11.6h3V9.2l6.8,3.3 -6.8,3.3v-2.4h-3z" />
+</vector>
