@@ -12,12 +12,12 @@
     <com.google.android.material.appbar.AppBarLayout android:id="@+id/detail_app_bar"
         android:layout_width="match_parent" android:layout_height="wrap_content"
         android:background="@drawable/bg_profile_header_dimmed" android:elevation="0dp"
-        android:stateListAnimator="@null" android:fitsSystemWindows="true">
+        android:stateListAnimator="@null">
 
         <com.google.android.material.appbar.CollapsingToolbarLayout android:id="@+id/detail_collapsing_toolbar"
             android:layout_width="match_parent" android:layout_height="360dp"
             android:minHeight="64dp"
-            android:background="@drawable/bg_profile_header_dimmed" android:fitsSystemWindows="true"
+            android:background="@drawable/bg_profile_header_dimmed"
             android:clipChildren="false" android:clipToPadding="false"
             app:contentScrim="@android:color/transparent"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
