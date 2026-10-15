@@ -95,6 +95,8 @@ public class PreviewActivity extends AppCompatActivity {
         AppUtils.useScreenCutArea(getWindow(), this);
         super.onCreate(state);
         setContentView(R.layout.activity_preview);
+        // 金刚键适配：无应用栏的全屏预览，三键 + 前台全屏时直接隐藏系统导航栏
+        com.typheye.wgpro.utils.AppBarBlur.hideNavBarInFullscreen(this);
         applyPreviewTransition();
         // 内容真正铺满整屏：标记沉浸，避免 SystemBars 的兜底内边距给根布局加顶部 padding
         SystemBars.markImmersive(findViewById(R.id.preview_root));

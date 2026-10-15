@@ -189,8 +189,17 @@ public final class BarBlurController {
         // 低版本无法渲染 RenderEffect，半透明会直接透出背后的内容（图片尤其明显），
         // 此时按关闭模糊处理，用与页面一致的不透明主题底色。
         boolean frosted = isBlurEnabled(context) && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
-        // 栏位保持纯黑/纯白：模糊态用 surface_bar（半透明纯色，模糊照旧透出来），否则 surface_primary
-        int color = context.getColor(frosted ? R.color.surface_bar : R.color.surface_primary);
+        // 金刚键那条只是一个"毛玻璃层"，**不能再叠 surface_bar 白底**：叠加后会变成一条比页面更浅的
+        // 色带（用户反馈的"撞色"，尤其在头图/透明应用栏的页面上）。开模糊时保持完全透明，让下面被
+        // 模糊的内容自己呈现颜色；关模糊（或低版本无 RenderEffect）时才用不透明 surface_primary。
+        int color;
+        if (bar.getId() == R.id.nav_bar_scrim) {
+            color = frosted ? android.graphics.Color.TRANSPARENT
+                    : context.getColor(R.color.surface_primary);
+        } else {
+            // 栏位保持纯黑/纯白：模糊态用 surface_bar（半透明纯色，模糊照旧透出来）
+            color = context.getColor(frosted ? R.color.surface_bar : R.color.surface_primary);
+        }
         bar.setBackgroundColor(color);
         bar.setBackgroundTintList(android.content.res.ColorStateList.valueOf(color));
     }

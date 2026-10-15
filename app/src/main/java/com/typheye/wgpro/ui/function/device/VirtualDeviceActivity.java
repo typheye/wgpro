@@ -24,6 +24,8 @@ public class VirtualDeviceActivity extends AppCompatActivity {
         AppUtils.useScreenCutArea(getWindow(), this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_virtual_device);
+        // 金刚键适配：无应用栏的全屏模拟设备页，三键 + 前台全屏时直接隐藏系统导航栏
+        com.typheye.wgpro.utils.AppBarBlur.hideNavBarInFullscreen(this);
         // 内容真正铺满整屏：标记沉浸，避免 SystemBars 的兜底内边距给根布局加 padding
         // （漏掉这一步会让加载遮罩上下各留一条黑边）—— 与 PreviewActivity 同款。
         com.typheye.wgpro.utils.SystemBars.markImmersive(findViewById(R.id.virtual_host));

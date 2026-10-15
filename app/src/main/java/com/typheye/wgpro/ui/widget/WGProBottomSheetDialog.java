@@ -120,6 +120,7 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
         registerDirectBackCallback();
     }
 
+
     @Override
     protected void onStop() {
         unregisterDirectBackCallback();

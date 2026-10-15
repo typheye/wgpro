@@ -54,6 +54,8 @@ public class ScanQRActivity extends AppCompatActivity {
         }
 
         setContentView(R.layout.activity_scanqr);
+        // 金刚键适配：无应用栏的全屏扫码页，三键 + 前台全屏时直接隐藏系统导航栏
+        com.typheye.wgpro.utils.AppBarBlur.hideNavBarInFullscreen(this);
         // 扫码页是全屏相机取景，内容自己铺满整屏：显式声明不参与系统栏兜底内边距。
         com.typheye.wgpro.utils.SystemBars.markImmersive(findViewById(R.id.scanqr_root));
 

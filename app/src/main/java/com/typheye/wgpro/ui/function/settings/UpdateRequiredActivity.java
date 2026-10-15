@@ -32,6 +32,9 @@ public class UpdateRequiredActivity extends AppCompatActivity {
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_update_required);
         AppUtils.fixScreenCutArea(findViewById(R.id.container));
+        // 金刚键适配：无应用栏的强制更新页，三键 + 前台全屏时垫一条页面底色
+        com.typheye.wgpro.utils.AppBarBlur.installNavBarSpacer(this,
+                getColor(com.typheye.wgpro.R.color.surface_page));
         SystemBars.reserveBottomInsetForScroll(findViewById(R.id.container));
 
         // 返回键（含手势返回）一律吞掉，强制更新期间不给任何绕过的路子
@@ -62,7 +65,11 @@ public class UpdateRequiredActivity extends AppCompatActivity {
 
         // 再确认一次：如果运营已经取消强制更新，或者本机其实已经达标，就直接放行
         AppUtils.loadServerConfig(getApplicationContext(), forceRequired -> {
-            if (!forceRequired) finish();
+            // 调试时开着「模拟有更新」就不要自动放行，否则页面一闪而过（看不到效果）
+            if (!forceRequired && !com.typheye.wgpro.debug.TestHandler
+                    .isUpdateSimulationEnabled(getApplicationContext())) {
+                finish();
+            }
         });
     }
 

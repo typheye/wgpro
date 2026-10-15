@@ -15,7 +15,6 @@
     <color name="web_progress_track">#FF3C4049</color>
     <color name="surface_elevated">#FF1C1C1C</color>
     <color name="profile_detail_sheet">@color/surface_page</color>
-    <color name="profile_detail_segments">@color/surface_secondary</color>
     <color name="profile_card_pressed">#FF292D35</color>
     <color name="profile_button_transparent">#66FFFFFF</color>
     <color name="profile_loading_overlay">#E6000000</color>

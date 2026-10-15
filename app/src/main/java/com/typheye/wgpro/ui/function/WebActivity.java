@@ -124,6 +124,10 @@ public class WebActivity extends AppCompatActivity {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         setContentView(R.layout.activity_web);
         AppUtils.fixScreenCutAreaWithIme(findViewById(R.id.container));
+        // 金刚键适配：本页刻意不做毛玻璃，三键 + 前台全屏时用不透明的应用栏底色垫一条导航条高度
+        com.typheye.wgpro.utils.AppBarBlur.installNavBarSpacer(this,
+                getColor(com.typheye.wgpro.R.color.surface_primary),
+                findViewById(R.id.web_webview));
 
         // 初始化组件
         Toolbar toolbar = findViewById(R.id.toolbar);

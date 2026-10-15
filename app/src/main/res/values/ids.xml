@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- 金刚键（三键导航）适配：底部系统导航条那一条的「毛玻璃快照层」与「半透明/不透明底」 -->
+    <item name="nav_bar_blur" type="id" />
+    <item name="nav_bar_scrim" type="id" />
+</resources>

@@ -7,7 +7,11 @@ import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.core.view.WindowInsetsControllerCompat;
 import androidx.core.widget.NestedScrollView;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -124,12 +128,306 @@ public final class AppBarBlur {
         };
         content.getViewTreeObserver().addOnGlobalLayoutListener(listener);
 
+        BarBlurController controller;
         if (backdrop == null) {
             // 兼容旧布局：没有声明快照层时退化为普通半透明底色
             appBar.setBackgroundColor(activity.getColor(R.color.surface_bar));
-            return BarBlurController.install(activity, content);
+            controller = BarBlurController.install(activity, content);
+        } else {
+            controller = BarBlurController.install(activity, content, backdrop);
         }
-        return BarBlurController.install(activity, content, backdrop);
+        // 金刚键（三键导航）适配：无底栏页面在系统导航条那一条补毛玻璃
+        installNavBarStrip(activity);
+        return controller;
+    }
+
+    /**
+     * 金刚键（三键导航）适配：给"只有应用栏、没有底栏"的页面，在系统导航条那一条补毛玻璃。
+     *
+     * <p><b>只在三键导航下铺</b>（{@link SystemBars#isThreeButtonNav}）；手势导航只有一条小横条、
+     * 本就与系统 UI 融为一体，<b>保持原样什么都不加</b>。开关口径与其它栏一致：
+     * 开 = {@code surface_bar} 半透明 + 内容快照模糊；关 = 不透明 {@code surface_primary}
+     * （见 {@link BarBlurController#registerBar}）。</p>
+     *
+     * <p>页面若已有别的底部快照层（布局里那些非 {@code app_bar_blur} 的 {@code *_blur}，
+     * 例如 {@code dynamic_bottom_blur}），说明底部已被底栏覆盖 → 不再铺这条，避免盖住已有底栏。</p>
+     */
+    public static void installNavBarStrip(@NonNull Activity activity) {
+        ViewGroup root = activity.findViewById(android.R.id.content);
+        if (root == null || root.findViewById(R.id.nav_bar_blur) != null) {
+            return;
+        }
+        ViewGroup decor = (ViewGroup) activity.getWindow().getDecorView();
+        final android.content.Context context = activity;
+
+        final android.widget.FrameLayout strip = new android.widget.FrameLayout(context);
+        final ImageView backdrop = new ImageView(context);
+        backdrop.setId(R.id.nav_bar_blur);
+        backdrop.setScaleType(ImageView.ScaleType.MATRIX);
+        backdrop.setClickable(false);
+        backdrop.setFocusable(false);
+        backdrop.setVisibility(View.GONE);
+        final View scrim = new View(context);
+        scrim.setId(R.id.nav_bar_scrim);
+        strip.addView(backdrop, new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        strip.addView(scrim, new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        params.gravity = android.view.Gravity.BOTTOM;
+        // 挂在 decor 上而不是内容根里：这样它不在快照源内部，软绘整屏时不会把自己画进去形成回环
+        decor.addView(strip, params);
+        strip.setVisibility(View.GONE);
+
+        // 底色登记：设置页开关实时同步（开=surface_bar 半透明 / 关=surface_primary 不透明）
+        BarBlurController.registerBar(context, scrim);
+        // 单独建一份"整屏内容根"的快照：页面自己的快照源（如用户详情的 detail_pager）可能
+        // 根本延伸不到导航条那一条，映射过去是空白 → 表现成"纯色撞色"。
+        BarBlurController.install(activity, root, backdrop);
+
+        // 「页面已有底栏」一旦成立就是永久的（底栏不会中途消失），缓存下来省掉每次布局的遍历
+        final boolean[] hasBottomBar = {false};
+        final Runnable refresh = () -> {
+            if (strip.getParent() == null) {
+                return;
+            }
+            // 必须等布局完成（root 有高度）再判：高度为 0 时"底部 1/4"阈值退化成 0，
+            // 会把用户详情页顶部的 detail_segments_blur 误判成底栏并永久缓存（踩过）。
+            if (!hasBottomBar[0] && root.getHeight() > 0) {
+                hasBottomBar[0] = hasOtherBottomBlur(root, backdrop);
+            }
+            // 导航条可能贴底（竖屏）也可能贴左/右侧（横屏）：统一按"导航条在哪条边"布局
+            WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(root);
+            int size = 0;
+            int gravity = android.view.Gravity.BOTTOM;
+            if (SystemBars.shouldAdaptNavBar(root, insets)) {
+                SystemBars.NavEdge edge = SystemBars.navBarEdge(insets);
+                size = SystemBars.navBarInset(insets, edge);
+                gravity = edge == SystemBars.NavEdge.LEFT ? android.view.Gravity.START
+                        : edge == SystemBars.NavEdge.RIGHT ? android.view.Gravity.END
+                        : android.view.Gravity.BOTTOM;
+            }
+            placeNavStrip(strip, gravity, size);
+            boolean show = size > 0 && !hasBottomBar[0];
+            strip.setVisibility(show ? View.VISIBLE : View.GONE);
+        };
+
+        // insets 变化（进出小窗 / 三键↔手势切换 / 导航条隐藏）与布局稳定都走这里
+        root.getViewTreeObserver().addOnGlobalLayoutListener(refresh::run);
+        root.post(refresh);
+        root.postDelayed(refresh, 400L);
+        root.postDelayed(refresh, 1200L);
+        ViewCompat.requestApplyInsets(root);
+    }
+
+    /**
+     * 页面里是否已有"别的底部快照层"。
+     *
+     * <p>只认 {@link ImageView} 且 id 以 {@code _blur} 结尾的（布局里的快照层约定），
+     * 例如 {@code dynamic_bottom_blur} / {@code chat_bottom_blur}；<b>不能只看 id 后缀</b>——
+     * 设置页有个普通行 {@code row_blur}（LinearLayout），会被误判成"已有底栏"。</p>
+     */
+    private static boolean hasOtherBottomBlur(@NonNull View root, @NonNull View navBackdrop) {
+        int[] rootLoc = new int[2];
+        root.getLocationInWindow(rootLoc);
+        int rootBottom = rootLoc[1] + root.getHeight();
+        // 只有"延伸到屏幕底部 1/4"的快照层才算底栏：用户详情的滚动指示器 (detail_segments_blur)
+        // 在上半部分，如果只按 id 后缀判定就会被误当成底栏，导致那条永远不铺。
+        int threshold = rootBottom - Math.max(1, root.getHeight() / 4);
+        return scanBottomBlur(root, navBackdrop, threshold);
+    }
+
+    private static boolean scanBottomBlur(@NonNull View view, @NonNull View navBackdrop,
+                                          int threshold) {
+        if (!(view instanceof ViewGroup)) {
+            return false;
+        }
+        ViewGroup group = (ViewGroup) view;
+        int[] loc = new int[2];
+        for (int index = 0; index < group.getChildCount(); index++) {
+            View child = group.getChildAt(index);
+            if (child == navBackdrop || child.getId() == R.id.app_bar_blur) {
+                continue;
+            }
+            if (isBlurLayer(child)) {
+                // 高度必须 > 0：页面加载中/未排版时快照层是 0 高但 y 可能已经落在底部区域
+                // （用户详情的 detail_segments_blur 就是 y=2316 h=0），那不算底栏。
+                child.getLocationInWindow(loc);
+                if (child.getHeight() > 0 && loc[1] + child.getHeight() >= threshold) {
+                    return true;
+                }
+                continue;
+            }
+            if (scanBottomBlur(child, navBackdrop, threshold)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private static boolean isBlurLayer(@NonNull View view) {
+        if (!(view instanceof ImageView)) {
+            return false;
+        }
+        int id = view.getId();
+        if (id == View.NO_ID) {
+            return false;
+        }
+        try {
+            return view.getResources().getResourceEntryName(id).endsWith("_blur");
+        } catch (Throwable ignored) {
+            return false;
+        }
+    }
+
+    /** 按"导航条在哪条边"给这条设置尺寸与对齐（贴底=整宽×高；贴左/右=宽×整高）。 */
+    private static void placeNavStrip(@NonNull View strip, int gravity, int size) {
+        boolean bottom = gravity == android.view.Gravity.BOTTOM;
+        android.widget.FrameLayout.LayoutParams lp =
+                (android.widget.FrameLayout.LayoutParams) strip.getLayoutParams();
+        int width = bottom ? ViewGroup.LayoutParams.MATCH_PARENT : size;
+        int height = bottom ? size : ViewGroup.LayoutParams.MATCH_PARENT;
+        if (lp.width != width || lp.height != height || lp.gravity != gravity) {
+            lp.width = width;
+            lp.height = height;
+            lp.gravity = gravity;
+            strip.setLayoutParams(lp);
+        }
+    }
+
+    /**
+     * 三键 + 前台全屏时，给"不做毛玻璃"或"没有应用栏"的全屏页垫一条与页面同色的导航条高度，
+     * 让金刚键那一条不至于直接透出内容、观感断裂。手势导航、小窗、IME 弹出时不垫。
+     *
+     * @param color 不透明底色：浏览器=应用栏底色；OOBE / 强制更新页=页面底色
+     */
+    public static void installNavBarSpacer(@NonNull Activity activity, final int color) {
+        installNavBarSpacer(activity, color, null);
+    }
+
+    /**
+     * @param contentToPad 需要跟着"垫高"的内容视图（如浏览器的 WebView）：三键 + 前台全屏时
+     *                     给它加一个导航条高度的底部内边距，让页面底部不被导航栏压住。
+     *                     传 null 表示只垫那条底色、不缩内容。
+     */
+    public static void installNavBarSpacer(@NonNull Activity activity, final int color,
+                                           @Nullable final View contentToPad) {
+        ViewGroup root = activity.findViewById(android.R.id.content);
+        if (root == null || root.findViewById(R.id.nav_bar_scrim) != null) {
+            return;
+        }
+        final View strip = new View(activity);
+        strip.setId(R.id.nav_bar_scrim);
+        strip.setBackgroundColor(color);
+
+        android.widget.FrameLayout.LayoutParams params = new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0);
+        params.gravity = android.view.Gravity.BOTTOM;
+        root.addView(strip, params);
+        strip.setVisibility(View.GONE);
+
+        // 内容视图**原始**的底部 margin：垫高要叠加在它之上，并且 size 变 0（手势/小窗）时必须还原，
+        // 否则小窗里会凭空多出一块灰色间隙（踩过）。
+        final int[] baseBottomMargin = {0};
+        if (contentToPad != null
+                && contentToPad.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
+            baseBottomMargin[0] =
+                    ((ViewGroup.MarginLayoutParams) contentToPad.getLayoutParams()).bottomMargin;
+        }
+        final int[] baseBottomPadding = {contentToPad == null ? 0 : contentToPad.getPaddingBottom()};
+        final Runnable refresh = () -> {
+            if (strip.getParent() == null) {
+                return;
+            }
+            WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(root);
+            int size = 0;
+            int gravity = android.view.Gravity.BOTTOM;
+            if (SystemBars.shouldAdaptNavBar(root, insets)) {
+                SystemBars.NavEdge edge = SystemBars.navBarEdge(insets);
+                size = SystemBars.navBarInset(insets, edge);
+                gravity = edge == SystemBars.NavEdge.LEFT ? android.view.Gravity.START
+                        : edge == SystemBars.NavEdge.RIGHT ? android.view.Gravity.END
+                        : android.view.Gravity.BOTTOM;
+            }
+            placeNavStrip(strip, gravity, size);
+            strip.setVisibility(size > 0 ? View.VISIBLE : View.GONE);
+            if (contentToPad != null) {
+                // 用底部 margin 让内容真正"垫上去"（WebView 的 setPadding 不一定会缩渲染区）；
+                // size 变 0 时还原成原始 margin。
+                ViewGroup.LayoutParams lp = contentToPad.getLayoutParams();
+                if (lp instanceof ViewGroup.MarginLayoutParams) {
+                    ViewGroup.MarginLayoutParams mlp = (ViewGroup.MarginLayoutParams) lp;
+                    int wanted = baseBottomMargin[0] + size;
+                    if (mlp.bottomMargin != wanted) {
+                        mlp.bottomMargin = wanted;
+                        contentToPad.setLayoutParams(mlp);
+                    }
+                } else {
+                    int wanted = baseBottomPadding[0] + size;
+                    if (contentToPad.getPaddingBottom() != wanted) {
+                        contentToPad.setPadding(contentToPad.getPaddingLeft(),
+                                contentToPad.getPaddingTop(), contentToPad.getPaddingRight(), wanted);
+                    }
+                }
+            }
+        };
+        root.getViewTreeObserver().addOnGlobalLayoutListener(refresh::run);
+        root.post(refresh);
+        ViewCompat.requestApplyInsets(root);
+    }
+
+    /**
+     * 无应用栏的全屏页（扫码 / 模拟设备 / 预览）：三键 + 前台全屏时直接隐藏系统导航栏，
+     * 让内容真正铺满；手势导航、小窗、IME 弹出时保持系统原样（不隐藏）。
+     */
+    public static void hideNavBarInFullscreen(@NonNull final Activity activity) {
+        final View root = activity.findViewById(android.R.id.content);
+        if (root == null) {
+            return;
+        }
+        // 判定必须与"导航栏当前是否可见"解耦：隐藏后 navigationBars inset 会变成 0，
+        // 若还按 inset 判，就会 hide→inset=0→show→inset 恢复→hide 死循环（表现为导航栏疯狂闪烁）。
+        final boolean[] threeButton = {SystemBars.navMode(activity) == 0};
+        final Runnable apply = () -> {
+            WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(root);
+            int navInset = insets == null ? 0
+                    : insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+            if (insets != null && navInset > 0) {
+                // 只有在导航栏可见时才重新判定一次模式；隐藏后沿用上次结论
+                int mode = SystemBars.navMode(root.getContext());
+                threeButton[0] = mode >= 0
+                        ? mode == 0
+                        : insets.getInsets(WindowInsetsCompat.Type.tappableElement()).bottom > 0;
+            }
+            boolean hide = threeButton[0]
+                    && !SystemBars.isFreeformOrSplit(root)
+                    && (insets == null
+                        || insets.getInsets(WindowInsetsCompat.Type.ime()).bottom == 0);
+            WindowInsetsControllerCompat controller =
+                    WindowCompat.getInsetsController(activity.getWindow(), root);
+            if (hide) {
+                controller.setSystemBarsBehavior(
+                        WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE);
+                controller.hide(WindowInsetsCompat.Type.navigationBars());
+            } else {
+                controller.show(WindowInsetsCompat.Type.navigationBars());
+            }
+        };
+        ViewCompat.setOnApplyWindowInsetsListener(root, (view, insets) -> {
+            apply.run();
+            return insets;
+        });
+        // 弹窗 / 权限框 / 输入法等"另一个窗口"拿到焦点时，系统会把导航栏重新显示出来；
+        // 这些子窗口消失、本窗口重新聚焦时再收一次，否则导航栏会一直留在屏幕上。
+        root.getViewTreeObserver().addOnWindowFocusChangeListener(hasFocus -> {
+            if (hasFocus) {
+                root.post(apply);
+                root.postDelayed(apply, 300L);
+            }
+        });
+        ViewCompat.requestApplyInsets(root);
     }
 
     /**

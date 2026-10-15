@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 仅 debug 构建：把内部页面临时导出，便于用 adb 直接拉起、逐页验证金刚键（三键导航）适配。
+     只对 debug 生效，release 不包含这些覆盖。 -->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <application>
+        <activity android:name=".ui.function.debug.TestActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.ScanQRActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.account.UserDetailActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.settings.SettingsActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.WebActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.PreviewActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.settings.UpdateRequiredActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.oobe.OobeActivity"
+            android:exported="true" tools:replace="android:exported" />
+        <activity android:name=".ui.function.device.VirtualDeviceActivity"
+            android:exported="true" tools:replace="android:exported" />
+    </application>
+</manifest>

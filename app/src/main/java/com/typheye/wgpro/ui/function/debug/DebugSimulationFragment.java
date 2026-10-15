@@ -46,6 +46,18 @@ public final class DebugSimulationFragment extends Fragment {
         simulatedUpdate.setOnCheckedChangeListener((button, checked) ->
                 TestHandler.setUpdateSimulation(requireContext(), checked));
 
+        // 金刚键适配验证入口：这两个页面平时不常出现，直接从调试页拉起来看
+        root.findViewById(R.id.row_test_force_update).setOnClickListener(v -> {
+            // 该页 onResume 里"没有强制更新"会立刻 finish，所以入口顺手把「模拟有更新」打开
+            TestHandler.setUpdateSimulation(requireContext(), true);
+            simulatedUpdate.setChecked(true);
+            startActivity(new android.content.Intent(requireContext(),
+                    com.typheye.wgpro.ui.function.settings.UpdateRequiredActivity.class));
+        });
+        root.findViewById(R.id.row_test_oobe).setOnClickListener(v ->
+                startActivity(new android.content.Intent(requireContext(),
+                        com.typheye.wgpro.ui.oobe.OobeActivity.class)));
+
         DebugListFragment.applyBarInsets(this, root);
         return root;
     }

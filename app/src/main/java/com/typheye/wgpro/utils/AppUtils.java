@@ -204,6 +204,11 @@ public class AppUtils {
      * 即使没有联网、没有重新拉配置，拦截也会自动失效。
      */
     public static boolean isForceUpdateRequired(Context context) {
+        // 调试页「模拟有更新」时同样按"必须更新"处理，否则 UpdateRequiredActivity 会被
+        // onResume 里的自查直接 finish 掉，永远看不到（用户反馈过）。
+        if (com.typheye.wgpro.debug.TestHandler.isUpdateSimulationEnabled(context)) {
+            return true;
+        }
         SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
         long required = prefs.getLong(PREF_FORCE_CODE, 0L);
         return required > 0L && required > getVersionCode(context);

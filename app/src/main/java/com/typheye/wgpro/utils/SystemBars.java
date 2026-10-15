@@ -200,6 +200,12 @@ public final class SystemBars {
         controller.setAppearanceLightNavigationBars(light);
     }
 
+    /** 只设置底部导航栏图标的明暗（状态栏不动）：底部是浅色内容时用深色图标。 */
+    public static void setLightNavigationBar(@NonNull Window window, boolean light) {
+        WindowCompat.getInsetsController(window, window.getDecorView())
+                .setAppearanceLightNavigationBars(light);
+    }
+
     // ------------------------------------------------------------------
     // 2. 页面层：把系统栏尺寸变成 View 的内边距
     // ------------------------------------------------------------------
@@ -550,6 +556,98 @@ public final class SystemBars {
         return Math.max(navigation, tappable);
     }
 
+    /**
+     * 当前是否**三键导航（金刚键）**。
+     *
+     * <p>判定顺序：先读系统设置 {@code navigation_mode}（<b>0=三键 / 1=二键 / 2=手势</b>，
+     * AOSP 与 MIUI 同口径，读 Secure 设置不需要权限）；个别 ROM 没有这个键时，才退回 inset
+     * 启发式：三键的"可点元素"占满导航栏（{@code tappableElement} ≈ 导航栏高度），
+     * 手势导航只有一条**不可点**的小横条。</p>
+     *
+     * <p><b>拿不准一律按"非三键"处理</b>：手势导航必须保持原样，宁可少铺也不多铺。</p>
+     */
+    public static boolean isThreeButtonNav(@NonNull Context context,
+                                           @Nullable WindowInsetsCompat insets) {
+        try {
+            int mode = android.provider.Settings.Secure.getInt(
+                    context.getContentResolver(), "navigation_mode", -1);
+            if (mode >= 0) {
+                return mode == 0;
+            }
+        } catch (Throwable ignored) {
+            // 读不到就往下走兜底
+        }
+        if (insets == null) {
+            return false;
+        }
+        int tappable = insets.getInsets(WindowInsetsCompat.Type.tappableElement()).bottom;
+        int navigation = insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
+        return tappable > 0 && navigation > 0;
+    }
+
+    /** 系统设置里的导航模式：<b>0=三键 / 1=二键 / 2=手势</b>；读不到返回 -1。 */
+    public static int navMode(@NonNull Context context) {
+        try {
+            return android.provider.Settings.Secure.getInt(
+                    context.getContentResolver(), "navigation_mode", -1);
+        } catch (Throwable ignored) {
+            return -1;
+        }
+    }
+
+    /** 系统导航条贴在哪条边（竖屏=底边；横屏=左/右侧）。 */
+    public enum NavEdge { NONE, BOTTOM, LEFT, RIGHT }
+
+    /** 导航条所在边：取 inset 最大的那一侧。 */
+    @NonNull
+    public static NavEdge navBarEdge(@Nullable WindowInsetsCompat insets) {
+        if (insets == null) {
+            return NavEdge.NONE;
+        }
+        Insets nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+        int max = Math.max(nav.bottom, Math.max(nav.left, nav.right));
+        if (max <= 0) {
+            return NavEdge.NONE;
+        }
+        if (max == nav.bottom) {
+            return NavEdge.BOTTOM;
+        }
+        return max == nav.left ? NavEdge.LEFT : NavEdge.RIGHT;
+    }
+
+    /** 指定边上的导航条高度（宽度）。 */
+    public static int navBarInset(@Nullable WindowInsetsCompat insets, @NonNull NavEdge edge) {
+        if (insets == null) {
+            return 0;
+        }
+        Insets nav = insets.getInsets(WindowInsetsCompat.Type.navigationBars());
+        switch (edge) {
+            case BOTTOM:
+                return nav.bottom;
+            case LEFT:
+                return nav.left;
+            case RIGHT:
+                return nav.right;
+            default:
+                return 0;
+        }
+    }
+
+    /**
+     * 金刚键适配的统一判定：<b>三键导航 && 非小窗/分屏 && 前台全屏 && 导航栏可见 && 没弹输入法</b>。
+     *
+     * <p>任何一条不满足都返回 false —— 手势导航、小窗、IME 弹出时都必须保持系统原样。</p>
+     */
+    public static boolean shouldAdaptNavBar(@NonNull View view, @Nullable WindowInsetsCompat insets) {
+        if (insets == null || isFreeformOrSplit(view)) {
+            return false;
+        }
+        if (insets.getInsets(WindowInsetsCompat.Type.ime()).bottom > 0) {
+            return false;
+        }
+        return isThreeButtonNav(view.getContext(), insets) && navBarEdge(insets) != NavEdge.NONE;
+    }
+
     // ------------------------------------------------------------------
     // 4. 底部弹窗
     // ------------------------------------------------------------------
@@ -603,6 +701,50 @@ public final class SystemBars {
     // ------------------------------------------------------------------
     // 5. 工具
     // ------------------------------------------------------------------
+
+    /**
+     * 是否处于自由窗 / 分屏（含 MIUI 的"小窗"）。
+     *
+     * <p><b>不能只看 {@link Activity#isInMultiWindowMode()}：MIUI 的小窗经常不把它置位</b>，
+     * 于是"三键 + 全屏"的适配会在小窗里也生效（用户反馈过：小窗里底部多一条背景 / 被全屏化）。
+     * 这里再用窗口模式兜底。</p>
+     */
+    public static boolean isFreeformOrSplit(@NonNull View view) {
+        if (isInMultiWindow(view)) {
+            return true;
+        }
+        Activity activity = activityOf(view);
+        if (activity == null) {
+            return false;
+        }
+        if (activity.isInPictureInPictureMode()) {
+            return true;
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            // 最可靠的一招：当前窗口尺寸 vs 最大窗口尺寸。全屏时两者相等；自由窗/分屏时当前更小。
+            // **不能只用一个百分比阈值**——MIUI 小窗拉伸/展开后会变大，越过分分钟被误判成全屏。
+            try {
+                android.graphics.Rect current = activity.getWindowManager()
+                        .getCurrentWindowMetrics().getBounds();
+                android.graphics.Rect maximum = activity.getWindowManager()
+                        .getMaximumWindowMetrics().getBounds();
+                return current.width() < maximum.width()
+                        || current.height() < maximum.height();
+            } catch (Throwable ignored) {
+                // 落到下面的兜底
+            }
+        }
+        // 兜底（API 30 以下）：窗口明显小于物理屏幕
+        android.graphics.Point real = new android.graphics.Point();
+        activity.getWindowManager().getDefaultDisplay().getRealSize(real);
+        View decor = activity.getWindow().getDecorView();
+        int width = decor.getWidth();
+        int height = decor.getHeight();
+        if (width <= 0 || height <= 0 || real.x <= 0 || real.y <= 0) {
+            return false;
+        }
+        return width < real.x || height < real.y;
+    }
 
     /** 判断当前页面是否处于多窗口/自由窗。 */
     public static boolean isInMultiWindow(@NonNull View view) {

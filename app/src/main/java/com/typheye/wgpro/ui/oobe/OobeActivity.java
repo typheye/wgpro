@@ -41,6 +41,10 @@ public class OobeActivity extends AppCompatActivity {
         // 系统栏统一由 SystemBars 透明化；OOBE 页面自身是纯色背景，因此视觉上仍是纯色系统栏。
         setContentView(R.layout.activity_oobe);
         AppUtils.fixScreenCutArea(findViewById(R.id.container));
+        // 金刚键适配：无应用栏的全屏页，三键 + 前台全屏时垫一条页面底色
+        com.typheye.wgpro.utils.AppBarBlur.installNavBarSpacer(this,
+                getColor(com.typheye.wgpro.R.color.surface_page),
+                findViewById(R.id.fragment_container));
 
         fragment_oobeWelcomeFragment = new OobeWelcomeFragment();
         fragment_oobeFinishFragment = new OobeFinishFragment();

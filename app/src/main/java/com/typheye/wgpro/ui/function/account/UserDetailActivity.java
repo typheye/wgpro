@@ -3,8 +3,6 @@ package com.typheye.wgpro.ui.function.account;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.RenderEffect;
-import android.graphics.Shader;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -16,7 +14,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,7 +35,6 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.button.MaterialButtonToggleGroup;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
@@ -75,18 +71,8 @@ public class UserDetailActivity extends AppCompatActivity {
     private AppBarLayout appBar;
     private Menu toolbarMenu;
     private View detailRoot;
-    private View detailSheet;
     private View expandedIdentity;
     private View collapsedIdentity;
-    private BottomSheetBehavior<View> sheetBehavior;
-    private ViewTreeObserver.OnPreDrawListener pendingProfileLayout;
-    private int lastRootWidth = -1;
-    private int lastRootHeight = -1;
-    /** Collapsed drawer baseline captured from the first normal full-screen layout. */
-    private int fullScreenCollapsedTop = -1;
-    /** 保存/恢复抽屉展开态（主题切换、多窗口重建、进程恢复）。 */
-    private static final String STATE_SHEET_EXPANDED = "profile_sheet_expanded";
-    private boolean pendingExpandSheet = false;
     private String targetUid;
     private boolean isSelf;
     private boolean following;
@@ -103,25 +89,29 @@ public class UserDetailActivity extends AppCompatActivity {
     private TextView detailFollowingCount;
     private TextView detailFollowersCount;
     private ActivityResultLauncher<String> backgroundPicker;
-    private com.typheye.wgpro.utils.BarBlurController segmentsBlurController;
-    private final Runnable settledWindowLayout = () -> {
-        if (detailRoot != null && detailRoot.isAttachedToWindow()) {
-            scheduleProfileLayout(true);
-        }
-    };
+    /** 应用栏当前是否处于折叠配色（避免每帧重复换背景）。 */
+    private boolean barCollapsed;
+    /** 当前主题是否深色 + 主题的 colorOnSurface（折叠后的应用栏前景/系统栏图标都用它）。 */
+    private boolean chromeNight;
+    private int chromeOnSurface;
+    /** 上一次已应用的应用栏前景色（用它当开关，避免"昵称本来就同色"时漏掉图标换色）。 */
+    private int chromeForeground = Integer.MIN_VALUE;
 
     @Override
     protected void onCreate(@Nullable Bundle state) {
         super.onCreate(state);
-        if (state != null) pendingExpandSheet = state.getBoolean(STATE_SHEET_EXPANDED, false);
         AppUtils.useScreenCutArea(getWindow(), this);
         // 头图是深色背景，状态栏用浅色图标。
         SystemBars.setLightSystemBars(getWindow(), false);
         setContentView(R.layout.activity_user_detail);
+        detailRoot = findViewById(R.id.detail_root);
         // 顶部由沉浸式头图自行处理，安装全应用适配时不再兜底；底部保留系统导航栏高度，
         // 卡片背景继续铺满到屏幕底边（含手势小横条区域）。
         SystemBars.markImmersive(findViewById(R.id.detail_root));
-        SystemBars.reserveBottomInset(findViewById(R.id.detail_sheet_content));
+        // 底部像浏览器页那样"主动垫高布局"：给 pager 加导航栏高度的底部外边距 + 用页面表面色填那一条，
+        // 而不是给内容加底部内边距（那会在底部留出一块空白）。
+        com.typheye.wgpro.utils.AppBarBlur.installNavBarSpacer(this,
+                getColor(R.color.profile_detail_sheet), findViewById(R.id.detail_pager));
         profileLoadingStarted = android.os.SystemClock.uptimeMillis();
         account = new tAccUtils(this);
         detailLikesCount = findViewById(R.id.detail_likes_count);
@@ -144,6 +134,43 @@ public class UserDetailActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
         toolbar.setNavigationOnClickListener(v -> finish());
+
+        // 折叠联动（原来由自定义 sheet 的手写布局负责，现在交给 AppBarLayout 偏移）：
+        // 头图内容淡出、标题栏的「小头像 + 昵称」淡入；折叠后应用栏变成主题底色，
+        // 于是图标/文字与系统栏图标明暗都要跟着切（否则浅色底上是白字/白图标）。
+        expandedIdentity = findViewById(R.id.detail_expanded_identity);
+        collapsedIdentity = findViewById(R.id.detail_collapsed_identity);
+        chromeNight = (getResources().getConfiguration().uiMode
+                & android.content.res.Configuration.UI_MODE_NIGHT_MASK)
+                == android.content.res.Configuration.UI_MODE_NIGHT_YES;
+        android.util.TypedValue themeValue = new android.util.TypedValue();
+        boolean hasOnSurface = getTheme().resolveAttribute(
+                com.google.android.material.R.attr.colorOnSurface, themeValue, true);
+        chromeOnSurface = hasOnSurface
+                ? (themeValue.resourceId != 0 ? getColor(themeValue.resourceId) : themeValue.data)
+                : getColor(R.color.text_primary);
+        appBar.addOnOffsetChangedListener((bar, verticalOffset) -> {
+            int range = bar.getTotalScrollRange();
+            float progress = range <= 0 ? 0f
+                    : Math.min(1f, Math.abs(verticalOffset) / (float) range);
+            float appear = progress <= 0.65f ? 0f : (progress - 0.65f) / 0.35f;
+            if (collapsedIdentity != null) {
+                collapsedIdentity.setAlpha(appear);
+                collapsedIdentity.setVisibility(appear <= 0.01f ? View.INVISIBLE : View.VISIBLE);
+            }
+            if (expandedIdentity != null) {
+                expandedIdentity.setAlpha(1f - Math.min(1f, progress / 0.65f));
+            }
+            // 背景交给随进度淡入的蒙层（连续过渡）；前景在蒙层基本不透明时再切，避免中途半深半浅
+            View barScrim = findViewById(R.id.detail_bar_scrim);
+            if (barScrim != null) {
+                barScrim.setAlpha(progress);
+            }
+            applyBarChrome(progress > 0.7f);
+        });
+        // 底部是页面表面色（浅色主题=浅、深色主题=深）→ 导航栏图标跟随主题；
+        // 状态栏展开时压在深色头图上→用浅色图标（由 applyBarChrome 在折叠时改回主题色）。
+        com.typheye.wgpro.utils.SystemBars.setLightNavigationBar(getWindow(), !chromeNight);
 
         TextView avatarText = findViewById(R.id.detail_avatar_text);
         TextView collapsedAvatarText = findViewById(R.id.detail_collapsed_avatar_text);
@@ -200,15 +227,67 @@ public class UserDetailActivity extends AppCompatActivity {
                 .putExtra(com.typheye.wgpro.ui.function.community.ChatActivity.EXTRA_PEER_NAME,
                         ((TextView) findViewById(R.id.detail_nick)).getText().toString())));
 
-        setupProfileSheet();
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            RenderEffect blur = RenderEffect.createBlurEffect(18f, 18f, Shader.TileMode.CLAMP);
-            appBar.setRenderEffect(blur);
-            detailSheet.setRenderEffect(blur);
-        }
         setupProfilePages();
         loadPublicProfile(avatar, collapsedAvatar, avatarText, collapsedAvatarText);
         appBar.post(this::applyAdaptiveChromeColors);
+    }
+
+    /** 折叠状态下的应用栏/系统栏配色：折叠后应用栏是主题底色，前景与系统栏图标都要跟着切。 */
+    private void applyBarChrome(boolean collapsed) {
+        // 折叠后改用主题底色（浅色主题=白 / 深色主题=黑），展开时恢复头图背景。
+        // 这里直接换 AppBarLayout 的背景：CollapsingToolbarLayout 的 contentScrim 在本布局里
+        // 会被头图背景盖住、不生效（试过）。
+        // 折叠后固定用主题底色（浅色=白 / 深色=黑），和页面指示器（Tab 行）与底部导航栏区域保持一致。
+        // 注意：底色**不再直接换 CollapsingToolbarLayout 的背景**（那样会在某个阈值上跳变），
+        // 而是由 layout 里的 detail_bar_scrim 随折叠进度淡入 —— 背景是连续过渡的。
+        // 这里只负责"前景（昵称/返回箭头/更多图标）+ 系统栏图标"跟着切。
+        boolean themed = collapsed;
+        int foreground = themed ? chromeOnSurface : getColor(R.color.white);
+        // 用自己记录的"上次生效前景"当开关，而不是拿昵称当前颜色判断：
+        // 展开态下昵称在 XML 里本来就是白色、foreground 也是白色，用昵称判断会导致
+        // **从来没调用过 tintToolbarIcons** → 图标保留 vector 里烘死的
+        // android:fillColor="?attr/colorOnSurface"（浅色主题=深色）→ 深色头图上是灰的。
+        // MIUI 会额外给应用栏图标叠一层 tint，所以只有 Pixel/AOSP 这类设备会暴露出来。
+        if (chromeForeground != foreground) {
+            chromeForeground = foreground;
+            TextView nick = findViewById(R.id.detail_collapsed_nick);
+            if (nick != null) {
+                nick.setTextColor(foreground);
+            }
+            tintToolbarIcons(foreground);
+        }
+        // 状态栏：展开时压在深色头图上→浅色图标；折叠成主题底色→跟随主题；小窗→仍按头图（浅色）
+        SystemBars.setLightSystemBars(getWindow(), themed ? !chromeNight : false);
+        // 底部：底色是页面表面色 → 始终跟随主题（浅色主题=深色图标），别再被别处刷成白色
+        SystemBars.setLightNavigationBar(getWindow(), !chromeNight);
+    }
+
+    /**
+     * 返回箭头 + 右上角「更多」图标一起换色。
+     *
+     * <p>用官方 tint API（appcompat 1.7 的 {@code Toolbar#setNavigationIconTint} 与
+     * {@code MenuItemCompat#setIconTintList}），不要用 {@code DrawableCompat.setTint(drawable)}：
+     * 部分 ROM 上 VectorDrawable 自带的 tint、或主题里的 {@code colorControlNormal} 会把它盖掉，
+     * 表现就是"部分设备上图标颜色不跟着变"。</p>
+     */
+    private void tintToolbarIcons(int color) {
+        // 从资源**新建**一个 drawable 再上色：不 mutate 当前那个（它可能已被 ROM/主题预置 tint，
+        // mutate 后再 setTint 在部分设备上会被盖掉），换上去的是我们完全掌控的实例。
+        android.graphics.drawable.Drawable navigation =
+                androidx.appcompat.content.res.AppCompatResources
+                        .getDrawable(this, R.drawable.ic_back_vector);
+        if (navigation != null) {
+            navigation = androidx.core.graphics.drawable.DrawableCompat.wrap(navigation).mutate();
+            androidx.core.graphics.drawable.DrawableCompat.setTint(navigation, color);
+            toolbar.setNavigationIcon(navigation);
+        }
+        if (toolbarMenu != null) {
+            android.view.MenuItem more = toolbarMenu.findItem(R.id.action_profile_more);
+            if (more != null) {
+                androidx.core.view.MenuItemCompat.setIconTintList(
+                        more, android.content.res.ColorStateList.valueOf(color));
+            }
+        }
     }
 
     private void loadPublicProfile(ImageView avatar, ImageView collapsedAvatar,
@@ -258,7 +337,6 @@ public class UserDetailActivity extends AppCompatActivity {
                             // (onResume / onNewIntent / 下拉刷新) instead of snapping it shut.
                             // On the very first load the drawer is still collapsed, so the
                             // full-screen baseline is captured exactly as before.
-                            detailRoot.post(() -> scheduleProfileLayout(true));
                             String avatarUrl = info.optString("avatar_url", "");
                             avatar.setClickable(!avatarUrl.isEmpty());
                             avatar.setOnClickListener(v -> {
@@ -368,10 +446,6 @@ public class UserDetailActivity extends AppCompatActivity {
         long delay = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - profileLoadingStarted));
         findViewById(R.id.detail_loading_overlay).postDelayed(() -> {
             if (isFinishing() || isDestroyed()) return;
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-                appBar.setRenderEffect(null);
-                detailSheet.setRenderEffect(null);
-            }
             View overlay = findViewById(R.id.detail_loading_overlay);
             overlay.animate().alpha(0f).setDuration(120L).withEndAction(() -> overlay.setVisibility(View.GONE)).start();
         }, delay);
@@ -462,51 +536,6 @@ public class UserDetailActivity extends AppCompatActivity {
         if (cutout != null && cutout != source) collapsedAvatar.setImageBitmap(cutout);
     }
 
-    private void setupProfileSheet() {
-        detailRoot = findViewById(R.id.detail_root);
-        detailSheet = findViewById(R.id.detail_sheet);
-        expandedIdentity = findViewById(R.id.detail_expanded_identity);
-        collapsedIdentity = findViewById(R.id.detail_collapsed_identity);
-        sheetBehavior = BottomSheetBehavior.from(detailSheet);
-        sheetBehavior.setFitToContents(false);
-        sheetBehavior.setHideable(false);
-        // 默认手势/UX：抽屉可自由拖拽展开收起；顶部小横条额外支持点击切换。
-        // 拖拽只允许从顶部条带（小横条/标签栏）开始，列表区域的触摸全部交给列表，
-        // 避免与列表滚动、下拉刷新抢手势。
-        sheetBehavior.setDraggable(true);
-        sheetBehavior.setShouldRemoveExpandedCorners(false);
-        if (sheetBehavior instanceof com.typheye.wgpro.ui.widget.ProfileBottomSheetBehavior) {
-            ((com.typheye.wgpro.ui.widget.ProfileBottomSheetBehavior<?>) sheetBehavior)
-                    .setDragZoneAnchor(findViewById(R.id.detail_tabs));
-        }
-        View sheetHandle = findViewById(R.id.detail_sheet_handle);
-        if (sheetHandle != null) sheetHandle.setOnClickListener(v -> toggleProfileSheetState());
-        sheetBehavior.addBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
-            @Override public void onStateChanged(@NonNull View bottomSheet, int newState) {
-                if (newState == BottomSheetBehavior.STATE_HALF_EXPANDED) {
-                    sheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
-                }
-            }
-
-            @Override public void onSlide(@NonNull View bottomSheet, float slideOffset) {
-                float progress = Math.max(0f, Math.min(1f, slideOffset));
-                expandedIdentity.setAlpha(1f - Math.min(1f, progress / 0.72f));
-                collapsedIdentity.setAlpha(Math.max(0f, (progress - 0.78f) / 0.22f));
-            }
-        });
-        detailRoot.addOnLayoutChangeListener((view, left, top, right, bottom,
-                                               oldLeft, oldTop, oldRight, oldBottom) -> {
-            int width = right - left;
-            int height = bottom - top;
-            if (width == lastRootWidth && height == lastRootHeight) return;
-            boolean preserveState = lastRootWidth >= 0 && lastRootHeight >= 0;
-            lastRootWidth = width;
-            lastRootHeight = height;
-            scheduleProfileLayout(preserveState);
-            if (preserveState) scheduleSettledWindowLayout();
-            applyProfilePagerInsets();
-        });
-    }
 
     /**
      * 系统导航栏真实高度：没有导航条时返回 0（**不要**用 48dp 之类的估算值）。
@@ -535,167 +564,24 @@ public class UserDetailActivity extends AppCompatActivity {
         return detailRoot == null ? 0 : detailRoot.getHeight();
     }
 
-    private void scheduleSettledWindowLayout() {
-        detailRoot.removeCallbacks(settledWindowLayout);
-        detailRoot.postDelayed(settledWindowLayout, 350L);
-    }
 
     /** 顶部小短横条：点击折叠 / 展开（抽屉已关闭拖拽展开，避免滑列表被当成拖抽屉）。 */
-    private void toggleProfileSheetState() {
-        if (sheetBehavior == null) return;
-        sheetBehavior.setState(sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED
-                ? BottomSheetBehavior.STATE_COLLAPSED
-                : BottomSheetBehavior.STATE_EXPANDED);
-    }
 
-    private void scheduleProfileLayout(boolean preserveState) {
-        int currentState = sheetBehavior.getState();
-        if (preserveState && (currentState == BottomSheetBehavior.STATE_DRAGGING
-                || currentState == BottomSheetBehavior.STATE_SETTLING)) {
-            scheduleSettledWindowLayout();
-            return;
-        }
-        int targetState = pendingExpandSheet
-                ? BottomSheetBehavior.STATE_EXPANDED
-                : (preserveState && currentState == BottomSheetBehavior.STATE_EXPANDED
-                        ? BottomSheetBehavior.STATE_EXPANDED
-                        : BottomSheetBehavior.STATE_COLLAPSED);
-        ViewTreeObserver observer = detailRoot.getViewTreeObserver();
-        if (pendingProfileLayout != null && observer.isAlive()) {
-            observer.removeOnPreDrawListener(pendingProfileLayout);
-        }
-        pendingProfileLayout = new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                ViewTreeObserver currentObserver = detailRoot.getViewTreeObserver();
-                if (currentObserver.isAlive()) currentObserver.removeOnPreDrawListener(this);
-                pendingProfileLayout = null;
-                WindowInsetsCompat insets = ViewCompat.getRootWindowInsets(detailRoot);
-                int statusBarInset = insets == null ? 0
-                        : insets.getInsets(WindowInsetsCompat.Type.statusBars()).top;
-                // Freeform windows may report a zero status-bar inset even though MIUI
-                // reserves a caption area. Use the toolbar's rendered bottom edge so the
-                // identity and expanded sheet remain below the real app bar.
-                int toolbarBottom = Math.round(toolbar.getY() + toolbar.getHeight());
-                if (toolbarBottom <= 0) toolbarBottom = statusBarInset + dp(64);
-                sheetBehavior.setExpandedOffset(toolbarBottom);
-
-                // Anchor the identity directly below the inset-aware 64dp app bar, then let
-                // its measured content determine the rest of the hero on every screen size.
-                expandedIdentity.setY(toolbarBottom);
-                int identityBottom = toolbarBottom + expandedIdentity.getMeasuredHeight();
-                // Keep the sheet just below the identity block.  The previous overlap
-                // pulled the default drawer too far upward in compact/freeform windows.
-                int collapsedTop = identityBottom + dp(16);
-                boolean freeform = isInMultiWindowMode();
-                if (!freeform && fullScreenCollapsedTop > 0) {
-                    // Re-entering full-screen after freeform must return to the same
-                    // visual baseline as a freshly opened profile.
-                    collapsedTop = fullScreenCollapsedTop;
-                } else if (!freeform && expandedIdentity.getVisibility() == View.VISIBLE
-                        && expandedIdentity.getMeasuredHeight() > 0) {
-                    fullScreenCollapsedTop = collapsedTop;
-                }
-
-                // Keep two 24dp sheet-corner radii of the dimmed header behind the sheet.
-                // The sheet position stays content-driven; only its backdrop extends.
-                int requiredHeaderHeight = collapsedTop + dp(48);
-                ViewGroup.LayoutParams headerParams = appBar.getLayoutParams();
-                if (headerParams.height != requiredHeaderHeight) {
-                    headerParams.height = requiredHeaderHeight;
-                    appBar.setLayoutParams(headerParams);
-                }
-                resizeProfileBackground(requiredHeaderHeight);
-
-                // 抽屉展开时容器高度 = 窗口高度 - 顶部偏移。
-                // 高度以 WindowMetrics（窗口真实边界）为准，底部只按**真实**导航条高度外扩；
-                // 没有导航条时不能按估算值外扩——那会多出一块屏幕外的可滚动区域，
-                // 表现就是“最后一张卡片滚不到底”。底部安全区交给页面滚动容器的 padding。
-                int windowHeight = windowHeight();
-                int sheetHeight = Math.max(0, windowHeight - toolbarBottom)
-                        + navigationBarInset();
-                ViewGroup.LayoutParams sheetParams = detailSheet.getLayoutParams();
-                if (sheetHeight > 0 && sheetParams.height != sheetHeight) {
-                    sheetParams.height = sheetHeight;
-                    detailSheet.setLayoutParams(sheetParams);
-                }
-
-                // Keep a shallow overlap for the floating rounded edge. CollapsingToolbarLayout
-                // also offsets inset-aware children, so a larger overlap can cover the last
-                // bio line on devices with tall status bars. Preserve a compact selector-sized
-                // peek on short windows instead of covering the bio.
-                int minimumPeek = dp(96);
-                collapsedTop = Math.min(collapsedTop, windowHeight - minimumPeek);
-                sheetBehavior.setPeekHeight(Math.max(minimumPeek,
-                        windowHeight - collapsedTop), false);
-                sheetBehavior.setState(targetState);
-                pendingExpandSheet = false;
-                detailSheet.requestLayout();
-                // Cancel this frame so the resized header and positioned sheet are the
-                // first version ever submitted to the display compositor.
-                return false;
-            }
-        };
-        observer.addOnPreDrawListener(pendingProfileLayout);
-        detailRoot.invalidate();
-    }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        refreshWindowGeometry();
     }
 
     @Override
     public void onMultiWindowModeChanged(boolean isInMultiWindowMode,
                                          @NonNull Configuration newConfig) {
         super.onMultiWindowModeChanged(isInMultiWindowMode, newConfig);
-        refreshWindowGeometry();
     }
 
-    /**
-     * 是否是分屏（贴边分配）模式。
-     *
-     * <p>SDK 没有公开的 windowingMode 查询接口（{@code WindowConfiguration} 是 @hide），
-     * 所以用窗口几何判断：分屏窗口会占满屏幕的整宽（上下分屏）或整高（左右分屏），
-     * 而 MIUI 小窗是悬浮窗、四周始终留有空隙，不会被误判。
-     */
-    private boolean isInSplitScreenWindow() {
-        if (!isInMultiWindowMode()) return false;
-        if (android.os.Build.VERSION.SDK_INT < android.os.Build.VERSION_CODES.R) {
-            // 旧版本没有窗口几何接口，用可用高度兜底。
-            return getResources().getConfiguration().screenHeightDp < 480;
-        }
-        android.view.WindowManager windowManager = getWindowManager();
-        android.graphics.Rect window =
-                windowManager.getCurrentWindowMetrics().getBounds();
-        android.graphics.Rect screen =
-                windowManager.getMaximumWindowMetrics().getBounds();
-        int tolerance = dp(8);
-        boolean spansWidth = window.width() >= screen.width() - tolerance;
-        boolean spansHeight = window.height() >= screen.height() - tolerance;
-        return (spansWidth && window.height() < screen.height() - tolerance)
-                || (spansHeight && window.width() < screen.width() - tolerance);
-    }
-
-    private void refreshWindowGeometry() {
-        if (detailRoot == null) return;
-        ViewCompat.requestApplyInsets(detailRoot);
-        detailRoot.requestLayout();
-        scheduleProfileLayout(true);
-        scheduleSettledWindowLayout();
-    }
-
-    @Override
-    protected void onSaveInstanceState(@NonNull Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putBoolean(STATE_SHEET_EXPANDED,
-                sheetBehavior != null && sheetBehavior.getState() == BottomSheetBehavior.STATE_EXPANDED);
-    }
 
     @Override
     protected void onDestroy() {
-        if (detailRoot != null) detailRoot.removeCallbacks(settledWindowLayout);
         super.onDestroy();
     }
 
@@ -719,81 +605,23 @@ public class UserDetailActivity extends AppCompatActivity {
             @Override public int getItemCount() { return 3; }
         });
         pager.setOffscreenPageLimit(2);
-        // 保留 ViewPager2 内部 RecyclerView 的嵌套滚动：分页里的列表滚动到底/到顶时，
-        // 未消费的滚动才能沿着链路交给抽屉（BottomSheetBehavior）决定是否跟手——
-        // 之前关掉它导致"列表和抽屉抢手势"（抽屉分不清列表还能不能滚）。
+        // 保留 ViewPager2 内部 RecyclerView 的嵌套滚动：分页里的列表滚到底/到顶后，
+        // 未消费的滚动才能沿链路交给 AppBarLayout，让应用栏跟着折叠。
         RecyclerView pagerRecycler = (RecyclerView) pager.getChildAt(0);
         ViewCompat.setNestedScrollingEnabled(pagerRecycler, true);
         // 与主页/浏览历史一致的下划线标签（铺满、下划线指示器、坐在毛玻璃上）
         String[] titles = {"主页", "应用", "资源"};
         new com.google.android.material.tabs.TabLayoutMediator(tabs, pager,
                 (tab, position) -> tab.setText(titles[position])).attach();
-        pager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override public void onPageSelected(int position) {
-                findViewById(R.id.detail_sheet).requestLayout();
-                applyProfilePagerInsets();
-            }
-        });
-        setupProfileSegmentsBlur();
-        pager.post(this::applyProfilePagerInsets);
     }
 
     /** 滚动指示器的毛玻璃：pager 作为快照源，指示器那一条作为快照层（与固定栏同款）。 */
-    private void setupProfileSegmentsBlur() {
-        ImageView backdrop = findViewById(R.id.detail_segments_blur);
-        View tint = findViewById(R.id.detail_segments_tint);
-        if (tint != null) com.typheye.wgpro.utils.BarBlurController.registerBar(this, tint);
-        if (backdrop == null) return;
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-            segmentsBlurController = com.typheye.wgpro.utils.BarBlurController.install(
-                    this, findViewById(R.id.detail_pager), backdrop);
-        }
-    }
 
     /**
      * 内容顶部留白让开滚动指示器（内容从毛玻璃条下面穿过，模糊才有东西可糊）；
      * 毛玻璃条的底边与指示器底边（下划线）齐平。
      */
-    private void applyProfilePagerInsets() {
-        ViewPager2 pager = findViewById(R.id.detail_pager);
-        View tabs = findViewById(R.id.detail_tabs);
-        ImageView backdrop = findViewById(R.id.detail_segments_blur);
-        if (pager == null || tabs == null || !(pager.getChildAt(0) instanceof ViewGroup)) return;
-        int band = tabs.getBottom();
-        if (band <= 0) return;
-        for (int id : new int[]{R.id.detail_segments_blur, R.id.detail_segments_tint}) {
-            View bar = findViewById(id);
-            if (bar == null || bar.getLayoutParams() == null) continue;
-            ViewGroup.LayoutParams params = bar.getLayoutParams();
-            if (params.height != band) {
-                params.height = band;
-                bar.setLayoutParams(params);
-            }
-        }
-        ViewGroup holder = (ViewGroup) pager.getChildAt(0);
-        for (int index = 0; index < holder.getChildCount(); index++) {
-            applyProfilePageInsets(holder.getChildAt(index), band + dp(6));
-        }
-    }
 
-    private void applyProfilePageInsets(View view, int top) {
-        // 平铺（全屏）时底部完全沉浸；小窗（freeform）窗口底部有 MIUI 自己的把手，必须垫高。
-        // 设备没有系统导航条时，列表末尾会紧贴屏幕底边（抽屉底边就在窗口底边），需要补一段。
-        int bottom = 0;
-        WindowInsetsCompat insets = detailRoot == null ? null : ViewCompat.getRootWindowInsets(detailRoot);
-        if (detailRoot != null && com.typheye.wgpro.utils.SystemBars.isInMultiWindow(detailRoot)) {
-            if (insets != null) {
-                bottom = com.typheye.wgpro.utils.SystemBars
-                        .bottomInsetForView(detailRoot, insets);
-            }
-        }
-        int navigation = insets == null ? 0
-                : insets.getInsets(WindowInsetsCompat.Type.navigationBars()).bottom;
-        if (bottom <= 0 && navigation <= 0) {
-            bottom = dp(24);
-        }
-        applyProfilePageInsets(view, top, bottom);
-    }
 
     private void applyProfilePageInsets(View view, int top, int bottom) {
         if (view instanceof androidx.swiperefreshlayout.widget.SwipeRefreshLayout) {
@@ -1038,21 +866,12 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void applyAdaptiveChromeColors() {
-        // The bundled profile header is deliberately light. Keep app-bar controls and
-        // system status-bar content on the same foreground instead of sampling different
-        // points of the gradient and allowing them to disagree.
-        int chromeColor = Color.WHITE;
-
-        Drawable navigation = toolbar.getNavigationIcon();
-        if (navigation != null) DrawableCompat.setTint(navigation.mutate(), chromeColor);
-        ((TextView) findViewById(R.id.detail_collapsed_nick)).setTextColor(chromeColor);
-        if (toolbarMenu != null) {
-            MenuItem more = toolbarMenu.findItem(R.id.action_profile_more);
-            if (more != null && more.getIcon() != null) {
-                DrawableCompat.setTint(more.getIcon().mutate(), chromeColor);
-            }
-        }
-        SystemBars.setLightSystemBars(getWindow(), false);
+        // 前景/系统栏配色统一由 applyBarChrome 决定（它看折叠态 + 小窗 + 主题）。
+        // 这里**先清掉前景缓存**：onCreateOptionsMenu 在首次布局之后才跑，而折叠监听在那之前
+        // 已经记过一次前景色；缓存命中会直接跳过换色 → 右上角「更多」图标第一次进来时保留
+        // vector 里烘死的颜色（表现成"首次进入颜色异常，折叠一下再展开就正常"）。强制重来即可。
+        chromeForeground = Integer.MIN_VALUE;
+        applyBarChrome(barCollapsed);
     }
 
     private static final class ProfilePageAdapter extends RecyclerView.Adapter<ProfilePageAdapter.Holder> {
