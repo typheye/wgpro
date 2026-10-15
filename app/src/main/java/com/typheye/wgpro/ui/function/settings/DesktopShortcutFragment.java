@@ -163,6 +163,7 @@ public class DesktopShortcutFragment extends Fragment {
         WGProBottomSheetDialog dialog = new WGProAlertDialogBuilder(requireContext())
                 .setTitle("添加功能")
                 .setView(group)
+                .setNegativeButton("关闭", null)
                 .create();
         shown[0] = dialog;
         dialog.show();
