@@ -172,6 +172,12 @@ public class ScanQRActivity extends AppCompatActivity {
     }
 
     private void handleQrCodeResult(String qrContent) {
+        // 未登录时扫码必须**无效**：不跳转、不处理内容（否则扫到登录码/业务码会被当成有效操作）
+        if (!new com.typheye.wgpro.utils.tAccUtils(this).isLogin()) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(this, "请先登录",
+                    "登录后才能使用扫码功能。", this::finish);
+            return;
+        }
         Intent intent = new Intent(this, WebActivity.class);
         intent.putExtra("URL", qrContent);
         startActivity(intent);

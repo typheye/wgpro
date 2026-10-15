@@ -354,7 +354,7 @@ public class tAccUtils {
         new Handler(Looper.getMainLooper()).post(() -> {
             dismissProgressDialogNow();
             WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(context);
-            builder.setTitle("请稍候");
+            builder.setTitle("登录");
 
             View view = View.inflate(context, R.layout.progress_dialog, null);
             view.findViewById(android.R.id.progress);
@@ -664,6 +664,9 @@ public class tAccUtils {
         editor.apply();
         clearSecureSession();
         clearWebViewCookies();
+        // 只把具名 Cookie 置过期会漏（名字/域一变就清不掉，且漏掉 Web 存储/表单/HTTP 认证），
+        // 这里再做一次"清空所有域 Cookie + Web 存储"的兜底，保证换账号时不会残留旧登录态。
+        clearAllWebViewCredentials();
     }
 
     public static void saveAvatarToCache(Context context, String uid, Bitmap bitmap) {
@@ -2697,6 +2700,54 @@ public class tAccUtils {
         } catch (Exception e) {
             Log.w("tAccUtils", "Unable to clear WebView account cookies", e);
             if (onComplete != null) new Handler(Looper.getMainLooper()).post(onComplete);
+        }
+    }
+
+    /**
+     * 退出登录 / 切换账号：**彻底**清掉内置浏览器的登录凭据。
+     *
+     * <p>原来的 {@link #clearWebViewCookies()} 只把 4 个具名 Cookie 置过期
+     * （TypheyeCookie / TypheyeUserCookie / TypheyeUserUidCookie / TypheyeWebSession），有两个坑：</p>
+     * <ul>
+     *   <li>置过期用的 Domain 与服务端下发的可能对不上（{@code .typheye.cn} 与 host-only 是两条
+     *       不同记录），Cookie 名或域一变就**清不掉** —— 这就是"有概率清不干净"；</li>
+     *   <li>内置浏览器的登录凭据还可能在 localStorage / sessionStorage、保存的表单与 HTTP 认证里，
+     *       这些原来完全没动。</li>
+     * </ul>
+     * <p>残留的旧会话会被当成仍然有效的登录态 → 换账号后还是旧账号、且反复触发重新登录，
+     * 表现为"退出登录退不干净、必须清 App 数据才能登别的账号"。这里直接按域清空 + 清 Web 存储，
+     * 不留概率。</p>
+     */
+    private void clearAllWebViewCredentials() {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            try {
+                android.webkit.CookieManager cookieManager =
+                        android.webkit.CookieManager.getInstance();
+                cookieManager.removeAllCookies(ignored -> {
+                    cookieManager.flush();
+                    clearWebViewStorage();
+                });
+            } catch (Exception e) {
+                Log.w("tAccUtils", "Unable to clear all WebView cookies", e);
+                clearWebViewStorage();
+            }
+        });
+    }
+
+    /** Web 存储 + 保存的表单/HTTP 认证，同属"内置浏览器登录凭据"。 */
+    private void clearWebViewStorage() {
+        try {
+            android.webkit.WebStorage.getInstance().deleteAllData();
+        } catch (Exception e) {
+            Log.w("tAccUtils", "Unable to clear WebView storage", e);
+        }
+        try {
+            android.webkit.WebViewDatabase database =
+                    android.webkit.WebViewDatabase.getInstance(context);
+            database.clearFormData();
+            database.clearHttpAuthUsernamePassword();
+        } catch (Exception e) {
+            Log.w("tAccUtils", "Unable to clear WebView form/auth data", e);
         }
     }
 }

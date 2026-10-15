@@ -184,6 +184,48 @@ public class DeviceFragment extends Fragment {
     }
     public void updateUI(UIParams ignored) { refresh(); }
 
+    private static final String PREFS_UI_STATE = "main_ui_state";
+    private static final String KEY_DEVICE_COUNT = "last_device_count";
+    /** 最近一次统计到的设备数量：切页那一瞬卡片还没挂上时先用它，避免标题停在「共 0 台」。 */
+    private static int sLastDeviceCount = -1;
+
+    /** 当前已挂到页面上的设备数量（穿戴 + 模拟）；容器还没建立时退回上次缓存。 */
+    public int deviceCount() {
+        int mounted = 0;
+        if (wearable != null) mounted += wearable.getChildCount();
+        if (other != null) mounted += other.getChildCount();
+        if (wearable == null && other == null && sLastDeviceCount >= 0) return sLastDeviceCount;
+        return mounted;
+    }
+
+    /** 上次统计到的设备数量（进程内缓存优先，其次上次运行落盘的值）。 */
+    public static int lastKnownDeviceCount(Context context) {
+        if (sLastDeviceCount >= 0) return sLastDeviceCount;
+        try {
+            return context.getSharedPreferences(PREFS_UI_STATE, Context.MODE_PRIVATE)
+                    .getInt(KEY_DEVICE_COUNT, 0);
+        } catch (Exception error) {
+            return 0;
+        }
+    }
+
+    /** 记录本次统计（进程内 + 落盘），供下次切页/冷启动立即显示。 */
+    private void cacheDeviceCount(int count) {
+        sLastDeviceCount = count;
+        try {
+            requireContext().getSharedPreferences(PREFS_UI_STATE, Context.MODE_PRIVATE)
+                    .edit().putInt(KEY_DEVICE_COUNT, count).apply();
+        } catch (Exception ignored) {
+        }
+    }
+
+    /** 设备列表刷新完通知宿主更新应用栏标题。 */
+    private void notifyDeviceCountChanged() {
+        if (getActivity() instanceof com.typheye.wgpro.ui.main.MainActivity) {
+            ((com.typheye.wgpro.ui.main.MainActivity) getActivity()).refreshDeviceTitle();
+        }
+    }
+
     private void refreshWearable() {
         try {
             refresh();
@@ -238,6 +280,10 @@ public class DeviceFragment extends Fragment {
                 ? View.VISIBLE : View.GONE);
         // 修掉模拟页下拉刷新一直转圈（原来只停了穿戴页的）
         if (otherRefresh != null) otherRefresh.setRefreshing(false);
+        // 记录数量并同步应用栏标题
+        cacheDeviceCount((wearable == null ? 0 : wearable.getChildCount())
+                + (other == null ? 0 : other.getChildCount()));
+        notifyDeviceCountChanged();
     }
 
     /** 模拟设备分组：只取 type='virtual'。 */

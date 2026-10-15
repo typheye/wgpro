@@ -81,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager2 boundTabsPager;
     private HomeFragment homeFragment;
     private DeviceFragment deviceFragment;
+    /** 当前应用栏标题缓存：同值不再写入，避免切页/数据回调时标题闪烁。 */
+    private String lastTopBarTitle;
     private AccountFragment accountFragment;
     private BarBlurController barBlurController;
 
@@ -576,11 +578,59 @@ public class MainActivity extends AppCompatActivity {
      */
     private void applyTopBarForPage(int position) {
         boolean home = position == 0;
-        toolbar.setTitle(home ? ""
-                : new String[]{getString(R.string.app_name), "设备", "账户"}[position]);
+        // 首页/账户页空标题（首页让给搜索控件）；设备页显示「共 X 台」
+        setTopBarTitle(position == 1 ? deviceTitle() : "");
+        if (position == 1) {
+            scheduleDeviceTitleCatchUp();
+        }
         if (searchBox != null) {
             searchBox.setVisibility(home ? View.VISIBLE : View.GONE);
         }
+    }
+
+    /** 设备页标题：「共 X 台」（没有设备就是「共 0 台」）。 */
+    private String deviceTitle() {
+        DeviceFragment devices = DeviceFragment.current();
+        // 页面刚切进来时设备卡可能还没挂上（数据异步加载），此时用上次统计到的数量兜底
+        int count = devices != null && devices.isAdded()
+                ? devices.deviceCount()
+                : DeviceFragment.lastKnownDeviceCount(this);
+        return "共 " + count + " 台";
+    }
+
+    /**
+     * 设备页数据是异步加载的，切进来那一瞬可能还是「共 0 台」。
+     * 这里错开几帧再校准几次，数据到货后标题就能自己跟上，不用离开再回来。
+     */
+    private void scheduleDeviceTitleCatchUp() {
+        for (long delay : new long[]{250L, 700L, 1500L}) {
+            toolbar.postDelayed(() -> {
+                if (mainPager != null && mainPager.getCurrentItem() == 1) {
+                    setTopBarTitle(deviceTitle());
+                }
+            }, delay);
+        }
+    }
+
+    /** 设备数据变化后刷新应用栏标题（由 DeviceFragment 加载结束时回调）。 */
+    public void refreshDeviceTitle() {
+        if (mainPager != null && mainPager.getCurrentItem() == 1) {
+            setTopBarTitle(deviceTitle());
+        }
+    }
+
+    /**
+     * 设置应用栏标题，**文字没变就不重设**。
+     *
+     * <p>切页时 {@code applyTopBarForPage} 会被调用两次（选中回调 + post 校准），设备数据加载完
+     * 也会再来一次；重复 setTitle 会让 Toolbar 重新布局，看起来就是"标题闪一下"。
+     * 这里用缓存挡掉同值写入，保证只在真正变化时更新。</p>
+     */
+    private void setTopBarTitle(String title) {
+        String next = title == null ? "" : title;
+        if (next.equals(lastTopBarTitle)) return;
+        lastTopBarTitle = next;
+        toolbar.setTitle(next);
     }
 
     /** 「写一篇」：选择发布动态或资源。 */
@@ -621,15 +671,22 @@ public class MainActivity extends AppCompatActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         boolean home = selectedPage == R.id.nav_home;
         boolean account = selectedPage == R.id.nav_account;
-        boolean accountLoggedIn = new tAccUtils(this).isLogin();
         MenuItem notification = menu.findItem(R.id.action_notifications);
         MenuItem compose = menu.findItem(R.id.action_compose);
-        MenuItem scan = menu.findItem(R.id.action_scanqr);
         MenuItem settings = menu.findItem(R.id.action_settings);
         MenuItem deviceAdd = menu.findItem(R.id.action_device_add);
         if (notification != null) notification.setVisible(home);
         if (compose != null) compose.setVisible(home);
-        if (scan != null) scan.setVisible(account && accountLoggedIn);
+        // 扫码固定在应用栏左侧（导航位）：账户页**始终**显示，不随登录态隐藏。
+        // 未登录时进扫码页也无效 —— 无效判定在 ScanQRActivity 里统一拦截，避免别处入口绕过。
+        toolbar.setNavigationIcon(account
+                ? androidx.appcompat.content.res.AppCompatResources
+                        .getDrawable(this, R.drawable.ic_qr_vector)
+                : null);
+        toolbar.setNavigationContentDescription(account ? "扫描二维码" : null);
+        toolbar.setNavigationOnClickListener(account
+                ? v -> startActivity(new Intent(MainActivity.this, ScanQRActivity.class))
+                : null);
         if (settings != null) settings.setVisible(account);
         if (deviceAdd != null) deviceAdd.setVisible(selectedPage == R.id.nav_device);
         return super.onPrepareOptionsMenu(menu);
@@ -811,10 +868,7 @@ public class MainActivity extends AppCompatActivity {
                                     : com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_WEARABLE));
             return true;
         }
-        if (id == R.id.action_scanqr) {
-            startActivity(new Intent(MainActivity.this, ScanQRActivity.class));
-            return true;
-        } else if (id == R.id.action_settings) {
+        if (id == R.id.action_settings) {
             startActivity(new Intent(MainActivity.this, SettingsActivity.class));
             return true;
         }
