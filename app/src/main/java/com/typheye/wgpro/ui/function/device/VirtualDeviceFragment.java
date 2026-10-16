@@ -524,7 +524,6 @@ public class VirtualDeviceFragment extends Fragment {
 
     /** 🗂 应用管理：客机 {@code ls <appDir>} → 应用列表 → 启动/关闭/重载/卸载。 */
     private void showAppsSheet() {
-        showLog(true);
         appendLog("[ui] 正在读取客机应用列表…");
         flushLog();
         new Thread(() -> {
@@ -612,7 +611,6 @@ public class VirtualDeviceFragment extends Fragment {
     private void runAppAction(@NonNull String packageName, int action) {
         final String[] labels = {"启动", "关闭", "重载", "卸载"};
         final String label = labels[Math.max(0, Math.min(labels.length - 1, action))];
-        showLog(true);
         appendLog("$ " + label + " " + packageName);
         flushLog();
         new Thread(() -> {
@@ -659,7 +657,6 @@ public class VirtualDeviceFragment extends Fragment {
 
     /** 🎛 设备状态：电池 / GPS / 亮度 / 虚拟机 / 剪贴板 / 传感器（对齐 IDE 扩展控制）。 */
     private void showStateSheet() {
-        showLog(true);
         appendLog("[ui] 正在读取设备状态…");
         flushLog();
         new Thread(() -> {
@@ -777,7 +774,6 @@ public class VirtualDeviceFragment extends Fragment {
     }
 
     private void runGuestPower(boolean reboot) {
-        showLog(true);
         appendLog("$ " + (reboot ? "reboot" : "poweroff"));
         flushLog();
         new Thread(() -> {
@@ -898,7 +894,6 @@ public class VirtualDeviceFragment extends Fragment {
 
     private void runControl(@NonNull String label, @NonNull ControlAction action,
                             @NonNull String successMessage) {
-        showLog(true);
         appendLog("$ " + label);
         flushLog();
         new Thread(() -> {
@@ -942,7 +937,6 @@ public class VirtualDeviceFragment extends Fragment {
 
     /** 暂停 / 继续（gRPC setVmState）。 */
     private void toggleVmState() {
-        showLog(true);
         new Thread(() -> {
             boolean success;
             String detail;
@@ -985,7 +979,6 @@ public class VirtualDeviceFragment extends Fragment {
     }
 
     private void showSensorSheet() {
-        showLog(true);
         new Thread(() -> {
             StringBuilder summary = new StringBuilder();
             String failure = null;
