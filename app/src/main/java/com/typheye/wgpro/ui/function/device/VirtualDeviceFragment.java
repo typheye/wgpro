@@ -143,6 +143,11 @@ public class VirtualDeviceFragment extends Fragment {
             deviceKey = avdId;   // 兜底：绝不把 null 当实例键
         }
         bindWatermark(view);
+        // 「导入应用」：选本地 .rpk 装到**当前这台**模拟设备（安装交互与设备卡片页同一套）
+        View importKey = view.findViewById(R.id.key_import);
+        if (importKey != null) {
+            importKey.setOnClickListener(v -> confirmImportRpk());
+        }
         final VelaEmulatorManager manager = VelaEmulatorManager.get();
         manager.init(requireContext());
         lineListener = line -> {
@@ -1490,6 +1495,79 @@ public class VirtualDeviceFragment extends Fragment {
 
     private void setStatus(@NonNull String text) {
         appendLog("[ui] " + text);
+    }
+
+    // ---------------- 导入外部 rpk ----------------
+
+    /** 选 .rpk 的系统文件选择器（SAF）。 */
+    private final androidx.activity.result.ActivityResultLauncher<String[]> rpkPicker =
+            registerForActivityResult(
+                    new androidx.activity.result.contract.ActivityResultContracts.OpenDocument(),
+                    uri -> {
+                        if (uri != null) {
+                            importRpk(uri);
+                        }
+                    });
+
+    /** 点「导入应用」：**先确认**，再打开文件选择器。 */
+    private void confirmImportRpk() {
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("导入外部应用？")
+                .setMessage("选择本地的 .rpk 安装到「" + importDeviceName() + "」，"
+                        + "安装过程中可以取消。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("选择文件", (d, w) -> rpkPicker.launch(new String[]{"*/*"}))
+                .show();
+    }
+
+    /** 导入时用的设备名（水印即当前设备名，取不到退机型）。 */
+    @NonNull
+    private String importDeviceName() {
+        View root = getView();
+        if (root != null) {
+            android.widget.TextView watermark = root.findViewById(R.id.virtual_watermark);
+            if (watermark != null && watermark.getText() != null
+                    && watermark.getText().length() > 0) {
+                return watermark.getText().toString();
+            }
+        }
+        return avdId;
+    }
+
+    /** 把所选文件拷进缓存，再走与设备卡片页**完全相同**的安装流程（VelaInstallFlow）。 */
+    private void importRpk(@NonNull android.net.Uri uri) {
+        final android.content.Context app = requireContext().getApplicationContext();
+        final String deviceId = deviceKey;
+        final String model = avdId;
+        final String name = importDeviceName();
+        new Thread(() -> {
+            try {
+                final java.io.File local = new java.io.File(app.getCacheDir(),
+                        "import-" + System.currentTimeMillis() + ".rpk");
+                try (java.io.InputStream in = app.getContentResolver().openInputStream(uri);
+                     java.io.OutputStream out = new java.io.FileOutputStream(local)) {
+                    if (in == null) {
+                        throw new java.io.IOException("打不开所选文件");
+                    }
+                    byte[] buffer = new byte[1 << 16];
+                    int count;
+                    while ((count = in.read(buffer)) > 0) {
+                        out.write(buffer, 0, count);
+                    }
+                }
+                ui.post(() -> com.typheye.wgpro.ui.widget.VelaInstallFlow.install(
+                        this, app, deviceId, model, name, local, false));
+            } catch (Throwable error) {
+                final String message = error.getMessage() == null
+                        ? "读取所选文件失败" : error.getMessage();
+                ui.post(() -> {
+                    if (isAdded()) {
+                        com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(),
+                                "导入失败", message);
+                    }
+                });
+            }
+        }, "rpk-import").start();
     }
 
     /** 日志面板是否可见（不可见时只缓冲、不刷 UI —— 但**照样完整记录**）。 */
