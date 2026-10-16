@@ -21,7 +21,6 @@ export default {
 			fileAppend: false,
 			ws: false,
 		},
-		wgchatEngine: true,
 	},
 	onCreate() {
 		device.getInfo({
@@ -47,28 +46,12 @@ export default {
 				};
 			},
 		});
-		this.wgchatEngineSync();
 	},
 	/** 运行时能力（兼容性判定）：页面只依赖它，不直接 import 高风险 @system.* */
 	getCaps() {
 		return this.caps;
 	},
-	/** 聊天引擎缓存：true=微聊 X，false=腕上微聊。启动读一次，切换时同步更新，保证首页跳转及时一致。 */
-	wgchatEngineSync() {
-		storage.get({
-			key: "wgsettings_iswgchatx",
-			success: (data) => {
-				this.wgchatEngine = data !== false;
-			},
-		});
-	},
-	getWgchatEngine() {
-		return this.wgchatEngine !== false;
-	},
-	setWgchatEngine(iswgchatx) {
-		this.wgchatEngine = !!iswgchatx;
-		this.settingsChange("wgsettings_iswgchatx", this.wgchatEngine);
-	},
+
 	/** 亮屏保持（带兜底：部分设备/模拟器 @system.brightness 不可用，异常会打断生命周期） */
 	taccKeepScreenOn(on) {
 		try {
@@ -160,9 +143,6 @@ export default {
 	/* ---------- Typheye account: V2 session + legacy compatibility ---------- */
 	taccApiUrl() {
 		return this.getTS("taccServerURL") + "api.php";
-	},
-	taccWgchatxUrl() {
-		return this.getTS("taccServerURL") + "wgchatx/";
 	},
 	taccVersion() {
 		try {

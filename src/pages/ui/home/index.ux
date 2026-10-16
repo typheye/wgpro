@@ -175,15 +175,8 @@ export default {
 			var v_uri = "";
 			if (id == "systool") v_uri = "pages/ui/function/systool";
 			else if (id == "filemanger") v_uri = "pages/ui/function/filemanger";
-			else if (id == "wgchat") {
-				// 直接读 app.ux 缓存，保证切换后回首页点图标及时、稳定
-				this.$app.$def.goPage(
-					this.$app.$def.getWgchatEngine()
-						? "pages/ui/function/wgchatx"
-						: "pages/ui/function/wgchat"
-				);
-				return;
-			} else if (id == "plugin") v_uri = "pages/ui/function/plugin";
+			else if (id == "wgchat") v_uri = "pages/ui/function/wgchat";
+			else if (id == "plugin") v_uri = "pages/ui/function/plugin";
 			else if (id == "more") v_uri = "pages/ui/function/more";
 			else if (id == "settings") v_uri = "pages/ui/function/settings";
 			this.$app.$def.goPage(v_uri);

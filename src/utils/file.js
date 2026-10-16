@@ -12,7 +12,6 @@ const DEFAULT_PATHS = [
   "internal://files/mnt/Movies/",
   "internal://files/mnt/Music/",
   "internal://files/wgchat/",
-  "internal://files/wgchatx/",
 ];
 
 // 系统默认存在的目录（不自动创建）

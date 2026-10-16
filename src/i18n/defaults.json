@@ -7,7 +7,7 @@
     },
     "tips": {
         "toNull": "敬请期待",
-        "backLaunch" : "请按表冠键手动返回桌面",
+        "backLaunch": "请按表冠键手动返回桌面",
         "fail": "异常",
         "run_success": "操作成功",
         "run_fail": "操作异常",
@@ -15,8 +15,8 @@
     },
     "menu": {
         "chatroomlist": {
-            "msginfotext":"消息详情",
-            "msginfodemo":"[用户昵称]\n${usrname}\n\n[用户UID]\n${usruid}\n\n[IP属地]\n${usrip}\n\n[发布时间]\n${date}\n\n[消息内容]\n${data}",
+            "msginfotext": "消息详情",
+            "msginfodemo": "[用户昵称]\n${usrname}\n\n[用户UID]\n${usruid}\n\n[IP属地]\n${usrip}\n\n[发布时间]\n${date}\n\n[消息内容]\n${data}",
             "def": {
                 "item1": {
                     "name": "刷新",
@@ -49,21 +49,11 @@
                     "id": "back"
                 }
             },
-            "switch": {
-                "tonew": {
-                    "name": "升级到新版",
-                    "id": "upgrade"
-                },
-                "tolegacy": {
-                    "name": "回退旧版",
-                    "id": "downgrade"
-                }
-            },
             "item": {
                 "item1": {
                     "name": "房间信息",
                     "id": "roominfo",
-                    "demo":"[房间名称]\n${roomname}\n\n[房间标识]\n${roomid}"
+                    "demo": "[房间名称]\n${roomname}\n\n[房间标识]\n${roomid}"
                 },
                 "item2": {
                     "name": "删除房间",
@@ -100,7 +90,7 @@
                     "name": "返回",
                     "id": "back"
                 }
-            }, 
+            },
             "item": {
                 "item1": {
                     "name": "删除扩展",
@@ -137,7 +127,7 @@
                     "name": "返回",
                     "id": "back"
                 }
-            }, 
+            },
             "itempath": {
                 "item1": {
                     "name": "刷新",
@@ -363,23 +353,23 @@
                         "title": "应用信息",
                         "text": "[应用开发]\n\n台风眼Typheye\n\n[联系方式]\n\nQQ：498978473\n邮箱：typheye@typheye.com"
                     },
-                    "appactive":{
+                    "appactive": {
                         "title": "应用激活",
                         "text": "已激活"
                     },
-                    "appupdate":{
+                    "appupdate": {
                         "title": "应用更新",
                         "text": "已经是最新版本"
                     },
-                    "appbackup":{
+                    "appbackup": {
                         "title": "应用备份",
                         "text": "敬请期待"
                     },
-                    "appedit":{
+                    "appedit": {
                         "title": "适配终端",
                         "text": "敬请期待"
                     },
-                    "appreset":{
+                    "appreset": {
                         "title": "重置应用",
                         "text": "敬请期待"
                     },
@@ -394,8 +384,8 @@
                 "tabtext": "应用更新",
                 "toinfo": "点击查看详情",
                 "fail": "加载异常...",
-                "haveupdate":"有新版本发布",
-                "noupdate":"已是最新版本",
+                "haveupdate": "有新版本发布",
+                "noupdate": "已是最新版本",
                 "p1": {
                     "item1": {
                         "text": "检查更新",
@@ -410,7 +400,7 @@
                     "item1": {
                         "text": "更新应用",
                         "subtext": "Loading...",
-                        "sub":{
+                        "sub": {
                             "item1": {
                                 "text": "我的版本",
                                 "subtext": "Loading..."
@@ -443,7 +433,7 @@
                 "uidtext": "账户UID",
                 "usernametext": "账户昵称",
                 "userinfotext": "账户简介",
-                "loginerror":"登录状态已失效，请前往设置重新登录",
+                "loginerror": "登录状态已失效，请前往设置重新登录",
                 "delusertext": "如果您需要注销Typheye账户,请扫描下方二维码后在手机上操作",
                 "p1": {
                     "item1": {
@@ -486,9 +476,7 @@
                     },
                     "item2": {
                         "text": "腕上微聊",
-                        "subtext": "简易匿名网络聊天室",
-                        "textx": "微聊 X",
-                        "subtextx": "新一代多端聊天室"
+                        "subtext": "简易匿名网络聊天室"
                     }
                 }
             },
@@ -617,23 +605,12 @@
                 }
             }
         },
-        "wgchatx": {
-            "settings": {
-                "tabtext": "微聊 X",
-                "p1": {
-                    "item1": {
-                        "text": "更改昵称",
-                        "subtext": "前往Typheye账户继续更改"
-                    }
-                }
-            }
-        },
         "browser": {
             "setdefuri": {
                 "tabtext": "浏览器主页"
             }
         },
-        "plugin":{
+        "plugin": {
             "project": {
                 "p10001": {
                     "tabtext": "文件传输助手",
@@ -647,7 +624,7 @@
                 }
             }
         },
-        "filemanger":{
+        "filemanger": {
             "open": {
                 "imageshow": {
                     "tabtext": "图片浏览"
@@ -666,28 +643,28 @@
         },
         "systool": {
             "tabtext": "系统工具",
-            "p1":{
-                "item1":{
+            "p1": {
+                "item1": {
                     "text": "系统信息",
                     "subtext": "设备操作系统的相关信息"
                 },
-                "item2":{
+                "item2": {
                     "text": "存储空间",
                     "subtext": "查看当前设备的存储空间"
                 },
-                "item3":{
+                "item3": {
                     "text": "显示测试",
                     "subtext": "测试屏幕的显示状态"
                 }
             },
-            "run":{
+            "run": {
                 "sysinfo": {
                     "title": "系统信息",
                     "text": "[设备品牌]\n${brand}\n\n[设备生产商]\n${manufacturer}\n\n[设备型号]\n${model}\n\n[设备代号]\n${product}\n\n[操作系统名称]\n${osType}\n\n[操作系统版本名称]\n${osVersionName}\n\n[操作系统版本号]\n${osVersionCode}\n\n[运行平台版本名称]\n${platformVersionName}\n\n[运行平台版本号]\n${platformVersionCode}\n\n[系统语言]\n${language}\n\n[系统地区]\n${region}\n\n[框架API版本]\n${APILevel}\n\n[屏幕宽]\n${screenWidth}\n\n[屏幕高]\n${screenHeight}\n\n[屏幕密度]\n${screenDensity}\n\n[屏幕形状]\n${screenShape}\n\n[设备类型]\n${deviceType}\n\n[唯一标识]\n${deviceId}\n\n[设备序列号]\n${serial}"
                 },
                 "storagesize": {
                     "title": "存储空间",
-                    "availabletext":"可用 | ${avasize} MB"
+                    "availabletext": "可用 | ${avasize} MB"
                 }
             }
         },
@@ -695,33 +672,33 @@
             "tabtext": "文件管理",
             "infotips": "详细信息",
             "demoinfo": "[标题]\n${name}\n\n[路径]\n${uri}",
-            "p1":{
-                "item1":{
+            "p1": {
+                "item1": {
                     "text": "内部存储",
                     "subtext": "/",
                     "uri": "internal://files/mnt"
                 },
-                "item2":{
+                "item2": {
                     "text": "用户文档",
                     "subtext": "/Documents",
                     "uri": "internal://files/mnt/Documents"
                 },
-                "item3":{
+                "item3": {
                     "text": "用户下载",
                     "subtext": "/Download",
                     "uri": "internal://files/mnt/Download"
                 },
-                "item4":{
+                "item4": {
                     "text": "用户视频",
                     "subtext": "/Movies",
                     "uri": "internal://files/mnt/Movies"
                 },
-                "item5":{
+                "item5": {
                     "text": "用户音乐",
                     "subtext": "/Music",
                     "uri": "internal://files/mnt/Music"
                 },
-                "item6":{
+                "item6": {
                     "text": "用户图片",
                     "subtext": "/Pictures",
                     "uri": "internal://files/mnt/Pictures"
@@ -731,24 +708,21 @@
         "wgchat": {
             "tabtext": "腕上微聊"
         },
-        "wgchatx": {
-            "tabtext": "微聊 X"
-        },
         "browser": {
             "tabtext": "X1浏览器"
         },
         "plugin": {
             "tabtext": "扩展插件",
-            "p1":{
-                "item1":{
+            "p1": {
+                "item1": {
                     "text": "文本翻译",
                     "id": "10000"
                 },
-                "item2":{
+                "item2": {
                     "text": "扩展2",
                     "id": "10000"
                 },
-                "item3":{
+                "item3": {
                     "text": "扩展3",
                     "id": "10000"
                 }
@@ -760,47 +734,47 @@
         },
         "settings": {
             "tabtext": "应用设置",
-            "p1":{
-                "item1":{
-                    "text":"Typheye账户",
-                    "subtext":"管理我的Typheye账户"
+            "p1": {
+                "item1": {
+                    "text": "Typheye账户",
+                    "subtext": "管理我的Typheye账户"
                 },
-                "item2":{
-                    "text":"云端服务",
-                    "subtext":"配置腕管Pro的云端服务"
+                "item2": {
+                    "text": "云端服务",
+                    "subtext": "配置腕管Pro的云端服务"
                 }
             },
-            "p2":{
-                "item1":{
-                    "text":"文本浏览",
-                    "subtext":"有关文本浏览的一些设置"
+            "p2": {
+                "item1": {
+                    "text": "文本浏览",
+                    "subtext": "有关文本浏览的一些设置"
                 },
-                "item2":{
-                    "text":"文件管理",
-                    "subtext":"有关文件管理的一些设置"
+                "item2": {
+                    "text": "文件管理",
+                    "subtext": "有关文件管理的一些设置"
                 },
-                "item3":{
-                    "text":"X1浏览器",
-                    "subtext":"有关浏览器的一些设置"
+                "item3": {
+                    "text": "X1浏览器",
+                    "subtext": "有关浏览器的一些设置"
                 }
             },
-            "p3":{
-                "item1":{
-                    "text":"关于应用",
-                    "subtext":"有关应用的一些信息"
+            "p3": {
+                "item1": {
+                    "text": "关于应用",
+                    "subtext": "有关应用的一些信息"
                 },
-                "item2":{
-                    "text":"法律信息",
-                    "subtext":"有关应用的一些法律信息"
+                "item2": {
+                    "text": "法律信息",
+                    "subtext": "有关应用的一些法律信息"
                 }
             },
-            "run":{
-                "browser":{
+            "run": {
+                "browser": {
                     "title": "X1浏览器",
                     "text": "敬请期待",
                     "needlogin": "该功能需要登录Typheye账户"
                 },
-                "polinfo":{
+                "polinfo": {
                     "title": "法律信息",
                     "text": "有关腕管Pro的法律信息\n请扫描下方二维码查看",
                     "uri": "https://wgpro.typheye.cn/policies/"
@@ -819,11 +793,7 @@
         "ref": "刷新",
         "wait": "请稍后...",
         "appexit": "您确定要退出软件吗?",
-        "tacclogout": "您确定要退出登录吗?",
-        "wgchatswitch": {
-            "tonew": "确认升级到「微聊 X」新版吗？",
-            "tolegacy": "确认回退到「腕上微聊」旧版吗？"
-        }
+        "tacclogout": "您确定要退出登录吗?"
     },
     "edittip": {
         "p10001": {
