@@ -126,8 +126,8 @@ export default {
 		this.updateCheck();
 	},
 	onShow() {
-		this.testTaccLoginCheck();
-		this.testTaccGetUserData();
+		this.$app.$def.taccLoginCheck();
+		this.$app.$def.taccGetUserData();
 	},
 	toRun(id) {
 		if (id == "backlaunch")
@@ -136,8 +136,21 @@ export default {
 			var v_uri = "";
 			if (id == "systool") v_uri = "pages/ui/function/systool";
 			else if (id == "filemanger") v_uri = "pages/ui/function/filemanger";
-			else if (id == "wgchat") v_uri = "pages/ui/function/wgchat";
-			else if (id == "plugin") v_uri = "pages/ui/function/plugin";
+			else if (id == "wgchat") {
+				// 从此版本起：点聊天图标默认进「微聊 X」，标志位可回退旧版
+				storage.get({
+					key: "wgsettings_iswgchatx",
+					success: (data) => {
+						this.$app.$def.goPage(
+							data === false
+								? "pages/ui/function/wgchat"
+								: "pages/ui/function/wgchatx"
+						);
+					},
+					fail: () => this.$app.$def.goPage("pages/ui/function/wgchatx"),
+				});
+				return;
+			} else if (id == "plugin") v_uri = "pages/ui/function/plugin";
 			else if (id == "more") v_uri = "pages/ui/function/more";
 			else if (id == "settings") v_uri = "pages/ui/function/settings";
 			this.$app.$def.goPage(v_uri);
@@ -181,87 +194,10 @@ export default {
 		});
 	},
 	testTaccGetUserData() {
-		if (!fetch.isEnableFetch())
-			storage.gets({
-				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
-				success: (datas) => {
-					if (
-						datas.wgsettings_taccount_cookie != null &&
-						datas.wgsettings_taccount_cookie.trim() !== "" &&
-						datas.wgsettings_taccount_username != null &&
-						datas.wgsettings_taccount_username.trim() !== ""
-					) {
-						fetch.fetch({
-							url: this.$app.$def.getTS("taccServerURL") + "api.php",
-							data_GET: {
-								type: "get_user_data",
-								uid: datas.wgsettings_taccount_username,
-								cookie: datas.wgsettings_taccount_cookie,
-							},
-							method: "GET",
-							responseType: "text",
-							success: (response) => {
-								if (response.code == 200) {
-									const reqback = JSON.parse(response.data);
-									if (reqback["code"] == 200) {
-										this.$app.$def.settingsChangeMore(
-											[
-												"wgsettings_taccount_nick",
-												"wgsettings_taccount_userinfo",
-											],
-											[reqback["info"]["nick"], reqback["info"]["shuo"]]
-										);
-									}
-								}
-							},
-						});
-					}
-				},
-			});
+		this.$app.$def.taccGetUserData();
 	},
 	testTaccLoginCheck() {
-		if (!fetch.isEnableFetch())
-			storage.gets({
-				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
-				success: (datas) => {
-					if (
-						datas.wgsettings_taccount_cookie != null &&
-						datas.wgsettings_taccount_cookie.trim() !== "" &&
-						datas.wgsettings_taccount_username != null &&
-						datas.wgsettings_taccount_username.trim() !== ""
-					) {
-						const timestamp0 = Date.now();
-						fetch.fetch({
-							url: this.$app.$def.getTS("taccServerURL") + "api.php",
-							data_GET: {
-								type: "get_data_update_easy",
-								uid: datas.wgsettings_taccount_username,
-								cookie: datas.wgsettings_taccount_cookie,
-								time: timestamp0,
-							},
-							method: "GET",
-							responseType: "text",
-							success: (response) => {
-								if (response.code == 200) {
-									const reqback = JSON.parse(response.data);
-									if (reqback["code"] == 200) {
-										if (reqback["info_v0"] == 1) {
-											this.$app.$def.taccountInit();
-											if (!this.isPopErrLogin) {
-												this.isPopErrLogin = true;
-												this.$app.$def.toTips(
-													"",
-													"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
-												);
-											}
-										}
-									}
-								}
-							},
-						});
-					}
-				},
-			});
+		this.$app.$def.taccLoginCheck();
 	},
 };
 </script>

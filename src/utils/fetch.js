@@ -45,10 +45,11 @@ class fetch {
         const handler = this.pendingRequests.get(id);
         if (handler && id != this.msgid_HELLO) {
           const res = JSON.parse(response);
-          handler.success({
-            data: res.data,
-            code: res.code,
-          });
+          handler.success &&
+            handler.success({
+              data: res.data,
+              code: res.code,
+            });
           // 请求完成后移除处理器
           this.pendingRequests.delete(id);
         }
@@ -118,11 +119,11 @@ class fetch {
       deffetch.fetch({
         url: url0,
         data: data,
-        headers: headers,
+        header: header,
         method: method,
         responseType: responseType,
-        success: (response) => success(response),
-        fail: (data, code) => fail(data, code),
+        success: (response) => success && success(response),
+        fail: (data, code) => fail && fail(data, code),
       });
     } else {
       // 使用同步器代理
@@ -132,7 +133,7 @@ class fetch {
       // 设置请求超时（防止请求卡死）
       const timeoutId = setTimeout(() => {
         if (this.pendingRequests.has(requestId)) {
-          fail("Request timeout", 408);
+          fail && fail("Request timeout", 408);
           this.pendingRequests.delete(requestId);
         }
       }, 30000); // 30秒超时
@@ -166,7 +167,7 @@ class fetch {
           },
           fail: (err) => {
             clearTimeout(timeoutId);
-            fail(`Send failed: ${err.data}`, err.code || -1);
+            fail && fail(`Send failed: ${err.data}`, err.code || -1);
             this.pendingRequests.delete(requestId);
           },
         });

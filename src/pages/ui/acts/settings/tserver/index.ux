@@ -35,10 +35,10 @@
 					>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.tserver.p1.item2.text") }}
+								{{ chatName }}
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.tserver.p1.item2.subtext") }}
+								{{ chatSub }}
 							</marquee>
 						</div>
 					</div>
@@ -59,11 +59,44 @@
 </template>
 
 <script>
+import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
+		chatName: "",
+		chatSub: "",
+	},
+	onReady() {
+		this.wgchatReady();
+	},
+	onShow() {
+		this.wgchatReady();
+	},
+	wgchatReady() {
+		storage.get({
+			key: "wgsettings_iswgchatx",
+			success: (data) => {
+				const isLegacy = data === false;
+				this.chatName = this.$t(
+					isLegacy
+						? "acts.settings.tserver.p1.item2.text"
+						: "acts.settings.tserver.p1.item2.textx"
+				);
+				this.chatSub = this.$t(
+					isLegacy
+						? "acts.settings.tserver.p1.item2.subtext"
+						: "acts.settings.tserver.p1.item2.subtextx"
+				);
+			},
+			fail: () => {
+				this.chatName = this.$t("acts.settings.tserver.p1.item2.textx");
+				this.chatSub = this.$t(
+					"acts.settings.tserver.p1.item2.subtextx"
+				);
+			},
+		});
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -78,7 +111,17 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		if (id == "wgchat") this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
+		if (id == "wgchat")
+			storage.get({
+				key: "wgsettings_iswgchatx",
+				success: (data) => {
+					if (data === false)
+						this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
+					else this.$app.$def.goPage("pages/ui/acts/wgchatx/settings");
+				},
+				fail: () =>
+					this.$app.$def.goPage("pages/ui/acts/wgchatx/settings"),
+			});
 		else if (id == "wgnotice")
 			this.$app.$def.toTips(
 				this.$t("acts.settings.tserver.p1.item1.text"),

@@ -44,11 +44,21 @@
                     "name": "退出",
                     "id": "exit"
                 },
-                "item6": {
+                "item7": {
                     "name": "返回",
                     "id": "back"
                 }
-            }, 
+            },
+            "switch": {
+                "tonew": {
+                    "name": "升级到新版",
+                    "id": "upgrade"
+                },
+                "tolegacy": {
+                    "name": "回退旧版",
+                    "id": "downgrade"
+                }
+            },
             "item": {
                 "item1": {
                     "name": "房间信息",
@@ -472,7 +482,9 @@
                     },
                     "item2": {
                         "text": "腕上微聊",
-                        "subtext": "简易网络聊天室"
+                        "subtext": "简易网络聊天室",
+                        "textx": "微聊 X",
+                        "subtextx": "新一代多端聊天室"
                     }
                 }
             },
@@ -704,6 +716,9 @@
         "wgchat": {
             "tabtext": "腕上微聊"
         },
+        "wgchatx": {
+            "tabtext": "微聊 X"
+        },
         "browser": {
             "tabtext": "X1浏览器"
         },
@@ -789,7 +804,11 @@
         "ref": "刷新",
         "wait": "请稍后...",
         "appexit": "您确定要退出软件吗?",
-        "tacclogout": "您确定要退出登录吗?"
+        "tacclogout": "您确定要退出登录吗?",
+        "wgchatswitch": {
+            "tonew": "确认升级到「微聊 X」新版吗？",
+            "tolegacy": "确认回退到「腕上微聊」旧版吗？"
+        }
     },
     "edittip": {
         "p10001": {

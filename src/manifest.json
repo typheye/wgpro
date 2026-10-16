@@ -1,8 +1,8 @@
 {
   "package": "com.typheye.wgpro",
   "name": "腕管Pro",
-  "versionName": "3.26.3",
-  "versionCode": 2604050,
+  "versionName": "3.26.10",
+  "versionCode": 2610010,
   "minPlatformVersion": 1200,
   "icon": "/common/mipmap/logo.png",
   "simulationVersion": "default",
@@ -200,6 +200,34 @@
         "component": "index"
       },
       "pages/ui/acts/wgchat/settings": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/function/wgchatx": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchatx/room": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchatx/pushmsg": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchatx/addroom": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchatx/createroom": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/acts/wgchatx/settings": {
+        "launchMode": "singleTask",
+        "component": "index"
+      },
+      "pages/ui/popup/wgchatswitch": {
         "launchMode": "singleTask",
         "component": "index"
       },

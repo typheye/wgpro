@@ -50,7 +50,6 @@
 </template>
 
 <script>
-import brightness from "@system.brightness";
 import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 export default {
@@ -76,14 +75,10 @@ export default {
 		this.usrLoad();
 	},
 	onShow() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: true,
-		});
+		this.$app.$def.taccKeepScreenOn(true);
 	},
 	onDestroy() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: false,
-		});
+		this.$app.$def.taccKeepScreenOn(false);
 	},
 	usrLoad() {
 		storage.gets({

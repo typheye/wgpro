@@ -12,7 +12,9 @@ export default {
 		return true;
 	},
 	onReady() {
-		setTimeout(this.launch(), 1000);
+		setTimeout(() => {
+			this.launch();
+		}, 1000);
 	},
 	launch() {
 		storage.gets({

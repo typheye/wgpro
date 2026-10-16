@@ -25,12 +25,17 @@ class Storage {
       wgsettings_taccount_username: "",
       wgsettings_taccount_password: "",
       wgsettings_taccount_cookie: "",
+      wgsettings_taccount_protocol: "",
+      wgsettings_taccount_session_id: "",
+      wgsettings_taccount_session_token: "",
       wgsettings_taccount_nick: "",
       wgsettings_taccount_userinfo: "",
       wgsettings_taccount_allowShare: false,
       wgsettings_wgchat_roomlist: JSON.stringify([
         { id: "10001", name: "官方聊天室" },
       ]),
+      wgsettings_wgchatx_roomlist: JSON.stringify([]),
+      wgsettings_iswgchatx: true,
       wgsettings_plugin_pluglist: JSON.stringify([
         { id: "10000", name: "扩展推荐" },
         { id: "10001", name: "文件传输助手" },
