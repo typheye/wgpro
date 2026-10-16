@@ -1,6 +1,7 @@
 package com.typheye.wgpro.core.emu;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -15,7 +16,6 @@ import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.charset.StandardCharsets;
-import java.util.zip.CRC32;
 
 /**
  * 极简 adb 协议客户端：**直连客机的 adbd**（模拟器在设备上监听 127.0.0.1:5561）。
@@ -138,7 +138,7 @@ public final class VelaAdbClient {
 
     private static void pushOn(@NonNull String host, int port, @NonNull File local,
                                @NonNull String remotePath, long timeoutMs) throws Exception {
-        final long budget = Math.max(4000L, timeoutMs);
+        final long budget = Math.max(8000L, timeoutMs);
         try (Socket socket = new Socket()) {
             socket.connect(new InetSocketAddress(host, port), 4000);
             socket.setSoTimeout((int) Math.min(budget, 120000L));
@@ -151,20 +151,18 @@ public final class VelaAdbClient {
             if (reply == null || reply.command != A_CNXN) {
                 throw new IllegalStateException("客机 adbd 握手失败");
             }
-            int localId = 1;
+            final int localId = 1;
             send(out, A_OPEN, localId, 0, "sync:\0".getBytes(StandardCharsets.UTF_8));
             int remoteId = -1;
             long deadline = System.currentTimeMillis() + budget;
-            while (System.currentTimeMillis() < deadline) {
+            while (System.currentTimeMillis() < deadline && remoteId < 0) {
                 Message message = read(in);
                 if (message == null) {
                     throw new IllegalStateException("客机 adbd 断开");
                 }
                 if (message.command == A_OKAY) {
                     remoteId = message.arg0;
-                    break;
-                }
-                if (message.command == A_CLSE) {
+                } else if (message.command == A_CLSE) {
                     throw new IllegalStateException("客机拒绝 sync 服务");
                 }
             }
@@ -172,45 +170,116 @@ public final class VelaAdbClient {
                 throw new IllegalStateException("客机 sync 服务未就绪");
             }
 
+            // sync 的 SEND/DATA/DONE 是**服务数据**，必须装进 WRTE 帧的 payload，
+            // 不能直接往 socket 写原始字节（客机会把 "SEND"+长度当成帧头 → bad header 断链）。
             byte[] spec = (remotePath + ",33188").getBytes(StandardCharsets.UTF_8);
-            writeSyncHeader(out, "SEND", spec.length);
-            out.write(spec);
+            writeFrame(out, in, localId, remoteId, syncMessage("SEND", spec, spec.length), budget);
+
+            byte[] buffer = new byte[SYNC_CHUNK];
             try (InputStream file = new FileInputStream(local)) {
-                byte[] buffer = new byte[64 * 1024];
-                int read;
-                while ((read = file.read(buffer)) > 0) {
-                    writeSyncHeader(out, "DATA", read);
-                    out.write(buffer, 0, read);
+                int count;
+                while ((count = file.read(buffer)) > 0) {
+                    byte[] data = new byte[count];
+                    System.arraycopy(buffer, 0, data, 0, count);
+                    writeFrame(out, in, localId, remoteId,
+                            syncMessage("DATA", data, count), budget);
                 }
             }
-            writeSyncHeader(out, "DONE", (int) (local.lastModified() / 1000L));
-            out.flush();
-
-            byte[] status = new byte[4];
-            in.readFully(status);
-            String text = new String(status, StandardCharsets.US_ASCII);
-            if (!"OKAY".equals(text)) {
-                if ("FAIL".equals(text)) {
-                    int length = Integer.reverseBytes(in.readInt());
-                    byte[] message = new byte[Math.max(0, Math.min(length, 4096))];
-                    in.readFully(message);
-                    throw new IllegalStateException("推送失败："
-                            + new String(message, StandardCharsets.UTF_8));
+            writeFrame(out, in, localId, remoteId, syncMessage("DONE", null,
+                    (int) (local.lastModified() / 1000L)), budget);
+            // DONE 的 sync 回执（OKAY/FAIL）是紧跟在其 OKAY 之后的 WRTE
+            byte[] status = awaitSyncStatus(in, out, localId, budget);
+            if (status != null) {
+                String text = new String(status, 0, Math.min(4, status.length),
+                        StandardCharsets.US_ASCII);
+                if (!"OKAY".equals(text)) {
+                    String detail = status.length > 8
+                            ? new String(status, 8, status.length - 8, StandardCharsets.UTF_8)
+                            : "";
+                    throw new IllegalStateException("推送失败：" + text
+                            + (detail.isEmpty() ? "" : " " + detail));
                 }
-                throw new IllegalStateException("推送失败：" + text);
             }
             send(out, A_CLSE, localId, Math.max(remoteId, 0), new byte[0]);
         }
     }
 
-    /** sync 协议的 8 字节头：4 字节 ASCII 指令 + 4 字节小端整数。 */
-    private static void writeSyncHeader(@NonNull OutputStream out, @NonNull String id, int value)
-            throws Exception {
-        out.write(id.getBytes(StandardCharsets.US_ASCII));
-        out.write(value & 0xFF);
-        out.write((value >> 8) & 0xFF);
-        out.write((value >> 16) & 0xFF);
-        out.write((value >> 24) & 0xFF);
+    /** 单个 WRTE 的 payload 上限：客机 microADB 的 CONFIG_ADBD_PAYLOAD_SIZE。 */
+    private static final int SYNC_PAYLOAD_LIMIT = 4096;
+
+    /** 一个 sync 消息占的 WRTE payload 预算（8 字节 sync 头 + 本体）。 */
+    private static final int SYNC_CHUNK = SYNC_PAYLOAD_LIMIT - 8;
+
+    /** 组一个 sync 消息：4 字节 ASCII 指令 + 4 字节小端长度 + 本体。 */
+    @NonNull
+    private static byte[] syncMessage(@NonNull String id, @Nullable byte[] body, int length) {
+        int bodyLength = body == null ? 0 : body.length;
+        byte[] message = new byte[8 + bodyLength];
+        byte[] tag = id.getBytes(StandardCharsets.US_ASCII);
+        System.arraycopy(tag, 0, message, 0, Math.min(4, tag.length));
+        message[4] = (byte) (length & 0xFF);
+        message[5] = (byte) ((length >> 8) & 0xFF);
+        message[6] = (byte) ((length >> 16) & 0xFF);
+        message[7] = (byte) ((length >> 24) & 0xFF);
+        if (bodyLength > 0) {
+            System.arraycopy(body, 0, message, 8, bodyLength);
+        }
+        return message;
+    }
+
+    /**
+     * 发一帧 WRTE 并等它的 OKAY；期间若收到 WRTE（sync 回执）就回 OKAY 并返回其 payload。
+     *
+     * <p>microADB 是「一帧一个 OKAY」，所以要一帧一帧地发，发完再发下一帧。</p>
+     */
+    @Nullable
+    private static byte[] writeFrame(@NonNull OutputStream out, @NonNull DataInputStream in,
+                                     int localId, int remoteId, @NonNull byte[] payload,
+                                     long budget) throws Exception {
+        send(out, A_WRTE, localId, remoteId, payload);
+        long deadline = System.currentTimeMillis() + budget;
+        while (System.currentTimeMillis() < deadline) {
+            Message message = read(in);
+            if (message == null) {
+                throw new IllegalStateException("推送中客机断开（帧 payload " + payload.length
+                        + " 字节，可能超过客机帧上限）");
+            }
+            if (message.command == A_OKAY) {
+                return null;
+            }
+            if (message.command == A_WRTE) {
+                send(out, A_OKAY, localId, message.arg0, new byte[0]);
+                if (message.payload != null && message.payload.length > 0) {
+                    return message.payload;
+                }
+                continue;
+            }
+            if (message.command == A_CLSE) {
+                throw new IllegalStateException("客机中止了 sync 服务");
+            }
+        }
+        throw new IllegalStateException("等客机 OKAY 超时");
+    }
+
+    /** 收 DONE 的 sync 回执（WRTE）；短等一小会儿，没有就返回 null。 */
+    @Nullable
+    private static byte[] awaitSyncStatus(@NonNull DataInputStream in, @NonNull OutputStream out,
+                                          int localId, long budget) throws Exception {
+        long deadline = System.currentTimeMillis() + Math.min(budget, 15000L);
+        while (System.currentTimeMillis() < deadline) {
+            Message message = read(in);
+            if (message == null) {
+                return null;
+            }
+            if (message.command == A_WRTE) {
+                send(out, A_OKAY, localId, message.arg0, new byte[0]);
+                return message.payload;
+            }
+            if (message.command == A_CLSE) {
+                return null;
+            }
+        }
+        return null;
     }
 
     // ------------------------------------------------------------------ 线协议
@@ -222,17 +291,27 @@ public final class VelaAdbClient {
         byte[] payload;
     }
 
+    /**
+     * 线协议校验和：**逐字节相加**，不是 CRC32。
+     *
+     * <p>客机 adbd 是 NuttX 的 microADB（{@code /system/adb/microADB/hal/hal_uv_packet.c}），
+     * 它的 {@code adb_check_frame_data()} 只认 byte sum；写成 CRC32 会被判
+     * {@code bad data: terminated (data)} 并**立刻关连接**（实测：客户端只看到"客机 adbd 无响应"）。</p>
+     */
+    private static int checksum(@NonNull byte[] payload) {
+        int sum = 0;
+        for (byte b : payload) {
+            sum += b & 0xFF;
+        }
+        return sum;
+    }
+
     private static void send(@NonNull OutputStream out, int command, int arg0, int arg1,
                              @NonNull byte[] payload) throws Exception {
         ByteBuffer header = ByteBuffer.allocate(24).order(ByteOrder.LITTLE_ENDIAN);
-        int crc = 0;
-        if (payload.length > 0) {
-            CRC32 c = new CRC32();
-            c.update(payload);
-            crc = (int) c.getValue();
-        }
         header.putInt(command).putInt(arg0).putInt(arg1)
-                .putInt(payload.length).putInt(crc).putInt(command ^ 0xFFFFFFFF);
+                .putInt(payload.length).putInt(checksum(payload))
+                .putInt(command ^ 0xFFFFFFFF);
         out.write(header.array());
         out.write(payload);
         out.flush();

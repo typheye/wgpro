@@ -58,7 +58,6 @@ public class VirtualDeviceListFragment extends Fragment {
     private View emptyView;
     private ModelAdapter adapter;
     /** 进入遮罩只在首次拉取出现，下拉刷新不再出现。 */
-    private boolean firstLoad = true;
 
     /** 打开详情页；详情里创建成功会回 RESULT_OK，此时本页（机型列表）也一起关闭 → 逐级退回设备页。 */
     private final androidx.activity.result.ActivityResultLauncher<Intent> detailLauncher =
@@ -118,13 +117,13 @@ public class VirtualDeviceListFragment extends Fragment {
     }
 
     private void fetchModels() {
-        if (firstLoad) {
-            firstLoad = false;
-            host().showPageOverlay();
-        } else {
-            // 之后的刷新只用下拉指示器（遮罩只在进入页面时出现一次）
-            refreshLayout.setRefreshing(true);
-        }
+        // 加载态统一用下拉刷新指示器（原页面级遮罩已移除）；
+        // 必须 post 到布局之后：未排版时 setRefreshing(true) 不显示
+        refreshLayout.post(() -> {
+            if (isAdded()) {
+                refreshLayout.setRefreshing(true);
+            }
+        });
         new Thread(() -> {
             String body = null;
             try (Response response = client.newCall(new Request.Builder().url(API).build()).execute()) {
@@ -144,7 +143,6 @@ public class VirtualDeviceListFragment extends Fragment {
     }
 
     private void applyModels(@Nullable String json) {
-        host().hidePageOverlay();
         refreshLayout.setRefreshing(false);
         if (TextUtils.isEmpty(json)) {
             listView.setVisibility(View.GONE);
@@ -214,8 +212,4 @@ public class VirtualDeviceListFragment extends Fragment {
         }
     }
 
-    @NonNull
-    private AddDeviceActivity host() {
-        return (AddDeviceActivity) requireActivity();
-    }
 }

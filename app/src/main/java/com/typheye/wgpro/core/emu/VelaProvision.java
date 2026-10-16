@@ -105,10 +105,12 @@ public final class VelaProvision {
         int removed = 0;
         try {
             java.util.Set<String> alive = new java.util.HashSet<>();
+            // 必须用 all()（全类型）：all(null) 会返回 0 行 → 把所有运行目录（含正在跑的）都当孤儿删掉
             try (DeviceDatabase db = new DeviceDatabase(context);
-                 android.database.Cursor cursor = db.all(null)) {
+                 android.database.Cursor cursor = db.all()) {
                 if (cursor != null) {
-                    int idColumn = cursor.getColumnIndex("device_id");
+                    // devices 表主键列名就是 "id"（改成 device_id 会让列号对不上、误删实例目录）
+                    int idColumn = cursor.getColumnIndex("id");
                     if (idColumn < 0) {
                         idColumn = 0;
                     }
@@ -334,8 +336,14 @@ public final class VelaProvision {
                     continue;
                 }
                 String code = device.optString("code", "");
-                String name = device.optString("name", code);
                 String skin = device.optString("skin", code);
+                String name = device.optString("name", "").trim();
+                // 包内没写展示名、或直接把代号当名字（当前 v5.0 包就是这样）时，
+                // 用皮肤的通用展示名兜底（Xiaomi 手环 10 / Xiaomi Watch S4 …）——
+                // 这样"设备名用清单里的名字"成立，又不会出现 xiaomi_band_10 这种代号。
+                if (name.isEmpty() || name.equals(code)) {
+                    name = VelaEmulator.skinLabel(skin);
+                }
                 if (!skin.isEmpty()) {
                     result.add(new String[]{code, name, skin});
                 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- 模拟设备页：
      顶部 = 水平操作栏（高度自适应，放不下可横滑；上边距=状态栏高度）
-     中间 = 显示容器（四层：画面 → 显示遮罩扣洞 → 叠加皮肤 → 外观皮肤），左右对齐
+     中间 = 显示容器（四层，从下到上：外观皮肤 background.png → 画面 → 显示遮罩扣洞 → 叠加皮肤 foreground.png），左右对齐
      底部 = 日志（默认隐藏，操作栏按钮开关）
      进入页面先盖应用通用的全屏加载遮罩，皮肤渲染完再关，避免闪一下。 -->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -18,6 +18,18 @@
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp">
 
+        <!-- ★ 外观皮肤（background.png）必须**在最底层**（FrameLayout 里越靠后越在上）：
+             它铺满整个画布，而有些机型的屏幕区是**不透明黑**（实测 xiaomi_band_pro / redmi_watch
+             的 background.png 屏幕中心 alpha=255）—— 压在画面上就是"引擎在跑但一直黑屏"。
+             xiaomi_band_10 / xiaomi_s4 的屏幕区本来就是透明的，放最底层同样正确。 -->
+        <ImageView
+            android:id="@+id/virtual_skin_body"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:contentDescription="设备外观"
+            android:scaleType="fitXY"
+            android:visibility="gone" />
+
         <!-- 画面 + 画面区自绘提示（启动等待/熄屏唤醒都画在这里，不盖应用遮罩） -->
         <view
             class="com.typheye.wgpro.ui.function.device.VirtualDeviceFragment$VirtualScreenView"
@@ -32,19 +44,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
+        <!-- 叠加皮肤（foreground.png）是**屏幕大小**的玻璃层，画在画面之上 -->
         <ImageView
             android:id="@+id/virtual_skin_overlay"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:contentDescription="表圈叠加"
-            android:scaleType="fitXY"
-            android:visibility="gone" />
-
-        <ImageView
-            android:id="@+id/virtual_skin_body"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:contentDescription="设备外观"
             android:scaleType="fitXY"
             android:visibility="gone" />
     </FrameLayout>

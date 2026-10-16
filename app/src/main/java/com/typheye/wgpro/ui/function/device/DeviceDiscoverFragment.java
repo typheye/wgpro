@@ -37,7 +37,6 @@ public class DeviceDiscoverFragment extends Fragment {
     private NodeApi nodeApi;
     private boolean resumed;
     /** 进入遮罩只在第一次扫描出现，之后（下拉刷新）不再出现。 */
-    private boolean firstScan = true;
     private boolean scanInFlight;
     private boolean activeScan;
     private long scanStartedAt;
@@ -105,9 +104,10 @@ public class DeviceDiscoverFragment extends Fragment {
         activeScan = true;
         scanStartedAt = System.currentTimeMillis();
         // 刷新时不动已发现的卡片，避免闪烁；空态也不隐藏（无设备时它本就该在）
-        if (firstScan) {
-            firstScan = false;
-            host().showPageOverlay();
+        // 加载态统一用下拉刷新指示器（原页面级遮罩已移除）。
+        // 必须 post 到布局之后：SwipeRefreshLayout 在未排版时 setRefreshing(true) 不显示。
+        if (root != null) {
+            root.post(() -> setRefreshIndicator(true));
         }
         mainHandler.postDelayed(scanTimeout, ACTIVE_SCAN_TIMEOUT_MS);
         queryConnection();
@@ -228,21 +228,21 @@ public class DeviceDiscoverFragment extends Fragment {
         root.findViewById(R.id.add_device_empty).setVisibility(View.VISIBLE);
     }
 
-    /** 结束下拉刷新（扫描一轮结束就收起指示器与页面遮罩）。 */
+    /** 结束下拉刷新（扫描一轮结束就收起指示器）。扫描期间加载态也走这里（原页面级遮罩已移除）。 */
     private void stopRefresh() {
-        host().hidePageOverlay();
+        setRefreshIndicator(false);
+    }
+
+    /** 加载态统一用列表自己的下拉刷新指示器。 */
+    private void setRefreshIndicator(boolean refreshing) {
         if (root == null) {
             return;
         }
         com.typheye.wgpro.ui.widget.WGProRefreshLayout refresh =
                 root.findViewById(R.id.add_device_refresh);
         if (refresh != null) {
-            refresh.setRefreshing(false);
+            refresh.setRefreshing(refreshing);
         }
     }
 
-    @NonNull
-    private AddDeviceActivity host() {
-        return (AddDeviceActivity) requireActivity();
-    }
 }

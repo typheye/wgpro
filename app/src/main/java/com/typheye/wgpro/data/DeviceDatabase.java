@@ -118,6 +118,16 @@ public final class DeviceDatabase extends SQLiteOpenHelper {
         return getReadableDatabase().rawQuery("SELECT * FROM devices WHERE type=? ORDER BY last_seen DESC", new String[]{type});
     }
 
+    /**
+     * 全部设备行（**不分类型**）。
+     *
+     * <p>注意：不要用 {@code all(null)} 代替 —— SQL 里 {@code type=NULL} 恒为 NULL（不成立），
+     * 会返回 0 行；调用方若据此判断"哪些实例还在用"，就会把所有运行目录都当孤儿删掉。</p>
+     */
+    public Cursor all() {
+        return getReadableDatabase().rawQuery("SELECT * FROM devices ORDER BY last_seen DESC", null);
+    }
+
     public Cursor allExcept(String type) {
         return getReadableDatabase().rawQuery(
                 "SELECT * FROM devices WHERE type<>? ORDER BY last_seen DESC", new String[]{type});

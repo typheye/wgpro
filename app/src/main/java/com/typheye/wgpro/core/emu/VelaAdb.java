@@ -15,7 +15,13 @@ import java.nio.charset.StandardCharsets;
  * <p>模拟器自身在设备上开了 adb 端口（控制台端口 +1，本工程用 5560/5561），
  * 所以直接用自带 adb 连 {@code 127.0.0.1:5561} 就能对**客机内部**下发 shell 指令，
  * 不需要宿主电脑参与。</p>
+ *
+ * <p><b>⚠ 不保证可用，仅留作开发调试参考：</b>Android 11+ 上它的 adb server 起不来
+ * （日志要写 {@code /sdcard/adb.*.log} 被拒 → "ADB server didn't ACK / failed to start
+ * daemon"），且它的 {@code install} 子命令要求"APK 文件在命令行"，与标准 adb 不同。
+ * <b>产品链路请用 {@link VelaAdbClient}</b>（纯 Java 手写 adb 线协议，不需要 adb server）。</p>
  */
+@Deprecated
 public final class VelaAdb {
 
     private final Context context;

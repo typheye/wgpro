@@ -239,12 +239,19 @@ public class VirtualDeviceFragment extends Fragment {
             // 只显示画面本身（宁可是"无外壳裸屏"，也不要把别的设备画成手表）。
             body.setVisibility(View.GONE);
             overlay.setVisibility(View.GONE);
+            // 没有外壳就没有"洞"；遮罩留着会把整个画面涂黑
+            if (mask != null) {
+                mask.setVisibility(View.GONE);
+            }
             return;
         }
         body.setImageBitmap(android.graphics.BitmapFactory.decodeFile(bodyFile.getAbsolutePath()));
         overlay.setImageBitmap(android.graphics.BitmapFactory.decodeFile(overlayFile.getAbsolutePath()));
         body.setVisibility(View.VISIBLE);
         overlay.setVisibility(View.VISIBLE);
+        if (mask != null) {
+            mask.setVisibility(View.VISIBLE);
+        }
         // 几何按该皮肤的 layout 算：{canvasW, canvasH, screenW, screenH, screenX, screenY, radius}
         final int[] geometry = VelaEmulator.skinGeometry(dir);
         skinCanvasW = geometry[0];
@@ -274,9 +281,12 @@ public class VirtualDeviceFragment extends Fragment {
             layoutChild(frameView, left, top, frameW, frameH);
             layoutChild(overlay, left, top, frameW, frameH);
             layoutChild(body, originX, originY, canvasW, canvasH);
+            // ★ 遮罩**只能铺在屏幕矩形上**：它整块不透明、只在洞里 CLEAR，
+            //   铺满容器会把外壳（background.png）一起涂黑（表现：画面出来了但外壳没了）。
+            //   它的职责只有一个 —— 把画面方角裁成屏幕的圆角/圆形。
             if (mask != null) {
-                mask.setHole(new android.graphics.RectF(left, top, left + frameW, top + frameH),
-                        skinRadiusRatio);
+                layoutChild(mask, left, top, frameW, frameH);
+                mask.setHole(new android.graphics.RectF(0, 0, frameW, frameH), skinRadiusRatio);
             }
         });
     }

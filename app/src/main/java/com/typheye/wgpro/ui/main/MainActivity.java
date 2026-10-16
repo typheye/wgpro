@@ -230,13 +230,28 @@ public class MainActivity extends AppCompatActivity {
         if (debuggable && getIntent() != null) {
             final String testDevice = getIntent().getStringExtra("vela_adb_test");
             if (testDevice != null) {
+                // 可选：--es vela_shell "<任意客机 shell 指令>"，追加在默认自检命令之后
+                final String testCommand = getIntent().getStringExtra("vela_shell");
                 getIntent().removeExtra("vela_adb_test");
-                runVelaAdbTest(testDevice);
+                getIntent().removeExtra("vela_shell");
+                runVelaAdbTest(testDevice, testCommand);
             }
             final String createModel = getIntent().getStringExtra("vela_create");
             if (createModel != null) {
+                // 可选：--es vela_skin <skin> 指定创建哪一款（默认清单第一项）
+                final String createSkin = getIntent().getStringExtra("vela_skin");
                 getIntent().removeExtra("vela_create");
-                runVelaCreate(createModel);
+                getIntent().removeExtra("vela_skin");
+                runVelaCreate(createModel, createSkin);
+            }
+            // --es vela_install_test <设备id> --es vela_install_file <本地 rpk 路径>
+            //   → 走**产品同一条**安装链路（VelaInstall），把客机回显打到 VelaInstallTest
+            final String installDevice = getIntent().getStringExtra("vela_install_test");
+            final String installFile = getIntent().getStringExtra("vela_install_file");
+            if (installDevice != null && installFile != null) {
+                getIntent().removeExtra("vela_install_test");
+                getIntent().removeExtra("vela_install_file");
+                runVelaInstallTest(installDevice, installFile);
             }
         }
 
@@ -606,7 +621,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /** 调试用：adb 触发"解压 + 按皮肤建一台模拟设备"，结果落 logcat(VelaCreateTest)。 */
-    private void runVelaCreate(@NonNull final String modelId) {
+    private void runVelaCreate(@NonNull final String modelId, @Nullable final String wantedSkin) {
         new Thread(() -> {
             try {
                 android.util.Log.i("VelaCreateTest", "model=" + modelId);
@@ -621,11 +636,31 @@ public class MainActivity extends AppCompatActivity {
                                 .availableSkins(emulator.engineDir()));
                 java.util.List<String[]> manifest = com.typheye.wgpro.core.emu.VelaProvision
                         .manifestDevices(emulator.runtimeDir());
+                StringBuilder labels = new StringBuilder();
+                for (String[] device : manifest) {
+                    if (labels.length() > 0) {
+                        labels.append(" / ");
+                    }
+                    labels.append(device[1]).append('(').append(device[2]).append(')');
+                }
                 android.util.Log.i("VelaCreateTest", "清单设备数=" + manifest.size()
-                        + (manifest.isEmpty() ? "" : " 首个=" + manifest.get(0)[1]));
+                        + (manifest.isEmpty() ? "" : " 首个=" + manifest.get(0)[1])
+                        + "\n清单=" + labels);
                 String skin = manifest.isEmpty() ? "xiaomi_s4" : manifest.get(0)[2];
+                if (wantedSkin != null && !wantedSkin.trim().isEmpty()) {
+                    skin = wantedSkin.trim();
+                }
+                // 与产品同一条命名规则：**选中的那款**在清单里的展示名（如「Xiaomi 手环 10」）+ 4 位随机
+                String label = com.typheye.wgpro.core.emu.VelaEmulator.skinLabel(skin);
+                for (String[] device : manifest) {
+                    if (device[2].equals(skin)) {
+                        label = device[1];
+                        break;
+                    }
+                }
                 com.typheye.wgpro.core.emu.VelaProvision.createDevice(this, emulator, deviceId,
-                        skin, "调试设备 " + deviceId);
+                        skin, label + " " + com.typheye.wgpro.core.emu.VelaProvision
+                                .randomSuffix());
                 android.util.Log.i("VelaCreateTest", "创建完成 deviceId=" + deviceId
                         + " skin=" + skin);
             } catch (Throwable error) {
@@ -641,7 +676,7 @@ public class MainActivity extends AppCompatActivity {
      * 会立刻被关闭），所以只能在 App 内用自带的 Java adb 客户端测。逐条把结果打出来，
      * 便于确定客机固件认哪条安装命令。</p>
      */
-    private void runVelaAdbTest(@NonNull final String deviceId) {
+    private void runVelaAdbTest(@NonNull final String deviceId, @Nullable final String extraCommand) {
         new Thread(() -> {
             final String model = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(deviceId);
             try {
@@ -649,15 +684,20 @@ public class MainActivity extends AppCompatActivity {
                         com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
                 manager.init(this);
                 com.typheye.wgpro.core.emu.VelaEmulatorManager.Instance instance =
-                        manager.start(this, model);
+                        manager.start(this, model, deviceId);
                 // 5560+ 是控制台，adb = 控制台 + 1
                 final int adbPort = 5560 + Math.max(0, instance.port - 8554) + 1;
                 android.util.Log.i("VelaAdbTest", "device=" + deviceId + " model=" + model
                         + " grpc=" + instance.port + " adb=" + adbPort);
                 android.util.Log.i("VelaAdbTest", "portReady="
                         + com.typheye.wgpro.core.emu.VelaAdbClient.waitFor(adbPort, 30000L));
-                for (String command : new String[]{"echo GUEST_OK", "uname -a", "ls /",
-                        "install", "install 2>&1", "vela", "app", "pm", "ps"}) {
+                java.util.List<String> commands = new java.util.ArrayList<>(java.util.Arrays.asList(
+                        "echo GUEST_OK", "uname -a", "ls /tmp", "ls /data/app",
+                        "ls /quickapp", "pm", "ps"));
+                if (extraCommand != null && !extraCommand.trim().isEmpty()) {
+                    commands.add(extraCommand);
+                }
+                for (String command : commands) {
                     try {
                         String output = com.typheye.wgpro.core.emu.VelaAdbClient
                                 .shell("::1", adbPort, command, 8000L);
@@ -670,6 +710,25 @@ public class MainActivity extends AppCompatActivity {
                 android.util.Log.i("VelaAdbTest", "异常: " + error);
             }
         }, "vela-adb-test").start();
+    }
+
+    /**
+     * 调试用：把本地 rpk 装到指定模拟设备（**与产品同一条链路** {@code VelaInstall}），
+     * 结果打到 logcat 的 {@code VelaInstallTest}。
+     *
+     * <p>adb 触发：
+     * {@code am start -n com.typheye.wgpro/.ui.main.MainActivity --es vela_install_test <设备id> --es vela_install_file <本地rpk路径>}</p>
+     */
+    private void runVelaInstallTest(@NonNull final String deviceId, @NonNull final String filePath) {
+        new Thread(() -> {
+            final String model = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(deviceId);
+            android.util.Log.i("VelaInstallTest", "device=" + deviceId + " model=" + model
+                    + " file=" + filePath);
+            com.typheye.wgpro.core.emu.VelaInstall.rpkToDevice(this, model, deviceId,
+                    new java.io.File(filePath), (success, message) ->
+                            android.util.Log.i("VelaInstallTest",
+                                    (success ? "成功: " : "失败: ") + message));
+        }, "vela-install-test").start();
     }
 
     /** 设备页标题：「共 X 台」（没有设备就是「共 0 台」）。 */
@@ -948,7 +1007,9 @@ public class MainActivity extends AppCompatActivity {
                     com.typheye.wgpro.ui.function.device.AddDeviceActivity.class)
                     .putExtra(com.typheye.wgpro.ui.function.device.AddDeviceActivity.EXTRA_MODE,
                             virtualPage
-                                    ? com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_VIRTUAL
+                                    // 新的「创建设备」页（列表保持为空、不依赖云端机型）；
+                                    // 旧的 MODE_VIRTUAL / VirtualDeviceListFragment 代码保留不删
+                                    ? com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_CREATE
                                     : com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_WEARABLE));
             return true;
         }

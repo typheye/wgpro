@@ -766,7 +766,8 @@ public final class AppDetailFragment extends Fragment {
         boolean isVela = "velaapp".equals(app.optString("kind", ""));
         final java.util.List<String> labels = new java.util.ArrayList<>();
         final java.util.List<Integer> codes = new java.util.ArrayList<>();
-        if (isVela && hasDevice) { labels.add("安装到…"); codes.add(0); }
+        // Vela 应用即使**没有连真机**也能装到模拟设备上，所以这里不再要求 hasDevice
+        if (isVela) { labels.add("安装到…"); codes.add(0); }
         if (!isVela) { labels.add("安装到手机"); codes.add(1); }
         labels.add("保存到本机"); codes.add(2);
         labels.add("分享应用链接"); codes.add(4);
@@ -854,6 +855,10 @@ public final class AppDetailFragment extends Fragment {
                             + relativeTime(stateTime(cursor, connected))));
                     // 安装到手表的能力**尚未适配**：先一律给提示，不直接开始安装
                     blocks.add("「安装到设备」暂未适配，后续版本开放");
+                    // ★ 必须占位：virtualDevices 是**与 options 下标一一对应**的，
+                    //   这里漏了 add(null) 会让后面所有模拟设备的下标整体前移 →
+                    //   点了模拟设备却走"安装到穿戴设备"分支（只弹提示、什么都不装）。
+                    virtualDevices.add(null);
                 }
             }
             // 2) 模拟设备
@@ -914,9 +919,9 @@ public final class AppDetailFragment extends Fragment {
     /**
      * 把已下载的 vela 应用（rpk）推到**模拟设备**并安装。
      *
-     * <p>顺序：附着/启动该实例（{@link com.typheye.wgpro.core.emu.VelaEmulatorManager#start}
-     * 是"没跑才启动"）→ 算 adb 端口（5560 + (gRPC端口 - 8554)，与引擎启动一致）→
-     * {@code adb install <本地文件>}。失败原因原样回报，便于排错。</p>
+     * <p>真正的通道与顺序在 {@link com.typheye.wgpro.core.emu.VelaInstall#rpkToDevice}：
+     * 附着/启动**用户选的那台设备** → 等客机 adb 端口就绪 → push rpk →
+     * {@code pm install <rpkfile>}。这里只负责 UI 提示。</p>
      */
     private void installVelaAppToDevice(@NonNull String deviceId, @NonNull String model,
                                         @NonNull String deviceName) {
@@ -926,74 +931,21 @@ public final class AppDetailFragment extends Fragment {
                     "本地安装包不存在，请先下载完成后再点「安装到…」");
             return;
         }
+        final java.io.File rpk = new java.io.File(path);
+        // 在**主线程**先取好 Application Context：后台线程里 requireContext() 不安全
+        final android.content.Context app = requireContext().getApplicationContext();
         com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
                 "正在启动 " + deviceName + " 并安装…");
         new Thread(() -> {
-            String message;
-            try {
-                com.typheye.wgpro.core.emu.VelaEmulatorManager manager =
-                        com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
-                manager.init(requireContext());
-                com.typheye.wgpro.core.emu.VelaEmulatorManager.Instance instance =
-                        manager.start(requireContext(), model);
-                // 5560+ 是**控制台**端口，adb 端口 = 控制台 + 1（标准模拟器约定；实测连控制台会收到
-                // ASCII 报文 → "非法报文长度"，就是这个 +1 漏了）
-                int adbPort = 5560 + Math.max(0, instance.port - 8554) + 1;
-                // 走**纯 Java adb 通道**（VelaAdbClient）：它不需要 adb server，
-                // 而随包的 libwgpro_adb.so 在 Android 11+ 因日志要写 /sdcard 被拒 →
-                // "ADB server didn't ACK / failed to start daemon"，且它的 install 子命令
-                // 要的是"APK 文件在命令行"，不是标准 adb 用法（实测踩过）。
-                // VelaAdbClient 目前只实现 shell，尚未实现文件推送(sync)：
-                //   → 这里先确认通道可用并把原因说清楚，不再让用户看到一屏 adb 报错。
-                // 0) 引擎刚起来时 adb 端口还没监听 → 轮询等待，否则必然 ECONNREFUSED
-                if (!com.typheye.wgpro.core.emu.VelaAdbClient.waitFor(adbPort, 30000L)) {
-                    throw new IllegalStateException("客机 adb 端口 " + adbPort
-                            + " 30 秒内未就绪（引擎可能没起来）");
-                }
-                // 命令与目录完全对齐 AIoT IDE 的实现（它就是这么给您客机装应用的）：
-                //   应用目录 /data/app（快应用 /data/quickapp/app）
-                //   安装   adb shell pm install <路径>
-                //   启动   adb shell am start <包名>
-                // 1) 推 rpk（纯 Java adb sync，不需要 adb server）
-                String name = new java.io.File(path).getName();
-                String remote = "/data/app/" + name;
-                com.typheye.wgpro.core.emu.VelaAdbClient.push("::1", adbPort,
-                        new java.io.File(path), remote, 120000L);
-                // 2) 安装：先 pm install；若是压缩包（zip）先 unzip -o 再装
-                StringBuilder log = new StringBuilder();
-                String installOutput = com.typheye.wgpro.core.emu.VelaAdbClient
-                        .shell("::1", adbPort, "pm install " + remote, 30000L);
-                log.append("pm install ").append(remote).append(" → ")
-                        .append(installOutput == null ? "" : installOutput.trim());
-                String lower = installOutput == null ? ""
-                        : installOutput.toLowerCase(java.util.Locale.ROOT);
-                if (!(lower.contains("success") || lower.contains("install finished")
-                        || lower.contains("installstate_finished"))
-                        && lower.contains("zip")) {
-                    String unzip = com.typheye.wgpro.core.emu.VelaAdbClient
-                            .shell("::1", adbPort, "unzip -o " + remote + " -d /data/app", 30000L);
-                    log.append('\n').append("unzip -o ").append(remote).append(" → ")
-                            .append(unzip == null ? "" : unzip.trim());
-                    String again = com.typheye.wgpro.core.emu.VelaAdbClient
-                            .shell("::1", adbPort, "pm install /data/app", 30000L);
-                    log.append('\n').append("pm install /data/app → ")
-                            .append(again == null ? "" : again.trim());
-                }
-                message = lower.contains("success") || lower.contains("install finished")
-                        || lower.contains("installstate_finished")
-                        ? "已安装（pm install）"
-                        : "已推送，安装结果：\n" + log;
-            } catch (Throwable error) {
-                message = error.getMessage() == null ? "安装失败" : error.getMessage();
-            }
-            final String result = message;
-            new android.os.Handler(android.os.Looper.getMainLooper()).post(() -> {
-                if (!isAdded()) {
-                    return;
-                }
-                com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
-                        deviceName + "：" + result);
-            });
+            com.typheye.wgpro.core.emu.VelaInstall.rpkToDevice(app, model,
+                    deviceId, rpk, (success, message) -> new android.os.Handler(
+                            android.os.Looper.getMainLooper()).post(() -> {
+                        if (!isAdded()) {
+                            return;
+                        }
+                        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
+                                deviceName + "：" + message);
+                    }));
         }, "vela-install").start();
     }
 

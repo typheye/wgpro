@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 新「创建设备」页（AddDeviceActivity 的 add_device_fragment_host 内）。
+     与旧的 fragment_virtual_device_list 是**两套并存**的东西：
+     旧的继续用云端机型列表（内测版还在用）；这一套**列表保持为空**，
+     设备定义完全来自「从本地导入」的镜像包 config.json。 -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.typheye.wgpro.ui.widget.WGProRefreshLayout
+        android:id="@+id/create_device_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/create_device_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:paddingStart="16dp"
+                android:paddingTop="0dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="28dp"
+                android:scrollbars="none" />
+
+            <!-- 空态：只 include 规范的 view_stream_empty（父容器已给左右 16dp，故 marginTop=0） -->
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp">
+
+                <include
+                    android:id="@+id/create_device_state"
+                    layout="@layout/view_stream_empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp" />
+            </FrameLayout>
+        </FrameLayout>
+    </com.typheye.wgpro.ui.widget.WGProRefreshLayout>
+</FrameLayout>

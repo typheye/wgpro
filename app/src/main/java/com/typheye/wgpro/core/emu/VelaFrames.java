@@ -66,6 +66,9 @@ public final class VelaFrames {
 
     private final ManagedChannel channel;
 
+    /** 只对前几帧打一次尺寸诊断（排查黑屏用）。 */
+    private int diagnostics;
+
     public VelaFrames(int port) {
         channel = OkHttpChannelBuilder.forAddress("127.0.0.1", port)
                 .usePlaintext()
@@ -92,18 +95,37 @@ public final class VelaFrames {
                     channel, STREAM_SCREENSHOT, CallOptions.DEFAULT, RGBA_REQUEST);
             while (running.get() && frames.hasNext()) {
                 byte[] reply = frames.next();
-                int width = (int) fieldVarint(reply, 2);
-                int height = (int) fieldVarint(reply, 3);
                 byte[] pixels = fieldBytes(reply, 4);
-                // 注意：Image.width/height 在本引擎里恒为 0（proto 已标 deprecated），
-                // 所以要用像素数反推边长（表盘是正方形显示），否则每帧都会被丢掉 → 黑屏。
+                // ★ 尺寸要读 **Image.format.width/height**（顶层 field1 是 ImageFormat，
+                //   它的 field3/field4 才是宽高）。顶层的 Image.width/height 已标 deprecated
+                //   且实测恒为 0；以前只按"像素数开方"当正方形（表盘）推断 ——
+                //   手环/音箱这类**非方屏** sqrt(count) 不是整数 → 每帧都被丢掉 → **黑屏**（就是它）。
+                byte[] format = fieldBytes(reply, 1);
+                int formatWidth = format == null ? 0 : (int) fieldVarint(format, 3);
+                int formatHeight = format == null ? 0 : (int) fieldVarint(format, 4);
+                int width = formatWidth;
+                int height = formatHeight;
+                if (width <= 0 || height <= 0) {
+                    // 老引擎兜底：顶层（deprecated）
+                    width = (int) fieldVarint(reply, 2);
+                    height = (int) fieldVarint(reply, 3);
+                }
                 if (pixels != null && (width <= 0 || height <= 0)) {
+                    // 最后兜底：按像素数开方（仅对方屏有效）
                     int count = pixels.length / 4;
                     int side = (int) Math.round(Math.sqrt(count));
                     if (side > 0 && side * side == count) {
                         width = side;
                         height = side;
                     }
+                }
+                if (diagnostics < 5) {
+                    diagnostics++;
+                    android.util.Log.i("VelaFrames", "frame#" + diagnostics
+                            + " format=" + formatWidth + "x" + formatHeight
+                            + " top=" + fieldVarint(reply, 2) + "x" + fieldVarint(reply, 3)
+                            + " pixels=" + (pixels == null ? -1 : pixels.length)
+                            + " -> " + width + "x" + height);
                 }
                 if (width <= 0 || height <= 0 || pixels == null
                         || pixels.length < width * height * 4) {

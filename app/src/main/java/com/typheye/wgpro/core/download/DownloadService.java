@@ -361,7 +361,9 @@ public final class DownloadService extends android.app.Service {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
-                values.put(MediaStore.Downloads.MIME_TYPE, "application/vnd.android.package-archive");
+                // 文件名可能是 sha256（无后缀）或任意真实扩展名，别一律标成 APK
+                values.put(MediaStore.Downloads.MIME_TYPE, fileName.endsWith(".apk")
+                        ? "application/vnd.android.package-archive" : "application/octet-stream");
                 values.put(MediaStore.Downloads.IS_PENDING, 1);
                 Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
                 if (uri != null) {
