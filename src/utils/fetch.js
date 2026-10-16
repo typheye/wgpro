@@ -138,14 +138,17 @@ class fetch {
         }
       }, 30000); // 30秒超时
       // 发送请求
-      // 添加默认Content-Type
+      // 添加默认Content-Type；POST 只要带 data 就必须序列化成 body
+      // （此前仅在缺 Content-Type 时序列化，导致自带头部的 POST —— 如 V2 登录 —— body 为空）
       let data_text = "";
-      if (method == "POST" && (!headers || !headers["Content-Type"])) {
-        headers = {
-          ...headers,
-          "Content-Type": "application/x-www-form-urlencoded",
-        };
-        if (data) data_text = toQueryString(data);
+      if (method == "POST") {
+        if (!headers || !headers["Content-Type"]) {
+          headers = {
+            ...headers,
+            "Content-Type": "application/x-www-form-urlencoded",
+          };
+        }
+        if (data) data_text = typeof data === "string" ? data : toQueryString(data);
       }
       var id = requestId;
       const message = JSON.stringify({
