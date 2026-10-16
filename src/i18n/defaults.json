@@ -243,7 +243,7 @@
             "fileopen": {
                 "fow_text": {
                     "item1": {
-                        "name": "文本浏览",
+                        "name": "腕管Pro：文本浏览",
                         "id": "fo_text_wgdisplay"
                     },
                     "item2": {
@@ -253,7 +253,7 @@
                 },
                 "fow_photo": {
                     "item1": {
-                        "name": "图片浏览",
+                        "name": "腕管Pro：图片浏览",
                         "id": "fo_photo_wgdisplay"
                     },
                     "item2": {
@@ -313,31 +313,31 @@
                 "p1": {
                     "item1": {
                         "text": "应用信息",
-                        "subtext": "应用的相关信息"
+                        "subtext": "查看应用开发相关信息"
                     },
                     "item2": {
                         "text": "应用激活",
-                        "subtext": "激活使用全功能"
+                        "subtext": "激活应用以使用全部功能"
                     },
                     "item3": {
                         "text": "应用更新",
-                        "subtext": "查看和更新应用"
+                        "subtext": "更新应用和升级补丁"
                     }
                 },
                 "p2": {
                     "item1": {
                         "text": "备份应用",
-                        "subtext": "快捷备份/恢复"
+                        "subtext": "快捷备份/恢复应用设置"
                     },
                     "item2": {
                         "text": "重置应用",
-                        "subtext": "将清除所有配置"
+                        "subtext": "将清除所有配置信息"
                     }
                 },
                 "p3": {
                     "item1": {
                         "text": "加入Q群",
-                        "subtext": "加入官方QQ群"
+                        "subtext": "加入腕管Pro官方QQ群"
                     }
                 },
                 "run": {
@@ -415,7 +415,7 @@
                             },
                             "item5": {
                                 "text": "立即更新",
-                                "subtext": "扫描二维码更新"
+                                "subtext": "点击扫描二维码更新"
                             }
                         }
                     }
@@ -434,31 +434,31 @@
                 "p1": {
                     "item1": {
                         "text": "账户简介",
-                        "subtext": "请先登录账户"
+                        "subtext": "请先登录您的账户再操作"
                     },
                     "item2": {
                         "text": "允许授权",
-                        "subtext": "允许账户授权"
+                        "subtext": "允许将此账户授权至其他应用"
                     }
                 },
                 "p2": {
                     "item1": {
                         "text": "更改昵称",
-                        "subtext": "更改账户昵称"
+                        "subtext": "点击更改账户昵称"
                     },
                     "item2": {
                         "text": "更改简介",
-                        "subtext": "更改账户简介"
+                        "subtext": "点击更改账户简介"
                     }
                 },
                 "p3": {
                     "item1": {
                         "text": "退出登录",
-                        "subtext": "退出您的账户"
+                        "subtext": "退出您的Typheye账户"
                     },
                     "item2": {
                         "text": "账户注销",
-                        "subtext": "注销您的账户",
+                        "subtext": "注销您的Typheye账户",
                         "uri": "https://service.typheye.cn/site/user/center/delete/"
                     }
                 }
@@ -468,11 +468,11 @@
                 "p1": {
                     "item1": {
                         "text": "应用公告",
-                        "subtext": "了解发布的公告"
+                        "subtext": "了解发布的应用公告"
                     },
                     "item2": {
                         "text": "腕上微聊",
-                        "subtext": "简易网络聊天室"
+                        "subtext": "简易匿名网络聊天室"
                     }
                 }
             },
@@ -549,7 +549,7 @@
                 "p1": {
                     "item1": {
                         "text": "保留缓存",
-                        "subtext": "保留复制缓存"
+                        "subtext": "保留复制剪切的缓存"
                     }
                 }
             },
@@ -596,7 +596,7 @@
                 "p1": {
                     "item1": {
                         "text": "更改昵称",
-                        "subtext": "前往账户更改"
+                        "subtext": "前往Typheye账户继续更改"
                     }
                 }
             }
@@ -642,15 +642,15 @@
             "p1": {
                 "item1": {
                     "text": "系统信息",
-                    "subtext": "系统相关信息"
+                    "subtext": "设备操作系统的相关信息"
                 },
                 "item2": {
                     "text": "存储空间",
-                    "subtext": "查看存储占用"
+                    "subtext": "查看当前设备的存储空间"
                 },
                 "item3": {
                     "text": "显示测试",
-                    "subtext": "测试屏幕显示"
+                    "subtext": "测试屏幕的显示状态"
                 }
             },
             "run": {
@@ -733,35 +733,35 @@
             "p1": {
                 "item1": {
                     "text": "Typheye账户",
-                    "subtext": "管理我的账户"
+                    "subtext": "管理我的Typheye账户"
                 },
                 "item2": {
                     "text": "云端服务",
-                    "subtext": "配置云端服务"
+                    "subtext": "配置腕管Pro的云端服务"
                 }
             },
             "p2": {
                 "item1": {
                     "text": "文本浏览",
-                    "subtext": "文本浏览的设置"
+                    "subtext": "有关文本浏览的一些设置"
                 },
                 "item2": {
                     "text": "文件管理",
-                    "subtext": "文件管理的设置"
+                    "subtext": "有关文件管理的一些设置"
                 },
                 "item3": {
                     "text": "X1浏览器",
-                    "subtext": "浏览器的设置"
+                    "subtext": "有关浏览器的一些设置"
                 }
             },
             "p3": {
                 "item1": {
                     "text": "关于应用",
-                    "subtext": "应用的一些信息"
+                    "subtext": "有关应用的一些信息"
                 },
                 "item2": {
                     "text": "法律信息",
-                    "subtext": "应用的法律信息"
+                    "subtext": "有关应用的一些法律信息"
                 }
             },
             "run": {
@@ -817,7 +817,7 @@
             "text1": "输入您的简介"
         },
         "tacclogin": {
-            "text1": "输入账户和密码"
+            "text1": "输入您的账户和密码"
         },
         "taccqrlogin": {
             "text1": "请扫描二维码"

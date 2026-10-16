@@ -126,7 +126,6 @@ export default {
 		this.updateCheck();
 	},
 	onShow() {
-		this.$app.$def.taccLoginCheck();
 		this.$app.$def.taccGetUserData();
 	},
 	toRun(id) {
@@ -179,12 +178,6 @@ export default {
 				}
 			},
 		});
-	},
-	testTaccGetUserData() {
-		this.$app.$def.taccGetUserData();
-	},
-	testTaccLoginCheck() {
-		this.$app.$def.taccLoginCheck();
 	},
 };
 </script>

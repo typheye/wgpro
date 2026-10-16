@@ -51,6 +51,7 @@ export default {
 	getCaps() {
 		return this.caps;
 	},
+
 	/** 亮屏保持（带兜底：部分设备/模拟器 @system.brightness 不可用，异常会打断生命周期） */
 	taccKeepScreenOn(on) {
 		try {
@@ -143,17 +144,24 @@ export default {
 	taccApiUrl() {
 		return this.getTS("taccServerURL") + "api.php";
 	},
-	taccClientHeaders() {
-		let version = "unknown";
+	taccVersion() {
 		try {
 			const appinfo = this.getAppinfo();
-			if (appinfo && appinfo.versionName) version = appinfo.versionName;
+			if (appinfo && appinfo.versionName) return String(appinfo.versionName);
 		} catch (e) {}
+		return "unknown";
+	},
+	taccClientHeaders() {
+		const version = this.taccVersion();
 		return {
 			"X-Typheye-Platform": "vela",
-			"X-Typheye-Version": String(version),
+			"X-Typheye-Version": version,
 			"User-Agent": "WristManagerPro/" + version + " (Vela)",
 		};
+	},
+	/** 版本/平台的兜底参数（请求头若被框架丢弃，服务端仍可从 query/body 读到） */
+	taccClientParams() {
+		return { client_version: this.taccVersion(), client_platform: "vela" };
 	},
 	taccV2Headers(sessionId, sessionToken) {
 		const headers = this.taccClientHeaders();
@@ -182,7 +190,8 @@ export default {
 				}
 				const query = Object.assign(
 					{ type: action, uid: options.uid || datas.wgsettings_taccount_username },
-					options.query || {}
+					options.query || {},
+					this.taccClientParams()
 				);
 				fetch.fetch({
 					url: options.url || this.taccApiUrl(),
@@ -268,12 +277,15 @@ export default {
 		fetch.fetch({
 			url: this.taccApiUrl(),
 			data_GET: { type: "login2" },
-			data: {
-				username: username,
-				password: encrypted,
-				time: String(time),
-				token: token,
-			},
+			data: Object.assign(
+				{
+					username: username,
+					password: encrypted,
+					time: String(time),
+					token: token,
+				},
+				this.taccClientParams()
+			),
 			header: headers,
 			method: "POST",
 			responseType: "text",
@@ -326,7 +338,10 @@ export default {
 				if (this.taccIsV2Login(datas)) {
 					fetch.fetch({
 						url: this.taccApiUrl(),
-						data_GET: { type: "get_user_data2", uid: uid },
+						data_GET: Object.assign(
+							{ type: "get_user_data2", uid: uid },
+							this.taccClientParams()
+						),
 						header: this.taccV2Headers(
 							datas.wgsettings_taccount_session_id,
 							datas.wgsettings_taccount_session_token
@@ -407,7 +422,10 @@ export default {
 				if (this.taccIsV2Login(datas)) {
 					fetch.fetch({
 						url: this.taccApiUrl(),
-						data_GET: { type: "get_data_update2", uid: uid },
+						data_GET: Object.assign(
+							{ type: "get_data_update2", uid: uid },
+							this.taccClientParams()
+						),
 						data: { v1: "", v2: "", v3: "" },
 						header: this.taccV2Headers(
 							datas.wgsettings_taccount_session_id,
@@ -487,7 +505,10 @@ export default {
 				if (this.taccIsV2Login(datas)) {
 					fetch.fetch({
 						url: this.taccApiUrl(),
-						data_GET: { type: action, uid: uid },
+						data_GET: Object.assign(
+							{ type: action, uid: uid },
+							this.taccClientParams()
+						),
 						data: { value: value },
 						header: this.taccV2Headers(
 							datas.wgsettings_taccount_session_id,
@@ -670,7 +691,10 @@ export default {
 					try {
 						fetch.fetch({
 							url: this.taccApiUrl(),
-							data_GET: { type: "session_logout2", uid: uid },
+							data_GET: Object.assign(
+								{ type: "session_logout2", uid: uid },
+								this.taccClientParams()
+							),
 							data: {},
 							header: this.taccV2Headers(
 								datas.wgsettings_taccount_session_id,
