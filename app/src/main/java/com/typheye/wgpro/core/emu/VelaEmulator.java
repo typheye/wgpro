@@ -301,6 +301,14 @@ public final class VelaEmulator {
     private String skinFlavor = FLAVOR;
 
     /**
+     * 镜像档（AIoT IDE 的 {@code ide.image.type}）：决定跑**哪一套系统镜像**。
+     *
+     * <p>包内把它放在 {@code images/<档>/}（如 {@code images/vela-pre-4.0/}）时就按档指向；
+     * 老包只有一套平铺 {@code images/} 时保持原样（全部设备共用，会出现"手环跑手表镜像"）。</p>
+     */
+    private String imageType = "";
+
+    /**
      * 客机调试端口：{@code 127.0.0.1:<debugPort>} 转发到客机 {@code 10.0.2.15:101}。
      *
      * <p>与 AIoT IDE 同一套：IDE 的 {@code static/debugger_ip.cfg} 就是 {@code 10.0.2.15:101}，
@@ -319,6 +327,73 @@ public final class VelaEmulator {
     @NonNull
     public String skin() {
         return skinName;
+    }
+
+    /** 设置镜像档（如 {@code vela-pre-4.0}）；传空表示"包内默认那一套"。 */
+    public void setImageType(@Nullable String type) {
+        this.imageType = type == null ? "" : type.trim();
+    }
+
+    @NonNull
+    public String imageType() {
+        return imageType;
+    }
+
+    /** 某个镜像档的目录：{@code images/<档>/}。 */
+    @NonNull
+    public File imageDirFor(@NonNull String type) {
+        return new File(imagesDir(), type);
+    }
+
+    /** 该镜像档的文件是否真的在（没有就不能声称用这一档）。 */
+    public boolean hasImageSet(@Nullable String type) {
+        if (type == null || type.trim().isEmpty()) {
+            return false;
+        }
+        File dir = imageDirFor(type.trim());
+        return new File(dir, "vela_data.bin").isFile() || new File(dir, "nuttx").isFile();
+    }
+
+    /**
+     * 读**本设备 AVD** 的 {@code ide.image.type}（取不到返回空串）。
+     *
+     * <p>老版本写死的 {@code miwear} 视为"没写"——它对应的是平铺 images，需要按皮肤品类重新判定档位。</p>
+     */
+    @NonNull
+    public String imageTypeOfAvd(@NonNull String avdId) {
+        File config = new File(new File(avdHome(), avdNameOf(avdId) + ".vvd"), "config.ini");
+        try {
+            for (String line : java.nio.file.Files.readAllLines(config.toPath(),
+                    java.nio.charset.StandardCharsets.UTF_8)) {
+                String item = line.trim();
+                if (item.startsWith("ide.image.type=")) {
+                    String value = item.substring("ide.image.type=".length()).trim();
+                    if (!value.isEmpty() && !"miwear".equals(value)) {
+                        return value;
+                    }
+                }
+            }
+        } catch (Exception ignored) {
+        }
+        return "";
+    }
+
+    /**
+     * 皮肤品类 → 默认镜像档（**架构级映射**，不是机型参数；包内 {@code devices[].image} 可覆盖）。
+     *
+     * <p>对齐 AIoT IDE：手环用 PRE 档（quickapp 框架，能按屏幕自适应出正确的手环界面）、
+     * 音箱用 openvela smartspeaker 档；手表用包内默认的 watch5 档。</p>
+     */
+    @NonNull
+    public static String imageTypeForFlavor(@Nullable String flavor) {
+        if (flavor == null) {
+            return "";
+        }
+        switch (flavor) {
+            case "band": return "vela-pre-4.0";
+            case "smartspeaker": return "openvela-smartspeaker-5.0";
+            default: return "";
+        }
     }
 
     /** 镜像包里可用的皮肤：engine/skins/<name>/layout 存在才算（顺序按名字，便于稳定展示）。 */
@@ -496,6 +571,13 @@ public final class VelaEmulator {
         // 旧配置留着会把引擎指到别的设备目录（串扰）。
         // 镜像直接指向已下载目录，不复制（省 1.1GB 与一次拷贝）。
         File img = imageDir;
+        // 分档镜像：包内 images/<档>/ 存在就指向它（IDE 的 image.sysdir.1 就是这么分档的）
+        if (!imageType.isEmpty()) {
+            File typed = new File(imageDir, imageType);
+            if (new File(typed, "vela_data.bin").isFile() || new File(typed, "nuttx").isFile()) {
+                img = typed;
+            }
+        }
         File skinDir = new File(engineDir(), "skins/" + skinName);
         int[] display = skinDisplay(skinDir);
         String[] skinProps = skinProps(skinDir);
@@ -552,7 +634,7 @@ public final class VelaEmulator {
         cfg.append("skin.dynamic=yes\n");
         cfg.append("skin.name=").append(skinName).append('\n');
         cfg.append("skin.path=").append(skinDir.getAbsolutePath()).append('\n');
-        cfg.append("ide.image.type=miwear\n");
+        cfg.append("ide.image.type=").append(imageType.isEmpty() ? "miwear" : imageType).append('\n');
         cfg.append("hw.lcd.width=").append(display[0]).append('\n');
         cfg.append("hw.lcd.height=").append(display[1]).append('\n');
         write(new File(vvd, "config.ini"), cfg.toString());

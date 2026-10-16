@@ -51,11 +51,20 @@ public final class VelaGuest {
     /** 客机 JS 调试器地址（IDE {@code static/debugger_ip.cfg} 原文）。 */
     public static final String DEBUGGER_IP = "10.0.2.15:101";
 
+    /** 镜像档：PRE（quickapp 框架，手环用；appDir=/data/quickapp/app + vapp）。 */
+    public static final String IMAGE_PRE = "vela-pre-4.0";
+    /** 镜像档：watch 5.0（REL 档，手表/音箱用；appDir=/data/app + am/pm）。 */
+    public static final String IMAGE_WATCH5 = "vela-miwear-watch-5.0";
+    /** 镜像档：openvela 音箱。 */
+    public static final String IMAGE_SMARTSPEAKER = "openvela-smartspeaker-5.0";
+
     private final Context context;
     private final String model;
     private final String deviceId;
     private final VelaEmulatorManager.Instance instance;
     private final int adbPort;
+    /** 镜像档（{@code ide.image.type}）；决定客机命令方言（PRE 用 vapp）。 */
+    private String imageType;
     /** 客机应用目录（首次使用时按客机实际目录探测；见 {@link #appDir()}）。 */
     private String appDir;
 
@@ -66,6 +75,18 @@ public final class VelaGuest {
         this.deviceId = deviceId;
         this.instance = instance;
         this.adbPort = adbPort;
+        this.imageType = instance.emulator.imageType();
+    }
+
+    /** 覆盖镜像档（调用方从 AVD/清单里读出来时用）。 */
+    public void setImageType(@Nullable String type) {
+        this.imageType = type == null ? "" : type.trim();
+        this.appDir = null;   // 换档后应用目录要重新解析
+    }
+
+    @NonNull
+    public String imageType() {
+        return imageType;
     }
 
     // ------------------------------------------------------------------ 构造 / 端口
@@ -181,6 +202,12 @@ public final class VelaGuest {
         if (appDir != null) {
             return appDir;
         }
+        // 镜像档已知时直接用（两款镜像都可能同时存在 /data/app 与 /data/quickapp/app，
+        // 只靠目录探测会把 PRE 档判成表档）
+        if (imageType != null && (imageType.startsWith("vela-pre") || imageType.startsWith("vela-dev"))) {
+            appDir = APP_DIR_PRE;
+            return appDir;
+        }
         try {
             if (hasEntries(shell("ls " + APP_DIR_REL, 8000L))) {
                 appDir = APP_DIR_REL;
@@ -199,9 +226,23 @@ public final class VelaGuest {
         return appDir;
     }
 
-    /** PRE 档（quickapp 框架，应用在 {@code /data/quickapp/app}）。 */
+    /**
+     * 是不是 PRE 档（quickapp 框架：{@code /data/quickapp/app} + {@code vapp}）。
+     *
+     * <p>优先看镜像档（IDE 的 {@code ide.image.type}）：只有 {@code vela-pre-4.0} / {@code vela-dev-*} 是
+     * quickapp 档；表的 watch5、音箱的 smartspeaker 都是 {@code am/pm} 档。清单/AVD 里没写档位时才探测客机目录
+     * （**不能只看 {@code /data/quickapp/app} 存不存在**：两款镜像都可能有这个目录）。</p>
+     */
     public boolean isPreDialect() {
-        return APP_DIR_PRE.equals(appDir());
+        if (imageType != null && !imageType.isEmpty()) {
+            return imageType.startsWith("vela-pre") || imageType.startsWith("vela-dev");
+        }
+        try {
+            return hasEntries(shell("ls " + APP_DIR_PRE, 8000L))
+                    && !hasEntries(shell("ls " + APP_DIR_REL, 8000L));
+        } catch (Exception error) {
+            return false;
+        }
     }
 
     /** 客机已安装应用（目录名）：{@code ls <appDir>} 只取以 {@code /} 结尾的条目。 */

@@ -106,9 +106,14 @@ public final class VelaInstall {
             // 客机 rpk 安装器就绪（引擎刚起来时要等 "rpk installer init done"）
             waitFor(console, lock, READY, 40000L);
 
-            final String remote = REMOTE_DIR + baseName(rpk) + ".rpk";
             // 传输/指令统一走 VelaGuest（同一套 WRTE 分帧与端口口径）
             VelaGuest guest = VelaGuest.of(instance);
+            if (guest.isPreDialect()) {
+                // PRE 档（手环）与表档完全不是一条路：mkdir + unzip + vapp，没有 pm install
+                installToPre(guest, rpk, callback);
+                return;
+            }
+            final String remote = REMOTE_DIR + baseName(rpk) + ".rpk";
             guest.push(rpk, remote);
             // 只认"这条命令之后"的日志，避免把开机扫描时的安装日志误判成这次的结果
             final int start;
@@ -138,6 +143,75 @@ public final class VelaInstall {
                 manager.removeLineListener(deviceId, listener);
             }
         }
+    }
+
+    /**
+     * PRE 档（手环 / quickapp 框架）安装：与 AIoT IDE 的 {@code PreInstance.install} 一致 ——
+     * {@code mkdir /data/quickapp/app/<包名>} → {@code unzip -o <rpk> -d <dir>} → {@code vapp app/<包名> &}。
+     * 这条路**没有** {@code pm install}，也没有 "rpk installer init done" 那种回执，成败看解压结果。
+     */
+    private static void installToPre(@NonNull VelaGuest guest, @NonNull File rpk,
+                                     @NonNull Callback callback) {
+        try {
+            String packageName = rpkPackageName(rpk);
+            if (packageName.isEmpty()) {
+                packageName = baseName(rpk);
+            }
+            final String into = guest.appDir() + "/" + packageName;
+            final String remote = into + ".rpk";
+            guest.push(rpk, remote);
+            guest.shell("mkdir " + into, 15000L);
+            guest.unzip(remote, into);
+            String listing = guest.shell("ls " + into, 15000L);
+            if (listing == null || !listing.contains("manifest.json")) {
+                callback.onResult(false, "解压失败：" + lastLine(listing));
+                return;
+            }
+            guest.startApp(packageName, false);
+            callback.onResult(true, "已安装并启动：" + packageName);
+        } catch (Throwable error) {
+            String message = error.getMessage();
+            callback.onResult(false, message == null || message.trim().isEmpty()
+                    ? error.toString() : message);
+        }
+    }
+
+    /** 从 rpk（zip）的 manifest.json 里取包名。 */
+    @NonNull
+    private static String rpkPackageName(@NonNull File rpk) {
+        try (java.util.zip.ZipFile zip = new java.util.zip.ZipFile(rpk)) {
+            java.util.zip.ZipEntry entry = zip.getEntry("manifest.json");
+            if (entry == null) {
+                return "";
+            }
+            java.io.ByteArrayOutputStream out = new java.io.ByteArrayOutputStream();
+            try (java.io.InputStream in = zip.getInputStream(entry)) {
+                byte[] buffer = new byte[8192];
+                int count;
+                while ((count = in.read(buffer)) > 0) {
+                    out.write(buffer, 0, count);
+                }
+            }
+            String json = out.toString("UTF-8");
+            return new org.json.JSONObject(json).optString("package", "").trim();
+        } catch (Exception error) {
+            return "";
+        }
+    }
+
+    /** 取最后一条非空行（给用户看原因）。 */
+    @NonNull
+    private static String lastLine(@Nullable String text) {
+        if (text == null) {
+            return "未知原因";
+        }
+        String last = "";
+        for (String line : text.split("\r?\n")) {
+            if (!line.trim().isEmpty()) {
+                last = line.trim();
+            }
+        }
+        return last.isEmpty() ? "未知原因" : last;
     }
 
     /** 安装结果。{@code state}: 1=成功 0=未知 -1=失败。 */

@@ -363,8 +363,24 @@ public final class VelaEmulatorManager {
         // 每次启动都会重写 config.ini：**先把设备原有的皮肤读回来**，
         // 否则会把用户创建时选的皮肤覆盖成默认值（表现：建的是手环，启动的却是手表）。
         emulator.setSkin(emulator.skinOfAvd(deviceId));
+        // 镜像档：AVD 里持久化的优先，老设备按皮肤品类判定（手环→PRE、音箱→smartspeaker、手表→包内默认）。
+        // **只有该档镜像文件真的在**才认，否则保持包内默认（宁可不改，也不要指一个不存在的目录）。
+        String imageType = emulator.imageTypeOfAvd(deviceId);
+        if (!emulator.hasImageSet(imageType)) {
+            String byFlavor = VelaProvision.imageTypeOfSkin(emulator.runtimeDir(), emulator.skin());
+            // 设备目录没有就从共享仓库 files/images/<档>/ 链接一套进来
+            if (VelaProvision.ensureImage(context, emulator, byFlavor)) {
+                imageType = byFlavor;
+            }
+        }
+        if (!emulator.hasImageSet(imageType)) {
+            imageType = "";
+        }
+        emulator.setImageType(imageType);
         emulator.authorAvd(deviceId, emulator.imagesDir());
         emulator.start(deviceId, port);
+        Log.i(TAG, "镜像档 imageType=" + (imageType.isEmpty() ? "(包内默认)" : imageType)
+                + " skin=" + emulator.skin() + " device=" + deviceId);
         // 引擎跑起来 → 起前台服务守护（熄屏/后台不被回收）
         VelaGuardService.postNotification(context, deviceDisplayName(context, deviceId, model),
                 deviceId);
@@ -450,6 +466,10 @@ public final class VelaEmulatorManager {
                 VelaGuest guest = VelaGuest.of(instance);
                 // 不就绪会抛 IllegalStateException（由下面的 catch 兜住）
                 guest.awaitReady(40000L);
+                // PRE 档（手环）要主动拉起 quickapp 框架，否则屏幕一直是黑的（IDE 的 systemed()）
+                if (guest.isPreDialect()) {
+                    guest.systemed();
+                }
                 guest.pushQuickappDebugCfg(DEBUG_MQTT_HOST, DEBUG_MQTT_PORT,
                         "vela_emulator_" + instance.emulator.deviceId());
                 Log.i(TAG, "已推送 /tmp/quickapp_debug_cfg.json（device="

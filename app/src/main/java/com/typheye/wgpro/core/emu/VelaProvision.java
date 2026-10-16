@@ -345,13 +345,94 @@ public final class VelaProvision {
                     name = VelaEmulator.skinLabel(skin);
                 }
                 if (!skin.isEmpty()) {
-                    result.add(new String[]{code, name, skin});
+                    // 第 4 位是镜像档（IDE 的 ide.image.type）；包内没写就给空串，由 createDevice 按品类兜底
+                    result.add(new String[]{code, name, skin, device.optString("image", "").trim()});
                 }
             }
         } catch (Exception error) {
             android.util.Log.w("VelaProvision", "解析实例清单失败", error);
         }
         return result;
+    }
+
+    /**
+     * 共享镜像仓库：{@code files/images/<镜像档>/}（三件套）。
+     *
+     * <p>不随任何设备走，多台设备共用；由"内置/下载/外部导入"填充。设备自己的
+     * {@code runtime/<设备>/images/<档>/} 优先，缺了才从这里链接进来（硬链接，秒级、不额外占空间）。</p>
+     */
+    @NonNull
+    public static File sharedImageDir(@NonNull Context context, @NonNull String imageType) {
+        return new File(new File(context.getFilesDir(), "images"), imageType);
+    }
+
+    /**
+     * 保证该设备能拿到 {@code images/<档>/} 这套镜像。
+     *
+     * <p>顺序：设备目录已有 → true；共享仓库有 → 链接进来；都没有 → false（调用方回退到包内默认镜像）。</p>
+     */
+    public static boolean ensureImage(@NonNull Context context, @NonNull VelaEmulator emulator,
+                                      @Nullable String imageType) {
+        if (imageType == null || imageType.trim().isEmpty()) {
+            return false;
+        }
+        String type = imageType.trim();
+        if (emulator.hasImageSet(type)) {
+            return true;
+        }
+        File shared = sharedImageDir(context, type);
+        if (!new File(shared, "vela_data.bin").isFile() && !new File(shared, "nuttx").isFile()) {
+            return false;
+        }
+        try {
+            linkTree(shared, emulator.imageDirFor(type));
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "链接共享镜像失败", error);
+            return false;
+        }
+        return emulator.hasImageSet(type);
+    }
+
+    /**
+     * 该皮肤该用哪套系统镜像（IDE 的 {@code ide.image.type}）。
+     *
+     * <p>优先级：包内清单 {@code devices[].image} → 皮肤品类兜底（手环 PRE / 音箱 smartspeaker /
+     * 手表用包内默认）。**手环必须用 PRE 档**，否则客机跑手表镜像，表盘会被裁进药丸屏（见 §3.6）。</p>
+     */
+    @NonNull
+    public static String imageTypeOfSkin(@NonNull File runtimeDir, @NonNull String skin) {
+        File manifest = new File(runtimeDir, "config.json");
+        if (manifest.isFile()) {
+            try {
+                String json = new String(java.nio.file.Files.readAllBytes(manifest.toPath()),
+                        java.nio.charset.StandardCharsets.UTF_8);
+                org.json.JSONArray devices =
+                        new org.json.JSONObject(json).optJSONArray("devices");
+                if (devices != null) {
+                    for (int index = 0; index < devices.length(); index++) {
+                        org.json.JSONObject device = devices.optJSONObject(index);
+                        if (device == null) {
+                            continue;
+                        }
+                        String code = device.optString("code", "");
+                        String itemSkin = device.optString("skin", code);
+                        if (!skin.equals(itemSkin)) {
+                            continue;
+                        }
+                        String image = device.optString("image", "").trim();
+                        if (!image.isEmpty()) {
+                            return image;
+                        }
+                        break;
+                    }
+                }
+            } catch (Exception error) {
+                android.util.Log.w("VelaProvision", "解析设备镜像档失败", error);
+            }
+        }
+        File skinDir = new File(new File(runtimeDir, "engine"), "skins/" + skin);
+        String[] props = VelaEmulator.skinProps(skinDir);
+        return VelaEmulator.imageTypeForFlavor(props[2]);
     }
 
     /**
@@ -368,6 +449,13 @@ public final class VelaProvision {
             // 没指定皮肤（老入口/ensureRuntime 路径）：沿用 AVD 里已有的，别覆盖成默认
             emulator.setSkin(emulator.skinOfAvd(deviceId));
         }
+        // 镜像档：和皮肤一样按设备持久化到 AVD 的 ide.image.type，下次启动读回来。
+        // 设备目录没有该档时，从共享仓库链接进来；还是没有就退回包内默认镜像（宁可不改）。
+        String imageType = imageTypeOfSkin(emulator.runtimeDir(), emulator.skin());
+        if (!ensureImage(context, emulator, imageType)) {
+            imageType = "";
+        }
+        emulator.setImageType(imageType);
         // AVD 名 = **设备 id 转义**（与 VelaEmulatorManager.start 用的一致）；
         // 用机型当 AVD 名会留下一个引擎永远找不到的"影子 AVD"（踩过）。
         emulator.authorAvd(deviceId, emulator.imagesDir());
