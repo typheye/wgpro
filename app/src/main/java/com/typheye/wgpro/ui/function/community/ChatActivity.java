@@ -230,6 +230,11 @@ public class ChatActivity extends BaseSectionActivity {
         /** 实时事件到达时的静默刷新：不显示加载遮罩，并尽量保持当前阅读位置。 */
         private void load(boolean silent) {
             if (!loadedOnce && !silent) ((BaseSectionActivity) requireActivity()).showContentLoading();
+            // 加载期间内容区不能空着：先用标准空态（view_stream_empty）占位，
+            // render() 会用真实消息或"还没有消息"覆盖它
+            if (!silent && messages.getChildCount() == 0) {
+                messages.addView(emptyState("加载中…", ""));
+            }
             if (peerUid.isEmpty()) { showError("缺少聊天对象"); return; }
             Map<String, String> query = page(); query.put("peer_uid", peerUid);
             account.getV2Json("messages2", query, true, new tAccUtils.JsonCallback() {

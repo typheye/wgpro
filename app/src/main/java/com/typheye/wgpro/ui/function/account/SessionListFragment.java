@@ -141,7 +141,17 @@ public class SessionListFragment extends Fragment {
             }
             signature = nextSignature;
         }
-        empty.setVisibility(loaded && !loading && visible == 0 ? View.VISIBLE : View.GONE);
+        // 加载期间也用标准空态（view_stream_empty）占位，别让内容区空着
+        boolean showEmpty = visible == 0;
+        if (showEmpty) {
+            boolean settled = loaded && !loading;
+            ((TextView) empty.findViewById(R.id.stream_empty_title))
+                    .setText(settled ? "暂无已登录的会话" : "加载中…");
+            ((TextView) empty.findViewById(R.id.stream_empty_description))
+                    .setText(settled
+                            ? "使用同一 Typheye 账户登录的设备与浏览器会显示在这里。" : "");
+        }
+        empty.setVisibility(showEmpty ? View.VISIBLE : View.GONE);
     }
 
     private void addSessionCard(JSONObject session, LinearLayout target) {
@@ -159,15 +169,17 @@ public class SessionListFragment extends Fragment {
         status.setText(current ? "本机" : "其他");
         status.setBackgroundResource(current ? R.drawable.bg_device_status_connected
                 : R.drawable.bg_device_status_disconnected);
-        String signedInAt = session.optString("created_at", "");
+        // 卡片统一显示「活跃于 xx」：优先用最近活跃时间，没有再退回登录时间
+        // （原来的「登录于 created_at」会一直显示很久以前的登录时刻，看起来像"设备没在用"）
         String lastSeen = session.optString("last_seen_at", "");
+        String signedInAt = session.optString("created_at", "");
         String timeText;
-        if (!signedInAt.isEmpty()) {
-            timeText = "登录于 " + relativeCloudTime(signedInAt);
-        } else if (!lastSeen.isEmpty()) {
+        if (!lastSeen.isEmpty()) {
             timeText = "活跃于 " + relativeCloudTime(lastSeen);
+        } else if (!signedInAt.isEmpty()) {
+            timeText = "活跃于 " + relativeCloudTime(signedInAt);
         } else {
-            timeText = "登录时间未知";
+            timeText = "活跃时间未知";
         }
         ((TextView) card.findViewById(R.id.text_device_since)).setText(timeText);
         card.setOnClickListener(v -> showSessionDetail(session));

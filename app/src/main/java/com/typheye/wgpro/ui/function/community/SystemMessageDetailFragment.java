@@ -70,6 +70,10 @@ public class SystemMessageDetailFragment extends Fragment {
         if (!loadedOnce && requireActivity() instanceof BaseSectionActivity) {
             ((BaseSectionActivity) requireActivity()).showContentLoading();
         }
+        // 加载期间内容区不能空着：先用标准空态（view_stream_empty）占位，数据到了由 render 覆盖
+        if (list.getChildCount() == 0) {
+            list.addView(emptyState("加载中…", ""));
+        }
         load();
         return root;
     }
@@ -443,6 +447,10 @@ public class SystemMessageDetailFragment extends Fragment {
     }
 
     private View emptyState() {
+        return emptyState("暂无系统消息", "系统通知和举报处理结果会显示在这里。");
+    }
+
+    private View emptyState(@NonNull String title, @NonNull String description) {
         View state = LayoutInflater.from(requireContext())
                 .inflate(R.layout.view_stream_empty, list, false);
         // 顶部留白统一由父容器的 padding 提供（与左右一致），卡片自身不再叠加 marginTop
@@ -453,9 +461,8 @@ public class SystemMessageDetailFragment extends Fragment {
             state.setLayoutParams(params);
         }
         state.setVisibility(View.VISIBLE);
-        ((TextView) state.findViewById(R.id.stream_empty_title)).setText("暂无系统消息");
-        ((TextView) state.findViewById(R.id.stream_empty_description))
-                .setText("系统通知和举报处理结果会显示在这里。");
+        ((TextView) state.findViewById(R.id.stream_empty_title)).setText(title);
+        ((TextView) state.findViewById(R.id.stream_empty_description)).setText(description);
         return state;
     }
 

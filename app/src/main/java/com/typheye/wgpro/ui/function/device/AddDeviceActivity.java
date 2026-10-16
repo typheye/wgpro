@@ -272,15 +272,16 @@ public class AddDeviceActivity extends AppCompatActivity {
                 names.add(device[1]);
             }
         } else {
+            // 老包没有清单：连名字都没有，直接用皮肤代号（App 不内置机型名表）
             for (String skin : com.typheye.wgpro.core.emu.VelaEmulator
                     .availableSkins(emulator.engineDir())) {
                 skins.add(skin);
-                names.add(com.typheye.wgpro.core.emu.VelaEmulator.skinLabel(skin));
+                names.add(skin);
             }
         }
         if (skins.isEmpty()) {
             skins.add(emulator.skin());
-            names.add(com.typheye.wgpro.core.emu.VelaEmulator.skinLabel(emulator.skin()));
+            names.add(emulator.skin());
         }
         labels = names.toArray(new CharSequence[0]);
         new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
@@ -309,7 +310,7 @@ public class AddDeviceActivity extends AppCompatActivity {
         new Thread(() -> {
             String failure = null;
             try {
-                // 显示名用清单里的设备名（如 "Xiaomi 手环 10 Pro"），不再用"设备名称 XXXX"
+                // 显示名用**包内清单**里的设备名（如 "Xiaomi Band 10"），不在代码里内置名字表
                 com.typheye.wgpro.core.emu.VelaProvision
                         .createDevice(this, emulator, deviceId, skin,
                                 deviceName + " " + com.typheye.wgpro.core.emu.VelaProvision

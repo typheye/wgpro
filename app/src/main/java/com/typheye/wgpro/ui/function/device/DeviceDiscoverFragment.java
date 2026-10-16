@@ -109,6 +109,11 @@ public class DeviceDiscoverFragment extends Fragment {
         if (root != null) {
             root.post(() -> setRefreshIndicator(true));
         }
+        // 加载中也要有内容：显示标准空态的"扫描中"文案（原来加载期间内容区是空白）
+        if (root != null && root.findViewById(R.id.add_device_found_card).getVisibility()
+                != View.VISIBLE) {
+            showEmptyState("正在扫描附近设备", "请保持设备已开机并靠近手机。");
+        }
         mainHandler.postDelayed(scanTimeout, ACTIVE_SCAN_TIMEOUT_MS);
         queryConnection();
     }
@@ -184,14 +189,12 @@ public class DeviceDiscoverFragment extends Fragment {
         TextView title = root.findViewById(R.id.device_option_title);
         TextView initial = root.findViewById(R.id.device_option_avatar);
         View foundCard = root.findViewById(R.id.add_device_found_card);
-        View empty = root.findViewById(R.id.add_device_empty);
         boolean exists;
         try (DeviceDatabase db = new DeviceDatabase(requireContext())) {
             exists = db.exists(node.id);
         }
         if (exists) {
-            foundCard.setVisibility(View.GONE);
-            empty.setVisibility(View.VISIBLE);
+            showEmptyState("该设备已在列表中", "无需重复添加。");
             return;
         }
         String deviceName = node.name == null || node.name.trim().isEmpty()
@@ -204,28 +207,61 @@ public class DeviceDiscoverFragment extends Fragment {
         title.setText(deviceName);
         ((TextView) root.findViewById(R.id.device_option_subtitle))
                 .setText("可添加 | 小米运动健康");
-        empty.setVisibility(View.GONE);
+        View empty = root.findViewById(R.id.add_device_empty);
+        if (empty != null) {
+            empty.setVisibility(View.GONE);
+        }
         foundCard.setVisibility(View.VISIBLE);
-        foundCard.setOnClickListener(v -> {
-            if (discoveredNodeId == null || discoveredNodeId.isEmpty()) {
-                return;
-            }
-            try (DeviceDatabase db = new DeviceDatabase(requireContext())) {
-                db.upsert(discoveredNodeId, discoveredNodeName, "xiaomi", true);
-            }
-            requireActivity().finish();
-        });
+        // 点卡片**先确认再添加**（原来是直接落库 + 关页，误触就多一台设备）
+        foundCard.setOnClickListener(v -> confirmAddDevice());
+    }
+
+    /** 点设备卡片：先弹 WGPro 底部弹窗确认（大标题 + 说明 + 整宽按钮 + 取消）。 */
+    private void confirmAddDevice() {
+        if (discoveredNodeId == null || discoveredNodeId.isEmpty()) {
+            return;
+        }
+        final String id = discoveredNodeId;
+        final String name = discoveredNodeName == null ? "" : discoveredNodeName;
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("添加设备？")
+                .setMessage("将把「" + name + "」加入设备列表。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("添加", (dialog, which) -> {
+                    try (DeviceDatabase db = new DeviceDatabase(requireContext())) {
+                        db.upsert(id, name, "xiaomi", true);
+                    }
+                    requireActivity().finish();
+                })
+                .show();
     }
 
     private void showEmptyResult() {
         discoveredNodeId = null;
         discoveredNodeName = null;
         stopRefresh();
+        showEmptyState("暂未发现设备", "确认设备已开启并靠近手机，然后重新扫描。");
+    }
+
+    /**
+     * 显示标准空态（view_stream_empty）。
+     *
+     * <p>扫描中与"扫完没结果"都用它占位 —— 之前加载期间内容区是**空白**的，
+     * 现在一律显示空态（文案随状态变化）。</p>
+     */
+    private void showEmptyState(@NonNull String title, @NonNull String description) {
         if (root == null) {
             return;
         }
         root.findViewById(R.id.add_device_found_card).setVisibility(View.GONE);
-        root.findViewById(R.id.add_device_empty).setVisibility(View.VISIBLE);
+        View empty = root.findViewById(R.id.add_device_empty);
+        if (empty == null) {
+            return;
+        }
+        ((android.widget.TextView) empty.findViewById(R.id.stream_empty_title)).setText(title);
+        ((android.widget.TextView) empty.findViewById(R.id.stream_empty_description))
+                .setText(description);
+        empty.setVisibility(View.VISIBLE);
     }
 
     /** 结束下拉刷新（扫描一轮结束就收起指示器）。扫描期间加载态也走这里（原页面级遮罩已移除）。 */

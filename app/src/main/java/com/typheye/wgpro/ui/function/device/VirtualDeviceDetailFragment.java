@@ -696,14 +696,15 @@ public class VirtualDeviceDetailFragment extends Fragment {
                 names.add(device[1]);
             }
         } else {
+            // 老包没有清单：连名字都没有，直接用皮肤代号（App 不内置机型名表）
             for (String skin : VelaEmulator.availableSkins(emulator.engineDir())) {
                 skins.add(skin);
-                names.add(VelaEmulator.skinLabel(skin));
+                names.add(skin);
             }
         }
         if (skins.isEmpty()) {
             skins.add(emulator.skin());
-            names.add(VelaEmulator.skinLabel(emulator.skin()));
+            names.add(emulator.skin());
         }
         CharSequence[] labels = names.toArray(new CharSequence[0]);
         final String preferredName = displayName;

@@ -39,29 +39,13 @@
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
 
-                <LinearLayout
+                <!-- 空态：统一用规范的 view_stream_empty（文案在 Fragment 里按扫描状态设置） -->
+                <include
                     android:id="@+id/add_device_empty"
+                    layout="@layout/view_stream_empty"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/bg_empty_device"
-                    android:orientation="vertical"
-                    android:padding="20dp"
-                    android:visibility="gone">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="暂未发现设备"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="6dp"
-                        android:text="确认设备已开启并靠近手机，然后重新扫描。"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textSize="14sp" />
-                </LinearLayout>
+                    android:layout_marginTop="0dp" />
             </LinearLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
