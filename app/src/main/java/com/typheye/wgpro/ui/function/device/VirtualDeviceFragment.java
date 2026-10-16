@@ -26,13 +26,16 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.core.emu.VelaControl;
 import com.typheye.wgpro.core.emu.VelaEmulator;
 import com.typheye.wgpro.core.emu.VelaEmulatorManager;
 import com.typheye.wgpro.core.emu.VelaFrames;
+import com.typheye.wgpro.core.emu.VelaGuest;
 import com.typheye.wgpro.ui.widget.WGProHint;
 
 import java.io.File;
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,9 +68,6 @@ public class VirtualDeviceFragment extends Fragment {
     private int skinScreenY = 253;
     /** 屏幕圆角 / 屏幕边长（xiaomi_s4 = 233/466 = 圆形）。 */
     private float skinRadiusRatio = 233f / 466f;
-    /** 引擎控制台端口 5560（见 VelaEmulator），adb 占其 +1。 */
-    private static final int ADB_PORT = 5561;
-
     private VelaFrames frames;
     private com.typheye.wgpro.core.emu.VelaTouchSender touchSender;
     private VirtualScreenView frameView;
@@ -418,6 +418,15 @@ public class VirtualDeviceFragment extends Fragment {
         if (logToggle != null) {
             logToggle.setOnClickListener(v -> toggleLog());
         }
+        // 应用管理 / 设备状态：对齐 AIoT IDE 的客机能力（应用列表/安装/卸载/启动/关闭/重载 + 传感器等）
+        View apps = root.findViewById(R.id.key_apps);
+        if (apps != null) {
+            apps.setOnClickListener(v -> showAppsSheet());
+        }
+        View state = root.findViewById(R.id.key_state);
+        if (state != null) {
+            state.setOnClickListener(v -> showStateSheet());
+        }
         // 返回键直接退出本页（引擎常驻由守护服务持有，退出页面不会停止模拟）
     }
 
@@ -476,10 +485,9 @@ public class VirtualDeviceFragment extends Fragment {
         new Thread(() -> {
             String output;
             try {
-                output = com.typheye.wgpro.core.emu.VelaAdbClient.shell(
-                        "127.0.0.1", ADB_PORT, command, 15000L);
+                output = guest().shell(command, 15000L);
             } catch (Exception error) {
-                output = "指令通道不可用：" + error.getMessage();
+                output = "指令通道不可用：" + messageOf(error);
             }
             final String text = output;
             ui.post(() -> {
@@ -489,6 +497,595 @@ public class VirtualDeviceFragment extends Fragment {
                 flushLog();
             });
         }, "vela-cmd").start();
+    }
+
+    // ==================================================================
+    //  客机能力（对齐 AIoT IDE）：应用管理 + 设备状态
+    //  通道统一走 VelaGuest（端口/帧格式/WRTE 分帧都收敛在那里）
+    // ==================================================================
+
+    /** 已附着/启动的客机门面；返回时客机 adbd 已就绪。 */
+    @NonNull
+    private VelaGuest guest() throws Exception {
+        VelaEmulatorManager.Instance instance = VelaEmulatorManager.get()
+                .start(requireContext(), avdId, deviceKey);
+        return VelaGuest.of(instance).awaitReady(20000L);
+    }
+
+    @NonNull
+    private static String messageOf(@Nullable Throwable error) {
+        if (error == null) {
+            return "未知错误";
+        }
+        String message = error.getMessage();
+        return message == null || message.trim().isEmpty()
+                ? error.getClass().getSimpleName() : message;
+    }
+
+    /** 🗂 应用管理：客机 {@code ls <appDir>} → 应用列表 → 启动/关闭/重载/卸载。 */
+    private void showAppsSheet() {
+        showLog(true);
+        appendLog("[ui] 正在读取客机应用列表…");
+        flushLog();
+        new Thread(() -> {
+            List<String> apps = new ArrayList<>();
+            String failure = null;
+            try {
+                apps = guest().appList();
+            } catch (Throwable error) {
+                failure = messageOf(error);
+            }
+            // 客机 `ls /data/app` 会把 system/ watchface/ 等内置目录也列出来（IDE 同样不筛）。
+            // 界面只展示**包名形态**（含点）的条目，避免用户误卸载 system 这类目录。
+            List<String> packages = new ArrayList<>();
+            for (String name : apps) {
+                if (name.indexOf('.') > 0) {
+                    packages.add(name);
+                }
+            }
+            if (packages.isEmpty()) {
+                packages = apps;
+            }
+            final List<String> list = packages;
+            final int directoryCount = apps.size();
+            final String error = failure;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                if (error != null) {
+                    WGProHint.showError(requireContext(), "读取应用列表失败", error);
+                    return;
+                }
+                appendLog("[ui] 客机应用 " + list.size() + " 个：" + list
+                        + "（目录共 " + directoryCount + " 项）");
+                flushLog();
+                if (list.isEmpty()) {
+                    WGProHint.show(requireContext(), "该模拟设备上还没有已安装应用");
+                    return;
+                }
+                CharSequence[] items = new CharSequence[list.size()];
+                for (int i = 0; i < list.size(); i++) {
+                    items[i] = list.get(i);
+                }
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle("应用管理")
+                        .setMessage("共 " + list.size()
+                                + " 个应用。点一个应用可启动 / 关闭 / 重载 / 卸载。")
+                        .setItems(items, (dialog, which) -> showAppActionsSheet(list.get(which)))
+                        .setNegativeButton("刷新", (dialog, which) -> showAppsSheet())
+                        .setPositiveButton("关闭", null)
+                        .show();
+            });
+        }, "vela-apps").start();
+    }
+
+    /** 单个应用的可用操作。 */
+    private void showAppActionsSheet(@NonNull String packageName) {
+        CharSequence[] actions = {"启动", "关闭", "重载", "卸载"};
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle(packageName)
+                .setMessage("选择要对该应用执行的操作。")
+                .setItems(actions, (dialog, which) -> {
+                    if (which == 3) {
+                        confirmUninstall(packageName);
+                    } else {
+                        runAppAction(packageName, which);
+                    }
+                })
+                .setNegativeButton("返回", (dialog, which) -> showAppsSheet())
+                .setPositiveButton("取消", null)
+                .show();
+    }
+
+    /** 卸载是不可逆操作，单独确认一次。 */
+    private void confirmUninstall(@NonNull String packageName) {
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("卸载应用")
+                .setMessage("将从该模拟设备卸载 " + packageName + "，客机里的应用数据会一并删除。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("卸载", (dialog, which) -> runAppAction(packageName, 3))
+                .show();
+    }
+
+    /** 下发应用生命周期指令（0=启动 1=关闭 2=重载 3=卸载），完成后给提示并写日志。 */
+    private void runAppAction(@NonNull String packageName, int action) {
+        final String[] labels = {"启动", "关闭", "重载", "卸载"};
+        final String label = labels[Math.max(0, Math.min(labels.length - 1, action))];
+        showLog(true);
+        appendLog("$ " + label + " " + packageName);
+        flushLog();
+        new Thread(() -> {
+            boolean success;
+            String detail;
+            try {
+                VelaGuest client = guest();
+                switch (action) {
+                    case 0:
+                        detail = client.startApp(packageName, false);
+                        break;
+                    case 1:
+                        detail = client.closeApp(packageName);
+                        break;
+                    case 2:
+                        detail = client.reloadApp(packageName, false);
+                        break;
+                    default:
+                        detail = client.uninstall(packageName);
+                        break;
+                }
+                success = true;
+            } catch (Throwable error) {
+                success = false;
+                detail = messageOf(error);
+            }
+            final boolean done = success;
+            final String text = detail;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                appendLog("[" + label + "] " + (text == null || text.trim().isEmpty()
+                        ? "已下发（客机无回显）" : text.trim()));
+                flushLog();
+                if (done) {
+                    WGProHint.show(requireContext(), label + " 已下发：" + packageName);
+                } else {
+                    WGProHint.showError(requireContext(), label + " 失败", text);
+                }
+            });
+        }, "vela-app-action").start();
+    }
+
+    /** 🎛 设备状态：电池 / GPS / 亮度 / 虚拟机 / 剪贴板 / 传感器（对齐 IDE 扩展控制）。 */
+    private void showStateSheet() {
+        showLog(true);
+        appendLog("[ui] 正在读取设备状态…");
+        flushLog();
+        new Thread(() -> {
+            String summary = null;
+            String failure = null;
+            try {
+                summary = readStateSummary();
+            } catch (Throwable error) {
+                failure = messageOf(error);
+            }
+            final String text = summary;
+            final String error = failure;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                if (error != null) {
+                    WGProHint.showError(requireContext(), "读取设备状态失败", error);
+                    return;
+                }
+                CharSequence[] actions = {"设置电量", "设置位置（GPS）", "设置剪贴板",
+                        "设置屏幕亮度", "暂停 / 继续", "读取传感器", "拉取客机日志",
+                        "重启客机", "关闭客机（poweroff）"};
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle("设备状态")
+                        .setMessage(text)
+                        .setItems(actions, (dialog, which) -> onStateAction(which))
+                        .setNegativeButton("刷新", (dialog, which) -> showStateSheet())
+                        .setPositiveButton("关闭", null)
+                        .show();
+            });
+        }, "vela-state").start();
+    }
+
+    @NonNull
+    private String readStateSummary() throws Exception {
+        VelaEmulatorManager.Instance instance = VelaEmulatorManager.get()
+                .start(requireContext(), avdId, deviceKey);
+        VelaControl control = new VelaControl(instance.port);
+        try {
+            if (!control.awaitReady(30000L)) {
+                throw new IllegalStateException("引擎 gRPC 未就绪（模拟设备可能还在启动，请等画面出来再试）");
+            }
+            StringBuilder summary = new StringBuilder();
+            VelaControl.Battery battery = control.battery();
+            summary.append("电量：").append(battery == null
+                    ? VelaControl.UNSUPPORTED : battery.describe()).append('\n');
+            VelaControl.Gps gps = control.gps();
+            summary.append("位置：").append(gps == null
+                    ? VelaControl.UNSUPPORTED : gps.describe()).append('\n');
+            int brightness = control.brightness();
+            summary.append("亮度：").append(brightness < 0
+                    ? VelaControl.UNSUPPORTED : brightness + " / 255").append('\n');
+            summary.append("虚拟机：").append(vmStateLabel(control.vmState())).append('\n');
+            String clipboard = control.clipboard();
+            summary.append("剪贴板：").append(clipboard == null
+                    ? VelaControl.UNSUPPORTED
+                    : (clipboard.isEmpty() ? "（空）" : clipboard)).append('\n');
+            float[] acceleration = control.sensor(VelaControl.SENSOR_ACCELERATION);
+            summary.append("加速度：").append(acceleration == null
+                    ? VelaControl.UNSUPPORTED : formatValues(acceleration)).append('\n');
+            float[] orientation = control.sensor(VelaControl.SENSOR_ORIENTATION);
+            summary.append("方向：").append(orientation == null
+                    ? VelaControl.UNSUPPORTED : formatValues(orientation));
+            return summary.toString();
+        } finally {
+            control.close();
+        }
+    }
+
+    private void onStateAction(int which) {
+        switch (which) {
+            case 0:
+                promptValue("设置电量", "0 - 100", "100", this::applyBattery);
+                break;
+            case 1:
+                promptValue("设置位置（GPS）", "纬度,经度",
+                        "39.9042,116.4074", this::applyGps);
+                break;
+            case 2:
+                promptValue("设置剪贴板", "写入客机剪贴板的文本", "", this::applyClipboard);
+                break;
+            case 3:
+                promptValue("设置屏幕亮度", "0 - 255", "255", this::applyBrightness);
+                break;
+            case 4:
+                toggleVmState();
+                break;
+            case 5:
+                showSensorSheet();
+                break;
+            case 6:
+                pullGuestLog();
+                break;
+            case 7:
+                confirmPower(true);
+                break;
+            default:
+                confirmPower(false);
+                break;
+        }
+    }
+
+    /** 客机重启 / 关机（对齐 IDE 的 `reboot` / `poweroff`）；两者都不可逆，先确认。 */
+    private void confirmPower(boolean reboot) {
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle(reboot ? "重启客机" : "关闭客机")
+                .setMessage(reboot
+                        ? "客机系统将重启，画面会短暂中断后自动恢复。"
+                        : "客机系统将关机，模拟器引擎可能一并退出（需要重新进入本页启动）。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton(reboot ? "重启" : "关机",
+                        (dialog, which) -> runGuestPower(reboot))
+                .show();
+    }
+
+    private void runGuestPower(boolean reboot) {
+        showLog(true);
+        appendLog("$ " + (reboot ? "reboot" : "poweroff"));
+        flushLog();
+        new Thread(() -> {
+            boolean success;
+            String detail;
+            try {
+                VelaGuest client = guest();
+                detail = reboot ? client.reboot() : client.poweroff();
+                success = true;
+            } catch (Throwable error) {
+                success = false;
+                detail = messageOf(error);
+            }
+            final boolean done = success;
+            final String text = detail;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                appendLog("[ui] " + (reboot ? "重启" : "关机") + "指令已下发"
+                        + (text == null || text.trim().isEmpty() ? "" : "：" + text.trim()));
+                flushLog();
+                if (done) {
+                    WGProHint.show(requireContext(), reboot ? "客机正在重启" : "客机正在关机");
+                } else {
+                    WGProHint.showError(requireContext(),
+                            reboot ? "重启失败" : "关机失败", text);
+                }
+            });
+        }, "vela-power").start();
+    }
+
+    /** 一个「输入单个值」的底部弹窗（与指令输入同款，标题/说明齐全）。 */
+    private interface ValueHandler {
+        void onValue(@NonNull String value);
+    }
+
+    private void promptValue(@NonNull String title, @NonNull String hint,
+                             @NonNull String initial, @NonNull ValueHandler handler) {
+        View content = getLayoutInflater().inflate(R.layout.dialog_edittext, null, false);
+        com.google.android.material.textfield.TextInputLayout layout =
+                content.findViewById(R.id.textInputLayout);
+        com.google.android.material.textfield.TextInputEditText input =
+                content.findViewById(R.id.editText);
+        layout.setHint(hint);
+        input.setSingleLine(true);
+        input.setText(initial);
+        input.setSelection(initial.length());
+        com.typheye.wgpro.ui.widget.WGProBottomSheetDialog dialog =
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle(title)
+                        .setView(content)
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("确定", null)
+                        .create();
+        dialog.setOnShowListener(ignored ->
+                dialog.getButton(android.content.DialogInterface.BUTTON_POSITIVE)
+                        .setOnClickListener(v -> {
+                            String value = input.getText() == null ? ""
+                                    : input.getText().toString().trim();
+                            dialog.dismiss();
+                            handler.onValue(value);
+                        }));
+        dialog.show();
+    }
+
+    private void applyBattery(@NonNull String text) {
+        final int level;
+        try {
+            level = Integer.parseInt(text.trim());
+        } catch (Exception error) {
+            WGProHint.showError(requireContext(), "设置电量失败", "请输入 0 - 100 的整数。");
+            return;
+        }
+        runControl("设置电量", control -> control.setBattery(level, true),
+                "电量已设为 " + level + "%");
+    }
+
+    private void applyGps(@NonNull String text) {
+        String[] parts = text.split("[,，\\s]+");
+        if (parts.length < 2) {
+            WGProHint.showError(requireContext(), "设置位置失败", "请按「纬度,经度」填写，例如 39.9042,116.4074。");
+            return;
+        }
+        final double latitude;
+        final double longitude;
+        try {
+            latitude = Double.parseDouble(parts[0].trim());
+            longitude = Double.parseDouble(parts[1].trim());
+        } catch (Exception error) {
+            WGProHint.showError(requireContext(), "设置位置失败", "经纬度必须是数字。");
+            return;
+        }
+        runControl("设置位置", control -> control.setGps(latitude, longitude, 0d),
+                "位置已设为 " + parts[0].trim() + ", " + parts[1].trim());
+    }
+
+    private void applyClipboard(@NonNull String text) {
+        runControl("设置剪贴板", control -> control.setClipboard(text), "已写入客机剪贴板");
+    }
+
+    private void applyBrightness(@NonNull String text) {
+        final int level;
+        try {
+            level = Integer.parseInt(text.trim());
+        } catch (Exception error) {
+            WGProHint.showError(requireContext(), "设置亮度失败", "请输入 0 - 255 的整数。");
+            return;
+        }
+        runControl("设置亮度", control -> control.setBrightness(level),
+                "亮度已设为 " + Math.max(0, Math.min(255, level)));
+    }
+
+    /** 一次设备控制动作（在后台线程建通道、执行、关通道）。 */
+    private interface ControlAction {
+        boolean run(@NonNull VelaControl control) throws Exception;
+    }
+
+    private void runControl(@NonNull String label, @NonNull ControlAction action,
+                            @NonNull String successMessage) {
+        showLog(true);
+        appendLog("$ " + label);
+        flushLog();
+        new Thread(() -> {
+            boolean success;
+            String detail;
+            try {
+                VelaEmulatorManager.Instance instance = VelaEmulatorManager.get()
+                        .start(requireContext(), avdId, deviceKey);
+                VelaControl control = new VelaControl(instance.port);
+                try {
+                    if (!control.awaitReady(30000L)) {
+                        throw new IllegalStateException("引擎 gRPC 未就绪（模拟设备可能还在启动，请等画面出来再试）");
+                    }
+                    success = action.run(control);
+                    detail = success ? "" : VelaControl.UNSUPPORTED;
+                } finally {
+                    control.close();
+                }
+            } catch (Throwable error) {
+                success = false;
+                detail = messageOf(error);
+            }
+            final boolean done = success;
+            final String text = detail;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                if (done) {
+                    appendLog("[ui] " + successMessage);
+                    flushLog();
+                    WGProHint.show(requireContext(), successMessage);
+                } else {
+                    appendLog("[ui] " + label + " 未生效：" + text);
+                    flushLog();
+                    WGProHint.showError(requireContext(), label + " 未生效", text);
+                }
+            });
+        }, "vela-control").start();
+    }
+
+    /** 暂停 / 继续（gRPC setVmState）。 */
+    private void toggleVmState() {
+        showLog(true);
+        new Thread(() -> {
+            boolean success;
+            String detail;
+            int target = VelaControl.VM_PAUSED;
+            try {
+                VelaEmulatorManager.Instance instance = VelaEmulatorManager.get()
+                        .start(requireContext(), avdId, deviceKey);
+                VelaControl control = new VelaControl(instance.port);
+                try {
+                    if (!control.awaitReady(30000L)) {
+                        throw new IllegalStateException("引擎 gRPC 未就绪（模拟设备可能还在启动，请等画面出来再试）");
+                    }
+                    target = control.vmState() == VelaControl.VM_PAUSED
+                            ? VelaControl.VM_RUNNING : VelaControl.VM_PAUSED;
+                    success = control.setVmState(target);
+                    detail = success ? "" : VelaControl.UNSUPPORTED;
+                } finally {
+                    control.close();
+                }
+            } catch (Throwable error) {
+                success = false;
+                detail = messageOf(error);
+            }
+            final boolean done = success;
+            final String text = detail;
+            final String message = target == VelaControl.VM_PAUSED ? "已暂停" : "已继续";
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                if (done) {
+                    appendLog("[ui] 虚拟机" + message);
+                    flushLog();
+                    WGProHint.show(requireContext(), "虚拟机" + message);
+                } else {
+                    WGProHint.showError(requireContext(), "虚拟机操作未生效", text);
+                }
+            });
+        }, "vela-vmstate").start();
+    }
+
+    private void showSensorSheet() {
+        showLog(true);
+        new Thread(() -> {
+            StringBuilder summary = new StringBuilder();
+            String failure = null;
+            try {
+                VelaEmulatorManager.Instance instance = VelaEmulatorManager.get()
+                        .start(requireContext(), avdId, deviceKey);
+                VelaControl control = new VelaControl(instance.port);
+                try {
+                    if (!control.awaitReady(30000L)) {
+                        throw new IllegalStateException("引擎 gRPC 未就绪（模拟设备可能还在启动，请等画面出来再试）");
+                    }
+                    int[] types = {VelaControl.SENSOR_ACCELERATION, VelaControl.SENSOR_GYROSCOPE,
+                            VelaControl.SENSOR_MAGNETIC_FIELD, VelaControl.SENSOR_ORIENTATION,
+                            VelaControl.SENSOR_LIGHT, VelaControl.SENSOR_HEART_RATE};
+                    String[] names = {"加速度", "陀螺仪", "磁场", "方向", "光线", "心率"};
+                    for (int i = 0; i < types.length; i++) {
+                        float[] values = control.sensor(types[i]);
+                        summary.append(names[i]).append("：")
+                                .append(values == null
+                                        ? VelaControl.UNSUPPORTED : formatValues(values))
+                                .append('\n');
+                    }
+                } finally {
+                    control.close();
+                }
+            } catch (Throwable error) {
+                failure = messageOf(error);
+            }
+            final String text = summary.toString().trim();
+            final String error = failure;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                if (error != null) {
+                    WGProHint.showError(requireContext(), "读取传感器失败", error);
+                    return;
+                }
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle("传感器读数")
+                        .setMessage(text)
+                        .setPositiveButton("关闭", null)
+                        .show();
+            });
+        }, "vela-sensor").start();
+    }
+
+    /** 把客机 dmesg 拉进日志面板（Vela 引擎的 gRPC logcat 实测为空）。 */
+    private void pullGuestLog() {
+        showLog(true);
+        appendLog("$ dmesg");
+        flushLog();
+        new Thread(() -> {
+            String output;
+            try {
+                output = guest().guestLog();
+            } catch (Throwable error) {
+                output = "读取失败：" + messageOf(error);
+            }
+            final String text = output;
+            ui.post(() -> {
+                if (!isAdded()) {
+                    return;
+                }
+                for (String line : text.split("\n")) {
+                    appendLog(line);
+                }
+                flushLog();
+            });
+        }, "vela-dmesg").start();
+    }
+
+    @NonNull
+    private static String vmStateLabel(int state) {
+        switch (state) {
+            case VelaControl.VM_RUNNING:
+                return "运行中";
+            case VelaControl.VM_PAUSED:
+                return "已暂停";
+            case VelaControl.VM_SHUTDOWN:
+                return "已关机";
+            case VelaControl.VM_TERMINATE:
+                return "已终止";
+            case VelaControl.VM_RESET:
+                return "重启中";
+            default:
+                return state < 0 ? VelaControl.UNSUPPORTED : "未知（" + state + "）";
+        }
+    }
+
+    @NonNull
+    private static String formatValues(@NonNull float[] values) {
+        StringBuilder text = new StringBuilder();
+        for (int i = 0; i < values.length; i++) {
+            if (i > 0) {
+                text.append(", ");
+            }
+            text.append(String.format(java.util.Locale.US, "%.3f", values[i]));
+        }
+        return text.toString();
     }
 
     private void bindKey(@NonNull View root, int viewId, int evdevCode) {

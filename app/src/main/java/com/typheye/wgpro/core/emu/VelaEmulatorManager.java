@@ -49,6 +49,21 @@ public final class VelaEmulatorManager {
     private static final int PORT_STEP = 2;
     private static final int LOG_MAX = 400;
 
+    /**
+     * 快应用 JS 调试配置（对齐 AIoT IDE 的 {@code quickapp_debug_cfg_<vvd>.json}）。
+     *
+     * <p>{@code 10.0.2.2} 是客机 user-mode 网络里「宿主机」的地址，也就是本机；
+     * 也就是说调试 MQTT 服务要跑在 App 这一侧才能被客机连上。
+     * 目前 App 还没有内置该 MQTT 调试服务，这里按 IDE 的时机（引擎启动后）把配置推过去，
+     * 供后续接入 / 外部工具使用，**失败不影响模拟器使用**。</p>
+     */
+    public static final String DEBUG_MQTT_HOST = "10.0.2.2";
+    public static final int DEBUG_MQTT_PORT = 1884;
+
+    /** 已经推过调试配置的设备 id（每次启动只推一次）。 */
+    private final java.util.Set<String> debugCfgPushed =
+            java.util.concurrent.ConcurrentHashMap.newKeySet();
+
     private static final VelaEmulatorManager INSTANCE = new VelaEmulatorManager();
 
     @NonNull
@@ -355,6 +370,8 @@ public final class VelaEmulatorManager {
                 deviceId);
         instance.running = true;
         instances.put(deviceId, instance);
+        // IDE 在 startVvd 成功后立刻推快应用调试配置（/tmp/quickapp_debug_cfg.json）
+        pushQuickappDebugCfg(deviceId, instance);
         CopyOnWriteArrayList<VelaEmulator.LineListener> waiting = pendingListeners.remove(deviceId);
         if (waiting != null) {
             instance.listeners.addAllAbsent(waiting);
@@ -418,6 +435,34 @@ public final class VelaEmulatorManager {
         return fallback;
     }
 
+    /**
+     * 引擎起来后把 JS 调试配置推进客机（对齐 AIoT IDE 的 {@code startVvd}）。
+     *
+     * <p>后台线程等客机 adbd 就绪再推，避免阻塞启动路径；失败只是打日志。</p>
+     */
+    private void pushQuickappDebugCfg(@NonNull String deviceId,
+                                      @NonNull Instance instance) {
+        if (!debugCfgPushed.add(deviceId)) {
+            return;
+        }
+        Thread thread = new Thread(() -> {
+            try {
+                VelaGuest guest = VelaGuest.of(instance);
+                // 不就绪会抛 IllegalStateException（由下面的 catch 兜住）
+                guest.awaitReady(40000L);
+                guest.pushQuickappDebugCfg(DEBUG_MQTT_HOST, DEBUG_MQTT_PORT,
+                        "vela_emulator_" + instance.emulator.deviceId());
+                Log.i(TAG, "已推送 /tmp/quickapp_debug_cfg.json（device="
+                        + instance.emulator.deviceId() + "）");
+            } catch (Throwable error) {
+                debugCfgPushed.remove(deviceId);
+                Log.w(TAG, "推送快应用调试配置失败（忽略）", error);
+            }
+        }, "vela-debug-cfg");
+        thread.setDaemon(true);
+        thread.start();
+    }
+
     /** 按**设备 id**停止一台实例（页面/卡片都用这个）。 */
     public void stopByKey(@NonNull Context context, @NonNull String key) {
         Instance instance = instances.get(key);
@@ -427,6 +472,8 @@ public final class VelaEmulatorManager {
             return;
         }
         instance.running = false;
+        // 下次启动要重新推调试配置
+        debugCfgPushed.remove(key);
         try {
             instance.emulator.stop();
         } catch (Exception error) {

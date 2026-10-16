@@ -253,6 +253,30 @@ public class MainActivity extends AppCompatActivity {
                 getIntent().removeExtra("vela_install_file");
                 runVelaInstallTest(installDevice, installFile);
             }
+            // --es vela_guest_test <设备id> [--es vela_guest_pkg <包名>]
+            //   [--es vela_guest_action start|close|reload|uninstall] → 客机门面自检，tag VelaGuestTest
+            final String guestDevice = getIntent().getStringExtra("vela_guest_test");
+            if (guestDevice != null) {
+                final String guestPkg = getIntent().getStringExtra("vela_guest_pkg");
+                final String guestAction = getIntent().getStringExtra("vela_guest_action");
+                getIntent().removeExtra("vela_guest_test");
+                getIntent().removeExtra("vela_guest_pkg");
+                getIntent().removeExtra("vela_guest_action");
+                runVelaGuestTest(guestDevice, guestPkg, guestAction);
+            }
+            // --es vela_control_test <设备id> → gRPC 设备控制自检，tag VelaControlTest
+            final String controlDevice = getIntent().getStringExtra("vela_control_test");
+            if (controlDevice != null) {
+                getIntent().removeExtra("vela_control_test");
+                runVelaControlTest(controlDevice);
+            }
+            // --es vela_open <设备id> → 直接打开该模拟设备的画面页
+            //（VirtualDeviceActivity 未导出，adb 起不来，只能由 App 自己拉）
+            final String openDevice = getIntent().getStringExtra("vela_open");
+            if (openDevice != null) {
+                getIntent().removeExtra("vela_open");
+                openVirtualDevicePage(openDevice);
+            }
         }
 
         // 桌面快捷方式：launcher 是外部进程，只能拉起导出的 MainActivity，这里按 extra 分发
@@ -688,7 +712,9 @@ public class MainActivity extends AppCompatActivity {
                 // 5560+ 是控制台，adb = 控制台 + 1
                 final int adbPort = 5560 + Math.max(0, instance.port - 8554) + 1;
                 android.util.Log.i("VelaAdbTest", "device=" + deviceId + " model=" + model
-                        + " grpc=" + instance.port + " adb=" + adbPort);
+                        + " grpc=" + instance.port + " adb=" + adbPort
+                        + " debug=" + instance.emulator.debugPort()
+                        + "（客机调试器 10.0.2.15:101 的宿主转发口）");
                 android.util.Log.i("VelaAdbTest", "portReady="
                         + com.typheye.wgpro.core.emu.VelaAdbClient.waitFor(adbPort, 30000L));
                 java.util.List<String> commands = new java.util.ArrayList<>(java.util.Arrays.asList(
@@ -729,6 +755,145 @@ public class MainActivity extends AppCompatActivity {
                             android.util.Log.i("VelaInstallTest",
                                     (success ? "成功: " : "失败: ") + message));
         }, "vela-install-test").start();
+    }
+
+    /**
+     * 调试用：客机能力门面（{@code VelaGuest}）自检 —— 应用列表 / 启动 / 关闭 / 重载 / 卸载 / 日志。
+     * 结果打到 logcat 的 {@code VelaGuestTest}。
+     *
+     * <p>adb 触发：
+     * {@code am start -n com.typheye.wgpro/.ui.main.MainActivity --es vela_guest_test <设备id>}
+     * 可再带 {@code --es vela_guest_pkg <包名> --es vela_guest_action start|close|reload|uninstall}。</p>
+     */
+    private void runVelaGuestTest(@NonNull final String deviceId, @Nullable final String packageName,
+                                  @Nullable final String action) {
+        new Thread(() -> {
+            final String model = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(deviceId);
+            try {
+                com.typheye.wgpro.core.emu.VelaGuest guest =
+                        com.typheye.wgpro.core.emu.VelaGuest.attach(this, model, deviceId);
+                android.util.Log.i("VelaGuestTest", "device=" + deviceId + " adb=" + guest.adbPort()
+                        + " appDir=" + guest.appDir() + " pre=" + guest.isPreDialect()
+                        + " connected=" + guest.isConnected());
+                android.util.Log.i("VelaGuestTest", "appList=" + guest.appList());
+                String log = guest.guestLog();
+                String[] lines = log.split("\\r?\\n");
+                StringBuilder head = new StringBuilder();
+                for (int i = 0; i < Math.min(6, lines.length); i++) {
+                    head.append(lines[i]).append('\n');
+                }
+                android.util.Log.i("VelaGuestTest", "dmesg(" + lines.length + " lines):\n" + head);
+                if (packageName != null && action != null) {
+                    String output;
+                    switch (action) {
+                        case "start":
+                            output = guest.startApp(packageName, false);
+                            break;
+                        case "close":
+                            output = guest.closeApp(packageName);
+                            break;
+                        case "reload":
+                            output = guest.reloadApp(packageName, false);
+                            break;
+                        case "uninstall":
+                            output = guest.uninstall(packageName);
+                            break;
+                        default:
+                            output = "未知动作: " + action;
+                            break;
+                    }
+                    android.util.Log.i("VelaGuestTest",
+                            action + " " + packageName + " -> [" + output + "]");
+                    android.util.Log.i("VelaGuestTest", "appList(after)=" + guest.appList());
+                }
+            } catch (Throwable error) {
+                android.util.Log.i("VelaGuestTest", "异常: " + error);
+            }
+        }, "vela-guest-test").start();
+    }
+
+    /** 调试用：直接打开某台模拟设备的画面页（{@code VirtualDeviceActivity} 未导出，adb 无法直接起）。 */
+    private void openVirtualDevicePage(@NonNull String deviceId) {
+        android.content.Intent intent = new android.content.Intent(this,
+                com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class);
+        intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_DEVICE_ID,
+                deviceId);
+        intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD,
+                com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(deviceId));
+        startActivity(intent);
+    }
+
+    /**
+     * 调试用：gRPC 设备控制（{@code VelaControl}）自检 —— 电池 / GPS / 传感器 / 剪贴板 / 亮度 / 虚拟机。
+     * 结果打到 logcat 的 {@code VelaControlTest}。
+     */
+    private void runVelaControlTest(@NonNull final String deviceId) {
+        new Thread(() -> {
+            final String model = com.typheye.wgpro.core.emu.VelaProvision.modelIdOf(deviceId);
+            com.typheye.wgpro.core.emu.VelaControl control = null;
+            try {
+                com.typheye.wgpro.core.emu.VelaEmulatorManager manager =
+                        com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
+                manager.init(this);
+                com.typheye.wgpro.core.emu.VelaEmulatorManager.Instance instance =
+                        manager.start(this, model, deviceId);
+                control = new com.typheye.wgpro.core.emu.VelaControl(instance.port);
+                boolean ready = control.awaitReady(60000L);
+                android.util.Log.i("VelaControlTest", "grpc=" + instance.port + " ready=" + ready);
+                com.typheye.wgpro.core.emu.VelaControl.Battery battery = control.battery();
+                android.util.Log.i("VelaControlTest", "battery=" + (battery == null
+                        ? "UNSUPPORTED" : battery.describe()));
+                android.util.Log.i("VelaControlTest", "setBattery(66,true)="
+                        + control.setBattery(66, true));
+                battery = control.battery();
+                android.util.Log.i("VelaControlTest", "battery(after)=" + (battery == null
+                        ? "UNSUPPORTED" : battery.describe()));
+                com.typheye.wgpro.core.emu.VelaControl.Gps gps = control.gps();
+                android.util.Log.i("VelaControlTest", "gps=" + (gps == null
+                        ? "UNSUPPORTED" : gps.describe()));
+                android.util.Log.i("VelaControlTest", "setGps(31.2304,121.4737)="
+                        + control.setGps(31.2304, 121.4737, 0d));
+                gps = control.gps();
+                android.util.Log.i("VelaControlTest", "gps(after)=" + (gps == null
+                        ? "UNSUPPORTED" : gps.describe()));
+                android.util.Log.i("VelaControlTest", "setClipboard(wgpro)="
+                        + control.setClipboard("wgpro"));
+                android.util.Log.i("VelaControlTest", "clipboard=" + control.clipboard());
+                android.util.Log.i("VelaControlTest", "brightness=" + control.brightness());
+                android.util.Log.i("VelaControlTest", "setBrightness(200)="
+                        + control.setBrightness(200));
+                android.util.Log.i("VelaControlTest", "brightness(after)=" + control.brightness());
+                android.util.Log.i("VelaControlTest", "vmState=" + control.vmState());
+                android.util.Log.i("VelaControlTest", "setVmState(RUNNING)="
+                        + control.setVmState(com.typheye.wgpro.core.emu.VelaControl.VM_RUNNING));
+                float[] acceleration = control.sensor(
+                        com.typheye.wgpro.core.emu.VelaControl.SENSOR_ACCELERATION);
+                android.util.Log.i("VelaControlTest", "acceleration="
+                        + java.util.Arrays.toString(acceleration));
+                float[] orientation = control.sensor(
+                        com.typheye.wgpro.core.emu.VelaControl.SENSOR_ORIENTATION);
+                android.util.Log.i("VelaControlTest", "orientation="
+                        + java.util.Arrays.toString(orientation));
+                android.util.Log.i("VelaControlTest", "setSensor(ACCEL,[1,2,3])="
+                        + control.setSensor(
+                        com.typheye.wgpro.core.emu.VelaControl.SENSOR_ACCELERATION,
+                        new float[]{1f, 2f, 3f}));
+                android.util.Log.i("VelaControlTest", "key(KEY_HOME)=" + control.key(102));
+                // 明确验证"引擎没实现"的能力，避免 UI 上误以为是 App 的锅
+                android.util.Log.i("VelaControlTest", "getDisplayConfigurations -> "
+                        + control.call("getDisplayConfigurations", new byte[0], 2000).error);
+                android.util.Log.i("VelaControlTest", "setPosture -> "
+                        + control.call("setPosture", new byte[]{0x18, 0x03}, 2000).error);
+                android.util.Log.i("VelaControlTest", "injectWheel -> "
+                        + control.call("injectWheel", new byte[]{0x08, 0x00}, 2000).error);
+            } catch (Throwable error) {
+                android.util.Log.i("VelaControlTest", "异常: " + error);
+            } finally {
+                if (control != null) {
+                    control.close();
+                }
+            }
+        }, "vela-control-test").start();
     }
 
     /** 设备页标题：「共 X 台」（没有设备就是「共 0 台」）。 */

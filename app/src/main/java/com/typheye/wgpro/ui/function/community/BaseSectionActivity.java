@@ -6,6 +6,7 @@ import android.graphics.RenderEffect;
 import android.graphics.Shader;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,7 +32,15 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
         appBar = findViewById(R.id.section_app_bar);
         content = findViewById(R.id.section_container);
         loadingOverlay = findViewById(R.id.section_loading_overlay);
-        if (loadingCoversAppBar()) {
+        if (!usesContentLoadingOverlay()) {
+            // ★ 本页不用整页加载遮罩：直接把它从布局里**摘掉**（不是隐藏），
+            //   加载态改由内容里的下拉刷新指示器表达（见 showContentLoading/hideContentLoading）。
+            ViewGroup parent = (ViewGroup) loadingOverlay.getParent();
+            if (parent != null) {
+                parent.removeView(loadingOverlay);
+            }
+            loadingOverlay = null;
+        } else if (loadingCoversAppBar()) {
             ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) loadingOverlay.getLayoutParams();
             params.topToBottom = ConstraintLayout.LayoutParams.UNSET;
             params.topToTop = ConstraintLayout.LayoutParams.PARENT_ID;
@@ -92,6 +101,15 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
     /** 整页加载遮罩默认就盖住应用栏（要只盖内容区的页面可重写为 false）。 */
     protected boolean loadingCoversAppBar() { return true; }
 
+    /**
+     * 本页是否使用**整页加载遮罩**。
+     *
+     * <p>默认 {@code false}：遮罩会被从布局里摘掉，加载态改用内容里的下拉刷新指示器
+     * （见 {@link #showContentLoading()}）。只有**详情类**页面（应用详情 / 资源详情 /
+     * 模拟设备详情）重写为 {@code true}，保留原来的整页遮罩逻辑。</p>
+     */
+    protected boolean usesContentLoadingOverlay() { return false; }
+
     /** 页面容器上的毛玻璃控制器（固定底栏可追加自己的快照层，共用同一份快照）。 */
     public com.typheye.wgpro.utils.BarBlurController blurController() { return blurController; }
 
@@ -103,6 +121,11 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
     /** 显示整页加载遮罩（`loadingCoversAppBar()` 为 true 时会盖住应用栏）；跨包二级页也可调用。 */
     public void showContentLoading() {
         loadingStarted = android.os.SystemClock.uptimeMillis();
+        if (loadingOverlay == null) {
+            // 没有整页遮罩的页面：加载态点亮内容里的下拉刷新指示器
+            setContentRefreshing(true);
+            return;
+        }
         loadingOverlay.animate().cancel(); loadingOverlay.setAlpha(1f); loadingOverlay.setVisibility(View.VISIBLE);
         // 纯色遮罩期间应用栏改用页面底色：与遮罩同色，避免「毛玻璃 + 遮罩」叠加出异常渲染
         appBar.setBackgroundColor(com.typheye.wgpro.ui.widget.WGProColors.of(this, R.color.surface_primary));
@@ -115,6 +138,14 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
     /** 关闭整页加载遮罩（含最短展示时间）。 */
     public void hideContentLoading() {
         long delay = Math.max(0L, 300L - (android.os.SystemClock.uptimeMillis() - loadingStarted));
+        if (loadingOverlay == null) {
+            // 没有整页遮罩的页面：收起内容里的下拉刷新指示器（同样保证最短展示时间）
+            content.postDelayed(() -> {
+                if (isFinishing() || isDestroyed()) return;
+                setContentRefreshing(false);
+            }, delay);
+            return;
+        }
         loadingOverlay.postDelayed(() -> {
             if (isFinishing() || isDestroyed()) return;
             // 恢复应用栏（按「启用高斯模糊」开关：开=半透明、关=不透明页面底色）
@@ -122,6 +153,44 @@ public abstract class BaseSectionActivity extends AppCompatActivity {
             loadingOverlay.animate().alpha(0f).setDuration(120L)
                     .withEndAction(() -> loadingOverlay.setVisibility(View.GONE)).start();
         }, delay);
+    }
+
+    /**
+     * 用**内容里的下拉刷新指示器**表达加载态（没有整页遮罩的页面走这条）。
+     *
+     * <p>ViewPager2 的不可见页也在视图树上，所以只认"可见"的那一支，避免点亮别的标签页。</p>
+     */
+    private void setContentRefreshing(boolean refreshing) {
+        com.typheye.wgpro.ui.widget.WGProRefreshLayout refresh = findRefreshLayout(content);
+        if (refresh != null) {
+            refresh.setRefreshing(refreshing);
+        }
+    }
+
+    /** 内容里第一个（优先可见支路的）下拉刷新控件；没有就返回 null。 */
+    @Nullable
+    private static com.typheye.wgpro.ui.widget.WGProRefreshLayout findRefreshLayout(
+            @Nullable View root) {
+        if (root == null) {
+            return null;
+        }
+        if (root instanceof com.typheye.wgpro.ui.widget.WGProRefreshLayout) {
+            return (com.typheye.wgpro.ui.widget.WGProRefreshLayout) root;
+        }
+        if (root instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) root;
+            for (int index = 0; index < group.getChildCount(); index++) {
+                View child = group.getChildAt(index);
+                if (child.getVisibility() != View.VISIBLE) {
+                    continue;
+                }
+                com.typheye.wgpro.ui.widget.WGProRefreshLayout hit = findRefreshLayout(child);
+                if (hit != null) {
+                    return hit;
+                }
+            }
+        }
+        return null;
     }
 
     @Override public boolean onOptionsItemSelected(@NonNull MenuItem item) {

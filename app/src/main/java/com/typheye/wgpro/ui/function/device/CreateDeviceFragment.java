@@ -83,7 +83,6 @@ public class CreateDeviceFragment extends Fragment {
         if (refresh == null || !isAdded()) {
             return;
         }
-        android.util.Log.i("CreateDevice", "reload() → setRefreshing(true)");
         refresh.setRefreshing(true);
         refresh.postDelayed(() -> {
             if (isAdded() && refreshLayout != null) {

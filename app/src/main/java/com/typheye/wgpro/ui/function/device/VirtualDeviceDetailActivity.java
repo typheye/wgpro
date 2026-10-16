@@ -31,6 +31,12 @@ public final class VirtualDeviceDetailActivity extends BaseSectionActivity {
         return true;
     }
 
+    /** 模拟设备详情：**保留**整页加载遮罩（原逻辑不变）。 */
+    @Override
+    protected boolean usesContentLoadingOverlay() {
+        return true;
+    }
+
     @Override
     protected String screenTitle() {
         return "";

@@ -136,6 +136,11 @@ public final class VelaEmulator {
         return grpcPort;
     }
 
+    /** 客机调试端口（127.0.0.1:<port> → 客机 10.0.2.15:101）。 */
+    public int debugPort() {
+        return debugPort;
+    }
+
     /** 本实例绑定的**设备 id**（实例键；管理器兼容入口要用它）。 */
     @NonNull
     public String deviceId() {
@@ -291,6 +296,18 @@ public final class VelaEmulator {
 
     /** 当前设备使用的皮肤：决定"这台模拟器模拟成哪款设备"（镜像包 engine/skins/<name>）。 */
     private String skinName = SKIN;
+
+    /** 该皮肤的品类（layout 的 props.flavor：watch / band / smartspeaker），决定 qemu 参数差异。 */
+    private String skinFlavor = FLAVOR;
+
+    /**
+     * 客机调试端口：{@code 127.0.0.1:<debugPort>} 转发到客机 {@code 10.0.2.15:101}。
+     *
+     * <p>与 AIoT IDE 同一套：IDE 的 {@code static/debugger_ip.cfg} 就是 {@code 10.0.2.15:101}，
+     * 启动时用 {@code -network-user-mode-options hostfwd=tcp:127.0.0.1:<port>-10.0.2.15:101}
+     * 把它挂出来，快应用 JS 调试器就接在这个端口上。</p>
+     */
+    private int debugPort = 10055;
 
     /** 设置皮肤；传空则保持默认（xiaomi_s4）。 */
     public void setSkin(@Nullable String skin) {
@@ -482,6 +499,8 @@ public final class VelaEmulator {
         File skinDir = new File(engineDir(), "skins/" + skinName);
         int[] display = skinDisplay(skinDir);
         String[] skinProps = skinProps(skinDir);
+        // 记下品类：start() 里音箱档要加 virtio-gpu 设备（对齐 AIoT IDE）
+        this.skinFlavor = skinProps[2];
         StringBuilder cfg = new StringBuilder();
         cfg.append("AvdId=").append(safeId).append('\n');
         cfg.append("abi.type=armeabi-v7a\n");
@@ -570,14 +589,31 @@ public final class VelaEmulator {
         cmd.add("-no-window");
         cmd.add("-gpu");
         cmd.add("swiftshader_indirect");
-        cmd.add("-no-audio");
         // 客机（NuttX/Vela）自己的日志：默认只在内核/串口里，不会进外壳 stdout。
         // -show-kernel 把客机内核日志直接打到外壳输出，于是现有日志通道即可显示。
         cmd.add("-show-kernel");
+        // ★ 对齐 AIoT IDE：开 user-mode 网络，并把宿主 127.0.0.1:<debugPort> 转发到客机 :101
+        //   （快应用 JS 调试器；IDE 的 debugger_ip.cfg = 10.0.2.15:101）。
+        //   多实例各占一个端口：10055/10056/...
+        this.debugPort = 10055 + Math.max(0, grpcPort - 8554);
+        cmd.add("-network-user-mode-options");
+        cmd.add("hostfwd=tcp:127.0.0.1:" + debugPort + "-10.0.2.15:101");
         cmd.add("-qemu");
-        cmd.add("-smp");
-        cmd.add("2");
+        // 声卡/CPU 数：与 IDE 的 getVvdStartCmd() 一致 ——
+        //   普通档: -device virtio-snd,bus=virtio-mmio-bus.2 -allow-host-audio -semihosting -smp 2
+        //   音箱档: 再挂一块 virtio-gpu-device(xres=480,yres=800) 且 -smp 4
+        cmd.add("-device");
+        cmd.add("virtio-snd,bus=virtio-mmio-bus.2");
+        cmd.add("-allow-host-audio");
         cmd.add("-semihosting");
+        cmd.add("-smp");
+        if ("smartspeaker".equals(skinFlavor)) {
+            cmd.add("4");
+            cmd.add("-device");
+            cmd.add("virtio-gpu-device,xres=480,yres=800,bus=virtio-mmio-bus.5");
+        } else {
+            cmd.add("2");
+        }
         /* 包内实例清单（config.json 的 launch 段）可以补/覆盖启动参数与环境变量：
          * 不同设备类型（表/环/音箱）的启动差异都写在包里，App 不再写死。没有清单就按上面的默认值。 */
         java.util.List<String> extraArgs = new java.util.ArrayList<>();

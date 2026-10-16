@@ -22,6 +22,10 @@ public final class AppDetailActivity extends BaseSectionActivity {
     private JSONObject appInfo = new JSONObject();
     private boolean starred;
     @Override protected String screenTitle() { return ""; }
+
+    /** 应用详情：**保留**整页加载遮罩（原逻辑不变）。 */
+    @Override protected boolean usesContentLoadingOverlay() { return true; }
+
     @Override protected Fragment createContent() {
         return AppDetailFragment.newInstance(getIntent().getStringExtra(EXTRA_APP_JSON));
     }

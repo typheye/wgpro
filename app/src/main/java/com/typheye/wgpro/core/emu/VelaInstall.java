@@ -58,7 +58,8 @@ public final class VelaInstall {
 
     /** 该设备实例的客机 adb 端口：控制台 5560+2n 的 **+1**（实测，漏了就收 ASCII 报文）。 */
     public static int adbPortOf(@NonNull VelaEmulatorManager.Instance instance) {
-        return 5560 + Math.max(0, instance.port - 8554) + 1;
+        // 端口口径统一收敛在 VelaGuest（它是客机能力的唯一门面）
+        return VelaGuest.adbPortOf(instance);
     }
 
     /**
@@ -106,13 +107,15 @@ public final class VelaInstall {
             waitFor(console, lock, READY, 40000L);
 
             final String remote = REMOTE_DIR + baseName(rpk) + ".rpk";
-            VelaAdbClient.push("::1", adbPort, rpk, remote, 180000L);
+            // 传输/指令统一走 VelaGuest（同一套 WRTE 分帧与端口口径）
+            VelaGuest guest = VelaGuest.of(instance);
+            guest.push(rpk, remote);
             // 只认"这条命令之后"的日志，避免把开机扫描时的安装日志误判成这次的结果
             final int start;
             synchronized (lock) {
                 start = console.length();
             }
-            String output = VelaAdbClient.shell("::1", adbPort, "pm install " + remote, 30000L);
+            String output = guest.shell("pm install " + remote, 30000L);
             String shellText = output == null ? "" : output.trim();
             if (shellText.toLowerCase(Locale.ROOT).contains("success")) {
                 callback.onResult(true, "已安装：" + baseName(rpk));

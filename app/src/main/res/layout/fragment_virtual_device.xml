@@ -78,6 +78,8 @@
             <ImageView android:id="@+id/key_vol_up" style="@style/VirtualKey" android:contentDescription="音量加" android:src="@drawable/ic_key_vol_up" />
             <ImageView android:id="@+id/key_vol_down" style="@style/VirtualKey" android:contentDescription="音量减" android:src="@drawable/ic_key_vol_down" />
             <ImageView android:id="@+id/key_log" style="@style/VirtualKey" android:contentDescription="日志" android:src="@drawable/ic_key_log" />
+            <ImageView android:id="@+id/key_apps" style="@style/VirtualKey" android:contentDescription="应用管理" android:src="@drawable/ic_key_apps" />
+            <ImageView android:id="@+id/key_state" style="@style/VirtualKey" android:contentDescription="设备状态" android:src="@drawable/ic_key_state" />
         </LinearLayout>
     </HorizontalScrollView>
 
