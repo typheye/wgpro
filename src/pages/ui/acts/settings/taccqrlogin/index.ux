@@ -46,7 +46,6 @@
 
 <script>
 import brightness from "@system.brightness";
-import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
@@ -109,31 +108,20 @@ export default {
 	},
 	loadLoginQR() {
 		this.isLoading = true;
-		fetch.fetch({
-			url: this.$app.$def.getTS("taccServerURL") + "api.php",
-			data_GET: { type: "generate_login_request" },
-			method: "GET",
-			responseType: "text",
-			success: (response) => {
-				if (response.code == 200) {
-					const reqback = JSON.parse(response.data);
-					if (reqback["code"] == 200) {
-						this.request_id = reqback["request_id"];
-						this.qr_code_url = reqback["qr_code_url"];
-						// 修复1: 通过 this 调用回调方法
-						this.loadLoginQR_callback();
-					} else this.$app.$def.toTips("", reqback["msg"]), this.toBack();
-				} else
-					this.$app.$def.toTips(
-						"",
-						this.$t("acts.settings.taccqrlogin.err3") + response.data
-					),
-						this.toBackPage();
-			},
-			fail: () => {
-				this.$app.$def.toTips("", this.$t("acts.settings.taccqrlogin.err2"));
+		this.$app.$def.taccQRGenerate((ok, data) => {
+			if (ok) {
+				this.request_id = data.request_id;
+				this.qr_code_url = data.qr_code_url;
+				this.loadLoginQR_callback();
+			} else {
+				this.$app.$def.toTips(
+					"",
+					typeof data === "string"
+						? data
+						: this.$t("acts.settings.taccqrlogin.err2")
+				);
 				this.toBackPage();
-			},
+			}
 		});
 	},
 	async loadLoginQR_callback() {
@@ -178,83 +166,37 @@ export default {
 				return;
 			}
 
-			try {
-				await fetch.fetch({
-					url: this.$app.$def.getTS("taccServerURL") + "api.php",
-					data_GET: {
-						type: "check_login_request_status",
-						request_id: this.request_id,
-					},
-					method: "GET",
-					responseType: "text",
-					success: (response) => {
-						const reqback = JSON.parse(response.data);
-						// 处理响应
-						if (reqback["code"] === 200) {
-							const status = reqback["status"];
-
-							if (status == "approved") {
-								this.$app.$def.settingsChangeMore(
-									[
-										"wgsettings_taccount_username",
-										"wgsettings_taccount_password",
-										"wgsettings_taccount_cookie",
-										"wgsettings_taccount_nick",
-										"wgsettings_taccount_userinfo",
-									],
-									[
-										reqback.info.uid,
-										"none",
-										reqback.info.cookie,
-										reqback.info.nick,
-										reqback.info.shuo,
-									]
-								);
-								this.isXH = false;
-								this.toBack();
-								return;
-							} else if (status == "rejected") {
-								this.toBackPage();
-								this.$app.$def.toTips(
-									"",
-									this.$t("acts.settings.taccqrlogin.err4")
-								);
-								return;
-							} else if (status == "waiting") {
-								this.msg = this.$t("acts.settings.taccqrlogin.info1");
-								this.isShowQR = false;
-								this.isShowSwitch = false;
-							} else if (status == "pending") {
-								this.isShowQR = true;
-								this.isLoading = false;
-								this.msg = this.$t("edittip.taccqrlogin.text1");
-							}
-						} else {
+			await new Promise((resolve) => {
+				this.$app.$def.taccQRCheck(this.request_id, (ok, r) => {
+					if (!ok) {
+						this.toBackPage();
+						if (r && r.msg) this.$app.$def.toTips("", r.msg);
+					} else {
+						const status = r.status;
+						if (status == "approved") {
+							this.isXH = false;
+							this.toBack();
+						} else if (status == "rejected") {
 							this.toBackPage();
 							this.$app.$def.toTips(
 								"",
-								this.$t("acts.settings.taccqrlogin.err3") + reqback["msg"]
+								this.$t("acts.settings.taccqrlogin.err4")
 							);
-							return;
+						} else if (status == "waiting") {
+							this.msg = this.$t("acts.settings.taccqrlogin.info1");
+							this.isShowQR = false;
+							this.isShowSwitch = false;
+						} else if (status == "pending") {
+							this.isShowQR = true;
+							this.isLoading = false;
+							this.msg = this.$t("edittip.taccqrlogin.text1");
 						}
-					},
-					fail: () => {
-						this.toBackPage();
-						this.$app.$def.toTips(
-							"",
-							this.$t("acts.settings.taccqrlogin.err2")
-						);
-						return;
-					},
+					}
+					resolve();
 				});
-			} catch (e) {
-				this.toBackPage();
-				this.$app.$def.toTips(
-					"",
-					this.$t("acts.settings.taccqrlogin.err3") + e
-				);
-				return;
-			}
+			});
+
+			if (!this.isXH) return;
 
 			// 等待下一次轮询
 			await delay(CHECK_INTERVAL);

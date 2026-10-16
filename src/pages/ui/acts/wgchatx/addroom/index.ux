@@ -1,0 +1,149 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ $t("menu.chatroomlist.def.item2.name") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ $t("edittip.addroom.text1") }}</text>
+				<div
+					class="edittext2-div"
+					style="border: 4px solid {{ fc_v0 }}"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+					onclick="toEditText"
+				>
+					<marquee class="edittext2" @click="changeState">
+						{{ inputValues.id }}
+					</marquee>
+				</div>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import storage from "../../../../../utils/storage.js";
+import store from "../../../../../utils/wgchatx/store.js";
+import apiDef from "../../../../../utils/wgchatx/api.js";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		isLoading: false,
+		textValues: "",
+		inputValues: { id: "" },
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onReady() {
+		this.inputReady();
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["id"] = TVs["id"];
+		}
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toLaunch() {
+		this.isLoading = true;
+		const id = this.inputValues["id"];
+		if (!this.$app.$def.isNumeric(id)) {
+			this.$app.$def.toTips("", this.$t("menu.chatroomlist.def.item2.err1"));
+			this.isLoading = false;
+			return;
+		}
+		const limit = this.$app.$def.getRoomNumLimit();
+		store.listRooms((list) => {
+			if ((list || []).length >= limit) {
+				this.$app.$def.toTips("", this.$t("menu.chatroomlist.def.item2.err2"));
+				this.isLoading = false;
+				return;
+			}
+			const addLocal = (title) => {
+				store.listRooms((cur) => {
+					cur = cur || [];
+					let exists = false;
+					for (let i = 0; i < cur.length; i++)
+						if ("" + cur[i].id === "" + id) exists = true;
+					if (!exists) cur.push({ id: id, title: title || "" + id });
+					store.saveRooms(cur, () => this.toBack());
+				});
+			};
+			const api = apiDef.createApi(this.$app.$def);
+			api.joinRoom({ room_id: id }, (ok, json, msg) => {
+				if (ok)
+					addLocal((json && json.room && json.room.title) || "" + id);
+				else if (msg) {
+					this.$app.$def.toTips("", msg);
+					this.isLoading = false;
+				} else addLocal("" + id); // 云端未就绪：先本地添加，便于管理
+			});
+		});
+	},
+	toBack() {
+		this.$app.$def.goReplacePage("pages/ui/function/wgchatx");
+	},
+	toEditText() {
+		this.$app.$def.shortVib(true);
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/wgchatx/addroom",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: "id",
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

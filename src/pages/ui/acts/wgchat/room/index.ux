@@ -70,7 +70,6 @@
 </template>
 
 <script>
-import brightness from "@system.brightness";
 import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 import file from "../../../../../utils/file.js";
@@ -101,14 +100,10 @@ export default {
 		this.$app.$def.taccGetUserData();
 	},
 	onShow() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: true,
-		});
+		this.$app.$def.taccKeepScreenOn(true);
 	},
 	onDestroy() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: false,
-		});
+		this.$app.$def.taccKeepScreenOn(false);
 	},
 	toBack() {
 		this.$app.$def.goBack();
@@ -125,10 +120,23 @@ export default {
 		if (evt.direction === "left") {
 			this.$app.$def.shortVib(true);
 			//login state
-			storage.get({
-				key: "wgsettings_taccount_cookie",
-				success: (data) => {
-					if (!data) totips();
+			storage.gets({
+				keys: [
+					"wgsettings_taccount_username",
+					"wgsettings_taccount_cookie",
+					"wgsettings_taccount_protocol",
+					"wgsettings_taccount_session_id",
+					"wgsettings_taccount_session_token",
+				],
+				success: (datas) => {
+					const v2 =
+						datas.wgsettings_taccount_protocol === "v2" &&
+						!!datas.wgsettings_taccount_session_id &&
+						!!datas.wgsettings_taccount_session_token;
+					const legacy =
+						!!datas.wgsettings_taccount_cookie &&
+						!!datas.wgsettings_taccount_username;
+					if (!(v2 || legacy)) totips();
 					else
 						this.$app.$def.goReplacePageWithParams(
 							"pages/ui/acts/wgchat/pushmsg",

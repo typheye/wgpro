@@ -7,17 +7,73 @@ import fetch from "./utils/fetch.js";
 import file from "./utils/file.js";
 import crypto from "@system.crypto";
 import prompt from "@system.prompt";
+import md5 from "./utils/md5.js";
 import device from "@system.device";
+import brightness from "@system.brightness";
 export default {
 	private: {
 		product: "",
+		caps: {
+			apiLevel: 0,
+			platformVersionCode: 0,
+			deviceType: "",
+			product: "",
+			fileAppend: false,
+			ws: false,
+		},
+		wgchatEngine: true,
 	},
 	onCreate() {
 		device.getInfo({
 			success: (ret) => {
 				this.product = ret.product;
+				this.caps = {
+					apiLevel: ret.APILevel || 0,
+					platformVersionCode: ret.platformVersionCode || 0,
+					deviceType: ret.deviceType || "",
+					product: ret.product || "",
+					fileAppend: (ret.APILevel || 0) >= 1060,
+					ws: false,
+				};
+			},
+			fail: () => {
+				this.caps = {
+					apiLevel: 0,
+					platformVersionCode: 0,
+					deviceType: "",
+					product: "",
+					fileAppend: false,
+					ws: false,
+				};
 			},
 		});
+		this.wgchatEngineSync();
+	},
+	/** 运行时能力（兼容性判定）：页面只依赖它，不直接 import 高风险 @system.* */
+	getCaps() {
+		return this.caps;
+	},
+	/** 聊天引擎缓存：true=微聊 X，false=腕上微聊。启动读一次，切换时同步更新，保证首页跳转及时一致。 */
+	wgchatEngineSync() {
+		storage.get({
+			key: "wgsettings_iswgchatx",
+			success: (data) => {
+				this.wgchatEngine = data !== false;
+			},
+		});
+	},
+	getWgchatEngine() {
+		return this.wgchatEngine !== false;
+	},
+	setWgchatEngine(iswgchatx) {
+		this.wgchatEngine = !!iswgchatx;
+		this.settingsChange("wgsettings_iswgchatx", this.wgchatEngine);
+	},
+	/** 亮屏保持（带兜底：部分设备/模拟器 @system.brightness 不可用，异常会打断生命周期） */
+	taccKeepScreenOn(on) {
+		try {
+			brightness.setKeepScreenOn({ keepScreenOn: !!on });
+		} catch (e) {}
 	},
 	goBack() {
 		router.back();
@@ -101,6 +157,596 @@ export default {
 	settingsReset() {
 		storage.clear();
 	},
+	/* ---------- Typheye account: V2 session + legacy compatibility ---------- */
+	taccApiUrl() {
+		return this.getTS("taccServerURL") + "api.php";
+	},
+	taccWgchatxUrl() {
+		return this.getTS("taccServerURL") + "wgchatx/";
+	},
+	taccVersion() {
+		try {
+			const appinfo = this.getAppinfo();
+			if (appinfo && appinfo.versionName) return String(appinfo.versionName);
+		} catch (e) {}
+		return "unknown";
+	},
+	taccClientHeaders() {
+		const version = this.taccVersion();
+		return {
+			"X-Typheye-Platform": "vela",
+			"X-Typheye-Version": version,
+			"User-Agent": "WristManagerPro/" + version + " (Vela)",
+		};
+	},
+	/** 版本/平台的兜底参数（请求头若被框架丢弃，服务端仍可从 query/body 读到） */
+	taccClientParams() {
+		return { client_version: this.taccVersion(), client_platform: "vela" };
+	},
+	taccV2Headers(sessionId, sessionToken) {
+		const headers = this.taccClientHeaders();
+		headers["Authorization"] = "Bearer " + sessionToken;
+		headers["X-Typheye-Session-Id"] = sessionId;
+		headers["Content-Type"] = "application/x-www-form-urlencoded";
+		return headers;
+	},
+	/**
+	 * 通用 V2 JSON 请求：复用已验证的 fetch.js + taccV2Headers。
+	 * opts: { uid, query, data, method }；callback(ok, json, msg)。
+	 */
+	taccV2Request(action, opts, callback) {
+		const options = opts || {};
+		storage.gets({
+			keys: [
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			success: (datas) => {
+				if (!this.taccIsV2Login(datas)) {
+					callback && callback(false, null, "");
+					return;
+				}
+				const query = Object.assign(
+					{ type: action, uid: options.uid || datas.wgsettings_taccount_username },
+					options.query || {},
+					this.taccClientParams()
+				);
+				fetch.fetch({
+					url: options.url || this.taccApiUrl(),
+					data_GET: query,
+					data: options.data || {},
+					header: this.taccV2Headers(
+						datas.wgsettings_taccount_session_id,
+						datas.wgsettings_taccount_session_token
+					),
+					method: options.method || (options.data ? "POST" : "GET"),
+					responseType: "text",
+					success: (response) => {
+						let reqback = null;
+						try {
+							reqback = JSON.parse(response.data);
+						} catch (e) {}
+						const ok =
+							response.code == 200 &&
+							reqback &&
+							reqback["code"] == 200;
+						callback &&
+							callback(ok, reqback, (reqback && reqback["msg"]) || "");
+					},
+					fail: () => callback && callback(false, null, ""),
+				});
+			},
+			fail: () => callback && callback(false, null, ""),
+		});
+	},
+	taccEncryptPassword(username, password) {
+		// salt = MD5(SUBSTRING(MD5(SUBSTRING(MD5(username),0,6)),0,5)); pw = MD5(pw)+salt
+		const md5Username = md5(username);
+		const salt = md5(md5(md5Username.substring(0, 6)).substring(0, 5));
+		return md5(password) + salt;
+	},
+	taccIsV2Login(datas) {
+		return (
+			datas &&
+			datas.wgsettings_taccount_protocol === "v2" &&
+			!!datas.wgsettings_taccount_username &&
+			!!datas.wgsettings_taccount_session_id &&
+			!!datas.wgsettings_taccount_session_token
+		);
+	},
+	taccStoreLoginV2(uid, nick, shuo, sessionId, sessionToken, password) {
+		this.settingsChangeMore(
+			[
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_password",
+				"wgsettings_taccount_nick",
+				"wgsettings_taccount_userinfo",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			[
+				uid,
+				password == null ? "" : password,
+				nick || "",
+				shuo || "",
+				"",
+				"v2",
+				sessionId,
+				sessionToken,
+			]
+		);
+	},
+	/** 账号密码登录：V2 `login2`，成功后落地独立会话。 */
+	taccLogin(username, password, callback) {
+		const encrypted = this.taccEncryptPassword(username, password);
+		const time = Date.now();
+		const token = md5(
+			"type=login2&username=" +
+				username +
+				"&password=" +
+				encrypted +
+				"&time=" +
+				time
+		);
+		const headers = this.taccClientHeaders();
+		headers["Content-Type"] = "application/x-www-form-urlencoded";
+		fetch.fetch({
+			url: this.taccApiUrl(),
+			data_GET: { type: "login2" },
+			data: Object.assign(
+				{
+					username: username,
+					password: encrypted,
+					time: String(time),
+					token: token,
+				},
+				this.taccClientParams()
+			),
+			header: headers,
+			method: "POST",
+			responseType: "text",
+			success: (response) => {
+				let reqback = null;
+				try {
+					reqback = JSON.parse(response.data);
+				} catch (e) {}
+				if (response.code == 200 && reqback && reqback["code"] == 200) {
+					const info = reqback["info"] || {};
+					const session = reqback["session"] || {};
+					if (!session["session_id"] || !session["session_token"]) {
+						callback && callback(false, "登录失败：无法创建会话");
+						return;
+					}
+					this.taccStoreLoginV2(
+						info["uid"] || username,
+						info["nick"] || "",
+						info["shuo"] || "",
+						session["session_id"],
+						session["session_token"],
+						password
+					);
+					callback && callback(true, "");
+				} else {
+					callback &&
+						callback(
+							false,
+							(reqback && reqback["msg"]) || "登录失败：" + response.code
+						);
+				}
+			},
+			fail: () => {
+				callback && callback(false, "");
+			},
+		});
+	},
+	taccGetUserData(callback) {
+		storage.gets({
+			keys: [
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			success: (datas) => {
+				const uid = datas.wgsettings_taccount_username;
+				if (!uid) return;
+				if (this.taccIsV2Login(datas)) {
+					fetch.fetch({
+						url: this.taccApiUrl(),
+						data_GET: Object.assign(
+							{ type: "get_user_data2", uid: uid },
+							this.taccClientParams()
+						),
+						header: this.taccV2Headers(
+							datas.wgsettings_taccount_session_id,
+							datas.wgsettings_taccount_session_token
+						),
+						method: "GET",
+						responseType: "text",
+						success: (response) => {
+							if (response.code != 200) return;
+							let reqback = null;
+							try {
+								reqback = JSON.parse(response.data);
+							} catch (e) {}
+							if (reqback && reqback["code"] == 200 && reqback["info"]) {
+								this.settingsChangeMore(
+									[
+										"wgsettings_taccount_nick",
+										"wgsettings_taccount_userinfo",
+									],
+									[
+										reqback["info"]["nick"] || "",
+										reqback["info"]["shuo"] || "",
+									]
+								);
+								callback &&
+									callback(
+										reqback["info"]["nick"] || "",
+										reqback["info"]["shuo"] || ""
+									);
+							}
+						},
+					});
+				} else if (datas.wgsettings_taccount_cookie) {
+					fetch.fetch({
+						url: this.taccApiUrl(),
+						data_GET: {
+							type: "get_user_data",
+							uid: uid,
+							cookie: datas.wgsettings_taccount_cookie,
+						},
+						method: "GET",
+						responseType: "text",
+						success: (response) => {
+							if (response.code == 200) {
+								const reqback = JSON.parse(response.data);
+								if (reqback["code"] == 200) {
+									this.settingsChangeMore(
+										[
+											"wgsettings_taccount_nick",
+											"wgsettings_taccount_userinfo",
+										],
+										[reqback["info"]["nick"], reqback["info"]["shuo"]]
+									);
+									callback &&
+										callback(
+											reqback["info"]["nick"] || "",
+											reqback["info"]["shuo"] || ""
+										);
+								}
+							}
+						},
+					});
+				}
+			},
+		});
+	},
+	taccLoginCheck() {
+		storage.gets({
+			keys: [
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			success: (datas) => {
+				const uid = datas.wgsettings_taccount_username;
+				if (!uid) return;
+				if (this.taccIsV2Login(datas)) {
+					fetch.fetch({
+						url: this.taccApiUrl(),
+						data_GET: Object.assign(
+							{ type: "get_data_update2", uid: uid },
+							this.taccClientParams()
+						),
+						data: { v1: "", v2: "", v3: "" },
+						header: this.taccV2Headers(
+							datas.wgsettings_taccount_session_id,
+							datas.wgsettings_taccount_session_token
+						),
+						method: "POST",
+						responseType: "text",
+						success: (response) => {
+							if (response.code != 200) return;
+							let reqback = null;
+							try {
+								reqback = JSON.parse(response.data);
+							} catch (e) {}
+							if (
+								reqback &&
+								reqback["code"] == 200 &&
+								reqback["info"] &&
+								reqback["info"]["v0"] == 1
+							) {
+								this.taccountInit();
+								this.toTips(
+									"",
+									"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
+								);
+							}
+						},
+					});
+				} else if (datas.wgsettings_taccount_cookie) {
+					const timestamp0 = Date.now();
+					fetch.fetch({
+						url: this.taccApiUrl(),
+						data_GET: {
+							type: "get_data_update_easy",
+							uid: uid,
+							cookie: datas.wgsettings_taccount_cookie,
+							time: timestamp0,
+						},
+						method: "GET",
+						responseType: "text",
+						success: (response) => {
+							if (response.code == 200) {
+								const reqback = JSON.parse(response.data);
+								if (reqback["code"] == 200 && reqback["info_v0"] == 1) {
+									this.taccountInit();
+									this.toTips(
+										"",
+										"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
+									);
+								}
+							}
+						},
+					});
+				}
+			},
+		});
+	},
+	/** 修改昵称/签名：V2 用 *2 接口，legacy 用 *_easy 接口。 */
+	taccSetProfile(action, legacyAction, storageKey, value, callback) {
+		storage.gets({
+			keys: [
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			success: (datas) => {
+				const uid = datas.wgsettings_taccount_username;
+				if (!uid) {
+					callback && callback(false, "未登录");
+					return;
+				}
+				const onOk = () => {
+					this.settingsChange(storageKey, value);
+					callback && callback(true, "");
+				};
+				if (this.taccIsV2Login(datas)) {
+					fetch.fetch({
+						url: this.taccApiUrl(),
+						data_GET: Object.assign(
+							{ type: action, uid: uid },
+							this.taccClientParams()
+						),
+						data: { value: value },
+						header: this.taccV2Headers(
+							datas.wgsettings_taccount_session_id,
+							datas.wgsettings_taccount_session_token
+						),
+						method: "POST",
+						responseType: "text",
+						success: (response) => {
+							let reqback = null;
+							try {
+								reqback = JSON.parse(response.data);
+							} catch (e) {}
+							if (response.code == 200 && reqback && reqback["code"] == 200) {
+								onOk();
+							} else {
+								callback &&
+									callback(false, (reqback && reqback["msg"]) || "修改失败");
+							}
+						},
+						fail: () => callback && callback(false, ""),
+					});
+				} else if (datas.wgsettings_taccount_cookie) {
+					fetch.fetch({
+						url: this.taccApiUrl(),
+						data_GET: {
+							type: legacyAction,
+							uid: uid,
+							cookie: datas.wgsettings_taccount_cookie,
+							value: value,
+							time: Date.now(),
+						},
+						method: "GET",
+						responseType: "text",
+						success: (response) => {
+							let reqback = null;
+							try {
+								reqback = JSON.parse(response.data);
+							} catch (e) {}
+							if (
+								response.code == 200 &&
+								reqback &&
+								String(reqback["code"]) == "200"
+							) {
+								onOk();
+							} else {
+								callback &&
+									callback(false, (reqback && reqback["msg"]) || "修改失败");
+							}
+						},
+						fail: () => callback && callback(false, ""),
+					});
+				} else {
+					callback && callback(false, "未获取到用户信息");
+				}
+			},
+			fail: () => callback && callback(false, "本地存储读取失败"),
+		});
+	},
+	taccSetNick(value, callback) {
+		this.taccSetProfile(
+			"set_nick2",
+			"set_nick_easy",
+			"wgsettings_taccount_nick",
+			value,
+			callback
+		);
+	},
+	taccSetShuo(value, callback) {
+		this.taccSetProfile(
+			"set_shuo2",
+			"set_shuo_easy",
+			"wgsettings_taccount_userinfo",
+			value,
+			callback
+		);
+	},
+	taccQRGenerate(callback) {
+		fetch.fetch({
+			url: this.taccApiUrl(),
+			data_GET: { type: "generate_login_request2" },
+			header: this.taccClientHeaders(),
+			method: "GET",
+			responseType: "text",
+			success: (response) => {
+				let reqback = null;
+				try {
+					reqback = JSON.parse(response.data);
+				} catch (e) {}
+				if (response.code == 200 && reqback && reqback["code"] == 200) {
+					const info = reqback["info"] || {};
+					const requestId = reqback["request_id"] || info["request_id"] || "";
+					const qrCodeUrl = reqback["qr_code_url"] || info["qr_code_url"] || "";
+					if (requestId && qrCodeUrl)
+						callback &&
+							callback(true, {
+								request_id: requestId,
+								qr_code_url: qrCodeUrl,
+							});
+					else callback && callback(false, "生成登录二维码失败");
+				} else {
+					callback &&
+						callback(
+							false,
+							(reqback && reqback["msg"]) || "生成失败：" + response.code
+						);
+				}
+			},
+			fail: () => callback && callback(false, ""),
+		});
+	},
+	taccQRCheck(requestId, callback) {
+		fetch.fetch({
+			url: this.taccApiUrl(),
+			data_GET: {
+				type: "check_login_request_status2",
+				request_id: requestId,
+			},
+			header: this.taccClientHeaders(),
+			method: "GET",
+			responseType: "text",
+			success: (response) => {
+				let reqback = null;
+				try {
+					reqback = JSON.parse(response.data);
+				} catch (e) {}
+				if (response.code == 200 && reqback && reqback["code"] == 200) {
+					const status = reqback["status"];
+					if (status === "approved") {
+						const info = reqback["info"] || reqback["user"] || {};
+						const session = reqback["session"] || {};
+						const uid = reqback["uid"] || info["uid"] || "";
+						const sessionId = session["session_id"] || "";
+						const sessionToken = session["session_token"] || "";
+						if (!uid || !sessionId || !sessionToken) {
+							callback &&
+								callback(false, {
+									status: status,
+									msg: "授权响应缺少会话信息，请重新扫码",
+								});
+							return;
+						}
+						this.taccStoreLoginV2(
+							uid,
+							info["nick"] || "",
+							info["shuo"] || "",
+							sessionId,
+							sessionToken,
+							"none"
+						);
+					}
+					callback && callback(true, { status: status });
+				} else {
+					callback &&
+						callback(false, {
+							status: null,
+							msg: (reqback && reqback["msg"]) || "检查失败",
+						});
+				}
+			},
+			fail: () => callback && callback(false, { status: null }),
+		});
+	},
+	taccountInit() {
+		storage.gets({
+			keys: [
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			success: (datas) => {
+				const uid = datas.wgsettings_taccount_username;
+				if (
+					datas.wgsettings_taccount_protocol === "v2" &&
+					uid &&
+					datas.wgsettings_taccount_session_id &&
+					datas.wgsettings_taccount_session_token
+				) {
+					// 退出当前 V2 会话（失败也不阻塞本地清理）
+					try {
+						fetch.fetch({
+							url: this.taccApiUrl(),
+							data_GET: Object.assign(
+								{ type: "session_logout2", uid: uid },
+								this.taccClientParams()
+							),
+							data: {},
+							header: this.taccV2Headers(
+								datas.wgsettings_taccount_session_id,
+								datas.wgsettings_taccount_session_token
+							),
+							method: "POST",
+							responseType: "text",
+							success: () => {},
+							fail: () => {},
+						});
+					} catch (e) {}
+				}
+				this.taccClearLocal();
+			},
+			fail: () => this.taccClearLocal(),
+		});
+	},
+	taccClearLocal() {
+		this.settingsChangeMore(
+			[
+				"wgsettings_taccount_username",
+				"wgsettings_taccount_password",
+				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_nick",
+				"wgsettings_taccount_userinfo",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
+			],
+			["", "", "", "", "", "", "", ""]
+		);
+	},
 	settingsChange(_key, _data) {
 		storage.set({
 			key: _key,
@@ -113,94 +759,8 @@ export default {
 			values: _data,
 		});
 	},
-	taccountInit() {
-		this.settingsChangeMore(
-			[
-				"wgsettings_taccount_username",
-				"wgsettings_taccount_password",
-				"wgsettings_taccount_cookie",
-				"wgsettings_taccount_nick",
-				"wgsettings_taccount_userinfo",
-			],
-			["", "", "", "", ""]
-		);
-	},
-	taccGetUserData() {
-		if (fetch.isEnableFetch())
-			storage.gets({
-				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
-				success: (datas) => {
-					if (
-						datas.wgsettings_taccount_cookie &&
-						datas.wgsettings_taccount_username
-					) {
-						fetch.fetch({
-							url: this.getTS("taccServerURL") + "api.php",
-							data_GET: {
-								type: "get_user_data",
-								uid: datas.wgsettings_taccount_username,
-								cookie: datas.wgsettings_taccount_cookie,
-							},
-							method: "GET",
-							responseType: "text",
-							success: (response) => {
-								if (response.code == 200) {
-									const reqback = JSON.parse(response.data);
-									if (reqback["code"] == 200) {
-										this.settingsChangeMore(
-											[
-												"wgsettings_taccount_nick",
-												"wgsettings_taccount_userinfo",
-											],
-											[reqback["info"]["nick"], reqback["info"]["shuo"]]
-										);
-									}
-								}
-							},
-						});
-					}
-				},
-			});
-	},
-	taccLoginCheck() {
-		if (fetch.isEnableFetch())
-			storage.gets({
-				keys: ["wgsettings_taccount_username", "wgsettings_taccount_cookie"],
-				success: (datas) => {
-					if (
-						datas.wgsettings_taccount_cookie &&
-						datas.wgsettings_taccount_username
-					) {
-						const timestamp0 = Date.now();
-						fetch.fetch({
-							url: this.getTS("taccServerURL") + "api.php",
-							data_GET: {
-								type: "get_data_update_easy",
-								uid: datas.wgsettings_taccount_username,
-								cookie: datas.wgsettings_taccount_cookie,
-								time: timestamp0,
-							},
-							method: "GET",
-							responseType: "text",
-							success: (response) => {
-								if (response.code == 200) {
-									const reqback = JSON.parse(response.data);
-									if (reqback["code"] == 200) {
-										if (reqback["info_v0"] == 1) {
-											this.taccountInit();
-											this.toTips(
-												"",
-												"登录状态已失效，请前往设置重新登录\nYour login session has expired. Please go to Settings to log in again."
-											);
-										}
-									}
-								}
-							},
-						});
-					}
-				},
-			});
-	},
+	/* taccountInit / taccGetUserData / taccLoginCheck / taccSetNick / taccSetShuo /
+	   taccLogin / taccQRGenerate / taccQRCheck are defined above (near settingsReset). */
 	isNumeric(str) {
 		for (let i = 0; i < str.length; i++) {
 			if (str[i] < "0" || str[i] > "9") {

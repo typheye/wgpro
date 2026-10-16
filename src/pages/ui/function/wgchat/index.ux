@@ -73,7 +73,6 @@
 </template>
 
 <script>
-import brightness from "@system.brightness";
 import file from "@system.file";
 import storage from "../../../../utils/storage.js";
 export default {
@@ -114,14 +113,10 @@ export default {
 		this.$app.$def.taccGetUserData();
 	},
 	onShow() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: true,
-		});
+		this.$app.$def.taccKeepScreenOn(true);
 	},
 	onDestroy() {
-		brightness.setKeepScreenOn({
-			keepScreenOn: false,
-		});
+		this.$app.$def.taccKeepScreenOn(false);
 	},
 	toBack() {
 		if (!this.isMenu) this.$app.$def.goBack();
@@ -151,6 +146,11 @@ export default {
 		} else if (id == "back");
 		else if (id == "gosettings")
 			this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
+		else if (id == "upgrade")
+			this.$app.$def.goReplacePageWithParams("pages/ui/popup/wgchatswitch", {
+				mode: "wgchatx",
+				reqPage: "pages/ui/function/wgchat",
+			});
 		else if (id == "update")
 			this.$app.$def.goReplacePage("pages/ui/function/wgchat");
 		else if (id == "delroom") {
@@ -248,6 +248,7 @@ export default {
 		this.chatroommenuList = []; //清空
 		let menulistlen = 6; //默认菜单个数
 		if (this.menuflag == "item") menulistlen = 4; //房间菜单个数
+		else menulistlen = 7; // 旧版菜单多一项「升级到新版」
 		let tol = menulistlen + 1; //1 个缓冲垫底
 		for (let i = 0; i < tol; i++) {
 			let inx = i + 1;
@@ -259,20 +260,12 @@ export default {
 			if (inx <= menulistlen) {
 				let name = "";
 				let id = "";
-				eval(
-					"name = this.$t('menu.chatroomlist." +
-						this.menuflag +
-						".item" +
-						inx +
-						".name')"
-				);
-				eval(
-					"id = this.$t('menu.chatroomlist." +
-						this.menuflag +
-						".item" +
-						inx +
-						".id')"
-				);
+				// 倒数第二项：切换版本（升级到新版），其余沿用 i18n 菜单
+				let key = "menu.chatroomlist." + this.menuflag + ".item" + inx;
+				if (this.menuflag != "item" && inx == 6)
+					key = "menu.chatroomlist.switch.tonew";
+				eval("name = this.$t('" + key + ".name')");
+				eval("id = this.$t('" + key + ".id')");
 				list_num = i;
 				list_color = "#3c3c3c";
 				if (inx == menulistlen) list_textcolor = "red";

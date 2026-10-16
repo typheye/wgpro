@@ -199,7 +199,16 @@ export default {
 	onReady() {
 		this.switload();
 		this.$app.$def.taccLoginCheck();
-		this.$app.$def.taccGetUserData();
+		this.$app.$def.taccGetUserData((nick, shuo) => {
+			if (nick) this.taccUsername = nick;
+			else if (this.isLogin)
+				this.taccUsername = this.$t("acts.settings.taccount.errname");
+			if (shuo) {
+				this.taccUserinfo = shuo;
+				this.taccUserinfoO = shuo;
+			} else if (this.isLogin)
+				this.taccUserinfo = this.$t("acts.settings.taccount.nonename");
+		});
 	},
 	onShow() {
 		brightness.setKeepScreenOn({
@@ -279,6 +288,9 @@ export default {
 		storage.gets({
 			keys: [
 				"wgsettings_taccount_cookie",
+				"wgsettings_taccount_protocol",
+				"wgsettings_taccount_session_id",
+				"wgsettings_taccount_session_token",
 				"wgsettings_taccount_allowShare",
 				"wgsettings_taccount_username",
 				"wgsettings_taccount_password",
@@ -288,9 +300,15 @@ export default {
 					this.taccusr = datas.wgsettings_taccount_username;
 				if (datas.wgsettings_taccount_password)
 					this.taccpwd = datas.wgsettings_taccount_password;
-				if (datas.wgsettings_taccount_allowShare == true) this.swit_it1_state = true;
-				if (!datas.wgsettings_taccount_cookie) this.loginReady(false);
-				else this.loginReady(true);
+				if (datas.wgsettings_taccount_allowShare == true)
+					this.swit_it1_state = true;
+				const v2 =
+					datas.wgsettings_taccount_protocol === "v2" &&
+					datas.wgsettings_taccount_session_id &&
+					datas.wgsettings_taccount_session_token;
+				const legacy = !!datas.wgsettings_taccount_cookie;
+				if (v2 || legacy) this.loginReady(true);
+				else this.loginReady(false);
 			},
 			fail: () => {
 				this.loginReady(false);

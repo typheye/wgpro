@@ -41,10 +41,10 @@
 						</div>
 						<div class="wgpro-item-texts-none">
 							<marquee class="wgpro-item-texts-text">
-								{{ $t("acts.settings.tserver.p1.item2.text") }}
+								{{ chatName }}
 							</marquee>
 							<marquee class="wgpro-item-texts-subtext">
-								{{ $t("acts.settings.tserver.p1.item2.subtext") }}
+								{{ chatSub }}
 							</marquee>
 						</div>
 					</div>
@@ -70,6 +70,27 @@ export default {
 		itc_p0v0: "#3c3c3c",
 		itc_p1v1: "rgba(0,0,0,0)",
 		itc_p1v2: "rgba(0,0,0,0)",
+		chatName: "",
+		chatSub: "",
+	},
+	onReady() {
+		this.wgchatReady();
+	},
+	onShow() {
+		this.wgchatReady();
+	},
+	wgchatReady() {
+		const isLegacy = !this.$app.$def.getWgchatEngine();
+		this.chatName = this.$t(
+			isLegacy
+				? "acts.settings.tserver.p1.item2.text"
+				: "acts.settings.tserver.p1.item2.textx"
+		);
+		this.chatSub = this.$t(
+			isLegacy
+				? "acts.settings.tserver.p1.item2.subtext"
+				: "acts.settings.tserver.p1.item2.subtextx"
+		);
 	},
 	ht(t, i) {
 		if (t == 1) eval("this.itc_" + i + " = 'black'");
@@ -84,7 +105,12 @@ export default {
 		this.$app.$def.goBack();
 	},
 	toRun(id) {
-		if (id == "wgchat") this.$app.$def.goPage("pages/ui/acts/wgchat/settings");
+		if (id == "wgchat")
+			this.$app.$def.goPage(
+				this.$app.$def.getWgchatEngine()
+					? "pages/ui/acts/wgchatx/settings"
+					: "pages/ui/acts/wgchat/settings"
+			);
 		else if (id == "wgnotice")
 			this.$app.$def.toTips(
 				this.$t("acts.settings.tserver.p1.item1.text"),

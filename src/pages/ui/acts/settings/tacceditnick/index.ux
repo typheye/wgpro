@@ -53,7 +53,6 @@
 </template>
 
 <script>
-import fetch from "../../../../../utils/fetch.js";
 import storage from "../../../../../utils/storage.js";
 export default {
 	private: {
@@ -97,57 +96,19 @@ export default {
 	},
 	toLaunch() {
 		this.isLoading = true;
-		if (!this.inputValues["msg"])
-			this.$app.$def.toTips("", this.$t("acts.settings.tacceditnick.err1")),
-				(this.isLoading = false);
-		else {
-			const timestamp0 = Date.now();
-			fetch.fetch({
-				url: this.$app.$def.getTS("taccServerURL") + "api.php",
-				data_GET: {
-					type: "set_nick_easy",
-					uid: this.usrUid,
-					cookie: this.usrCookie,
-					value: this.inputValues["msg"],
-					time: timestamp0,
-				},
-				method: "GET",
-				responseType: "text",
-				success: (response) => {
-					if (response.code == 200) {
-						if (response.data) {
-							const reqback = JSON.parse(response.data);
-							if (reqback["code"] == "200") {
-								this.$app.$def.settingsChange(
-									"wgsettings_taccount_nick",
-									this.inputValues["msg"]
-								);
-								this.toBack();
-							} else
-								this.$app.$def.toTips(
-									"",
-									this.$t("acts.settings.tacceditnick.err3") + reqback["msg"]
-								),
-									(this.isLoading = false);
-						} else
-							this.$app.$def.toTips(
-								"",
-								this.$t("acts.settings.tacceditnick.err3") + response.data
-							),
-								(this.isLoading = false);
-					} else
-						this.$app.$def.toTips(
-							"",
-							this.$t("acts.settings.tacceditnick.err2")
-						),
-							(this.isLoading = false);
-				},
-				fail: () => {
-					this.$app.$def.toTips("", this.$t("acts.settings.tacceditnick.err2"));
-					this.isLoading = false;
-				},
-			});
+		if (!this.inputValues["msg"]) {
+			this.$app.$def.toTips("", this.$t("acts.settings.tacceditnick.err1"));
+			this.isLoading = false;
+			return;
 		}
+		this.$app.$def.taccSetNick(this.inputValues["msg"], (ok, msg) => {
+			if (ok) {
+				this.toBack();
+			} else {
+				if (msg) this.$app.$def.toTips("", msg);
+				this.isLoading = false;
+			}
+		});
 	},
 	toBack() {
 		this.$app.$def.goReplacePage("pages/ui/acts/settings/taccount");
