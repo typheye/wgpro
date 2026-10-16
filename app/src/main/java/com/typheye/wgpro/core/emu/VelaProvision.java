@@ -337,12 +337,11 @@ public final class VelaProvision {
                 }
                 String code = device.optString("code", "");
                 String skin = device.optString("skin", code);
+                // 设备展示名**只认包内清单**（包 config.json 的 devices[].name，如 "Xiaomi Band 10"）。
+                // App 里**不写死任何机型名**：包里没写就退回代号，宁可显示代号也不内置一份名字表。
                 String name = device.optString("name", "").trim();
-                // 包内没写展示名、或直接把代号当名字（当前 v5.0 包就是这样）时，
-                // 用皮肤的通用展示名兜底（Xiaomi 手环 10 / Xiaomi Watch S4 …）——
-                // 这样"设备名用清单里的名字"成立，又不会出现 xiaomi_band_10 这种代号。
-                if (name.isEmpty() || name.equals(code)) {
-                    name = VelaEmulator.skinLabel(skin);
+                if (name.isEmpty() || name.equals("null")) {
+                    name = code;
                 }
                 if (!skin.isEmpty()) {
                     // 第 4 位是镜像档（IDE 的 ide.image.type）；包内没写就给空串，由 createDevice 按品类兜底
@@ -382,7 +381,15 @@ public final class VelaProvision {
         }
         File shared = sharedImageDir(context, type);
         if (!new File(shared, "vela_data.bin").isFile() && !new File(shared, "nuttx").isFile()) {
-            return false;
+            // 本地没有 → 从 AIoT IDE 的 CDN 拉一份到共享仓库（主线程不能联网，跳过即可）
+            if (android.os.Looper.myLooper() != android.os.Looper.getMainLooper()
+                    && VelaImages.isAvailable(type)) {
+                VelaImages.download(context, type);
+            }
+            if (!new File(shared, "vela_data.bin").isFile()
+                    && !new File(shared, "nuttx").isFile()) {
+                return false;
+            }
         }
         try {
             linkTree(shared, emulator.imageDirFor(type));
@@ -432,7 +439,9 @@ public final class VelaProvision {
         }
         File skinDir = new File(new File(runtimeDir, "engine"), "skins/" + skin);
         String[] props = VelaEmulator.skinProps(skinDir);
-        return VelaEmulator.imageTypeForFlavor(props[2]);
+        int[] geometry = VelaEmulator.skinGeometry(skinDir);
+        // 屏幕尺寸（geometry[2]/[3]）也要参与：带表盘的 miwear-watch 镜像只适用于它自己的 466×466
+        return VelaEmulator.imageTypeForFlavor(props[2], geometry[2], geometry[3]);
     }
 
     /**

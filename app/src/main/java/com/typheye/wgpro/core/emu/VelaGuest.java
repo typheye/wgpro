@@ -51,10 +51,12 @@ public final class VelaGuest {
     /** 客机 JS 调试器地址（IDE {@code static/debugger_ip.cfg} 原文）。 */
     public static final String DEBUGGER_IP = "10.0.2.15:101";
 
-    /** 镜像档：PRE（quickapp 框架，手环用；appDir=/data/quickapp/app + vapp）。 */
+    /** 镜像档：PRE（4.0 quickapp 框架；appDir=/data/quickapp/app + vapp）。 */
     public static final String IMAGE_PRE = "vela-pre-4.0";
-    /** 镜像档：watch 5.0（REL 档，手表/音箱用；appDir=/data/app + am/pm）。 */
-    public static final String IMAGE_WATCH5 = "vela-miwear-watch-5.0";
+    /** 镜像档：miwear watch 5.0 —— **带表盘、不可自定义尺寸**（只适用它自己的 466×466）。 */
+    public static final String IMAGE_MIWEAR_WATCH5 = "vela-miwear-watch-5.0";
+    /** 镜像档：vela watch 5.0 —— **不带表盘、可自定义尺寸**（手环 / 方屏表用这套）。 */
+    public static final String IMAGE_VELA_WATCH5 = "vela-watch-5.0";
     /** 镜像档：openvela 音箱。 */
     public static final String IMAGE_SMARTSPEAKER = "openvela-smartspeaker-5.0";
 

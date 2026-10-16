@@ -270,6 +270,12 @@ public class MainActivity extends AppCompatActivity {
                 getIntent().removeExtra("vela_control_test");
                 runVelaControlTest(controlDevice);
             }
+            // --es vela_images_download all|<镜像档> → 从 AIoT IDE 的 CDN 下载系统镜像，tag VelaImagesTest
+            final String imagesSpec = getIntent().getStringExtra("vela_images_download");
+            if (imagesSpec != null) {
+                getIntent().removeExtra("vela_images_download");
+                runVelaImagesDownload(imagesSpec);
+            }
             // --es vela_open <设备id> → 直接打开该模拟设备的画面页
             //（VirtualDeviceActivity 未导出，adb 起不来，只能由 App 自己拉）
             final String openDevice = getIntent().getStringExtra("vela_open");
@@ -674,8 +680,9 @@ public class MainActivity extends AppCompatActivity {
                 if (wantedSkin != null && !wantedSkin.trim().isEmpty()) {
                     skin = wantedSkin.trim();
                 }
-                // 与产品同一条命名规则：**选中的那款**在清单里的展示名（如「Xiaomi 手环 10」）+ 4 位随机
-                String label = com.typheye.wgpro.core.emu.VelaEmulator.skinLabel(skin);
+                // 与产品同一条命名规则：**选中的那款**在包内清单里的展示名（如 "Xiaomi Band 10"）+ 4 位随机；
+                // 包内没写名字就退回皮肤代号（App 不内置机型名表）
+                String label = skin;
                 for (String[] device : manifest) {
                     if (device[2].equals(skin)) {
                         label = device[1];
@@ -810,6 +817,38 @@ public class MainActivity extends AppCompatActivity {
                 android.util.Log.i("VelaGuestTest", "异常: " + error);
             }
         }, "vela-guest-test").start();
+    }
+
+    /**
+     * 调试用：下载 AIoT IDE 的系统镜像（{@code VelaImages}）。tag {@code VelaImagesTest}。
+     *
+     * <p>adb 触发：{@code --es vela_images_download all} 或 {@code --es vela_images_download vela-watch-5.0}。</p>
+     */
+    private void runVelaImagesDownload(@NonNull final String spec) {
+        new Thread(() -> {
+            java.util.List<String> types = new java.util.ArrayList<>();
+            if ("all".equalsIgnoreCase(spec.trim())) {
+                types.addAll(com.typheye.wgpro.core.emu.VelaImages.allTypes());
+            } else {
+                types.add(spec.trim());
+            }
+            for (String type : types) {
+                long started = System.currentTimeMillis();
+                android.util.Log.i("VelaImagesTest", "开始 " + type + " url="
+                        + com.typheye.wgpro.core.emu.VelaImages.downloadUrl(type));
+                boolean ok = com.typheye.wgpro.core.emu.VelaImages.download(this, type,
+                        (t, percent) -> {
+                            if (percent >= 0 && percent % 20 == 0) {
+                                android.util.Log.i("VelaImagesTest", t + " " + percent + "%");
+                            }
+                        });
+                android.util.Log.i("VelaImagesTest", (ok ? "成功 " : "失败 ") + type
+                        + " 耗时 " + ((System.currentTimeMillis() - started) / 1000) + "s"
+                        + " installed=" + com.typheye.wgpro.core.emu.VelaImages
+                        .isInstalled(this, type));
+            }
+            android.util.Log.i("VelaImagesTest", "全部结束");
+        }, "vela-images").start();
     }
 
     /** 调试用：直接打开某台模拟设备的画面页（{@code VirtualDeviceActivity} 未导出，adb 无法直接起）。 */

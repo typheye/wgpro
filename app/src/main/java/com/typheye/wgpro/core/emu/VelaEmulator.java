@@ -339,6 +339,12 @@ public final class VelaEmulator {
         return imageType;
     }
 
+    /** 本设备的 AVD 目录（{@code <avdHome>/<转义 id>.vvd}）。 */
+    @NonNull
+    public File avdDir(@NonNull String avdId) {
+        return new File(avdHome(), avdNameOf(avdId) + ".vvd");
+    }
+
     /** 某个镜像档的目录：{@code images/<档>/}。 */
     @NonNull
     public File imageDirFor(@NonNull String type) {
@@ -386,13 +392,32 @@ public final class VelaEmulator {
      */
     @NonNull
     public static String imageTypeForFlavor(@Nullable String flavor) {
+        return imageTypeForFlavor(flavor, 0, 0);
+    }
+
+    /**
+     * 皮肤品类 + 屏幕尺寸 → 默认镜像档（**架构级映射**，包内 {@code devices[].image} 可覆盖）。
+     *
+     * <p>依据是 AIoT IDE 对镜像的说明原文：{@code vela-miwear-watch-5.0} **带表盘、不可自定义尺寸**，
+     * 只能用在它自己的 466×466；其它尺寸（Redmi Watch 432×514、各种手环）必须用
+     * {@code vela-watch-5.0}（**不带表盘、可自定义尺寸**），否则就是"方屏里塞圆表盘"的错画面。</p>
+     */
+    @NonNull
+    public static String imageTypeForFlavor(@Nullable String flavor, int screenWidth,
+                                            int screenHeight) {
         if (flavor == null) {
             return "";
         }
         switch (flavor) {
-            case "band": return "vela-pre-4.0";
-            case "smartspeaker": return "openvela-smartspeaker-5.0";
-            default: return "";
+            case "band":
+                return VelaGuest.IMAGE_VELA_WATCH5;
+            case "watch":
+                return (screenWidth == 466 && screenHeight == 466)
+                        ? VelaGuest.IMAGE_MIWEAR_WATCH5 : VelaGuest.IMAGE_VELA_WATCH5;
+            case "smartspeaker":
+                return VelaGuest.IMAGE_SMARTSPEAKER;
+            default:
+                return "";
         }
     }
 
@@ -413,21 +438,12 @@ public final class VelaEmulator {
         return result;
     }
 
-    /** 皮肤 → 展示名（未收录的直接用原名）。 */
-    @NonNull
-    public static String skinLabel(@NonNull String skin) {
-        switch (skin) {
-            case "xiaomi_s4": return "Xiaomi Watch S4";
-            case "xiaomi_s4_41": return "Xiaomi Watch S4 41mm";
-            case "xiaomi_band_10": return "Xiaomi 手环 10";
-            case "xiaomi_band_pro": return "Xiaomi 手环 Pro";
-            case "xiaomi_band": return "Xiaomi 手环";
-            case "xiaomi_watch": return "Xiaomi Watch";
-            case "redmi_watch": return "Redmi Watch";
-            case "xiaomi_sound_mini": return "Xiaomi Sound Mini";
-            default: return skin;
-        }
-    }
+    /*
+     * 这里原来有一份「皮肤 → 展示名」的硬编码表（skinLabel）。已**整体删除**：
+     * 设备展示名是**清单数据**，只能由镜像包的 config.json（devices[].name）提供，
+     * App 里不再内置任何机型名（改机型 = 改包，不改码）。
+     * 包里没写名字时退回设备代号。
+     */
 
     /**
      * 读**本设备 AVD** 的 config.ini，取当前皮肤名（取不到就返回默认皮肤）。

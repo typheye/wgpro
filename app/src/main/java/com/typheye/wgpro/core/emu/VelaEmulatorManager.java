@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.typheye.wgpro.data.DeviceDatabase;
 
+import java.io.File;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.List;
@@ -365,7 +366,8 @@ public final class VelaEmulatorManager {
         emulator.setSkin(emulator.skinOfAvd(deviceId));
         // 镜像档：AVD 里持久化的优先，老设备按皮肤品类判定（手环→PRE、音箱→smartspeaker、手表→包内默认）。
         // **只有该档镜像文件真的在**才认，否则保持包内默认（宁可不改，也不要指一个不存在的目录）。
-        String imageType = emulator.imageTypeOfAvd(deviceId);
+        String persistedImageType = emulator.imageTypeOfAvd(deviceId);
+        String imageType = persistedImageType;
         if (!emulator.hasImageSet(imageType)) {
             String byFlavor = VelaProvision.imageTypeOfSkin(emulator.runtimeDir(), emulator.skin());
             // 设备目录没有就从共享仓库 files/images/<档>/ 链接一套进来
@@ -377,6 +379,16 @@ public final class VelaEmulatorManager {
             imageType = "";
         }
         emulator.setImageType(imageType);
+        // 镜像档变了（含"从包内默认切到分档"）→ 旧 userdata 是旧镜像的数据分区，必须重来，
+        // 否则内核/系统镜像与数据分区不匹配，表现为起不来或数据错乱。
+        if (!imageType.isEmpty() && !imageType.equals(persistedImageType)) {
+            File staleData = new File(emulator.avdDir(deviceId), "userdata-qemu.img");
+            if (staleData.isFile()) {
+                //noinspection ResultOfMethodCallIgnored
+                staleData.delete();
+                Log.i(TAG, "镜像档变化，重置数据分区: " + deviceId);
+            }
+        }
         emulator.authorAvd(deviceId, emulator.imagesDir());
         emulator.start(deviceId, port);
         Log.i(TAG, "镜像档 imageType=" + (imageType.isEmpty() ? "(包内默认)" : imageType)
