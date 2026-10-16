@@ -70,10 +70,6 @@ public class SystemMessageDetailFragment extends Fragment {
         if (!loadedOnce && requireActivity() instanceof BaseSectionActivity) {
             ((BaseSectionActivity) requireActivity()).showContentLoading();
         }
-        // 加载期间内容区不能空着：先用标准空态（view_stream_empty）占位，数据到了由 render 覆盖
-        if (list.getChildCount() == 0) {
-            list.addView(emptyState("加载中…", ""));
-        }
         load();
         return root;
     }

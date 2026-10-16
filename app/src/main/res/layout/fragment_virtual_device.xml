@@ -15,8 +15,8 @@
         android:id="@+id/virtual_device_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp">
 
         <!-- ★ 外观皮肤（background.png）必须**在最底层**（FrameLayout 里越靠后越在上）：
              它铺满整个画布，而有些机型的屏幕区是**不透明黑**（实测 xiaomi_band_pro / redmi_watch
@@ -60,17 +60,22 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="top|center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
         android:background="@drawable/bg_virtual_actions"
+        android:fadingEdgeLength="28dp"
+        android:overScrollMode="never"
+        android:requiresFadingEdge="horizontal"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:paddingStart="4dp"
-            android:paddingTop="6dp"
-            android:paddingEnd="4dp"
-            android:paddingBottom="6dp">
+            android:paddingStart="12dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="8dp">
             <ImageView android:id="@+id/key_power" style="@style/VirtualKey" android:contentDescription="电源" android:src="@drawable/ic_key_power" />
             <ImageView android:id="@+id/key_home" style="@style/VirtualKey" android:contentDescription="主页" android:src="@drawable/ic_key_home" />
             <ImageView android:id="@+id/key_back" style="@style/VirtualKey" android:contentDescription="返回" android:src="@drawable/ic_key_back" />
@@ -80,15 +85,17 @@
             <ImageView android:id="@+id/key_log" style="@style/VirtualKey" android:contentDescription="日志" android:src="@drawable/ic_key_log" />
             <ImageView android:id="@+id/key_apps" style="@style/VirtualKey" android:contentDescription="应用管理" android:src="@drawable/ic_key_apps" />
             <ImageView android:id="@+id/key_state" style="@style/VirtualKey" android:contentDescription="设备状态" android:src="@drawable/ic_key_state" />
+            <ImageView android:id="@+id/key_import" style="@style/VirtualKey" android:contentDescription="导入应用" android:src="@drawable/ic_key_import" />
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- 当前设备水印：进页后贴在操作栏下沿，显示"进的是哪一台"（单实例切换时尤其需要） -->
+    <!-- 当前设备标识：**贴底居中**显示"进的是哪一台"（离底留一段边距，不压操作栏也不压画面中心） -->
     <TextView
         android:id="@+id/virtual_watermark"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="top|center_horizontal"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="24dp"
         android:background="@drawable/bg_watermark"
         android:ellipsize="end"
         android:maxLines="1"

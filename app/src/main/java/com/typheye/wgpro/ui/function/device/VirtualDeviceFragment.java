@@ -53,7 +53,8 @@ public class VirtualDeviceFragment extends Fragment {
 
     public static final String ARG_AVD = "avd_id";
 
-    private static final int LOG_MAX = 300;
+    /** 日志缓冲上限：面板默认不开，得把引擎启动整段都能回看，所以给得比"只看当前"大得多。 */
+    private static final int LOG_MAX = 2000;
     /**
      * 皮肤档位与几何：**按设备**读回来（创建时写入 AVD 的 skin.name + 该皮肤的 layout），
      * 不再写死 xiaomi_s4 —— 否则换皮肤后外壳/分辨率都不跟着变。
@@ -1218,13 +1219,14 @@ public class VirtualDeviceFragment extends Fragment {
             params.topMargin = want;
             device.setLayoutParams(params);
         }
-        // 水印跟显示容器同一个上沿：贴在操作栏正下方，居中显示当前设备名
+        // 设备标识在**底部**居中：这里只保证离底边距（位置由 layout_gravity=bottom 决定）
         View watermark = root.findViewById(R.id.virtual_watermark);
         if (watermark != null) {
             android.view.ViewGroup.MarginLayoutParams watermarkParams =
                     (android.view.ViewGroup.MarginLayoutParams) watermark.getLayoutParams();
-            if (watermarkParams.topMargin != want) {
-                watermarkParams.topMargin = want;
+            int bottom = Math.round(getResources().getDisplayMetrics().density * 24f);
+            if (watermarkParams.bottomMargin != bottom) {
+                watermarkParams.bottomMargin = bottom;
                 watermark.setLayoutParams(watermarkParams);
             }
         }
@@ -1281,6 +1283,12 @@ public class VirtualDeviceFragment extends Fragment {
         }
         if (deviceKey == null || deviceKey.isEmpty() || picked != null) {
             if (picked != null) {
+                // 传进来的设备 id **不在设备库里**（深链/老入口）才会走到这：按机型另挑一台。
+                // 必须留痕 —— 否则"打开 A 却启动了 B"完全看不出来（踩过）。
+                if (!picked.equals(deviceKey)) {
+                    android.util.Log.w("VelaPage", "传入的设备 id 不在库里，改按机型选："
+                            + deviceKey + " → " + picked);
+                }
                 deviceKey = picked;
             }
         }
@@ -1484,21 +1492,25 @@ public class VirtualDeviceFragment extends Fragment {
         appendLog("[ui] " + text);
     }
 
-    /** 日志面板是否可见（不可见时不进缓冲、不刷 UI，省掉引擎日志带来的无谓开销）。 */
+    /** 日志面板是否可见（不可见时只缓冲、不刷 UI —— 但**照样完整记录**）。 */
     private boolean logVisible() {
         return logScroll != null && logScroll.getVisibility() == View.VISIBLE;
     }
 
+    /**
+     * 追加一行日志。
+     *
+     * <p><b>始终完整收集</b>：以前面板没打开就直接丢掉，结果一打开只有"从打开那一刻起"的日志，
+     * 引擎启动、装包失败这些关键过程全看不到。现在无论面板开没开都进缓冲，
+     * 打开时一次性刷出（见 {@link #showLog(boolean)}）。</p>
+     */
     private void appendLog(@NonNull String line) {
-        if (!logVisible()) {
-            return;
-        }
         while (logLines.size() >= LOG_MAX) {
             logLines.removeFirst();
         }
         logLines.addLast(line);
-        // 限流但**必须补刷**：原来 200ms 内的更新被直接丢掉且不再触发，导致尾部日志永远不出现。
-        if (logFlushScheduled) {
+        // 面板没显示：不必刷 UI，等 showLog(true) 补刷；显示中则限流刷新
+        if (!logVisible() || logFlushScheduled) {
             return;
         }
         logFlushScheduled = true;

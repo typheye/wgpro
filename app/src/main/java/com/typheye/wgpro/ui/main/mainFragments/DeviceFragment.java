@@ -537,11 +537,22 @@ public class DeviceFragment extends Fragment {
                     id);
             startActivity(intent);
         });
+        // 停止是**不可撤销**的重动作（引擎连数据一起停），必须先确认再执行
         stopRow.setOnClickListener(v -> {
             dialog.dismiss();
-            com.typheye.wgpro.core.emu.VelaEmulatorManager.get().stopByKey(requireContext(), id);
-            com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "已停止当前实例");
-            refresh();
+            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                    .setTitle("停止当前实例？")
+                    .setMessage("将停止「" + name + "」的模拟器。已安装的应用和数据都会保留，"
+                            + "下次进入模拟页面会重新启动。")
+                    .setNegativeButton("取消", null)
+                    .setPositiveButton("停止", (d, which) -> {
+                        com.typheye.wgpro.core.emu.VelaEmulatorManager.get()
+                                .stopByKey(requireContext(), id);
+                        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
+                                "已停止当前实例");
+                        refresh();
+                    })
+                    .show();
         });
         content.findViewById(R.id.sheet_device_more).setOnClickListener(v -> {
             dialog.dismissForReplacement();

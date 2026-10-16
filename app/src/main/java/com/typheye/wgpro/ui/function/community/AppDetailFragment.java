@@ -934,19 +934,101 @@ public final class AppDetailFragment extends Fragment {
         final java.io.File rpk = new java.io.File(path);
         // 在**主线程**先取好 Application Context：后台线程里 requireContext() 不安全
         final android.content.Context app = requireContext().getApplicationContext();
-        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
-                "正在启动 " + deviceName + " 并安装…");
-        new Thread(() -> {
-            com.typheye.wgpro.core.emu.VelaInstall.rpkToDevice(app, model,
-                    deviceId, rpk, (success, message) -> new android.os.Handler(
-                            android.os.Looper.getMainLooper()).post(() -> {
-                        if (!isAdded()) {
-                            return;
-                        }
-                        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
-                                deviceName + "：" + message);
-                    }));
-        }, "vela-install").start();
+        final com.typheye.wgpro.core.emu.VelaEmulatorManager manager =
+                com.typheye.wgpro.core.emu.VelaEmulatorManager.get();
+        manager.init(app);
+        // 目标设备**没在运行**：先问一句再动手 —— 直接 start 会悄悄把别的实例顶掉（同时只允许一台）
+        if (!manager.isRunning(deviceId)) {
+            if (manager.hasRunningInstance()) {
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle("先结束其他模拟设备？")
+                        .setMessage("同时只能运行一台模拟设备。是否结束正在运行的那台，"
+                                + "改为启动「" + deviceName + "」再安装？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("结束并安装",
+                                (d, w) -> runVelaInstall(app, rpk, model, deviceId, deviceName))
+                        .show();
+            } else {
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle("模拟器未启动")
+                        .setMessage("安装到「" + deviceName + "」需要先启动模拟器，是否现在启动？")
+                        .setNegativeButton("取消", null)
+                        .setPositiveButton("启动并安装",
+                                (d, w) -> runVelaInstall(app, rpk, model, deviceId, deviceName))
+                        .show();
+            }
+            return;
+        }
+        runVelaInstall(app, rpk, model, deviceId, deviceName);
+    }
+
+    /**
+     * 真正执行安装：**底部圆形加载弹窗（可取消）** → 结果弹窗。
+     *
+     * <p>成功 → 「安装成功」并问是否前往模拟页面；失败 → 底部「安装失败」，按钮只有「确定」。</p>
+     */
+    private void runVelaInstall(@NonNull android.content.Context app, @NonNull java.io.File rpk,
+                                @NonNull String model, @NonNull String deviceId,
+                                @NonNull String deviceName) {
+        // 交互统一在 VelaInstallFlow（与模拟页「导入应用」同一套），这里只负责前置确认
+        com.typheye.wgpro.ui.widget.VelaInstallFlow.install(this, app, deviceId, model,
+                deviceName, rpk, true);
+    }
+
+    /** 旧的私有实现（已被 VelaInstallFlow 取代，保留签名避免误引用）。 */
+    private void runVelaInstallLegacy(@NonNull android.content.Context app,
+                                      @NonNull java.io.File rpk,
+                                      @NonNull String model, @NonNull String deviceId,
+                                      @NonNull String deviceName) {
+        View progressView = getLayoutInflater().inflate(R.layout.progress_dialog, null, false);
+        ((android.widget.TextView) progressView.findViewById(android.R.id.message))
+                .setText("正在安装到「" + deviceName + "」…");
+        final java.util.concurrent.atomic.AtomicBoolean cancelled =
+                new java.util.concurrent.atomic.AtomicBoolean(false);
+        final com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[] ref =
+                new com.typheye.wgpro.ui.widget.WGProBottomSheetDialog[1];
+        ref[0] = new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("正在安装")
+                .setView(progressView)
+                .setCancelable(false)
+                .setNegativeButton("取消", (d, w) -> cancelled.set(true))
+                .create();
+        ref[0].show();
+        new Thread(() -> com.typheye.wgpro.core.emu.VelaInstall.rpkToDevice(app, model, deviceId,
+                rpk, (success, message) -> new android.os.Handler(
+                        android.os.Looper.getMainLooper()).post(() -> {
+                    if (ref[0] != null) {
+                        ref[0].dismissForReplacement();
+                    }
+                    if (!isAdded() || cancelled.get()) {
+                        return;
+                    }
+                    if (success) {
+                        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                                .setTitle("安装成功")
+                                .setMessage(message + "\n\n是否前往模拟页面查看？")
+                                .setNegativeButton("稍后", null)
+                                .setPositiveButton("前往",
+                                        (d, w) -> openVirtualDevicePage(deviceId, model))
+                                .show();
+                    } else {
+                        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                                .setTitle("安装失败")
+                                .setMessage(message)
+                                .setPositiveButton("确定", null)
+                                .show();
+                    }
+                })), "vela-install").start();
+    }
+
+    /** 打开该模拟设备的画面页（与设备页同一个入口，机型标识就是 deviceId 里的 model）。 */
+    private void openVirtualDevicePage(@NonNull String deviceId, @NonNull String model) {
+        android.content.Intent intent = new android.content.Intent(requireContext(),
+                com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class);
+        intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD, model);
+        intent.putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_DEVICE_ID,
+                deviceId);
+        startActivity(intent);
     }
 
     /** 安装已下载的 APK（不再重新下载）。 */

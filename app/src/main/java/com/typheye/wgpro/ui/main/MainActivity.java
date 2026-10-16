@@ -223,67 +223,7 @@ public class MainActivity extends AppCompatActivity {
         });
         mainPager.setOffscreenPageLimit(1);
 
-        // 调试入口（**仅 debug 构建**）：adb shell am start ... --es vela_adb_test <设备id> → 自检客机 adb 通道
-        // （宿主 adb forward 只能打 127.0.0.1，而引擎监听在 ::1，宿主测不了，只能让 App 自己测）
-        boolean debuggable = (getApplicationInfo().flags
-                & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        if (debuggable && getIntent() != null) {
-            final String testDevice = getIntent().getStringExtra("vela_adb_test");
-            if (testDevice != null) {
-                // 可选：--es vela_shell "<任意客机 shell 指令>"，追加在默认自检命令之后
-                final String testCommand = getIntent().getStringExtra("vela_shell");
-                getIntent().removeExtra("vela_adb_test");
-                getIntent().removeExtra("vela_shell");
-                runVelaAdbTest(testDevice, testCommand);
-            }
-            final String createModel = getIntent().getStringExtra("vela_create");
-            if (createModel != null) {
-                // 可选：--es vela_skin <skin> 指定创建哪一款（默认清单第一项）
-                final String createSkin = getIntent().getStringExtra("vela_skin");
-                getIntent().removeExtra("vela_create");
-                getIntent().removeExtra("vela_skin");
-                runVelaCreate(createModel, createSkin);
-            }
-            // --es vela_install_test <设备id> --es vela_install_file <本地 rpk 路径>
-            //   → 走**产品同一条**安装链路（VelaInstall），把客机回显打到 VelaInstallTest
-            final String installDevice = getIntent().getStringExtra("vela_install_test");
-            final String installFile = getIntent().getStringExtra("vela_install_file");
-            if (installDevice != null && installFile != null) {
-                getIntent().removeExtra("vela_install_test");
-                getIntent().removeExtra("vela_install_file");
-                runVelaInstallTest(installDevice, installFile);
-            }
-            // --es vela_guest_test <设备id> [--es vela_guest_pkg <包名>]
-            //   [--es vela_guest_action start|close|reload|uninstall] → 客机门面自检，tag VelaGuestTest
-            final String guestDevice = getIntent().getStringExtra("vela_guest_test");
-            if (guestDevice != null) {
-                final String guestPkg = getIntent().getStringExtra("vela_guest_pkg");
-                final String guestAction = getIntent().getStringExtra("vela_guest_action");
-                getIntent().removeExtra("vela_guest_test");
-                getIntent().removeExtra("vela_guest_pkg");
-                getIntent().removeExtra("vela_guest_action");
-                runVelaGuestTest(guestDevice, guestPkg, guestAction);
-            }
-            // --es vela_control_test <设备id> → gRPC 设备控制自检，tag VelaControlTest
-            final String controlDevice = getIntent().getStringExtra("vela_control_test");
-            if (controlDevice != null) {
-                getIntent().removeExtra("vela_control_test");
-                runVelaControlTest(controlDevice);
-            }
-            // --es vela_images_download all|<镜像档> → 从 AIoT IDE 的 CDN 下载系统镜像，tag VelaImagesTest
-            final String imagesSpec = getIntent().getStringExtra("vela_images_download");
-            if (imagesSpec != null) {
-                getIntent().removeExtra("vela_images_download");
-                runVelaImagesDownload(imagesSpec);
-            }
-            // --es vela_open <设备id> → 直接打开该模拟设备的画面页
-            //（VirtualDeviceActivity 未导出，adb 起不来，只能由 App 自己拉）
-            final String openDevice = getIntent().getStringExtra("vela_open");
-            if (openDevice != null) {
-                getIntent().removeExtra("vela_open");
-                openVirtualDevicePage(openDevice);
-            }
-        }
+        consumeDebugHooks();
 
         // 桌面快捷方式：launcher 是外部进程，只能拉起导出的 MainActivity，这里按 extra 分发
         if (getIntent() != null) {
@@ -436,10 +376,84 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    /**
+     * 消费调试入口（**仅 debug 构建**）。
+     *
+     * <p>onCreate 与 {@link #onNewIntent} **都要调**：应用已经在前台时 {@code am start} 只走
+     * onNewIntent。而"往正在运行的模拟设备里装 rpk / 跑客机自检"恰恰**必须让引擎活着** ——
+     * 只在 onCreate 消费的话就得先 force-stop 才能触发，等于先把引擎杀了。</p>
+     */
+    private void consumeDebugHooks() {
+        // 调试入口：adb shell am start ... --es vela_adb_test <设备id> → 自检客机 adb 通道
+        // （宿主 adb forward 只能打 127.0.0.1，而引擎监听在 ::1，宿主测不了，只能让 App 自己测）
+        boolean debuggable = (getApplicationInfo().flags
+                & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        if (!debuggable || getIntent() == null) {
+            return;
+        }
+        final String testDevice = getIntent().getStringExtra("vela_adb_test");
+        if (testDevice != null) {
+            // 可选：--es vela_shell "<任意客机 shell 指令>"，追加在默认自检命令之后
+            final String testCommand = getIntent().getStringExtra("vela_shell");
+            getIntent().removeExtra("vela_adb_test");
+            getIntent().removeExtra("vela_shell");
+            runVelaAdbTest(testDevice, testCommand);
+        }
+        final String createModel = getIntent().getStringExtra("vela_create");
+        if (createModel != null) {
+            // 可选：--es vela_skin <skin> 指定创建哪一款（默认清单第一项）
+            final String createSkin = getIntent().getStringExtra("vela_skin");
+            getIntent().removeExtra("vela_create");
+            getIntent().removeExtra("vela_skin");
+            runVelaCreate(createModel, createSkin);
+        }
+        // --es vela_install_test <设备id> --es vela_install_file <本地 rpk 路径>
+        //   → 走**产品同一条**安装链路（VelaInstall），把客机回显打到 VelaInstallTest
+        final String installDevice = getIntent().getStringExtra("vela_install_test");
+        final String installFile = getIntent().getStringExtra("vela_install_file");
+        if (installDevice != null && installFile != null) {
+            getIntent().removeExtra("vela_install_test");
+            getIntent().removeExtra("vela_install_file");
+            runVelaInstallTest(installDevice, installFile);
+        }
+        // --es vela_guest_test <设备id> [--es vela_guest_pkg <包名>]
+        //   [--es vela_guest_action start|close|reload|uninstall] → 客机门面自检，tag VelaGuestTest
+        final String guestDevice = getIntent().getStringExtra("vela_guest_test");
+        if (guestDevice != null) {
+            final String guestPkg = getIntent().getStringExtra("vela_guest_pkg");
+            final String guestAction = getIntent().getStringExtra("vela_guest_action");
+            getIntent().removeExtra("vela_guest_test");
+            getIntent().removeExtra("vela_guest_pkg");
+            getIntent().removeExtra("vela_guest_action");
+            runVelaGuestTest(guestDevice, guestPkg, guestAction);
+        }
+        // --es vela_control_test <设备id> → gRPC 设备控制自检，tag VelaControlTest
+        final String controlDevice = getIntent().getStringExtra("vela_control_test");
+        if (controlDevice != null) {
+            getIntent().removeExtra("vela_control_test");
+            runVelaControlTest(controlDevice);
+        }
+        // --es vela_images_download all|<镜像档> → 从 AIoT IDE 的 CDN 下载系统镜像，tag VelaImagesTest
+        final String imagesSpec = getIntent().getStringExtra("vela_images_download");
+        if (imagesSpec != null) {
+            getIntent().removeExtra("vela_images_download");
+            runVelaImagesDownload(imagesSpec);
+        }
+        // --es vela_open <设备id> → 直接打开该模拟设备的画面页
+        //（VirtualDeviceActivity 未导出，adb 起不来，只能由 App 自己拉）
+        final String openDevice = getIntent().getStringExtra("vela_open");
+        if (openDevice != null) {
+            getIntent().removeExtra("vela_open");
+            openVirtualDevicePage(openDevice);
+        }
+    }
+
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         setIntent(intent);
+        // 应用已在前台时 am start 只走这里：调试入口也必须消费（否则要先 force-stop，引擎就没了）
+        consumeDebugHooks();
         acceptGrantIntent(intent);
         maybeOpenLoginFromIntent();
         // 关键：应用已在前台时不会再走 onResume，这里必须立即消费扫码授权请求，

@@ -677,43 +677,25 @@ public class VirtualDeviceDetailFragment extends Fragment {
                     WGProHint.showError(requireContext(), "创建失败：" + unpackFailure);
                     return;
                 }
-                // 解压完成 → 让用户选"创建哪种模拟器"（包内皮肤按 手表/手环/音箱 分组）
-                askDeviceType(newDeviceId, emulator, displayName);
+                // 解压完成 → **直接创建包内声明的那一台**（单包单设备，不再让用户选）
+                createDeclaredDevice(newDeviceId, emulator, displayName);
             });
         }, "vd-provision").start();
     }
 
-    /** 解压完成后询问"创建哪种模拟器"：列包内 engine/skins 的皮肤，按系列分组展示。 */
-    private void askDeviceType(@NonNull String deviceId, @NonNull VelaEmulator emulator,
-                               @Nullable String displayName) {
-        // 设备清单以包内 config.json 为准（代号/名称/皮肤），老包退回扫 skins 目录
+    /**
+     * 解压完成后**直接创建包内声明的那一台**（单包单设备，不再让用户选）。
+     *
+     * <p>包里没声明设备就报错 —— **不兼容**"没有清单"或"一个包多台"的老包。</p>
+     */
+    private void createDeclaredDevice(@NonNull String deviceId, @NonNull VelaEmulator emulator,
+                                      @Nullable String displayName) {
         java.util.List<String[]> manifest = VelaProvision.manifestDevices(emulator.runtimeDir());
-        final java.util.List<String> skins = new ArrayList<>();
-        final java.util.List<String> names = new ArrayList<>();
-        if (!manifest.isEmpty()) {
-            for (String[] device : manifest) {
-                skins.add(device[2]);
-                names.add(device[1]);
-            }
-        } else {
-            // 老包没有清单：连名字都没有，直接用皮肤代号（App 不内置机型名表）
-            for (String skin : VelaEmulator.availableSkins(emulator.engineDir())) {
-                skins.add(skin);
-                names.add(skin);
-            }
+        if (manifest.isEmpty()) {
+            WGProHint.showError(requireContext(), "镜像包不合法：config.json 里没有 devices 声明");
+            return;
         }
-        if (skins.isEmpty()) {
-            skins.add(emulator.skin());
-            names.add(emulator.skin());
-        }
-        CharSequence[] labels = names.toArray(new CharSequence[0]);
-        final String preferredName = displayName;
-        new WGProAlertDialogBuilder(requireContext())
-                .setTitle("创建哪种模拟器")
-                .setItems(labels, (dialog, which) -> createWithSkin(deviceId, emulator,
-                        skins.get(which), preferredName, names.get(which)))
-                .setNegativeButton("取消", null)
-                .show();
+        createWithSkin(deviceId, emulator, manifest.get(0)[2], displayName, manifest.get(0)[1]);
     }
 
     /** 按选定皮肤写 AVD + 落库（同一份镜像可分别建出多款设备）。 */

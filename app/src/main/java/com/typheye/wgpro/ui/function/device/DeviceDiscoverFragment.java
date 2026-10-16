@@ -64,6 +64,15 @@ public class DeviceDiscoverFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
         super.onViewCreated(view, state);
         root = view;
+        // 空态文案**只在这里写一次**，用页面原本那两句（不按状态换词，也不自作主张改文案）；
+        // 之后任何状态只切显隐，不再动文字。
+        View empty = view.findViewById(R.id.add_device_empty);
+        if (empty != null) {
+            ((TextView) empty.findViewById(R.id.stream_empty_title))
+                    .setText(R.string.add_device_empty_title);
+            ((TextView) empty.findViewById(R.id.stream_empty_description))
+                    .setText(R.string.add_device_empty_desc);
+        }
         nodeApi = Wearable.getNodeApi(requireContext().getApplicationContext());
         com.typheye.wgpro.ui.widget.WGProRefreshLayout refresh =
                 view.findViewById(R.id.add_device_refresh);
@@ -109,11 +118,7 @@ public class DeviceDiscoverFragment extends Fragment {
         if (root != null) {
             root.post(() -> setRefreshIndicator(true));
         }
-        // 加载中也要有内容：显示标准空态的"扫描中"文案（原来加载期间内容区是空白）
-        if (root != null && root.findViewById(R.id.add_device_found_card).getVisibility()
-                != View.VISIBLE) {
-            showEmptyState("正在扫描附近设备", "请保持设备已开机并靠近手机。");
-        }
+
         mainHandler.postDelayed(scanTimeout, ACTIVE_SCAN_TIMEOUT_MS);
         queryConnection();
     }
@@ -194,7 +199,7 @@ public class DeviceDiscoverFragment extends Fragment {
             exists = db.exists(node.id);
         }
         if (exists) {
-            showEmptyState("该设备已在列表中", "无需重复添加。");
+            showEmptyState();
             return;
         }
         String deviceName = node.name == null || node.name.trim().isEmpty()
@@ -240,28 +245,24 @@ public class DeviceDiscoverFragment extends Fragment {
         discoveredNodeId = null;
         discoveredNodeName = null;
         stopRefresh();
-        showEmptyState("暂未发现设备", "确认设备已开启并靠近手机，然后重新扫描。");
+        showEmptyState();
     }
 
     /**
-     * 显示标准空态（view_stream_empty）。
+     * 显示标准空态（{@code view_stream_empty}）。
      *
-     * <p>扫描中与"扫完没结果"都用它占位 —— 之前加载期间内容区是**空白**的，
-     * 现在一律显示空态（文案随状态变化）。</p>
+     * <p>扫描中与"扫完没结果"都用它占位，**文案固定**（在 {@code onViewCreated} 设一次），
+     * 不按状态换词 —— 这个页面以后要接的不只是小米设备，文案不该写死在某一种设备上。</p>
      */
-    private void showEmptyState(@NonNull String title, @NonNull String description) {
+    private void showEmptyState() {
         if (root == null) {
             return;
         }
         root.findViewById(R.id.add_device_found_card).setVisibility(View.GONE);
         View empty = root.findViewById(R.id.add_device_empty);
-        if (empty == null) {
-            return;
+        if (empty != null) {
+            empty.setVisibility(View.VISIBLE);
         }
-        ((android.widget.TextView) empty.findViewById(R.id.stream_empty_title)).setText(title);
-        ((android.widget.TextView) empty.findViewById(R.id.stream_empty_description))
-                .setText(description);
-        empty.setVisibility(View.VISIBLE);
     }
 
     /** 结束下拉刷新（扫描一轮结束就收起指示器）。扫描期间加载态也走这里（原页面级遮罩已移除）。 */

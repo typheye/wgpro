@@ -141,17 +141,8 @@ public class SessionListFragment extends Fragment {
             }
             signature = nextSignature;
         }
-        // 加载期间也用标准空态（view_stream_empty）占位，别让内容区空着
-        boolean showEmpty = visible == 0;
-        if (showEmpty) {
-            boolean settled = loaded && !loading;
-            ((TextView) empty.findViewById(R.id.stream_empty_title))
-                    .setText(settled ? "暂无已登录的会话" : "加载中…");
-            ((TextView) empty.findViewById(R.id.stream_empty_description))
-                    .setText(settled
-                            ? "使用同一 Typheye 账户登录的设备与浏览器会显示在这里。" : "");
-        }
-        empty.setVisibility(showEmpty ? View.VISIBLE : View.GONE);
+        // 空态只在**真的没有数据**时出现；加载中交给下拉刷新指示器（空态不许当加载用）
+        empty.setVisibility(loaded && !loading && visible == 0 ? View.VISIBLE : View.GONE);
     }
 
     private void addSessionCard(JSONObject session, LinearLayout target) {

@@ -482,6 +482,12 @@ public class SettingsActivity extends AppCompatActivity {
                     // 顺带清掉残留的模拟器实例目录（每个 ~1.5G）：只删设备库里已不存在的
                     final int orphans = com.typheye.wgpro.core.emu.VelaProvision
                             .purgeOrphanRuntimes(requireContext());
+                    // 再清两类最容易撑爆存储的模拟器残留：
+                    //   ① 没人用的镜像包 files/downloads/vela-*.apk（单个 0.6~1.3G）
+                    //   ② 共享镜像下载缓存 files/images/<档>/（单档 0.6~1.2G，可再从 CDN 下）
+                    final int stalePackages = com.typheye.wgpro.core.emu.VelaProvision
+                            .purgeOrphanPackages(requireContext());
+                    com.typheye.wgpro.core.emu.VelaProvision.clearImageCache(requireContext());
                     boolean success = clearDirectoryContents(internalCache)
                             & clearDirectoryContents(externalCache);
                     mainHandler.post(() -> {
@@ -492,6 +498,9 @@ public class SettingsActivity extends AppCompatActivity {
                                 .setMessage(success
                                         ? "浏览器缓存和应用临时文件已清理。"
                                             + (orphans > 0 ? "\n已清理 " + orphans + " 个残留的模拟器目录。" : "")
+                                            + (stalePackages > 0
+                                                    ? "\n已清理 " + stalePackages + " 个没人用的镜像包。" : "")
+                                            + "\n共享的镜像下载缓存也已清空（下次创建会按需重新下载）。"
                                         : "部分正在使用的临时文件无法删除，可稍后重试。")
                                 .setPositiveButton("完成", null)
                                 .show();

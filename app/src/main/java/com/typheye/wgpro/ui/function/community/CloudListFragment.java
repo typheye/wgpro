@@ -583,8 +583,6 @@ public class CloudListFragment extends Fragment {
                 && requireActivity() instanceof BaseSectionActivity) {
             ((BaseSectionActivity) requireActivity()).showContentLoading();
         }
-        // 加载期间内容区不能空着：先用标准空态（view_stream_empty）占位，数据到了再覆盖
-        showLoadingState();
         Map<String, String> query = new LinkedHashMap<>();
         query.put("page", "1");
         query.put("size", "20");
@@ -762,23 +760,6 @@ public class CloudListFragment extends Fragment {
             if (item != null) rows.add(item);
         }
         contactAdapter.addItems(rows);
-    }
-
-    /**
-     * 首次加载期间用标准空态（{@code view_stream_empty}）占位。
-     *
-     * <p>列表已经有内容时不覆盖（翻页/刷新不该把已有数据盖掉）。</p>
-     */
-    private void showLoadingState() {
-        if (state == null || stateText == null || stateDescription == null) {
-            return;
-        }
-        if (contactAdapter != null && contactAdapter.size() > 0) {
-            return;
-        }
-        stateText.setText("加载中…");
-        stateDescription.setText("");
-        state.setVisibility(View.VISIBLE);
     }
 
     /** 列表首屏加载失败：先给空态（view_stream_empty），再弹底部错误弹窗。 */

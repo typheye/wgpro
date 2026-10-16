@@ -154,6 +154,71 @@ public final class VelaProvision {
     }
 
     /**
+     * 清掉**设备库里已经不存在**的镜像包：{@code files/downloads/vela-<机型>.apk}。
+     *
+     * <p>单设备包每个 0.6~1.3G，导入后其实就没用了（实例目录里已经有一份解好的引擎+镜像），
+     * 留着最容易把存储撑爆。**不兼容老的多设备包** —— 它们同样按这个口径被清掉。</p>
+     */
+    public static int purgeOrphanPackages(@NonNull Context context) {
+        int removed = 0;
+        try {
+            java.util.Set<String> alive = new java.util.HashSet<>();
+            try (DeviceDatabase db = new DeviceDatabase(context);
+                 android.database.Cursor cursor = db.all()) {
+                if (cursor != null) {
+                    int idColumn = cursor.getColumnIndex("id");
+                    if (idColumn < 0) {
+                        idColumn = 0;
+                    }
+                    while (cursor.moveToNext()) {
+                        String id = cursor.getString(idColumn);
+                        if (id != null && !id.isEmpty()) {
+                            alive.add(modelIdOf(id));
+                        }
+                    }
+                }
+            }
+            File[] children = new File(context.getFilesDir(), "downloads").listFiles();
+            if (children == null) {
+                return 0;
+            }
+            for (File child : children) {
+                String name = child.getName();
+                if (!child.isFile() || !name.startsWith(PACKAGE_PREFIX) || !name.endsWith(".apk")) {
+                    continue;
+                }
+                String modelId = name.substring(PACKAGE_PREFIX.length(),
+                        name.length() - ".apk".length());
+                if (alive.contains(modelId)) {
+                    continue;
+                }
+                //noinspection ResultOfMethodCallIgnored
+                child.delete();
+                removed++;
+            }
+        } catch (Exception error) {
+            android.util.Log.w("VelaProvision", "清理无用镜像包失败", error);
+        }
+        return removed;
+    }
+
+    /**
+     * 清掉**共享的镜像下载缓存** {@code files/images/<档>/}（0.6~1.2G/档）。
+     *
+     * <p>它只是"下载一份、给多台设备复制用"的缓存：清掉**不影响已创建的设备**
+     * （每个设备的实例目录里各有一份自己的镜像），以后需要时按档从 AIoT IDE 的 CDN 下回来。</p>
+     */
+    public static void clearImageCache(@NonNull Context context) {
+        File[] children = new File(context.getFilesDir(), "images").listFiles();
+        if (children == null) {
+            return;
+        }
+        for (File child : children) {
+            deleteRecursively(child);
+        }
+    }
+
+    /**
      * **只删除已下载的镜像**（含下载记录），**不动已经创建的设备**。
      *
      * <p>设备详情页的「删除」就是这个语义：删掉镜像后按钮回到「获取」，模拟设备列表里的设备仍在。</p>
@@ -392,9 +457,12 @@ public final class VelaProvision {
             }
         }
         try {
-            linkTree(shared, emulator.imageDirFor(type));
+            // **每台设备一份独立镜像**（不共享、不硬链）：硬链在这台机器上本来就被拒
+            // （ln: Permission denied），而且"每台一份"换来的是完全隔离 + 可单台替换镜像/换档。
+            // 共享仓库 files/images/<档>/ 只当**下载缓存**用，不再直接挂给设备。
+            copyTree(shared, emulator.imageDirFor(type));
         } catch (Exception error) {
-            android.util.Log.w("VelaProvision", "链接共享镜像失败", error);
+            android.util.Log.w("VelaProvision", "复制镜像失败", error);
             return false;
         }
         return emulator.hasImageSet(type);
@@ -575,6 +643,52 @@ public final class VelaProvision {
     }
 
     /** 递归把 src 树"链接"到 dst：优先硬链接（同分区秒级），失败则退回复制。 */
+    /**
+     * 复制一棵树，**每个文件都是真副本**（软链照样软链）。
+     *
+     * <p>用于系统镜像 {@code files/images/<档>/ → 设备/images/<档>/}：设备之间必须各持一份，
+     * 不能共享 inode（详见 {@link #ensureImage}）。</p>
+     */
+    private static void copyTree(@NonNull File src, @NonNull File dst) throws Exception {
+        if (java.nio.file.Files.isSymbolicLink(src.toPath())) {
+            if (!dst.exists()) {
+                File parent = dst.getParentFile();
+                if (parent != null) {
+                    //noinspection ResultOfMethodCallIgnored
+                    parent.mkdirs();
+                }
+                java.nio.file.Files.createSymbolicLink(dst.toPath(),
+                        java.nio.file.Files.readSymbolicLink(src.toPath()));
+            }
+            return;
+        }
+        if (src.isDirectory()) {
+            //noinspection ResultOfMethodCallIgnored
+            dst.mkdirs();
+            File[] children = src.listFiles();
+            if (children != null) {
+                for (File child : children) {
+                    copyTree(child, new File(dst, child.getName()));
+                }
+            }
+            return;
+        }
+        if (dst.exists() && dst.length() == src.length()) {
+            return;
+        }
+        File parent = dst.getParentFile();
+        if (parent != null) {
+            //noinspection ResultOfMethodCallIgnored
+            parent.mkdirs();
+        }
+        copyFile(src, dst);
+    }
+
+    /**
+     * 复制一棵树，**优先硬链**（同 inode，省空间）。
+     *
+     * <p>只用于运行时的**只读部分**（engine / skins 等）；系统镜像不走这里。</p>
+     */
     private static void linkTree(@NonNull File src, @NonNull File dst) throws Exception {
         // 软链必须"照样软链"：跟进目标会无限递归（engine/emulator -> engine）→ 直接闪退
         if (java.nio.file.Files.isSymbolicLink(src.toPath())) {

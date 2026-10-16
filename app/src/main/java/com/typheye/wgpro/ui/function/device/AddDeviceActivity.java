@@ -251,45 +251,31 @@ public class AddDeviceActivity extends AppCompatActivity {
                     com.typheye.wgpro.ui.widget.WGProHint.showError(this, "导入失败：" + result);
                     return;
                 }
-                // 解压完成 → 弹「创建哪种模拟器」（包内皮肤按 手表/手环/音箱 分组）
-                askDeviceType(newDeviceId, emulator);
+                // 解压完成 → **直接创建包内声明的那一台**（单包单设备，不再让用户选）
+                createDeclaredDevice(newDeviceId, emulator);
             });
         }, "vela-import").start();
     }
 
-    /** 解压完成后的"创建哪种模拟器"选择：列包内 engine/skins 的皮肤。 */
-    private void askDeviceType(@NonNull final String deviceId,
-                               @NonNull final com.typheye.wgpro.core.emu.VelaEmulator emulator) {
-        // 设备清单以包内 config.json 为准（代号/名称/皮肤），老包没有清单时退回扫 skins 目录
+    /**
+     * 解压完成后**直接创建包内声明的那一台**。
+     *
+     * <p><b>单包对应单设备</b>：镜像包必须在 {@code config.json} 的 {@code devices[]} 里声明**一台**
+     * 设备（名字 / 皮肤 / 镜像档都在包里），App 不做机型选择，也**不兼容**"没有清单"或"一个包多台"
+     * 的老包 —— 那种包正是"手环跑手表镜像"这类串扰的来源。</p>
+     */
+    private void createDeclaredDevice(@NonNull final String deviceId,
+                                      @NonNull final com.typheye.wgpro.core.emu.VelaEmulator emulator) {
         java.util.List<String[]> manifest = com.typheye.wgpro.core.emu.VelaProvision
                 .manifestDevices(emulator.runtimeDir());
-        final java.util.List<String> skins = new java.util.ArrayList<>();
-        final java.util.List<String> names = new java.util.ArrayList<>();
-        CharSequence[] labels;
-        if (!manifest.isEmpty()) {
-            for (String[] device : manifest) {
-                skins.add(device[2]);
-                names.add(device[1]);
-            }
-        } else {
-            // 老包没有清单：连名字都没有，直接用皮肤代号（App 不内置机型名表）
-            for (String skin : com.typheye.wgpro.core.emu.VelaEmulator
-                    .availableSkins(emulator.engineDir())) {
-                skins.add(skin);
-                names.add(skin);
-            }
+        if (manifest.isEmpty()) {
+            com.typheye.wgpro.ui.widget.WGProHint.showError(this,
+                    "镜像包不合法：config.json 里没有 devices 声明");
+            setResult(RESULT_CANCELED);
+            finish();
+            return;
         }
-        if (skins.isEmpty()) {
-            skins.add(emulator.skin());
-            names.add(emulator.skin());
-        }
-        labels = names.toArray(new CharSequence[0]);
-        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
-                .setTitle("创建哪种模拟器")
-                .setItems(labels, (dialog, which) -> createWithSkin(deviceId, emulator,
-                        skins.get(which), names.get(which)))
-                .setNegativeButton("取消", null)
-                .show();
+        createWithSkin(deviceId, emulator, manifest.get(0)[2], manifest.get(0)[1]);
     }
 
     /** 按选定皮肤写 AVD + 落库；完成后回到设备页。 */
