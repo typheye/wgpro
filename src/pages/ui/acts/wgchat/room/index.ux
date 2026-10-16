@@ -80,7 +80,6 @@ export default {
 		roomId: "",
 		roomDB: "internal://files/wgchat/",
 		taccUid: "",
-		isToBottom: false,
 		isLoading: false,
 		isUserScrolling: false, // 用户是否正在手动滚动
 		lastScrollY: 0, // 上次滚动位置
