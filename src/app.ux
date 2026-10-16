@@ -143,9 +143,6 @@ export default {
 	taccApiUrl() {
 		return this.getTS("taccServerURL") + "api.php";
 	},
-	taccWgchatxUrl() {
-		return this.getTS("taccServerURL") + "wgchatx/";
-	},
 	taccClientHeaders() {
 		let version = "unknown";
 		try {

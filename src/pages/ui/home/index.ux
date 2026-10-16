@@ -136,21 +136,8 @@ export default {
 			var v_uri = "";
 			if (id == "systool") v_uri = "pages/ui/function/systool";
 			else if (id == "filemanger") v_uri = "pages/ui/function/filemanger";
-			else if (id == "wgchat") {
-				// 从此版本起：点聊天图标默认进「微聊 X」，标志位可回退旧版
-				storage.get({
-					key: "wgsettings_iswgchatx",
-					success: (data) => {
-						this.$app.$def.goPage(
-							data === false
-								? "pages/ui/function/wgchat"
-								: "pages/ui/function/wgchatx"
-						);
-					},
-					fail: () => this.$app.$def.goPage("pages/ui/function/wgchatx"),
-				});
-				return;
-			} else if (id == "plugin") v_uri = "pages/ui/function/plugin";
+			else if (id == "wgchat") v_uri = "pages/ui/function/wgchat";
+			else if (id == "plugin") v_uri = "pages/ui/function/plugin";
 			else if (id == "more") v_uri = "pages/ui/function/more";
 			else if (id == "settings") v_uri = "pages/ui/function/settings";
 			this.$app.$def.goPage(v_uri);

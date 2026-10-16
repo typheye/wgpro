@@ -203,34 +203,6 @@
         "launchMode": "singleTask",
         "component": "index"
       },
-      "pages/ui/function/wgchatx": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
-      "pages/ui/acts/wgchatx/room": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
-      "pages/ui/acts/wgchatx/pushmsg": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
-      "pages/ui/acts/wgchatx/addroom": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
-      "pages/ui/acts/wgchatx/createroom": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
-      "pages/ui/acts/wgchatx/settings": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
-      "pages/ui/popup/wgchatswitch": {
-        "launchMode": "singleTask",
-        "component": "index"
-      },
       "pages/ui/acts/plugin/addplug": {
         "launchMode": "singleTask",
         "component": "index"
