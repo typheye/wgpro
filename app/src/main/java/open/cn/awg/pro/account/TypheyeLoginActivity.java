@@ -331,6 +331,8 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                     String j_info_note = "";
 
+                    int pollFail = 0;
+
                     while (go2xh) {
 
                         open.cn.awg.pro.core.NativeActions.sleep(3000);
@@ -365,9 +367,18 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
                         String send = "/api.php?type=check_login_request_status&request_id=" + v_request_id;
 
-                        String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), null, (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
+                        String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), null, (String) ("utf-8"), null, false, null, open.cn.awg.pro.core.TextValues.intValue(15000, -1), open.cn.awg.pro.core.TextValues.intValue(15000, -1), null).bodyForHttp200();
 
                         if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
+
+                            // 单次超时不再直接判失败：网络抖动时继续轮询，连续 3 次失败才报错
+                            pollFail++;
+
+                            if (pollFail < 3) {
+
+                                continue;
+
+                            }
 
                             go2xh = false;
                             oback = "登录失败:连接服务器超时";
@@ -376,6 +387,8 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                             break;
 
                         } else {
+
+                            pollFail = 0;
 
                             String ce = e1.readJson(back, "code");
 
@@ -394,22 +407,49 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                                         go2xh = false;
                                         zt(2);
 
-                                        JSONObject json = JSONObject.parseObject(back);
-
                                         try {
+
+                                            JSONObject json = JSONObject.parseObject(back);
                                             JSONObject info = json.getJSONObject("info");
-                                            j_info_cookie = info.getString("cookie");
-                                            j_info_shuo = info.getString("shuo");
-                                            j_info_nick = info.getString("nick");
-                                            j_info_note = info.getString("note");
-                                            j_info_uid = info.getString("uid");
-                                            j_info_more = info.getString("more");
-                                            j_info_email = info.getString("email");
-                                        } catch (Exception e) {
+                                            if (info != null) {
+                                                j_info_cookie = nz(info.getString("cookie"));
+                                                j_info_shuo = nz(info.getString("shuo"));
+                                                j_info_nick = nz(info.getString("nick"));
+                                                j_info_note = nz(info.getString("note"));
+                                                j_info_uid = nz(info.getString("uid"));
+                                                j_info_more = nz(info.getString("more"));
+                                                j_info_email = nz(info.getString("email"));
+                                            }
+                                            // 兼容旧服务端：只给 login_url 时从 query 里取 cookie/uid
+                                            if (j_info_cookie.isEmpty() || j_info_uid.isEmpty()) {
+                                                String lu = nz(json.getString("login_url"));
+                                                if (j_info_cookie.isEmpty()) {
+                                                    j_info_cookie = pickQuery(lu, "cookie");
+                                                }
+                                                if (j_info_uid.isEmpty()) {
+                                                    j_info_uid = pickQuery(lu, "uid");
+                                                }
+                                            }
+                                        } catch (Throwable e) {
 
                                         }
 
-                                        e1.tsk("提示", "登录成功");
+                                        if (j_info_cookie.isEmpty() || j_info_uid.isEmpty()) {
+                                            oback = "登录失败:服务器返回数据不完整";
+                                            e1.tsk("提示", oback);
+                                            show(0);
+                                            break;
+                                        }
+
+                                        if (j_info_nick.isEmpty()) {
+                                            j_info_nick = "用户" + j_info_uid;
+                                        }
+
+                                        if (j_info_note == null) {
+                                            j_info_note = "";
+                                        }
+
+                                    e1.tsk("提示", "登录成功");
                                         open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set2), (String) (j_info_nick));
                                         open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set2s), (String) (j_info_nick));
                                         open.cn.awg.pro.core.NativeFiles.writeText(TypheyeLoginActivity.this, (String) (set3), (String) (j_info_shuo));
@@ -481,6 +521,32 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
 
         }
 
+    }
+
+    private String nz(String v) {
+
+        return v == null ? "" : open.cn.awg.pro.core.TextValues.trim(v);
+    }
+
+    private String pickQuery(String url, String key) {
+
+        if (url == null || url.isEmpty() || key == null || key.isEmpty()) {
+            return "";
+        }
+
+        int q = url.indexOf('?');
+        if (q < 0) {
+            return "";
+        }
+
+        String[] parts = url.substring(q + 1).split("&");
+        for (String part : parts) {
+            int eq = part.indexOf('=');
+            if (eq > 0 && part.substring(0, eq).equals(key)) {
+                return open.cn.awg.pro.core.TextValues.trim(android.net.Uri.decode(part.substring(eq + 1)));
+            }
+        }
+        return "";
     }
 
     public void ewm(String url) {
@@ -612,18 +678,29 @@ public class TypheyeLoginActivity extends BaseAwgActivity {
                                 j_msg = json.getString("msg");
                                 try {
                                     JSONObject info = json.getJSONObject("info");
-                                    j_info_cookie = info.getString("cookie");
-                                    j_info_shuo = info.getString("shuo");
-                                    j_info_nick = info.getString("nick");
-                                    j_info_note = info.getString("note");
-                                    j_info_uid = info.getString("uid");
-                                    j_info_more = info.getString("more");
-                                    j_info_email = info.getString("email");
-                                } catch (Exception e) {
+                                    if (info != null) {
+                                        j_info_cookie = nz(info.getString("cookie"));
+                                        j_info_shuo = nz(info.getString("shuo"));
+                                        j_info_nick = nz(info.getString("nick"));
+                                        j_info_note = nz(info.getString("note"));
+                                        j_info_uid = nz(info.getString("uid"));
+                                        j_info_more = nz(info.getString("more"));
+                                        j_info_email = nz(info.getString("email"));
+                                    }
+                                } catch (Throwable e) {
 
                                 }
 
-                                if (java.util.Objects.equals(j_code, "200")) {
+                                if (java.util.Objects.equals(j_code, "200")
+                                        && (j_info_cookie.isEmpty() || j_info_uid.isEmpty())) {
+                                    e1.tsk("提示", "登录失败:服务器返回数据不完整");
+                                    show(0);
+
+                                } else if (java.util.Objects.equals(j_code, "200")) {
+
+                                    if (j_info_nick.isEmpty()) {
+                                        j_info_nick = "用户" + j_info_uid;
+                                    }
 
                                     e1.tsk("提示", "登录成功");
                                     easy.getPericon(j_info_uid);

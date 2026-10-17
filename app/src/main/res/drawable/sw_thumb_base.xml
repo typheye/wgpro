@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 手表紧凑开关滑块（白色底，颜色由 app:thumbTint 着色，无阴影） -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval">
+    <solid android:color="#FFFFFFFF" />
+    <size android:width="20dp" android:height="20dp" />
+</shape>

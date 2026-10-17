@@ -70,13 +70,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj2LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -84,13 +78,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -173,7 +161,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 应用公告"));
+                    tab.setText(String.valueOf("应用公告"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
@@ -188,7 +176,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 历史公告"));
+                    tab.setText(String.valueOf("历史公告"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -203,7 +191,7 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 应用公告"));
+                    tab.setText(String.valueOf("应用公告"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -342,11 +330,11 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 应用公告")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "应用公告")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(AnnouncementActivity.this);
 
-            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 公告列表")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "公告列表")) {
 
                 show(0);
 
@@ -365,11 +353,11 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 应用公告")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "应用公告")) {
 
             open.cn.awg.pro.core.NativeActions.finish(AnnouncementActivity.this);
 
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 历史公告")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "历史公告")) {
 
             show(0);
 
@@ -382,30 +370,14 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj2Click(View vw) {
         jzpd();
 
     }
 
-    private boolean onXdbj2LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AnnouncementActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx2Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(AnnouncementActivity.this);
@@ -428,11 +400,9 @@ public class AnnouncementActivity extends BaseAwgActivity {
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
-        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
         ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);

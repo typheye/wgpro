@@ -536,6 +536,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
 
         
 
+        applyStandardScreenMode(R.id.video_player_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
             if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
@@ -566,7 +567,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj32)), "3dp", 0, "3dp", 0);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
@@ -582,7 +583,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(VideoPlayerActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(VideoPlayerActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
@@ -592,7 +593,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
@@ -617,7 +618,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.xxbj32)), "3dp", 0, "3dp", 0);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             android.widget.TextView btab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.backt));
@@ -637,7 +638,7 @@ public class VideoPlayerActivity extends BaseAwgActivity {
             uih = uih + 9;
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(VideoPlayerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         }

@@ -135,7 +135,7 @@ public class AppDownloadActivity extends BaseAwgActivity {
 
         if (java.util.Objects.equals(ty, "app")) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDownloadActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用下载"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDownloadActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("应用下载"));
             ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(AppDownloadActivity.this.getWindow().getDecorView(), R.id.an2)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
             ((android.widget.Button) open.cn.awg.pro.core.NativeViewValues.findView(AppDownloadActivity.this.getWindow().getDecorView(), R.id.an3)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
 
@@ -230,7 +230,7 @@ public class AppDownloadActivity extends BaseAwgActivity {
     private void onAn2Click(View vw) {
 
         String ftitle = AppPaths.appPath("cache/file/title");
-        open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (ftitle), (String) ("< 下载目录"));
+        open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (ftitle), (String) ("下载目录"));
 
         String path = AppPaths.externalFilesPath("Download/");
 
@@ -252,7 +252,7 @@ public class AppDownloadActivity extends BaseAwgActivity {
     private void onAn3Click(View vw) {
 
         String ftitle = AppPaths.appPath("cache/file/title");
-        open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (ftitle), (String) ("< 下载目录"));
+        open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (ftitle), (String) ("下载目录"));
 
         String path = "/storage/emulated/0/Download/";
 
@@ -274,7 +274,7 @@ public class AppDownloadActivity extends BaseAwgActivity {
     private void onAn4Click(View vw) {
 
         String ftitle = AppPaths.appPath("cache/file/title");
-        open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (ftitle), (String) ("< 下载目录"));
+        open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (ftitle), (String) ("下载目录"));
 
         String path = AppPaths.externalFilesPath("app/download/") + appid + "/";
         open.cn.awg.pro.core.NativeFiles.writeText(AppDownloadActivity.this, (String) (path + ".nomedia"), (String) (""));

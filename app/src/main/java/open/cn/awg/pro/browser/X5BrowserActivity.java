@@ -251,6 +251,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
 
         
 
+        applyStandardScreenMode(R.id.x5_browser_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(X5BrowserActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
             if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(X5BrowserActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
@@ -278,7 +279,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.xdbj3)), u, 0, u, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "2")) {
@@ -288,13 +289,13 @@ public class X5BrowserActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(X5BrowserActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(X5BrowserActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -307,7 +308,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.xdbj3)), u, 0, u, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "4")) {
@@ -316,7 +317,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
             uih = uih + 9;
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.xxbj9)), 0, 0, 0, 0);
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.xdbj3)), 0, 0, 0, 0);
@@ -684,7 +685,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                     xxbj8.setVisibility(android.view.View.GONE);
                     restart();
                     isTip = false;
-                    bt.setText(String.valueOf("< X5浏览器"));
+                    bt.setText(String.valueOf("X5浏览器"));
                 }
             }
         });
@@ -698,7 +699,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 xxbj8.setVisibility(android.view.View.GONE);
                 restart();
                 isTip = false;
-                bt.setText(String.valueOf("< X5浏览器"));
+                bt.setText(String.valueOf("X5浏览器"));
             }
         });
 
@@ -710,7 +711,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 xxbj8.setVisibility(android.view.View.GONE);
                 restart();
                 isTip = false;
-                bt.setText(String.valueOf("< X5浏览器"));
+                bt.setText(String.valueOf("X5浏览器"));
             }
         });
 
@@ -742,7 +743,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 } else {
                     e1.tsk("提示", "没有可后退的网页");
                 }
-                bt.setText(String.valueOf("< X5浏览器"));
+                bt.setText(String.valueOf("X5浏览器"));
                 x5llq.getWebView().requestFocus();
             }
         });
@@ -766,7 +767,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 } else {
                     e1.tsk("提示", "没有可前进的网页");
                 }
-                bt.setText(String.valueOf("< X5浏览器"));
+                bt.setText(String.valueOf("X5浏览器"));
                 x5llq.getWebView().requestFocus();
             }
         });
@@ -786,7 +787,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 String url = x5llq.getWebView().getUrl();
                 llqhdyc();
                 x5llq.loadUrl(url);
-                bt.setText(String.valueOf("< X5浏览器"));
+                bt.setText(String.valueOf("X5浏览器"));
                 x5llq.getWebView().requestFocus();
             }
         });
@@ -811,7 +812,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
                 xxbj8.setVisibility(android.view.View.GONE);
                 restart();
                 isTip = false;
-                bt.setText(String.valueOf("< X5浏览器"));
+                bt.setText(String.valueOf("X5浏览器"));
                 x5llq.getWebView().requestFocus();
             }
         });
@@ -1030,7 +1031,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< X5浏览器")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "X5浏览器")) {
 
             open.cn.awg.pro.core.NativeActions.finish(X5BrowserActivity.this);
 
@@ -1213,7 +1214,7 @@ public class X5BrowserActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.xxbj4)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< X5浏览器"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("X5浏览器"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
             ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserActivity.this.getWindow().getDecorView(), R.id.kp3)).setVisibility(android.view.View.VISIBLE);
 

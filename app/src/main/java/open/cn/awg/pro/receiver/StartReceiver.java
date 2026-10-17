@@ -43,7 +43,13 @@ public class StartReceiver extends BroadcastReceiver {
 
                 Intent mainActivityIntent = new Intent(context, MainActivity.class);  // 要启动的Activity
                 mainActivityIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(mainActivityIntent);
+                try {
+                    context.startActivity(mainActivityIntent);
+                } catch (Throwable ignored) {
+                    // Android 10+ 限制后台启动 Activity，部分系统（Android 15）会直接抛异常。
+                    // 这里吞掉异常，避免 BOOT_COMPLETED 接收器崩溃导致开机后反复进恢复页；
+                    // 用户手动点开应用即可。
+                }
 
             }
         }

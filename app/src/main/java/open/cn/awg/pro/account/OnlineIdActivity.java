@@ -43,13 +43,7 @@ public class OnlineIdActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener wb3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onWb3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -196,11 +190,7 @@ public class OnlineIdActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onWb3LongClick(View vw) {
-        open.cn.awg.pro.core.NativeActions.launch(OnlineIdActivity.this, (Class<?>) (SystemPermissionActivity.class));
-        return true;
 
-    }
 
     private void onTx2Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(OnlineIdActivity.this);
@@ -221,7 +211,6 @@ public class OnlineIdActivity extends BaseAwgActivity {
         TextView ff56a8e7f6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb1);
 
         TextView i0d2d4d9236 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb3);
-        i0d2d4d9236.setOnLongClickListener(wb3LongClickListener);
 
         ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
         i4d951cdb0e.setOnClickListener(tx2ClickListener);

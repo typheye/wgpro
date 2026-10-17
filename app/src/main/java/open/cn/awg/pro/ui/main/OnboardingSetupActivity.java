@@ -164,6 +164,7 @@ public class OnboardingSetupActivity extends BaseAwgActivity {
     }
 
     public void __layoutIsLoaded(Activity ay, View vw) {
+        applyStandardScreenMode(R.id.onboarding_setup_root, R.id.qtgd1, R.id.title_bar);
         applyFullscreenWindow();
 
         
@@ -599,6 +600,8 @@ public class OnboardingSetupActivity extends BaseAwgActivity {
 
             }
             open.cn.awg.pro.core.NativeFiles.writeText(OnboardingSetupActivity.this, (String) (a2), (String) (a1));
+            // 新版：屏幕形状写 SharedPreferences（第一优先）；a3.inf 仅作旧读取点的过渡镜像
+            open.cn.awg.pro.core.AppPrefs.setScreenShape(OnboardingSetupActivity.this, A0);
             open.cn.awg.pro.core.NativeFiles.writeText(OnboardingSetupActivity.this, (String) (a3), (String) (a4));
 
         }
@@ -757,6 +760,9 @@ public class OnboardingSetupActivity extends BaseAwgActivity {
             final String set66 = AppPaths.appPath("settings/set6.inf");
             open.cn.awg.pro.core.NativeFiles.writeText(OnboardingSetupActivity.this, (String) (a0), (String) ("1"));
             open.cn.awg.pro.core.NativeFiles.writeText(OnboardingSetupActivity.this, (String) (set66), (String) ("true"));
+            // 新版初始化标志：写 SharedPreferences
+            open.cn.awg.pro.core.AppPrefs.setDeviceSetupDone(OnboardingSetupActivity.this, true);
+            open.cn.awg.pro.core.AppPrefs.setOnboardingDone(OnboardingSetupActivity.this, true);
             open.cn.awg.pro.core.NativeActions.start(new Thread() {
 
                 public void run() {

@@ -48,13 +48,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -69,13 +63,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj4LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -90,13 +78,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj2LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -111,13 +93,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj11LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj11LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj11ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -294,15 +270,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj11LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg1CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -336,15 +304,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj2LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb1)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg4CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -378,15 +338,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj4LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg3CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -420,15 +372,7 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MediaBrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(MediaBrowserSettingsActivity.this);
@@ -449,28 +393,24 @@ public class MediaBrowserSettingsActivity extends BaseAwgActivity {
 
         RelativeLayout i67b461495f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj11);
         i67b461495f.setOnClickListener(xdbj11ClickListener);
-        i67b461495f.setOnLongClickListener(xdbj11LongClickListener);
 
         SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
         RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
-        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
         SwitchCompat c6051f0d45 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg4);
         c6051f0d45.setOnCheckedChangeListener(kg4CheckedChangeListener);
 
         RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
-        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
         SwitchCompat i2e1dda294f = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg3);
         i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

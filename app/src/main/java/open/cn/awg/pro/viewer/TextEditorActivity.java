@@ -133,6 +133,7 @@ public class TextEditorActivity extends BaseAwgActivity {
 
         
 
+        applyStandardScreenMode(R.id.text_editor_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextEditorActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
             if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextEditorActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
@@ -170,7 +171,7 @@ public class TextEditorActivity extends BaseAwgActivity {
         if (java.util.Objects.equals(a, "1")) {
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextEditorActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextEditorActivity.this.getWindow().getDecorView(), R.id.xxbj2)), u, 0, u, 50);
 
@@ -181,13 +182,13 @@ public class TextEditorActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(TextEditorActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextEditorActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextEditorActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextEditorActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -196,7 +197,7 @@ public class TextEditorActivity extends BaseAwgActivity {
         } else if (java.util.Objects.equals(a, "3")) {
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextEditorActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextEditorActivity.this.getWindow().getDecorView(), R.id.xxbj2)), u, 0, u, 50);
 

@@ -176,7 +176,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (ftitle)), null)) {
 
-            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (ftitle), (String) ("< 文件管理"));
+            open.cn.awg.pro.core.NativeFiles.writeText(FileManagerActivity.this, (String) (ftitle), (String) ("文件管理"));
 
         }
         titles = open.cn.awg.pro.core.NativeFiles.readText(FileManagerActivity.this, (String) (ftitle));
@@ -420,7 +420,7 @@ public class FileManagerActivity extends BaseAwgActivity {
 
         String r = titles;
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 文件管理") || java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), r)) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "文件管理") || java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), r)) {
 
             String url = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerActivity.this.getWindow().getDecorView(), R.id.zywblj)).getText().toString();
 

@@ -49,13 +49,7 @@ public class LegalInfoActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -63,13 +57,7 @@ public class LegalInfoActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj2LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -77,13 +65,7 @@ public class LegalInfoActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj14LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj14LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj14ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -183,45 +165,21 @@ public class LegalInfoActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj14LongClick(View vw) {
 
-        String te = ((TextView) findViewById(R.id.wb29)).getText().toString();
-
-        String lj = ((TextView) findViewById(R.id.wb30)).getText().toString();
-        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj2Click(View vw) {
         load(AppPaths.appPath("data/assets/b1"), "权限使用说明");
 
     }
 
-    private boolean onXdbj2LongClick(View vw) {
 
-        String te = ((TextView) findViewById(R.id.wb2)).getText().toString();
-
-        String lj = ((TextView) findViewById(R.id.wb3)).getText().toString();
-        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj3Click(View vw) {
         load(AppPaths.appPath("data/assets/b3"), "腕上微聊公约");
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((TextView) findViewById(R.id.wb4)).getText().toString();
-
-        String lj = ((TextView) findViewById(R.id.wb5)).getText().toString();
-        e1.tsk(lei, "详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         finish();
@@ -235,15 +193,12 @@ public class LegalInfoActivity extends BaseAwgActivity {
 
         RelativeLayout c4cbe9d7ff = (RelativeLayout) findViewById(R.id.xdbj14);
         c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
-        c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
 
         RelativeLayout i3167b45174 = (RelativeLayout) findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
-        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
         RelativeLayout i20c2777fab = (RelativeLayout) findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

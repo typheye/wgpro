@@ -243,7 +243,7 @@ public static LinearLayoutManager mLayoutManager;
 
                 public void run() {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 扩展插件"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("扩展插件"));
                     cjlbview(0);
 
                 }
@@ -458,7 +458,7 @@ public static LinearLayoutManager mLayoutManager;
 
                     public void run() {
 
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 扩展插件"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("扩展插件"));
                         cjlbview(1);
 
                     }

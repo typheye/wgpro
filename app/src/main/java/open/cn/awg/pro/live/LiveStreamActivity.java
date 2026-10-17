@@ -139,7 +139,7 @@ public class LiveStreamActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 网络直播"));
+                    tab.setText(String.valueOf("网络直播"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
@@ -154,7 +154,7 @@ public class LiveStreamActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 直播通道"));
+                    tab.setText(String.valueOf("直播通道"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -169,7 +169,7 @@ public class LiveStreamActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 网络直播"));
+                    tab.setText(String.valueOf("网络直播"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -323,11 +323,11 @@ public class LiveStreamActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 网络直播")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "网络直播")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(LiveStreamActivity.this);
 
-            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 直播通道")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "直播通道")) {
 
                 show(0);
 
@@ -346,11 +346,11 @@ public class LiveStreamActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 网络直播")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "网络直播")) {
 
             open.cn.awg.pro.core.NativeActions.finish(LiveStreamActivity.this);
 
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 直播通道")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(LiveStreamActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "直播通道")) {
 
             show(0);
 

@@ -76,13 +76,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -90,13 +84,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj5LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj5LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -104,13 +92,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj9LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj9LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj9ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -118,13 +100,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj8LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj8LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj8ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -132,13 +108,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj4LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -146,13 +116,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj7LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj7LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj7ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -288,7 +252,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
                     ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb1)).setText(String.valueOf(""));
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 云端服务"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("云端服务"));
 
                 }
 
@@ -657,7 +621,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 云端服务")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "云端服务")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(CloudServiceActivity.this);
 
@@ -670,7 +634,7 @@ public class CloudServiceActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 云端服务")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "云端服务")) {
 
             open.cn.awg.pro.core.NativeActions.finish(CloudServiceActivity.this);
 
@@ -683,45 +647,21 @@ public class CloudServiceActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj7LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb15)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj4Click(View vw) {
         open.cn.awg.pro.core.NativeActions.launch(CloudServiceActivity.this, (Class<?>) (WearChatSettingsActivity.class));
 
     }
 
-    private boolean onXdbj4LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj8Click(View vw) {
         e1.goplu("20005", "后台诊断", false);
 
     }
 
-    private boolean onXdbj8LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj9Click(View vw) {
 
@@ -738,45 +678,21 @@ public class CloudServiceActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj9LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj5Click(View vw) {
         yun_backup();
 
     }
 
-    private boolean onXdbj5LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj3Click(View vw) {
         yun_recovery();
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(CloudServiceActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(CloudServiceActivity.this);
@@ -806,27 +722,21 @@ public class CloudServiceActivity extends BaseAwgActivity {
 
         RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
-        e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
         RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
-        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
         RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
-        fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
         RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
-        i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
         RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
-        c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

@@ -254,6 +254,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
+        applyStandardScreenMode(R.id.chat_room_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (AppPaths.appPath("settings/f8/set4.inf"))), "true")) {
 
         }
@@ -289,7 +290,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "2")) {
@@ -299,13 +300,13 @@ public class ChatRoomActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(ChatRoomActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ChatRoomActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -318,7 +319,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "4")) {
@@ -327,7 +328,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
             uih = uih + 9;
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)), 0, 0, 0, 0);
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbj4)), 0, 0, 0, 0);
@@ -686,7 +687,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
                     if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< "));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf(""));
 
                     }
                     open.cn.awg.pro.core.NativeViewValues.scrollPosition(((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.ltsv7lb1)), "top");
@@ -787,7 +788,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 房间详情"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("房间详情"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.i2xxbj1)).setVisibility(android.view.View.VISIBLE);
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.xxbjcd)).setVisibility(android.view.View.GONE);
             ((androidx.cardview.widget.CardView) open.cn.awg.pro.core.NativeViewValues.findView(ChatRoomActivity.this.getWindow().getDecorView(), R.id.kp7)).setVisibility(android.view.View.VISIBLE);
@@ -877,7 +878,7 @@ public class ChatRoomActivity extends BaseAwgActivity {
             int sdk = android.os.Build.VERSION.SDK_INT;
 
             String ftitle = AppPaths.appPath("cache/file/title");
-            open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (ftitle), (String) ("< 选择附件"));
+            open.cn.awg.pro.core.NativeFiles.writeText(ChatRoomActivity.this, (String) (ftitle), (String) ("选择附件"));
 
             if (xlcd2.getLastVisiblePosition() == 0) {
 

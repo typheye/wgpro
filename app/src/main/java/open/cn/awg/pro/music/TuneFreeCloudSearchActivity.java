@@ -151,7 +151,7 @@ public class TuneFreeCloudSearchActivity extends BaseAwgActivity {
 
                 if (type == -1) {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 云盘资源"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeCloudSearchActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("云盘资源"));
 
                 }
 

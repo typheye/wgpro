@@ -182,26 +182,39 @@ public class LocationActivity extends BaseAwgActivity {
             locationListener = new LocationListener() {
 
                 public void onLocationChanged(Location location) {
-                    Geocoder geocoder = new Geocoder(lei, Locale.getDefault());
-
                     latitude = location.getLatitude();
                     longitude = location.getLongitude();
                     altitude = location.getAltitude();
                     speed = location.getSpeed();
-                    try {
-                        List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                        if (addresses.size() > 0) {
-                            Address address = addresses.get(0);
-                            loca = address.getCountryName() + address.getAdminArea() + address.getLocality();
-                        } else {
-                            loca = "未知";
-                        }
-                    } catch (IOException e) {
-                        loca = "未知";
-                        android.util.Log.e("AWGPro", "Unhandled exception", e);
-                    }
+                    // 反地理编码（Geocoder）会走网络，放在主线程会卡住输入分发被系统判 ANR。
+                    // 先立即显示经纬度，再把地址解析挪到子线程，完成后回主线程刷新。
+                    loca = "解析中";
                     show();
-
+                    new Thread(new Runnable() {
+                        public void run() {
+                            String name = "未知";
+                            try {
+                                Geocoder geocoder = new Geocoder(lei, Locale.getDefault());
+                                List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                                if (addresses != null && addresses.size() > 0) {
+                                    Address address = addresses.get(0);
+                                    name = address.getCountryName() + address.getAdminArea() + address.getLocality();
+                                }
+                            } catch (Throwable e) {
+                                android.util.Log.e("AWGPro", "geocoder failed", e);
+                            }
+                            final String resolved = name;
+                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
+                                public void run() {
+                                    if (LocationActivity.this.isFinishing()) {
+                                        return;
+                                    }
+                                    loca = resolved;
+                                    show();
+                                }
+                            });
+                        }
+                    }).start();
                 }
 
                 public void onStatusChanged(String provider, int status, Bundle extras) {

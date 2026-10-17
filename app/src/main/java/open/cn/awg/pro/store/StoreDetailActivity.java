@@ -727,7 +727,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                 if (i == 0) {
 
-                    tab.setText(String.valueOf("< 视频详情"));
+                    tab.setText(String.valueOf("视频详情"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -735,7 +735,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                 } else if (i == 1) {
 
-                    tab.setText(String.valueOf("< 歌曲详情"));
+                    tab.setText(String.valueOf("歌曲详情"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -743,7 +743,7 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                 } else if (i == 2) {
 
-                    tab.setText(String.valueOf("< 应用详情"));
+                    tab.setText(String.valueOf("应用详情"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
@@ -753,15 +753,15 @@ public class StoreDetailActivity extends BaseAwgActivity {
 
                     if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/video")) {
 
-                        tab.setText(String.valueOf("< 视频详情"));
+                        tab.setText(String.valueOf("视频详情"));
 
                     } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/music")) {
 
-                        tab.setText(String.valueOf("< 歌曲详情"));
+                        tab.setText(String.valueOf("歌曲详情"));
 
                     } else if (open.cn.awg.pro.core.TextValues.startsWith(uri, "awg://uri/app")) {
 
-                        tab.setText(String.valueOf("< 应用详情"));
+                        tab.setText(String.valueOf("应用详情"));
 
                     }
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));

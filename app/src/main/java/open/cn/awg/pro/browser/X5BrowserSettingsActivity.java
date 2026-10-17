@@ -71,13 +71,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj5LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj5LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -85,13 +79,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -99,13 +87,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj7LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj7LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj7ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -120,13 +102,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj6LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj6LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj6ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -234,7 +210,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
             ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< X5浏览器"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("X5浏览器"));
 
         }
 
@@ -336,7 +312,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< X5浏览器")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "X5浏览器")) {
 
             open.cn.awg.pro.core.NativeActions.finish(X5BrowserSettingsActivity.this);
 
@@ -376,15 +352,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj6LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg3CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -418,15 +386,7 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj7LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj3Click(View vw) {
         mode = 1;
@@ -434,30 +394,14 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj5Click(View vw) {
         open.cn.awg.pro.core.NativeActions.launch(X5BrowserSettingsActivity.this, (Class<?>) (X5CoreInstallActivity.class));
 
     }
 
-    private boolean onXdbj5LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(X5BrowserSettingsActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(X5BrowserSettingsActivity.this);
@@ -508,22 +452,18 @@ public class X5BrowserSettingsActivity extends BaseAwgActivity {
 
         RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
-        i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
         SwitchCompat i2e1dda294f = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg3);
         i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
         RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
-        e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
-        c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

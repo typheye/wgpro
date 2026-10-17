@@ -197,7 +197,7 @@ public class ExtensionPluginActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展插件")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ExtensionPluginActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "扩展插件")) {
 
             open.cn.awg.pro.core.NativeActions.finish(ExtensionPluginActivity.this);
 

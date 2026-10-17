@@ -220,7 +220,7 @@ public class WearChatActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕上微聊")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(WearChatActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "腕上微聊")) {
 
             open.cn.awg.pro.core.NativeActions.finish(WearChatActivity.this);
 

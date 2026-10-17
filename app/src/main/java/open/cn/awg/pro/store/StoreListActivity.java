@@ -56,7 +56,9 @@ public class StoreListActivity extends BaseAwgActivity {
     public String ll = "";
     public String type = "";
     public String search = "";
-    public AppRuntimeBridge e1 = new AppRuntimeBridge(this);
+    // 不能在这里 new：字段初始化在 attachBaseContext 之前执行，AppRuntimeBridge 里
+    // LocalDatabaseBridge 会取 applicationContext 得到 null 直接崩溃（页面无法打开）。改到 onCreate 里建。
+    public AppRuntimeBridge e1;
     public NativeListAdapter spq = null;
     public String src_url = "";
     public int v_totalPages = 0;
@@ -96,6 +98,7 @@ public class StoreListActivity extends BaseAwgActivity {
 
     public void onCreate(Bundle be) {
         super.onCreate(be);
+        e1 = new AppRuntimeBridge(this);
         setContentView(R.layout.store_list);
         _$_viewAutomaticSettingEvent();
         AwgProApplication.getInstance().addActivity(lei);
@@ -152,15 +155,15 @@ public class StoreListActivity extends BaseAwgActivity {
 
                 if (java.util.Objects.equals(type, "app")) {
 
-                    tab.setText(String.valueOf("< 应用列表"));
+                    tab.setText(String.valueOf("应用列表"));
 
                 } else if (java.util.Objects.equals(type, "video")) {
 
-                    tab.setText(String.valueOf("< 视频列表"));
+                    tab.setText(String.valueOf("视频列表"));
 
                 } else if (java.util.Objects.equals(type, "music")) {
 
-                    tab.setText(String.valueOf("< 歌曲列表"));
+                    tab.setText(String.valueOf("歌曲列表"));
 
                 }
 

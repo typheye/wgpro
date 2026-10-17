@@ -62,6 +62,7 @@ public class DownloadProgressActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
+        applyStandardScreenMode(R.id.download_progress_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
             if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
@@ -102,7 +103,7 @@ public class DownloadProgressActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "2")) {
@@ -112,13 +113,13 @@ public class DownloadProgressActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(DownloadProgressActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DownloadProgressActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -129,7 +130,7 @@ public class DownloadProgressActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DownloadProgressActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "4")) {

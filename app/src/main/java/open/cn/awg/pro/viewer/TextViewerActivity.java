@@ -169,6 +169,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         
 
+        applyStandardScreenMode(R.id.text_viewer_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
             if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerActivity.this, (String) (AppPaths.appPath("settings/set4.inf"))), "true")) {
@@ -210,7 +211,7 @@ public class TextViewerActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.margin(te, 2, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "2")) {
@@ -220,13 +221,13 @@ public class TextViewerActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(TextViewerActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(TextViewerActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -246,7 +247,7 @@ public class TextViewerActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.margin(te, 2, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "4")) {
@@ -394,7 +395,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 文本浏览")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "文本浏览")) {
 
             open.cn.awg.pro.core.NativeActions.finish(TextViewerActivity.this);
 
@@ -406,7 +407,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("文本浏览"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
             ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(android.view.View.VISIBLE);
 
@@ -435,7 +436,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("文本浏览"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
             ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(android.view.View.VISIBLE);
 
@@ -467,7 +468,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("文本浏览"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
             ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(android.view.View.VISIBLE);
 
@@ -485,7 +486,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("文本浏览"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
             ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(android.view.View.VISIBLE);
 
@@ -504,7 +505,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("文本浏览"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
             ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(android.view.View.VISIBLE);
 
@@ -522,7 +523,7 @@ public class TextViewerActivity extends BaseAwgActivity {
 
         if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 文本浏览"));
+            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("文本浏览"));
             ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.GONE);
             ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TextViewerActivity.this.getWindow().getDecorView(), R.id.wb1)).setVisibility(android.view.View.VISIBLE);
 

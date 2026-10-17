@@ -65,7 +65,7 @@ public class TextQrDisplayActivity extends BaseAwgActivity {
 
         if (!java.util.Objects.equals(bt, null) && !java.util.Objects.equals(bt, "")) {
 
-            ((TextView) findViewById(R.id.title_bar)).setText(String.valueOf("< " + bt));
+            ((TextView) findViewById(R.id.title_bar)).setText(String.valueOf("" + bt));
 
         }
 

@@ -48,13 +48,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj6LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj6LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj6ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -62,13 +56,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj9LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj9LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj9ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -76,13 +64,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj5LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj5LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -90,13 +72,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj4LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -104,13 +80,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -118,13 +88,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj8LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj8LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj8ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -132,13 +96,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj15LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj15LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj15ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -146,13 +104,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj14LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj14LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj14ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -160,13 +112,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj13LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj13LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj13ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -174,13 +120,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj12LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj12LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj12ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -188,13 +128,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj11LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj11LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj11ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -202,13 +136,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj10LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj10LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj10ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -216,13 +144,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj17LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj17LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj17ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -230,13 +152,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj2LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -251,13 +167,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj7LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj7LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj7ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -614,15 +524,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj7LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb17)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg1CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -656,15 +558,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj2LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj17Click(View vw) {
 
@@ -705,15 +599,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj17LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb22)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb35)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj10Click(View vw) {
 
@@ -721,15 +607,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj10LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb23)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb24)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj11Click(View vw) {
 
@@ -737,15 +615,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj11LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb25)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb26)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj12Click(View vw) {
 
@@ -753,15 +623,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj12LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb27)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb28)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj13Click(View vw) {
 
@@ -778,15 +640,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj13LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb29)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb30)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj14Click(View vw) {
 
@@ -802,15 +656,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj14LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb33)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb34)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj15Click(View vw) {
 
@@ -851,15 +697,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj15LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.w22b)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb36)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj8Click(View vw) {
 
@@ -867,15 +705,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj8LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb18)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb19)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj3Click(View vw) {
 
@@ -883,15 +713,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj4Click(View vw) {
 
@@ -899,15 +721,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj4LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj5Click(View vw) {
 
@@ -924,15 +738,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj5LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb10)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj9Click(View vw) {
 
@@ -946,15 +752,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj9LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb20)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb21)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj6Click(View vw) {
 
@@ -963,15 +761,7 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj6LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb13)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppUpdateActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(AppUpdateActivity.this);
@@ -989,74 +779,59 @@ public class AppUpdateActivity extends BaseAwgActivity {
 
         RelativeLayout e585d94488 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj7);
         e585d94488.setOnClickListener(xdbj7ClickListener);
-        e585d94488.setOnLongClickListener(xdbj7LongClickListener);
 
         SwitchCompat i1bca89f073 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg1);
         i1bca89f073.setOnCheckedChangeListener(kg1CheckedChangeListener);
 
         RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
-        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
         TextView i3b389d6120 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb22);
 
         RelativeLayout i8890b048c8 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj17);
         i8890b048c8.setOnClickListener(xdbj17ClickListener);
-        i8890b048c8.setOnLongClickListener(xdbj17LongClickListener);
 
         TextView f0afba5bfe = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb39);
 
         RelativeLayout i5b34eede7f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj10);
         i5b34eede7f.setOnClickListener(xdbj10ClickListener);
-        i5b34eede7f.setOnLongClickListener(xdbj10LongClickListener);
 
         RelativeLayout i67b461495f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj11);
         i67b461495f.setOnClickListener(xdbj11ClickListener);
-        i67b461495f.setOnLongClickListener(xdbj11LongClickListener);
 
         RelativeLayout f73b53def9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj12);
         f73b53def9.setOnClickListener(xdbj12ClickListener);
-        f73b53def9.setOnLongClickListener(xdbj12LongClickListener);
 
         RelativeLayout i62f27ff563 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj13);
         i62f27ff563.setOnClickListener(xdbj13ClickListener);
-        i62f27ff563.setOnLongClickListener(xdbj13LongClickListener);
 
         RelativeLayout c4cbe9d7ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj14);
         c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
-        c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
 
         TextView i81d18382af = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.w22b);
 
         RelativeLayout i6834408ef9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj15);
         i6834408ef9.setOnClickListener(xdbj15ClickListener);
-        i6834408ef9.setOnLongClickListener(xdbj15LongClickListener);
 
         TextView i3d78c07838 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb40);
 
         RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
         fab146d7a5.setOnClickListener(xdbj8ClickListener);
-        fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
-        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
         RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
-        c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
         RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
         i5a93676674.setOnClickListener(xdbj9ClickListener);
-        i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
 
         RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
-        i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

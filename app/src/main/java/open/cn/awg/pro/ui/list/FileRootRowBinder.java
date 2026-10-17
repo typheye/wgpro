@@ -46,7 +46,7 @@ public final class FileRootRowBinder implements NativeListAdapter.RowBinder {
         Object mode = NativeListAdapter.valueForView(view, R.id.wb2);
         Object title = NativeListAdapter.valueForView(view, R.id.wb1);
         String path = text(pathValue);
-        NativeFiles.writeText(owner, AppPaths.appPath("cache/file/title"), "< " + title);
+        NativeFiles.writeText(owner, AppPaths.appPath("cache/file/title"), "" + title);
 
         if (Objects.equals(mode, "a0")) {
             openFileManager(path);

@@ -267,7 +267,7 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 腕管远控"));
+                    tab.setText(String.valueOf("腕管远控"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
@@ -282,7 +282,7 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 扩展权限"));
+                    tab.setText(String.valueOf("扩展权限"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -297,7 +297,7 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 腕管远控"));
+                    tab.setText(String.valueOf("腕管远控"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -408,11 +408,11 @@ public class RemoteControlActivity extends BaseAwgActivity {
         super.onWindowFocusChanged(hs);
             applyWindowModeFromSettings();
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 远程锁屏")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "远程锁屏")) {
 
             csh();
 
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展权限")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "扩展权限")) {
 
             jzpd();
 
@@ -463,11 +463,11 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕管远控")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "腕管远控")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(RemoteControlActivity.this);
 
-            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展权限")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "扩展权限")) {
 
                 show(0);
                 csh();
@@ -487,11 +487,11 @@ public class RemoteControlActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 腕管远控")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "腕管远控")) {
 
             open.cn.awg.pro.core.NativeActions.finish(RemoteControlActivity.this);
 
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 扩展权限")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(RemoteControlActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "扩展权限")) {
 
             show(0);
             csh();

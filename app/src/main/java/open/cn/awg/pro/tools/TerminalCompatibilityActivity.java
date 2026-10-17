@@ -173,7 +173,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
                 if (i == 0) {
 
-                    tab.setText(String.valueOf("< 适配终端"));
+                    tab.setText(String.valueOf("适配终端"));
                     xxbj1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     xxbj2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     xxbj5.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -255,7 +255,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 适配终端")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "适配终端")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(TerminalCompatibilityActivity.this);
 
@@ -268,7 +268,7 @@ public class TerminalCompatibilityActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 适配终端")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TerminalCompatibilityActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "适配终端")) {
 
             open.cn.awg.pro.core.NativeActions.finish(TerminalCompatibilityActivity.this);
 

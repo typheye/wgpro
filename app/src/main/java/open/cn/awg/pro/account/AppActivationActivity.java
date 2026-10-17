@@ -91,13 +91,7 @@ public class AppActivationActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj4LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -105,13 +99,7 @@ public class AppActivationActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj2LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -119,13 +107,7 @@ public class AppActivationActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -304,7 +286,7 @@ public class AppActivationActivity extends BaseAwgActivity {
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
                     ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("应用激活"));
 
                 }
 
@@ -322,7 +304,7 @@ public class AppActivationActivity extends BaseAwgActivity {
                 ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
                 ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj4)).setVisibility(android.view.View.GONE);
                 ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
-                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("应用激活"));
 
             }
 
@@ -597,7 +579,7 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 应用激活")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "应用激活")) {
 
             open.cn.awg.pro.core.NativeActions.finish(AppActivationActivity.this);
 
@@ -620,7 +602,7 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                     public void run() {
 
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("应用激活"));
                         ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                         ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
@@ -663,45 +645,21 @@ public class AppActivationActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj2Click(View vw) {
         load(AppPaths.appPath("data/assets/e3"), "功能帮助");
 
     }
 
-    private boolean onXdbj2LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj4Click(View vw) {
         ksjh();
 
     }
 
-    private boolean onXdbj4LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(AppActivationActivity.this);
@@ -746,7 +704,7 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("应用激活"));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
@@ -784,7 +742,7 @@ public class AppActivationActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 应用激活"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("应用激活"));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(AppActivationActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
@@ -826,15 +784,12 @@ public class AppActivationActivity extends BaseAwgActivity {
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
-        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
         RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
-        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

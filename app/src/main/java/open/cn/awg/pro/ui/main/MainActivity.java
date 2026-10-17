@@ -80,11 +80,8 @@ public class MainActivity extends BaseAwgActivity {
     public CoreRuntimeBootstrap e13;
     public DebugStateStore debug;
     public int vercode = 0;
-    public boolean isNotMainOnce = true;
     public boolean isShow = true;
     public boolean loaded = false;
-    public boolean state_homeshow = false;
-    public boolean state_once_homeshow = false;
     public boolean isHasReq = false;
     public String div_lbl1_url = "";
     public String div_ad1_url = "";
@@ -101,13 +98,6 @@ public class MainActivity extends BaseAwgActivity {
     public int supertip_mode = 0;
     public String android_id;
     public TypheyeServiceBridge easy;
-    private final View.OnClickListener wbMainKjfsGbcdClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWbMainKjfsGbcdClick(vw);
-        }
-
-    };
     private final View.OnClickListener tx3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -164,13 +154,6 @@ public class MainActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnClickListener tx15ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onTx15Click(vw);
-        }
-
-    };
     private final View.OnLongClickListener wb9LongClickListener = new View.OnLongClickListener() {
 
         public boolean onLongClick(View vw) {
@@ -185,231 +168,6 @@ public class MainActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnClickListener tx1ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onTx1Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb51ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb51Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj19LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj19LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj19ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj19Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj18LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj18LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj18ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj18Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj17LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj17LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj17ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj17Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb40ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb40Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj16LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj16LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj16ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj16Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj15LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj15LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj15ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj15Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj14LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj14LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj14ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj14Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb10ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb10Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj13LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj13LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj13ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj13Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj12LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj12LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj12ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj12Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj9LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj9LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj9ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj9Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj20LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj20LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj20ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj20Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb56ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb56Click(vw);
-        }
-
-    };
-    private final View.OnLongClickListener xdbj8LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj8LongClick(vw);
-        }
-
-    };
-    private final View.OnClickListener xdbj8ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXdbj8Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb2ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb2Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb11ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb11Click(vw);
-        }
-
-    };
-    private final View.OnClickListener wb7ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onWb7Click(vw);
-        }
-
-    };
-    private final View.OnClickListener xxbj5ClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onXxbj5Click(vw);
-        }
-
-    };
-    private final View.OnClickListener titleBarClickListener = new View.OnClickListener() {
-
-        public void onClick(View vw) {
-            onTitleBarClick(vw);
-        }
-
-    };
-
     public void onCreate(Bundle be) {
         super.onCreate(be);
         debug = new DebugStateStore(MainActivity.this);
@@ -559,7 +317,37 @@ public class MainActivity extends BaseAwgActivity {
 
     }
 
+    /** 主页底部的「应用未激活」提示：激活状态变了就更新。 */
+    private void updateActivationBadge() {
+        android.widget.TextView wb13 = findViewById(R.id.wb13);
+        if (wb13 == null) {
+            return;
+        }
+        wb13.setVisibility(e1.isJh() ? View.GONE : View.VISIBLE);
+    }
+
     public void __layoutIsLoaded(Activity ay, View vw) {
+
+        // 圆屏自适应：给主页内容容器加左右安全边距，避免卡片四角被圆边裁切（方屏为 0）
+        int roundInset = open.cn.awg.pro.core.ScreenShape.roundInset(MainActivity.this);
+        if (roundInset > 0) {
+            android.view.View xdbj1v = open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj1);
+            if (xdbj1v != null) xdbj1v.setPadding(roundInset, 0, roundInset, 0);
+        }
+
+        // 顶栏左右 Action / 标题按屏幕形状收进安全区
+        android.view.View appBarV = open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.app_bar);
+        if (appBarV != null) {
+            open.cn.awg.pro.core.ScreenShape.applyAppBarInsets(MainActivity.this, appBarV);
+        }
+
+        // 毛玻璃以九宫格列表为源（原来 show() 里按信息流/菜单切换，现在主页只有九宫格）
+        android.view.View blurV = open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.blur_bar);
+        android.view.View gridV = open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1);
+        if (blurV instanceof open.cn.awg.pro.ui.widget.BlurBarView && gridV != null) {
+            ((open.cn.awg.pro.ui.widget.BlurBarView) blurV).setSource(gridV);
+        }
+        updateActivationBadge();
 
         if (e1.getNowUserId() == 0) {
 
@@ -624,10 +412,9 @@ public class MainActivity extends BaseAwgActivity {
 
             if (java.util.Objects.equals(a, "1")) {
 
-                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), u, 10, u, 10);
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+                // 应用栏自行排版标题，运行时不再改标题 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
@@ -728,7 +515,7 @@ public class MainActivity extends BaseAwgActivity {
                 if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (a001)), "true")) {
 
                     android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                    open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                    // 应用栏自行排版标题
                     wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                     android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
@@ -738,7 +525,7 @@ public class MainActivity extends BaseAwgActivity {
                 } else {
 
                     android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                    open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                    // 应用栏自行排版标题
                     wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                     android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
@@ -746,7 +533,6 @@ public class MainActivity extends BaseAwgActivity {
                     wtab2.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 }
-                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), 10, 10, 10, 10);
 
                 androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
                 spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(MainActivity.this, lb, R.layout.main_menu_item, new open.cn.awg.pro.ui.list.MainMenuRowBinder(MainActivity.this));
@@ -790,10 +576,9 @@ public class MainActivity extends BaseAwgActivity {
 
             } else if (java.util.Objects.equals(a, "3")) {
 
-                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), u, 10, u, 10);
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+                // 应用栏自行排版标题，运行时不再改标题 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
                 android.widget.TextView wtab2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.Title2));
@@ -889,7 +674,6 @@ public class MainActivity extends BaseAwgActivity {
 
             } else if (java.util.Objects.equals(a, "4")) {
 
-                open.cn.awg.pro.core.NativeViewValues.margins(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj4)), 10, 10, 10, 10);
 
                 androidx.recyclerview.widget.RecyclerView lb = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
                 spq = open.cn.awg.pro.ui.list.NativeListAdapter.attach(MainActivity.this, lb, R.layout.legacy_menu_item, new open.cn.awg.pro.ui.list.LegacyMenuRowBinder(MainActivity.this), new open.cn.awg.pro.ui.list.NativeListAdapter.RowBinder() {
@@ -951,31 +735,24 @@ public class MainActivity extends BaseAwgActivity {
 
     public boolean onKeyDown(int kc, KeyEvent ke) {
 
-        if (kc == 4 && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj10)).getVisibility() == android.view.View.GONE && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).getVisibility() == android.view.View.GONE && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).getVisibility() == android.view.View.GONE) {
+        // 主页固定为九宫格：返回键直接弹退出确认（原先是「信息流 <-> 菜单」切换）
+        if (kc == 4
+                && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj10)).getVisibility() == android.view.View.GONE
+                && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj2)).getVisibility() == android.view.View.GONE
+                && ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).getVisibility() == android.view.View.GONE) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "腕管Pro")) {
+            final android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(0, -1), open.cn.awg.pro.core.TextValues.floatValue(1, -1));
+            jbtm.setDuration(300);
+            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
-                show(1);
+                public void run() {
 
-            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), " 腕管Pro ")) {
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).setVisibility(android.view.View.VISIBLE);
+                    ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).startAnimation(jbtm);
 
-                
+                }
 
-                final android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(0, -1), open.cn.awg.pro.core.TextValues.floatValue(1, -1));
-                jbtm.setDuration(300);
-                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                    public void run() {
-
-                        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).setVisibility(android.view.View.VISIBLE);
-                        ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.TCxdbj)).startAnimation(jbtm);
-
-                    }
-
-                });
-
-            }
-
+            });
         }
         return false;
 
@@ -1198,15 +975,12 @@ public class MainActivity extends BaseAwgActivity {
 
     public void zyqd() {
 
+        // 启动页设置：1/默认 = 主页九宫格；2~5 启动后直接进对应页面。
         String set1 = AppPaths.appPath("settings/f21/set1.inf");
+        String v = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1));
 
-        if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "1")) {
+        if (java.util.Objects.equals(v, "2")) {
 
-            show(1);
-
-        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "2")) {
-
-            show(1);
             open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
@@ -1217,9 +991,8 @@ public class MainActivity extends BaseAwgActivity {
 
             });
 
-        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "3")) {
+        } else if (java.util.Objects.equals(v, "3")) {
 
-            show(1);
             open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
@@ -1230,9 +1003,8 @@ public class MainActivity extends BaseAwgActivity {
 
             });
 
-        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "4")) {
+        } else if (java.util.Objects.equals(v, "4")) {
 
-            show(1);
             open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
@@ -1243,9 +1015,8 @@ public class MainActivity extends BaseAwgActivity {
 
             });
 
-        } else if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "5")) {
+        } else if (java.util.Objects.equals(v, "5")) {
 
-            show(1);
             open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
                 public void run() {
@@ -1256,544 +1027,7 @@ public class MainActivity extends BaseAwgActivity {
 
             });
 
-        } else {
-
-            homeshow(true);
-            isNotMainOnce = false;
-
         }
-
-    }
-
-    public void homeshow_show(int i_) {
-
-        final int i = i_;
-
-        final android.widget.LinearLayout xxbj9 = ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xxbj9));
-
-        final android.widget.TextView wb2 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb2));
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                if (i == 0) {
-
-                    xxbj9.setVisibility(android.view.View.VISIBLE);
-                    wb2.setVisibility(android.view.View.GONE);
-
-                } else if (i == 1) {
-
-                    xxbj9.setVisibility(android.view.View.GONE);
-                    wb2.setVisibility(android.view.View.VISIBLE);
-
-                }
-
-            }
-
-        });
-
-    }
-
-    public void homeshow(boolean t_) {
-
-        final boolean t = t_;
-
-        if (t) {
-
-            state_once_homeshow = true;
-
-        }
-
-        if (!state_homeshow && state_once_homeshow) {
-
-            state_homeshow = true;
-
-            final android.widget.RelativeLayout xdbj20 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj20));
-
-            final android.widget.ImageView tx11 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx11));
-
-            final android.widget.TextView wb29 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb29));
-
-            final android.widget.ImageView tx18 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx18));
-
-            final android.widget.TextView wb52 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb52));
-
-            final android.widget.TextView wb54 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb54));
-
-            final android.widget.ImageView tx6 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx6));
-
-            final android.widget.TextView wb14 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb14));
-
-            final android.widget.TextView wb16 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb16));
-
-            final android.widget.ImageView tx9 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx9));
-
-            final android.widget.TextView wb23 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb23));
-
-            final android.widget.TextView wb25 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb25));
-
-            final android.widget.ImageView tx10 = ((android.widget.ImageView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.tx10));
-
-            final android.widget.TextView wb26 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb26));
-
-            final android.widget.TextView wb28 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb28));
-
-            final android.widget.TextView wb31 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb31));
-
-            final android.widget.TextView wb33 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb33));
-
-            final android.widget.TextView wb34 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb34));
-
-            final android.widget.TextView wb36 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb36));
-
-            final android.widget.TextView wb37 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb37));
-
-            final android.widget.TextView wb39 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb39));
-
-            final android.widget.TextView wb42 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb42));
-
-            final android.widget.TextView wb44 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb44));
-
-            final android.widget.TextView wb45 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb45));
-
-            final android.widget.TextView wb47 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb47));
-
-            final android.widget.TextView wb48 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb48));
-
-            final android.widget.TextView wb50 = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb50));
-            open.cn.awg.pro.core.NativeActions.start(new Thread() {
-
-                public void run() {
-
-                    if (t) {
-
-                        show(2);
-
-                    }
-                    open.cn.awg.pro.core.NativeActions.sleep(500);
-
-                    boolean canshow = false;
-
-                    final String nopa2 = AppPaths.appPath("data/homeshow/json");
-
-                    final String img_lbl1_path = AppPaths.appPath("data/homeshow/src/img/lbl1");
-
-                    final String img_ad1_path = AppPaths.appPath("data/homeshow/src/img/ad1");
-
-                    final String img_yytj_item1_path = AppPaths.appPath("data/homeshow/src/img/yytj_item1");
-
-                    final String img_yytj_item2_path = AppPaths.appPath("data/homeshow/src/img/yytj_item2");
-
-                    final String img_yytj_item3_path = AppPaths.appPath("data/homeshow/src/img/yytj_item3");
-
-                    String urls = AppPaths.appPath("settings/f10/set2.inf");
-                    urls = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (urls));
-                    urls = e1.urlUnlockString(urls);
-
-                    if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
-
-                    } else {
-
-                        urls = urls + "/";
-
-                    }
-
-                    String url = urls + "homeshow.json";
-
-                    if (e1.yz()) {
-
-                        String st2 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
-
-                        if (java.util.Objects.equals(st2, null)) {
-
-                            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa2))) {
-
-                                canshow = true;
-
-                            }
-
-                        } else {
-
-                            String f1 = e1.readJson(st2, "code");
-
-                            if (java.util.Objects.equals(f1, "200")) {
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa2))) {
-
-                                    String md5a = open.cn.awg.pro.core.TextValues.md5(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa2)));
-
-                                    String md5b = open.cn.awg.pro.core.TextValues.md5(st2);
-
-                                    if (!java.util.Objects.equals(md5a, md5b)) {
-
-                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_lbl1_path), false);
-                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_ad1_path), false);
-                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_yytj_item1_path), false);
-                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_yytj_item2_path), false);
-                                        open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (img_yytj_item3_path), false);
-
-                                    }
-
-                                }
-                                open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (nopa2), (String) (st2));
-                                canshow = true;
-
-                            }
-
-                        }
-
-                    }
-
-                    if (canshow) {
-
-                        final String st5 = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa2));
-                        div_lbl1_url = e1.readJson(st5, "div_lbl1_url");
-                        div_ad1_url = e1.readJson(st5, "div_ad1_url");
-                        div_yytj_item1_url = e1.readJson(st5, "div_yytj_item1_url");
-                        div_yytj_item2_url = e1.readJson(st5, "div_yytj_item2_url");
-                        div_yytj_item3_url = e1.readJson(st5, "div_yytj_item3_url");
-                        div_jcsp_item1_url = e1.readJson(st5, "div_jcsp_item1_url");
-                        div_jcsp_item2_url = e1.readJson(st5, "div_jcsp_item2_url");
-                        div_jcsp_item3_url = e1.readJson(st5, "div_jcsp_item3_url");
-                        div_rmyy_item1_url = e1.readJson(st5, "div_rmyy_item1_url");
-                        div_rmyy_item2_url = e1.readJson(st5, "div_rmyy_item2_url");
-                        div_rmyy_item3_url = e1.readJson(st5, "div_rmyy_item3_url");
-
-                        final String ad_state = e1.readJson(st5, "ad_state");
-
-                        final String div_lbl1_img_url = e1.readJson(st5, "div_lbl1_img_url");
-
-                        final String div_lbl1_text = e1.readJson(st5, "div_lbl1_text");
-
-                        final String div_ad1_img_url = e1.readJson(st5, "div_ad1_img_url");
-
-                        final String div_ad1_text = e1.readJson(st5, "div_ad1_text");
-
-                        final String div_ad1_subtext = e1.readJson(st5, "div_ad1_subtext");
-
-                        final String div_yytj_item1_text = e1.readJson(st5, "div_yytj_item1_text");
-
-                        final String div_yytj_item1_subtext = e1.readJson(st5, "div_yytj_item1_subtext");
-
-                        final String div_yytj_item2_text = e1.readJson(st5, "div_yytj_item2_text");
-
-                        final String div_yytj_item2_subtext = e1.readJson(st5, "div_yytj_item2_subtext");
-
-                        final String div_yytj_item3_text = e1.readJson(st5, "div_yytj_item3_text");
-
-                        final String div_yytj_item3_subtext = e1.readJson(st5, "div_yytj_item3_subtext");
-
-                        final String div_jcsp_item1_text = e1.readJson(st5, "div_jcsp_item1_text");
-
-                        final String div_jcsp_item1_subtext = e1.readJson(st5, "div_jcsp_item1_subtext");
-
-                        final String div_jcsp_item2_text = e1.readJson(st5, "div_jcsp_item2_text");
-
-                        final String div_jcsp_item2_subtext = e1.readJson(st5, "div_jcsp_item2_subtext");
-
-                        final String div_jcsp_item3_text = e1.readJson(st5, "div_jcsp_item3_text");
-
-                        final String div_jcsp_item3_subtext = e1.readJson(st5, "div_jcsp_item3_subtext");
-
-                        final String div_rmyy_item1_text = e1.readJson(st5, "div_rmyy_item1_text");
-
-                        final String div_rmyy_item1_subtext = e1.readJson(st5, "div_rmyy_item1_subtext");
-
-                        final String div_rmyy_item2_text = e1.readJson(st5, "div_rmyy_item2_text");
-
-                        final String div_rmyy_item2_subtext = e1.readJson(st5, "div_rmyy_item2_subtext");
-
-                        final String div_rmyy_item3_text = e1.readJson(st5, "div_rmyy_item3_text");
-
-                        final String div_rmyy_item3_subtext = e1.readJson(st5, "div_rmyy_item3_subtext");
-
-                        String downfile = div_lbl1_img_url;
-
-                        String downfilepath = img_lbl1_path;
-
-                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
-
-                            if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
-
-                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
-
-                            }
-
-                        }
-                        downfile = div_ad1_img_url;
-                        downfilepath = img_ad1_path;
-
-                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
-
-                            if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
-
-                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
-
-                            }
-
-                        }
-                        downfile = getAppIconUrl(div_yytj_item1_url);
-                        downfilepath = img_yytj_item1_path;
-
-                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
-
-                            if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
-
-                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
-
-                            }
-
-                        }
-                        downfile = getAppIconUrl(div_yytj_item2_url);
-                        downfilepath = img_yytj_item2_path;
-
-                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
-
-                            if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
-
-                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
-
-                            }
-
-                        }
-                        downfile = getAppIconUrl(div_yytj_item3_url);
-                        downfilepath = img_yytj_item3_path;
-
-                        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (downfilepath))) {
-
-                            if (homeshow_filedown(downfile, null, null, downfilepath) == -1) {
-
-                                open.cn.awg.pro.core.NativeFiles.delete(MainActivity.this, (String) (downfilepath), false);
-
-                            }
-
-                        }
-                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                            public void run() {
-
-                                if (java.util.Objects.equals(ad_state, "true") && !e1.isJh()) {
-
-                                    xdbj20.setVisibility(android.view.View.VISIBLE);
-
-                                } else {
-
-                                    xdbj20.setVisibility(android.view.View.GONE);
-
-                                }
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_lbl1_path))) {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx11, img_lbl1_path);
-
-                                } else {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx11, R.mipmap.load_photo);
-
-                                }
-                                wb29.setText(String.valueOf(div_lbl1_text));
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_ad1_path))) {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx18, img_ad1_path);
-
-                                } else {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx18, R.mipmap.b11);
-
-                                }
-                                wb52.setText(String.valueOf(div_ad1_text));
-                                wb54.setText(String.valueOf(div_ad1_subtext));
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_yytj_item1_path))) {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx6, img_yytj_item1_path);
-
-                                } else {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx6, R.mipmap.appicon);
-
-                                }
-                                wb14.setText(String.valueOf(div_yytj_item1_text));
-                                wb16.setText(String.valueOf(div_yytj_item1_subtext));
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_yytj_item2_path))) {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx9, img_yytj_item2_path);
-
-                                } else {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx9, R.mipmap.appicon);
-
-                                }
-                                wb23.setText(String.valueOf(div_yytj_item2_text));
-                                wb25.setText(String.valueOf(div_yytj_item2_subtext));
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (img_yytj_item3_path))) {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx10, img_yytj_item3_path);
-
-                                } else {
-
-                                    open.cn.awg.pro.core.NativeViewValues.image(tx10, R.mipmap.appicon);
-
-                                }
-                                wb26.setText(String.valueOf(div_yytj_item3_text));
-                                wb28.setText(String.valueOf(div_yytj_item3_subtext));
-                                wb31.setText(String.valueOf(div_jcsp_item1_text));
-                                wb33.setText(String.valueOf(div_jcsp_item1_subtext));
-                                wb34.setText(String.valueOf(div_jcsp_item2_text));
-                                wb36.setText(String.valueOf(div_jcsp_item2_subtext));
-                                wb37.setText(String.valueOf(div_jcsp_item3_text));
-                                wb39.setText(String.valueOf(div_jcsp_item3_subtext));
-                                wb42.setText(String.valueOf(div_rmyy_item1_text));
-                                wb44.setText(String.valueOf(div_rmyy_item1_subtext));
-                                wb45.setText(String.valueOf(div_rmyy_item2_text));
-                                wb47.setText(String.valueOf(div_rmyy_item2_subtext));
-                                wb48.setText(String.valueOf(div_rmyy_item3_text));
-                                wb50.setText(String.valueOf(div_rmyy_item3_subtext));
-
-                            }
-
-                        });
-                        homeshow_show(0);
-
-                        if (t) {
-
-                            show(0);
-
-                        }
-
-                    } else {
-
-                        homeshow_show(1);
-
-                        if (t) {
-
-                            show(0);
-
-                        }
-
-                    }
-                    state_homeshow = false;
-
-                }
-
-            });
-
-        } else {
-
-            if (t) {
-
-                e1.tsk("提示", "操作过于频繁，请稍后重试");
-
-            }
-
-        }
-
-    }
-
-    public String getAppIconUrl(Object id) {
-        id = open.cn.awg.pro.core.TextValues.slice(id, "awg://uri/app/", null);
-        return src_url + "/app/" + id + "/app-image/icon.png";
-
-    }
-
-    public int homeshow_filedown(Object url, Object post, Object cookie, Object path) {
-
-        Object a = url;
-
-        Object b = path;
-
-        Object c = post;
-
-        Object d = cookie;
-
-        boolean e = true;
-
-        String f = "User-Agent=Mozilla/5.0 (iPad; U; CPU OS 6_0 like Mac OS X; zh-CN; iPad2)||accept-language=zh-CN";
-        return open.cn.awg.pro.core.NativeHttp.download(MainActivity.this, String.valueOf(a), (String) (b), java.lang.Boolean.TRUE.equals(true), (String[]) (c), (String) ("utf-8"), (String) (d), java.lang.Boolean.TRUE.equals(e), (String) (f), 0, 0, null);
-
-    }
-
-    public void show(int i_) {
-
-        final String set65 = AppPaths.appPath("settings/set5.inf");
-
-        final int i = i_;
-
-        final android.widget.TextView tab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar));
-
-        final android.widget.RelativeLayout xdbj1 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj1));
-
-        final android.widget.RelativeLayout xdbj5 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj5));
-
-        final android.widget.RelativeLayout xdbj6 = ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj6));
-
-        final androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.qtgd1));
-
-        final androidx.recyclerview.widget.RecyclerView v7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
-
-        final String set1 = AppPaths.appPath("settings/f21/set1.inf");
-
-        
-
-        final android.view.animation.AlphaAnimation jbtm = (android.view.animation.AlphaAnimation) (Object) new android.view.animation.AlphaAnimation(open.cn.awg.pro.core.TextValues.floatValue(0, -1), open.cn.awg.pro.core.TextValues.floatValue(1, -1));
-        jbtm.setDuration(300);
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                if (i == 0) {
-
-                    qtgd1.requestFocus();
-                    tab.setText(String.valueOf(open.cn.awg.pro.app.AwgProApplication.getContext().getString(R.string.app_name)));
-                    xdbj1.setVisibility(android.view.View.GONE);
-                    xdbj5.setVisibility(android.view.View.VISIBLE);
-                    xdbj6.setVisibility(android.view.View.GONE);
-                    xdbj5.startAnimation(jbtm);
-
-                    if (isNotMainOnce && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set1)), "0")) {
-
-                        show(2);
-                        isNotMainOnce = false;
-                        homeshow(true);
-
-                    } else {
-
-                        homeshow(false);
-
-                    }
-
-                    if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set65)), "false") || !open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set65))) {
-
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb9)).setVisibility(android.view.View.VISIBLE);
-
-                    }
-
-                } else if (i == 1) {
-
-                    v7lb1.requestFocus();
-                    tab.setText(String.valueOf(" 腕管Pro "));
-                    xdbj1.setVisibility(android.view.View.VISIBLE);
-                    xdbj5.setVisibility(android.view.View.GONE);
-                    xdbj6.setVisibility(android.view.View.GONE);
-                    xdbj1.startAnimation(jbtm);
-
-                } else if (i == 2) {
-
-                    tab.setText(String.valueOf("  腕管Pro  "));
-                    xdbj1.setVisibility(android.view.View.GONE);
-                    xdbj5.setVisibility(android.view.View.GONE);
-                    xdbj6.setVisibility(android.view.View.VISIBLE);
-                    xdbj6.startAnimation(jbtm);
-
-                }
-
-            }
-
-        });
-
     }
 
     private void scheduleJob() {
@@ -1822,170 +1056,6 @@ public class MainActivity extends BaseAwgActivity {
                 android.util.Log.e("AWGPro", "Unhandled exception", e);
             }
         }
-    }
-
-    public void noticeShow() {
-
-        if (e1.isJh()) {
-
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.GONE);
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb13)).setVisibility(android.view.View.GONE);
-
-        } else {
-
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb11)).setVisibility(android.view.View.VISIBLE);
-            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb13)).setVisibility(android.view.View.VISIBLE);
-
-        }
-
-        final String def = "欢迎使用腕管Pro，这是一款优秀的应用。您可以前往腕管Pro官网：https://www.typheye.cn/awg，提出建议或意见。如果您有任何问题，可以联系开发者台风眼(QQ498978473)，或者通过邮箱(498978473@qq.com)联系我们！";
-        open.cn.awg.pro.core.NativeActions.start(new Thread() {
-
-            public void run() {
-
-                final String nopa = AppPaths.appPath("data/notice/showing");
-
-                final String nopa2 = AppPaths.appPath("data/notice/json");
-
-                String nr = "";
-
-                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
-
-                    nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
-
-                } else {
-
-                    nr = def;
-
-                }
-
-                final String nr1 = nr;
-                open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                    public void run() {
-
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr1));
-
-                    }
-
-                });
-
-                String urls = AppPaths.appPath("settings/f10/set2.inf");
-                urls = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (urls));
-                urls = e1.urlUnlockString(urls);
-
-                if (open.cn.awg.pro.core.TextValues.endsWith(urls, "/")) {
-
-                } else {
-
-                    urls = urls + "/";
-
-                }
-
-                String url = urls + "notice.json";
-
-                final String st5 = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
-
-                if (java.util.Objects.equals(st5, null)) {
-
-                    open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                        public void run() {
-
-                            String nr = "";
-
-                            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
-
-                                nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
-
-                            } else {
-
-                                nr = def;
-
-                            }
-                            ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr));
-
-                        }
-
-                    });
-
-                } else {
-
-                    String f1 = e1.readJson(st5, "Showing");
-
-                    if (java.util.Objects.equals(f1, "0")) {
-
-                        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                            public void run() {
-
-                                String nr = "";
-
-                                if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
-
-                                    nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
-
-                                } else {
-
-                                    nr = def;
-
-                                }
-                                ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr));
-
-                            }
-
-                        });
-
-                    } else {
-
-                        if (java.util.Objects.equals(f1, "")) {
-
-                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                                public void run() {
-
-                                    String nr = "";
-
-                                    if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (nopa)) && !java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa)), "")) {
-
-                                        nr = open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (nopa));
-
-                                    } else {
-
-                                        nr = def;
-
-                                    }
-                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr));
-
-                                }
-
-                            });
-
-                        } else {
-
-                            final String nr2 = f1;
-                            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (nopa), (String) (nr2));
-                            open.cn.awg.pro.core.NativeFiles.writeText(MainActivity.this, (String) (nopa2), (String) (st5));
-                            open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-                                public void run() {
-
-                                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.notice_wb)).setText(String.valueOf(nr2));
-
-                                }
-
-                            });
-
-                        }
-
-                    }
-
-                }
-
-            }
-
-        });
-
     }
 
     public void inj() {
@@ -2848,7 +1918,13 @@ public class MainActivity extends BaseAwgActivity {
 
         final String set66 = AppPaths.appPath("settings/set6.inf");
 
-        if (!open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a0)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set66)), "false") || !open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (set66))) {
+        // 新版初始化标志读 SharedPreferences；同时兼容旧的 a4/set6 文件
+        boolean setupDone = open.cn.awg.pro.core.AppPrefs.isDeviceSetupDone(MainActivity.this)
+                || open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (a0));
+        boolean onboardingDone = open.cn.awg.pro.core.AppPrefs.isOnboardingDone(MainActivity.this)
+                || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(MainActivity.this, (String) (set66)), "true");
+
+        if (!setupDone || !onboardingDone) {
 
             open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
 
@@ -2917,16 +1993,7 @@ public class MainActivity extends BaseAwgActivity {
 
             final String set1 = AppPaths.appPath("settings/f21/set1.inf");
 
-            if (open.cn.awg.pro.core.NativeFiles.exists(MainActivity.this, (String) (AppPaths.appPath("settings/a4.inf")))) {
-
-                if (!isNotMainOnce) {
-
-                    homeshow(false);
-
-                }
-                noticeShow();
-
-            }
+            // 信息流/homeshow 已移除：主页只保留九宫格，这里不再做任何刷新
 
             if (isHasReq) {
 
@@ -3021,31 +2088,15 @@ public class MainActivity extends BaseAwgActivity {
         androidx.recyclerview.widget.RecyclerView v7lb1 = ((androidx.recyclerview.widget.RecyclerView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.v7lb1));
         v7lb1.requestFocus();
 
-        androidx.core.widget.NestedScrollView qtgd1 = ((androidx.core.widget.NestedScrollView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.qtgd1));
+        // 主页只有九宫格：滚动容器 v7lb1 已在上方 requestFocus，无需再处理信息流滚动
 
-        qtgd1.setOnGenericMotionListener(new View.OnGenericMotionListener() {
-            @Override
-            public boolean onGenericMotion(View vw, MotionEvent me) {
-                if (me.getAction() == MotionEvent.ACTION_SCROLL && me.isFromSource(InputDeviceCompat.SOURCE_ROTARY_ENCODER)) {
-
-                    float delta = -me.getAxisValue(MotionEventCompat.AXIS_SCROLL) *
-                            ViewConfigurationCompat.getScaledVerticalScrollFactor(
-                                    ViewConfiguration.get(lei), lei
-                            );
-
-                    vw.scrollBy(0, Math.round(delta));
-                    return true;
-                }
-                return false;
-            }
-        });
-
-        qtgd1.requestFocus();
 
     }
 
     public void onResume() {
         super.onResume();
+
+        updateActivationBadge();
 
         if (e1.getNowUserId() == 0) {
 
@@ -3089,390 +2140,6 @@ public class MainActivity extends BaseAwgActivity {
 
     }
 
-    private void onTitleBarClick(View vw) {
-
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), open.cn.awg.pro.app.AwgProApplication.getContext().getString(R.string.app_name))) {
-
-            show(1);
-
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), " 腕管Pro ")) {
-
-            show(0);
-
-        }
-
-    }
-
-    private void onXxbj5Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (AnnouncementActivity.class));
-
-    }
-
-    private void onWb7Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                ((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.xdbj7)).setVisibility(android.view.View.GONE);
-
-            }
-
-        });
-
-    }
-
-    private void onWb11Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (AppActivationActivity.class));
-
-    }
-
-    private void onWb2Click(View vw) {
-        homeshow(true);
-
-    }
-
-    private void onXdbj8Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_lbl1_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj8LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb29)).getText().toString();
-        e1.tsk("详细信息", te);
-        return true;
-
-    }
-
-    private void onWb56Click(View vw) {
-        e1.tsk("提示", "激活腕管Pro后可关闭所有广告");
-
-    }
-
-    private void onXdbj20Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_ad1_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj20LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb52)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb54)).getText().toString();
-        e1.tsk("详细信息", "[推荐名称]\n" + te + "\n\n[推荐简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj9Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_yytj_item1_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj9LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb14)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb16)).getText().toString();
-        e1.tsk("详细信息", "[应用名称]\n" + te + "\n\n[应用简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj12Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_yytj_item2_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj12LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb23)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb25)).getText().toString();
-        e1.tsk("详细信息", "[应用名称]\n" + te + "\n\n[应用简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj13Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_yytj_item3_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj13LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb26)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb28)).getText().toString();
-        e1.tsk("详细信息", "[应用名称]\n" + te + "\n\n[应用简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onWb10Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"type", "search"};
-
-                String[] val = new String[]{"app", "all"};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private void onXdbj14Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_jcsp_item1_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj14LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb31)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb33)).getText().toString();
-        e1.tsk("详细信息", "[视频名称]\n" + te + "\n\n[视频简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj15Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_jcsp_item2_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj15LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb34)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb36)).getText().toString();
-        e1.tsk("详细信息", "[视频名称]\n" + te + "\n\n[视频简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj16Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_jcsp_item3_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj16LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb37)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb39)).getText().toString();
-        e1.tsk("详细信息", "[视频名称]\n" + te + "\n\n[视频简介]\n" + lj);
-        return true;
-
-    }
-
-    private void onWb40Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"type", "search"};
-
-                String[] val = new String[]{"video", "all"};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private void onXdbj17Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_rmyy_item1_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj17LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb42)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb44)).getText().toString();
-        e1.tsk("详细信息", "[歌曲名称]\n" + te + "\n\n[歌曲作者]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj18Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_rmyy_item2_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj18LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb45)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb47)).getText().toString();
-        e1.tsk("详细信息", "[歌曲名称]\n" + te + "\n\n[歌曲作者]\n" + lj);
-        return true;
-
-    }
-
-    private void onXdbj19Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"uri"};
-
-                String[] val = new String[]{div_rmyy_item3_url};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreDetailActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private boolean onXdbj19LongClick(View vw) {
-
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb48)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(MainActivity.this.getWindow().getDecorView(), R.id.wb50)).getText().toString();
-        e1.tsk("详细信息", "[歌曲名称]\n" + te + "\n\n[歌曲作者]\n" + lj);
-        return true;
-
-    }
-
-    private void onWb51Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.onMain(new Runnable() {
-
-            public void run() {
-
-                String[] iyu = new String[]{"type", "search"};
-
-                String[] val = new String[]{"music", "all"};
-                open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreListActivity.class), (String[]) (iyu), (Object[]) (val));
-
-            }
-
-        });
-
-    }
-
-    private void onTx1Click(View vw) {
-        open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (StoreSearchActivity.class));
-
-    }
-
     private void onWb13Click(View vw) {
         open.cn.awg.pro.core.NativeActions.launch(MainActivity.this, (Class<?>) (AppActivationActivity.class));
 
@@ -3492,12 +2159,6 @@ public class MainActivity extends BaseAwgActivity {
 
         });
         return false;
-
-    }
-
-    private void onTx15Click(View vw) {
-        homeshow_show(1);
-        show(0);
 
     }
 
@@ -3600,142 +2261,43 @@ public class MainActivity extends BaseAwgActivity {
 
     }
 
-    private void onWbMainKjfsGbcdClick(View vw) {
-        show(0);
-
-    }
-
     private void _$_viewAutomaticSettingEvent() {
         _$_viewAutomaticSettingEvent(this, null);
     }
 
     public void _$_viewAutomaticSettingEvent(Activity ay, View vw) {
 
-        TextView d26d5d7080 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.title_bar);
-        d26d5d7080.setOnClickListener(titleBarClickListener);
+        View root = (vw == null ? ay.getWindow().getDecorView() : vw);
 
-        TextView e943ebd71e = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb4);
+        TextView wb13 = root.findViewById(R.id.wb13);
+        if (wb13 != null) wb13.setOnClickListener(wb13ClickListener);
 
-        TextView i2a86c78b06 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb5);
+        TextView wb9 = root.findViewById(R.id.wb9);
+        if (wb9 != null) wb9.setOnLongClickListener(wb9LongClickListener);
 
-        TextView i78e3e43012 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.notice_wb);
+        ImageView tx16 = root.findViewById(R.id.tx16);
+        if (tx16 != null) tx16.setOnClickListener(tx16ClickListener);
 
-        LinearLayout bd584e50cd = (LinearLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xxbj5);
-        bd584e50cd.setOnClickListener(xxbj5ClickListener);
+        RelativeLayout xdbj10 = root.findViewById(R.id.xdbj10);
+        if (xdbj10 != null) xdbj10.setOnTouchListener(xdbj10TouchListener);
 
-        TextView b8bc22741b = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb7);
-        b8bc22741b.setOnClickListener(wb7ClickListener);
+        TextView wb12 = root.findViewById(R.id.wb12);
+        if (wb12 != null) wb12.setOnClickListener(wb12ClickListener);
 
-        TextView i42afe4289f = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb11);
-        i42afe4289f.setOnClickListener(wb11ClickListener);
+        TextView wb17 = root.findViewById(R.id.wb17);
+        if (wb17 != null) wb17.setOnClickListener(wb17ClickListener);
 
-        TextView i7c3e3c6b5d = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb2);
-        i7c3e3c6b5d.setOnClickListener(wb2ClickListener);
+        RelativeLayout xdbj2 = root.findViewById(R.id.xdbj2);
+        if (xdbj2 != null) xdbj2.setOnTouchListener(xdbj2TouchListener);
 
-        RelativeLayout fab146d7a5 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj8);
-        fab146d7a5.setOnClickListener(xdbj8ClickListener);
-        fab146d7a5.setOnLongClickListener(xdbj8LongClickListener);
+        RelativeLayout tCxdbj = root.findViewById(R.id.TCxdbj);
+        if (tCxdbj != null) tCxdbj.setOnTouchListener(tCxdbjTouchListener);
 
-        TextView i9d626a4248 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb56);
-        i9d626a4248.setOnClickListener(wb56ClickListener);
+        ImageView tx2 = root.findViewById(R.id.tx2);
+        if (tx2 != null) tx2.setOnClickListener(tx2ClickListener);
 
-        RelativeLayout bab1d5f82e = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj20);
-        bab1d5f82e.setOnClickListener(xdbj20ClickListener);
-        bab1d5f82e.setOnLongClickListener(xdbj20LongClickListener);
-
-        RelativeLayout i5a93676674 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj9);
-        i5a93676674.setOnClickListener(xdbj9ClickListener);
-        i5a93676674.setOnLongClickListener(xdbj9LongClickListener);
-
-        RelativeLayout f73b53def9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj12);
-        f73b53def9.setOnClickListener(xdbj12ClickListener);
-        f73b53def9.setOnLongClickListener(xdbj12LongClickListener);
-
-        RelativeLayout i62f27ff563 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj13);
-        i62f27ff563.setOnClickListener(xdbj13ClickListener);
-        i62f27ff563.setOnLongClickListener(xdbj13LongClickListener);
-
-        TextView i81652f77b6 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb10);
-        i81652f77b6.setOnClickListener(wb10ClickListener);
-
-        RelativeLayout c4cbe9d7ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj14);
-        c4cbe9d7ff.setOnClickListener(xdbj14ClickListener);
-        c4cbe9d7ff.setOnLongClickListener(xdbj14LongClickListener);
-
-        RelativeLayout i6834408ef9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj15);
-        i6834408ef9.setOnClickListener(xdbj15ClickListener);
-        i6834408ef9.setOnLongClickListener(xdbj15LongClickListener);
-
-        RelativeLayout c9f5a3ee67 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj16);
-        c9f5a3ee67.setOnClickListener(xdbj16ClickListener);
-        c9f5a3ee67.setOnLongClickListener(xdbj16LongClickListener);
-
-        TextView i3d78c07838 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb40);
-        i3d78c07838.setOnClickListener(wb40ClickListener);
-
-        RelativeLayout i8890b048c8 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj17);
-        i8890b048c8.setOnClickListener(xdbj17ClickListener);
-        i8890b048c8.setOnLongClickListener(xdbj17LongClickListener);
-
-        RelativeLayout i11185eacd9 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj18);
-        i11185eacd9.setOnClickListener(xdbj18ClickListener);
-        i11185eacd9.setOnLongClickListener(xdbj18LongClickListener);
-
-        RelativeLayout a229195608 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj19);
-        a229195608.setOnClickListener(xdbj19ClickListener);
-        a229195608.setOnLongClickListener(xdbj19LongClickListener);
-
-        TextView i6a848b922c = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb51);
-        i6a848b922c.setOnClickListener(wb51ClickListener);
-
-        ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
-        i34dc7bf20a.setOnClickListener(tx1ClickListener);
-
-        RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
-
-        RelativeLayout aaeebbd136 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj1);
-
-        TextView adf370a235 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb13);
-        adf370a235.setOnClickListener(wb13ClickListener);
-
-        TextView i4ba8980add = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb9);
-        i4ba8980add.setOnLongClickListener(wb9LongClickListener);
-
-        TextView f52e07ac8c = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb6);
-
-        ImageView i7a998f9ecb = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx15);
-        i7a998f9ecb.setOnClickListener(tx15ClickListener);
-
-        RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
-
-        ImageView a81b730195 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx16);
-        a81b730195.setOnClickListener(tx16ClickListener);
-
-        CardView i358e59a100 = (CardView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kp5);
-
-        RelativeLayout i5b34eede7f = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj10);
-        i5b34eede7f.setOnTouchListener(xdbj10TouchListener);
-
-        TextView i3a177cf5f1 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb12);
-        i3a177cf5f1.setOnClickListener(wb12ClickListener);
-
-        TextView i2318575919 = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb17);
-        i2318575919.setOnClickListener(wb17ClickListener);
-
-        RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
-        i3167b45174.setOnTouchListener(xdbj2TouchListener);
-
-        RelativeLayout b0f5bad894 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.TCxdbj);
-        b0f5bad894.setOnTouchListener(tCxdbjTouchListener);
-
-        ImageView i4d951cdb0e = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx2);
-        i4d951cdb0e.setOnClickListener(tx2ClickListener);
-
-        ImageView i8217d42a17 = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx3);
-        i8217d42a17.setOnClickListener(tx3ClickListener);
-
-        TextView i6a8b9facdf = (TextView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.wb_main_kjfs_gbcd);
-        i6a8b9facdf.setOnClickListener(wbMainKjfsGbcdClickListener);
+        ImageView tx3 = root.findViewById(R.id.tx3);
+        if (tx3 != null) tx3.setOnClickListener(tx3ClickListener);
 
         __layoutIsLoaded(ay, vw);
     }

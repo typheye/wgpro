@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Watch-style entry card: large rounded corners + ripple press feedback. -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="#2A2A2F" />
+            <corners android:radius="26dip" />
+        </shape>
+    </item>
+</ripple>

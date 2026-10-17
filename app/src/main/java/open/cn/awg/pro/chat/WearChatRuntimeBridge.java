@@ -92,7 +92,7 @@ public static LinearLayoutManager mLayoutManager;
 
     public String getTabName(String room_name) {
 
-        String exist = "< ";
+        String exist = "";
 
         if (open.cn.awg.pro.core.TextValues.length(room_name) > 5) {
 
@@ -1044,7 +1044,7 @@ public static LinearLayoutManager mLayoutManager;
 
                 public void run() {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 腕上微聊"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("腕上微聊"));
                     wllbview(0);
 
                 }
@@ -1342,7 +1342,7 @@ public static LinearLayoutManager mLayoutManager;
 
                     public void run() {
 
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 腕上微聊"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(owner.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("腕上微聊"));
                         wllbview(1);
 
                     }

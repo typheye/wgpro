@@ -469,7 +469,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
                 public void run() {
 
                     open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(true));
-                    tab.setText(String.valueOf("< TuneFree"));
+                    tab.setText(String.valueOf("TuneFree"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
@@ -487,7 +487,7 @@ public class TuneFreeActivity extends BaseAwgActivity {
                 public void run() {
 
                     open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(TuneFreeActivity.this, !(true));
-                    tab.setText(String.valueOf("< 搜索歌曲"));
+                    tab.setText(String.valueOf("搜索歌曲"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -633,11 +633,11 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< TuneFree")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "TuneFree")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(TuneFreeActivity.this);
 
-            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 搜索歌曲")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "搜索歌曲")) {
 
                 show(0);
 
@@ -656,11 +656,11 @@ public class TuneFreeActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< TuneFree")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "TuneFree")) {
 
             open.cn.awg.pro.core.NativeActions.finish(TuneFreeActivity.this);
 
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 搜索歌曲")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(TuneFreeActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "搜索歌曲")) {
 
             show(0);
 

@@ -186,7 +186,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
-        
+        applyStandardScreenMode(R.id.product_purchase_root, R.id.xdbj1, R.id.title_bar);
 
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("settings/set4s.inf"))), "false")) {
 
@@ -227,7 +227,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "2")) {
@@ -237,13 +237,13 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(ProductPurchaseActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -254,7 +254,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.RelativeLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xdbj1)), u, 0, u, 50);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "4")) {
@@ -274,7 +274,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                 public void run() {
 
                     open.cn.awg.pro.core.NativeDevice.setKeepScreenOn(ProductPurchaseActivity.this, !(true));
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj6)).setVisibility(android.view.View.GONE);
@@ -640,19 +640,17 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                 try {
 
-                                    String pid = "awg";
-
-                                    String ljf = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (AppPaths.appPath("data/assets/a17")));
-
-                                    String cp_jg_;
-                                    cp_jg_ = com.demo.e4.doubleToString(cp_jg);
+                                    // 新版支付接口：服务端定价 + product_code（PAY_PRODUCTS.code），不再用 md5 签名下单
+                                    String pid = cp_id;
+                                    if (pid == null || pid.isEmpty()) {
+                                        pid = "a1";
+                                    }
 
                                     final String otn = "D" + open.cn.awg.pro.core.NativeDevice.formatDate(4) + open.cn.awg.pro.core.TextValues.string(open.cn.awg.pro.core.TextValues.randomInclusive(10000000, 99999999));
 
-                                    String lock = "money=" + cp_jg_ + "&name=" + cp_name + "&id=" + cp_id + "&out_trade_no=" + otn + "&pid=" + pid + "&type=" + type;
+                                    String[] form = new String[]{"product_code=" + pid, "idempotency_key=" + otn};
 
-                                    String get = "/api/v3/?" + lock + "&sign=" + open.cn.awg.pro.core.TextValues.md5(lock);
-                                    back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + get), (String[]) (null), (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
+                                    back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + "/api/v3/create.php"), form, (String) ("utf-8"), (String) (null), java.lang.Boolean.TRUE.equals(true), open.cn.awg.pro.core.NativeHttp.parseHeaderBlock((String) (null)), open.cn.awg.pro.core.TextValues.intValue(20000, -1), open.cn.awg.pro.core.TextValues.intValue(20000, -1), (String) (null)).bodyForHttp200();
 
                                     if (java.util.Objects.equals(back, "") || java.util.Objects.equals(back, null)) {
 
@@ -675,7 +673,28 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                                                 Object v_id = open.cn.awg.pro.core.JsonValues.value(json, "trade_no");
 
-                                                Object v_v = open.cn.awg.pro.core.JsonValues.value(json, "qrcode");
+                                                Object v_v = "";
+
+                                                try {
+
+                                                    JSONObject info = json.optJSONObject("info");
+                                                    JSONObject payment = info == null ? null : info.optJSONObject("payment");
+                                                    JSONObject payload = payment == null ? null : payment.optJSONObject("payload");
+                                                    if (payload != null) {
+                                                        v_v = payload.optString("url", "");
+                                                        if (String.valueOf(v_v).isEmpty()) {
+                                                            v_v = payload.optString("image_url", "");
+                                                        }
+                                                        // 注意：不能用 instruction 当二维码内容，否则扫出来是中文说明
+                                                    }
+                                                } catch (Throwable e2) {
+
+                                                }
+
+                                                // 兜底：用订单网页地址生成二维码（人工渠道时 url 为空）
+                                                if (String.valueOf(v_v).isEmpty() && !String.valueOf(v_id).isEmpty()) {
+                                                    v_v = url + "/?order_no=" + String.valueOf(v_id);
+                                                }
 
                                                 if (!java.util.Objects.equals(v_id, "") && !java.util.Objects.equals(v_v, "")) {
 
@@ -786,7 +805,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                         String id = open.cn.awg.pro.core.NativeFiles.readText(ProductPurchaseActivity.this, (String) (pay_cache));
 
-                        String send = "/api/v3/reback/?trade_no=" + id;
+                        String send = "/api/v3/order.php?trade_no=" + id;
 
                         String back = open.cn.awg.pro.core.NativeHttp.postForm(String.valueOf(url + send), null, (String) ("utf-8"), null, false, null, 0, 0, null).bodyForHttp200();
 
@@ -812,8 +831,9 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                                     JSONObject json = jo;
 
                                     final String v_status = open.cn.awg.pro.core.TextValues.string(open.cn.awg.pro.core.JsonValues.value(json, "status"));
+                                    final String v_paid = open.cn.awg.pro.core.TextValues.string(open.cn.awg.pro.core.JsonValues.value(json, "paid"));
 
-                                    if (java.util.Objects.equals(v_status, "1")) {
+                                    if (java.util.Objects.equals(v_paid, "true") || java.util.Objects.equals(v_status, "paid") || java.util.Objects.equals(v_status, "fulfilling") || java.util.Objects.equals(v_status, "fulfilled")) {
 
                                         show(0);
                                         zt(1);
@@ -822,15 +842,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
                                         e1.zfwc(cp_id);
                                         break;
 
-                                    } else if (java.util.Objects.equals(v_status, "-1")) {
-
-                                        zfxh = false;
-                                        oback = "支付失败:超时支付";
-                                        e1.tsk("提示", oback);
-                                        show(0);
-                                        zt(2);
-
-                                    } else if (java.util.Objects.equals(v_status, "-2")) {
+                                    } else if (java.util.Objects.equals(v_status, "closed") || java.util.Objects.equals(v_status, "expired") || java.util.Objects.equals(v_status, "failed")) {
 
                                         zfxh = false;
                                         oback = "支付失败:订单已关闭";
@@ -959,7 +971,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                     public void run() {
 
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
                         ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                         ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
@@ -996,7 +1008,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 产品购买") && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "产品购买") && ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).getVisibility() == android.view.View.VISIBLE) {
 
             if (((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).getVisibility() == android.view.View.VISIBLE) {
 
@@ -1004,7 +1016,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                     public void run() {
 
-                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                        ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
                         ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                         ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
@@ -1141,7 +1153,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 
@@ -1175,7 +1187,7 @@ public class ProductPurchaseActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< 产品购买"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("产品购买"));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj9)).setVisibility(android.view.View.GONE);
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(ProductPurchaseActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(android.view.View.VISIBLE);
 

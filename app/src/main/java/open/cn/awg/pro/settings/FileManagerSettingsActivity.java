@@ -53,13 +53,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj6LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj6LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj6ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -67,13 +61,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj3LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj3LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj3ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -88,13 +76,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj5LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj5LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj5ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -109,13 +91,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj4LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj4LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj4ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -130,13 +106,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
         }
 
     };
-    private final View.OnLongClickListener xdbj2LongClickListener = new View.OnLongClickListener() {
-
-        public boolean onLongClick(View vw) {
-            return onXdbj2LongClick(vw);
-        }
-
-    };
+;
     private final View.OnClickListener xdbj2ClickListener = new View.OnClickListener() {
 
         public void onClick(View vw) {
@@ -347,15 +317,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj2LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb2)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb3)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg3CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -389,15 +351,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj4LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb6)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb7)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg4CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -431,15 +385,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj5LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb8)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb9)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onKg2CheckedChanged(CompoundButton vw, boolean ic) {
 
@@ -473,15 +419,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj3LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb4)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb5)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onXdbj6Click(View vw) {
 
@@ -513,15 +451,7 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
     }
 
-    private boolean onXdbj6LongClick(View vw) {
 
-        String te = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb11)).getText().toString();
-
-        String lj = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(FileManagerSettingsActivity.this.getWindow().getDecorView(), R.id.wb12)).getText().toString();
-        e1.tsk("详细信息", "[名称]\n" + te + "\n\n[简介]\n" + lj);
-        return true;
-
-    }
 
     private void onTx1Click(View vw) {
         open.cn.awg.pro.core.NativeActions.finish(FileManagerSettingsActivity.this);
@@ -542,32 +472,27 @@ public class FileManagerSettingsActivity extends BaseAwgActivity {
 
         RelativeLayout i3167b45174 = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj2);
         i3167b45174.setOnClickListener(xdbj2ClickListener);
-        i3167b45174.setOnLongClickListener(xdbj2LongClickListener);
 
         SwitchCompat i2e1dda294f = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg3);
         i2e1dda294f.setOnCheckedChangeListener(kg3CheckedChangeListener);
 
         RelativeLayout i2202ede8ff = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj4);
         i2202ede8ff.setOnClickListener(xdbj4ClickListener);
-        i2202ede8ff.setOnLongClickListener(xdbj4LongClickListener);
 
         SwitchCompat c6051f0d45 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg4);
         c6051f0d45.setOnCheckedChangeListener(kg4CheckedChangeListener);
 
         RelativeLayout c0d3e00d2b = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj5);
         c0d3e00d2b.setOnClickListener(xdbj5ClickListener);
-        c0d3e00d2b.setOnLongClickListener(xdbj5LongClickListener);
 
         SwitchCompat ab7dd47b08 = (SwitchCompat) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.kg2);
         ab7dd47b08.setOnCheckedChangeListener(kg2CheckedChangeListener);
 
         RelativeLayout i20c2777fab = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj3);
         i20c2777fab.setOnClickListener(xdbj3ClickListener);
-        i20c2777fab.setOnLongClickListener(xdbj3LongClickListener);
 
         RelativeLayout i171cedf1eb = (RelativeLayout) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.xdbj6);
         i171cedf1eb.setOnClickListener(xdbj6ClickListener);
-        i171cedf1eb.setOnLongClickListener(xdbj6LongClickListener);
 
         ImageView i34dc7bf20a = (ImageView) (vw == null ? ay.getWindow().getDecorView() : vw).findViewById(R.id.tx1);
         i34dc7bf20a.setOnClickListener(tx1ClickListener);

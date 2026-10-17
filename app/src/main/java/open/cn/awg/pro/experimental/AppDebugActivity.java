@@ -173,7 +173,7 @@ public class AppDebugActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< App Debug"));
+                    tab.setText(String.valueOf("App Debug"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
@@ -188,7 +188,7 @@ public class AppDebugActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< 程序测试"));
+                    tab.setText(String.valueOf("程序测试"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -203,7 +203,7 @@ public class AppDebugActivity extends BaseAwgActivity {
 
                 public void run() {
 
-                    tab.setText(String.valueOf("< App Debug"));
+                    tab.setText(String.valueOf("App Debug"));
                     x1.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
                     x2.setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     x3.setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -302,11 +302,11 @@ public class AppDebugActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< App Debug")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "App Debug")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(AppDebugActivity.this);
 
-            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 程序测试")) {
+            } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "程序测试")) {
 
                 show(0);
 
@@ -325,11 +325,11 @@ public class AppDebugActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< App Debug")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "App Debug")) {
 
             open.cn.awg.pro.core.NativeActions.finish(AppDebugActivity.this);
 
-        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< 程序测试")) {
+        } else if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(AppDebugActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "程序测试")) {
 
             show(0);
 

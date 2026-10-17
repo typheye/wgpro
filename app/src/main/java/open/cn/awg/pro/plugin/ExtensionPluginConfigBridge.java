@@ -60,7 +60,7 @@ public class ExtensionPluginConfigBridge {
         id = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
         cachehd = AppPaths.appPath("data/cjlb/lbx_title");
         title = open.cn.awg.pro.core.NativeFiles.readText(context, (String) (cachehd));
-        titleback = "< " + title;
+        titleback = "" + title;
         titleback2 = title;
         open.cn.awg.pro.core.NativeActions.start(new Thread() {
 

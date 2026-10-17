@@ -207,6 +207,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     public void __layoutIsLoaded(Activity ay, View vw) {
 
+        applyStandardScreenMode(R.id.deep_seek_root, R.id.xdbj1, R.id.title_bar);
         if (java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (AppPaths.appPath("settings/f8/set4.inf"))), "true")) {
 
         }
@@ -242,7 +243,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "2")) {
@@ -252,13 +253,13 @@ public class DeepSeekActivity extends BaseAwgActivity {
             if (open.cn.awg.pro.core.NativeFiles.exists(DeepSeekActivity.this, (String) (a001)) || java.util.Objects.equals(open.cn.awg.pro.core.NativeFiles.readText(DeepSeekActivity.this, (String) (a001)), "true")) {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "3dp", 0, "3dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             } else {
 
                 android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
-                open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "9dp", 0, "9dp");
+                // 应用栏接管标题排版，移除旧运行时 padding
                 wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
             }
@@ -271,7 +272,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), u, 0, u, 0);
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, "15dp", 0, "3dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
 
         } else if (java.util.Objects.equals(a, "4")) {
@@ -280,7 +281,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
             uih = uih + 9;
 
             android.widget.TextView wtab = ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar));
-            open.cn.awg.pro.core.NativeViewValues.padding(wtab, 0, uih + "dp", 0, "9dp");
+            // 应用栏接管标题排版，移除旧运行时 padding
             wtab.setGravity(open.cn.awg.pro.core.NativeViewValues.gravity("center"));
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)), 0, 0, 0, 0);
             open.cn.awg.pro.core.NativeViewValues.padding(((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj4)), 0, 0, 0, 0);
@@ -343,7 +344,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
                 public void run() {
 
                     lbc.requestFocus();
-                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("< DeepSeek"));
+                    ((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).setText(String.valueOf("DeepSeek"));
                     ((android.widget.EditText) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.bjk1)).setText(String.valueOf(""));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj1)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(0, -1));
                     ((android.widget.LinearLayout) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.xxbj3s)).setVisibility(open.cn.awg.pro.core.TextValues.intValue(8, -1));
@@ -829,7 +830,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
         if (kc == 4) {
 
-            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< DeepSeek")) {
+            if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "DeepSeek")) {
 
                 open.cn.awg.pro.core.NativeActions.finish(DeepSeekActivity.this);
 
@@ -844,7 +845,7 @@ public class DeepSeekActivity extends BaseAwgActivity {
 
     private void onTitleBarClick(View vw) {
 
-        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "< DeepSeek")) {
+        if (java.util.Objects.equals(((android.widget.TextView) open.cn.awg.pro.core.NativeViewValues.findView(DeepSeekActivity.this.getWindow().getDecorView(), R.id.title_bar)).getText().toString(), "DeepSeek")) {
 
             open.cn.awg.pro.core.NativeActions.finish(DeepSeekActivity.this);
 
