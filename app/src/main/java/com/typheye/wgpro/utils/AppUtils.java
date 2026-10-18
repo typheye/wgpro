@@ -37,13 +37,11 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 public class AppUtils {
-    private static final int CURRENT_OOBE_VERSION = 3;
+    private static final int CURRENT_OOBE_VERSION = 4;
 
     /** 服务端应用配置（公告 / 新版本信息）地址。 */
     private static final String UPDATE_CONFIG_URL =
-            // TEMP: 更新测试接口（联调完成后改回下面这行）
-            "https://service.typheye.cn/api.php?type=update_test";
-            // "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
+            "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
     // 在类中添加 OkHttp 客户端（建议在初始化时创建单例）
     private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .addInterceptor(TestHandler.networkLogger())
@@ -406,6 +404,17 @@ public class AppUtils {
         return com.typheye.wgpro.tApplication.topActivity();
     }
 
+    /** 用系统浏览器打开链接（强制更新用：跳出去后应用就该退场了）。 */
+    private static void openExternalBrowser(@NonNull Context context, @Nullable String url) {
+        if (url == null || url.trim().isEmpty()) return;
+        try {
+            Intent intent = new Intent(Intent.ACTION_VIEW, android.net.Uri.parse(url.trim()));
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(intent);
+        } catch (Throwable ignored) {
+        }
+    }
+
     private static void showUpdateDialogOn(@NonNull android.app.Activity activity,
                                            String updateContext, String downloadUrl,
                                            boolean force) {
@@ -418,13 +427,47 @@ public class AppUtils {
             try {
                 WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(activity)
                         .setTitle(force ? "需要更新" : "有新版本")
-                        .setMessage(updateContext)
-                        .setPositiveButton("立即更新",
-                                (dialog, which) -> openDownPage(activity, downloadUrl));
+                        .setMessage(updateContext);
+                if (force) {
+                    // 强制更新：跳系统浏览器下载，然后立刻退出应用（不留旧版本可继续用）
+                    builder.setPositiveButton("立即更新", (dialog, which) -> {
+                        openExternalBrowser(activity, downloadUrl);
+                        activity.finishAffinity();
+                        new Handler(Looper.getMainLooper()).postDelayed(() ->
+                                android.os.Process.killProcess(android.os.Process.myPid()), 250L);
+                    });
+                } else {
+                    builder.setPositiveButton("立即更新",
+                            (dialog, which) -> openDownPage(activity, downloadUrl));
+                }
                 if (!force) {
                     builder.setNegativeButton("稍后提醒", null);
                 }
-                builder.setCancelable(!force).show();
+                if (!force) {
+                    builder.setCancelable(true).show();
+                    return;
+                }
+                // 强制更新：MIUI 上返回键可能绕开 BottomSheetDialog，这里再兜两层
+                final boolean[] consumed = {false};
+                builder.setPositiveButton("立即更新", (dialog, which) -> {
+                    consumed[0] = true;
+                    openExternalBrowser(activity, downloadUrl);
+                    activity.finishAffinity();
+                    new Handler(Looper.getMainLooper()).postDelayed(() ->
+                            android.os.Process.killProcess(android.os.Process.myPid()), 250L);
+                });
+                final com.typheye.wgpro.ui.widget.WGProBottomSheetDialog sheet =
+                        builder.setCancelable(false).create();
+                sheet.setOnDismissListener(d -> {
+                    if (consumed[0] || activity.isFinishing()) return;
+                    // 被返回键/手势关掉：立刻重新弹，用户不更新就用不了
+                    new Handler(Looper.getMainLooper()).postDelayed(() -> {
+                        if (!activity.isFinishing() && !activity.isDestroyed()) {
+                            try { sheet.show(); } catch (Throwable ignored) { }
+                        }
+                    }, 120L);
+                });
+                sheet.show();
             } catch (Throwable ignored) {
                 // 极端情况下窗口已失效：不弹也不能闪退
             }

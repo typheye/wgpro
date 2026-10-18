@@ -93,11 +93,20 @@ public final class DownloadRetryFlow {
             failureDialogShowing = true;
         }
         String message = error.isEmpty() ? "下载失败，请稍后重试。" : error;
+        // 「未获得」是终态：再重试也是同样的 402，只会反复弹窗。
+        // 先把这个下载项彻底清掉（记录 + 已下载文件），再弹一次说明 —— 详情页据此回到「获取」。
+        boolean needsPurchase = error.contains("未获得");
+        if (needsPurchase) {
+            DownloadManager.get().control(context, task.id,
+                    com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
+        }
         WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(context)
-                .setTitle("下载失败")
-                .setMessage(message + (task.name == null || task.name.isEmpty() ? "" : "\n（" + task.name + "）"))
+                .setTitle(needsPurchase ? "需要先获取" : "下载失败")
+                .setMessage(needsPurchase
+                        ? "该内容还没获取，请先回到详情页用积分获取后再下载。"
+                        : message + (task.name == null || task.name.isEmpty() ? "" : "\n（" + task.name + "）"))
                 .setNegativeButton("关闭", null);
-        if (onRetry != null) {
+        if (onRetry != null && !needsPurchase) {
             builder.setPositiveButton("重试", (dialog, which) -> onRetry.run());
         }
         WGProBottomSheetDialog dialog = builder.create();

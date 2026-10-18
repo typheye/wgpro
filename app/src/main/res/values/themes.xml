@@ -153,4 +153,20 @@
         <item name="android:activityCloseEnterAnimation">@anim/preview_hold</item>
         <item name="android:activityCloseExitAnimation">@anim/preview_zoom_out</item>
     </style>
+
+    <!-- 详情页底部动作栏同款：左/右按钮只圆外侧两角（中间拼接处是直角） -->
+    <style name="Shape.WGPro.PillLeft" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">25dp</item>
+        <item name="cornerSizeBottomLeft">25dp</item>
+        <item name="cornerSizeTopRight">0dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+    </style>
+    <style name="Shape.WGPro.PillRight" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopLeft">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+        <item name="cornerSizeTopRight">25dp</item>
+        <item name="cornerSizeBottomRight">25dp</item>
+    </style>
 </resources>

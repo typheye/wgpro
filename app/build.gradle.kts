@@ -18,8 +18,8 @@ android {
         applicationId = "com.typheye.wgpro"
         minSdk = 24
         targetSdk = 36
-        versionCode = 2610160
-        versionName = "3.26.10.Alpha7"
+        versionCode = 2610180
+        versionName = "3.26.10"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

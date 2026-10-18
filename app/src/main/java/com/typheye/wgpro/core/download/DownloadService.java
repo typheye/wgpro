@@ -182,6 +182,8 @@ public final class DownloadService extends android.app.Service {
                     }
                     if (code == 402) {
                         failTask(task, "未获得该应用，请先在应用内获取后再下载");
+                        // 终态：清掉任务记录与已下载部分，避免反复重试/死循环
+                        DownloadManager.get().control(this, task.id, ACTION_REMOVE);
                         return;
                     }
                     if (code == 410 || code == 403) {

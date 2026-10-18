@@ -471,6 +471,23 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             }
             final com.typheye.wgpro.core.download.DownloadManager manager =
                     com.typheye.wgpro.core.download.DownloadManager.get();
+            // 「未获得」是终态：先彻底清掉下载项（记录 + 已下文件），回到「获取」态再提示一次
+            if (task != null
+                    && task.status == com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED
+                    && task.error != null && task.error.contains("未获得")) {
+                manager.control(requireContext(), task.id,
+                        com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
+                manager.remove(task.id);
+                task = null;
+                quotedPrice = -1;
+                if (isAdded()) {
+                    new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                            .setTitle("需要先获取")
+                            .setMessage("该内容还没获取，请先用积分获取后再下载。")
+                            .setNegativeButton("关闭", null)
+                            .show();
+                }
+            }
             // 失败不静默：弹失败信息弹窗（带「重试」）
             final com.typheye.wgpro.core.download.DownloadTask failedTask = task;
             if (failedTask != null) {
@@ -832,11 +849,25 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             final String key = resourceId();
             String name = resource.optString("title", resource.optString("name", "该资源"));
             com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, payMethod, () ->
-                    com.typheye.wgpro.utils.tPointsUtils.verifySend(context, "resource", key,
-                            payMethod, redeemCode,
-                            new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
-                                @Override
-                                public void onSuccess(@NonNull org.json.JSONObject info) {
+                    // 请求验证码期间必须有进度（底部弹窗圆形进度 + 取消）
+                    com.typheye.wgpro.ui.widget.WGProProgressRunner.run(this, "获取验证码",
+                            "正在向你的邮箱发送验证码，请稍候…",
+                            completion -> com.typheye.wgpro.utils.tPointsUtils.verifySend(
+                                    context, "resource", key, payMethod, redeemCode,
+                                    new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                                        @Override
+                                        public void onSuccess(@NonNull org.json.JSONObject info) {
+                                            completion.success(info);
+                                        }
+
+                                        @Override
+                                        public void onError(int status, @NonNull String message,
+                                                            @Nullable org.json.JSONObject info) {
+                                            completion.error(status, message);
+                                        }
+                                    }),
+                            new com.typheye.wgpro.ui.widget.WGProProgressRunner.Callback() {
+                                @Override public void success(@NonNull org.json.JSONObject info) {
                                     if (!isAdded()) return;
                                     String txnNo = info.optString("txn_no", "");
                                     String debugCode = info.optString("debug_code", "");
@@ -847,9 +878,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                                             code -> completePurchase(txnNo, code));
                                 }
 
-                                @Override
-                                public void onError(int status, @NonNull String message,
-                                                    @Nullable org.json.JSONObject info) {
+                                @Override public void error(int status, @NonNull String message) {
                                     if (!isAdded()) return;
                                     showPayError(status, message);
                                 }

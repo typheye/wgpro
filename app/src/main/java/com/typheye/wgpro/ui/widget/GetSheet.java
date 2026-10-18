@@ -130,7 +130,7 @@ public final class GetSheet {
         if (!labels.isEmpty()) {
             builder.setItems(labels.toArray(new CharSequence[0]), listener);
         }
-        builder.setNegativeButton("关闭", null).show();
+        builder.setCancelable(false).setNegativeButton("关闭", null).show();
     }
 
     /** 「选择设备」列表里的一台设备：名字 + 「状态 | 来源」。 */
@@ -304,6 +304,7 @@ public final class GetSheet {
         new WGProAlertDialogBuilder(context)
                 .setTitle("确认获取")
                 .setMessage(detail)
+                .setCancelable(false)
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确认", (dialog, which) ->
                         afterDismiss(callback::onConfirmed))
@@ -339,10 +340,10 @@ public final class GetSheet {
         int minutes = Math.max(1, Math.round(expiresIn / 60f));
         new WGProAlertDialogBuilder(context)
                 .setTitle("输入验证码")
-                .setMessage("验证码已发送至你的邮箱，请在 " + minutes + " 分钟内完成验证。"
-                        + (debugCode != null && !debugCode.isEmpty()
-                        ? "\n（联调期验证码：" + debugCode + "）" : ""))
+                .setMessage("验证码已发送至你的邮箱，请在 " + minutes + " 分钟内完成验证。")
                 .setView(content)
+                // 防手滑：点外部/返回键都关不掉，只能点「取消」或「确认」
+                .setCancelable(false)
                 .setNegativeButton("取消", null)
                 .setPositiveButton("确认", (dialog, which) -> {
                     String code = input.getText() == null ? "" : input.getText().toString().trim();
@@ -398,6 +399,7 @@ public final class GetSheet {
                 .setMessage("兑换代码内的积分将用于支付本单（" + price + " 积分），"
                         + "超出部分会存入可用积分；积分不足则无法使用该代码。")
                 .setView(content)
+                .setCancelable(false)
                 .setNegativeButton("取消", null)
                 .setPositiveButton("下一步", (dialog, which) -> {
                     String code = input.getText() == null ? "" : input.getText().toString().trim();
@@ -436,6 +438,7 @@ public final class GetSheet {
                 .setTitle("兑换积分")
                 .setMessage("兑换成功后的积分可直接用于获取应用与资源。")
                 .setView(content)
+                .setCancelable(false)
                 .setPositiveButton("兑换", (dialog, which) -> {
                     String code = input.getText() == null ? "" : input.getText().toString().trim();
                     if (code.isEmpty()) {

@@ -533,9 +533,20 @@ public final class DownloadListFragment extends Fragment {
             CharSequence[] actions = new CharSequence[]{isVelaTask(task) ? "查看设备详情" : "查看详情",
                     "取消"};
             new WGProAlertDialogBuilder(context).setTitle("操作").setItems(actions, (dialog, which) -> {
-                if (which == 0) openDetail(task);
-                // 取消 = 相当于从没下过：清掉下载记录与已下文件（详情页会重新显示「获取」）
-                else DownloadManager.get().control(context, task.id, DownloadService.ACTION_REMOVE);
+                if (which == 0) {
+                    openDetail(task);
+                    return;
+                }
+                // 取消不可逆（会清掉已下载部分）：必须二次确认
+                new WGProAlertDialogBuilder(context)
+                        .setTitle("取消下载？")
+                        .setMessage("将停止下载并清除已下载的部分，之后可在详情页重新获取。"
+                                + (task.name == null || task.name.isEmpty() ? "" : "\n（" + task.name + "）"))
+                        .setNegativeButton("继续下载", null)
+                        .setPositiveButton("取消下载", (d2, w2) ->
+                                DownloadManager.get().control(context, task.id,
+                                        DownloadService.ACTION_REMOVE))
+                        .show();
             }).show();
         }
     }

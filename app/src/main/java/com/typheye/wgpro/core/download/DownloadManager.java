@@ -170,6 +170,30 @@ public final class DownloadManager {
         publish();
     }
 
+    /**
+     * 清掉所有「失败/死数据」下载项（记录 + 已下载文件）。
+     * 这类任务除了「重试」没别的价值，重试又常常因为权限/已购状态变了一直弹窗。
+     *
+     * @return 清理掉的条数
+     */
+    public synchronized int purgeFailedTasks() {
+        int removed = 0;
+        for (int i = list.size() - 1; i >= 0; i--) {
+            DownloadTask task = list.get(i);
+            if (task.status != DownloadTask.STATUS_FAILED) continue;
+            try {
+                java.io.File local = new java.io.File(
+                        task.localPath == null ? "" : task.localPath);
+                if (local.isFile()) local.delete();
+            } catch (Throwable ignored) {
+            }
+            list.remove(i);
+            removed++;
+        }
+        if (removed > 0) publish();
+        return removed;
+    }
+
     synchronized void publish() {
         persist();
         tasks.postValue(new ArrayList<>(list));
@@ -189,7 +213,16 @@ public final class DownloadManager {
                 JSONObject o = array.optJSONObject(i);
                 if (o == null) continue;
                 DownloadTask task = fromJson(o);
-                if (task != null && !task.id.isEmpty()) list.add(task);
+                if (task == null || task.id.isEmpty()) continue;
+                // 历史遗留的「未获得」失败项（清空已购后留下的）直接丢弃，
+                // 否则列表里会留一条永远下不动、点重试就弹窗的死任务。
+                if (task.status == DownloadTask.STATUS_FAILED && task.error != null
+                        && task.error.contains("未获得")) {
+                    java.io.File stale = new java.io.File(task.localPath == null ? "" : task.localPath);
+                    if (stale.isFile()) stale.delete();
+                    continue;
+                }
+                list.add(task);
             }
         } catch (Exception ignored) {
         }

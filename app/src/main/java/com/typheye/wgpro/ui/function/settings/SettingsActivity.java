@@ -483,6 +483,9 @@ public class SettingsActivity extends AppCompatActivity {
                     // 模拟器运行目录都属于用户数据，清空缓存不能替用户删）
                     final int orphans = 0;
                     final int stalePackages = 0;
+                    // 死数据：失败/需要「重试」的下载项（记录 + 半截文件）一起清掉
+                    final int deadTasks = com.typheye.wgpro.core.download.DownloadManager.get()
+                            .purgeFailedTasks();
                     boolean success = clearDirectoryContents(internalCache)
                             & clearDirectoryContents(externalCache);
                     mainHandler.post(() -> {
@@ -492,6 +495,8 @@ public class SettingsActivity extends AppCompatActivity {
                                 .setTitle(success ? "缓存已清除" : "清理未完全完成")
                                 .setMessage(success
                                         ? "浏览器缓存、接口缓存和应用临时文件已清理。\n"
+                                            + (deadTasks > 0
+                                            ? "另有 " + deadTasks + " 条失败/卡死的下载任务已清除。\n" : "")
                                             + "已下载的资源、应用与模拟器镜像都保留着。"
                                         : "部分正在使用的临时文件无法删除，可稍后重试。")
                                 .setPositiveButton("完成", null)

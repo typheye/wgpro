@@ -72,6 +72,22 @@ public final class DesktopShortcutActions {
                 openWeb(context, url);
                 break;
             }
+            case "starred_resource":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.community.AccountListActivity.class)
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_TITLE,
+                                "星标资源")
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_MODE,
+                                com.typheye.wgpro.ui.function.community.CloudListFragment.MODE_COLLECTION_RESOURCE));
+                break;
+            case "collections":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.community.AccountListActivity.class)
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_TITLE,
+                                "我的收藏")
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_MODE,
+                                com.typheye.wgpro.ui.function.community.CloudListFragment.MODE_COLLECTION_DYNAMIC));
+                break;
             case "scan":
                 context.startActivity(new Intent(context,
                         com.typheye.wgpro.ui.function.ScanQRActivity.class));

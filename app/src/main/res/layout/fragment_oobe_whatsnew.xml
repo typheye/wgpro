@@ -146,7 +146,7 @@
                     android:background="@drawable/bg_oobe_icon_warning"
                     android:contentDescription="@null"
                     android:padding="12dp"
-                    android:src="@drawable/ic_notifications_vector"
+                    android:src="@drawable/ic_message_vector"
                     app:tint="@color/status_warning" />
                 <LinearLayout
                     android:layout_width="0dp"
@@ -231,7 +231,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="设备与文件中心"
+                        android:text="腕上模拟"
                         android:textColor="?attr/colorOnSurface"
                         android:textSize="17sp"
                         android:textStyle="bold" />
@@ -239,44 +239,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="3dp"
-                        android:text="设备管理、应用安装、图片与视频预览集中在一处"
-                        android:textColor="?attr/colorOnSurfaceVariant"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="22dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:background="@drawable/bg_oobe_icon_warning"
-                    android:contentDescription="@null"
-                    android:padding="12dp"
-                    android:src="@drawable/ic_update_vector"
-                    app:tint="@color/status_warning" />
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="16dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="更新更可靠"
-                        android:textColor="?attr/colorOnSurface"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="3dp"
-                        android:text="始终检查新版本，重要更新会提示升级，使用更安心"
+                        android:text="一键创建 Vela 模拟设备，实时预览画面、注入触摸与调试"
                         android:textColor="?attr/colorOnSurfaceVariant"
                         android:textSize="14sp" />
                 </LinearLayout>

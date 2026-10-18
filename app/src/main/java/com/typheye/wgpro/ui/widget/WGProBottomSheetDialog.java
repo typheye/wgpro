@@ -220,7 +220,8 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
     }
 
     private void registerDirectBackCallback() {
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU || !backDismissEnabled
+        // 不可取消时也要注册：否则返回键会透传给 Activity 直接退出应用
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
                 || getWindow() == null || backCallback != null) return;
         backCallback = this::handleDirectBack;
         getWindow().getOnBackInvokedDispatcher().registerOnBackInvokedCallback(
@@ -244,6 +245,10 @@ public final class WGProBottomSheetDialog extends BottomSheetDialog {
                         .hide(WindowInsetsCompat.Type.ime());
                 return;
             }
+        }
+        if (!backDismissEnabled) {
+            // 不可取消：吞掉返回键，什么都不做
+            return;
         }
         dismiss();
     }

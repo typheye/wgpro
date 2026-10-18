@@ -131,6 +131,24 @@ public final class AppDetailFragment extends Fragment {
         }
         final com.typheye.wgpro.core.download.DownloadManager manager =
                 com.typheye.wgpro.core.download.DownloadManager.get();
+        // 「未获得」是终态：先彻底清掉这个下载项（记录 + 已下文件），
+        // 页面回到「获取」态，再提示一次 —— 否则会一直停在「重试」，点了又弹窗。
+        if (task != null
+                && task.status == com.typheye.wgpro.core.download.DownloadTask.STATUS_FAILED
+                && task.error != null && task.error.contains("未获得")) {
+            manager.control(requireContext(), task.id,
+                    com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
+            manager.remove(task.id);
+            task = null;
+            quotedPrice = -1;
+            if (isAdded()) {
+                new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                        .setTitle("需要先获取")
+                        .setMessage("该内容还没获取，请先用积分获取后再下载。")
+                        .setNegativeButton("关闭", null)
+                        .show();
+            }
+        }
         // 失败不再静默：弹失败信息弹窗（带「重试」）
         final com.typheye.wgpro.core.download.DownloadTask failedTask = task;
         if (failedTask != null) {
@@ -683,11 +701,25 @@ public final class AppDetailFragment extends Fragment {
         final android.content.Context context = requireContext();
         String name = appJson.optString("name", "该应用");
         com.typheye.wgpro.ui.widget.GetSheet.showConfirm(context, name, price, payMethod, () ->
-                com.typheye.wgpro.utils.tPointsUtils.verifySend(context, "app", appKey,
-                        payMethod, redeemCode,
-                        new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
-                            @Override
-                            public void onSuccess(@NonNull JSONObject info) {
+                // 请求验证码期间必须有进度（底部弹窗圆形进度 + 取消），否则点完确认像卡住
+                com.typheye.wgpro.ui.widget.WGProProgressRunner.run(this, "获取验证码",
+                        "正在向你的邮箱发送验证码，请稍候…",
+                        completion -> com.typheye.wgpro.utils.tPointsUtils.verifySend(
+                                context, "app", appKey, payMethod, redeemCode,
+                                new com.typheye.wgpro.utils.tPointsUtils.JsonCallback() {
+                                    @Override
+                                    public void onSuccess(@NonNull JSONObject info) {
+                                        completion.success(info);
+                                    }
+
+                                    @Override
+                                    public void onError(int status, @NonNull String message,
+                                                        @Nullable JSONObject info) {
+                                        completion.error(status, message);
+                                    }
+                                }),
+                        new com.typheye.wgpro.ui.widget.WGProProgressRunner.Callback() {
+                            @Override public void success(@NonNull JSONObject info) {
                                 if (!isAdded()) return;
                                 String txnNo = info.optString("txn_no", "");
                                 String debugCode = info.optString("debug_code", "");
@@ -698,9 +730,7 @@ public final class AppDetailFragment extends Fragment {
                                         code -> completePurchase(txnNo, code));
                             }
 
-                            @Override
-                            public void onError(int status, @NonNull String message,
-                                                @Nullable JSONObject info) {
+                            @Override public void error(int status, @NonNull String message) {
                                 if (!isAdded()) return;
                                 showPayError(status, message);
                             }
