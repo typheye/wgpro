@@ -1754,16 +1754,17 @@ public class tAccUtils {
         }
 
         try {
-            String url = "https://service.typheye.cn/src/up.php?uid=" + URLEncoder.encode(uid, "UTF-8");
+            String url = "https://service.typheye.cn/api.php?type=account_avatar";
             MediaType MEDIA_TYPE_JPEG = MediaType.parse("image/jpeg");
             RequestBody fileBody = RequestBody.create(avatarFile, MEDIA_TYPE_JPEG);
             MultipartBody multipartBody = new MultipartBody.Builder()
                     .setType(MultipartBody.FORM)
-                    .addFormDataPart("file", "avatar.jpg", fileBody) // 可替换为 avatarFile.getName()
+                    .addFormDataPart("avatar", "avatar.jpg", fileBody)
                     .build();
 
             Request request = new Request.Builder()
                     .url(url)
+                    .addHeader("Authorization", "Bearer " + cookie)
                     .post(multipartBody)
                     .build();
 
@@ -1780,7 +1781,7 @@ public class tAccUtils {
                     if (response.isSuccessful()) {
                         try {
                             String responseData = response.body().string();
-                            if ("上传成功".equals(responseData)) {
+                            if (responseData != null && responseData.contains("\"code\":200")) {
                                 // ✅ 关键修复：由调用者处理本地缓存
                                 callback.onSuccess();
                             } else {

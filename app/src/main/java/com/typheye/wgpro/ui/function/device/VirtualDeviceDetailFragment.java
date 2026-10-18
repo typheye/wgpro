@@ -54,7 +54,7 @@ public class VirtualDeviceDetailFragment extends Fragment {
     public static final String ARG_MODEL_JSON = "model_json";
     public static final String ARG_MODEL_ID = "model_id";
     private static final String API = "https://service.typheye.cn/api.php?type=vela_devices";
-    private static final String IMAGE_BASE = "https://res.typheye.cn/images/";
+    private static final String IMAGE_BASE = "https://res.typheye.cn/api.php?action=file&path=images/";
 
     private final Gson gson = new Gson();
     private final Handler ui = new Handler(Looper.getMainLooper());

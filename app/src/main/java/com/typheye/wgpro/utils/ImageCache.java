@@ -325,12 +325,12 @@ public final class ImageCache {
     @NonNull
     private static String cacheKey(@Nullable String url) {
         String normalized = normalize(url);
-        if (normalized.contains("media.php?")) {
+        if (normalized.contains("action=media&")) {
             try {
                 android.net.Uri parsed = android.net.Uri.parse(normalized);
                 String path = parsed.getQueryParameter("p");
                 if (path != null && !path.isEmpty()) {
-                    return "https://res.typheye.cn/media.php?p=" + path;
+                    return "https://res.typheye.cn/api.php?action=media&p=" + path;
                 }
             } catch (Exception ignored) { }
         }

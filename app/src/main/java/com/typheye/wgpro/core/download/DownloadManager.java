@@ -111,7 +111,7 @@ public final class DownloadManager {
         if (id == null || id.isEmpty()) return;
         new Thread(() -> {
             try {
-                String url = "https://res.typheye.cn/app_download.php?package="
+                String url = "https://res.typheye.cn/api.php?action=download&package="
                         + java.net.URLEncoder.encode(id, "UTF-8");
                 java.net.HttpURLConnection connection =
                         (java.net.HttpURLConnection) new java.net.URL(url).openConnection();

@@ -48,7 +48,7 @@ public final class VelaEmulator {
         {"vela_data.bin", "vela_data.bin"},
     };
 
-    private static final String BASE_URL = "https://res.typheye.cn/vela/";
+    private static final String BASE_URL = "https://res.typheye.cn/api.php?action=file&path=vela/";
 
     private final Context context;
     @Nullable

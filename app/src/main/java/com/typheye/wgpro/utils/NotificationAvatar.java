@@ -31,7 +31,7 @@ public final class NotificationAvatar {
     @NonNull
     public static String avatarUrlFor(@Nullable String uid) {
         if (uid == null || uid.trim().isEmpty()) return "";
-        return "https://service.typheye.cn/src/pericon/" + uid.trim();
+        return "https://res.typheye.cn/api.php?action=file&path=club/pericon/" + uid.trim();
     }
 
     /** 昵称首字文字头像（圆形）。 */

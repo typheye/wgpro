@@ -1854,7 +1854,7 @@ public class CloudListFragment extends Fragment {
     private String contactAvatarUrl(JSONObject item, String uid) {
         String url = item.optString("avatar_url", item.optString("actor_avatar_url", "")).trim();
         if (url.contains("/api.php?type=get_avatar2") && !uid.isEmpty()) {
-            return "https://service.typheye.cn/src/pericon/" + uid;
+            return "https://res.typheye.cn/api.php?action=file&path=club/pericon/" + uid;
         }
         return url;
     }
