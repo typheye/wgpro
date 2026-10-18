@@ -30,8 +30,20 @@ public final class TestActivity extends AppCompatActivity {
     private boolean listShown;
     private Fragment shownFragment;
 
+
+    /** Release 包（不可调试）里不允许进入调试页。 */
+    private boolean isDebuggableBuild() {
+        return (getApplicationInfo().flags
+                & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+    }
+
     @Override protected void onCreate(Bundle state) {
         super.onCreate(state);
+        // 调试页只属于调试构建：Release 包即使被外部/快捷方式拉起也直接退出
+        if (!isDebuggableBuild()) {
+            finish();
+            return;
+        }
         AppUtils.useScreenCutArea(getWindow(), this);
         setContentView(R.layout.activity_test);
         contentRoot = findViewById(R.id.test_content_host);

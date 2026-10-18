@@ -172,7 +172,7 @@ public class tApplication extends Application {
     public static boolean isDynamicColorEnabled(android.content.Context context) {
         return supportsDynamicColor() && PreferenceManager
                 .getDefaultSharedPreferences(context.getApplicationContext())
-                .getBoolean(PREF_DYNAMIC_COLOR, true);
+                .getBoolean(PREF_DYNAMIC_COLOR, false);
     }
 
     public static tApplication getInstance() {

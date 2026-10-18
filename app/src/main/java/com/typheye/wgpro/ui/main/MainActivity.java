@@ -136,10 +136,11 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        com.typheye.wgpro.utils.AppUtils.purgeDebugShortcuts(this);
         // 模拟设备：应用进程重启后，把上次残留的「运行中」清零（引擎是应用子进程，随进程结束）
         final com.typheye.wgpro.core.emu.VelaEmulatorManager emuManager =
                 com.typheye.wgpro.core.emu.VelaEmulatorManager.get();

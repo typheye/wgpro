@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="white">#FFFFFFFF</color>
-    <color name="brand_primary">#FF8EA2FF</color>
-    <color name="brand_soft">#FF252D51</color>
-    <color name="brand_on_soft">#FFBCC7FF</color>
+    <color name="brand_primary">@color/monet_primary</color>
+    <color name="brand_soft">@color/monet_primary_container</color>
+    <color name="brand_on_soft">@color/monet_on_primary_container</color>
     <!-- 一段式配色：页面背景与应用栏/导航栏一致（OLED 纯黑） -->
     <color name="surface_page">@color/surface_primary</color>
     <color name="surface_primary">#FF000000</color>
@@ -11,17 +11,17 @@
     <color name="surface_bar">#B3000000</color>
     <color name="surface_secondary">#FF1C1C1C</color>
     <!-- 搜索框描边（深色模式下提亮一点，否则看不出轮廓） -->
-    <color name="search_box_stroke">#FF4B515D</color>
-    <color name="web_progress_track">#FF3C4049</color>
+    <color name="search_box_stroke">@color/monet_outline_variant</color>
+    <color name="web_progress_track">@color/monet_surface_variant</color>
     <color name="surface_elevated">#FF1C1C1C</color>
     <color name="profile_detail_sheet">@color/surface_page</color>
-    <color name="profile_card_pressed">#FF292D35</color>
+    <color name="profile_card_pressed">@color/monet_surface_container_high</color>
     <color name="profile_button_transparent">#66FFFFFF</color>
-    <color name="profile_loading_overlay">#E6000000</color>
-    <color name="outline_soft">#FF30343C</color>
-    <color name="text_primary">#FFF2F3F5</color>
-    <color name="text_secondary">#FFADB2BC</color>
-    <color name="text_tertiary">#FF7F8691</color>
+    <color name="profile_loading_overlay">#E6101417</color>
+    <color name="outline_soft">@color/monet_outline_variant</color>
+    <color name="text_primary">@color/monet_on_surface</color>
+    <color name="text_secondary">@color/monet_on_surface_variant</color>
+    <color name="text_tertiary">@color/monet_outline</color>
     <!-- 抽屉拖拽小横条：半透明，避免看起来像一块不透明的亮色块 -->
     <color name="sheet_handle">#59FFFFFF</color>
     <color name="status_success">#FF54D2B0</color>

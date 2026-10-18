@@ -130,6 +130,37 @@ public class AppUtils {
         }
     }
 
+    /**
+     * Release 包启动时清理桌面上遗留的调试快捷方式（老版本/调试包写过，会一直留在长按菜单里）。
+     * 只删指向 Debug/Test 页或 id 里带 debug 的项，正常功能快捷方式不动。
+     */
+    public static void purgeDebugShortcuts(Context context) {
+        if (context == null) return;
+        boolean debuggable = (context.getApplicationInfo().flags
+                & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        if (debuggable) return;
+        try {
+            android.content.pm.ShortcutManager manager =
+                    (android.content.pm.ShortcutManager) context.getSystemService(Context.SHORTCUT_SERVICE);
+            if (manager == null) return;
+            java.util.List<String> remove = new java.util.ArrayList<>();
+            for (android.content.pm.ShortcutInfo info : manager.getDynamicShortcuts()) {
+                String id = info.getId() == null ? "" : info.getId().toLowerCase(java.util.Locale.ROOT);
+                String target = "";
+                Intent intent = info.getIntent();
+                if (intent != null && intent.getComponent() != null) {
+                    target = intent.getComponent().getClassName();
+                }
+                String targetLower = target.toLowerCase(java.util.Locale.ROOT);
+                if (id.contains("debug") || targetLower.contains("debug")) {
+                    remove.add(info.getId());
+                }
+            }
+            if (!remove.isEmpty()) manager.removeDynamicShortcuts(remove);
+        } catch (Throwable ignored) {
+        }
+    }
+
     public static void appInit(Context context){
         SharedPreferences prefs  = context.getSharedPreferences("app", Context.MODE_PRIVATE);
         prefs.edit()

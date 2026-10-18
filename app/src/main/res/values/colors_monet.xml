@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 默认配色：取自设备当前完整莫奈色板（浅色），保证默认外观与现在一致 -->
+<resources>
+    <color name="monet_primary">#FF29638A</color>
+    <color name="monet_on_primary">#FFFFFFFF</color>
+    <color name="monet_primary_container">#FFCBE6FF</color>
+    <color name="monet_on_primary_container">#FF001E30</color>
+    <color name="monet_secondary">#FF50606F</color>
+    <color name="monet_on_secondary">#FFFFFFFF</color>
+    <color name="monet_secondary_container">#FFD4E4F6</color>
+    <color name="monet_on_secondary_container">#FF0C1D29</color>
+    <color name="monet_tertiary">#FF66587B</color>
+    <color name="monet_on_tertiary">#FFFFFFFF</color>
+    <color name="monet_tertiary_container">#FFECDCFF</color>
+    <color name="monet_on_tertiary_container">#FF211634</color>
+    <color name="monet_surface">#FFF7F9FF</color>
+    <color name="monet_on_surface">#FF181C20</color>
+    <color name="monet_surface_variant">#FFDEE3EA</color>
+    <color name="monet_on_surface_variant">#FF41474D</color>
+    <color name="monet_outline">#FF6F757C</color>
+    <color name="monet_outline_variant">#FFC1C7CE</color>
+    <color name="monet_error">#FFBA1A1A</color>
+    <color name="monet_on_error">#FFFFFFFF</color>
+    <color name="monet_error_container">#FFFFDAD6</color>
+    <color name="monet_on_error_container">#FF410002</color>
+    <color name="monet_surface_container_lowest">#FFFFFFFF</color>
+    <color name="monet_surface_container_low">#FFF1F4F9</color>
+    <color name="monet_surface_container">#FFEBEEF3</color>
+    <color name="monet_surface_container_high">#FFE5E8ED</color>
+    <color name="monet_surface_container_highest">#FFE0E3E8</color>
+    <color name="monet_surface_bright">#FFF7F9FF</color>
+    <color name="monet_surface_dim">#FFD7DADF</color>
+    <color name="monet_inverse_surface">#FF2D3135</color>
+    <color name="monet_inverse_on_surface">#FFEFF1F6</color>
+    <color name="monet_inverse_primary">#FF97CCF9</color>
+</resources>
