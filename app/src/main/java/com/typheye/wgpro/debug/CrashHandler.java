@@ -44,6 +44,9 @@ public class CrashHandler implements Thread.UncaughtExceptionHandler {
         handlingCrash = true;
         try {
             saveCrashLog(throwable);
+            // 真实上报：崩溃堆栈发到 service/api.php?type=crash_report
+            // 阻塞但限时（1.6s），失败/超时都不影响后面的"重启到崩溃页"
+            com.typheye.wgpro.utils.CrashReporter.reportBlocking(context, thread, throwable, 1600L);
             Intent intent = new Intent(context, CrashActivity.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK
                     | Intent.FLAG_ACTIVITY_NO_ANIMATION);

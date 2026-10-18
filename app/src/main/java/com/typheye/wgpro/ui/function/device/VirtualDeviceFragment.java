@@ -81,6 +81,9 @@ public class VirtualDeviceFragment extends Fragment {
 
     private final Handler ui = new Handler(Looper.getMainLooper());
     private final ArrayDeque<String> logLines = new ArrayDeque<>();
+    /** 上一行原文 + 连续重复次数：引擎抛异常/重试时同一行会刷几百遍，必须合并。 */
+    private String lastLogLine;
+    private int logRepeatCount;
     private boolean logFlushScheduled;
     private volatile boolean polling;
     private volatile long lastFrameAt;
@@ -167,6 +170,10 @@ public class VirtualDeviceFragment extends Fragment {
         List<String> history = manager.log(deviceKey);
         for (String line : history) {
             appendLog(line);
+        }
+        // 上次离开时日志面板是开着的 → 这次进来自己恢复（每台设备单独记）
+        if (logScroll != null && uiPrefs().getBoolean(logPrefKey(), false)) {
+            showLog(true);
         }
         // 已有别的实例在跑 → 先问清楚（底部弹窗：继续会结束旧实例）
         if (manager.isRunningDevice(deviceKey)) {
@@ -423,6 +430,11 @@ public class VirtualDeviceFragment extends Fragment {
         View logToggle = root.findViewById(R.id.key_log);
         if (logToggle != null) {
             logToggle.setOnClickListener(v -> toggleLog());
+            // 长按：确认后把整段日志导出到用户选择的位置（SAF）
+            logToggle.setOnLongClickListener(v -> {
+                confirmExportLog();
+                return true;
+            });
         }
         // 应用管理 / 设备状态：对齐 AIoT IDE 的客机能力（应用列表/安装/卸载/启动/关闭/重载 + 传感器等）
         View apps = root.findViewById(R.id.key_apps);
@@ -1499,6 +1511,15 @@ public class VirtualDeviceFragment extends Fragment {
 
     // ---------------- 导入外部 rpk ----------------
 
+    /** 导出日志到用户选择的位置（SAF 创建文档，默认 .log）。 */
+    private final androidx.activity.result.ActivityResultLauncher<String> logExportPicker =
+            registerForActivityResult(
+                    new androidx.activity.result.contract.ActivityResultContracts
+                            .CreateDocument("text/plain"),
+                    uri -> {
+                        if (uri != null) writeLogTo(uri);
+                    });
+
     /** 选 .rpk 的系统文件选择器（SAF）。 */
     private final androidx.activity.result.ActivityResultLauncher<String[]> rpkPicker =
             registerForActivityResult(
@@ -1583,10 +1604,19 @@ public class VirtualDeviceFragment extends Fragment {
      * 打开时一次性刷出（见 {@link #showLog(boolean)}）。</p>
      */
     private void appendLog(@NonNull String line) {
-        while (logLines.size() >= LOG_MAX) {
-            logLines.removeFirst();
+        // 同一行连续重复（引擎刷 warning/重试）只留一条并标次数，避免把面板刷爆
+        if (lastLogLine != null && lastLogLine.equals(line) && !logLines.isEmpty()) {
+            logRepeatCount++;
+            logLines.removeLast();
+            logLines.addLast(line + "  (×" + logRepeatCount + ")");
+        } else {
+            lastLogLine = line;
+            logRepeatCount = 1;
+            while (logLines.size() >= LOG_MAX) {
+                logLines.removeFirst();
+            }
+            logLines.addLast(line);
         }
-        logLines.addLast(line);
         // 面板没显示：不必刷 UI，等 showLog(true) 补刷；显示中则限流刷新
         if (!logVisible() || logFlushScheduled) {
             return;
@@ -1624,6 +1654,81 @@ public class VirtualDeviceFragment extends Fragment {
         } else {
             logScroll.setVisibility(View.GONE);
         }
+        // 记住显示/隐藏，下次进入本页面自动恢复
+        uiPrefs().edit().putBoolean(logPrefKey(), visible).apply();
+    }
+
+    /** 每台设备的日志面板状态键。 */
+    @NonNull
+    private String logPrefKey() {
+        String key = deviceKey == null ? "unknown" : deviceKey;
+        return "log_open_" + key.replaceAll("[^A-Za-z0-9._-]", "_");
+    }
+
+    @NonNull
+    private android.content.SharedPreferences uiPrefs() {
+        return requireContext().getApplicationContext()
+                .getSharedPreferences("vela_device_ui", android.content.Context.MODE_PRIVATE);
+    }
+
+    /** 长按日志按钮：确认导出整段运行日志。 */
+    private void confirmExportLog() {
+        if (!isAdded()) return;
+        final int lines = logLines.size();
+        if (lines <= 0) {
+            com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "还没有日志可导出");
+            return;
+        }
+        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                .setTitle("导出模拟器日志？")
+                .setMessage("将把当前设备的完整运行日志（" + lines + " 行）导出为文本文件，"
+                        + "可发送给开发者排查问题。")
+                .setNegativeButton("取消", null)
+                .setPositiveButton("导出", (dialog, which) -> {
+                    try {
+                        logExportPicker.launch(logFileName());
+                    } catch (Throwable error) {
+                        com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(), "无法打开文件选择器");
+                    }
+                })
+                .show();
+    }
+
+    @NonNull
+    private String logFileName() {
+        String stamp = new java.text.SimpleDateFormat("yyyyMMdd_HHmmss",
+                java.util.Locale.US).format(new java.util.Date());
+        String name = deviceKey == null ? "vela" : deviceKey.replaceAll("[^A-Za-z0-9._-]", "_");
+        return "wgpro-log-" + name + "-" + stamp + ".log";
+    }
+
+    /** 把当前缓冲区的全部日志写进用户选的文件（UTF-8）。 */
+    private void writeLogTo(@NonNull android.net.Uri uri) {
+        final java.util.List<String> snapshot = new java.util.ArrayList<>(logLines);
+        new Thread(() -> {
+            boolean ok = false;
+            java.io.OutputStream out = null;
+            try {
+                out = requireContext().getContentResolver().openOutputStream(uri, "wt");
+                if (out != null) {
+                    StringBuilder sb = new StringBuilder();
+                    for (String line : snapshot) sb.append(line).append('\n');
+                    out.write(sb.toString().getBytes(java.nio.charset.StandardCharsets.UTF_8));
+                    out.flush();
+                    ok = true;
+                }
+            } catch (Throwable ignored) {
+            } finally {
+                if (out != null) try { out.close(); } catch (Throwable ignored) { }
+            }
+            final boolean success = ok;
+            ui.post(() -> {
+                if (isAdded()) {
+                    com.typheye.wgpro.ui.widget.WGProHint.show(requireContext(),
+                            success ? "日志已导出" : "导出失败");
+                }
+            });
+        }, "log-export").start();
     }
 
     @Override

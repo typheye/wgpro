@@ -191,6 +191,8 @@ public class ChatActivity extends BaseSectionActivity {
                 }
             });
             refresh.setOnRefreshListener(this::load);
+            // 进入会话即显示下拉刷新加载态（不能静默硬拉）
+            refresh.post(() -> { if (isAdded() && refresh != null) refresh.setRefreshing(true); });
             root.findViewById(R.id.chat_send).setOnClickListener(v -> send());
             load(); return root;
         }

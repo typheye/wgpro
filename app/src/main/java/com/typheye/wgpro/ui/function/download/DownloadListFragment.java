@@ -68,6 +68,9 @@ public final class DownloadListFragment extends Fragment {
             DownloadManager.get().reload();
             refresh.postDelayed(() -> { if (isAdded()) refresh.setRefreshing(false); }, 400L);
         });
+        // 进入页面先走一次下拉刷新加载态（本地数据也统一）
+        refresh.post(() -> { if (isAdded() && refresh != null) refresh.setRefreshing(true); });
+        refresh.postDelayed(() -> { if (isAdded() && refresh != null) refresh.setRefreshing(false); }, 600L);
         list = view.findViewById(R.id.download_list);
         list.setLayoutManager(new LinearLayoutManager(requireContext()));
         adapter = new Adapter();

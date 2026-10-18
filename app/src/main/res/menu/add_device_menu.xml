@@ -5,6 +5,6 @@
     <item
         android:id="@+id/action_import_image"
         android:title="从本地导入"
-        android:icon="@drawable/ic_import_vector"
+        android:icon="@drawable/ic_key_import"
         app:showAsAction="always" />
 </menu>

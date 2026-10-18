@@ -46,13 +46,13 @@ public final class DebugSimulationFragment extends Fragment {
         simulatedUpdate.setOnCheckedChangeListener((button, checked) ->
                 TestHandler.setUpdateSimulation(requireContext(), checked));
 
-        // 金刚键适配验证入口：这两个页面平时不常出现，直接从调试页拉起来看
-        root.findViewById(R.id.row_test_force_update).setOnClickListener(v -> {
-            // 该页 onResume 里"没有强制更新"会立刻 finish，所以入口顺手把「模拟有更新」打开
-            TestHandler.setUpdateSimulation(requireContext(), true);
-            simulatedUpdate.setChecked(true);
-            startActivity(new android.content.Intent(requireContext(),
-                    com.typheye.wgpro.ui.function.settings.UpdateRequiredActivity.class));
+        // 触发一次真实未捕获异常：走 CrashHandler → 本地日志 + 上报 + 崩溃页
+        root.findViewById(R.id.row_test_crash).setOnClickListener(v -> {
+            new android.os.Handler(android.os.Looper.getMainLooper()).postDelayed(() -> {
+                throw new IllegalStateException("测试崩溃：来自调试页的模拟异常 "
+                        + new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss",
+                        java.util.Locale.CHINA).format(new java.util.Date()));
+            }, 300L);
         });
         root.findViewById(R.id.row_test_oobe).setOnClickListener(v ->
                 startActivity(new android.content.Intent(requireContext(),

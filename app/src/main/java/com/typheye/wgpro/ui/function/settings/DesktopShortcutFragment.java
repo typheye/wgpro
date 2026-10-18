@@ -49,20 +49,22 @@ public class DesktopShortcutFragment extends Fragment {
     private static final int MAX_FAVORITES = 3;
 
     private final List<FunctionItem> functions = Arrays.asList(
-            new FunctionItem("transfer", "文件传输", "发送应用、图片与资源到腕上设备",
-                    R.drawable.bg_function_initial_blue, R.color.banner_blue),
-            new FunctionItem("guide", "使用指南", "从连接到安装，快速了解主要能力",
-                    R.drawable.bg_function_initial_green, R.color.banner_green),
-            new FunctionItem("website", "应用官网", "在浏览器里查看腕管Pro 官方网站",
-                    R.drawable.bg_function_initial_coral, R.color.banner_coral),
-            new FunctionItem("share", "分享应用", "把腕管Pro 推荐给身边的朋友",
-                    R.drawable.bg_function_initial_amber, R.color.banner_amber),
-            new FunctionItem("feedback", "意见反馈", "遇到问题或有建议，写封邮件告诉我们",
+            new FunctionItem("devices", "模拟设备", "创建与管理腕上模拟设备",
                     R.drawable.bg_function_initial_blue, R.color.banner_blue),
             new FunctionItem("downloads", "下载管理", "查看正在下载与已完成的记录",
                     R.drawable.bg_function_initial_amber, R.color.banner_amber),
-            new FunctionItem("beta", "内测计划", "抢先体验新功能并参与共创",
-                    R.drawable.bg_function_initial_green, R.color.banner_green)
+            new FunctionItem("transfer", "文件传输", "发送应用、图片与资源到腕上设备",
+                    R.drawable.bg_function_initial_green, R.color.banner_green),
+            new FunctionItem("notifications", "消息通知", "社区互动、系统消息与私信",
+                    R.drawable.bg_function_initial_coral, R.color.banner_coral),
+            new FunctionItem("history", "浏览历史", "回看最近浏览的动态、应用与资源",
+                    R.drawable.bg_function_initial_blue, R.color.banner_blue),
+            new FunctionItem("starred", "星标应用", "快速找回星标过的应用",
+                    R.drawable.bg_function_initial_amber, R.color.banner_amber),
+            new FunctionItem("points", "积分中心", "积分明细、积分商城与福利优惠",
+                    R.drawable.bg_function_initial_green, R.color.banner_green),
+            new FunctionItem("scan", "扫一扫", "扫码打开应用、资源与分享页",
+                    R.drawable.bg_function_initial_coral, R.color.banner_coral)
     );
 
     private GridLayout favoritesGrid;
@@ -624,7 +626,13 @@ public class DesktopShortcutFragment extends Fragment {
         String stored = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                 .getString(KEY_FAVORITES, "");
         List<String> result = new ArrayList<>();
-        if (stored == null || stored.trim().isEmpty()) return result;
+        if (stored == null || stored.trim().isEmpty()) {
+            // 首次进入给一组高频默认值，避免"发现页"一片空白
+            result.add("devices");
+            result.add("downloads");
+            result.add("transfer");
+            return result;
+        }
         for (String id : stored.split(",")) {
             if (result.size() >= MAX_FAVORITES) break;
             if (findItem(id) != null && !result.contains(id)) result.add(id);
@@ -690,7 +698,13 @@ public class DesktopShortcutFragment extends Fragment {
         String stored = requireContext().getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
                 .getString(KEY_HIDDEN, "");
         List<String> result = new ArrayList<>();
-        if (stored == null || stored.trim().isEmpty()) return result;
+        if (stored == null || stored.trim().isEmpty()) {
+            // 首次进入给一组高频默认值，避免"发现页"一片空白
+            result.add("devices");
+            result.add("downloads");
+            result.add("transfer");
+            return result;
+        }
         for (String id : stored.split(",")) {
             if (findItem(id) != null && !result.contains(id)) result.add(id);
         }

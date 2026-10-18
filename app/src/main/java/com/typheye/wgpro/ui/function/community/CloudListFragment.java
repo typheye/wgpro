@@ -238,6 +238,11 @@ public class CloudListFragment extends Fragment {
                 ((UserDetailActivity) requireActivity()).refreshProfileFromTabs();
             }
         });
+        // 进入页面就要显示下拉刷新的加载态：不能静默硬拉数据（否则看着像"没在加载"）
+        // 必须 post 到排版之后，SwipeRefreshLayout 未排版时 setRefreshing(true) 不显示。
+        refresh.post(() -> {
+            if (isAdded() && refresh != null) refresh.setRefreshing(true);
+        });
         load();
         return root;
     }
@@ -247,7 +252,11 @@ public class CloudListFragment extends Fragment {
         if (MODE_NOTIFICATIONS.equals(mode) || MODE_CONVERSATIONS.equals(mode)) {
             refreshConversationPreviewsFromLocal();
         }
-        if (loadedOnce && !skipNextResumeReload) load();
+        if (loadedOnce && !skipNextResumeReload) {
+            // 回到前台重新拉取时同样走下拉刷新加载态
+            refresh.post(() -> { if (isAdded() && refresh != null) refresh.setRefreshing(true); });
+            load();
+        }
         skipNextResumeReload = false;
     }
 

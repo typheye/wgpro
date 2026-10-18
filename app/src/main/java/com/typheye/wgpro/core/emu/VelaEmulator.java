@@ -166,9 +166,16 @@ public final class VelaEmulator {
                 progress.onProgress(name, 100);
                 continue;
             }
+            // 镜像包（xiaomi_s4.zip / base.zip）解出来是 images/<机型>/<name>：
+            // 包已经带了这套镜像就直接算就位，绝不能再去 vela/ 重复下一份（白下 800MB）。
+            if (!"payload.tar".equals(name) && packagedImage(name) != null) {
+                progress.onProgress(name, 100);
+                continue;
+            }
             File target = "payload.tar".equals(name)
                     ? new File(dir, name) : new File(imagesDir(), name);
-            long min = "payload.tar".equals(name) ? 50L * 1024 * 1024 : 100L * 1024 * 1024;
+            long min = "payload.tar".equals(name) ? 50L * 1024 * 1024
+                    : ("nuttx".equals(name) ? 10L * 1024 * 1024 : 100L * 1024 * 1024);
             if (target.isFile() && target.length() > min) {
                 progress.onProgress(name, 100);
                 continue;
@@ -181,25 +188,70 @@ public final class VelaEmulator {
         }
     }
 
+
+    /**
+     * 镜像包解出来的镜像在哪：images/<机型>/<name>（官方包结构），
+     * 兼容平铺的 images/<name>。找到就直接用，不再从服务器下载。
+     */
+    @Nullable
+    private File packagedImage(@NonNull String name) {
+        // 平铺结构：images/<name>
+        File flat = new File(imagesDir(), name);
+        if (flat.isFile() && flat.length() > 10L * 1024 * 1024) return flat;
+        // 官方包结构：images/<镜像码>/<name>（镜像码不一定是机型名，例如 xiaomi_s4 包
+        // 里是 vela-miwear-watch-5.0），所以按子目录扫一遍，不猜名字。
+        File[] children = imagesDir().listFiles();
+        if (children != null) {
+            for (File child : children) {
+                if (child == null || !child.isDirectory()) continue;
+                File file = new File(child, name);
+                if (file.isFile() && file.length() > 10L * 1024 * 1024) return file;
+            }
+        }
+        return null;
+    }
+
     private void download(@NonNull String name, @NonNull File target,
                           @NonNull Progress progress) throws Exception {
         java.net.HttpURLConnection conn =
                 (java.net.HttpURLConnection) new URL(BASE_URL + name).openConnection();
         conn.setConnectTimeout(15000);
         conn.setReadTimeout(60000);
+        int httpCode = conn.getResponseCode();
+        if (httpCode != 200 && httpCode != 206) {
+            // 服务器上没有这个文件（例如云端已下线这套兜底镜像）：给一句人话，
+            // 不要把裸 URL 抛到界面上（用户看不懂，也搜不到解决办法）。
+            throw new IllegalStateException("缺少镜像文件（" + name
+                    + "），请在设备详情页删除后重新创建该设备");
+        }
         long total = conn.getContentLengthLong();
         File part = new File(target.getAbsolutePath() + ".part");
+        long lastAt = 0L, lastBytes = 0L;
         try (InputStream in = conn.getInputStream(); OutputStream out = new FileOutputStream(part)) {
             byte[] buf = new byte[1 << 16];
             long done = 0;
             int n;
+            // 先报一次 0%，让日志面板立刻出现"开始下载"
+            progress.onProgress(name, 0);
+            progress.onDetail(name, 0L, total, 0L);
             while ((n = in.read(buf)) > 0) {
                 out.write(buf, 0, n);
                 done += n;
                 if (total > 0) {
                     progress.onProgress(name, (int) (done * 100 / total));
                 }
+                long now = android.os.SystemClock.uptimeMillis();
+                if (now - lastAt >= 400L || (total > 0 && done >= total)) {
+                    long speed = 0L;
+                    if (lastAt > 0L && now > lastAt) {
+                        speed = Math.max(0L, (done - lastBytes) * 1000L / (now - lastAt));
+                    }
+                    progress.onDetail(name, done, total, speed);
+                    lastAt = now;
+                    lastBytes = done;
+                }
             }
+            progress.onDetail(name, done, total, 0L);
         }
         //noinspection ResultOfMethodCallIgnored
         part.renameTo(target);
@@ -862,5 +914,16 @@ public final class VelaEmulator {
     /** 下载进度回调。 */
     public interface Progress {
         void onProgress(@NonNull String name, int percent);
+
+        /**
+         * 详细进度（字节级）：用于把下载速度/剩余时间写进日志面板。
+         *
+         * @param name  资产名（payload.tar / nuttx / vela_system.bin / vela_data.bin）
+         * @param done  已下载字节
+         * @param total 总字节（服务端没给 Content-Length 时为 0）
+         * @param speed 最近一段的平均速度（字节/秒，0 表示未知）
+         */
+        default void onDetail(@NonNull String name, long done, long total, long speed) {
+        }
     }
 }

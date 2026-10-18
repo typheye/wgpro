@@ -19,7 +19,6 @@ import com.typheye.wgpro.ui.function.community.NotificationActivity;
 import com.typheye.wgpro.ui.function.community.ResourceDetailActivity;
 import com.typheye.wgpro.ui.function.device.AddDeviceActivity;
 import com.typheye.wgpro.ui.function.settings.SettingsActivity;
-import com.typheye.wgpro.ui.function.settings.UpdateRequiredActivity;
 import com.typheye.wgpro.ui.main.MainActivity;
 import com.typheye.wgpro.ui.oobe.OobeActivity;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
@@ -33,7 +32,6 @@ import java.util.List;
  *
  * <p>有意排除：
  * <ul>
- *     <li>{@code UpdateRequiredActivity}（强制更新拦截页，返回键无效，会卡住；单独放在末尾并二次确认）；</li>
  *     <li>{@code com.journeyapps.barcodescanner.CaptureActivity}（第三方扫码内部页，正常入口是 ScanQRActivity）。</li>
  * </ul>
  */
@@ -81,12 +79,6 @@ public final class DebugActivityListFragment extends DebugListFragment {
         });
         launch(rows, "OobeActivity（开机引导）", "新手引导流程", new Intent(requireContext(), OobeActivity.class));
 
-        add(rows, "UpdateRequiredActivity（强制更新）", "⚠ 返回键无效，只能杀进程退出", () ->
-                new WGProAlertDialogBuilder(requireContext()).setTitle("强制更新页")
-                        .setMessage("该页面会拦截返回键，打开后只能通过杀进程退出。确定要打开吗？")
-                        .setNegativeButton("取消", null)
-                        .setPositiveButton("打开", (d, w) -> start(new Intent(requireContext(), UpdateRequiredActivity.class)))
-                        .show());
         return rows;
     }
 

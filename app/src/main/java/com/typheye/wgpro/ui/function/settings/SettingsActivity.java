@@ -361,8 +361,8 @@ public class SettingsActivity extends AppCompatActivity {
         private void showClearCacheSheet() {
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("清除缓存")
-                    .setMessage("将清理内置浏览器缓存、应用临时文件，并清空云端接口缓存"
-                            + "（应用目录/详情、首页、资源等会重新从服务器拉取）。"
+                    .setMessage("将清理内置浏览器缓存、应用临时文件与云端接口缓存"
+                            + "（应用目录/详情、首页、资源等会重新从服务器拉取）；已下载的资源、应用、镜像不会删除。"
                             + "登录状态、设备、设置与下载内容不会受到影响。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("清除", (dialog, which) -> {
@@ -431,8 +431,8 @@ public class SettingsActivity extends AppCompatActivity {
         private void legacyShowClearCacheSheet() {
             new WGProAlertDialogBuilder(requireContext())
                     .setTitle("清除缓存")
-                    .setMessage("将清理内置浏览器缓存、应用临时文件，并清空云端接口缓存"
-                            + "（应用目录/详情、首页、资源等会重新从服务器拉取）。"
+                    .setMessage("将清理内置浏览器缓存、应用临时文件与云端接口缓存"
+                            + "（应用目录/详情、首页、资源等会重新从服务器拉取）；已下载的资源、应用、镜像不会删除。"
                             + "登录状态、设备、设置与下载内容不会受到影响。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("清除", (dialog, which) -> {
@@ -479,15 +479,10 @@ public class SettingsActivity extends AppCompatActivity {
                 } catch (Exception ignored) {
                 }
                 task[0] = cacheExecutor.submit(() -> {
-                    // 顺带清掉残留的模拟器实例目录（每个 ~1.5G）：只删设备库里已不存在的
-                    final int orphans = com.typheye.wgpro.core.emu.VelaProvision
-                            .purgeOrphanRuntimes(requireContext());
-                    // 再清两类最容易撑爆存储的模拟器残留：
-                    //   ① 没人用的镜像包 files/downloads/vela-*.apk（单个 0.6~1.3G）
-                    //   ② 共享镜像下载缓存 files/images/<档>/（单档 0.6~1.2G，可再从 CDN 下）
-                    final int stalePackages = com.typheye.wgpro.core.emu.VelaProvision
-                            .purgeOrphanPackages(requireContext());
-                    com.typheye.wgpro.core.emu.VelaProvision.clearImageCache(requireContext());
+                    // 只清缓存：**不动**已下载的资源/应用/镜像（files/downloads、files/images、
+                    // 模拟器运行目录都属于用户数据，清空缓存不能替用户删）
+                    final int orphans = 0;
+                    final int stalePackages = 0;
                     boolean success = clearDirectoryContents(internalCache)
                             & clearDirectoryContents(externalCache);
                     mainHandler.post(() -> {
@@ -496,11 +491,8 @@ public class SettingsActivity extends AppCompatActivity {
                         new WGProAlertDialogBuilder(requireContext())
                                 .setTitle(success ? "缓存已清除" : "清理未完全完成")
                                 .setMessage(success
-                                        ? "浏览器缓存和应用临时文件已清理。"
-                                            + (orphans > 0 ? "\n已清理 " + orphans + " 个残留的模拟器目录。" : "")
-                                            + (stalePackages > 0
-                                                    ? "\n已清理 " + stalePackages + " 个没人用的镜像包。" : "")
-                                            + "\n共享的镜像下载缓存也已清空（下次创建会按需重新下载）。"
+                                        ? "浏览器缓存、接口缓存和应用临时文件已清理。\n"
+                                            + "已下载的资源、应用与模拟器镜像都保留着。"
                                         : "部分正在使用的临时文件无法删除，可稍后重试。")
                                 .setPositiveButton("完成", null)
                                 .show();
@@ -729,6 +721,14 @@ public class SettingsActivity extends AppCompatActivity {
                 {"ZXing", "ZXing Project", "https://github.com/zxing/zxing"},
                 {"ZXing Android Embedded", "journeyapps", "https://github.com/journeyapps/ZXing-android-embedded"},
                 {"ConstraintLayout", "AndroidX", "https://github.com/androidx/constraintlayout"},
+                {"SwipeRefreshLayout", "AndroidX", "https://github.com/androidx/androidx"},
+                {"ViewPager2", "AndroidX", "https://github.com/androidx/androidx"},
+                {"Jetpack Security Crypto", "AndroidX", "https://developer.android.com/jetpack/androidx/releases/security"},
+                {"Okio", "Square", "https://github.com/square/okio"},
+                {"gRPC-Java", "gRPC Authors", "https://github.com/grpc/grpc-java"},
+                {"Kotlin", "JetBrains", "https://github.com/JetBrains/kotlin"},
+                {"QEMU", "QEMU Project", "https://www.qemu.org"},
+                {"proot", "Termux", "https://github.com/termux/proot"},
         };
 
         @Override

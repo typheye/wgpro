@@ -358,7 +358,33 @@ public final class VelaEmulatorManager {
         if (!emulator.isRuntimeReady()) {
             throw new IllegalStateException("运行目录缺失，请在设备详情页重新创建该设备");
         }
-        emulator.ensureAssets((name, percent) -> { });
+        emulator.ensureAssets(new VelaEmulator.Progress() {
+            private final java.util.HashMap<String, Long> lastAt = new java.util.HashMap<>();
+
+            @Override public void onProgress(@NonNull String name, int percent) {
+            }
+
+            @Override public void onDetail(@NonNull String name, long done, long total, long speed) {
+                long now = android.os.SystemClock.uptimeMillis();
+                boolean finished = total > 0L && done >= total;
+                Long previous = lastAt.get(name);
+                if (!finished && previous != null && now - previous < 800L) return;
+                lastAt.put(name, now);
+                StringBuilder line = new StringBuilder("[dl] ").append(name).append("  ")
+                        .append(sizeText(done));
+                if (total > 0L) {
+                    line.append(" / ").append(sizeText(total))
+                            .append("  ").append(done * 100L / total).append('%');
+                    if (speed > 0L) {
+                        line.append("  ").append(sizeText(speed)).append("/s");
+                        long remain = (total - done) / Math.max(1L, speed);
+                        line.append("  剩余 ").append(remain).append('s');
+                    }
+                    if (finished) line.append("  （完成）");
+                }
+                emitLog(instance, deviceId, line.toString());
+            }
+        });
         emulator.installExecLinks();
         // AVD 按**设备**：可写数据 userdata-qemu.img 落在各自 AVD → 沙盒天然隔离
         // 每次启动都会重写 config.ini：**先把设备原有的皮肤读回来**，
@@ -648,5 +674,37 @@ public final class VelaEmulatorManager {
         } catch (Exception error) {
             Log.w(TAG, "更新模拟设备状态失败", error);
         }
+    }
+
+    /** 合成日志（下载进度等）：走与引擎 stdout 完全相同的通道，日志面板/历史都能看到。 */
+    private void emitLog(@NonNull Instance instance, @NonNull String deviceId, @NonNull String line) {
+        synchronized (instance.log) {
+            while (instance.log.size() >= LOG_MAX) instance.log.removeFirst();
+            instance.log.addLast(line);
+        }
+        for (VelaEmulator.LineListener listener : instance.listeners) {
+            listener.onLine(line);
+        }
+        CopyOnWriteArrayList<VelaEmulator.LineListener> waiting = pendingListeners.get(deviceId);
+        if (waiting != null) {
+            for (VelaEmulator.LineListener listener : waiting) {
+                listener.onLine(line);
+            }
+        }
+    }
+
+    /** 字节数转人话（下载日志用）。 */
+    @NonNull
+    static String sizeText(long bytes) {
+        if (bytes >= 1024L * 1024L * 1024L) {
+            return String.format(java.util.Locale.US, "%.2f GB", bytes / 1073741824.0);
+        }
+        if (bytes >= 1024L * 1024L) {
+            return String.format(java.util.Locale.US, "%.1f MB", bytes / 1048576.0);
+        }
+        if (bytes >= 1024L) {
+            return String.format(java.util.Locale.US, "%.1f KB", bytes / 1024.0);
+        }
+        return bytes + " B";
     }
 }

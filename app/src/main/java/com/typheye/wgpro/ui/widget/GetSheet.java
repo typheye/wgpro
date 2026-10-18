@@ -334,12 +334,12 @@ public final class GetSheet {
                 content.findViewById(R.id.textInputLayout);
         if (inputLayout != null) {
             // 提示统一设置在 TextInputLayout 上（布局本身没有默认 hint）
-            inputLayout.setHint("短信验证码");
+            inputLayout.setHint("邮箱验证码");
         }
         int minutes = Math.max(1, Math.round(expiresIn / 60f));
         new WGProAlertDialogBuilder(context)
                 .setTitle("输入验证码")
-                .setMessage("验证码已发送，请在 " + minutes + " 分钟内完成验证。"
+                .setMessage("验证码已发送至你的邮箱，请在 " + minutes + " 分钟内完成验证。"
                         + (debugCode != null && !debugCode.isEmpty()
                         ? "\n（联调期验证码：" + debugCode + "）" : ""))
                 .setView(content)

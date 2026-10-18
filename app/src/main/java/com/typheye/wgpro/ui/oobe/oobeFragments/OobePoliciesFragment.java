@@ -73,9 +73,10 @@ public class OobePoliciesFragment extends Fragment {
 
     @SuppressLint("SetTextI18n")
     private void updateUIShow(){
-        oobe_btn_approve.setText(isGoPolicies ? "已阅读并同意" : "前往查看" );
-        oobe_btn_forward.setVisibility(isGoPolicies ? View.VISIBLE : View.GONE);
-//        if(isGoPolicies) goForward(true);
+        oobe_btn_approve.setText(isGoPolicies ? "已阅读并同意" : "阅读服务条款与隐私政策");
+        // 主按钮**始终可见**：之前只有点过「前往查看」才出现，用户不点就会卡在
+        // 只有一个返回箭头的死路上（真机/模拟器都复现过）。
+        oobe_btn_forward.setVisibility(View.VISIBLE);
     }
 
 

@@ -106,6 +106,8 @@ public final class DynamicDetailFragment extends Fragment {
         ((TextView) empty.findViewById(R.id.stream_empty_title)).setText("还没有评论");
         ((TextView) empty.findViewById(R.id.stream_empty_description)).setText("说点什么，开启讨论。");
         refresh.setOnRefreshListener(() -> load(root));
+        // 进入页面即显示下拉刷新加载态
+        refresh.post(() -> { if (isAdded() && refresh != null) refresh.setRefreshing(true); });
         root.findViewById(R.id.dynamic_comment_action).setOnClickListener(v -> showCommentSheet(root));
         if (getArguments() != null && getArguments().getBoolean("open_comment", false)) {
             // 从卡片「评论」按钮进来：进详情页的同时主动弹出评论输入弹窗。

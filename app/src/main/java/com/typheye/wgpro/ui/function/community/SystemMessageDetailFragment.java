@@ -67,6 +67,8 @@ public class SystemMessageDetailFragment extends Fragment {
         scroll = root.findViewById(R.id.system_message_scroll);
         InboxNotificationHelper.cancelSystemNotifications(requireContext());
         refresh.setOnRefreshListener(this::load);
+        // 进入页面即显示下拉刷新加载态（不能静默硬拉）
+        refresh.post(() -> { if (isAdded() && refresh != null) refresh.setRefreshing(true); });
         if (!loadedOnce && requireActivity() instanceof BaseSectionActivity) {
             ((BaseSectionActivity) requireActivity()).showContentLoading();
         }

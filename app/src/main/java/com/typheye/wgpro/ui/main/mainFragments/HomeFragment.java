@@ -769,6 +769,18 @@ public class HomeFragment extends Fragment {
      * 云端配了 app/dynamic/resource/announcement 也点不进去。</p>
      */
     private void openTarget(JSONObject item) {
+        // 用户反馈：轮播/公告点击偶发闪退。跳转目标来自服务端配置，可能填错，
+        // 也可能在页面已 detach 后才点到 —— 一律兜住，绝不把异常抛到主线程。
+        if (item == null || !isAdded()) return;
+        try {
+            openTargetInner(item);
+        } catch (Throwable error) {
+            android.util.Log.w("HomeFragment", "打开跳转目标失败", error);
+            failOpen();
+        }
+    }
+
+    private void openTargetInner(JSONObject item) {
         String type = item.optString("target_type", "none");
         String value = item.optString("target_value", "").trim();
         switch (type) {
@@ -844,10 +856,15 @@ public class HomeFragment extends Fragment {
 
     private void openAppJson(@NonNull JSONObject info) {
         if (!isAdded()) return;
-        startActivity(new Intent(requireContext(),
-                com.typheye.wgpro.ui.function.community.AppDetailActivity.class)
-                .putExtra(com.typheye.wgpro.ui.function.community.AppDetailActivity
-                        .EXTRA_APP_JSON, info.toString()));
+        try {
+            startActivity(new Intent(requireContext(),
+                    com.typheye.wgpro.ui.function.community.AppDetailActivity.class)
+                    .putExtra(com.typheye.wgpro.ui.function.community.AppDetailActivity
+                            .EXTRA_APP_JSON, info.toString()));
+        } catch (Throwable error) {
+            android.util.Log.w("HomeFragment", "打开应用详情失败", error);
+            failOpen();
+        }
     }
 
     /** resource：按资源 id 取详情再进资源详情页。 */
@@ -897,13 +914,17 @@ public class HomeFragment extends Fragment {
     private void showAnnouncement(@Nullable JSONObject info, JSONObject banner) {
         if (!isAdded()) return;
         if (info == null) { failOpen(); return; }
-        String title = info.optString("title", banner.optString("title", "公告"));
-        String body = info.optString("content", info.optString("summary", ""));
-        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                .setTitle(title)
-                .setMessage(body.isEmpty() ? "暂无内容" : body)
-                .setNegativeButton("关闭", null)
-                .show();
+        try {
+            String title = info.optString("title", banner.optString("title", "公告"));
+            String body = info.optString("content", info.optString("summary", ""));
+            new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
+                    .setTitle(title)
+                    .setMessage(body.isEmpty() ? "暂无内容" : body)
+                    .setNegativeButton("关闭", null)
+                    .show();
+        } catch (Throwable error) {
+            android.util.Log.w("HomeFragment", "展示公告失败", error);
+        }
     }
 
     private void failOpen() {
@@ -915,16 +936,27 @@ public class HomeFragment extends Fragment {
     }
 
     private void openUrl(String url) {
-        Intent intent = new Intent(requireContext(), WebActivity.class);
-        intent.putExtra("URL", url);
-        startActivity(intent);
+        if (!isAdded() || url == null || url.trim().isEmpty()) return;
+        try {
+            Intent intent = new Intent(requireContext(), WebActivity.class);
+            intent.putExtra("URL", url);
+            startActivity(intent);
+        } catch (Throwable error) {
+            android.util.Log.w("HomeFragment", "打开链接失败: " + url, error);
+            failOpen();
+        }
     }
 
     private void showJsonDetail(String title, JSONObject item) {
-        String message = item.optString("description", item.optString("content",
-                item.optString("summary", "该内容暂时没有更多介绍。")));
-        new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
-                .setNegativeButton("关闭", null).show();
+        if (!isAdded() || item == null) return;
+        try {
+            String message = item.optString("description", item.optString("content",
+                    item.optString("summary", "该内容暂时没有更多介绍。")));
+            new WGProAlertDialogBuilder(requireContext()).setTitle(title).setMessage(message)
+                    .setNegativeButton("关闭", null).show();
+        } catch (Throwable error) {
+            android.util.Log.w("HomeFragment", "展示公告详情失败", error);
+        }
     }
 
     private void showStatus(View view, boolean visible, String message) {

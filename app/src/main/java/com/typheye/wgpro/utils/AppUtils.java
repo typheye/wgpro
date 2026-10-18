@@ -17,6 +17,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.core.view.ViewCompat;
 import androidx.preference.PreferenceManager;
 
@@ -40,7 +41,9 @@ public class AppUtils {
 
     /** 服务端应用配置（公告 / 新版本信息）地址。 */
     private static final String UPDATE_CONFIG_URL =
-            "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
+            // TEMP: 更新测试接口（联调完成后改回下面这行）
+            "https://service.typheye.cn/api.php?type=update_test";
+            // "https://service.typheye.cn/app/com.typheye.wgpro/config-app.json";
     // 在类中添加 OkHttp 客户端（建议在初始化时创建单例）
     private static final OkHttpClient okHttpClient = new OkHttpClient.Builder()
             .addInterceptor(TestHandler.networkLogger())
@@ -186,101 +189,22 @@ public class AppUtils {
         }
     }
 
-    // ------------------------------------------------------------ 强制更新状态
-
-    private static final String PREF_FORCE_CODE = "appUpdate_forceCode";
-    private static final String PREF_FORCE_TEXT = "appUpdate_forceText";
-    private static final String PREF_FORCE_URL = "appUpdate_forceUrl";
-
-    /** 检查完更新后的回调（主线程）：参数表示"此刻是否仍处于强制更新状态"。 */
-    public interface ForceUpdateCallback {
-        void onResult(boolean forceUpdateRequired);
-    }
-
-    /**
-     * 服务端下发了强制更新、并且本机版本确实更低时为 true。
-     *
-     * 判定用的是"服务端要求的最低版本号 > 本机版本号"，所以用户装上包之后
-     * 即使没有联网、没有重新拉配置，拦截也会自动失效。
-     */
-    public static boolean isForceUpdateRequired(Context context) {
-        // 调试页「模拟有更新」时同样按"必须更新"处理，否则 UpdateRequiredActivity 会被
-        // onResume 里的自查直接 finish 掉，永远看不到（用户反馈过）。
-        if (com.typheye.wgpro.debug.TestHandler.isUpdateSimulationEnabled(context)) {
-            return true;
-        }
-        SharedPreferences prefs = context.getSharedPreferences("app", Context.MODE_PRIVATE);
-        long required = prefs.getLong(PREF_FORCE_CODE, 0L);
-        return required > 0L && required > getVersionCode(context);
-    }
-
-    public static String getForceUpdateMessage(Context context) {
-        return context.getSharedPreferences("app", Context.MODE_PRIVATE).getString(PREF_FORCE_TEXT, "");
-    }
-
-    public static String getForceUpdateUrl(Context context) {
-        return context.getSharedPreferences("app", Context.MODE_PRIVATE).getString(PREF_FORCE_URL, "");
-    }
-
-    private static void saveForceUpdate(Context context, long versionCode, String message, String url) {
-        context.getSharedPreferences("app", Context.MODE_PRIVATE).edit()
-                .putLong(PREF_FORCE_CODE, versionCode)
-                .putString(PREF_FORCE_TEXT, message == null ? "" : message)
-                .putString(PREF_FORCE_URL, url == null ? "" : url)
-                .apply();
-    }
-
-    private static void clearForceUpdate(Context context) {
-        context.getSharedPreferences("app", Context.MODE_PRIVATE).edit()
-                .remove(PREF_FORCE_CODE)
-                .remove(PREF_FORCE_TEXT)
-                .remove(PREF_FORCE_URL)
-                .apply();
-    }
-
-    /**
-     * 拉起"必须更新"页面。应用在后台时系统会忽略这次启动，
-     * 用户下次回到应用由 {@link #ensureForceUpdateGate(Context)} 补上。
-     */
-    public static void openUpdateRequiredPage(Context context) {
-        try {
-            context.startActivity(new Intent(context,
-                    com.typheye.wgpro.ui.function.settings.UpdateRequiredActivity.class)
-                    .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
-                            | Intent.FLAG_ACTIVITY_CLEAR_TOP
-                            | Intent.FLAG_ACTIVITY_SINGLE_TOP));
-        } catch (Exception ignored) {
-            // 后台启动 Activity 被系统拒绝是正常情况，交给 MainActivity.onResume 兜底
-        }
-    }
-
-    /** 页面每次回到前台都调一下：处于强制更新时把用户挡在更新页。 */
-    public static void ensureForceUpdateGate(Context context) {
-        if (!isForceUpdateRequired(context)) return;
-        openUpdateRequiredPage(context);
-    }
-
     /**
      * 检查应用更新。
      *
      * 规则：
-     *   1) 不管"有更新时提醒我"开关是否打开，都会拉配置并比较版本；
-     *   2) 服务端标了强制更新（UpdateForce）且本机版本更低 → 记录状态 + 拉起不可跳过的更新页；
-     *   3) 没标强制、且开关打开 → 才弹普通的"有新版本"提示；开关关闭则完全静默。
+     *   1) 不管「有更新时提醒我」开关是否打开，都会拉配置并比较版本；
+     *   2) UpdateForce 为真且版本更低 → 弹**不可取消**的强制更新弹窗（无「稍后提醒」，
+     *      点外部/返回键都关不掉，只能点「立即更新」）；
+     *   3) 非强制且有更新、且开关打开 → 弹普通「有新版本」提示；开关关闭则完全静默。
      *
-     * 网络失败时沿用上一次的强制更新状态，避免"拔网就能绕过更新"。
+     * 弹窗一律使用前台 Activity 的 Context（后台线程拿 application context 弹窗会
+     * BadTokenException 闪退）；拿不到时缓存，等下一次 onActivityResumed 补弹。
      */
     public static void loadServerConfig(Context context) {
-        loadServerConfig(context, null);
-    }
-
-    public static void loadServerConfig(Context context, ForceUpdateCallback onResult) {
-        String updateUrl = UPDATE_CONFIG_URL;
-
         new Thread(() -> {
-            boolean forceRequired = false;
             try {
-                String jsonData = getJsonFromUrl(updateUrl);
+                String jsonData = getJsonFromUrl(UPDATE_CONFIG_URL);
                 if (jsonData.isEmpty()) {
                     throw new IOException("Empty response from server");
                 }
@@ -303,26 +227,13 @@ public class AppUtils {
                 boolean newer = latestVersionCode > currentVersionCode;
                 String updateContext = buildUpdateMessage(versionName, latestVersionCode, updateText);
                 Log.e("UpdateChecker", updateContext + " | force=" + force + " current=" + currentVersionCode);
-
-                if (force && newer) {
-                    saveForceUpdate(context, latestVersionCode, updateContext, downloadUrl);
-                    forceRequired = true;
-                    openUpdateRequiredPage(context);
-                } else {
-                    // 用户已经升级，或运营取消了强制更新：解除拦截
-                    clearForceUpdate(context);
-                    if (newer && isAutoCheckUpdate(context)) {
-                        showUpdateDialog(context, updateContext, downloadUrl);
-                    }
+                if (newer && force) {
+                    showUpdateDialog(context, updateContext, downloadUrl, true);
+                } else if (newer && isAutoCheckUpdate(context)) {
+                    showUpdateDialog(context, updateContext, downloadUrl, false);
                 }
             } catch (Exception e) {
-                // 拿不到配置时保持原有拦截状态，断网不能当成"已是最新"
-                forceRequired = isForceUpdateRequired(context);
                 Log.e("UpdateChecker", "Update check failed", e);
-            }
-            if (onResult != null) {
-                final boolean state = forceRequired;
-                new Handler(Looper.getMainLooper()).post(() -> onResult.onResult(state));
             }
         }).start();
     }
@@ -455,13 +366,68 @@ public class AppUtils {
         });
     }
 
-    private static void showUpdateDialog(Context context, String updateContext, String downloadUrl) {
-        new Thread(() -> new Handler(Looper.getMainLooper()).post(() -> new WGProAlertDialogBuilder(context)
-                .setTitle("有新版本")
-                .setMessage(updateContext)
-                .setPositiveButton("立即更新", (dialog, which) -> openDownPage(context, downloadUrl))
-                .setNegativeButton("稍后提醒", null)
-                .setCancelable(false)
-                .show())).start();
+    /** 待弹的更新提示（当时没有前台 Activity 时先缓存，回到前台再弹）。 */
+    private static volatile String pendingUpdateMessage;
+    private static volatile String pendingUpdateUrl;
+    private static volatile boolean pendingUpdateForce;
+
+    /**
+     * 弹更新提示。
+     *
+     * @param force true = 强制更新形态（不可取消、无「稍后提醒」，只能点「立即更新」）
+     */
+    private static void showUpdateDialog(Context context, String updateContext,
+                                         String downloadUrl, boolean force) {
+        final android.app.Activity activity = resolveActivity(context);
+        if (activity == null) {
+            pendingUpdateMessage = updateContext;
+            pendingUpdateUrl = downloadUrl;
+            pendingUpdateForce = force;
+            return;
+        }
+        showUpdateDialogOn(activity, updateContext, downloadUrl, force);
+    }
+
+    /** 回到前台时补弹之前缓存的更新提示（tApplication 的 onActivityResumed 调用）。 */
+    public static void flushPendingUpdateDialog(@NonNull android.app.Activity activity) {
+        final String message = pendingUpdateMessage;
+        if (message == null) return;
+        final String url = pendingUpdateUrl;
+        final boolean force = pendingUpdateForce;
+        pendingUpdateMessage = null;
+        pendingUpdateUrl = null;
+        pendingUpdateForce = false;
+        showUpdateDialogOn(activity, message, url == null ? "" : url, force);
+    }
+
+    @Nullable
+    private static android.app.Activity resolveActivity(Context context) {
+        if (context instanceof android.app.Activity) return (android.app.Activity) context;
+        return com.typheye.wgpro.tApplication.topActivity();
+    }
+
+    private static void showUpdateDialogOn(@NonNull android.app.Activity activity,
+                                           String updateContext, String downloadUrl,
+                                           boolean force) {
+        new Handler(Looper.getMainLooper()).post(() -> {
+            if (activity.isFinishing()) return;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR1
+                    && activity.isDestroyed()) {
+                return;
+            }
+            try {
+                WGProAlertDialogBuilder builder = new WGProAlertDialogBuilder(activity)
+                        .setTitle(force ? "需要更新" : "有新版本")
+                        .setMessage(updateContext)
+                        .setPositiveButton("立即更新",
+                                (dialog, which) -> openDownPage(activity, downloadUrl));
+                if (!force) {
+                    builder.setNegativeButton("稍后提醒", null);
+                }
+                builder.setCancelable(!force).show();
+            } catch (Throwable ignored) {
+                // 极端情况下窗口已失效：不弹也不能闪退
+            }
+        });
     }
 }

@@ -95,6 +95,11 @@ public class AccountFragment extends Fragment {
             }
             accountRefresh.postDelayed(() -> accountRefresh.setRefreshing(false), 10000L);
         });
+        // 与首页/设备页一致：进入页面就显示下拉刷新加载态（不能静默硬拉）
+        // 必须 post：onCreateView 里视图还没排版，直接 setRefreshing(true) 会被忽略
+        accountRefresh.post(() -> {
+            if (isAdded() && accountRefresh != null) accountRefresh.setRefreshing(true);
+        });
         // 初始化所有控件
         account_card_loginless = view.findViewById(R.id.card_loginless);
         account_linear_logined = view.findViewById(R.id.linear_logined);

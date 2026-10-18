@@ -90,9 +90,14 @@ public class tApplication extends Application {
 
             @Override public void onActivityCreated(@NonNull Activity activity, Bundle state) { }
 
-            @Override public void onActivityResumed(@NonNull Activity activity) { }
+            @Override public void onActivityResumed(@NonNull Activity activity) {
+                RESUMED.set(activity);
+                com.typheye.wgpro.utils.AppUtils.flushPendingUpdateDialog(activity);
+            }
 
-            @Override public void onActivityPaused(@NonNull Activity activity) { }
+            @Override public void onActivityPaused(@NonNull Activity activity) {
+                if (RESUMED.get() == activity) RESUMED.set(null);
+            }
 
             @Override public void onActivitySaveInstanceState(@NonNull Activity activity,
                                                               @NonNull Bundle state) { }
@@ -124,6 +129,19 @@ public class tApplication extends Application {
     public static final String PREF_DYNAMIC_COLOR = "theme_dynamic_color";
 
     /** 还活着的 Activity（用于「动态取色」这类只在创建时生效的设置做全局即时重建）。 */
+    /** 当前处于 resumed 的 Activity：弹窗类操作必须用它，application context 会抛 BadToken。 */
+    private static final java.util.concurrent.atomic.AtomicReference<Activity> RESUMED =
+            new java.util.concurrent.atomic.AtomicReference<>();
+
+    /** 前台 Activity（没有则返回 null）。 */
+    public static Activity topActivity() {
+        Activity a = RESUMED.get();
+        if (a == null) return null;
+        if (a.isFinishing()) return null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1 && a.isDestroyed()) return null;
+        return a;
+    }
+
     private final java.util.List<android.app.Activity> liveActivities =
             java.util.Collections.synchronizedList(new java.util.ArrayList<android.app.Activity>());
 

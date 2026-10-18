@@ -317,8 +317,6 @@ public class MainActivity extends AppCompatActivity {
         maybeWarnBackgroundRestriction();
         consumePendingGrantRequest();
         tAccUtils.resumeBrowserLoginPolling(this);
-        // 服务端要求强制更新且本机版本偏低时，把用户挡在更新页（不能用软件）
-        AppUtils.ensureForceUpdateGate(this);
     }
 
     /** 后台连接反复被系统掐断时，引导用户放开省电/后台联网限制。 */
@@ -1225,9 +1223,10 @@ public class MainActivity extends AppCompatActivity {
                     com.typheye.wgpro.ui.function.device.AddDeviceActivity.class)
                     .putExtra(com.typheye.wgpro.ui.function.device.AddDeviceActivity.EXTRA_MODE,
                             virtualPage
-                                    // 新的「创建设备」页（列表保持为空、不依赖云端机型）；
-                                    // 旧的 MODE_VIRTUAL / VirtualDeviceListFragment 代码保留不删
-                                    ? com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_CREATE
+                                    // 创建设备页必须带「镜像（机型）列表」：走 VirtualDeviceListFragment
+                                    // （云端机型列表 + 右上角「从本地导入镜像包」都可用）；
+                                    // 空的 CreateDeviceFragment 保留但不作为入口
+                                    ? com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_VIRTUAL
                                     : com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_WEARABLE));
             return true;
         }

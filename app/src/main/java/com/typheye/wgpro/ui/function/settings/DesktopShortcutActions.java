@@ -38,6 +38,44 @@ public final class DesktopShortcutActions {
             case "guide": openWeb(context, "https://wgpro.typheye.cn/docs"); break;
             case "website": openWeb(context, "https://wgpro.typheye.cn/"); break;
             case "beta": openWeb(context, "https://www.typheye.cn/?p=beta"); break;
+            case "devices":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.device.AddDeviceActivity.class)
+                        .putExtra(com.typheye.wgpro.ui.function.device.AddDeviceActivity.EXTRA_MODE,
+                                com.typheye.wgpro.ui.function.device.AddDeviceActivity.MODE_VIRTUAL));
+                break;
+            case "notifications":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.community.NotificationActivity.class));
+                break;
+            case "history":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.community.AccountListActivity.class)
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_TITLE,
+                                "浏览历史")
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_MODE,
+                                com.typheye.wgpro.ui.function.community.CloudListFragment.MODE_HISTORY));
+                break;
+            case "starred":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.community.AccountListActivity.class)
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_TITLE,
+                                "星标应用")
+                        .putExtra(com.typheye.wgpro.ui.function.community.AccountListActivity.EXTRA_MODE,
+                                com.typheye.wgpro.ui.function.community.CloudListFragment.MODE_COLLECTION_APP));
+                break;
+            case "points": {
+                String uid = new com.typheye.wgpro.utils.tAccUtils(
+                        context.getApplicationContext()).getUid();
+                String url = com.typheye.wgpro.utils.tPointsUtils.webUrl(
+                        "mall", uid, com.typheye.wgpro.ui.widget.Points.webToken);
+                openWeb(context, url);
+                break;
+            }
+            case "scan":
+                context.startActivity(new Intent(context,
+                        com.typheye.wgpro.ui.function.ScanQRActivity.class));
+                break;
             case "downloads":
                 context.startActivity(new Intent(context,
                         com.typheye.wgpro.ui.function.download.DownloadManagerActivity.class));
