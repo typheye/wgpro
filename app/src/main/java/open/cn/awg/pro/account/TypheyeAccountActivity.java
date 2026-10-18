@@ -640,7 +640,8 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                         } else {
 
-                            final String url = "https://service.typheye.cn/src/up.php?uid=" + open.cn.awg.pro.core.NativeFiles.readText(TypheyeAccountActivity.this, (String) (a3));
+                            final String url = "https://service.typheye.cn/api.php?type=account_avatar";
+                            final String avatarCookie = String.valueOf(android.webkit.CookieManager.getInstance().getCookie("https://service.typheye.cn")).replaceAll("(?s)^.*TypheyeUserCookie=([^;]+).*$", "$1");
 
                             String fn__ = "null";
 
@@ -663,9 +664,10 @@ public class TypheyeAccountActivity extends BaseAwgActivity {
 
                                         HttpRequest.TIME_OUT_DURATION = 300;
                                         HttpRequest.build(lei, url)
+                                                .addHeaders("Authorization", "Bearer " + avatarCookie)
                                                 .addParameter("name", file_name)
                                                 .addParameter("size", file_size)
-                                                .addParameter("file", open.cn.awg.pro.core.NativeFiles.file(TypheyeAccountActivity.this, (String) (path_)))
+                                                .addParameter("avatar", open.cn.awg.pro.core.NativeFiles.file(TypheyeAccountActivity.this, (String) (path_)))
                                                 .setUploadProgressListener(new UploadProgressListener() {
                                                     @Override
                                                     public void onUpload(float percentage, long current, long total, boolean done) {

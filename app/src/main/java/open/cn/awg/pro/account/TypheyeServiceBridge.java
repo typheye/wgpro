@@ -116,9 +116,9 @@ public class TypheyeServiceBridge {
 
     public void getPericon$1(String uid) {
 
-        String send = "/src/pericon/" + uid;
+        String send = "/api.php?action=file&path=club/pericon/" + uid;
 
-        int back = download((String) (url + send), (String) (getPerIconPath(uid)), Boolean.TRUE.equals(true));
+        int back = download((String) ("https://res.typheye.cn" + send), (String) (getPerIconPath(uid)), Boolean.TRUE.equals(true));
 
         if (back == -1) {
 
