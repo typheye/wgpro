@@ -378,7 +378,7 @@ public final class DynamicCardFactory {
 
     private static void confirmDelete(Context context, tAccUtils account, JSONObject item, View card,
                                       @Nullable Runnable onChanged) {
-        new WGProAlertDialogBuilder(context).setTitle("删除动态？")
+        new WGProAlertDialogBuilder(context).setTitle("删除动态")
                 .setMessage("删除后无法恢复。").setNegativeButton("取消", null)
                 .setPositiveButton("删除", (dialog, which) -> {
                     Map<String, String> fields = new LinkedHashMap<>(); fields.put("dynamic_id", item.optString("id"));

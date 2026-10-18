@@ -745,8 +745,12 @@ public class SettingsActivity extends AppCompatActivity {
             view.findViewById(R.id.about_update_card).setOnClickListener(v -> onUpdateCardClick());
             View appIcon = view.findViewById(R.id.about_app_icon);
             appIcon.setOnClickListener(v -> onDeveloperTap());
-            // 长按应用图标直接进入调试页（是否记录诊断信息仍由调试页的开关决定）
+            // 长按应用图标进调试页：仅调试包可用，正式包不响应（调试页本身也会拒绝进入）
             appIcon.setOnLongClickListener(v -> {
+                if ((requireContext().getApplicationInfo().flags
+                        & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) == 0) {
+                    return false;
+                }
                 startActivity(new Intent(requireContext(), TestActivity.class));
                 return true;
             });
@@ -919,6 +923,9 @@ public class SettingsActivity extends AppCompatActivity {
         }
 
         private void onDeveloperTap() {
+            // 开发模式只在调试包可用，正式包点了没反应
+            if ((requireContext().getApplicationInfo().flags
+                    & android.content.pm.ApplicationInfo.FLAG_DEBUGGABLE) == 0) return;
             if (TestHandler.isEnabled(requireContext())) return;
             long now = android.os.SystemClock.uptimeMillis();
             if (now - lastDeveloperTapAt > 2_000L) developerTapCount = 0;

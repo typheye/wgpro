@@ -148,19 +148,6 @@ public class MainActivity extends AppCompatActivity {
         new Thread(() -> emuManager.resetStaleState(
                 getApplicationContext()), "virtual-reset").start();
 
-        // TODO(临时调试入口，适配完成后删除)：一键直达模拟设备页并补齐设备记录。
-        if (getIntent() != null && getIntent().getBooleanExtra("wgpro_debug_virtual", false)) {
-            final String avd = "vela-miwear-watch-5.0";
-            try (com.typheye.wgpro.data.DeviceDatabase db =
-                         new com.typheye.wgpro.data.DeviceDatabase(this)) {
-                db.upsert("virtual:" + avd, avd, "virtual", false);
-                db.updateNote("virtual:" + avd, "我的虚拟手环");
-            } catch (Exception ignored) {
-            }
-            startActivity(new android.content.Intent(this,
-                            com.typheye.wgpro.ui.function.device.VirtualDeviceActivity.class)
-                    .putExtra(com.typheye.wgpro.ui.function.device.VirtualDeviceFragment.ARG_AVD, avd));
-        }
         // 升级/异常退出后可能残留“已登录标记 + 不可用凭据”，清理放到后台线程：
         // 它要读 SharedPreferences + 走 keystore，放主线程会让刚进首页明显卡顿（首帧也被拖住）。
         final android.content.Context appContext = getApplicationContext();

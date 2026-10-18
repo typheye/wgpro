@@ -384,7 +384,7 @@ public final class DynamicDetailFragment extends Fragment {
 
     private void confirmDeleteComment(JSONObject item) {
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("撤回评论？")
+                .setTitle("撤回评论")
                 .setMessage("撤回后评论将不再显示，且无法恢复。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("撤回", (dialog, which) -> {

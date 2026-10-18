@@ -320,7 +320,7 @@ public final class GetSheet {
      * 验证码弹窗（第二步：云端下发验证码，输入后完成交易）。
      *
      * @param txnNo       交易号（服务端 verify.send 返回）
-     * @param debugCode   联调期服务端回显的验证码（正式上线后为 null，不预填）
+     * @param debugCode   服务端调试期回显的验证码（正式环境为 null，不展示也不预填）
      * @param expiresIn   有效期（秒），只用于文案
      */
     public static void showVerifyCode(@NonNull Context context, @NonNull String txnNo,

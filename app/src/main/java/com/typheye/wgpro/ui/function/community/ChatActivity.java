@@ -325,7 +325,7 @@ public class ChatActivity extends BaseSectionActivity {
         public void showClearHistoryConfirm() {
             if (!isAdded()) return;
             new WGProAlertDialogBuilder(requireContext())
-                    .setTitle("清空聊天记录？")
+                    .setTitle("清空聊天记录")
                     .setMessage("仅清除当前设备上的本地聊天记录，不会影响对方。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("清空", (dialog, which) -> {
@@ -480,7 +480,7 @@ public class ChatActivity extends BaseSectionActivity {
 
         private void confirmDeleteMessage(JSONObject item) {
             new WGProAlertDialogBuilder(requireContext())
-                    .setTitle("删除消息？")
+                    .setTitle("删除消息")
                     .setMessage("删除后该消息只会从当前账户的聊天记录中移除，不影响对方。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("删除", (dialog, which) -> {
@@ -519,7 +519,7 @@ public class ChatActivity extends BaseSectionActivity {
 
         private void confirmRecallMessage(JSONObject item) {
             new WGProAlertDialogBuilder(requireContext())
-                    .setTitle("撤回消息？")
+                    .setTitle("撤回消息")
                     .setMessage("撤回后双方都将看到“消息已撤回”，且无法恢复。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("撤回", (dialog, which) -> {

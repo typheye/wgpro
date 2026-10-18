@@ -971,7 +971,7 @@ public final class AppDetailFragment extends Fragment {
         if (!manager.isRunning(deviceId)) {
             if (manager.hasRunningInstance()) {
                 new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                        .setTitle("先结束其他模拟设备？")
+                        .setTitle("先结束其他模拟设备")
                         .setMessage("同时只能运行一台模拟设备。是否结束正在运行的那台，"
                                 + "改为启动「" + deviceName + "」再安装？")
                         .setNegativeButton("取消", null)

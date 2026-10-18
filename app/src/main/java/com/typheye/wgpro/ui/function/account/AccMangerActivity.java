@@ -244,7 +244,7 @@ public class AccMangerActivity extends AppCompatActivity {
         }
 
         private void confirmRemoveAvatar() {
-            new WGProAlertDialogBuilder(requireContext()).setTitle("移除当前头像？")
+            new WGProAlertDialogBuilder(requireContext()).setTitle("移除当前头像")
                     .setMessage("移除后将恢复为昵称首字文字头像。")
                     .setNegativeButton("取消", null)
                     .setPositiveButton("移除", (dialog, which) -> removeAvatar())

@@ -351,7 +351,7 @@ public class CloudListFragment extends Fragment {
 
     private void confirmRemoveNotificationItem(JSONObject item) {
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("移除消息？")
+                .setTitle("移除消息")
                 .setMessage("移除后该会话将从当前账户的通知列表中删除。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("移除", (dialog, which) -> removeNotificationItem(item))
@@ -410,7 +410,7 @@ public class CloudListFragment extends Fragment {
 
     private void confirmMarkNotificationItem(JSONObject item, boolean currentlyUnread) {
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle(currentlyUnread ? "标为已读？" : "标为未读？")
+                .setTitle(currentlyUnread ? "标为已读" : "标为未读")
                 .setMessage(currentlyUnread
                         ? "标记后该消息将不再显示未读徽标。"
                         : "标记后该消息将显示数字 1 的未读徽标。")
@@ -505,7 +505,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private void confirmClearHistory() {
-        new WGProAlertDialogBuilder(requireContext()).setTitle("清空所有历史？").setMessage("这会删除动态、应用和资源的全部浏览记录。")
+        new WGProAlertDialogBuilder(requireContext()).setTitle("清空所有历史").setMessage("这会删除动态、应用和资源的全部浏览记录。")
                 .setNegativeButton("取消", null).setPositiveButton("清空", (d, w) -> {
                     account.postV2Json("history_clear2", new LinkedHashMap<>(), new tAccUtils.JsonCallback() {
                         public void onSuccess(JSONObject j) { requireActivity().runOnUiThread(this::reloadAfterHistoryAction); }
@@ -1429,7 +1429,7 @@ public class CloudListFragment extends Fragment {
     private void showHistoryItemActions(JSONObject item, View card) {
         new WGProAlertDialogBuilder(requireContext()).setTitle("历史记录")
                 .setItems(new CharSequence[]{"删除记录", "查看标识"}, (d, which) -> {
-                    if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")
+                    if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录").setMessage("确认删除这条浏览记录吗？")
                             .setNegativeButton("取消", null).setPositiveButton("删除", (x, y) -> deleteHistory(item, card)).show();
                     else new WGProAlertDialogBuilder(requireContext()).setTitle("记录标识")
                             .setMessage("类型：" + historyType + "\n数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("target_uid", "--")))
@@ -1508,7 +1508,7 @@ public class CloudListFragment extends Fragment {
                         .setNegativeButton("关闭", null).show();
                 return;
             }
-            new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除该动态？")
+            new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除该动态")
                 .setMessage("移除后不会再显示在当前列表。")
                 .setNegativeButton("取消", null).setPositiveButton("移除", (dialog, which2) -> {
                     if (MODE_HISTORY.equals(mode)) { deleteHistory(item, card); return; }
@@ -1589,7 +1589,7 @@ public class CloudListFragment extends Fragment {
             String kind = app ? "应用" : "资源";
             new WGProAlertDialogBuilder(requireContext()).setTitle(kind + "已失效")
                     .setItems(new String[]{"移除", "元数据"}, (d, which) -> {
-                        if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除？").setMessage("移除后不会再显示在当前列表。")
+                        if (which == 0) new WGProAlertDialogBuilder(requireContext()).setTitle("确认移除").setMessage("移除后不会再显示在当前列表。")
                                 .setNegativeButton("取消", null).setPositiveButton("移除", (x,y) -> removeCatalogEntry(item, app, anchor)).show();
                         else new WGProAlertDialogBuilder(requireContext()).setTitle(kind + "元数据").setMessage("数据编号：" + item.optString("id", item.optString("target_key", "--")) + "\n发布者 UID：" + item.optString("uid", item.optString("target_uid", "--"))).setNegativeButton("关闭", null).show();
                     }).show();
@@ -1623,7 +1623,7 @@ public class CloudListFragment extends Fragment {
                                         com.typheye.wgpro.utils.WGProShareLinks.shareText(title, link));
                         startActivity(Intent.createChooser(share, "分享"));
                     } else {
-                        new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录？").setMessage("确认删除这条浏览记录吗？")
+                        new WGProAlertDialogBuilder(requireContext()).setTitle("删除记录").setMessage("确认删除这条浏览记录吗？")
                                 .setNegativeButton("取消", null).setPositiveButton("删除", (x,y) -> deleteHistory(item, anchor)).show();
                     }
                 }).show();
@@ -1673,7 +1673,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private void confirmCatalogDelete(JSONObject item, boolean app) {
-        new WGProAlertDialogBuilder(requireContext()).setTitle("确认删除？").setMessage("删除后无法恢复。")
+        new WGProAlertDialogBuilder(requireContext()).setTitle("确认删除").setMessage("删除后无法恢复。")
                 .setNegativeButton("取消", null).setPositiveButton("删除", (d,w) -> {
                     Map<String,String> fields = new LinkedHashMap<>();
                     fields.put(app ? "package" : "resource_id", item.optString(app ? "package" : "id", item.optString("target_key", "")));
@@ -2082,7 +2082,7 @@ public class CloudListFragment extends Fragment {
     /** 「取消屏蔽」需要二次确认。 */
     private void confirmUnblockUser(@NonNull JSONObject item, @NonNull String uid) {
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("取消屏蔽？")
+                .setTitle("取消屏蔽")
                 .setMessage("取消后，" + contactName(item) + " 将恢复正常互动，可以重新发送私信。")
                 .setNegativeButton("再想想", null)
                 .setPositiveButton("取消屏蔽", (dialog, which) -> unblockUser(item, uid))

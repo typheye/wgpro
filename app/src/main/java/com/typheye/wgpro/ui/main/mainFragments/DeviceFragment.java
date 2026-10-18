@@ -541,7 +541,7 @@ public class DeviceFragment extends Fragment {
         stopRow.setOnClickListener(v -> {
             dialog.dismiss();
             new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                    .setTitle("停止当前实例？")
+                    .setTitle("停止当前实例")
                     .setMessage("将停止「" + name + "」的模拟器。已安装的应用和数据都会保留，"
                             + "下次进入模拟页面会重新启动。")
                     .setNegativeButton("取消", null)
@@ -624,7 +624,7 @@ public class DeviceFragment extends Fragment {
                         return;
                     }
                     new WGProAlertDialogBuilder(requireContext())
-                            .setTitle("移除设备？")
+                            .setTitle("移除设备")
                             .setMessage("移除后可在设备重新连接时再次添加。")
                             .setNegativeButton("取消", null)
                             .setPositiveButton("移除", (confirmDialog, button) -> {

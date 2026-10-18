@@ -49,7 +49,7 @@ public class NotificationActivity extends BaseSectionActivity {
 
     private void confirmClearMessages() {
         new WGProAlertDialogBuilder(this)
-                .setTitle("清空消息列表？")
+                .setTitle("清空消息列表")
                 .setMessage("将删除当前账户的全部私信会话和系统消息。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("清空", (dialog, which) -> {
@@ -64,7 +64,7 @@ public class NotificationActivity extends BaseSectionActivity {
 
     private void confirmToggleDoNotDisturb(boolean enabled) {
         new WGProAlertDialogBuilder(this)
-                .setTitle(enabled ? "开启免打扰？" : "关闭免打扰？")
+                .setTitle(enabled ? "开启免打扰" : "关闭免打扰")
                 .setMessage(enabled
                         ? "开启后，系统消息和私信的 Android 通知将不再触发，首页通知图标也不再显示红点。"
                         : "关闭后，将恢复系统消息和私信的 Android 通知与首页红点提醒。")

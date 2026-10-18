@@ -486,7 +486,7 @@ public class SystemMessageDetailFragment extends Fragment {
 
     private void confirmDelete(JSONObject item, View card) {
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("删除系统消息？")
+                .setTitle("删除系统消息")
                 .setMessage("删除后该消息只会从当前账户的通知记录中移除。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("删除", (dialog, which) -> {
@@ -536,7 +536,7 @@ public class SystemMessageDetailFragment extends Fragment {
 
     private void confirmClearLocal() {
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle("清空系统消息记录？")
+                .setTitle("清空系统消息记录")
                 .setMessage("仅清除当前设备上的系统消息显示记录，不会删除云端通知。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("清空", (dialog, which) -> {

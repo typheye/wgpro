@@ -1533,7 +1533,7 @@ public class VirtualDeviceFragment extends Fragment {
     /** 点「导入应用」：**先确认**，再打开文件选择器。 */
     private void confirmImportRpk() {
         new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                .setTitle("导入外部应用？")
+                .setTitle("导入外部应用")
                 .setMessage("选择本地的 .rpk 安装到「" + importDeviceName() + "」，"
                         + "安装过程中可以取消。")
                 .setNegativeButton("取消", null)
@@ -1680,7 +1680,7 @@ public class VirtualDeviceFragment extends Fragment {
             return;
         }
         new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                .setTitle("导出模拟器日志？")
+                .setTitle("导出模拟器日志")
                 .setMessage("将把当前设备的完整运行日志（" + lines + " 行）导出为文本文件，"
                         + "可发送给开发者排查问题。")
                 .setNegativeButton("取消", null)

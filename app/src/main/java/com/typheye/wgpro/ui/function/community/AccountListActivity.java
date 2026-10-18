@@ -118,7 +118,7 @@ public class AccountListActivity extends BaseSectionActivity {
                             confirmClear(null, "清空所有历史？", "将删除动态、应用和资源的全部浏览记录。");
                         } else {
                             new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                                    .setTitle(enabled ? "不再记录历史？" : "开启记录历史？")
+                                    .setTitle(enabled ? "不再记录历史" : "开启记录历史")
                                     .setMessage("确认更改浏览历史记录设置？")
                                     .setNegativeButton("取消", null)
                                     .setPositiveButton("确认", (x, y) -> requireContext()

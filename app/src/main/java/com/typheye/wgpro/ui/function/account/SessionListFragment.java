@@ -352,7 +352,7 @@ public class SessionListFragment extends Fragment {
         if (id.isEmpty()) return;
         boolean current = session.optBoolean("is_current");
         new WGProAlertDialogBuilder(requireContext())
-                .setTitle(current ? "确认退出登录？" : "移除该会话？")
+                .setTitle(current ? "确认退出登录" : "移除该会话")
                 .setMessage(current ? "当前 Typheye 账户会立即退出登录。"
                         : "该会话的登录状态将立即失效，需要重新登录。")
                 .setNegativeButton("取消", null)

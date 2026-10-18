@@ -539,7 +539,7 @@ public final class DownloadListFragment extends Fragment {
                 }
                 // 取消不可逆（会清掉已下载部分）：必须二次确认
                 new WGProAlertDialogBuilder(context)
-                        .setTitle("取消下载？")
+                        .setTitle("取消下载")
                         .setMessage("将停止下载并清除已下载的部分，之后可在详情页重新获取。"
                                 + (task.name == null || task.name.isEmpty() ? "" : "\n（" + task.name + "）"))
                         .setNegativeButton("继续下载", null)

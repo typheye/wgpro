@@ -229,7 +229,7 @@ public class DeviceDiscoverFragment extends Fragment {
         final String id = discoveredNodeId;
         final String name = discoveredNodeName == null ? "" : discoveredNodeName;
         new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(requireContext())
-                .setTitle("添加设备？")
+                .setTitle("添加设备")
                 .setMessage("将把「" + name + "」加入设备列表。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("添加", (dialog, which) -> {

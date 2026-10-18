@@ -808,7 +808,7 @@ public class UserDetailActivity extends AppCompatActivity {
     }
 
     private void confirmRemoveBackground() {
-        new WGProAlertDialogBuilder(this).setTitle("移除背景图？")
+        new WGProAlertDialogBuilder(this).setTitle("移除背景图")
                 .setMessage("移除后将恢复默认背景。")
                 .setNegativeButton("取消", null)
                 .setPositiveButton("移除", (dialog, which) -> removeBackground())
