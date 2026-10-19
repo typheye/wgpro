@@ -89,6 +89,8 @@ public class tAccUtils {
     private static final String PROTOCOL_LEGACY = "legacy";
     private static final String PROTOCOL_V2 = "v2";
     private static final String SECURE_PREFS_NAME = "account_secure_prefs";
+    /** 明文兜底：Keystore/加密存储不可用时，重启后仍能把会话读回来（不参与加密） */
+    private static final String FALLBACK_PREFS_NAME = "account_session_fallback";
     private static final String PREFS_SESSION_ID = "session_id";
     private static final String PREFS_SESSION_TOKEN = "session_token";
     private static final String PREFS_WEB_SESSION_SOURCE_ID = "web_session_source_id";
@@ -290,6 +292,8 @@ public class tAccUtils {
      * （2026-10-14 实锤：服务端 approved + token 已签发，客户端存不下去）。</p>
      */
     private boolean persistSession(String sessionId, String sessionToken) {
+        // 先写明文兜底：即使 Keystore 失效，重启后也还能从兜底读回会话（避免“重启掉登录”）
+        writeSession(fallbackPreferences(), sessionId, sessionToken);
         if (writeSession(getSecurePreferences(), sessionId, sessionToken)) {
             return true;
         }
@@ -302,6 +306,13 @@ public class tAccUtils {
         SharedPreferences plain = context.getSharedPreferences(SECURE_PREFS_NAME, Context.MODE_PRIVATE);
         if (writeSession(plain, sessionId, sessionToken)) {
             securePreferences = plain;
+            return true;
+        }
+        // 加密与同文件明文都失败时，只要兜底已写成功就算保存成功，
+        // 否则会出现“会话其实能恢复，登录却报无法保存”的死路。
+        String fallbackId = fallbackPreferences().getString(PREFS_SESSION_ID, "");
+        if (fallbackId != null && !fallbackId.isEmpty()) {
+            Log.w("tAccUtils", "加密存储不可用，本次登录仅写入明文兜底");
             return true;
         }
         Log.e("tAccUtils", "会话保存失败：所有存储路径都不可用");
@@ -456,13 +467,10 @@ public class tAccUtils {
         if (cached != null) return cached;
         boolean usable = false;
         try {
-            SharedPreferences secure = getSecurePreferences();
-            if (secure != null) {
-                String sessionId = secure.getString(PREFS_SESSION_ID, "");
-                String sessionToken = secure.getString(PREFS_SESSION_TOKEN, "");
-                usable = sessionId != null && sessionId.matches("[a-f0-9]{32}")
-                        && sessionToken != null && sessionToken.length() >= 32;
-            }
+            String sessionId = getSessionId();
+            String sessionToken = getSessionToken();
+            usable = sessionId != null && sessionId.matches("[a-f0-9]{32}")
+                    && sessionToken != null && sessionToken.length() >= 32;
         } catch (Exception error) {
             Log.e("tAccUtils", "读取本地会话凭据失败", error);
         }
@@ -478,8 +486,31 @@ public class tAccUtils {
         SharedPreferences prefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
         String uid = prefs.getString(PREFS_UID, "");
         if (uid.isEmpty()) return;
-        if (!isV2Session() || !hasUsableV2Session()) {
+        if (!isV2Session()) {
             clearLocalLoginData();
+            return;
+        }
+        int state = probeV2Session();
+        if (state < 0) {
+            // 读取会话凭据时出错（Keystore 短暂不可用/被系统回收）：不能当成“未登录”，
+            // 否则一次抖动就会把登录态永久清掉（重启掉登录的根因）。等下次启动再判断。
+            Log.w("tAccUtils", "读取会话凭据失败，暂不清除登录状态");
+            return;
+        }
+        if (state == 0) clearLocalLoginData();
+    }
+
+    /** 1=可用，0=明确不可用，-1=读取异常（未知，不能据此登出）。 */
+    private int probeV2Session() {
+        try {
+            String sessionId = getSessionId();
+            String sessionToken = getSessionToken();
+            boolean ok = sessionId != null && sessionId.matches("[a-f0-9]{32}")
+                    && sessionToken != null && sessionToken.length() >= 32;
+            return ok ? 1 : 0;
+        } catch (Throwable error) {
+            Log.e("tAccUtils", "读取本地会话失败", error);
+            return -1;
         }
     }
 
@@ -510,12 +541,20 @@ public class tAccUtils {
 
     private String getSessionId() {
         SharedPreferences prefs = getSecurePreferences();
-        return prefs == null ? "" : prefs.getString(PREFS_SESSION_ID, "");
+        String value = prefs == null ? "" : prefs.getString(PREFS_SESSION_ID, "");
+        return value != null && !value.isEmpty()
+                ? value : fallbackPreferences().getString(PREFS_SESSION_ID, "");
     }
 
     private String getSessionToken() {
         SharedPreferences prefs = getSecurePreferences();
-        return prefs == null ? "" : prefs.getString(PREFS_SESSION_TOKEN, "");
+        String value = prefs == null ? "" : prefs.getString(PREFS_SESSION_TOKEN, "");
+        return value != null && !value.isEmpty()
+                ? value : fallbackPreferences().getString(PREFS_SESSION_TOKEN, "");
+    }
+
+    private SharedPreferences fallbackPreferences() {
+        return context.getSharedPreferences(FALLBACK_PREFS_NAME, Context.MODE_PRIVATE);
     }
 
     /**
@@ -594,6 +633,7 @@ public class tAccUtils {
     private void clearSecureSession() {
         SharedPreferences prefs = getSecurePreferences();
         if (prefs != null) prefs.edit().clear().apply();
+        fallbackPreferences().edit().clear().apply();
         v2SessionUsable = false;
     }
 

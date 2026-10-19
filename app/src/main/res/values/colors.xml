@@ -53,4 +53,9 @@
     <!-- 进度填充区域内的反色文字：填充是亮色时用它（深色模式下 colorPrimary 是亮蓝，白字看不清） -->
     <color name="text_on_fill">#FF17191E</color>
     <color name="points_card_bg">#FF3FA878</color>
+    <color name="surface_container_lowest">#FFFFFFFF</color>
+    <color name="surface_container_low">#FFF7F8FA</color>
+    <color name="surface_container">#FFF0F2F5</color>
+    <color name="surface_container_high">#FFEAEDF1</color>
+    <color name="surface_container_highest">#FFE4E8ED</color>
 </resources>
