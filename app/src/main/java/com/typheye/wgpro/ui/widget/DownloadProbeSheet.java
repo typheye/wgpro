@@ -182,7 +182,11 @@ public final class DownloadProbeSheet {
             if (item == null) continue;
             String id = item.optString("id", "");
             String url = item.optString("url", "");
-            if (!id.isEmpty() && !url.isEmpty()) map.put(id, url);
+            if (!id.isEmpty() && !url.isEmpty()
+                    && !DownloadNodes.isNodeDisabled(id, url)
+                    && !DownloadNodes.isDisabledMirrorUrl(url)) {
+                map.put(id, url);
+            }
         }
         return map;
     }

@@ -14,7 +14,11 @@ import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
@@ -36,6 +40,10 @@ import okhttp3.Response;
 public final class DownloadNodes {
 
     private static final String NODES_URL = "https://res.typheye.cn/api.php?action=nodes";
+    /** 上海 ECS 下载节点：客户端不再测速、选用或续传。 */
+    private static final Set<String> DISABLED_NODE_IDS =
+            Collections.unmodifiableSet(new HashSet<>(Arrays.asList("dl3")));
+    private static final String DISABLED_NODE_HOST = "dl.otodone.com";
     /** 速度阈值：低于它视为不可用（文档建议 50 KB/s）。 */
     public static final long MIN_KBPS = 50L;
     /**
@@ -121,12 +129,41 @@ public final class DownloadNodes {
     @Nullable
     public static String bestNodeId() {
         if (System.currentTimeMillis() - bestAt > BEST_TTL_MS) return null;
-        return bestNodeId.isEmpty() ? null : bestNodeId;
+        return bestNodeId.isEmpty() || isNodeDisabled(bestNodeId, null) ? null : bestNodeId;
     }
 
     public static void rememberBest(@Nullable String nodeId) {
-        bestNodeId = nodeId == null ? "" : nodeId;
+        bestNodeId = nodeId == null || isNodeDisabled(nodeId, null) ? "" : nodeId;
         bestAt = System.currentTimeMillis();
+    }
+
+    /** 上海节点过滤同时认稳定 id 和真实主机名，避免服务端换 id 后重新接入。 */
+    public static boolean isNodeDisabled(@Nullable String nodeId, @Nullable String probeOrUrl) {
+        if (nodeId != null && DISABLED_NODE_IDS.contains(nodeId)) {
+            return true;
+        }
+        if (probeOrUrl == null || probeOrUrl.isEmpty()) {
+            return false;
+        }
+        try {
+            String host = android.net.Uri.parse(probeOrUrl).getHost();
+            return DISABLED_NODE_HOST.equalsIgnoreCase(host);
+        } catch (Exception ignored) {
+            return false;
+        }
+    }
+
+    /** 镜像地址本身由 res 生成，但 {@code node=dl3} 仍可直接识别。 */
+    public static boolean isDisabledMirrorUrl(@Nullable String url) {
+        if (url == null || url.isEmpty()) {
+            return false;
+        }
+        String node = null;
+        try {
+            node = android.net.Uri.parse(url).getQueryParameter("node");
+        } catch (Exception ignored) {
+        }
+        return isNodeDisabled(node, url);
     }
 
     /**
@@ -161,7 +198,7 @@ public final class DownloadNodes {
 
     /** 取节点清单（内存缓存 ttl 秒；失败回调 null，调用方直接下权威地址）。 */
     public static void load(@NonNull Context context, @NonNull NodesCallback callback) {
-        List<Node> nodes = cachedNodes;
+        List<Node> nodes = withoutDisabledNodes(cachedNodes);
         ProbeSpec spec = cachedSpec;
         if (nodes != null && !nodes.isEmpty()
                 && System.currentTimeMillis() - nodesAt < nodesTtlMs) {
@@ -180,7 +217,7 @@ public final class DownloadNodes {
         client().newCall(request).enqueue(new okhttp3.Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull java.io.IOException e) {
-                main(() -> callback.onResult(cachedNodes, cachedSpec));
+                main(() -> callback.onResult(withoutDisabledNodes(cachedNodes), cachedSpec));
             }
 
             @Override
@@ -202,7 +239,8 @@ public final class DownloadNodes {
                     }
                 } catch (Exception ignored) {
                 }
-                final List<Node> result = parsed == null || parsed.isEmpty() ? cachedNodes : parsed;
+                final List<Node> result = parsed == null || parsed.isEmpty()
+                        ? withoutDisabledNodes(cachedNodes) : withoutDisabledNodes(parsed);
                 final ProbeSpec spec = parsedSpec == null ? cachedSpec : parsedSpec;
                 main(() -> callback.onResult(result, spec));
             }
@@ -216,6 +254,7 @@ public final class DownloadNodes {
     @NonNull
     public static ProbeTask probe(@NonNull Context context, @NonNull List<Node> nodes,
                                   @NonNull ProbeSpec spec, @NonNull ProbeCallback callback) {
+        final List<Node> activeNodes = withoutDisabledNodes(nodes);
         final boolean metered = isMetered(context);
         final List<Call> calls = java.util.Collections.synchronizedList(new ArrayList<>());
         final List<ProbeResult> done = java.util.Collections.synchronizedList(new ArrayList<>());
@@ -225,10 +264,10 @@ public final class DownloadNodes {
                 .connectTimeout(Math.min(3000L, spec.timeoutMs), TimeUnit.MILLISECONDS)
                 .readTimeout(spec.timeoutMs, TimeUnit.MILLISECONDS)
                 .build();
-        final int total = nodes.size();
+        final int total = activeNodes.size();
         new Thread(() -> {
             List<Thread> threads = new ArrayList<>();
-            for (Node node : nodes) {
+            for (Node node : activeNodes) {
                 Thread t = new Thread(() -> {
                     long kbps = measure(client, node, spec, calls, metered);
                     if (cancelled[0]) return;
@@ -371,10 +410,25 @@ public final class DownloadNodes {
             String id = item.optString("id", "");
             String probe = item.optString("probe", "");
             if (id.isEmpty() || probe.isEmpty()) continue;
+            if (isNodeDisabled(id, probe)) continue;
             String name = item.optString("name", id);
             nodes.add(new Node(id, name, probe));
         }
         return nodes;
+    }
+
+    @NonNull
+    private static List<Node> withoutDisabledNodes(@Nullable List<Node> source) {
+        if (source == null || source.isEmpty()) {
+            return new ArrayList<>();
+        }
+        List<Node> result = new ArrayList<>();
+        for (Node node : source) {
+            if (node != null && !isNodeDisabled(node.id, node.probe)) {
+                result.add(node);
+            }
+        }
+        return result;
     }
 
     @Nullable

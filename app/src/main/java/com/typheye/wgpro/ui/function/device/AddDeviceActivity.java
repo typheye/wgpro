@@ -221,7 +221,7 @@ public class AddDeviceActivity extends AppCompatActivity {
             com.typheye.wgpro.core.emu.VelaEmulator unpacked = null;
             try {
                 java.io.File zip = com.typheye.wgpro.core.emu.VelaProvision
-                        .packageFile(this, modelId);
+                        .localImportFile(this, modelId);
                 java.io.File parent = zip.getParentFile();
                 if (parent != null) parent.mkdirs();
                 try (java.io.InputStream in = getContentResolver().openInputStream(uri);
@@ -235,7 +235,8 @@ public class AddDeviceActivity extends AppCompatActivity {
                 deviceId = com.typheye.wgpro.core.emu.VelaEmulatorManager.deviceId(modelId)
                         + ":" + com.typheye.wgpro.core.emu.VelaProvision.randomSuffix();
                 unpacked = com.typheye.wgpro.core.emu.VelaProvision
-                        .unpackRuntime(this, modelId, deviceId);
+                        .unpackRuntime(this, modelId, deviceId, zip);
+                zip.delete();
             } catch (Throwable error) {
                 failure = error.getMessage() == null ? "导入失败" : error.getMessage();
             }

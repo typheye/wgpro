@@ -836,11 +836,6 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             if (key == null || key.isEmpty()) return;
             com.typheye.wgpro.core.download.DownloadManager.get().control(requireContext(), key,
                     com.typheye.wgpro.core.download.DownloadService.ACTION_REMOVE);
-            try {
-                java.io.File file = new java.io.File(requireContext().getFilesDir(),
-                        "downloads/" + suggestedFileName());
-                if (file.exists()) file.delete();
-            } catch (Exception ignored) { }
         }
 
         /** 二次确认 → 云端下发验证码 → 输入验证码完成交易 → 进入保存/下载。 */
@@ -946,21 +941,14 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         @Nullable
         private java.io.File downloadFile(com.typheye.wgpro.core.download.DownloadTask task) {
             try {
+                java.io.File managed = com.typheye.wgpro.core.download.DownloadFiles
+                        .canonicalFile(requireContext(), task);
+                if (managed != null) return managed;
                 String path = task.localPath;
                 if (path != null && !path.isEmpty() && !path.startsWith("content://")) {
                     java.io.File direct = new java.io.File(path);
-                    if (direct.exists()) return direct;
-                }
-                java.io.File dir = new java.io.File(requireContext().getFilesDir(), "downloads");
-                java.io.File byName = new java.io.File(dir, suggestedFileName());
-                if (byName.exists()) return byName;
-                java.io.File byId = new java.io.File(dir, task.id + ".apk");
-                if (byId.exists()) return byId;
-                java.io.File[] files = dir.listFiles();
-                if (files != null) {
-                    for (java.io.File f : files) {
-                        if (f.getName().startsWith(task.id)) return f;
-                    }
+                    if (direct.isFile() && task.targetUri != null
+                            && task.targetUri.equals(path)) return direct;
                 }
             } catch (Exception ignored) { }
             return null;
@@ -1029,11 +1017,10 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             try {
                 android.net.Uri uri = androidx.core.content.FileProvider.getUriForFile(requireContext(),
                         requireContext().getPackageName() + ".fileprovider", file);
-                String mime = android.webkit.MimeTypeMap.getSingleton()
-                        .getMimeTypeFromExtension(
-                                android.webkit.MimeTypeMap.getFileExtensionFromUrl(file.getName()));
+                String mime = task.mimeType == null || task.mimeType.isEmpty()
+                        ? "*/*" : task.mimeType;
                 Intent intent = new Intent(Intent.ACTION_VIEW)
-                        .setDataAndType(uri, mime == null ? "*/*" : mime)
+                        .setDataAndType(uri, mime)
                         .addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 startActivity(Intent.createChooser(intent, "打开方式"));
             } catch (Exception e) {
@@ -1153,6 +1140,8 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             resource.optString("cover_url", resource.optString("icon_url", "")),
                             url, resource.optString("size", ""), destination,
                             "resource", resource.toString());
+            task.mimeType = com.typheye.wgpro.core.download.DownloadFiles.mimeTypeFor(
+                    resource.optString("file_name", ""), "application/octet-stream");
             if (targetUri != null) task.targetUri = targetUri.toString();
             task.fallbackUrl = authoritativeUrl;   // 镜像失败回退权威地址
             com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);

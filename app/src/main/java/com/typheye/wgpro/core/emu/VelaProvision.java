@@ -6,6 +6,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.typheye.wgpro.data.DeviceDatabase;
+import com.typheye.wgpro.core.download.DownloadFiles;
+import com.typheye.wgpro.core.download.DownloadManager;
+import com.typheye.wgpro.core.download.DownloadTask;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -22,7 +25,7 @@ import java.util.zip.ZipInputStream;
  */
 public final class VelaProvision {
 
-    /** 下载服务把镜像包落在这里：{@code files/downloads/vela-<机型>.apk}。 */
+    /** 下载管理里模拟器镜像任务的 id 前缀。 */
     public static final String PACKAGE_PREFIX = "vela-";
 
     private VelaProvision() {
@@ -32,11 +35,24 @@ public final class VelaProvision {
         void onResult(boolean success, @Nullable String error);
     }
 
-    /** 镜像包文件（已按 {@code apk} 后缀交给 DownloadService 落盘）。 */
+    /** 已完成下载管理任务对应的镜像文件：最终名固定为 64 位 sha256、无后缀。 */
+    @Nullable
+    public static File downloadedPackage(@NonNull Context context, @NonNull String modelId) {
+        DownloadTask task = DownloadManager.get().find(PACKAGE_PREFIX + modelId);
+        if (task == null || task.status != DownloadTask.STATUS_COMPLETED) {
+            return null;
+        }
+        return DownloadFiles.canonicalFile(context, task);
+    }
+
+    /** 本地导入的暂存文件；不属于下载管理，也不参与最终文件命名。 */
     @NonNull
-    public static File packageFile(@NonNull Context context, @NonNull String modelId) {
-        return new File(new File(context.getFilesDir(), "downloads"),
-                PACKAGE_PREFIX + modelId + ".apk");
+    public static File localImportFile(@NonNull Context context, @NonNull String modelId) {
+        File dir = new File(context.getFilesDir(), "imports");
+        if (!dir.isDirectory() && !dir.mkdirs()) {
+            throw new IllegalStateException("无法创建本地导入目录");
+        }
+        return new File(dir, DownloadFiles.sha256(modelId));
     }
 
     /** 该机型是否已经创建过（设备库里存在即算创建）。 */
@@ -153,12 +169,7 @@ public final class VelaProvision {
         }
     }
 
-    /**
-     * 清掉**设备库里已经不存在**的镜像包：{@code files/downloads/vela-<机型>.apk}。
-     *
-     * <p>单设备包每个 0.6~1.3G，导入后其实就没用了（实例目录里已经有一份解好的引擎+镜像），
-     * 留着最容易把存储撑爆。**不兼容老的多设备包** —— 它们同样按这个口径被清掉。</p>
-     */
+    /** 清掉设备库里已经不存在机型对应的下载管理镜像任务与 sha256 文件。 */
     public static int purgeOrphanPackages(@NonNull Context context) {
         int removed = 0;
         try {
@@ -178,22 +189,19 @@ public final class VelaProvision {
                     }
                 }
             }
-            File[] children = new File(context.getFilesDir(), "downloads").listFiles();
-            if (children == null) {
-                return 0;
-            }
-            for (File child : children) {
-                String name = child.getName();
-                if (!child.isFile() || !name.startsWith(PACKAGE_PREFIX) || !name.endsWith(".apk")) {
+            for (DownloadTask task : DownloadManager.get().snapshot()) {
+                if (task.id == null || !task.id.startsWith(PACKAGE_PREFIX)) {
                     continue;
                 }
-                String modelId = name.substring(PACKAGE_PREFIX.length(),
-                        name.length() - ".apk".length());
+                String modelId = task.id.substring(PACKAGE_PREFIX.length());
                 if (alive.contains(modelId)) {
                     continue;
                 }
-                //noinspection ResultOfMethodCallIgnored
-                child.delete();
+                File packageFile = DownloadFiles.canonicalFile(context, task);
+                if (packageFile != null && !packageFile.delete()) {
+                    packageFile.deleteOnExit();
+                }
+                DownloadManager.get().drop(task.id);
                 removed++;
             }
         } catch (Exception error) {
@@ -224,13 +232,12 @@ public final class VelaProvision {
      * <p>设备详情页的「删除」就是这个语义：删掉镜像后按钮回到「获取」，模拟设备列表里的设备仍在。</p>
      */
     public static void removeImage(@NonNull Context context, @NonNull String modelId) {
-        File zip = packageFile(context, modelId);
-        if (zip.isFile()) {
-            //noinspection ResultOfMethodCallIgnored
-            zip.delete();
+        DownloadTask task = DownloadManager.get().find(PACKAGE_PREFIX + modelId);
+        if (task == null) {
+            return;
         }
-        com.typheye.wgpro.core.download.DownloadManager.get()
-                .drop(PACKAGE_PREFIX + modelId);
+        DownloadFiles.delete(context, task);
+        DownloadManager.get().drop(task.id);
     }
 
     /** 四位随机大写字母/数字后缀。 */
@@ -266,11 +273,7 @@ public final class VelaProvision {
     public static void provision(@NonNull Context context, @NonNull String modelId,
                                  @Nullable String displayName, @NonNull Callback callback) {
         try {
-            File zip = packageFile(context, modelId);
-            if (!zip.isFile()) {
-                callback.onResult(false, "镜像包不存在，请先下载");
-                return;
-            }
+            requireDownloadedPackage(context, modelId);
             // 实例/目录都按**设备**独立：先算出设备 id，再往它自己的目录里解包
             final String newDeviceId = VelaEmulatorManager.deviceId(modelId) + ":" + randomSuffix();
             VelaEmulator emulator = unpackRuntime(context, modelId, newDeviceId);
@@ -289,7 +292,15 @@ public final class VelaProvision {
     @NonNull
     public static VelaEmulator unpackRuntime(@NonNull Context context, @NonNull String modelId,
                                              @NonNull String deviceId) throws Exception {
-        File zip = packageFile(context, modelId);
+        return unpackRuntime(context, modelId, deviceId,
+                requireDownloadedPackage(context, modelId));
+    }
+
+    /** 使用显式镜像源解包；下载管理与本地导入共用。 */
+    @NonNull
+    public static VelaEmulator unpackRuntime(@NonNull Context context, @NonNull String modelId,
+                                             @NonNull String deviceId, @NonNull File zip)
+            throws Exception {
         if (!zip.isFile()) {
             throw new IllegalStateException("镜像包不存在，请先下载或从本地导入");
         }
@@ -308,6 +319,16 @@ public final class VelaProvision {
         }
         emulator.installExecLinks();
         return emulator;
+    }
+
+    @NonNull
+    private static File requireDownloadedPackage(@NonNull Context context,
+                                                 @NonNull String modelId) {
+        File file = downloadedPackage(context, modelId);
+        if (file == null) {
+            throw new IllegalStateException("镜像下载任务不存在或文件已丢失");
+        }
+        return file;
     }
 
     /**
@@ -616,8 +637,8 @@ public final class VelaProvision {
         VelaEmulator base = new VelaEmulator(context, modelId);
         File baseRuntime = base.runtimeDir();
         if (!hasRealEngine(new File(baseRuntime, "engine/qemu/linux-aarch64"))) {
-            File zip = packageFile(context, modelId);
-            if (!zip.isFile()) {
+            File zip = downloadedPackage(context, modelId);
+            if (zip == null) {
                 return false;
             }
             try {

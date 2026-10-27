@@ -1077,19 +1077,14 @@ public final class AppDetailFragment extends Fragment {
     @Nullable
     private java.io.File downloadFile(com.typheye.wgpro.core.download.DownloadTask task) {
         try {
+            java.io.File managed = com.typheye.wgpro.core.download.DownloadFiles
+                    .canonicalFile(requireContext(), task);
+            if (managed != null) return managed;
             String path = task.localPath;
             if (path != null && !path.isEmpty() && !path.startsWith("content://")) {
                 java.io.File direct = new java.io.File(path);
-                if (direct.exists()) return direct;
-            }
-            java.io.File dir = new java.io.File(requireContext().getFilesDir(), "downloads");
-            java.io.File byId = new java.io.File(dir, task.id + ".apk");
-            if (byId.exists()) return byId;
-            java.io.File[] files = dir.listFiles();
-            if (files != null) {
-                for (java.io.File f : files) {
-                    if (f.getName().startsWith(task.id)) return f;
-                }
+                if (direct.isFile() && task.targetUri != null
+                        && task.targetUri.equals(path)) return direct;
             }
         } catch (Exception ignored) { }
         return null;
@@ -1148,10 +1143,7 @@ public final class AppDetailFragment extends Fragment {
 
     /** 清理本地文件（下载记录由 DownloadManager 一并删除）。 */
     private void deleteLocalFile(com.typheye.wgpro.core.download.DownloadTask task) {
-        try {
-            String path = task.localPath;
-            if (path != null && !path.startsWith("content://")) new java.io.File(path).delete();
-        } catch (Exception ignored) { }
+        com.typheye.wgpro.core.download.DownloadFiles.delete(requireContext(), task);
     }
 
     /** 「保存到本地」：拉起系统文件保存框架，让用户自己选位置，再开始下载。 */
@@ -1208,6 +1200,7 @@ public final class AppDetailFragment extends Fragment {
                         id, app.optString("name", "未命名应用"), app.optString("icon_url", ""),
                         url, app.optString("size", ""), destination,
                         "app", app.toString());
+        task.mimeType = "application/vnd.android.package-archive";
         if (targetUri != null) task.targetUri = targetUri.toString();
         // 兜底：镜像节点失败时回退到这个权威地址
         task.fallbackUrl = authoritativeUrl;

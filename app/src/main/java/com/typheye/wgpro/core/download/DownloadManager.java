@@ -47,6 +47,9 @@ public final class DownloadManager {
         appContext = context.getApplicationContext();
         load();
         publish();
+        // 旧版本曾按 URL/资源名生成带后缀的文件。这里只做一次单向迁移，
+        // 完成后所有下载管理文件都只认 files/downloads/<sha256>。
+        new Thread(this::normalizeStoredFiles, "download-normalize").start();
     }
 
     /**
@@ -98,7 +101,10 @@ public final class DownloadManager {
                 startService(context);
                 return;
             }
-            if (existing != null) list.remove(existing);
+            if (existing != null) {
+                DownloadFiles.delete(context, existing);
+                list.remove(existing);
+            }
             list.add(task);
         }
         publish();
@@ -181,12 +187,7 @@ public final class DownloadManager {
         for (int i = list.size() - 1; i >= 0; i--) {
             DownloadTask task = list.get(i);
             if (task.status != DownloadTask.STATUS_FAILED) continue;
-            try {
-                java.io.File local = new java.io.File(
-                        task.localPath == null ? "" : task.localPath);
-                if (local.isFile()) local.delete();
-            } catch (Throwable ignored) {
-            }
+            DownloadFiles.delete(appContext, task);
             list.remove(i);
             removed++;
         }
@@ -218,8 +219,7 @@ public final class DownloadManager {
                 // 否则列表里会留一条永远下不动、点重试就弹窗的死任务。
                 if (task.status == DownloadTask.STATUS_FAILED && task.error != null
                         && task.error.contains("未获得")) {
-                    java.io.File stale = new java.io.File(task.localPath == null ? "" : task.localPath);
-                    if (stale.isFile()) stale.delete();
+                    DownloadFiles.delete(appContext, task);
                     continue;
                 }
                 list.add(task);
@@ -257,6 +257,8 @@ public final class DownloadManager {
             o.put("localPath", t.localPath == null ? "" : t.localPath);
             o.put("error", t.error == null ? "" : t.error);
             o.put("targetUri", t.targetUri == null ? "" : t.targetUri);
+            o.put("sha256", t.sha256 == null ? "" : t.sha256);
+            o.put("mimeType", t.mimeType == null ? "" : t.mimeType);
         } catch (Exception ignored) {
         }
         return o;
@@ -280,6 +282,32 @@ public final class DownloadManager {
             t.localPath = emptyToNull(o.optString("localPath"));
             t.error = emptyToNull(o.optString("error"));
             t.targetUri = emptyToNull(o.optString("targetUri"));
+            t.sha256 = o.optString("sha256", "");
+            t.mimeType = o.optString("mimeType", "");
+            if (!DownloadFiles.isSha256Name(t.sha256) && t.localPath != null
+                    && !t.localPath.startsWith("content://")) {
+                String name = new java.io.File(t.localPath).getName();
+                if (DownloadFiles.isSha256Name(name)) {
+                    t.sha256 = name;
+                }
+            }
+            if (t.mimeType.isEmpty()) {
+                if ("app".equals(t.detailType)) {
+                    t.mimeType = "application/vnd.android.package-archive";
+                } else if ("resource".equals(t.detailType)) {
+                    String name = "";
+                    try {
+                        name = new JSONObject(t.detailJson).optString("file_name", "");
+                    } catch (Exception ignored) {
+                    }
+                    t.mimeType = DownloadFiles.mimeTypeFor(name, "application/octet-stream");
+                } else {
+                    t.mimeType = t.destination == DownloadTask.DEST_PHONE
+                            || t.destination == DownloadTask.DEST_DEVICE
+                            ? "application/vnd.android.package-archive"
+                            : "application/octet-stream";
+                }
+            }
             return t;
         } catch (Exception e) {
             return null;
@@ -289,5 +317,32 @@ public final class DownloadManager {
     @Nullable
     private static String emptyToNull(String value) {
         return value == null || value.isEmpty() ? null : value;
+    }
+
+    /**
+     * 把历史文件强制规范成 sha256 无后缀。只迁移应用私有下载目录；
+     * 用户通过系统文件选择器指定的外部位置保持不动。
+     */
+    private void normalizeStoredFiles() {
+        Context context = appContext;
+        if (context == null) {
+            return;
+        }
+        boolean changed = false;
+        for (DownloadTask task : snapshot()) {
+            String beforePath = task.localPath;
+            String beforeSha = task.sha256;
+            DownloadFiles.canonicalFile(context, task);
+            if (DownloadFiles.normalizeLegacy(context, task)) {
+                changed = true;
+            }
+            if (!java.util.Objects.equals(beforePath, task.localPath)
+                    || !java.util.Objects.equals(beforeSha, task.sha256)) {
+                changed = true;
+            }
+        }
+        if (changed) {
+            publish();
+        }
     }
 }

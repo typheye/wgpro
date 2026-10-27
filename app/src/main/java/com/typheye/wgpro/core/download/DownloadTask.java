@@ -42,6 +42,10 @@ public final class DownloadTask {
     public volatile String error;
     /** 「保存到本地」时由 SAF（系统文件框架）选定的目标 URI；为空则回退到公共 Download 目录。 */
     public volatile String targetUri;
+    /** 下载内容的 SHA-256；下载完成后由 {@link DownloadFiles#commit} 写入。 */
+    public volatile String sha256 = "";
+    /** 原内容的 MIME。文件统一无后缀，打开时必须从这里取类型。 */
+    public volatile String mimeType = "";
 
     public DownloadTask(String id, String name, String iconUrl, String downloadUrl,
                         String sizeLabel, int destination) {

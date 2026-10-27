@@ -146,11 +146,24 @@ public final class DownloadService extends android.app.Service {
         File target = targetFile(task);
         int urlRefreshes = 0;
         boolean fallbackUsed = false;
+        // 历史任务或 10 分钟节点缓存可能还保存着上海节点，续传前强制切回权威地址。
+        if (DownloadNodes.isDisabledMirrorUrl(task.downloadUrl)) {
+            if (task.fallbackUrl != null && !task.fallbackUrl.isEmpty()
+                    && !DownloadNodes.isDisabledMirrorUrl(task.fallbackUrl)) {
+                task.downloadUrl = task.fallbackUrl;
+            } else {
+                failTask(task, "上海下载节点已停用，请重新获取");
+                return;
+            }
+        }
         // 历史任务里可能存着"旧直链"（已 410）或过期签名：开下之前先换一次权威地址，
         // 免得先失败一次再弹失败弹窗（用户看到的"莫名失败"）
         if (isLegacyUrl(task.downloadUrl)) {
             String fresh = refreshDownloadUrl(task);
-            if (fresh != null && !fresh.isEmpty()) task.downloadUrl = fresh;
+            if (fresh != null && !fresh.isEmpty()
+                    && !DownloadNodes.isDisabledMirrorUrl(fresh)) {
+                task.downloadUrl = fresh;
+            }
         }
         try {
             while (true) {
@@ -166,7 +179,8 @@ public final class DownloadService extends android.app.Service {
                     // 重新调 res 接口取一次最新地址再试（只重试一次，已下分片保留）
                     if ((code == 410 || code == 403 || code == 402) && urlRefreshes < MAX_URL_REFRESH) {
                         String fresh = refreshDownloadUrl(task);
-                        if (fresh != null && !fresh.isEmpty() && !fresh.equals(task.downloadUrl)) {
+                        if (fresh != null && !fresh.isEmpty() && !fresh.equals(task.downloadUrl)
+                                && !DownloadNodes.isDisabledMirrorUrl(fresh)) {
                             urlRefreshes++;
                             task.downloadUrl = fresh;
                             continue;
@@ -175,7 +189,8 @@ public final class DownloadService extends android.app.Service {
                     // 镜像节点失败（404/其它非 2xx）：回退到接口给的权威地址，保留已下分片
                     if (code != 416 && !closed.isSuccessful() && !fallbackUsed
                             && task.fallbackUrl != null && !task.fallbackUrl.isEmpty()
-                            && !task.fallbackUrl.equals(task.downloadUrl)) {
+                            && !task.fallbackUrl.equals(task.downloadUrl)
+                            && !DownloadNodes.isDisabledMirrorUrl(task.fallbackUrl)) {
                         fallbackUsed = true;
                         task.downloadUrl = task.fallbackUrl;
                         continue;
@@ -308,11 +323,22 @@ public final class DownloadService extends android.app.Service {
     }
 
     private void finishTask(DownloadTask task, File target) {
+        File completed;
+        try {
+            completed = DownloadFiles.commit(this, target);
+        } catch (IOException error) {
+            failTask(task, "保存下载文件失败：" + (error.getMessage() == null
+                    ? "无法计算 sha256" : error.getMessage()));
+            return;
+        }
         task.status = DownloadTask.STATUS_COMPLETED;
-        task.localPath = target.getAbsolutePath();
-        if (task.totalBytes <= 0) task.downloadedBytes = Math.max(task.downloadedBytes, target.length());
+        task.sha256 = completed.getName();
+        task.localPath = completed.getAbsolutePath();
+        if (task.totalBytes <= 0) {
+            task.downloadedBytes = Math.max(task.downloadedBytes, completed.length());
+        }
         DownloadManager.get().publish();
-        postDownloadAction(task, target);
+        postDownloadAction(task, completed);
     }
 
     private void failTask(DownloadTask task, String message) {
@@ -356,16 +382,17 @@ public final class DownloadService extends android.app.Service {
             }
             return;
         }
-        // 「保存到本地」用下载地址里的 **sha256 命名、无后缀**（服务器就是哈希寻址）；
-        // 没有哈希才退回"原名 + 真实扩展名"。
-        String fileName = localFileName(task);
+        if (!DownloadFiles.isSha256Name(task.sha256)) {
+            task.error = "保存到本地失败：下载文件没有 sha256 文件名";
+            DownloadManager.get().publish();
+            return;
+        }
+        String fileName = task.sha256;
         try {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 ContentValues values = new ContentValues();
                 values.put(MediaStore.Downloads.DISPLAY_NAME, fileName);
-                // 文件名可能是 sha256（无后缀）或任意真实扩展名，别一律标成 APK
-                values.put(MediaStore.Downloads.MIME_TYPE, fileName.endsWith(".apk")
-                        ? "application/vnd.android.package-archive" : "application/octet-stream");
+                values.put(MediaStore.Downloads.MIME_TYPE, mimeOf(task));
                 values.put(MediaStore.Downloads.IS_PENDING, 1);
                 Uri uri = getContentResolver().insert(MediaStore.Downloads.EXTERNAL_CONTENT_URI, values);
                 if (uri != null) {
@@ -447,10 +474,7 @@ public final class DownloadService extends android.app.Service {
             task.error = "已取消";
             DownloadManager.get().publish();
         }
-        File target = targetFile(task);
-        if (target.exists() && !target.delete()) {
-            target.deleteOnExit();
-        }
+        DownloadFiles.delete(this, task);
         if (!hasActive()) {
             stopForegroundCompat(true);
             stopSelf();
@@ -458,66 +482,17 @@ public final class DownloadService extends android.app.Service {
     }
 
     private File targetFile(DownloadTask task) {
-        File dir = new File(getFilesDir(), "downloads");
-        if (!dir.exists()) dir.mkdirs();
-        return new File(dir, task.id + "." + extensionOf(task));
+        return DownloadFiles.partialFile(this, task.id);
     }
 
-    /** 保存到本地用的文件名：sha256（无后缀）优先。 */
-    private String localFileName(DownloadTask task) {
-        String hash = sha256Of(task);
-        if (!hash.isEmpty()) {
-            return hash;
+    @NonNull
+    private static String mimeOf(@NonNull DownloadTask task) {
+        if (task.mimeType != null && !task.mimeType.isEmpty()) {
+            return task.mimeType;
         }
-        return resolveFileName(task);
-    }
-
-    /** 从下载地址里取 64 位 sha256（服务器为 /b/<sha256> 这种哈希寻址）。 */
-    private String sha256Of(DownloadTask task) {
-        String url = task.downloadUrl == null ? "" : task.downloadUrl;
-        java.util.regex.Matcher matcher = java.util.regex.Pattern
-                .compile("([0-9a-fA-F]{64})").matcher(url);
-        return matcher.find() ? matcher.group(1).toLowerCase(java.util.Locale.ROOT) : "";
-    }
-
-    /**
-     * 文件名 = 基础名 + **真实扩展名**。
-     *
-     * <p>原来一律拼 {@code .apk}：镜像 zip、图片、字体等也被存成 apk，系统还会当安装包处理。</p>
-     */
-    private String resolveFileName(DownloadTask task) {
-        String extension = extensionOf(task);
-        String base = safeFileName(task);
-        return extension.isEmpty() ? base : base + "." + extension;
-    }
-
-    /** 取扩展名：先看下载地址（去 query）的尾段，再退回按目的地判断（手机安装包=apk，其余=bin）。 */
-    private String extensionOf(DownloadTask task) {
-        for (String url : new String[]{task.downloadUrl, task.fallbackUrl}) {
-            if (url == null) {
-                continue;
-            }
-            String path = url;
-            int query = path.indexOf('?');
-            if (query >= 0) {
-                path = path.substring(0, query);
-            }
-            int slash = path.lastIndexOf('/');
-            String last = slash >= 0 ? path.substring(slash + 1) : path;
-            int dot = last.lastIndexOf('.');
-            if (dot > 0 && dot < last.length() - 1) {
-                String extension = last.substring(dot + 1).toLowerCase(java.util.Locale.ROOT);
-                if (extension.matches("[a-z0-9]{1,5}")) {
-                    return extension;
-                }
-            }
-        }
-        return task.destination == DownloadTask.DEST_PHONE ? "apk" : "bin";
-    }
-
-    private String safeFileName(DownloadTask task) {
-        String base = task.name == null ? task.id : task.name;
-        return base.replaceAll("[^A-Za-z0-9\\u4e00-\\u9fa5._-]", "_");
+        return task.destination == DownloadTask.DEST_PHONE
+                || task.destination == DownloadTask.DEST_DEVICE
+                ? "application/vnd.android.package-archive" : "application/octet-stream";
     }
 
     private void updateNotification(DownloadTask task) {

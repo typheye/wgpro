@@ -570,7 +570,7 @@ public class VirtualDeviceDetailFragment extends Fragment {
      */
     private void applyIdleState() {
         boolean downloaded = model != null
-                && VelaProvision.packageFile(requireContext(), model.id).isFile();
+                && VelaProvision.downloadedPackage(requireContext(), model.id) != null;
         if (downloaded) {
             if (deleteCard != null) {
                 deleteCard.setVisibility(View.VISIBLE);
@@ -897,6 +897,7 @@ public class VirtualDeviceDetailFragment extends Fragment {
         // 注意：这里必须保持 iconUrl 为空，历史上被来回改过，别再动。
         DownloadTask task = new DownloadTask(taskId, cfg("title", model.name),
                 "", url, model.sizeLabel, DownloadTask.DEST_APP_FILE);
+        task.mimeType = "application/zip";
         task.fallbackUrl = resolveDownloadUrl();
         DownloadManager.get().enqueue(requireContext(), task);
         DownloadManager.get().startService(requireContext());

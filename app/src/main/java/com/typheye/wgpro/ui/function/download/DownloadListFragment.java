@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.typheye.wgpro.R;
+import com.typheye.wgpro.core.download.DownloadFiles;
 import com.typheye.wgpro.core.download.DownloadManager;
 import com.typheye.wgpro.core.download.DownloadService;
 import com.typheye.wgpro.core.download.DownloadTask;
@@ -422,22 +423,13 @@ public final class DownloadListFragment extends Fragment {
     @Nullable
     private java.io.File localFile(DownloadTask task) {
         try {
-            java.io.File dir = new java.io.File(requireContext().getFilesDir(), "downloads");
+            java.io.File managed = DownloadFiles.canonicalFile(requireContext(), task);
+            if (managed != null) return managed;
             String path = task.localPath;
             if (path != null && !path.isEmpty() && !path.startsWith("content://")) {
                 java.io.File direct = new java.io.File(path);
-                if (direct.exists()) return direct;
-            }
-            java.io.File byId = new java.io.File(dir, task.id + ".apk");
-            if (byId.exists()) return byId;
-            java.io.File named = new java.io.File(dir, task.name);
-            if (named.exists()) return named;
-            // 目录里找同名/同前缀的（资源保存时用的文件名不一定等于 id）
-            java.io.File[] files = dir.listFiles();
-            if (files != null) {
-                for (java.io.File f : files) {
-                    if (f.getName().startsWith(task.id)) return f;
-                }
+                if (direct.isFile() && task.targetUri != null
+                        && task.targetUri.equals(path)) return direct;
             }
         } catch (Exception ignored) { }
         return null;
@@ -452,22 +444,6 @@ public final class DownloadListFragment extends Fragment {
         double mb = kb / 1024.0;
         if (mb < 1024.0) return String.format(java.util.Locale.US, "%.1fMB", mb);
         return String.format(java.util.Locale.US, "%.1fGB", mb / 1024.0);
-    }
-
-    /** 按扩展名猜 MIME（各版本系统打开都不会因为类型不对而找不到应用）。 */
-    private static String mimeOf(String nameOrPath) {
-        String lower = nameOrPath == null ? "" : nameOrPath.toLowerCase(java.util.Locale.ROOT);
-        if (lower.endsWith(".apk")) return "application/vnd.android.package-archive";
-        if (lower.endsWith(".png")) return "image/png";
-        if (lower.endsWith(".jpg") || lower.endsWith(".jpeg")) return "image/jpeg";
-        if (lower.endsWith(".gif")) return "image/gif";
-        if (lower.endsWith(".webp")) return "image/webp";
-        if (lower.endsWith(".mp4")) return "video/mp4";
-        if (lower.endsWith(".mp3")) return "audio/mpeg";
-        if (lower.endsWith(".pdf")) return "application/pdf";
-        if (lower.endsWith(".txt")) return "text/plain";
-        if (lower.endsWith(".zip")) return "application/zip";
-        return "*/*";
     }
 
     /** 第二行：只简写状态（下载中 / 已完成 …）。 */
@@ -559,9 +535,10 @@ public final class DownloadListFragment extends Fragment {
                 com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "无法打开", "文件不存在");
                 return;
             }
-            String label = task.localPath == null ? task.name : task.localPath;
+            String mime = task.mimeType == null || task.mimeType.isEmpty()
+                    ? "*/*" : task.mimeType;
             android.content.Intent intent = new android.content.Intent(android.content.Intent.ACTION_VIEW)
-                    .setDataAndType(uri, mimeOf(label))
+                    .setDataAndType(uri, mime)
                     .addFlags(android.content.Intent.FLAG_GRANT_READ_URI_PERMISSION);
             if (intent.resolveActivity(requireContext().getPackageManager()) == null) {
                 // 没有应用能处理这个类型（不同 ROM 差异大）：退回「任意类型」再试一次
