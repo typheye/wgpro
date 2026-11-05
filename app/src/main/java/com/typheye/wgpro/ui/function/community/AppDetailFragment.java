@@ -60,6 +60,7 @@ public final class AppDetailFragment extends Fragment {
     private androidx.activity.result.ActivityResultLauncher<Intent> saveLauncher;
     private JSONObject pendingSaveApp;
     private String pendingSaveUrl;
+    private volatile boolean starRequestPending;
 
     @Override
     public void onCreate(@Nullable Bundle state) {
@@ -123,15 +124,22 @@ public final class AppDetailFragment extends Fragment {
                     if (!isAdded() || appKey.isEmpty()) return;
                     com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
                             com.typheye.wgpro.core.state.ContentStatsStore.get()
-                                    .find(com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, appKey);
+                                    .find(requireContext(),
+                                            com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                                            appKey);
                     if (stats == null || getView() == null) return;
                     try {
                         appJson.put("downloads", stats.downloads);
                         appJson.put("download_count", stats.downloads);
                         appJson.put("stars", stats.stars);
                         appJson.put("collection_count", stats.stars);
-                        appJson.put("is_collected", stats.collected);
+                        if (stats.collectedKnown) appJson.put("is_collected", stats.collected);
                     } catch (Exception ignored) {
+                    }
+                    if (stats.collectedKnown) {
+                        requireContext().getSharedPreferences("app_stars",
+                                        android.content.Context.MODE_PRIVATE)
+                                .edit().putBoolean(appStarKey(), stats.collected).apply();
                     }
                     ((TextView) getView().findViewById(R.id.app_detail_downloads))
                             .setText(formatDownloads(stats.downloads));
@@ -140,7 +148,7 @@ public final class AppDetailFragment extends Fragment {
                 });
         if (!appKey.isEmpty()) {
             JSONArray stats = new JSONArray().put(appJson);
-            com.typheye.wgpro.core.state.ContentStatsStore.get().seed(stats);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().seed(requireContext(), stats);
             com.typheye.wgpro.core.state.ContentStatsStore.get().refresh(requireContext(),
                     com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
                     java.util.Collections.singletonList(appKey));
@@ -249,9 +257,19 @@ public final class AppDetailFragment extends Fragment {
 
     /** 已售罄：定价卡 + 「加入/移出星标」单项 + 「分享应用链接」。 */
     private void showSoldOutSheet(int price, String stockLabel, int availableTotal) {
-        boolean starred = appJson.optBoolean("is_collected", false)
-                || requireContext().getSharedPreferences("app_stars", android.content.Context.MODE_PRIVATE)
-                        .getBoolean(appKey, false);
+        com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                com.typheye.wgpro.core.state.ContentStatsStore.get().find(requireContext(),
+                        com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, appKey);
+        boolean starred;
+        if (stats != null && stats.collectedKnown) {
+            starred = stats.collected;
+        } else if (appInfoCollectedKnown()) {
+            starred = appJson.optBoolean("is_collected", false);
+        } else {
+            starred = requireContext().getSharedPreferences("app_stars",
+                            android.content.Context.MODE_PRIVATE)
+                    .getBoolean(appStarKey(), false);
+        }
         final java.util.List<String> labels = new java.util.ArrayList<>();
         final java.util.List<Integer> codes = new java.util.ArrayList<>();
         labels.add(starred ? "将该应用移出星标" : "将该应用加入星标");
@@ -267,8 +285,15 @@ public final class AppDetailFragment extends Fragment {
 
     /** 星标开关（collection_action2，应用）。 */
     private void setStarred(boolean add) {
-        if (!isAdded()) return;
+        if (!isAdded() || starRequestPending) return;
         final android.content.Context context = requireContext();
+        if (!new tAccUtils(context).isLogin()) {
+            com.typheye.wgpro.ui.widget.WGProHint.show(context, "请先登录后再操作星标");
+            return;
+        }
+        final String starKey = appStarKey();
+        final String starAccountUid = new tAccUtils(context).getUid();
+        starRequestPending = true;
         java.util.Map<String, String> fields = new java.util.LinkedHashMap<>();
         fields.put("target_type", "app");
         fields.put("target_key", appKey);
@@ -277,27 +302,30 @@ public final class AppDetailFragment extends Fragment {
                 new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
                     @Override
                     public void onSuccess(@NonNull JSONObject json) {
+                        starRequestPending = false;
+                        if (!starAccountUid.equals(new tAccUtils(context).getUid())) return;
                         boolean collected = json.optBoolean("collected", add);
                         int count = json.optInt("collection_count",
                                 json.optInt("stars", appJson.optInt("stars", 0) + (collected ? 1 : -1)));
                         count = Math.max(0, count);
+                        final int starCount = count;
                         try {
                             appJson.put("is_collected", collected);
-                            appJson.put("stars", count);
-                            appJson.put("collection_count", count);
+                            appJson.put("stars", starCount);
+                            appJson.put("collection_count", starCount);
                         } catch (Exception ignored) { }
                         context.getSharedPreferences("app_stars", android.content.Context.MODE_PRIVATE)
-                                .edit().putBoolean(appKey, collected).apply();
+                                .edit().putBoolean(starKey, collected).apply();
                         com.typheye.wgpro.core.state.ContentStatsStore.get().collectionChanged(
-                                com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
-                                appKey, collected, count);
+                                context, com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                                appKey, collected, starCount);
                         View view = getView();
                         if (view != null) {
                             view.post(() -> {
                                 View target = getView();
                                 if (target != null) {
                                     ((TextView) target.findViewById(R.id.app_detail_stars))
-                                            .setText(formatDownloads(count));
+                                            .setText(formatDownloads(starCount));
                                 }
                             });
                         }
@@ -307,6 +335,8 @@ public final class AppDetailFragment extends Fragment {
 
                     @Override
                     public void onError(int statusCode, @NonNull String message) {
+                        starRequestPending = false;
+                        if (!starAccountUid.equals(new tAccUtils(context).getUid())) return;
                         com.typheye.wgpro.ui.widget.WGProHint.showError(context, "操作失败", message);
                     }
                 });
@@ -326,6 +356,12 @@ public final class AppDetailFragment extends Fragment {
         } catch (Exception e) {
             com.typheye.wgpro.ui.widget.WGProHint.showError(requireContext(), "分享失败", "没有可用的分享应用");
         }
+    }
+
+    @NonNull
+    private String appStarKey() {
+        String uid = new tAccUtils(requireContext()).getUid();
+        return (uid == null || uid.isEmpty() ? "anon" : uid) + ':' + appKey;
     }
 
     /**
@@ -530,6 +566,31 @@ public final class AppDetailFragment extends Fragment {
                 }
             }
         });
+    }
+
+    /** 顶部菜单复用同一条星标链路，避免 Activity/Fragment 各自维护一份旧状态。 */
+    void toggleStarFromMenu() {
+        if (!isAdded() || starRequestPending) return;
+        com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                com.typheye.wgpro.core.state.ContentStatsStore.get().find(requireContext(),
+                        com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, appKey);
+        boolean collected;
+        if (stats != null && stats.collectedKnown) {
+            collected = stats.collected;
+        } else if (appInfoCollectedKnown()) {
+            collected = appJson.optBoolean("is_collected", false);
+        } else {
+            collected = requireContext().getSharedPreferences("app_stars",
+                            android.content.Context.MODE_PRIVATE)
+                    .getBoolean(appStarKey(), false);
+        }
+        setStarred(!collected);
+    }
+
+    private boolean appInfoCollectedKnown() {
+        String uid = new tAccUtils(requireContext()).getUid();
+        return appJson.has("is_collected")
+                && (uid.isEmpty() || appJson.optBoolean("personalized", false));
     }
 
     private void bind(View root, JSONObject app, @Nullable Runnable loaded) {
@@ -1252,13 +1313,18 @@ public final class AppDetailFragment extends Fragment {
         task.fallbackUrl = authoritativeUrl;
         com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
         com.typheye.wgpro.core.state.ContentStatsStore.get().downloadChanged(
-                com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, id, -1);
+                requireContext(), com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, id, -1);
         downloadStarted = true;
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        if (!appKey.isEmpty()) {
+            com.typheye.wgpro.core.state.ContentStatsStore.get().refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                    java.util.Collections.singletonList(appKey));
+        }
         if (downloadStarted && isAdded() && !appKey.isEmpty()) {
             downloadStarted = false;
             refreshDownloadCount();
@@ -1267,6 +1333,7 @@ public final class AppDetailFragment extends Fragment {
 
     /** 下载后回到详情页时重新拉一次真实下载量并刷新显示。 */
     private void refreshDownloadCount() {
+        final android.content.Context appContext = requireContext().getApplicationContext();
         Request request;
         try {
             request = new Request.Builder().url("https://res.typheye.cn/api.php?type=app&package="
@@ -1285,7 +1352,7 @@ public final class AppDetailFragment extends Fragment {
                     final int downloads = info.optInt("downloads", -1);
                     if (downloads < 0) return;
                     com.typheye.wgpro.core.state.ContentStatsStore.get().downloadChanged(
-                            com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                            appContext, com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
                             appKey, downloads);
                     try {
                         appJson.put("downloads", downloads);
@@ -1334,13 +1401,6 @@ public final class AppDetailFragment extends Fragment {
         if (value == null) return "";
         return value.replaceAll("(?i)<br\\s*/?>", "\n");
     }
-    /** 星标增删后立即刷新数据条上的星标数。 */
-    void refreshStars(int count) {
-        View view = getView();
-        if (view == null) return;
-        ((TextView) view.findViewById(R.id.app_detail_stars)).setText(formatDownloads(count));
-    }
-
     private int dp(int value) { return Math.round(value * getResources().getDisplayMetrics().density); }
 
     /** 数据条四格（版本/大小/下载/评分）都可点：弹出底部说明弹窗。 */

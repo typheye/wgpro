@@ -33,8 +33,17 @@ public final class AppDetailActivity extends BaseSectionActivity {
         try { appInfo = new JSONObject(getIntent().getStringExtra(EXTRA_APP_JSON)); }
         catch (Exception ignored) { appInfo = new JSONObject(); }
         String appKey = appInfo.optString("id", appInfo.optString("package", ""));
-        starred = appInfo.optBoolean("is_collected", false)
-                || getSharedPreferences("app_stars", MODE_PRIVATE).getBoolean(appKey, false);
+        com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                com.typheye.wgpro.core.state.ContentStatsStore.get().find(this,
+                        com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, appKey);
+        if (stats != null && stats.collectedKnown) {
+            starred = stats.collected;
+        } else if (appInfoCollectedKnown()) {
+            starred = appInfo.optBoolean("is_collected", false);
+        } else {
+            starred = getSharedPreferences("app_stars", MODE_PRIVATE)
+                    .getBoolean(appStarKey(appKey), false);
+        }
         super.onCreate(state);
         // 应用栏交给 AppBarBlur（半透明 surface_bar + 毛玻璃快照层）统一处理，
         // 这里不要再用不透明底色覆盖，否则毛玻璃会被盖住（应用详情页的应用栏高斯模糊异常）。
@@ -57,6 +66,11 @@ public final class AppDetailActivity extends BaseSectionActivity {
 
     private void showAppActions() {
         tAccUtils account = new tAccUtils(getApplicationContext());
+        String appKey = appInfo.optString("id", appInfo.optString("package", ""));
+        com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                com.typheye.wgpro.core.state.ContentStatsStore.get().find(this,
+                        com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, appKey);
+        if (stats != null && stats.collectedKnown) starred = stats.collected;
         boolean self = appInfo.optBoolean("is_self") || (!account.getUid().isEmpty()
                 && account.getUid().equals(appInfo.optString("uid", appInfo.optString("author_uid"))));
         CharSequence[] actions = self ? new CharSequence[]{"删除", "分享", starred ? "移除星标" : "加入星标"}
@@ -89,23 +103,21 @@ public final class AppDetailActivity extends BaseSectionActivity {
     }
 
     private void toggleStar() {
-        String key = appInfo.optString("id", appInfo.optString("package", ""));
-        Map<String, String> fields = new LinkedHashMap<>(); fields.put("target_type", "app");
-        fields.put("target_key", key); fields.put("action", starred ? "remove" : "add");
-        tAccUtils account = new tAccUtils(getApplicationContext());
-        WGProBottomSheetDialog progress = showProgress("正在更新星标..."); long started = android.os.SystemClock.uptimeMillis();
-        account.postV2Json("collection_action2", fields, new tAccUtils.JsonCallback() {
-            @Override public void onSuccess(JSONObject json) {
-                starred = json.optBoolean("collected", !starred);
-                getSharedPreferences("app_stars", MODE_PRIVATE).edit().putBoolean(key, starred).apply();
-                int updated = Math.max(0, appInfo.optInt("stars") + (starred ? 1 : -1));
-                try { appInfo.put("stars", updated); } catch (Exception ignored) { }
-                Fragment content = getSupportFragmentManager().findFragmentById(R.id.section_container);
-                if (content instanceof AppDetailFragment) ((AppDetailFragment) content).refreshStars(updated);
-                finishProgress(progress, started, true, starred ? "已加入星标" : "已移除星标", false);
-            }
-            @Override public void onError(int code, String message) { finishProgress(progress, started, false, message, false); }
-        });
+        Fragment content = getSupportFragmentManager().findFragmentById(R.id.section_container);
+        if (content instanceof AppDetailFragment) {
+            ((AppDetailFragment) content).toggleStarFromMenu();
+        }
+    }
+
+    private String appStarKey(String key) {
+        String uid = new tAccUtils(getApplicationContext()).getUid();
+        return (uid == null || uid.isEmpty() ? "anon" : uid) + ':' + key;
+    }
+
+    private boolean appInfoCollectedKnown() {
+        String uid = new tAccUtils(getApplicationContext()).getUid();
+        return appInfo.has("is_collected")
+                && (uid.isEmpty() || appInfo.optBoolean("personalized", false));
     }
 
     private void deleteApp(tAccUtils account) {

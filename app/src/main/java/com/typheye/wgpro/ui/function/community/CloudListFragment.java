@@ -254,7 +254,7 @@ public class CloudListFragment extends Fragment {
                 getViewLifecycleOwner(), revision -> {
                     if (renderedItems == null || !isAdded()) return;
                     if (com.typheye.wgpro.core.state.ContentStatsStore.get()
-                            .apply(renderedItems)) {
+                            .apply(requireContext(), renderedItems)) {
                         lastRenderSignature = null;
                         render(renderedItems);
                     }
@@ -1051,14 +1051,14 @@ public class CloudListFragment extends Fragment {
     private void seedAndRefreshStats(@NonNull JSONArray items) {
         com.typheye.wgpro.core.state.ContentStatsStore store =
                 com.typheye.wgpro.core.state.ContentStatsStore.get();
-        store.seed(items);
+        store.seed(requireContext(), items);
         if (isAppTargetList() || (MODE_USER_APPS.equals(mode))) {
             java.util.List<String> keys = new java.util.ArrayList<>();
             for (int i = 0; i < items.length(); i++) {
                 JSONObject item = items.optJSONObject(i);
                 if (item == null) continue;
-                keys.add(item.optString("package", item.optString("target_key",
-                        item.optString("id", ""))));
+                keys.add(item.optString("id", item.optString("target_key",
+                        item.optString("package", ""))));
             }
             store.refresh(requireContext(),
                     com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, keys);
@@ -1344,8 +1344,10 @@ public class CloudListFragment extends Fragment {
                     for (int i = 0; i < list.length(); i++) {
                         JSONObject app = list.optJSONObject(i);
                         if (app == null) continue;
-                        String key = app.optString("package", app.optString("id", ""));
-                        if (!key.isEmpty()) byKey.put(key, app);
+                        String id = app.optString("id", "");
+                        String packageName = app.optString("package", "");
+                        if (!id.isEmpty()) byKey.put(id, app);
+                        if (!packageName.isEmpty()) byKey.put(packageName, app);
                     }
                 }
                 java.util.List<Integer> unresolved = new java.util.ArrayList<>();
@@ -1927,9 +1929,33 @@ public class CloudListFragment extends Fragment {
         int size() { return items.size(); }
 
         void setItems(java.util.List<JSONObject> next) {
+            boolean sameOrder = items.size() == next.size();
+            if (sameOrder) {
+                for (int i = 0; i < items.size(); i++) {
+                    if (!itemIdentity(items.get(i)).equals(itemIdentity(next.get(i)))) {
+                        sameOrder = false;
+                        break;
+                    }
+                }
+            }
+            if (sameOrder) {
+                for (int i = 0; i < items.size(); i++) {
+                    String before = items.get(i).toString();
+                    items.set(i, next.get(i));
+                    if (!before.equals(next.get(i).toString())) notifyItemChanged(i);
+                }
+                return;
+            }
             items.clear();
             items.addAll(next);
             notifyDataSetChanged();
+        }
+
+        private String itemIdentity(@NonNull JSONObject item) {
+            return item.optString("target_type", item.optString("type",
+                    item.optString("_kind", ""))) + ':'
+                    + item.optString("target_key", item.optString("package",
+                    item.optString("id", item.optString("uid", ""))));
         }
 
         void addItems(java.util.List<JSONObject> more) {

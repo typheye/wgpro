@@ -17,8 +17,6 @@
             android:exported="true" tools:replace="android:exported" />
         <activity android:name=".ui.function.PreviewActivity"
             android:exported="true" tools:replace="android:exported" />
-        <activity android:name=".ui.function.settings.UpdateRequiredActivity"
-            android:exported="true" tools:replace="android:exported" />
         <activity android:name=".ui.oobe.OobeActivity"
             android:exported="true" tools:replace="android:exported" />
         <activity android:name=".ui.function.device.VirtualDeviceActivity"

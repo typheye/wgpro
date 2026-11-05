@@ -141,11 +141,11 @@ public class HomeFragment extends Fragment {
                     boolean changed = false;
                     if (currentApps != null) {
                         changed |= com.typheye.wgpro.core.state.ContentStatsStore.get()
-                                .apply(currentApps);
+                                .apply(requireContext(), currentApps);
                     }
                     if (currentResources != null) {
                         changed |= com.typheye.wgpro.core.state.ContentStatsStore.get()
-                                .apply(currentResources);
+                                .apply(requireContext(), currentResources);
                     }
                     if (!changed) return;
                     if (currentApps != null) renderApps(currentApps, false);
@@ -177,6 +177,7 @@ public class HomeFragment extends Fragment {
                 if (position == 1 && appsLoadedAt == 0L && !appsLoading) loadApps(false);
                 else if (position == 2 && resourcesLoadedAt == 0L && !resourcesLoading) loadResources(false);
                 else if (position == 0 && communityLoadedAt == 0L && !communityLoading) loadCommunity(false);
+                if (position == 1 || position == 2) refreshVisibleStats();
             }
         });
     }
@@ -235,11 +236,36 @@ public class HomeFragment extends Fragment {
                 : visiblePage == 2 ? resourcesLoadedAt : communityLoadedAt;
         if (android.os.SystemClock.uptimeMillis() - loadedAt >= RESUME_STALE_MS) {
             loadVisiblePage(false);
+        } else {
+            refreshVisibleStats();
         }
     }
 
     public void refreshContent() {
         if (account != null && isAdded()) loadVisiblePage(false);
+    }
+
+    private void refreshVisibleStats() {
+        if (!isAdded()) return;
+        com.typheye.wgpro.core.state.ContentStatsStore store =
+                com.typheye.wgpro.core.state.ContentStatsStore.get();
+        if (visiblePage == 1 && currentApps != null) {
+            List<String> keys = new java.util.ArrayList<>();
+            for (int i = 0; i < currentApps.length(); i++) {
+                JSONObject item = currentApps.optJSONObject(i);
+                if (item != null) keys.add(item.optString("id", item.optString("package", "")));
+            }
+            store.refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, keys);
+        } else if (visiblePage == 2 && currentResources != null) {
+            List<String> keys = new java.util.ArrayList<>();
+            for (int i = 0; i < currentResources.length(); i++) {
+                JSONObject item = currentResources.optJSONObject(i);
+                if (item != null) keys.add(item.optString("id", ""));
+            }
+            store.refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE, keys);
+        }
     }
 
     /**
@@ -528,7 +554,7 @@ public class HomeFragment extends Fragment {
                     appsLoading = false;
                     appsLoadedAt = android.os.SystemClock.uptimeMillis();
                     JSONArray list = items(json, "items", "apps", "data", "info");
-                    com.typheye.wgpro.core.state.ContentStatsStore.get().seed(list);
+                    com.typheye.wgpro.core.state.ContentStatsStore.get().seed(requireContext(), list);
                     currentApps = list;
                     renderApps(list, true);
                     appsRefresh.setRefreshing(false);
@@ -569,7 +595,7 @@ public class HomeFragment extends Fragment {
                     resourcesLoadedAt = android.os.SystemClock.uptimeMillis();
                     JSONArray list = items(json, "items", "resources", "data");
                     com.typheye.wgpro.ui.function.community.ResourceCoverResolver.fill(requireContext(), list, null);
-                    com.typheye.wgpro.core.state.ContentStatsStore.get().seed(list);
+                    com.typheye.wgpro.core.state.ContentStatsStore.get().seed(requireContext(), list);
                     currentResources = list;
                     renderResources(list, true);
                     resourcesRefresh.setRefreshing(false);
@@ -601,7 +627,7 @@ public class HomeFragment extends Fragment {
             for (int i = 0; i < list.length(); i++) {
                 JSONObject item = list.optJSONObject(i);
                 addCatalogCard(apps, item, true);
-                if (item != null) keys.add(item.optString("package", item.optString("id", "")));
+                if (item != null) keys.add(item.optString("id", item.optString("package", "")));
             }
             if (requestStats) {
                 com.typheye.wgpro.core.state.ContentStatsStore.get()

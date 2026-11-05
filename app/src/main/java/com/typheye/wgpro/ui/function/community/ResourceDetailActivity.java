@@ -86,6 +86,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private TextView actionText;
         private android.widget.ImageView actionBlur;
         private androidx.activity.result.ActivityResultLauncher<Intent> saveLauncher;
+        private volatile boolean starRequestPending;
 
         @Override public void onCreate(@Nullable Bundle state) {
             super.onCreate(state);
@@ -166,14 +167,16 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                         if (!isAdded() || id.isEmpty() || getView() == null) return;
                         com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
                                 com.typheye.wgpro.core.state.ContentStatsStore.get()
-                                        .find(com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE, id);
+                                        .find(requireContext(),
+                                                com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                                                id);
                         if (stats == null) return;
                         try {
                             resource.put("download_count", stats.downloads);
                             resource.put("downloads", stats.downloads);
                             resource.put("collection_count", stats.stars);
                             resource.put("stars", stats.stars);
-                            resource.put("is_collected", stats.collected);
+                            if (stats.collectedKnown) resource.put("is_collected", stats.collected);
                         } catch (Exception ignored) {
                         }
                         ((TextView) getView().findViewById(R.id.resource_detail_downloads))
@@ -183,11 +186,22 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     });
         }
 
+        @Override
+        public void onResume() {
+            super.onResume();
+            String id = resource.optString("id");
+            if (!id.isEmpty()) {
+                com.typheye.wgpro.core.state.ContentStatsStore.get().refresh(requireContext(),
+                        com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                        java.util.Collections.singletonList(id));
+            }
+        }
+
         private void bind(View root, JSONObject info) {
             if (info == null) return;
             resource = info;
             JSONArray stats = new JSONArray().put(resource);
-            com.typheye.wgpro.core.state.ContentStatsStore.get().seed(stats);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().seed(requireContext(), stats);
             com.typheye.wgpro.core.state.ContentStatsStore.get().refresh(requireContext(),
                     com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
                     java.util.Collections.singletonList(resource.optString("id")));
@@ -387,6 +401,11 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         }
 
         boolean isStarred() {
+            com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                    com.typheye.wgpro.core.state.ContentStatsStore.get().find(requireContext(),
+                            com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                            resource.optString("id"));
+            if (stats != null && stats.collectedKnown) return stats.collected;
             return resource.optBoolean("is_collected");
         }
 
@@ -405,8 +424,12 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         }
 
         void toggleStar() {
+            if (starRequestPending) return;
             if (!account.isLogin()) { feedback("请先登录", "登录后才能加入星标"); return; }
-            final boolean before = resource.optBoolean("is_collected");
+            starRequestPending = true;
+            final String starAccountUid = account.getUid();
+            final android.content.Context appContext = requireContext().getApplicationContext();
+            final boolean before = isStarred();
             Map<String, String> f = new LinkedHashMap<>();
             f.put("target_type", "resource");
             f.put("target_key", resource.optString("id"));
@@ -415,11 +438,22 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             long started = android.os.SystemClock.uptimeMillis();
             account.postV2Json("collection_action2", f, new tAccUtils.JsonCallback() {
                 public void onSuccess(JSONObject j) {
-                    if (!isAdded() || getActivity() == null) return;   // 回调可能在 detach 后回来
+                    if (!isAdded() || getActivity() == null) {
+                        starRequestPending = false;
+                        return;
+                    }
+                    if (!starAccountUid.equals(new tAccUtils(appContext).getUid())) {
+                        starRequestPending = false;
+                        return;
+                    }
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
-                        if (v == null || !isAdded()) return;
+                        if (v == null || !isAdded()) {
+                            starRequestPending = false;
+                            return;
+                        }
                         v.postDelayed(() -> {
+                            starRequestPending = false;
                             progress.dismissForReplacement();
                             boolean collected = j.optBoolean("collected", !before);
                             int count = j.optInt("collection_count",
@@ -432,6 +466,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             catch (Exception ignored) { }
                             updateStarCount();
                             com.typheye.wgpro.core.state.ContentStatsStore.get().collectionChanged(
+                                    requireContext(),
                                     com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
                                     resource.optString("id"), collected, Math.max(0, count));
                             feedback("操作成功", resource.optBoolean("is_collected") ? "已加入星标" : "已移除星标");
@@ -439,11 +474,25 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     });
                 }
                 public void onError(int c, String m) {
-                    if (!isAdded() || getActivity() == null) return;
+                    if (!isAdded() || getActivity() == null) {
+                        starRequestPending = false;
+                        return;
+                    }
+                    if (!starAccountUid.equals(new tAccUtils(appContext).getUid())) {
+                        starRequestPending = false;
+                        return;
+                    }
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
-                        if (v == null) return;
-                        v.postDelayed(() -> { progress.dismissForReplacement(); feedback("操作失败", m); }, delay(started));
+                        if (v == null) {
+                            starRequestPending = false;
+                            return;
+                        }
+                        v.postDelayed(() -> {
+                            starRequestPending = false;
+                            progress.dismissForReplacement();
+                            feedback("操作失败", m);
+                        }, delay(started));
                     });
                 }
             });
@@ -785,8 +834,10 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
 
         /** 售罄卡片里的星标切换（复用现成的 collection_action2 逻辑）。 */
         private void toggleStarFromSheet(boolean add) {
-            if (!isAdded()) return;
+            if (!isAdded() || starRequestPending) return;
             final android.content.Context context = requireContext();
+            final String starAccountUid = new tAccUtils(context).getUid();
+            starRequestPending = true;
             java.util.Map<String, String> f = new java.util.LinkedHashMap<>();
             f.put("target_type", "resource");
             f.put("target_key", resource.optString("id"));
@@ -795,6 +846,8 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
                         @Override
                         public void onSuccess(org.json.JSONObject j) {
+                            starRequestPending = false;
+                            if (!starAccountUid.equals(new tAccUtils(context).getUid())) return;
                             boolean collected = j.optBoolean("collected", add);
                             int count = j.optInt("collection_count",
                                     resource.optInt("collection_count") + (collected ? 1 : -1));
@@ -806,7 +859,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                             }
                             catch (Exception ignored) { }
                             com.typheye.wgpro.core.state.ContentStatsStore.get().collectionChanged(
-                                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                                    context, com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
                                     resource.optString("id"), collected, count);
                             updateStarCount();
                             com.typheye.wgpro.ui.widget.WGProHint.show(context,
@@ -815,6 +868,8 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
 
                         @Override
                         public void onError(int c, @NonNull String m) {
+                            starRequestPending = false;
+                            if (!starAccountUid.equals(new tAccUtils(context).getUid())) return;
                             com.typheye.wgpro.ui.widget.WGProHint.showError(context, "操作失败", m);
                         }
                     });
@@ -1150,6 +1205,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                                 } catch (Exception ignored) {
                                 }
                                 com.typheye.wgpro.core.state.ContentStatsStore.get().downloadChanged(
+                                        requireContext(),
                                         com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
                                         resourceId, downloads);
                                 ((TextView) v.findViewById(R.id.resource_detail_downloads))
