@@ -1,0 +1,217 @@
+<template>
+	<div class="page" @swipe="right">
+		<div class="tab">
+			<text class="tab-back"></text>
+			<marquee class="tab-text">
+				{{ inputValues.tabtext }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="exit" if="{{ isLoading }}">
+			<text class="exit-tip-text">Loading...</text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true" else>
+			<div class="wgpro-deflayout">
+				<div
+					class="edittext2-div"
+					style="border: 4px solid {{ fc_v0 }}"
+					ontouchstart="ht(-1, 'v0')"
+					ontouchend="ht(0, 'v0')"
+					onclick="toEditText"
+				>
+					<marquee class="edittext2" @click="changeState">
+						{{ inputValues.msg }}
+					</marquee>
+				</div>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a29.png" />
+					</div>
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v2 }}"
+						ontouchstart="ht(1, 'v2')"
+						ontouchend="ht(0, 'v2')"
+						onclick="toLaunch()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import file from "../../../../../utils/file.js";
+import storage from "../../../../../utils/storage.js";
+export default {
+	private: {
+		fc_v0: "#3c3c3c",
+		fc_v1: "#3c3c3c",
+		fc_v2: "#3c3c3c",
+		isLoading: false,
+		textValues: "",
+		inputValues: {
+			msg: "",
+			tabtext: "",
+			uri: "",
+			type: "",
+			name: "",
+			pname: "",
+		},
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.fc_" + i + " = 'black'");
+		else if (t == -1) eval("this.fc_" + i + " = '#32618D'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onReady() {
+		this.inputReady();
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["msg"] = TVs["msg"];
+			this.inputValues["tabtext"] = TVs["tabtext"];
+			this.inputValues["uri"] = TVs["uri"];
+			this.inputValues["ruri"] = TVs["ruri"];
+			this.inputValues["type"] = TVs["type"];
+			this.inputValues["name"] = TVs["name"];
+			this.inputValues["pname"] = TVs["pname"];
+		}
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toLaunch() {
+		this.isLoading = true;
+		setTimeout(() => {
+			if (this.inputValues["type"] == "addpath") this.fun_mkdir();
+			else if (this.inputValues["type"] == "addfile") this.fun_mkfile();
+			else if (this.inputValues["type"] == "renamefile") this.fun_renamefile();
+			else if (this.inputValues["type"] == "renamepath") this.fun_renamepath();
+			else this.toBack();
+		}, 500);
+	},
+	toBack() {
+		this.$app.$def.goReplacePageWithParams(
+			"pages/ui/acts/filemanger/pathshow",
+			{
+				pathName: this.inputValues["pname"],
+				pathUri: this.inputValues["uri"],
+				pathRootUri: this.inputValues["ruri"],
+			}
+		);
+	},
+	toEditText() {
+		this.$app.$def.shortVib(true);
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true)
+					_vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/filemanger/setinfo",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: "msg",
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
+		});
+	},
+	fun_mkdir() {
+		file.mkdir({
+			uri: this.inputValues["uri"] + "/" + this.inputValues["msg"],
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
+		});
+	},
+	fun_mkfile() {
+		file.writeText({
+			uri: this.inputValues["uri"] + "/" + this.inputValues["msg"],
+			text: " ",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
+		});
+	},
+	fun_renamefile() {
+		file.move({
+			srcUri: this.inputValues["uri"] + "/" + this.inputValues["name"],
+			dstUri: this.inputValues["uri"] + "/" + this.inputValues["msg"],
+			text: "",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
+		});
+	},
+	fun_renamepath() {
+		file.move({
+			srcUri: this.inputValues["uri"] + "/" + this.inputValues["name"] + "/",
+			dstUri: this.inputValues["uri"] + "/" + this.inputValues["msg"] + "/",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.toBack();
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+				this.toBack();
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

@@ -1,0 +1,108 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">FILE</marquee>
+			<text class="tab-more"></text>
+		</div>
+
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p1v1 }}"
+						ontouchstart="ht(1, 'p1v1')"
+						ontouchend="ht(0, 'p1v1')"
+						onclick="toRun('Files', 'internal://files')"
+					>
+						<div class="wgpro-item-texts-none">
+							<text class="wgpro-item-texts-text">Files</text>
+							<text class="wgpro-item-texts-subtext">
+								internal://files
+							</text>
+						</div>
+					</div>
+				</div>
+				<div class="wgpro-items-group">
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v1 }}"
+						ontouchstart="ht(1, 'p2v1')"
+						ontouchend="ht(0, 'p2v1')"
+						onclick="toRun('Cache', 'internal://cache')"
+					>
+						<div class="wgpro-item-texts-none">
+							<text class="wgpro-item-texts-text">Cache</text>
+							<text class="wgpro-item-texts-subtext">
+								internal://cache
+							</text>
+						</div>
+					</div>
+					<div
+						class="wgpro-item"
+						style="background-color: {{ itc_p2v2 }}"
+						ontouchstart="ht(1, 'p2v2')"
+						ontouchend="ht(0, 'p2v2')"
+						onclick="toRun('Mass', 'internal://mass')"
+					>
+						<div class="wgpro-item-texts-none">
+							<text class="wgpro-item-texts-text">Mass</text>
+							<text class="wgpro-item-texts-subtext">
+								internal://mass
+							</text>
+						</div>
+					</div>
+				</div>
+				<div
+					class="exit-choose-value"
+					style="margin-top:20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(-1, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose-img" src="/common/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+export default {
+	private: {
+		itc_p0v0: "#3c3c3c",
+		itc_p1v1: "rgba(0,0,0,0)",
+		itc_p2v1: "rgba(0,0,0,0)",
+		itc_p2v2: "rgba(0,0,0,0)",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else if (t == -1) eval("this.itc_" + i + " = '#3c3c3c'");
+		else eval("this.itc_" + i + " = 'rgba(0,0,0,0)'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onReady() {
+		this.test();
+	},
+	toRun(name, path) {
+		this.$app.$def.goPageWithParams("pages/ui/acts/filemanger/pathshow", {
+			pathName: name,
+			pathUri: path,
+			pathRootUri: path,
+		});
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

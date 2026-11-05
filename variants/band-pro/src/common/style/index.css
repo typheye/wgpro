@@ -1,0 +1,384 @@
+.page {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: black;
+}
+
+.page2 {
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #32618D;
+}
+
+.splash-logo {
+	width: 150px;
+	height: 150px;
+}
+
+.tab {
+	width: 100%;
+	height: 15%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	padding-bottom: 3px;
+}
+
+.scroll-root {
+	width: 100%;
+	height: 85%;
+	flex-direction: column;
+}
+
+.scroll-root2 {
+	width: 100%;
+	height: 100%;
+	flex-direction: column;
+}
+
+.tab-back {
+	width: 20%;
+	height: auto;
+	padding-right: 5px;
+	color: white;
+	text-align: right;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.tab-text {
+	width: 60%;
+	height: auto;
+	color: white;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.tab-more {
+	width: 20%;
+	height: auto;
+	padding-left: 5px;
+	color: white;
+	text-align: left;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.list {
+	width: 100%;
+	height: 130%;
+	padding: 5px;
+	flex-direction: column;
+}
+
+.fun-img {
+	width: 40px;
+	height: 40px;
+}
+
+.fun-list3 {
+	width: 100%;
+	height: 90px;
+	padding: 5px;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.fun-item {
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	margin: 5px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #3c3c3c;
+	border-radius: 15px;
+}
+
+.fun-item-th {
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	margin: 5px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 15px;
+}
+
+.exit {
+	width: 100%;
+	height: 85%;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+}
+
+.exit-QR {
+	width: 90%;
+	height: auto;
+	margin-top: 20px;
+}
+
+.exit-tip-text {
+	width: 95%;
+	height: auto;
+	color: #7b7b7b;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 25px;
+}
+
+.exit-tip-text2 {
+	width: 95%;
+	height: auto;
+	color: #7b7b7b;
+	text-align: center;
+	font-size: 25px;
+}
+
+.exit-tip-text-a {
+	width: 95%;
+	height: auto;
+	color: #32618D;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 25px;
+	font-weight: bold;
+}
+
+.exit-choose {
+	width: 100%;
+	height: auto;
+	margin-top: 20px;
+	justify-content: center;
+	flex-direction: row;
+	align-items: center;
+}
+
+.exit-choose2 {
+	width: 100%;
+	height: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	padding-bottom: 20px;
+}
+
+.exit-choose-value {
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	margin: 5px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #3c3c3c;
+	border-radius: 30px;
+}
+
+.exit-choose-value-red {
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	margin: 5px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: #740000;
+	border-radius: 30px;
+}
+
+.exit-choose-img {
+	width: 40px;
+	height: 40px;
+}
+
+.exit-choose2-value {
+	width: 80px;
+	height: 80px;
+	padding: 10px;
+	margin: 5px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 40px;
+}
+
+.exit-choose2-img {
+	width: 40px;
+	height: 40px;
+}
+
+.edittext {
+	width: 90%;
+	height: 80%;
+	text-align: left;
+	font-size: 25px;
+	color: white;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: clip;
+}
+
+.edittext-div {
+	width: 95%;
+	height: 15%;
+	color: white;
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 15px;
+	border: 4px solid #3c3c3c;
+}
+
+
+.edittext2 {
+	width: 90%;
+	height: 80%;
+	font-size: 25px;
+	text-align: left;
+	color: white;
+}
+
+.edittext2-div {
+	margin-top: 20px;
+	width: 95%;
+	height: 80px;
+	color: white;
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 15px;
+	border: 4px solid #3c3c3c;
+}
+
+.edittext3-div {
+	margin-top: 8px;
+	width: 95%;
+	height: 80px;
+	color: white;
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 15px;
+	border: 4px solid #3c3c3c;
+}
+
+.edittext-stack-div {
+	width: 100%;
+	height: 70%;
+	display: flex;
+	align-items: flex-start;
+}
+
+.edittext_scroll {
+	width: 90%;
+	height: 80%;
+	display: flex;
+	align-items: center
+}
+
+.edittext4-div {
+	margin-top: 20px;
+	width: 95%;
+	height: 120px;
+	color: white;
+	border-radius: 30px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border-radius: 15px;
+	border: 4px solid #3c3c3c;
+}
+
+.edittext4 {
+	width: 60%;
+	height: 80%;
+	text-align: left;
+	color: white;
+}
+
+/* Band Pro: 336x480 physical pixels. Keep the Band feature set, scale the band UI. */
+@media (shape: rect) {
+	.splash-logo {
+		width: 220px;
+		height: 220px;
+	}
+
+	.tab-back,
+	.tab-text,
+	.tab-more {
+		font-size: 36px;
+	}
+
+	.tab-back {
+		width: 20%;
+		padding-right: 8px;
+	}
+
+	.tab-text {
+		width: 60%;
+	}
+
+	.tab-more {
+		width: 20%;
+		padding-left: 8px;
+	}
+
+	.fun-img {
+		width: 68px;
+		height: 68px;
+	}
+
+	.fun-list3 {
+		height: 150px;
+		padding: 6px;
+	}
+
+	.fun-item,
+	.fun-item-th {
+		width: 136px;
+		height: 136px;
+		padding: 12px;
+		margin: 7px;
+		border-radius: 22px;
+	}
+
+	.exit-QR {
+		width: 70%;
+	}
+
+	.exit-tip-text,
+	.exit-tip-text2,
+	.exit-tip-text-a {
+		width: 90%;
+		font-size: 32px;
+	}
+
+	.exit-choose-value,
+	.exit-choose-value-red,
+	.exit-choose2-value {
+		width: 118px;
+		height: 118px;
+	}
+
+	.exit-choose-img,
+	.exit-choose2-img {
+		width: 58px;
+		height: 58px;
+	}
+
+	.edittext {
+		font-size: 32px;
+	}
+}

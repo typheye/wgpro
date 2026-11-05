@@ -1,0 +1,83 @@
+<template>
+	<div class="page">
+		<swiper class="swiper" onclick="toBack()">
+			<div class="back-style1"></div>
+			<div class="back-style2"></div>
+			<div class="back-style3"></div>
+			<div class="back-style4"></div>
+		</swiper>
+	</div>
+</template>
+
+<script>
+import brightness from "@system.brightness";
+export default {
+	private: {
+		brightnessValue: 20,
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toBack() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+		brightness.setMode({
+			mode: 1,
+		});
+		brightness.setValue({
+			value: this.brightnessValue,
+		});
+		this.$app.$def.goBack();
+	},
+	onReady() {
+		brightness.getValue({
+			success: (data) => {
+				this.brightnessValue = data.value;
+			},
+		});
+		brightness.setMode({
+			mode: 0,
+		});
+		brightness.setValue({
+			value: 100,
+		});
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+};
+</script>
+
+<style>
+.page {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+.back-style1 {
+	background-color: #ff0000;
+}
+
+.back-style2 {
+	background-color: #00ff00;
+}
+
+.back-style3 {
+	background-color: #0000ff;
+}
+
+.back-style4 {
+	background-color: #ffffff;
+}
+
+.swiper {
+	width: 100%;
+	height: 100%;
+	indicator-color: rgba(0, 0, 0, 0);
+	indicator-selected-color: rgba(0, 0, 0, 0);
+	flex-direction: column;
+}
+</style>

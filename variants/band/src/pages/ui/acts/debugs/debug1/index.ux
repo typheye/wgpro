@@ -1,0 +1,407 @@
+<template>
+	<div class="container">
+		<!-- 标题区域 -->
+		<div class="header">
+			<text class="subtitle"></text>
+			<text class="title">STORAGE</text>
+		</div>
+
+		<!-- 状态显示 -->
+		<div class="status-bar">
+			<text class="status-bar-text">存储状态: {{ storageStatus }}</text>
+			<text class="status-bar-text">
+				文件路径: internal://files/storage.bin
+			</text>
+		</div>
+
+		<!-- 操作按钮区域 -->
+		<div class="button-group">
+			<input
+				class="btn2"
+				type="button"
+				value="初始化存储"
+				onclick="initStorage"
+			/>
+			<input
+				class="btn2"
+				type="button"
+				value="清除存储"
+				onclick="clearStorage"
+			/>
+		</div>
+
+		<!-- 键值操作区域 -->
+		<div class="form-group">
+			<text class="input" onclick="toEditText('key')">
+				{{ inputValues.key }}
+			</text>
+			<text class="input" onclick="toEditText('value')">
+				{{ inputValues.value }}
+			</text>
+		</div>
+
+		<div class="button-group">
+			<input class="btn" type="button" value="设置值" onclick="setValue" />
+			<input class="btn" type="button" value="获取值" onclick="getValue" />
+			<input class="btn" type="button" value="删除键" onclick="deleteKey" />
+		</div>
+
+		<!-- 结果显示区域 -->
+		<div class="result-container">
+			<text class="result-title">操作结果</text>
+			<text class="result-text">{{ result }}</text>
+		</div>
+
+		<!-- 存储内容显示区域 -->
+		<div class="storage-container">
+			<text class="storage-title">当前存储内容</text>
+			<text class="storage-content">{{ storageContent }}</text>
+		</div>
+
+		<!-- 日志区域 -->
+		<div class="log-container">
+			<text class="log-title">操作日志</text>
+			<scroll class="log-content" scroll-y="true">
+				<text class="log-content-text" for="{{ logs }}">{{ $item }}</text>
+			</scroll>
+		</div>
+
+		<!-- 尾部区域 -->
+		<div class="header">
+			<text class="subtitle"></text>
+			<text class="title2" onclick="toBack">退出</text>
+		</div>
+	</div>
+</template>
+
+<script>
+import storage from "../../../../../utils/storage.js";
+import prompt from "@system.prompt";
+
+export default {
+	private: {
+		result: "",
+		storageStatus: "未初始化",
+		storageContent: "",
+		logs: [],
+		inputValues: { key: "", value: "" },
+	},
+	onInit() {
+		this.addLog("页面初始化完成");
+		this.updateStorageContent();
+	},
+	onReady() {
+		this.inputReady();
+	},
+	inputReady() {
+		if (this.textValues) {
+			const TVs = JSON.parse(this.textValues);
+			this.inputValues["key"] = TVs["key"];
+			this.inputValues["value"] = TVs["value"];
+		}
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	addLog(message) {
+		const timestamp = new Date().toLocaleTimeString();
+		this.logs.unshift(`[${timestamp}] ${message}`);
+		// 限制日志数量
+		if (this.logs.length > 20) {
+			this.logs.pop();
+		}
+	},
+	updateKey(e) {
+		this.inputValues["key"] = e.value;
+	},
+	updateValue(e) {
+		this.inputValues["value"] = e.value;
+	},
+	initStorage() {
+		this.addLog("开始初始化存储...");
+		this.storageStatus = "初始化中...";
+
+		storage.init({
+			success: (msg) => {
+				this.addLog(msg);
+				this.storageStatus = "已初始化";
+				prompt.showToast({ message: msg });
+				this.updateStorageContent();
+			},
+			fail: (err) => {
+				this.addLog(`初始化失败: ${err}`);
+				this.storageStatus = "初始化失败";
+				prompt.showToast({ message: `失败: ${err}` });
+			},
+		});
+	},
+	clearStorage() {
+		this.addLog("清除存储数据...");
+
+		storage.clear({
+			success: (msg) => {
+				this.addLog(msg);
+				prompt.showToast({ message: msg });
+				this.updateStorageContent();
+			},
+			fail: (err) => {
+				this.addLog(`清除失败: ${err}`);
+				prompt.showToast({ message: `失败: ${err}` });
+			},
+		});
+	},
+	setValue() {
+		if (!this.inputValues["key"]) {
+			prompt.showToast({ message: "请输入键名" });
+			return;
+		}
+
+		this.addLog(
+			`设置键值: ${this.inputValues["key"]} = ${this.inputValues["value"]}`
+		);
+
+		storage.set({
+			key: this.inputValues["key"],
+			value: this.inputValues["value"],
+			success: (msg) => {
+				this.result = `设置成功: ${this.inputValues["key"]} = ${this.inputValues["value"]}`;
+				this.addLog(msg);
+				prompt.showToast({ message: msg });
+				this.updateStorageContent();
+			},
+			fail: (err) => {
+				this.result = `设置失败: ${err}`;
+				this.addLog(`设置失败: ${err}`);
+				prompt.showToast({ message: `失败: ${err}` });
+			},
+		});
+	},
+	getValue() {
+		if (!this.inputValues["key"]) {
+			prompt.showToast({ message: "请输入键名" });
+			return;
+		}
+
+		this.addLog(`获取键值: ${this.inputValues["key"]}`);
+
+		storage.get({
+			key: this.inputValues["key"],
+			success: (value) => {
+				this.result = `获取成功: ${this.inputValues["key"]} = ${value}`;
+				this.addLog(`获取成功: ${this.inputValues["key"]} = ${value}`);
+				prompt.showToast({ message: `值: ${value}` });
+			},
+			fail: (err) => {
+				this.result = `获取失败: ${err}`;
+				this.addLog(`获取失败: ${err}`);
+				prompt.showToast({ message: `失败: ${err}` });
+			},
+		});
+	},
+	deleteKey() {
+		if (!this.inputValues["key"]) {
+			prompt.showToast({ message: "请输入键名" });
+			return;
+		}
+
+		this.addLog(`删除键: ${this.inputValues["key"]}`);
+
+		storage.delete({
+			key: this.inputValues["key"],
+			success: (msg) => {
+				this.result = `删除成功: ${this.inputValues["key"]}`;
+				this.addLog(msg);
+				prompt.showToast({ message: msg });
+				this.updateStorageContent();
+			},
+			fail: (err) => {
+				this.result = `删除失败: ${err}`;
+				this.addLog(`删除失败: ${err}`);
+				prompt.showToast({ message: `失败: ${err}` });
+			},
+		});
+	},
+	updateStorageContent() {
+		// 模拟获取存储内容
+		// 实际项目中可能需要存储模块提供获取所有数据的方法
+		this.storageContent = "正在加载存储内容...";
+
+		// 获取示例数据
+		storage.get({
+			key: "wgsettings_init",
+			success: (value) => {
+				this.storageContent = `wgsettings_init: ${value}`;
+			},
+			fail: () => {
+				this.storageContent = "获取存储内容失败";
+			},
+		});
+	},
+	toEditText(ti) {
+		this.$app.$def.shortVib(true);
+		storage.gets({
+			keys: ["wgsettings_keyboardUseT9", "wgsettings_keyboardUseLongVibrate"],
+			success: (datas) => {
+				let _keyboardtype = "QWERTY";
+				let _vibratemode = "short";
+				if (datas.wgsettings_keyboardUseT9 == true) _keyboardtype = "T9";
+				if (datas.wgsettings_keyboardUseLongVibrate == true) _vibratemode = "long";
+				this.$app.$def.goReplacePageWithParams("pages/ui/popup/input", {
+					reqPage: "pages/ui/acts/debugs/debug1",
+					textValues: JSON.stringify(this.inputValues),
+					textIndex: ti,
+					keyboardtype: _keyboardtype,
+					vibratemode: _vibratemode,
+				});
+			},
+		});
+	},
+};
+</script>
+
+<style>
+.container {
+	flex-direction: column;
+	align-items: center;
+	padding: 20px;
+	background-color: black;
+}
+
+.header {
+	flex-direction: column;
+	align-items: center;
+	margin-bottom: 40px;
+}
+
+.title {
+	font-size: 25px;
+	color: white;
+	font-weight: bold;
+}
+
+.title2 {
+	font-size: 25px;
+	color: red;
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin-bottom: 30px;
+}
+
+.subtitle {
+	font-size: 20px;
+	color: #666;
+	margin-top: 10px;
+}
+
+.status-bar {
+	width: 80%;
+	flex-direction: column;
+	background-color: black;
+	padding: 15px;
+	border-radius: 8px;
+	margin-bottom: 20px;
+	border: 2px solid #4a90e2;
+}
+
+.status-bar-text {
+	font-size: 20px;
+	color: #444;
+	margin: 5px 0;
+}
+
+.button-group {
+	width: 80%;
+	flex-direction: column;
+	justify-content: space-around;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.btn {
+	width: 100%;
+	height: 80px;
+	background-color: #4a90e2;
+	color: white;
+	font-size: 20px;
+	border-radius: 8px;
+	margin-bottom: 10px;
+}
+
+.btn2 {
+	width: 100%;
+	height: 80px;
+	background-color: red;
+	color: white;
+	font-size: 20px;
+	border-radius: 8px;
+	margin-top: 10px;
+}
+
+.form-group {
+	width: 80%;
+	height: 200px;
+	flex-direction: column;
+	align-items: center;
+}
+
+.input {
+	width: 100%;
+	height: 80px;
+	border: 4px solid #4a90e2;
+	border-radius: 8px;
+	padding: 0 15px;
+	margin-bottom: 15px;
+	font-size: 20px;
+	color: white;
+}
+
+.result-container,
+.storage-container,
+.log-container {
+	width: 80%;
+	background-color: black;
+	border-radius: 8px;
+	padding: 15px;
+	margin-bottom: 20px;
+	border: 2px solid #4a90e2;
+	flex-direction: column;
+	align-items: center;
+}
+
+.result-title,
+.storage-title,
+.log-title {
+	font-size: 25px;
+	color: #333;
+	font-weight: bold;
+	margin-bottom: 10px;
+}
+
+.result-text {
+	font-size: 20px;
+	color: #e74c3c;
+}
+
+.storage-content {
+	height: 100px;
+	font-size: 20px;
+	color: #444;
+	font-family: monospace;
+}
+
+.log-content {
+	width: 100%;
+	height: 200px;
+	flex-direction: column;
+}
+
+.log-content-text {
+	font-size: 20px;
+	color: #666;
+	line-height: 36px;
+}
+</style>

@@ -1,0 +1,239 @@
+<template>
+	<stack class="stack">
+		<scroll id="ys" class="outer" scroll-y="true" bounces="true">
+			<div class="inner-container">
+				<scroll id="xs" class="inner" scroll-x="true" bounces="true">
+					<!-- 添加宽度800px的容器包裹图片 -->
+					<div class="image-container">
+						<image
+							class="image"
+							src="{{ imguri }}"
+							alt="/common/mipmap/c0.png"
+							ontouchstart="getXY"
+							ontouchmove="getXYStop"
+						/>
+						<text class="exit-text" onclick="toBack">退出</text>
+					</div>
+				</scroll>
+			</div>
+		</scroll>
+		<marquee class="xyinfo" show="{{ showdebug }}">{{ xyinfo }}</marquee>
+		<div class="infos" show="{{ showdebug }}">
+			<marquee class="webinfo" show="{{ showdebug }}">{{ webinfo }}</marquee>
+			<marquee class="fpsinfo" show="{{ showdebug }}">{{ fpsinfo }}</marquee>
+		</div>
+	</stack>
+</template>
+
+<script>
+import brightness from "@system.brightness";
+import storage from "../../../../../utils/storage.js";
+import fetch from "../../../../../utils/fetch.js";
+export default {
+	private: {
+		uri: "",
+		imguri: "",
+		isShowFinish: false,
+		isFetchFinish: true,
+		isScrollCenter: false,
+		isAllowRefresh: false,
+		webinfo: "- ms",
+		fpsinfo: "- fps",
+		xyinfo: "LOADING",
+		showdebug: true,
+		touchX: 0,
+		touchY: 0,
+		usrid: "",
+		usrcookie: "",
+		usrticket: "",
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+	},
+	onReady() {
+		this.switload();
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+		if (!this.isScrollCenter) {
+			this.isScrollCenter = true;
+			this.toCenterView();
+		}
+		if (!this.isShowFinish) {
+			this.isShowFinish = true;
+			this.toRefresh();
+		}
+	},
+	toBack() {
+		this.$app.$def.shortVib(true);
+		this.$app.$def.goBack();
+	},
+	toRefresh() {
+		if (this.isFetchFinish) {
+			this.isFetchFinish = false;
+			this.xyinfo = "LOADING";
+			this.webinfo = "- ms";
+			this.fpsinfo = "- fps";
+			const timestamp0 = Date.now();
+			fetch.fetch({
+				url: this.$app.$def.getTS("velaServerURL") + "wvReq",
+				data_GET: {
+					url: this.uri,
+					touchX: this.touchX,
+					touchY: this.touchY,
+					uid: this.usrid,
+					cookie: this.usrcookie,
+					webticket: this.usrticket,
+				},
+				responseType: "text",
+				success: (response) => {
+					const time = Date.now() - timestamp0;
+					this.xyinfo = "SUCCESS";
+					this.webinfo = time + " ms";
+					this.fpsinfo =
+						this.$app.$def.formatDecimal((1 / time) * 1000, 2) + " fps";
+					const reqback = JSON.parse(response.data);
+					this.imguri = reqback["url"];
+					this.uri = reqback["pageUrl"];
+					this.isFetchFinish = true;
+				},
+				fail: (data, code) => {
+					this.isFetchFinish = true;
+					this.toBack();
+					let tips = `handling fail, errMsg = ${data}, errCode = ${code}`;
+					try {
+						tips = `${JSON.parse(data)["error"]}(${code})`;
+					} catch (error) {}
+					this.$app.$def.toTips("", this.$t("tips.run_fail_witherror") + tips);
+				},
+			});
+		}
+	},
+	toCenterView() {
+		this.$element("ys").scrollTo({
+			top: 160,
+			behavior: "instant",
+		});
+		this.$element("xs").scrollTo({
+			left: 260,
+			behavior: "instant",
+		});
+	},
+	switload() {
+		storage.gets({
+			keys: ["wgsettings_browser_hideDebug"],
+			success: (datas) => {
+				if (datas.wgsettings_browser_hideDebug == true) this.showdebug = false;
+			},
+			fail: () => {},
+		});
+	},
+	getXY(event) {
+		this.touchX = event.touches[0]["offsetX"];
+		this.touchY = event.touches[0]["offsetY"];
+		//this.xyinfo = `${this.touchX} ${this.touchY}`;
+		//this.xyinfo = `WAIT`;
+		this.isAllowRefresh = true;
+		setTimeout(() => {
+			if (this.isAllowRefresh) this.toRefresh();
+		}, 500);
+	},
+	getXYStop() {
+		this.isAllowRefresh = false;
+	},
+};
+</script>
+
+<style>
+.stack {
+	width: 100%;
+	height: 100%;
+}
+
+.exit-text {
+	width: 120px;
+	height: 60px;
+	color: white;
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	margin-top: 60px;
+	margin-bottom: 30px;
+	background-color: #3c3c3c;
+	border-radius: 30px;
+}
+
+.xyinfo {
+	width: 100%;
+	height: 35px;
+	background-color: rgba(0, 0, 0, 0.8);
+	color: white;
+	text-align: center;
+	font-size: 18px;
+	font-weight: bold;
+}
+
+.fpsinfo {
+	width: 50%;
+	height: 40px;
+	color: yellow;
+	text-align: left;
+	padding-left: 5px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.webinfo {
+	width: 50%;
+	height: 40px;
+	color: rgb(26, 202, 26);
+	text-align: right;
+	padding-right: 5px;
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.infos {
+	width: 100%;
+	height: 40px;
+	background-color: rgba(0, 0, 0, 0.8);
+	margin-top: 35px;
+}
+
+.outer {
+	width: 100%;
+	height: 100%;
+	background-color: black;
+}
+
+.inner-container {
+	height: 950px; /* 触发垂直滚动 */
+}
+
+.inner {
+	width: 100%;
+	height: 100%;
+	flex-direction: row; /* 关键：启用横向布局 */
+}
+
+.image-container {
+	width: 1000px; /* 触发水平滚动 */
+	height: 100%;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.image {
+	width: 800px;
+	height: 600px;
+}
+</style>

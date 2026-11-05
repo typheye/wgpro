@@ -1,0 +1,23 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "p65",
+  "productName": "REDMI Watch 6",
+  "aliases": ["Redmi Watch 6", "REDMI Watch 6", "miwear.watch.p65"],
+  "family": "watch",
+  "deviceType": "watch",
+  "designWidth": 432,
+  "screen": {
+    "width": 432,
+    "height": 514,
+    "shape": "rect",
+    "density": 320
+  },
+  "overlays": [],
+  "assetSet": "watch",
+  "exclude": [],
+  "features": {
+    "browser": true,
+    "music": true,
+    "networkMode": "system"
+  }
+}

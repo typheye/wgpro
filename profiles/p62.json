@@ -1,0 +1,23 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "p62",
+  "productName": "Xiaomi Watch S5",
+  "aliases": ["小米手表S5", "Xiaomi Watch S5", "miwear.watch.p62"],
+  "family": "watch",
+  "deviceType": "watch",
+  "designWidth": 480,
+  "screen": {
+    "width": 480,
+    "height": 480,
+    "shape": "circle",
+    "density": 320
+  },
+  "overlays": [],
+  "assetSet": "watch",
+  "exclude": [],
+  "features": {
+    "browser": true,
+    "music": true,
+    "networkMode": "system"
+  }
+}

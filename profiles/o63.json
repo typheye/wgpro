@@ -1,0 +1,23 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "o63",
+  "productName": "Xiaomi Watch S4 41mm",
+  "aliases": ["小米手表S4 41mm", "Xiaomi Watch S4 41mm", "miwear.watch.o63"],
+  "family": "watch",
+  "deviceType": "watch",
+  "designWidth": 466,
+  "screen": {
+    "width": 466,
+    "height": 466,
+    "shape": "circle",
+    "density": 320
+  },
+  "overlays": [],
+  "assetSet": "watch",
+  "exclude": [],
+  "features": {
+    "browser": true,
+    "music": true,
+    "networkMode": "system"
+  }
+}

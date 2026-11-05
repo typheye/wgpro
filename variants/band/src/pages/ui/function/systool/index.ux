@@ -1,0 +1,181 @@
+<template>
+	<div class="page2">
+		<scroll class="scroll-root2" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<div class="wgpro-icodiv">
+					<div class="wgpro-icodiv-back2-back">
+						<div
+							class="wgpro-icodiv-back2"
+							style="background-color: {{ itc_p0v1 }}"
+							ontouchstart="ht(1, 'p0v1')"
+							ontouchend="ht(-1, 'p0v1')"
+						>
+							<image
+								class="wgpro-icodiv-back2-logo"
+								src="/common/mipmap/a39.png"
+							/>
+							<text class="wgpro-icodiv-text2">
+								{{ $t("display.systool.tabtext") }}
+							</text>
+						</div>
+					</div>
+				</div>
+				<div
+					class="wgpro-item2"
+					style="margin-top:20px;background-color: {{ itc_p1v1 }}"
+					ontouchstart="ht(1, 'p1v1')"
+					ontouchend="ht(0, 'p1v1')"
+					onclick="toRun('sysinfo')"
+				>
+					<div class="wgpro-item2-texts">
+						<marquee class="wgpro-item2-texts-text">
+							{{ $t("display.systool.p1.item1.text") }}
+						</marquee>
+						<text class="wgpro-item2-texts-hr" />
+						<marquee class="wgpro-item2-texts-subtext">
+							{{ $t("display.systool.p1.item1.subtext") }}
+						</marquee>
+					</div>
+				</div>
+				<div
+					class="wgpro-item2"
+					style="background-color: {{ itc_p1v2 }}"
+					ontouchstart="ht(1, 'p1v2')"
+					ontouchend="ht(0, 'p1v2')"
+					onclick="toRun('storagesize')"
+				>
+					<div class="wgpro-item2-texts">
+						<marquee class="wgpro-item2-texts-text">
+							{{ $t("display.systool.p1.item2.text") }}
+						</marquee>
+						<text class="wgpro-item2-texts-hr" />
+						<marquee class="wgpro-item2-texts-subtext">
+							{{ $t("display.systool.p1.item2.subtext") }}
+						</marquee>
+					</div>
+				</div>
+				<div
+					class="wgpro-item2"
+					style="background-color: {{ itc_p1v3 }}"
+					ontouchstart="ht(1, 'p1v3')"
+					ontouchend="ht(0, 'p1v3')"
+					onclick="toRun('displaytest')"
+				>
+					<div class="wgpro-item2-texts">
+						<marquee class="wgpro-item2-texts-text">
+							{{ $t("display.systool.p1.item3.text") }}
+						</marquee>
+						<text class="wgpro-item2-texts-hr" />
+						<marquee class="wgpro-item2-texts-subtext">
+							{{ $t("display.systool.p1.item3.subtext") }}
+						</marquee>
+					</div>
+				</div>
+				<div
+					class="exit-choose2-value"
+					style="margin-top: 20px;background-color: {{ itc_p0v0 }}"
+					ontouchstart="ht(1, 'p0v0')"
+					ontouchend="ht(0, 'p0v0')"
+					onclick="toBack()"
+				>
+					<img class="exit-choose2-img" src="/common/mipmap/a23.png" />
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import device from "@system.device";
+export default {
+	private: {
+		itc_p0v1: "#32618D",
+		itc_p0v0: "rgba(255,255,255,0.5)",
+		itc_p1v1: "rgba(255,255,255,0.5)",
+		itc_p1v2: "rgba(255,255,255,0.5)",
+		itc_p1v3: "rgba(255,255,255,0.5)",
+	},
+	ht(t, i) {
+		if (t == 1) eval("this.itc_" + i + " = 'black'");
+		else if (t == -1) eval("this.itc_" + i + " = '#32618D'");
+		else eval("this.itc_" + i + " = 'rgba(255,255,255,0.5)'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(false);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	toRun(id) {
+		if (id == "sysinfo") {
+			var back_ret;
+			var back_data_deviceId;
+			var back_data_serial;
+			var back_status = true;
+			device.getInfo({
+				success: (ret) => {
+					back_ret = ret;
+				},
+				fail: () => {
+					back_status = false;
+				},
+			});
+			device.getSerial({
+				success: (data) => {
+					back_data_serial = data;
+				},
+				fail: () => {
+					back_status = false;
+				},
+			});
+			device.getDeviceId({
+				success: (data) => {
+					back_data_deviceId = data;
+				},
+				fail: () => {
+					back_status = false;
+				},
+			});
+			var demo = this.$t("display.systool.run.sysinfo.text");
+			if (back_status) {
+				demo = this.$app.$def.textFormat(demo, {
+					brand: back_ret.brand,
+					manufacturer: back_ret.manufacturer,
+					model: back_ret.model,
+					product: back_ret.product,
+					osType: back_ret.osType,
+					osVersionName: back_ret.osVersionName,
+					osVersionCode: back_ret.osVersionCode,
+					platformVersionName: back_ret.platformVersionName,
+					platformVersionCode: back_ret.platformVersionCode,
+					language: back_ret.language,
+					region: back_ret.region,
+					APILevel: back_ret.APILevel,
+					screenWidth: back_ret.screenWidth,
+					screenHeight: back_ret.screenHeight,
+					screenDensity: back_ret.screenDensity,
+					screenShape: back_ret.screenShape,
+					deviceType: back_ret.deviceType,
+					deviceId: back_data_deviceId.deviceId,
+					serial: back_data_serial.serial,
+				});
+			} else demo = this.$t("tips.fail");
+			this.$app.$def.toTips(this.$t("display.systool.run.sysinfo.title"), demo);
+		} else if (id == "") this.$app.$def.toTips("", this.$t("tips.toNull"));
+		else {
+			var v_uri = "";
+			if (id == "displaytest") v_uri = "pages/ui/acts/systool/displaytest";
+			else if (id == "storagesize")
+				v_uri = "pages/ui/acts/systool/storagesize";
+			this.$app.$def.goPage(v_uri);
+		}
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
+</style>

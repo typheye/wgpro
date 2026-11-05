@@ -1,0 +1,28 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "o66cn",
+  "productName": "Xiaomi Smart Band 10",
+  "aliases": ["小米手环10", "Xiaomi Smart Band 10", "miwear.watch.o66cn"],
+  "family": "band",
+  "deviceType": "watch",
+  "designWidth": 212,
+  "screen": {
+    "width": 212,
+    "height": 520,
+    "shape": "pill-shaped",
+    "density": 320
+  },
+  "overlays": ["variants/band"],
+  "assetSet": "band",
+  "exclude": [
+    "src/pages/ui/acts/browser",
+    "src/pages/ui/acts/settings/browser",
+    "src/pages/ui/function/browser",
+    "src/pages/ui/acts/filemanger/open/musicplayer"
+  ],
+  "features": {
+    "browser": false,
+    "music": false,
+    "networkMode": "proxy"
+  }
+}

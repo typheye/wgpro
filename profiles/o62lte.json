@@ -1,0 +1,23 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "o62lte",
+  "productName": "Xiaomi Watch S4 eSIM",
+  "aliases": ["小米手表S4 eSIM", "Xiaomi Watch S4 eSIM", "mijia.watch.o62lte"],
+  "family": "watch",
+  "deviceType": "watch",
+  "designWidth": 466,
+  "screen": {
+    "width": 466,
+    "height": 466,
+    "shape": "circle",
+    "density": 320
+  },
+  "overlays": [],
+  "assetSet": "watch",
+  "exclude": [],
+  "features": {
+    "browser": true,
+    "music": true,
+    "networkMode": "system"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "n66cn",
+  "productName": "Xiaomi Smart Band 9",
+  "aliases": ["小米手环9", "Xiaomi Smart Band 9", "miwear.watch.n66cn"],
+  "family": "band",
+  "deviceType": "watch",
+  "designWidth": 192,
+  "screen": {
+    "width": 192,
+    "height": 490,
+    "shape": "pill-shaped",
+    "density": 320
+  },
+  "overlays": ["variants/band"],
+  "assetSet": "band",
+  "exclude": [
+    "src/pages/ui/acts/browser",
+    "src/pages/ui/acts/settings/browser",
+    "src/pages/ui/function/browser",
+    "src/pages/ui/acts/filemanger/open/musicplayer"
+  ],
+  "features": {
+    "browser": false,
+    "music": false,
+    "networkMode": "proxy"
+  }
+}

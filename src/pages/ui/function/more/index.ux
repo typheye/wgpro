@@ -1,0 +1,33 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">
+				{{ $t("display.more.tabtext") }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ $t("display.more.none") }}</text>
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+export default {
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
+</style>

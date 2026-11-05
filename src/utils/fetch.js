@@ -1,0 +1,203 @@
+import deffetch from "@system.fetch";
+import interconnect from "@system.interconnect";
+
+const enableFetch = true; // 启用系统fetch，否则使用代理
+// 单次请求上限（ms）：系统 fetch 没有超时兜底，弱网/断网时可能一直不回调，
+// 页面会永远停在 Loading（卡屏）。取值与 Android 端 OkHttp readTimeout 对齐；
+// 单次请求可用 options.timeout 覆盖（<=0 表示不设兜底）。
+const DEFAULT_TIMEOUT = 30000;
+
+class fetch {
+  constructor() {
+    if (!enableFetch) {
+      this.conn = interconnect.instance();
+      this.msgid_HELLO = 0;
+      this.pendingRequests = new Map(); // 使用Map存储待处理请求
+      this._setupMessageHandler(); // 设置全局消息处理器
+      this._sayHello();
+    }
+  }
+
+  // 安全返回 enableFetch 状态
+  isEnableFetch() {
+    return enableFetch;
+  }
+
+  _sayHello() {
+    const id = this._generateUniqueId();
+    this.msgid_HELLO = id;
+    const message = JSON.stringify({
+      msgtype: "HELLO",
+      message: "",
+    });
+    this.conn.send({
+      data: {
+        id,
+        message,
+      },
+    });
+  }
+
+  // 设置全局消息处理器 (只设置一次)
+  _setupMessageHandler() {
+    this.conn.onmessage = (event) => {
+      try {
+        const message = JSON.parse(event.data);
+        const { id, response } = message;
+
+        // 查找对应的请求处理器
+        const handler = this.pendingRequests.get(id);
+        if (handler && id != this.msgid_HELLO) {
+          const res = JSON.parse(response);
+          handler.success &&
+            handler.success({
+              data: res.data,
+              code: res.code,
+            });
+          // 请求完成后移除处理器
+          this.pendingRequests.delete(id);
+        }
+      } catch (e) {
+        //console.error("Failed to parse message:", e);
+        //fail(JSON.stringify(e), -1);
+      }
+    };
+  }
+
+  _generateUniqueId() {
+    return Math.random().toString(36).substr(2, 9);
+  }
+
+  fetch(options = {}) {
+    const {
+      url,
+      data_GET = {},
+      data = {},
+      header,
+      method = "GET",
+      responseType = "text",
+      success,
+      fail,
+      timeout = DEFAULT_TIMEOUT,
+    } = options;
+    const toQueryString = (obj) => {
+      try {
+        // 类型检查
+        if (!obj || typeof obj !== "object") {
+          //console.warn("Invalid data for query string:", obj);
+          return "";
+        }
+
+        return Object.entries(obj)
+          .filter(([_, value]) => value !== null && value !== undefined)
+          .flatMap(([key, value]) => {
+            // 处理嵌套对象
+            if (value && typeof value === "object") {
+              return Object.entries(value).map(
+                ([subKey, subValue]) =>
+                  `${encodeURIComponent(key)}[${encodeURIComponent(
+                    subKey
+                  )}]=${encodeURIComponent(subValue)}`
+              );
+            }
+            return `${encodeURIComponent(key)}=${encodeURIComponent(value)}`;
+          })
+          .join("&");
+      } catch (e) {
+        //console.error("Query string generation error:", e);
+        return "";
+      }
+    };
+    var headers = {
+      Accept:
+        "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/jxl,image/webp,image/png,image/svg+xml,*/*;q=0.8",
+      "Accept-Encoding": "",
+      "Accept-Language": "zh-CN,zh;q=0.8",
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0",
+    };
+    if (header) headers = header;
+    var url0 = url;
+    if (data_GET) url0 += "?" + toQueryString(data_GET);
+    if (enableFetch) {
+      // 使用系统fetch；框架无超时兜底，这里自建定时器，保证 fail 一定会回调
+      let settled = false;
+      let timeoutId = 0;
+      const settle = () => {
+        if (settled) return false;
+        settled = true;
+        if (timeoutId) clearTimeout(timeoutId);
+        return true;
+      };
+      if (timeout > 0)
+        timeoutId = setTimeout(() => {
+          if (settle()) fail && fail("Request timeout", 408);
+        }, timeout);
+      deffetch.fetch({
+        url: url0,
+        data: data,
+        header: header,
+        method: method,
+        responseType: responseType,
+        success: (response) => {
+          if (settle()) success && success(response);
+        },
+        fail: (data, code) => {
+          if (settle()) fail && fail(data, code);
+        },
+      });
+    } else {
+      // 使用同步器代理
+      const requestId = this._generateUniqueId();
+      // 保存请求处理器
+      this.pendingRequests.set(requestId, { success, fail });
+      // 设置请求超时（防止请求卡死）
+      const timeoutId = setTimeout(() => {
+        if (this.pendingRequests.has(requestId)) {
+          fail && fail("Request timeout", 408);
+          this.pendingRequests.delete(requestId);
+        }
+      }, timeout > 0 ? timeout : DEFAULT_TIMEOUT); // 默认 30 秒超时
+      // 发送请求
+      // 添加默认Content-Type；POST 只要带 data 就必须序列化成 body
+      // （此前仅在缺 Content-Type 时序列化，导致自带头部的 POST —— 如 V2 登录 —— body 为空）
+      let data_text = "";
+      if (method == "POST") {
+        if (!headers || !headers["Content-Type"]) {
+          headers = {
+            ...headers,
+            "Content-Type": "application/x-www-form-urlencoded",
+          };
+        }
+        if (data) data_text = typeof data === "string" ? data : toQueryString(data);
+      }
+      var id = requestId;
+      const message = JSON.stringify({
+        msgtype: "FETCH",
+        message: JSON.stringify({
+          url: url0,
+          responseType: responseType,
+          method: method,
+          data: data_text,
+          header: headers,
+        }),
+      });
+
+      setTimeout(() => {
+        this.conn.send({
+          data: {
+            id,
+            message,
+          },
+          fail: (err) => {
+            clearTimeout(timeoutId);
+            fail && fail(`Send failed: ${err.data}`, err.code || -1);
+            this.pendingRequests.delete(requestId);
+          },
+        });
+      }, 300);
+    }
+  }
+}
+
+export default new fetch();

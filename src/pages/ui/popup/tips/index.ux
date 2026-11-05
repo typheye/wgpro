@@ -1,0 +1,66 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">‹</text>
+			<marquee class="tab-text">{{ title }}</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<scroll class="scroll-root" scroll-y="true">
+			<div class="wgpro-deflayout">
+				<text class="exit-tip-text">{{ text }}</text>
+				<div class="exit-choose">
+					<div
+						class="exit-choose-value"
+						style="background-color: {{ fc_v1 }}"
+						ontouchstart="ht(1, 'v1')"
+						ontouchend="ht(0, 'v1')"
+						onclick="toBack()"
+					>
+						<img class="exit-choose-img" src="/common/mipmap/a28.png" />
+					</div>
+				</div>
+				<div class="wgpro-gap-bottom" />
+			</div>
+		</scroll>
+	</div>
+</template>
+
+<script>
+import brightness from "@system.brightness";
+export default {
+	private: {
+		fc_v1: "#3c3c3c",
+		title: "",
+		text: "",
+	},
+	ht(t, i) {
+		if (t) eval("this.fc_" + i + " = 'black'");
+		else eval("this.fc_" + i + " = '#3c3c3c'");
+	},
+	onBackPress() {
+		this.$app.$def.toCancel(true);
+		return true;
+	},
+	onShow() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: true,
+		});
+	},
+	onDestroy() {
+		brightness.setKeepScreenOn({
+			keepScreenOn: false,
+		});
+	},
+	toBack() {
+		this.$app.$def.goBack();
+	},
+	onInit() {
+		if (!this.title) this.title = this.$t("app.tips");
+	},
+};
+</script>
+
+<style>
+@import "../../../../common/style/index.css";
+@import "../../../../common/style/wgpro.css";
+</style>

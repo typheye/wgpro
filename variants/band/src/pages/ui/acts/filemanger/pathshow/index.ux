@@ -1,0 +1,802 @@
+<template>
+	<div class="page">
+		<div class="tab" onclick="toBack">
+			<text class="tab-back">{{ tabtextleft }}</text>
+			<marquee class="tab-text">
+				{{ tabtext }}
+			</marquee>
+			<text class="tab-more"></text>
+		</div>
+		<div class="wgpro-frglayout" if="{{ isMenu }}">
+			<list
+				class="wgpro-listlayout3"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ pathshowmenuList }}"
+					class="wgpro-item4"
+					type="item1"
+					style="background-color: {{ $item.color }};"
+					ontouchstart="htm(1, $item.num)"
+					ontouchend="htm(0, $item.num)"
+					onclick="toRunMenu($item.id)"
+				>
+					<text
+						class="wgpro-item-texts-text2"
+						style="color: {{ $item.textcolor }};"
+					>
+						{{ $item.name }}
+					</text>
+				</list-item>
+			</list>
+		</div>
+		<div class="wgpro-frglayout" else>
+			<div class="wgpro-listlayout-gap2"></div>
+			<list
+				class="wgpro-listlayout4"
+				bounces="true"
+				onscroll="onScroll"
+				onscrolltop="onScrollTop"
+				onscrollbottom="onScrollBottom"
+				onscrolltouchup="onScrollTouchup"
+			>
+				<list-item
+					for="{{ pathshowList }}"
+					class="wgpro-item3"
+					type="item1"
+					style="height: 100px;background-color: {{ $item.color }};"
+					ontouchstart="ht(1, $item.num)"
+					ontouchend="ht(0, $item.num)"
+					onclick="toRun($item.id, $item.uri, $item.isfile, $item.name, $item.num)"
+					onlongpress="toRunLong($item.id, $item.num, $item.isfile)"
+				>
+					<div class="wgpro-item-texts-none">
+						<text class="wgpro-item-texts-text">
+							{{ $item.name }}
+						</text>
+						<text class="wgpro-item-texts-subtext">
+							{{ $item.info }}
+						</text>
+					</div>
+				</list-item>
+			</list>
+		</div>
+	</div>
+</template>
+
+<script>
+import file from "../../../../../utils/file.js";
+import storage from "../../../../../utils/storage.js";
+export default {
+	private: {
+		pathName: "",
+		pathUri: "",
+		pathRootUri: "",
+		pathshowList: [],
+		pathshowmenuList: [],
+		menuflag: "def",
+		tabtext: "",
+		tabtextleft: "‹",
+		isMenu: false,
+		selectItemNum: 0,
+	},
+	ht(t, i) {
+		if (t) eval("this.pathshowList[" + i + "]['color'] = 'black'");
+		else eval("this.pathshowList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	htm(t, i) {
+		if (t) eval("this.pathshowmenuList[" + i + "]['color'] = 'black'");
+		else eval("this.pathshowmenuList[" + i + "]['color'] = '#3c3c3c'");
+	},
+	onBackPress() {
+		if (!this.isMenu) this.$app.$def.toCancel(true);
+		else {
+			this.$app.$def.shortVib(true);
+			this.opmenu(false);
+		}
+		return true;
+	},
+	onInit() {
+		this.opmenu(false);
+	},
+	onReady() {
+		this.pathshowmenuListReady();
+		this.pathshowListReady();
+	},
+	toBack() {
+		if (!this.isMenu) this.$app.$def.goBack();
+	},
+	toRun(id, uri, isfile, name, num) {
+		if (id == "");
+		else if (id == "../") {
+			if (!uri) this.toBack();
+			else
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: uri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+		} else {
+			if (isfile) {
+				this.selectItemNum = num;
+				let type = this.getSubstringAfter(name, ".").toLowerCase();
+				let tabtext = "menu.pathshowlist.itemfile.item6.name";
+				if (type == "txt") {
+					this.menuflag = "fileopen.fow_text";
+					tabtext = "menu.pathshowlist.fileopenway.item1.name";
+				} else if (type == "jpg" || type == "jpeg" || type == "png") {
+					this.menuflag = "fileopen.fow_photo";
+					tabtext = "menu.pathshowlist.fileopenway.item2.name";
+				} else if (type == "mp3") {
+					this.menuflag = "fileopen.fow_music";
+					tabtext = "menu.pathshowlist.fileopenway.item3.name";
+				} else if (type == "mp4") {
+					this.menuflag = "fileopen.fow_video";
+					tabtext = "menu.pathshowlist.fileopenway.item4.name";
+				} else if (type == "zip") {
+					this.menuflag = "fileopen.fow_zip";
+					tabtext = "menu.pathshowlist.fileopenway.item4.name";
+				} else this.menuflag = "fileopenway";
+				this.opmenu(true, this.$t(tabtext));
+			} else {
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: uri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+			}
+		}
+	},
+	toRunLong(id, num, isfile) {
+		this.$app.$def.shortVib(true);
+		storage.gets({
+			keys: ["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+			success: (datas) => {
+				if (datas.wgsettings_fm_cachePath && datas.wgsettings_fm_cacheCtrl)
+					this.opmenu_cpd(num);
+				else this.opmenu_def(id, num, isfile);
+			},
+			fail: () => {
+				this.opmenu_def(id, num, isfile);
+			},
+		});
+	},
+	toRunMenu(id) {
+		let needoffmenu = true;
+		if (id == "") needoffmenu = false;
+		else if (id == "copy") {
+			var type = "file";
+			try {
+				if (this.pathshowList[this.selectItemNum]["isfile"] == false)
+					type = "path";
+			} catch (error) {}
+			if (type == "file") {
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					[this.pathshowList[this.selectItemNum]["uri"], "copy_" + type]
+				);
+				this.$app.$def.toTips("", this.$t("menu.pathshowlist.copytext"));
+			} else this.$app.$def.toTips("", this.$t("tips.run_fail"));
+		} else if (id == "copydel") {
+			var type = "file";
+			try {
+				if (this.pathshowList[this.selectItemNum]["isfile"] == false)
+					type = "path";
+			} catch (error) {}
+			if (type == "file") {
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					[this.pathshowList[this.selectItemNum]["uri"], "copydel_" + type]
+				);
+				this.$app.$def.toTips("", this.$t("menu.pathshowlist.copydeltext"));
+			} else this.$app.$def.toTips("", this.$t("tips.run_fail"));
+		} else if (id == "pastecancel") {
+			this.$app.$def.settingsChangeMore(
+				["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+				["", ""]
+			);
+			this.$app.$def.toTips("", this.$t("menu.pathshowlist.cpdcanceltext"));
+		} else if (id == "paste") {
+			//剪切，粘贴相关逻辑
+			storage.gets({
+				keys: ["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+				success: (datas) => {
+					if (datas.wgsettings_fm_cachePath && datas.wgsettings_fm_cacheCtrl) {
+						if (datas.wgsettings_fm_cacheCtrl == "copy_file")
+							this.fun_copy(
+								datas.wgsettings_fm_cachePath,
+								this.pathUri +
+									"/" +
+									this.getFileName(datas.wgsettings_fm_cachePath)
+							);
+						else if (datas.wgsettings_fm_cacheCtrl == "copy_path") {
+							this.$app.$def.settingsChangeMore(
+								["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+								["", ""]
+							);
+							this.$app.$def.toToast(this.$t("tips.run_fail"));
+						} else if (datas.wgsettings_fm_cacheCtrl == "copydel_file")
+							this.fun_copydel(
+								datas.wgsettings_fm_cachePath,
+								this.pathUri +
+									"/" +
+									this.getFileName(datas.wgsettings_fm_cachePath)
+							);
+						else if (datas.wgsettings_fm_cacheCtrl == "copydel_path") {
+							this.$app.$def.settingsChangeMore(
+								["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+								["", ""]
+							);
+							this.$app.$def.toToast(this.$t("tips.run_fail"));
+						}
+					} else
+						this.$app.$def.settingsChangeMore(
+							["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+							["", ""]
+						);
+				},
+				fail: () => {
+					this.$app.$def.settingsChangeMore(
+						["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+						["", ""]
+					);
+				},
+			});
+		} else if (id == "addpath") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itempath.item2.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "addpath",
+					}),
+				}
+			);
+		} else if (id == "addfile") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itemfile.item3.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "addfile",
+					}),
+				}
+			);
+		} else if (id == "renamefile") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itemfile.item8.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "renamefile",
+						name: this.pathshowList[this.selectItemNum]["name"],
+						msg: this.pathshowList[this.selectItemNum]["name"],
+					}),
+				}
+			);
+		} else if (id == "renamepath") {
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/setinfo",
+				{
+					textValues: JSON.stringify({
+						tabtext: this.$t("menu.pathshowlist.itempath.item7.name"),
+						pname: this.pathName,
+						uri: this.pathUri,
+						ruri: this.pathRootUri,
+						type: "renamepath",
+						name: this.pathshowList[this.selectItemNum]["name"],
+						msg: this.pathshowList[this.selectItemNum]["name"],
+					}),
+				}
+			);
+		} else if (id == "deletepath") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/filemanger/fpdel", {
+				pname: this.pathName,
+				uri: this.pathUri,
+				ruri: this.pathRootUri,
+				type: "deletepath",
+				name: this.pathshowList[this.selectItemNum]["name"],
+			});
+		} else if (id == "deletefile") {
+			this.$app.$def.goReplacePageWithParams("pages/ui/acts/filemanger/fpdel", {
+				pname: this.pathName,
+				uri: this.pathUri,
+				ruri: this.pathRootUri,
+				type: "deletefile",
+				name: this.pathshowList[this.selectItemNum]["name"],
+			});
+		} else if (id == "fileinfo") {
+			this.$app.$def.toTips(
+				this.$t("menu.pathshowlist.itemfile.item9.name"),
+				this.$app.$def.textFormat(
+					this.$t("menu.pathshowlist.fileinfodemotext"),
+					{
+						name: this.pathshowList[this.selectItemNum]["name"],
+						path: this.$app.$def.formatPath(
+							this.pathshowList[this.selectItemNum]["uri"]
+						),
+						size:
+							this.formatFileSize(
+								this.pathshowList[this.selectItemNum]["info_length"],
+								2
+							) +
+							"\n(" +
+							this.pathshowList[this.selectItemNum]["info_length"] +
+							"Bytes)",
+						ltime: this.formatTime(
+							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
+						),
+					}
+				)
+			);
+		} else if (id == "pathinfo") {
+			this.$app.$def.toTips(
+				this.$t("menu.pathshowlist.itempath.item8.name"),
+				this.$app.$def.textFormat(
+					this.$t("menu.pathshowlist.pathinfodemotext"),
+					{
+						name: this.pathshowList[this.selectItemNum]["name"],
+						path: this.$app.$def.formatPath(
+							this.pathshowList[this.selectItemNum]["uri"]
+						),
+						ltime: this.formatTime(
+							this.pathshowList[this.selectItemNum]["info_lastModifiedTime"]
+						),
+					}
+				)
+			);
+		} else if (id == "update")
+			this.$app.$def.goReplacePageWithParams(
+				"pages/ui/acts/filemanger/pathshow",
+				{
+					pathName: this.pathName,
+					pathUri: this.pathUri,
+					pathRootUri: this.pathRootUri,
+				}
+			);
+		else if (id == "openway") {
+			needoffmenu = false;
+			this.menuflag = "fileopenway";
+			this.opmenu(true, this.$t("menu.pathshowlist.itemfile.item4.name"));
+		} else if (id.startsWith("fow_")) {
+			//文件打开方式
+			needoffmenu = false;
+			this.menuflag = "fileopen." + id;
+			let tabtext = "";
+			if (id == "fow_text")
+				tabtext = "menu.pathshowlist.fileopenway.item1.name";
+			else if (id == "fow_photo")
+				tabtext = "menu.pathshowlist.fileopenway.item2.name";
+			else if (id == "fow_music")
+				tabtext = "menu.pathshowlist.fileopenway.item3.name";
+			else if (id == "fow_video")
+				tabtext = "menu.pathshowlist.fileopenway.item4.name";
+			else if (id == "fow_zip")
+				tabtext = "menu.pathshowlist.fileopenway.item5.name";
+			else if (id == "fow_other")
+				tabtext = "menu.pathshowlist.fileopenway.item6.name";
+			this.opmenu(true, this.$t(tabtext));
+		} else if (id.startsWith("fo_")) {
+			//打开文件
+			if (id == "fo_text_wgdisplay") {
+				const filesize = this.pathshowList[this.selectItemNum]["info_length"];
+				if (filesize <= 5242880) {
+					this.$app.$def.goPageWithParams(
+						"pages/ui/acts/filemanger/open/textshow",
+						{
+							name: this.getFileNameWithoutExtension(
+								this.pathshowList[this.selectItemNum]["uri"]
+							),
+							size: filesize,
+							uri: this.pathshowList[this.selectItemNum]["uri"],
+						}
+					);
+				} else
+					this.$app.$def.toTips(
+						this.$t("acts.filemanger.open.textshow.tabtext"),
+						this.$t("acts.filemanger.open.textshow.err2")
+					);
+			} else if (id == "fo_photo_wgdisplay") {
+				this.$app.$def.goPageWithParams(
+					"pages/ui/acts/filemanger/open/imageshow/main",
+					{
+						name: this.getFileNameWithoutExtension(
+							this.pathshowList[this.selectItemNum]["uri"]
+						),
+						uri: this.pathshowList[this.selectItemNum]["uri"],
+					}
+				);
+			} else this.$app.$def.toTips("", this.$t("tips.toNull"));
+		} else if (id == "back");
+		else if (id == "back_fileopen") {
+			needoffmenu = false;
+			this.menuflag = "fileopenway";
+			this.opmenu(true, this.$t("menu.pathshowlist.itemfile.item4.name"));
+		} else {
+			this.$app.$def.toTips("", this.$t("tips.toNull"));
+		}
+		this.menuflag = "def";
+		if (needoffmenu) this.opmenu(false);
+	},
+	opmenu(can, tabtext = this.$t("app.menu")) {
+		this.pathshowmenuListReady();
+		if (can) {
+			this.tabtext = tabtext;
+			this.tabtextleft = "";
+			this.isMenu = true;
+		} else {
+			this.tabtext = this.pathName;
+			this.tabtextleft = "‹";
+			this.isMenu = false;
+		}
+	},
+	pathshowListReady() {
+		file.list({
+			uri: this.pathUri,
+			success: (data) => {
+				var filelst = data.fileList;
+				file.listdir({
+					uri: this.pathUri,
+					success: (data) => {
+						this.pathLoad(data.dirList.concat(filelst));
+					},
+				});
+			},
+			fail: () => {
+				this.pathLoad([{}]);
+			},
+		});
+	},
+	pathshowmenuListReady() {
+		this.pathshowmenuList = []; //清空
+		let menulistlen = 4; //默认菜单个数
+		if (this.menuflag == "itempath") menulistlen = 9; //文件夹菜单个数
+		else if (this.menuflag == "itemfile") menulistlen = 10; //文件菜单个数
+		else if (this.menuflag == "itemcpd") menulistlen = 4; //复制&剪切菜单个数
+		else if (this.menuflag == "fileopenway") menulistlen = 7; //文件打开方式个数
+		else if (this.menuflag == "fileopen.fow_text")
+			menulistlen = 2; //文件打开方式-文本个数
+		else if (this.menuflag == "fileopen.fow_photo")
+			menulistlen = 2; //文件打开方式-图片个数
+		else if (this.menuflag == "fileopen.fow_music")
+			menulistlen = 1; //文件打开方式-音频个数
+		else if (this.menuflag == "fileopen.fow_video")
+			menulistlen = 1; //文件打开方式-视频个数
+		else if (this.menuflag == "fileopen.fow_zip")
+			menulistlen = 1; //文件打开方式-压缩个数
+		else if (this.menuflag == "fileopen.fow_other") menulistlen = 1; //文件打开方式-其他个数
+		let tol = menulistlen + 1; //1 个缓冲垫底
+		for (let i = 0; i < tol; i++) {
+			let inx = i + 1;
+			let list_num = -1;
+			let list_color = "";
+			let list_textcolor = "";
+			let list_id = "";
+			let list_name = "";
+			if (inx <= menulistlen) {
+				let name = "";
+				let id = "";
+				eval(
+					"name = this.$t('menu.pathshowlist." +
+						this.menuflag +
+						".item" +
+						inx +
+						".name')"
+				);
+				eval(
+					"id = this.$t('menu.pathshowlist." +
+						this.menuflag +
+						".item" +
+						inx +
+						".id')"
+				);
+				list_num = i;
+				list_color = "#3c3c3c";
+				if (inx == menulistlen) list_textcolor = "red";
+				else list_textcolor = "white";
+				list_id = id;
+				list_name = name;
+			}
+			this.pathshowmenuList.push({
+				num: list_num,
+				color: list_color,
+				textcolor: list_textcolor,
+				id: list_id,
+				name: list_name,
+			});
+		}
+	},
+	pathLoad(data) {
+		this.pathshowList = [];
+		let listlen = data.length;
+		let tol = listlen + 1 + 1; //1垫底缓冲
+		for (let i = 0; i < tol; i++) {
+			let inx = i;
+			let list_num = -1;
+			let list_color = "";
+			let list_show = false;
+			let list_id = "";
+			let list_uri = "";
+			let list_name = "";
+			let list_info = "";
+			let list_ico = "";
+			let list_isfile = false;
+			let list_info_length = 0;
+			let list_info_lastModifiedTime = 0;
+			if (i == 0) {
+				list_num = inx;
+				list_color = "#3c3c3c";
+				list_show = true;
+				list_id = "../";
+				if (this.pathUri != this.pathRootUri)
+					list_uri = this.getParentFolder(this.pathUri);
+				else list_uri = "";
+				list_name = "...";
+				list_info = this.$t("menu.pathshowlist.backpath");
+				list_ico = "b5";
+			} else {
+				if (inx <= listlen) {
+					try {
+						if (data[i - 1]["isDir"] == true) list_isfile = false;
+						else list_isfile = true;
+					} catch {
+						list_isfile = true;
+					}
+					let uri = data[i - 1]["uri"];
+					let name = this.getSubstringAfter(uri, this.pathUri + "/");
+					if (list_isfile) {
+						list_info_length = data[i - 1]["length"];
+						list_info_lastModifiedTime = data[i - 1]["lastModifiedTime"];
+						//let info = this.$app.$def.formatDecimal(list_info_length / 1024, 1) + "K";
+						let info = this.formatFileSize(list_info_length);
+						if (name) {
+							let type = this.getSubstringAfter(name, ".").toLowerCase();
+							if (type == "txt") list_ico = "b13";
+							else if (type == "jpg" || type == "jpeg" || type == "png")
+								list_ico = "b11";
+							else if (type == "mp3") list_ico = "b9";
+							else if (type == "mp4") list_ico = "b8";
+							else if (type == "zip") list_ico = "b16";
+							else list_ico = "b14";
+						}
+						list_info = info;
+					} else {
+						list_ico = "b5";
+						list_info = this.$t("menu.pathshowlist.pathtext");
+					}
+					list_num = inx;
+					list_color = "#3c3c3c";
+					list_show = true;
+					list_uri = uri;
+					list_id = uri;
+					list_name = name;
+				}
+			}
+			this.pathshowList.push({
+				num: list_num,
+				color: list_color,
+				show: list_show,
+				id: list_id,
+				name: list_name,
+				info: list_info,
+				ico: list_ico,
+				uri: list_uri,
+				isfile: list_isfile,
+				info_length: list_info_length,
+				info_lastModifiedTime: list_info_lastModifiedTime,
+			});
+		}
+	},
+	getSubstringAfter(originalStr, targetStr) {
+		// 从后向前查找目标字符串
+		const index = originalStr.lastIndexOf(targetStr);
+
+		// 未找到时返回空字符串
+		if (index === -1) return "";
+
+		// 计算目标字符串之后的起始位置
+		const startPosition = index + targetStr.length;
+
+		// 从计算位置截取到末尾
+		return originalStr.slice(startPosition);
+	},
+	formatTime(ts) {
+		// 处理无效时间戳
+		if (isNaN(ts)) return "Invalid Timestamp";
+
+		// 转换秒级时间戳为毫秒
+		const milliseconds = ts < 10000000000 ? ts * 1000 : ts;
+
+		const date = new Date(milliseconds);
+
+		// 检查日期是否有效
+		if (isNaN(date.getTime())) return "Invalid Date";
+
+		// 格式化为 yy-mm-dd HH:mm
+		const yy = date.getFullYear().toString().padStart(4, "0");
+		const mm = (date.getMonth() + 1).toString().padStart(2, "0");
+		const dd = date.getDate().toString().padStart(2, "0");
+		const HH = date.getHours().toString().padStart(2, "0");
+		const min = date.getMinutes().toString().padStart(2, "0");
+
+		return `${yy}-${mm}-${dd} ${HH}:${min}`;
+	},
+	formatFileSize(bytes) {
+		if (bytes === 0) return "0B";
+
+		const units = ["B", "K", "M", "G", "T", "P"];
+		let index = 0;
+		let size = bytes;
+
+		// 循环除以1024直到找到合适的单位
+		while (size >= 1024 && index < units.length - 1) {
+			size /= 1024;
+			index++;
+		}
+
+		// 处理小数部分
+		const formattedSize = size.toFixed(2).replace(/\.?0+$/, "");
+		return formattedSize + units[index];
+	},
+	getParentFolder(path) {
+		// 根目录直接返回自身
+		if (path === "internal://") return path;
+
+		// 移除末尾斜杠并查找最后一级目录的分隔符
+		const cleanPath = path.replace(/\/+$/, "");
+		const lastSlash = cleanPath.lastIndexOf("/");
+
+		// 处理不同情况
+		return lastSlash <= 10 // "internal://" 长度是11，索引10是冒号后的第一个斜杠
+			? "internal://" // 只有一级目录时返回根目录
+			: cleanPath.substring(0, lastSlash); // 返回父路径
+	},
+	getFileName(filePath) {
+		// 处理空路径
+		if (!filePath) return "";
+
+		// 替换 Windows 路径分隔符为 Unix 风格（统一处理）
+		const normalizedPath = filePath.replace(/\\/g, "/");
+
+		// 移除末尾的路径分隔符（如果有）
+		const cleanPath = normalizedPath.replace(/\/+$/, "");
+
+		// 查找最后一个路径分隔符后的内容
+		const lastIndex = cleanPath.lastIndexOf("/");
+
+		// 返回最后一部分（如果找不到分隔符则返回整个字符串）
+		return lastIndex === -1 ? cleanPath : cleanPath.substring(lastIndex + 1);
+	},
+	getFileNameWithoutExtension(filePath) {
+		// 处理空路径
+		if (!filePath) return "";
+		// 提取文件名部分（包含后缀）
+		const fileNameWithExt = filePath.split(/[\\/]/).pop();
+		// 特殊处理 '.' 和 '..'
+		if (fileNameWithExt === "." || fileNameWithExt === "..") {
+			return fileNameWithExt;
+		}
+		// 查找最后一个点的位置
+		const lastDotIndex = fileNameWithExt.lastIndexOf(".");
+		// 没有点 / 点在开头 / 点在结尾 → 返回完整文件名
+		if (
+			lastDotIndex === -1 ||
+			lastDotIndex === 0 ||
+			lastDotIndex === fileNameWithExt.length - 1
+		) {
+			return fileNameWithExt;
+		}
+		// 截取点之前的部分（不包含后缀）
+		return fileNameWithExt.substring(0, lastDotIndex);
+	},
+	opmenu_def(id, num, isfile) {
+		this.menuflag = "def";
+		this.selectItemNum = num;
+		this.ht(0, num); //fix item color
+		if (id == "../") this.opmenu(true);
+		else {
+			if (isfile) this.menuflag = "itemfile";
+			else this.menuflag = "itempath";
+			this.opmenu(true);
+		}
+	},
+	opmenu_cpd(num) {
+		this.menuflag = "itemcpd";
+		this.selectItemNum = num;
+		this.ht(0, num); //fix item color
+		this.opmenu(true);
+	},
+	fun_copydel(_srcUri, _dstUri) {
+		file.move({
+			srcUri: _srcUri,
+			dstUri: _dstUri,
+			text: "",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: this.pathUri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+			},
+		});
+	},
+	fun_copy(_srcUri, _dstUri) {
+		file.copy({
+			srcUri: _srcUri,
+			dstUri: _dstUri,
+			text: "",
+			success: () => {
+				//console.log("handling success");
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(this.$t("tips.run_success"));
+				this.$app.$def.goReplacePageWithParams(
+					"pages/ui/acts/filemanger/pathshow",
+					{
+						pathName: this.pathName,
+						pathUri: this.pathUri,
+						pathRootUri: this.pathRootUri,
+					}
+				);
+			},
+			fail: (data, code) => {
+				//console.log(`handling fail, data= ${data}, code = ${code}`);
+				this.$app.$def.settingsChangeMore(
+					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
+					["", ""]
+				);
+				this.$app.$def.toToast(
+					this.$t("tips.run_fail_witherror") +
+						`handling fail, data= ${data}, code = ${code}`
+				);
+			},
+		});
+	},
+};
+</script>
+
+<style>
+@import "../../../../../common/style/index.css";
+@import "../../../../../common/style/wgpro.css";
+</style>

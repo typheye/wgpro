@@ -1,0 +1,28 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "n67cn",
+  "productName": "Xiaomi Smart Band 9 Pro",
+  "aliases": ["小米手环9 Pro", "Xiaomi Smart Band 9 Pro", "miwear.watch.n67cn"],
+  "family": "band-pro",
+  "deviceType": "watch",
+  "designWidth": 336,
+  "screen": {
+    "width": 336,
+    "height": 480,
+    "shape": "rect",
+    "density": 340
+  },
+  "overlays": ["variants/band", "variants/band-pro"],
+  "assetSet": "band",
+  "exclude": [
+    "src/pages/ui/acts/browser",
+    "src/pages/ui/acts/settings/browser",
+    "src/pages/ui/function/browser",
+    "src/pages/ui/acts/filemanger/open/musicplayer"
+  ],
+  "features": {
+    "browser": false,
+    "music": false,
+    "networkMode": "proxy"
+  }
+}
