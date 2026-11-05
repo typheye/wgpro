@@ -856,7 +856,7 @@ export default {
 			},
 		};
 		let flag = "def";
-		if (this.product == "Xiaomi Smart Band 9 Pro") flag = "proxy";
+		if (this.buildProfile.family === "band-pro") flag = "proxy";
 		//else if (this.product == "Emulator-Vela") flag = "proxy";
 		return URIs[str][flag];
 	},

@@ -23,6 +23,6 @@
   "features": {
     "browser": false,
     "music": false,
-    "networkMode": "proxy"
+    "networkMode": "bridge"
   }
 }

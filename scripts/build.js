@@ -161,14 +161,36 @@ function validateNetworkMode(stageDir, profile) {
   if (!match) {
     throw new Error(`${profile.codename} 无法识别 fetch 网络模式`);
   }
-  const expected = profile.features && profile.features.networkMode === "system";
+  const mode = profile.features && profile.features.networkMode;
+  const expected = mode === "system" || mode === "proxy";
   const actual = match[1] === "true";
   if (actual !== expected) {
     throw new Error(
-      `${profile.codename} 网络模式不一致：profile=${profile.features.networkMode}，` +
+      `${profile.codename} 网络模式不一致：profile=${mode}，` +
         `enableFetch=${actual}`
     );
   }
+  if (mode === "proxy") {
+    const appSource = fs.readFileSync(path.join(stageDir, "src", "app.ux"), "utf8");
+    if (!appSource.includes('this.buildProfile.family === "band-pro"')) {
+      throw new Error(`${profile.codename} 缺少 band-pro 到 proxy URL 的分支`);
+    }
+  }
+}
+
+function applyNetworkMode(stageDir, profile) {
+  const mode = profile.features && profile.features.networkMode;
+  if (!["system", "bridge", "proxy"].includes(mode)) {
+    throw new Error(`${profile.codename} 的 networkMode 无效：${mode}`);
+  }
+  const target = path.join(stageDir, "src", "utils", "fetch.js");
+  const source = fs.readFileSync(target, "utf8");
+  const expected = mode === "system" || mode === "proxy" ? "true" : "false";
+  const next = source.replace(
+    /const\s+enableFetch\s*=\s*(?:true|false)\s*;/,
+    `const enableFetch = ${expected};`
+  );
+  fs.writeFileSync(target, next);
 }
 
 function validateOverlayResult(stageDir, profile) {
@@ -277,6 +299,7 @@ function build(codename, options) {
   }
   removeExcluded(stageDir, profile);
   pruneBandAssets(stageDir, profile);
+  applyNetworkMode(stageDir, profile);
   validateNetworkMode(stageDir, profile);
   validateOverlayResult(stageDir, profile);
   generateManifest(stageDir, profile);

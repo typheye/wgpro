@@ -1,7 +1,7 @@
 import deffetch from "@system.fetch";
 import interconnect from "@system.interconnect";
 
-const enableFetch = true; // 启用系统fetch，否则使用代理
+const enableFetch = true; // true=设备网络(system/proxy)，false=客户端桥接
 // 单次请求上限（ms）：系统 fetch 没有超时兜底，弱网/断网时可能一直不回调，
 // 页面会永远停在 Loading（卡屏）。取值与 Android 端 OkHttp readTimeout 对齐；
 // 单次请求可用 options.timeout 覆盖（<=0 表示不设兜底）。

@@ -8,11 +8,11 @@
 
 | 代号 | 设备 | designWidth | 屏幕 | 类型/网络 |
 |---|---|---:|---|---|
-| `n66cn` | Xiaomi Smart Band 9 | 192 | 192×490 pill | band / proxy |
-| `n66nfc` | Xiaomi Smart Band 9 NFC | 192 | 192×490 pill | band / proxy |
+| `n66cn` | Xiaomi Smart Band 9 | 192 | 192×490 pill | band / bridge |
+| `n66nfc` | Xiaomi Smart Band 9 NFC | 192 | 192×490 pill | band / bridge |
 | `n67cn` | Xiaomi Smart Band 9 Pro | 336 | 336×480 rect | band-pro / proxy |
-| `o66cn` | Xiaomi Smart Band 10 | 212 | 212×520 pill | band / proxy |
-| `o66nfc` | Xiaomi Smart Band 10 NFC | 212 | 212×520 pill | band / proxy |
+| `o66cn` | Xiaomi Smart Band 10 | 212 | 212×520 pill | band / bridge |
+| `o66nfc` | Xiaomi Smart Band 10 NFC | 212 | 212×520 pill | band / bridge |
 | `p67cn` | Xiaomi Smart Band 10 Pro | 336 | 336×480 rect | band-pro / proxy |
 | `n62` | Xiaomi Watch S3 | 466 | 466×466 circle | watch / system |
 | `n62lte` | Xiaomi Watch S3 eSIM | 466 | 466×466 circle | watch / system |
@@ -56,7 +56,8 @@ dist/build-index.json
 3. Band 设备删除浏览器、音乐播放器和手表专属资源；
 4. 把设备代号对应的真实屏幕宽度写入 `designWidth`；
 5. 生成 build profile；
-6. 校验 Band 使用代理、Watch 使用系统网络；
+6. 普通 Band 写入 `enableFetch=false` 使用客户端桥接；Band Pro 和 Watch
+   写入 `enableFetch=true`，Band Pro 另外按 product 切换到 proxy URL；
 7. 使用 release 证书签名；
 8. 解包回读 manifest，校验配置确实进入 RPK。
 
