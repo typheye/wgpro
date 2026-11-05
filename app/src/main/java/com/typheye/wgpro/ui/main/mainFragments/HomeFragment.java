@@ -96,6 +96,8 @@ public class HomeFragment extends Fragment {
     private boolean communityLoading;
     private boolean appsLoading;
     private boolean resourcesLoading;
+    private JSONArray currentApps;
+    private JSONArray currentResources;
     /** home2 在旧服务器上不存在时，退回三个独立接口只退一次。 */
     private boolean communityLegacyFallback;
     private long communityLoadedAt;
@@ -134,6 +136,21 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        com.typheye.wgpro.core.state.ContentStatsStore.get().revision().observe(
+                getViewLifecycleOwner(), revision -> {
+                    boolean changed = false;
+                    if (currentApps != null) {
+                        changed |= com.typheye.wgpro.core.state.ContentStatsStore.get()
+                                .apply(currentApps);
+                    }
+                    if (currentResources != null) {
+                        changed |= com.typheye.wgpro.core.state.ContentStatsStore.get()
+                                .apply(currentResources);
+                    }
+                    if (!changed) return;
+                    if (currentApps != null) renderApps(currentApps, false);
+                    if (currentResources != null) renderResources(currentResources, false);
+                });
         // 发布动态/资源成功后，清掉缓存时间戳并强刷当前可见页（切到其它页也会重新请求）。
         com.typheye.wgpro.core.state.AppState.get().contentRefresh().observe(
                 getViewLifecycleOwner(), at -> {
@@ -511,14 +528,9 @@ public class HomeFragment extends Fragment {
                     appsLoading = false;
                     appsLoadedAt = android.os.SystemClock.uptimeMillis();
                     JSONArray list = items(json, "items", "apps", "data", "info");
-                    String signature = listSignature(list, "package", "id", "name", "summary", "version_name");
-                    if (!signature.equals(appsSignature)) {
-                        appsSignature = signature;
-                        apps.removeAllViews();
-                        for (int i = 0; i < list.length(); i++) addCatalogCard(apps,
-                                list.optJSONObject(i), true);
-                    }
-                    showStatus(appsStatus, list.length() == 0, "应用目录暂时为空");
+                    com.typheye.wgpro.core.state.ContentStatsStore.get().seed(list);
+                    currentApps = list;
+                    renderApps(list, true);
                     appsRefresh.setRefreshing(false);
                 });
             }
@@ -556,20 +568,10 @@ public class HomeFragment extends Fragment {
                     resourcesLoading = false;
                     resourcesLoadedAt = android.os.SystemClock.uptimeMillis();
                     JSONArray list = items(json, "items", "resources", "data");
-                    String signature = listSignature(list, "id", "title", "summary",
-                            "description", "collection_count", "is_collected", "status");
                     com.typheye.wgpro.ui.function.community.ResourceCoverResolver.fill(requireContext(), list, null);
-                    if (!signature.equals(resourcesSignature)) {
-                        resourcesSignature = signature;
-                        resources.removeAllViews();
-                        resources.addView(ResourceMasonryFactory.create(requireContext(), list, item -> {
-                            startActivity(new Intent(requireContext(),
-                                    com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
-                                    .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
-                                            item.toString()));
-                        }, (item, anchor) -> showCatalogActions(item, false)), new LinearLayout.LayoutParams(-1, -2));
-                    }
-                    showStatus(resourcesStatus, list.length() == 0, "还没有用户分享资源");
+                    com.typheye.wgpro.core.state.ContentStatsStore.get().seed(list);
+                    currentResources = list;
+                    renderResources(list, true);
                     resourcesRefresh.setRefreshing(false);
                 });
             }
@@ -586,6 +588,53 @@ public class HomeFragment extends Fragment {
         };
         account.getV2JsonCached("resources2", pageQuery(), false,
                 force ? 0L : CATALOG_TTL_MS, callback);
+    }
+
+    private void renderApps(@NonNull JSONArray list, boolean requestStats) {
+        String signature = listSignature(list, "package", "id", "name", "summary",
+                "version_name", "downloads", "download_count", "stars", "collection_count",
+                "is_collected");
+        if (!signature.equals(appsSignature)) {
+            appsSignature = signature;
+            apps.removeAllViews();
+            List<String> keys = new java.util.ArrayList<>();
+            for (int i = 0; i < list.length(); i++) {
+                JSONObject item = list.optJSONObject(i);
+                addCatalogCard(apps, item, true);
+                if (item != null) keys.add(item.optString("package", item.optString("id", "")));
+            }
+            if (requestStats) {
+                com.typheye.wgpro.core.state.ContentStatsStore.get()
+                        .refresh(requireContext(), com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, keys);
+            }
+        }
+        showStatus(appsStatus, list.length() == 0, "应用目录暂时为空");
+    }
+
+    private void renderResources(@NonNull JSONArray list, boolean requestStats) {
+        String signature = listSignature(list, "id", "title", "summary", "description",
+                "downloads", "download_count", "stars", "collection_count",
+                "is_collected", "status");
+        if (!signature.equals(resourcesSignature)) {
+            resourcesSignature = signature;
+            resources.removeAllViews();
+            resources.addView(ResourceMasonryFactory.create(requireContext(), list, item -> {
+                startActivity(new Intent(requireContext(),
+                        com.typheye.wgpro.ui.function.community.ResourceDetailActivity.class)
+                        .putExtra(com.typheye.wgpro.ui.function.community.ResourceDetailActivity.EXTRA_RESOURCE_JSON,
+                                item.toString()));
+            }, (item, anchor) -> showCatalogActions(item, false)), new LinearLayout.LayoutParams(-1, -2));
+            if (requestStats) {
+                List<String> keys = new java.util.ArrayList<>();
+                for (int i = 0; i < list.length(); i++) {
+                    JSONObject item = list.optJSONObject(i);
+                    if (item != null) keys.add(item.optString("id", ""));
+                }
+                com.typheye.wgpro.core.state.ContentStatsStore.get()
+                        .refresh(requireContext(), com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE, keys);
+            }
+        }
+        showStatus(resourcesStatus, list.length() == 0, "还没有用户分享资源");
     }
 
     private void addCatalogCard(LinearLayout parent, @Nullable JSONObject item, boolean app) {

@@ -17,6 +17,7 @@ import com.typheye.wgpro.R;
 import com.typheye.wgpro.utils.tAccUtils;
 import com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder;
 import com.typheye.wgpro.ui.widget.WGProBottomSheetDialog;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -159,11 +160,37 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
             super.onViewCreated(view, state);
             com.typheye.wgpro.core.download.DownloadManager.get().tasks()
                     .observe(getViewLifecycleOwner(), this::renderActionState);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().revision()
+                    .observe(getViewLifecycleOwner(), revision -> {
+                        String id = resource.optString("id");
+                        if (!isAdded() || id.isEmpty() || getView() == null) return;
+                        com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                                com.typheye.wgpro.core.state.ContentStatsStore.get()
+                                        .find(com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE, id);
+                        if (stats == null) return;
+                        try {
+                            resource.put("download_count", stats.downloads);
+                            resource.put("downloads", stats.downloads);
+                            resource.put("collection_count", stats.stars);
+                            resource.put("stars", stats.stars);
+                            resource.put("is_collected", stats.collected);
+                        } catch (Exception ignored) {
+                        }
+                        ((TextView) getView().findViewById(R.id.resource_detail_downloads))
+                                .setText(formatCount(stats.downloads));
+                        ((TextView) getView().findViewById(R.id.resource_detail_stars))
+                                .setText(formatCount(stats.stars));
+                    });
         }
 
         private void bind(View root, JSONObject info) {
             if (info == null) return;
             resource = info;
+            JSONArray stats = new JSONArray().put(resource);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().seed(stats);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                    java.util.Collections.singletonList(resource.optString("id")));
             String title = info.optString("title", "未命名资源");
             TextView titleView = root.findViewById(R.id.resource_detail_title);
             TextView descriptionView = root.findViewById(R.id.resource_detail_description);
@@ -355,8 +382,7 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
         private void updateStarCount() {
             View view = getView();
             if (view == null) return;
-            int updated = Math.max(0, resource.optInt("collection_count") + (isStarred() ? 1 : -1));
-            try { resource.put("collection_count", updated); } catch (Exception ignored) { }
+            int updated = Math.max(0, resource.optInt("collection_count"));
             ((TextView) view.findViewById(R.id.resource_detail_stars)).setText(formatCount(updated));
         }
 
@@ -395,9 +421,19 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                         if (v == null || !isAdded()) return;
                         v.postDelayed(() -> {
                             progress.dismissForReplacement();
-                            try { resource.put("is_collected", j.optBoolean("collected", !before)); }
+                            boolean collected = j.optBoolean("collected", !before);
+                            int count = j.optInt("collection_count",
+                                    resource.optInt("collection_count") + (collected ? 1 : -1));
+                            try {
+                                resource.put("is_collected", collected);
+                                resource.put("collection_count", Math.max(0, count));
+                                resource.put("stars", Math.max(0, count));
+                            }
                             catch (Exception ignored) { }
                             updateStarCount();
+                            com.typheye.wgpro.core.state.ContentStatsStore.get().collectionChanged(
+                                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                                    resource.optString("id"), collected, Math.max(0, count));
                             feedback("操作成功", resource.optBoolean("is_collected") ? "已加入星标" : "已移除星标");
                         }, delay(started));
                     });
@@ -759,11 +795,22 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                     new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
                         @Override
                         public void onSuccess(org.json.JSONObject j) {
-                            try { resource.put("is_collected", j.optBoolean("collected", add)); }
+                            boolean collected = j.optBoolean("collected", add);
+                            int count = j.optInt("collection_count",
+                                    resource.optInt("collection_count") + (collected ? 1 : -1));
+                            count = Math.max(0, count);
+                            try {
+                                resource.put("is_collected", collected);
+                                resource.put("collection_count", count);
+                                resource.put("stars", count);
+                            }
                             catch (Exception ignored) { }
+                            com.typheye.wgpro.core.state.ContentStatsStore.get().collectionChanged(
+                                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                                    resource.optString("id"), collected, count);
                             updateStarCount();
                             com.typheye.wgpro.ui.widget.WGProHint.show(context,
-                                    add ? "已加入星标" : "已移出星标");
+                                    collected ? "已加入星标" : "已移出星标");
                         }
 
                         @Override
@@ -1090,10 +1137,26 @@ public final class ResourceDetailActivity extends BaseSectionActivity {
                 public void onSuccess(JSONObject j) {
                     if (!isAdded() || getActivity() == null) return;
                     final String url = j.optString("download_url", direct);
+                    final int downloads = j.optInt("download_count", -1);
                     requireActivity().runOnUiThread(() -> {
                         View v = getView();
                         if (v == null) return;
-                        v.postDelayed(() -> { progress.dismissForReplacement(); enqueue(url, destination, targetUri); }, delay(started));
+                        v.postDelayed(() -> {
+                            progress.dismissForReplacement();
+                            if (downloads >= 0) {
+                                try {
+                                    resource.put("download_count", downloads);
+                                    resource.put("downloads", downloads);
+                                } catch (Exception ignored) {
+                                }
+                                com.typheye.wgpro.core.state.ContentStatsStore.get().downloadChanged(
+                                        com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE,
+                                        resourceId, downloads);
+                                ((TextView) v.findViewById(R.id.resource_detail_downloads))
+                                        .setText(formatCount(downloads));
+                            }
+                            enqueue(url, destination, targetUri);
+                        }, delay(started));
                     });
                 }
                 public void onError(int c, String m) {

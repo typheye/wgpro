@@ -118,6 +118,33 @@ public final class AppDetailFragment extends Fragment {
         super.onViewCreated(view, state);
         com.typheye.wgpro.core.download.DownloadManager.get().tasks()
                 .observe(getViewLifecycleOwner(), this::renderInstallState);
+        com.typheye.wgpro.core.state.ContentStatsStore.get().revision()
+                .observe(getViewLifecycleOwner(), revision -> {
+                    if (!isAdded() || appKey.isEmpty()) return;
+                    com.typheye.wgpro.core.state.ContentStatsStore.Stats stats =
+                            com.typheye.wgpro.core.state.ContentStatsStore.get()
+                                    .find(com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, appKey);
+                    if (stats == null || getView() == null) return;
+                    try {
+                        appJson.put("downloads", stats.downloads);
+                        appJson.put("download_count", stats.downloads);
+                        appJson.put("stars", stats.stars);
+                        appJson.put("collection_count", stats.stars);
+                        appJson.put("is_collected", stats.collected);
+                    } catch (Exception ignored) {
+                    }
+                    ((TextView) getView().findViewById(R.id.app_detail_downloads))
+                            .setText(formatDownloads(stats.downloads));
+                    ((TextView) getView().findViewById(R.id.app_detail_stars))
+                            .setText(formatDownloads(stats.stars));
+                });
+        if (!appKey.isEmpty()) {
+            JSONArray stats = new JSONArray().put(appJson);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().seed(stats);
+            com.typheye.wgpro.core.state.ContentStatsStore.get().refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                    java.util.Collections.singletonList(appKey));
+        }
     }
 
     /** 底部「动作药丸」既是按钮也是进度条：文字随状态变化，主题色按进度填充。 */
@@ -250,13 +277,32 @@ public final class AppDetailFragment extends Fragment {
                 new com.typheye.wgpro.utils.tAccUtils.JsonCallback() {
                     @Override
                     public void onSuccess(@NonNull JSONObject json) {
+                        boolean collected = json.optBoolean("collected", add);
+                        int count = json.optInt("collection_count",
+                                json.optInt("stars", appJson.optInt("stars", 0) + (collected ? 1 : -1)));
+                        count = Math.max(0, count);
                         try {
-                            appJson.put("is_collected", json.optBoolean("collected", add));
+                            appJson.put("is_collected", collected);
+                            appJson.put("stars", count);
+                            appJson.put("collection_count", count);
                         } catch (Exception ignored) { }
                         context.getSharedPreferences("app_stars", android.content.Context.MODE_PRIVATE)
-                                .edit().putBoolean(appKey, add).apply();
+                                .edit().putBoolean(appKey, collected).apply();
+                        com.typheye.wgpro.core.state.ContentStatsStore.get().collectionChanged(
+                                com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                                appKey, collected, count);
+                        View view = getView();
+                        if (view != null) {
+                            view.post(() -> {
+                                View target = getView();
+                                if (target != null) {
+                                    ((TextView) target.findViewById(R.id.app_detail_stars))
+                                            .setText(formatDownloads(count));
+                                }
+                            });
+                        }
                         com.typheye.wgpro.ui.widget.WGProHint.show(context,
-                                add ? "已加入星标" : "已移出星标");
+                                collected ? "已加入星标" : "已移出星标");
                     }
 
                     @Override
@@ -1205,6 +1251,8 @@ public final class AppDetailFragment extends Fragment {
         // 兜底：镜像节点失败时回退到这个权威地址
         task.fallbackUrl = authoritativeUrl;
         com.typheye.wgpro.core.download.DownloadManager.get().enqueue(requireContext(), task);
+        com.typheye.wgpro.core.state.ContentStatsStore.get().downloadChanged(
+                com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, id, -1);
         downloadStarted = true;
     }
 
@@ -1236,6 +1284,14 @@ public final class AppDetailFragment extends Fragment {
                     if (info == null) return;
                     final int downloads = info.optInt("downloads", -1);
                     if (downloads < 0) return;
+                    com.typheye.wgpro.core.state.ContentStatsStore.get().downloadChanged(
+                            com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP,
+                            appKey, downloads);
+                    try {
+                        appJson.put("downloads", downloads);
+                        appJson.put("download_count", downloads);
+                    } catch (Exception ignored) {
+                    }
                     View view = getView();
                     if (view == null) return;
                     view.post(() -> {

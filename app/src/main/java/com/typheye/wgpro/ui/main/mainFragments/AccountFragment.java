@@ -575,8 +575,8 @@ public class AccountFragment extends Fragment {
             String nick = accUtils.getNick();
             String shuo = accUtils.getShuo();
 
-            account_text_usr_uid.setText(uid != null && !uid.isEmpty() ? "UID " + uid : "");
-            account_text_usr_nick.setText(nick != null && !nick.isEmpty() ? nick : "");
+            account_text_usr_uid.setText(uid != null && !uid.isEmpty() ? "UID " + uid : "UID --");
+            account_text_usr_nick.setText(nick != null && !nick.isEmpty() ? nick : "--");
 
             String cleanShuo = shuo != null ? shuo.trim() : "";
             account_text_usr_shuo.setText(cleanShuo.isEmpty() ? "这个人还没有简介呢~" : cleanShuo);

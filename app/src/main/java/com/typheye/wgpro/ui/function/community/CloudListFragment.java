@@ -247,6 +247,20 @@ public class CloudListFragment extends Fragment {
         return root;
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle state) {
+        super.onViewCreated(view, state);
+        com.typheye.wgpro.core.state.ContentStatsStore.get().revision().observe(
+                getViewLifecycleOwner(), revision -> {
+                    if (renderedItems == null || !isAdded()) return;
+                    if (com.typheye.wgpro.core.state.ContentStatsStore.get()
+                            .apply(renderedItems)) {
+                        lastRenderSignature = null;
+                        render(renderedItems);
+                    }
+                });
+    }
+
     @Override public void onResume() {
         super.onResume();
         if (MODE_NOTIFICATIONS.equals(mode) || MODE_CONVERSATIONS.equals(mode)) {
@@ -1012,6 +1026,7 @@ public class CloudListFragment extends Fragment {
     }
 
     private void render(JSONArray items) {
+        seedAndRefreshStats(items);
         String signature = listSignature(items);
         if (signature.equals(lastRenderSignature)) {
             // 数据没变：保留现有视图，避免重建时图片先空白再补上（闪动）
@@ -1033,6 +1048,33 @@ public class CloudListFragment extends Fragment {
         } else state.setVisibility(View.GONE);
     }
 
+    private void seedAndRefreshStats(@NonNull JSONArray items) {
+        com.typheye.wgpro.core.state.ContentStatsStore store =
+                com.typheye.wgpro.core.state.ContentStatsStore.get();
+        store.seed(items);
+        if (isAppTargetList() || (MODE_USER_APPS.equals(mode))) {
+            java.util.List<String> keys = new java.util.ArrayList<>();
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.optJSONObject(i);
+                if (item == null) continue;
+                keys.add(item.optString("package", item.optString("target_key",
+                        item.optString("id", ""))));
+            }
+            store.refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_APP, keys);
+        } else if (isResourceTargetList() || MODE_MY_RESOURCES.equals(mode)
+                || MODE_USER_RESOURCES.equals(mode)) {
+            java.util.List<String> keys = new java.util.ArrayList<>();
+            for (int i = 0; i < items.length(); i++) {
+                JSONObject item = items.optJSONObject(i);
+                if (item != null) keys.add(item.optString("id",
+                        item.optString("target_key", "")));
+            }
+            store.refresh(requireContext(),
+                    com.typheye.wgpro.core.state.ContentStatsStore.TYPE_RESOURCE, keys);
+        }
+    }
+
     /** 列表数据签名：用于判断刷新后是否真的需要重建视图。 */
     private String listSignature(JSONArray items) {
         if (items == null) return "";
@@ -1052,6 +1094,12 @@ public class CloudListFragment extends Fragment {
                     .append(item.optString("collection_count", "")).append('\u0001')
                     .append(item.optString("is_liked", "")).append('\u0001')
                     .append(item.optString("is_favorited", "")).append('\u0001')
+                    .append(item.optString("downloads", "")).append('\u0001')
+                    .append(item.optString("download_count", "")).append('\u0001')
+                    .append(item.optString("stars", "")).append('\u0001')
+                    .append(item.optString("is_collected", "")).append('\u0001')
+                    .append(item.optString("version_name", "")).append('\u0001')
+                    .append(item.optString("updated_at", "")).append('\u0001')
                     .append(item.optString("unread_count", "")).append('\n');
         }
         return sb.toString();

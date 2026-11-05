@@ -108,26 +108,7 @@ public final class DownloadManager {
             list.add(task);
         }
         publish();
-        reportDownload(task.id);
         startService(context);
-    }
-
-    /** 上报一次下载（服务端把对应 ini 的下载量 +1）。失败静默，不影响下载。 */
-    private static void reportDownload(final String id) {
-        if (id == null || id.isEmpty()) return;
-        new Thread(() -> {
-            try {
-                String url = "https://res.typheye.cn/api.php?action=download&package="
-                        + java.net.URLEncoder.encode(id, "UTF-8");
-                java.net.HttpURLConnection connection =
-                        (java.net.HttpURLConnection) new java.net.URL(url).openConnection();
-                connection.setConnectTimeout(8000);
-                connection.setReadTimeout(8000);
-                connection.getResponseCode();
-                connection.disconnect();
-            } catch (Exception ignored) {
-            }
-        }, "download-report").start();
     }
 
     /**
