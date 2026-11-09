@@ -208,6 +208,10 @@
         {
           "label": "p67cn — Xiaomi Smart Band 10 Pro",
           "value": "p67cn"
+        },
+        {
+          "label": "q66cn — Xiaomi Smart Band 11",
+          "value": "q66cn"
         }
       ]
     }

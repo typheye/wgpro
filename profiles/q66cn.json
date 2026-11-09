@@ -1,0 +1,28 @@
+{
+  "schema": "wgpro.vela.device/1",
+  "codename": "q66cn",
+  "productName": "Xiaomi Smart Band 11",
+  "aliases": ["小米手环11", "Xiaomi Smart Band 11", "miwear.watch.q66cn"],
+  "family": "band",
+  "deviceType": "watch",
+  "designWidth": 212,
+  "screen": {
+    "width": 212,
+    "height": 520,
+    "shape": "pill-shaped",
+    "density": 320
+  },
+  "overlays": ["variants/band"],
+  "assetSet": "band",
+  "exclude": [
+    "src/pages/ui/acts/browser",
+    "src/pages/ui/acts/settings/browser",
+    "src/pages/ui/function/browser",
+    "src/pages/ui/acts/filemanger/open/musicplayer"
+  ],
+  "features": {
+    "browser": false,
+    "music": false,
+    "networkMode": "bridge"
+  }
+}

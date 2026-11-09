@@ -25,6 +25,7 @@
 | `o66cn` | Xiaomi Smart Band 10 | 212 | 212×520 pill | band / bridge |
 | `o66nfc` | Xiaomi Smart Band 10 NFC | 212 | 212×520 pill | band / bridge |
 | `p67cn` | Xiaomi Smart Band 10 Pro | 336 | 336×480 rect | band-pro / proxy |
+| `q66cn` | Xiaomi Smart Band 11 | 212 | 212×520 pill | band / bridge |
 | `n62` | Xiaomi Watch S3 | 466 | 466×466 circle | watch / proxy |
 | `n62lte` | Xiaomi Watch S3 eSIM | 466 | 466×466 circle | watch / proxy |
 | `o62` | Xiaomi Watch S4 | 466 | 466×466 circle | watch / proxy |
