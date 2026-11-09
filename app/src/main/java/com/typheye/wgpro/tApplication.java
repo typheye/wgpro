@@ -23,6 +23,7 @@ public class tApplication extends Application {
     public void onCreate() {
         super.onCreate();
         instance = this;
+        migrateDynamicColorPreference();
         // Android 12+ 跟随系统壁纸取色（莫奈）；主题属性仍保留静态色作为低版本回退。
         // 这里**不能**在注册时就读开关：DynamicColors 注册的是一次性的 ActivityLifecycleCallbacks，
         // 一旦按当时的开关决定，之后改设置就必须重启进程才生效。
@@ -127,6 +128,8 @@ public class tApplication extends Application {
     }
     /** 「动态取色」（莫奈）开关的 SharedPreferences key，默认开启。 */
     public static final String PREF_DYNAMIC_COLOR = "theme_dynamic_color";
+    private static final String PREF_DYNAMIC_COLOR_SCHEMA = "theme_dynamic_color_schema";
+    private static final int DYNAMIC_COLOR_SCHEMA_VERSION = 1;
 
     /** 还活着的 Activity（用于「动态取色」这类只在创建时生效的设置做全局即时重建）。 */
     /** 当前处于 resumed 的 Activity：弹窗类操作必须用它，application context 会抛 BadToken。 */
@@ -168,11 +171,38 @@ public class tApplication extends Application {
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.S;
     }
 
+    /**
+     * 旧版本设置页在首装时显示“动态取色=开”，但没有把默认值写进偏好，运行时判断却
+     * 用了 false。升级后一次性把当时的开关状态落盘：已有值原样保留，从未写过值才补 true。
+     *
+     * <p>必须在注册 DynamicColors 和创建首个 Activity 之前执行，这样首次创建界面就会
+     * 按迁移后的开关状态应用主题，不需要用户再手动切换一次。</p>
+     */
+    private void migrateDynamicColorPreference() {
+        android.content.SharedPreferences preferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        if (preferences.getInt(PREF_DYNAMIC_COLOR_SCHEMA, 0)
+                >= DYNAMIC_COLOR_SCHEMA_VERSION) {
+            return;
+        }
+        // contains=false 正是旧版受影响用户：设置页显示开启，但运行时没有读到开启。
+        // contains=true 表示用户曾主动选择，不能擅自改变其开关。
+        boolean displayedSwitchState = preferences.contains(PREF_DYNAMIC_COLOR)
+                ? preferences.getBoolean(PREF_DYNAMIC_COLOR, true)
+                : true;
+        preferences.edit()
+                .putBoolean(PREF_DYNAMIC_COLOR, displayedSwitchState)
+                .putInt(PREF_DYNAMIC_COLOR_SCHEMA, DYNAMIC_COLOR_SCHEMA_VERSION)
+                .commit();
+    }
+
     /** 当前是否启用动态取色。 */
     public static boolean isDynamicColorEnabled(android.content.Context context) {
         return supportsDynamicColor() && PreferenceManager
                 .getDefaultSharedPreferences(context.getApplicationContext())
-                .getBoolean(PREF_DYNAMIC_COLOR, false);
+                // 设置页首装也按“开启”展示；两处默认值必须一致，否则会出现
+                // 开关是开的但 DynamicColors 前置条件为 false（首装不生效）。
+                .getBoolean(PREF_DYNAMIC_COLOR, true);
     }
 
     public static tApplication getInstance() {

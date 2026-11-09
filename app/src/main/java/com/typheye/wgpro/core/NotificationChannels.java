@@ -12,10 +12,11 @@ import android.os.Build;
 /**
  * 全局通知渠道定义。
  *
- * 三个渠道各司其职：
+ * 渠道职责：
  *  - {@link #MESSAGES}「消息通知」：系统消息 + 私信，高重要性（横幅/声音/震动）
  *  - {@link #ACCOUNT}「Typheye账户」：账户异常、封号等，高重要性（横幅/声音/震动）
- *  - {@link #SERVICE}「后台运行状态」：前台服务常驻通知，最低重要性，可在系统设置中关闭
+ *  - {@link #DOWNLOADS}「下载管理」：下载进度与完成提醒，低重要性
+ *  - {@link #VIRTUAL_DEVICE}「模拟设备」：模拟设备运行期间的常驻通知，低重要性
  *
  * 渠道一旦被创建，重要性/声音/震动会被系统记住；如果用户没有锁定过这些字段，
  * 再次调用 createNotificationChannel 会按本类声明更新它们，因此每次启动都调用
@@ -59,7 +60,6 @@ public final class NotificationChannels {
         ensure(manager, VIRTUAL_DEVICE, "模拟设备", "模拟设备运行期间的常驻通知",
                 NotificationManager.IMPORTANCE_LOW, false, null,
                 false, Notification.VISIBILITY_PRIVATE);
-
         for (String legacyId : LEGACY_IDS) {
             if (manager.getNotificationChannel(legacyId) != null) {
                 manager.deleteNotificationChannel(legacyId);

@@ -302,35 +302,8 @@ public class MainActivity extends AppCompatActivity {
         startServicesIfNeeded();
         refreshFromServices();
         maybeWarnNotificationChannel();
-        maybeWarnBackgroundRestriction();
         consumePendingGrantRequest();
         tAccUtils.resumeBrowserLoginPolling(this);
-    }
-
-    /** 后台连接反复被系统掐断时，引导用户放开省电/后台联网限制。 */
-    private void maybeWarnBackgroundRestriction() {
-        if (!new tAccUtils(this).isLogin()) return;
-        if (!com.typheye.wgpro.core.BackgroundHealth.shouldWarn(this)) return;
-        com.typheye.wgpro.core.BackgroundHealth.markWarned(this);
-        new com.typheye.wgpro.ui.widget.WGProAlertDialogBuilder(this)
-                .setTitle("后台连接被系统中断")
-                .setMessage("系统在应用退到后台后限制了它的网络，消息可能无法及时送达。"
-                        + "请在系统设置中把「腕管Pro」的省电策略改为「无限制」，并允许自启动与后台联网。")
-                .setNegativeButton("知道了", null)
-                .setPositiveButton("去设置", (dialog, which) -> {
-                    try {
-                        startActivity(com.typheye.wgpro.core.BackgroundHealth
-                                .powerSettingsIntent(this));
-                    } catch (Exception error) {
-                        try {
-                            startActivity(new android.content.Intent(
-                                    android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS,
-                                    android.net.Uri.parse("package:" + getPackageName())));
-                        } catch (Exception ignored) {
-                        }
-                    }
-                })
-                .show();
     }
 
     /**
