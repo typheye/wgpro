@@ -15,7 +15,6 @@
 						style="background-color: {{ itc_p1v1 }}"
 						ontouchstart="ht(1, 'p1v1')"
 						ontouchend="ht(0, 'p1v1')"
-						onclick="toRun('')"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a78.png" />
@@ -41,7 +40,7 @@
 						style="background-color: {{ itc_p1v2 }}"
 						ontouchstart="ht(1, 'p1v2')"
 						ontouchend="ht(0, 'p1v2')"
-						onclick="toRun('')"
+							onclick="toEditDefUri()"
 					>
 						<div class="wgpro-item-left">
 							<img class="wgpro-item-left-icon" src="/common/mipmap/a91.png" />
@@ -96,9 +95,6 @@ export default {
 	toBack() {
 		this.$app.$def.goBack();
 	},
-	toRun(id) {
-		if (id == "");
-	},
 	switload() {
 		storage.gets({
 			keys: ["wgsettings_browser_hideDebug", "wgsettings_browser_defUri"],
@@ -118,7 +114,7 @@ export default {
 		eval("this." + id + " = " + state);
 		this.$app.$def.settingsChange(key, state);
 	},
-	toRun() {
+	toEditDefUri() {
 		this.$app.$def.goReplacePageWithParams("pages/ui/acts/browser/setdefuri", {
 			textValues: JSON.stringify({
 				msg: this.def_url,

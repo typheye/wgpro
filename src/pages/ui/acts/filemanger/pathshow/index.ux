@@ -181,28 +181,31 @@ export default {
 		let needoffmenu = true;
 		if (id == "") needoffmenu = false;
 		else if (id == "copy") {
-			var type = "file";
+			let itemType = "file";
 			try {
 				if (this.pathshowList[this.selectItemNum]["isfile"] == false)
-					type = "path";
+					itemType = "path";
 			} catch (error) {}
-			if (type == "file") {
+			if (itemType == "file") {
 				this.$app.$def.settingsChangeMore(
 					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
-					[this.pathshowList[this.selectItemNum]["uri"], "copy_" + type]
+					[this.pathshowList[this.selectItemNum]["uri"], "copy_" + itemType]
 				);
 				this.$app.$def.toTips("", this.$t("menu.pathshowlist.copytext"));
 			} else this.$app.$def.toTips("", this.$t("tips.run_fail"));
 		} else if (id == "copydel") {
-			var type = "file";
+			let itemType = "file";
 			try {
 				if (this.pathshowList[this.selectItemNum]["isfile"] == false)
-					type = "path";
+					itemType = "path";
 			} catch (error) {}
-			if (type == "file") {
+			if (itemType == "file") {
 				this.$app.$def.settingsChangeMore(
 					["wgsettings_fm_cachePath", "wgsettings_fm_cacheCtrl"],
-					[this.pathshowList[this.selectItemNum]["uri"], "copydel_" + type]
+					[
+						this.pathshowList[this.selectItemNum]["uri"],
+						"copydel_" + itemType,
+					]
 				);
 				this.$app.$def.toTips("", this.$t("menu.pathshowlist.copydeltext"));
 			} else this.$app.$def.toTips("", this.$t("tips.run_fail"));

@@ -1,0 +1,215 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "检查",
+      "detail": "校验全部设备 profile、网络策略和签名配置",
+      "type": "shell",
+      "icon": {
+        "id": "check",
+        "tooltip": "检查设备配置"
+      },
+      "command": "npm",
+      "args": [
+        "run",
+        "check"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "单包",
+      "detail": "构建选中的单个设备签名 RPK",
+      "type": "shell",
+      "icon": {
+        "id": "package",
+        "tooltip": "构建单个设备"
+      },
+      "command": "npm",
+      "args": [
+        "run",
+        "release:device",
+        "--",
+        "${input:device}"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "全量",
+      "detail": "构建全部支持的 Vela 设备",
+      "type": "shell",
+      "icon": {
+        "id": "layers",
+        "tooltip": "构建全部设备"
+      },
+      "command": "npm",
+      "args": [
+        "run",
+        "release"
+      ],
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "开发",
+      "detail": "构建选中的单个设备开发包",
+      "type": "shell",
+      "icon": {
+        "id": "debug-alt",
+        "tooltip": "构建单设备开发包"
+      },
+      "command": "npm",
+      "args": [
+        "run",
+        "build:device",
+        "--",
+        "${input:device}",
+        "--build"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Lint",
+      "detail": "检查源码错误，不自动修改文件",
+      "type": "shell",
+      "icon": {
+        "id": "checklist",
+        "tooltip": "运行 ESLint"
+      },
+      "command": "npm",
+      "args": [
+        "run",
+        "lint",
+        "--",
+        "--quiet"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "清理",
+      "detail": "删除 .work 和临时 build，保留 dist 产物",
+      "type": "shell",
+      "icon": {
+        "id": "trash",
+        "tooltip": "清理构建缓存"
+      },
+      "command": "npm",
+      "args": [
+        "run",
+        "clean"
+      ],
+      "group": "build",
+      "presentation": {
+        "reveal": "always",
+        "panel": "dedicated",
+        "clear": true
+      },
+      "problemMatcher": []
+    }
+  ],
+  "inputs": [
+    {
+      "id": "device",
+      "type": "pickString",
+      "description": "选择 Vela 设备代号",
+      "default": "n62lte",
+      "options": [
+        {
+          "label": "n62lte — Xiaomi Watch S3 eSIM",
+          "value": "n62lte"
+        },
+        {
+          "label": "n62 — Xiaomi Watch S3",
+          "value": "n62"
+        },
+        {
+          "label": "n62s — Xiaomi Watch S4 Sport",
+          "value": "n62s"
+        },
+        {
+          "label": "o62 — Xiaomi Watch S4",
+          "value": "o62"
+        },
+        {
+          "label": "o62lte — Xiaomi Watch S4 eSIM",
+          "value": "o62lte"
+        },
+        {
+          "label": "o63 — Xiaomi Watch S4 41mm",
+          "value": "o63"
+        },
+        {
+          "label": "o65 — REDMI Watch 5",
+          "value": "o65"
+        },
+        {
+          "label": "o65m — REDMI Watch 5 eSIM",
+          "value": "o65m"
+        },
+        {
+          "label": "p62 — Xiaomi Watch S5",
+          "value": "p62"
+        },
+        {
+          "label": "p65 — REDMI Watch 6",
+          "value": "p65"
+        },
+        {
+          "label": "n66cn — Xiaomi Smart Band 9",
+          "value": "n66cn"
+        },
+        {
+          "label": "n66nfc — Xiaomi Smart Band 9 NFC",
+          "value": "n66nfc"
+        },
+        {
+          "label": "n67cn — Xiaomi Smart Band 9 Pro",
+          "value": "n67cn"
+        },
+        {
+          "label": "o66cn — Xiaomi Smart Band 10",
+          "value": "o66cn"
+        },
+        {
+          "label": "o66nfc — Xiaomi Smart Band 10 NFC",
+          "value": "o66nfc"
+        },
+        {
+          "label": "p67cn — Xiaomi Smart Band 10 Pro",
+          "value": "p67cn"
+        }
+      ]
+    }
+  ]
+}

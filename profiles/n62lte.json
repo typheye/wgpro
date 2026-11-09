@@ -18,6 +18,6 @@
   "features": {
     "browser": true,
     "music": true,
-    "networkMode": "system"
+    "networkMode": "proxy"
   }
 }

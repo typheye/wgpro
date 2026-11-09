@@ -27,10 +27,7 @@
     "clearInterval": false
   },
   "rules": {
-    "indent": [
-      "warn",
-      2
-    ],
+    "indent": "off",
     "no-console": [
       "warn",
       {
@@ -49,19 +46,27 @@
     ],
     "quotes": [
       "warn",
-      "single",
+      "double",
       {
         "avoidEscape": true,
         "allowTemplateLiterals": true
       }
     ],
+    "no-empty": [
+      "error",
+      {
+        "allowEmptyCatch": true
+      }
+    ],
     "linebreak-style": [
       "warn",
-      "unix"
+      "windows"
     ],
     "semi": [
       "warn",
-      "never"
-    ]
+      "always"
+    ],
+    "ux/no-parsing-error": "off",
+    "ux/valid-v-for": "off"
   }
 }

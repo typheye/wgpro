@@ -290,16 +290,7 @@ export default {
 						list_h1 = 10;
 						list_h2 = 0;
 					} else {
-						let addh = 0;
-						if (false) {
-							addh = 70;
-							list_hasFile = true;
-							list_fileUri = "";
-							list_fileType = "b14";
-							list_showFile = this.$t(
-								"acts.wgchat.room.typeshow." + list_fileType
-							);
-						}
+						// 文件消息展示暂未启用，普通文本消息不额外增加文件行高度。
 						list_ip = msgLists[i]["address"];
 						list_name = msgLists[i]["name"];
 						list_time = msgLists[i]["date"];
@@ -310,7 +301,7 @@ export default {
 						if (list_h3) list_role = "管理员"; //role如果有
 						if (list_uid == this.taccUid) {
 							//自己发的消息
-							list_h0 = addh + 30 + calculateTextHeight(0, list_data);
+							list_h0 = 30 + calculateTextHeight(0, list_data);
 							list_h1 = 10;
 							list_h2 = 0;
 							list_color = "#3EB575";
@@ -318,7 +309,7 @@ export default {
 							list_align = "flex-end";
 						} else {
 							//别人的
-							list_h0 = addh + 70 + calculateTextHeight(0, list_data);
+							list_h0 = 70 + calculateTextHeight(0, list_data);
 							list_h1 = 10;
 							list_h2 = 40;
 							list_color = "#3c3c3c";

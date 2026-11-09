@@ -1,18 +1,21 @@
 {
   "name": "wgpro-velawear",
   "version": "3.26.10",
-  "description": "",
+  "description": "腕管Pro Vela 多设备统一构建",
   "engines": {
-    "node": ">=8.10"
+    "node": ">=18"
   },
   "scripts": {
     "start": "node scripts/build.js p62",
+    "check": "node scripts/build.js --check",
+    "clean": "node scripts/clean.js",
     "build": "node scripts/build.js all --build",
     "build:device": "node scripts/build.js",
     "release": "node scripts/build.js all",
     "release:device": "node scripts/build.js",
     "watch": "aiot watch --open-nuttx",
-    "lint": "eslint --format codeframe --fix --ext .ux,.js src/"
+    "lint": "eslint --format codeframe --ext .ux,.js src/",
+    "lint:fix": "eslint --format codeframe --fix --ext .ux,.js src/"
   },
   "devDependencies": {
     "@aiot-toolkit/velasim": "^0.1.23",

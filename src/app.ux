@@ -11,6 +11,11 @@ import md5 from "./utils/md5.js";
 import device from "@system.device";
 import brightness from "@system.brightness";
 import buildProfile from "./generated/build-profile.js";
+const networkProxy = !!(
+	buildProfile &&
+	buildProfile.features &&
+	buildProfile.features.networkMode === "proxy"
+);
 export default {
 	private: {
 		product: "",
@@ -362,7 +367,13 @@ export default {
 			],
 			success: (datas) => {
 				const uid = datas.wgsettings_taccount_username;
-				if (!uid) return;
+				if (!uid) {
+					callback && callback("", "", "", false);
+					return;
+				}
+				const finish = (nick, shuo, ok) => {
+					callback && callback(nick || "", shuo || "", uid, !!ok);
+				};
 				if (this.taccIsV2Login(datas)) {
 					fetch.fetch({
 						url: this.taccApiUrl(),
@@ -381,8 +392,14 @@ export default {
 							try {
 								reqback = JSON.parse(response.data);
 							} catch (e) {}
-							if (this.taccCheckSessionInvalid(response, reqback)) return;
-							if (response.code != 200) return;
+							if (this.taccCheckSessionInvalid(response, reqback)) {
+								finish("", "", false);
+								return;
+							}
+							if (response.code != 200) {
+								finish("", "", false);
+								return;
+							}
 							if (reqback && reqback["code"] == 200 && reqback["info"]) {
 								this.settingsChangeMore(
 									[
@@ -394,13 +411,14 @@ export default {
 										reqback["info"]["shuo"] || "",
 									]
 								);
-								callback &&
-									callback(
-										reqback["info"]["nick"] || "",
-										reqback["info"]["shuo"] || ""
-									);
-							}
+								finish(
+									reqback["info"]["nick"],
+									reqback["info"]["shuo"],
+									true
+								);
+							} else finish("", "", false);
 						},
+						fail: () => finish("", "", false),
 					});
 				} else if (datas.wgsettings_taccount_cookie) {
 					fetch.fetch({
@@ -419,11 +437,15 @@ export default {
 							} catch (e) {
 								// 响应不是合法 JSON：交给下面的判断按失败处理
 							}
-							if (this.taccCheckSessionInvalid(response, reqback)) return;
+						if (this.taccCheckSessionInvalid(response, reqback)) {
+							finish("", "", false);
+							return;
+						}
 							if (
 								response.code == 200 &&
 								reqback &&
-								reqback["code"] == 200
+							reqback["code"] == 200 &&
+							reqback["info"]
 							) {
 								this.settingsChangeMore(
 									[
@@ -432,16 +454,18 @@ export default {
 									],
 									[reqback["info"]["nick"], reqback["info"]["shuo"]]
 								);
-								callback &&
-									callback(
-										reqback["info"]["nick"] || "",
-										reqback["info"]["shuo"] || ""
-									);
-							}
+							finish(
+								reqback["info"]["nick"],
+								reqback["info"]["shuo"],
+								true
+							);
+						} else finish("", "", false);
 						},
+					fail: () => finish("", "", false),
 					});
-				}
+				} else finish("", "", false);
 			},
+			fail: () => callback && callback("", "", "", false),
 		});
 	},
 	taccLoginCheck() {
@@ -856,7 +880,7 @@ export default {
 			},
 		};
 		let flag = "def";
-		if (this.buildProfile.family === "band-pro") flag = "proxy";
+		if (networkProxy) flag = "proxy";
 		//else if (this.product == "Emulator-Vela") flag = "proxy";
 		return URIs[str][flag];
 	},

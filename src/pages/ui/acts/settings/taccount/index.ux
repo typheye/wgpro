@@ -180,11 +180,11 @@ export default {
 		itc_p3v2: "rgba(0,0,0,0)",
 		swit_it1_state: false,
 		isLogin: true,
-		taccUsername: "Loading...",
+		taccUsername: "--",
 		taccusr: "",
 		taccpwd: "",
-		taccUid: "Loading...",
-		taccUserinfo: "Loading...",
+		taccUid: "--",
+		taccUserinfo: "--",
 		taccUserinfoO: "",
 	},
 	ht(t, i) {
@@ -199,15 +199,13 @@ export default {
 	onReady() {
 		this.switload();
 		this.$app.$def.taccLoginCheck();
-		this.$app.$def.taccGetUserData((nick, shuo) => {
-			if (nick) this.taccUsername = nick;
-			else if (this.isLogin)
-				this.taccUsername = this.$t("acts.settings.taccount.errname");
-			if (shuo) {
-				this.taccUserinfo = shuo;
-				this.taccUserinfoO = shuo;
-			} else if (this.isLogin)
-				this.taccUserinfo = this.$t("acts.settings.taccount.nonename");
+		this.$app.$def.taccGetUserData((nick, shuo, uid, ok) => {
+			if (uid) this.taccUid = uid;
+			if (ok) {
+				this.taccUsername = nick || "--";
+				this.taccUserinfo = shuo || this.$t("acts.settings.taccount.nonename");
+				this.taccUserinfoO = shuo || "";
+			}
 		});
 	},
 	onShow() {
@@ -333,24 +331,25 @@ export default {
 				success: (datas) => {
 					if (datas.wgsettings_taccount_nick)
 						this.taccUsername = datas.wgsettings_taccount_nick;
-					else this.taccUsername = this.$t("acts.settings.taccount.errname");
+						else this.taccUsername = "--";
 					if (datas.wgsettings_taccount_username)
 						this.taccUid = datas.wgsettings_taccount_username;
-					else this.taccUid = this.$t("acts.settings.taccount.errname");
+						else this.taccUid = "--";
 					this.taccUserinfoO = datas.wgsettings_taccount_userinfo;
 					if (datas.wgsettings_taccount_userinfo)
 						this.taccUserinfo = datas.wgsettings_taccount_userinfo;
-					else this.taccUserinfo = this.$t("acts.settings.taccount.nonename");
+						else this.taccUserinfo = "--";
 				},
 				fail: () => {
-					this.taccUsername = this.$t("acts.settings.taccount.errname");
-					this.taccUid = this.$t("acts.settings.taccount.errname");
-					this.taccUserinfo = this.$t("acts.settings.taccount.errname");
+						this.taccUsername = "--";
+						this.taccUid = "--";
+						this.taccUserinfo = "--";
 				},
 			});
 		} else {
 			this.isLogin = false;
 			this.taccUsername = this.$t("acts.settings.taccount.defname");
+				this.taccUid = "--";
 			this.taccUserinfo = this.$t("acts.settings.taccount.p1.item1.subtext");
 		}
 	},

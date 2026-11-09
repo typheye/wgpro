@@ -126,7 +126,9 @@ class Storage {
     const result = {};
     for (const key of keys) {
       // 安全访问，防止未定义键
-      result[key] = this.data.hasOwnProperty(key) ? this.data[key] : undefined;
+      result[key] = Object.prototype.hasOwnProperty.call(this.data, key)
+        ? this.data[key]
+        : undefined;
     }
 
     success && success(result);
