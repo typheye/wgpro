@@ -10,6 +10,7 @@ const { spawnSync } = require("child_process");
 const root = path.resolve(__dirname, "..");
 const workRoot = path.join(root, ".work");
 const distRoot = path.join(root, "dist");
+const buildLockFile = path.join(workRoot, ".build.lock");
 const pkg = readJson(path.join(root, "package.json"));
 const EXPECTED_NETWORK_MODE_BY_FAMILY = {
   watch: "proxy",
@@ -82,6 +83,63 @@ function safeRemove(target) {
     throw new Error(`Refusing to remove path outside .work: ${resolved}`);
   }
   fs.rmSync(resolved, { recursive: true, force: true });
+}
+
+function isProcessAlive(pid) {
+  if (!Number.isInteger(pid) || pid <= 0) return false;
+  try {
+    process.kill(pid, 0);
+    return true;
+  } catch (error) {
+    return error.code === "EPERM";
+  }
+}
+
+function acquireBuildLock(targets) {
+  fs.mkdirSync(workRoot, { recursive: true });
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    try {
+      const fd = fs.openSync(buildLockFile, "wx");
+      fs.writeFileSync(
+        fd,
+        JSON.stringify(
+          {
+            pid: process.pid,
+            targets,
+            startedAt: new Date().toISOString(),
+          },
+          null,
+          2
+        ) + "\n"
+      );
+      fs.closeSync(fd);
+      return;
+    } catch (error) {
+      if (error.code !== "EEXIST") throw error;
+      let lock = null;
+      try {
+        lock = readJson(buildLockFile);
+      } catch (readError) {
+        // 损坏或空锁文件按陈旧锁处理。
+      }
+      if (lock && isProcessAlive(Number(lock.pid))) {
+        throw new Error(
+          `.work/.build.lock 已被进程 ${lock.pid} 持有，请等待当前构建结束`
+        );
+      }
+      fs.rmSync(buildLockFile, { force: true });
+    }
+  }
+  throw new Error("无法获取构建锁，请清理 .work/.build.lock 后重试");
+}
+
+function releaseBuildLock() {
+  try {
+    const lock = readJson(buildLockFile);
+    if (Number(lock.pid) === process.pid) fs.rmSync(buildLockFile);
+  } catch (error) {
+    // 锁文件已不存在时无需处理。
+  }
 }
 
 function findNodeModules() {
@@ -561,31 +619,35 @@ function main() {
     return;
   }
   const nodeModules = findNodeModules();
-  fs.mkdirSync(workRoot, { recursive: true });
-  const reports = targets.map((name) =>
-    buildWithRetry(name, { buildOnly, timestamp, nodeModules })
-  );
-  const indexPath = path.join(distRoot, "build-index.json");
-  let previousBuilds = [];
-  if (fs.existsSync(indexPath)) {
-    try {
-      previousBuilds = readJson(indexPath).builds || [];
-    } catch (error) {
-      console.warn(`[vela-wear] 忽略损坏的 build-index.json：${error.message}`);
+  acquireBuildLock(targets);
+  try {
+    const reports = targets.map((name) =>
+      buildWithRetry(name, { buildOnly, timestamp, nodeModules })
+    );
+    const indexPath = path.join(distRoot, "build-index.json");
+    let previousBuilds = [];
+    if (fs.existsSync(indexPath)) {
+      try {
+        previousBuilds = readJson(indexPath).builds || [];
+      } catch (error) {
+        console.warn(`[vela-wear] 忽略损坏的 build-index.json：${error.message}`);
+      }
     }
+    const buildsByCode = new Map(
+      previousBuilds.map((report) => [report.codename, report])
+    );
+    for (const report of reports) buildsByCode.set(report.codename, report);
+    writeJson(indexPath, {
+      generatedAt: new Date().toISOString(),
+      lastBuildTimestamp: timestamp,
+      version: pkg.version,
+      builds: [...buildsByCode.values()].sort((a, b) =>
+        a.codename.localeCompare(b.codename)
+      ),
+    });
+  } finally {
+    releaseBuildLock();
   }
-  const buildsByCode = new Map(
-    previousBuilds.map((report) => [report.codename, report])
-  );
-  for (const report of reports) buildsByCode.set(report.codename, report);
-  writeJson(indexPath, {
-    generatedAt: new Date().toISOString(),
-    lastBuildTimestamp: timestamp,
-    version: pkg.version,
-    builds: [...buildsByCode.values()].sort((a, b) =>
-      a.codename.localeCompare(b.codename)
-    ),
-  });
 }
 
 try {

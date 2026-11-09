@@ -7,6 +7,28 @@ const path = require("path");
 
 const root = path.resolve(__dirname, "..");
 const targets = [".work", "build"];
+const buildLockFile = path.join(root, ".work", ".build.lock");
+
+if (fs.existsSync(buildLockFile)) {
+  let lock = null;
+  try {
+    lock = JSON.parse(fs.readFileSync(buildLockFile, "utf8"));
+  } catch (error) {
+    // 损坏的锁按陈旧锁处理。
+  }
+  const pid = Number(lock && lock.pid);
+  if (Number.isInteger(pid) && pid > 0) {
+    try {
+      process.kill(pid, 0);
+      throw new Error(`构建进程 ${pid} 正在运行，不能清理`);
+    } catch (error) {
+      if (error.code === "EPERM") {
+        throw new Error(`构建进程 ${pid} 正在运行，不能清理`);
+      }
+      if (error.code !== "ESRCH") throw error;
+    }
+  }
+}
 
 for (const relative of targets) {
   const target = path.resolve(root, relative);
