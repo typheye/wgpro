@@ -18,6 +18,7 @@ import android.webkit.JsResult;
 import android.webkit.JavascriptInterface;
 import android.webkit.ValueCallback;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceError;
 import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
@@ -54,6 +55,9 @@ public class WebActivity extends AppCompatActivity {
     private static final String WEB_LOGIN_AUTH_URL = "https://account.typheye.cn/auth";
     /** 打开页面时只读校验网页会话的超时；超时按「存活」放行，避免弱网卡住加载。 */
     private static final long WEB_SESSION_CHECK_TIMEOUT_MS = 4000L;
+    /** 主页面网络连接失败时最多自动重试两次（弱网/VPN 切换/DNS 刚刷新）。 */
+    private static final int WEB_NETWORK_MAX_RETRY = 2;
+    private static final long WEB_NETWORK_RETRY_DELAY_MS = 900L;
 
     private WebView webView;
     private android.widget.ProgressBar loadProgress;
@@ -64,6 +68,9 @@ public class WebActivity extends AppCompatActivity {
     private boolean webLoginExchangePending;
     private boolean reusedWebSession;
     private String webLoginTargetUrl;
+    private int webNetworkRetryCount;
+    private boolean webNetworkDialogVisible;
+    private boolean currentPageHadNetworkError;
 
     private String FLAG;
     /** 网页渲染前的全屏遮罩（登录态同步、首次加载都走它） */
@@ -242,6 +249,10 @@ public class WebActivity extends AppCompatActivity {
                 super.onPageFinished(view, url);
                 cancelStuckWatchdog();
                 stuckRetryCount = 0;
+                if (!currentPageHadNetworkError) {
+                    webNetworkRetryCount = 0;
+                    webNetworkDialogVisible = false;
+                }
                 hideLoadingOverlay();   // 页面可以看了，收起遮罩
                 if (webLoginExchangePending) {
                     android.webkit.CookieManager.getInstance().flush();
@@ -289,6 +300,31 @@ public class WebActivity extends AppCompatActivity {
                     // 根据 API 版本选择执行 JS 的方式
                     view.evaluateJavascript(jsCode, null);
                 }
+            }
+
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request,
+                                        WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                if (request == null || !request.isForMainFrame()) return;
+                currentPageHadNetworkError = true;
+                cancelStuckWatchdog();
+                hideLoadingOverlay();
+                if (webNetworkRetryCount < WEB_NETWORK_MAX_RETRY) {
+                    webNetworkRetryCount++;
+                    com.typheye.wgpro.ui.widget.WGProHint.show(
+                            WebActivity.this, "网络连接失败，正在重试");
+                    view.postDelayed(() -> {
+                        if (isFinishing() || isDestroyed()) return;
+                        String retryUrl = request.getUrl() == null
+                                ? lastLoadUrl : request.getUrl().toString();
+                        if (retryUrl != null && !retryUrl.isEmpty()) {
+                            loadWebPage(retryUrl);
+                        }
+                    }, WEB_NETWORK_RETRY_DELAY_MS * webNetworkRetryCount);
+                    return;
+                }
+                showWebNetworkError(error);
             }
         });
 
@@ -442,6 +478,7 @@ public class WebActivity extends AppCompatActivity {
 
     private void loadWebPage(@NonNull String url) {
         lastLoadUrl = url;
+        currentPageHadNetworkError = false;
         // 遮罩只在刚创建时出现，后续加载交给 WebView 自身逻辑（细进度条 + 标题）
         stuckRetryCount = 0;
         currentProgress = 0;
@@ -449,6 +486,36 @@ public class WebActivity extends AppCompatActivity {
         headers.put("X-Typheye-Client-WebView", "1");
         headers.put("X-Typheye-Client", "webview");
         webView.loadUrl(url, headers);
+    }
+
+    /** 默认的 WebView 错误页在 VPN 切换/旧 DNS 缓存时很突兀，改为可重试的原生提示。 */
+    private void showWebNetworkError(@Nullable WebResourceError error) {
+        if (isFinishing() || isDestroyed() || webNetworkDialogVisible) return;
+        webNetworkDialogVisible = true;
+        int code = error == null ? -1 : error.getErrorCode();
+        String message;
+        if (code == WebViewClient.ERROR_HOST_LOOKUP) {
+            message = "无法解析服务器域名，请检查网络或切换 VPN 后重试。";
+        } else if (code == WebViewClient.ERROR_CONNECT) {
+            message = "无法连接服务器。DNS 可能仍缓存了迁移前的地址，请切换网络或关闭 VPN 后重试。";
+        } else if (code == WebViewClient.ERROR_TIMEOUT) {
+            message = "连接服务器超时，请检查网络后重试。";
+        } else {
+            message = "网页暂时无法加载，请检查网络后重试。";
+        }
+        new WGProAlertDialogBuilder(this)
+                .setTitle("网页连接失败")
+                .setMessage(message)
+                .setCancelable(false)
+                .setPositiveButton("重试", (dialog, which) -> {
+                    webNetworkDialogVisible = false;
+                    webNetworkRetryCount = 0;
+                    if (lastLoadUrl != null && !lastLoadUrl.isEmpty()) {
+                        loadWebPage(lastLoadUrl);
+                    }
+                })
+                .setNegativeButton("关闭", (dialog, which) -> finish())
+                .show();
     }
 
     /**
