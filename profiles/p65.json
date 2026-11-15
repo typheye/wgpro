@@ -18,6 +18,7 @@
   "features": {
     "browser": true,
     "music": true,
+    "enableProtobuf": false,
     "networkMode": "proxy"
   }
 }

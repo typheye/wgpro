@@ -29,6 +29,7 @@ const outputRoot =
 
 const commonChangelog = [
   "统一发布 Vela 3.26.11，覆盖 Watch、Band 与 Band Pro 共 17 款设备。",
+  "修复 Xiaomi Watch S5、Xiaomi Smart Band 11、Xiaomi Smart Band 10 Pro 和 REDMI Watch 6 因启用 Protobuf 编译导致设备重启的问题。",
   "每款设备使用独立设备代号、真实屏幕宽度和设备专属 designWidth 编译。",
   "输入法按实体屏幕宽度重新布局，避免圆屏、方屏和胶囊屏显示残缺。",
   "Watch 与 Band Pro 使用设备代理独立联网，普通 Band 使用手机客户端桥接。",
@@ -117,6 +118,7 @@ const devices = builds.map((report) => {
     designWidth: report.designWidth,
     networkMode: report.networkMode,
     enableFetch: report.enableFetch,
+    protobufEnabled: report.protobufEnabled,
     routedPages: report.routedPages,
     filename,
     bytes: report.bytes,
@@ -167,6 +169,7 @@ for (const device of devices) {
     designWidth: device.designWidth,
     networkMode: device.networkMode,
     enableFetch: device.enableFetch,
+    protobufEnabled: device.protobufEnabled,
     routedPages: device.routedPages,
     filename: device.filename,
     bytes: device.bytes,

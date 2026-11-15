@@ -23,6 +23,7 @@
   "features": {
     "browser": false,
     "music": false,
+    "enableProtobuf": false,
     "networkMode": "bridge"
   }
 }

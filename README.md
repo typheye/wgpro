@@ -15,6 +15,18 @@
 构建脚本会强制校验上述策略。需要调整某类设备的联网方式时，应集中修改
 `scripts/build.js` 中的策略表，而不是只改单个产物。
 
+## Protobuf 兼容性
+
+以下设备启用 `--enable-protobuf` 后会异常重启，构建时必须省略该参数：
+
+- `p62` Xiaomi Watch S5
+- `q66cn` Xiaomi Smart Band 11
+- `p67cn` Xiaomi Smart Band 10 Pro
+- `p65` REDMI Watch 6
+
+对应 profile 使用 `"enableProtobuf": false`。其余设备默认开启 Protobuf；
+构建报告中的 `protobufEnabled` 会记录每个产物的实际选择。
+
 ## 设备配置
 
 | 代号 | 设备 | designWidth | 屏幕 | 类型/网络 |
@@ -76,7 +88,7 @@ dist/build-index.json
 2. 叠加 `variants/<codename>/`；
 3. Band 设备删除浏览器、音乐播放器和手表专属资源；
 4. 把设备代号对应的真实屏幕宽度写入 `designWidth`；
-5. 生成 build profile；
+5. 生成 build profile，并按设备能力决定是否启用 Protobuf；
 6. 普通 Band 写入 `enableFetch=false` 使用客户端桥接；Band Pro 和 Watch
    写入 `enableFetch=true`，并在构建时固定 `networkProxy=true`；
 7. 使用 release 证书签名；

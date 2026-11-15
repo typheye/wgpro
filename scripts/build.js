@@ -189,6 +189,12 @@ function loadProfile(codename) {
   if (!VALID_NETWORK_MODES.has(features.networkMode)) {
     throw new Error(`${codename} 的 networkMode 无效：${features.networkMode}`);
   }
+  if (
+    Object.prototype.hasOwnProperty.call(features, "enableProtobuf") &&
+    typeof features.enableProtobuf !== "boolean"
+  ) {
+    throw new Error(`${codename} 的 enableProtobuf 必须是布尔值`);
+  }
   const expectedNetworkMode = EXPECTED_NETWORK_MODE_BY_FAMILY[profile.family];
   if (features.networkMode !== expectedNetworkMode) {
     throw new Error(
@@ -563,9 +569,12 @@ function build(codename, options) {
 
   const tool = path.join(nodeModules, ".bin", "aiot");
   const command = options.buildOnly ? "build" : "release";
+  const protobufEnabled = profile.features.enableProtobuf !== false;
   const args = options.buildOnly
     ? [command]
-    : [command, "--enable-jsc", "--enable-protobuf"];
+    : protobufEnabled
+      ? [command, "--enable-jsc", "--enable-protobuf"]
+      : [command, "--enable-jsc"];
   runChecked(`${codename} ${command}`, tool, args, {
     cwd: stageDir,
     stdio: "inherit",
@@ -605,6 +614,7 @@ function build(codename, options) {
     networkMode: profile.features && profile.features.networkMode,
     enableFetch:
       profile.features && profile.features.networkMode !== "bridge",
+    protobufEnabled,
     routedPages: Object.keys(finalManifest.router.pages).length,
     artifact: path.relative(root, outputFile),
     artifactTimestamp: options.timestamp,
@@ -679,7 +689,8 @@ function main() {
       console.log(
         `[vela-wear:check] ${profile.codename}: ` +
           `${profile.family}/${profile.features.networkMode}, ` +
-          `designWidth=${profile.designWidth}`
+          `designWidth=${profile.designWidth}, ` +
+          `protobuf=${profile.features.enableProtobuf !== false}`
       );
     }
     console.log(
