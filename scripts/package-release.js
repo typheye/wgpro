@@ -5,6 +5,7 @@
 const fs = require("fs");
 const os = require("os");
 const path = require("path");
+const { spawnSync } = require("child_process");
 
 const root = path.resolve(__dirname, "..");
 const packageFile = path.join(root, "package.json");
@@ -30,6 +31,7 @@ const outputRoot =
 const commonChangelog = [
   "统一发布 Vela 3.26.11，覆盖 Watch、Band 与 Band Pro 共 17 款设备。",
   "修复 Xiaomi Watch S5、Xiaomi Smart Band 11、Xiaomi Smart Band 10 Pro 和 REDMI Watch 6 因启用 Protobuf 编译导致设备重启的问题。",
+  "下载页 Home 与键盘预览图改用 WebP，17 张图片总体积减少约 80%，降低加载等待。",
   "每款设备使用独立设备代号、真实屏幕宽度和设备专属 designWidth 编译。",
   "输入法按实体屏幕宽度重新布局，避免圆屏、方屏和胶囊屏显示残缺。",
   "Watch 与 Band Pro 使用设备代理独立联网，普通 Band 使用手机客户端桥接。",
@@ -150,7 +152,7 @@ for (const device of devices) {
   const screenshot = path.join(screenshotRoot, device.codename, "combined.png");
   let screenshotName = null;
   if (fs.existsSync(screenshot)) {
-    screenshotName = `${device.codename}.png`;
+    screenshotName = `${device.codename}.webp`;
     const screenshotTarget = path.join(
       siteRoot,
       "src",
@@ -158,7 +160,27 @@ for (const device of devices) {
       screenshotName
     );
     fs.mkdirSync(path.dirname(screenshotTarget), { recursive: true });
-    fs.copyFileSync(screenshot, screenshotTarget);
+    const optimized = spawnSync(
+      "convert",
+      [
+        screenshot,
+        "-strip",
+        "-define",
+        "webp:alpha-quality=90",
+        "-define",
+        "webp:method=6",
+        "-quality",
+        "80",
+        screenshotTarget,
+      ],
+      { encoding: "utf8" }
+    );
+    if (optimized.status !== 0) {
+      throw new Error(
+        `${device.codename} 截图 WebP 转换失败：` +
+          (optimized.stderr || optimized.error?.message || "unknown error")
+      );
+    }
   }
 
   releaseDevices.push({
