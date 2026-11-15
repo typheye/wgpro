@@ -59,6 +59,27 @@ function formatBytes(bytes) {
   return `${(bytes / 1024).toFixed(1)} KiB`;
 }
 
+function shanghaiTimestamp(date) {
+  const parts = new Intl.DateTimeFormat("en-CA", {
+    timeZone: "Asia/Shanghai",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false,
+  })
+    .formatToParts(date)
+    .reduce((result, part) => {
+      result[part.type] = part.value;
+      return result;
+    }, {});
+  return (
+    parts.year + parts.month + parts.day + parts.hour + parts.minute + parts.second
+  );
+}
+
 function familyOf(codename) {
   const profile = readJson(path.join(root, "profiles", `${codename}.json`));
   return profile.family;
@@ -210,6 +231,7 @@ const release = {
     versionCode ||
     readJson(path.join(root, "src", "manifest.json")).versionCode,
   buildTimestamp,
+  publishTimestamp: shanghaiTimestamp(new Date()),
   generatedAt: new Date().toISOString(),
   changelog: commonChangelog,
   installNotes:
