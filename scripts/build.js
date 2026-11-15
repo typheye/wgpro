@@ -204,6 +204,44 @@ function loadProfile(codename) {
   return profile;
 }
 
+function validateVersionMetadata() {
+  const manifestFile = path.join(root, "src", "manifest.json");
+  const manifest = readJson(manifestFile);
+  if (manifest.versionName !== pkg.version) {
+    throw new Error(
+      `版本名称不一致：package.json=${pkg.version}，` +
+        `src/manifest.json=${manifest.versionName}`
+    );
+  }
+  if (!Number.isInteger(manifest.versionCode) || manifest.versionCode <= 0) {
+    throw new Error(`src/manifest.json 的 versionCode 无效：${manifest.versionCode}`);
+  }
+  const bandManifestFile = path.join(root, "variants", "band", "src", "manifest.json");
+  if (fs.existsSync(bandManifestFile)) {
+    const bandManifest = readJson(bandManifestFile);
+    if (
+      bandManifest.versionName !== manifest.versionName ||
+      bandManifest.versionCode !== manifest.versionCode
+    ) {
+      throw new Error(
+        `Band overlay 版本信息不一致：${bandManifest.versionName}/` +
+          `${bandManifest.versionCode} != ${manifest.versionName}/${manifest.versionCode}`
+      );
+    }
+  }
+  const lockFile = path.join(root, "package-lock.json");
+  if (fs.existsSync(lockFile)) {
+    const lock = readJson(lockFile);
+    const lockedRootVersion = lock.packages && lock.packages[""] && lock.packages[""].version;
+    if (lock.version !== pkg.version || lockedRootVersion !== pkg.version) {
+      throw new Error(
+        `package-lock.json 版本不一致：${lock.version}/${lockedRootVersion}`
+      );
+    }
+  }
+  return manifest.versionCode;
+}
+
 function generateManifest(stageDir, profile) {
   const sourceFile = path.join(root, "src", "manifest.json");
   const manifest = readJson(sourceFile);
@@ -323,11 +361,15 @@ function validateOverlayResult(stageDir, profile) {
   }
 }
 
-function pruneBandAssets(stageDir, profile) {
-  if (profile.assetSet !== "band") {
+function pruneDeviceAssets(stageDir, profile) {
+  if (!["band", "band-pro"].includes(profile.assetSet)) {
     return;
   }
-  const allowed = new Set(readJson(path.join(root, "catalogs", "band-mipmap.json")));
+  const allowed = new Set(
+    readJson(
+      path.join(root, "catalogs", `${profile.assetSet}-mipmap.json`)
+    )
+  );
   const mipmap = path.join(stageDir, "src", "common", "mipmap");
   if (!fs.existsSync(mipmap)) {
     return;
@@ -386,6 +428,18 @@ function verifyArtifact(file, profile) {
     throw new Error(`读取 RPK manifest 失败：${file}`);
   }
   const manifest = JSON.parse(result.stdout);
+  const expectedManifest = readJson(path.join(root, "src", "manifest.json"));
+  if (manifest.versionName !== pkg.version) {
+    throw new Error(
+      `${profile.codename} versionName 未写入产物：${manifest.versionName} != ${pkg.version}`
+    );
+  }
+  if (Number(manifest.versionCode) !== expectedManifest.versionCode) {
+    throw new Error(
+      `${profile.codename} versionCode 未写入产物：` +
+        `${manifest.versionCode} != ${expectedManifest.versionCode}`
+    );
+  }
   const actualWidth = manifest.config && manifest.config.designWidth;
   if (Number(actualWidth) !== profile.designWidth) {
     throw new Error(
@@ -447,14 +501,24 @@ function verifyArtifact(file, profile) {
       }
     }
   }
-  if (profile.assetSet === "band") {
+  if (["band", "band-pro"].includes(profile.assetSet)) {
     const listing = spawnSync("unzip", ["-l", file], { encoding: "utf8" });
     if (listing.status !== 0) {
       throw new Error(`无法检查 ${profile.codename} 的资源清单`);
     }
-    for (const forbidden of ["common/mipmap/a40.png", "common/mipmap/mp/"]) {
+    const forbiddenAssets =
+      profile.assetSet === "band-pro"
+        ? [
+            "common/mipmap/c0.png",
+            "common/mipmap/a55.png",
+            "common/mipmap/a78.png",
+            "common/mipmap/a91.png",
+            "common/mipmap/mp/",
+          ]
+        : ["common/mipmap/a40.png", "common/mipmap/mp/"];
+    for (const forbidden of forbiddenAssets) {
       if (listing.stdout.includes(forbidden)) {
-        throw new Error(`${profile.codename} 仍包含手表专属资源：${forbidden}`);
+        throw new Error(`${profile.codename} 仍包含应裁剪资源：${forbidden}`);
       }
     }
   }
@@ -478,7 +542,7 @@ function build(codename, options) {
     copyTree(overlayDir, stageDir);
   }
   removeExcluded(stageDir, profile);
-  pruneBandAssets(stageDir, profile);
+  pruneDeviceAssets(stageDir, profile);
   applyNetworkMode(stageDir, profile);
   validateNetworkMode(stageDir, profile);
   validateOverlayResult(stageDir, profile);
@@ -533,6 +597,8 @@ function build(codename, options) {
   const report = {
     codename,
     productName: profile.productName,
+    versionName: finalManifest.versionName,
+    versionCode: finalManifest.versionCode,
     designWidth: profile.designWidth,
     deviceType: profile.deviceType,
     screen: profile.screen,
@@ -605,6 +671,7 @@ function main() {
       : listProfiles();
   const timestamp = process.env.VELA_BUILD_TIMESTAMP || shanghaiTimestamp(new Date());
   const profiles = targets.map(loadProfile);
+  const versionCode = validateVersionMetadata();
   if (checkOnly) {
     findNodeModules();
     validateSigningMaterial();
@@ -615,7 +682,10 @@ function main() {
           `designWidth=${profile.designWidth}`
       );
     }
-    console.log(`[vela-wear:check] ${profiles.length} 个设备配置通过`);
+    console.log(
+      `[vela-wear:check] ${pkg.version} (${versionCode}) / ` +
+        `${profiles.length} 个设备配置通过`
+    );
     return;
   }
   const nodeModules = findNodeModules();

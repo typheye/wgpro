@@ -12,8 +12,8 @@
     "shape": "rect",
     "density": 340
   },
-  "overlays": ["variants/band", "variants/band-pro"],
-  "assetSet": "band",
+  "overlays": ["variants/band-pro"],
+  "assetSet": "band-pro",
   "exclude": [
     "src/pages/ui/acts/browser",
     "src/pages/ui/acts/settings/browser",

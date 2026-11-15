@@ -2,16 +2,22 @@
 	<div class="page" style="flex-direction: column" show="{{ !hide }}">
 		<div style="background-color: black">
 			<!-- 圆屏62 -->
-			<div if="{{ screentype==='circle' }}" style="width: 480px; height: 321px">
+				<div
+					if="{{ screentype==='circle' }}"
+					style="width: {{ screenWidth }}px; height: 321px"
+				>
 				<!-- 全键盘 -->
-				<div if="{{ keyboardtype!='T9' }}" style="width: 480px; height: 321px">
+					<div
+						if="{{ keyboardtype!='T9' }}"
+						style="width: {{ screenWidth }}px; height: 321px"
+					>
 					<img
 						src="./assets/full/back2.png"
 						style="
 							position: absolute;
 							top: 38px;
 							left: 7px;
-							width: 466px;
+							width: {{ screenWidth - 14 }}px;
 							height: 52px;
 						"
 						@click="onBtnClick('switchCn')"
@@ -299,7 +305,7 @@
 						style="
 							position: absolute;
 							top: 38px;
-							left: 406px;
+							left: {{ screenWidth - 74 }}px;
 							width: 67px;
 							height: 52px;
 						"
@@ -350,7 +356,7 @@
 					/>
 				</div>
 				<!-- 九键 -->
-				<div else style="width: 480px; height: 321px">
+				<div else style="width: {{ screenWidth }}px; height: 321px">
 					<img
 						src="./assets/t9/back2.png"
 						style="
@@ -1259,9 +1265,8 @@ export default {
 		cvalList: [0, 1, 2, 3, 4],
 		percent67: 52,
 		percent66: 0,
-		// 针对screenShape为rect的设备，会自动获取screenWidth并绑定到根div
-		// 这样便能同时适配n67和o65甚至是后续设备，但实际效果可能受designWidth影响
-		screenWidth: 336,
+		// 所有屏幕类型都读取真实尺寸；圆屏按 480×321 原画布等比缩放。
+		screenWidth: 480,
 		keys: {
 			full: [
 				["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
@@ -1298,9 +1303,7 @@ export default {
 			}
 			this.cvalList = tempCvalList;
 		}
-		if (this.screentype === "rect" || this.screentype === "pill-shaped") {
-			this.adjustScreenWidth();
-		}
+		this.adjustScreenWidth();
 		this.$watch("hide", "watchHidePropsChange");
 		this.$watch("maxlength", "watchMaxLengthPropsChange");
 	},
@@ -1531,7 +1534,8 @@ export default {
 	adjustScreenWidth() {
 		device.getInfo({
 			success: (data) => {
-				this.screenWidth = data.screenWidth;
+				const width = Number(data.screenWidth) || 480;
+				this.screenWidth = width;
 			},
 		});
 	},
@@ -1574,7 +1578,7 @@ export default {
 	border-radius: 12px;
 	margin-right: 4px;
 	height: 52px;
-	width: 40px;
+	width: 39px;
 	text-align: center;
 	border: 3px solid rgba(255, 255, 255, 0.06);
 }
