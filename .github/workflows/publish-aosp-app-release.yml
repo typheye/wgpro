@@ -1,0 +1,77 @@
+name: Publish aosp-app release
+
+on:
+  push:
+    tags:
+      - "aosp-app-v*"
+
+permissions:
+  contents: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout release source
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate APK metadata
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -f app/release/app-release.apk
+          test -f app/release/output-metadata.json
+          jq -e '.elements[0].versionCode and .elements[0].versionName' \
+            app/release/output-metadata.json
+          sha256sum app/release/app-release.apk
+
+      - name: Create or update GitHub release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          set -euo pipefail
+          version=$(jq -r '.elements[0].versionName' app/release/output-metadata.json)
+          code=$(jq -r '.elements[0].versionCode' app/release/output-metadata.json)
+          asset="wgpro-aosp-app-${version}-${code}.apk"
+          checksum="${asset}.sha256"
+          cp app/release/app-release.apk "$asset"
+          sha256sum "$asset" > "$checksum"
+
+          notes=$(cat <<'EOF'
+          腕管Pro Android 客户端正式版本。
+
+          ## 更新内容
+
+          - 修复动态取色首次安装和旧版本升级后的生效问题
+          - 取消后台连接中断弹窗及相关系统通知
+          - 修复应用、资源卡片的下载量、星标量和星标状态刷新
+          - 优化网页在弱网、VPN 切换和 DNS 变化时的自动恢复
+          - 完成 Android 16 KB 页大小兼容
+          - 移除未使用的实验原生组件，减小安装包体积
+          EOF
+          )
+
+          pre_args=()
+          case "$version" in
+            *Alpha*|*alpha*|*Beta*|*beta*|*RC*|*rc*)
+              pre_args+=(--prerelease)
+              ;;
+          esac
+
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" \
+              "$asset#${asset}" \
+              "$checksum#${checksum}" \
+              --clobber
+          else
+            gh release create "$TAG" \
+              "$asset#${asset}" \
+              "$checksum#${checksum}" \
+              --title "腕管Pro Android ${version}" \
+              --notes "$notes" \
+              "${pre_args[@]}"
+          fi
