@@ -28,7 +28,7 @@ const outputRoot =
   path.join(os.homedir(), "Downloads", `vela-wear-output-${buildTimestamp}`);
 
 const commonChangelog = [
-  "统一发布 Vela 3.26.11 正式版，覆盖 Watch、Band 与 Band Pro 共 17 款设备。",
+  "统一发布 Vela 3.26.11，覆盖 Watch、Band 与 Band Pro 共 17 款设备。",
   "每款设备使用独立设备代号、真实屏幕宽度和设备专属 designWidth 编译。",
   "输入法按实体屏幕宽度重新布局，避免圆屏、方屏和胶囊屏显示残缺。",
   "Watch 与 Band Pro 使用设备代理独立联网，普通 Band 使用手机客户端桥接。",
